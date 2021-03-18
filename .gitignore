@@ -30,3 +30,22 @@
 *.exe
 *.out
 *.app
+
+# Visual Studio Solution User Options
+*.suo
+
+# Visual Studio
+/.vs
+
+# output folder from build (includes e.g. ini-files copied for deployment) 
+/bin
+/exiv2Cdecl/Prj_exiv2Cdecl/Debug_x86
+/exiv2Cdecl/Prj_exiv2Cdecl/Debug_x64
+/exiv2Cdecl/Prj_exiv2Cdecl/Release_x86
+/exiv2Cdecl/Prj_exiv2Cdecl/Release_x64
+/exiv2Cdecl/Prj_exiv2Cdecl/x86
+/exiv2Cdecl/Prj_exiv2Cdecl/x64
+/QuickImageComment/obj
+
+# Cache
+Cache.mxc3

@@ -1,0 +1,11 @@
+This package is based on:
+https://sourceforge.net/p/gong-shell/code/HEAD/tarball?path=/trunk
+Revision 93
+
+For usage in QuickImageComment, not needed source files have been removed.
+Not needed source code blocks are commented with //QIC.
+
+Some classes and enums have been changed to public, so that in solution QuickImageComment an adapted class ShellTreeView can be implemented.
+ShellItem.cs contains additional code with "#if PERFORMANCETEST" for performancetest.
+
+ShellItem.cs contains additional code to override int GetHashCode() - avoids Compiler warning

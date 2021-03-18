@@ -1,0 +1,239 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Leaflet Map</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="leaflet/leaflet.css" />
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+        }
+
+        html,
+        body,
+        #map {
+            height: 100%;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="map"></div>
+
+    <script src="leaflet/leaflet-src.min.js">
+    </script>
+
+    <script>
+        var params = {};
+        var withMarker = false;
+        var changeLocationAllowed = false;
+        var marker;
+        var circle;
+        var radius = 0;
+        var map;
+
+        // create a marker for position
+        function createMarker(lat, lng) {
+            marker = L.marker([lat, lng], {
+                draggable: changeLocationAllowed
+            })
+            map.addControl(marker);
+            marker.on('dragend', function (e) {
+                drawCircle();
+                var coords = e.target.getLatLng();
+                var lat = coords.lat;
+                var lng = coords.lng;
+                window.external.setLatitudeLongitudeMarker(lat + "#" + lng);
+            });
+            withMarker = true;
+            drawCircle();
+            window.external.setMarkerStatus(withMarker);
+        }
+
+        // function to set radius for circle (called from outside)
+        function setRadius(radiusInMeter) {
+            radius = parseInt(radiusInMeter);
+            if (withMarker) {
+                drawCircle();
+            }
+        }
+
+        // function to set change of location allowed including recreating marker (called from outside)
+        function setchangeLocationAllowed(allowed) {
+            changeLocationAllowed = allowed=="True";
+            if (withMarker) {
+                if (withMarker) {
+                    var coords = marker.getLatLng();
+                    removeMarkerFromMap();
+                    createMarker(coords.lat, coords.lng);
+                }
+            }
+        }
+
+        // function to remove marker (called from outside)
+        function removeMarker(allowed) {
+            changeLocationAllowed = allowed=="True";
+            removeMarkerFromMap();
+            window.external.setMarkerStatus(withMarker);
+        }
+
+        // function to remove marker (used internal)
+        function removeMarkerFromMap() {
+            if (withMarker) {
+                map.removeControl(marker);
+                if (circle != null) {
+                    map.removeControl(circle);
+                }
+                withMarker = false;
+            }
+        }
+
+        // function to show marker (called from outside)
+        function showMarker(mlat, mlon, allowed) {
+            changeLocationAllowed = allowed=="True";
+            if (withMarker) {
+                removeMarkerFromMap();
+            }
+            createMarker(mlat, mlon);
+        }
+
+        // function to get marker status
+        function getMarkerStatus() {
+            return withMarker;
+        }
+
+        // function to center to marker
+        function centerToMarker() {
+            map.panTo(marker.getLatLng());
+        }
+
+        // function to draw circel around marker
+        function drawCircle()
+        {
+            if (circle != null) {
+                map.removeControl(circle);
+            }
+            if (radius > 0 && withMarker) {
+                var coords = marker.getLatLng();
+                    var lat = coords.lat;
+                    var lng = coords.lng;
+                circle = L.circle(L.latLng(lat,lng),radius);
+                map.addControl(circle);
+            }
+        }
+
+        // function to replace special html codes to characters
+        function replaceHtmlCodes(input) {
+            return input.replace(/%22/g, '"').replace(/%20/g, ' ').replace(/%3C/g, '<').replace(/%3E/g, '>').replace(
+                /%3D/g, '=').replace(/%7C/g, '|');
+        }
+
+        //-------------------------------------------------------------------------------
+        // start main routine
+        //-------------------------------------------------------------------------------
+        // get given arguments and store in params
+        if (location.search) {
+            var parts = location.search.substring(1).split('?');
+
+            for (var i = 0; i < parts.length; i++) {
+                var nv = parts[i].split('=');
+                if (!nv[0]) continue;
+                if (nv[1]) {
+                    params[nv[0]] = nv[1] || true;
+
+                } else {
+                    params[nv[0]] = "";
+                }
+            }
+        }
+
+        // show map
+        map = L.map('map').setView([params.lat, params.lon], params.zoom);
+
+        var tileLayerUrlTemplate1 = params.tileLayerUrlTemplate1.replace(/%7B/g, "{").replace(/%7D/g, "}").replace(
+            /%3D/g, "=");
+		L.control.scale(
+			{
+				imperial: false,
+				metric:true,
+				maxWidth: 100
+			}
+		).addTo(map);
+        if (params.subdomains1 != null) {
+            L.tileLayer(
+                tileLayerUrlTemplate1, {
+                    attribution: replaceHtmlCodes(params.attribution1),
+                    maxZoom: params.maxZoom1,
+                    subdomains: params.subdomains1
+                }).addTo(map);
+        } else {
+            L.tileLayer(
+                tileLayerUrlTemplate1, {
+                    attribution: replaceHtmlCodes(params.attribution1),
+                    maxZoom: params.maxZoom1
+                }).addTo(map);
+        }
+
+        if (params.tileLayerUrlTemplate2 != null) {
+            var tileLayerUrlTemplate2 = params.tileLayerUrlTemplate2.replace(/%7B/g, '{').replace(/%7D/g, '}').replace(
+                /%3D/g, '=');
+            if (params.subdomains2 != null) {
+                L.tileLayer(
+                    tileLayerUrlTemplate2, {
+                        attribution: replaceHtmlCodes(params.attribution2),
+                        maxZoom: params.maxZoom2,
+                        subdomains: params.subdomains2
+                    }).addTo(map);
+            } else {
+                L.tileLayer(
+                    tileLayerUrlTemplate2, {
+                        attribution: replaceHtmlCodes(params.attribution2),
+                        maxZoom: params.maxZoom2
+                    }).addTo(map);
+            }
+        }
+
+        if (params.radiusInMeter != null) {
+            radius = parseInt(params.radiusInMeter);
+        }
+
+        if (params.changeLocationAllowed != null) {
+            changeLocationAllowed = params.changeLocationAllowed=="True";
+        }
+
+        if (params.mlat != null) {
+            createMarker(params.mlat, params.mlon);
+        }
+
+        // react on click in map to add marker
+        // comment this section to allow copy from web browser via standard context menu (e.g. to copy attribution)
+        map.on('contextmenu', function (e) {
+            if (changeLocationAllowed) {
+                if (withMarker) {
+                    removeMarkerFromMap();
+                    window.external.setMarkerStatus(withMarker);
+                } else {
+                    var coords = e.latlng;
+                    window.external.setLatitudeLongitudeMarker(coords.lat + "#" + coords.lng);
+                    createMarker(coords.lat, coords.lng);
+                }
+            }
+        });
+
+        // react on zoom change
+        map.on('zoomend', function () {
+            window.external.setZoom(map.getZoom());
+        });
+
+        // react on moving map
+        map.on('moveend', function () {
+            var coords = map.getCenter();
+            window.external.setLatitudeLongitudeMapCenter(coords.lat + "#" + coords.lng);
+        });
+    </script>
+</body>
+
+</html>
