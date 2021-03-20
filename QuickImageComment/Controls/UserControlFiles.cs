@@ -119,7 +119,15 @@ namespace QuickImageComment
         // event handler when item is double clicked
         private void listViewFiles_DoubleClick(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start(theFormQuickImageComment.theExtendedImage.getImageFileName());
+            string fileName = theFormQuickImageComment.theExtendedImage.getImageFileName();
+            if (System.IO.File.Exists(fileName))
+            {
+                System.Diagnostics.Process.Start(fileName);
+            }
+            else
+            {
+                GeneralUtilities.message(LangCfg.Message.W_fileNotFound, fileName);
+            }
         }
 
         // event handle when key is pressed
@@ -405,183 +413,194 @@ namespace QuickImageComment
         // to be able to handle a second create event as update.
         internal void createOrUpdateItemListViewFiles(string fullFileName)
         {
-            FileInfo theFileInfo = new FileInfo(fullFileName);
-
-            // ShellListener event gives network device in capital letters, which at least sometimes differs from Foldername
-            if (theFileInfo.DirectoryName.ToLower().Equals(theFormQuickImageComment.FolderName.ToLower()) &&
-                ConfigDefinition.FilesExtensionsArrayList.Contains(theFileInfo.Extension.ToLower()))
+            // if main mask is not already closing
+            if (!theFormQuickImageComment.closing)
             {
-                // get current scroll position
-                int xpos = listViewFiles.getHorizontalScrollPosition();
-                int ypos = listViewFiles.getVerticalScrollPosition();
+                FileInfo theFileInfo = new FileInfo(fullFileName);
 
-                if (listViewFiles.Items.ContainsKey(theFileInfo.Name))
+                // ShellListener event gives network device in capital letters, which at least sometimes differs from Foldername
+                if (theFileInfo.DirectoryName.ToLower().Equals(theFormQuickImageComment.FolderName.ToLower()) &&
+                    ConfigDefinition.FilesExtensionsArrayList.Contains(theFileInfo.Extension.ToLower()))
                 {
-                    // file is already entered --> update
+                    // get current scroll position
+                    int xpos = listViewFiles.getHorizontalScrollPosition();
+                    int ypos = listViewFiles.getVerticalScrollPosition();
 
-                    int ii = listViewFiles.getIndexOf(theFileInfo.Name);
-                    if (ii >= 0)
+                    if (listViewFiles.Items.ContainsKey(theFileInfo.Name))
                     {
-                        string MessageText = theFormQuickImageComment.getChangedFields();
-                        if (MessageText.Equals("") || !listViewFiles.SelectedIndices.Contains(ii))
+                        // file is already entered --> update
+
+                        int ii = listViewFiles.getIndexOf(theFileInfo.Name);
+                        if (ii >= 0)
                         {
-                            bool wasDisplayed = false;
-                            bool wasSelected = false;
-                            if (ii == lastFileIndex) wasDisplayed = true;
-                            if (listViewFiles.SelectedIndices.Contains(ii)) wasSelected = true;
-
-                            ListViewItem listViewItem = ImageManager.updateListViewItemAndImage(ii, theFileInfo);
-                            // save current view
-                            View tempView = listViewFiles.View;
-                            // change to list-view to avoid changing the order when updating ViewItem
-                            listViewFiles.View = View.List;
-                            listViewFiles.Items[ii] = listViewItem;
-                            // restore view
-                            listViewFiles.View = tempView;
-
-                            if (wasDisplayed)
+                            string MessageText = theFormQuickImageComment.getChangedFields();
+                            if (MessageText.Equals("") || !listViewFiles.SelectedIndices.Contains(ii))
                             {
-                                lastFileIndex = ii;
-                                theFormQuickImageComment.displayImage(lastFileIndex);
-                            }
-                            // clear thumbnail to get it recreated again during redraw items
-                            listViewFiles.clearThumbnailForFile(listViewFiles.Items[ii].Name);
+                                bool wasDisplayed = false;
+                                bool wasSelected = false;
+                                if (ii == lastFileIndex) wasDisplayed = true;
+                                if (listViewFiles.SelectedIndices.Contains(ii)) wasSelected = true;
 
-                            if (wasSelected) listViewFiles.SelectedIndices.Add(ii);
-                            // update SelectedIndicesNew
-                            listViewFiles.SelectedIndicesNew = new int[listViewFiles.SelectedIndices.Count];
-                            listViewFiles.SelectedIndices.CopyTo(listViewFiles.SelectedIndicesNew, 0);
+                                ListViewItem listViewItem = ImageManager.updateListViewItemAndImage(ii, theFileInfo);
+                                // save current view
+                                View tempView = listViewFiles.View;
+                                // change to list-view to avoid changing the order when updating ViewItem
+                                listViewFiles.View = View.List;
+                                listViewFiles.Items[ii] = listViewItem;
+                                // restore view
+                                listViewFiles.View = tempView;
+
+                                if (wasDisplayed)
+                                {
+                                    lastFileIndex = ii;
+                                    theFormQuickImageComment.displayImage(lastFileIndex);
+                                }
+                                // clear thumbnail to get it recreated again during redraw items
+                                listViewFiles.clearThumbnailForFile(listViewFiles.Items[ii].Name);
+
+                                if (wasSelected) listViewFiles.SelectedIndices.Add(ii);
+                                // update SelectedIndicesNew
+                                listViewFiles.SelectedIndicesNew = new int[listViewFiles.SelectedIndices.Count];
+                                listViewFiles.SelectedIndices.CopyTo(listViewFiles.SelectedIndicesNew, 0);
+                            }
                         }
                     }
+                    else
+                    {
+                        // file not yet entereded --> create
+
+                        // save current view
+                        View tempView = listViewFiles.View;
+                        // change to list-view to ensure inserting in correct order
+                        listViewFiles.View = View.List;
+                        // insert item
+                        int ii = listViewFiles.findIndexToInsert(theFileInfo.Name);
+                        ListViewItem listViewItem = ImageManager.insertNewListViewItemAndEmptyImage(ii, theFileInfo);
+                        listViewFiles.Items.Insert(ii, listViewItem);
+
+                        // restore view
+                        listViewFiles.View = tempView;
+                        // if inserted before last file selected for display, shift index
+                        if (ii <= lastFileIndex) lastFileIndex++;
+                        // update SelectedIndicesNew
+                        listViewFiles.SelectedIndicesNew = new int[listViewFiles.SelectedIndices.Count];
+                        listViewFiles.SelectedIndices.CopyTo(listViewFiles.SelectedIndicesNew, 0);
+
+                        theFormQuickImageComment.toolStripStatusLabelFiles.Text = LangCfg.translate("Bilder/Videos", this.Name) + ": " + listViewFiles.Items.Count.ToString();
+                    }
+                    // restore scroll position
+                    listViewFiles.setScrollPosition(xpos, ypos);
                 }
-                else
-                {
-                    // file not yet entereded --> create
-
-                    // save current view
-                    View tempView = listViewFiles.View;
-                    // change to list-view to ensure inserting in correct order
-                    listViewFiles.View = View.List;
-                    // insert item
-                    int ii = listViewFiles.findIndexToInsert(theFileInfo.Name);
-                    ListViewItem listViewItem = ImageManager.insertNewListViewItemAndEmptyImage(ii, theFileInfo);
-                    listViewFiles.Items.Insert(ii, listViewItem);
-
-                    // restore view
-                    listViewFiles.View = tempView;
-                    // if inserted before last file selected for display, shift index
-                    if (ii <= lastFileIndex) lastFileIndex++;
-                    // update SelectedIndicesNew
-                    listViewFiles.SelectedIndicesNew = new int[listViewFiles.SelectedIndices.Count];
-                    listViewFiles.SelectedIndices.CopyTo(listViewFiles.SelectedIndicesNew, 0);
-
-                    theFormQuickImageComment.toolStripStatusLabelFiles.Text = LangCfg.translate("Bilder/Videos", this.Name) + ": " + listViewFiles.Items.Count.ToString();
-                }
-                // restore scroll position
-                listViewFiles.setScrollPosition(xpos, ypos);
             }
         }
 
         // delete item from list view (after event from ShellItemChangeEventHandler)
         internal void deleteItemListViewFiles(string fullFileName)
         {
-            FileInfo theFileInfo = new FileInfo(fullFileName);
-
-            // ShellListener event gives network device in capital letters, which at least sometimes differs from Foldername
-            if (theFileInfo.DirectoryName.ToLower().Equals(theFormQuickImageComment.FolderName.ToLower()) &&
-                ConfigDefinition.FilesExtensionsArrayList.Contains(theFileInfo.Extension.ToLower()))
+            //if main mask is not already closing
+            if (!theFormQuickImageComment.closing)
             {
-                int ii = listViewFiles.getIndexOf(theFileInfo.Name);
-                if (ii >= 0)
+                FileInfo theFileInfo = new FileInfo(fullFileName);
+                // ShellListener event gives network device in capital letters, which at least sometimes differs from Foldername
+                if (theFileInfo.DirectoryName.ToLower().Equals(theFormQuickImageComment.FolderName.ToLower()) &&
+                    ConfigDefinition.FilesExtensionsArrayList.Contains(theFileInfo.Extension.ToLower()))
                 {
-                    // delete entry in lists in Image Manager
-                    ImageManager.deleteExtendedImage(ii);
-                    // get current scroll position
-                    int xpos = listViewFiles.getHorizontalScrollPosition();
-                    int ypos = listViewFiles.getVerticalScrollPosition();
-                    // remove item in listView
-                    listViewFiles.Items.RemoveAt(ii);
-                    // if deleted before last file selected for display, shift index
-                    if (ii <= lastFileIndex) lastFileIndex--;
-                    // update SelectedIndicesNew
-                    listViewFiles.SelectedIndicesNew = new int[listViewFiles.SelectedIndices.Count];
-                    listViewFiles.SelectedIndices.CopyTo(listViewFiles.SelectedIndicesNew, 0);
-                    // restore scroll position
-                    listViewFiles.setScrollPosition(xpos, ypos);
+                    int ii = listViewFiles.getIndexOf(theFileInfo.Name);
+                    if (ii >= 0)
+                    {
+                        // delete entry in lists in Image Manager
+                        ImageManager.deleteExtendedImage(ii);
+                        // get current scroll position
+                        int xpos = listViewFiles.getHorizontalScrollPosition();
+                        int ypos = listViewFiles.getVerticalScrollPosition();
+                        // remove item in listView
+                        listViewFiles.Items.RemoveAt(ii);
+                        // if deleted before last file selected for display, shift index
+                        if (ii <= lastFileIndex) lastFileIndex--;
+                        // update SelectedIndicesNew
+                        listViewFiles.SelectedIndicesNew = new int[listViewFiles.SelectedIndices.Count];
+                        listViewFiles.SelectedIndices.CopyTo(listViewFiles.SelectedIndicesNew, 0);
+                        // restore scroll position
+                        listViewFiles.setScrollPosition(xpos, ypos);
+                    }
                 }
+                theFormQuickImageComment.toolStripStatusLabelFiles.Text = LangCfg.translate("Bilder/Videos", this.Name) + ": " + listViewFiles.Items.Count.ToString();
             }
-            theFormQuickImageComment.toolStripStatusLabelFiles.Text = LangCfg.translate("Bilder/Videos", this.Name) + ": " + listViewFiles.Items.Count.ToString();
         }
 
         // rename item in list view (after event from ShellItemChangeEventHandler)
         internal void renameItemListViewFiles(string oldFullFileName, string newFullFileName)
         {
-            // to be considered: rename can include change of extension, which may mean
-            // that old or new file are not visible due to extension
-
-            // get current scroll position
-            int xpos = listViewFiles.getHorizontalScrollPosition();
-            int ypos = listViewFiles.getVerticalScrollPosition();
-
-            bool wasDisplayed = false;
-            bool wasSelected = false;
-
-            // step one: remove old entry
-            FileInfo theFileInfo = new FileInfo(oldFullFileName);
-            // ShellListener event gives network device in capital letters, which at least sometimes differs from Foldername
-            if (theFileInfo.DirectoryName.ToLower().Equals(theFormQuickImageComment.FolderName.ToLower()) &&
-                ConfigDefinition.FilesExtensionsArrayList.Contains(theFileInfo.Extension.ToLower()))
+            // if main mask is not already closing
+            if (!theFormQuickImageComment.closing)
             {
-                int ii = listViewFiles.getIndexOf(theFileInfo.Name);
-                if (ii >= 0)
+                // to be considered: rename can include change of extension, which may mean
+                // that old or new file are not visible due to extension
+
+                // get current scroll position
+                int xpos = listViewFiles.getHorizontalScrollPosition();
+                int ypos = listViewFiles.getVerticalScrollPosition();
+
+                bool wasDisplayed = false;
+                bool wasSelected = false;
+
+                // step one: remove old entry
+                FileInfo theFileInfo = new FileInfo(oldFullFileName);
+                // ShellListener event gives network device in capital letters, which at least sometimes differs from Foldername
+                if (theFileInfo.DirectoryName.ToLower().Equals(theFormQuickImageComment.FolderName.ToLower()) &&
+                    ConfigDefinition.FilesExtensionsArrayList.Contains(theFileInfo.Extension.ToLower()))
                 {
-                    if (ii == lastFileIndex) wasDisplayed = true;
-                    if (listViewFiles.SelectedIndices.Contains(ii)) wasSelected = true;
-
-                    // delete entry in lists in Image Manager
-                    ImageManager.deleteExtendedImage(ii);
-                    // remove item in listView
-                    listViewFiles.Items.RemoveAt(ii);
-                    // if deleted before last file selected for display, shift index
-                    if (ii <= lastFileIndex) lastFileIndex--;
-
-                    // step 2: add new entry
-                    // only if old entry was deleted
-                    // in network devices, rename event was triggered twice
-                    theFileInfo = new FileInfo(newFullFileName);
-                    // ShellListener event gives network device in capital letters, which at least sometimes differs from Foldername
-                    if (theFileInfo.DirectoryName.ToLower().Equals(theFormQuickImageComment.FolderName.ToLower()) &&
-                        ConfigDefinition.FilesExtensionsArrayList.Contains(theFileInfo.Extension.ToLower()))
+                    int ii = listViewFiles.getIndexOf(theFileInfo.Name);
+                    if (ii >= 0)
                     {
-                        // save current view
-                        View tempView = listViewFiles.View;
-                        // change to list-view to ensure inserting in correct order
-                        listViewFiles.View = View.List;
-                        // insert item
-                        int jj = listViewFiles.findIndexToInsert(theFileInfo.Name);
-                        ListViewItem listViewItem = ImageManager.insertNewListViewItemAndEmptyImage(jj, theFileInfo);
-                        listViewFiles.Items.Insert(jj, listViewItem);
-                        // restore view
-                        listViewFiles.View = tempView;
-                        // if inserted before last file selected for display, shift index
-                        if (jj <= lastFileIndex) lastFileIndex++;
+                        if (ii == lastFileIndex) wasDisplayed = true;
+                        if (listViewFiles.SelectedIndices.Contains(ii)) wasSelected = true;
 
-                        if (wasDisplayed)
+                        // delete entry in lists in Image Manager
+                        ImageManager.deleteExtendedImage(ii);
+                        // remove item in listView
+                        listViewFiles.Items.RemoveAt(ii);
+                        // if deleted before last file selected for display, shift index
+                        if (ii <= lastFileIndex) lastFileIndex--;
+
+                        // step 2: add new entry
+                        // only if old entry was deleted
+                        // in network devices, rename event was triggered twice
+                        theFileInfo = new FileInfo(newFullFileName);
+                        // ShellListener event gives network device in capital letters, which at least sometimes differs from Foldername
+                        if (theFileInfo.DirectoryName.ToLower().Equals(theFormQuickImageComment.FolderName.ToLower()) &&
+                            ConfigDefinition.FilesExtensionsArrayList.Contains(theFileInfo.Extension.ToLower()))
                         {
-                            lastFileIndex = jj;
-                            theFormQuickImageComment.displayImage(lastFileIndex);
+                            // save current view
+                            View tempView = listViewFiles.View;
+                            // change to list-view to ensure inserting in correct order
+                            listViewFiles.View = View.List;
+                            // insert item
+                            int jj = listViewFiles.findIndexToInsert(theFileInfo.Name);
+                            ListViewItem listViewItem = ImageManager.insertNewListViewItemAndEmptyImage(jj, theFileInfo);
+                            listViewFiles.Items.Insert(jj, listViewItem);
+                            // restore view
+                            listViewFiles.View = tempView;
+                            // if inserted before last file selected for display, shift index
+                            if (jj <= lastFileIndex) lastFileIndex++;
+
+                            if (wasDisplayed)
+                            {
+                                lastFileIndex = jj;
+                                theFormQuickImageComment.displayImage(lastFileIndex);
+                            }
+                            if (wasSelected) listViewFiles.SelectedIndices.Add(jj);
                         }
-                        if (wasSelected) listViewFiles.SelectedIndices.Add(jj);
                     }
                 }
-            }
-            // update SelectedIndicesNew
-            listViewFiles.SelectedIndicesNew = new int[listViewFiles.SelectedIndices.Count];
-            listViewFiles.SelectedIndices.CopyTo(listViewFiles.SelectedIndicesNew, 0);
+                // update SelectedIndicesNew
+                listViewFiles.SelectedIndicesNew = new int[listViewFiles.SelectedIndices.Count];
+                listViewFiles.SelectedIndices.CopyTo(listViewFiles.SelectedIndicesNew, 0);
 
-            // restore scroll position
-            listViewFiles.setScrollPosition(xpos, ypos);
-            theFormQuickImageComment.toolStripStatusLabelFiles.Text = LangCfg.translate("Bilder/Videos", this.Name) + ": " + listViewFiles.Items.Count.ToString();
+                // restore scroll position
+                listViewFiles.setScrollPosition(xpos, ypos);
+                theFormQuickImageComment.toolStripStatusLabelFiles.Text = LangCfg.translate("Bilder/Videos", this.Name) + ": " + listViewFiles.Items.Count.ToString();
+            }
         }
 
         //*****************************************************************
