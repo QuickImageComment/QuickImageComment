@@ -224,7 +224,9 @@ namespace QuickImageComment
 
 #if APPCENTER
             var os = Environment.OSVersion;
+            // AppCenter usable if Windows 10 and AppCenterSecureID is defined
             if (os.Version.Major == 10) AppCenterUsable = true;
+            if (AppCenterSecureID.Equals("")) AppCenterUsable = false;
 
             // if not yet set, set configuration for usage of AppCenter
             if (AppCenterUsable && ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.AppCenterUsage).Equals(""))
