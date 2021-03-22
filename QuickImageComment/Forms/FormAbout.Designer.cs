@@ -48,10 +48,8 @@ namespace QuickImageComment
             this.buttonClose = new System.Windows.Forms.Button();
             this.textBoxOtherSources = new System.Windows.Forms.TextBox();
             this.fixedLabel1 = new System.Windows.Forms.Label();
-            this.dynamicLabelQuickImageCommentVersion = new System.Windows.Forms.Label();
             this.fixedLabelQuickImageCommentCopyRight = new System.Windows.Forms.Label();
             this.fixedLabelExiv2Cdecl = new System.Windows.Forms.Label();
-            this.dynamicLabelExiv2CdeclVersion = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.textBoxLicenceGerman = new System.Windows.Forms.TextBox();
             this.dynamicLabelQuickImageCommentCreated = new System.Windows.Forms.Label();
@@ -60,12 +58,16 @@ namespace QuickImageComment
             this.textBoxLicenceEnglish = new System.Windows.Forms.TextBox();
             this.linkLabelMail = new System.Windows.Forms.LinkLabel();
             this.linkLabelHomePage = new System.Windows.Forms.LinkLabel();
+            this.textBoxQuickImageCommentVersion = new System.Windows.Forms.TextBox();
+            this.textBoxExiv2CdeclVersion = new System.Windows.Forms.TextBox();
+            this.linkLabelGitHub = new System.Windows.Forms.LinkLabel();
+            this.labelGitHub = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // buttonClose
             // 
             this.buttonClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonClose.Location = new System.Drawing.Point(394, 666);
+            this.buttonClose.Location = new System.Drawing.Point(394, 699);
             this.buttonClose.Name = "buttonClose";
             this.buttonClose.Size = new System.Drawing.Size(239, 25);
             this.buttonClose.TabIndex = 12;
@@ -79,11 +81,11 @@ namespace QuickImageComment
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxOtherSources.BackColor = System.Drawing.SystemColors.Control;
-            this.textBoxOtherSources.Location = new System.Drawing.Point(12, 201);
+            this.textBoxOtherSources.Location = new System.Drawing.Point(12, 222);
             this.textBoxOtherSources.Multiline = true;
             this.textBoxOtherSources.Name = "textBoxOtherSources";
             this.textBoxOtherSources.ReadOnly = true;
-            this.textBoxOtherSources.Size = new System.Drawing.Size(621, 459);
+            this.textBoxOtherSources.Size = new System.Drawing.Size(621, 457);
             this.textBoxOtherSources.TabIndex = 11;
             this.textBoxOtherSources.Text = resources.GetString("textBoxOtherSources.Text");
             // 
@@ -95,15 +97,6 @@ namespace QuickImageComment
             this.fixedLabel1.Size = new System.Drawing.Size(108, 13);
             this.fixedLabel1.TabIndex = 0;
             this.fixedLabel1.Text = "QuickImageComment";
-            // 
-            // dynamicLabelQuickImageCommentVersion
-            // 
-            this.dynamicLabelQuickImageCommentVersion.AutoSize = true;
-            this.dynamicLabelQuickImageCommentVersion.Location = new System.Drawing.Point(124, 10);
-            this.dynamicLabelQuickImageCommentVersion.Name = "dynamicLabelQuickImageCommentVersion";
-            this.dynamicLabelQuickImageCommentVersion.Size = new System.Drawing.Size(45, 13);
-            this.dynamicLabelQuickImageCommentVersion.TabIndex = 1;
-            this.dynamicLabelQuickImageCommentVersion.Text = "Version ";
             // 
             // fixedLabelQuickImageCommentCopyRight
             // 
@@ -123,19 +116,10 @@ namespace QuickImageComment
             this.fixedLabelExiv2Cdecl.TabIndex = 3;
             this.fixedLabelExiv2Cdecl.Text = "exiv2Cdecl";
             // 
-            // dynamicLabelExiv2CdeclVersion
-            // 
-            this.dynamicLabelExiv2CdeclVersion.AutoSize = true;
-            this.dynamicLabelExiv2CdeclVersion.Location = new System.Drawing.Point(124, 27);
-            this.dynamicLabelExiv2CdeclVersion.Name = "dynamicLabelExiv2CdeclVersion";
-            this.dynamicLabelExiv2CdeclVersion.Size = new System.Drawing.Size(45, 13);
-            this.dynamicLabelExiv2CdeclVersion.TabIndex = 4;
-            this.dynamicLabelExiv2CdeclVersion.Text = "Version ";
-            // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(9, 185);
+            this.label5.Location = new System.Drawing.Point(9, 205);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(216, 13);
             this.label5.TabIndex = 10;
@@ -145,7 +129,7 @@ namespace QuickImageComment
             // 
             this.textBoxLicenceGerman.BackColor = System.Drawing.SystemColors.Control;
             this.textBoxLicenceGerman.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBoxLicenceGerman.Location = new System.Drawing.Point(12, 74);
+            this.textBoxLicenceGerman.Location = new System.Drawing.Point(12, 94);
             this.textBoxLicenceGerman.Multiline = true;
             this.textBoxLicenceGerman.Name = "textBoxLicenceGerman";
             this.textBoxLicenceGerman.Size = new System.Drawing.Size(625, 96);
@@ -166,7 +150,7 @@ namespace QuickImageComment
             // buttonLicenses
             // 
             this.buttonLicenses.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonLicenses.Location = new System.Drawing.Point(12, 666);
+            this.buttonLicenses.Location = new System.Drawing.Point(12, 699);
             this.buttonLicenses.Name = "buttonLicenses";
             this.buttonLicenses.Size = new System.Drawing.Size(239, 25);
             this.buttonLicenses.TabIndex = 14;
@@ -187,7 +171,7 @@ namespace QuickImageComment
             // 
             this.textBoxLicenceEnglish.BackColor = System.Drawing.SystemColors.Control;
             this.textBoxLicenceEnglish.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBoxLicenceEnglish.Location = new System.Drawing.Point(12, 86);
+            this.textBoxLicenceEnglish.Location = new System.Drawing.Point(12, 106);
             this.textBoxLicenceEnglish.Multiline = true;
             this.textBoxLicenceEnglish.Name = "textBoxLicenceEnglish";
             this.textBoxLicenceEnglish.Size = new System.Drawing.Size(625, 70);
@@ -216,11 +200,55 @@ namespace QuickImageComment
             this.linkLabelHomePage.Text = "www.quickimagecomment.de";
             this.linkLabelHomePage.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelHomePage_LinkClicked);
             // 
+            // textBoxQuickImageCommentVersion
+            // 
+            this.textBoxQuickImageCommentVersion.BackColor = System.Drawing.SystemColors.Control;
+            this.textBoxQuickImageCommentVersion.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxQuickImageCommentVersion.Location = new System.Drawing.Point(127, 10);
+            this.textBoxQuickImageCommentVersion.Name = "textBoxQuickImageCommentVersion";
+            this.textBoxQuickImageCommentVersion.Size = new System.Drawing.Size(178, 13);
+            this.textBoxQuickImageCommentVersion.TabIndex = 23;
+            this.textBoxQuickImageCommentVersion.Text = "Version";
+            // 
+            // textBoxExiv2CdeclVersion
+            // 
+            this.textBoxExiv2CdeclVersion.BackColor = System.Drawing.SystemColors.Control;
+            this.textBoxExiv2CdeclVersion.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxExiv2CdeclVersion.Location = new System.Drawing.Point(127, 27);
+            this.textBoxExiv2CdeclVersion.Name = "textBoxExiv2CdeclVersion";
+            this.textBoxExiv2CdeclVersion.Size = new System.Drawing.Size(178, 13);
+            this.textBoxExiv2CdeclVersion.TabIndex = 24;
+            this.textBoxExiv2CdeclVersion.Text = "Version";
+            // 
+            // linkLabelGitHub
+            // 
+            this.linkLabelGitHub.AutoSize = true;
+            this.linkLabelGitHub.Location = new System.Drawing.Point(520, 71);
+            this.linkLabelGitHub.Name = "linkLabelGitHub";
+            this.linkLabelGitHub.Size = new System.Drawing.Size(40, 13);
+            this.linkLabelGitHub.TabIndex = 25;
+            this.linkLabelGitHub.TabStop = true;
+            this.linkLabelGitHub.Text = "GitHub";
+            this.linkLabelGitHub.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelGitHub_LinkClicked);
+            // 
+            // labelGitHub
+            // 
+            this.labelGitHub.AutoSize = true;
+            this.labelGitHub.Location = new System.Drawing.Point(295, 71);
+            this.labelGitHub.Name = "labelGitHub";
+            this.labelGitHub.Size = new System.Drawing.Size(192, 13);
+            this.labelGitHub.TabIndex = 26;
+            this.labelGitHub.Text = "Quellcode, Anliegen und Diskussionen:";
+            // 
             // FormAbout
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(645, 695);
+            this.ClientSize = new System.Drawing.Size(645, 728);
+            this.Controls.Add(this.labelGitHub);
+            this.Controls.Add(this.linkLabelGitHub);
+            this.Controls.Add(this.textBoxExiv2CdeclVersion);
+            this.Controls.Add(this.textBoxQuickImageCommentVersion);
             this.Controls.Add(this.linkLabelHomePage);
             this.Controls.Add(this.linkLabelMail);
             this.Controls.Add(this.textBoxLicenceEnglish);
@@ -230,10 +258,8 @@ namespace QuickImageComment
             this.Controls.Add(this.textBoxLicenceGerman);
             this.Controls.Add(this.textBoxOtherSources);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.dynamicLabelExiv2CdeclVersion);
             this.Controls.Add(this.fixedLabelExiv2Cdecl);
             this.Controls.Add(this.fixedLabelQuickImageCommentCopyRight);
-            this.Controls.Add(this.dynamicLabelQuickImageCommentVersion);
             this.Controls.Add(this.fixedLabel1);
             this.Controls.Add(this.buttonClose);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -253,10 +279,8 @@ namespace QuickImageComment
     private System.Windows.Forms.Button buttonClose;
     private System.Windows.Forms.TextBox textBoxOtherSources;
     private System.Windows.Forms.Label fixedLabel1;
-    private System.Windows.Forms.Label dynamicLabelQuickImageCommentVersion;
     private System.Windows.Forms.Label fixedLabelQuickImageCommentCopyRight;
     private System.Windows.Forms.Label fixedLabelExiv2Cdecl;
-    private System.Windows.Forms.Label dynamicLabelExiv2CdeclVersion;
     private System.Windows.Forms.Label label5;
     private System.Windows.Forms.TextBox textBoxLicenceGerman;
     private System.Windows.Forms.Label dynamicLabelQuickImageCommentCreated;
@@ -265,5 +289,9 @@ namespace QuickImageComment
     private System.Windows.Forms.TextBox textBoxLicenceEnglish;
         private System.Windows.Forms.LinkLabel linkLabelMail;
         private System.Windows.Forms.LinkLabel linkLabelHomePage;
+        private System.Windows.Forms.TextBox textBoxQuickImageCommentVersion;
+        private System.Windows.Forms.TextBox textBoxExiv2CdeclVersion;
+        private System.Windows.Forms.LinkLabel linkLabelGitHub;
+        private System.Windows.Forms.Label labelGitHub;
     }
 }

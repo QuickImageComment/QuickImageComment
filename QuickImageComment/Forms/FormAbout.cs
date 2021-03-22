@@ -56,7 +56,7 @@ namespace QuickImageComment
                 return;
             }
 
-            dynamicLabelQuickImageCommentVersion.Text += Program.VersionNumberInformational;
+            textBoxQuickImageCommentVersion.Text += Program.VersionNumberInformational;
             dynamicLabelQuickImageCommentCreated.Text = Program.CompileTime.ToString("dd.MM.yyyy");
 
             AssemblyCopyrightAttribute theCopyright = System.Reflection.AssemblyCopyrightAttribute.GetCustomAttribute(ExecAssembly, typeof(System.Reflection.AssemblyCopyrightAttribute))
@@ -64,7 +64,7 @@ namespace QuickImageComment
             fixedLabelQuickImageCommentCopyRight.Text = theCopyright.Copyright;
             string exiv2Version = "";
             exiv2getVersion(ref exiv2Version);
-            dynamicLabelExiv2CdeclVersion.Text += exiv2Version;
+            textBoxExiv2CdeclVersion.Text += exiv2Version;
 
             // if flag set, create screenshot and return
             if (GeneralUtilities.CreateScreenshots)
@@ -82,6 +82,12 @@ namespace QuickImageComment
         private void linkLabelHomePage_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             System.Diagnostics.Process.Start(((LinkLabel)sender).Text);
+        }
+
+
+        private void linkLabelGitHub_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/QuickImageComment/QuickImageComment");
         }
 
         private void linkLabelMail_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

@@ -2760,6 +2760,12 @@ namespace QuickImageComment
             }
         }
 
+        // open GitHub repository
+        private void toolStripMenuItemGitHub_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/QuickImageComment/QuickImageComment");
+        }
+
         // show help
         private void toolStripMenuItemHelp2_Click(object sender, EventArgs e)
         {

@@ -245,6 +245,7 @@ namespace QuickImageComment
             this.toolStripButtonPredefinedKeyWords = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator14 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButtonFind = new System.Windows.Forms.ToolStripButton();
+            this.toolStripMenuItemGitHub = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer12)).BeginInit();
             this.splitContainer12.Panel1.SuspendLayout();
             this.splitContainer12.Panel2.SuspendLayout();
@@ -1861,6 +1862,7 @@ namespace QuickImageComment
             this.toolStripMenuItemAbout,
             this.toolStripMenuItemCheckForNewVersion,
             this.ToolStripMenuItemWebPage,
+            this.toolStripMenuItemGitHub,
             this.toolStripMenuItemHelp2});
             this.toolStripMenuItemHelp.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripMenuItemHelp.Name = "toolStripMenuItemHelp";
@@ -2305,6 +2307,13 @@ namespace QuickImageComment
             this.toolStripButtonFind.ToolTipText = "Suche über Eigenschaften";
             this.toolStripButtonFind.Click += new System.EventHandler(this.toolStripMenuItemFind_Click);
             // 
+            // toolStripMenuItemGitHub
+            // 
+            this.toolStripMenuItemGitHub.Name = "toolStripMenuItemGitHub";
+            this.toolStripMenuItemGitHub.Size = new System.Drawing.Size(213, 22);
+            this.toolStripMenuItemGitHub.Text = "GitHub";
+            this.toolStripMenuItemGitHub.Click += new System.EventHandler(this.toolStripMenuItemGitHub_Click);
+            // 
             // FormQuickImageComment
             // 
             this.AllowDrop = true;
@@ -2590,5 +2599,6 @@ namespace QuickImageComment
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemAddToFind;
         internal System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelFiles;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelFileInfo;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemGitHub;
     }
 }
