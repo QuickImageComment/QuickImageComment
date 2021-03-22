@@ -561,23 +561,33 @@ namespace QuickImageCommentControls
         // handles renaming of folders
         void m_ShellListener_FolderRenamed(object sender, ShellItemChangeEventArgs e)
         {
-            if (!MainMaskInterface.isClosing() && e.OldItem.Parent != null && !e.OldItem.ParsingName.StartsWith("::"))
+            try
             {
-                //Logger.log("FolderRenamed Start " + e.OldItem.ParsingName);
-                TreeNode node = FindItem(e.OldItem.Parent, m_TreeView.Nodes[0]);
-                if (node != null) RefreshItem(node);
+                if (!MainMaskInterface.isClosing() && e.OldItem.Parent != null && !e.OldItem.ParsingName.StartsWith("::"))
+                {
+                    //Logger.log("FolderRenamed Start " + e.OldItem.ParsingName);
+                    TreeNode node = FindItem(e.OldItem.Parent, m_TreeView.Nodes[0]);
+                    if (node != null) RefreshItem(node);
+                }
             }
+            // sometimes it crashes; just do nothing in this case, probably the reason for this trigger is not important
+            catch { };
         }
 
         // handles update of folders - not needed in QIC
         void m_ShellListener_FolderUpdated(object sender, ShellItemEventArgs e)
         {
-            if (!MainMaskInterface.isClosing() && e.Item.Parent != null && !e.Item.ParsingName.StartsWith("::"))
+            try
             {
-                //Logger.log("FolderUpdated Start " + e.Item.ParsingName);
-                TreeNode parent = FindItem(e.Item.Parent, m_TreeView.Nodes[0]);
-                if (parent != null) RefreshItem(parent);
+                if (!MainMaskInterface.isClosing() && e.Item.Parent != null && !e.Item.ParsingName.StartsWith("::"))
+                {
+                    //Logger.log("FolderUpdated Start " + e.Item.ParsingName);
+                    TreeNode parent = FindItem(e.Item.Parent, m_TreeView.Nodes[0]);
+                    if (parent != null) RefreshItem(parent);
+                }
             }
+            // sometimes it crashes; just do nothing in this case, probably the reason for this trigger is not important
+            catch { };
         }
 
         TreeView m_TreeView;
