@@ -223,9 +223,12 @@ namespace QuickImageComment
         // return folder for internal files
         public static string getMaintenanceOutputFolder()
         {
+            string folder = ConfigDefinition.getConfigString(ConfigDefinition.enumConfigString.OutputPathMaintenance);
+            if (folder.Equals("-"))
             {
-                return getOutputFolder("MaintenanceOutput");
+                folder = System.Environment.GetEnvironmentVariable("TEMP") + System.IO.Path.DirectorySeparatorChar;
             }
+            return folder;
         }
 
         // display help
@@ -245,29 +248,14 @@ namespace QuickImageComment
         // return folder for screen shots
         public static string getScreenshotFolder()
         {
-            return getOutputFolder(@"Screenshots\" + ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.Language)
-                + "-" + MainMaskInterface.getDpi().ToString() + "dpi");
-        }
-
-        // return folder for output from program for maintenance
-        // if program development folder does not exist, create folder under Documents and return that
-        private static string getOutputFolder(string SubfolderName)
-        {
-            string OutputFolder;
-            if (System.IO.Directory.Exists(ProgramDevelopmentFolder))
+            string folder = ConfigDefinition.getConfigString(ConfigDefinition.enumConfigString.OutPutPathScreenshots);
+            if (folder.Equals("-"))
             {
-                OutputFolder = ProgramDevelopmentFolder + SubfolderName + @"\";
+                folder = System.Environment.GetEnvironmentVariable("TEMP") + System.IO.Path.DirectorySeparatorChar;
             }
-            else
-            {
-                OutputFolder = System.Environment.GetEnvironmentVariable("USERPROFILE") +
-                    @"\Documents\QuickImageComment\" + SubfolderName + @"\";
-            }
-            if (!System.IO.Directory.Exists(OutputFolder))
-            {
-                System.IO.Directory.CreateDirectory(OutputFolder);
-            }
-            return OutputFolder;
+            folder += ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.Language) + "-prg" + System.IO.Path.DirectorySeparatorChar;
+            Directory.CreateDirectory(folder);
+            return folder;
         }
 
         public static void adjustpanelSizeHighDpi(Panel aPanel)

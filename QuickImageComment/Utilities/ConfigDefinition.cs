@@ -96,7 +96,9 @@ namespace QuickImageComment
             XmpLangAlt2,
             XmpLangAlt3,
             XmpLangAlt4,
-            XmpLangAlt5
+            XmpLangAlt5,
+            OutputPathMaintenance,
+            OutPutPathScreenshots
         };
 
         // no longer used, defined here to avoid warning messages when reading config file
@@ -334,6 +336,7 @@ namespace QuickImageComment
                 ImageGrids[ii] = new ImageGrid();
             }
 
+            // initialize user parameter
             ConfigItems.Add("LastFolder", "");
             ConfigItems.Add("KeepImageBakFile", "yes");
             ConfigItems.Add("FormMainWidth", "0");
