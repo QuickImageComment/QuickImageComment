@@ -79,7 +79,9 @@ namespace QuickImageComment
         static void Main(string[] args)
         {
             string DisplayFolder = "";
-            string DisplayFile = "";
+            System.Collections.ArrayList DisplayFiles = new System.Collections.ArrayList();
+            string[] argFiles;
+            int argFilesCount = 0;
 
             // shall be the first commands according to documentation
             Application.EnableVisualStyles();
@@ -147,59 +149,45 @@ namespace QuickImageComment
             {
                 ConfigDefinition.setIniPath(System.Environment.GetEnvironmentVariable("APPDATA") + System.IO.Path.DirectorySeparatorChar);
             }
+
+            ConfigDefinition.init();
             UserConfigFile = ConfigDefinition.getIniPath() + UserConfigFile;
+            GeneralConfigFileCommon = exeFile.Substring(0, exeFile.Length - 4) + "General.ini";
+            GeneralConfigFileUser = System.Environment.GetEnvironmentVariable("APPDATA")
+              + System.IO.Path.DirectorySeparatorChar + System.IO.Path.GetFileName(GeneralConfigFileCommon);
+
             // check arguments given on commandline
-            if (args.Length >= 1)
+            string unknownKeyWords = "";
+            argFiles = new string[args.Length];
+
+            for (int ii = 0; ii < args.Length; ii++)
             {
-                if (args[0].ToLower().Equals("/cfg"))
+                if (args[ii].StartsWith("/cfgUser:"))
                 {
-                    if (args.Length >= 2)
-                    {
-                        UserConfigFile = args[1];
-                        UserConfigFileOnCmdLine = true;
-                    }
+                    // user configuration file
+                    UserConfigFile = args[ii].Substring(9);
+                    UserConfigFileOnCmdLine = true;
+                }
+                else if (args[ii].StartsWith("/"))
+                {
+                    // parameter for general configuration file
+                    // do not use user specific general configuration file when parameter are given in command line
+                    GeneralConfigFileUser = "";
+                    ConfigDefinition.analyzeGeneralConfigFileLine("commandline", args[ii].Substring(1), ii, ref unknownKeyWords);
                 }
                 else
                 {
-                    if ((System.IO.File.GetAttributes(args[0]) & System.IO.FileAttributes.Directory) == System.IO.FileAttributes.Directory)
-                    {
-                        // given argument is folder
-                        DisplayFolder = args[0];
-                    }
-                    else
-                    {
-                        // given argument is file
-                        DisplayFolder = System.IO.Path.GetDirectoryName(args[0]);
-                        DisplayFile = System.IO.Path.GetFileName(args[0]);
-                    }
+                    // argument is file or folder
+                    // without additional qualifier to allow passing files and folders with drag and drop to exe-file
+                    argFiles[argFilesCount] = args[ii];
+                    argFilesCount++;
                 }
             }
-
-            GeneralConfigFileCommon = exeFile.Substring(0, exeFile.Length - 4) + "General.ini";
-
-            ConfigDefinition.init();
-
-            if (args.Length > 1)
+            if (!unknownKeyWords.Equals(""))
             {
-                // use only default configuration for testing/documentation purposes
-                // 2nd and following arguments are used instead of settings in a GeneralConfigFileUser
-                GeneralConfigFileUser = "";
+                GeneralUtilities.debugMessage("Unknown key words in command line:\n" + unknownKeyWords + "\n\nAre ignored.");
+            }
 
-                string unknownKeyWords = "";
-                for (int ii = 2; ii < args.Length && ii < 10; ii++)
-                {
-                    ConfigDefinition.analyzeGeneralConfigFileLine("commandline", args[ii], ii, ref unknownKeyWords);
-                }
-                if (!unknownKeyWords.Equals(""))
-                {
-                    GeneralUtilities.debugMessage("Unknown key words in command line:\n" + unknownKeyWords + "\n\nAre ignored.");
-                }
-            }
-            else
-            {
-                GeneralConfigFileUser = System.Environment.GetEnvironmentVariable("APPDATA")
-                  + System.IO.Path.DirectorySeparatorChar + System.IO.Path.GetFileName(GeneralConfigFileCommon);
-            }
             //StartupPerformance.measure("Program Arguments analysed");
 
             // constructor contains only logic not depending on configuration
@@ -251,18 +239,24 @@ namespace QuickImageComment
 
             // throw (new Exception("ExceptionTest after initialization completed"));
 
-            // if folder is not given with commandline, get last used folder from configuration
-            if (DisplayFolder.Equals(""))
+            // if no folder and no file is given with commandline, get last used folder from configuration
+            if (argFilesCount == 0)
             {
                 DisplayFolder = ConfigDefinition.getLastFolder();
+
+                // if folder does not exist, get user profile folder
+                if (!System.IO.Directory.Exists(DisplayFolder))
+                {
+                    DisplayFolder = System.Environment.GetEnvironmentVariable("USERPROFILE");
+                }
             }
-            // if folder does not exist, get user profile folder
-            if (!System.IO.Directory.Exists(DisplayFolder))
+            else
             {
-                DisplayFolder = System.Environment.GetEnvironmentVariable("USERPROFILE");
+                GeneralUtilities.getFolderAndFilesFromArray(argFiles, argFilesCount, ref DisplayFolder, ref DisplayFiles);
             }
 
-            theFormQuickImageComment.init(DisplayFolder, DisplayFile);
+            theFormQuickImageComment.init(DisplayFolder, DisplayFiles);
+
             //StartupPerformance.measure("Program after theFormQuickImageComment.init");
             Program.StartupPerformance.log(ConfigDefinition.enumConfigFlags.PerformanceStartup);
 

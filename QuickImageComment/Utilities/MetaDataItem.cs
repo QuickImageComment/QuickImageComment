@@ -22,7 +22,7 @@ namespace QuickImageComment
     {
         // after changes: 
         // adapt getValueForDisplay 
-        // adapt also addItemsComboBoxMetaDataFormat...  in FormMetaDataDefintions
+        // adapt also addItemsComboBoxMetaDataFormat...  in FormMetaDataDefinitions
         public enum Format
         {
             Interpreted,

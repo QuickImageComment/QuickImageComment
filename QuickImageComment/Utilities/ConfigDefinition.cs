@@ -98,7 +98,7 @@ namespace QuickImageComment
             XmpLangAlt4,
             XmpLangAlt5,
             OutputPathMaintenance,
-            OutPutPathScreenshots
+            OutputPathScreenshots
         };
 
         // no longer used, defined here to avoid warning messages when reading config file
@@ -1981,7 +1981,7 @@ namespace QuickImageComment
             return AllTagNamesComment;
         }
         // returns list of tags needed for special Exif and IPTC information
-        public static ArrayList getNeededKeysIncludingReferences(ArrayList MetaDataDefintionArrayList)
+        public static ArrayList getNeededKeysIncludingReferences(ArrayList MetaDataDefinitionArrayList)
         {
             ArrayList neededKeys = new ArrayList();
             // add keys for combined fields
@@ -1989,7 +1989,7 @@ namespace QuickImageComment
             neededKeys.AddRange(ConfigDefinition.getAllTagNamesArtist());
             neededKeys.AddRange(ConfigDefinition.getAllTagNamesComment());
 
-            foreach (MetaDataDefinitionItem aMetaDataDefinitionItem in MetaDataDefintionArrayList)
+            foreach (MetaDataDefinitionItem aMetaDataDefinitionItem in MetaDataDefinitionArrayList)
             {
                 if (!neededKeys.Contains(aMetaDataDefinitionItem.KeyPrim)) neededKeys.Add(aMetaDataDefinitionItem.KeyPrim);
                 if (!aMetaDataDefinitionItem.KeySec.Equals("") && !neededKeys.Contains(aMetaDataDefinitionItem.KeySec)) neededKeys.Add(aMetaDataDefinitionItem.KeySec);
@@ -3330,7 +3330,7 @@ namespace QuickImageComment
                         unknownKeyWords = unknownKeyWords + "\n line " + lineNo.ToString() + ": " + firstPart;
                     }
 
-                    // add txt key words to meta data defintions
+                    // add txt key words to meta data definitions
                     if (firstPart.StartsWith("TxtKeyWord"))
                     {
                         string key = "Txt." + secondPart;

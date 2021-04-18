@@ -42,7 +42,7 @@ namespace QuickImageComment
         public delegate void setToolStripStatusLabelThreadCallback(string text, bool clearNow, bool clearBeforeNext);
         public delegate void setToolStripStatusLabelBufferingCallback(bool visible);
         public delegate void initFormLoggerCallback();
-        private delegate void selectFileFolderCallback(string fileName);
+        private delegate void selectFileFolderCallback(string[] fileName);
 
         private Thread checkForNewVersionThread;
         CancellationTokenSource cancellationTokenSourceCyclicDisplayMemory;
@@ -146,15 +146,19 @@ namespace QuickImageComment
             Program.StartupPerformance.measure("FormQIC constructor finish");
         }
 
-        public void init(string DisplayFolder, string DisplayFile)
+        public void init(string DisplayFolder, ArrayList DisplayFiles)
         {
             Program.StartupPerformance.measure("FormQIC init start");
-            FolderName = DisplayFolder;
+            if (DisplayFolder.Equals(""))
+                // DisplayFolder is blank in case there is no common root folder for files given on command line
+                FolderName = GongSolutions.Shell.ShellItem.Desktop.FileSystemPath;
+            else
+                FolderName = DisplayFolder;
 
             // create and int user control for files
             theUserControlFiles = new UserControlFiles();
             theUserControlFiles.Dock = DockStyle.Fill;
-            theUserControlFiles.init(this, DisplayFile);
+            theUserControlFiles.init(this);
             //Program.StartupPerformance.measure("FormQIC after theUserControlFiles.init");
 
             readFolderPerfomance = new Performance();
@@ -604,6 +608,14 @@ namespace QuickImageComment
 
             splitContainer1.Visible = true;
             Program.StartupPerformance.measure("FormQIC before displayImageAfterReadFolder");
+
+            if (DisplayFiles.Count > 0)
+            {
+                // files to display given via command line
+                // Use DisplayFolder which is the root of all files
+                // It will be blank in case files are from different drives, but this is ok for ImageManager and avoids crashes
+                ImageManager.initWithImageFilesArrayList(DisplayFolder, DisplayFiles);
+            }
 
             // moved to here as during filling dataGridViews size of panels is important to adjust column widths
             displayImageAfterReadFolder(0);
@@ -1234,7 +1246,7 @@ namespace QuickImageComment
             if (files != null)
             {
                 // only one file (or folder) can be handled
-                selectFolderFile(files[0]);
+                selectFolderFile(files);
             }
             else if (urlString != null)
             {
@@ -2192,13 +2204,14 @@ namespace QuickImageComment
         // open file or folder given to be input as String
         private void toolStripMenuItemOpen_Click(object sender, EventArgs e)
         {
-            string FolderFileSpecification = GeneralUtilities.inputBox(LangCfg.Message.I_enterFolderFile, "");
+            string[] FolderFileSpecification = new string[1];
+            FolderFileSpecification[0] = GeneralUtilities.inputBox(LangCfg.Message.I_enterFolderFile, "");
             if (!FolderFileSpecification.Equals(""))
             {
-                if (Uri.IsWellFormedUriString(FolderFileSpecification, UriKind.RelativeOrAbsolute))
+                if (Uri.IsWellFormedUriString(FolderFileSpecification[0], UriKind.RelativeOrAbsolute))
                 {
                     System.Net.WebClient theWebClient = new System.Net.WebClient();
-                    downloadFileAndDisplay(theWebClient, FolderFileSpecification);
+                    downloadFileAndDisplay(theWebClient, FolderFileSpecification[0]);
                 }
                 else
                 {
@@ -3699,24 +3712,23 @@ namespace QuickImageComment
         }
 
         // select folder and (optionally) file based on specification
-        internal void selectFolderFile(string FolderFileSpecification)
+        internal void selectFolderFile(string[] FolderFileSpecification)
         {
+            string DisplayFolder = "";
+            System.Collections.ArrayList DisplayFiles = new System.Collections.ArrayList();
             try
             {
-                if ((System.IO.File.GetAttributes(FolderFileSpecification) & System.IO.FileAttributes.Directory) == System.IO.FileAttributes.Directory)
-                {
-                    // given argument is folder
-                    FolderName = FolderFileSpecification;
-                    theUserControlFiles.textBoxFileFilter.Text = "";
-                }
+                GeneralUtilities.getFolderAndFilesFromArray(FolderFileSpecification, FolderFileSpecification.Length, ref DisplayFolder, ref DisplayFiles);
+                if (DisplayFolder.Equals(""))
+                    // DisplayFolder is blank in case there is no common root folder for files given on command line
+                    FolderName = GongSolutions.Shell.ShellItem.Desktop.FileSystemPath;
                 else
-                {
-                    // given argument is file
-                    FolderName = System.IO.Path.GetDirectoryName(FolderFileSpecification);
-                    theUserControlFiles.textBoxFileFilter.Text = System.IO.Path.GetFileName(FolderFileSpecification);
-                }
+                    FolderName = DisplayFolder;
+
                 theFolderTreeView.SelectedFolder = new GongSolutions.Shell.ShellItem(FolderName);
-                readFolderAndDisplayImage(0);
+                ImageManager.initWithImageFilesArrayList(DisplayFolder, DisplayFiles);
+                theUserControlFiles.listViewFiles.clearThumbnails();
+                displayImageAfterReadFolder(0);
             }
             catch (Exception ex)
             {

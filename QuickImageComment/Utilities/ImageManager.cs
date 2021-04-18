@@ -118,7 +118,10 @@ namespace QuickImageComment
             ListViewItem listViewItem = new ListViewItem(theFileInfo.Name);
 
             // items may be in subfolder, so include subfolder path
-            listViewItem.Name = theFileInfo.FullName.Substring(listViewFilesFolderName.Length + 1);
+            if (listViewFilesFolderName.Length > 0)
+                listViewItem.Name = theFileInfo.FullName.Substring(listViewFilesFolderName.Length + 1);
+            else
+                listViewItem.Name = theFileInfo.FullName;
             // get file information; data are given from listViewItem.SubItems to ExtendedImage
             // This method is called via event, when a file is created. In some cases (e.g. when a file is saved
             // from Paint), a create-, delete- and another create-event is triggered. 
@@ -237,6 +240,7 @@ namespace QuickImageComment
         private static void storeExtendedImage(int FileIndex, string FolderName,
             bool displayReading, bool saveFullSizeImage)
         {
+            string FileName = "";
             FormQuickImageComment.readFolderPerfomance.measure("ImageManager storeExtendedImage start " + FileIndex.ToString());
 
             DateTime StartTime = DateTime.Now;
@@ -246,7 +250,11 @@ namespace QuickImageComment
             if (FolderName.Equals(listViewFilesFolderName))
             {
                 ListViewItem theListViewFilesItem = listViewFilesItems[FileIndex];
-                string FileName = FolderName + System.IO.Path.DirectorySeparatorChar + theListViewFilesItem.Name;
+                if (FolderName.Equals(""))
+                    FileName = theListViewFilesItem.Name;
+                else
+                    FileName = FolderName + System.IO.Path.DirectorySeparatorChar + theListViewFilesItem.Name;
+
                 if (listExtendedImages[FileIndex].Equals(EmptyExtendedImage))
                 {
                     if (!System.IO.File.Exists(FileName))

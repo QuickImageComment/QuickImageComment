@@ -38,10 +38,9 @@ namespace QuickImageComment
             InitializeComponent();
         }
 
-        internal void init(FormQuickImageComment formQuickImageComment, string fileName)
+        internal void init(FormQuickImageComment formQuickImageComment)
         {
             theFormQuickImageComment = formQuickImageComment;
-            textBoxFileFilter.Text = fileName;
             delayAfterSelectedIndexChangedThread = new Thread(delayAfterSelectedIndexChanged);
 
             listViewFiles.init();
