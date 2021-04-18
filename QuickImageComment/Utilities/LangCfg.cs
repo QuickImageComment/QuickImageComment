@@ -1040,6 +1040,18 @@ namespace QuickImageComment
                     ((ToolStripDropDownButton)ParentMenuItem).Text = translate(TextToTranslate, "ToolStripDropDownButton");
                 }
             }
+            else if (ParentMenuItem is ToolStripButton)
+            {
+                // occurs if command symbols are added to menu bar
+                if (!((ToolStripButton)ParentMenuItem).Name.StartsWith("dynamic"))
+                {
+                    string TextToTranslate = ((ToolStripButton)ParentMenuItem).ToolTipText;
+                    if (TextToTranslate != null && !TextToTranslate.Equals(""))
+                    {
+                        ((ToolStripButton)ParentMenuItem).ToolTipText = translate(TextToTranslate, "ToolStripButtonToolTipText");
+                    }
+                }
+            }
             else if (ParentMenuItem is ToolStripSeparator)
             {
                 // nothing to do
@@ -1214,8 +1226,8 @@ namespace QuickImageComment
                     string fileNameUnused = GeneralUtilities.getMaintenanceOutputFolder() + "UnusedTranslations.txt";
                     StreamOut = new System.IO.StreamWriter(fileNameUnused, false, System.Text.Encoding.UTF8);
 
-                    StreamOut.WriteLine("Note: list should be created with empty user configuration to get preset meta defintions translated" +
-                                        "\nlist may contain entries, although they are translated:" +
+                    StreamOut.WriteLine("Note: list should be created with empty user configuration to check tranlation of preset meta definitions" +
+                                        "\nlist may contain entries, although they are needed:" +
                                         "\ntexts from configuration file and maintenance texts; check them manually." +
                                         "\n-----------------------------------------------------------------------------------------------");
                     foreach (string entry in UnusedTranslations)

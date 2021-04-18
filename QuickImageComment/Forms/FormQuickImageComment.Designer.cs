@@ -1202,6 +1202,7 @@ namespace QuickImageComment
             this.MenuStrip1.Size = new System.Drawing.Size(887, 24);
             this.MenuStrip1.TabIndex = 1;
             this.MenuStrip1.Text = "menuStrip1";
+            this.MenuStrip1.ShowItemToolTips = true;
             // 
             // toolStripMenuItemFile
             // 
