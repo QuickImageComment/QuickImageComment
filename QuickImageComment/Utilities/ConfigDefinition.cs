@@ -98,7 +98,8 @@ namespace QuickImageComment
             XmpLangAlt4,
             XmpLangAlt5,
             OutputPathMaintenance,
-            OutputPathScreenshots
+            OutputPathScreenshots,
+            FindDataTableFileName
         };
 
         // no longer used, defined here to avoid warning messages when reading config file
@@ -122,7 +123,8 @@ namespace QuickImageComment
             WriteExifUtf8,
             WriteIptcUtf8,
             FormImageWindowSplitContainer1OrientationVertical,
-            FormImageWindowSplitContainer1Panel2Collapsed
+            FormImageWindowSplitContainer1Panel2Collapsed,
+            SaveFindDataTable
         };
 
         public enum enumCfgUserInt
@@ -458,6 +460,7 @@ namespace QuickImageComment
             ConfigItems.Add(enumCfgUserBool.WriteIptcUtf8.ToString(), true);
             ConfigItems.Add(enumCfgUserBool.FormImageWindowSplitContainer1OrientationVertical.ToString(), false);
             ConfigItems.Add(enumCfgUserBool.FormImageWindowSplitContainer1Panel2Collapsed.ToString(), false);
+            ConfigItems.Add(enumCfgUserBool.SaveFindDataTable.ToString(), false);
 
             ConfigItems.Add(enumCfgUserString.LastCheckForNewVersion.ToString(), "not configured");
             ConfigItems.Add(enumCfgUserString.NextCheckForNewVersion.ToString(), "not configured");

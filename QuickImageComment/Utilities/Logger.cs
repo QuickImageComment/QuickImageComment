@@ -138,7 +138,7 @@ namespace QuickImageComment
             }
             traceString = traceString + ": " + message;
 
-            log(traceString);
+            log(traceString);  // permanent use of Logger.log
         }
 
     }

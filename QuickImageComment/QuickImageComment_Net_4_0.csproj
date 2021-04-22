@@ -80,8 +80,7 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>
-    </ApplicationIcon>
+    <ApplicationIcon>QuickImageComment.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
@@ -622,6 +621,7 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+    <Content Include="QuickImageComment.ico" />
     <None Include="leaflet.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

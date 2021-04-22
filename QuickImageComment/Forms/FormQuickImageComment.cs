@@ -1056,6 +1056,10 @@ namespace QuickImageComment
                     theFormMap.Close();
                 }
 
+                if (formFind != null)
+                {
+                    formFind.storeDataTable();
+                }
                 ConfigDefinition.setCfgUserBool(ConfigDefinition.enumCfgUserBool.SplitContainer11_OrientationVertical, splitContainer11.Orientation == Orientation.Vertical);
                 ConfigDefinition.setCfgUserBool(ConfigDefinition.enumCfgUserBool.SplitContainer12_OrientationVertical, splitContainer12.Orientation == Orientation.Vertical);
 
@@ -3917,6 +3921,7 @@ namespace QuickImageComment
             DataGridViewXmp.Rows.Clear();
             DataGridViewOtherMetaData.Rows.Clear();
             panelWarningMetaData.Visible = false;
+            toolStripStatusLabelFileInfo.Text = "";
 
             if (fileIndex >= 0)
             {
@@ -3931,8 +3936,6 @@ namespace QuickImageComment
                     toolStripStatusLabelFileInfo.Text = LangCfg.getText(LangCfg.Others.fileNoAccess);
                 else if (theExtendedImage.getIsReadOnly())
                     toolStripStatusLabelFileInfo.Text = LangCfg.getText(LangCfg.Others.fileReadOnly);
-                else
-                    toolStripStatusLabelFileInfo.Text = "";
 
                 GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceDisplayImage,
                     "after getExtendedImage" +

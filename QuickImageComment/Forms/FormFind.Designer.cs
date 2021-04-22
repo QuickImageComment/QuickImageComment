@@ -87,8 +87,10 @@ namespace QuickImageComment
             this.numericUpDownGpsRange = new System.Windows.Forms.NumericUpDown();
             this.checkBoxFilterGPS = new System.Windows.Forms.CheckBox();
             this.panelFilterOuter = new System.Windows.Forms.Panel();
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.backgroundWorkerInit = new System.ComponentModel.BackgroundWorker();
             this.progressPanel1 = new QuickImageComment.ProgressPanel();
+            this.checkBoxSaveFindDataTable = new System.Windows.Forms.CheckBox();
+            this.backgroundWorkerUpdate = new System.ComponentModel.BackgroundWorker();
             this.panelFilterInner.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -452,13 +454,13 @@ namespace QuickImageComment
             this.panelFilterOuter.Size = new System.Drawing.Size(786, 103);
             this.panelFilterOuter.TabIndex = 1;
             // 
-            // backgroundWorker1
+            // backgroundWorkerInit
             // 
-            this.backgroundWorker1.WorkerReportsProgress = true;
-            this.backgroundWorker1.WorkerSupportsCancellation = true;
-            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
-            this.backgroundWorker1.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker1_ProgressChanged);
-            this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
+            this.backgroundWorkerInit.WorkerReportsProgress = true;
+            this.backgroundWorkerInit.WorkerSupportsCancellation = true;
+            this.backgroundWorkerInit.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorkerInit_DoWork);
+            this.backgroundWorkerInit.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorkerInit_ProgressChanged);
+            this.backgroundWorkerInit.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorkerInit_RunWorkerCompleted);
             // 
             // progressPanel1
             // 
@@ -470,11 +472,28 @@ namespace QuickImageComment
             this.progressPanel1.Size = new System.Drawing.Size(787, 18);
             this.progressPanel1.TabIndex = 13;
             // 
+            // checkBoxSaveFindDataTable
+            // 
+            this.checkBoxSaveFindDataTable.AutoSize = true;
+            this.checkBoxSaveFindDataTable.Location = new System.Drawing.Point(581, 2);
+            this.checkBoxSaveFindDataTable.Name = "checkBoxSaveFindDataTable";
+            this.checkBoxSaveFindDataTable.Size = new System.Drawing.Size(167, 17);
+            this.checkBoxSaveFindDataTable.TabIndex = 24;
+            this.checkBoxSaveFindDataTable.Text = "Daten bei Beenden speichern";
+            this.checkBoxSaveFindDataTable.UseVisualStyleBackColor = true;
+            // 
+            // backgroundWorkerUpdate
+            // 
+            this.backgroundWorkerUpdate.WorkerSupportsCancellation = true;
+            this.backgroundWorkerUpdate.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorkerUpdate_DoWork);
+            this.backgroundWorkerUpdate.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorkerUpdate_RunWorkerCompleted);
+            // 
             // FormFind
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 368);
+            this.Controls.Add(this.checkBoxSaveFindDataTable);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.dynamicLabelRemainingTime);
             this.Controls.Add(this.labelRemainingTime);
@@ -544,10 +563,12 @@ namespace QuickImageComment
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.Panel panelFilterOuter;
-        private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private System.ComponentModel.BackgroundWorker backgroundWorkerInit;
         private System.Windows.Forms.Label labelKm;
         private System.Windows.Forms.NumericUpDown numericUpDownGpsRange;
         private System.Windows.Forms.CheckBox checkBoxFilterGPS;
         private System.Windows.Forms.CheckBox checkBoxShowDataTable;
+        private System.Windows.Forms.CheckBox checkBoxSaveFindDataTable;
+        private System.ComponentModel.BackgroundWorker backgroundWorkerUpdate;
     }
 }

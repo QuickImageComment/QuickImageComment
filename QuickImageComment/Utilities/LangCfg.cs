@@ -164,7 +164,8 @@ namespace QuickImageComment
             E_enteredValueWrongDateTime,
             E_wrongDateTimeInTag,
             W_invalidCoordinates,
-            W_fileNotFound
+            W_fileNotFound,
+            W_findDataTableNotRead
         }
 
         public enum Others
@@ -279,7 +280,9 @@ namespace QuickImageComment
             fileReadOnly,
             loadDataFromTemplateNotSelected,
             imageFileNotFound,
-            metaWarningFileNotFound
+            metaWarningFileNotFound,
+            deviationFindDataTable,
+            findDataLoaded
         }
 
         // defined as variable

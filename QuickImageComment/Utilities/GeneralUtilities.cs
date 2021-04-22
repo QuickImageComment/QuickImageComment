@@ -684,9 +684,9 @@ namespace QuickImageComment
                 }
                 ImageFiles.Sort();
             }
-            catch
+            catch 
             {
-                QuickImageComment.GeneralUtilities.message(QuickImageComment.LangCfg.Message.W_directoryNotFound);
+                QuickImageComment.GeneralUtilities.message(QuickImageComment.LangCfg.Message.W_directoryNotFound, FolderName);
                 MainMaskInterface.refreshFolderTree();
             }
         }
@@ -695,12 +695,12 @@ namespace QuickImageComment
         // if CancelPressed is set, execution is interrupted
         public static void addImageFilesFromFolderToListRecursively(string TopFolderName, ArrayList ImageFiles, BackgroundWorker worker, DoWorkEventArgs doWorkEventArgs)
         {
-            if (worker.CancellationPending == true)
+            if (worker.CancellationPending)
             {
                 doWorkEventArgs.Cancel = true;
                 return;
             }
-            else
+            else if (worker.WorkerReportsProgress)
             {
                 worker.ReportProgress(0, LangCfg.getText(LangCfg.Others.scanFolder) + " " + TopFolderName);
             }

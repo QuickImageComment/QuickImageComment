@@ -36,6 +36,7 @@ namespace QuickImageComment
         private const string comboBoxValueNamePrefix = "dynamicComboBoxValue_";
         private const string comboBoxOperatorNamePrefix = "dynamicComboBoxOperator_";
         private const string dateTimePickerNamePrefix = "dateTimePicker_";
+        private const string dataTableName = "FindData";
 
         enum DateModifierForSelect
         {
@@ -52,6 +53,7 @@ namespace QuickImageComment
         private static DataTable dataTable;
         private static int topDiffLabelToComboBox;
         private static int topDiffLabelToDateTimePicker;
+        private string dataTableFileName;
 
         public bool findExecuted = false;
 
@@ -66,7 +68,7 @@ namespace QuickImageComment
         private DateTime startTime2;
         // used to reduce counts of refresh when reading folder
         private DateTime lastCall = DateTime.Now;
-        // holds image files, filled in backgroundworker1
+        // holds image files, filled in backgroundWorkerInit
         ArrayList ImageFiles;
         int exportedCount;
         FormFindReadErrors formFindReadErrors;
@@ -101,10 +103,25 @@ namespace QuickImageComment
         public FormFind()
         {
             InitializeComponent();
+            dynamicLabelScanInformation.Visible = false;
+            progressPanel1.Visible = false;
+            labelPassedTime.Visible = false;
+            dynamicLabelPassedTime.Visible = false;
+            labelRemainingTime.Visible = false;
+            dynamicLabelRemainingTime.Visible = false;
+            buttonCancelRead.Visible = false;
+
+            dataTableFileName = ConfigDefinition.getConfigString(ConfigDefinition.enumConfigString.FindDataTableFileName);
             if (!ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.FindShowDataTable))
             {
                 checkBoxShowDataTable.Visible = false;
             }
+            checkBoxSaveFindDataTable.Checked = ConfigDefinition.getCfgUserBool(ConfigDefinition.enumCfgUserBool.SaveFindDataTable);
+            if (checkBoxSaveFindDataTable.Checked)
+            {
+                loadDataTable();
+            }
+
             dataGridView1.Visible = checkBoxShowDataTable.Checked;
             buttonAbort.Select();
             CustomizationInterface = MainMaskInterface.getCustomizationInterface();
@@ -125,14 +142,6 @@ namespace QuickImageComment
             topDiffLabelToComboBox = dynamicComboBoxValue.Top - dynamicLabelFind.Top;
             topDiffLabelToDateTimePicker = dateTimePicker.Top - dynamicLabelFind.Top;
 
-            dynamicLabelScanInformation.Visible = false;
-            progressPanel1.Visible = false;
-            labelPassedTime.Visible = false;
-            dynamicLabelPassedTime.Visible = false;
-            labelRemainingTime.Visible = false;
-            dynamicLabelRemainingTime.Visible = false;
-            buttonCancelRead.Visible = false;
-
             // Specific constructor code
             CustomizationInterface.setFormToCustomizedValues(this);
 
@@ -147,7 +156,7 @@ namespace QuickImageComment
             }
         }
 
-        // set folder and controls enable/disable based ond data table (empty or not), then show dialog
+        // set folder and controls enable/disable based on data table (empty or not), then show dialog
         public void setFolderDependingControlsAndShowDialog(string givenFolderName)
         {
 #if APPCENTER
@@ -526,16 +535,24 @@ namespace QuickImageComment
         // button cancel read
         private void buttonCancelRead_Click(object sender, EventArgs e)
         {
-            if (backgroundWorker1.WorkerSupportsCancellation == true)
+            if (backgroundWorkerInit.WorkerSupportsCancellation == true)
             {
                 // Cancel the asynchronous operation.
-                backgroundWorker1.CancelAsync();
+                backgroundWorkerInit.CancelAsync();
             }
         }
 
         // button change folder
         private void buttonChangeFolder_Click(object sender, EventArgs e)
         {
+            // in case an update of loaded data is running: stop it
+            if (backgroundWorkerUpdate.WorkerSupportsCancellation == true)
+            {
+                // Cancel the asynchronous operation.
+                backgroundWorkerUpdate.CancelAsync();
+            }
+            // might be visible after data table was loaded from file
+            dynamicLabelScanInformation.Visible = false;
             FormSelectFolder formSelectFolder = new FormSelectFolder(FolderName);
             formSelectFolder.ShowDialog();
             if (!formSelectFolder.getSelectedFolder().Equals(FolderName))
@@ -812,7 +829,14 @@ namespace QuickImageComment
         // button read folder
         private void buttonReadFolder_Click(object sender, EventArgs e)
         {
-            if (backgroundWorker1.IsBusy != true)
+            // in case an update of loaded data is running: stop it
+            if (backgroundWorkerUpdate.WorkerSupportsCancellation == true)
+            {
+                // Cancel the asynchronous operation.
+                backgroundWorkerUpdate.CancelAsync();
+            }
+
+            if (backgroundWorkerInit.IsBusy != true)
             {
                 ImageFiles = new ArrayList();
                 formFindReadErrors = new FormFindReadErrors();
@@ -831,7 +855,7 @@ namespace QuickImageComment
                 dynamicLabelScanInformation.Visible = true;
 
                 // Start the asynchronous operation.
-                backgroundWorker1.RunWorkerAsync();
+                backgroundWorkerInit.RunWorkerAsync();
             }
         }
         #endregion
@@ -840,22 +864,10 @@ namespace QuickImageComment
         #region Background worker
         //*****************************************************************
 
-        private void backgroundWorker1_DoWork(object sender, System.ComponentModel.DoWorkEventArgs doWorkEventArgs)
+        private void backgroundWorkerInit_DoWork(object sender, System.ComponentModel.DoWorkEventArgs doWorkEventArgs)
         {
-            bool signedLatFound = false;
-            bool signedLonFound = false;
             ExtendedImage extendedImage;
             System.ComponentModel.BackgroundWorker worker = sender as System.ComponentModel.BackgroundWorker;
-
-            MetaDataDefinitionsForFind = new ArrayList(ConfigDefinition.getMetaDataDefinitions(ConfigDefinition.enumMetaDataGroup.MetaDataDefForFind));
-            // check if latitude and longitude are included. if not: add
-            foreach (MetaDataDefinitionItem aMetaDataDefinitionItem in MetaDataDefinitionsForFind)
-            {
-                if (aMetaDataDefinitionItem.KeyPrim.Equals("Image.GPSsignedLatitude")) signedLatFound = true;
-                if (aMetaDataDefinitionItem.KeyPrim.Equals("Image.GPSsignedLongitude")) signedLonFound = true;
-            }
-            if (!signedLatFound) MetaDataDefinitionsForFind.Add(new MetaDataDefinitionItem("Image.GPSsignedLatitude", "Image.GPSsignedLatitude"));
-            if (!signedLonFound) MetaDataDefinitionsForFind.Add(new MetaDataDefinitionItem("Image.GPSsignedLongitude", "Image.GPSsignedLongitude"));
 
             // get all files including files in subfolders
             GeneralUtilities.addImageFilesFromFolderToListRecursively(FolderName, ImageFiles, worker, doWorkEventArgs);
@@ -869,35 +881,7 @@ namespace QuickImageComment
 
             lock (LockDataTable)
             {
-                dataTable = new DataTable(FolderName);
-                dataTable.Columns.Add("FileName", System.Type.GetType("System.String"));
-                var primaryKey = new DataColumn[1];
-                primaryKey[0] = dataTable.Columns[0];
-                dataTable.PrimaryKey = primaryKey;
-
-                // add columns for cofigured properties
-                foreach (MetaDataDefinitionItem aMetaDataDefinitionItem in MetaDataDefinitionsForFind)
-                {
-                    if (GeneralUtilities.isDateProperty(aMetaDataDefinitionItem.KeyPrim, aMetaDataDefinitionItem.TypePrim))
-                    {
-                        dataTable.Columns.Add(aMetaDataDefinitionItem.KeyPrim, System.Type.GetType("System.DateTime"));
-                    }
-                    else if (aMetaDataDefinitionItem.FormatPrim == MetaDataItem.Format.Original &&
-                             Exiv2TagDefinitions.FloatTypes.Contains(aMetaDataDefinitionItem.TypePrim))
-                    {
-                        dataTable.Columns.Add(aMetaDataDefinitionItem.KeyPrim, System.Type.GetType("System.Decimal"));
-                    }
-                    else if (aMetaDataDefinitionItem.FormatPrim == MetaDataItem.Format.Original &&
-                             Exiv2TagDefinitions.IntegerTypes.Contains(aMetaDataDefinitionItem.TypePrim))
-                    {
-                        dataTable.Columns.Add(aMetaDataDefinitionItem.KeyPrim, System.Type.GetType("System.Int32"));
-                    }
-                    else
-                    {
-                        dataTable.Columns.Add(aMetaDataDefinitionItem.KeyPrim, System.Type.GetType("System.String"));
-                    }
-                }
-
+                getMetaDataDefinitionsForFindAndCreateDataTable();
                 // throw (new Exception("ExceptionTest in BackgroundWorker"));
 
                 // get arraylist with needed keys
@@ -920,14 +904,14 @@ namespace QuickImageComment
                     else
                     {
                         // ProgressPercentage is used as case indication for updating mask
-                        // progress is determined in backgroundWorker1_ProgressChanged using exportedCount
+                        // progress is determined in backgroundWorkerInit_ProgressChanged using exportedCount
                         worker.ReportProgress(1);
                     }
                 }
             }
         }
 
-        private void backgroundWorker1_ProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)
+        private void backgroundWorkerInit_ProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)
         {
             TimeSpan timeDifference1;
             TimeSpan timeDifference2;
@@ -971,7 +955,7 @@ namespace QuickImageComment
             }
         }
 
-        private void backgroundWorker1_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
+        private void backgroundWorkerInit_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
         {
             if (e.Cancelled == true)
             {
@@ -1007,6 +991,101 @@ namespace QuickImageComment
             enableDisableControlsForReadFolder(true);
 
             this.Cursor = OldCursor;
+            Refresh();
+        }
+
+        private void backgroundWorkerUpdate_DoWork(object sender, System.ComponentModel.DoWorkEventArgs doWorkEventArgs)
+        {
+            ExtendedImage extendedImage;
+            System.IO.FileInfo theFileInfo;
+            object[] findSpec = new object[1];
+
+            System.ComponentModel.BackgroundWorker worker = sender as System.ComponentModel.BackgroundWorker;
+
+            // get all files including files in subfolders
+            GeneralUtilities.addImageFilesFromFolderToListRecursively(FolderName, ImageFiles, worker, doWorkEventArgs);
+
+            progressPanel1.init(ImageFiles.Count);
+
+            startTime2 = DateTime.Now;
+
+            lock (LockDataTable)
+            {
+                // get arraylist with needed keys
+                ArrayList neededKeys = ConfigDefinition.getNeededKeysIncludingReferences(MetaDataDefinitionsForFind);
+
+                // handle deleted files
+                ArrayList RowsToDelete = new ArrayList();
+                foreach (DataRow row in dataTable.Rows)
+                {
+                    if (!ImageFiles.Contains((string)row["FileName"]))
+                    {
+                        RowsToDelete.Add(row);
+                    }
+                    if (worker.CancellationPending == true)
+                    {
+                        doWorkEventArgs.Cancel = true;
+                        break;
+                    }
+                }
+                foreach (DataRow row in RowsToDelete)
+                {
+                    row.Delete();
+                    if (worker.CancellationPending == true)
+                    {
+                        doWorkEventArgs.Cancel = true;
+                        break;
+                    }
+                }
+
+                // handle new or changed files
+                foreach (string FullFileName in ImageFiles)
+                {
+                    theFileInfo = new System.IO.FileInfo(FullFileName);
+                    findSpec[0] = FullFileName;
+                    DataRow row = dataTable.Rows.Find(findSpec);
+                    if (row == null || (DateTime)row["Modified"] < theFileInfo.LastWriteTime)
+                    {
+                        // new file or file was updated since table was filled
+                        extendedImage = new ExtendedImage(FullFileName, ConfigDefinition.getNeededKeysIncludingReferences(MetaDataDefinitionsForFind));
+                        addOrUpdateRow(extendedImage);
+                    }
+
+                    if (worker.CancellationPending == true)
+                    {
+                        doWorkEventArgs.Cancel = true;
+                        break;
+                    }
+                }
+            }
+        }
+
+        private void backgroundWorkerUpdate_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
+        {
+            if (e.Cancelled == true)
+            {
+                dataTable = null;
+                setControlsDependingOnDataTable();
+            }
+            else if (e.Error != null)
+            {
+                // escalate exception - only inner exception is relevant
+                throw (new Exception("", e.Error));
+            }
+            else
+            {
+                if (checkBoxShowDataTable.Checked)
+                {
+                    showDataTableContent();
+                }
+
+                if (formFindReadErrors.dataGridView1.RowCount > 0)
+                {
+                    formFindReadErrors.Show();
+                }
+            }
+            dynamicLabelScanInformation.Text = "";
+            dynamicLabelScanInformation.Visible = false;
             Refresh();
         }
         #endregion
@@ -1159,6 +1238,7 @@ namespace QuickImageComment
             {
                 ConfigDefinition.setCfgUserString(ConfigDefinition.enumCfgUserString.LastGeoDataItemForFind, lastGeoDataItemForFind.ToString());
             }
+            ConfigDefinition.setCfgUserBool(ConfigDefinition.enumCfgUserBool.SaveFindDataTable, checkBoxSaveFindDataTable.Checked);
         }
 
         private void numericUpDownGpsRange_ValueChanged(object sender, EventArgs e)
@@ -1190,7 +1270,7 @@ namespace QuickImageComment
                 lock (LockDataTable)
                 {
                     string fullFileName = extendedImage.getImageFileName();
-                    if (fullFileName.StartsWith(dataTable.TableName))
+                    if (fullFileName.StartsWith((string)dataTable.ExtendedProperties["Folder"]))
                     {
                         object[] findSpec = new object[1];
                         findSpec[0] = fullFileName;
@@ -1215,7 +1295,7 @@ namespace QuickImageComment
         // add or update a row with file name
         public static void addOrUpdateRow(string fullFileName)
         {
-            if (dataTable != null && fullFileName.StartsWith(dataTable.TableName))
+            if (dataTable != null && fullFileName.StartsWith((string)dataTable.ExtendedProperties["Folder"]))
             {
                 try
                 {
@@ -1234,7 +1314,7 @@ namespace QuickImageComment
             {
                 lock (LockDataTable)
                 {
-                    if (fullFileName.StartsWith(dataTable.TableName))
+                    if (fullFileName.StartsWith((string)dataTable.ExtendedProperties["Folder"]))
                     {
                         object[] findSpec = new object[1];
                         findSpec[0] = fullFileName;
@@ -1283,9 +1363,60 @@ namespace QuickImageComment
             }
         }
 
+        // create the data table based on meta data configuration
+        private void getMetaDataDefinitionsForFindAndCreateDataTable()
+        {
+            bool signedLatFound = false;
+            bool signedLonFound = false;
+
+            MetaDataDefinitionsForFind = new ArrayList(ConfigDefinition.getMetaDataDefinitions(ConfigDefinition.enumMetaDataGroup.MetaDataDefForFind));
+            // check if latitude and longitude are included. if not: add
+            foreach (MetaDataDefinitionItem aMetaDataDefinitionItem in MetaDataDefinitionsForFind)
+            {
+                if (aMetaDataDefinitionItem.KeyPrim.Equals("Image.GPSsignedLatitude")) signedLatFound = true;
+                if (aMetaDataDefinitionItem.KeyPrim.Equals("Image.GPSsignedLongitude")) signedLonFound = true;
+            }
+            if (!signedLatFound) MetaDataDefinitionsForFind.Add(new MetaDataDefinitionItem("Image.GPSsignedLatitude", "Image.GPSsignedLatitude"));
+            if (!signedLonFound) MetaDataDefinitionsForFind.Add(new MetaDataDefinitionItem("Image.GPSsignedLongitude", "Image.GPSsignedLongitude"));
+
+            dataTable = new DataTable(dataTableName);
+            dataTable.ExtendedProperties.Add("Folder", FolderName);
+            dataTable.Columns.Add("FileName", System.Type.GetType("System.String"));
+            dataTable.Columns.Add("Modified", System.Type.GetType("System.DateTime"));
+            var primaryKey = new DataColumn[1];
+            primaryKey[0] = dataTable.Columns[0];
+            dataTable.PrimaryKey = primaryKey;
+
+            // add columns for cofigured properties
+            foreach (MetaDataDefinitionItem aMetaDataDefinitionItem in MetaDataDefinitionsForFind)
+            {
+                if (GeneralUtilities.isDateProperty(aMetaDataDefinitionItem.KeyPrim, aMetaDataDefinitionItem.TypePrim))
+                {
+                    dataTable.Columns.Add(aMetaDataDefinitionItem.KeyPrim, System.Type.GetType("System.DateTime"));
+                }
+                else if (aMetaDataDefinitionItem.FormatPrim == MetaDataItem.Format.Original &&
+                         Exiv2TagDefinitions.FloatTypes.Contains(aMetaDataDefinitionItem.TypePrim))
+                {
+                    dataTable.Columns.Add(aMetaDataDefinitionItem.KeyPrim, System.Type.GetType("System.Decimal"));
+                }
+                else if (aMetaDataDefinitionItem.FormatPrim == MetaDataItem.Format.Original &&
+                         Exiv2TagDefinitions.IntegerTypes.Contains(aMetaDataDefinitionItem.TypePrim))
+                {
+                    dataTable.Columns.Add(aMetaDataDefinitionItem.KeyPrim, System.Type.GetType("System.Int32"));
+                }
+                else
+                {
+                    dataTable.Columns.Add(aMetaDataDefinitionItem.KeyPrim, System.Type.GetType("System.String"));
+                }
+            }
+        }
+
         // fill row with data from extended image
         private static void fillDataTableRow(DataRow row, ExtendedImage extendedImage, FormFindReadErrors formFindReadErrors)
         {
+            System.IO.FileInfo theFileInfo = new System.IO.FileInfo(extendedImage.getImageFileName());
+            row["Modified"] = theFileInfo.LastWriteTime;
+
             foreach (MetaDataDefinitionItem aMetaDataDefinitionItem in MetaDataDefinitionsForFind)
             {
                 string stringValue = extendedImage.getMetaDataValuesStringByDefinition(aMetaDataDefinitionItem).Trim();
@@ -1445,6 +1576,73 @@ namespace QuickImageComment
         {
             dataGridView1.DataSource = null;
             dataGridView1.Visible = false;
+        }
+        #endregion
+
+        //*****************************************************************
+        #region store and reload data table
+        //*****************************************************************
+        internal void storeDataTable()
+        {
+            if (checkBoxSaveFindDataTable.Checked)
+            {
+                if (dataTable != null && dataTable.Rows.Count > 0)
+                {
+                    string fileName = ConfigDefinition.getIniPath() + dataTableFileName;
+                    dataTable.WriteXml(fileName, System.Data.XmlWriteMode.WriteSchema);
+                }
+            }
+        }
+
+        private void loadDataTable()
+        {
+            string fileName = ConfigDefinition.getIniPath() + dataTableFileName;
+            if (System.IO.File.Exists(fileName))
+            {
+                getMetaDataDefinitionsForFindAndCreateDataTable();
+
+                try
+                {
+                    // create table using schema in XML file and compare columns
+                    DataTable checkTable = new DataTable(dataTableName);
+                    checkTable.ReadXmlSchema(fileName);
+
+                    if (checkTable.Columns.Count != dataTable.Columns.Count)
+                    {
+                        throw new Exception(LangCfg.getText(LangCfg.Others.deviationFindDataTable));
+                    }
+                    for (int ii = 0; ii < checkTable.Columns.Count; ii++)
+                    {
+                        if (!checkTable.Columns[ii].ColumnName.Equals(dataTable.Columns[ii].ColumnName) ||
+                            !checkTable.Columns[ii].DataType.Equals(dataTable.Columns[ii].DataType))
+                        {
+                            throw new Exception(LangCfg.getText(LangCfg.Others.deviationFindDataTable));
+                        }
+                    }
+                    // columns are identical, load data
+                    dataTable.ReadXml(fileName);
+                    // copy folder name from table schema read from XML file
+                    dataTable.ExtendedProperties["Folder"] = checkTable.ExtendedProperties["Folder"];
+                    FolderName = (string)dataTable.ExtendedProperties["Folder"];
+                    dynamicLabelFolder.Text = FolderName;
+                    dynamicLabelScanInformation.Text = LangCfg.getText(LangCfg.Others.findDataLoaded);
+                    dynamicLabelScanInformation.Visible = true;
+
+                    // start backgroundworker to update dataTable
+                    if (backgroundWorkerUpdate.IsBusy != true)
+                    {
+                        ImageFiles = new ArrayList();
+                        formFindReadErrors = new FormFindReadErrors();
+                        // Start the asynchronous operation.
+                        backgroundWorkerUpdate.RunWorkerAsync();
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    GeneralUtilities.message(LangCfg.Message.W_findDataTableNotRead, ex.Message);
+                }
+            }
         }
         #endregion
 
