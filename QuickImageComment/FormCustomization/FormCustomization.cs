@@ -585,6 +585,10 @@ namespace FormCustomization
             Keys theShortcut = Keys.None;
             if (e.KeyData.Equals(Keys.Delete) || e.KeyData.Equals(Keys.Back))
             {
+                Component ChangeableComponent = (Component)treeViewComponents.SelectedNode.Tag;
+                theCustomizer.setPropertyByObjectAndSaveSettings(ChangeableComponent, Customizer.enumProperty.Shortcut,
+                  theShortcut, theCustomizer.getActualZoomFactor(ChangeableForm));
+
                 textBoxShortcut.Tag = theShortcut;
                 textBoxShortcut.Text = "";
             }
