@@ -165,7 +165,8 @@ namespace QuickImageComment
             E_wrongDateTimeInTag,
             W_invalidCoordinates,
             W_fileNotFound,
-            W_findDataTableNotRead
+            W_findDataTableNotRead,
+            W_MetaDate1Empty
         }
 
         public enum Others

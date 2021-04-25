@@ -1379,10 +1379,20 @@ namespace QuickImageComment
 
             MetaDataDefinitionsForFind = new ArrayList(ConfigDefinition.getMetaDataDefinitions(ConfigDefinition.enumMetaDataGroup.MetaDataDefForFind));
             // check if latitude and longitude are included. if not: add
-            foreach (MetaDataDefinitionItem aMetaDataDefinitionItem in MetaDataDefinitionsForFind)
+            for (int ii = 0; ii < MetaDataDefinitionsForFind.Count; ii++)
             {
-                if (aMetaDataDefinitionItem.KeyPrim.Equals("Image.GPSsignedLatitude")) signedLatFound = true;
-                if (aMetaDataDefinitionItem.KeyPrim.Equals("Image.GPSsignedLongitude")) signedLonFound = true;
+                MetaDataDefinitionItem aMetaDataDefinitionItem = (MetaDataDefinitionItem)MetaDataDefinitionsForFind[ii];
+                if (aMetaDataDefinitionItem.KeyPrim.Equals(""))
+                {
+                    // if primary key is not defined, it will cause a crash later
+                    // checked here although it is now checked in FormMetaDataDefinition but could have been configured before
+                    MetaDataDefinitionsForFind.RemoveAt(ii);
+                }
+                else
+                {
+                    if (aMetaDataDefinitionItem.KeyPrim.Equals("Image.GPSsignedLatitude")) signedLatFound = true;
+                    if (aMetaDataDefinitionItem.KeyPrim.Equals("Image.GPSsignedLongitude")) signedLonFound = true;
+                }
             }
             if (!signedLatFound) MetaDataDefinitionsForFind.Add(new MetaDataDefinitionItem("Image.GPSsignedLatitude", "Image.GPSsignedLatitude"));
             if (!signedLonFound) MetaDataDefinitionsForFind.Add(new MetaDataDefinitionItem("Image.GPSsignedLongitude", "Image.GPSsignedLongitude"));

@@ -1335,6 +1335,12 @@ namespace QuickImageComment
                 textBoxName.Select();
                 return false;
             }
+            if (textBoxMetaDatum1.Text.Trim().Length == 0)
+            {
+                GeneralUtilities.message(LangCfg.Message.W_MetaDate1Empty);
+                textBoxMetaDatum1.Select();
+                return false;
+            }
             if (nameOfTagNotOk(textBoxMetaDatum1))
             {
                 textBoxMetaDatum1.Select();
