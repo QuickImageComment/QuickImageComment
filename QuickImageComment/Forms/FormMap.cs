@@ -48,6 +48,7 @@ namespace QuickImageComment
             theUserControlMap.isInOwnWindow = true;
             panel1.Controls.Add(theUserControlMap.panel1);
             theUserControlMap.adjustSize(panel1.Size);
+            buttonClose.Select();
             CustomizationInterface.setFormToCustomizedValues(this);
             LangCfg.translateControlTexts(this);
 
@@ -86,7 +87,7 @@ namespace QuickImageComment
 
         private void buttonHelp_Click(object sender, EventArgs e)
         {
-            GeneralUtilities.ShowHelp(this, "FormMap.htm");
+            GeneralUtilities.ShowHelp(this, "FormMap");
         }
 
         //*****************************************************************
@@ -97,6 +98,14 @@ namespace QuickImageComment
             saveConfigDefinitions();
             // set UserControl to null, as existance is checked for updates of content
             MainMaskInterface.setUserControlMap(null);
+        }
+
+        private void FormMap_KeyDown(object sender, KeyEventArgs theKeyEventArgs)
+        {
+            if (theKeyEventArgs.KeyCode == Keys.F1)
+            {
+                buttonHelp_Click(sender, null);
+            }
         }
 
         //*****************************************************************

@@ -91,7 +91,18 @@ namespace QuickImageComment
 
         private void buttonHelp_Click(object sender, EventArgs e)
         {
-            GeneralUtilities.ShowHelp(this, "FormPredefinedComments.htm");
+            GeneralUtilities.ShowHelp(this, "FormPredefinedComments");
+        }
+
+        //*****************************************************************
+        // Eventhandler
+        //*****************************************************************
+        private void FormPredefinedComments_KeyDown(object sender, KeyEventArgs theKeyEventArgs)
+        {
+            if (theKeyEventArgs.KeyCode == Keys.F1)
+            {
+                buttonHelp_Click(sender, null);
+            }
         }
     }
 }

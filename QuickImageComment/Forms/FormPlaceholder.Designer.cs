@@ -634,10 +634,12 @@ namespace QuickImageComment
             this.Controls.Add(this.listViewTags);
             this.Controls.Add(this.checkBoxOnlyInImage);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.MinimumSize = new System.Drawing.Size(840, 546);
             this.Name = "FormPlaceholder";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Platzhalter einfügen / bearbeiten für ...";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FormPlaceholder_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFrom)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLength)).EndInit();
             this.ResumeLayout(false);

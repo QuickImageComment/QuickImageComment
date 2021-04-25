@@ -823,7 +823,7 @@ namespace QuickImageComment
         // button help
         private void buttonHelp_Click(object sender, EventArgs e)
         {
-            GeneralUtilities.ShowHelp(this, "FormFind.htm");
+            GeneralUtilities.ShowHelp(this, "FormFind");
         }
 
         // button read folder
@@ -1239,6 +1239,14 @@ namespace QuickImageComment
                 ConfigDefinition.setCfgUserString(ConfigDefinition.enumCfgUserString.LastGeoDataItemForFind, lastGeoDataItemForFind.ToString());
             }
             ConfigDefinition.setCfgUserBool(ConfigDefinition.enumCfgUserBool.SaveFindDataTable, checkBoxSaveFindDataTable.Checked);
+        }
+
+        private void FormFind_KeyDown(object sender, KeyEventArgs theKeyEventArgs)
+        {
+            if (theKeyEventArgs.KeyCode == Keys.F1)
+            {
+                buttonHelp_Click(sender, null);
+            }
         }
 
         private void numericUpDownGpsRange_ValueChanged(object sender, EventArgs e)

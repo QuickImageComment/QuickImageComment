@@ -699,6 +699,19 @@ namespace QuickImageComment
         // Event Handler
         //*****************************************************************
         #region Event Handler
+
+        // key event handler for mask
+        private void FormQuickImageComment_KeyDown(object sender, KeyEventArgs theKeyEventArgs)
+        {
+            if (theKeyEventArgs.KeyCode == Keys.F11)
+            {
+                if (this.WindowState == FormWindowState.Normal)
+                    this.WindowState = FormWindowState.Maximized;
+                else
+                    this.WindowState = FormWindowState.Normal;
+            }
+        }
+
         // key event handler for input controls changeable fields
         private void inputControlChangeableField_KeyDown(object sender, KeyEventArgs theKeyEventArgs)
         {
@@ -1018,6 +1031,10 @@ namespace QuickImageComment
         // close event handler for main form, triggered by any action closing the form
         private void FormQuickImageComment_FormClosing(object sender, FormClosingEventArgs e)
         {
+#if APPCENTER
+            if (Program.AppCenterUsable) Microsoft.AppCenter.Analytics.Analytics.TrackEvent("Closing start");
+#endif
+
             if (continueAfterCheckForChangesAndOptionalSaving(theUserControlFiles.listViewFiles.SelectedIndicesNew))
             {
                 // cancel may be set to true before due to validation error
@@ -1111,6 +1128,9 @@ namespace QuickImageComment
 
                 GeneralUtilities.closeDebugFile();
                 GeneralUtilities.closeTraceFile();
+#if APPCENTER
+                if (Program.AppCenterUsable) Microsoft.AppCenter.Analytics.Analytics.TrackEvent("Closing finish");
+#endif
             }
             else
             {
@@ -2786,7 +2806,7 @@ namespace QuickImageComment
         // show help
         private void toolStripMenuItemHelp2_Click(object sender, EventArgs e)
         {
-            GeneralUtilities.ShowHelp(this, "FormQuickImageComment.htm");
+            GeneralUtilities.ShowHelp(this, "FormQuickImageComment");
         }
 
         #endregion

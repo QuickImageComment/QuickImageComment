@@ -56,11 +56,11 @@ namespace QuickImageComment
             this.buttonLicenses = new System.Windows.Forms.Button();
             this.labelContact = new System.Windows.Forms.Label();
             this.textBoxLicenceEnglish = new System.Windows.Forms.TextBox();
-            this.linkLabelMail = new System.Windows.Forms.LinkLabel();
-            this.linkLabelHomePage = new System.Windows.Forms.LinkLabel();
+            this.fixedLinkLabelMail = new System.Windows.Forms.LinkLabel();
+            this.fixedLinkLabelHomePage = new System.Windows.Forms.LinkLabel();
             this.textBoxQuickImageCommentVersion = new System.Windows.Forms.TextBox();
             this.textBoxExiv2CdeclVersion = new System.Windows.Forms.TextBox();
-            this.linkLabelGitHub = new System.Windows.Forms.LinkLabel();
+            this.fixedLinkLabelGitHub = new System.Windows.Forms.LinkLabel();
             this.labelGitHub = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
@@ -178,27 +178,27 @@ namespace QuickImageComment
             this.textBoxLicenceEnglish.TabIndex = 18;
             this.textBoxLicenceEnglish.Text = resources.GetString("textBoxLicenceEnglish.Text");
             // 
-            // linkLabelMail
+            // fixedLinkLabelMail
             // 
-            this.linkLabelMail.AutoSize = true;
-            this.linkLabelMail.Location = new System.Drawing.Point(295, 51);
-            this.linkLabelMail.Name = "linkLabelMail";
-            this.linkLabelMail.Size = new System.Drawing.Size(148, 13);
-            this.linkLabelMail.TabIndex = 21;
-            this.linkLabelMail.TabStop = true;
-            this.linkLabelMail.Text = "mail@quickimagecomment.de";
-            this.linkLabelMail.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelMail_LinkClicked);
+            this.fixedLinkLabelMail.AutoSize = true;
+            this.fixedLinkLabelMail.Location = new System.Drawing.Point(295, 51);
+            this.fixedLinkLabelMail.Name = "fixedLinkLabelMail";
+            this.fixedLinkLabelMail.Size = new System.Drawing.Size(148, 13);
+            this.fixedLinkLabelMail.TabIndex = 21;
+            this.fixedLinkLabelMail.TabStop = true;
+            this.fixedLinkLabelMail.Text = "mail@quickimagecomment.de";
+            this.fixedLinkLabelMail.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelMail_LinkClicked);
             // 
-            // linkLabelHomePage
+            // fixedLinkLabelHomePage
             // 
-            this.linkLabelHomePage.AutoSize = true;
-            this.linkLabelHomePage.Location = new System.Drawing.Point(481, 51);
-            this.linkLabelHomePage.Name = "linkLabelHomePage";
-            this.linkLabelHomePage.Size = new System.Drawing.Size(146, 13);
-            this.linkLabelHomePage.TabIndex = 22;
-            this.linkLabelHomePage.TabStop = true;
-            this.linkLabelHomePage.Text = "www.quickimagecomment.de";
-            this.linkLabelHomePage.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelHomePage_LinkClicked);
+            this.fixedLinkLabelHomePage.AutoSize = true;
+            this.fixedLinkLabelHomePage.Location = new System.Drawing.Point(481, 51);
+            this.fixedLinkLabelHomePage.Name = "fixedLinkLabelHomePage";
+            this.fixedLinkLabelHomePage.Size = new System.Drawing.Size(146, 13);
+            this.fixedLinkLabelHomePage.TabIndex = 22;
+            this.fixedLinkLabelHomePage.TabStop = true;
+            this.fixedLinkLabelHomePage.Text = "www.quickimagecomment.de";
+            this.fixedLinkLabelHomePage.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelHomePage_LinkClicked);
             // 
             // textBoxQuickImageCommentVersion
             // 
@@ -220,16 +220,16 @@ namespace QuickImageComment
             this.textBoxExiv2CdeclVersion.TabIndex = 24;
             this.textBoxExiv2CdeclVersion.Text = "Version";
             // 
-            // linkLabelGitHub
+            // fixedLinkLabelGitHub
             // 
-            this.linkLabelGitHub.AutoSize = true;
-            this.linkLabelGitHub.Location = new System.Drawing.Point(520, 71);
-            this.linkLabelGitHub.Name = "linkLabelGitHub";
-            this.linkLabelGitHub.Size = new System.Drawing.Size(40, 13);
-            this.linkLabelGitHub.TabIndex = 25;
-            this.linkLabelGitHub.TabStop = true;
-            this.linkLabelGitHub.Text = "GitHub";
-            this.linkLabelGitHub.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelGitHub_LinkClicked);
+            this.fixedLinkLabelGitHub.AutoSize = true;
+            this.fixedLinkLabelGitHub.Location = new System.Drawing.Point(520, 71);
+            this.fixedLinkLabelGitHub.Name = "fixedLinkLabelGitHub";
+            this.fixedLinkLabelGitHub.Size = new System.Drawing.Size(40, 13);
+            this.fixedLinkLabelGitHub.TabIndex = 25;
+            this.fixedLinkLabelGitHub.TabStop = true;
+            this.fixedLinkLabelGitHub.Text = "GitHub";
+            this.fixedLinkLabelGitHub.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelGitHub_LinkClicked);
             // 
             // labelGitHub
             // 
@@ -246,11 +246,11 @@ namespace QuickImageComment
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(645, 728);
             this.Controls.Add(this.labelGitHub);
-            this.Controls.Add(this.linkLabelGitHub);
+            this.Controls.Add(this.fixedLinkLabelGitHub);
             this.Controls.Add(this.textBoxExiv2CdeclVersion);
             this.Controls.Add(this.textBoxQuickImageCommentVersion);
-            this.Controls.Add(this.linkLabelHomePage);
-            this.Controls.Add(this.linkLabelMail);
+            this.Controls.Add(this.fixedLinkLabelHomePage);
+            this.Controls.Add(this.fixedLinkLabelMail);
             this.Controls.Add(this.textBoxLicenceEnglish);
             this.Controls.Add(this.labelContact);
             this.Controls.Add(this.buttonLicenses);
@@ -287,11 +287,11 @@ namespace QuickImageComment
     private System.Windows.Forms.Button buttonLicenses;
     private System.Windows.Forms.Label labelContact;
     private System.Windows.Forms.TextBox textBoxLicenceEnglish;
-        private System.Windows.Forms.LinkLabel linkLabelMail;
-        private System.Windows.Forms.LinkLabel linkLabelHomePage;
+        private System.Windows.Forms.LinkLabel fixedLinkLabelMail;
+        private System.Windows.Forms.LinkLabel fixedLinkLabelHomePage;
         private System.Windows.Forms.TextBox textBoxQuickImageCommentVersion;
         private System.Windows.Forms.TextBox textBoxExiv2CdeclVersion;
-        private System.Windows.Forms.LinkLabel linkLabelGitHub;
+        private System.Windows.Forms.LinkLabel fixedLinkLabelGitHub;
         private System.Windows.Forms.Label labelGitHub;
     }
 }

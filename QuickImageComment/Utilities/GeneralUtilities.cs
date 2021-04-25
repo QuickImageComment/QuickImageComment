@@ -237,7 +237,7 @@ namespace QuickImageComment
             string helpFile = LangCfg.getHelpFile();
             if (System.IO.File.Exists(helpFile))
             {
-                Help.ShowHelp(theForm, "file://" + helpFile, HelpNavigator.Topic, topic);
+                Help.ShowHelp(theForm, "file://" + helpFile, HelpNavigator.Topic, topic + ".html");
             }
             else
             {

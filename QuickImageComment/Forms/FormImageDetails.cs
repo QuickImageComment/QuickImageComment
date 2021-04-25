@@ -125,7 +125,7 @@ namespace QuickImageComment
         // Help
         private void buttonHelp_Click(object sender, EventArgs e)
         {
-            GeneralUtilities.ShowHelp(this, "FormImageDetails.htm");
+            GeneralUtilities.ShowHelp(this, "FormImageDetails");
         }
 
         //*****************************************************************
@@ -144,6 +144,14 @@ namespace QuickImageComment
 
             }
             base.FormPrevNext_FormClosing(sender, e);
+        }
+
+        private void FormImageDetails_KeyDown(object sender, KeyEventArgs theKeyEventArgs)
+        {
+            if (theKeyEventArgs.KeyCode == Keys.F1)
+            {
+                buttonHelp_Click(sender, null);
+            }
         }
 
         //*****************************************************************

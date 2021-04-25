@@ -1892,9 +1892,11 @@ namespace QuickImageComment
             this.Controls.Add(this.buttonStart);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.Name = "FormRename";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Dateien umbenennen";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FormRename_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRunningNumberMinLength)).EndInit();
             this.groupBoxRunningNumber.ResumeLayout(false);
             this.groupBoxRunningNumber.PerformLayout();

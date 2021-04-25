@@ -88,9 +88,11 @@
             this.Controls.Add(this.buttonHelp);
             this.Controls.Add(this.panel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.Name = "FormMap";
             this.Text = "Karte";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMap_FormClosing);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FormMap_KeyDown);
             this.ResumeLayout(false);
 
         }

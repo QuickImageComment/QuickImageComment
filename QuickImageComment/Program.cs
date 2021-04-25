@@ -260,6 +260,9 @@ namespace QuickImageComment
             //StartupPerformance.measure("Program after theFormQuickImageComment.init");
             Program.StartupPerformance.log(ConfigDefinition.enumConfigFlags.PerformanceStartup);
 
+#if APPCENTER
+            if (Program.AppCenterUsable) Microsoft.AppCenter.Analytics.Analytics.TrackEvent("Startup finished");
+#endif
             Application.Run(theFormQuickImageComment);
 
             //sometimes when ending the program, errors occurding as objects were no longer accessible

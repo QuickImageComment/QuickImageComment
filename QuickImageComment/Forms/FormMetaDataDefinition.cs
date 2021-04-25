@@ -532,6 +532,14 @@ namespace QuickImageComment
             return;
         }
 
+        private void FormMetaDataDefinition_KeyDown(object sender, KeyEventArgs theKeyEventArgs)
+        {
+            if (theKeyEventArgs.KeyCode == Keys.F1)
+            {
+                buttonHelp_Click(sender, null);
+            }
+        }
+
         // event handler when textBoxMetaDatum1 changes
         private void textBoxMetaDatum1_TextChanged(object sender, EventArgs e)
         {
@@ -944,7 +952,7 @@ namespace QuickImageComment
         // help
         private void buttonHelp_Click(object sender, EventArgs e)
         {
-            GeneralUtilities.ShowHelp(this, "FormMetaDataDefinition.htm");
+            GeneralUtilities.ShowHelp(this, "FormMetaDataDefinition");
         }
 
         //-------------------------------------------------------------------------

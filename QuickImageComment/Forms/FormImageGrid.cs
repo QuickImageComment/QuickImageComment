@@ -137,7 +137,7 @@ namespace QuickImageComment
 
         private void buttonHelp_Click(object sender, EventArgs e)
         {
-            GeneralUtilities.ShowHelp(this, "FormImageGrid.htm");
+            GeneralUtilities.ShowHelp(this, "FormImageGrid");
         }
 
         private void saveGridDefinitions()
@@ -191,6 +191,14 @@ namespace QuickImageComment
             {
                 saveGridDefinitions();
                 MainMaskInterface.refreshImageGrid();
+            }
+        }
+
+        private void FormImageGrid_KeyDown(object sender, KeyEventArgs theKeyEventArgs)
+        {
+            if (theKeyEventArgs.KeyCode == Keys.F1)
+            {
+                buttonHelp_Click(sender, null);
             }
         }
 

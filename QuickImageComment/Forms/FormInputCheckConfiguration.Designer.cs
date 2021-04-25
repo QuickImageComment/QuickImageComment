@@ -151,9 +151,11 @@
             this.Controls.Add(this.buttonAbort);
             this.Controls.Add(this.buttonOK);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.Name = "FormInputCheckConfiguration";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "FormInputCheckConfiguration";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FormInputCheckConfiguration_KeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();
 

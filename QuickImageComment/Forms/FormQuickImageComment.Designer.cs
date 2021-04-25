@@ -211,6 +211,7 @@ namespace QuickImageComment
             this.ToolStripMenuItemWebPageTutorials = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItemWebPageDownload = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItemWebPageChangeHistory = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemGitHub = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemHelp2 = new System.Windows.Forms.ToolStripMenuItem();
             this.BottomToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.TopToolStripPanel = new System.Windows.Forms.ToolStripPanel();
@@ -245,7 +246,6 @@ namespace QuickImageComment
             this.toolStripButtonPredefinedKeyWords = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator14 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButtonFind = new System.Windows.Forms.ToolStripButton();
-            this.toolStripMenuItemGitHub = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer12)).BeginInit();
             this.splitContainer12.Panel1.SuspendLayout();
             this.splitContainer12.Panel2.SuspendLayout();
@@ -1199,10 +1199,10 @@ namespace QuickImageComment
             this.toolStripMenuItemHelp});
             this.MenuStrip1.Location = new System.Drawing.Point(0, 0);
             this.MenuStrip1.Name = "MenuStrip1";
+            this.MenuStrip1.ShowItemToolTips = true;
             this.MenuStrip1.Size = new System.Drawing.Size(887, 24);
             this.MenuStrip1.TabIndex = 1;
             this.MenuStrip1.Text = "menuStrip1";
-            this.MenuStrip1.ShowItemToolTips = true;
             // 
             // toolStripMenuItemFile
             // 
@@ -1930,12 +1930,20 @@ namespace QuickImageComment
             this.ToolStripMenuItemWebPageChangeHistory.Text = "Änderungshistorie";
             this.ToolStripMenuItemWebPageChangeHistory.Click += new System.EventHandler(this.ToolStripMenuItemWebPageChangeHistory_Click);
             // 
+            // toolStripMenuItemGitHub
+            // 
+            this.toolStripMenuItemGitHub.Name = "toolStripMenuItemGitHub";
+            this.toolStripMenuItemGitHub.Size = new System.Drawing.Size(213, 22);
+            this.toolStripMenuItemGitHub.Text = "GitHub";
+            this.toolStripMenuItemGitHub.Click += new System.EventHandler(this.toolStripMenuItemGitHub_Click);
+            // 
             // toolStripMenuItemHelp2
             // 
             this.toolStripMenuItemHelp2.Name = "toolStripMenuItemHelp2";
             this.toolStripMenuItemHelp2.Size = new System.Drawing.Size(213, 22);
             this.toolStripMenuItemHelp2.Text = "Hilfe";
             this.toolStripMenuItemHelp2.Click += new System.EventHandler(this.toolStripMenuItemHelp2_Click);
+            this.toolStripMenuItemHelp2.ShortcutKeys = System.Windows.Forms.Keys.F1;
             // 
             // BottomToolStripPanel
             // 
@@ -2308,13 +2316,6 @@ namespace QuickImageComment
             this.toolStripButtonFind.ToolTipText = "Suche über Eigenschaften";
             this.toolStripButtonFind.Click += new System.EventHandler(this.toolStripMenuItemFind_Click);
             // 
-            // toolStripMenuItemGitHub
-            // 
-            this.toolStripMenuItemGitHub.Name = "toolStripMenuItemGitHub";
-            this.toolStripMenuItemGitHub.Size = new System.Drawing.Size(213, 22);
-            this.toolStripMenuItemGitHub.Text = "GitHub";
-            this.toolStripMenuItemGitHub.Click += new System.EventHandler(this.toolStripMenuItemGitHub_Click);
-            // 
             // FormQuickImageComment
             // 
             this.AllowDrop = true;
@@ -2335,6 +2336,7 @@ namespace QuickImageComment
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormQuickImageComment_FormClosing);
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.FormQuickImageComment_DragDrop);
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.FormQuickImageComment_DragEnter);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FormQuickImageComment_KeyDown);
             this.splitContainer12.Panel1.ResumeLayout(false);
             this.splitContainer12.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer12)).EndInit();

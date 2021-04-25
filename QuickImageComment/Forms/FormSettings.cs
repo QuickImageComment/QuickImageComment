@@ -235,12 +235,12 @@ namespace QuickImageComment
 
         private void buttonHelp_Click(object sender, EventArgs e)
         {
-            GeneralUtilities.ShowHelp(this, "FormSettings.htm");
+            GeneralUtilities.ShowHelp(this, "FormSettings");
         }
 
         private void linkLabelAppCenter_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            GeneralUtilities.ShowHelp(this, "AppCenter.htm");
+            GeneralUtilities.ShowHelp(this, "AppCenter");
         }
 
         private void checkBoxSaveTags_CheckedChanged(object sender, EventArgs e)
@@ -270,6 +270,14 @@ namespace QuickImageComment
             theRichTextBox.SelectionBackColor = System.Drawing.SystemColors.ControlLight;
             theRichTextBox.SelectionStart = SelStart;
             theRichTextBox.SelectionLength = SelLength;
+        }
+
+        private void FormSettings_KeyDown(object sender, KeyEventArgs theKeyEventArgs)
+        {
+            if (theKeyEventArgs.KeyCode == Keys.F1)
+            {
+                buttonHelp_Click(sender, null);
+            }
         }
     }
 }

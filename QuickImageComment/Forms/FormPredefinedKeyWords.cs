@@ -90,7 +90,18 @@ namespace QuickImageComment
 
         private void buttonHelp_Click(object sender, EventArgs e)
         {
-            GeneralUtilities.ShowHelp(this, "FormPredefinedKeyWords.htm");
+            GeneralUtilities.ShowHelp(this, "FormPredefinedKeyWords");
+        }
+
+        //*****************************************************************
+        // Eventhandler
+        //*****************************************************************
+        private void FormPredefinedKeyWords_KeyDown(object sender, KeyEventArgs theKeyEventArgs)
+        {
+            if (theKeyEventArgs.KeyCode == Keys.F1)
+            {
+                buttonHelp_Click(sender, null);
+            }
         }
     }
 }

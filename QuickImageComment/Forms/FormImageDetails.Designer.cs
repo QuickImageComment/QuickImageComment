@@ -102,8 +102,10 @@
             this.Controls.Add(this.buttonHelp);
             this.Controls.Add(this.panel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.Name = "FormImageDetails";
             this.Text = "<Bildname>";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FormImageDetails_KeyDown);
             this.ResumeLayout(false);
 
         }

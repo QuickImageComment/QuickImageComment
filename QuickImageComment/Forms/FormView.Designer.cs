@@ -107,21 +107,28 @@
             this.buttonSaveAs = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.buttonMap = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer11)).BeginInit();
             this.splitContainer11.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer12)).BeginInit();
             this.splitContainer12.Panel1.SuspendLayout();
             this.splitContainer12.Panel2.SuspendLayout();
             this.splitContainer12.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer12P1)).BeginInit();
             this.splitContainer12P1.Panel1.SuspendLayout();
             this.splitContainer12P1.Panel2.SuspendLayout();
             this.splitContainer12P1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer121)).BeginInit();
             this.splitContainer121.Panel1.SuspendLayout();
             this.splitContainer121.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1211)).BeginInit();
             this.splitContainer1211.Panel1.SuspendLayout();
             this.splitContainer1211.SuspendLayout();
             this.panelCentralInputArea.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer122)).BeginInit();
             this.splitContainer122.SuspendLayout();
             this.panelLayout.SuspendLayout();
             this.groupBoxFiles.SuspendLayout();
@@ -483,7 +490,7 @@
             this.label10.TabIndex = 3;
             this.label10.Text = "Sonstige";
             // 
-            // label9
+            // fixedLabel9
             // 
             this.fixedLabel9.AutoSize = true;
             this.fixedLabel9.Location = new System.Drawing.Point(74, 16);
@@ -492,7 +499,7 @@
             this.fixedLabel9.TabIndex = 2;
             this.fixedLabel9.Text = "XMP";
             // 
-            // label8
+            // fixedLabel8
             // 
             this.fixedLabel8.AutoSize = true;
             this.fixedLabel8.Location = new System.Drawing.Point(39, 16);
@@ -501,7 +508,7 @@
             this.fixedLabel8.TabIndex = 1;
             this.fixedLabel8.Text = "IPTC";
             // 
-            // label7
+            // fixedLabel7
             // 
             this.fixedLabel7.AutoSize = true;
             this.fixedLabel7.Location = new System.Drawing.Point(9, 16);
@@ -1085,29 +1092,38 @@
             this.Controls.Add(this.buttonCustomizeForm);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Ansicht anpassen";
             this.Activated += new System.EventHandler(this.FormView_Activated);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FormView_KeyDown);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer11)).EndInit();
             this.splitContainer11.ResumeLayout(false);
             this.splitContainer12.Panel1.ResumeLayout(false);
             this.splitContainer12.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer12)).EndInit();
             this.splitContainer12.ResumeLayout(false);
             this.splitContainer12P1.Panel1.ResumeLayout(false);
             this.splitContainer12P1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer12P1)).EndInit();
             this.splitContainer12P1.ResumeLayout(false);
             this.splitContainer121.Panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer121)).EndInit();
             this.splitContainer121.ResumeLayout(false);
             this.splitContainer1211.Panel1.ResumeLayout(false);
             this.splitContainer1211.Panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1211)).EndInit();
             this.splitContainer1211.ResumeLayout(false);
             this.panelCentralInputArea.ResumeLayout(false);
             this.panelCentralInputArea.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer122)).EndInit();
             this.splitContainer122.ResumeLayout(false);
             this.panelLayout.ResumeLayout(false);
             this.groupBoxFiles.ResumeLayout(false);

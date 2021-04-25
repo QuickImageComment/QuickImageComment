@@ -96,7 +96,7 @@ namespace QuickImageComment
             this.labelPredefinedComments2.AutoSize = true;
             this.labelPredefinedComments2.Location = new System.Drawing.Point(4, 4);
             this.labelPredefinedComments2.Name = "labelPredefinedComments2";
-            this.labelPredefinedComments2.Size = new System.Drawing.Size(410, 13);
+            this.labelPredefinedComments2.Size = new System.Drawing.Size(396, 13);
             this.labelPredefinedComments2.TabIndex = 0;
             this.labelPredefinedComments2.Text = "Format: Kategorie-Zeile=\"#<Kategorie>\", andere Zeilen sind Einträge zur Kategorie" +
     "";
@@ -135,10 +135,12 @@ namespace QuickImageComment
             this.Controls.Add(this.labelPredefinedComments2);
             this.Controls.Add(this.textBoxPredefinedComments);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.MinimumSize = new System.Drawing.Size(455, 380);
             this.Name = "FormPredefinedComments";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Vordefinierte Kommentare";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FormPredefinedComments_KeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();
 

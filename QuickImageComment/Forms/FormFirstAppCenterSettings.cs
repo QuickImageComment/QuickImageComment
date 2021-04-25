@@ -32,7 +32,7 @@ namespace QuickImageComment
 
         private void linkLabelAppCenter_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            GeneralUtilities.ShowHelp(this, "AppCenter.htm");
+            GeneralUtilities.ShowHelp(this, "AppCenter");
         }
 
         private void buttonYes_Click(object sender, EventArgs e)

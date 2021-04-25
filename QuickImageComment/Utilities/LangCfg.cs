@@ -1288,7 +1288,7 @@ namespace QuickImageComment
                     !(theControl.Name.StartsWith("fixedButton")) &&
                     !(theControl.Name.StartsWith("fixedCheckBox")) &&
                     !(theControl.Name.StartsWith("fixedLabel")) &&
-                    !(theControl.Name.StartsWith("linkLabel")) &&
+                    !(theControl.Name.StartsWith("fixedLinkLabel")) &&
                     // input control's names in configurable input area start like this ...
                     !(theControl.Name.StartsWith("System.Windows.Forms.")) &&
                     // Header of FormImageDetails is filled with image name

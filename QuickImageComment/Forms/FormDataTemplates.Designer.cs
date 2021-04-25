@@ -73,10 +73,9 @@ namespace QuickImageComment
             // buttonClose
             // 
             this.buttonClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonClose.Location = new System.Drawing.Point(388, 642);
-            this.buttonClose.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.buttonClose.Location = new System.Drawing.Point(333, 556);
             this.buttonClose.Name = "buttonClose";
-            this.buttonClose.Size = new System.Drawing.Size(115, 30);
+            this.buttonClose.Size = new System.Drawing.Size(99, 26);
             this.buttonClose.TabIndex = 3;
             this.buttonClose.Text = "Schließen";
             this.buttonClose.UseVisualStyleBackColor = true;
@@ -85,10 +84,9 @@ namespace QuickImageComment
             // buttonCustomizeForm
             // 
             this.buttonCustomizeForm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonCustomizeForm.Location = new System.Drawing.Point(9, 642);
-            this.buttonCustomizeForm.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.buttonCustomizeForm.Location = new System.Drawing.Point(8, 556);
             this.buttonCustomizeForm.Name = "buttonCustomizeForm";
-            this.buttonCustomizeForm.Size = new System.Drawing.Size(115, 30);
+            this.buttonCustomizeForm.Size = new System.Drawing.Size(99, 26);
             this.buttonCustomizeForm.TabIndex = 2;
             this.buttonCustomizeForm.Text = "Maske anpassen";
             this.buttonCustomizeForm.UseVisualStyleBackColor = true;
@@ -97,10 +95,9 @@ namespace QuickImageComment
             // buttonHelp
             // 
             this.buttonHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonHelp.Location = new System.Drawing.Point(764, 642);
-            this.buttonHelp.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.buttonHelp.Location = new System.Drawing.Point(655, 556);
             this.buttonHelp.Name = "buttonHelp";
-            this.buttonHelp.Size = new System.Drawing.Size(115, 30);
+            this.buttonHelp.Size = new System.Drawing.Size(99, 26);
             this.buttonHelp.TabIndex = 5;
             this.buttonHelp.Text = "Hilfe";
             this.buttonHelp.UseVisualStyleBackColor = true;
@@ -115,21 +112,18 @@ namespace QuickImageComment
             this.groupBoxConfigurationHandling.Controls.Add(this.buttonSaveAs);
             this.groupBoxConfigurationHandling.Controls.Add(this.buttonSave);
             this.groupBoxConfigurationHandling.Controls.Add(this.buttonDelete);
-            this.groupBoxConfigurationHandling.Location = new System.Drawing.Point(-8, 592);
-            this.groupBoxConfigurationHandling.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.groupBoxConfigurationHandling.Location = new System.Drawing.Point(-7, 513);
             this.groupBoxConfigurationHandling.Name = "groupBoxConfigurationHandling";
-            this.groupBoxConfigurationHandling.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.groupBoxConfigurationHandling.Size = new System.Drawing.Size(911, 43);
+            this.groupBoxConfigurationHandling.Size = new System.Drawing.Size(781, 37);
             this.groupBoxConfigurationHandling.TabIndex = 130;
             this.groupBoxConfigurationHandling.TabStop = false;
             // 
             // buttonNewFromMainMask
             // 
             this.buttonNewFromMainMask.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonNewFromMainMask.Location = new System.Drawing.Point(127, 10);
-            this.buttonNewFromMainMask.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.buttonNewFromMainMask.Location = new System.Drawing.Point(109, 9);
             this.buttonNewFromMainMask.Name = "buttonNewFromMainMask";
-            this.buttonNewFromMainMask.Size = new System.Drawing.Size(224, 25);
+            this.buttonNewFromMainMask.Size = new System.Drawing.Size(192, 22);
             this.buttonNewFromMainMask.TabIndex = 117;
             this.buttonNewFromMainMask.Text = "Neu - mit Daten aus Hauptmaske";
             this.buttonNewFromMainMask.UseVisualStyleBackColor = true;
@@ -138,10 +132,9 @@ namespace QuickImageComment
             // buttonNewEmpty
             // 
             this.buttonNewEmpty.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonNewEmpty.Location = new System.Drawing.Point(18, 10);
-            this.buttonNewEmpty.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.buttonNewEmpty.Location = new System.Drawing.Point(15, 9);
             this.buttonNewEmpty.Name = "buttonNewEmpty";
-            this.buttonNewEmpty.Size = new System.Drawing.Size(103, 25);
+            this.buttonNewEmpty.Size = new System.Drawing.Size(88, 22);
             this.buttonNewEmpty.TabIndex = 116;
             this.buttonNewEmpty.Text = "Neu - leer";
             this.buttonNewEmpty.UseVisualStyleBackColor = true;
@@ -150,10 +143,9 @@ namespace QuickImageComment
             // buttonSaveAs
             // 
             this.buttonSaveAs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonSaveAs.Location = new System.Drawing.Point(483, 10);
-            this.buttonSaveAs.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.buttonSaveAs.Location = new System.Drawing.Point(414, 9);
             this.buttonSaveAs.Name = "buttonSaveAs";
-            this.buttonSaveAs.Size = new System.Drawing.Size(147, 25);
+            this.buttonSaveAs.Size = new System.Drawing.Size(126, 22);
             this.buttonSaveAs.TabIndex = 114;
             this.buttonSaveAs.Text = "Speichern unter ...";
             this.buttonSaveAs.UseVisualStyleBackColor = true;
@@ -162,10 +154,9 @@ namespace QuickImageComment
             // buttonSave
             // 
             this.buttonSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonSave.Location = new System.Drawing.Point(397, 10);
-            this.buttonSave.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.buttonSave.Location = new System.Drawing.Point(340, 9);
             this.buttonSave.Name = "buttonSave";
-            this.buttonSave.Size = new System.Drawing.Size(79, 25);
+            this.buttonSave.Size = new System.Drawing.Size(68, 22);
             this.buttonSave.TabIndex = 111;
             this.buttonSave.Text = "Speichern";
             this.buttonSave.UseVisualStyleBackColor = true;
@@ -174,10 +165,9 @@ namespace QuickImageComment
             // buttonDelete
             // 
             this.buttonDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonDelete.Location = new System.Drawing.Point(807, 10);
-            this.buttonDelete.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.buttonDelete.Location = new System.Drawing.Point(692, 9);
             this.buttonDelete.Name = "buttonDelete";
-            this.buttonDelete.Size = new System.Drawing.Size(79, 25);
+            this.buttonDelete.Size = new System.Drawing.Size(68, 22);
             this.buttonDelete.TabIndex = 115;
             this.buttonDelete.Text = "Löschen";
             this.buttonDelete.UseVisualStyleBackColor = true;
@@ -187,10 +177,9 @@ namespace QuickImageComment
             // 
             this.dynamicComboBoxConfigurationName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.dynamicComboBoxConfigurationName.FormattingEnabled = true;
-            this.dynamicComboBoxConfigurationName.Location = new System.Drawing.Point(146, 5);
-            this.dynamicComboBoxConfigurationName.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.dynamicComboBoxConfigurationName.Location = new System.Drawing.Point(125, 4);
             this.dynamicComboBoxConfigurationName.Name = "dynamicComboBoxConfigurationName";
-            this.dynamicComboBoxConfigurationName.Size = new System.Drawing.Size(391, 23);
+            this.dynamicComboBoxConfigurationName.Size = new System.Drawing.Size(336, 21);
             this.dynamicComboBoxConfigurationName.Sorted = true;
             this.dynamicComboBoxConfigurationName.TabIndex = 1;
             this.dynamicComboBoxConfigurationName.SelectedIndexChanged += new System.EventHandler(this.dynamicComboBoxConfigurationName_SelectedIndexChanged);
@@ -202,8 +191,7 @@ namespace QuickImageComment
             | System.Windows.Forms.AnchorStyles.Right)));
             this.splitContainer1.BackColor = System.Drawing.SystemColors.ControlDark;
             this.splitContainer1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.splitContainer1.Location = new System.Drawing.Point(9, 117);
-            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.splitContainer1.Location = new System.Drawing.Point(8, 101);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
@@ -213,36 +201,32 @@ namespace QuickImageComment
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.BackColor = System.Drawing.SystemColors.Control;
-            this.splitContainer1.Size = new System.Drawing.Size(869, 479);
-            this.splitContainer1.SplitterDistance = 407;
-            this.splitContainer1.SplitterWidth = 5;
+            this.splitContainer1.Size = new System.Drawing.Size(745, 415);
+            this.splitContainer1.SplitterDistance = 348;
             this.splitContainer1.TabIndex = 131;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 8);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(5, 7);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(90, 15);
+            this.label1.Size = new System.Drawing.Size(80, 13);
             this.label1.TabIndex = 132;
             this.label1.Text = "Vorlagen-Name";
             // 
             // labelArtist
             // 
-            this.labelArtist.Location = new System.Drawing.Point(6, 42);
-            this.labelArtist.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelArtist.Location = new System.Drawing.Point(5, 36);
             this.labelArtist.Name = "labelArtist";
-            this.labelArtist.Size = new System.Drawing.Size(119, 15);
+            this.labelArtist.Size = new System.Drawing.Size(102, 13);
             this.labelArtist.TabIndex = 133;
             this.labelArtist.Text = "Künstler (Autor)";
             // 
             // labelUserComment
             // 
-            this.labelUserComment.Location = new System.Drawing.Point(6, 69);
-            this.labelUserComment.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelUserComment.Location = new System.Drawing.Point(5, 60);
             this.labelUserComment.Name = "labelUserComment";
-            this.labelUserComment.Size = new System.Drawing.Size(119, 15);
+            this.labelUserComment.Size = new System.Drawing.Size(102, 13);
             this.labelUserComment.TabIndex = 135;
             this.labelUserComment.Text = "Kommentar";
             // 
@@ -251,10 +235,9 @@ namespace QuickImageComment
             this.dynamicComboBoxArtist.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.dynamicComboBoxArtist.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.dynamicComboBoxArtist.FormattingEnabled = true;
-            this.dynamicComboBoxArtist.Location = new System.Drawing.Point(146, 35);
-            this.dynamicComboBoxArtist.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.dynamicComboBoxArtist.Location = new System.Drawing.Point(125, 30);
             this.dynamicComboBoxArtist.Name = "dynamicComboBoxArtist";
-            this.dynamicComboBoxArtist.Size = new System.Drawing.Size(391, 23);
+            this.dynamicComboBoxArtist.Size = new System.Drawing.Size(336, 21);
             this.dynamicComboBoxArtist.TabIndex = 137;
             this.dynamicComboBoxArtist.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dynamicComboBoxArtist_KeyDown);
             this.dynamicComboBoxArtist.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dynamicComboBoxArtist_MouseClick);
@@ -264,19 +247,18 @@ namespace QuickImageComment
             this.dynamicComboBoxUserComment.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.dynamicComboBoxUserComment.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.dynamicComboBoxUserComment.FormattingEnabled = true;
-            this.dynamicComboBoxUserComment.Location = new System.Drawing.Point(146, 66);
-            this.dynamicComboBoxUserComment.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.dynamicComboBoxUserComment.Location = new System.Drawing.Point(125, 57);
             this.dynamicComboBoxUserComment.Name = "dynamicComboBoxUserComment";
-            this.dynamicComboBoxUserComment.Size = new System.Drawing.Size(732, 23);
+            this.dynamicComboBoxUserComment.Size = new System.Drawing.Size(628, 21);
             this.dynamicComboBoxUserComment.TabIndex = 138;
             this.dynamicComboBoxUserComment.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dynamicComboBoxUserComment_KeyDown);
             this.dynamicComboBoxUserComment.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dynamicComboBoxUserComment_MouseClick);
             // 
             // FormDataTemplates
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(892, 678);
+            this.ClientSize = new System.Drawing.Size(765, 588);
             this.Controls.Add(this.dynamicComboBoxUserComment);
             this.Controls.Add(this.dynamicComboBoxArtist);
             this.Controls.Add(this.labelUserComment);
@@ -289,12 +271,13 @@ namespace QuickImageComment
             this.Controls.Add(this.buttonCustomizeForm);
             this.Controls.Add(this.buttonClose);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.MinimumSize = new System.Drawing.Size(528, 432);
+            this.KeyPreview = true;
+            this.MinimumSize = new System.Drawing.Size(455, 380);
             this.Name = "FormDataTemplates";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Daten-Vorlagen auswählen und bearbeiten";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormDataTemplates_FormClosing);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FormDataTemplates_KeyDown);
             this.groupBoxConfigurationHandling.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);

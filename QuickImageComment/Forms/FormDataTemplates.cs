@@ -263,7 +263,7 @@ namespace QuickImageComment
 
         private void buttonHelp_Click(object sender, EventArgs e)
         {
-            GeneralUtilities.ShowHelp(this, "FormDataTemplates.htm");
+            GeneralUtilities.ShowHelp(this, "FormDataTemplates");
         }
 
         // button new with data from main mask
@@ -698,6 +698,14 @@ namespace QuickImageComment
             else
             {
                 e.Cancel = true;
+            }
+        }
+
+        private void FormDataTemplates_KeyDown(object sender, KeyEventArgs theKeyEventArgs)
+        {
+            if (theKeyEventArgs.KeyCode == Keys.F1)
+            {
+                buttonHelp_Click(sender, null);
             }
         }
     }

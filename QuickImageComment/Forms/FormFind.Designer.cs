@@ -516,11 +516,13 @@ namespace QuickImageComment
             this.Controls.Add(this.buttonAbort);
             this.Controls.Add(this.buttonFind);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.MinimumSize = new System.Drawing.Size(816, 407);
             this.Name = "FormFind";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Suche über Eigenschaften";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormFind_FormClosing);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FormFind_KeyDown);
             this.panelFilterInner.ResumeLayout(false);
             this.panelFilterInner.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

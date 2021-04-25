@@ -678,7 +678,7 @@ namespace QuickImageComment
 
         private void buttonHelp_Click(object sender, EventArgs e)
         {
-            GeneralUtilities.ShowHelp(this, "FormView.htm");
+            GeneralUtilities.ShowHelp(this, "FormView");
         }
 
         private void buttonDefault_Click(object sender, EventArgs e)
@@ -1092,6 +1092,14 @@ namespace QuickImageComment
         private void FormView_Activated(object sender, EventArgs e)
         {
             setControlValuesFromConfiguration();
+        }
+
+        private void FormView_KeyDown(object sender, KeyEventArgs theKeyEventArgs)
+        {
+            if (theKeyEventArgs.KeyCode == Keys.F1)
+            {
+                buttonHelp_Click(sender, null);
+            }
         }
     }
 }

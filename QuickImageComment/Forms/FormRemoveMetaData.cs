@@ -526,8 +526,15 @@ namespace QuickImageComment
 
         private void buttonHelp_Click(object sender, EventArgs e)
         {
-            GeneralUtilities.ShowHelp(this, "FormRemoveMetaData.htm");
+            GeneralUtilities.ShowHelp(this, "FormRemoveMetaData");
         }
 
+        private void FormRemoveMetaData_KeyDown(object sender, KeyEventArgs theKeyEventArgs)
+        {
+            if (theKeyEventArgs.KeyCode == Keys.F1)
+            {
+                buttonHelp_Click(sender, null);
+            }
+        }
     }
 }

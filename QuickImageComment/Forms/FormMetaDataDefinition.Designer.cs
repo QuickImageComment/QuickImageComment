@@ -787,10 +787,12 @@ namespace QuickImageComment
             this.Controls.Add(this.listViewTags);
             this.Controls.Add(this.checkBoxOnlyInImage);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.MinimumSize = new System.Drawing.Size(840, 546);
             this.Name = "FormMetaDataDefinition";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Felddefinitionen";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FormMetaDataDefinition_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownVerticalDisplayOffset)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLinesForChange)).EndInit();
             this.ResumeLayout(false);

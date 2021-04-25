@@ -992,9 +992,11 @@
             this.Controls.Add(this.buttonOK);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.Name = "FormImageGrid";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Bild-Raster definieren";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FormImageGrid_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWidth_0)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHeight_0)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSize_0)).EndInit();

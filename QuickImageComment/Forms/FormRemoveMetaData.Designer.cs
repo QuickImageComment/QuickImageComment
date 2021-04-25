@@ -254,9 +254,11 @@
             this.Controls.Add(this.buttonCustomizeForm);
             this.Controls.Add(this.buttonStart);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.Name = "FormRemoveMetaData";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Meta-Daten entfernen";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FormRemoveMetaData_KeyDown);
             this.groupBoxMode.ResumeLayout(false);
             this.groupBoxMode.PerformLayout();
             this.ResumeLayout(false);

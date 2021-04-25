@@ -255,7 +255,7 @@ namespace QuickImageComment
         // button help
         private void buttonHelp_Click(object sender, EventArgs e)
         {
-            GeneralUtilities.ShowHelp(this, "FormCompare.htm");
+            GeneralUtilities.ShowHelp(this, "FormCompare");
         }
 
         private void checkBoxFormatOriginal_CheckedChanged(object sender, EventArgs e)
@@ -303,5 +303,13 @@ namespace QuickImageComment
             }
         }
 
+        // key event handler for mask
+        private void FormCompare_KeyDown(object sender, KeyEventArgs theKeyEventArgs)
+        {
+            if (theKeyEventArgs.KeyCode == Keys.F1)
+            {
+                buttonHelp_Click(sender, null);
+            }
+        }
     }
 }

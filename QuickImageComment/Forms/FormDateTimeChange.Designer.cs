@@ -292,10 +292,12 @@ namespace QuickImageComment
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.MinimumSize = new System.Drawing.Size(779, 328);
             this.Name = "FormDateTimeChange";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Aufnahmedatum und Uhrzeit ändern";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FormDateTimeChange_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMinute)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSecond)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDay)).EndInit();

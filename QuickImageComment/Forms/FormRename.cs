@@ -1029,7 +1029,7 @@ namespace QuickImageComment
 
         private void buttonHelp_Click(object sender, EventArgs e)
         {
-            GeneralUtilities.ShowHelp(this, "FormRename.htm");
+            GeneralUtilities.ShowHelp(this, "FormRename");
         }
 
         private void RichTextBoxBlankDisplay_TextChanged(object sender, EventArgs e)
@@ -1078,6 +1078,14 @@ namespace QuickImageComment
         private void buttonMoveDown_Click(object sender, EventArgs e)
         {
             exchangelines(CurrentLine, CurrentLine + 1);
+        }
+
+        private void FormRename_KeyDown(object sender, KeyEventArgs theKeyEventArgs)
+        {
+            if (theKeyEventArgs.KeyCode == Keys.F1)
+            {
+                buttonHelp_Click(sender, null);
+            }
         }
 
         private void exchangelines(int first, int second)

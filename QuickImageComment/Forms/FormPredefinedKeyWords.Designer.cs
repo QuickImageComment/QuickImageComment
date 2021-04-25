@@ -135,10 +135,12 @@ namespace QuickImageComment
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBoxPredefinedKeyWords);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.MinimumSize = new System.Drawing.Size(448, 409);
             this.Name = "FormPredefinedKeyWords";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Vordefinierte IPTC Schlüsselworte";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FormPredefinedKeyWords_KeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();
 

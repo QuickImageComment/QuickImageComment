@@ -248,6 +248,15 @@ namespace QuickImageComment
         // event handlers
         //-------------------------------------------------------------------------
 
+        // key eventhandler of form
+        private void FormPlaceholder_KeyDown(object sender, KeyEventArgs theKeyEventArgs)
+        {
+            if (theKeyEventArgs.KeyCode == Keys.F1)
+            {
+                buttonHelp_Click(sender, null);
+            }
+        }
+
         // check box display only tags contained in selected image changed
         private void checkBoxOnlyInImage_CheckedChanged(object sender, EventArgs e)
         {
@@ -587,7 +596,7 @@ namespace QuickImageComment
         // help
         private void buttonHelp_Click(object sender, EventArgs e)
         {
-            GeneralUtilities.ShowHelp(this, "FormPlaceholder.htm");
+            GeneralUtilities.ShowHelp(this, "FormPlaceholder");
         }
 
         //-------------------------------------------------------------------------

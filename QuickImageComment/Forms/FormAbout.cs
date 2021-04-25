@@ -97,7 +97,7 @@ namespace QuickImageComment
 
         private void buttonLicenses_Click(object sender, EventArgs e)
         {
-            GeneralUtilities.ShowHelp(this, "Licenses.htm");
+            GeneralUtilities.ShowHelp(this, "Licenses");
         }
 
         private void buttonClose_Click(object sender, EventArgs e)

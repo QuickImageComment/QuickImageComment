@@ -182,10 +182,12 @@
             this.Controls.Add(this.buttonClose);
             this.Controls.Add(this.dataGridViewDifferences);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.MinimumSize = new System.Drawing.Size(897, 394);
             this.Name = "FormCompare";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Dateien vergleichen";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FormCompare_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDifferences)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
