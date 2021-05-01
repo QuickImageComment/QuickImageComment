@@ -724,17 +724,20 @@ namespace QuickImageComment
 
                 // get values from other selected images and compare
                 disableEventHandlersRecogniseUserInput();
-                for (int inew = 0; inew < theUserControlFiles.listViewFiles.SelectedIndicesNew.Length; inew++)
+                lock (UserControlFiles.LockListViewFiles)
                 {
-                    int fileIndex = theUserControlFiles.listViewFiles.SelectedIndicesNew[inew];
-                    // skip theExtendedImage whose index is lastFileIndex
-                    if (fileIndex != theUserControlFiles.lastFileIndex)
+                    for (int inew = 0; inew < theUserControlFiles.listViewFiles.SelectedIndicesNew.Length; inew++)
                     {
-                        string newValue = getFieldValueBySpec(Spec, (Control)sender, ImageManager.getExtendedImage(fileIndex, false));
-                        if (!newValue.Equals(((Control)sender).Text))
+                        int fileIndex = theUserControlFiles.listViewFiles.SelectedIndicesNew[inew];
+                        // skip theExtendedImage whose index is lastFileIndex
+                        if (fileIndex != theUserControlFiles.lastFileIndex)
                         {
-                            ((Control)sender).Text = "";
-                            break;
+                            string newValue = getFieldValueBySpec(Spec, (Control)sender, ImageManager.getExtendedImage(fileIndex, false));
+                            if (!newValue.Equals(((Control)sender).Text))
+                            {
+                                ((Control)sender).Text = "";
+                                break;
+                            }
                         }
                     }
                 }
@@ -789,17 +792,20 @@ namespace QuickImageComment
 
                 // get values from other selected images and compare
                 disableEventHandlersRecogniseUserInput();
-                for (int inew = 0; inew < theUserControlFiles.listViewFiles.SelectedIndicesNew.Length; inew++)
+                lock (UserControlFiles.LockListViewFiles)
                 {
-                    int fileIndex = theUserControlFiles.listViewFiles.SelectedIndicesNew[inew];
-                    // skip theExtendedImage whose index is lastFileIndex
-                    if (fileIndex != theUserControlFiles.lastFileIndex)
+                    for (int inew = 0; inew < theUserControlFiles.listViewFiles.SelectedIndicesNew.Length; inew++)
                     {
-                        string newValue = ImageManager.getExtendedImage(fileIndex, false).getUserComment();
-                        if (!newValue.Equals(((Control)sender).Text))
+                        int fileIndex = theUserControlFiles.listViewFiles.SelectedIndicesNew[inew];
+                        // skip theExtendedImage whose index is lastFileIndex
+                        if (fileIndex != theUserControlFiles.lastFileIndex)
                         {
-                            ((Control)sender).Text = "";
-                            break;
+                            string newValue = ImageManager.getExtendedImage(fileIndex, false).getUserComment();
+                            if (!newValue.Equals(((Control)sender).Text))
+                            {
+                                ((Control)sender).Text = "";
+                                break;
+                            }
                         }
                     }
                 }
@@ -864,17 +870,20 @@ namespace QuickImageComment
 
                 // get values from other selected images and compare
                 disableEventHandlersRecogniseUserInput();
-                for (int inew = 0; inew < theUserControlFiles.listViewFiles.SelectedIndicesNew.Length; inew++)
+                lock (UserControlFiles.LockListViewFiles)
                 {
-                    int fileIndex = theUserControlFiles.listViewFiles.SelectedIndicesNew[inew];
-                    // skip theExtendedImage whose index is lastFileIndex
-                    if (fileIndex != theUserControlFiles.lastFileIndex)
+                    for (int inew = 0; inew < theUserControlFiles.listViewFiles.SelectedIndicesNew.Length; inew++)
                     {
-                        string newValue = ImageManager.getExtendedImage(fileIndex, false).getArtist();
-                        if (!newValue.Equals(((Control)sender).Text))
+                        int fileIndex = theUserControlFiles.listViewFiles.SelectedIndicesNew[inew];
+                        // skip theExtendedImage whose index is lastFileIndex
+                        if (fileIndex != theUserControlFiles.lastFileIndex)
                         {
-                            ((Control)sender).Text = "";
-                            break;
+                            string newValue = ImageManager.getExtendedImage(fileIndex, false).getArtist();
+                            if (!newValue.Equals(((Control)sender).Text))
+                            {
+                                ((Control)sender).Text = "";
+                                break;
+                            }
                         }
                     }
                 }
@@ -946,13 +955,16 @@ namespace QuickImageComment
 
                 // get values from other selected images and compare
                 disableEventHandlersRecogniseUserInput();
-                for (int inew = 0; inew < theUserControlFiles.listViewFiles.SelectedIndicesNew.Length; inew++)
+                lock (UserControlFiles.LockListViewFiles)
                 {
-                    int fileIndex = theUserControlFiles.listViewFiles.SelectedIndicesNew[inew];
-                    // skip theExtendedImage whose index is lastFileIndex
-                    if (fileIndex != theUserControlFiles.lastFileIndex)
+                    for (int inew = 0; inew < theUserControlFiles.listViewFiles.SelectedIndicesNew.Length; inew++)
                     {
-                        updateKeywordsForMultipleSelection(ImageManager.getExtendedImage(fileIndex, false));
+                        int fileIndex = theUserControlFiles.listViewFiles.SelectedIndicesNew[inew];
+                        // skip theExtendedImage whose index is lastFileIndex
+                        if (fileIndex != theUserControlFiles.lastFileIndex)
+                        {
+                            updateKeywordsForMultipleSelection(ImageManager.getExtendedImage(fileIndex, false));
+                        }
                     }
                 }
                 enableEventHandlersRecogniseUserInput();
@@ -971,13 +983,16 @@ namespace QuickImageComment
 
                 // get values from other selected images and compare
                 disableEventHandlersRecogniseUserInput();
-                for (int inew = 0; inew < theUserControlFiles.listViewFiles.SelectedIndicesNew.Length; inew++)
+                lock (UserControlFiles.LockListViewFiles)
                 {
-                    int fileIndex = theUserControlFiles.listViewFiles.SelectedIndicesNew[inew];
-                    // skip theExtendedImage whose index is lastFileIndex
-                    if (fileIndex != theUserControlFiles.lastFileIndex)
+                    for (int inew = 0; inew < theUserControlFiles.listViewFiles.SelectedIndicesNew.Length; inew++)
                     {
-                        updateKeywordsForMultipleSelection(ImageManager.getExtendedImage(fileIndex, false));
+                        int fileIndex = theUserControlFiles.listViewFiles.SelectedIndicesNew[inew];
+                        // skip theExtendedImage whose index is lastFileIndex
+                        if (fileIndex != theUserControlFiles.lastFileIndex)
+                        {
+                            updateKeywordsForMultipleSelection(ImageManager.getExtendedImage(fileIndex, false));
+                        }
                     }
                 }
                 enableEventHandlersRecogniseUserInput();
@@ -1034,7 +1049,6 @@ namespace QuickImageComment
 #if APPCENTER
             if (Program.AppCenterUsable) Microsoft.AppCenter.Analytics.Analytics.TrackEvent("Closing start");
 #endif
-
             if (continueAfterCheckForChangesAndOptionalSaving(theUserControlFiles.listViewFiles.SelectedIndicesNew))
             {
                 // cancel may be set to true before due to validation error
@@ -1065,18 +1079,23 @@ namespace QuickImageComment
                     theUserControlMap.saveConfigDefinitions();
                 }
 
-                FormPrevNext.closeAllWindows(nameof(FormImageDetails));
-                FormPrevNext.closeAllWindows(nameof(FormImageWindow));
-
-                if (theFormMap != null)
-                {
-                    theFormMap.Close();
-                }
-
                 if (formFind != null)
                 {
                     formFind.storeDataTable();
                 }
+
+                FormPrevNext.closeAllWindows(nameof(FormImageDetails));
+                FormPrevNext.closeAllWindows(nameof(FormImageWindow));
+
+                FormCollection formCollection = Application.OpenForms;
+                for (int ii = formCollection.Count - 1; ii >= 0; ii--)
+                {
+                    if (!formCollection[ii].Name.Equals(this.Name))
+                    {
+                        formCollection[ii].Close();
+                    }
+                }
+
                 ConfigDefinition.setCfgUserBool(ConfigDefinition.enumCfgUserBool.SplitContainer11_OrientationVertical, splitContainer11.Orientation == Orientation.Vertical);
                 ConfigDefinition.setCfgUserBool(ConfigDefinition.enumCfgUserBool.SplitContainer12_OrientationVertical, splitContainer12.Orientation == Orientation.Vertical);
 
@@ -1169,16 +1188,19 @@ namespace QuickImageComment
         // event handler triggered when selection of files in multi edit pane is changed
         private void dataGridViewSelectedFiles_SelectionChanged(object sender, EventArgs e)
         {
-            if (dataGridViewSelectedFiles.CurrentRow.Index >= 0)
+            lock (UserControlFiles.LockListViewFiles)
             {
-                for (int ii = 0; ii < theUserControlFiles.listViewFiles.Items.Count; ii++)
+                if (dataGridViewSelectedFiles.CurrentRow.Index >= 0)
                 {
-                    if (theUserControlFiles.listViewFiles.Items[ii].Name.Equals(dataGridViewSelectedFiles.CurrentRow.Cells[0].Value))
+                    for (int ii = 0; ii < theUserControlFiles.listViewFiles.Items.Count; ii++)
                     {
-                        if (ii != theUserControlFiles.lastFileIndex)
+                        if (theUserControlFiles.listViewFiles.Items[ii].Name.Equals(dataGridViewSelectedFiles.CurrentRow.Cells[0].Value))
                         {
-                            theUserControlFiles.lastFileIndex = ii;
-                            displayImage(theUserControlFiles.lastFileIndex);
+                            if (ii != theUserControlFiles.lastFileIndex)
+                            {
+                                theUserControlFiles.lastFileIndex = ii;
+                                displayImage(theUserControlFiles.lastFileIndex);
+                            }
                         }
                     }
                 }
@@ -1301,35 +1323,41 @@ namespace QuickImageComment
         // save, single image or multiple images
         private void toolStripMenuItemSave_Click(object sender, EventArgs e)
         {
-            // if menu entry or button to save are activated for one image only: 
-            // check if there are  different entries for artist or comment and set flag to get them saved and thus aligned
-            if (theUserControlFiles.listViewFiles.SelectedIndicesNew.Length == 1)
+            lock (UserControlFiles.LockListViewFiles)
             {
-                if (theExtendedImage.getArtistDifferentEntries()) comboBoxArtistUserChanged = true;
-                if (theExtendedImage.getCommentDifferentEntries()) textBoxUserCommentUserChanged = true;
+                // if menu entry or button to save are activated for one image only: 
+                // check if there are  different entries for artist or comment and set flag to get them saved and thus aligned
+                if (theUserControlFiles.listViewFiles.SelectedIndicesNew.Length == 1)
+                {
+                    if (theExtendedImage.getArtistDifferentEntries()) comboBoxArtistUserChanged = true;
+                    if (theExtendedImage.getCommentDifferentEntries()) textBoxUserCommentUserChanged = true;
+                }
+                saveAndStoreInLastList(theUserControlFiles.listViewFiles.SelectedIndicesNew);
             }
-            saveAndStoreInLastList(theUserControlFiles.listViewFiles.SelectedIndicesNew);
         }
 
         // save changes from actual image, then goto to first
         private void toolStripMenuItemFirst_Click(object sender, EventArgs e)
         {
-            if (theUserControlFiles.listViewFiles.SelectedItems.Count > 1)
+            lock (UserControlFiles.LockListViewFiles)
             {
-                GeneralUtilities.message(LangCfg.Message.W_saveSwitchFirstImpossible);
-            }
-            else if (theUserControlFiles.listViewFiles.SelectedItems.Count == 1)
-            {
-                int status = singleSaveAndStoreInLastList(theUserControlFiles.lastFileIndex, null, null);
-                if (status == 0)
+                if (theUserControlFiles.listViewFiles.SelectedItems.Count > 1)
                 {
-                    // get newFileIndex since clearing selected indices will clear lastFileIndex
-                    int newFileIndex = 0;
-                    // mark selected Image in listbox containing file names
-                    // changing selected index in listBoxFiles forces display 
-                    // see function "listViewFiles_SelectedIndexChanged"
-                    theUserControlFiles.listViewFiles.SelectedIndices.Clear();
-                    theUserControlFiles.listViewFiles.SelectedIndices.Add(newFileIndex);
+                    GeneralUtilities.message(LangCfg.Message.W_saveSwitchFirstImpossible);
+                }
+                else if (theUserControlFiles.listViewFiles.SelectedItems.Count == 1)
+                {
+                    int status = singleSaveAndStoreInLastList(theUserControlFiles.lastFileIndex, null, null);
+                    if (status == 0)
+                    {
+                        // get newFileIndex since clearing selected indices will clear lastFileIndex
+                        int newFileIndex = 0;
+                        // mark selected Image in listbox containing file names
+                        // changing selected index in listBoxFiles forces display 
+                        // see function "listViewFiles_SelectedIndexChanged"
+                        theUserControlFiles.listViewFiles.SelectedIndices.Clear();
+                        theUserControlFiles.listViewFiles.SelectedIndices.Add(newFileIndex);
+                    }
                 }
             }
         }
@@ -1337,33 +1365,36 @@ namespace QuickImageComment
         // save changes from actual image, then goto to previous
         private void toolStripMenuItemPrevious_Click(object sender, System.EventArgs e)
         {
-            if (theUserControlFiles.listViewFiles.SelectedItems.Count > 1)
+            lock (UserControlFiles.LockListViewFiles)
             {
-                GeneralUtilities.message(LangCfg.Message.W_saveSwitchPrevImpossible);
-            }
-            else if (theUserControlFiles.listViewFiles.SelectedItems.Count == 1)
-            {
-                int status = singleSaveAndStoreInLastList(theUserControlFiles.lastFileIndex, null, null);
-                if (status == 0)
+                if (theUserControlFiles.listViewFiles.SelectedItems.Count > 1)
                 {
-                    // clear image list to force load new thumbnails
-                    // exchanging one thumbnail is now difficult after optimisation where thumbnails are not in sequence
-                    theUserControlFiles.listViewFiles.clearThumbnails();
-                    theUserControlFiles.listViewFiles.RedrawItems(theUserControlFiles.lastFileIndex, theUserControlFiles.lastFileIndex, false);
-
-                    // set newFileIndex to lastFileIndex
-                    // if this image is the last one it will force the image to be redisplayed with changed values
-                    int newFileIndex = 0;
-                    if (theUserControlFiles.lastFileIndex > 0)
+                    GeneralUtilities.message(LangCfg.Message.W_saveSwitchPrevImpossible);
+                }
+                else if (theUserControlFiles.listViewFiles.SelectedItems.Count == 1)
+                {
+                    int status = singleSaveAndStoreInLastList(theUserControlFiles.lastFileIndex, null, null);
+                    if (status == 0)
                     {
-                        // get newFileIndex since clearing selected indices will clear lastFileIndex
-                        newFileIndex = theUserControlFiles.lastFileIndex - 1;
+                        // clear image list to force load new thumbnails
+                        // exchanging one thumbnail is now difficult after optimisation where thumbnails are not in sequence
+                        theUserControlFiles.listViewFiles.clearThumbnails();
+                        theUserControlFiles.listViewFiles.RedrawItems(theUserControlFiles.lastFileIndex, theUserControlFiles.lastFileIndex, false);
+
+                        // set newFileIndex to lastFileIndex
+                        // if this image is the last one it will force the image to be redisplayed with changed values
+                        int newFileIndex = 0;
+                        if (theUserControlFiles.lastFileIndex > 0)
+                        {
+                            // get newFileIndex since clearing selected indices will clear lastFileIndex
+                            newFileIndex = theUserControlFiles.lastFileIndex - 1;
+                        }
+                        // mark selected Image in listbox containing file names
+                        // changing selected index in listBoxFiles forces display 
+                        // see function "listViewFiles_SelectedIndexChanged"
+                        theUserControlFiles.listViewFiles.SelectedIndices.Clear();
+                        theUserControlFiles.listViewFiles.SelectedIndices.Add(newFileIndex);
                     }
-                    // mark selected Image in listbox containing file names
-                    // changing selected index in listBoxFiles forces display 
-                    // see function "listViewFiles_SelectedIndexChanged"
-                    theUserControlFiles.listViewFiles.SelectedIndices.Clear();
-                    theUserControlFiles.listViewFiles.SelectedIndices.Add(newFileIndex);
                 }
             }
         }
@@ -1371,33 +1402,36 @@ namespace QuickImageComment
         // save changes from actual image, then goto to next
         private void toolStripMenuItemNext_Click(object sender, System.EventArgs e)
         {
-            if (theUserControlFiles.listViewFiles.SelectedItems.Count > 1)
+            lock (UserControlFiles.LockListViewFiles)
             {
-                GeneralUtilities.message(LangCfg.Message.W_saveSwitchNextImpossible);
-            }
-            else if (theUserControlFiles.listViewFiles.SelectedItems.Count == 1)
-            {
-                int status = singleSaveAndStoreInLastList(theUserControlFiles.lastFileIndex, null, null);
-                if (status == 0)
+                if (theUserControlFiles.listViewFiles.SelectedItems.Count > 1)
                 {
-                    // clear image list to force load new thumbnails
-                    // exchanging one thumbnail is now difficult after optimisation where thumbnails are not in sequence
-                    theUserControlFiles.listViewFiles.clearThumbnails();
-                    theUserControlFiles.listViewFiles.RedrawItems(theUserControlFiles.lastFileIndex, theUserControlFiles.lastFileIndex, false);
-
-                    // set newFileIndex to lastFileIndex
-                    // if this image is the last one it will force the image to be redisplayed with changed values
-                    int newFileIndex = theUserControlFiles.lastFileIndex;
-                    if (theUserControlFiles.lastFileIndex < theUserControlFiles.listViewFiles.Items.Count - 1)
+                    GeneralUtilities.message(LangCfg.Message.W_saveSwitchNextImpossible);
+                }
+                else if (theUserControlFiles.listViewFiles.SelectedItems.Count == 1)
+                {
+                    int status = singleSaveAndStoreInLastList(theUserControlFiles.lastFileIndex, null, null);
+                    if (status == 0)
                     {
-                        // get newFileIndex since clearing selected indices will clear lastFileIndex
-                        newFileIndex = theUserControlFiles.lastFileIndex + 1;
+                        // clear image list to force load new thumbnails
+                        // exchanging one thumbnail is now difficult after optimisation where thumbnails are not in sequence
+                        theUserControlFiles.listViewFiles.clearThumbnails();
+                        theUserControlFiles.listViewFiles.RedrawItems(theUserControlFiles.lastFileIndex, theUserControlFiles.lastFileIndex, false);
+
+                        // set newFileIndex to lastFileIndex
+                        // if this image is the last one it will force the image to be redisplayed with changed values
+                        int newFileIndex = theUserControlFiles.lastFileIndex;
+                        if (theUserControlFiles.lastFileIndex < theUserControlFiles.listViewFiles.Items.Count - 1)
+                        {
+                            // get newFileIndex since clearing selected indices will clear lastFileIndex
+                            newFileIndex = theUserControlFiles.lastFileIndex + 1;
+                        }
+                        // mark selected Image in listbox containing file names
+                        // changing selected index in listBoxFiles forces display 
+                        // see function "listViewFiles_SelectedIndexChanged"
+                        theUserControlFiles.listViewFiles.SelectedIndices.Clear();
+                        theUserControlFiles.listViewFiles.SelectedIndices.Add(newFileIndex);
                     }
-                    // mark selected Image in listbox containing file names
-                    // changing selected index in listBoxFiles forces display 
-                    // see function "listViewFiles_SelectedIndexChanged"
-                    theUserControlFiles.listViewFiles.SelectedIndices.Clear();
-                    theUserControlFiles.listViewFiles.SelectedIndices.Add(newFileIndex);
                 }
             }
         }
@@ -1405,22 +1439,25 @@ namespace QuickImageComment
         // save changes from actual image, then goto to last
         private void toolStripMenuItemLast_Click(object sender, EventArgs e)
         {
-            if (theUserControlFiles.listViewFiles.SelectedItems.Count > 1)
+            lock (UserControlFiles.LockListViewFiles)
             {
-                GeneralUtilities.message(LangCfg.Message.W_saveSwitchLastImpossible);
-            }
-            else if (theUserControlFiles.listViewFiles.SelectedItems.Count == 1)
-            {
-                int status = singleSaveAndStoreInLastList(theUserControlFiles.lastFileIndex, null, null);
-                if (status == 0)
+                if (theUserControlFiles.listViewFiles.SelectedItems.Count > 1)
                 {
-                    // get newFileIndex since clearing selected indices will clear lastFileIndex
-                    int newFileIndex = theUserControlFiles.listViewFiles.Items.Count - 1;
-                    // mark selected Image in listbox containing file names
-                    // changing selected index in listBoxFiles forces display 
-                    // see function "listViewFiles_SelectedIndexChanged"
-                    theUserControlFiles.listViewFiles.SelectedIndices.Clear();
-                    theUserControlFiles.listViewFiles.SelectedIndices.Add(newFileIndex);
+                    GeneralUtilities.message(LangCfg.Message.W_saveSwitchLastImpossible);
+                }
+                else if (theUserControlFiles.listViewFiles.SelectedItems.Count == 1)
+                {
+                    int status = singleSaveAndStoreInLastList(theUserControlFiles.lastFileIndex, null, null);
+                    if (status == 0)
+                    {
+                        // get newFileIndex since clearing selected indices will clear lastFileIndex
+                        int newFileIndex = theUserControlFiles.listViewFiles.Items.Count - 1;
+                        // mark selected Image in listbox containing file names
+                        // changing selected index in listBoxFiles forces display 
+                        // see function "listViewFiles_SelectedIndexChanged"
+                        theUserControlFiles.listViewFiles.SelectedIndices.Clear();
+                        theUserControlFiles.listViewFiles.SelectedIndices.Add(newFileIndex);
+                    }
                 }
             }
         }
@@ -1429,117 +1466,120 @@ namespace QuickImageComment
         // delete image file and associated files
         private void toolStripMenuItemDelete_Click(object sender, EventArgs e)
         {
-            int indexToDelete = -1;
-            int nextSelectedIndex = theUserControlFiles.listViewFiles.Items.Count;
-
-            if (theUserControlFiles.listViewFiles.SelectedIndices.Count == 0)
+            lock (UserControlFiles.LockListViewFiles)
             {
-                GeneralUtilities.message(LangCfg.Message.W_noFileSelected);
-            }
-            else
-            {
-                string[] filesToBeDeleted = new string[theUserControlFiles.listViewFiles.SelectedIndices.Count];
-                string fileList = "";
+                int indexToDelete = -1;
+                int nextSelectedIndex = theUserControlFiles.listViewFiles.Items.Count;
 
-                for (int ii = 0; ii < theUserControlFiles.listViewFiles.SelectedIndices.Count; ii++)
+                if (theUserControlFiles.listViewFiles.SelectedIndices.Count == 0)
                 {
-                    indexToDelete = theUserControlFiles.listViewFiles.SelectedIndices[ii];
-                    if (nextSelectedIndex > indexToDelete) nextSelectedIndex = indexToDelete;
-
-                    ExtendedImage ExtendedImageToDelete = ImageManager.getExtendedImage(indexToDelete);
-                    filesToBeDeleted[ii] = ExtendedImageToDelete.getImageFileName();
-                    if (ii < maxListedFiledToDelete)
-                    {
-                        fileList = fileList + "\n" + ExtendedImageToDelete.getImageFileName();
-                    }
-                    else if (ii == maxListedFiledToDelete)
-                    {
-                        fileList = fileList + "\n...";
-                    }
-                }
-
-                // if only one file is to be deleted, use standard message box from FileSystem.DeleteFile,
-                // because this box displays file details
-                // if several files are to be deleted first ask, with customized message box
-                DialogResult theDialogResult = DialogResult.Yes;
-                Microsoft.VisualBasic.FileIO.UIOption theUIOption;
-
-                if (theUserControlFiles.listViewFiles.SelectedIndices.Count > 1)
-                {
-                    theDialogResult = GeneralUtilities.questionMessage(LangCfg.Message.Q_delete_files,
-                        theUserControlFiles.listViewFiles.SelectedIndices.Count.ToString(), fileList);
-                    theUIOption = Microsoft.VisualBasic.FileIO.UIOption.OnlyErrorDialogs;
+                    GeneralUtilities.message(LangCfg.Message.W_noFileSelected);
                 }
                 else
                 {
-                    theUIOption = Microsoft.VisualBasic.FileIO.UIOption.AllDialogs;
-                }
+                    string[] filesToBeDeleted = new string[theUserControlFiles.listViewFiles.SelectedIndices.Count];
+                    string fileList = "";
 
-                if (theDialogResult == DialogResult.Yes)
-                {
-                    for (int ii = theUserControlFiles.listViewFiles.SelectedIndices.Count - 1; ii >= 0; ii--)
+                    for (int ii = 0; ii < theUserControlFiles.listViewFiles.SelectedIndices.Count; ii++)
                     {
-                        //checkForChangeNecessary = false;
-                        // use methods from VisualBasic to send deleted files to recycle bin
+                        indexToDelete = theUserControlFiles.listViewFiles.SelectedIndices[ii];
+                        if (nextSelectedIndex > indexToDelete) nextSelectedIndex = indexToDelete;
+
+                        ExtendedImage ExtendedImageToDelete = ImageManager.getExtendedImage(indexToDelete);
+                        filesToBeDeleted[ii] = ExtendedImageToDelete.getImageFileName();
+                        if (ii < maxListedFiledToDelete)
+                        {
+                            fileList = fileList + "\n" + ExtendedImageToDelete.getImageFileName();
+                        }
+                        else if (ii == maxListedFiledToDelete)
+                        {
+                            fileList = fileList + "\n...";
+                        }
+                    }
+
+                    // if only one file is to be deleted, use standard message box from FileSystem.DeleteFile,
+                    // because this box displays file details
+                    // if several files are to be deleted first ask, with customized message box
+                    DialogResult theDialogResult = DialogResult.Yes;
+                    Microsoft.VisualBasic.FileIO.UIOption theUIOption;
+
+                    if (theUserControlFiles.listViewFiles.SelectedIndices.Count > 1)
+                    {
+                        theDialogResult = GeneralUtilities.questionMessage(LangCfg.Message.Q_delete_files,
+                            theUserControlFiles.listViewFiles.SelectedIndices.Count.ToString(), fileList);
+                        theUIOption = Microsoft.VisualBasic.FileIO.UIOption.OnlyErrorDialogs;
+                    }
+                    else
+                    {
+                        theUIOption = Microsoft.VisualBasic.FileIO.UIOption.AllDialogs;
+                    }
+
+                    if (theDialogResult == DialogResult.Yes)
+                    {
+                        for (int ii = theUserControlFiles.listViewFiles.SelectedIndices.Count - 1; ii >= 0; ii--)
+                        {
+                            //checkForChangeNecessary = false;
+                            // use methods from VisualBasic to send deleted files to recycle bin
 #if !DEBUG
-                        try
+                            try
 #endif
-                        {
-                            Microsoft.VisualBasic.FileIO.FileSystem.DeleteFile(filesToBeDeleted[ii],
-                              theUIOption, Microsoft.VisualBasic.FileIO.RecycleOption.SendToRecycleBin);
-                            // update data table for find
-                            FormFind.deleteRow(filesToBeDeleted[ii]);
-                        }
+                            {
+                                Microsoft.VisualBasic.FileIO.FileSystem.DeleteFile(filesToBeDeleted[ii],
+                                  theUIOption, Microsoft.VisualBasic.FileIO.RecycleOption.SendToRecycleBin);
+                                // update data table for find
+                                FormFind.deleteRow(filesToBeDeleted[ii]);
+                            }
 #if !DEBUG
-                        catch (Exception ex)
-                        {
-                            if (ex is OperationCanceledException)
+                            catch (Exception ex)
                             {
-                                return;
+                                if (ex is OperationCanceledException)
+                                {
+                                    return;
+                                }
+                                else
+                                {
+                                    GeneralUtilities.message(LangCfg.Message.E_delete, ex.ToString());
+                                }
                             }
-                            else
-                            {
-                                GeneralUtilities.message(LangCfg.Message.E_delete, ex.ToString());
-                            }
-                        }
 #endif
-                        // delete additional files
-                        foreach (string Extension in ConfigDefinition.getAdditionalFileExtensionsList())
-                        {
-                            if (File.Exists(GeneralUtilities.additionalFileName(filesToBeDeleted[ii], Extension)))
+                            // delete additional files
+                            foreach (string Extension in ConfigDefinition.getAdditionalFileExtensionsList())
                             {
-                                Microsoft.VisualBasic.FileIO.FileSystem.DeleteFile(GeneralUtilities.additionalFileName(filesToBeDeleted[ii], Extension),
-                                  Microsoft.VisualBasic.FileIO.UIOption.OnlyErrorDialogs, Microsoft.VisualBasic.FileIO.RecycleOption.SendToRecycleBin);
+                                if (File.Exists(GeneralUtilities.additionalFileName(filesToBeDeleted[ii], Extension)))
+                                {
+                                    Microsoft.VisualBasic.FileIO.FileSystem.DeleteFile(GeneralUtilities.additionalFileName(filesToBeDeleted[ii], Extension),
+                                      Microsoft.VisualBasic.FileIO.UIOption.OnlyErrorDialogs, Microsoft.VisualBasic.FileIO.RecycleOption.SendToRecycleBin);
+                                }
+                            }
+                            // following action may be executed already via the event from ShellItemChangeEventHandler
+                            // so check the index and do it here, if event did fail
+                            if (ii < theUserControlFiles.listViewFiles.SelectedIndices.Count)
+                            {
+                                // delete entry in lists in Image Manager
+                                ImageManager.deleteExtendedImage(theUserControlFiles.listViewFiles.SelectedIndices[ii]);
+                                // remove item in listView
+                                theUserControlFiles.listViewFiles.Items.RemoveAt(theUserControlFiles.listViewFiles.SelectedIndices[ii]);
                             }
                         }
-                        // following action may be executed already via the event from ShellItemChangeEventHandler
-                        // so check the index and do it here, if event did fail
-                        if (ii < theUserControlFiles.listViewFiles.SelectedIndices.Count)
+
+                        // clear list of thumbnails, will be created new with new assignments
+                        theUserControlFiles.listViewFiles.clearThumbnails();
+
+                        // display next image
+                        if (nextSelectedIndex >= theUserControlFiles.listViewFiles.Items.Count)
                         {
-                            // delete entry in lists in Image Manager
-                            ImageManager.deleteExtendedImage(theUserControlFiles.listViewFiles.SelectedIndices[ii]);
-                            // remove item in listView
-                            theUserControlFiles.listViewFiles.Items.RemoveAt(theUserControlFiles.listViewFiles.SelectedIndices[ii]);
+                            nextSelectedIndex = theUserControlFiles.listViewFiles.Items.Count - 1;
+                        }
+                        if (nextSelectedIndex >= 0)
+                        {
+                            theUserControlFiles.listViewFiles.SelectedIndices.Add(nextSelectedIndex);
+                            theUserControlFiles.listViewFiles.EnsureVisible(nextSelectedIndex);
                         }
                     }
-
-                    // clear list of thumbnails, will be created new with new assignments
-                    theUserControlFiles.listViewFiles.clearThumbnails();
-
-                    // display next image
-                    if (nextSelectedIndex >= theUserControlFiles.listViewFiles.Items.Count)
-                    {
-                        nextSelectedIndex = theUserControlFiles.listViewFiles.Items.Count - 1;
-                    }
-                    if (nextSelectedIndex >= 0)
-                    {
-                        theUserControlFiles.listViewFiles.SelectedIndices.Add(nextSelectedIndex);
-                        theUserControlFiles.listViewFiles.EnsureVisible(nextSelectedIndex);
-                    }
+                    // set focus an main mask - file list again (focus lost, probably due to display of message)
+                    this.Activate();
+                    theUserControlFiles.listViewFiles.Select();
                 }
-                // set focus an main mask - file list again (focus lost, probably due to display of message)
-                this.Activate();
-                theUserControlFiles.listViewFiles.Select();
             }
         }
 
@@ -1581,13 +1621,16 @@ namespace QuickImageComment
             // if external browser is started or not is checked in showMap
             MapInExternalBrowser.newImage(theExtendedImage.getRecordingLocation());
 
-            for (int inew = 0; inew < theUserControlFiles.listViewFiles.SelectedIndicesNew.Length; inew++)
+            lock (UserControlFiles.LockListViewFiles)
             {
-                int fileIndex = theUserControlFiles.listViewFiles.SelectedIndicesNew[inew];
-                // skip theExtendedImage whose index is lastFileIndex
-                if (fileIndex != theUserControlFiles.lastFileIndex)
+                for (int inew = 0; inew < theUserControlFiles.listViewFiles.SelectedIndicesNew.Length; inew++)
                 {
-                    updateAllChangeableDataForMultipleSelection(ImageManager.getExtendedImage(fileIndex, false));
+                    int fileIndex = theUserControlFiles.listViewFiles.SelectedIndicesNew[inew];
+                    // skip theExtendedImage whose index is lastFileIndex
+                    if (fileIndex != theUserControlFiles.lastFileIndex)
+                    {
+                        updateAllChangeableDataForMultipleSelection(ImageManager.getExtendedImage(fileIndex, false));
+                    }
                 }
             }
             enableEventHandlersRecogniseUserInput();
@@ -1885,7 +1928,10 @@ namespace QuickImageComment
                 catch { }
                 if (theFormSettings.settingsChanged)
                 {
-                    readFolderAndDisplayImage(theUserControlFiles.lastFileIndex);
+                    lock (UserControlFiles.LockListViewFiles)
+                    {
+                        readFolderAndDisplayImage(theUserControlFiles.lastFileIndex);
+                    }
                 }
             }
         }
@@ -1945,29 +1991,35 @@ namespace QuickImageComment
         // open form to display image in separate window
         private void toolStripMenuItemImageWindow_Click(object sender, EventArgs e)
         {
-            // some windows may still be open from a previous call; close them
-            FormPrevNext.closeAllWindows(nameof(FormImageWindow));
-            // open one window for each selected file
-            for (int ii = 0; ii < theUserControlFiles.listViewFiles.SelectedItems.Count; ii++)
+            lock (UserControlFiles.LockListViewFiles)
             {
-                int selectedIndex = theUserControlFiles.listViewFiles.SelectedIndices[ii];
-                new FormImageWindow(ImageManager.getExtendedImage(selectedIndex), toolStripMenuItemImageWithGrid.Checked);
+                // some windows may still be open from a previous call; close them
+                FormPrevNext.closeAllWindows(nameof(FormImageWindow));
+                // open one window for each selected file
+                for (int ii = 0; ii < theUserControlFiles.listViewFiles.SelectedItems.Count; ii++)
+                {
+                    int selectedIndex = theUserControlFiles.listViewFiles.SelectedIndices[ii];
+                    new FormImageWindow(ImageManager.getExtendedImage(selectedIndex), toolStripMenuItemImageWithGrid.Checked);
+                }
             }
         }
 
         // open form to display image details in separate window
         private void toolStripMenuItemDetailsWindow_Click(object sender, EventArgs e)
         {
-            // some windows may still be open from a previous call; close them
-            FormPrevNext.closeAllWindows(nameof(FormImageDetails));
-            // open one window for each selected file
-            for (int ii = 0; ii < theUserControlFiles.listViewFiles.SelectedItems.Count; ii++)
+            lock (UserControlFiles.LockListViewFiles)
             {
-                int selectedIndex = theUserControlFiles.listViewFiles.SelectedIndices[ii];
-                ExtendedImage anExtendedImage = ImageManager.getExtendedImage(selectedIndex, true);
-                new FormImageDetails(dpiSettings, anExtendedImage);
+                // some windows may still be open from a previous call; close them
+                FormPrevNext.closeAllWindows(nameof(FormImageDetails));
+                // open one window for each selected file
+                for (int ii = 0; ii < theUserControlFiles.listViewFiles.SelectedItems.Count; ii++)
+                {
+                    int selectedIndex = theUserControlFiles.listViewFiles.SelectedIndices[ii];
+                    ExtendedImage anExtendedImage = ImageManager.getExtendedImage(selectedIndex, true);
+                    new FormImageDetails(dpiSettings, anExtendedImage);
+                }
+                refreshImageDetailsFrame();
             }
-            refreshImageDetailsFrame();
         }
 
         // open form to display image details in separate window
@@ -2105,12 +2157,17 @@ namespace QuickImageComment
                 }
                 else
                 {
-                    FormRename theFormRename = new FormRename(theUserControlFiles.listViewFiles.SelectedIndices, FolderName);
-
-                    theFormRename.ShowDialog();
-                    if (theFormRename.filesRenamed)
+                    // lock although it could take longer until user has finished, because without lock 
+                    // other files than selected might be modified if ShellListener is modifies the file list 
+                    lock (UserControlFiles.LockListViewFiles)
                     {
-                        readFolderAndDisplayImage(0);
+                        FormRename theFormRename = new FormRename(theUserControlFiles.listViewFiles.SelectedIndices, FolderName);
+
+                        theFormRename.ShowDialog();
+                        if (theFormRename.filesRenamed)
+                        {
+                            readFolderAndDisplayImage(0);
+                        }
                     }
                 }
             }
@@ -2127,8 +2184,13 @@ namespace QuickImageComment
                 }
                 else
                 {
-                    FormCompare theFormCompare = new FormCompare(theUserControlFiles.listViewFiles.SelectedIndices, FolderName);
-                    theFormCompare.ShowDialog();
+                    // lock although it could take longer until user has finished, because without lock 
+                    // other files than selected might be compared if ShellListener is modifies the file list 
+                    lock (UserControlFiles.LockListViewFiles)
+                    {
+                        FormCompare theFormCompare = new FormCompare(theUserControlFiles.listViewFiles.SelectedIndices, FolderName);
+                        theFormCompare.ShowDialog();
+                    }
                 }
             }
         }
@@ -2138,13 +2200,18 @@ namespace QuickImageComment
         {
             if (continueAfterCheckForChangesAndOptionalSaving(theUserControlFiles.listViewFiles.SelectedIndicesNew))
             {
-                FormDateTimeChange theFormDateTimeChange = new FormDateTimeChange(theUserControlFiles.listViewFiles.SelectedIndices);
-                if (!theFormDateTimeChange.abort)
+                // lock although it could take longer until user has finished, because without lock 
+                // other files than selected might be modified if ShellListener is modifies the file list 
+                lock (UserControlFiles.LockListViewFiles)
                 {
-                    theFormDateTimeChange.ShowDialog();
-                    if (theFormDateTimeChange.dateTimeChanged)
+                    FormDateTimeChange theFormDateTimeChange = new FormDateTimeChange(theUserControlFiles.listViewFiles.SelectedIndices);
+                    if (!theFormDateTimeChange.abort)
                     {
-                        readFolderAndDisplayImage(theUserControlFiles.lastFileIndex);
+                        theFormDateTimeChange.ShowDialog();
+                        if (theFormDateTimeChange.dateTimeChanged)
+                        {
+                            readFolderAndDisplayImage(theUserControlFiles.lastFileIndex);
+                        }
                     }
                 }
             }
@@ -2155,10 +2222,15 @@ namespace QuickImageComment
         {
             if (continueAfterCheckForChangesAndOptionalSaving(theUserControlFiles.listViewFiles.SelectedIndicesNew))
             {
-                FormRemoveMetaData theFormRemoveMetaData = new FormRemoveMetaData(theUserControlFiles.listViewFiles.SelectedIndices);
-                if (!theFormRemoveMetaData.abort)
+                // lock although it could take longer until user has finished, because without lock 
+                // other files than selected might be modified if ShellListener is modifies the file list 
+                lock (UserControlFiles.LockListViewFiles)
                 {
-                    theFormRemoveMetaData.ShowDialog();
+                    FormRemoveMetaData theFormRemoveMetaData = new FormRemoveMetaData(theUserControlFiles.listViewFiles.SelectedIndices);
+                    if (!theFormRemoveMetaData.abort)
+                    {
+                        theFormRemoveMetaData.ShowDialog();
+                    }
                 }
             }
         }
@@ -2178,50 +2250,61 @@ namespace QuickImageComment
         // export of all properties of selected images
         private void toolStripMenuItemTextExportAllProp_Click(object sender, EventArgs e)
         {
-            FormExportAllMetaData theFormExportAllMetaData = new FormExportAllMetaData(theUserControlFiles.listViewFiles.SelectedIndices, FolderName);
+            // lock although it could take longer until action is finished, because without lock 
+            // other files than selected might be exported if ShellListener is modifies the file list 
+            lock (UserControlFiles.LockListViewFiles)
+            {
+                FormExportAllMetaData theFormExportAllMetaData = new FormExportAllMetaData(theUserControlFiles.listViewFiles.SelectedIndices, FolderName);
+            }
         }
 
         // set file date and time to date and time when image was generated
         private void toolStripMenuItemSetFileDateToDateGenerated_Click(object sender, EventArgs e)
         {
-            string tagToChangeFileDate = ConfigDefinition.getConfigString(ConfigDefinition.enumConfigString.TagDateImageGenerated);
-            DialogResult theDialogResult = GeneralUtilities.questionMessage(LangCfg.Message.Q_setFileDateToDateGenerated, tagToChangeFileDate);
-            if (theDialogResult == DialogResult.Yes)
+            lock (UserControlFiles.LockListViewFiles)
             {
-                this.Cursor = Cursors.WaitCursor;
-                for (int ii = 0; ii < theUserControlFiles.listViewFiles.SelectedIndices.Count; ii++)
+                string tagToChangeFileDate = ConfigDefinition.getConfigString(ConfigDefinition.enumConfigString.TagDateImageGenerated);
+                DialogResult theDialogResult = GeneralUtilities.questionMessage(LangCfg.Message.Q_setFileDateToDateGenerated, tagToChangeFileDate);
+                if (theDialogResult == DialogResult.Yes)
                 {
-                    ExtendedImage theExtendedImage = ImageManager.getExtendedImage(theUserControlFiles.listViewFiles.SelectedIndices[ii]);
-                    string dateGenerated = theExtendedImage.getMetaDataValueByKey(tagToChangeFileDate, MetaDataItem.Format.Original);
-                    string fileName = theExtendedImage.getImageFileName();
-                    try
+                    this.Cursor = Cursors.WaitCursor;
+                    for (int ii = 0; ii < theUserControlFiles.listViewFiles.SelectedIndices.Count; ii++)
                     {
-                        DateTime ImageDateTime = GeneralUtilities.getDateTimeFromExifIptcXmpString(dateGenerated, tagToChangeFileDate);
-                        System.IO.File.SetCreationTime(fileName, ImageDateTime);
-                        System.IO.File.SetLastWriteTime(fileName, ImageDateTime);
-                    }
-                    catch (GeneralUtilities.ExceptionConversionError)
-                    {
-                        DialogResult dialogResult = GeneralUtilities.messageOkCancel(LangCfg.Message.E_wrongDateTimeInTag, fileName, tagToChangeFileDate, dateGenerated);
-                        if (dialogResult == DialogResult.Cancel)
+                        ExtendedImage theExtendedImage = ImageManager.getExtendedImage(theUserControlFiles.listViewFiles.SelectedIndices[ii]);
+                        string dateGenerated = theExtendedImage.getMetaDataValueByKey(tagToChangeFileDate, MetaDataItem.Format.Original);
+                        string fileName = theExtendedImage.getImageFileName();
+                        try
                         {
-                            break;
+                            DateTime ImageDateTime = GeneralUtilities.getDateTimeFromExifIptcXmpString(dateGenerated, tagToChangeFileDate);
+                            System.IO.File.SetCreationTime(fileName, ImageDateTime);
+                            System.IO.File.SetLastWriteTime(fileName, ImageDateTime);
                         }
+                        catch (GeneralUtilities.ExceptionConversionError)
+                        {
+                            DialogResult dialogResult = GeneralUtilities.messageOkCancel(LangCfg.Message.E_wrongDateTimeInTag, fileName, tagToChangeFileDate, dateGenerated);
+                            if (dialogResult == DialogResult.Cancel)
+                            {
+                                break;
+                            }
+                        }
+                        theExtendedImage.readFileDates();
                     }
-                    theExtendedImage.readFileDates();
+                    displayImage(theUserControlFiles.lastFileIndex);
+                    this.Cursor = Cursors.Default;
                 }
-                displayImage(theUserControlFiles.lastFileIndex);
-                this.Cursor = Cursors.Default;
             }
         }
 
         // select all files
         internal void toolStripMenuItemSelectAll_Click(object sender, EventArgs e)
         {
-            theUserControlFiles.listViewFiles.SelectedIndices.Clear();
-            for (int ii = 0; ii < theUserControlFiles.listViewFiles.Items.Count; ii++)
+            lock (UserControlFiles.LockListViewFiles)
             {
-                theUserControlFiles.listViewFiles.SelectedIndices.Add(ii);
+                theUserControlFiles.listViewFiles.SelectedIndices.Clear();
+                for (int ii = 0; ii < theUserControlFiles.listViewFiles.Items.Count; ii++)
+                {
+                    theUserControlFiles.listViewFiles.SelectedIndices.Add(ii);
+                }
             }
         }
 
@@ -3538,13 +3621,16 @@ namespace QuickImageComment
                 pictureBox1.Image.RotateFlip(theRotateFlipType);
                 pictureBox1.Refresh();
             }
-            if (theUserControlFiles.lastFileIndex >= 0)
+            lock (UserControlFiles.LockListViewFiles)
             {
-                // rotate the thumbnail image for list view
-                ExtendedImage ExtendedImageForThumbnail = ImageManager.getExtendedImage(theUserControlFiles.lastFileIndex);
-                Image theImage = ExtendedImageForThumbnail.getThumbNailBitmap();
-                theImage.RotateFlip(theRotateFlipType);
-                theUserControlFiles.listViewFiles.Refresh();
+                if (theUserControlFiles.lastFileIndex >= 0)
+                {
+                    // rotate the thumbnail image for list view
+                    ExtendedImage ExtendedImageForThumbnail = ImageManager.getExtendedImage(theUserControlFiles.lastFileIndex);
+                    Image theImage = ExtendedImageForThumbnail.getThumbNailBitmap();
+                    theImage.RotateFlip(theRotateFlipType);
+                    theUserControlFiles.listViewFiles.Refresh();
+                }
             }
             FormImageWindow.rotateImageInLastWindow(theRotateFlipType);
         }
@@ -3781,88 +3867,93 @@ namespace QuickImageComment
         // read content of folder and display image with given index
         private void displayImageAfterReadFolder(int FileIndex)
         {
-            toolStripStatusLabelFiles.Text = "";
-
-            // disable all image related tool strip items; folder may be empty
-            // tool strip items will be enabled if an image is displayed
-            setMultiImageControlsEnabled(false);
-            setSingleImageControlsEnabled(false);
-            setControlsEnabledBasedOnDataChange(false);
-
-            // Clear all data from image in mask
-            theUserControlFiles.lastFileIndex = -1;
-            if (!starting)
+            // lock here and not in calling routine, because either the call is with constant (0, -1) 
+            // or the call one level higher is within lock
+            lock (UserControlFiles.LockListViewFiles)
             {
-                displayImage(-1);
-            }
-            theUserControlFiles.listViewFiles.Items.Clear();
-            toolStripStatusLabelFiles.Text = "";
+                toolStripStatusLabelFiles.Text = "";
 
-            if (!FolderName.Equals(""))
-            {
-                toolStripStatusLabelInfo.Text = LangCfg.getText(LangCfg.Others.readFileNofM, "");
-#if !DEBUG
-                try
-#endif
+                // disable all image related tool strip items; folder may be empty
+                // tool strip items will be enabled if an image is displayed
+                setMultiImageControlsEnabled(false);
+                setSingleImageControlsEnabled(false);
+                setControlsEnabledBasedOnDataChange(false);
+
+                // Clear all data from image in mask
+                theUserControlFiles.lastFileIndex = -1;
+                if (!starting)
                 {
-                    theUserControlFiles.listViewFiles.Items.AddRange(ImageManager.getTheListViewItems());
-                    readFolderPerfomance.measure("after read folder add ranges");
-
-                    if (theUserControlFiles.listViewFiles.Items.Count > 0)
-                    {
-                        if (theUserControlFiles.listViewFiles.View == View.List)
-                        {
-                            theUserControlFiles.listViewFiles.AutoResizeColumns(ColumnHeaderAutoResizeStyle.None);
-                        }
-                    }
-                    else
-                    {
-                        // if folder contains an image, dataGridViewSelectedFiles is refreshed when this image is displayed
-                        // if folder is empty, explicit refresh is needed
-                        refreshdataGridViewSelectedFiles();
-                    }
-                    // read first image with saving fullSizeImage
-                    // avoids that image is first read without saving fullSizeImage via listViewFiles_DrawItem
-                    if (theUserControlFiles.listViewFiles.Items.Count > 0)
-                    {
-                        ImageManager.getExtendedImage(0, true);
-                    }
-
-                    theUserControlFiles.listViewFiles.SelectedIndices.Clear();
-                    theUserControlFiles.listViewFiles.SelectedIndicesOld = new int[0];
-                    theUserControlFiles.listViewFiles.SelectedIndicesNew = new int[0];
-
-                    // fill status bar
-                    if (theUserControlFiles.listViewFiles.Items.Count == 0)
-                    {
-                        toolStripStatusLabelFiles.Text = LangCfg.translate("Bilder/Videos", this.Name) + ": 0";
-                    }
-                    else
-                    {
-                        // mark selected Image in listbox containing file names
-                        // changing selected index in listBoxFiles forces display 
-                        // see function "listBoxFiles_SelectedIndexChanged"
-                        if (FileIndex < 0)
-                        {
-                            FileIndex = 0;
-                        }
-                        else if (FileIndex >= theUserControlFiles.listViewFiles.Items.Count - 1)
-                        {
-                            FileIndex = theUserControlFiles.listViewFiles.Items.Count - 1;
-                        }
-                        theUserControlFiles.listViewFiles.SelectedIndices.Add(FileIndex);
-                        toolStripStatusLabelFiles.Text = LangCfg.translate("Bilder/Videos", this.Name) + ": " + theUserControlFiles.listViewFiles.Items.Count.ToString();
-                    }
-                    readFolderPerfomance.measure("after selected indices add");
+                    displayImage(-1);
                 }
-#if !DEBUG
-                catch (Exception ex)
+                theUserControlFiles.listViewFiles.Items.Clear();
+                toolStripStatusLabelFiles.Text = "";
+
+                if (!FolderName.Equals(""))
                 {
-                    GeneralUtilities.message(LangCfg.Message.E_readFolder, ex.ToString());
-                }
+                    toolStripStatusLabelInfo.Text = LangCfg.getText(LangCfg.Others.readFileNofM, "");
+#if !DEBUG
+                    try
 #endif
-                toolStripStatusLabelInfo.Text = "";
-                statusStrip1.Refresh();
+                    {
+                        theUserControlFiles.listViewFiles.Items.AddRange(ImageManager.getTheListViewItems());
+                        readFolderPerfomance.measure("after read folder add ranges");
+
+                        if (theUserControlFiles.listViewFiles.Items.Count > 0)
+                        {
+                            if (theUserControlFiles.listViewFiles.View == View.List)
+                            {
+                                theUserControlFiles.listViewFiles.AutoResizeColumns(ColumnHeaderAutoResizeStyle.None);
+                            }
+                        }
+                        else
+                        {
+                            // if folder contains an image, dataGridViewSelectedFiles is refreshed when this image is displayed
+                            // if folder is empty, explicit refresh is needed
+                            refreshdataGridViewSelectedFiles();
+                        }
+                        // read first image with saving fullSizeImage
+                        // avoids that image is first read without saving fullSizeImage via listViewFiles_DrawItem
+                        if (theUserControlFiles.listViewFiles.Items.Count > 0)
+                        {
+                            ImageManager.getExtendedImage(0, true);
+                        }
+
+                        theUserControlFiles.listViewFiles.SelectedIndices.Clear();
+                        theUserControlFiles.listViewFiles.SelectedIndicesOld = new int[0];
+                        theUserControlFiles.listViewFiles.SelectedIndicesNew = new int[0];
+
+                        // fill status bar
+                        if (theUserControlFiles.listViewFiles.Items.Count == 0)
+                        {
+                            toolStripStatusLabelFiles.Text = LangCfg.translate("Bilder/Videos", this.Name) + ": 0";
+                        }
+                        else
+                        {
+                            // mark selected Image in listbox containing file names
+                            // changing selected index in listBoxFiles forces display 
+                            // see function "listBoxFiles_SelectedIndexChanged"
+                            if (FileIndex < 0)
+                            {
+                                FileIndex = 0;
+                            }
+                            else if (FileIndex >= theUserControlFiles.listViewFiles.Items.Count - 1)
+                            {
+                                FileIndex = theUserControlFiles.listViewFiles.Items.Count - 1;
+                            }
+                            theUserControlFiles.listViewFiles.SelectedIndices.Add(FileIndex);
+                            toolStripStatusLabelFiles.Text = LangCfg.translate("Bilder/Videos", this.Name) + ": " + theUserControlFiles.listViewFiles.Items.Count.ToString();
+                        }
+                        readFolderPerfomance.measure("after selected indices add");
+                    }
+#if !DEBUG
+                    catch (Exception ex)
+                    {
+                        GeneralUtilities.message(LangCfg.Message.E_readFolder, ex.ToString());
+                    }
+#endif
+                    toolStripStatusLabelInfo.Text = "";
+                    statusStrip1.Refresh();
+                }
             }
         }
 
@@ -5081,39 +5172,42 @@ namespace QuickImageComment
         // false is returned in case user wanted to save, but save failed
         internal bool continueAfterCheckForChangesAndOptionalSaving(int[] selectedIndicesToStore)
         {
-            if (selectedIndicesToStore.Length > 0)
+            lock (UserControlFiles.LockListViewFiles)
             {
-                string MessageText = getChangedFields();
-                if (MessageText.Equals(""))
+                if (selectedIndicesToStore.Length > 0)
                 {
-                    return true;
-                }
-                else
-                {
-                    System.Windows.Forms.DialogResult saveDialogResult;
-                    saveDialogResult = GeneralUtilities.questionMessageYesNoCancel(LangCfg.Message.Q_dataChangesNotSavedContinue, MessageText);
-                    if (saveDialogResult == System.Windows.Forms.DialogResult.Yes)
+                    string MessageText = getChangedFields();
+                    if (MessageText.Equals(""))
                     {
-                        // try to save and continue if saving was succesful
-                        return saveAndStoreInLastList(selectedIndicesToStore);
-                    }
-                    else if (saveDialogResult == System.Windows.Forms.DialogResult.No)
-                    {
-                        // continue without saving; reset data as sometimes data are not refreshed by following action
-                        toolStripMenuItemReset_Click(null, null);
                         return true;
                     }
                     else
                     {
-                        // cancel selected, do not continue
-                        return false;
+                        System.Windows.Forms.DialogResult saveDialogResult;
+                        saveDialogResult = GeneralUtilities.questionMessageYesNoCancel(LangCfg.Message.Q_dataChangesNotSavedContinue, MessageText);
+                        if (saveDialogResult == System.Windows.Forms.DialogResult.Yes)
+                        {
+                            // try to save and continue if saving was succesful
+                            return saveAndStoreInLastList(selectedIndicesToStore);
+                        }
+                        else if (saveDialogResult == System.Windows.Forms.DialogResult.No)
+                        {
+                            // continue without saving; reset data as sometimes data are not refreshed by following action
+                            toolStripMenuItemReset_Click(null, null);
+                            return true;
+                        }
+                        else
+                        {
+                            // cancel selected, do not continue
+                            return false;
+                        }
                     }
                 }
-            }
-            else
-            {
-                // no files selected, continue without check
-                return true;
+                else
+                {
+                    // no files selected, continue without check
+                    return true;
+                }
             }
         }
 
@@ -5135,7 +5229,10 @@ namespace QuickImageComment
             // input check settings may have changed
             theUserControlChangeableFields.fillItemsComboBoxChangeableFields();
             // read folder again, due to changed field definitions display has to be updated
-            readFolderAndDisplayImage(theUserControlFiles.lastFileIndex);
+            lock (UserControlFiles.LockListViewFiles)
+            {
+                readFolderAndDisplayImage(theUserControlFiles.lastFileIndex);
+            }
         }
 
         // actions to performed after data template change
@@ -5200,41 +5297,44 @@ namespace QuickImageComment
         // returns null, if locations are different
         internal GeoDataItem commonRecordingLocation()
         {
-            if (theUserControlFiles.listViewFiles.SelectedItems.Count == 0)
+            lock (UserControlFiles.LockListViewFiles)
             {
-                return null;
-            }
-            else
-            {
-                ExtendedImage anExtendedImage = ImageManager.getExtendedImage(theUserControlFiles.listViewFiles.SelectedIndices[0], false);
-                GeoDataItem commonGeoDataItem = anExtendedImage.getRecordingLocation();
-                if (commonGeoDataItem != null)
+                if (theUserControlFiles.listViewFiles.SelectedItems.Count == 0)
                 {
-                    GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceWorkAfterSelectionOfFile,
-                        anExtendedImage.getImageFileName() + " " + commonGeoDataItem.displayString);
-                    for (int ii = 1; ii < theUserControlFiles.listViewFiles.SelectedItems.Count; ii++)
+                    return null;
+                }
+                else
+                {
+                    ExtendedImage anExtendedImage = ImageManager.getExtendedImage(theUserControlFiles.listViewFiles.SelectedIndices[0], false);
+                    GeoDataItem commonGeoDataItem = anExtendedImage.getRecordingLocation();
+                    if (commonGeoDataItem != null)
                     {
-                        anExtendedImage = ImageManager.getExtendedImage(theUserControlFiles.listViewFiles.SelectedIndices[ii], false);
-                        if (anExtendedImage.getRecordingLocation() == null)
+                        GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceWorkAfterSelectionOfFile,
+                            anExtendedImage.getImageFileName() + " " + commonGeoDataItem.displayString);
+                        for (int ii = 1; ii < theUserControlFiles.listViewFiles.SelectedItems.Count; ii++)
                         {
-                            GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceWorkAfterSelectionOfFile,
-                                anExtendedImage.getImageFileName() + " no recording location");
-                            commonGeoDataItem = null;
-                            break;
-                        }
-                        else
-                        {
-                            GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceWorkAfterSelectionOfFile,
-                                anExtendedImage.getImageFileName() + " " + anExtendedImage.getRecordingLocation().displayString);
-                            if (!commonGeoDataItem.sameLocation(anExtendedImage.getRecordingLocation()))
+                            anExtendedImage = ImageManager.getExtendedImage(theUserControlFiles.listViewFiles.SelectedIndices[ii], false);
+                            if (anExtendedImage.getRecordingLocation() == null)
                             {
+                                GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceWorkAfterSelectionOfFile,
+                                    anExtendedImage.getImageFileName() + " no recording location");
                                 commonGeoDataItem = null;
                                 break;
                             }
+                            else
+                            {
+                                GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceWorkAfterSelectionOfFile,
+                                    anExtendedImage.getImageFileName() + " " + anExtendedImage.getRecordingLocation().displayString);
+                                if (!commonGeoDataItem.sameLocation(anExtendedImage.getRecordingLocation()))
+                                {
+                                    commonGeoDataItem = null;
+                                    break;
+                                }
+                            }
                         }
                     }
+                    return commonGeoDataItem;
                 }
-                return commonGeoDataItem;
             }
         }
 

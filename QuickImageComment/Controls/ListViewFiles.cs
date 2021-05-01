@@ -242,7 +242,10 @@ namespace QuickImageCommentControls
                     {
                         saveFullSizeImage = true;
                     }
-                    ExtendedImageForThumbnail = ImageManager.getExtendedImage(theListViewItem.Index, saveFullSizeImage);
+                    lock (UserControlFiles.LockListViewFiles)
+                    {
+                        ExtendedImageForThumbnail = ImageManager.getExtendedImage(theListViewItem.Index, saveFullSizeImage);
+                    }
                     if (!thumbNails.ContainsKey(theListViewItem.Name))
                     {
                         thumbNails.Add(theListViewItem.Name, ExtendedImageForThumbnail.getThumbNailBitmap());

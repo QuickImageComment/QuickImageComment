@@ -25,12 +25,10 @@ namespace QuickImageComment
     class ImageManager
     {
         // as following variables are also changed in threads, 
-        // modifications are secured with lock of LockStoreImages
+        // modifications are secured with lock of UserControlFiles.LockListViewFiles
         private static string listViewFilesFolderName = "";
         private static List<ListViewItem> listViewFilesItems;
         private static ArrayList listExtendedImages;
-
-        private static object LockStoreImages = new object();
 
         private static string EmptyExtendedImage = "Empty";
         private static long FileIndexAtStartThreadToUpdateCaches;
@@ -44,7 +42,7 @@ namespace QuickImageComment
         public static void initNewFolder(string newFolderName, string fileFilter)
         {
             FormQuickImageComment.readFolderPerfomance.measure("ImageManager initNewFolder start");
-
+            
             ArrayList ImageFiles = new ArrayList();
             // check folderName; can be blank after change in FolderTreeView:
             // "my computer" now on top of tree, but this cannot be expanded
@@ -66,7 +64,7 @@ namespace QuickImageComment
             int lastCounter = 0;
 
             FormQuickImageComment.readFolderPerfomance.measure("ImageManager initWithImageFilesArrayList start");
-            lock (LockStoreImages)
+            lock (UserControlFiles.LockListViewFiles)
             {
                 listViewFilesFolderName = newFolderName;
 
@@ -102,6 +100,7 @@ namespace QuickImageComment
 
                 HashtableFullSizeImages = new System.Collections.Hashtable();
                 QueueFullSizeImages = new System.Collections.Queue();
+
             }
 
             // Force Garbage Collection
@@ -146,29 +145,23 @@ namespace QuickImageComment
         // add list view item and empty image when new file is detected
         public static ListViewItem insertNewListViewItemAndEmptyImage(int index, FileInfo theFileInfo)
         {
-            lock (LockStoreImages)
-            {
-                ListViewItem listViewItem = newListViewFilesItem(theFileInfo);
-                listViewFilesItems.Insert(index, listViewItem);
-                listExtendedImages.Insert(index, EmptyExtendedImage);
+            ListViewItem listViewItem = newListViewFilesItem(theFileInfo);
+            listViewFilesItems.Insert(index, listViewItem);
+            listExtendedImages.Insert(index, EmptyExtendedImage);
 
-                return listViewItem;
-            }
+            return listViewItem;
         }
 
         // update list view item and image when update of file is detected
         public static ListViewItem updateListViewItemAndImage(int index, FileInfo theFileInfo)
         {
-            lock (LockStoreImages)
-            {
-                ListViewItem listViewItem = newListViewFilesItem(theFileInfo);
-                listViewFilesItems[index] = listViewItem;
-                // clear extended image to force reading it again
-                listExtendedImages[index] = EmptyExtendedImage;
-                storeExtendedImage(index, listViewFilesFolderName, true, true);
+            ListViewItem listViewItem = newListViewFilesItem(theFileInfo);
+            listViewFilesItems[index] = listViewItem;
+            // clear extended image to force reading it again
+            listExtendedImages[index] = EmptyExtendedImage;
+            storeExtendedImage(index, listViewFilesFolderName, true, true);
 
-                return listViewItem;
-            }
+            return listViewItem;
         }
 
         public static void startThreadToUpdateCaches(int FileIndex)
@@ -220,23 +213,21 @@ namespace QuickImageComment
         }
         public static ExtendedImage getExtendedImage(int FileIndex, bool saveFullSizeImage)
         {
-            lock (LockStoreImages)
-            {
-                GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceCaching,
-                    "FileIndex=" + FileIndex.ToString() + " " + listViewFilesItems[FileIndex].Text + " - start");
+            GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceCaching,
+                "FileIndex=" + FileIndex.ToString() + " " + listViewFilesItems[FileIndex].Text + " - start");
 
-                // storeExtendedImage first checks, if entry is already in list
-                // if entry is already entered, storeExtendedImage does nothing
-                storeExtendedImage(FileIndex, listViewFilesFolderName, true, saveFullSizeImage);
+            // storeExtendedImage first checks, if entry is already in list
+            // if entry is already entered, storeExtendedImage does nothing
+            storeExtendedImage(FileIndex, listViewFilesFolderName, true, saveFullSizeImage);
 
-                GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceCaching,
-                    "FileIndex=" + FileIndex.ToString() + " " + listViewFilesItems[FileIndex].Text + " - end");
-                return (ExtendedImage)listExtendedImages[FileIndex];
-            }
+            GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceCaching,
+                "FileIndex=" + FileIndex.ToString() + " " + listViewFilesItems[FileIndex].Text + " - end");
+
+            return (ExtendedImage)listExtendedImages[FileIndex];
         }
 
         // store extended image in list
-        // ensure to call this method only within "lock (LockStoreImages)"
+        // ensure to call this method only within "lock (UserControlFiles.LockListViewFiles)"
         private static void storeExtendedImage(int FileIndex, string FolderName,
             bool displayReading, bool saveFullSizeImage)
         {
@@ -311,13 +302,8 @@ namespace QuickImageComment
 
         public static void deleteExtendedImage(int FileIndex)
         {
-            // lock listViewFilesFolderName to avoid update cache and deletion in parallel
-            // can cause crash in storeExtendedImage when numbers of images is reduced
-            lock (LockStoreImages)
-            {
-                listViewFilesItems.RemoveAt(FileIndex);
-                listExtendedImages.RemoveAt(FileIndex);
-            }
+            listViewFilesItems.RemoveAt(FileIndex);
+            listExtendedImages.RemoveAt(FileIndex);
         }
 
         private static int updateCaches(int FileIndex, string FolderName)
@@ -381,7 +367,7 @@ namespace QuickImageComment
                             {
                                 if (ii >= 0 && ii < listViewFilesItems.Count)
                                 {
-                                    lock (LockStoreImages)
+                                    lock (UserControlFiles.LockListViewFiles)
                                     {
                                         FilenameForExceptionMessage = listViewFilesItems[ii].Text;
                                         // as long as this routine is running (in a thread) variables related to folder should not be changed
