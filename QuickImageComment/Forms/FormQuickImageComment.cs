@@ -614,7 +614,7 @@ namespace QuickImageComment
                 // files to display given via command line
                 // Use DisplayFolder which is the root of all files
                 // It will be blank in case files are from different drives, but this is ok for ImageManager and avoids crashes
-                ImageManager.initWithImageFilesArrayList(DisplayFolder, DisplayFiles);
+                ImageManager.initWithImageFilesArrayList(DisplayFolder, DisplayFiles, true);
             }
 
             // moved to here as during filling dataGridViews size of panels is important to adjust column widths
@@ -3836,7 +3836,7 @@ namespace QuickImageComment
                     FolderName = DisplayFolder;
 
                 theFolderTreeView.SelectedFolder = new GongSolutions.Shell.ShellItem(FolderName);
-                ImageManager.initWithImageFilesArrayList(DisplayFolder, DisplayFiles);
+                ImageManager.initWithImageFilesArrayList(DisplayFolder, DisplayFiles, false);
                 theUserControlFiles.listViewFiles.clearThumbnails();
                 displayImageAfterReadFolder(0);
             }

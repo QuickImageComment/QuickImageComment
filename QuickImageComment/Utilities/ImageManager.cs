@@ -51,14 +51,14 @@ namespace QuickImageComment
                 GeneralUtilities.addImageFilesFromFolderToList(newFolderName, fileFilter.ToLower(), ImageFiles);
             }
 
-            initWithImageFilesArrayList(newFolderName, ImageFiles);
+            initWithImageFilesArrayList(newFolderName, ImageFiles, true);
 
             GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceCaching, "New Folder: " + newFolderName);
 
             FormQuickImageComment.readFolderPerfomance.measure("ImageManager initNewFolder finish");
         }
 
-        public static void initWithImageFilesArrayList(string newFolderName, ArrayList ImageFiles)
+        public static void initWithImageFilesArrayList(string newFolderName, ArrayList ImageFiles, bool completeFolder)
         {
             const int fileCounterStep = 50;
             int lastCounter = 0;
@@ -67,6 +67,7 @@ namespace QuickImageComment
             lock (UserControlFiles.LockListViewFiles)
             {
                 listViewFilesFolderName = newFolderName;
+                UserControlFiles.listViewWithCompleteFolder = completeFolder;
 
                 listViewFilesItems = new List<ListViewItem>(ImageFiles.Count);
                 listExtendedImages = new ArrayList(ImageFiles.Count);

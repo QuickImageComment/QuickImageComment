@@ -34,6 +34,9 @@ namespace QuickImageComment
 
         // index of last selected image
         internal int lastFileIndex = -1;
+        // flag to indicate if file list is filled with complete content of folder
+        // is used to decide, which updates from ShellListener affect listViewFiles
+        internal static bool listViewWithCompleteFolder = false;
 
         internal UserControlFiles()
         {
@@ -477,26 +480,29 @@ namespace QuickImageComment
                         }
                         else
                         {
-                            // file not yet entereded --> create
+                            if (listViewWithCompleteFolder)
+                            {
+                                // file not yet entereded --> create, but only if listView was loaded with complete folder
 
-                            // save current view
-                            View tempView = listViewFiles.View;
-                            // change to list-view to ensure inserting in correct order
-                            listViewFiles.View = View.List;
-                            // insert item
-                            int ii = listViewFiles.findIndexToInsert(theFileInfo.Name);
-                            ListViewItem listViewItem = ImageManager.insertNewListViewItemAndEmptyImage(ii, theFileInfo);
-                            listViewFiles.Items.Insert(ii, listViewItem);
+                                // save current view
+                                View tempView = listViewFiles.View;
+                                // change to list-view to ensure inserting in correct order
+                                listViewFiles.View = View.List;
+                                // insert item
+                                int ii = listViewFiles.findIndexToInsert(theFileInfo.Name);
+                                ListViewItem listViewItem = ImageManager.insertNewListViewItemAndEmptyImage(ii, theFileInfo);
+                                listViewFiles.Items.Insert(ii, listViewItem);
 
-                            // restore view
-                            listViewFiles.View = tempView;
-                            // if inserted before last file selected for display, shift index
-                            if (ii <= lastFileIndex) lastFileIndex++;
-                            // update SelectedIndicesNew
-                            listViewFiles.SelectedIndicesNew = new int[listViewFiles.SelectedIndices.Count];
-                            listViewFiles.SelectedIndices.CopyTo(listViewFiles.SelectedIndicesNew, 0);
+                                // restore view
+                                listViewFiles.View = tempView;
+                                // if inserted before last file selected for display, shift index
+                                if (ii <= lastFileIndex) lastFileIndex++;
+                                // update SelectedIndicesNew
+                                listViewFiles.SelectedIndicesNew = new int[listViewFiles.SelectedIndices.Count];
+                                listViewFiles.SelectedIndices.CopyTo(listViewFiles.SelectedIndicesNew, 0);
 
-                            theFormQuickImageComment.toolStripStatusLabelFiles.Text = LangCfg.translate("Bilder/Videos", this.Name) + ": " + listViewFiles.Items.Count.ToString();
+                                theFormQuickImageComment.toolStripStatusLabelFiles.Text = LangCfg.translate("Bilder/Videos", this.Name) + ": " + listViewFiles.Items.Count.ToString();
+                            }
                         }
                         // restore scroll position
                         listViewFiles.setScrollPosition(xpos, ypos);

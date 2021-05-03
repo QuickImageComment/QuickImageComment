@@ -809,7 +809,7 @@ namespace QuickImageComment
                         SortedImageFiles.Sort();
                         this.Cursor = Cursors.WaitCursor;
 
-                        ImageManager.initWithImageFilesArrayList(FolderName, SortedImageFiles);
+                        ImageManager.initWithImageFilesArrayList(FolderName, SortedImageFiles, false);
 
                         findExecuted = true;
                         this.Cursor = Cursors.Default;
