@@ -39,8 +39,13 @@ namespace QuickImageComment
         // init logger form and show it
         public static void initFormLogger()
         {
-            theFormLogger = new FormLogger();
+            if (theFormLogger == null || theFormLogger.IsDisposed)
+            {
+                theFormLogger = new FormLogger();
+            }
             theFormLogger.Show();
+            // show logs which may be enqueued already
+            theFormLogger.updateLog();
         }
 
         // generic method to log
@@ -77,15 +82,15 @@ namespace QuickImageComment
                 // because the process then hangs or FormLogger is closed again.
                 // In this case just make debug message
                 // if configured, logger file will be still be written
-                if (theFormLogger != null)
+                LogMessageQueue.Enqueue(logMessage);
+                if (theFormLogger != null && !theFormLogger.IsDisposed)
                 {
-                    LogMessageQueue.Enqueue(logMessage);
                     new System.Threading.Tasks.Task(() => { theFormLogger.updateLog(); }).Start();
                 }
-                else
-                {
-                    GeneralUtilities.debugMessage("FormLogger could not yet be initialized; message:\n" + message);
-                }
+                //else
+                //{
+                //    GeneralUtilities.debugMessage("FormLogger could not yet be initialized; message:\n" + message);
+                //}
             }
 
             // if print-only or configured write to file as well

@@ -5339,8 +5339,8 @@ namespace QuickImageComment
         }
 
         // FormLogger may be filled also in a thread, but it must be initialized in main thread
-        // So initialzation is done from main mask, considering if invoke is required
-        // When FormLogger was initialized in Prgram.cs before running main mask, FormLogger closed again before main mask was opened
+        // So initialzation is done from main mask
+        // When FormLogger was initialized in Program.cs before running main mask, FormLogger closed again before main mask was opened
         // When FormLogger was directly initialized in thread, the form hang
         internal void initFormLogger()
         {
@@ -5348,13 +5348,17 @@ namespace QuickImageComment
             // If these threads are different, it returns true.
             if (this.InvokeRequired)
             {
-                // try-catch: avoid crash when program is terminated when still logs from background processes are created
-                try
-                {
-                    initFormLoggerCallback theCallback = new initFormLoggerCallback(initFormLogger);
-                    this.Invoke(theCallback);
-                }
-                catch { }
+                // no invoke as it will cause deadlock, in case initFormLogger was called inside a lock
+                // so FormLogger must be initialised from main thread, in worst case FormLogger needs to be opened via menu
+                // as logs are queued in Logger, no log will be lost, if FormLogger is initialised later
+
+                //// try-catch: avoid crash when program is terminated when still logs from background processes are created
+                //try
+                //{
+                //    initFormLoggerCallback theCallback = new initFormLoggerCallback(initFormLogger);
+                //    //this.Invoke(theCallback);
+                //}
+                //catch { }
             }
             else
             {
@@ -5793,6 +5797,12 @@ namespace QuickImageComment
             LangCfg.removeFromUnusedTranslations(CustomizationInterface.getUsedTranslations());
             LangCfg.addNotTranslatedTexts(CustomizationInterface.getNotTranslatedTexts(), "FormCustomization");
             LangCfg.writeTranslationCheckFiles(true);
+        }
+
+        // open FormLogger - for the case it is not opened automatically as logs are issued from thread only
+        private void toolStripMenuItemFormLogger_Click(object sender, EventArgs e)
+        {
+            Logger.initFormLogger(); // permanent use of Logger
         }
         #endregion
     }
