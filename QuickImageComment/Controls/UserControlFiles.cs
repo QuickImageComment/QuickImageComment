@@ -164,9 +164,8 @@ namespace QuickImageComment
 
             if (ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.ThreadAfterSelectionOfFile))
             {
-
-                if (delayAfterSelectedIndexChangedThread.ThreadState != ThreadState.Running &&
-                    delayAfterSelectedIndexChangedThread.ThreadState != ThreadState.WaitSleepJoin)
+                if ((delayAfterSelectedIndexChangedThread.ThreadState & ThreadState.Background) != ThreadState.Background &&
+                    (delayAfterSelectedIndexChangedThread.ThreadState & ThreadState.WaitSleepJoin) != ThreadState.WaitSleepJoin)
                 {
                     GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceWorkAfterSelectionOfFile, "create delayAfterSelectedIndexChangedThread", 0);
                     delayAfterSelectedIndexChangedThread = new Thread(delayAfterSelectedIndexChanged);
