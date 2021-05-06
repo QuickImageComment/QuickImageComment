@@ -283,7 +283,8 @@ namespace QuickImageComment
             imageFileNotFound,
             metaWarningFileNotFound,
             deviationFindDataTable,
-            findDataLoaded
+            findDataLoaded,
+            displayErrorMessage
         }
 
         // defined as variable

@@ -553,6 +553,7 @@ namespace QuickImageComment
             InternalMetaDataDefinitions.Add("File.ImageSize", new TagDefinition("File.ImageSize", "Readonly", "Size of image in pixel horizontal  x vertical"));
             InternalMetaDataDefinitions.Add("File.Modified", new TagDefinition("File.Modified", "Readonly", "Date/time of file modification"));
             InternalMetaDataDefinitions.Add("File.Created", new TagDefinition("File.Created", "Readonly", "Date/time of file creation"));
+            InternalMetaDataDefinitions.Add("Image.CodecInfo", new TagDefinition("Image.CodecInfo", "Readonly", "Info about codec used to convert RAW image for display"));
             InternalMetaDataDefinitions.Add("Image.Comment", new TagDefinition("Image.Comment", "Ascii", "Comment assigned to image, called \"Jpeg-comment\" in Exifer"));
             InternalMetaDataDefinitions.Add("Image.IPTC_KeyWordsString", new TagDefinition("Image.IPTC_KeyWordsString", "Readonly", "IPTC key words concatenated in one string"));
             InternalMetaDataDefinitions.Add("Image.IPTC_SuppCategoriesString", new TagDefinition("Image.IPTC_SuppCategoriesString", "Readonly", "IPTC supplemental categories concatenated in one string"));

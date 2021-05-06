@@ -221,6 +221,8 @@ namespace QuickImageComment
         private ArrayList TxtEntries;
         // Array for warnings created during read of meta data
         private ArrayList MetaDataWarnings;
+        // separate message for display image error
+        string DisplayImageErrorMessage = "";
 
         // for performance measurements
         Performance ConstructorPerformance = new Performance();
@@ -425,7 +427,7 @@ namespace QuickImageComment
                         status = exiv2readImageByFileName(ImageFileName, iniPath, ref comment, ref IptcUTF8, ref errorText);
                         if (!errorText.Equals("") && !ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.HideExiv2Error))
                         {
-                            MetaDataWarnings.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error) + ": ", errorText));
+                            MetaDataWarnings.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error), errorText));
                         }
 
                         // read Exif, Iptc and XMP only, if exiv2readImageByFileName did not return with exception
@@ -450,7 +452,7 @@ namespace QuickImageComment
 #if !DEBUG
                 catch (Exception ex)
                 {
-                    MetaDataWarnings.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error) + ": ", ex.Message));
+                    MetaDataWarnings.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error), ex.Message));
                 }
 #endif
                 ReadPerformance.measure("Meta data copied");
@@ -516,7 +518,7 @@ namespace QuickImageComment
             // get error text - if loop ended by error
             if (!errorText.Equals("") && !ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.HideExiv2Error))
             {
-                MetaDataWarnings.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error) + ": ", errorText));
+                MetaDataWarnings.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error), errorText));
             }
 
             // get Exif Easy data
@@ -536,7 +538,7 @@ namespace QuickImageComment
             // get error text - if loop ended by error
             if (!errorText.Equals("") && !ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.HideExiv2Error))
             {
-                MetaDataWarnings.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error) + ": ", errorText));
+                MetaDataWarnings.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error), errorText));
             }
 
             // get Iptc data
@@ -554,7 +556,7 @@ namespace QuickImageComment
             // get error text - if loop ended by error
             if (!errorText.Equals("") && !ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.HideExiv2Error))
             {
-                MetaDataWarnings.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error) + ": ", errorText));
+                MetaDataWarnings.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error), errorText));
             }
 
             // get Xmp data
@@ -572,7 +574,7 @@ namespace QuickImageComment
             // get error text - if loop ended by error
             if (!errorText.Equals("") && !ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.HideExiv2Error))
             {
-                MetaDataWarnings.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error) + ": ", errorText));
+                MetaDataWarnings.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error), errorText));
             }
         }
 
@@ -621,7 +623,7 @@ namespace QuickImageComment
                     // get error text - if loop ended by error
                     if (!errorText.Equals("") && !ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.HideExiv2Error))
                     {
-                        MetaDataWarnings.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error) + ": ", errorText));
+                        MetaDataWarnings.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error), errorText));
                     }
                 }
                 else if (key.StartsWith("ExifEasy."))
@@ -630,8 +632,8 @@ namespace QuickImageComment
                     int index = Exiv2TagDefinitions.getIndexOfExifEasyTag(key);
                     if (index < 0)
                     {
-                        // shoud not happen, so only debugMessage
-                        GeneralUtilities.debugMessage("Key " + key + " not found by Exiv2TagDefinitions.getIndexOfExifEasyTag");
+                        // shoud not happen, FormMetaDataDefinition checks for wrong entries
+                        // GeneralUtilities.debugMessage("DEBUG: Key " + key + " not found by Exiv2TagDefinitions.getIndexOfExifEasyTag");
                     }
                     else
                     {
@@ -646,7 +648,7 @@ namespace QuickImageComment
                     // get error text
                     if (!errorText.Equals("") && !ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.HideExiv2Error))
                     {
-                        MetaDataWarnings.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error) + ": ", errorText));
+                        MetaDataWarnings.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error), errorText));
                     }
                 }
                 else if (key.StartsWith("Iptc."))
@@ -670,7 +672,7 @@ namespace QuickImageComment
                     // get error text - if loop ended by error
                     if (!errorText.Equals("") && !ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.HideExiv2Error))
                     {
-                        MetaDataWarnings.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error) + ": ", errorText));
+                        MetaDataWarnings.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error), errorText));
                     }
                 }
                 else if (key.StartsWith("Xmp."))
@@ -696,7 +698,7 @@ namespace QuickImageComment
                     //// get error text - if loop ended by error
                     //if (!errorText.Equals("") && !ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.HideExiv2Error))
                     //{
-                    //    MetaDataWarnings.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error) + ": ", errorText));
+                    //    MetaDataWarnings.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error), errorText));
                     //}
                 }
             }
@@ -718,7 +720,7 @@ namespace QuickImageComment
                 // get error text - if loop ended by error
                 if (!errorText.Equals("") && !ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.HideExiv2Error))
                 {
-                    MetaDataWarnings.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error) + ": ", errorText));
+                    MetaDataWarnings.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error), errorText));
                 }
             }
         }
@@ -1226,8 +1228,9 @@ namespace QuickImageComment
                     noAccess = true;
                     TempImage = createImageWithText(LangCfg.getText(LangCfg.Others.imageNoAccess));
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    DisplayImageErrorMessage = ex.Message;
                     TempImage = createImageWithText(LangCfg.getText(LangCfg.Others.imageNotShown));
                 }
 
@@ -2033,7 +2036,7 @@ namespace QuickImageComment
             int destHeight = (int)(sourceHeight * nPercent);
 
             System.Drawing.Bitmap bmPhoto = new System.Drawing.Bitmap(Width, Height,
-                              System.Drawing.Imaging.PixelFormat.Format24bppRgb);
+                                          System.Drawing.Imaging.PixelFormat.Format24bppRgb);
             bmPhoto.SetResolution(imgPhoto.HorizontalResolution,
                              imgPhoto.VerticalResolution);
 
@@ -2060,32 +2063,58 @@ namespace QuickImageComment
         // convert BitmapSource to Bitmap
         private System.Drawing.Bitmap convertMemoryStreamToBitmap(System.IO.MemoryStream theMemoryStream, Performance ReadPerformance)
         {
+            string codecInfo;
+            ReadPerformance.measure("RAW start");
             BitmapDecoder bmpDec = BitmapDecoder.Create(theMemoryStream, BitmapCreateOptions.DelayCreation, BitmapCacheOption.None);
-            //BitmapDecoder bmpDec = BitmapDecoder.Create(new Uri(ImageFileName), BitmapCreateOptions.DelayCreation, BitmapCacheOption.None);
-            ReadPerformance.measure("BitmapDecoder.Create");
+            codecInfo = bmpDec.CodecInfo.FriendlyName + " " + bmpDec.CodecInfo.Version + " ";
             BitmapSource theBitmapSource = bmpDec.Frames[0];
 
-            System.Drawing.Bitmap bmp = new System.Drawing.Bitmap(
-                theBitmapSource.PixelWidth,
-                theBitmapSource.PixelHeight,
-                System.Drawing.Imaging.PixelFormat.Format24bppRgb);
-            ReadPerformance.measure("System.Drawing.Bitmap");
-            System.Drawing.Imaging.BitmapData data = bmp.LockBits(
-                new System.Drawing.Rectangle(System.Drawing.Point.Empty, bmp.Size),
-                System.Drawing.Imaging.ImageLockMode.WriteOnly,
-                System.Drawing.Imaging.PixelFormat.Format24bppRgb);
-            ReadPerformance.measure("bmp.LockBits");
-            theBitmapSource.CopyPixels(
-                System.Windows.Int32Rect.Empty,
-                data.Scan0,
-                data.Height * data.Stride,
-                data.Stride);
-            ReadPerformance.measure("CopyPixels");
-            bmp.UnlockBits(data);
-            ReadPerformance.measure("UnlockBits");
+            // get bitmap using encoder
+            BitmapFrame bmf = BitmapFrame.Create(theBitmapSource, null, null, null);
+            // JpegBitmapEncoder is fastest BitmapEncoder, BmpBitmapEncoder is near to it; others significantly slower
+            JpegBitmapEncoder encoder = new JpegBitmapEncoder();
 
-            ReadPerformance.measure("UnlockBits");
+            encoder.Frames.Add(bmf);
+            ReadPerformance.measure("RAW encoder frame added");
+            System.IO.MemoryStream memoryStream = new System.IO.MemoryStream();
+            encoder.Save(memoryStream);
+
+            Bitmap bmp = (System.Drawing.Bitmap)System.Drawing.Bitmap.FromStream(memoryStream, true, false);
+            ReadPerformance.measure("RAW finish encoder");
+            addReplaceOtherMetaDataKnownType("Image.CodecInfo", codecInfo);
             return bmp;
+
+            //// old solution with copy pixels
+            //// results in wrong colors for images read with NEF Codec 1.31.1 
+            //// compared to previous version contains fix to determine pixel format to avoid exception when doing CopyPixels
+            //// this requires Nuget package PixelFormatsConverter
+            //System.Drawing.Bitmap bmp = new System.Drawing.Bitmap(
+            //    theBitmapSource.PixelWidth,
+            //    theBitmapSource.PixelHeight,
+            //    PixelFormatsConverter.PixelFormatConverterExtensions.Convert(theBitmapSource.Format));
+            //if (ConfigDefinition.getConfigInt(ConfigDefinition.enumConfigInt.RAW) < 4) throw new Exception("test");
+            //ReadPerformance.measure("System.Drawing.Bitmap");
+
+            //System.Drawing.Imaging.BitmapData data = bmp.LockBits(
+            //    new System.Drawing.Rectangle(System.Drawing.Point.Empty, bmp.Size),
+            //    System.Drawing.Imaging.ImageLockMode.WriteOnly,
+            //    bmp.PixelFormat);
+            //if (ConfigDefinition.getConfigInt(ConfigDefinition.enumConfigInt.RAW) < 5) throw new Exception("test");
+            //ReadPerformance.measure("bmp.LockBits");
+
+            //theBitmapSource.CopyPixels(
+            //    System.Windows.Int32Rect.Empty,
+            //    data.Scan0,
+            //    data.Height * data.Stride,
+            //    data.Stride);
+            //if (ConfigDefinition.getConfigInt(ConfigDefinition.enumConfigInt.RAW) < 6) throw new Exception("test");
+            //ReadPerformance.measure("CopyPixels");
+
+            //bmp.UnlockBits(data);
+            //if (ConfigDefinition.getConfigInt(ConfigDefinition.enumConfigInt.RAW) < 7) throw new Exception("test");
+            //ReadPerformance.measure("RAW finish copy pixel");
+            //addReplaceOtherMetaDataKnownType("Image.CodecInfo", codecInfo + LangCfg.getText(LangCfg.Others.codecCopyPixel));
+            //return bmp;
         }
 
         // get frame Position
@@ -3187,9 +3216,7 @@ namespace QuickImageComment
             {
                 // Gammawert darf nicht = 0 sein (Bug in GDI+)
                 //If Gamma = 0 Then Gamma = CSng(Gamma + 1.0E-45)
-
-                AdjustedImage = new Bitmap(FullSizeImage.Width, FullSizeImage.Height,
-                    System.Drawing.Imaging.PixelFormat.Format24bppRgb);
+                AdjustedImage = new Bitmap(FullSizeImage.Width, FullSizeImage.Height, FullSizeImage.PixelFormat);
 
                 Graphics OutputBitmapGraphics = Graphics.FromImage(AdjustedImage);
                 System.Drawing.Imaging.ImageAttributes theImageAttributes = new System.Drawing.Imaging.ImageAttributes();
@@ -3477,6 +3504,11 @@ namespace QuickImageComment
         public ArrayList getMetaDataWarnings()
         {
             return MetaDataWarnings;
+        }
+
+        public string getDisplayImageErrorMessage()
+        {
+            return DisplayImageErrorMessage;
         }
 
         public ArrayList getPerformanceMeasurements()

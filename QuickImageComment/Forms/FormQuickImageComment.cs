@@ -690,7 +690,6 @@ namespace QuickImageComment
                 }
                 catch { }
                 System.Threading.Thread.Sleep(displayMemoryCycleTime);
-
             }
         }
 
@@ -2843,19 +2842,6 @@ namespace QuickImageComment
             }
         }
 
-        private void ToolStripMenuItemWebPageTutorials_Click(object sender, EventArgs e)
-        {
-            if (LangCfg.getLoadedLanguage().Equals("Deutsch"))
-            {
-                System.Diagnostics.Process.Start("http://www.quickimagecomment.de/index.php/de/tutorials");
-            }
-            else
-            {
-                // TODO change when english tutorials are available
-                System.Diagnostics.Process.Start("http://www.quickimagecomment.de/index.php/de/tutorials");
-            }
-        }
-
         private void ToolStripMenuItemWebPageDownload_Click(object sender, EventArgs e)
         {
             if (LangCfg.getLoadedLanguage().Equals("Deutsch"))
@@ -3055,14 +3041,26 @@ namespace QuickImageComment
                 }
             }
 
+            // and one empty line
+            DataGridViewOverview.Rows.Add(new string[] { "", "" });
+
+            string MessageText = "";
+
+            // check for display image error
+            if (!theExtendedImage.getDisplayImageErrorMessage().Equals(""))
+            {
+                row[0] = LangCfg.getText(LangCfg.Others.displayErrorMessage);
+                row[1] = theExtendedImage.getDisplayImageErrorMessage();
+                row[2] = "";
+                row[3] = "";
+                DataGridViewOverview.Rows.Add(row);
+                MessageText = MessageText + "\n" + LangCfg.getText(LangCfg.Others.displayErrorMessage)
+                    + " " + theExtendedImage.getDisplayImageErrorMessage();
+            }
+
             // check for Exif Warnings and display them
             if (theExtendedImage.getMetaDataWarnings().Count > 0)
             {
-                // and one empty line
-                DataGridViewOverview.Rows.Add(new string[] { "", "" });
-
-                string MessageText = "";
-
                 foreach (MetaDataWarningItem ExifWarning in theExtendedImage.getMetaDataWarnings())
                 {
                     row[0] = ExifWarning.getName();
@@ -3072,7 +3070,11 @@ namespace QuickImageComment
                     DataGridViewOverview.Rows.Add(row);
                     MessageText = MessageText + "\n" + ExifWarning.getName() + " " + ExifWarning.getMessage();
                 }
+            }
 
+            panelWarningMetaData.Visible = false;
+            if (!MessageText.Equals(""))
+            {
                 if (ConfigDefinition.getMetaDataWarningChangeAppearance())
                 {
                     panelWarningMetaData.Visible = true;
@@ -3081,10 +3083,6 @@ namespace QuickImageComment
                 {
                     GeneralUtilities.message(LangCfg.Message.W_metaDataConspicuity, MessageText);
                 }
-            }
-            else
-            {
-                panelWarningMetaData.Visible = false;
             }
 
             // display performance measurements

@@ -202,13 +202,13 @@ namespace QuickImageComment
             this.toolStripMenuItemWriteTagListFile = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemCreateControlTextList = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemCheckTranslationComplete = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemFormLogger = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemListShortcuts = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemCheckForNewVersion = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItemWebPage = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItemWebPageHome = new System.Windows.Forms.ToolStripMenuItem();
-            this.ToolStripMenuItemWebPageTutorials = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItemWebPageDownload = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItemWebPageChangeHistory = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemGitHub = new System.Windows.Forms.ToolStripMenuItem();
@@ -246,7 +246,6 @@ namespace QuickImageComment
             this.toolStripButtonPredefinedKeyWords = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator14 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButtonFind = new System.Windows.Forms.ToolStripButton();
-            this.toolStripMenuItemFormLogger = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer12)).BeginInit();
             this.splitContainer12.Panel1.SuspendLayout();
             this.splitContainer12.Panel2.SuspendLayout();
@@ -512,7 +511,7 @@ namespace QuickImageComment
             // 
             this.dynamicLabelFileName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.dynamicLabelFileName.AutoSize = true;
-            this.dynamicLabelFileName.Location = new System.Drawing.Point(31, 64);
+            this.dynamicLabelFileName.Location = new System.Drawing.Point(31, 66);
             this.dynamicLabelFileName.Name = "dynamicLabelFileName";
             this.dynamicLabelFileName.Size = new System.Drawing.Size(116, 13);
             this.dynamicLabelFileName.TabIndex = 4;
@@ -683,7 +682,7 @@ namespace QuickImageComment
             this.tabPageExif.Location = new System.Drawing.Point(4, 22);
             this.tabPageExif.Name = "tabPageExif";
             this.tabPageExif.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageExif.Size = new System.Drawing.Size(269, 170);
+            this.tabPageExif.Size = new System.Drawing.Size(269, 172);
             this.tabPageExif.TabIndex = 1;
             this.tabPageExif.Text = "Exif";
             this.tabPageExif.UseVisualStyleBackColor = true;
@@ -703,7 +702,7 @@ namespace QuickImageComment
             this.DataGridViewExif.RowHeadersVisible = false;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             this.DataGridViewExif.RowsDefaultCellStyle = dataGridViewCellStyle2;
-            this.DataGridViewExif.Size = new System.Drawing.Size(263, 164);
+            this.DataGridViewExif.Size = new System.Drawing.Size(263, 166);
             this.DataGridViewExif.TabIndex = 0;
             // 
             // tabPageIptc
@@ -713,7 +712,7 @@ namespace QuickImageComment
             this.tabPageIptc.Location = new System.Drawing.Point(4, 22);
             this.tabPageIptc.Name = "tabPageIptc";
             this.tabPageIptc.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageIptc.Size = new System.Drawing.Size(269, 170);
+            this.tabPageIptc.Size = new System.Drawing.Size(269, 172);
             this.tabPageIptc.TabIndex = 2;
             this.tabPageIptc.Text = "IPTC";
             this.tabPageIptc.UseVisualStyleBackColor = true;
@@ -733,7 +732,7 @@ namespace QuickImageComment
             this.DataGridViewIptc.RowHeadersVisible = false;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             this.DataGridViewIptc.RowsDefaultCellStyle = dataGridViewCellStyle3;
-            this.DataGridViewIptc.Size = new System.Drawing.Size(263, 164);
+            this.DataGridViewIptc.Size = new System.Drawing.Size(263, 166);
             this.DataGridViewIptc.TabIndex = 0;
             // 
             // tabPageXmp
@@ -743,7 +742,7 @@ namespace QuickImageComment
             this.tabPageXmp.Location = new System.Drawing.Point(4, 22);
             this.tabPageXmp.Name = "tabPageXmp";
             this.tabPageXmp.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageXmp.Size = new System.Drawing.Size(269, 170);
+            this.tabPageXmp.Size = new System.Drawing.Size(269, 172);
             this.tabPageXmp.TabIndex = 4;
             this.tabPageXmp.Text = "XMP";
             // 
@@ -762,7 +761,7 @@ namespace QuickImageComment
             this.DataGridViewXmp.RowHeadersVisible = false;
             dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             this.DataGridViewXmp.RowsDefaultCellStyle = dataGridViewCellStyle4;
-            this.DataGridViewXmp.Size = new System.Drawing.Size(263, 164);
+            this.DataGridViewXmp.Size = new System.Drawing.Size(263, 166);
             this.DataGridViewXmp.TabIndex = 0;
             // 
             // tabPageOther
@@ -772,7 +771,7 @@ namespace QuickImageComment
             this.tabPageOther.Location = new System.Drawing.Point(4, 22);
             this.tabPageOther.Name = "tabPageOther";
             this.tabPageOther.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageOther.Size = new System.Drawing.Size(269, 170);
+            this.tabPageOther.Size = new System.Drawing.Size(269, 172);
             this.tabPageOther.TabIndex = 3;
             this.tabPageOther.Text = "Sonstige";
             this.tabPageOther.UseVisualStyleBackColor = true;
@@ -792,7 +791,7 @@ namespace QuickImageComment
             this.DataGridViewOtherMetaData.RowHeadersVisible = false;
             dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             this.DataGridViewOtherMetaData.RowsDefaultCellStyle = dataGridViewCellStyle5;
-            this.DataGridViewOtherMetaData.Size = new System.Drawing.Size(263, 164);
+            this.DataGridViewOtherMetaData.Size = new System.Drawing.Size(263, 166);
             this.DataGridViewOtherMetaData.TabIndex = 1;
             // 
             // tabPageMulti
@@ -807,7 +806,7 @@ namespace QuickImageComment
             this.tabPageMulti.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.tabPageMulti.Location = new System.Drawing.Point(4, 24);
             this.tabPageMulti.Name = "tabPageMulti";
-            this.tabPageMulti.Size = new System.Drawing.Size(505, 196);
+            this.tabPageMulti.Size = new System.Drawing.Size(505, 198);
             this.tabPageMulti.TabIndex = 1;
             this.tabPageMulti.Text = "Mehrfach-Bildbearbeitung";
             this.tabPageMulti.UseVisualStyleBackColor = true;
@@ -1857,6 +1856,13 @@ namespace QuickImageComment
             this.toolStripMenuItemCheckTranslationComplete.Text = "Prüfen ob Übersetzung vollständig";
             this.toolStripMenuItemCheckTranslationComplete.Click += new System.EventHandler(this.toolStripMenuItemCheckTranslationComplete_Click);
             // 
+            // toolStripMenuItemFormLogger
+            // 
+            this.toolStripMenuItemFormLogger.Name = "toolStripMenuItemFormLogger";
+            this.toolStripMenuItemFormLogger.Size = new System.Drawing.Size(260, 22);
+            this.toolStripMenuItemFormLogger.Text = "FormLogger";
+            this.toolStripMenuItemFormLogger.Click += new System.EventHandler(this.toolStripMenuItemFormLogger_Click);
+            // 
             // toolStripMenuItemHelp
             // 
             this.toolStripMenuItemHelp.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
@@ -1897,7 +1903,6 @@ namespace QuickImageComment
             // 
             this.ToolStripMenuItemWebPage.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ToolStripMenuItemWebPageHome,
-            this.ToolStripMenuItemWebPageTutorials,
             this.ToolStripMenuItemWebPageDownload,
             this.ToolStripMenuItemWebPageChangeHistory});
             this.ToolStripMenuItemWebPage.Name = "ToolStripMenuItemWebPage";
@@ -1907,28 +1912,21 @@ namespace QuickImageComment
             // ToolStripMenuItemWebPageHome
             // 
             this.ToolStripMenuItemWebPageHome.Name = "ToolStripMenuItemWebPageHome";
-            this.ToolStripMenuItemWebPageHome.Size = new System.Drawing.Size(171, 22);
+            this.ToolStripMenuItemWebPageHome.Size = new System.Drawing.Size(180, 22);
             this.ToolStripMenuItemWebPageHome.Text = "Startseite";
             this.ToolStripMenuItemWebPageHome.Click += new System.EventHandler(this.ToolStripMenuItemWebPageHome_Click);
-            // 
-            // ToolStripMenuItemWebPageTutorials
-            // 
-            this.ToolStripMenuItemWebPageTutorials.Name = "ToolStripMenuItemWebPageTutorials";
-            this.ToolStripMenuItemWebPageTutorials.Size = new System.Drawing.Size(171, 22);
-            this.ToolStripMenuItemWebPageTutorials.Text = "Tutorials";
-            this.ToolStripMenuItemWebPageTutorials.Click += new System.EventHandler(this.ToolStripMenuItemWebPageTutorials_Click);
             // 
             // ToolStripMenuItemWebPageDownload
             // 
             this.ToolStripMenuItemWebPageDownload.Name = "ToolStripMenuItemWebPageDownload";
-            this.ToolStripMenuItemWebPageDownload.Size = new System.Drawing.Size(171, 22);
+            this.ToolStripMenuItemWebPageDownload.Size = new System.Drawing.Size(180, 22);
             this.ToolStripMenuItemWebPageDownload.Text = "Download";
             this.ToolStripMenuItemWebPageDownload.Click += new System.EventHandler(this.ToolStripMenuItemWebPageDownload_Click);
             // 
             // ToolStripMenuItemWebPageChangeHistory
             // 
             this.ToolStripMenuItemWebPageChangeHistory.Name = "ToolStripMenuItemWebPageChangeHistory";
-            this.ToolStripMenuItemWebPageChangeHistory.Size = new System.Drawing.Size(171, 22);
+            this.ToolStripMenuItemWebPageChangeHistory.Size = new System.Drawing.Size(180, 22);
             this.ToolStripMenuItemWebPageChangeHistory.Text = "Änderungshistorie";
             this.ToolStripMenuItemWebPageChangeHistory.Click += new System.EventHandler(this.ToolStripMenuItemWebPageChangeHistory_Click);
             // 
@@ -2318,13 +2316,6 @@ namespace QuickImageComment
             this.toolStripButtonFind.ToolTipText = "Suche über Eigenschaften";
             this.toolStripButtonFind.Click += new System.EventHandler(this.toolStripMenuItemFind_Click);
             // 
-            // toolStripMenuItemFormLogger
-            // 
-            this.toolStripMenuItemFormLogger.Name = "toolStripMenuItemFormLogger";
-            this.toolStripMenuItemFormLogger.Size = new System.Drawing.Size(260, 22);
-            this.toolStripMenuItemFormLogger.Text = "FormLogger";
-            this.toolStripMenuItemFormLogger.Click += new System.EventHandler(this.toolStripMenuItemFormLogger_Click);
-            // 
             // FormQuickImageComment
             // 
             this.AllowDrop = true;
@@ -2553,7 +2544,6 @@ namespace QuickImageComment
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemWebPageHome;
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemWebPageDownload;
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemWebPageChangeHistory;
-        private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemWebPageTutorials;
         private System.Windows.Forms.ToolStripButton toolStripButtonFields;
         private System.Windows.Forms.NumericUpDown numericUpDownFramePosition;
         private System.Windows.Forms.Label labelFramePosition;
