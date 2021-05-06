@@ -307,7 +307,11 @@ namespace QuickImageComment
                 getDataFromImagesForGrouping();
             }
 
-            listViewImages.RedrawItems(0, listViewImages.Items.Count - 1, false);
+            // unclear how it could happen but RedrawItems crashed with "invalid startIndex"
+            if (listViewImages.Items.Count > 0)
+            {
+                listViewImages.RedrawItems(0, listViewImages.Items.Count - 1, false);
+            }
             setNumericUpDownsForSeconds((double)GroupDateTimeOffsets[dynamicComboBoxGroup.SelectedIndex]);
         }
 
