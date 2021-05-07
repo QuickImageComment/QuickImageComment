@@ -33,7 +33,6 @@ namespace QuickImageComment
 
         private static System.Collections.Hashtable HashtableExtendedImages = new System.Collections.Hashtable();
         private static System.Collections.Hashtable HashtableFullSizeImages = new System.Collections.Hashtable();
-        private static System.Collections.Queue QueueFullSizeImages = new System.Collections.Queue();
 
         //-------------------------------------------------------------------------
         // initialisation
@@ -100,8 +99,6 @@ namespace QuickImageComment
                 }
 
                 HashtableFullSizeImages = new System.Collections.Hashtable();
-                QueueFullSizeImages = new System.Collections.Queue();
-
             }
 
             // Force Garbage Collection
@@ -293,10 +290,14 @@ namespace QuickImageComment
                         }
                         FormQuickImageComment.readFolderPerfomance.measure("ImageManager before new ExtendedImage");
                         // to be safe in case the image was added in the meantime as here not lock is used to avoid blocking user
-                        if (HashtableExtendedImages.ContainsKey(FullFileName))
-                            HashtableExtendedImages[FullFileName] = new ExtendedImage(FullFileName, saveFullSizeImage);
-                        else
+                        try
+                        {
                             HashtableExtendedImages.Add(FullFileName, new ExtendedImage(FullFileName, saveFullSizeImage));
+                        }
+                        catch
+                        {
+                            HashtableExtendedImages[FullFileName] = new ExtendedImage(FullFileName, saveFullSizeImage);
+                        }
                         FormQuickImageComment.readFolderPerfomance.measure("ImageManager after new ExtendedImage");
                         if (displayReading)
                         {
@@ -316,7 +317,6 @@ namespace QuickImageComment
                     // enter File in queue even if it might be alread in hashtable 
                     // there is a reason to store the file in hashtable now, so put in the queue now
                     // otherwise the file might be deleted to early
-                    QueueFullSizeImages.Enqueue(FullFileName);
                     if (!HashtableFullSizeImages.Contains(FullFileName))
                     {
                         HashtableFullSizeImages.Add(FullFileName, HashtableExtendedImages[FullFileName]);
@@ -354,94 +354,88 @@ namespace QuickImageComment
                 try
 #endif
                 {
-                    // delete extended images outside cache range
-                    int prefetchCountExtended = ConfigDefinition.getExtendedImageCacheMaxSize() / 2;
-                    int prefetchCountFullSize = ConfigDefinition.getFullSizeImageCacheMaxSize() / 2;
-                    // get list of files to keep
-                    ArrayList FilesToCache = new ArrayList();
-                    for (int ii = 0; ii < listViewFilesItems.Count; ii++)
+                    // get list of files to keep - extended
+                    ArrayList ExtendedCache = new ArrayList();
+                    ExtendedCache.Add(fullFileNameViaIndex(FileIndex));
+                    int offset = 1;
+                    while (ExtendedCache.Count < ConfigDefinition.getExtendedImageCacheMaxSize())
                     {
-                        if (ii >= FileIndex - prefetchCountExtended && ii <= FileIndex + prefetchCountExtended)
-                        {
-                            FilesToCache.Add(fullFileNameViaIndex(ii));
-                        }
+                        if (FileIndex + offset < listViewFilesItems.Count) ExtendedCache.Add(fullFileNameViaIndex(FileIndex + offset));
+                        if (ExtendedCache.Count == ConfigDefinition.getExtendedImageCacheMaxSize()) break;
+                        if (FileIndex - offset >= 0) ExtendedCache.Add(fullFileNameViaIndex(FileIndex - offset));
+                        offset++;
                     }
+                    // get list of files to keep - fullsize
+                    ArrayList FullsizeCache = new ArrayList();
+                    FullsizeCache.Add(fullFileNameViaIndex(FileIndex));
+                    offset = 1;
+                    while (FullsizeCache.Count < ConfigDefinition.getFullSizeImageCacheMaxSize())
+                    {
+                        if (FileIndex + offset < listViewFilesItems.Count) FullsizeCache.Add(fullFileNameViaIndex(FileIndex + offset));
+                        if (FullsizeCache.Count == ConfigDefinition.getFullSizeImageCacheMaxSize()) break;
+                        if (FileIndex - offset >= 0) FullsizeCache.Add(fullFileNameViaIndex(FileIndex - offset));
+                        offset++;
+                    }
+
                     string[] HashtableKeys = new string[HashtableExtendedImages.Keys.Count];
                     HashtableExtendedImages.Keys.CopyTo(HashtableKeys, 0);
                     for (int ii = 0; ii < HashtableKeys.Length; ii++)
                     {
-                        if (!FilesToCache.Contains(HashtableKeys[ii])) HashtableExtendedImages.Remove(HashtableKeys[ii]);
+                        if (!ExtendedCache.Contains(HashtableKeys[ii])) HashtableExtendedImages.Remove(HashtableKeys[ii]);
                     }
                     CachePerformance.measure("delete extended images outside cache range");
 
-                    // Force Garbage Collection
-                    GC.Collect();
-                    CachePerformance.measure("Force Garbage Collection");
-
-                    // delete full size images (in extended images) outside cache range
-                    while (HashtableFullSizeImages.Count > ConfigDefinition.getFullSizeImageCacheMaxSize()
-                           && QueueFullSizeImages.Count > 0)
+                    HashtableKeys = new string[HashtableFullSizeImages.Keys.Count];
+                    HashtableFullSizeImages.Keys.CopyTo(HashtableKeys, 0);
+                    for (int ii = 0; ii < HashtableKeys.Length; ii++)
                     {
-                        string FileName = (string)QueueFullSizeImages.Dequeue();
-                        // another entry of the file in the queue?
                         // never remove the displayed image, can cause error when redisplay is needed
-                        if (!QueueFullSizeImages.Contains(FileName) && !FileName.Equals(MainMaskInterface.displayedImageFullName()))
+                        if (!FullsizeCache.Contains(HashtableKeys[ii]) && !HashtableKeys[ii].Equals(MainMaskInterface.displayedImageFullName()))
                         {
-                            GeneralUtilities.writeTraceFileEntry("Remove " + FileName);
-                            ((ExtendedImage)HashtableFullSizeImages[FileName]).deleteFullSizeImage();
-                            HashtableFullSizeImages.Remove(FileName);
+                            HashtableFullSizeImages.Remove(HashtableKeys[ii]);
                         }
                     }
-                    CachePerformance.measure("delete full size images (in extended images) outside cache range");
+                    CachePerformance.measure("delete fullsize images outside cache range");
 
                     // Force Garbage Collection
                     GC.Collect();
                     CachePerformance.measure("Force Garbage Collection");
 
                     MainMaskInterface.setToolStripStatusLabelBufferingThread(true);
-                    // add extended images around selected File
-                    for (int jj = 1; jj <= prefetchCountExtended; jj++)
+
+                    // add extended images around selected file
+                    for (int ii = 0; ii < ExtendedCache.Count; ii++)
                     {
-                        int[] indexArray = new int[] { FileIndex - jj, FileIndex + jj };
-                        foreach (int ii in indexArray)
+                        string fullFileName = (string)ExtendedCache[ii];
+                        if (GeneralUtilities.getRemainingAllowedMemory() > ConfigDefinition.getConfigInt(ConfigDefinition.enumConfigInt.MaximumMemoryTolerance))
                         {
-                            if (GeneralUtilities.getRemainingAllowedMemory() > ConfigDefinition.getConfigInt(ConfigDefinition.enumConfigInt.MaximumMemoryTolerance))
+                            FilenameForExceptionMessage = fullFileName;
+                            // as long as this routine is running (in a thread) variables related to folder should not be changed
+                            // storeExtendedImage returns when listViewFilesFolderName is changed, then unlock happens and
+                            // further actions can be performed in initNewfolder
+                            // storeExtendedImage returns also when a new image is selected, because then a new thread starts
+                            if (FolderName.Equals(listViewFilesFolderName) && FileIndex == FileIndexAtStartThreadToUpdateCaches)
                             {
-                                if (ii >= 0 && ii < listViewFilesItems.Count)
-                                {
-                                    FilenameForExceptionMessage = listViewFilesItems[ii].Text;
-                                    // as long as this routine is running (in a thread) variables related to folder should not be changed
-                                    // storeExtendedImage returns when listViewFilesFolderName is changed, then unlock happens and
-                                    // further actions can be performed in initNewfolder
-                                    // storeExtendedImage returns also when a new image is selected, because then a new thread starts
-                                    if (FolderName.Equals(listViewFilesFolderName) && FileIndex == FileIndexAtStartThreadToUpdateCaches)
-                                    {
-                                        bool saveFullSizeImage = false;
-                                        if (jj < prefetchCountFullSize)
-                                        {
-                                            saveFullSizeImage = true;
-                                        }
-                                        storeExtendedImage(ii, FolderName, false, saveFullSizeImage);
-                                        CachePerformance.measure("storeExtendedImage" + ii.ToString());
-                                    }
-                                    else
-                                    {
-                                        // since start of method a new folder or another image has been selected:
-                                        // stop work, a new thread will be started to fill Cache
-                                        GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceCaching, "Cache Extended break: folder or selection changed");
-                                        jj = prefetchCountExtended;
-                                        break;
-                                    }
-                                    // throw (new Exception("ExceptionTest Thread created by Task.Factory"));
-                                }
+                                bool saveFullSizeImage = HashtableFullSizeImages.Count < ConfigDefinition.getFullSizeImageCacheMaxSize();
+
+                                string fileName = System.IO.Path.GetFileName(fullFileName);
+                                storeExtendedImage(fileName, fullFileName, FolderName, false, saveFullSizeImage);
+                                CachePerformance.measure("storeExtendedImage" + fileName);
                             }
                             else
                             {
-                                // not enough memory: stop work
-                                GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceCaching, "Cache Extended break: memory limitation");
-                                jj = prefetchCountExtended;
+                                // since start of method a new folder or another image has been selected:
+                                // stop work, a new thread will be started to fill Cache
+                                GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceCaching, "Cache Extended break: folder or selection changed");
                                 break;
                             }
+                            // throw (new Exception("ExceptionTest Thread created by Task.Factory"));
+                        }
+                        else
+                        {
+                            // not enough memory: stop work
+                            GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceCaching, "Cache Extended break: memory limitation");
+                            break;
                         }
                     }
                     CachePerformance.measure("add extended images around selected File");
