@@ -265,7 +265,7 @@ namespace QuickImageComment
 #endif
             Application.Run(theFormQuickImageComment);
 
-            //sometimes when ending the program, errors occurding as objects were no longer accessible
+            //sometimes when ending the program, errors occur as objects were no longer accessible
             //checking flag closing was not sufficient, so try this approach from
             //https://stackoverflow.com/questions/2688923/how-to-exit-all-running-threads
             //Application.Exit();

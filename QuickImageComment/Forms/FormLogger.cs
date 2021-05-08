@@ -48,7 +48,7 @@ namespace QuickImageComment
             }
             else
             {
-                while (Logger.LogMessageQueue.Count > 0)
+                while (Logger.LogMessageQueue.Count > 0) // permanent use of Logger
                 {
                     textBoxLogs.Text += Logger.LogMessageQueue.Dequeue() + "\r\n"; // permanent use of Logger
                 }

@@ -4,7 +4,7 @@
 
 ![Screenshot of Quick Image Comment](UserManual/images/English-prg/FormQuickImageComment-00.png)  
 
-QuickImageComment displays EXIF, IPTC, and XMP properties of digital images (e.g., JPEG and TIFF as well as some RAW formats) and allows to edit them. Especially editing of user comment and artist (author) is supported by using the last entered or predefined values. These attributes are read from the EXIF, IPTC, and XMP properties of the image and are stored there. Metadata (XMP) in video files are displayed.
+QuickImageComment displays EXIF, IPTC, and XMP properties of digital images (e.g., JPEG and TIFF as well as some RAW formats) and allows to edit them. These attributes are read from the EXIF, IPTC, and XMP properties of the image and are stored there. Especially editing of user comment and artist (author) is supported by using the last entered or predefined values. Metadata (XMP) in video files are displayed.
 
 ### Overview of features:
 * Display of all EXIF, IPTC and XMP properties of images, as well as some other file properties such as modification date.
@@ -29,6 +29,8 @@ For reading and changing the EXIF, IPTC, and XMP properties the library exiv2 is
 * Images: http://dev.exiv2.org/projects/exiv2/wiki/Supported_image_formats
 * Videos: http://dev.exiv2.org/projects/exiv2/wiki/Supported_video_formats
 
+To display RAW images, a codec from the camera manufacturer may have to be installed.
+
 The program runs on Microsoft Windows XP, Vista, Windows 7, 8 and 10. For Windows 7, 8  and 10 a 64-Bit-version is available. German and English can be selected as language.
 
 On www.quickimagecomment.de you find further information and can download zip-files with the excecutable packages.
@@ -37,10 +39,11 @@ On www.quickimagecomment.de you find further information and can download zip-fi
 
 Folder | Content
 :--- | :---
+docs | Documenation for programmers
+exiv2Cdecl | C++ project for library exiv2 (copied from https://github.com/Exiv2/exiv2) with some minor adjustments
 QuickImageComment | C# project for the program 
-exiv2Cdecl | C++ project for library exiv2 (copied from https://github.com/Exiv2/exiv2) with some minor adjustments)
-UserManual | User manual as Word document and PDF, subfolder with images used
 Translation | Base files for translation of GUI and tags
+UserManual | User manual as Word document and PDF, subfolder with images used
 
 # Build the program
 
@@ -51,7 +54,14 @@ This is the preferred option with all functionalities.
 * __.Net 4.0 framework__  
 This option is based on .Net 4.0 and is intended for systems without .Net 4.6.1, especially older versions of Windows. It does not support using AppCenter.ms which allows sending error reports and anonymous usage data.
 
+The AppCenter secure Id is not included in the sources (to keep it secret). So when you build the program (and do not get a secure Id on your own), the program runs without AppCenter.ms.
+
+The projects use NuGet packages. NuGet is configured with:    
+Default package management format: PackageReference
+
+
+
 Depending on the changes made, following steps may be needed:
-* Update user manual (see [README](UserManual/README.md))
 * Update translation (see [README](Translation/README.md))
+* Update user manual (see [README](UserManual/README.md))
 

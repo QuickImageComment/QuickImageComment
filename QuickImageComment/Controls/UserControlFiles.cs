@@ -324,8 +324,9 @@ namespace QuickImageComment
                     }
                     else if (newIndexCount > oldIndexCount)
                     {
+#if APPCENTER
                         bool newIndexFound = false;
-
+#endif
                         // more files selected than before, get the latest selected
                         for (int inew = 0; inew < newIndexCount; inew++)
                         {
@@ -348,7 +349,9 @@ namespace QuickImageComment
                                 theFormQuickImageComment.updateAllChangeableDataForMultipleSelection(ImageManager.getExtendedImage(fileIndex, false));
                                 theFormQuickImageComment.enableEventHandlersRecogniseUserInput();
                                 lastFileIndex = listViewFiles.SelectedIndicesNew[inew];
+#if APPCENTER
                                 newIndexFound = true;
+#endif
                             }
                         }
 #if APPCENTER
