@@ -34,15 +34,16 @@
             this.buttonOk = new System.Windows.Forms.Button();
             this.labelExplanations = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.groupBoxUserConfigStorage = new System.Windows.Forms.GroupBox();
+            this.labelNoStorageSelection = new System.Windows.Forms.Label();
+            this.groupBoxInitialView = new System.Windows.Forms.GroupBox();
             this.label3 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label2 = new System.Windows.Forms.Label();
             this.radioButtonReadOptimum = new System.Windows.Forms.RadioButton();
             this.radioButtonStandard = new System.Windows.Forms.RadioButton();
-            this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
+            this.groupBoxUserConfigStorage.SuspendLayout();
+            this.groupBoxInitialView.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -50,10 +51,9 @@
             // 
             this.radioButtonProgrammPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.radioButtonProgrammPath.AutoSize = true;
-            this.radioButtonProgrammPath.Location = new System.Drawing.Point(10, 310);
-            this.radioButtonProgrammPath.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.radioButtonProgrammPath.Location = new System.Drawing.Point(9, 268);
             this.radioButtonProgrammPath.Name = "radioButtonProgrammPath";
-            this.radioButtonProgrammPath.Size = new System.Drawing.Size(145, 19);
+            this.radioButtonProgrammPath.Size = new System.Drawing.Size(129, 17);
             this.radioButtonProgrammPath.TabIndex = 0;
             this.radioButtonProgrammPath.TabStop = true;
             this.radioButtonProgrammPath.Text = "Programm-Verzeichnis";
@@ -63,10 +63,9 @@
             // 
             this.radioButtonAppdata.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.radioButtonAppdata.AutoSize = true;
-            this.radioButtonAppdata.Location = new System.Drawing.Point(10, 283);
-            this.radioButtonAppdata.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.radioButtonAppdata.Location = new System.Drawing.Point(9, 245);
             this.radioButtonAppdata.Name = "radioButtonAppdata";
-            this.radioButtonAppdata.Size = new System.Drawing.Size(90, 19);
+            this.radioButtonAppdata.Size = new System.Drawing.Size(81, 17);
             this.radioButtonAppdata.TabIndex = 1;
             this.radioButtonAppdata.TabStop = true;
             this.radioButtonAppdata.Text = "%Appdata%";
@@ -76,10 +75,9 @@
             // 
             this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonOk.Location = new System.Drawing.Point(6, 540);
-            this.buttonOk.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.buttonOk.Location = new System.Drawing.Point(5, 468);
             this.buttonOk.Name = "buttonOk";
-            this.buttonOk.Size = new System.Drawing.Size(465, 24);
+            this.buttonOk.Size = new System.Drawing.Size(399, 21);
             this.buttonOk.TabIndex = 4;
             this.buttonOk.Text = "OK";
             this.buttonOk.UseVisualStyleBackColor = true;
@@ -90,93 +88,96 @@
             this.labelExplanations.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelExplanations.Location = new System.Drawing.Point(7, 18);
-            this.labelExplanations.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelExplanations.Location = new System.Drawing.Point(6, 16);
             this.labelExplanations.Name = "labelExplanations";
-            this.labelExplanations.Size = new System.Drawing.Size(451, 261);
+            this.labelExplanations.Size = new System.Drawing.Size(387, 226);
             this.labelExplanations.TabIndex = 5;
             this.labelExplanations.Text = "Filled with LangCfg.Others.FormSelectUserConfigStorageLabel";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(7, 18);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(6, 16);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(85, 15);
+            this.label1.Size = new System.Drawing.Size(75, 13);
             this.label1.TabIndex = 6;
             this.label1.Text = "Initiale Ansicht";
             // 
-            // groupBox1
+            // groupBoxUserConfigStorage
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.groupBoxUserConfigStorage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.radioButtonProgrammPath);
-            this.groupBox1.Controls.Add(this.radioButtonAppdata);
-            this.groupBox1.Controls.Add(this.labelExplanations);
-            this.groupBox1.Location = new System.Drawing.Point(6, 14);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.groupBox1.Size = new System.Drawing.Size(465, 340);
-            this.groupBox1.TabIndex = 7;
-            this.groupBox1.TabStop = false;
+            this.groupBoxUserConfigStorage.Controls.Add(this.labelNoStorageSelection);
+            this.groupBoxUserConfigStorage.Controls.Add(this.radioButtonProgrammPath);
+            this.groupBoxUserConfigStorage.Controls.Add(this.radioButtonAppdata);
+            this.groupBoxUserConfigStorage.Controls.Add(this.labelExplanations);
+            this.groupBoxUserConfigStorage.Location = new System.Drawing.Point(5, 12);
+            this.groupBoxUserConfigStorage.Name = "groupBoxUserConfigStorage";
+            this.groupBoxUserConfigStorage.Size = new System.Drawing.Size(399, 295);
+            this.groupBoxUserConfigStorage.TabIndex = 7;
+            this.groupBoxUserConfigStorage.TabStop = false;
             // 
-            // groupBox2
+            // labelNoStorageSelection
             // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.labelNoStorageSelection.Location = new System.Drawing.Point(200, 247);
+            this.labelNoStorageSelection.Name = "labelNoStorageSelection";
+            this.labelNoStorageSelection.Size = new System.Drawing.Size(193, 45);
+            this.labelNoStorageSelection.TabIndex = 6;
+            this.labelNoStorageSelection.Text = "Keine Auswahl möglich, Programm-Verzeichnis ist schreibgeschützt";
+            // 
+            // groupBoxInitialView
+            // 
+            this.groupBoxInitialView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox2.Controls.Add(this.label3);
-            this.groupBox2.Controls.Add(this.pictureBox1);
-            this.groupBox2.Controls.Add(this.label2);
-            this.groupBox2.Controls.Add(this.radioButtonReadOptimum);
-            this.groupBox2.Controls.Add(this.radioButtonStandard);
-            this.groupBox2.Controls.Add(this.label1);
-            this.groupBox2.Location = new System.Drawing.Point(6, 361);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(5, 3, 5, 3);
-            this.groupBox2.Size = new System.Drawing.Size(458, 173);
-            this.groupBox2.TabIndex = 8;
-            this.groupBox2.TabStop = false;
+            this.groupBoxInitialView.Controls.Add(this.label3);
+            this.groupBoxInitialView.Controls.Add(this.pictureBox1);
+            this.groupBoxInitialView.Controls.Add(this.label2);
+            this.groupBoxInitialView.Controls.Add(this.radioButtonReadOptimum);
+            this.groupBoxInitialView.Controls.Add(this.radioButtonStandard);
+            this.groupBoxInitialView.Controls.Add(this.label1);
+            this.groupBoxInitialView.Location = new System.Drawing.Point(5, 313);
+            this.groupBoxInitialView.Name = "groupBoxInitialView";
+            this.groupBoxInitialView.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.groupBoxInitialView.Size = new System.Drawing.Size(399, 150);
+            this.groupBoxInitialView.TabIndex = 8;
+            this.groupBoxInitialView.TabStop = false;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(8, 138);
-            this.label3.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label3.Location = new System.Drawing.Point(7, 120);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(290, 15);
+            this.label3.Size = new System.Drawing.Size(262, 13);
             this.label3.TabIndex = 12;
             this.label3.Text = "Menüeintrag \"Ansicht - Anpassen\" oder Schaltfläche: ";
             // 
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(399, 122);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
+            this.pictureBox1.Location = new System.Drawing.Point(342, 106);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(36, 36);
+            this.pictureBox1.Size = new System.Drawing.Size(31, 31);
             this.pictureBox1.TabIndex = 11;
             this.pictureBox1.TabStop = false;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(9, 120);
-            this.label2.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label2.Location = new System.Drawing.Point(8, 104);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(206, 15);
+            this.label2.Size = new System.Drawing.Size(187, 13);
             this.label2.TabIndex = 10;
             this.label2.Text = "Ansicht kann später geändert werden,";
             // 
             // radioButtonReadOptimum
             // 
             this.radioButtonReadOptimum.AutoSize = true;
-            this.radioButtonReadOptimum.Location = new System.Drawing.Point(10, 66);
-            this.radioButtonReadOptimum.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.radioButtonReadOptimum.Location = new System.Drawing.Point(9, 57);
             this.radioButtonReadOptimum.Name = "radioButtonReadOptimum";
-            this.radioButtonReadOptimum.Size = new System.Drawing.Size(351, 19);
+            this.radioButtonReadOptimum.Size = new System.Drawing.Size(311, 17);
             this.radioButtonReadOptimum.TabIndex = 9;
             this.radioButtonReadOptimum.Text = "Optimiert für nur Lesen (Eingabemöglichkeiten ausgeblendet)";
             this.radioButtonReadOptimum.UseVisualStyleBackColor = true;
@@ -185,10 +186,9 @@
             // 
             this.radioButtonStandard.AutoSize = true;
             this.radioButtonStandard.Checked = true;
-            this.radioButtonStandard.Location = new System.Drawing.Point(10, 39);
-            this.radioButtonStandard.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.radioButtonStandard.Location = new System.Drawing.Point(9, 34);
             this.radioButtonStandard.Name = "radioButtonStandard";
-            this.radioButtonStandard.Size = new System.Drawing.Size(72, 19);
+            this.radioButtonStandard.Size = new System.Drawing.Size(68, 17);
             this.radioButtonStandard.TabIndex = 7;
             this.radioButtonStandard.TabStop = true;
             this.radioButtonStandard.Text = "Standard";
@@ -196,21 +196,21 @@
             // 
             // FormFirstUserSettings
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(479, 568);
-            this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.groupBox1);
+            this.ClientSize = new System.Drawing.Size(411, 492);
+            this.Controls.Add(this.groupBoxInitialView);
+            this.Controls.Add(this.groupBoxUserConfigStorage);
             this.Controls.Add(this.buttonOk);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Name = "FormFirstUserSettings";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Erste Benutzer-Einstellungen";
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
+            this.groupBoxUserConfigStorage.ResumeLayout(false);
+            this.groupBoxUserConfigStorage.PerformLayout();
+            this.groupBoxInitialView.ResumeLayout(false);
+            this.groupBoxInitialView.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
@@ -223,12 +223,13 @@
         private System.Windows.Forms.Button buttonOk;
         private System.Windows.Forms.Label labelExplanations;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox groupBoxUserConfigStorage;
+        private System.Windows.Forms.GroupBox groupBoxInitialView;
         private System.Windows.Forms.RadioButton radioButtonStandard;
         private System.Windows.Forms.RadioButton radioButtonReadOptimum;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Label labelNoStorageSelection;
     }
 }

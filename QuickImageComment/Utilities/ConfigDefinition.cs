@@ -678,7 +678,7 @@ namespace QuickImageComment
             if (!System.IO.File.Exists(UserConfigFile))
             {
                 // user config file does not exist, ask where to store it
-                FormFirstUserSettings theFormSelectUserConfigStorage = new FormFirstUserSettings();
+                FormFirstUserSettings theFormSelectUserConfigStorage = new FormFirstUserSettings(true);
                 theFormSelectUserConfigStorage.ShowDialog();
             }
 

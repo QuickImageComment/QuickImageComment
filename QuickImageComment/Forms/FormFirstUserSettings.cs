@@ -21,20 +21,34 @@ namespace QuickImageComment
 {
     public partial class FormFirstUserSettings : Form
     {
-        public FormFirstUserSettings()
+        public FormFirstUserSettings(bool showfirstView)
         {
             InitializeComponent();
+            groupBoxInitialView.Visible = showfirstView;
+
             // clear label, will be filled after translation, so dummy text from mask layout need not be translated
             labelExplanations.Text = "";
             LangCfg.translateControlTexts(this);
             labelExplanations.Text = LangCfg.getText(LangCfg.Others.FormSelectUserConfigStorageLabel);
-            if (ConfigDefinition.UserConfigStorageisProgrampath())
+            System.IO.FileInfo fileInfo = new System.IO.FileInfo(Program.getProgramPath());
+            if (fileInfo.IsReadOnly)
             {
-                radioButtonProgrammPath.Checked = true;
+                radioButtonAppdata.Checked = true;
+                radioButtonProgrammPath.Enabled = false;
+                labelNoStorageSelection.Visible = true;
             }
             else
             {
-                radioButtonAppdata.Checked = true;
+                radioButtonProgrammPath.Enabled = true;
+                labelNoStorageSelection.Visible = false;
+                if (ConfigDefinition.UserConfigStorageisProgrampath())
+                {
+                    radioButtonProgrammPath.Checked = true;
+                }
+                else
+                {
+                    radioButtonAppdata.Checked = true;
+                }
             }
         }
 

@@ -2125,7 +2125,7 @@ namespace QuickImageComment
         // open mask to change storage of user settings
         private void ToolStripMenuItemUserConfigStorage_Click(object sender, EventArgs e)
         {
-            FormFirstUserSettings theFormSelectUserConfigStorage = new FormFirstUserSettings();
+            FormFirstUserSettings theFormSelectUserConfigStorage = new FormFirstUserSettings(false);
             theFormSelectUserConfigStorage.ShowDialog();
         }
 
@@ -5727,7 +5727,7 @@ namespace QuickImageComment
             LangCfg.getListOfControlsWithText(new FormRename(theUserControlFiles.listViewFiles.SelectedIndices, FolderName), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormSelectLanguage(ConfigDefinition.getProgramPath()), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormFirstAppCenterSettings(), ControlTextList);
-            LangCfg.getListOfControlsWithText(new FormFirstUserSettings(), ControlTextList);
+            LangCfg.getListOfControlsWithText(new FormFirstUserSettings(true), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormSettings(), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormTagValueInput("", textBoxUserComment, FormTagValueInput.type.configurable), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormView(SplitContainerPanelControls, DefaultSplitContainerPanelContents,
@@ -5782,7 +5782,7 @@ namespace QuickImageComment
             new FormRename(theUserControlFiles.listViewFiles.SelectedIndices, FolderName);
             new FormSelectLanguage(ConfigDefinition.getProgramPath());
             new FormFirstAppCenterSettings();
-            new FormFirstUserSettings();
+            new FormFirstUserSettings(true);
             new FormSettings();
             new FormTagValueInput("", textBoxUserComment, FormTagValueInput.type.configurable);
             new FormView(SplitContainerPanelControls, DefaultSplitContainerPanelContents,
