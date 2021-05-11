@@ -360,7 +360,8 @@ namespace QuickImageComment
                     int offset = 1;
                     while (ExtendedCache.Count < ConfigDefinition.getExtendedImageCacheMaxSize())
                     {
-                        if (FileIndex + offset < listViewFilesItems.Count) ExtendedCache.Add(fullFileNameViaIndex(FileIndex + offset));
+                        if (FileIndex + offset >= listViewFilesItems.Count && FileIndex - offset < 0) break;
+                            if (FileIndex + offset < listViewFilesItems.Count) ExtendedCache.Add(fullFileNameViaIndex(FileIndex + offset));
                         if (ExtendedCache.Count == ConfigDefinition.getExtendedImageCacheMaxSize()) break;
                         if (FileIndex - offset >= 0) ExtendedCache.Add(fullFileNameViaIndex(FileIndex - offset));
                         offset++;
@@ -371,6 +372,7 @@ namespace QuickImageComment
                     offset = 1;
                     while (FullsizeCache.Count < ConfigDefinition.getFullSizeImageCacheMaxSize())
                     {
+                        if (FileIndex + offset >= listViewFilesItems.Count && FileIndex - offset < 0) break;
                         if (FileIndex + offset < listViewFilesItems.Count) FullsizeCache.Add(fullFileNameViaIndex(FileIndex + offset));
                         if (FullsizeCache.Count == ConfigDefinition.getFullSizeImageCacheMaxSize()) break;
                         if (FileIndex - offset >= 0) FullsizeCache.Add(fullFileNameViaIndex(FileIndex - offset));
