@@ -333,8 +333,8 @@ namespace QuickImageComment
 
         public static void deleteExtendedImage(int FileIndex)
         {
-            listViewFilesItems.RemoveAt(FileIndex);
             string FullFileName = fullFileNameViaIndex(FileIndex);
+            listViewFilesItems.RemoveAt(FileIndex);
             if (HashtableExtendedImages.ContainsKey(FullFileName)) HashtableExtendedImages.Remove(FullFileName);
         }
 
