@@ -22,11 +22,7 @@ namespace QuickImageComment
 {
     class Exiv2TagDefinitions
     {
-#if PLATFORMTARGET_X64
-        const string exiv2DllImport = "exiv2CdeclX64.dll";
-#else
         const string exiv2DllImport = "exiv2Cdecl.dll";
-#endif
 
         [DllImport(exiv2DllImport, CallingConvention = CallingConvention.Cdecl)]
         static extern int exiv2getExifEasyTagDescription(int index, [MarshalAs(UnmanagedType.LPStr)] ref string retStr);

@@ -37,6 +37,7 @@
 # Visual Studio
 /.vs
 *.csproj.user
+*.wapproj.user
 
 # output folder from build (includes e.g. ini-files copied for deployment) 
 /bin
@@ -47,11 +48,18 @@
 /exiv2Cdecl/Prj_exiv2Cdecl/x86
 /exiv2Cdecl/Prj_exiv2Cdecl/x64
 /QuickImageComment/obj
+/QuickImageCommentPackage/AppPackages
+/QuickImageCommentPackage/BundleArtifacts
+/QuickImageCommentPackage/bin
+/QuickImageCommentPackage/obj
 
 # output folder from user manual
 /UserManual/html_QIC_Benutzeranleitung
 /UserManual/html_QIC_User_Manual
 /UserManual/NuHelp_Output
+
+# MSIX package store association
+Package.StoreAssociation.xml
 
 # Cache
 Cache.mxc3

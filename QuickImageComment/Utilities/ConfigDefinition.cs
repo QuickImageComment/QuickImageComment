@@ -226,6 +226,7 @@ namespace QuickImageComment
         private static string UserConfigFile;
         public static bool UserConfigFileOnCmdLine;
         private static string ProgramPath;
+        private static string ConfigPath;
         private static ArrayList UserConfigCommentLines;
 
         // Attributes in configuration file
@@ -649,12 +650,13 @@ namespace QuickImageComment
             Program.StartupPerformance.measure("ConfigDefinition.readGeneralConfigFiles Finish");
         }
 
-        public static void readUserConfigFiles(string givenUserConfigFile, bool givenUserConfigFileOnCmdLine, string givenProgramPath)
+        public static void readUserConfigFiles(string givenUserConfigFile, bool givenUserConfigFileOnCmdLine, string givenProgramPath, string givenConfigPath)
         {
             int UserConfigFileLineCount;
             UserConfigFile = givenUserConfigFile;
             UserConfigFileOnCmdLine = givenUserConfigFileOnCmdLine;
             ProgramPath = givenProgramPath;
+            ConfigPath = givenConfigPath;
 
             Program.StartupPerformance.measure("ConfigDefinition.readUserConfigFiles Start");
 
@@ -668,10 +670,10 @@ namespace QuickImageComment
             // if language not defined, ask for language and translate dynamic settings
             if (getCfgUserString(enumCfgUserString.Language).Equals(""))
             {
-                FormSelectLanguage theFormSelectLanguage = new FormSelectLanguage(ProgramPath);
+                FormSelectLanguage theFormSelectLanguage = new FormSelectLanguage(ConfigPath);
                 theFormSelectLanguage.ShowDialog();
                 // fill language definitions/texts
-                LangCfg.init(ProgramPath);
+                LangCfg.init(ConfigPath);
                 languageWasSetAtStart = false;
             }
 
@@ -686,7 +688,7 @@ namespace QuickImageComment
             if (languageWasSetAtStart)
             {
                 // fill language definitions/texts
-                LangCfg.init(ProgramPath);
+                LangCfg.init(ConfigPath);
             }
 
             // if no entries for MetaDataDefinitionsChange found, define initial set
@@ -946,7 +948,7 @@ namespace QuickImageComment
             }
         }
 
-        // return current storage
+        // return current storage, program path including subfolder config
         public static bool UserConfigStorageisProgrampath()
         {
             return UserConfigFile.StartsWith(ProgramPath);
@@ -960,7 +962,7 @@ namespace QuickImageComment
             string OldUserConfigFile = UserConfigFile;
             if (toProgrampath)
             {
-                setIniPath(ProgramPath + System.IO.Path.DirectorySeparatorChar);
+                setIniPath(ConfigPath + System.IO.Path.DirectorySeparatorChar);
             }
             else
             {
@@ -2013,10 +2015,10 @@ namespace QuickImageComment
             return neededKeys;
         }
 
-        // return program path
-        public static string getProgramPath()
+        // return config path
+        public static string getConfigPath()
         {
-            return ProgramPath;
+            return ConfigPath;
         }
 
         //*****************************************************************

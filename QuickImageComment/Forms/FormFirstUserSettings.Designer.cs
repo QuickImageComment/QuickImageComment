@@ -56,7 +56,7 @@
             this.radioButtonProgrammPath.Size = new System.Drawing.Size(129, 17);
             this.radioButtonProgrammPath.TabIndex = 0;
             this.radioButtonProgrammPath.TabStop = true;
-            this.radioButtonProgrammPath.Text = "Programm-Verzeichnis";
+            this.radioButtonProgrammPath.Text = "Programm-Verzeichnis \\ config";
             this.radioButtonProgrammPath.UseVisualStyleBackColor = true;
             // 
             // radioButtonAppdata

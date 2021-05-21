@@ -30,8 +30,18 @@ namespace QuickImageComment
             labelExplanations.Text = "";
             LangCfg.translateControlTexts(this);
             labelExplanations.Text = LangCfg.getText(LangCfg.Others.FormSelectUserConfigStorageLabel);
-            System.IO.FileInfo fileInfo = new System.IO.FileInfo(Program.getProgramPath());
-            if (fileInfo.IsReadOnly)
+            bool readOnly = false;
+            string testFileName = ConfigDefinition.getConfigPath() + System.IO.Path.DirectorySeparatorChar + "checkWritePermission.tmp";
+            try
+            {
+                System.IO.File.Create(testFileName).Close();
+                System.IO.File.Delete(testFileName);
+            }
+            catch (System.UnauthorizedAccessException)
+            {
+                readOnly = true;
+            }
+            if (readOnly)
             {
                 radioButtonAppdata.Checked = true;
                 radioButtonProgrammPath.Enabled = false;

@@ -36,11 +36,7 @@ namespace QuickImageComment
 
 #if DEBUG
         // debug step into does not work for first Cdecl call, so add here a dummy call
-#if PLATFORMTARGET_X64
-        const string exiv2DllImport = "exiv2CdeclX64.dll";
-#else
         const string exiv2DllImport = "exiv2Cdecl.dll";
-#endif
         [DllImport(exiv2DllImport, CallingConvention = CallingConvention.Cdecl)]
         static extern int exiv2getVersion([MarshalAs(UnmanagedType.LPStr)] ref string exiv2Version);
 #endif
@@ -56,6 +52,7 @@ namespace QuickImageComment
         private static string GeneralConfigFileCommon;
         private static string GeneralConfigFileUser;
         private static string ProgramPath;
+        private static string ConfigPath;
         private static bool UserConfigFileOnCmdLine = false;
 
         internal static string VersionNumber;
@@ -139,9 +136,14 @@ namespace QuickImageComment
             // Get name of configuration file and read configuration file
             string exeFile = System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName;
             ProgramPath = System.IO.Path.GetDirectoryName(exeFile);
+            ConfigPath = ProgramPath + System.IO.Path.DirectorySeparatorChar + "config";
             // set user config file: if exists from program path, else from %Appdata%
             UserConfigFile = System.IO.Path.GetFileName(exeFile.Substring(0, exeFile.Length - 3)) + "ini";
-            if (System.IO.File.Exists(ProgramPath + System.IO.Path.DirectorySeparatorChar + UserConfigFile))
+            if (System.IO.File.Exists(ConfigPath + System.IO.Path.DirectorySeparatorChar + UserConfigFile))
+            {
+                ConfigDefinition.setIniPath(ConfigPath + System.IO.Path.DirectorySeparatorChar);
+            }
+            else if (System.IO.File.Exists(ProgramPath + System.IO.Path.DirectorySeparatorChar + UserConfigFile))
             {
                 ConfigDefinition.setIniPath(ProgramPath + System.IO.Path.DirectorySeparatorChar);
             }
@@ -152,7 +154,7 @@ namespace QuickImageComment
 
             ConfigDefinition.init();
             UserConfigFile = ConfigDefinition.getIniPath() + UserConfigFile;
-            GeneralConfigFileCommon = exeFile.Substring(0, exeFile.Length - 4) + "General.ini";
+            GeneralConfigFileCommon = ConfigPath + System.IO.Path.DirectorySeparatorChar + "QuickImageCommentGeneral.ini";
             GeneralConfigFileUser = System.Environment.GetEnvironmentVariable("APPDATA")
               + System.IO.Path.DirectorySeparatorChar + System.IO.Path.GetFileName(GeneralConfigFileCommon);
 
@@ -207,7 +209,7 @@ namespace QuickImageComment
             StartupPerformance.measure("Program after getTags from configuration");
 
             // read user config file after getting all tags, as tags are needed to init meta data groups with type
-            ConfigDefinition.readUserConfigFiles(UserConfigFile, UserConfigFileOnCmdLine, ProgramPath);
+            ConfigDefinition.readUserConfigFiles(UserConfigFile, UserConfigFileOnCmdLine, ProgramPath, ConfigPath);
             StartupPerformance.measure("Program after read user configuration");
 
 #if APPCENTER

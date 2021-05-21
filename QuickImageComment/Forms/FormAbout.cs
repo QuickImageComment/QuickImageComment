@@ -23,11 +23,8 @@ namespace QuickImageComment
 {
     public partial class FormAbout : Form
     {
-#if PLATFORMTARGET_X64
-        const string exiv2DllImport = "exiv2CdeclX64.dll";
-#else
         const string exiv2DllImport = "exiv2Cdecl.dll";
-#endif
+
         [DllImport(exiv2DllImport, CallingConvention = CallingConvention.Cdecl)]
         static extern int exiv2getVersion([MarshalAs(UnmanagedType.LPStr)] ref string exiv2Version);
 

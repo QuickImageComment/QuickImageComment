@@ -46,11 +46,7 @@ namespace QuickImageComment
         private const int exiv2WriteOptionXaBag = 2;
         private const int exiv2WriteOptionXsStruct = 3;
 
-#if PLATFORMTARGET_X64
-        const string exiv2DllImport = "exiv2CdeclX64.dll";
-#else
         const string exiv2DllImport = "exiv2Cdecl.dll";
-#endif
 
         [DllImport(exiv2DllImport, CallingConvention = CallingConvention.Cdecl)]
         static extern int exiv2readImageByFileName([MarshalAs(UnmanagedType.LPStr)] string imageFileName,

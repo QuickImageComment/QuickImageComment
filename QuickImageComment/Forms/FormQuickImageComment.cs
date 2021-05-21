@@ -312,7 +312,7 @@ namespace QuickImageComment
 
             // add configured languages in menu
             ArrayList configuredLanguages = new ArrayList();
-            configuredLanguages = LangCfg.getConfiguredLanguages(ConfigDefinition.getProgramPath());
+            configuredLanguages = LangCfg.getConfiguredLanguages(ConfigDefinition.getConfigPath());
             foreach (string language in configuredLanguages)
             {
                 this.ToolStripMenuItemLanguage.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -5560,26 +5560,26 @@ namespace QuickImageComment
             theUserControlFiles.listViewFiles.SelectedIndices.Clear();
             theUserControlFiles.listViewFiles.SelectedIndices.Add(0);
             CustomizationInterface.resetForm(this);
-            CustomizationInterface.loadCustomizationFileNoOptionalSavePrevChanges(ConfigDefinition.getProgramPath() + @"\FormCustomization-bunt.ini");
+            CustomizationInterface.loadCustomizationFileNoOptionalSavePrevChanges(ConfigDefinition.getConfigPath() + @"\FormCustomization-bunt.ini");
             CustomizationInterface.setFormToCustomizedValues(this);
             this.Refresh();
             GeneralUtilities.saveScreenshot(this, this.Name + "-bunt");
 
             CustomizationInterface.resetForm(this);
-            CustomizationInterface.loadCustomizationFileNoOptionalSavePrevChanges(ConfigDefinition.getProgramPath() + @"\FormCustomization-Schrift.ini");
+            CustomizationInterface.loadCustomizationFileNoOptionalSavePrevChanges(ConfigDefinition.getConfigPath() + @"\FormCustomization-Schrift.ini");
             CustomizationInterface.setFormToCustomizedValues(this);
             this.Refresh();
             GeneralUtilities.saveScreenshot(this, this.Name + "-Schrift");
 
             CustomizationInterface.resetForm(this);
-            CustomizationInterface.loadCustomizationFileNoOptionalSavePrevChanges(ConfigDefinition.getProgramPath() + @"\FormCustomization-schwarze-Trennlinien.ini");
+            CustomizationInterface.loadCustomizationFileNoOptionalSavePrevChanges(ConfigDefinition.getConfigPath() + @"\FormCustomization-schwarze-Trennlinien.ini");
             CustomizationInterface.setFormToCustomizedValues(this);
             this.Refresh();
             GeneralUtilities.saveScreenshot(this, this.Name + "-schwarze-Trennlinien");
 
             // this one as last, because some settings are not reset correctly - did not check why
             CustomizationInterface.resetForm(this);
-            CustomizationInterface.loadCustomizationFileNoOptionalSavePrevChanges(ConfigDefinition.getProgramPath() + @"\FormCustomization-grau.ini");
+            CustomizationInterface.loadCustomizationFileNoOptionalSavePrevChanges(ConfigDefinition.getConfigPath() + @"\FormCustomization-grau.ini");
             CustomizationInterface.setFormToCustomizedValues(this);
             this.Refresh();
             GeneralUtilities.saveScreenshot(this, this.Name + "-grau");
@@ -5623,7 +5623,7 @@ namespace QuickImageComment
             new FormPredefinedKeyWords();
             new FormRemoveMetaData(theUserControlFiles.listViewFiles.SelectedIndices);
             new FormRename(theUserControlFiles.listViewFiles.SelectedIndices, FolderName);
-            new FormSelectLanguage(ConfigDefinition.getProgramPath());
+            new FormSelectLanguage(ConfigDefinition.getConfigPath());
             new FormSettings();
             // exclude FormSelectUserConfigStorage: not interisting for screen shot 
 
@@ -5725,7 +5725,7 @@ namespace QuickImageComment
             LangCfg.getListOfControlsWithText(this, ControlTextList);
             LangCfg.getListOfControlsWithText(new FormRemoveMetaData(theUserControlFiles.listViewFiles.SelectedIndices), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormRename(theUserControlFiles.listViewFiles.SelectedIndices, FolderName), ControlTextList);
-            LangCfg.getListOfControlsWithText(new FormSelectLanguage(ConfigDefinition.getProgramPath()), ControlTextList);
+            LangCfg.getListOfControlsWithText(new FormSelectLanguage(ConfigDefinition.getConfigPath()), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormFirstAppCenterSettings(), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormFirstUserSettings(true), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormSettings(), ControlTextList);
@@ -5780,7 +5780,7 @@ namespace QuickImageComment
             // FormQuickImageComment is already translated
             new FormRemoveMetaData(theUserControlFiles.listViewFiles.SelectedIndices);
             new FormRename(theUserControlFiles.listViewFiles.SelectedIndices, FolderName);
-            new FormSelectLanguage(ConfigDefinition.getProgramPath());
+            new FormSelectLanguage(ConfigDefinition.getConfigPath());
             new FormFirstAppCenterSettings();
             new FormFirstUserSettings(true);
             new FormSettings();

@@ -577,16 +577,36 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="app.manifest" />
-    <None Include="config\FormCustomization-bunt.ini" />
-    <None Include="config\FormCustomization-grau.ini" />
-    <None Include="config\FormCustomization-Schrift.ini" />
-    <None Include="config\FormCustomization-schwarze-Trennlinien.ini" />
-    <None Include="config\QIC_Help_Deutsch.chm" />
-    <None Include="config\QIC_Help_English.chm" />
-    <None Include="config\QIC_Language_Deutsch.cfg" />
-    <None Include="config\QIC_Language_English.cfg" />
-    <None Include="config\QIC_TagLookup_Deutsch.cfg" />
-    <None Include="config\QuickImageCommentGeneral.ini" />
+    <None Include="config\FormCustomization-bunt.ini">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="config\FormCustomization-grau.ini">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="config\FormCustomization-Schrift.ini">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="config\FormCustomization-schwarze-Trennlinien.ini">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="config\QIC_Help_Deutsch.chm">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="config\QIC_Help_English.chm">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="config\QIC_Language_Deutsch.cfg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="config\QIC_Language_English.cfg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="config\QIC_TagLookup_Deutsch.cfg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="config\QuickImageCommentGeneral.ini">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="leaflet\leaflet-src.esm.js.map" />
     <None Include="leaflet\leaflet-src.js.map" />
     <None Include="leaflet\leaflet.js.map" />
@@ -621,19 +641,40 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+    <Content Include="exiv2Cdecl.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="QuickImageComment.ico" />
     <None Include="leaflet.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <Content Include="leaflet\images\layers-2x.png" />
-    <Content Include="leaflet\images\layers.png" />
-    <Content Include="leaflet\images\marker-icon-2x.png" />
-    <Content Include="leaflet\images\marker-icon.png" />
-    <Content Include="leaflet\images\marker-shadow.png" />
-    <Content Include="leaflet\leaflet-src.esm.js" />
-    <Content Include="leaflet\leaflet-src.js" />
-    <Content Include="leaflet\leaflet-src.min.js" />
-    <Content Include="leaflet\leaflet.css" />
+    <Content Include="leaflet\images\layers-2x.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="leaflet\images\layers.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="leaflet\images\marker-icon-2x.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="leaflet\images\marker-icon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="leaflet\images\marker-shadow.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="leaflet\leaflet-src.esm.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="leaflet\leaflet-src.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="leaflet\leaflet-src.min.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="leaflet\leaflet.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Resources\Designer.bmp" />
   </ItemGroup>
   <ItemGroup>
@@ -656,13 +697,14 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>
-copy $(ProjectDir)config\*.* $(TargetDir)
-xcopy $(ProjectDir)leaflet $(TargetDir)leaflet /i /y/s
-copy $(ProjectDir)..\exiv2Cdecl\Prj_exiv2Cdecl\$(ConfigurationName)_$(Platform)\*.dll  $(TargetDir)
-copy $(ProjectDir)..\exiv2Cdecl\Prj_exiv2Cdecl\$(ConfigurationName)_$(Platform)\*.pdb  $(TargetDir)
-</PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>
+copy $(ProjectDir)..\exiv2Cdecl\Prj_exiv2Cdecl\$(ConfigurationName)_$(Platform)\*.dll  $(ProjectDir)
+</PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
