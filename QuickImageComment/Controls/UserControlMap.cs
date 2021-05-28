@@ -38,8 +38,10 @@ namespace QuickImageComment
         private string centerLatitude;
         private string lastUrl;
         private int circleRadiusInMeter = 0;
+        // for searching known positions
         private static Hashtable GeoDataItemsHashTable;
-        private static LinkedList<string> GeoDataItemsLinkedList;
+        // list of comboBoxes for search in different instances of this user control - used to keep list of entries synced
+        private static List<ComboBox> comboBoxSearchList;
 
         private GeoDataItem startGeoDataItem;
         private GeoDataItem markerGeoDataItem;
@@ -318,29 +320,53 @@ namespace QuickImageComment
             centerLatitude = ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.LastLatitude);
             centerLongitude = ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.LastLongitude);
 
-            // if not yet filled, fill static Hashtable with geo data
-            if (GeoDataItemsHashTable == null)
+            // check existance and content of list of comboBoxes for Search
+            bool searchFilled = true;
+            if (comboBoxSearchList == null)
             {
-                GeoDataItemsHashTable = new Hashtable();
-                GeoDataItemsLinkedList = new LinkedList<string>();
-                foreach (GeoDataItem aGeoDataItem in ConfigDefinition.getGeoDataItemArrayList())
+                searchFilled = false;
+            }
+            else
+            {
+                for (int ii = comboBoxSearchList.Count - 1; ii >= 0; ii--)
                 {
-                    GeoDataItemsHashTable.Add(aGeoDataItem.key, aGeoDataItem);
-                    GeoDataItemsLinkedList.AddLast(aGeoDataItem.key);
+                    // removed nulled (disposed) comboBoxes
+                    // could happen if a mask using this user control is disposed
+                    if (comboBoxSearchList[ii] == null) comboBoxSearchList.RemoveAt(ii);
+                }
+                if (comboBoxSearchList.Count == 0)
+                {
+                    searchFilled = false;
                 }
             }
-            fillGeoDataItemDropDown();
-            LangCfg.translateControlTexts(this);
-        }
 
-        // fill the lists with geo data items; separate to allow refill in FormFind
-        internal void fillGeoDataItemDropDown()
-        {
-            dynamicComboBoxSearch.Items.Clear();
-            foreach (string key in GeoDataItemsLinkedList)
+            // if search data not yet filled, fill static Hashtable and comboBoxSearch with geo data and 
+            if (!searchFilled)
             {
-                dynamicComboBoxSearch.Items.Add(key);
+                comboBoxSearchList = new List<ComboBox>();
+                GeoDataItemsHashTable = new Hashtable();
+                foreach (GeoDataItem aGeoDataItem in ConfigDefinition.getGeoDataItemArrayList())
+                {
+                    try
+                    {
+                        GeoDataItemsHashTable.Add(normalizeKeyString(aGeoDataItem.key), aGeoDataItem);
+                        dynamicComboBoxSearch.Items.Add(aGeoDataItem);
+                    }
+                    // due to changes in storing key, duplicates may occur now, just ignore second one
+                    catch (System.ArgumentException) { }
+                }
             }
+            else
+            {
+                // GeoDataItemsHashTable is filled, so fill comboBoxSearchList from existing comboBox
+                ComboBox comboBoxFilled = comboBoxSearchList[0];
+                foreach (GeoDataItem entry in comboBoxFilled.Items)
+                {
+                    dynamicComboBoxSearch.Items.Add(entry);
+                }
+            }
+            comboBoxSearchList.Add(this.dynamicComboBoxSearch);
+            LangCfg.translateControlTexts(this);
         }
 
         // adjust size and splitter distances considering the size of panel where thesplitContainerImageDetails1 is included
@@ -383,6 +409,7 @@ namespace QuickImageComment
         private void showStartPosition()
         {
             dynamicLabelCoordinates.Text = "";
+            clearSearchEntry();
             // buttons are enabled when marker is created via callback from leaflet.html
             buttonCenterMarker.Enabled = false;
             buttonReset.Enabled = false;
@@ -524,6 +551,7 @@ namespace QuickImageComment
                 invokeLeafletMethod("removeMarker", new string[] { changeLocationAllowed.ToString() });
                 markerGeoDataItem = null;
                 dynamicLabelCoordinates.Text = "";
+                clearSearchEntry();
             }
             GpsDataChanged = false;
             buttonReset.Enabled = false;
@@ -534,6 +562,43 @@ namespace QuickImageComment
         private void buttonSearch_Click(object sender, EventArgs e)
         {
             executeNominatimQueryAndUpdateMap();
+        }
+
+        // button to rename entry in list of last locations
+        private void buttonRename_Click(object sender, EventArgs e)
+        {
+            if (dynamicComboBoxSearch.SelectedIndex >= 0)
+            {
+                string oldName = dynamicComboBoxSearch.Text;
+                string newName = GeneralUtilities.inputBox(LangCfg.Message.Q_renameSearchEntry, oldName);
+                ((GeoDataItem)dynamicComboBoxSearch.SelectedItem).key = newName;
+                ((GeoDataItem)dynamicComboBoxSearch.SelectedItem).display_name = newName;
+                if (GeoDataItemsHashTable.ContainsKey(normalizeKeyString(oldName)))
+                {
+                    GeoDataItemsHashTable.Remove(normalizeKeyString(oldName));
+                }
+                if (!GeoDataItemsHashTable.ContainsKey(normalizeKeyString(newName)))
+                {
+                    GeoDataItemsHashTable.Add(normalizeKeyString(newName), (GeoDataItem)dynamicComboBoxSearch.SelectedItem);
+                }
+                insertItemInSearchList((GeoDataItem)dynamicComboBoxSearch.SelectedItem);
+                selectFirstEntryInSearchList();
+            }
+        }
+
+        // button to delete entry in list of last locations
+        private void buttonDelete_Click(object sender, EventArgs e)
+        {
+            if (dynamicComboBoxSearch.SelectedIndex >= 0)
+            {
+                string entry = dynamicComboBoxSearch.Text;
+                if (GeneralUtilities.questionMessage(LangCfg.Message.Q_deleteGeoDataEntry, entry) == DialogResult.Yes)
+                {
+                    GeoDataItemsHashTable.Remove(normalizeKeyString(entry));
+                    deleteItemFromSearchList((GeoDataItem)dynamicComboBoxSearch.SelectedItem);
+                    clearSearchEntry();
+                }
+            }
         }
 
         // to react on return in comboBox for Search
@@ -556,6 +621,23 @@ namespace QuickImageComment
             dynamicLabelZoom.Visible = !selectedMapSource.isconfiguredMapURL;
             labelZoom.Visible = !selectedMapSource.isconfiguredMapURL;
             navigateToNewUrl();
+        }
+
+        // other position selected
+        private void dynamicComboBoxSearch_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (dynamicComboBoxSearch.SelectedIndex >= 0)
+            {
+                updateMap((GeoDataItem)dynamicComboBoxSearch.SelectedItem);
+            }
+        }
+
+        // text changed by user
+        private void dynamicComboBoxSearch_TextUpdate(object sender, EventArgs e)
+        {
+            // user changed text, disable buttons to delete and rename
+            buttonDelete.Enabled = false;
+            buttonRename.Enabled = false;
         }
 
         //---------------------------------------------------------------------
@@ -634,19 +716,53 @@ namespace QuickImageComment
             if (markerGeoDataItem != null)
             // method is also called when marker was deleted
             {
-                if (!GeoDataItemsHashTable.ContainsKey(markerGeoDataItem.key))
+                if (!GeoDataItemsHashTable.ContainsKey(normalizeKeyString(markerGeoDataItem.key)))
                 {
-                    GeoDataItemsHashTable.Add(markerGeoDataItem.key, markerGeoDataItem);
+                    GeoDataItemsHashTable.Add(normalizeKeyString(markerGeoDataItem.key), markerGeoDataItem);
                 }
-                // if already contained, remove entry in linked list
-                if (GeoDataItemsLinkedList.Contains(markerGeoDataItem.key))
-                {
-                    GeoDataItemsLinkedList.Remove(markerGeoDataItem.key);
-                }
-                // add GeoDataItem in linked list always, so that latest search is in top
-                GeoDataItemsLinkedList.AddFirst(markerGeoDataItem.key);
+                insertItemInSearchList(markerGeoDataItem);
+            }
+        }
 
-                fillGeoDataItemDropDown();
+        // insert item in drop down for search list
+        private void insertItemInSearchList(GeoDataItem geoDataItem)
+        {
+            foreach (ComboBox comboBoxSearch in comboBoxSearchList)
+            {
+                if (comboBoxSearch != null)
+                {
+                    // if already contained, remove entry in combobox
+                    if (comboBoxSearch.Items.Contains(geoDataItem))
+                    {
+                        comboBoxSearch.Items.Remove(geoDataItem);
+                    }
+                    // add GeoDataItem in combobox always, so that latest search is in top
+                    comboBoxSearch.Items.Insert(0, geoDataItem);
+                    comboBoxSearch.SelectedIndex = -1;
+                }
+            }
+        }
+
+        // select first entry in search list
+        private void selectFirstEntryInSearchList()
+        {
+            dynamicComboBoxSearch.SelectedIndexChanged -= new System.EventHandler(this.dynamicComboBoxSearch_SelectedIndexChanged);
+            dynamicComboBoxSearch.SelectedIndex = 0;
+            dynamicComboBoxSearch.SelectedIndexChanged += new System.EventHandler(this.dynamicComboBoxSearch_SelectedIndexChanged);
+        }
+
+        // delete item in drop down for search list
+        private void deleteItemFromSearchList(GeoDataItem geoDataItem)
+        {
+            foreach (ComboBox comboBoxSearch in comboBoxSearchList)
+            {
+                if (comboBoxSearch != null)
+                {
+                    if (comboBoxSearch.Items.Contains(geoDataItem))
+                    {
+                        comboBoxSearch.Items.Remove(geoDataItem);
+                    }
+                }
             }
         }
 
@@ -662,28 +778,24 @@ namespace QuickImageComment
             GeoDataItemsArray.Clear();
             int countNamed = 0;
             int countUnNamed = 0;
-            foreach (string key in GeoDataItemsLinkedList)
+            foreach (GeoDataItem geoDataItem in dynamicComboBoxSearch.Items)
             {
-                if (GeoDataItemsHashTable[key] != null)
+                if (geoDataItem.display_name.Equals(""))
                 {
-                    string displayName = ((GeoDataItem)GeoDataItemsHashTable[key]).display_name;
-                    if (displayName.Equals(""))
+                    if (countUnNamed < ConfigDefinition.getMaxChangeableFieldEntries())
                     {
-                        if (countUnNamed < ConfigDefinition.getMaxChangeableFieldEntries())
-                        {
-                            countUnNamed++;
-                            GeoDataItemsArray.Add(GeoDataItemsHashTable[key]);
-                        }
+                        countUnNamed++;
+                        GeoDataItemsArray.Add(geoDataItem);
                     }
-                    else if (countNamed < ConfigDefinition.getMaxChangeableFieldEntries())
-                    {
-                        countNamed++;
-                        GeoDataItemsArray.Add(GeoDataItemsHashTable[key]);
-                    }
-                    if (countNamed + countUnNamed > 2 * ConfigDefinition.getMaxChangeableFieldEntries())
-                    {
-                        break;
-                    }
+                }
+                else if (countNamed < ConfigDefinition.getMaxChangeableFieldEntries())
+                {
+                    countNamed++;
+                    GeoDataItemsArray.Add(geoDataItem);
+                }
+                if (countNamed + countUnNamed > 2 * ConfigDefinition.getMaxChangeableFieldEntries())
+                {
+                    break;
                 }
             }
         }
@@ -715,18 +827,36 @@ namespace QuickImageComment
                 }
                 if (theGeoDataItem != null)
                 {
-                    centerLatitude = theGeoDataItem.lat;
-                    centerLongitude = theGeoDataItem.lon;
-                    markerGeoDataItem = theGeoDataItem;
-                    dynamicLabelCoordinates.Text = markerGeoDataItem.displayString;
-                    // show new location on map with marker
-                    navigateToNewUrl();
-                    GpsDataChanged = true;
-                    buttonReset.Enabled = true;
-                    MainMaskInterface.setControlsEnabledBasedOnDataChange(true);
-                    dynamicComboBoxSearch.Text = "";
+                    updateMap(theGeoDataItem);
+                }
+                else
+                {
+                    buttonRename.Enabled = false;
+                    buttonDelete.Enabled = false;
                 }
             }
+            else
+            {
+                buttonRename.Enabled = false;
+                buttonDelete.Enabled = false;
+            }
+        }
+
+        private void updateMap(GeoDataItem theGeoDataItem)
+        {
+            centerLatitude = theGeoDataItem.lat;
+            centerLongitude = theGeoDataItem.lon;
+            markerGeoDataItem = theGeoDataItem;
+            dynamicLabelCoordinates.Text = markerGeoDataItem.displayString;
+            addMarkerPositionToLists();
+            selectFirstEntryInSearchList();
+            // show new location on map with marker
+            navigateToNewUrl();
+            GpsDataChanged = true;
+            buttonReset.Enabled = true;
+            MainMaskInterface.setControlsEnabledBasedOnDataChange(true);
+            buttonRename.Enabled = true;
+            buttonDelete.Enabled = true;
         }
 
         // get GeoDataItem for coordinates given as string with decimal values
@@ -881,18 +1011,15 @@ namespace QuickImageComment
         // execute a nominatim OpenStreetMap query
         private GeoDataItem executeNominatimQuery(string queryParameter)
         {
-            string queryParameterNormalized = queryParameter.Trim();
-            queryParameterNormalized = queryParameterNormalized.Replace(',', ' ');
-            queryParameterNormalized = queryParameterNormalized.Replace(';', ' ');
-            queryParameterNormalized = queryParameterNormalized.Replace("  ", " ");
+            string queryParameterNormalized = normalizeKeyString(queryParameter);
 
             GeoDataItem newGeoDataItem;
             try
             {
                 // key converted to upper case, but drop down in GUI shall keep case
-                if (GeoDataItemsHashTable.ContainsKey(queryParameterNormalized.ToUpper()))
+                if (GeoDataItemsHashTable.ContainsKey(queryParameterNormalized))
                 {
-                    newGeoDataItem = (GeoDataItem)GeoDataItemsHashTable[queryParameterNormalized.ToUpper()];
+                    newGeoDataItem = (GeoDataItem)GeoDataItemsHashTable[queryParameterNormalized];
                 }
                 else
                 {
@@ -918,7 +1045,7 @@ namespace QuickImageComment
 
                     // key converted to upper case, but drop down in GUI shall keep case
                     newGeoDataItem = new GeoDataItem(
-                        queryParameterNormalized.ToUpper(),
+                        queryParameter,
                         (string)JsonObject["lat"],
                         (string)JsonObject["lon"],
                         (string)JsonObject["display_name"],
@@ -929,15 +1056,6 @@ namespace QuickImageComment
                         (string)JsonObject["city_district"]);
                     GeoDataItemsHashTable.Add(newGeoDataItem.key, newGeoDataItem);
                 }
-
-                // if already contained, remove entry in combobox
-                if (dynamicComboBoxSearch.Items.Contains(queryParameterNormalized))
-                {
-                    dynamicComboBoxSearch.Items.Remove(queryParameterNormalized);
-                }
-                // add GeoDataItem in combobox always, so that latest search is in top
-                dynamicComboBoxSearch.Items.Insert(0, queryParameterNormalized);
-
                 return newGeoDataItem;
             }
             catch (Exception ex)
@@ -945,6 +1063,25 @@ namespace QuickImageComment
                 GeneralUtilities.message(LangCfg.Message.E_nominationOSM, ex.Message);
                 return null;
             }
+        }
+
+        // normalize key string for search in hashtable
+        private string normalizeKeyString(string key)
+        {
+            string keyNormalized = key.Trim();
+            keyNormalized = keyNormalized.Replace(',', ' ');
+            keyNormalized = keyNormalized.Replace(';', ' ');
+            keyNormalized = keyNormalized.Replace("  ", " ");
+            return keyNormalized.ToUpper();
+        }
+
+        // clear search field and disable buttons to handle selected entry
+        private void clearSearchEntry()
+        {
+            dynamicComboBoxSearch.Text = "";
+            dynamicComboBoxSearch.SelectedIndex = -1;
+            buttonRename.Enabled = false;
+            buttonDelete.Enabled = false;
         }
 
         //---------------------------------------------------------------------
@@ -1010,6 +1147,7 @@ namespace QuickImageComment
 
             markerGeoDataItem = new GeoDataItem(markerLatitudeSigned, markerLongitudeSigned);
             dynamicLabelCoordinates.Text = markerGeoDataItem.displayString;
+            clearSearchEntry();
             lastUrl = "";
             GpsDataChanged = true;
             buttonReset.Enabled = true;
@@ -1039,6 +1177,7 @@ namespace QuickImageComment
             {
                 // marker was removed, clear coordinates
                 dynamicLabelCoordinates.Text = "";
+                clearSearchEntry();
                 markerGeoDataItem = null;
             }
             // a status change is a data change by user

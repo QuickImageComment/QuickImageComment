@@ -30,6 +30,8 @@
         {
             this.panel1 = new System.Windows.Forms.Panel();
             this.panelBottom = new System.Windows.Forms.Panel();
+            this.buttonDelete = new System.Windows.Forms.Button();
+            this.buttonRename = new System.Windows.Forms.Button();
             this.dynamicComboBoxMapSource = new System.Windows.Forms.ComboBox();
             this.labelZoom = new System.Windows.Forms.Label();
             this.buttonReset = new System.Windows.Forms.Button();
@@ -52,13 +54,15 @@
             this.panel1.Controls.Add(this.panelTop);
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(674, 400);
+            this.panel1.Size = new System.Drawing.Size(674, 410);
             this.panel1.TabIndex = 0;
             // 
             // panelBottom
             // 
             this.panelBottom.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelBottom.Controls.Add(this.buttonDelete);
+            this.panelBottom.Controls.Add(this.buttonRename);
             this.panelBottom.Controls.Add(this.dynamicComboBoxMapSource);
             this.panelBottom.Controls.Add(this.labelZoom);
             this.panelBottom.Controls.Add(this.buttonReset);
@@ -69,14 +73,34 @@
             this.panelBottom.Controls.Add(this.dynamicLabelCoordinates);
             this.panelBottom.Location = new System.Drawing.Point(0, 360);
             this.panelBottom.Name = "panelBottom";
-            this.panelBottom.Size = new System.Drawing.Size(674, 38);
+            this.panelBottom.Size = new System.Drawing.Size(674, 50);
             this.panelBottom.TabIndex = 15;
+            // 
+            // buttonDelete
+            // 
+            this.buttonDelete.Location = new System.Drawing.Point(80, 25);
+            this.buttonDelete.Name = "buttonDelete";
+            this.buttonDelete.Size = new System.Drawing.Size(56, 21);
+            this.buttonDelete.TabIndex = 17;
+            this.buttonDelete.Text = "Löschen";
+            this.buttonDelete.UseVisualStyleBackColor = true;
+            this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
+            // 
+            // buttonRename
+            // 
+            this.buttonRename.Location = new System.Drawing.Point(2, 25);
+            this.buttonRename.Name = "buttonRename";
+            this.buttonRename.Size = new System.Drawing.Size(79, 21);
+            this.buttonRename.TabIndex = 16;
+            this.buttonRename.Text = "Umbenennen";
+            this.buttonRename.UseVisualStyleBackColor = true;
+            this.buttonRename.Click += new System.EventHandler(this.buttonRename_Click);
             // 
             // dynamicComboBoxMapSource
             // 
             this.dynamicComboBoxMapSource.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.dynamicComboBoxMapSource.FormattingEnabled = true;
-            this.dynamicComboBoxMapSource.Location = new System.Drawing.Point(424, 16);
+            this.dynamicComboBoxMapSource.Location = new System.Drawing.Point(424, 17);
             this.dynamicComboBoxMapSource.Name = "dynamicComboBoxMapSource";
             this.dynamicComboBoxMapSource.Size = new System.Drawing.Size(247, 21);
             this.dynamicComboBoxMapSource.TabIndex = 15;
@@ -84,8 +108,8 @@
             // 
             // labelZoom
             // 
-            this.labelZoom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelZoom.Location = new System.Drawing.Point(601, 1);
+            this.labelZoom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelZoom.Location = new System.Drawing.Point(601, 3);
             this.labelZoom.Name = "labelZoom";
             this.labelZoom.Size = new System.Drawing.Size(50, 13);
             this.labelZoom.TabIndex = 6;
@@ -94,8 +118,8 @@
             // 
             // buttonReset
             // 
-            this.buttonReset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonReset.Location = new System.Drawing.Point(340, 2);
+            this.buttonReset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonReset.Location = new System.Drawing.Point(340, 3);
             this.buttonReset.Name = "buttonReset";
             this.buttonReset.Size = new System.Drawing.Size(80, 36);
             this.buttonReset.TabIndex = 10;
@@ -105,8 +129,8 @@
             // 
             // buttonCenterMarker
             // 
-            this.buttonCenterMarker.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonCenterMarker.Location = new System.Drawing.Point(257, 2);
+            this.buttonCenterMarker.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonCenterMarker.Location = new System.Drawing.Point(257, 3);
             this.buttonCenterMarker.Name = "buttonCenterMarker";
             this.buttonCenterMarker.Size = new System.Drawing.Size(80, 36);
             this.buttonCenterMarker.TabIndex = 11;
@@ -116,10 +140,10 @@
             // 
             // buttonSearch
             // 
-            this.buttonSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSearch.Location = new System.Drawing.Point(223, 6);
+            this.buttonSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonSearch.Location = new System.Drawing.Point(223, 3);
             this.buttonSearch.Name = "buttonSearch";
-            this.buttonSearch.Size = new System.Drawing.Size(30, 27);
+            this.buttonSearch.Size = new System.Drawing.Size(30, 23);
             this.buttonSearch.TabIndex = 14;
             this.buttonSearch.Text = "OK";
             this.buttonSearch.UseVisualStyleBackColor = true;
@@ -127,9 +151,9 @@
             // 
             // dynamicLabelZoom
             // 
-            this.dynamicLabelZoom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.dynamicLabelZoom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.dynamicLabelZoom.AutoSize = true;
-            this.dynamicLabelZoom.Location = new System.Drawing.Point(650, 1);
+            this.dynamicLabelZoom.Location = new System.Drawing.Point(650, 3);
             this.dynamicLabelZoom.Name = "dynamicLabelZoom";
             this.dynamicLabelZoom.Size = new System.Drawing.Size(19, 13);
             this.dynamicLabelZoom.TabIndex = 7;
@@ -137,22 +161,23 @@
             // 
             // dynamicComboBoxSearch
             // 
-            this.dynamicComboBoxSearch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.dynamicComboBoxSearch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dynamicComboBoxSearch.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.dynamicComboBoxSearch.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.dynamicComboBoxSearch.FormattingEnabled = true;
-            this.dynamicComboBoxSearch.Location = new System.Drawing.Point(3, 9);
+            this.dynamicComboBoxSearch.Location = new System.Drawing.Point(3, 4);
             this.dynamicComboBoxSearch.Name = "dynamicComboBoxSearch";
             this.dynamicComboBoxSearch.Size = new System.Drawing.Size(218, 21);
             this.dynamicComboBoxSearch.TabIndex = 13;
-            this.dynamicComboBoxSearch.SelectedIndexChanged += new System.EventHandler(this.buttonSearch_Click);
+            this.dynamicComboBoxSearch.SelectedIndexChanged += new System.EventHandler(this.dynamicComboBoxSearch_SelectedIndexChanged);
+            this.dynamicComboBoxSearch.TextUpdate += new System.EventHandler(this.dynamicComboBoxSearch_TextUpdate);
             this.dynamicComboBoxSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dynamicComboBoxSearch_KeyDown);
             // 
             // dynamicLabelCoordinates
             // 
-            this.dynamicLabelCoordinates.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.dynamicLabelCoordinates.Location = new System.Drawing.Point(460, 1);
+            this.dynamicLabelCoordinates.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.dynamicLabelCoordinates.Location = new System.Drawing.Point(460, 3);
             this.dynamicLabelCoordinates.Name = "dynamicLabelCoordinates";
             this.dynamicLabelCoordinates.Size = new System.Drawing.Size(135, 13);
             this.dynamicLabelCoordinates.TabIndex = 5;
@@ -175,7 +200,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.panel1);
             this.Name = "UserControlMap";
-            this.Size = new System.Drawing.Size(674, 400);
+            this.Size = new System.Drawing.Size(674, 410);
             this.panel1.ResumeLayout(false);
             this.panelBottom.ResumeLayout(false);
             this.panelBottom.PerformLayout();
@@ -195,5 +220,7 @@
         private System.Windows.Forms.ComboBox dynamicComboBoxSearch;
         private System.Windows.Forms.Panel panelBottom;
         private System.Windows.Forms.ComboBox dynamicComboBoxMapSource;
+        private System.Windows.Forms.Button buttonRename;
+        private System.Windows.Forms.Button buttonDelete;
     }
 }

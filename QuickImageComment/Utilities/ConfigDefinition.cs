@@ -3132,7 +3132,7 @@ namespace QuickImageComment
             }
             foreach (GeoDataItem aGeoDataItem in GeoDataItemArrayList)
             {
-                StreamOut.WriteLine("GeoData:" + aGeoDataItem.ToString());
+                StreamOut.WriteLine("GeoData:" + aGeoDataItem.ToConfigString());
             }
 
             foreach (DataTemplate aDataTemplate in DataTemplates.Values)

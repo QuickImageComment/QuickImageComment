@@ -136,7 +136,13 @@ namespace QuickImageComment
             displayString = latUnsigned + latRef + " " + lonUnsigned + lonRef;
         }
 
+        // used in UserControlMap to show list of used geo data items
         public override string ToString()
+        {
+            return key;
+        }
+
+        public string ToConfigString()
         {
             if (key == null)
             {

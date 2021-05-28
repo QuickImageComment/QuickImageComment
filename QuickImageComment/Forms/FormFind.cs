@@ -171,7 +171,6 @@ namespace QuickImageComment
             }
             dynamicLabelFolder.Text = FolderName;
             setControlsDependingOnDataTable();
-            theUserControlMap.fillGeoDataItemDropDown();
             this.ShowDialog();
         }
 
@@ -1236,7 +1235,7 @@ namespace QuickImageComment
             ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.GpsFindRangeInMeter, (int)(numericUpDownGpsRange.Value * 1000));
             if (lastGeoDataItemForFind != null)
             {
-                ConfigDefinition.setCfgUserString(ConfigDefinition.enumCfgUserString.LastGeoDataItemForFind, lastGeoDataItemForFind.ToString());
+                ConfigDefinition.setCfgUserString(ConfigDefinition.enumCfgUserString.LastGeoDataItemForFind, lastGeoDataItemForFind.ToConfigString());
             }
             ConfigDefinition.setCfgUserBool(ConfigDefinition.enumCfgUserBool.SaveFindDataTable, checkBoxSaveFindDataTable.Checked);
         }

@@ -166,7 +166,9 @@ namespace QuickImageComment
             W_invalidCoordinates,
             W_fileNotFound,
             W_findDataTableNotRead,
-            W_MetaDate1Empty
+            W_MetaDate1Empty,
+            Q_deleteGeoDataEntry,
+            Q_renameSearchEntry
         }
 
         public enum Others
