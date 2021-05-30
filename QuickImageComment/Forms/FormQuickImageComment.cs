@@ -666,12 +666,11 @@ namespace QuickImageComment
 
 
             // check if this version is newer
-            if (new Version(Program.VersionNumber) > new Version(ConfigDefinition.UserConfigFileVersion))
+            if (!ConfigDefinition.UserConfigFileVersion.Equals("") && new Version(Program.VersionNumber) > new Version(ConfigDefinition.UserConfigFileVersion))
             {
                 FormChangesInVersion theFormChangesInVersion = new FormChangesInVersion();
                 theFormChangesInVersion.Show();
             }
-
         }
 
         // as only one argument can be passed when starting a thread

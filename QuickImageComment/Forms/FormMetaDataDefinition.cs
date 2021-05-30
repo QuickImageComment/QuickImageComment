@@ -460,7 +460,11 @@ namespace QuickImageComment
             {
                 // reset to previous selection; enable/disable eventhandler for this
                 listBoxMetaData.SelectedIndexChanged -= listBoxMetaData_SelectedIndexChanged;
-                listBoxMetaData.SelectedIndex = listBoxMetaDataSelectedIndex;
+                // unclear how it happened but once index was invalid
+                if (listBoxMetaDataSelectedIndex >= listBoxMetaData.Items.Count)
+                    listBoxMetaData.SelectedIndex = listBoxMetaData.Items.Count - 1;
+                else
+                    listBoxMetaData.SelectedIndex = listBoxMetaDataSelectedIndex;
                 listBoxMetaData.SelectedIndexChanged += new System.EventHandler(this.listBoxMetaData_SelectedIndexChanged);
             }
         }

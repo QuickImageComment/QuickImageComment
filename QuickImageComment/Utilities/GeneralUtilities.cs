@@ -1083,9 +1083,9 @@ namespace QuickImageComment
             //System.Drawing.Imaging.EncoderParameters encoderParameters = new System.Drawing.Imaging.EncoderParameters(1);
             //encoderParameters.Param[0] = new System.Drawing.Imaging.EncoderParameter(System.Drawing.Imaging.Encoder.Quality, 100L);
             //bmp.Save(fileName, GetEncoder(System.Drawing.Imaging.ImageFormat.Jpeg), encoderParameters);
-            //System.IO.File.SetCreationTime(fileName, System.IO.File.GetLastWriteTime(fileName));
             string fileName = getScreenshotFolder() + name + ".png";
             bmp.Save(fileName, System.Drawing.Imaging.ImageFormat.Png);
+            System.IO.File.SetCreationTime(fileName, System.IO.File.GetLastWriteTime(fileName));
         }
 
         // helper for automatic creation of screenshots
