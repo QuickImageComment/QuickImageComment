@@ -112,6 +112,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppCenterSecureID.cs" />
+    <Compile Include="Forms\FormChangesInVersion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormChangesInVersion.designer.cs">
+      <DependentUpon>FormChangesInVersion.cs</DependentUpon>
+    </Compile>
     <Compile Include="Utilities\ChangeableFieldSpecification.cs" />
     <Compile Include="Utilities\ConfigDefinition.cs" />
     <Compile Include="Controls\DataGridViewMetaData.cs">
@@ -452,6 +458,9 @@
     <Compile Include="Controls\UserControlMap.Designer.cs">
       <DependentUpon>UserControlMap.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Forms\FormChangesInVersion.resx">
+      <DependentUpon>FormChangesInVersion.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormAbout.resx">
       <DependentUpon>FormAbout.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -659,6 +668,9 @@
     <None Include="exiv2Cdecl.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Content Include="config\ChangeInfo.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="QuickImageComment.ico" />
     <None Include="leaflet.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

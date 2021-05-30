@@ -35,6 +35,11 @@ namespace QuickImageComment
             GeneralUtilities.ShowHelp(this, "AppCenter");
         }
 
+        private void linkLabelDataPrivacy_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            GeneralUtilities.ShowHelp(this, "DataPrivacyPolicy");
+        }
+
         private void buttonYes_Click(object sender, EventArgs e)
         {
             ConfigDefinition.setCfgUserString(ConfigDefinition.enumCfgUserString.AppCenterUsage, "y");

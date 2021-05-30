@@ -337,6 +337,9 @@ namespace QuickImageComment
             }
             //Program.StartupPerformance.measure("FormQIC map URLs in menu");
 
+            // add view configurations in menu
+            fillMenuViewConfigurations();
+
             // create and fill user control for changeable fields 
             Program.StartupPerformance.measure("FormQIC before user control changeable fields");
             theUserControlChangeableFields = new UserControlChangeableFields(theExtendedImage);
@@ -660,6 +663,15 @@ namespace QuickImageComment
             // to define measurement point for AppTimer
             //Text = Text + " AppTimerMeasurementPoint";
             Program.StartupPerformance.measure("FormQIC init finish");
+
+
+            // check if this version is newer
+            if (new Version(Program.VersionNumber) > new Version(ConfigDefinition.UserConfigFileVersion))
+            {
+                FormChangesInVersion theFormChangesInVersion = new FormChangesInVersion();
+                theFormChangesInVersion.Show();
+            }
+
         }
 
         // as only one argument can be passed when starting a thread
@@ -1683,6 +1695,7 @@ namespace QuickImageComment
             theFormView.Show();
         }
 
+        // adjust the view after changes in FormView
         public void adjustViewAfterFormView()
         {
             // may be started when FormView is open when closing main mask
@@ -1798,6 +1811,39 @@ namespace QuickImageComment
                 // set the flags indicating if user controls are visible
                 setUserControlVisibilityFlags();
             }
+        }
+
+        // fill view menu with view configurations
+        internal void fillMenuViewConfigurations()
+        {
+            // delete existing dynamic view configurations 
+            for (int ii = toolStripMenuItemView.DropDownItems.Count - 1; ii >= 0; ii--)
+            {
+                if (toolStripMenuItemView.DropDownItems[ii].Name == "dynamicViewConfiguration")
+                {
+                    ToolStripItem toolStripItem = toolStripMenuItemView.DropDownItems[ii];
+                    toolStripMenuItemView.DropDownItems.Remove(toolStripItem);
+                }
+                else
+                    break;
+            }
+
+            // add entries and separator - if there are entries
+            toolStripSeparatorViewConfigurations.Visible = ConfigDefinition.getViewConfigurationNames().Count > 0;
+            foreach (string ConfigurationName in ConfigDefinition.getViewConfigurationNames())
+            {
+                toolStripMenuItemView.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+                     new ToolStripMenuItem(ConfigurationName, null, ToolStripMenuItemViewConfigurationX_Click, "dynamicViewConfiguration")});
+            }
+        }
+
+        // set view configuration
+        private void ToolStripMenuItemViewConfigurationX_Click(object sender, EventArgs e)
+        {
+            string ConfigurationName = sender.ToString();
+            ConfigDefinition.loadViewConfiguration(ConfigurationName);
+            adjustViewAfterFormView();
+            ConfigDefinition.setCfgUserString(ConfigDefinition.enumCfgUserString.ViewConfiguration, ConfigurationName);
         }
 
         // save old splitter ratio
@@ -2823,6 +2869,13 @@ namespace QuickImageComment
             theFormAbout.Show();
         }
 
+        // show new in versoin
+        private void toolStripMenuItemChangesInVersion_Click(object sender, EventArgs e)
+        {
+            FormChangesInVersion theFormChangesInVersion = new FormChangesInVersion();
+            theFormChangesInVersion.Show();
+        }
+
         private void toolStripMenuItemCheckForNewVersion_Click(object sender, EventArgs e)
         {
             FormCheckNewVersion theFormCheckNewVersion = new FormCheckNewVersion("", "");
@@ -2878,6 +2931,11 @@ namespace QuickImageComment
             GeneralUtilities.ShowHelp(this, "FormQuickImageComment");
         }
 
+        // show chapter data privacy in help
+        private void toolStripMenuItemDataPrivacy_Click(object sender, EventArgs e)
+        {
+            GeneralUtilities.ShowHelp(this, "DataPrivacyPolicy");
+        }
         #endregion
 
         //*****************************************************************
@@ -5758,6 +5816,7 @@ namespace QuickImageComment
             GeneralUtilities.CloseAfterConstructing = true;
 
             new FormAbout();
+            new FormChangesInVersion();
             new FormCheckNewVersion("", "");
             new FormCompare(theUserControlFiles.listViewFiles.SelectedIndices, FolderName);
             new FormDataTemplates();
@@ -5766,23 +5825,26 @@ namespace QuickImageComment
             new FormExportMetaData(FolderName);
             new FormFind();
             new FormFindReadErrors();
+            new FormFirstAppCenterSettings();
+            new FormFirstUserSettings(true);
             new FormImageDetails(dpiSettings, theExtendedImage);
             new FormImageGrid();
             new FormImageWindow(theExtendedImage, false);
             // input check for Exif.Image.Orientation is always available as created by program, so use this for check
             new FormInputCheckConfiguration("Exif.Image.Orientation");
+            new FormLogger();
             new FormMap();
             new FormMetaDataDefinition(theExtendedImage);
             new FormMultiSave(0);
             new FormPlaceholder("", "");
             new FormPredefinedComments();
             new FormPredefinedKeyWords();
+            // FormPrevNext is base form
             // FormQuickImageComment is already translated
             new FormRemoveMetaData(theUserControlFiles.listViewFiles.SelectedIndices);
             new FormRename(theUserControlFiles.listViewFiles.SelectedIndices, FolderName);
+            new FormSelectFolder("C:\\");
             new FormSelectLanguage(ConfigDefinition.getConfigPath());
-            new FormFirstAppCenterSettings();
-            new FormFirstUserSettings(true);
             new FormSettings();
             new FormTagValueInput("", textBoxUserComment, FormTagValueInput.type.configurable);
             new FormView(SplitContainerPanelControls, DefaultSplitContainerPanelContents,

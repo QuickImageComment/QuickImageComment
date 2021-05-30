@@ -1015,6 +1015,7 @@ namespace QuickImageComment
                     {
                         ConfigDefinition.getViewConfigurationNames().Add(newConfigurationName);
                         dynamicComboBoxConfigurationName.Items.Add(newConfigurationName);
+                        MainMaskInterface.fillMenuViewConfigurations();
                     }
                     if (answer == DialogResult.Yes)
                     {
@@ -1045,6 +1046,7 @@ namespace QuickImageComment
                 // then delete configuration
                 ConfigDefinition.deleteViewConfiguration(ConfigurationToDelete);
                 dynamicComboBoxConfigurationName.Items.Remove(ConfigurationToDelete);
+                MainMaskInterface.fillMenuViewConfigurations();
             }
         }
 

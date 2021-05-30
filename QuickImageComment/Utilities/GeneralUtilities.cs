@@ -1123,18 +1123,7 @@ namespace QuickImageComment
 
                 if (!Version.Equals(AssemblyInfo.VersionToCheck))
                 {
-                    if (LangCfg.getLoadedLanguage().Equals("Deutsch"))
-                    {
-                        pStart = content.IndexOf("<Program_Change_Info_German>") + 28;
-                        pEnd = content.IndexOf("</Program_Change_Info_German>", pStart);
-                        Change = content.Substring(pStart, pEnd - pStart);
-                    }
-                    else
-                    {
-                        pStart = content.IndexOf("<Program_Change_Info_English>") + 29;
-                        pEnd = content.IndexOf("</Program_Change_Info_English>", pStart);
-                        Change = content.Substring(pStart, pEnd - pStart);
-                    }
+                    Change = getChangeInfoFromcontent(content);
                     return true;
                 }
                 else
@@ -1146,6 +1135,24 @@ namespace QuickImageComment
             {
                 GeneralUtilities.message(LangCfg.Message.E_versionCheck, ex.Message);
                 return false;
+            }
+        }
+
+        internal static string getChangeInfoFromcontent(string content)
+        {
+            int pStart, pEnd;
+
+            if (LangCfg.getLoadedLanguage().Equals("Deutsch"))
+            {
+                pStart = content.IndexOf("<Program_Change_Info_German>") + 28;
+                pEnd = content.IndexOf("</Program_Change_Info_German>", pStart);
+                return content.Substring(pStart, pEnd - pStart);
+            }
+            else
+            {
+                pStart = content.IndexOf("<Program_Change_Info_English>") + 29;
+                pEnd = content.IndexOf("</Program_Change_Info_English>", pStart);
+                return content.Substring(pStart, pEnd - pStart);
             }
         }
 

@@ -230,7 +230,7 @@ namespace QuickImageComment
         private static ArrayList UserConfigCommentLines;
 
         // Attributes in configuration file
-        private static string UserConfigFileVersion = "";
+        internal static string UserConfigFileVersion = "";
         private static SortedList ConfigItems;
         private static ArrayList UserCommentEntries;
         private static ArrayList ArtistEntries;

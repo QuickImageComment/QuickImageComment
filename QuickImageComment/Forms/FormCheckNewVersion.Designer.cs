@@ -50,7 +50,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCheckNowForNewVersion.Location = new System.Drawing.Point(6, 103);
             this.buttonCheckNowForNewVersion.Name = "buttonCheckNowForNewVersion";
-            this.buttonCheckNowForNewVersion.Size = new System.Drawing.Size(320, 22);
+            this.buttonCheckNowForNewVersion.Size = new System.Drawing.Size(470, 22);
             this.buttonCheckNowForNewVersion.TabIndex = 0;
             this.buttonCheckNowForNewVersion.Text = "Jetzt prüfen, ob neue Version verfügbar";
             this.buttonCheckNowForNewVersion.UseVisualStyleBackColor = true;
@@ -143,9 +143,9 @@
             // 
             this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonOk.Location = new System.Drawing.Point(102, 266);
+            this.buttonOk.Location = new System.Drawing.Point(102, 321);
             this.buttonOk.Name = "buttonOk";
-            this.buttonOk.Size = new System.Drawing.Size(121, 23);
+            this.buttonOk.Size = new System.Drawing.Size(271, 23);
             this.buttonOk.TabIndex = 10;
             this.buttonOk.Text = "OK";
             this.buttonOk.UseVisualStyleBackColor = true;
@@ -162,16 +162,16 @@
             this.textBoxResult.Name = "textBoxResult";
             this.textBoxResult.ReadOnly = true;
             this.textBoxResult.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBoxResult.Size = new System.Drawing.Size(317, 94);
+            this.textBoxResult.Size = new System.Drawing.Size(467, 149);
             this.textBoxResult.TabIndex = 11;
             // 
             // buttonDownload
             // 
             this.buttonDownload.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonDownload.Location = new System.Drawing.Point(6, 239);
+            this.buttonDownload.Location = new System.Drawing.Point(6, 294);
             this.buttonDownload.Name = "buttonDownload";
-            this.buttonDownload.Size = new System.Drawing.Size(320, 21);
+            this.buttonDownload.Size = new System.Drawing.Size(470, 21);
             this.buttonDownload.TabIndex = 12;
             this.buttonDownload.Text = "Webseite - Download öffnen";
             this.buttonDownload.UseVisualStyleBackColor = true;
@@ -181,7 +181,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(333, 290);
+            this.ClientSize = new System.Drawing.Size(483, 345);
             this.Controls.Add(this.buttonDownload);
             this.Controls.Add(this.textBoxResult);
             this.Controls.Add(this.buttonOk);

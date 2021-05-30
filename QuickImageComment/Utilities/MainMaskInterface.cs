@@ -208,5 +208,10 @@ namespace QuickImageComment
                 theFormQuickImageComment.initFormLogger();
             }
         }
+
+        internal static void fillMenuViewConfigurations()
+        {
+            theFormQuickImageComment.fillMenuViewConfigurations();
+        }
     }
 }

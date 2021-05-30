@@ -1006,6 +1006,7 @@
             // 
             // dynamicComboBoxConfigurationName
             // 
+            this.dynamicComboBoxConfigurationName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.dynamicComboBoxConfigurationName.FormattingEnabled = true;
             this.dynamicComboBoxConfigurationName.Location = new System.Drawing.Point(185, 13);
             this.dynamicComboBoxConfigurationName.Name = "dynamicComboBoxConfigurationName";
