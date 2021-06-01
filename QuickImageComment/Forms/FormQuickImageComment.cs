@@ -5658,7 +5658,7 @@ namespace QuickImageComment
                 }
             }
             // Prepare for screenshots from sub masks
-            new FormAbout();
+            //new FormAbout();
             new FormCheckNewVersion("", "");
             new FormCompare(theUserControlFiles.listViewFiles.SelectedIndices, FolderName);
             new FormDataTemplates();
@@ -5674,7 +5674,7 @@ namespace QuickImageComment
             new FormInputCheckConfiguration("Iptc.Application2.Category");
             new FormMap();
             new FormMetaDataDefinition(theExtendedImage);
-            new FormMultiSave(0);
+            //new FormMultiSave(0);
             new FormPlaceholder("Exif.Image.Copyright", "Copyright {{#Exif.Photo.DateTimeOriginal;;4}} {{Exif.Image.Artist}}");
             new FormPredefinedComments();
             new FormPredefinedKeyWords();

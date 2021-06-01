@@ -50,7 +50,7 @@ UserManual | User manual as Word document and PDF, subfolder with images used
 The program is built using Visual Studio 2019. Two build options are available:
 
 * __.Net 4.6.1 framework__  
-This is the preferred option with all functionalities. 
+This is the preferred option with all functionalities. The solution includes a reference to the project MSIXpackage for creating an MSIX package. As the project contains confidential information for signing, it is not included.
 * __.Net 4.0 framework__  
 This option is based on .Net 4.0 and is intended for systems without .Net 4.6.1, especially older versions of Windows. It does not support using AppCenter.ms which allows sending error reports and anonymous usage data.
 

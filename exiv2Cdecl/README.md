@@ -121,6 +121,10 @@ Comment block to avoid getting Exif.Photo.UserComment as "binary comment"
         return c;
     }
 
+## Change in supported formats
+
+Check supported image formats on https://exiv2.org/manpage.html and adjust the constant GetImageExtensions in ConfigDefinition.cs. 
+
 ## Hints on Visual Studio settings
 
 Preprocessor Definitions added: EXV_ENABLE_VIDEO  
