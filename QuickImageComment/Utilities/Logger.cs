@@ -51,7 +51,7 @@ namespace QuickImageComment
         // generic method to log
         public static void log(string message, bool printOnly, bool init)
         {
-            if (StartTime == DateTime.MinValue) initReferenceTimes();
+            if (StartTime == DateTime.MinValue || init) initReferenceTimes();
             if (theFormLogger == null && !printOnly) MainMaskInterface.initFormLogger();
 
             DateTime CurrentTime = DateTime.Now;
@@ -131,7 +131,7 @@ namespace QuickImageComment
         }
 
         // log one message with calling stack trace
-        public static void logTrace(string message, int stackLevel)
+        public static void trace(string message, int stackLevel)
         {
             System.Diagnostics.StackTrace stackTrace = new System.Diagnostics.StackTrace();
             System.Diagnostics.StackFrame[] stackFrames = stackTrace.GetFrames();

@@ -142,6 +142,8 @@ namespace QuickImageComment
 
             // Required for Windows Form Designer support
             InitializeComponent();
+            // for Microsoft Store, promotion of download has to be disabled
+            ToolStripMenuItemWebPageDownload.Visible = !GeneralUtilities.MicrosoftStore;
 
             Program.StartupPerformance.measure("FormQIC constructor finish");
         }
@@ -478,6 +480,7 @@ namespace QuickImageComment
             this.toolStripStatusLabelFiles.Text = "";
             this.toolStripStatusLabelMemory.Text = LangCfg.translate("Initialisierung ...", this.Name);
             this.toolStripStatusLabelInfo.Text = "";
+            this.toolStripStatusLabelFileInfo.Text = "";
             this.toolStripStatusLabelBuffering.Visible = false;
 
 #if !PLATFORMTARGET_X64
@@ -3940,7 +3943,7 @@ namespace QuickImageComment
                 {
                     displayImage(-1);
                 }
-                theUserControlFiles.listViewFiles.Items.Clear();
+                theUserControlFiles.listViewFiles.clearItems();
                 toolStripStatusLabelFiles.Text = "";
 
                 if (!FolderName.Equals(""))

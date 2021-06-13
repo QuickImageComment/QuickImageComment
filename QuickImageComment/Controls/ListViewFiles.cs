@@ -74,6 +74,7 @@ namespace QuickImageCommentControls
 
         private Thread delayAfterMouseWheelThread;
         private delegate void workAfterMouseWheelCallback();
+        private delegate void redrawItemWithThumbnailCallback(string fullFileName);
 
         // flag indicating scrolling in listViewFiles
         private bool listViewFilesScrolling = false;
@@ -86,6 +87,8 @@ namespace QuickImageCommentControls
         private System.Windows.Forms.ImageList imageListTiles;
         private System.Windows.Forms.ImageList imageListIcon;
         private SortedList<string, Image> thumbNails = new SortedList<string, Image>();
+        private ArrayList filesNeedingRedraw = new ArrayList();
+
         public int[] SelectedIndicesOld;
         public int[] SelectedIndicesNew;
 
@@ -125,9 +128,16 @@ namespace QuickImageCommentControls
             this.DoubleBuffered = true;
         }
 
+        public void clearItems()
+        {
+            Items.Clear();
+            filesNeedingRedraw.Clear();
+            clearThumbnails();
+        }
+
         public void clearThumbnails()
         {
-            thumbNails.Clear();
+           thumbNails.Clear();
         }
 
         public void clearThumbnailForFile(string fileName)
@@ -235,16 +245,15 @@ namespace QuickImageCommentControls
 
                 if (displayThumbnail)
                 {
-                    bool saveFullSizeImage = false;
-                    // if memory allows it, save fullsize image 
-                    // avoids double readImage when opening a folder for images displayed as thumbnail
-                    if (GeneralUtilities.getRemainingAllowedMemory() > ConfigDefinition.getConfigInt(ConfigDefinition.enumConfigInt.MaximumMemoryTolerance))
-                    {
-                        saveFullSizeImage = true;
-                    }
                     lock (UserControlFiles.LockListViewFiles)
                     {
-                        ExtendedImageForThumbnail = ImageManager.getExtendedImage(theListViewItem.Index, saveFullSizeImage);
+                        ExtendedImageForThumbnail = ImageManager.getExtendedImageFromCache(theListViewItem.Index);
+                        // if extended image was not yet loaded, thumbnail is of size 1x1
+                        if (ExtendedImageForThumbnail.getThumbNailBitmap().Size.Width == 1)
+                        {
+                            filesNeedingRedraw.Add(theListViewItem.Name);
+                            ImageManager.requestAddFileToCache(theListViewItem.Name);
+                        }
                     }
                     if (!thumbNails.ContainsKey(theListViewItem.Name))
                     {
@@ -367,12 +376,45 @@ namespace QuickImageCommentControls
             }
         }
 
+        // redraw fresh thumbnails
+        internal void redrawItemWithThumbnail(string fullFileName)
+        {
+            if (!MainMaskInterface.isClosing() && (View == View.Tile || View == View.LargeIcon) && filesNeedingRedraw.Contains(fullFileName))
+            {
+                // InvokeRequired compares the thread ID of the calling thread to the thread ID of the creating thread.
+                // If these threads are different, it returns true.
+                if (this.InvokeRequired)
+                {
+                    // try-catch: avoid crash when program is terminated when still logs from background processes are created
+                    try
+                    {
+                        this.Invoke(new redrawItemWithThumbnailCallback(redrawItemWithThumbnail), new object[] { fullFileName });
+                    }
+                    catch { }
+                }
+                else
+                {
+                    filesNeedingRedraw.Remove(fullFileName);
+                    lock (UserControlFiles.LockListViewFiles)
+                    {
+                        int ii = getIndexOf(fullFileName);
+                        if (ii >= 0)
+                        {
+                            // clear thumbnails to force redraw
+                            clearThumbnails();
+                            RedrawItems(ii, ii, true);
+                        }
+                    }
+                }
+            }
+        }
+
         // get index of file in listViewFiles
-        public int getIndexOf(string fileName)
+        public int getIndexOf(string fullFileName)
         {
             for (int ii = 0; ii < this.Items.Count; ii++)
             {
-                if (fileName.Equals(this.Items[ii].Name))
+                if (fullFileName.Equals(this.Items[ii].Name))
                 {
                     return ii;
                 }
@@ -382,11 +424,11 @@ namespace QuickImageCommentControls
         }
 
         // find index to insert new file according sort order
-        public int findIndexToInsert(string fileName)
+        public int findIndexToInsert(string fullFileName)
         {
             for (int ii = 0; ii < this.Items.Count; ii++)
             {
-                if (fileName.CompareTo(this.Items[ii].Name) < 0)
+                if (fullFileName.CompareTo(this.Items[ii].Name) < 0)
                 {
                     return ii;
                 }

@@ -445,7 +445,7 @@ namespace QuickImageComment
                         {
                             // file is already entered --> update
 
-                            int ii = listViewFiles.getIndexOf(theFileInfo.Name);
+                            int ii = listViewFiles.getIndexOf(theFileInfo.FullName);
                             if (ii >= 0)
                             {
                                 string MessageText = theFormQuickImageComment.getChangedFields();
@@ -491,7 +491,7 @@ namespace QuickImageComment
                                 // change to list-view to ensure inserting in correct order
                                 listViewFiles.View = View.List;
                                 // insert item
-                                int ii = listViewFiles.findIndexToInsert(theFileInfo.Name);
+                                int ii = listViewFiles.findIndexToInsert(theFileInfo.FullName);
                                 ListViewItem listViewItem = ImageManager.insertNewListViewItemAndEmptyImage(ii, theFileInfo);
                                 listViewFiles.Items.Insert(ii, listViewItem);
 
@@ -526,7 +526,7 @@ namespace QuickImageComment
                 {
                     lock (LockListViewFiles)
                     {
-                        int ii = listViewFiles.getIndexOf(theFileInfo.Name);
+                        int ii = listViewFiles.getIndexOf(theFileInfo.FullName);
                         if (ii >= 0)
                         {
                             // delete entry in lists in Image Manager
@@ -575,7 +575,7 @@ namespace QuickImageComment
                 {
                     lock (LockListViewFiles)
                     {
-                        int ii = listViewFiles.getIndexOf(theFileInfo.Name);
+                        int ii = listViewFiles.getIndexOf(theFileInfo.FullName);
                         if (ii >= 0)
                         {
                             if (ii == lastFileIndex) wasDisplayed = true;
@@ -602,7 +602,7 @@ namespace QuickImageComment
                                 // change to list-view to ensure inserting in correct order
                                 listViewFiles.View = View.List;
                                 // insert item
-                                int jj = listViewFiles.findIndexToInsert(theFileInfo.Name);
+                                int jj = listViewFiles.findIndexToInsert(theFileInfo.FullName);
                                 ListViewItem listViewItem = ImageManager.insertNewListViewItemAndEmptyImage(jj, theFileInfo);
                                 listViewFiles.Items.Insert(jj, listViewItem);
                                 // restore view

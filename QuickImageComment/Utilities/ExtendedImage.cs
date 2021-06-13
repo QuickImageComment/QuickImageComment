@@ -342,15 +342,28 @@ namespace QuickImageComment
             MetaDataWarnings = new ArrayList();
 
             this.ImageFileName = ImageFileName;
-            this.FullSizeImage = createImageWithText(LangCfg.getText(LangCfg.Others.imageFileNotFound));
-            this.AdjustedImage = FullSizeImage;
-            this.ThumbNailBitmap = FullSizeImage;
-            MetaDataWarnings.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.metaWarningFileNotFound), ""));
-
             addReplaceOtherMetaDataKnownType("File.DirectoryName", System.IO.Path.GetDirectoryName(ImageFileName));
             addReplaceOtherMetaDataKnownType("File.FullName", ImageFileName);
             addReplaceOtherMetaDataKnownType("File.Name", System.IO.Path.GetFileName(ImageFileName));
             addReplaceOtherMetaDataKnownType("File.NameWithoutExtension", System.IO.Path.GetFileNameWithoutExtension(ImageFileName));
+
+            if (System.IO.File.Exists(ImageFileName))
+            {
+                this.FullSizeImage = new Bitmap(1, 1); // just an empty image
+                System.IO.FileInfo theFileInfo = new System.IO.FileInfo(ImageFileName);
+                double FileSize = theFileInfo.Length;
+                FileSize = FileSize / 1024;
+                addReplaceOtherMetaDataKnownType("File.Size", FileSize.ToString("#,### KB"));
+                addReplaceOtherMetaDataKnownType("File.Modified", theFileInfo.LastWriteTime.ToString());
+                addReplaceOtherMetaDataKnownType("File.Created", theFileInfo.CreationTime.ToString());
+            }
+            else
+            {
+                this.FullSizeImage = createImageWithText(LangCfg.getText(LangCfg.Others.imageFileNotFound));
+                MetaDataWarnings.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.metaWarningFileNotFound), ""));
+            }
+            this.AdjustedImage = FullSizeImage;
+            this.ThumbNailBitmap = FullSizeImage;
 
             fillTileViewMetaDataItems();
         }

@@ -200,6 +200,11 @@ namespace QuickImageComment
             theFormQuickImageComment.theUserControlFiles.renameItemListViewFiles(oldFullFileName, newFullFileName);
         }
 
+        internal static void redrawItemWithThumbnail(string fullFileName)
+        {
+            theFormQuickImageComment.theUserControlFiles.listViewFiles.redrawItemWithThumbnail(fullFileName);
+        }
+
         internal static void initFormLogger()
         {
             // when FormLogger is initialized before initialzing of main mask, FormLogger may crash

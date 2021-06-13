@@ -14,6 +14,9 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
+// for Microsoft Store, promotion of download has to be disabled
+//#define MICROSOFT_STORE
+
 using System;
 using System.Collections;
 using System.ComponentModel;
@@ -27,9 +30,15 @@ namespace QuickImageComment
     {
         // folder to save screenshots
         private const string ProgramDevelopmentFolder = @"D:\_prg\VisualCS\QuickImageComment\";
-        // URL of pad file
-        private const string ChangeInfoFile = "http://www.quickimagecomment.de/phocadownload/ChangeInfo.xml";
 
+        // URL of change info file; separate for Microsoft Store as availability there could be delayed
+#if MICROSOFT_STORE
+        private const string ChangeInfoFile = "http://www.quickimagecomment.de/phocadownload/ChangeInfoMicrosoftStore.xml";
+        internal const bool MicrosoftStore = true;
+#else
+        private const string ChangeInfoFile = "http://www.quickimagecomment.de/phocadownload/ChangeInfo.xml";
+        internal const bool MicrosoftStore = false;
+#endif
         // formats include formats which are tolerated and can be converted before saving
         // an empty format is included to separate allowed and tolerated formats
         private static string[] dateFormatsExif =

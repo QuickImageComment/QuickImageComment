@@ -71,7 +71,7 @@ namespace QuickImageComment
             if (!Version.Equals(""))
             {
                 textBoxResult.Text = LangCfg.getText(LangCfg.Others.newVersionAvailable, Version, Change);
-                buttonDownload.Visible = true;
+                buttonDownload.Visible = !GeneralUtilities.MicrosoftStore;
             }
             fillLabelNextCheck();
 
@@ -97,7 +97,7 @@ namespace QuickImageComment
             if (GeneralUtilities.newVersionIsAvailable(ref Version, ref Change))
             {
                 textBoxResult.Text = LangCfg.getText(LangCfg.Others.newVersionAvailable, Version, Change);
-                buttonDownload.Visible = true;
+                buttonDownload.Visible = !GeneralUtilities.MicrosoftStore;
             }
             else
             {
