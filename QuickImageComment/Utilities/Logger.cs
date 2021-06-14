@@ -124,14 +124,8 @@ namespace QuickImageComment
             log(message, false, false);
         }
 
-        // print one message (can be used when forms are not yet available)
-        public static void print(string message)
-        {
-            log(message, true, false);
-        }
-
         // log one message with calling stack trace
-        public static void trace(string message, int stackLevel)
+        public static void log(string message, int stackLevel)
         {
             System.Diagnostics.StackTrace stackTrace = new System.Diagnostics.StackTrace();
             System.Diagnostics.StackFrame[] stackFrames = stackTrace.GetFrames();
@@ -146,5 +140,10 @@ namespace QuickImageComment
             log(traceString);  // permanent use of Logger.log
         }
 
+        // print one message (can be used when forms are not yet available)
+        public static void print(string message)
+        {
+            log(message, true, false);
+        }
     }
 }

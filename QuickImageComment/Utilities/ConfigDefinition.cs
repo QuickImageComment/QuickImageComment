@@ -43,7 +43,6 @@ namespace QuickImageComment
 
         public enum enumConfigFlags
         {
-            DisplayFullSizeImageCacheContent,
             PerformanceStartup,
             PerformanceExtendedImage_Constructor,
             PerformanceExtendedImage_save,

@@ -203,10 +203,6 @@ namespace QuickImageComment
                                 Program.handleExceptionWithoutAppCenter(threadingTask.Exception.InnerException);
                             }
                         }
-                        else if (ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.DisplayFullSizeImageCacheContent))
-                        {
-                            MainMaskInterface.setToolStripStatusLabelThread(" Thread Ende", false, true);
-                        }
                     });
                 }
             }

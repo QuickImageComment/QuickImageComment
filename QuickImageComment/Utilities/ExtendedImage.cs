@@ -2083,7 +2083,7 @@ namespace QuickImageComment
             // JpegBitmapEncoder is fastest BitmapEncoder, BmpBitmapEncoder is near to it but hopefully with better quality
             // at least memorystrem from bmp is bigger than from jpeg
             // other BitmapEncoder are significantly slower
-            BmpBitmapEncoder encoder = new BmpBitmapEncoder();
+            JpegBitmapEncoder encoder = new JpegBitmapEncoder();
 
             encoder.Frames.Add(bmf);
             ReadPerformance.measure("RAW encoder frame added");
