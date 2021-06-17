@@ -1,4 +1,4 @@
-//Copyright (C) 2009 Norbert Wagner
+﻿//Copyright (C) 2009 Norbert Wagner
 
 //This program is free software; you can redistribute it and/or
 //modify it under the terms of the GNU General Public License
@@ -116,9 +116,11 @@ namespace QuickImageComment
         // handling event: new or updated file in folder
         public static ListViewItem newListViewFilesItem(FileInfo theFileInfo)
         {
+            // listViewItem.Text is file name
+            // listViewItem.Name is file name with path 
             ListViewItem listViewItem = new ListViewItem(theFileInfo.Name);
-
             listViewItem.Name = theFileInfo.FullName;
+
             // get file information; data are given from listViewItem.SubItems to ExtendedImage
             // This method is called via event, when a file is created. In some cases (e.g. when a file is saved
             // from Paint), a create-, delete- and another create-event is triggered. 
@@ -376,44 +378,47 @@ namespace QuickImageComment
             lock (ExtendedCache)
             {
                 ExtendedCache.Clear();
-                ExtendedCache.Add(fullFileNameViaIndex(FileIndex));
-                while (ExtendedCache.Count < ConfigDefinition.getExtendedImageCacheMaxSize())
+                if (listViewFilesItems.Count > 0)
                 {
-                    if (FileIndex + offset >= listViewFilesItems.Count && FileIndex - offset < 0) break;
-                    if (FileIndex + offset < listViewFilesItems.Count) ExtendedCache.Add(fullFileNameViaIndex(FileIndex + offset));
-                    if (ExtendedCache.Count == ConfigDefinition.getExtendedImageCacheMaxSize()) break;
-                    if (FileIndex - offset >= 0) ExtendedCache.Add(fullFileNameViaIndex(FileIndex - offset));
-                    offset++;
-                }
-                // get list of files to keep - fullsize
-                ArrayList FullsizeCache = new ArrayList();
-                FullsizeCache.Add(fullFileNameViaIndex(FileIndex));
-                offset = 1;
-                while (FullsizeCache.Count < ConfigDefinition.getFullSizeImageCacheMaxSize())
-                {
-                    if (FileIndex + offset >= listViewFilesItems.Count && FileIndex - offset < 0) break;
-                    if (FileIndex + offset < listViewFilesItems.Count) FullsizeCache.Add(fullFileNameViaIndex(FileIndex + offset));
-                    if (FullsizeCache.Count == ConfigDefinition.getFullSizeImageCacheMaxSize()) break;
-                    if (FileIndex - offset >= 0) FullsizeCache.Add(fullFileNameViaIndex(FileIndex - offset));
-                    offset++;
-                }
-
-                string[] HashtableKeys = new string[HashtableExtendedImages.Keys.Count];
-                HashtableExtendedImages.Keys.CopyTo(HashtableKeys, 0);
-                for (int ii = 0; ii < HashtableKeys.Length; ii++)
-                {
-                    if (!ExtendedCache.Contains(HashtableKeys[ii])) HashtableExtendedImages.Remove(HashtableKeys[ii]);
-                }
-                CachePerformance.measure("delete extended images outside cache range");
-
-                HashtableKeys = new string[HashtableFullSizeImages.Keys.Count];
-                HashtableFullSizeImages.Keys.CopyTo(HashtableKeys, 0);
-                for (int ii = 0; ii < HashtableKeys.Length; ii++)
-                {
-                    // never remove the displayed image, can cause error when redisplay is needed
-                    if (!FullsizeCache.Contains(HashtableKeys[ii]) && !HashtableKeys[ii].Equals(MainMaskInterface.displayedImageFullName()))
+                    ExtendedCache.Add(fullFileNameViaIndex(FileIndex));
+                    while (ExtendedCache.Count < ConfigDefinition.getExtendedImageCacheMaxSize())
                     {
-                        HashtableFullSizeImages.Remove(HashtableKeys[ii]);
+                        if (FileIndex + offset >= listViewFilesItems.Count && FileIndex - offset < 0) break;
+                        if (FileIndex + offset < listViewFilesItems.Count) ExtendedCache.Add(fullFileNameViaIndex(FileIndex + offset));
+                        if (ExtendedCache.Count == ConfigDefinition.getExtendedImageCacheMaxSize()) break;
+                        if (FileIndex - offset >= 0) ExtendedCache.Add(fullFileNameViaIndex(FileIndex - offset));
+                        offset++;
+                    }
+                    // get list of files to keep - fullsize
+                    ArrayList FullsizeCache = new ArrayList();
+                    FullsizeCache.Add(fullFileNameViaIndex(FileIndex));
+                    offset = 1;
+                    while (FullsizeCache.Count < ConfigDefinition.getFullSizeImageCacheMaxSize())
+                    {
+                        if (FileIndex + offset >= listViewFilesItems.Count && FileIndex - offset < 0) break;
+                        if (FileIndex + offset < listViewFilesItems.Count) FullsizeCache.Add(fullFileNameViaIndex(FileIndex + offset));
+                        if (FullsizeCache.Count == ConfigDefinition.getFullSizeImageCacheMaxSize()) break;
+                        if (FileIndex - offset >= 0) FullsizeCache.Add(fullFileNameViaIndex(FileIndex - offset));
+                        offset++;
+                    }
+
+                    string[] HashtableKeys = new string[HashtableExtendedImages.Keys.Count];
+                    HashtableExtendedImages.Keys.CopyTo(HashtableKeys, 0);
+                    for (int ii = 0; ii < HashtableKeys.Length; ii++)
+                    {
+                        if (!ExtendedCache.Contains(HashtableKeys[ii])) HashtableExtendedImages.Remove(HashtableKeys[ii]);
+                    }
+                    CachePerformance.measure("delete extended images outside cache range");
+
+                    HashtableKeys = new string[HashtableFullSizeImages.Keys.Count];
+                    HashtableFullSizeImages.Keys.CopyTo(HashtableKeys, 0);
+                    for (int ii = 0; ii < HashtableKeys.Length; ii++)
+                    {
+                        // never remove the displayed image, can cause error when redisplay is needed
+                        if (!FullsizeCache.Contains(HashtableKeys[ii]) && !HashtableKeys[ii].Equals(MainMaskInterface.displayedImageFullName()))
+                        {
+                            HashtableFullSizeImages.Remove(HashtableKeys[ii]);
+                        }
                     }
                 }
             }

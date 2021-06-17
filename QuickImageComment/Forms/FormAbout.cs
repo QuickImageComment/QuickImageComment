@@ -54,7 +54,7 @@ namespace QuickImageComment
             }
 
             textBoxQuickImageCommentVersion.Text += Program.VersionNumberInformational;
-            dynamicLabelQuickImageCommentCreated.Text = Program.CompileTime.ToString("dd.MM.yyyy");
+            dynamicLabelQuickImageCommentCreated.Text = Program.CompileTime.ToString("yyyy-MM-dd HH:mm");
 
             AssemblyCopyrightAttribute theCopyright = System.Reflection.AssemblyCopyrightAttribute.GetCustomAttribute(ExecAssembly, typeof(System.Reflection.AssemblyCopyrightAttribute))
                 as System.Reflection.AssemblyCopyrightAttribute;

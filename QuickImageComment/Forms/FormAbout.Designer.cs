@@ -140,11 +140,11 @@ namespace QuickImageComment
             // 
             this.dynamicLabelQuickImageCommentCreated.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.dynamicLabelQuickImageCommentCreated.AutoSize = true;
-            this.dynamicLabelQuickImageCommentCreated.Location = new System.Drawing.Point(572, 10);
+            this.dynamicLabelQuickImageCommentCreated.Location = new System.Drawing.Point(547, 10);
             this.dynamicLabelQuickImageCommentCreated.Name = "dynamicLabelQuickImageCommentCreated";
-            this.dynamicLabelQuickImageCommentCreated.Size = new System.Drawing.Size(61, 13);
+            this.dynamicLabelQuickImageCommentCreated.Size = new System.Drawing.Size(91, 13);
             this.dynamicLabelQuickImageCommentCreated.TabIndex = 13;
-            this.dynamicLabelQuickImageCommentCreated.Text = "99.99.9999\r\n";
+            this.dynamicLabelQuickImageCommentCreated.Text = "9999-99-99 99:99";
             this.dynamicLabelQuickImageCommentCreated.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // buttonLicenses

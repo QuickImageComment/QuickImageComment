@@ -1,4 +1,4 @@
-//Copyright (C) 2009 Norbert Wagner
+Ôªø//Copyright (C) 2009 Norbert Wagner
 
 //This program is free software; you can redistribute it and/or
 //modify it under the terms of the GNU General Public License
@@ -1389,11 +1389,6 @@ namespace QuickImageComment
                     int status = singleSaveAndStoreInLastList(theUserControlFiles.lastFileIndex, null, null);
                     if (status == 0)
                     {
-                        // clear image list to force load new thumbnails
-                        // exchanging one thumbnail is now difficult after optimisation where thumbnails are not in sequence
-                        theUserControlFiles.listViewFiles.clearThumbnails();
-                        theUserControlFiles.listViewFiles.RedrawItems(theUserControlFiles.lastFileIndex, theUserControlFiles.lastFileIndex, false);
-
                         // set newFileIndex to lastFileIndex
                         // if this image is the last one it will force the image to be redisplayed with changed values
                         int newFileIndex = 0;
@@ -1426,11 +1421,6 @@ namespace QuickImageComment
                     int status = singleSaveAndStoreInLastList(theUserControlFiles.lastFileIndex, null, null);
                     if (status == 0)
                     {
-                        // clear image list to force load new thumbnails
-                        // exchanging one thumbnail is now difficult after optimisation where thumbnails are not in sequence
-                        theUserControlFiles.listViewFiles.clearThumbnails();
-                        theUserControlFiles.listViewFiles.RedrawItems(theUserControlFiles.lastFileIndex, theUserControlFiles.lastFileIndex, false);
-
                         // set newFileIndex to lastFileIndex
                         // if this image is the last one it will force the image to be redisplayed with changed values
                         int newFileIndex = theUserControlFiles.lastFileIndex;
@@ -4068,7 +4058,7 @@ namespace QuickImageComment
             DateTime StartTime = DateTime.Now;
             theExtendedImage = null;
             pictureBox1.Image = null;
-            //!! images in FormImageWindow und FormImageDetails lˆschen; Problem, wenn mehrere offen sind und anschlieﬂend leerer Ordner selektiert wird
+            //!! images in FormImageWindow und FormImageDetails l√∂schen; Problem, wenn mehrere offen sind und anschlie√üend leerer Ordner selektiert wird
 
             dynamicLabelFileName.Text = FolderName;
             // clear text boxes only, if maximum one file is selected
@@ -4545,10 +4535,6 @@ namespace QuickImageComment
                         //display image only if data were saved because otherwise data entered for multi save are lost
                         displayImage(theUserControlFiles.lastFileIndex);
                         refreshdataGridViewSelectedFiles();
-                        // clear image list to force load new thumbnails
-                        // exchanging one thumbnail is now difficult after optimisation where thumbnails are not in sequence
-                        theUserControlFiles.listViewFiles.clearThumbnails();
-                        theUserControlFiles.listViewFiles.RedrawItems(theUserControlFiles.lastFileIndex, theUserControlFiles.lastFileIndex, false);
                         saveSuccessful = true;
                     }
                 }
@@ -4564,10 +4550,6 @@ namespace QuickImageComment
                 {
                     displayImage(theUserControlFiles.lastFileIndex);
                     refreshdataGridViewSelectedFiles();
-                    // clear image list to force load new thumbnails
-                    // exchanging one thumbnail is now difficult after optimisation where thumbnails are not in sequence
-                    theUserControlFiles.listViewFiles.clearThumbnails();
-                    theUserControlFiles.listViewFiles.RedrawItems(theUserControlFiles.lastFileIndex, theUserControlFiles.lastFileIndex, false);
                     saveSuccessful = true;
                 }
             }
@@ -4599,7 +4581,12 @@ namespace QuickImageComment
             {
                 statusWrite = anExtendedImage.save(changeableFieldsForSave,
                     true, prompt1, prompt2, comboBoxArtistUserChanged);
-                theUserControlFiles.listViewFiles.RedrawItems(indexToStore, indexToStore, false);
+                // clear image list to force load new thumbnails
+                // exchanging one thumbnail is now difficult after optimisation where thumbnails are not in sequence
+                theUserControlFiles.listViewFiles.clearThumbnails();
+                // use refresh instead of RedrawITems; may take about 15 ms longer, but avoids trouble with index
+                //theUserControlFiles.listViewFiles.RedrawItems(indexToStore, indexToStore, false);
+                theUserControlFiles.listViewFiles.Refresh();
             }
             catch (ExtendedImage.ExceptionErrorReplacePlaceholder ex)
             {
@@ -4924,7 +4911,6 @@ namespace QuickImageComment
                     ReturnStatus = (int)StatusDefinition.Code.exceptionPlaceholderReplacement;
                     break;
                 }
-                theUserControlFiles.listViewFiles.RedrawItems(selectedIndicesToStore[ii], selectedIndicesToStore[ii], false);
             }
 
             if (ReturnStatus == 0)
@@ -4992,6 +4978,9 @@ namespace QuickImageComment
                 clearFlagsIndicatingUserChanges();
             }
 
+            // clear image list to force load new thumbnails
+            theUserControlFiles.listViewFiles.clearThumbnails();
+            theUserControlFiles.listViewFiles.Refresh();
             this.Enabled = true;
             theFormMultiSave.Close();
             return true;
@@ -5473,7 +5462,7 @@ namespace QuickImageComment
             int baseX = controlX - thisX + theUserControlFiles.listViewFiles.Width - 18;
             int baseY = controlY - thisY + 44;
             OutputBitmapGraphics.DrawLine(new Pen(Color.Blue, 4.0F), new Point(baseX, baseY), new Point(baseX, baseY + 80));
-            OutputBitmapGraphics.DrawString(LangCfg.translate("bis zu 5 Eigenschaften frei w‰hlbar", this.Name),
+            OutputBitmapGraphics.DrawString(LangCfg.translate("bis zu 5 Eigenschaften frei w√§hlbar", this.Name),
                 new Font("Verdana", 15, FontStyle.Bold), new SolidBrush(Color.Blue), new RectangleF(baseX, baseY, 180, 100));
 
             controlX = DataGridViewOverview.PointToScreen(Point.Empty).X;
@@ -5481,7 +5470,7 @@ namespace QuickImageComment
             baseX = controlX - thisX + 5;
             baseY = controlY - thisY + 50;
             OutputBitmapGraphics.DrawLine(new Pen(Color.Blue, 4.0F), new Point(baseX, baseY), new Point(baseX, baseY + 223));
-            OutputBitmapGraphics.DrawString(LangCfg.translate("Eigenschaften frei w‰hlbar", this.Name),
+            OutputBitmapGraphics.DrawString(LangCfg.translate("Eigenschaften frei w√§hlbar", this.Name),
                 new Font("Verdana", 15, FontStyle.Bold), new SolidBrush(Color.Blue), new RectangleF(baseX, baseY, 180, 100));
 
             controlX = theUserControlChangeableFields.PointToScreen(Point.Empty).X;
@@ -5489,7 +5478,7 @@ namespace QuickImageComment
             baseX = controlX - thisX + 3;
             baseY = controlY - thisY + 30;
             OutputBitmapGraphics.DrawLine(new Pen(Color.Blue, 4.0F), new Point(baseX, baseY), new Point(baseX, baseY + 224));
-            OutputBitmapGraphics.DrawString(LangCfg.translate("ƒnderbare Eigenschaften frei w‰hlbar", this.Name),
+            OutputBitmapGraphics.DrawString(LangCfg.translate("√Ñnderbare Eigenschaften frei w√§hlbar", this.Name),
                 new Font("Verdana", 15, FontStyle.Bold), new SolidBrush(Color.Blue), new RectangleF(baseX, baseY, 180, 100));
 
             GeneralUtilities.saveScreenshotBitmap(bmp, this.Name + index++.ToString("-00"));

@@ -30,45 +30,6 @@ namespace QuickImageCommentControls
         const int thickLine = 3;
         const int tileLine = 2;
 
-        private struct SCROLLINFO
-        {
-            public int cbSize;
-            public uint fMask;
-            public int nMin;
-            public int nMax;
-            public uint nPage;
-            public int nPos;
-            public int nTrackPos;
-        }
-
-        private enum ScrollBarDirection
-        {
-            SB_HORZ = 0,
-            SB_VERT = 1,
-            SB_CTL = 2,
-            SB_BOTH = 3
-        }
-
-        private enum ScrollInfoMask
-        {
-            SIF_RANGE = 0x1,
-            SIF_PAGE = 0x2,
-            SIF_POS = 0x4,
-            SIF_DISABLENOSCROLL = 0x8,
-            SIF_TRACKPOS = 0x10,
-            SIF_ALL = SIF_RANGE | SIF_PAGE | SIF_POS | SIF_TRACKPOS
-        }
-
-        private enum ListViewMessages : int
-        {
-            LVM_FIRST = 0x1000,
-            LVM_SCROLL = (LVM_FIRST + 20)
-        }
-
-        [System.Runtime.InteropServices.DllImport("user32.dll")]
-        private static extern int GetScrollInfo(IntPtr hwnd, int fnBar, ref SCROLLINFO lpsi);
-
-
         [System.Runtime.InteropServices.DllImport("user32.dll")]
         private static extern int SendMessage(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam);
 
@@ -412,15 +373,8 @@ namespace QuickImageCommentControls
         // get index of file in listViewFiles
         public int getIndexOf(string fullFileName)
         {
-            for (int ii = 0; ii < this.Items.Count; ii++)
-            {
-                if (fullFileName.Equals(this.Items[ii].Name))
-                {
-                    return ii;
-                }
-            }
-            // not found
-            return -1;
+            // hint: is case insensitive
+            return Items.IndexOfKey(fullFileName);
         }
 
         // find index to insert new file according sort order
@@ -463,30 +417,6 @@ namespace QuickImageCommentControls
             { // Trap WM_VSCROLL
                 OnScroll(new ScrollEventArgs((ScrollEventType)(m.WParam.ToInt32() & 0xffff), 0));
             }
-        }
-
-        // based on https://www.codeproject.com/Articles/27504/Scrolling-to-a-Group-with-a-ListView
-        public int getHorizontalScrollPosition()
-        {
-            SCROLLINFO currentInfo = new SCROLLINFO();
-            currentInfo.cbSize = System.Runtime.InteropServices.Marshal.SizeOf(currentInfo);
-            currentInfo.fMask = (int)ScrollInfoMask.SIF_ALL;
-
-            GetScrollInfo(this.Handle, (int)ScrollBarDirection.SB_HORZ, ref currentInfo);
-            return currentInfo.nPos;
-        }
-        public int getVerticalScrollPosition()
-        {
-            SCROLLINFO currentInfo = new SCROLLINFO();
-            currentInfo.cbSize = System.Runtime.InteropServices.Marshal.SizeOf(currentInfo);
-            currentInfo.fMask = (int)ScrollInfoMask.SIF_ALL;
-
-            GetScrollInfo(this.Handle, (int)ScrollBarDirection.SB_VERT, ref currentInfo);
-            return currentInfo.nPos;
-        }
-        public void setScrollPosition(int x, int y)
-        {
-            SendMessage(this.Handle, (int)ListViewMessages.LVM_SCROLL, new IntPtr(x), new IntPtr(y));
         }
     }
 }
