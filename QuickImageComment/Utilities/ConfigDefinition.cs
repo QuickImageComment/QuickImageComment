@@ -1,4 +1,4 @@
-//Copyright (C) 2009 Norbert Wagner
+ï»¿//Copyright (C) 2009 Norbert Wagner
 
 //This program is free software; you can redistribute it and/or
 //modify it under the terms of the GNU General Public License
@@ -28,15 +28,15 @@ namespace QuickImageComment
         public const int StatusMultipleCategories = 1;
         // following strings are written in configuration file and used for comparison in program
         // no need for translation (which then would cause incompatibilities with older versions)
-        public const string CommentsActionOverwrite = "Überschreiben";
-        public const string CommentsActionAppendSpace = "Anhängen mit Leerzeichen";
-        public const string CommentsActionAppendComma = "Anhängen mit Komma";
-        public const string CommentsActionAppendSemicolon = "Anhängen mit Semikolon";
+        public const string CommentsActionOverwrite = "Ãœberschreiben";
+        public const string CommentsActionAppendSpace = "AnhÃ¤ngen mit Leerzeichen";
+        public const string CommentsActionAppendComma = "AnhÃ¤ngen mit Komma";
+        public const string CommentsActionAppendSemicolon = "AnhÃ¤ngen mit Semikolon";
 
         // define extensions instead of using Filter for GetFiles
         // is anyhow required because Directory.GetFilter does not filter exact,
         // when extension is 3 characters
-        public const string GetImageExtensions = ".jpg .jpeg .exv .cr2 .crw .mrw .tif .tiff .dng .nef .pef .arw .rw2 .sr2 .srw .orf .png .pgf .raf .eps .xmp .gif .psd .tga .bmp .jp2";
+        public const string GetImageExtensions = ".avif .bmp .cr2 .cr3 .crw .dng .eps .exv .gif .heic .heif .jp2 .jpg .jpeg .mrw .nef .orf .pef .pgf .png .psd .raf .rw2 .sr2 .srw .tga .tif .tiff .webp .xmp";
         // extensions of files which can be read using System.Drawing.Image (which is fast)
         public static ArrayList SystemDrawingImageExtensions = new ArrayList { ".bmp", ".gif", ".jpg", ".jpeg", ".png", ".tif", ".tiff" };
         // note: video extensions are read from config file
@@ -723,11 +723,11 @@ namespace QuickImageComment
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForDisplay].Add(new MetaDataDefinitionItem("ISO-Einstellung", "ExifEasy.ISOspeed"));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForDisplay].Add(new MetaDataDefinitionItem("Brennweite", "ExifEasy.FocalLength", MetaDataItem.Format.InterpretedBracketOriginal));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForDisplay].Add(new MetaDataDefinitionItem("Blitz", "Exif.Photo.Flash", MetaDataItem.Format.InterpretedBracketOriginal));
-                MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForDisplay].Add(new MetaDataDefinitionItem("Bildgröße", "Exif.Photo.PixelXDimension", " x ", "Exif.Photo.PixelYDimension"));
-                MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForDisplay].Add(new MetaDataDefinitionItem("Exif-Künstler", "Exif.Image.Artist"));
+                MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForDisplay].Add(new MetaDataDefinitionItem("BildgrÃ¶ÃŸe", "Exif.Photo.PixelXDimension", " x ", "Exif.Photo.PixelYDimension"));
+                MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForDisplay].Add(new MetaDataDefinitionItem("Exif-KÃ¼nstler", "Exif.Image.Artist"));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForDisplay].Add(new MetaDataDefinitionItem("Exif-Kommentar", "Exif.Photo.UserComment"));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForDisplay].Add(new MetaDataDefinitionItem("JPEG-Kommentar", "Image.Comment"));
-                MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForDisplay].Add(new MetaDataDefinitionItem("IPTC Schlüsselworte", "Image.IPTC_KeyWordsString"));
+                MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForDisplay].Add(new MetaDataDefinitionItem("IPTC SchlÃ¼sselworte", "Image.IPTC_KeyWordsString"));
                 translateNamesOfMetaDataDefinitionItem(MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForDisplay]);
             }
 
@@ -738,7 +738,7 @@ namespace QuickImageComment
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForDisplayVideo].Add(new MetaDataDefinitionItem("Modell", "Xmp.video.Model"));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForDisplayVideo].Add(new MetaDataDefinitionItem("Aufnahmedatum", "Xmp.video.DateTimeOriginal", ".", "Exif.Photo.SubSecTimeOriginal"));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForDisplayVideo].Add(new MetaDataDefinitionItem("Codec", "Xmp.video.Codec"));
-                MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForDisplayVideo].Add(new MetaDataDefinitionItem("Auflösung", "Xmp.video.FrameWidth", " x ", "Xmp.video.FrameHeight"));
+                MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForDisplayVideo].Add(new MetaDataDefinitionItem("AuflÃ¶sung", "Xmp.video.FrameWidth", " x ", "Xmp.video.FrameHeight"));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForDisplayVideo].Add(new MetaDataDefinitionItem("Bildrate", "Xmp.video.FrameRate"));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForDisplayVideo].Add(new MetaDataDefinitionItem("Medien-Dauer", "Xmp.video.MediaDuration"));
                 translateNamesOfMetaDataDefinitionItem(MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForDisplayVideo]);
@@ -748,9 +748,9 @@ namespace QuickImageComment
             if (MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForFind].Count == 0)
             {
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForFind].Add(new MetaDataDefinitionItem("Aufnahmedatum", "Exif.Photo.DateTimeOriginal"));
-                MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForFind].Add(new MetaDataDefinitionItem("Künstler (kombiniert)", "Image.ArtistCombinedFields"));
+                MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForFind].Add(new MetaDataDefinitionItem("KÃ¼nstler (kombiniert)", "Image.ArtistCombinedFields"));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForFind].Add(new MetaDataDefinitionItem("Kommentar (kombiniert)", "Image.CommentCombinedFields"));
-                MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForFind].Add(new MetaDataDefinitionItem("IPTC Schlüsselworte", "Image.IPTC_KeyWordsString"));
+                MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForFind].Add(new MetaDataDefinitionItem("IPTC SchlÃ¼sselworte", "Image.IPTC_KeyWordsString"));
             }
 
 
@@ -765,7 +765,7 @@ namespace QuickImageComment
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForImageWindow].Add(new MetaDataDefinitionItem("ISO-Einstellung", "ExifEasy.ISOspeed"));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForImageWindow].Add(new MetaDataDefinitionItem("Brennweite", "ExifEasy.FocalLength", MetaDataItem.Format.InterpretedBracketOriginal));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForImageWindow].Add(new MetaDataDefinitionItem("Blitz", "Exif.Photo.Flash", MetaDataItem.Format.InterpretedBracketOriginal));
-                MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForImageWindow].Add(new MetaDataDefinitionItem("Bildgröße", "Exif.Photo.PixelXDimension", " x ", "Exif.Photo.PixelYDimension"));
+                MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForImageWindow].Add(new MetaDataDefinitionItem("BildgrÃ¶ÃŸe", "Exif.Photo.PixelXDimension", " x ", "Exif.Photo.PixelYDimension"));
                 translateNamesOfMetaDataDefinitionItem(MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForImageWindow]);
             }
 
@@ -776,7 +776,7 @@ namespace QuickImageComment
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForImageWindowVideo].Add(new MetaDataDefinitionItem("Modell", "Xmp.video.Model"));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForImageWindowVideo].Add(new MetaDataDefinitionItem("Aufnahmedatum", "Xmp.video.DateTimeOriginal", ".", "Exif.Photo.SubSecTimeOriginal"));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForImageWindowVideo].Add(new MetaDataDefinitionItem("Codec", "Xmp.video.Codec"));
-                MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForImageWindowVideo].Add(new MetaDataDefinitionItem("Auflösung", "Xmp.video.FrameWidth", " x ", "Xmp.video.FrameHeight"));
+                MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForImageWindowVideo].Add(new MetaDataDefinitionItem("AuflÃ¶sung", "Xmp.video.FrameWidth", " x ", "Xmp.video.FrameHeight"));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForImageWindowVideo].Add(new MetaDataDefinitionItem("Bildrate", "Xmp.video.FrameRate"));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForImageWindowVideo].Add(new MetaDataDefinitionItem("Medien-Dauer", "Xmp.video.MediaDuration"));
                 translateNamesOfMetaDataDefinitionItem(MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForImageWindowVideo]);
@@ -785,9 +785,9 @@ namespace QuickImageComment
             // if no entries for MetaDataDefinitionsMultiEditTable found, define initial set
             if (MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForMultiEditTable].Count == 0)
             {
-                MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForMultiEditTable].Add(new MetaDataDefinitionItem("Künstler", "Image.ArtistAccordingSettings"));
+                MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForMultiEditTable].Add(new MetaDataDefinitionItem("KÃ¼nstler", "Image.ArtistAccordingSettings"));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForMultiEditTable].Add(new MetaDataDefinitionItem("Kommentar", "Image.CommentAccordingSettings"));
-                MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForMultiEditTable].Add(new MetaDataDefinitionItem("IPTC Schlüsselworte", "Image.IPTC_KeyWordsString"));
+                MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForMultiEditTable].Add(new MetaDataDefinitionItem("IPTC SchlÃ¼sselworte", "Image.IPTC_KeyWordsString"));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForMultiEditTable].Add(new MetaDataDefinitionItem("Aufnahmedatum", "Exif.Photo.DateTimeOriginal"));
                 translateNamesOfMetaDataDefinitionItem(MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForMultiEditTable]);
             }
@@ -798,7 +798,7 @@ namespace QuickImageComment
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForRename].Add(new MetaDataDefinitionItem("Alter Dateiname", "File.NameWithoutExtension"));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForRename].Add(new MetaDataDefinitionItem("Aufnahme-Datum JJJJMMDD", "Define.PhotoDateOriginal_YYYYMMDD"));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForRename].Add(new MetaDataDefinitionItem("Aufnahme-Zeit m. Hunderstel-Sek.", "Exif.Photo.DateTimeOriginal", ".", "Exif.Photo.SubSecTimeOriginal"));
-                MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForRename].Add(new MetaDataDefinitionItem("Künstler (Autor)", "Image.ArtistAccordingSettings"));
+                MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForRename].Add(new MetaDataDefinitionItem("KÃ¼nstler (Autor)", "Image.ArtistAccordingSettings"));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForRename].Add(new MetaDataDefinitionItem("Kamera-Hersteller", "ExifEasy.CameraMake"));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForRename].Add(new MetaDataDefinitionItem("Kamera-Modell", "ExifEasy.CameraModel"));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForRename].Add(new MetaDataDefinitionItem("ISO-Einstellung", "ExifEasy.ISOspeed"));
@@ -856,12 +856,12 @@ namespace QuickImageComment
             if (MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForTileView].Count == 0)
             {
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForTileView].Add(new MetaDataDefinitionItem("Dateiname", "File.Name"));
-                MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForTileView].Add(new MetaDataDefinitionItem("Dateigröße", "File.Size"));
-                MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForTileView].Add(new MetaDataDefinitionItem("Auflösung", "Exif.Photo.PixelXDimension", " x ", "Exif.Photo.PixelYDimension"));
+                MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForTileView].Add(new MetaDataDefinitionItem("DateigrÃ¶ÃŸe", "File.Size"));
+                MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForTileView].Add(new MetaDataDefinitionItem("AuflÃ¶sung", "Exif.Photo.PixelXDimension", " x ", "Exif.Photo.PixelYDimension"));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForTileView].Add(new MetaDataDefinitionItem("Aufnahmedatum", "", MetaDataItem.Format.Interpreted, "Exif.Photo.DateTimeOriginal", ".",
                                                                                                  MetaDataItem.Format.Interpreted, "Exif.Photo.SubSecTimeOriginal", ""));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForTileView].Add(new MetaDataDefinitionItem("Kamera-Modell", "ExifEasy.CameraModel"));
-                MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForTileView].Add(new MetaDataDefinitionItem("Künstler", "Exif.Image.Artist"));
+                MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForTileView].Add(new MetaDataDefinitionItem("KÃ¼nstler", "Exif.Image.Artist"));
                 translateNamesOfMetaDataDefinitionItem(MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForTileView]);
             }
 
@@ -869,8 +869,8 @@ namespace QuickImageComment
             if (MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForTileViewVideo].Count == 0)
             {
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForTileViewVideo].Add(new MetaDataDefinitionItem("Dateiname", "File.Name"));
-                MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForTileViewVideo].Add(new MetaDataDefinitionItem("Dateigröße", "File.Size"));
-                MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForTileViewVideo].Add(new MetaDataDefinitionItem("Auflösung", "Xmp.video.FrameWidth", " x ", "Xmp.video.FrameHeight"));
+                MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForTileViewVideo].Add(new MetaDataDefinitionItem("DateigrÃ¶ÃŸe", "File.Size"));
+                MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForTileViewVideo].Add(new MetaDataDefinitionItem("AuflÃ¶sung", "Xmp.video.FrameWidth", " x ", "Xmp.video.FrameHeight"));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForTileViewVideo].Add(new MetaDataDefinitionItem("Modell", "Xmp.video.Model"));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForTileViewVideo].Add(new MetaDataDefinitionItem("Aufnahmedatum", "Xmp.video.DateTimeOriginal", ".", "Exif.Photo.SubSecTimeOriginal"));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForTileViewVideo].Add(new MetaDataDefinitionItem("Medien-Dauer", "Xmp.video.MediaDuration"));
@@ -903,11 +903,11 @@ namespace QuickImageComment
 
             // add InputChecks
             InputCheckConfigurations.Add("Exif.Image.Orientation", new InputCheckConfig("Exif.Image.Orientation", false, true,
-                new ArrayList(new[] { "top, left (-/-)", "top, right (horiz.flip)", "bottom, right (180°)", "bottom, left (180° + horiz.flip)",
-                                       "left, top (90° + horiz.flip)", "right, top (90°)", "right, bottom (90° + vert.flip)", "left, bottom (270°)" })));
+                new ArrayList(new[] { "top, left (-/-)", "top, right (horiz.flip)", "bottom, right (180Â°)", "bottom, left (180Â° + horiz.flip)",
+                                       "left, top (90Â° + horiz.flip)", "right, top (90Â°)", "right, bottom (90Â° + vert.flip)", "left, bottom (270Â°)" })));
             InputCheckConfigurations.Add("Exif.Thumbnail.Orientation", new InputCheckConfig("Exif.Image.Orientation", false, true,
-                new ArrayList(new[] { "top, left (-/-)", "top, right (horiz.flip)", "bottom, right (180°)", "bottom, left (180° + horiz.flip)",
-                                       "left, top (90° + horiz.flip)", "right, top (90°)", "right, bottom (90° + vert.flip)", "left, bottom (270°)" })));
+                new ArrayList(new[] { "top, left (-/-)", "top, right (horiz.flip)", "bottom, right (180Â°)", "bottom, left (180Â° + horiz.flip)",
+                                       "left, top (90Â° + horiz.flip)", "right, top (90Â°)", "right, bottom (90Â° + vert.flip)", "left, bottom (270Â°)" })));
             InputCheckConfigurations.Add("Exif.GPSInfo.GPSLatitudeRef", new InputCheckConfig("Exif.GPSInfo.GPSLatitudeRef", false, false,
                 new ArrayList(new[] { "N", "S" })));
             InputCheckConfigurations.Add("Exif.GPSInfo.GPSLongitudeRef", new InputCheckConfig("Exif.GPSInfo.GPSLongitudeRef", false, false,
@@ -2819,12 +2819,12 @@ namespace QuickImageComment
             PanelContentValues.Add("Dateien", LangCfg.PanelContent.Files);
             PanelContentValues.Add("Ordner", LangCfg.PanelContent.Folders);
             PanelContentValues.Add("Eigenschaften", LangCfg.PanelContent.Properties);
-            PanelContentValues.Add("Künstler (Autor)", LangCfg.PanelContent.Artist);
-            PanelContentValues.Add("Künstler und Kommentar", LangCfg.PanelContent.ArtistComment);
+            PanelContentValues.Add("KÃ¼nstler (Autor)", LangCfg.PanelContent.Artist);
+            PanelContentValues.Add("KÃ¼nstler und Kommentar", LangCfg.PanelContent.ArtistComment);
             PanelContentValues.Add("Kommentarlisten", LangCfg.PanelContent.CommentLists);
             PanelContentValues.Add("Kommentar", LangCfg.PanelContent.Comment);
             PanelContentValues.Add("Konfigurierbarer Eingabebereich", LangCfg.PanelContent.Configurable);
-            PanelContentValues.Add("IPTC Schlüsselworte", LangCfg.PanelContent.IptcKeywords);
+            PanelContentValues.Add("IPTC SchlÃ¼sselworte", LangCfg.PanelContent.IptcKeywords);
             PanelContentValues.Add("Bild Details", LangCfg.PanelContent.ImageDetails);
             PanelContentValues.Add("Karte", LangCfg.PanelContent.Map);
 
@@ -3027,7 +3027,7 @@ namespace QuickImageComment
 
             StreamOut.WriteLine("; Configuration file for QuickImageComment");
             StreamOut.WriteLine("; ----------------------------------------");
-            StreamOut.WriteLine("; Alle Einträge werden über das Programm gepflegt. Manuelle Änderungen auf eigene Gefahr.");
+            StreamOut.WriteLine("; Alle EintrÃ¤ge werden Ã¼ber das Programm gepflegt. Manuelle Ã„nderungen auf eigene Gefahr.");
             StreamOut.WriteLine("; All entries are maintained by the program. Manual changes at your own risk.");
             StreamOut.WriteLine(";");
             StreamOut.WriteLine("Version:" + Program.VersionNumber);
@@ -3143,7 +3143,7 @@ namespace QuickImageComment
             {
                 StreamOut.WriteLine(";");
                 StreamOut.WriteLine("; -----------------------------------------------------------------");
-                StreamOut.WriteLine("; Folgende Zeilen können mit Version "
+                StreamOut.WriteLine("; Folgende Zeilen kÃ¶nnen mit Version "
                     + Program.VersionNumber + " nicht interpretiert werden");
                 StreamOut.WriteLine("; Following lines cannot be interpreted with Version "
                     + Program.VersionNumber);

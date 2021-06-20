@@ -7,9 +7,6 @@
     <ClCompile Include="..\Src_exiv2_src\basicio.cpp">
       <Filter>SourceExt</Filter>
     </ClCompile>
-    <ClCompile Include="..\Src_exiv2_src\bigtiffimage.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
     <ClCompile Include="..\Src_exiv2_src\bmpimage.cpp">
       <Filter>SourceExt</Filter>
     </ClCompile>
@@ -321,6 +318,9 @@
     </ClCompile>
     <ClCompile Include="exiv2Cdecl.cpp" />
     <ClCompile Include="makernote_int_add.cpp" />
+    <ClCompile Include="..\Src_exiv2_src\bmffimage.cpp">
+      <Filter>SourceExt</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Src_expat_lib\ascii.h">
@@ -333,9 +333,6 @@
       <Filter>IncludeExt</Filter>
     </ClInclude>
     <ClInclude Include="..\Src_exiv2_src\exiv2\basicio.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\exiv2\bigtiffimage.hpp">
       <Filter>IncludeExt</Filter>
     </ClInclude>
     <ClInclude Include="..\Src_exiv2_src\exiv2\bmpimage.hpp">
@@ -707,9 +704,6 @@
     <ClInclude Include="..\Src_exiv2_xmpsdk\src\XMPUtils.hpp">
       <Filter>IncludeExt</Filter>
     </ClInclude>
-    <ClInclude Include="..\Src_zlib\zconf.h">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
     <ClInclude Include="..\Src_zlib\zlib.h">
       <Filter>IncludeExt</Filter>
     </ClInclude>
@@ -717,6 +711,10 @@
       <Filter>IncludeExt</Filter>
     </ClInclude>
     <ClInclude Include="makernote_int_add.hpp" />
+    <ClInclude Include="..\Src_zlib\zconf.h" />
+    <ClInclude Include="..\Src_exiv2_src\exiv2\bmffimage.hpp">
+      <Filter>IncludeExt</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Src_exiv2_xmpsdk\include\client-glue\TXMPIterator.incl_cpp">

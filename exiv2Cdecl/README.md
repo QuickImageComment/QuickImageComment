@@ -23,20 +23,23 @@ When installing new version of Python, ensure to include pip.
 * Go into root folder
 * Copy start_cmd_setting_path_and_DevCmdPrompt.bat from this folder
 * Check start_cmd_setting_path_and_DevCmdPromp.bat for needed updates (e.g. new version of Python)
+* edit CMakeLists.txt:
+  * set EXIV2_ENABLE_VIDEO to ON
+  * set EXIV2_ENABLE_BMFF to OFF
 * Execute start_cmd_setting_path_and_DevCmdPrompt.bat
 * Enter following commands (copied from README.md resp. README-CONAN.md):  
-   Note: cmake using msvc2019Release failed _(to be checked again with next version from exiv2)_
 
        $ mkdir build
        $ cd build
        $ conan profile list  
-   Note: should show msvc2017Release64
+   Note: should show msvc2019Release64, if not copy it from exiv2\cmake\msvc_conan_profiles to %USERPROFILE%\.conan\profiles
 
-       $ conan install .. --profile msvc2017Release64 --build missing  
-       $ cmake         .. -G "Visual Studio 15 2017 Win64"
+       $ conan install .. --profile msvc2019Release64 --build=Expat --build=zlib --build=gtest
+       $ cmake         .. -G "Visual Studio 16 2019" -A x64
        $ cmake --build .  --config Release
 
-- new exiv2.exe and exiv2.dll are located in build\bin
+   Note: --build ensures to get sources copied
+* new exiv2.exe and exiv2.dll are located in build\bin
 
 ## Copy sources to exiv2Cdecl and update project files
 
@@ -71,6 +74,8 @@ Copy following project files to exiv2Cdecl\Prj_exiv2_expat:
 * C:\Users\<user>\.conan\data\Expat\x.x.x\pix4d\stable\build\<UUID>\libexpat\expat\lib\expat_static.vcxproj
 * C:\Users\<user>\.conan\data\zlib\x.x.x\conan\stable\build\<UUID>\source_subfolder\contrib\vstudio\vc14\zlibstat.vcxproj
 * exiv2-0.xx.x-Source\build\src\exiv2lib.vcxproj
+* exiv2-0.xx.x-Source\build\src\exiv2lib_int.vcxproj
+* exiv2-0.xx.x-Source\contrib\vs2019\solution\xmpsdk\exiv2-xmp.vcxproj
 
 Check for changes in project files, e.g. PreprocessorDefinitions, additional dependencies (libs) and adjust __Prj_exiv2Cdecl\exiv2Cdecl.vcxproj__ if needed.
 
@@ -93,46 +98,10 @@ modified version is included in makernote_int_add.cpp
 
 ----------------------------------------------------------------
 
-### value.cpp
-
-_Will be obsolete with exiv2 verison 0.27.4_
-
-Comment block to avoid getting Exif.Photo.UserComment as "binary comment"
-
-    std::string CommentValue::comment(const char* encoding) const
-    {
-        std::string c;
-        if (value_.length() < 8) {
-            return c;
-        }
-        c = value_.substr(8);
-        if (charsetId() == unicode) {
-            const char* from = encoding == 0 || *encoding == '\0' ? detectCharset(c) : encoding;
-            convertStringCharset(c, from, "UTF-8");
-        // Norbert Wagner: changed back to coding of 0.27.2 to allow display of 
-        // Exif.Photo.UserComment with charset=Ascii
-        //} else {
-        //    // charset=undefined reports "binary comment" if it contains non-printable bytes
-        //    // this is to ensure no binary bytes in the output stream.
-        //    if ( isBinary(c) ) {
-        //        c = "binary comment" ;
-        //    }
-        }
-        return c;
-    }
-
 ## Change in supported formats
 
 Check supported image formats on https://exiv2.org/manpage.html and adjust the constant GetImageExtensions in ConfigDefinition.cs. 
 
-## Hints on Visual Studio settings
-
-Preprocessor Definitions added: EXV_ENABLE_VIDEO  
-As documented in exv_conf.h:
-
-     // Define if you want video support.
-     /* #undef EXV_ENABLE_VIDEO */
-	
 ## Trouble shooting 
 
 ### Link-errors:

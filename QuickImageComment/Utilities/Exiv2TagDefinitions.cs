@@ -213,7 +213,7 @@ namespace QuickImageComment
                         }
                         // fill translated description
                         aTagDefinition.descriptionTranslated = LangCfg.getLookupValueLogNullReferenceValue("META_DESC", aTagDefinition.key,
-                            "META_DESC\t" + aTagDefinition.key + "\t" + aTagDefinition.description);
+                            "META_DESC\t" + aTagDefinition.key + "\t" + aTagDefinition.type + "\t" + aTagDefinition.description);
                         if (aTagDefinition.descriptionTranslated == null)
                         {
                             aTagDefinition.descriptionTranslated = aTagDefinition.description;
@@ -229,6 +229,7 @@ namespace QuickImageComment
             int status;
             int startIndex;
             int endIndex;
+            int endIndex1;
             string tagString = "";
 
             status = exiv2getFirstExifTagDescription(ref tagString);
@@ -238,24 +239,25 @@ namespace QuickImageComment
                 endIndex = 1;
                 // ignore first four values
                 // values are separated by comma plus tabulator
-                endIndex = tagString.IndexOf(",\t", startIndex);
+                endIndex = tagString.IndexOf(",", startIndex);
                 startIndex = endIndex + 1;
-                endIndex = tagString.IndexOf(",\t", startIndex);
+                endIndex = tagString.IndexOf(",", startIndex);
                 startIndex = endIndex + 1;
-                endIndex = tagString.IndexOf(",\t", startIndex);
+                endIndex = tagString.IndexOf(",", startIndex);
                 startIndex = endIndex + 1;
-                endIndex = tagString.IndexOf(",\t", startIndex);
-                startIndex = endIndex + 2;
+                endIndex = tagString.IndexOf(",", startIndex);
+                startIndex = endIndex + 1;
 
-                endIndex = tagString.IndexOf(",\t", startIndex);
+                endIndex = tagString.IndexOf(",", startIndex);
                 string key = tagString.Substring(startIndex, endIndex - startIndex);
-                startIndex = endIndex + 2;
+                startIndex = endIndex + 1;
 
-                endIndex = tagString.IndexOf(",\t", startIndex);
+                endIndex = tagString.IndexOf(",", startIndex);
                 string type = tagString.Substring(startIndex, endIndex - startIndex);
                 startIndex = endIndex + 2;
 
-                string description = tagString.Substring(startIndex);
+                string description = tagString.Substring(startIndex, tagString.Length - startIndex -1);
+                description = description.Replace("\"\"", "\"");
 
                 // workaround: some keys are twice in list returned from exiv2
                 if (!TagDefinitionList.ContainsKey(key))
@@ -327,9 +329,10 @@ namespace QuickImageComment
 
                 endIndex = tagString.IndexOf(",", startIndex);
                 string type = tagString.Substring(startIndex, endIndex - startIndex);
-                startIndex = endIndex + 2;
+                startIndex = endIndex + 3;
 
-                string description = tagString.Substring(startIndex);
+                string description = tagString.Substring(startIndex, tagString.Length - startIndex - 1);
+                description = description.Replace("\"\"", "\"");
 
                 TagDefinitionList.Add(key, new TagDefinition(key, type, description));
 
@@ -343,23 +346,31 @@ namespace QuickImageComment
                 startIndex = 0;
                 endIndex = 1;
                 // values are separated by comma plus tabulator
-                endIndex = tagString.IndexOf(",\t", startIndex);
+                endIndex = tagString.IndexOf(",", startIndex);
                 string key = tagString.Substring(startIndex, endIndex - startIndex);
-                startIndex = endIndex + 2;
+                startIndex = endIndex + 1;
 
-                endIndex = tagString.IndexOf(",\t", startIndex);
-                startIndex = endIndex + 2;
-                endIndex = tagString.IndexOf(",\t", startIndex);
-                startIndex = endIndex + 2;
+                endIndex = tagString.IndexOf(",", startIndex);
+                startIndex = endIndex + 1;
+                endIndex = tagString.IndexOf(",", startIndex);
+                endIndex1 = tagString.IndexOf("(", startIndex);
+                if (endIndex1 >= 0 && endIndex1 < endIndex)
+                {
+                    // tagString contains value like: Seq of points (Integer, Integer)
+                    endIndex = tagString.IndexOf(")", endIndex1 + 1);
+                    endIndex = tagString.IndexOf(",", endIndex);
+                }
+                startIndex = endIndex + 1;
 
-                endIndex = tagString.IndexOf(",\t", startIndex);
+                endIndex = tagString.IndexOf(",", startIndex);
                 string type = tagString.Substring(startIndex, endIndex - startIndex);
+                startIndex = endIndex + 1;
+
+                endIndex = tagString.IndexOf(",", startIndex);
                 startIndex = endIndex + 2;
 
-                endIndex = tagString.IndexOf(",\t", startIndex);
-                startIndex = endIndex + 2;
-
-                string description = tagString.Substring(startIndex);
+                string description = tagString.Substring(startIndex, tagString.Length - startIndex - 1);
+                description = description.Replace("\"\"", "\"");
 
                 // Some Tags were depreciated and new with same name (other address) were created
                 // If there is a conflict use the not-depreciated one

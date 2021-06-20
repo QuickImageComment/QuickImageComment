@@ -18,8 +18,11 @@
 // Define if you want translation of program messages to the user's native language
 /* #undef EXV_ENABLE_NLS */
 
+// Define if you want BMFF support.
+/* #undef EXV_ENABLE_BMFF */
+
 // Define if you want video support.
-/* #undef EXV_ENABLE_VIDEO */
+#define EXV_ENABLE_VIDEO
 
 // Define if you have the strerror_r function.
 /* #undef EXV_HAVE_STRERROR_R */
@@ -46,9 +49,6 @@
 
 // Define if stdbool.h conforms to C99.
 #define EXV_HAVE_STDBOOL_H
-
-// Define if you have the <stdint.h> header file.
-#define EXV_HAVE_STDINT_H
 
 // Define if you have the <strings.h> header file.
 /* #undef EXV_HAVE_STRINGS_H */
@@ -84,14 +84,14 @@
 #define EXV_PACKAGE_NAME "exiv2"
 
 /* Define to the full name and version of this package. */
-#define EXV_PACKAGE_STRING "exiv2 0.27.3"
+#define EXV_PACKAGE_STRING "exiv2 0.27.4"
 
 /* Define to the version of this package. */
-#define EXV_PACKAGE_VERSION "0.27.3"
+#define EXV_PACKAGE_VERSION "0.27.4"
 
 #define EXIV2_MAJOR_VERSION (0)
 #define EXIV2_MINOR_VERSION (27)
-#define EXIV2_PATCH_VERSION (3)
+#define EXIV2_PATCH_VERSION (4)
 #define EXIV2_TWEAK_VERSION ()
 
 // Definition to enable translation of Nikon lens names.

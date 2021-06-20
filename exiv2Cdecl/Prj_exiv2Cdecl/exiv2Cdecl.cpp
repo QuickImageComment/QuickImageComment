@@ -1,4 +1,4 @@
-//Copyright (C) 2019 Norbert Wagner
+Ôªø//Copyright (C) 2019 Norbert Wagner
 
 //This program is free software; you can redistribute it and/or
 //modify it under the terms of the GNU General Public License
@@ -27,7 +27,7 @@
 
 //#define TRACING 200
 
-#define VERSION "0.27.3.2"
+#define VERSION "0.27.4.0"
 
 // definitions for Exif Easy Access
 typedef Exiv2::ExifData::const_iterator(*EasyAccessFct)(const Exiv2::ExifData& ed);
@@ -38,7 +38,6 @@ struct EasyAccess {
 };
 
 // status and option codes
-// todo nach auﬂen sichtbar machen
 static const int exiv2StatusException = 100;
 static const int exiv2WriteOptionDefault = 0;
 static const int exiv2WriteOptionXmpText = 1;
