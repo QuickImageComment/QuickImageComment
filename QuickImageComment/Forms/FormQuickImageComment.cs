@@ -2673,7 +2673,7 @@ namespace QuickImageComment
             double oldWidth;
             double oldHeigth;
 
-            if (theExtendedImage != null)
+            if (theExtendedImage != null && pictureBox1.Image != null)
             {
                 if (viewMode > 0)
                 {
