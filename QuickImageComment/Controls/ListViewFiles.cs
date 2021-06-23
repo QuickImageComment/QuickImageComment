@@ -140,7 +140,7 @@ namespace QuickImageCommentControls
         private void workAfterMouseWheel()
         {
             // do not perform actions when already closing - might try to access objects already gone
-            if (!MainMaskInterface.isClosing())
+            if (!FormQuickImageComment.closing)
             {
                 listViewFilesScrolling = false;
                 this.Refresh();
@@ -340,7 +340,7 @@ namespace QuickImageCommentControls
         // redraw fresh thumbnails
         internal void redrawItemWithThumbnail(string fullFileName)
         {
-            if (!MainMaskInterface.isClosing() && (View == View.Tile || View == View.LargeIcon) && filesNeedingRedraw.Contains(fullFileName))
+            if (!FormQuickImageComment.closing && (View == View.Tile || View == View.LargeIcon) && filesNeedingRedraw.Contains(fullFileName))
             {
                 // InvokeRequired compares the thread ID of the calling thread to the thread ID of the creating thread.
                 // If these threads are different, it returns true.

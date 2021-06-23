@@ -34,7 +34,7 @@ namespace QuickImageComment
         enum enumComboBoxKeyWordChange { nothing, overwrite, add };
 
         public float dpiSettings;
-        public bool closing = false;
+        public static bool closing = false;
         public static Performance readFolderPerfomance;
         private static FormFind formFind;
 
@@ -144,6 +144,8 @@ namespace QuickImageComment
             InitializeComponent();
             // for Microsoft Store, promotion of download has to be disabled
             ToolStripMenuItemWebPageDownload.Visible = !GeneralUtilities.MicrosoftStore;
+            // Microsoft Store updates automatically
+            toolStripMenuItemCheckForNewVersion.Visible = !GeneralUtilities.MicrosoftStore;
 
             Program.StartupPerformance.measure("FormQIC constructor finish");
         }

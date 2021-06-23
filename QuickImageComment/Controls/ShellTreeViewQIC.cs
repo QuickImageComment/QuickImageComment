@@ -1,4 +1,4 @@
-// GongSolutions.Shell - A Windows Shell library for .Net.
+﻿// GongSolutions.Shell - A Windows Shell library for .Net.
 // Copyright (C) 2007-2009 Steven J. Kirk
 //
 // This program is free software; you can redistribute it and/or
@@ -448,7 +448,7 @@ namespace QuickImageCommentControls
                 return;
             }
 
-            if (!MainMaskInterface.isClosing() && !parsingName.StartsWith("::"))
+            if (!FormQuickImageComment.closing && !parsingName.StartsWith("::"))
             {
                 //Logger.log("ItemCreated Start " + e.Item.ParsingName);
                 if (e.Item.IsFileSystem && !e.Item.IsFolder)
@@ -475,7 +475,7 @@ namespace QuickImageCommentControls
                 return;
             }
 
-            if (!MainMaskInterface.isClosing() && !parsingName.StartsWith("::"))
+            if (!FormQuickImageComment.closing && !parsingName.StartsWith("::"))
             {
                 //Logger.log("ItemDeleted Start " + e.Item.ParsingName);
                 if (e.Item.IsFileSystem && !e.Item.IsFolder)
@@ -502,7 +502,7 @@ namespace QuickImageCommentControls
                 return;
             }
 
-            if (!MainMaskInterface.isClosing() && !parsingName.StartsWith("::"))
+            if (!FormQuickImageComment.closing && !parsingName.StartsWith("::"))
             {
                 //Logger.log("ItemRenamed Start " + e.OldItem.ParsingName);
                 if (e.OldItem.IsFileSystem && !e.OldItem.IsFolder)
@@ -530,7 +530,7 @@ namespace QuickImageCommentControls
                 return;
             }
 
-            if (!MainMaskInterface.isClosing() && !parsingName.StartsWith("::"))
+            if (!FormQuickImageComment.closing && !parsingName.StartsWith("::"))
             {
                 //Logger.log("ItemUpdated Start " + e.Item.ParsingName);
                 if (e.Item.IsFileSystem && !e.Item.IsFolder)
@@ -546,7 +546,7 @@ namespace QuickImageCommentControls
         {
             try
             {
-                if (!MainMaskInterface.isClosing() && e.Item.Parent != null && !e.Item.ParsingName.StartsWith("::"))
+                if (!FormQuickImageComment.closing && e.Item.Parent != null && !e.Item.ParsingName.StartsWith("::"))
                 {
                     //Logger.log("FolderContentChanged Start " + e.Item.ParsingName);
                     TreeNode parent = FindItem(e.Item.Parent, m_TreeView.Nodes[0]);
@@ -563,7 +563,7 @@ namespace QuickImageCommentControls
         {
             try
             {
-                if (!MainMaskInterface.isClosing() && e.OldItem.Parent != null && !e.OldItem.ParsingName.StartsWith("::"))
+                if (!FormQuickImageComment.closing && e.OldItem.Parent != null && !e.OldItem.ParsingName.StartsWith("::"))
                 {
                     //Logger.log("FolderRenamed Start " + e.OldItem.ParsingName);
                     TreeNode node = FindItem(e.OldItem.Parent, m_TreeView.Nodes[0]);
@@ -579,7 +579,7 @@ namespace QuickImageCommentControls
         {
             try
             {
-                if (!MainMaskInterface.isClosing() && e.Item.Parent != null && !e.Item.ParsingName.StartsWith("::"))
+                if (!FormQuickImageComment.closing && e.Item.Parent != null && !e.Item.ParsingName.StartsWith("::"))
                 {
                     //Logger.log("FolderUpdated Start " + e.Item.ParsingName);
                     TreeNode parent = FindItem(e.Item.Parent, m_TreeView.Nodes[0]);

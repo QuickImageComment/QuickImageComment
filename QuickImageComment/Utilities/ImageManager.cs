@@ -438,59 +438,57 @@ namespace QuickImageComment
         {
             string fullFileName;
 
-            // do not perform actions when already closing - might try to access objects already gone
-            if (!MainMaskInterface.isClosing())
-            {
-                GeneralUtilities.writeTraceFileEntry("Start updateCaches");
-                string FilenameForExceptionMessage = "";
-                GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceCaching, "Cache Extended Start");
-                Performance CachePerformance = new Performance();
+            GeneralUtilities.writeTraceFileEntry("Start updateCaches");
+            string FilenameForExceptionMessage = "";
+            GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceCaching, "Cache Extended Start");
+            Performance CachePerformance = new Performance();
 #if !DEBUG
                 try
 #endif
+            {
+                MainMaskInterface.setToolStripStatusLabelBufferingThread(true);
+
+                // add extended images around selected file
+                // do not perform actions when already closing - might try to access objects already gone
+                while (!FormQuickImageComment.closing)
                 {
-                    MainMaskInterface.setToolStripStatusLabelBufferingThread(true);
-
-                    // add extended images around selected file
-                    while (true)
+                    // condition not set in while statement to have check, getting filename and removing entry in 
+                    // onae short code block inside a lock thus minimising the lock time
+                    // note: ExtendedCache can be filled with new entries by addFileToCache since last interation
+                    lock (ExtendedCache)
                     {
-                        // condition not set in while statement to have check, getting filename and removing entry in 
-                        // onae short code block inside a lock thus minimising the lock time
-                        // note: ExtendedCache can be filled with new entries by addFileToCache since last interation
-                        lock (ExtendedCache)
+                        if (ExtendedCache.Count > 0)
                         {
-                            if (ExtendedCache.Count > 0)
-                            {
-                                fullFileName = (string)ExtendedCache[0];
-                                ExtendedCache.RemoveAt(0);
-                            }
-                            else
-                            {
-                                updateCachesRunning = false;
-                                break;
-                            }
-                        }
-                        if (GeneralUtilities.getRemainingAllowedMemory() > ConfigDefinition.getConfigInt(ConfigDefinition.enumConfigInt.MaximumMemoryTolerance))
-                        {
-                            FilenameForExceptionMessage = fullFileName;
-                            bool saveFullSizeImage = HashtableFullSizeImages.Count < ConfigDefinition.getFullSizeImageCacheMaxSize();
-
-                            string fileName = System.IO.Path.GetFileName(fullFileName);
-                            storeExtendedImage(fileName, fullFileName, false, saveFullSizeImage);
-                            CachePerformance.measure("storeExtendedImage" + fileName);
-                            // throw (new Exception("ExceptionTest Thread created by Task.Factory"));
+                            fullFileName = (string)ExtendedCache[0];
+                            ExtendedCache.RemoveAt(0);
                         }
                         else
                         {
-                            // not enough memory: stop work
-                            GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceCaching, "Cache Extended break: memory limitation");
+                            updateCachesRunning = false;
                             break;
                         }
                     }
-                    CachePerformance.measure("add extended images around selected File");
-                    CachePerformance.log(ConfigDefinition.enumConfigFlags.PerformanceUpdateCaches);
-                    MainMaskInterface.setToolStripStatusLabelBufferingThread(false);
+                    if (GeneralUtilities.getRemainingAllowedMemory() > ConfigDefinition.getConfigInt(ConfigDefinition.enumConfigInt.MaximumMemoryTolerance))
+                    {
+                        FilenameForExceptionMessage = fullFileName;
+                        bool saveFullSizeImage = HashtableFullSizeImages.Count < ConfigDefinition.getFullSizeImageCacheMaxSize();
+
+                        string fileName = System.IO.Path.GetFileName(fullFileName);
+                        storeExtendedImage(fileName, fullFileName, false, saveFullSizeImage);
+                        CachePerformance.measure("storeExtendedImage" + fileName);
+                        // throw (new Exception("ExceptionTest Thread created by Task.Factory"));
+                    }
+                    else
+                    {
+                        // not enough memory: stop work
+                        GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceCaching, "Cache Extended break: memory limitation");
+                        break;
+                    }
                 }
+                CachePerformance.measure("add extended images around selected File");
+                CachePerformance.log(ConfigDefinition.enumConfigFlags.PerformanceUpdateCaches);
+                MainMaskInterface.setToolStripStatusLabelBufferingThread(false);
+            }
 #if !DEBUG
                 catch (System.OutOfMemoryException)
                 {
@@ -505,9 +503,9 @@ namespace QuickImageComment
                     throw (new Exception(ErrorMessage, ex));
                 }
 #endif
-                GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceCaching, "All ext. images read: ");
-                GeneralUtilities.writeTraceFileEntry("Finish updateCaches");
-            }
+            GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceCaching, "All ext. images read: ");
+            GeneralUtilities.writeTraceFileEntry("Finish updateCaches");
+
             return 0;
         }
     }

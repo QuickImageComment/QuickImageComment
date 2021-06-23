@@ -1,4 +1,4 @@
-//Copyright (C) 2009 Norbert Wagner
+﻿//Copyright (C) 2009 Norbert Wagner
 
 //This program is free software; you can redistribute it and/or
 //modify it under the terms of the GNU General Public License
@@ -86,7 +86,7 @@ namespace QuickImageComment
         public static bool CloseAfterConstructing = false;
 
         // separator to get unique identifier from tag
-        public const string UniqueSeparator = "~�$#";
+        public const string UniqueSeparator = "~§$#";
 
         private static System.IO.StreamWriter StreamDebugFile = null;
         private static System.IO.StreamWriter StreamTraceFile = null;
@@ -1114,6 +1114,9 @@ namespace QuickImageComment
         // returns true if new version is available
         public static bool newVersionIsAvailable(ref string Version, ref string Change)
         {
+#if MICROSOFT_STORE
+            return false;
+#else
             int pStart, pEnd;
 
             try
@@ -1145,6 +1148,7 @@ namespace QuickImageComment
                 GeneralUtilities.message(LangCfg.Message.E_versionCheck, ex.Message);
                 return false;
             }
+#endif
         }
 
         internal static string getChangeInfoFromcontent(string content)

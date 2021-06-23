@@ -30,7 +30,7 @@ namespace QuickImageComment
 
         public static string displayedImageFullName()
         {
-            if (theFormQuickImageComment.theExtendedImage == null)
+            if (theFormQuickImageComment == null || theFormQuickImageComment.theExtendedImage == null)
             {
                 return "";
             }
@@ -42,90 +42,176 @@ namespace QuickImageComment
 
         public static ExtendedImage getTheExtendedImage()
         {
-            return theFormQuickImageComment.theExtendedImage;
+            if (theFormQuickImageComment != null)
+            {
+                return theFormQuickImageComment.theExtendedImage;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public static int top()
         {
-            return theFormQuickImageComment.Top;
+            if (theFormQuickImageComment != null)
+            {
+                return theFormQuickImageComment.Top;
+            }
+            else
+            {
+                return 0;
+            }
         }
         public static int left()
         {
-            return theFormQuickImageComment.Left;
+            if (theFormQuickImageComment != null)
+            {
+                return theFormQuickImageComment.Left;
+            }
+            else
+            {
+                return 0;
+            }
         }
         public static int height()
         {
-            return theFormQuickImageComment.Height;
+            if (theFormQuickImageComment != null)
+            {
+                return theFormQuickImageComment.Height;
+            }
+            else
+            {
+                return 500;
+            }
         }
         public static int width()
         {
-            return theFormQuickImageComment.Width;
+            if (theFormQuickImageComment != null)
+            {
+                return theFormQuickImageComment.Width;
+            }
+            else
+            {
+                return 800;
+            }
         }
 
         public static void adjustViewAfterFormView()
         {
-            theFormQuickImageComment.adjustViewAfterFormView();
+            // if main mask is not already closing
+            if (!FormQuickImageComment.closing)
+            {
+                theFormQuickImageComment.adjustViewAfterFormView();
+            }
         }
 
         public static void saveSplitterDistanceRatiosInConfiguration()
         {
-            theFormQuickImageComment.saveSplitterDistanceRatiosInConfiguration();
+            if (theFormQuickImageComment != null)
+            {
+                theFormQuickImageComment.saveSplitterDistanceRatiosInConfiguration();
+            }
         }
 
         public static void refreshFolderTree()
         {
-            theFormQuickImageComment.refreshFolderTree();
+            // if main mask is not already closing
+            if (!FormQuickImageComment.closing)
+            {
+                theFormQuickImageComment.refreshFolderTree();
+            }
         }
 
         public static void setToolStripStatusLabelInfo(string text)
         {
-            theFormQuickImageComment.setToolStripStatusLabelInfo(text);
+            // if main mask is not already closing
+            if (!FormQuickImageComment.closing)
+            {
+                theFormQuickImageComment.setToolStripStatusLabelInfo(text);
+            }
         }
 
         public static void setToolStripStatusLabelThread(string text, bool clearNow, bool clearBeforeNext)
         {
-            theFormQuickImageComment.setToolStripStatusLabelThread(text, clearNow, clearBeforeNext);
+            // if main mask is not already closing
+            if (!FormQuickImageComment.closing)
+            {
+                theFormQuickImageComment.setToolStripStatusLabelThread(text, clearNow, clearBeforeNext);
+            }
         }
 
         public static void setToolStripStatusLabelBufferingThread(bool visible)
         {
-            theFormQuickImageComment.setToolStripStatusLabelBufferingThread(visible);
+            // if main mask is not already closing
+            if (!FormQuickImageComment.closing)
+            {
+                theFormQuickImageComment.setToolStripStatusLabelBufferingThread(visible);
+            }
         }
 
         public static void setUserControlImageDetails(UserControlImageDetails givenUserControlImageDetails)
         {
-            theFormQuickImageComment.theUserControlImageDetails = givenUserControlImageDetails;
+            // if main mask is not already closing
+            if (!FormQuickImageComment.closing)
+            {
+                theFormQuickImageComment.theUserControlImageDetails = givenUserControlImageDetails;
+            }
         }
 
         public static void setUserControlMap(UserControlMap givenUserControlMap)
         {
-            theFormQuickImageComment.theUserControlMap = givenUserControlMap;
+            // if main mask is not already closing
+            if (!FormQuickImageComment.closing)
+            {
+                theFormQuickImageComment.theUserControlMap = givenUserControlMap;
+            }
         }
 
         public static void refreshImageGrid()
         {
-            theFormQuickImageComment.refreshImageGrid();
+            // if main mask is not already closing
+            if (!FormQuickImageComment.closing)
+            {
+                theFormQuickImageComment.refreshImageGrid();
+            }
         }
 
         public static void refreshImageDetailsFrame()
         {
-            theFormQuickImageComment.refreshImageDetailsFrame();
+            // if main mask is not already closing
+            if (!FormQuickImageComment.closing)
+            {
+                theFormQuickImageComment.refreshImageDetailsFrame();
+            }
         }
 
         public static void afterMetaDataDefinitionChange()
         {
-            theFormQuickImageComment.afterMetaDataDefinitionChange();
+            // if main mask is not already closing
+            if (!FormQuickImageComment.closing)
+            {
+                theFormQuickImageComment.afterMetaDataDefinitionChange();
+            }
         }
 
         public static GeoDataItem commonRecordingLocation()
         {
-            return theFormQuickImageComment.commonRecordingLocation();
+            // if main mask is not already closing
+            if (theFormQuickImageComment != null)
+            {
+                return theFormQuickImageComment.commonRecordingLocation();
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public static void Invoke(Delegate theDelegate)
         {
             // if main mask is not already closing
-            if (!theFormQuickImageComment.closing)
+            if (!FormQuickImageComment.closing)
             {
                 theFormQuickImageComment.Invoke(theDelegate);
             }
@@ -133,76 +219,148 @@ namespace QuickImageComment
 
         public static float getDpi()
         {
-            return theFormQuickImageComment.dpiSettings;
-        }
-
-        public static bool isClosing()
-        {
-            return theFormQuickImageComment.closing;
+            if (theFormQuickImageComment != null)
+            {
+                return theFormQuickImageComment.dpiSettings;
+            }
+            else
+            {
+                return 96.0f;
+            }
         }
 
         public static void setControlsEnabledBasedOnDataChange()
         {
-            theFormQuickImageComment.setControlsEnabledBasedOnDataChange();
+            // if main mask is not already closing
+            if (!FormQuickImageComment.closing)
+            {
+                theFormQuickImageComment.setControlsEnabledBasedOnDataChange();
+            }
         }
         public static void setControlsEnabledBasedOnDataChange(bool enable)
         {
-            theFormQuickImageComment.setControlsEnabledBasedOnDataChange(enable);
+            // if main mask is not already closing
+            if (!FormQuickImageComment.closing)
+            {
+                theFormQuickImageComment.setControlsEnabledBasedOnDataChange(enable);
+            }
         }
 
         public static SortedList<string, System.Windows.Forms.Control> getChangeableFieldInputControls()
         {
-            return theFormQuickImageComment.theUserControlChangeableFields.ChangeableFieldInputControls;
+            if (theFormQuickImageComment != null)
+            {
+                return theFormQuickImageComment.theUserControlChangeableFields.ChangeableFieldInputControls;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         internal static UserControlKeyWords getTheUserControlKeyWords()
         {
-            return theFormQuickImageComment.theUserControlKeyWords;
+            if (theFormQuickImageComment != null)
+            {
+                return theFormQuickImageComment.theUserControlKeyWords;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         internal static string getArtistText()
         {
-            return theFormQuickImageComment.dynamicComboBoxArtist.Text;
+            if (theFormQuickImageComment != null)
+            {
+                return theFormQuickImageComment.dynamicComboBoxArtist.Text;
+            }
+            else
+            {
+                return "";
+            }
         }
 
         internal static string getUserCommentText()
         {
-            return theFormQuickImageComment.textBoxUserComment.Text;
+            if (theFormQuickImageComment != null)
+            {
+                return theFormQuickImageComment.textBoxUserComment.Text;
+            }
+            else
+            {
+                return "";
+            }
         }
 
         internal static void afterDataTemplateChange()
         {
-            theFormQuickImageComment.afterDataTemplateChange();
+            // if main mask is not already closing
+            if (!FormQuickImageComment.closing)
+            {
+                theFormQuickImageComment.afterDataTemplateChange();
+            }
         }
 
         internal static FormCustomization.Interface getCustomizationInterface()
         {
-            return theFormQuickImageComment.CustomizationInterface;
+            if (theFormQuickImageComment != null)
+            {
+                return theFormQuickImageComment.CustomizationInterface;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         internal static System.Collections.SortedList fillAllChangedFieldsForSave()
         {
-            return theFormQuickImageComment.fillAllChangedFieldsForSave(theFormQuickImageComment.theExtendedImage, false);
+            if (theFormQuickImageComment != null)
+            {
+                return theFormQuickImageComment.fillAllChangedFieldsForSave(theFormQuickImageComment.theExtendedImage, false);
+            }
+            else
+            {
+                return null;
+            }
         }
 
         internal static void createOrUpdateItemListViewFiles(string fullFileName)
         {
-            theFormQuickImageComment.theUserControlFiles.createOrUpdateItemListViewFiles(fullFileName);
+            // if main mask is not already closing
+            if (!FormQuickImageComment.closing)
+            {
+                theFormQuickImageComment.theUserControlFiles.createOrUpdateItemListViewFiles(fullFileName);
+            }
         }
 
         internal static void deleteItemListViewFiles(string fullFileName)
         {
-            theFormQuickImageComment.theUserControlFiles.deleteItemListViewFiles(fullFileName);
+            // if main mask is not already closing
+            if (!FormQuickImageComment.closing)
+            {
+                theFormQuickImageComment.theUserControlFiles.deleteItemListViewFiles(fullFileName);
+            }
         }
 
         internal static void renameItemListViewFiles(string oldFullFileName, string newFullFileName)
         {
-            theFormQuickImageComment.theUserControlFiles.renameItemListViewFiles(oldFullFileName, newFullFileName);
+            // if main mask is not already closing
+            if (!FormQuickImageComment.closing)
+            {
+                theFormQuickImageComment.theUserControlFiles.renameItemListViewFiles(oldFullFileName, newFullFileName);
+            }
         }
 
         internal static void redrawItemWithThumbnail(string fullFileName)
         {
-            theFormQuickImageComment.theUserControlFiles.listViewFiles.redrawItemWithThumbnail(fullFileName);
+            // if main mask is not already closing
+            if (!FormQuickImageComment.closing)
+            {
+                theFormQuickImageComment.theUserControlFiles.listViewFiles.redrawItemWithThumbnail(fullFileName);
+            }
         }
 
         internal static void initFormLogger()
@@ -216,7 +374,11 @@ namespace QuickImageComment
 
         internal static void fillMenuViewConfigurations()
         {
-            theFormQuickImageComment.fillMenuViewConfigurations();
+            // if main mask is not already closing
+            if (!FormQuickImageComment.closing)
+            {
+                theFormQuickImageComment.fillMenuViewConfigurations();
+            }
         }
     }
 }

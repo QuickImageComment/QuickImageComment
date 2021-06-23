@@ -271,7 +271,7 @@ namespace QuickImageComment
                 }
 
                 // do not perform actions when already closing - might try to access objects already gone
-                if (!theFormQuickImageComment.closing)
+                if (!FormQuickImageComment.closing)
                 {
                     int newIndexCount = listViewFiles.SelectedIndicesNew.Length;
                     int oldIndexCount = listViewFiles.SelectedIndicesOld.Length;
@@ -427,7 +427,7 @@ namespace QuickImageComment
         internal void createOrUpdateItemListViewFiles(string fullFileName)
         {
             // if main mask is not already closing
-            if (!theFormQuickImageComment.closing)
+            if (!FormQuickImageComment.closing)
             {
                 int ii;
 
@@ -508,7 +508,7 @@ namespace QuickImageComment
         internal void deleteItemListViewFiles(string fullFileName)
         {
             //if main mask is not already closing
-            if (!theFormQuickImageComment.closing)
+            if (!FormQuickImageComment.closing)
             {
                 lock (LockListViewFiles)
                 {
@@ -535,7 +535,7 @@ namespace QuickImageComment
         internal void renameItemListViewFiles(string oldFullFileName, string newFullFileName)
         {
             // if main mask is not already closing
-            if (!theFormQuickImageComment.closing)
+            if (!FormQuickImageComment.closing)
             {
                 // to be considered: rename can include change of extension, which may mean
                 // that old or new file are not visible due to extension

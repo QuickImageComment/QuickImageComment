@@ -1245,7 +1245,7 @@ namespace QuickImageComment
         private void workAfterPictureBoxImageRefresh()
         {
             // do not perform actions when already closing - might try to access objects already gone
-            if (!MainMaskInterface.isClosing())
+            if (!FormQuickImageComment.closing)
             {
                 if (theExtendedImage != null)
                 {
