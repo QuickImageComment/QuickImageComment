@@ -203,9 +203,6 @@ namespace QuickImageComment
             noReplacementInvalidCharacters,
             errorFileCreated,
             errorFileVersion,
-            severeErrorSendAppCenter,
-            severeErrorSendMailFile,
-            severeErrorSendMailTrace,
             free,
             reading,
             severeCacheReadError,
@@ -286,7 +283,11 @@ namespace QuickImageComment
             metaWarningFileNotFound,
             deviationFindDataTable,
             findDataLoaded,
-            displayErrorMessage
+            displayErrorMessage,
+            formErrorInstructions,
+            formErrorAppCenterInstructions,
+            alsoInFile,
+            errorMailTemplate
         }
 
         // defined as variable
@@ -510,6 +511,10 @@ namespace QuickImageComment
             Temp = Temp.Replace("\\2", Parameter2);
             Temp = Temp.Replace("\\3", Parameter3);
             return Temp;
+        }
+        public static string getTextForTextBox(Others txtIndex)
+        {
+            return getText(txtIndex).Replace("\n", "\r\n");
         }
 
         public static string translate(string TextToTranslate, string Source)

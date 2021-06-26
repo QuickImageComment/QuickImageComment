@@ -318,9 +318,8 @@ namespace QuickImageComment
                 if (AppCenterUsable && ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.AppCenterUsage).Equals("y"))
                 {
                     handleExceptionCallCount++;
-                    DialogResult dialogResult = MessageBox.Show(LangCfg.getText(LangCfg.Others.severeErrorSendAppCenter, ex.Message),
-                            "QuickImageComment", MessageBoxButtons.YesNo, MessageBoxIcon.Stop);
-                    if (dialogResult == DialogResult.Yes)
+                    new FormErrorAppCenter(ex.Message);
+                    if (FormErrorAppCenter.sendToAppCenter)
                     {
                         // escalate exception to AppCenter
                         System.Runtime.ExceptionServices.ExceptionDispatchInfo.Capture(ex).Throw();
@@ -340,34 +339,34 @@ namespace QuickImageComment
         // handle the exception without AppCenter - create error file and inform user
         internal static void handleExceptionWithoutAppCenter(Exception ex)
         {
+            string details = LangCfg.getText(LangCfg.Others.errorFileCreated) + " " + DateTime.Now.ToString();
+            details += "\r\n" + LangCfg.getText(LangCfg.Others.errorFileVersion) + " " + Program.VersionNumberInformational
+                + " " + Program.CompileTime.ToString("dd.MM.yyyy");
+            details += "\r\n" + ex.Message;
+            details += "\r\n" + ex.StackTrace.ToString();
+            if (ex.InnerException != null)
+            {
+                details += "\r\n" + "\r\nInner exception:";
+                details += "\r\n" + ex.InnerException.Message;
+                details += "\r\n" + ex.InnerException.StackTrace.ToString();
+            }
+
+            string ErrorFile = ConfigDefinition.getIniPath() + "QIC" + Program.VersionNumberOnlyWhenSuffixDefined + "-Error.txt";
+
             // write error file, display message and stop program
             try
             {
-                string ErrorFile = ConfigDefinition.getIniPath() + "QIC" + Program.VersionNumberOnlyWhenSuffixDefined + "-Error.txt";
                 System.IO.StreamWriter StreamOut = null;
                 StreamOut = new System.IO.StreamWriter(ErrorFile, false, System.Text.Encoding.UTF8);
-                StreamOut.WriteLine(LangCfg.getText(LangCfg.Others.errorFileCreated) + " " + DateTime.Now.ToString());
-
-                StreamOut.WriteLine(LangCfg.getText(LangCfg.Others.errorFileVersion) + " " + Program.VersionNumberInformational
-                    + " " + Program.CompileTime.ToString("dd.MM.yyyy"));
-                StreamOut.WriteLine(ex.Message);
-                StreamOut.WriteLine(ex.StackTrace.ToString());
-                if (ex.InnerException != null)
-                {
-                    StreamOut.WriteLine("\r\nInner exception:");
-                    StreamOut.WriteLine(ex.InnerException.Message);
-                    StreamOut.WriteLine(ex.InnerException.StackTrace.ToString());
-                }
+                StreamOut.WriteLine(details);
                 StreamOut.Close();
-
-                MessageBox.Show(LangCfg.getText(LangCfg.Others.severeErrorSendMailFile, ex.Message, ErrorFile),
-                    "QuickImageComment", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
             catch
             {
-                MessageBox.Show(LangCfg.getText(LangCfg.Others.severeErrorSendMailTrace, ex.Message, ex.StackTrace.ToString()),
-                    "QuickImageComment", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                // writing file failed
+                ErrorFile = "";
             }
+            new FormError(ex.Message, details, ErrorFile);
             Environment.Exit(Environment.ExitCode);
         }
 

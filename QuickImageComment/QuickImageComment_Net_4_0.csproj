@@ -103,6 +103,18 @@
     <Compile Include="Forms\FormChangesInVersion.designer.cs">
       <DependentUpon>FormChangesInVersion.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FormError.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormError.Designer.cs">
+      <DependentUpon>FormError.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormErrorAppCenter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormErrorAppCenter.Designer.cs">
+      <DependentUpon>FormErrorAppCenter.cs</DependentUpon>
+    </Compile>
     <Compile Include="Utilities\ChangeableFieldSpecification.cs" />
     <Compile Include="Utilities\ConfigDefinition.cs" />
     <Compile Include="Controls\DataGridViewMetaData.cs">
@@ -465,6 +477,12 @@
     <EmbeddedResource Include="Forms\FormDateTimeChange.resx">
       <DependentUpon>FormDateTimeChange.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormError.resx">
+      <DependentUpon>FormError.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormErrorAppCenter.resx">
+      <DependentUpon>FormErrorAppCenter.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormExportAllMetaData.resx">
       <DependentUpon>FormExportAllMetaData.cs</DependentUpon>

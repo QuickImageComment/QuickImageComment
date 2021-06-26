@@ -5657,6 +5657,8 @@ namespace QuickImageComment
             new FormCompare(theUserControlFiles.listViewFiles.SelectedIndices, FolderName);
             new FormDataTemplates();
             new FormDateTimeChange(theUserControlFiles.listViewFiles.SelectedIndices);
+            // FormError not needed
+            // FormErrorAppCenter not needed
             new FormExportAllMetaData(theUserControlFiles.listViewFiles.SelectedIndices, FolderName);
             new FormExportMetaData(FolderName);
             FormFind formFind = new FormFind();
@@ -5756,6 +5758,8 @@ namespace QuickImageComment
             LangCfg.getListOfControlsWithText(new FormCompare(theUserControlFiles.listViewFiles.SelectedIndices, FolderName), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormDataTemplates(), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormDateTimeChange(theUserControlFiles.listViewFiles.SelectedIndices), ControlTextList);
+            LangCfg.getListOfControlsWithText(new FormError("", "", ""), ControlTextList);
+            LangCfg.getListOfControlsWithText(new FormErrorAppCenter(""), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormExportAllMetaData(theUserControlFiles.listViewFiles.SelectedIndices, FolderName), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormExportMetaData(FolderName), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormFind(), ControlTextList);
@@ -5814,6 +5818,8 @@ namespace QuickImageComment
             new FormCompare(theUserControlFiles.listViewFiles.SelectedIndices, FolderName);
             new FormDataTemplates();
             new FormDateTimeChange(theUserControlFiles.listViewFiles.SelectedIndices);
+            new FormError("", "", "");
+            new FormErrorAppCenter("");
             new FormExportAllMetaData(theUserControlFiles.listViewFiles.SelectedIndices, FolderName);
             new FormExportMetaData(FolderName);
             new FormFind();
