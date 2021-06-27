@@ -234,6 +234,9 @@ namespace QuickImageComment
             MetaDataDefinitionItem aMetaDataDefinitionItem, Control anInputControl, Label aLabel, bool addDisplayOffset,
             int kk, ref int lastTop, ref int maxLabelWidth)
         {
+            // to separate several fields for one tag by thin line only
+            if (!addDisplayOffset) lastTop -= 1;
+
             panelChangeableFieldsInner.Controls.Add(anInputControl);
             ChangeableFieldInputControls.Add(anInputControl.Name, anInputControl);
             ChangeableFieldOldValues.Add(anInputControl.Tag, "");
@@ -267,6 +270,7 @@ namespace QuickImageComment
             else
             {
                 anInputControl.MouseClick += new System.Windows.Forms.MouseEventHandler(this.comboBoxChangeableField_MouseClick);
+                anInputControl.Resize += new System.EventHandler(GeneralUtilities.comboBox_Resize_Unselect);
                 anInputControl.Anchor = comboBoxChangeableField.Anchor;
                 anInputControl.AutoSize = comboBoxChangeableField.AutoSize;
                 anInputControl.Font = comboBoxChangeableField.Font;

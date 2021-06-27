@@ -138,6 +138,8 @@
             this.Controls.Add(this.buttonOk);
             this.Controls.Add(this.textBoxValue);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "FormTagValueInput";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "FormTagValueInput";

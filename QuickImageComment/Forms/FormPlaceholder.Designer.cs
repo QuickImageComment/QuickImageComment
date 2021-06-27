@@ -425,6 +425,7 @@ namespace QuickImageComment
             // dynamicComboBoxFormat
             // 
             this.dynamicComboBoxFormat.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.dynamicComboBoxFormat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.dynamicComboBoxFormat.FormattingEnabled = true;
             this.dynamicComboBoxFormat.Location = new System.Drawing.Point(656, 291);
             this.dynamicComboBoxFormat.Name = "dynamicComboBoxFormat";
@@ -447,6 +448,7 @@ namespace QuickImageComment
             // dynamicComboBoxLanguage
             // 
             this.dynamicComboBoxLanguage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.dynamicComboBoxLanguage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.dynamicComboBoxLanguage.FormattingEnabled = true;
             this.dynamicComboBoxLanguage.Location = new System.Drawing.Point(656, 316);
             this.dynamicComboBoxLanguage.Name = "dynamicComboBoxLanguage";

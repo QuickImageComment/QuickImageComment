@@ -173,6 +173,7 @@
             this.dynamicComboBoxSearch.SelectedIndexChanged += new System.EventHandler(this.dynamicComboBoxSearch_SelectedIndexChanged);
             this.dynamicComboBoxSearch.TextUpdate += new System.EventHandler(this.dynamicComboBoxSearch_TextUpdate);
             this.dynamicComboBoxSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dynamicComboBoxSearch_KeyDown);
+            this.dynamicComboBoxSearch.Resize += new System.EventHandler(GeneralUtilities.comboBox_Resize_Unselect);
             // 
             // dynamicLabelCoordinates
             // 

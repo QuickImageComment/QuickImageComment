@@ -142,6 +142,8 @@ namespace QuickImageComment
             this.Controls.Add(this.buttonPrepareMail);
             this.Controls.Add(this.textBoxErrorDetails);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "FormError";
             this.Text = "QuickImageComment Fehler";
             this.ResumeLayout(false);

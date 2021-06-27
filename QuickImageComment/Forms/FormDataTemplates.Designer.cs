@@ -1,4 +1,4 @@
-//Copyright (C) 2009 Norbert Wagner
+ï»¿//Copyright (C) 2009 Norbert Wagner
 
 //This program is free software; you can redistribute it and/or
 //modify it under the terms of the GNU General Public License
@@ -77,7 +77,7 @@ namespace QuickImageComment
             this.buttonClose.Name = "buttonClose";
             this.buttonClose.Size = new System.Drawing.Size(99, 26);
             this.buttonClose.TabIndex = 3;
-            this.buttonClose.Text = "Schließen";
+            this.buttonClose.Text = "SchlieÃŸen";
             this.buttonClose.UseVisualStyleBackColor = true;
             this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
             // 
@@ -169,7 +169,7 @@ namespace QuickImageComment
             this.buttonDelete.Name = "buttonDelete";
             this.buttonDelete.Size = new System.Drawing.Size(68, 22);
             this.buttonDelete.TabIndex = 115;
-            this.buttonDelete.Text = "Löschen";
+            this.buttonDelete.Text = "LÃ¶schen";
             this.buttonDelete.UseVisualStyleBackColor = true;
             this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
             // 
@@ -220,7 +220,7 @@ namespace QuickImageComment
             this.labelArtist.Name = "labelArtist";
             this.labelArtist.Size = new System.Drawing.Size(102, 13);
             this.labelArtist.TabIndex = 133;
-            this.labelArtist.Text = "Künstler (Autor)";
+            this.labelArtist.Text = "KÃ¼nstler (Autor)";
             // 
             // labelUserComment
             // 
@@ -244,6 +244,8 @@ namespace QuickImageComment
             // 
             // dynamicComboBoxUserComment
             // 
+            this.dynamicComboBoxUserComment.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dynamicComboBoxUserComment.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.dynamicComboBoxUserComment.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.dynamicComboBoxUserComment.FormattingEnabled = true;
@@ -253,6 +255,7 @@ namespace QuickImageComment
             this.dynamicComboBoxUserComment.TabIndex = 138;
             this.dynamicComboBoxUserComment.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dynamicComboBoxUserComment_KeyDown);
             this.dynamicComboBoxUserComment.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dynamicComboBoxUserComment_MouseClick);
+            this.dynamicComboBoxUserComment.Resize += new System.EventHandler(GeneralUtilities.comboBox_Resize_Unselect);
             // 
             // FormDataTemplates
             // 
@@ -275,7 +278,7 @@ namespace QuickImageComment
             this.MinimumSize = new System.Drawing.Size(455, 380);
             this.Name = "FormDataTemplates";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Daten-Vorlagen auswählen und bearbeiten";
+            this.Text = "Daten-Vorlagen auswÃ¤hlen und bearbeiten";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormDataTemplates_FormClosing);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FormDataTemplates_KeyDown);
             this.groupBoxConfigurationHandling.ResumeLayout(false);

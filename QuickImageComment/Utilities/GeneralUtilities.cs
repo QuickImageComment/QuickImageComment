@@ -346,6 +346,14 @@ namespace QuickImageComment
             }
         }
 
+        // resize: unselect selected text
+        // https://stackoverflow.com/questions/786119/editbox-portion-of-combobox-gets-selected-automatically
+        public static void comboBox_Resize_Unselect(object sender, EventArgs e)
+        {
+            ComboBox comboBox = (ComboBox)sender;
+            if (!comboBox.Focused) comboBox.SelectionLength = 0;
+        }
+
         // return text-file name associated to Image-file
         public static string TxtFileName(string ImageFileName)
         {
