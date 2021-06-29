@@ -128,7 +128,7 @@ namespace Exiv2 {
 
         // TODO: Tag 0x0103 : quality or image size (see ExifTool doc).
         TagInfo(0x0103, "0x0103", N_("0x0103"),
-                N_("0x0103"),
+                N_("Unknown"),
                 minoltaId, makerTags, unsignedLong, -1, printValue),
 
         TagInfo(0x0104, "FlashExposureComp", N_("Flash Exposure Compensation"),
