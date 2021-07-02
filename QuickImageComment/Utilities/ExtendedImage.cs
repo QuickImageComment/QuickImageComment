@@ -1,4 +1,4 @@
-//Copyright (C) 2009 Norbert Wagner
+ï»¿//Copyright (C) 2009 Norbert Wagner
 
 //This program is free software; you can redistribute it and/or
 //modify it under the terms of the GNU General Public License
@@ -163,13 +163,6 @@ namespace QuickImageComment
             public static int status = 1001;
             public ExceptionErrorReplacePlaceholder(string Message)
                 : base(Message) { }
-        }
-
-        private enum ReturnReplaceTagplaceholder
-        {
-            allReplaced,
-            RefToNewFound,
-            nextRunRequired
         }
 
         private const string TagReplacePrefixRefToOld = "{{#Exif. {{#Iptc. {{#Xmp. {{#Define. {{#File. {{#Image. {{#Txt. {{Datum {{Uhrzeit {{Date {{Time";
@@ -1058,7 +1051,7 @@ namespace QuickImageComment
                     theImage.RotateFlip(System.Drawing.RotateFlipType.Rotate270FlipNone);
                     break;
                 default:
-                    //GeneralUtilities.errorMessage("Exif-Orientation " + Orientation.ToString() + " wird nicht unterstützt.");
+                    //GeneralUtilities.errorMessage("Exif-Orientation " + Orientation.ToString() + " wird nicht unterstÃ¼tzt.");
                     // no rotation
                     break;
             }
@@ -2405,7 +2398,7 @@ namespace QuickImageComment
                         // now cannot remember what is the purpose of this message
                         //if (((String)OldValues[key]).Equals(targetValue))
                         //{
-                        //    GeneralUtilities.warningMessage("Der Wert \"" + targetValue + "\" für \"" + key
+                        //    GeneralUtilities.warningMessage("Der Wert \"" + targetValue + "\" fÃ¼r \"" + key
                         //      + "\" wurde nicht gespeichert.");
                         //}
                         //else 
@@ -2997,9 +2990,44 @@ namespace QuickImageComment
                 string Format = "0." + new string('0', precision);
                 return floatValue.ToString(Format);
             }
+            else if (format == MetaDataItem.Format.DateLokal ||
+                     format == MetaDataItem.Format.DateISO ||
+                     format == MetaDataItem.Format.DateExif ||
+                     format == MetaDataItem.Format.DateFormat1 ||
+                     format == MetaDataItem.Format.DateFormat2 ||
+                     format == MetaDataItem.Format.DateFormat3 ||
+                     format == MetaDataItem.Format.DateFormat4 ||
+                     format == MetaDataItem.Format.DateFormat5)
+            {
+                bool hasTime = false;
+                string usedFormat = "";
+                DateTime datetime = GeneralUtilities.getDateTime(value, ref hasTime, ref usedFormat);
+
+                switch (format)
+                {
+                    case MetaDataItem.Format.DateLokal:
+                        return datetime.ToString();
+                    case MetaDataItem.Format.DateISO:
+                        return datetime.ToString("yyyy-MM-ddTHH:mm:ss");
+                    case MetaDataItem.Format.DateExif:
+                        return datetime.ToString("yyyy:MM:dd HH:mm:ss");
+                    case MetaDataItem.Format.DateFormat1:
+                        return datetime.ToString(ConfigDefinition.getConfigString(ConfigDefinition.enumConfigString.DateFormat1_Spec));
+                    case MetaDataItem.Format.DateFormat2:
+                        return datetime.ToString(ConfigDefinition.getConfigString(ConfigDefinition.enumConfigString.DateFormat2_Spec));
+                    case MetaDataItem.Format.DateFormat3:
+                        return datetime.ToString(ConfigDefinition.getConfigString(ConfigDefinition.enumConfigString.DateFormat3_Spec));
+                    case MetaDataItem.Format.DateFormat4:
+                        return datetime.ToString(ConfigDefinition.getConfigString(ConfigDefinition.enumConfigString.DateFormat4_Spec));
+                    case MetaDataItem.Format.DateFormat5:
+                        return datetime.ToString(ConfigDefinition.getConfigString(ConfigDefinition.enumConfigString.DateFormat5_Spec));
+                    default:
+                        throw new Exception("Internal program error: format not supported: " + format.ToString());
+                }
+            }
             else
             {
-                throw new Exception("Internal program error: format not supported");
+                throw new Exception("Internal program error: format not supported: " + format.ToString());
             }
         }
 
@@ -3245,10 +3273,10 @@ namespace QuickImageComment
 
                 System.Drawing.Imaging.ColorMatrix theColorMatrix = new System.Drawing.Imaging.ColorMatrix(colorMatrixElements);
 
-                // ColorMatrix für das ImageAttribute-Objekt setzen
+                // ColorMatrix fÃ¼r das ImageAttribute-Objekt setzen
                 theImageAttributes.SetColorMatrix(theColorMatrix);
 
-                // Gamma für das ImageAttribute-Objekt setzen
+                // Gamma fÃ¼r das ImageAttribute-Objekt setzen
                 theImageAttributes.SetGamma(TxtGamma);
 
                 // InputImage in das Graphics-Objekt zeichnen

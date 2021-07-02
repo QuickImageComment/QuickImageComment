@@ -25,6 +25,7 @@ namespace QuickImageComment
         // adapt also addItemsComboBoxMetaDataFormat...  in FormMetaDataDefinitions
         public enum Format
         {
+            // new entries to be added at the end before internal entries, as index is written in configuration file
             Interpreted,
             InterpretedBracketOriginal,
             InterpretedEqOriginal,
@@ -44,6 +45,7 @@ namespace QuickImageComment
             DateFormat3,
             DateFormat4,
             DateFormat5,
+            DateExif,
             // following entries for internal use only
             ForGenericList,
             ForComparisonAfterSave
@@ -249,6 +251,8 @@ namespace QuickImageComment
                     return dateString(null);
                 case Format.DateISO:
                     return dateString("yyyy-MM-ddTHH:mm:ss");
+                case Format.DateExif:
+                    return dateString("yyyy:MM:dd HH:mm:ss");
                 case Format.DateFormat1:
                     return dateString(ConfigDefinition.getConfigString(ConfigDefinition.enumConfigString.DateFormat1_Spec));
                 case Format.DateFormat2:

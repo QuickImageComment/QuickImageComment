@@ -15,11 +15,32 @@
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 using System;
+using System.Collections;
 
 namespace QuickImageComment
 {
     class PlaceholderDefinition
     {
+        internal static SortedList FormatShort = new SortedList()
+        {
+            { MetaDataItem.Format.Interpreted, "" },
+            { MetaDataItem.Format.Original, "o" },
+            { MetaDataItem.Format.Decimal1, "d1" },
+            { MetaDataItem.Format.Decimal2, "d2" },
+            { MetaDataItem.Format.Decimal3, "d3" },
+            { MetaDataItem.Format.Decimal4, "d4" },
+            { MetaDataItem.Format.Decimal5, "d5" },
+            { MetaDataItem.Format.Decimal0, "d0" },
+            { MetaDataItem.Format.DateLokal, "tl" },
+            { MetaDataItem.Format.DateISO, "ti" },
+            { MetaDataItem.Format.DateExif, "te" },
+            { MetaDataItem.Format.DateFormat1, "t1" },
+            { MetaDataItem.Format.DateFormat2, "t2" },
+            { MetaDataItem.Format.DateFormat3, "t3" },
+            { MetaDataItem.Format.DateFormat4, "t4" },
+            { MetaDataItem.Format.DateFormat5, "t5" }
+        };
+
         internal string key;
         internal string keyOriginal;
         internal string keyMain;
@@ -115,33 +136,13 @@ namespace QuickImageComment
             {
                 sorted = true;
             }
-            if (option.Contains("o"))
+
+            for (int ii = 1; ii < FormatShort.Count; ii++)
             {
-                format = MetaDataItem.Format.Original;
-            }
-            else if (option.Contains("d0"))
-            {
-                format = MetaDataItem.Format.Decimal0;
-            }
-            else if (option.Contains("d1"))
-            {
-                format = MetaDataItem.Format.Decimal1;
-            }
-            else if (option.Contains("d2"))
-            {
-                format = MetaDataItem.Format.Decimal2;
-            }
-            else if (option.Contains("d3"))
-            {
-                format = MetaDataItem.Format.Decimal3;
-            }
-            else if (option.Contains("d4"))
-            {
-                format = MetaDataItem.Format.Decimal4;
-            }
-            else if (option.Contains("d5"))
-            {
-                format = MetaDataItem.Format.Decimal5;
+                if (option.Contains((string)FormatShort.GetByIndex(ii)))
+                {
+                    format = (MetaDataItem.Format)FormatShort.GetKey(ii);
+                }
             }
         }
     }

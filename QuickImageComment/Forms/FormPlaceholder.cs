@@ -32,19 +32,7 @@ namespace QuickImageComment
         private ExtendedImage theExtendedImage;
         private FormCustomization.Interface CustomizationInterface;
         private SortedList changedFields;
-        private string[] MetaDataFormatShort = new string[] { "", "o", "d1", "d2", "d3", "d4", "d5", "d0" };
-
-        private ArrayList MetaDataFormatIndex = new ArrayList
-        {
-            MetaDataItem.Format.Interpreted,
-            MetaDataItem.Format.Original,
-            MetaDataItem.Format.Decimal1,
-            MetaDataItem.Format.Decimal2,
-            MetaDataItem.Format.Decimal3,
-            MetaDataItem.Format.Decimal4,
-            MetaDataItem.Format.Decimal5,
-            MetaDataItem.Format.Decimal0
-        };
+        private SortedList MetaDataFormatIndex = new SortedList();
 
         private bool definitionControlsFilledProgrammatically = false;
         private bool richTextValueChangedProgrammatically = false;
@@ -404,7 +392,8 @@ namespace QuickImageComment
                     placeholderDefinitionString += numericUpDownLength.Value.ToString();
                 }
                 placeholderDefinitionString += ";";
-                placeholderDefinitionString += MetaDataFormatShort[dynamicComboBoxFormat.SelectedIndex];
+                int index = MetaDataFormatIndex.IndexOfValue(dynamicComboBoxFormat.SelectedIndex);
+                placeholderDefinitionString += PlaceholderDefinition.FormatShort[(MetaDataItem.Format)MetaDataFormatIndex.GetKey(index)];
                 if (checkBoxSorted.Checked)
                 {
                     placeholderDefinitionString += "s";
@@ -550,7 +539,6 @@ namespace QuickImageComment
                 }
                 numericUpDownLength.Value = thePlaceholderDefinition.substringLength;
                 checkBoxSavedValue.Checked = thePlaceholderDefinition.useAllwaysSavedValue;
-                dynamicComboBoxFormat.SelectedIndex = MetaDataFormatIndex.IndexOf(thePlaceholderDefinition.format);
                 if (thePlaceholderDefinition.separator.Equals(", "))
                 {
                     richTextBoxSeparator.Text = "";
@@ -565,6 +553,7 @@ namespace QuickImageComment
                 string metaDataType = Exiv2TagDefinitions.getTagType(thePlaceholderDefinition.keyMain);
 
                 enableDefinitionControls(dynamicLabelMetaDate.Text, metaDataType);
+                dynamicComboBoxFormat.SelectedIndex = (int)MetaDataFormatIndex[thePlaceholderDefinition.format];
 
                 definitionControlsFilledProgrammatically = false;
             }
@@ -613,6 +602,11 @@ namespace QuickImageComment
                     LangCfg.getText(LangCfg.Others.fmtIntrpr),
                     LangCfg.getText(LangCfg.Others.fmtOrig)});
 
+            MetaDataFormatIndex.Clear();
+            int ii = 0;
+            MetaDataFormatIndex.Add(MetaDataItem.Format.Interpreted, ii++);
+            MetaDataFormatIndex.Add(MetaDataItem.Format.Original, ii++);
+
             dynamicComboBoxFormat.Enabled = true;
             checkBoxSavedValue.Enabled = true;
             checkBoxSorted.Enabled = false;
@@ -653,17 +647,60 @@ namespace QuickImageComment
                 // more formats are allowd
                 dynamicComboBoxFormat.Items.Clear();
                 dynamicComboBoxFormat.Items.AddRange(new object[] {
-                        LangCfg.translate("Interpreted", this.Name),
-                        LangCfg.translate("Original", this.Name),
-                        LangCfg.translate("Dezimalzahl - 1 Nachkommastelle", this.Name),
-                        LangCfg.translate("Dezimalzahl - 2 Nachkommastellen", this.Name),
-                        LangCfg.translate("Dezimalzahl - 3 Nachkommastellen", this.Name),
-                        LangCfg.translate("Dezimalzahl - 4 Nachkommastellen", this.Name),
-                        LangCfg.translate("Dezimalzahl - 5 Nachkommastellen", this.Name),
-                        LangCfg.translate("Dezimalzahl - ohne Nachkommastellen",  this.Name) });
+                    LangCfg.getText(LangCfg.Others.fmtIntrpr),
+                    LangCfg.getText(LangCfg.Others.fmtOrig),
+                    LangCfg.getText(LangCfg.Others.fmtDec1),
+                    LangCfg.getText(LangCfg.Others.fmtDec2),
+                    LangCfg.getText(LangCfg.Others.fmtDec3),
+                    LangCfg.getText(LangCfg.Others.fmtDec4),
+                    LangCfg.getText(LangCfg.Others.fmtDec5),
+                    LangCfg.getText(LangCfg.Others.fmtDec0) });
 
                 // clearing Items has also cleared selected index
                 dynamicComboBoxFormat.SelectedIndex = 0;
+
+                MetaDataFormatIndex.Clear();
+                int ii = 0;
+                MetaDataFormatIndex.Add(MetaDataItem.Format.Interpreted, ii++);
+                MetaDataFormatIndex.Add(MetaDataItem.Format.Original, ii++);
+                MetaDataFormatIndex.Add(MetaDataItem.Format.Decimal1, ii++);
+                MetaDataFormatIndex.Add(MetaDataItem.Format.Decimal2, ii++);
+                MetaDataFormatIndex.Add(MetaDataItem.Format.Decimal3, ii++);
+                MetaDataFormatIndex.Add(MetaDataItem.Format.Decimal4, ii++);
+                MetaDataFormatIndex.Add(MetaDataItem.Format.Decimal5, ii++);
+                MetaDataFormatIndex.Add(MetaDataItem.Format.Decimal0, ii++);
+            }
+            else if (GeneralUtilities.isDateProperty(MetaDataKey, MetaDataType))
+            {
+                // more formats are allowd
+                dynamicComboBoxFormat.Items.Clear();
+                dynamicComboBoxFormat.Items.AddRange(new object[] {
+                    LangCfg.getText(LangCfg.Others.fmtIntrpr),
+                    LangCfg.getText(LangCfg.Others.fmtOrig),
+                    LangCfg.getText(LangCfg.Others.fmtLocalDateTime),
+                    LangCfg.getText(LangCfg.Others.fmtIsoDateTime),
+                    LangCfg.getText(LangCfg.Others.fmtExifDateTime),
+                    LangCfg.translate(ConfigDefinition.getConfigString(ConfigDefinition.enumConfigString.DateFormat1_Name), this.Name),
+                    LangCfg.translate(ConfigDefinition.getConfigString(ConfigDefinition.enumConfigString.DateFormat2_Name), this.Name),
+                    LangCfg.translate(ConfigDefinition.getConfigString(ConfigDefinition.enumConfigString.DateFormat3_Name), this.Name),
+                    LangCfg.translate(ConfigDefinition.getConfigString(ConfigDefinition.enumConfigString.DateFormat4_Name), this.Name),
+                    LangCfg.translate(ConfigDefinition.getConfigString(ConfigDefinition.enumConfigString.DateFormat5_Name), this.Name)});
+
+                // clearing Items has also cleared selected index
+                dynamicComboBoxFormat.SelectedIndex = 0;
+
+                MetaDataFormatIndex.Clear();
+                int ii = 0;
+                MetaDataFormatIndex.Add(MetaDataItem.Format.Interpreted, ii++);
+                MetaDataFormatIndex.Add(MetaDataItem.Format.Original, ii++);
+                MetaDataFormatIndex.Add(MetaDataItem.Format.DateLokal, ii++);
+                MetaDataFormatIndex.Add(MetaDataItem.Format.DateISO, ii++);
+                MetaDataFormatIndex.Add(MetaDataItem.Format.DateExif, ii++);
+                MetaDataFormatIndex.Add(MetaDataItem.Format.DateFormat1, ii++);
+                MetaDataFormatIndex.Add(MetaDataItem.Format.DateFormat2, ii++);
+                MetaDataFormatIndex.Add(MetaDataItem.Format.DateFormat3, ii++);
+                MetaDataFormatIndex.Add(MetaDataItem.Format.DateFormat4, ii++);
+                MetaDataFormatIndex.Add(MetaDataItem.Format.DateFormat5, ii++);
             }
         }
 

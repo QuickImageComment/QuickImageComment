@@ -205,6 +205,7 @@ namespace QuickImageComment
             LangCfg.getText(LangCfg.Others.fmtOrigEqIntrpr),
             LangCfg.getText(LangCfg.Others.fmtLocalDateTime),
             LangCfg.getText(LangCfg.Others.fmtIsoDateTime),
+            LangCfg.getText(LangCfg.Others.fmtExifDateTime),
             LangCfg.translate(ConfigDefinition.getConfigString(ConfigDefinition.enumConfigString.DateFormat1_Name), this.Name),
             LangCfg.translate(ConfigDefinition.getConfigString(ConfigDefinition.enumConfigString.DateFormat2_Name), this.Name),
             LangCfg.translate(ConfigDefinition.getConfigString(ConfigDefinition.enumConfigString.DateFormat3_Name), this.Name),
@@ -222,6 +223,7 @@ namespace QuickImageComment
             theMetaDataFormatIndex.Add(MetaDataItem.Format.OriginalEqInterpreted, ii++);
             theMetaDataFormatIndex.Add(MetaDataItem.Format.DateLokal, ii++);
             theMetaDataFormatIndex.Add(MetaDataItem.Format.DateISO, ii++);
+            theMetaDataFormatIndex.Add(MetaDataItem.Format.DateExif, ii++);
             theMetaDataFormatIndex.Add(MetaDataItem.Format.DateFormat1, ii++);
             theMetaDataFormatIndex.Add(MetaDataItem.Format.DateFormat2, ii++);
             theMetaDataFormatIndex.Add(MetaDataItem.Format.DateFormat3, ii++);
@@ -662,10 +664,12 @@ namespace QuickImageComment
                     theMetaDataDefinitionItem.Prefix = textBoxPrefix.Text;
                     theMetaDataDefinitionItem.KeyPrim = textBoxMetaDatum1.Text;
                     theMetaDataDefinitionItem.TypePrim = Exiv2TagDefinitions.getTagType(theMetaDataDefinitionItem.KeyPrim);
-                    theMetaDataDefinitionItem.FormatPrim = (MetaDataItem.Format)MetaDataFormatIndex1.GetKey(dynamicComboBoxMetaDataFormat1.SelectedIndex);
+                    int index = MetaDataFormatIndex1.IndexOfValue(dynamicComboBoxMetaDataFormat1.SelectedIndex);
+                    theMetaDataDefinitionItem.FormatPrim = (MetaDataItem.Format)MetaDataFormatIndex1.GetKey(index);
                     theMetaDataDefinitionItem.Separator = textBoxSeparator.Text;
                     theMetaDataDefinitionItem.KeySec = textBoxMetaDatum2.Text;
-                    theMetaDataDefinitionItem.FormatSec = (MetaDataItem.Format)MetaDataFormatIndex2.GetKey(dynamicComboBoxMetaDataFormat2.SelectedIndex);
+                    index = MetaDataFormatIndex2.IndexOfValue(dynamicComboBoxMetaDataFormat2.SelectedIndex);
+                    theMetaDataDefinitionItem.FormatSec = (MetaDataItem.Format)MetaDataFormatIndex2.GetKey(index);
                     theMetaDataDefinitionItem.Postfix = textBoxPostfix.Text;
                     theMetaDataDefinitionItem.VerticalDisplayOffset = (int)numericUpDownVerticalDisplayOffset.Value;
                     theMetaDataDefinitionItem.LinesForChange = (int)numericUpDownLinesForChange.Value;

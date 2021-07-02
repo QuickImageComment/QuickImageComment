@@ -265,6 +265,7 @@ namespace QuickImageComment
             fmtDec0,
             fmtLocalDateTime,
             fmtIsoDateTime,
+            fmtExifDateTime,
             infoForGroupFind,
             selectOpStartsWith,
             selectOpEndsWith,
