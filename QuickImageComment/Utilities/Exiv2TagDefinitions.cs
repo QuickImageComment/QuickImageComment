@@ -256,7 +256,7 @@ namespace QuickImageComment
                 string type = tagString.Substring(startIndex, endIndex - startIndex);
                 startIndex = endIndex + 2;
 
-                string description = tagString.Substring(startIndex, tagString.Length - startIndex -1);
+                string description = tagString.Substring(startIndex, tagString.Length - startIndex - 1);
                 description = description.Replace("\"\"", "\"");
 
                 // workaround: some keys are twice in list returned from exiv2

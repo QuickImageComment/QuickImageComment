@@ -1,4 +1,4 @@
-//Copyright (C) 2009 Norbert Wagner
+﻿//Copyright (C) 2009 Norbert Wagner
 
 //This program is free software; you can redistribute it and/or
 //modify it under the terms of the GNU General Public License
@@ -239,7 +239,14 @@ namespace QuickImageComment
             // flag is used in exception handling to decide if only a message box can be displayed or handling is based on configuration
             initialzationCompleted = true;
 
-            // throw (new Exception("ExceptionTest after initialization completed"));
+            //try
+            //{
+            //    throw (new Exception("ExceptionTest after initialization completed3"));
+            //}
+            //catch (Exception ex)
+            //{
+            //    throw new Exception("outer exception", ex);
+            //}
 
             // if no folder and no file is given with commandline, get last used folder from configuration
             if (argFilesCount == 0)
@@ -292,6 +299,9 @@ namespace QuickImageComment
             //}
             //GeneralUtilities.debugMessage("handleException start " + traceString);
 
+            string hints = "Closing=" + FormQuickImageComment.closing.ToString() + " CfgSaved=" + FormQuickImageComment.cfgSaved.ToString();
+            ex.Data.Add("Hints", hints);
+
             if (!initialzationCompleted)
             {
                 MessageBox.Show(ex.Message + "\r\n" + ex.StackTrace.ToString(),
@@ -322,7 +332,8 @@ namespace QuickImageComment
                     if (FormErrorAppCenter.sendToAppCenter)
                     {
                         // escalate exception to AppCenter
-                        System.Runtime.ExceptionServices.ExceptionDispatchInfo.Capture(ex).Throw();
+                        //System.Runtime.ExceptionServices.ExceptionDispatchInfo.Capture(ex).Throw();
+                        System.Runtime.ExceptionServices.ExceptionDispatchInfo.Capture(new Exception(hints, ex)).Throw();
                     }
                     else
                     {
@@ -344,6 +355,15 @@ namespace QuickImageComment
                 + " " + Program.CompileTime.ToString("dd.MM.yyyy");
             details += "\r\n" + ex.Message;
             details += "\r\n" + ex.StackTrace.ToString();
+
+            if (ex.Data.Count > 0)
+            {
+                details += "\r\n" + "\r\n" + "Exception data:";
+                foreach (object key in ex.Data.Keys)
+                {
+                    details += "\r\n" + key.ToString() + "=" + ex.Data[key].ToString();
+                }
+            }
             if (ex.InnerException != null)
             {
                 details += "\r\n" + "\r\nInner exception:";

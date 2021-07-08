@@ -738,7 +738,7 @@ namespace QuickImageComment
                 }
                 ImageFiles.Sort();
             }
-            catch 
+            catch
             {
                 QuickImageComment.GeneralUtilities.message(QuickImageComment.LangCfg.Message.W_directoryNotFound, FolderName);
                 MainMaskInterface.refreshFolderTree();

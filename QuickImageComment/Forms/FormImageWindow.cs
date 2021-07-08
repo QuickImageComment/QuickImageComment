@@ -101,12 +101,21 @@ namespace QuickImageComment
 
         private void newImage(ExtendedImage givenExtendedImage, bool showGrid)
         {
-            theExtendedImage = givenExtendedImage;
-            pictureBox1.Image = theExtendedImage.getAdjustedImage();
-            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-            Text = System.IO.Path.GetFileName(theExtendedImage.getImageFileName())
-                + "  (" + System.IO.Path.GetDirectoryName(theExtendedImage.getImageFileName()) + ")";
-            displayProperties();
+            if (givenExtendedImage == null)
+            {
+                Text = "";
+                pictureBox1.Image = null;
+                dataGridView1.Rows.Clear();
+            }
+            else
+            {
+                theExtendedImage = givenExtendedImage;
+                pictureBox1.Image = theExtendedImage.getAdjustedImage();
+                pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+                Text = System.IO.Path.GetFileName(theExtendedImage.getImageFileName())
+                    + "  (" + System.IO.Path.GetDirectoryName(theExtendedImage.getImageFileName()) + ")";
+                displayProperties();
+            }
         }
 
         internal static void newImageInLastWindowAndClosePrevious(ExtendedImage givenExtendedImage, bool showGrid)

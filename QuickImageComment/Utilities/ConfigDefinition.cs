@@ -2170,7 +2170,7 @@ namespace QuickImageComment
                     }
                 }
                 PredefinedCommentCategories.Add(aPredefinedComment.Category);
-            allreadyContained:
+                allreadyContained:
                 continue;
             }
             return PredefinedCommentCategories;

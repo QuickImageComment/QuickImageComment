@@ -98,7 +98,7 @@ namespace QuickImageCommentControls
 
         public void clearThumbnails()
         {
-           thumbNails.Clear();
+            thumbNails.Clear();
         }
 
         public void clearThumbnailForFile(string fileName)

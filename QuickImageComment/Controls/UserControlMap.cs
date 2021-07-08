@@ -125,7 +125,14 @@ namespace QuickImageComment
             InitializeComponent();
 
             //string webView2Version = "";
-            //webView2Version = Microsoft.Web.WebView2.Core.CoreWebView2Environment.GetAvailableBrowserVersionString();
+            //try
+            //{
+            //    webView2Version = Microsoft.Web.WebView2.Core.CoreWebView2Environment.GetAvailableBrowserVersionString();
+            //}
+            //catch 
+            //{
+            //    // nothing to do, as no version of WebView2 could be retrieved, use WebBrowser
+            //}
             //if (webView2Version.Equals(""))
             {
                 // webView2 not available, use webBrowser

@@ -35,6 +35,7 @@ namespace QuickImageComment
 
         public float dpiSettings;
         public static bool closing = false;
+        public static bool cfgSaved = false;
         public static Performance readFolderPerfomance;
         private static FormFind formFind;
 
@@ -1061,9 +1062,6 @@ namespace QuickImageComment
         // close event handler for main form, triggered by any action closing the form
         private void FormQuickImageComment_FormClosing(object sender, FormClosingEventArgs e)
         {
-#if APPCENTER
-            if (Program.AppCenterUsable) Microsoft.AppCenter.Analytics.Analytics.TrackEvent("Closing start");
-#endif
             if (continueAfterCheckForChangesAndOptionalSaving(theUserControlFiles.listViewFiles.SelectedIndicesNew))
             {
                 // cancel may be set to true before due to validation error
@@ -1073,6 +1071,10 @@ namespace QuickImageComment
                 // indicate that closing has started, checked by Invoke in MainMaskInterface
                 closing = true;
 
+
+#if APPCENTER
+                if (Program.AppCenterUsable) Microsoft.AppCenter.Analytics.Analytics.TrackEvent("Closing start");
+#endif
                 if (this.WindowState == FormWindowState.Minimized)
                 {
                     // set state to normal to get size in normal state
@@ -1162,9 +1164,13 @@ namespace QuickImageComment
 
                 GeneralUtilities.closeDebugFile();
                 GeneralUtilities.closeTraceFile();
+
+                cfgSaved = true;
 #if APPCENTER
                 if (Program.AppCenterUsable) Microsoft.AppCenter.Analytics.Analytics.TrackEvent("Closing finish");
 #endif
+                // throw new Exception("ExceptionTest after start closing3");
+
             }
             else
             {
@@ -1306,7 +1312,7 @@ namespace QuickImageComment
             string urlString = (string)e.Data.GetData(DataFormats.Text);
             if (files != null)
             {
-                // only one file (or folder) can be handled
+                Array.Sort(files);
                 selectFolderFile(files);
             }
             else if (urlString != null)
@@ -3931,11 +3937,11 @@ namespace QuickImageComment
 
                 // Clear all data from image in mask
                 theUserControlFiles.lastFileIndex = -1;
+                theUserControlFiles.listViewFiles.clearItems();
                 if (!starting)
                 {
                     displayImage(-1);
                 }
-                theUserControlFiles.listViewFiles.clearItems();
                 toolStripStatusLabelFiles.Text = "";
 
                 if (!FolderName.Equals(""))
@@ -4160,21 +4166,6 @@ namespace QuickImageComment
                 {
                     changeImageView();
                 }
-                if (FormPrevNext.windowsAreOpen(nameof(FormImageWindow)))
-                {
-                    {
-                        if (theUserControlFiles.listViewFiles.SelectedItems.Count > 1)
-                        {
-                            // several images selected, open new window for image
-                            new FormImageWindow(theExtendedImage, toolStripMenuItemImageWithGrid.Checked);
-                        }
-                        else
-                        {
-                            // only one image selected, update last window and close potentially existing previous windows
-                            FormImageWindow.newImageInLastWindowAndClosePrevious(theExtendedImage, toolStripMenuItemImageWithGrid.Checked);
-                        }
-                    }
-                }
 
                 foreach (string aLanguage in theExtendedImage.getXmpLangAltEntries())
                 {
@@ -4262,6 +4253,22 @@ namespace QuickImageComment
                 {
                     // shown in panel
                     theUserControlImageDetails.newImage(theExtendedImage);
+                }
+            }
+            // if forms for image in own window are displayed, inform that there is a new image selected
+            if (FormPrevNext.windowsAreOpen(nameof(FormImageWindow)))
+            {
+                {
+                    if (theUserControlFiles.listViewFiles.SelectedItems.Count > 1)
+                    {
+                        // several images selected, open new window for image
+                        new FormImageWindow(theExtendedImage, toolStripMenuItemImageWithGrid.Checked);
+                    }
+                    else
+                    {
+                        // only one image selected, update last window and close potentially existing previous windows
+                        FormImageWindow.newImageInLastWindowAndClosePrevious(theExtendedImage, toolStripMenuItemImageWithGrid.Checked);
+                    }
                 }
             }
 

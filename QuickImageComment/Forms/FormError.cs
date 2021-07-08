@@ -30,7 +30,7 @@ namespace QuickImageComment
         private void buttonPrepareMail_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start("mailto:mail@quickimagecomment.de?subject=" + GeneralUtilities.getHtmlText(textBoxErrorMessage.Text)
-                +"&body=" + GeneralUtilities.getHtmlText(LangCfg.getText(LangCfg.Others.errorMailTemplate) + textBoxErrorDetails.Text));
+                + "&body=" + GeneralUtilities.getHtmlText(LangCfg.getText(LangCfg.Others.errorMailTemplate) + textBoxErrorDetails.Text));
         }
 
         private void buttonGitHubIssue_Click(object sender, EventArgs e)

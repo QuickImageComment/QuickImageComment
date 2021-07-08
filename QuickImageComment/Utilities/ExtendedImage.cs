@@ -419,52 +419,52 @@ namespace QuickImageComment
 #if !DEBUG
                 try
 #endif
+            {
+                string iniPath = ConfigDefinition.getIniPath();
+                string comment = "";
+                string errorText = "";
+
+                lock (LockReadExiv2)
                 {
-                    string iniPath = ConfigDefinition.getIniPath();
-                    string comment = "";
-                    string errorText = "";
-
-                    lock (LockReadExiv2)
+                    status = exiv2readImageByFileName(ImageFileName, iniPath, ref comment, ref IptcUTF8, ref errorText);
+                    if (!errorText.Equals("") && !ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.HideExiv2Error))
                     {
-                        status = exiv2readImageByFileName(ImageFileName, iniPath, ref comment, ref IptcUTF8, ref errorText);
-                        if (!errorText.Equals("") && !ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.HideExiv2Error))
+                        MetaDataWarnings.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error), errorText));
+                    }
+
+                    // read Exif, Iptc and XMP only, if exiv2readImageByFileName did not return with exception
+                    if (status != exiv2StatusException)
+                    {
+                        // get image comment
+                        addReplaceOtherMetaDataKnownType("Image.Comment", comment);
+
+                        if (neededKeys == null)
                         {
-                            MetaDataWarnings.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error), errorText));
+                            // read all Exif, IPTC and XMP data
+                            readAllExifIptcXmp();
                         }
-
-                        // read Exif, Iptc and XMP only, if exiv2readImageByFileName did not return with exception
-                        if (status != exiv2StatusException)
+                        else
                         {
-                            // get image comment
-                            addReplaceOtherMetaDataKnownType("Image.Comment", comment);
-
-                            if (neededKeys == null)
-                            {
-                                // read all Exif, IPTC and XMP data
-                                readAllExifIptcXmp();
-                            }
-                            else
-                            {
-                                // read all Exif, IPTC and XMP data
-                                readExifIptcXmpForNeededKeys(neededKeys);
-                            }
+                            // read all Exif, IPTC and XMP data
+                            readExifIptcXmpForNeededKeys(neededKeys);
                         }
                     }
                 }
+            }
 #if !DEBUG
                 catch (Exception ex)
                 {
                     MetaDataWarnings.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error), ex.Message));
                 }
 #endif
-                ReadPerformance.measure("Meta data copied");
+            ReadPerformance.measure("Meta data copied");
 
-                XmpLangAltEntries.Sort();
-                readSpecialExifIptcInformation();
+            XmpLangAltEntries.Sort();
+            readSpecialExifIptcInformation();
 
 
-                // end of: 32-Bit version cannot read big videos; exiv2 returns exception, 
-                // so check here allowing language depending and better understandable error message
+            // end of: 32-Bit version cannot read big videos; exiv2 returns exception, 
+            // so check here allowing language depending and better understandable error message
 #if !PLATFORMTARGET_X64
             }
 #endif

@@ -295,8 +295,10 @@ namespace QuickImageComment
         // event handler when selection of group changes
         private void comboBoxGroup_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (dynamicComboBoxGroup.Text.Equals(LangCfg.getText(LangCfg.Others.otherGrouping)))
+            bool otherGroup = false;
+            if (dynamicComboBoxGroup.SelectedIndex == dynamicComboBoxGroup.Items.Count - 1)
             {
+                // last entry in comboBox: change grouping
                 FormMetaDataDefinition theFormMetaDataDefinition =
                   new FormMetaDataDefinition(null, ConfigDefinition.enumMetaDataGroup.MetaDataDefForShiftDate);
                 theFormMetaDataDefinition.ShowDialog();
@@ -305,9 +307,18 @@ namespace QuickImageComment
                 listViewImages.Clear();
                 dynamicComboBoxGroup.Items.Clear();
                 getDataFromImagesForGrouping();
+                otherGroup = true;
             }
 
             listViewImages.Refresh();
+            if (dynamicComboBoxGroup.SelectedIndex < 0 || dynamicComboBoxGroup.SelectedIndex >= GroupDateTimeOffsets.Count)
+            {
+                throw new Exception("Selected index invalid:" + dynamicComboBoxGroup.SelectedIndex.ToString()
+                    + " count:" + GroupDateTimeOffsets.Count.ToString()
+                    + " >" + dynamicComboBoxGroup.Text
+                    + "< >" + LangCfg.getText(LangCfg.Others.otherGrouping)
+                    + "< otherGroup:" + otherGroup.ToString());
+            }
             setNumericUpDownsForSeconds((double)GroupDateTimeOffsets[dynamicComboBoxGroup.SelectedIndex]);
         }
 

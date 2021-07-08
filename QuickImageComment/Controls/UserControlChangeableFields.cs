@@ -590,7 +590,7 @@ namespace QuickImageComment
             {
                 string[] Values = theInputControl.Text.Split(new string[] { "\r\n" }, StringSplitOptions.None);
                 if (!Values[0].Equals(""))
-                { 
+                {
                     theDateTimePicker.Value = GeneralUtilities.getDateTimeFromExifIptcXmpString(Values[0], Spec.KeyPrim);
                 }
             }

@@ -38,6 +38,8 @@ namespace QuickImageComment
             this.labelDetails = new System.Windows.Forms.Label();
             this.textBoxInstructions = new System.Windows.Forms.TextBox();
             this.buttonGitHubIssue = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // textBoxErrorDetails
@@ -50,7 +52,7 @@ namespace QuickImageComment
             this.textBoxErrorDetails.Name = "textBoxErrorDetails";
             this.textBoxErrorDetails.ReadOnly = true;
             this.textBoxErrorDetails.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxErrorDetails.Size = new System.Drawing.Size(547, 211);
+            this.textBoxErrorDetails.Size = new System.Drawing.Size(678, 211);
             this.textBoxErrorDetails.TabIndex = 0;
             // 
             // buttonPrepareMail
@@ -67,7 +69,7 @@ namespace QuickImageComment
             // buttonClose
             // 
             this.buttonClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonClose.Location = new System.Drawing.Point(400, 361);
+            this.buttonClose.Location = new System.Drawing.Point(531, 361);
             this.buttonClose.Name = "buttonClose";
             this.buttonClose.Size = new System.Drawing.Size(150, 23);
             this.buttonClose.TabIndex = 4;
@@ -79,17 +81,17 @@ namespace QuickImageComment
             // 
             this.textBoxErrorMessage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxErrorMessage.Location = new System.Drawing.Point(3, 22);
+            this.textBoxErrorMessage.Location = new System.Drawing.Point(41, 22);
             this.textBoxErrorMessage.Name = "textBoxErrorMessage";
             this.textBoxErrorMessage.ReadOnly = true;
             this.textBoxErrorMessage.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxErrorMessage.Size = new System.Drawing.Size(547, 20);
+            this.textBoxErrorMessage.Size = new System.Drawing.Size(640, 20);
             this.textBoxErrorMessage.TabIndex = 5;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 6);
+            this.label1.Location = new System.Drawing.Point(41, 6);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(216, 13);
             this.label1.TabIndex = 6;
@@ -113,7 +115,7 @@ namespace QuickImageComment
             this.textBoxInstructions.Location = new System.Drawing.Point(3, 295);
             this.textBoxInstructions.Multiline = true;
             this.textBoxInstructions.Name = "textBoxInstructions";
-            this.textBoxInstructions.Size = new System.Drawing.Size(546, 60);
+            this.textBoxInstructions.Size = new System.Drawing.Size(677, 60);
             this.textBoxInstructions.TabIndex = 8;
             this.textBoxInstructions.Text = "Instructions";
             // 
@@ -128,11 +130,21 @@ namespace QuickImageComment
             this.buttonGitHubIssue.UseVisualStyleBackColor = true;
             this.buttonGitHubIssue.Click += new System.EventHandler(this.buttonGitHubIssue_Click);
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::QuickImageComment.Properties.Resources.Error;
+            this.pictureBox1.Location = new System.Drawing.Point(3, 6);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(32, 32);
+            this.pictureBox1.TabIndex = 10;
+            this.pictureBox1.TabStop = false;
+            // 
             // FormError
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(553, 386);
+            this.ClientSize = new System.Drawing.Size(684, 386);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.buttonGitHubIssue);
             this.Controls.Add(this.textBoxInstructions);
             this.Controls.Add(this.labelDetails);
@@ -146,6 +158,7 @@ namespace QuickImageComment
             this.MinimizeBox = false;
             this.Name = "FormError";
             this.Text = "QuickImageComment Fehler";
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -161,5 +174,6 @@ namespace QuickImageComment
         private System.Windows.Forms.Label labelDetails;
         private System.Windows.Forms.TextBox textBoxInstructions;
         private System.Windows.Forms.Button buttonGitHubIssue;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
