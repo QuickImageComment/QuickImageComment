@@ -60,6 +60,6 @@ Notes:
 
 ## FormLogger
 
-QuickImageComment contains a logging functionality for testing purposes. With calling Logger.log a message will be displayed in FormLogger. This mask is opened when the first log from main thread is issued. Trying to open this mask from a background thread can result in deadlock, if the call Logger.log was inside a lock. So the mask will not be opened from background threads. In case there are no logs from main thread to open FormLogger, this menu entry allows to open the from manually.
+QuickImageComment contains a logging functionality for testing purposes. With calling Logger.log a message will be displayed in FormLogger. This mask is opened when the first log from main thread is issued. Trying to open this mask from a background thread can result in deadlock, if the call Logger.log was inside a lock. So the mask will not be opened from background threads. In case there are no logs from main thread to open FormLogger, this menu entry allows to open the form manually.
 
 

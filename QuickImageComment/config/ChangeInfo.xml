@@ -1,24 +1,27 @@
 ﻿<Program_Version>4.43</Program_Version>
 <Program_Change_Info_German>
 Erweiterungen und Verbesserungen:
-Die in der Maske "Ansicht anpassen" mit Namen gespeicherten benutzerdefinierten Einstellungen können direkt im Menü "Ansicht" ausgewählt werden.
-Aufnahmeort auf Karte: die Einträge der letzten verwendeten Positionen können umbenannt werden. Damit können gespeicherte Orte, die zunächst nur mit Koordinaten gelistet werden, mit einem sprechenden Namen versehen werden. Nicht mehr benötigte Einträge können gelöscht werden.
+Wenn für die Dateiliste die Ansicht "Miniaturansicht" oder "Kacheln" ausgewählt war, wurden bisher erst alle anzuzeigenden Bilder mit deren Vorschaubildern geladen, bevor eine Nutzereingabe akzeptiert wurde. Speziell bei RAW-Bildern konnte das lange dauern. Jetzt werden die Bilder zuerst mit Dateinamen aufgelistet wodurch Nutzereingaben schneller akzeptiert werden. Die Vorschaubilder werden im Hintergrund nachgeladen.
+Anzeige von RAW-Bildern von einigen Nikon-Modellen beschleunigt.
+Neue Version 0.27.4 der Bibliothek exiv2 integriert, unterstützt DNG 1.6 und Exif 2.32 (etwa 150 neue Tags).
+Platzhalter: für Datum/Zeit-Eigenschaften kann das Format ausgewählt werden. Neues Datum/Zeit-Format: Exif.
 
 Folgender Fehler wurde behoben:
-Programmabsturz, wenn die letzte Datei in einem Ordner gelöscht wurde.
+Programmabsturz mit Ausnahmefehler "System.NullReferenceException: Referencia a objeto no establecida como instancia de un objeto.". Gemeldet über AppCenter.
 
 Hinweis:
-Die allgemeine Konfigurationsdatei sowie andere Konfigurationsdateien liegen jetzt nicht mehr im Programmverzeichnis selbst sondern in einem Unterordner "config". Der Namen der allgemeinen Konfigurationsdatei für 32-Bit und 64-Bit ist jetzt identisch. Dieser Hinweis ist nur wichtig, falls man diese Dateien selbst anpassen möchte.
-Version 4.42 veröffentlicht am 11.05.2021
+Für diejenigen, die die allgemeine Konfigurationsdatei geändert haben: der (undokumentierte) Parameter DisplayFullSizeImageCacheContent wurde entfernt.
 </Program_Change_Info_German>
 <Program_Change_Info_English>
 Enhancements and improvements:
-The user defined settings saved by name in mask "Adjust View" screen can be selected directly from the menu "View".
-Recording location on map: the entries of the last used positions can be renamed. This allows saved locations that are initially listed only with coordinates to be given a descriptive name. Entries that are no longer needed can be deleted.
+If the "Thumbnail" or "Tile" view was selected for the file list, all images to be displayed with their thumbnails were loaded before a user input was accepted. Especially with RAW images this could take a long time. Now the images are listed with their filenames first and user input is accepted faster. The thumbnails are loaded in the background.
+Display of RAW images from some Nikon models accelerated.
+New version 0.27.4 of exiv2 library integrated, supports DNG 1.6 and Exif 2.32 (about 150 new tags).
+Placeholder: for date/time properties the format can be selected. New date/time format: Exif.
 
 Following error is corrected:
-Program crash when the last file in a folder was deleted.
+Program crash with exception "System.NullReferenceException: Referencia a objeto no establecida como instancia de un objeto.". Reported via AppCenter.
 
 Hint:
-The general configuration file as well as other configuration files are no longer located in the program directory itself but in a subfolder "config". The name of the general configuration file for 32-bit and 64-bit is now identical. This hint is only important if you want to customize these files yourself.
+For those who modified the general configuration file: the (undocumented) parameter DisplayFullSizeImageCacheContent has been removed.
 </Program_Change_Info_English>

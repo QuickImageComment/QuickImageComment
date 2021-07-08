@@ -1,4 +1,6 @@
 @echo off
+echo Ensure to have no Word running.
+echo If Word is already running, macros may be disabled, even if the folder is a trusted location.
 rem change directory to root folder to allow all following paths to be relative
 cd D:\_prg\QIC
 
