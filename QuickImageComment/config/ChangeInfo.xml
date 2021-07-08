@@ -1,4 +1,4 @@
-﻿<Program_Version>4.43</Program_Version>
+﻿<Program_Version>4.44</Program_Version>
 <Program_Change_Info_German>
 Erweiterungen und Verbesserungen:
 Wenn für die Dateiliste die Ansicht "Miniaturansicht" oder "Kacheln" ausgewählt war, wurden bisher erst alle anzuzeigenden Bilder mit deren Vorschaubildern geladen, bevor eine Nutzereingabe akzeptiert wurde. Speziell bei RAW-Bildern konnte das lange dauern. Jetzt werden die Bilder zuerst mit Dateinamen aufgelistet wodurch Nutzereingaben schneller akzeptiert werden. Die Vorschaubilder werden im Hintergrund nachgeladen.

@@ -17,7 +17,7 @@ In maintenance mode (see [docs/MaintenanceMode.md](../docs/MaintenanceMode.md)),
 
 ## New messages or other texts
 
-Except for very few messages, which the program displays before language settings are read, all messages are defined in __Translation_QIC.xlsm__ with a key, which is used in the C# code. If a new message is needed, add it in the Excel file, sheet "Message", define the key in LangCfg.cs, enumeration "message" and you can use it calling _GeneralUtilities.message_.  
+Except for very few messages, which the program displays before language settings are read, all messages are defined in __Translation_QIC.xlsm__ with a key, which is used in the C# code. If a new message is needed, add it in the Excel file, sheet "Message", define the key in LangCfg.cs, enumeration "message" and you can use it calling _GeneralUtilities.message_ (see also [docs/ProgrammingHints.md](../docs/ProgrammingHints.md)).  
 
 In some cases other texts need to be translated. Add them in the Excel file, sheet "Others", define the key in LangCfg.cs, enumeration "Others" and you can use them calling _LangCfg.getText_.
 
