@@ -31,15 +31,21 @@ namespace QuickImageComment
         {
             this.components = new System.ComponentModel.Container();
             this.listViewFiles = new QuickImageCommentControls.ListViewFiles();
-            this.columnHeaderName = new System.Windows.Forms.ColumnHeader();
-            this.columnHeaderSize = new System.Windows.Forms.ColumnHeader();
-            this.columnHeaderChanged = new System.Windows.Forms.ColumnHeader();
-            this.columnHeaderCreated = new System.Windows.Forms.ColumnHeader();
+            this.columnHeaderName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderSize = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderChanged = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderCreated = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.contextMenuStripListViewFiles = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.contextMenuStripMenuItemLargeIcons = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripMenuItemTile = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripMenuItemList = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripMenuItemDetails = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.contextMenuStripMenuItemSortAsc = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuStripMenuItemSortName = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuStripMenuItemSortChanged = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuStripMenuItemSortCreated = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.contextMenuStripMenuItemTileAdjust = new System.Windows.Forms.ToolStripMenuItem();
             this.labelFilter = new System.Windows.Forms.Label();
             this.textBoxFileFilter = new System.Windows.Forms.TextBox();
@@ -60,10 +66,10 @@ namespace QuickImageComment
             this.listViewFiles.ContextMenuStrip = this.contextMenuStripListViewFiles;
             this.listViewFiles.FullRowSelect = true;
             this.listViewFiles.HideSelection = false;
-            this.listViewFiles.Location = new System.Drawing.Point(0, 34);
+            this.listViewFiles.Location = new System.Drawing.Point(0, 29);
             this.listViewFiles.Name = "listViewFiles";
             this.listViewFiles.OwnerDraw = true;
-            this.listViewFiles.Size = new System.Drawing.Size(326, 396);
+            this.listViewFiles.Size = new System.Drawing.Size(280, 344);
             this.listViewFiles.TabIndex = 4;
             this.listViewFiles.TileSize = new System.Drawing.Size(200, 120);
             this.listViewFiles.UseCompatibleStateImageBehavior = false;
@@ -100,53 +106,97 @@ namespace QuickImageComment
             this.contextMenuStripMenuItemTile,
             this.contextMenuStripMenuItemList,
             this.contextMenuStripMenuItemDetails,
+            this.toolStripSeparator1,
+            this.contextMenuStripMenuItemSortAsc,
+            this.contextMenuStripMenuItemSortName,
+            this.contextMenuStripMenuItemSortChanged,
+            this.contextMenuStripMenuItemSortCreated,
+            this.toolStripSeparator2,
             this.contextMenuStripMenuItemTileAdjust});
             this.contextMenuStripListViewFiles.Name = "contextMenuStripListViewFiles";
             this.contextMenuStripListViewFiles.ShowCheckMargin = true;
             this.contextMenuStripListViewFiles.ShowImageMargin = false;
-            this.contextMenuStripListViewFiles.Size = new System.Drawing.Size(162, 114);
+            this.contextMenuStripListViewFiles.Size = new System.Drawing.Size(203, 214);
             // 
             // contextMenuStripMenuItemLargeIcons
             // 
             this.contextMenuStripMenuItemLargeIcons.Name = "contextMenuStripMenuItemLargeIcons";
-            this.contextMenuStripMenuItemLargeIcons.Size = new System.Drawing.Size(161, 22);
+            this.contextMenuStripMenuItemLargeIcons.Size = new System.Drawing.Size(202, 22);
             this.contextMenuStripMenuItemLargeIcons.Text = "Miniaturansicht";
             this.contextMenuStripMenuItemLargeIcons.Click += new System.EventHandler(this.contextMenuStripMenuItemLargeIcons_Click);
             // 
             // contextMenuStripMenuItemTile
             // 
             this.contextMenuStripMenuItemTile.Name = "contextMenuStripMenuItemTile";
-            this.contextMenuStripMenuItemTile.Size = new System.Drawing.Size(161, 22);
+            this.contextMenuStripMenuItemTile.Size = new System.Drawing.Size(202, 22);
             this.contextMenuStripMenuItemTile.Text = "Anzeige Kacheln";
             this.contextMenuStripMenuItemTile.Click += new System.EventHandler(this.contextMenuStripMenuItemTile_Click);
             // 
             // contextMenuStripMenuItemList
             // 
             this.contextMenuStripMenuItemList.Name = "contextMenuStripMenuItemList";
-            this.contextMenuStripMenuItemList.Size = new System.Drawing.Size(161, 22);
+            this.contextMenuStripMenuItemList.Size = new System.Drawing.Size(202, 22);
             this.contextMenuStripMenuItemList.Text = "Liste";
             this.contextMenuStripMenuItemList.Click += new System.EventHandler(this.contextMenuStripMenuItemList_Click);
             // 
             // contextMenuStripMenuItemDetails
             // 
             this.contextMenuStripMenuItemDetails.Name = "contextMenuStripMenuItemDetails";
-            this.contextMenuStripMenuItemDetails.Size = new System.Drawing.Size(161, 22);
+            this.contextMenuStripMenuItemDetails.Size = new System.Drawing.Size(202, 22);
             this.contextMenuStripMenuItemDetails.Text = "Details";
             this.contextMenuStripMenuItemDetails.Click += new System.EventHandler(this.contextMenuStripMenuItemDetails_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(199, 6);
+            // 
+            // contextMenuStripMenuItemSortAsc
+            // 
+            this.contextMenuStripMenuItemSortAsc.Name = "contextMenuStripMenuItemSortAsc";
+            this.contextMenuStripMenuItemSortAsc.Size = new System.Drawing.Size(202, 22);
+            this.contextMenuStripMenuItemSortAsc.Text = "Sortierung - aufsteigend";
+            this.contextMenuStripMenuItemSortAsc.Click += new System.EventHandler(this.contextMenuStripMenuItemSortAsc_Click);
+            // 
+            // contextMenuStripMenuItemSortName
+            // 
+            this.contextMenuStripMenuItemSortName.Name = "contextMenuStripMenuItemSortName";
+            this.contextMenuStripMenuItemSortName.Size = new System.Drawing.Size(202, 22);
+            this.contextMenuStripMenuItemSortName.Text = "... nach Name";
+            this.contextMenuStripMenuItemSortName.Click += new System.EventHandler(this.contextMenuStripMenuItemSortColumn_Click);
+            // 
+            // contextMenuStripMenuItemSortChanged
+            // 
+            this.contextMenuStripMenuItemSortChanged.Name = "contextMenuStripMenuItemSortChanged";
+            this.contextMenuStripMenuItemSortChanged.Size = new System.Drawing.Size(202, 22);
+            this.contextMenuStripMenuItemSortChanged.Text = "... nach Modifiziert";
+            this.contextMenuStripMenuItemSortChanged.Click += new System.EventHandler(this.contextMenuStripMenuItemSortColumn_Click);
+            // 
+            // contextMenuStripMenuItemSortCreated
+            // 
+            this.contextMenuStripMenuItemSortCreated.Name = "contextMenuStripMenuItemSortCreated";
+            this.contextMenuStripMenuItemSortCreated.Size = new System.Drawing.Size(202, 22);
+            this.contextMenuStripMenuItemSortCreated.Text = "... nach Erstellt";
+            this.contextMenuStripMenuItemSortCreated.Click += new System.EventHandler(this.contextMenuStripMenuItemSortColumn_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(199, 6);
             // 
             // contextMenuStripMenuItemTileAdjust
             // 
             this.contextMenuStripMenuItemTileAdjust.Name = "contextMenuStripMenuItemTileAdjust";
-            this.contextMenuStripMenuItemTileAdjust.Size = new System.Drawing.Size(161, 22);
+            this.contextMenuStripMenuItemTileAdjust.Size = new System.Drawing.Size(202, 22);
             this.contextMenuStripMenuItemTileAdjust.Text = "Felder anpassen";
             this.contextMenuStripMenuItemTileAdjust.Click += new System.EventHandler(this.contextMenuStripMenuItemTileAdjust_Click);
             // 
             // labelFilter
             // 
             this.labelFilter.AutoSize = true;
-            this.labelFilter.Location = new System.Drawing.Point(0, 9);
+            this.labelFilter.Location = new System.Drawing.Point(0, 8);
             this.labelFilter.Name = "labelFilter";
-            this.labelFilter.Size = new System.Drawing.Size(68, 15);
+            this.labelFilter.Size = new System.Drawing.Size(60, 13);
             this.labelFilter.TabIndex = 1;
             this.labelFilter.Text = "Datei-Filter:";
             // 
@@ -154,10 +204,9 @@ namespace QuickImageComment
             // 
             this.textBoxFileFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxFileFilter.Location = new System.Drawing.Point(78, 5);
-            this.textBoxFileFilter.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.textBoxFileFilter.Location = new System.Drawing.Point(67, 4);
             this.textBoxFileFilter.Name = "textBoxFileFilter";
-            this.textBoxFileFilter.Size = new System.Drawing.Size(209, 23);
+            this.textBoxFileFilter.Size = new System.Drawing.Size(180, 20);
             this.textBoxFileFilter.TabIndex = 2;
             this.textBoxFileFilter.Tag = "";
             this.textBoxFileFilter.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxFileFilter_KeyDown);
@@ -165,10 +214,10 @@ namespace QuickImageComment
             // buttonFilterFiles
             // 
             this.buttonFilterFiles.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonFilterFiles.Location = new System.Drawing.Point(291, 3);
+            this.buttonFilterFiles.Location = new System.Drawing.Point(249, 3);
             this.buttonFilterFiles.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);
             this.buttonFilterFiles.Name = "buttonFilterFiles";
-            this.buttonFilterFiles.Size = new System.Drawing.Size(35, 27);
+            this.buttonFilterFiles.Size = new System.Drawing.Size(30, 23);
             this.buttonFilterFiles.TabIndex = 3;
             this.buttonFilterFiles.Text = "OK";
             this.buttonFilterFiles.UseVisualStyleBackColor = true;
@@ -176,14 +225,14 @@ namespace QuickImageComment
             // 
             // UserControlFiles
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.buttonFilterFiles);
             this.Controls.Add(this.textBoxFileFilter);
             this.Controls.Add(this.labelFilter);
             this.Controls.Add(this.listViewFiles);
             this.Name = "UserControlFiles";
-            this.Size = new System.Drawing.Size(326, 430);
+            this.Size = new System.Drawing.Size(279, 373);
             this.contextMenuStripListViewFiles.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -205,5 +254,11 @@ namespace QuickImageComment
         private System.Windows.Forms.ToolStripMenuItem contextMenuStripMenuItemList;
         private System.Windows.Forms.ToolStripMenuItem contextMenuStripMenuItemDetails;
         private System.Windows.Forms.ToolStripMenuItem contextMenuStripMenuItemTileAdjust;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem contextMenuStripMenuItemSortName;
+        private System.Windows.Forms.ToolStripMenuItem contextMenuStripMenuItemSortChanged;
+        private System.Windows.Forms.ToolStripMenuItem contextMenuStripMenuItemSortCreated;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem contextMenuStripMenuItemSortAsc;
     }
 }

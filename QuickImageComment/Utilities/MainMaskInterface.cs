@@ -146,7 +146,7 @@ namespace QuickImageComment
             // if main mask is not already closing
             if (!FormQuickImageComment.closing)
             {
-                theFormQuickImageComment.setToolStripStatusLabelBufferingThread(visible);
+                new System.Threading.Tasks.Task(() => { theFormQuickImageComment.setToolStripStatusLabelBufferingThread(visible); }).Start();
             }
         }
 
@@ -360,6 +360,45 @@ namespace QuickImageComment
             if (!FormQuickImageComment.closing)
             {
                 theFormQuickImageComment.theUserControlFiles.listViewFiles.redrawItemWithThumbnail(fullFileName);
+            }
+        }
+
+        internal static string getFileName(int index)
+        {
+            // if main mask is not already closing
+            if (!FormQuickImageComment.closing)
+            {
+                return theFormQuickImageComment.theUserControlFiles.listViewFiles.Items[index].Text;
+            }
+            else
+            {
+                return "";
+            }
+        }
+
+        internal static string getFullFileName(int index)
+        {
+            // if main mask is not already closing
+            if (!FormQuickImageComment.closing)
+            {
+                return theFormQuickImageComment.theUserControlFiles.listViewFiles.Items[index].Name;
+            }
+            else
+            {
+                return "";
+            }
+        }
+
+        internal static int getListViewFilesCount()
+        {
+            // if main mask is not already closing
+            if (!FormQuickImageComment.closing)
+            {
+                return theFormQuickImageComment.theUserControlFiles.listViewFiles.Items.Count;
+            }
+            else
+            {
+                return 0;
             }
         }
 

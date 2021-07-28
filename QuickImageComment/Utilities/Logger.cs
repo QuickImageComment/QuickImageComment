@@ -127,13 +127,13 @@ namespace QuickImageComment
         // log one message with calling stack trace
         public static void log(string message, int stackLevel)
         {
-            System.Diagnostics.StackTrace stackTrace = new System.Diagnostics.StackTrace();
+            System.Diagnostics.StackTrace stackTrace = new System.Diagnostics.StackTrace(true);
             System.Diagnostics.StackFrame[] stackFrames = stackTrace.GetFrames();
 
             string traceString = "";
             for (long ii = 1; ii < stackFrames.Length && ii <= stackLevel + 1; ii++)
             {
-                traceString = traceString + "@" + stackFrames[ii].GetMethod().Name;
+                traceString = traceString + "@" + stackFrames[ii].GetMethod().Name + "-" + stackFrames[ii].GetFileLineNumber().ToString();
             }
             traceString = traceString + ": " + message;
 

@@ -33,6 +33,8 @@ namespace QuickImageCommentControls
         [System.Runtime.InteropServices.DllImport("user32.dll")]
         private static extern int SendMessage(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam);
 
+        internal bool sortAscending = true;
+
         private Thread delayAfterMouseWheelThread;
         private delegate void workAfterMouseWheelCallback();
         private delegate void redrawItemWithThumbnailCallback(string fullFileName);
@@ -50,13 +52,50 @@ namespace QuickImageCommentControls
         private SortedList<string, Image> thumbNails = new SortedList<string, Image>();
         private ArrayList filesNeedingRedraw = new ArrayList();
 
-        public int[] SelectedIndicesOld;
-        public int[] SelectedIndicesNew;
+        public ArrayList selectedFilesOld;
 
         private const int WM_MOUSEWHEEL = 0x0020a;
         private const int WM_VSCROLL = 0x0115;
 
         public event ScrollEventHandler Scroll;
+
+        // Implements the manual sorting of items by columns.
+        internal class ListViewItemComparer : IComparer
+        {
+            private int col;
+            private readonly ListViewFiles listViewFiles;
+            public ListViewItemComparer(ListViewFiles listViewFiles)
+            {
+                col = 0;
+                this.listViewFiles = listViewFiles;
+            }
+            public ListViewItemComparer(int column, ListViewFiles listViewFiles)
+            {
+                col = column;
+                this.listViewFiles = listViewFiles;
+            }
+            public int Compare(object x, object y)
+            {
+                int result = 0;
+                if (col == 2 || col == 3)
+                {
+                    // column 2 and 3 are dates
+                    DateTime dateTimex = DateTime.Parse(((ListViewItem)x).SubItems[col].Text);
+                    DateTime dateTimey = DateTime.Parse(((ListViewItem)y).SubItems[col].Text);
+                    result = DateTime.Compare(dateTimex, dateTimey);
+                }
+                else
+                {
+                    // other columns compared as string
+                    result = string.Compare(((ListViewItem)x).SubItems[col].Text, ((ListViewItem)y).SubItems[col].Text);
+                }
+
+                if (listViewFiles.sortAscending)
+                    return result;
+                else
+                    return -result;
+            }
+        }
 
         public void init()
         {
@@ -69,9 +108,8 @@ namespace QuickImageCommentControls
 
             ThumbNailSize = ConfigDefinition.getConfigInt(ConfigDefinition.enumConfigInt.ThumbNailSize);
 
-            // Init list of last selected file indices
-            SelectedIndicesOld = new int[0];
-            SelectedIndicesNew = new int[0];
+            // Init list of last selected files
+            selectedFilesOld = new ArrayList();
 
             // set size and other properties for image lists
             // imageListTiles only used to set image size for Tiles display
@@ -202,7 +240,7 @@ namespace QuickImageCommentControls
                 bool displayThumbnail = !listViewFilesScrolling || ImageManager.extendedImageLoaded(theListViewItem.Index);
 
                 GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceListViewFilesDrawItem,
-                    "listViewFiles_DrawItem FileIndex=" + theListViewItem.Index.ToString());
+                    "listViewFiles_DrawItem FileIndex=" + theListViewItem.Index.ToString() + " displayThumbnail=" + displayThumbnail.ToString());
 
                 if (displayThumbnail)
                 {
@@ -363,7 +401,7 @@ namespace QuickImageCommentControls
                         {
                             // clear thumbnails to force redraw
                             clearThumbnails();
-                            RedrawItems(ii, ii, true);
+                            Refresh();
                         }
                     }
                 }
@@ -377,17 +415,26 @@ namespace QuickImageCommentControls
             return Items.IndexOfKey(fullFileName);
         }
 
-        // find index to insert new file according sort order
-        public int findIndexToInsert(string fullFileName)
+        // get indices of old selected files
+        public ArrayList getSelectedIndicesOld()
         {
-            for (int ii = 0; ii < this.Items.Count; ii++)
+            ArrayList arrayList = new ArrayList();
+            for (int ii = 0; ii < selectedFilesOld.Count; ii++)
             {
-                if (fullFileName.CompareTo(this.Items[ii].Name) < 0)
-                {
-                    return ii;
-                }
+                arrayList.Add(getIndexOf((string)selectedFilesOld[ii]));
             }
-            return this.Items.Count;
+            return arrayList;
+        }
+
+        // get array list of selected full file names
+        public ArrayList getSelectedFullFileNames()
+        {
+            ArrayList arrayList = new ArrayList();
+            foreach (ListViewItem listViewItem in SelectedItems)
+            {
+                arrayList.Add(listViewItem.Name);
+            }
+            return arrayList;
         }
 
         // utility needed by ListViewItem_SetSpacing
@@ -402,6 +449,22 @@ namespace QuickImageCommentControls
             const int LVM_FIRST = 0x1000;
             const int LVM_SETICONSPACING = LVM_FIRST + 53;
             SendMessage(listview.Handle, LVM_SETICONSPACING, IntPtr.Zero, (IntPtr)MakeLong(leftPadding, topPadding));
+        }
+
+        // set column for sorting
+        internal void setColumnToSort(string senderName)
+        {
+            for (int ii = 0; ii < Columns.Count; ii++)
+            {
+                // column headers are columnHeaderxxx
+                if (senderName.EndsWith(Columns[ii].Name.Substring(12)))
+                {
+                    this.ListViewItemSorter = new ListViewItemComparer(ii, this);
+                    return;
+                }
+            }
+            // header not found
+            throw new Exception("Internal error: senderName \"" + senderName + "\" not considered");
         }
 
         // to allow disabling refreshing thumbnails during scrolling

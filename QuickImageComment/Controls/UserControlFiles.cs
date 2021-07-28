@@ -15,6 +15,7 @@
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 using System;
+using System.Collections;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
@@ -24,7 +25,7 @@ namespace QuickImageComment
     internal partial class UserControlFiles : UserControl
     {
         // delay in milliseconds after event "selected index changed" to display image and do further actions
-        private const int delayTimeAfterSelectedIndexChanged = 10;
+        private const int delayTimeAfterSelectedIndexChanged = 50;
 
         private Thread delayAfterSelectedIndexChangedThread;
         private delegate void workAfterSelectedIndexChangedCallback();
@@ -32,11 +33,12 @@ namespace QuickImageComment
 
         internal static object LockListViewFiles = new object();
 
-        // index of last selected image
-        internal int lastFileIndex = -1;
         // flag to indicate if file list is filled with complete content of folder
         // is used to decide, which updates from ShellListener affect listViewFiles
         internal static bool listViewWithCompleteFolder = false;
+
+        private string lastSavedFileName = "";
+        private DateTime lastSavedFileDateTime = DateTime.Now;
 
         internal UserControlFiles()
         {
@@ -49,6 +51,8 @@ namespace QuickImageComment
             delayAfterSelectedIndexChangedThread = new Thread(delayAfterSelectedIndexChanged);
 
             listViewFiles.init();
+            contextMenuStripMenuItemSortColumn_Click(contextMenuStripMenuItemSortName, null);
+            contextMenuStripMenuItemSortAsc.Checked = listViewFiles.sortAscending;
 
             // adjust width of columns
             // attention: in listViewFiles it works only in view "Details"
@@ -66,7 +70,7 @@ namespace QuickImageComment
         // activate filter for file names
         private void buttonFilterFiles_Click(object sender, EventArgs e)
         {
-            if (theFormQuickImageComment.continueAfterCheckForChangesAndOptionalSaving(listViewFiles.SelectedIndicesNew))
+            if (theFormQuickImageComment.continueAfterCheckForChangesAndOptionalSaving(listViewFiles.SelectedIndices))
             {
                 theFormQuickImageComment.readFolderAndDisplayImage(0);
             }
@@ -120,6 +124,41 @@ namespace QuickImageComment
                 theFormQuickImageComment.afterMetaDataDefinitionChange();
             }
         }
+
+        // set sorting of files
+        private void contextMenuStripMenuItemSortColumn_Click(object sender, EventArgs e)
+        {
+            contextMenuStripMenuItemSortCreated.Checked = false;
+            contextMenuStripMenuItemSortChanged.Checked = false;
+            contextMenuStripMenuItemSortName.Checked = false;
+            ((ToolStripMenuItem)sender).Checked = true;
+            listViewFiles.setColumnToSort(((ToolStripMenuItem)sender).Name);
+            // to enable/disable buttons first, previous, next last
+            if (theFormQuickImageComment.theExtendedImage != null && listViewFiles.SelectedIndices.Count == 1)
+            {
+                theFormQuickImageComment.setSingleImageControlsEnabled(true);
+            }
+            if (listViewFiles.FocusedItem != null)
+            {
+                listViewFiles.FocusedItem.EnsureVisible();
+            }
+        }
+        private void contextMenuStripMenuItemSortAsc_Click(object sender, EventArgs e)
+        {
+            listViewFiles.sortAscending = !listViewFiles.sortAscending;
+            listViewFiles.Sort();
+            contextMenuStripMenuItemSortAsc.Checked = listViewFiles.sortAscending;
+            // to enable/disable buttons first, previous, next last
+            if (theFormQuickImageComment.theExtendedImage != null && listViewFiles.SelectedIndices.Count == 1)
+            {
+                theFormQuickImageComment.setSingleImageControlsEnabled(true);
+            }
+            if (listViewFiles.FocusedItem != null)
+            {
+                listViewFiles.FocusedItem.EnsureVisible();
+            }
+        }
+
         // event handler when item is double clicked
         private void listViewFiles_DoubleClick(object sender, EventArgs e)
         {
@@ -187,7 +226,7 @@ namespace QuickImageComment
         {
             if (theKeyEventArgs.KeyCode == Keys.Return && !theKeyEventArgs.Shift)
             {
-                if (theFormQuickImageComment.continueAfterCheckForChangesAndOptionalSaving(listViewFiles.SelectedIndicesNew))
+                if (theFormQuickImageComment.continueAfterCheckForChangesAndOptionalSaving(listViewFiles.SelectedIndices))
                 {
                     theFormQuickImageComment.readFolderAndDisplayImage(0);
                 }
@@ -249,53 +288,64 @@ namespace QuickImageComment
             {
                 GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceWorkAfterSelectionOfFile, "start", 0);
 
-                listViewFiles.SelectedIndicesOld = new int[listViewFiles.SelectedIndicesNew.Length];
-                listViewFiles.SelectedIndicesNew.CopyTo(listViewFiles.SelectedIndicesOld, 0);
-
-                listViewFiles.SelectedIndicesNew = new int[listViewFiles.SelectedIndices.Count];
-                listViewFiles.SelectedIndices.CopyTo(listViewFiles.SelectedIndicesNew, 0);
-
                 if (ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.TraceWorkAfterSelectionOfFile))
                 {
                     string traceString = " Old";
-                    for (int ii = 0; ii < listViewFiles.SelectedIndicesOld.Length; ii++)
+                    foreach (int index in listViewFiles.getSelectedIndicesOld())
                     {
-                        traceString = traceString + " " + listViewFiles.SelectedIndicesOld[ii].ToString();
+                        traceString = traceString + " " + index.ToString();
                     }
                     traceString = traceString + "   New";
-                    for (int ii = 0; ii < listViewFiles.SelectedIndicesNew.Length; ii++)
+                    for (int ii = 0; ii < listViewFiles.SelectedIndices.Count; ii++)
                     {
-                        traceString = traceString + " " + listViewFiles.SelectedIndicesNew[ii].ToString();
+                        traceString = traceString + " " + listViewFiles.SelectedIndices[ii].ToString();
                     }
                     GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceWorkAfterSelectionOfFile, traceString, 0);
+                }
+
+                int newIndexCount = listViewFiles.SelectedIndices.Count;
+                int oldIndexCount = listViewFiles.selectedFilesOld.Count;
+                if (newIndexCount == oldIndexCount)
+                {
+                    bool differenceFound = false;
+                    System.Collections.ArrayList selectedIndicesOld = listViewFiles.getSelectedIndicesOld();
+                    for (int ii = 0; ii < oldIndexCount; ii++)
+                    {
+                        if (!listViewFiles.SelectedIndices.Contains((int)selectedIndicesOld[ii]))
+                        {
+                            //Logger.log("index not found " + ii.ToString() + "=" + selectedIndicesOld[ii].ToString());
+                            differenceFound = true;
+                            break;
+                        }
+                    }
+                    if (!differenceFound)
+                    {
+                        // nothing to do
+                        return;
+                    }
                 }
 
                 // do not perform actions when already closing - might try to access objects already gone
                 if (!FormQuickImageComment.closing)
                 {
-                    int newIndexCount = listViewFiles.SelectedIndicesNew.Length;
-                    int oldIndexCount = listViewFiles.SelectedIndicesOld.Length;
-
                     // check if all previously selected images are deselected
                     bool allDeselected = true;
+                    System.Collections.ArrayList selectedFilesNew = listViewFiles.getSelectedFullFileNames();
                     for (int iold = 0; iold < oldIndexCount; iold++)
                     {
-                        for (int inew = 0; inew < newIndexCount; inew++)
+                        if (selectedFilesNew.Contains(listViewFiles.selectedFilesOld[iold]))
                         {
-                            if (listViewFiles.SelectedIndicesNew[inew] == listViewFiles.SelectedIndicesOld[iold])
-                            {
-                                allDeselected = false;
-                                break;
-                            }
+                            allDeselected = false;
+                            break;
                         }
                     }
 
                     if (newIndexCount == 0 || newIndexCount == 1)
                     {
                         // if changes of last selected image(s) were not saved, ask user
-                        if (lastFileIndex >= 0 && allDeselected)
+                        if (oldIndexCount > 0 && allDeselected)
                         {
-                            if (!(theFormQuickImageComment.continueAfterCheckForChangesAndOptionalSaving(listViewFiles.SelectedIndicesOld)))
+                            if (!(theFormQuickImageComment.continueAfterCheckForChangesAndOptionalSaving(listViewFiles.getSelectedIndicesOld())))
                             {
                                 GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceWorkAfterSelectionOfFile,
                                     "restore last selection", 0);
@@ -315,11 +365,17 @@ namespace QuickImageComment
                         }
                         if (newIndexCount == 0)
                         {
-                            lastFileIndex = -1;
+                            if (listViewFiles.FocusedItem != null)
+                            {
+                                listViewFiles.FocusedItem.Focused = false;
+                            }
                         }
                         else if (newIndexCount == 1)
                         {
-                            lastFileIndex = listViewFiles.SelectedIndicesNew[0];
+                            if (!listViewFiles.SelectedItems[0].Focused)
+                            {
+                                listViewFiles.SelectedItems[0].Focused = true;
+                            }
                         }
                     }
                     else if (newIndexCount > oldIndexCount)
@@ -330,25 +386,16 @@ namespace QuickImageComment
                         // more files selected than before, get the latest selected
                         for (int inew = 0; inew < newIndexCount; inew++)
                         {
-                            bool indexFound = false;
-                            for (int iold = 0; iold < oldIndexCount; iold++)
-                            {
-                                if (listViewFiles.SelectedIndicesOld[iold] == listViewFiles.SelectedIndicesNew[inew])
-                                {
-                                    indexFound = true;
-                                    break;
-                                }
-                            }
-                            if (!indexFound)
+                            if (!listViewFiles.selectedFilesOld.Contains(selectedFilesNew[inew]))
                             {
                                 // if multiple images are selected, update values in changeable fields area 
                                 // needs to be done always, even if the image is not displayed
                                 // otherwise values are not blanked in case an image inbetween has a different value
-                                int fileIndex = listViewFiles.SelectedIndicesNew[inew];
+                                int fileIndex = listViewFiles.SelectedIndices[inew];
+                                //Logger.log("new selected " + fileIndex.ToString() + " " + selectedFilesNew[inew]);
                                 theFormQuickImageComment.disableEventHandlersRecogniseUserInput();
                                 theFormQuickImageComment.updateAllChangeableDataForMultipleSelection(ImageManager.getExtendedImage(fileIndex, false));
                                 theFormQuickImageComment.enableEventHandlersRecogniseUserInput();
-                                lastFileIndex = listViewFiles.SelectedIndicesNew[inew];
 #if APPCENTER
                                 newIndexFound = true;
 #endif
@@ -367,13 +414,14 @@ namespace QuickImageComment
                     else if (newIndexCount < oldIndexCount)
                     {
                         // a file has been deselected
-                        lastFileIndex = listViewFiles.SelectedIndicesNew[0]; ;
+                        // newIndexCount is greater 1, values 0 and 1 are handled above
+                        listViewFiles.SelectedItems[0].Focused = true;
                     }
 
                     GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceWorkAfterSelectionOfFile, "before displayImage", 0);
-                    if (lastFileIndex >= 0)
+                    if (newIndexCount > 0)
                     {
-                        theFormQuickImageComment.displayImage(lastFileIndex);
+                        theFormQuickImageComment.displayImage(focusedIndex());
                     }
                     else
                     {
@@ -400,9 +448,9 @@ namespace QuickImageComment
                     }
 
                     // Scroll List to display selected item
-                    if (lastFileIndex > -1)
+                    if (newIndexCount > 0)
                     {
-                        listViewFiles.EnsureVisible(lastFileIndex);
+                        listViewFiles.EnsureVisible(focusedIndex());
                     }
 
                     theFormQuickImageComment.refreshdataGridViewSelectedFiles();
@@ -410,11 +458,19 @@ namespace QuickImageComment
                     // update cache only if exactly one file is selected
                     // during updating cache extended images are deleted, which might be still necessary
                     // when multiple images are selected
+                    //!! beim Füllen des Cache prüfen, ob selektierte Dateien rausgeworfen werden?
                     if (listViewFiles.SelectedItems.Count == 1)
                     {
-                        ImageManager.startThreadToUpdateCaches(listViewFiles.SelectedIndices[0]);
+                        ImageManager.fillListOfFilesToCache(listViewFiles.SelectedIndices[0]);
+                        ImageManager.startThreadToUpdateCaches();
                     }
                 }
+                listViewFiles.selectedFilesOld = new System.Collections.ArrayList();
+                for (int ii = 0; ii < listViewFiles.SelectedItems.Count; ii++)
+                {
+                    listViewFiles.selectedFilesOld.Add(listViewFiles.SelectedItems[ii].Name);
+                }
+                //Logger.log(getLogStringIndex());
             }
         }
 
@@ -439,35 +495,29 @@ namespace QuickImageComment
                     if (ii >= 0)
                     {
                         // file already in listViewFiles --> update
-                        string MessageText = theFormQuickImageComment.getChangedFields();
-                        if (MessageText.Equals("") || !listViewFiles.SelectedIndices.Contains(ii))
+                        if (!fullFileName.Equals(lastSavedFileName) || !theFileInfo.LastWriteTime.Equals(lastSavedFileDateTime))
                         {
-                            bool wasDisplayed = false;
-                            bool wasSelected = false;
-                            if (ii == lastFileIndex) wasDisplayed = true;
-                            if (listViewFiles.SelectedIndices.Contains(ii)) wasSelected = true;
-
-                            ListViewItem listViewItem = ImageManager.updateListViewItemAndImage(ii, theFileInfo);
-                            // save current view
-                            View tempView = listViewFiles.View;
-                            // change to list-view to avoid changing the order when updating ViewItem
-                            listViewFiles.View = View.List;
-                            listViewFiles.Items[ii] = listViewItem;
-                            // restore view
-                            listViewFiles.View = tempView;
-
-                            if (wasDisplayed)
+                            // this is not information about the last saving within this program
+                            string MessageText = theFormQuickImageComment.getChangedFields();
+                            if (MessageText.Equals("") || !listViewFiles.SelectedIndices.Contains(ii))
                             {
-                                lastFileIndex = ii;
-                                theFormQuickImageComment.displayImage(lastFileIndex);
+                                ListViewItem listViewItem = ImageManager.updateListViewItemAndImage(theFileInfo);
+                                for (int kk = 0; kk < listViewItem.SubItems.Count; kk++)
+                                {
+                                    listViewFiles.Items[ii].SubItems[kk] = listViewItem.SubItems[kk];
+                                }
+                                if (listViewFiles.Items[ii].Focused)
+                                {
+                                    theFormQuickImageComment.displayImage(ii);
+                                }
+                                // clear thumbnail to get it recreated during redraw item
+                                listViewFiles.clearThumbnailForFile(fullFileName);
+                                listViewFiles.Refresh();
                             }
-                            // clear thumbnail to get it recreated again during redraw items
-                            listViewFiles.clearThumbnailForFile(listViewFiles.Items[ii].Name);
-
-                            if (wasSelected) listViewFiles.SelectedIndices.Add(ii);
-                            // update SelectedIndicesNew
-                            listViewFiles.SelectedIndicesNew = new int[listViewFiles.SelectedIndices.Count];
-                            listViewFiles.SelectedIndices.CopyTo(listViewFiles.SelectedIndicesNew, 0);
+                        }
+                        else
+                        {
+                            //Logger.log("was just saved " + fullFileName, 2);
                         }
                     }
                     else
@@ -483,18 +533,11 @@ namespace QuickImageComment
                                 View tempView = listViewFiles.View;
                                 // change to list-view to ensure inserting in correct order
                                 listViewFiles.View = View.List;
-                                // insert item
-                                ii = listViewFiles.findIndexToInsert(theFileInfo.FullName);
-                                ListViewItem listViewItem = ImageManager.insertNewListViewItemAndEmptyImage(ii, theFileInfo);
-                                listViewFiles.Items.Insert(ii, listViewItem);
+                                ListViewItem listViewItem = ImageManager.newListViewFilesItem(theFileInfo);
+                                listViewFiles.Items.Add(listViewItem);
 
                                 // restore view
                                 listViewFiles.View = tempView;
-                                // if inserted before last file selected for display, shift index
-                                if (ii <= lastFileIndex) lastFileIndex++;
-                                // update SelectedIndicesNew
-                                listViewFiles.SelectedIndicesNew = new int[listViewFiles.SelectedIndices.Count];
-                                listViewFiles.SelectedIndices.CopyTo(listViewFiles.SelectedIndicesNew, 0);
 
                                 theFormQuickImageComment.toolStripStatusLabelFiles.Text = LangCfg.translate("Bilder/Videos", this.Name) + ": " + listViewFiles.Items.Count.ToString();
                             }
@@ -518,13 +561,24 @@ namespace QuickImageComment
                         // file in listViewFiles --> delete
                         ImageManager.deleteExtendedImage(ii);
                         // remove item in listView
-                        listViewFiles.Items.RemoveAt(ii);
-                        // if deleted before last file selected for display, shift index
-                        if (ii <= lastFileIndex) lastFileIndex--;
-                        if (lastFileIndex == -1) lastFileIndex = 0;
-                        // update SelectedIndicesNew
-                        listViewFiles.SelectedIndicesNew = new int[listViewFiles.SelectedIndices.Count];
-                        listViewFiles.SelectedIndices.CopyTo(listViewFiles.SelectedIndicesNew, 0);
+                        if (listViewFiles.Items[ii].Focused)
+                        {
+                            listViewFiles.Items[ii].Focused = false;
+                            listViewFiles.Items.RemoveAt(ii);
+                            if (listViewFiles.SelectedIndices.Count > 0)
+                            {
+                                listViewFiles.Items[listViewFiles.SelectedIndices[0]].Focused = true;
+                            }
+                            theFormQuickImageComment.displayImage(listViewFiles.SelectedIndices[0]);
+                        }
+                        else
+                        {
+                            listViewFiles.Items.RemoveAt(ii);
+                        }
+                        if (listViewFiles.selectedFilesOld.Contains(fullFileName))
+                        {
+                            listViewFiles.selectedFilesOld.Remove(fullFileName);
+                        }
                         theFormQuickImageComment.toolStripStatusLabelFiles.Text = LangCfg.translate("Bilder/Videos", this.Name) + ": " + listViewFiles.Items.Count.ToString();
                     }
                 }
@@ -549,18 +603,18 @@ namespace QuickImageComment
                     int ii = listViewFiles.getIndexOf(oldFullFileName);
                     if (ii >= 0)
                     {
-                        if (ii == lastFileIndex) wasDisplayed = true;
+                        if (ii == focusedIndex()) wasDisplayed = true;
                         if (listViewFiles.SelectedIndices.Contains(ii)) wasSelected = true;
 
                         // delete entry in lists in Image Manager
                         ImageManager.deleteExtendedImage(ii);
                         // remove item in listView
                         listViewFiles.Items.RemoveAt(ii);
-                        // if deleted before last file selected for display, shift index
-                        if (ii <= lastFileIndex) lastFileIndex--;
-                        if (lastFileIndex == -1) lastFileIndex = 0;
+                        if (listViewFiles.selectedFilesOld.Contains(oldFullFileName))
+                        {
+                            listViewFiles.selectedFilesOld.Remove(oldFullFileName);
+                        }
                     }
-
                     // step 2: add new entry
                     // only if old entry was deleted
                     // in network devices, rename event was triggered twice
@@ -573,34 +627,73 @@ namespace QuickImageComment
                         View tempView = listViewFiles.View;
                         // change to list-view to ensure inserting in correct order
                         listViewFiles.View = View.List;
-                        // insert item
-                        int jj = listViewFiles.findIndexToInsert(theFileInfo.FullName);
-                        ListViewItem listViewItem = ImageManager.insertNewListViewItemAndEmptyImage(jj, theFileInfo);
-                        listViewFiles.Items.Insert(jj, listViewItem);
+                        ListViewItem listViewItem = ImageManager.newListViewFilesItem(theFileInfo);
+                        listViewFiles.Items.Add(listViewItem);
                         // restore view
                         listViewFiles.View = tempView;
-                        // if inserted before last file selected for display, shift index
-                        if (jj <= lastFileIndex) lastFileIndex++;
 
                         if (wasDisplayed)
                         {
-                            lastFileIndex = jj;
-                            theFormQuickImageComment.displayImage(lastFileIndex);
+                            listViewItem.Focused = true;
+                            theFormQuickImageComment.displayImage(listViewItem.Index);
                         }
-                        if (wasSelected) listViewFiles.SelectedIndices.Add(jj);
+                        if (wasSelected)
+                        {
+                            listViewFiles.SelectedIndices.Add(listViewItem.Index);
+                            listViewFiles.selectedFilesOld.Add(newFullFileName);
+                        }
                     }
-                    // update SelectedIndicesNew
-                    listViewFiles.SelectedIndicesNew = new int[listViewFiles.SelectedIndices.Count];
-                    listViewFiles.SelectedIndices.CopyTo(listViewFiles.SelectedIndicesNew, 0);
                 }
 
                 theFormQuickImageComment.toolStripStatusLabelFiles.Text = LangCfg.translate("Bilder/Videos", this.Name) + ": " + listViewFiles.Items.Count.ToString();
             }
         }
 
+        // save name and DateTime of last saved file
+        // used to check in createOrUpdateItemListViewFiles, if ShellListener informs about just saved file
+        internal void storeNameDateTimeLastSaveFocusedFile()
+        {
+            lastSavedFileName = listViewFiles.FocusedItem.Name;
+            FileInfo fileInfo = new FileInfo(lastSavedFileName);
+            lastSavedFileDateTime = fileInfo.LastWriteTime;
+        }
+
         //*****************************************************************
         // others
         //*****************************************************************
+        // get index of focused (last selected) item
+        internal int focusedIndex()
+        {
+            // when no files are selected and focus switched to another application and back, FocusedItem is set
+            if (listViewFiles.FocusedItem != null && listViewFiles.SelectedIndices.Count > 0)
+                return listViewFiles.FocusedItem.Index;
+            else
+                return -1;
+        }
+        internal string getLogStringIndex()
+        {
+            string temp = focusedIndex().ToString();
+            if (listViewFiles.FocusedItem != null)
+            {
+                temp += " " + listViewFiles.FocusedItem.Text;
+            }
+            temp += " selected:";
+            for (int kk = 0; kk < listViewFiles.SelectedIndices.Count; kk++) temp += " " + listViewFiles.SelectedIndices[kk].ToString();
+            temp += " focused:";
+            for (int kk = 0; kk < listViewFiles.Items.Count; kk++) if (listViewFiles.Items[kk].Focused) temp += " " + kk.ToString();
+            temp += " old:";
+            ArrayList array = listViewFiles.getSelectedIndicesOld();
+
+            for (int ii = 0; ii < array.Count; ii++)
+            {
+                temp += " " + array[ii].ToString() + " " + MainMaskInterface.getFileName((int)array[ii]);
+                //int kk = ((string)listViewFiles.selectedFilesOld[ii]).LastIndexOf("\\");
+                //temp += " " + listViewFiles.getIndexOf((string)listViewFiles.selectedFilesOld[ii]).ToString() + " " + listViewFiles.selectedFilesOld[ii].ToString().Substring(kk+1);
+            }
+
+            return temp;
+        }
+
         // reset selected images to those before last user selection,
         // which is stored in listViewFiles.SelectedIndicesOld
         private void resetImageSelection()
@@ -610,14 +703,12 @@ namespace QuickImageComment
                 GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceWorkAfterSelectionOfFile, "start", 0);
                 listViewFiles.SelectedIndexChanged -= listViewFiles_SelectedIndexChanged;
                 listViewFiles.SelectedIndices.Clear();
-                for (int ii = 0; ii < listViewFiles.SelectedIndicesOld.Length; ii++)
+                foreach (int index in listViewFiles.getSelectedIndicesOld())
                 {
-                    listViewFiles.SelectedIndices.Add(listViewFiles.SelectedIndicesOld[ii]);
+                    listViewFiles.SelectedIndices.Add(index);
                 }
                 GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceWorkAfterSelectionOfFile, "indices set", 0);
                 listViewFiles.SelectedIndexChanged += listViewFiles_SelectedIndexChanged;
-                listViewFiles.SelectedIndicesNew = new int[listViewFiles.SelectedIndices.Count];
-                listViewFiles.SelectedIndices.CopyTo(listViewFiles.SelectedIndicesNew, 0);
                 GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceWorkAfterSelectionOfFile, "finish", 0);
             }
         }
@@ -666,31 +757,21 @@ namespace QuickImageComment
                 listViewFiles.AutoResizeColumns(ColumnHeaderAutoResizeStyle.None);
             }
 
-            lock (LockListViewFiles)
-            {
-                if (listViewFiles.Items.Count > 0)
-                {
-                    for (int ii = 0; ii < listViewFiles.SelectedIndicesNew.Length; ii++)
-                    {
-                        listViewFiles.SelectedIndices.Add(listViewFiles.SelectedIndicesNew[ii]);
-                        listViewFiles.Select();
-                    }
-                }
-                theFormQuickImageComment.toolStripMenuItemDetails.Checked = listViewFiles.View.Equals(View.Details);
-                theFormQuickImageComment.toolStripMenuItemLargeIcons.Checked = listViewFiles.View.Equals(View.LargeIcon);
-                theFormQuickImageComment.toolStripMenuItemList.Checked = listViewFiles.View.Equals(View.List);
-                theFormQuickImageComment.toolStripMenuItemTile.Checked = listViewFiles.View.Equals(View.Tile);
+            theFormQuickImageComment.toolStripMenuItemDetails.Checked = listViewFiles.View.Equals(View.Details);
+            theFormQuickImageComment.toolStripMenuItemLargeIcons.Checked = listViewFiles.View.Equals(View.LargeIcon);
+            theFormQuickImageComment.toolStripMenuItemList.Checked = listViewFiles.View.Equals(View.List);
+            theFormQuickImageComment.toolStripMenuItemTile.Checked = listViewFiles.View.Equals(View.Tile);
 
-                contextMenuStripMenuItemDetails.Checked = listViewFiles.View.Equals(View.Details);
-                contextMenuStripMenuItemLargeIcons.Checked = listViewFiles.View.Equals(View.LargeIcon);
-                contextMenuStripMenuItemList.Checked = listViewFiles.View.Equals(View.List);
-                contextMenuStripMenuItemTile.Checked = listViewFiles.View.Equals(View.Tile);
-                listViewFiles.EndUpdate();
-                if (listViewFiles.SelectedIndices.Count > 0)
-                {
-                    listViewFiles.EnsureVisible(lastFileIndex);
-                }
+            contextMenuStripMenuItemDetails.Checked = listViewFiles.View.Equals(View.Details);
+            contextMenuStripMenuItemLargeIcons.Checked = listViewFiles.View.Equals(View.LargeIcon);
+            contextMenuStripMenuItemList.Checked = listViewFiles.View.Equals(View.List);
+            contextMenuStripMenuItemTile.Checked = listViewFiles.View.Equals(View.Tile);
+            listViewFiles.EndUpdate();
+            if (listViewFiles.SelectedIndices.Count > 0)
+            {
+                listViewFiles.EnsureVisible(focusedIndex());
             }
+
             contextMenuStripMenuItemTileAdjust.Visible = theFormQuickImageComment.toolStripMenuItemTile.Checked;
         }
 

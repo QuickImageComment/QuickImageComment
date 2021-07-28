@@ -26,12 +26,11 @@ namespace QuickImageComment
     {
         // as following variables are also changed in threads, 
         // modifications are secured with lock of UserControlFiles.LockListViewFiles
-        private static string listViewFilesFolderName = "";
         private static List<ListViewItem> listViewFilesItems;
+        private static int cachethread = 0;
 
         private static ArrayList ExtendedCache = new ArrayList();
-        private static bool updateCachesRunning = false;
-        private static long FileIndexAtStartThreadToUpdateCaches;
+        internal static bool updateCachesRunning = false;
 
         private static System.Collections.Hashtable HashtableExtendedImages = new System.Collections.Hashtable();
         private static System.Collections.Hashtable HashtableFullSizeImages = new System.Collections.Hashtable();
@@ -52,8 +51,6 @@ namespace QuickImageComment
             }
 
             initWithImageFilesArrayList(newFolderName, ImageFiles, true);
-            // fill cache now as it is used to draw items in listViewFiles
-            ImageManager.startThreadToUpdateCaches(0);
 
             GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceCaching, "New Folder: " + newFolderName);
 
@@ -68,9 +65,6 @@ namespace QuickImageComment
             FormQuickImageComment.readFolderPerfomance.measure("ImageManager initWithImageFilesArrayList start");
             lock (UserControlFiles.LockListViewFiles)
             {
-                listViewFilesFolderName = newFolderName;
-                // initialise to -1 as it is used to check if thread for update caches has to be started
-                FileIndexAtStartThreadToUpdateCaches = -1;
                 UserControlFiles.listViewWithCompleteFolder = completeFolder;
 
                 listViewFilesItems = new List<ListViewItem>(ImageFiles.Count);
@@ -98,8 +92,6 @@ namespace QuickImageComment
                             ii++;
                         }
                     }
-                    // in very strange cases it might happen that all files were deleted between creating ImageFiles and reaching this point
-                    if (listViewFilesItems.Count > 0) storeExtendedImage(0, false, true);
                 }
 
                 HashtableFullSizeImages = new System.Collections.Hashtable();
@@ -111,6 +103,20 @@ namespace QuickImageComment
             //FormQuickImageComment.readFolderPerfomance.measure("ImageManager after Garbage Collection");
 
             FormQuickImageComment.readFolderPerfomance.measure("ImageManager initWithImageFilesArrayList finish");
+        }
+
+
+        public static void initExtendedCacheList()
+        {
+            lock (ExtendedCache)
+            {
+                ExtendedCache.Clear();
+                for (int ii = 0; ii < ConfigDefinition.getExtendedImageCacheMaxSize(); ii++)
+                {
+                    if (ii == listViewFilesItems.Count) break;
+                    ExtendedCache.Add(listViewFilesItems[ii].Name);
+                }
+            }
         }
 
         // handling event: new or updated file in folder
@@ -131,31 +137,23 @@ namespace QuickImageComment
                 double FileSize = theFileInfo.Length;
                 FileSize = FileSize / 1024;
                 listViewItem.SubItems.Add(FileSize.ToString("#,### KB"));
+                listViewItem.SubItems.Add(theFileInfo.LastWriteTime.ToString());
+                listViewItem.SubItems.Add(theFileInfo.CreationTime.ToString());
             }
             else
             {
                 listViewItem.SubItems.Add("");
+                listViewItem.SubItems.Add("");
+                listViewItem.SubItems.Add("");
             }
-            listViewItem.SubItems.Add(theFileInfo.LastWriteTime.ToString());
-            listViewItem.SubItems.Add(theFileInfo.CreationTime.ToString());
-
-            return listViewItem;
-        }
-
-        // add list view item and empty image when new file is detected
-        public static ListViewItem insertNewListViewItemAndEmptyImage(int index, FileInfo theFileInfo)
-        {
-            ListViewItem listViewItem = newListViewFilesItem(theFileInfo);
-            listViewFilesItems.Insert(index, listViewItem);
 
             return listViewItem;
         }
 
         // update list view item and image when update of file is detected
-        public static ListViewItem updateListViewItemAndImage(int index, FileInfo theFileInfo)
+        public static ListViewItem updateListViewItemAndImage(FileInfo theFileInfo)
         {
             ListViewItem listViewItem = newListViewFilesItem(theFileInfo);
-            listViewFilesItems[index] = listViewItem;
             // clear extended image to force reading it again
             if (HashtableExtendedImages.ContainsKey(theFileInfo.FullName)) HashtableExtendedImages.Remove(theFileInfo.FullName);
             storeExtendedImage(theFileInfo.Name, theFileInfo.FullName, true, true);
@@ -163,23 +161,8 @@ namespace QuickImageComment
             return listViewItem;
         }
 
-        // fill list of files around given index and start thread to update caches 
-        public static void startThreadToUpdateCaches(int FileIndex)
-        {
-            if (FileIndexAtStartThreadToUpdateCaches == FileIndex)
-            {
-                // thread already started with this FileIndex
-            }
-            else
-            {
-                fillListOfFilesToCache(FileIndex, listViewFilesFolderName);
-                FileIndexAtStartThreadToUpdateCaches = FileIndex;
-                startThreadToUpdateCaches();
-            }
-        }
-
         // start thread to update caches (list of files is filled)
-        private static void startThreadToUpdateCaches()
+        public static void startThreadToUpdateCaches()
         {
             lock (ExtendedCache)
             {
@@ -189,7 +172,8 @@ namespace QuickImageComment
 
                     System.Threading.Tasks.Task updateCachesTask = System.Threading.Tasks.Task.Factory.StartNew(() =>
                         {
-                            updateCaches();
+                            cachethread++;
+                            updateCaches(cachethread);
                         });
 
                     System.Threading.Tasks.Task ContineTask = updateCachesTask.ContinueWith((threadingTask) =>
@@ -231,18 +215,11 @@ namespace QuickImageComment
         // managing extended images
         //-------------------------------------------------------------------------
 
-        // get full file name via index and listViewFiles
-        private static string fullFileNameViaIndex(int FileIndex)
-        {
-            ListViewItem theListViewFilesItem = listViewFilesItems[FileIndex];
-            return theListViewFilesItem.Name;
-        }
-
         // check if extended image is already loaded
         public static bool extendedImageLoaded(int FileIndex)
         {
-            if (FileIndex < listViewFilesItems.Count)
-                return HashtableExtendedImages.ContainsKey(fullFileNameViaIndex(FileIndex));
+            if (FileIndex < MainMaskInterface.getListViewFilesCount())
+                return HashtableExtendedImages.ContainsKey(MainMaskInterface.getFullFileName(FileIndex));
             else
                 return false;
         }
@@ -254,11 +231,11 @@ namespace QuickImageComment
         }
         public static ExtendedImage getExtendedImage(int FileIndex, bool saveFullSizeImage)
         {
-            string FullFileName = listViewFilesItems[FileIndex].Name;
-            string FileName = listViewFilesItems[FileIndex].Text;
+            string FullFileName = MainMaskInterface.getFullFileName(FileIndex);
+            string FileName = MainMaskInterface.getFileName(FileIndex);
 
             GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceCaching,
-                "FileIndex=" + FileIndex.ToString() + " " + FullFileName + " - start");
+                "FileIndex=" + FileIndex.ToString() + " " + FullFileName + " - start", 2);
 
             // storeExtendedImage first checks, if entry is already in list
             // if entry is already entered, storeExtendedImage does nothing
@@ -272,7 +249,8 @@ namespace QuickImageComment
 
         public static ExtendedImage getExtendedImageFromCache(int FileIndex)
         {
-            string FullFileName = fullFileNameViaIndex(FileIndex);
+            string FullFileName = MainMaskInterface.getFullFileName(FileIndex);
+            //GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceCaching, "FileIndex=" + FileIndex.ToString() + " " + FullFileName);
             if (HashtableExtendedImages.ContainsKey(FullFileName))
                 // return already loaded image
                 return (ExtendedImage)HashtableExtendedImages[FullFileName];
@@ -285,8 +263,8 @@ namespace QuickImageComment
         // ensure to call this method only within "lock (UserControlFiles.LockListViewFiles)"
         private static void storeExtendedImage(int FileIndex, bool displayReading, bool saveFullSizeImage)
         {
-            string FullFileName = listViewFilesItems[FileIndex].Name;
-            string FileName = listViewFilesItems[FileIndex].Text;
+            string FullFileName = MainMaskInterface.getFullFileName(FileIndex);
+            string FileName = MainMaskInterface.getFileName(FileIndex);
             storeExtendedImage(FileName, FullFileName, displayReading, saveFullSizeImage);
         }
 
@@ -302,6 +280,7 @@ namespace QuickImageComment
             // (method fillExtendedImages) and method initWithImageFilesArrayList
             if (!HashtableExtendedImages.ContainsKey(FullFileName))
             {
+                GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceCaching, "Add FullFileName=" + FullFileName);
                 if (!System.IO.File.Exists(FullFileName))
                 {
                     // create extended image just with file name and images indicating, that file was not found
@@ -318,7 +297,7 @@ namespace QuickImageComment
                         MainMaskInterface.setToolStripStatusLabelInfo(LangCfg.getText(LangCfg.Others.reading) + " " + FileName);
                     }
                     FormQuickImageComment.readFolderPerfomance.measure("ImageManager before new ExtendedImage");
-                    // to be safe in case the image was added in the meantime as here not lock is used to avoid blocking user
+                    // to be safe in case the image was added in the meantime as here no lock is used to avoid blocking user
                     try
                     {
                         HashtableExtendedImages.Add(FullFileName, new ExtendedImage(FullFileName, saveFullSizeImage));
@@ -363,13 +342,13 @@ namespace QuickImageComment
 
         public static void deleteExtendedImage(int FileIndex)
         {
-            string FullFileName = fullFileNameViaIndex(FileIndex);
-            listViewFilesItems.RemoveAt(FileIndex);
+            string FullFileName = MainMaskInterface.getFullFileName(FileIndex);
+            GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceCaching, "Delete FullFileName=" + FullFileName);
             if (HashtableExtendedImages.ContainsKey(FullFileName)) HashtableExtendedImages.Remove(FullFileName);
         }
 
         // fill list of files to be cached
-        private static void fillListOfFilesToCache(int FileIndex, string FolderName)
+        public static void fillListOfFilesToCache(int FileIndex)
         {
             Performance CachePerformance = new Performance();
             int offset = 1;
@@ -378,27 +357,27 @@ namespace QuickImageComment
             lock (ExtendedCache)
             {
                 ExtendedCache.Clear();
-                if (listViewFilesItems.Count > 0)
+                if (MainMaskInterface.getListViewFilesCount() > 0)
                 {
-                    ExtendedCache.Add(fullFileNameViaIndex(FileIndex));
+                    ExtendedCache.Add(MainMaskInterface.getFullFileName(FileIndex));
                     while (ExtendedCache.Count < ConfigDefinition.getExtendedImageCacheMaxSize())
                     {
-                        if (FileIndex + offset >= listViewFilesItems.Count && FileIndex - offset < 0) break;
-                        if (FileIndex + offset < listViewFilesItems.Count) ExtendedCache.Add(fullFileNameViaIndex(FileIndex + offset));
+                        if (FileIndex + offset >= MainMaskInterface.getListViewFilesCount() && FileIndex - offset < 0) break;
+                        if (FileIndex + offset < MainMaskInterface.getListViewFilesCount()) ExtendedCache.Add(MainMaskInterface.getFullFileName(FileIndex + offset));
                         if (ExtendedCache.Count == ConfigDefinition.getExtendedImageCacheMaxSize()) break;
-                        if (FileIndex - offset >= 0) ExtendedCache.Add(fullFileNameViaIndex(FileIndex - offset));
+                        if (FileIndex - offset >= 0) ExtendedCache.Add(MainMaskInterface.getFullFileName(FileIndex - offset));
                         offset++;
                     }
                     // get list of files to keep - fullsize
                     ArrayList FullsizeCache = new ArrayList();
-                    FullsizeCache.Add(fullFileNameViaIndex(FileIndex));
+                    FullsizeCache.Add(MainMaskInterface.getFullFileName(FileIndex));
                     offset = 1;
                     while (FullsizeCache.Count < ConfigDefinition.getFullSizeImageCacheMaxSize())
                     {
-                        if (FileIndex + offset >= listViewFilesItems.Count && FileIndex - offset < 0) break;
-                        if (FileIndex + offset < listViewFilesItems.Count) FullsizeCache.Add(fullFileNameViaIndex(FileIndex + offset));
+                        if (FileIndex + offset >= MainMaskInterface.getListViewFilesCount() && FileIndex - offset < 0) break;
+                        if (FileIndex + offset < MainMaskInterface.getListViewFilesCount()) FullsizeCache.Add(MainMaskInterface.getFullFileName(FileIndex + offset));
                         if (FullsizeCache.Count == ConfigDefinition.getFullSizeImageCacheMaxSize()) break;
-                        if (FileIndex - offset >= 0) FullsizeCache.Add(fullFileNameViaIndex(FileIndex - offset));
+                        if (FileIndex - offset >= 0) FullsizeCache.Add(MainMaskInterface.getFullFileName(FileIndex - offset));
                         offset++;
                     }
 
@@ -434,16 +413,16 @@ namespace QuickImageComment
         // update caches without lock
         // in case list of file indexes is changed during run, cache may miss images or has too much
         // but as files are stored in cache via name and not via index, in worst case an image needs to be loaded in getExtendedImage
-        private static int updateCaches()
+        private static int updateCaches(int cacheIndex)
         {
             string fullFileName;
 
             GeneralUtilities.writeTraceFileEntry("Start updateCaches");
             string FilenameForExceptionMessage = "";
-            GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceCaching, "Cache Extended Start");
+            GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceCaching, "Cache Extended Start " + cacheIndex.ToString());
             Performance CachePerformance = new Performance();
 #if !DEBUG
-                try
+            try
 #endif
             {
                 MainMaskInterface.setToolStripStatusLabelBufferingThread(true);
@@ -461,6 +440,7 @@ namespace QuickImageComment
                         {
                             fullFileName = (string)ExtendedCache[0];
                             ExtendedCache.RemoveAt(0);
+                            GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceCaching, "add " + fullFileName + " rem:" + ExtendedCache.Count.ToString());
                         }
                         else
                         {
@@ -490,22 +470,21 @@ namespace QuickImageComment
                 MainMaskInterface.setToolStripStatusLabelBufferingThread(false);
             }
 #if !DEBUG
-                catch (System.OutOfMemoryException)
-                {
-                    GeneralUtilities.message(LangCfg.Message.W_outOfMemory);
-                    return 1;
-                }
-                catch (Exception ex)
-                {
-                    string ErrorMessage = LangCfg.getText(LangCfg.Others.severeCacheReadError, FilenameForExceptionMessage, "");
-                    // using inner exception is ok here, because it will not be sent to AppCenter
-                    // note: AppCenter will show only text of inner exception and then FilenameForExceptionMessage is lost
-                    throw (new Exception(ErrorMessage, ex));
-                }
+            catch (System.OutOfMemoryException)
+            {
+                GeneralUtilities.message(LangCfg.Message.W_outOfMemory);
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                string ErrorMessage = LangCfg.getText(LangCfg.Others.severeCacheReadError, FilenameForExceptionMessage, "");
+                // using inner exception is ok here, because it will not be sent to AppCenter
+                // note: AppCenter will show only text of inner exception and then FilenameForExceptionMessage is lost
+                throw (new Exception(ErrorMessage, ex));
+            }
 #endif
-            GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceCaching, "All ext. images read: ");
             GeneralUtilities.writeTraceFileEntry("Finish updateCaches");
-
+            GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceCaching, "finish caching " + cacheIndex.ToString());
             return 0;
         }
     }

@@ -783,20 +783,11 @@ namespace QuickImageComment
         {
             trace(traceFlag, inputString, 0);
         }
-        public static void trace(ConfigDefinition.enumConfigFlags traceFlag, string inputString, long stackLevel)
+        public static void trace(ConfigDefinition.enumConfigFlags traceFlag, string inputString, int stackLevel)
         {
             if (ConfigDefinition.getConfigFlag(traceFlag))
             {
-                System.Diagnostics.StackTrace stackTrace = new System.Diagnostics.StackTrace();
-                System.Diagnostics.StackFrame[] stackFrames = stackTrace.GetFrames();
-
-                string traceString = "";
-                for (long ii = 1; ii < stackFrames.Length && ii <= stackLevel + 1; ii++)
-                {
-                    traceString = traceString + "@" + stackFrames[ii].GetMethod().Name;
-                }
-                traceString = traceString + ": " + inputString;
-                Logger.log(traceString);  // permanent use of Logger.log
+                Logger.log(inputString, stackLevel);  // permanent use of Logger.log
             }
         }
 
@@ -834,14 +825,14 @@ namespace QuickImageComment
                     StreamTraceFile = new System.IO.StreamWriter(TraceFileName, false, System.Text.Encoding.UTF8);
                 }
                 // Get call stack
-                StackTrace stackTrace = new StackTrace();
+                StackTrace stackTrace = new StackTrace(true);
                 StreamTraceFile.Write(DateTime.Now.ToString("HH.mm.ss:fff") + "\t");
                 // Get method names
                 int max = stackTrace.FrameCount;
                 if (max > 6) max = 6;
                 for (int ii = 1; ii < max; ii++)
                 {
-                    StreamTraceFile.Write(stackTrace.GetFrame(ii).GetMethod().Name + "\t");
+                    StreamTraceFile.Write(stackTrace.GetFrame(ii).GetMethod().Name + "-" + stackTrace.GetFrame(ii).GetFileLineNumber().ToString() + "\t");
                 }
                 // write the given text
                 StreamTraceFile.WriteLine(": " + messageText);
@@ -867,7 +858,6 @@ namespace QuickImageComment
             // start with 2: 1 is the caller of this utility
             for (int ii = 2; ii < levels + 2 && ii < stackTrace.FrameCount; ii++)
             {
-                // unfortunately stackTrace.GetFrame(ii).GetFileName() does not give a result
                 callingMethods += " < " + stackTrace.GetFrame(ii).GetMethod().Name;
             }
             return callingMethods;

@@ -352,17 +352,7 @@ namespace QuickImageComment
             // configure user control
             theUserControlChangeableFields.ContextMenuStrip = contextMenuStripMetaData;
             theUserControlChangeableFields.Dock = DockStyle.Fill;
-            foreach (Control aControl in theUserControlChangeableFields.panelChangeableFieldsInner.Controls)
-            {
-                if (theUserControlChangeableFields.ChangeableFieldInputControls.Values.Contains(aControl))
-                {
-                    aControl.KeyDown += new KeyEventHandler(inputControlChangeableField_KeyDown);
-                }
-                else if (aControl.GetType().Equals(typeof(DateTimePicker)))
-                {
-                    ((DateTimePicker)aControl).ValueChanged += new EventHandler(dateTimePickerChangeableField_ValueChanged);
-                }
-            }
+            assignEventHandlersForChangeableFields();
             Program.StartupPerformance.measure("FormQIC after user control changeable fields");
 
             // fill checked list box in multi edit tab
@@ -484,7 +474,7 @@ namespace QuickImageComment
             this.toolStripStatusLabelMemory.Text = LangCfg.translate("Initialisierung ...", this.Name);
             this.toolStripStatusLabelInfo.Text = "";
             this.toolStripStatusLabelFileInfo.Text = "";
-            this.toolStripStatusLabelBuffering.Visible = false;
+            this.toolStripStatusLabelBuffering.Visible = ImageManager.updateCachesRunning;
 
 #if !PLATFORMTARGET_X64
             // does only work with 64-bit
@@ -679,11 +669,29 @@ namespace QuickImageComment
             }
         }
 
+        private void assignEventHandlersForChangeableFields()
+        {
+            foreach (Control aControl in theUserControlChangeableFields.panelChangeableFieldsInner.Controls)
+            {
+                if (theUserControlChangeableFields.ChangeableFieldInputControls.Values.Contains(aControl))
+                {
+                    aControl.KeyDown += new KeyEventHandler(inputControlChangeableField_KeyDown);
+                }
+                else if (aControl.GetType().Equals(typeof(DateTimePicker)))
+                {
+                    ((DateTimePicker)aControl).ValueChanged += new EventHandler(dateTimePickerChangeableField_ValueChanged);
+                }
+            }
+        }
+
         // as only one argument can be passed when starting a thread
         private void StartupInitNewFolder()
         {
             Program.StartupPerformance.measure("FormQIC *** StartupInitNewFolder start");
             ImageManager.initNewFolder(FolderName, theUserControlFiles.textBoxFileFilter.Text);
+            ImageManager.initExtendedCacheList();
+            ImageManager.startThreadToUpdateCaches();
+
             Program.StartupPerformance.measure("FormQIC *** ImageManager.initNewFolder finish");
             ShellItemStartupSelectedFolder = new GongSolutions.Shell.ShellItem(FolderName);
             //Program.StartupPerformance.measure("FormQIC *** ImageManagerInitNewFolder ShellItemStartupSelectedFolder created");
@@ -703,6 +711,7 @@ namespace QuickImageComment
                     // when format is changing, adjust also toolStripMenuItemCreateScreenshots_Click
                     this.toolStripStatusLabelMemory.Text = LangCfg.textOthersMainMemory + ": " + GeneralUtilities.getPrivateMemoryString() + "   " +
                                                            LangCfg.textOthersFree + ": " + GeneralUtilities.getFreeMemoryString();
+                    //this.toolStripStatusLabelThread.Text = theUserControlFiles.getLogStringIndex();
                     this.statusStrip1.Refresh();
                 }
                 catch { }
@@ -742,11 +751,11 @@ namespace QuickImageComment
                 disableEventHandlersRecogniseUserInput();
                 lock (UserControlFiles.LockListViewFiles)
                 {
-                    for (int inew = 0; inew < theUserControlFiles.listViewFiles.SelectedIndicesNew.Length; inew++)
+                    for (int inew = 0; inew < theUserControlFiles.listViewFiles.SelectedIndices.Count; inew++)
                     {
-                        int fileIndex = theUserControlFiles.listViewFiles.SelectedIndicesNew[inew];
-                        // skip theExtendedImage whose index is lastFileIndex
-                        if (fileIndex != theUserControlFiles.lastFileIndex)
+                        int fileIndex = theUserControlFiles.listViewFiles.SelectedIndices[inew];
+                        // skip theExtendedImage which is focused
+                        if (fileIndex != theUserControlFiles.focusedIndex())
                         {
                             string newValue = getFieldValueBySpec(Spec, (Control)sender, ImageManager.getExtendedImage(fileIndex, false));
                             if (!newValue.Equals(((Control)sender).Text))
@@ -810,11 +819,11 @@ namespace QuickImageComment
                 disableEventHandlersRecogniseUserInput();
                 lock (UserControlFiles.LockListViewFiles)
                 {
-                    for (int inew = 0; inew < theUserControlFiles.listViewFiles.SelectedIndicesNew.Length; inew++)
+                    for (int inew = 0; inew < theUserControlFiles.listViewFiles.SelectedIndices.Count; inew++)
                     {
-                        int fileIndex = theUserControlFiles.listViewFiles.SelectedIndicesNew[inew];
-                        // skip theExtendedImage whose index is lastFileIndex
-                        if (fileIndex != theUserControlFiles.lastFileIndex)
+                        int fileIndex = theUserControlFiles.listViewFiles.SelectedIndices[inew];
+                        // skip theExtendedImage which is focused
+                        if (fileIndex != theUserControlFiles.focusedIndex())
                         {
                             string newValue = ImageManager.getExtendedImage(fileIndex, false).getUserComment();
                             if (!newValue.Equals(((Control)sender).Text))
@@ -888,11 +897,11 @@ namespace QuickImageComment
                 disableEventHandlersRecogniseUserInput();
                 lock (UserControlFiles.LockListViewFiles)
                 {
-                    for (int inew = 0; inew < theUserControlFiles.listViewFiles.SelectedIndicesNew.Length; inew++)
+                    for (int inew = 0; inew < theUserControlFiles.listViewFiles.SelectedIndices.Count; inew++)
                     {
-                        int fileIndex = theUserControlFiles.listViewFiles.SelectedIndicesNew[inew];
-                        // skip theExtendedImage whose index is lastFileIndex
-                        if (fileIndex != theUserControlFiles.lastFileIndex)
+                        int fileIndex = theUserControlFiles.listViewFiles.SelectedIndices[inew];
+                        // skip theExtendedImage which is focused
+                        if (fileIndex != theUserControlFiles.focusedIndex())
                         {
                             string newValue = ImageManager.getExtendedImage(fileIndex, false).getArtist();
                             if (!newValue.Equals(((Control)sender).Text))
@@ -973,11 +982,11 @@ namespace QuickImageComment
                 disableEventHandlersRecogniseUserInput();
                 lock (UserControlFiles.LockListViewFiles)
                 {
-                    for (int inew = 0; inew < theUserControlFiles.listViewFiles.SelectedIndicesNew.Length; inew++)
+                    for (int inew = 0; inew < theUserControlFiles.listViewFiles.SelectedIndices.Count; inew++)
                     {
-                        int fileIndex = theUserControlFiles.listViewFiles.SelectedIndicesNew[inew];
-                        // skip theExtendedImage whose index is lastFileIndex
-                        if (fileIndex != theUserControlFiles.lastFileIndex)
+                        int fileIndex = theUserControlFiles.listViewFiles.SelectedIndices[inew];
+                        // skip theExtendedImage which is focused
+                        if (fileIndex != theUserControlFiles.focusedIndex())
                         {
                             updateKeywordsForMultipleSelection(ImageManager.getExtendedImage(fileIndex, false));
                         }
@@ -1001,11 +1010,11 @@ namespace QuickImageComment
                 disableEventHandlersRecogniseUserInput();
                 lock (UserControlFiles.LockListViewFiles)
                 {
-                    for (int inew = 0; inew < theUserControlFiles.listViewFiles.SelectedIndicesNew.Length; inew++)
+                    for (int inew = 0; inew < theUserControlFiles.listViewFiles.SelectedIndices.Count; inew++)
                     {
-                        int fileIndex = theUserControlFiles.listViewFiles.SelectedIndicesNew[inew];
-                        // skip theExtendedImage whose index is lastFileIndex
-                        if (fileIndex != theUserControlFiles.lastFileIndex)
+                        int fileIndex = theUserControlFiles.listViewFiles.SelectedIndices[inew];
+                        // skip theExtendedImage which is focused
+                        if (fileIndex != theUserControlFiles.focusedIndex())
                         {
                             updateKeywordsForMultipleSelection(ImageManager.getExtendedImage(fileIndex, false));
                         }
@@ -1062,7 +1071,7 @@ namespace QuickImageComment
         // close event handler for main form, triggered by any action closing the form
         private void FormQuickImageComment_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (continueAfterCheckForChangesAndOptionalSaving(theUserControlFiles.listViewFiles.SelectedIndicesNew))
+            if (continueAfterCheckForChangesAndOptionalSaving(theUserControlFiles.listViewFiles.SelectedIndices))
             {
                 // cancel may be set to true before due to validation error
                 // set to false to allow closing
@@ -1181,7 +1190,7 @@ namespace QuickImageComment
         // event handler triggered when folder is selected
         private void theFolderTreeView_AfterSelect(object sender, System.EventArgs e)
         {
-            if (continueAfterCheckForChangesAndOptionalSaving(theUserControlFiles.listViewFiles.SelectedIndicesNew))
+            if (continueAfterCheckForChangesAndOptionalSaving(theUserControlFiles.listViewFiles.SelectedIndices))
             {
                 // when network root or a network device is selected, node has no valid file system path
                 try
@@ -1217,10 +1226,9 @@ namespace QuickImageComment
                     {
                         if (theUserControlFiles.listViewFiles.Items[ii].Name.Equals(dataGridViewSelectedFiles.CurrentRow.Cells[0].Value))
                         {
-                            if (ii != theUserControlFiles.lastFileIndex)
+                            if (ii != theUserControlFiles.focusedIndex())
                             {
-                                theUserControlFiles.lastFileIndex = ii;
-                                displayImage(theUserControlFiles.lastFileIndex);
+                                displayImage(theUserControlFiles.focusedIndex());
                             }
                         }
                     }
@@ -1348,12 +1356,12 @@ namespace QuickImageComment
             {
                 // if menu entry or button to save are activated for one image only: 
                 // check if there are  different entries for artist or comment and set flag to get them saved and thus aligned
-                if (theUserControlFiles.listViewFiles.SelectedIndicesNew.Length == 1)
+                if (theUserControlFiles.listViewFiles.SelectedIndices.Count == 1)
                 {
                     if (theExtendedImage.getArtistDifferentEntries()) comboBoxArtistUserChanged = true;
                     if (theExtendedImage.getCommentDifferentEntries()) textBoxUserCommentUserChanged = true;
                 }
-                saveAndStoreInLastList(theUserControlFiles.listViewFiles.SelectedIndicesNew);
+                saveAndStoreInLastList(theUserControlFiles.listViewFiles.SelectedIndices);
             }
         }
 
@@ -1368,7 +1376,7 @@ namespace QuickImageComment
                 }
                 else if (theUserControlFiles.listViewFiles.SelectedItems.Count == 1)
                 {
-                    int status = singleSaveAndStoreInLastList(theUserControlFiles.lastFileIndex, null, null);
+                    int status = singleSaveAndStoreInLastList(theUserControlFiles.focusedIndex(), null, null);
                     if (status == 0)
                     {
                         // get newFileIndex since clearing selected indices will clear lastFileIndex
@@ -1394,16 +1402,16 @@ namespace QuickImageComment
                 }
                 else if (theUserControlFiles.listViewFiles.SelectedItems.Count == 1)
                 {
-                    int status = singleSaveAndStoreInLastList(theUserControlFiles.lastFileIndex, null, null);
+                    int status = singleSaveAndStoreInLastList(theUserControlFiles.focusedIndex(), null, null);
                     if (status == 0)
                     {
-                        // set newFileIndex to lastFileIndex
+                        // set newFileIndex to focused index
                         // if this image is the last one it will force the image to be redisplayed with changed values
                         int newFileIndex = 0;
-                        if (theUserControlFiles.lastFileIndex > 0)
+                        if (theUserControlFiles.focusedIndex() > 0)
                         {
                             // get newFileIndex since clearing selected indices will clear lastFileIndex
-                            newFileIndex = theUserControlFiles.lastFileIndex - 1;
+                            newFileIndex = theUserControlFiles.focusedIndex() - 1;
                         }
                         // mark selected Image in listbox containing file names
                         // changing selected index in listBoxFiles forces display 
@@ -1426,16 +1434,16 @@ namespace QuickImageComment
                 }
                 else if (theUserControlFiles.listViewFiles.SelectedItems.Count == 1)
                 {
-                    int status = singleSaveAndStoreInLastList(theUserControlFiles.lastFileIndex, null, null);
+                    int status = singleSaveAndStoreInLastList(theUserControlFiles.focusedIndex(), null, null);
                     if (status == 0)
                     {
-                        // set newFileIndex to lastFileIndex
+                        // set newFileIndex to focused index
                         // if this image is the last one it will force the image to be redisplayed with changed values
-                        int newFileIndex = theUserControlFiles.lastFileIndex;
-                        if (theUserControlFiles.lastFileIndex < theUserControlFiles.listViewFiles.Items.Count - 1)
+                        int newFileIndex = theUserControlFiles.focusedIndex();
+                        if (newFileIndex < theUserControlFiles.listViewFiles.Items.Count - 1)
                         {
                             // get newFileIndex since clearing selected indices will clear lastFileIndex
-                            newFileIndex = theUserControlFiles.lastFileIndex + 1;
+                            newFileIndex = newFileIndex + 1;
                         }
                         // mark selected Image in listbox containing file names
                         // changing selected index in listBoxFiles forces display 
@@ -1458,7 +1466,7 @@ namespace QuickImageComment
                 }
                 else if (theUserControlFiles.listViewFiles.SelectedItems.Count == 1)
                 {
-                    int status = singleSaveAndStoreInLastList(theUserControlFiles.lastFileIndex, null, null);
+                    int status = singleSaveAndStoreInLastList(theUserControlFiles.focusedIndex(), null, null);
                     if (status == 0)
                     {
                         // get newFileIndex since clearing selected indices will clear lastFileIndex
@@ -1597,7 +1605,7 @@ namespace QuickImageComment
         // refresh folder tree
         private void toolStripMenuItemRefreshFolderTree_Click(object sender, EventArgs e)
         {
-            if (continueAfterCheckForChangesAndOptionalSaving(theUserControlFiles.listViewFiles.SelectedIndicesNew))
+            if (continueAfterCheckForChangesAndOptionalSaving(theUserControlFiles.listViewFiles.SelectedIndices))
             {
                 refreshFolderTree();
             }
@@ -1606,7 +1614,7 @@ namespace QuickImageComment
         // refresh list of files
         private void toolStripMenuItemRefresh_Click(object sender, System.EventArgs e)
         {
-            if (continueAfterCheckForChangesAndOptionalSaving(theUserControlFiles.listViewFiles.SelectedIndicesNew))
+            if (continueAfterCheckForChangesAndOptionalSaving(theUserControlFiles.listViewFiles.SelectedIndices))
             {
                 readFolderAndDisplayImage(-1);
             }
@@ -1634,11 +1642,11 @@ namespace QuickImageComment
 
             lock (UserControlFiles.LockListViewFiles)
             {
-                for (int inew = 0; inew < theUserControlFiles.listViewFiles.SelectedIndicesNew.Length; inew++)
+                for (int inew = 0; inew < theUserControlFiles.listViewFiles.SelectedIndices.Count; inew++)
                 {
-                    int fileIndex = theUserControlFiles.listViewFiles.SelectedIndicesNew[inew];
-                    // skip theExtendedImage whose index is lastFileIndex
-                    if (fileIndex != theUserControlFiles.lastFileIndex)
+                    int fileIndex = theUserControlFiles.listViewFiles.SelectedIndices[inew];
+                    // skip theExtendedImage which is focused
+                    if (fileIndex != theUserControlFiles.focusedIndex())
                     {
                         updateAllChangeableDataForMultipleSelection(ImageManager.getExtendedImage(fileIndex, false));
                     }
@@ -1955,7 +1963,7 @@ namespace QuickImageComment
         // open form for program settings
         private void toolStripMenuItemSettings_Click(object sender, System.EventArgs e)
         {
-            if (continueAfterCheckForChangesAndOptionalSaving(theUserControlFiles.listViewFiles.SelectedIndicesNew))
+            if (continueAfterCheckForChangesAndOptionalSaving(theUserControlFiles.listViewFiles.SelectedIndices))
             {
                 FormSettings theFormSettings = new FormSettings();
                 theFormSettings.ShowDialog();
@@ -1963,6 +1971,7 @@ namespace QuickImageComment
                 setNavigationTabSplitBars(ConfigDefinition.getNavigationTabSplitBars());
                 setArtistCommentLabel();
                 theUserControlChangeableFields.fillChangeableFieldPanelWithControls(theExtendedImage);
+                assignEventHandlersForChangeableFields();
                 fillCheckedListBoxChangeableFieldsChange();
                 // try to reload Customization to get settings from dynamic controls again
                 try
@@ -1975,7 +1984,7 @@ namespace QuickImageComment
                 {
                     lock (UserControlFiles.LockListViewFiles)
                     {
-                        readFolderAndDisplayImage(theUserControlFiles.lastFileIndex);
+                        readFolderAndDisplayImage(theUserControlFiles.focusedIndex());
                     }
                 }
             }
@@ -1993,7 +2002,7 @@ namespace QuickImageComment
         // open form for predefined comments
         private void toolStripMenuItemPredefinedKeyWords_Click(object sender, EventArgs e)
         {
-            if (continueAfterCheckForChangesAndOptionalSaving(theUserControlFiles.listViewFiles.SelectedIndicesNew))
+            if (continueAfterCheckForChangesAndOptionalSaving(theUserControlFiles.listViewFiles.SelectedIndices))
             {
                 FormPredefinedKeyWords theFormPredefinedKeyWords = new FormPredefinedKeyWords();
                 theFormPredefinedKeyWords.ShowDialog();
@@ -2010,7 +2019,7 @@ namespace QuickImageComment
         // open form for search via properties
         private void toolStripMenuItemFind_Click(object sender, EventArgs e)
         {
-            if (continueAfterCheckForChangesAndOptionalSaving(theUserControlFiles.listViewFiles.SelectedIndicesNew))
+            if (continueAfterCheckForChangesAndOptionalSaving(theUserControlFiles.listViewFiles.SelectedIndices))
             {
                 // if mask not yet created, create it; else use existing mask with all inputs from last usage
                 if (formFind == null) formFind = new FormFind();
@@ -2179,7 +2188,7 @@ namespace QuickImageComment
         // open form for field definitions
         private void toolStripMenuItemFields_Click(object sender, EventArgs e)
         {
-            if (continueAfterCheckForChangesAndOptionalSaving(theUserControlFiles.listViewFiles.SelectedIndicesNew))
+            if (continueAfterCheckForChangesAndOptionalSaving(theUserControlFiles.listViewFiles.SelectedIndices))
             {
                 FormMetaDataDefinition theFormMetaDataDefinition =
                   new FormMetaDataDefinition(theExtendedImage);
@@ -2194,7 +2203,7 @@ namespace QuickImageComment
         // open mask to rename files
         private void toolStripMenuItemRename_Click(object sender, EventArgs e)
         {
-            if (continueAfterCheckForChangesAndOptionalSaving(theUserControlFiles.listViewFiles.SelectedIndicesNew))
+            if (continueAfterCheckForChangesAndOptionalSaving(theUserControlFiles.listViewFiles.SelectedIndices))
             {
                 if (theUserControlFiles.listViewFiles.SelectedIndices.Count == 0)
                 {
@@ -2221,7 +2230,7 @@ namespace QuickImageComment
         // open mask to compare files
         private void toolStripMenuItemCompare_Click(object sender, EventArgs e)
         {
-            if (continueAfterCheckForChangesAndOptionalSaving(theUserControlFiles.listViewFiles.SelectedIndicesNew))
+            if (continueAfterCheckForChangesAndOptionalSaving(theUserControlFiles.listViewFiles.SelectedIndices))
             {
                 if (theUserControlFiles.listViewFiles.SelectedIndices.Count < 2)
                 {
@@ -2243,7 +2252,7 @@ namespace QuickImageComment
         // open mask to change date time of images
         private void toolStripMenuItemDateTimeChange_Click(object sender, EventArgs e)
         {
-            if (continueAfterCheckForChangesAndOptionalSaving(theUserControlFiles.listViewFiles.SelectedIndicesNew))
+            if (continueAfterCheckForChangesAndOptionalSaving(theUserControlFiles.listViewFiles.SelectedIndices))
             {
                 // lock although it could take longer until user has finished, because without lock 
                 // other files than selected might be modified if ShellListener is modifies the file list 
@@ -2255,7 +2264,7 @@ namespace QuickImageComment
                         theFormDateTimeChange.ShowDialog();
                         if (theFormDateTimeChange.dateTimeChanged)
                         {
-                            readFolderAndDisplayImage(theUserControlFiles.lastFileIndex);
+                            readFolderAndDisplayImage(theUserControlFiles.focusedIndex());
                         }
                     }
                 }
@@ -2265,7 +2274,7 @@ namespace QuickImageComment
         // open mask to remove meta data
         private void toolStripMenuItemRemoveMetaData_Click(object sender, EventArgs e)
         {
-            if (continueAfterCheckForChangesAndOptionalSaving(theUserControlFiles.listViewFiles.SelectedIndicesNew))
+            if (continueAfterCheckForChangesAndOptionalSaving(theUserControlFiles.listViewFiles.SelectedIndices))
             {
                 // lock although it could take longer until user has finished, because without lock 
                 // other files than selected might be modified if ShellListener is modifies the file list 
@@ -2334,7 +2343,7 @@ namespace QuickImageComment
                         }
                         theExtendedImage.readFileDates();
                     }
-                    displayImage(theUserControlFiles.lastFileIndex);
+                    displayImage(theUserControlFiles.focusedIndex());
                     this.Cursor = Cursors.Default;
                 }
             }
@@ -3434,19 +3443,8 @@ namespace QuickImageComment
             // do not perform actions when already closing - might try to access objects already gone
             if (!closing)
             {
-                // InvokeRequired compares the thread ID of the calling thread to the thread ID of the creating thread.
-                // If these threads are different, it returns true.
-                if (this.InvokeRequired)
-                {
-                    setToolStripStatusLabelBufferingCallback theCallback =
-                      new setToolStripStatusLabelBufferingCallback(setToolStripStatusLabelBufferingThread);
-                    this.Invoke(theCallback, new object[] { visible });
-                }
-                else
-                {
-                    this.toolStripStatusLabelBuffering.Visible = visible;
-                    this.statusStrip1.Refresh();
-                }
+                this.toolStripStatusLabelBuffering.Visible = visible;
+                this.statusStrip1.Refresh();
             }
         }
 
@@ -3455,8 +3453,8 @@ namespace QuickImageComment
         {
             bool enableEditable = enable && theExtendedImage.changePossible();
             bool enableRenameDelete = enable && !theExtendedImage.getIsReadOnly() && !theExtendedImage.getNoAccess();
-            bool enableFirst = enable && (theUserControlFiles.lastFileIndex > 0);
-            bool enableLast = enable && (theUserControlFiles.lastFileIndex < theUserControlFiles.listViewFiles.Items.Count - 1);
+            bool enableFirst = enable && (theUserControlFiles.focusedIndex() > 0);
+            bool enableLast = enable && (theUserControlFiles.focusedIndex() < theUserControlFiles.listViewFiles.Items.Count - 1);
 
             toolStripButtonDateTimeChange.Enabled = enableEditable;
             toolStripButtonDelete.Enabled = enableRenameDelete;
@@ -3679,10 +3677,10 @@ namespace QuickImageComment
             }
             lock (UserControlFiles.LockListViewFiles)
             {
-                if (theUserControlFiles.lastFileIndex >= 0)
+                if (theUserControlFiles.focusedIndex() >= 0)
                 {
                     // rotate the thumbnail image for list view
-                    ExtendedImage ExtendedImageForThumbnail = ImageManager.getExtendedImage(theUserControlFiles.lastFileIndex);
+                    ExtendedImage ExtendedImageForThumbnail = ImageManager.getExtendedImage(theUserControlFiles.focusedIndex());
                     Image theImage = ExtendedImageForThumbnail.getThumbNailBitmap();
                     theImage.RotateFlip(theRotateFlipType);
                     theUserControlFiles.listViewFiles.Refresh();
@@ -3936,7 +3934,6 @@ namespace QuickImageComment
                 setControlsEnabledBasedOnDataChange(false);
 
                 // Clear all data from image in mask
-                theUserControlFiles.lastFileIndex = -1;
                 theUserControlFiles.listViewFiles.clearItems();
                 if (!starting)
                 {
@@ -3953,6 +3950,8 @@ namespace QuickImageComment
                     {
                         theUserControlFiles.listViewFiles.Items.AddRange(ImageManager.getTheListViewItems());
                         readFolderPerfomance.measure("after read folder add ranges");
+                        ImageManager.fillListOfFilesToCache(0);
+                        ImageManager.startThreadToUpdateCaches();
 
                         if (theUserControlFiles.listViewFiles.Items.Count > 0)
                         {
@@ -3975,8 +3974,7 @@ namespace QuickImageComment
                         }
 
                         theUserControlFiles.listViewFiles.SelectedIndices.Clear();
-                        theUserControlFiles.listViewFiles.SelectedIndicesOld = new int[0];
-                        theUserControlFiles.listViewFiles.SelectedIndicesNew = new int[0];
+                        theUserControlFiles.listViewFiles.selectedFilesOld = new ArrayList();
 
                         // fill status bar
                         if (theUserControlFiles.listViewFiles.Items.Count == 0)
@@ -4052,7 +4050,7 @@ namespace QuickImageComment
         // enable/disable buttons next/previous
         internal void displayImage(int fileIndex)
         {
-            GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceWorkAfterSelectionOfFile, "", 2);
+            GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceWorkAfterSelectionOfFile, "index:" + fileIndex.ToString(), 2);
             disableEventHandlersRecogniseUserInput();
 
             this.Cursor = Cursors.WaitCursor;
@@ -4173,6 +4171,7 @@ namespace QuickImageComment
                     {
                         // recreate changeable fields
                         theUserControlChangeableFields.fillChangeableFieldPanelWithControls(theExtendedImage);
+                        assignEventHandlersForChangeableFields();
                         fillCheckedListBoxChangeableFieldsChange();
                         // for updating the comboBox item lists of last used values
                         theUserControlChangeableFields.fillItemsComboBoxChangeableFields();
@@ -4221,6 +4220,7 @@ namespace QuickImageComment
             }
             else
             {
+                GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceWorkAfterSelectionOfFile, "no image", 2);
                 // no image selected, reset flags about user changes
                 clearFlagsIndicatingUserChanges();
                 //checkForChangeNecessary = false;
@@ -4530,10 +4530,10 @@ namespace QuickImageComment
         }
 
         // save one or more images; returns true if save was successful
-        private bool saveAndStoreInLastList(int[] selectedIndicesToStore)
+        private bool saveAndStoreInLastList(IList selectedIndicesToStore)
         {
             bool saveSuccessful = false;
-            if (selectedIndicesToStore.Length > 1)
+            if (selectedIndicesToStore.Count > 1)
             {
                 if (tabPageMulti.Visible)
                 {
@@ -4542,7 +4542,8 @@ namespace QuickImageComment
                         //multiSaveAndStoreInLastList returns true if data were saved.
                         //it returns false e.g. if options were not set reasonably and user stopped saving.
                         //display image only if data were saved because otherwise data entered for multi save are lost
-                        displayImage(theUserControlFiles.lastFileIndex);
+                        theUserControlFiles.storeNameDateTimeLastSaveFocusedFile();
+                        displayImage(theUserControlFiles.focusedIndex());
                         refreshdataGridViewSelectedFiles();
                         saveSuccessful = true;
                     }
@@ -4552,12 +4553,13 @@ namespace QuickImageComment
                     GeneralUtilities.message(LangCfg.Message.W_multipleFilesNoMultiEdit);
                 }
             }
-            else if (selectedIndicesToStore.Length == 1)
+            else if (selectedIndicesToStore.Count == 1)
             {
-                int status = singleSaveAndStoreInLastList(selectedIndicesToStore[0], null, null);
+                int status = singleSaveAndStoreInLastList((int)selectedIndicesToStore[0], null, null);
                 if (status == 0)
                 {
-                    displayImage(theUserControlFiles.lastFileIndex);
+                    theUserControlFiles.storeNameDateTimeLastSaveFocusedFile();
+                    displayImage(theUserControlFiles.focusedIndex());
                     refreshdataGridViewSelectedFiles();
                     saveSuccessful = true;
                 }
@@ -4584,6 +4586,7 @@ namespace QuickImageComment
 
             int statusWrite = 0;
             ExtendedImage anExtendedImage = ImageManager.getExtendedImage(indexToStore);
+            //Logger.log("Save " + indexToStore.ToString() + " " + anExtendedImage.getImageFileName());
             SortedList changeableFieldsForSave = fillAllChangedFieldsForSave(anExtendedImage, true);
             // save image with message in status bar
             try
@@ -4615,7 +4618,7 @@ namespace QuickImageComment
         }
 
         // save multiple images and store comment in list of last comments
-        private bool multiSaveAndStoreInLastList(int[] selectedIndicesToStore)
+        private bool multiSaveAndStoreInLastList(IList selectedIndicesToStore)
         {
             ListViewItem theListViewItem;
             string FileName;
@@ -4639,9 +4642,9 @@ namespace QuickImageComment
                 return false;
             }
 
-            for (int ii = 0; ii < selectedIndicesToStore.Length; ii++)
+            for (int ii = 0; ii < selectedIndicesToStore.Count; ii++)
             {
-                anExtendedImage = ImageManager.getExtendedImage(selectedIndicesToStore[ii]);
+                anExtendedImage = ImageManager.getExtendedImage((int)selectedIndicesToStore[ii]);
                 if (anExtendedImage.getIsVideo())
                 {
                     GeneralUtilities.message(LangCfg.Message.I_videoCannotBeChanged, anExtendedImage.getImageFileName());
@@ -4773,21 +4776,22 @@ namespace QuickImageComment
             addAndSortChangeableFields(changeableFieldsForSaveCommon);
 
             this.Enabled = false;
-            FormMultiSave theFormMultiSave = new FormMultiSave(selectedIndicesToStore.Length);
+            FormMultiSave theFormMultiSave = new FormMultiSave(selectedIndicesToStore.Count);
             theFormMultiSave.Show();
             theFormMultiSave.Location = new Point(this.Location.X + (this.Width - theFormMultiSave.Width) / 2,
                                                   this.Location.Y + (this.Height - theFormMultiSave.Height) / 2);
 
-            for (int ii = 0; ii < selectedIndicesToStore.Length; ii++)
+            for (int ii = 0; ii < selectedIndicesToStore.Count; ii++)
             {
                 SortedList changeableFieldsForSave = (SortedList)changeableFieldsForSaveCommon.Clone();
 
-                theListViewItem = theUserControlFiles.listViewFiles.Items[selectedIndicesToStore[ii]];
+                theListViewItem = theUserControlFiles.listViewFiles.Items[(int)selectedIndicesToStore[ii]];
                 FileName = FolderName + Path.DirectorySeparatorChar + theListViewItem.Name;
                 theFormMultiSave.setProgress(ii, LangCfg.getText(LangCfg.Others.saveFileNofM, (ii + 1).ToString(),
-                    selectedIndicesToStore.Length.ToString(), FileName));
+                    selectedIndicesToStore.Count.ToString(), FileName));
 
-                anExtendedImage = ImageManager.getExtendedImage(selectedIndicesToStore[ii]);
+                anExtendedImage = ImageManager.getExtendedImage((int)selectedIndicesToStore[ii]);
+                //Logger.log("Multi-Save " + selectedIndicesToStore[ii].ToString() + " " + anExtendedImage.getImageFileName());
                 OldArtist = anExtendedImage.getArtist();
                 OldUserComment = anExtendedImage.getUserComment();
                 OldNewKeyWordsArrayList = anExtendedImage.getIptcKeyWordsArrayList();
@@ -4916,7 +4920,7 @@ namespace QuickImageComment
                 catch (ExtendedImage.ExceptionErrorReplacePlaceholder ex)
                 {
                     GeneralUtilities.message(LangCfg.Message.E_placeholderNotReplacedMulti, ex.Message,
-                        (ii + 1).ToString(), selectedIndicesToStore.Length.ToString(), theUserControlFiles.listViewFiles.Items[selectedIndicesToStore[ii]].Name);
+                        (ii + 1).ToString(), selectedIndicesToStore.Count.ToString(), theUserControlFiles.listViewFiles.Items[(int)selectedIndicesToStore[ii]].Name);
                     ReturnStatus = (int)StatusDefinition.Code.exceptionPlaceholderReplacement;
                     break;
                 }
@@ -4933,15 +4937,15 @@ namespace QuickImageComment
 
                 // update property fields to consider what really was saved
                 // set properties for first image
-                anExtendedImage = ImageManager.getExtendedImage(selectedIndicesToStore[0]);
+                anExtendedImage = ImageManager.getExtendedImage((int)selectedIndicesToStore[0]);
                 dynamicComboBoxArtist.Text = anExtendedImage.getArtist();
                 textBoxUserComment.Text = anExtendedImage.getUserComment();
                 fillChangeableFieldValues(anExtendedImage, false);
                 theUserControlKeyWords.displayKeyWords(anExtendedImage.getIptcKeyWordsArrayList());
                 // set properties condering following keywords
-                for (int ii = 1; ii < selectedIndicesToStore.Length; ii++)
+                for (int ii = 1; ii < selectedIndicesToStore.Count; ii++)
                 {
-                    anExtendedImage = ImageManager.getExtendedImage(selectedIndicesToStore[ii]);
+                    anExtendedImage = ImageManager.getExtendedImage((int)selectedIndicesToStore[ii]);
                     if (!dynamicComboBoxArtist.Text.Equals(anExtendedImage.getArtist()))
                     {
                         dynamicComboBoxArtist.Text = "";
@@ -5226,11 +5230,11 @@ namespace QuickImageComment
         // determine if some fields were changed and if so, ask to save yes/no or cancel
         // returns true if flow can continue with next action
         // false is returned in case user wanted to save, but save failed
-        internal bool continueAfterCheckForChangesAndOptionalSaving(int[] selectedIndicesToStore)
+        internal bool continueAfterCheckForChangesAndOptionalSaving(IList selectedIndicesToStore)
         {
             lock (UserControlFiles.LockListViewFiles)
             {
-                if (selectedIndicesToStore.Length > 0)
+                if (selectedIndicesToStore.Count > 0)
                 {
                     string MessageText = getChangedFields();
                     if (MessageText.Equals(""))
@@ -5271,6 +5275,7 @@ namespace QuickImageComment
         public void afterMetaDataDefinitionChange()
         {
             theUserControlChangeableFields.fillChangeableFieldPanelWithControls(theExtendedImage);
+            assignEventHandlersForChangeableFields();
             fillCheckedListBoxChangeableFieldsChange();
             filldataGridViewSelectedFilesHeader();
 
@@ -5287,7 +5292,7 @@ namespace QuickImageComment
             // read folder again, due to changed field definitions display has to be updated
             lock (UserControlFiles.LockListViewFiles)
             {
-                readFolderAndDisplayImage(theUserControlFiles.lastFileIndex);
+                readFolderAndDisplayImage(theUserControlFiles.focusedIndex());
             }
         }
 
