@@ -433,6 +433,7 @@ namespace QuickImageComment
             {
                 this.dataGridViewSelectedFiles.Columns[ii].Width = ConfigDefinition.getDataGridViewSelectedFilesColumnWidth(ii);
             }
+
             //Program.StartupPerformance.measure("FormQIC column widths set");
             // initialize customization interface including loading of settings if available
             string maskCustomizationFile = "";
@@ -1218,17 +1219,19 @@ namespace QuickImageComment
         // event handler triggered when selection of files in multi edit pane is changed
         private void dataGridViewSelectedFiles_SelectionChanged(object sender, EventArgs e)
         {
+            int fullFileNameColumn = dataGridViewSelectedFiles.Columns.Count - 1;
             lock (UserControlFiles.LockListViewFiles)
             {
                 if (dataGridViewSelectedFiles.CurrentRow.Index >= 0)
                 {
-                    for (int ii = 0; ii < theUserControlFiles.listViewFiles.Items.Count; ii++)
+                    foreach (ListViewItem listViewItem in theUserControlFiles.listViewFiles.SelectedItems)
                     {
-                        if (theUserControlFiles.listViewFiles.Items[ii].Name.Equals(dataGridViewSelectedFiles.CurrentRow.Cells[0].Value))
+                        if (listViewItem.Name.Equals(dataGridViewSelectedFiles.CurrentRow.Cells[fullFileNameColumn].Value))
                         {
-                            if (ii != theUserControlFiles.focusedIndex())
+                            if (!listViewItem.Focused)
                             {
-                                displayImage(theUserControlFiles.focusedIndex());
+                                listViewItem.Focused = true;
+                                displayImage(listViewItem.Index);
                             }
                         }
                     }
@@ -1958,6 +1961,14 @@ namespace QuickImageComment
                     userControlChangeableFieldsVisible = !panelCollapsed[panel];
                 }
             }
+        }
+
+        // change tab Single-Multi
+        private void tabControlSingleMulti_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // when switched to multi-edit, refresh grid with selected files
+            // selected tab is checked in refresh method
+            refreshdataGridViewSelectedFiles();
         }
 
         // open form for program settings
@@ -3293,7 +3304,7 @@ namespace QuickImageComment
         private void filldataGridViewSelectedFilesHeader()
         {
             dataGridViewSelectedFiles.Columns.Clear();
-            dataGridViewSelectedFiles.ColumnCount = ConfigDefinition.getMetaDataDefinitions(ConfigDefinition.enumMetaDataGroup.MetaDataDefForMultiEditTable).Count + 1;
+            dataGridViewSelectedFiles.ColumnCount = ConfigDefinition.getMetaDataDefinitions(ConfigDefinition.enumMetaDataGroup.MetaDataDefForMultiEditTable).Count + 2;
             dataGridViewSelectedFiles.Columns[0].Name = LangCfg.translate("Dateiname", this.Name);
             int ii = 1;
             foreach (MetaDataDefinitionItem anMetaDataDefinitionItem in ConfigDefinition.getMetaDataDefinitions(ConfigDefinition.enumMetaDataGroup.MetaDataDefForMultiEditTable))
@@ -4014,34 +4025,47 @@ namespace QuickImageComment
         // refresh content of dataGridViewSelectedFiles
         internal void refreshdataGridViewSelectedFiles()
         {
-            string[] row = new string[dataGridViewSelectedFiles.ColumnCount];
-            int jj;
-            string tracestring = "";
-            // deactivate eventhandler SelectionChanged as it shall work only during user selection
-            dataGridViewSelectedFiles.SelectionChanged -= dataGridViewSelectedFiles_SelectionChanged;
-            dataGridViewSelectedFiles.Rows.Clear();
-            for (int ii = 0; ii < theUserControlFiles.listViewFiles.SelectedItems.Count; ii++)
+            // if multi-edit-tab is selected
+            if (tabControlSingleMulti.SelectedIndex == 1)
             {
-                int index = theUserControlFiles.listViewFiles.SelectedIndices[ii];
-                tracestring = tracestring + " " + index.ToString();
-                ListViewItem theListViewItem = new ListViewItem(theUserControlFiles.listViewFiles.Items[index].Text);
-
-                ExtendedImage aSelectedExtendedImage = ImageManager.getExtendedImage(index);
-                row[0] = System.IO.Path.GetFileName(aSelectedExtendedImage.getImageFileName());
-                jj = 1;
-                foreach (MetaDataDefinitionItem anMetaDataDefinitionItem in ConfigDefinition.getMetaDataDefinitions(ConfigDefinition.enumMetaDataGroup.MetaDataDefForMultiEditTable))
+                string[] row = new string[dataGridViewSelectedFiles.ColumnCount];
+                int jj;
+                string tracestring = "";
+                // deactivate eventhandler SelectionChanged as it shall work only during user selection
+                dataGridViewSelectedFiles.SelectionChanged -= dataGridViewSelectedFiles_SelectionChanged;
+                dataGridViewSelectedFiles.Rows.Clear();
+                for (int ii = 0; ii < theUserControlFiles.listViewFiles.SelectedItems.Count; ii++)
                 {
-                    row[jj] = aSelectedExtendedImage.getMetaDataValuesStringByDefinition(anMetaDataDefinitionItem);
-                    jj++;
-                }
-                dataGridViewSelectedFiles.Rows.Add(row);
-                // does not work properly for dpi higher than 96
-                //dataGridViewSelectedFiles.Rows[ii].Height = dataGridViewSelectedFiles.Rows[ii].GetPreferredHeight(ii, DataGridViewAutoSizeRowMode.AllCells, true) - 2; 
-            }
-            GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceWorkAfterSelectionOfFile, "selected" + tracestring, 0);
+                    int index = theUserControlFiles.listViewFiles.SelectedIndices[ii];
+                    tracestring = tracestring + " " + index.ToString();
+                    ListViewItem theListViewItem = new ListViewItem(theUserControlFiles.listViewFiles.Items[index].Text);
 
-            // activate eventhandler SelectionChanged again to work during user selection
-            dataGridViewSelectedFiles.SelectionChanged += dataGridViewSelectedFiles_SelectionChanged;
+                    ExtendedImage aSelectedExtendedImage = ImageManager.getExtendedImage(index);
+
+                    row[0] = System.IO.Path.GetFileName(aSelectedExtendedImage.getImageFileName());
+                    jj = 1;
+                    foreach (MetaDataDefinitionItem anMetaDataDefinitionItem in ConfigDefinition.getMetaDataDefinitions(ConfigDefinition.enumMetaDataGroup.MetaDataDefForMultiEditTable))
+                    {
+                        row[jj] = aSelectedExtendedImage.getMetaDataValuesStringByDefinition(anMetaDataDefinitionItem);
+                        jj++;
+                    }
+                    // full file name at the end - added for technical purposes
+                    row[jj] = aSelectedExtendedImage.getImageFileName();
+                    dataGridViewSelectedFiles.Rows.Add(row);
+                    dataGridViewSelectedFiles.Rows[ii].Selected = (index == theUserControlFiles.focusedIndex());
+                    Logger.log("grid " + row[jj].ToString() + " " + index.ToString() + " " + theUserControlFiles.focusedIndex().ToString() + " " + dataGridViewSelectedFiles.Rows[ii].Selected.ToString());
+                    // does not work properly for dpi higher than 96
+                    //dataGridViewSelectedFiles.Rows[ii].Height = dataGridViewSelectedFiles.Rows[ii].GetPreferredHeight(ii, DataGridViewAutoSizeRowMode.AllCells, true) - 2; 
+                    //dataGridViewSelectedFiles.Rows[ii].Height = dataGridViewSelectedFiles.Rows[ii].GetPreferredHeight(ii, DataGridViewAutoSizeRowMode.AllCells, true) - 2; 
+                    //dataGridViewSelectedFiles.Rows[ii].Height = dataGridViewSelectedFiles.Rows[ii].GetPreferredHeight(ii, DataGridViewAutoSizeRowMode.AllCells, true) - 2; 
+                    //dataGridViewSelectedFiles.Rows[ii].Height = dataGridViewSelectedFiles.Rows[ii].GetPreferredHeight(ii, DataGridViewAutoSizeRowMode.AllCells, true) - 2; 
+                    //dataGridViewSelectedFiles.Rows[ii].Height = dataGridViewSelectedFiles.Rows[ii].GetPreferredHeight(ii, DataGridViewAutoSizeRowMode.AllCells, true) - 2; 
+                }
+                GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceWorkAfterSelectionOfFile, "selected" + tracestring, 0);
+
+                // activate eventhandler SelectionChanged again to work during user selection
+                dataGridViewSelectedFiles.SelectionChanged += dataGridViewSelectedFiles_SelectionChanged;
+            }
         }
 
         // Display the image from given index

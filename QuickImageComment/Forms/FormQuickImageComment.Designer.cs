@@ -1,4 +1,4 @@
-//Copyright (C) 2009 Norbert Wagner
+ï»¿//Copyright (C) 2009 Norbert Wagner
 
 //This program is free software; you can redistribute it and/or
 //modify it under the terms of the GNU General Public License
@@ -316,7 +316,7 @@ namespace QuickImageComment
             this.dynamicLabelArtist.Name = "dynamicLabelArtist";
             this.dynamicLabelArtist.Size = new System.Drawing.Size(79, 13);
             this.dynamicLabelArtist.TabIndex = 1;
-            this.dynamicLabelArtist.Text = "Künstler (Autor)";
+            this.dynamicLabelArtist.Text = "KÃ¼nstler (Autor)";
             // 
             // textBoxUserComment
             // 
@@ -419,6 +419,7 @@ namespace QuickImageComment
             this.tabControlSingleMulti.Size = new System.Drawing.Size(513, 224);
             this.tabControlSingleMulti.TabIndex = 0;
             this.tabControlSingleMulti.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.tabControl_DrawItem);
+            this.tabControlSingleMulti.SelectedIndexChanged += new System.EventHandler(this.tabControlSingleMulti_SelectedIndexChanged);
             // 
             // tabPageSingle
             // 
@@ -581,7 +582,7 @@ namespace QuickImageComment
             this.tabPageOverview.Padding = new System.Windows.Forms.Padding(3);
             this.tabPageOverview.Size = new System.Drawing.Size(269, 170);
             this.tabPageOverview.TabIndex = 0;
-            this.tabPageOverview.Text = "Übersicht";
+            this.tabPageOverview.Text = "Ãœbersicht";
             this.tabPageOverview.UseVisualStyleBackColor = true;
             // 
             // panelWarningMetaData
@@ -661,14 +662,14 @@ namespace QuickImageComment
             // 
             this.toolStripMenuItemAddToChangeable.Name = "toolStripMenuItemAddToChangeable";
             this.toolStripMenuItemAddToChangeable.Size = new System.Drawing.Size(342, 22);
-            this.toolStripMenuItemAddToChangeable.Text = "Markierte Felder zu änderbaren Feldern hinzufügen";
+            this.toolStripMenuItemAddToChangeable.Text = "Markierte Felder zu Ã¤nderbaren Feldern hinzufÃ¼gen";
             this.toolStripMenuItemAddToChangeable.Click += new System.EventHandler(this.toolStripMenuItemAddFromOverviewToChangeable_Click);
             // 
             // toolStripMenuItemAddToFind
             // 
             this.toolStripMenuItemAddToFind.Name = "toolStripMenuItemAddToFind";
             this.toolStripMenuItemAddToFind.Size = new System.Drawing.Size(342, 22);
-            this.toolStripMenuItemAddToFind.Text = "Markierte Felder zu Feldern für Suche hinzufügen";
+            this.toolStripMenuItemAddToFind.Text = "Markierte Felder zu Feldern fÃ¼r Suche hinzufÃ¼gen";
             this.toolStripMenuItemAddToFind.Click += new System.EventHandler(this.toolStripMenuItemAddToFind_Click);
             // 
             // contextMenuStripMetaDataMenuItemAdjustOverview
@@ -822,7 +823,7 @@ namespace QuickImageComment
             this.checkBoxGpsDataChange.Name = "checkBoxGpsDataChange";
             this.checkBoxGpsDataChange.Size = new System.Drawing.Size(116, 17);
             this.checkBoxGpsDataChange.TabIndex = 5;
-            this.checkBoxGpsDataChange.Text = "GPS-Daten ändern";
+            this.checkBoxGpsDataChange.Text = "GPS-Daten Ã¤ndern";
             this.checkBoxGpsDataChange.UseVisualStyleBackColor = true;
             // 
             // dataGridViewSelectedFiles
@@ -875,9 +876,9 @@ namespace QuickImageComment
             this.comboBoxKeyWordsChange.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxKeyWordsChange.FormattingEnabled = true;
             this.comboBoxKeyWordsChange.Items.AddRange(new object[] {
-            "Vorhandene Schlüsselworte nicht ändern",
-            "Vorhandene Schlüsselworte überschreiben",
-            "Neue Schlüsselworte ergänzen"});
+            "Vorhandene SchlÃ¼sselworte nicht Ã¤ndern",
+            "Vorhandene SchlÃ¼sselworte Ã¼berschreiben",
+            "Neue SchlÃ¼sselworte ergÃ¤nzen"});
             this.comboBoxKeyWordsChange.Location = new System.Drawing.Point(3, 53);
             this.comboBoxKeyWordsChange.Name = "comboBoxKeyWordsChange";
             this.comboBoxKeyWordsChange.Size = new System.Drawing.Size(250, 21);
@@ -888,10 +889,10 @@ namespace QuickImageComment
             this.comboBoxCommentChange.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxCommentChange.FormattingEnabled = true;
             this.comboBoxCommentChange.Items.AddRange(new object[] {
-            "Vorhandenen Kommentar nicht ändern",
-            "Vorhandenen Kommentar überschreiben",
-            "Neuen Kommentar vor vorhandenen einfügen",
-            "Neuen Kommentar an vorhandenen anhängen"});
+            "Vorhandenen Kommentar nicht Ã¤ndern",
+            "Vorhandenen Kommentar Ã¼berschreiben",
+            "Neuen Kommentar vor vorhandenen einfÃ¼gen",
+            "Neuen Kommentar an vorhandenen anhÃ¤ngen"});
             this.comboBoxCommentChange.Location = new System.Drawing.Point(3, 26);
             this.comboBoxCommentChange.Name = "comboBoxCommentChange";
             this.comboBoxCommentChange.Size = new System.Drawing.Size(250, 21);
@@ -905,7 +906,7 @@ namespace QuickImageComment
             this.checkBoxArtistChange.Name = "checkBoxArtistChange";
             this.checkBoxArtistChange.Size = new System.Drawing.Size(134, 17);
             this.checkBoxArtistChange.TabIndex = 0;
-            this.checkBoxArtistChange.Text = "Künstler (Autor) ändern";
+            this.checkBoxArtistChange.Text = "KÃ¼nstler (Autor) Ã¤ndern";
             this.checkBoxArtistChange.UseVisualStyleBackColor = true;
             // 
             // panelUsercomment
@@ -1235,14 +1236,14 @@ namespace QuickImageComment
             // 
             this.toolStripMenuItemOpen.Name = "toolStripMenuItemOpen";
             this.toolStripMenuItemOpen.Size = new System.Drawing.Size(367, 22);
-            this.toolStripMenuItemOpen.Text = "Öffnen ...";
+            this.toolStripMenuItemOpen.Text = "Ã–ffnen ...";
             this.toolStripMenuItemOpen.Click += new System.EventHandler(this.toolStripMenuItemOpen_Click);
             // 
             // toolStripMenuItemFind
             // 
             this.toolStripMenuItemFind.Name = "toolStripMenuItemFind";
             this.toolStripMenuItemFind.Size = new System.Drawing.Size(367, 22);
-            this.toolStripMenuItemFind.Text = "Suche über Eigenschaften";
+            this.toolStripMenuItemFind.Text = "Suche Ã¼ber Eigenschaften";
             this.toolStripMenuItemFind.Click += new System.EventHandler(this.toolStripMenuItemFind_Click);
             // 
             // toolStripSeparator12
@@ -1254,7 +1255,7 @@ namespace QuickImageComment
             // 
             this.toolStripMenuItemSelectAll.Name = "toolStripMenuItemSelectAll";
             this.toolStripMenuItemSelectAll.Size = new System.Drawing.Size(367, 22);
-            this.toolStripMenuItemSelectAll.Text = "&Alle Auswählen";
+            this.toolStripMenuItemSelectAll.Text = "&Alle AuswÃ¤hlen";
             this.toolStripMenuItemSelectAll.Click += new System.EventHandler(this.toolStripMenuItemSelectAll_Click);
             // 
             // toolStripMenuItemRefreshFolderTree
@@ -1291,7 +1292,7 @@ namespace QuickImageComment
             // 
             this.toolStripMenuItemDateTimeChange.Name = "toolStripMenuItemDateTimeChange";
             this.toolStripMenuItemDateTimeChange.Size = new System.Drawing.Size(367, 22);
-            this.toolStripMenuItemDateTimeChange.Text = "Au&fnahmedatum/zeit ändern";
+            this.toolStripMenuItemDateTimeChange.Text = "Au&fnahmedatum/zeit Ã¤ndern";
             this.toolStripMenuItemDateTimeChange.Click += new System.EventHandler(this.toolStripMenuItemDateTimeChange_Click);
             // 
             // ToolStripMenuItemRemoveMetaData
@@ -1377,7 +1378,7 @@ namespace QuickImageComment
             this.toolStripMenuItemNext.Name = "toolStripMenuItemNext";
             this.toolStripMenuItemNext.ShortcutKeys = System.Windows.Forms.Keys.F12;
             this.toolStripMenuItemNext.Size = new System.Drawing.Size(166, 22);
-            this.toolStripMenuItemNext.Text = "&Nächstes";
+            this.toolStripMenuItemNext.Text = "&NÃ¤chstes";
             this.toolStripMenuItemNext.Click += new System.EventHandler(this.toolStripMenuItemNext_Click);
             // 
             // toolStripMenuItemLast
@@ -1396,8 +1397,8 @@ namespace QuickImageComment
             // 
             this.toolStripMenuItemReset.Name = "toolStripMenuItemReset";
             this.toolStripMenuItemReset.Size = new System.Drawing.Size(166, 22);
-            this.toolStripMenuItemReset.Text = "&Zurücksetzen";
-            this.toolStripMenuItemReset.ToolTipText = "Zurücksetzen der Eingaben seit dem letzten Speichern";
+            this.toolStripMenuItemReset.Text = "&ZurÃ¼cksetzen";
+            this.toolStripMenuItemReset.ToolTipText = "ZurÃ¼cksetzen der Eingaben seit dem letzten Speichern";
             this.toolStripMenuItemReset.Click += new System.EventHandler(this.toolStripMenuItemReset_Click);
             // 
             // toolStripMenuItemDelete
@@ -1405,7 +1406,7 @@ namespace QuickImageComment
             this.toolStripMenuItemDelete.Name = "toolStripMenuItemDelete";
             this.toolStripMenuItemDelete.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.L)));
             this.toolStripMenuItemDelete.Size = new System.Drawing.Size(166, 22);
-            this.toolStripMenuItemDelete.Text = "&Löschen";
+            this.toolStripMenuItemDelete.Text = "&LÃ¶schen";
             this.toolStripMenuItemDelete.Click += new System.EventHandler(this.toolStripMenuItemDelete_Click);
             // 
             // toolStripMenuItemView
@@ -1428,7 +1429,7 @@ namespace QuickImageComment
             this.toolStripMenuItemView.Name = "toolStripMenuItemView";
             this.toolStripMenuItemView.Size = new System.Drawing.Size(59, 20);
             this.toolStripMenuItemView.Text = "&Ansicht";
-            this.toolStripMenuItemView.ToolTipText = "Öffnet Menü für Datei-Ansicht";
+            this.toolStripMenuItemView.ToolTipText = "Ã–ffnet MenÃ¼ fÃ¼r Datei-Ansicht";
             // 
             // toolStripMenuItemViewAdjust
             // 
@@ -1466,7 +1467,7 @@ namespace QuickImageComment
             // 
             this.toolStripMenuItemToolsInMenu.Name = "toolStripMenuItemToolsInMenu";
             this.toolStripMenuItemToolsInMenu.Size = new System.Drawing.Size(241, 22);
-            this.toolStripMenuItemToolsInMenu.Text = "Ausblenden - Symbole in Menü";
+            this.toolStripMenuItemToolsInMenu.Text = "Ausblenden - Symbole in MenÃ¼";
             this.toolStripMenuItemToolsInMenu.Click += new System.EventHandler(this.toolStripMenuItemToolsInMenu_Click);
             // 
             // toolStripSeparator7
@@ -1631,7 +1632,7 @@ namespace QuickImageComment
             this.toolStripMenuItemZoomD});
             this.toolStripMenuItemZoomFactor.Name = "toolStripMenuItemZoomFactor";
             this.toolStripMenuItemZoomFactor.Size = new System.Drawing.Size(182, 22);
-            this.toolStripMenuItemZoomFactor.Text = "&Vergrößerungsfaktor";
+            this.toolStripMenuItemZoomFactor.Text = "&VergrÃ¶ÃŸerungsfaktor";
             // 
             // toolStripMenuItemZoomA
             // 
@@ -1731,7 +1732,7 @@ namespace QuickImageComment
             this.toolStripMenuItemKeyWords.Name = "toolStripMenuItemKeyWords";
             this.toolStripMenuItemKeyWords.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.I)));
             this.toolStripMenuItemKeyWords.Size = new System.Drawing.Size(291, 22);
-            this.toolStripMenuItemKeyWords.Text = "Vordefinierte &IPTC Schlüsselwörter";
+            this.toolStripMenuItemKeyWords.Text = "Vordefinierte &IPTC SchlÃ¼sselwÃ¶rter";
             this.toolStripMenuItemKeyWords.Click += new System.EventHandler(this.toolStripMenuItemPredefinedKeyWords_Click);
             // 
             // toolStripSeparator13
@@ -1743,14 +1744,14 @@ namespace QuickImageComment
             // 
             this.toolStripMenuItemDataTemplates.Name = "toolStripMenuItemDataTemplates";
             this.toolStripMenuItemDataTemplates.Size = new System.Drawing.Size(291, 22);
-            this.toolStripMenuItemDataTemplates.Text = "Daten-Vorlage auswählen/bearbeiten";
+            this.toolStripMenuItemDataTemplates.Text = "Daten-Vorlage auswÃ¤hlen/bearbeiten";
             this.toolStripMenuItemDataTemplates.Click += new System.EventHandler(this.toolStripMenuItemDataTemplates_Click);
             // 
             // dynamicToolStripMenuItemLoadDataFromTemplate
             // 
             this.dynamicToolStripMenuItemLoadDataFromTemplate.Name = "dynamicToolStripMenuItemLoadDataFromTemplate";
             this.dynamicToolStripMenuItemLoadDataFromTemplate.Size = new System.Drawing.Size(291, 22);
-            this.dynamicToolStripMenuItemLoadDataFromTemplate.Text = "Daten übernehmen aus Vorlage: <name>";
+            this.dynamicToolStripMenuItemLoadDataFromTemplate.Text = "Daten Ã¼bernehmen aus Vorlage: <name>";
             this.dynamicToolStripMenuItemLoadDataFromTemplate.Click += new System.EventHandler(this.dynamciToolStripMenuItemLoadDataFromTemplate_Click);
             // 
             // toolStripSeparator11
@@ -1814,7 +1815,7 @@ namespace QuickImageComment
             // 
             this.ToolStripMenuItemUserConfigStorage.Name = "ToolStripMenuItemUserConfigStorage";
             this.ToolStripMenuItemUserConfigStorage.Size = new System.Drawing.Size(291, 22);
-            this.ToolStripMenuItemUserConfigStorage.Text = "Speicherort für Benutzer-Einstellungen";
+            this.ToolStripMenuItemUserConfigStorage.Text = "Speicherort fÃ¼r Benutzer-Einstellungen";
             this.ToolStripMenuItemUserConfigStorage.Click += new System.EventHandler(this.ToolStripMenuItemUserConfigStorage_Click);
             // 
             // toolStripMenuItemMaintenance
@@ -1862,7 +1863,7 @@ namespace QuickImageComment
             // 
             this.toolStripMenuItemCheckTranslationComplete.Name = "toolStripMenuItemCheckTranslationComplete";
             this.toolStripMenuItemCheckTranslationComplete.Size = new System.Drawing.Size(260, 22);
-            this.toolStripMenuItemCheckTranslationComplete.Text = "Prüfen ob Übersetzung vollständig";
+            this.toolStripMenuItemCheckTranslationComplete.Text = "PrÃ¼fen ob Ãœbersetzung vollstÃ¤ndig";
             this.toolStripMenuItemCheckTranslationComplete.Click += new System.EventHandler(this.toolStripMenuItemCheckTranslationComplete_Click);
             // 
             // toolStripMenuItemFormLogger
@@ -1893,21 +1894,21 @@ namespace QuickImageComment
             // 
             this.toolStripMenuItemListShortcuts.Name = "toolStripMenuItemListShortcuts";
             this.toolStripMenuItemListShortcuts.Size = new System.Drawing.Size(213, 22);
-            this.toolStripMenuItemListShortcuts.Text = "Tastaturkürzel auflisten";
+            this.toolStripMenuItemListShortcuts.Text = "TastaturkÃ¼rzel auflisten";
             this.toolStripMenuItemListShortcuts.Click += new System.EventHandler(this.toolStripMenuItemListShortcuts_Click);
             // 
             // toolStripMenuItemAbout
             // 
             this.toolStripMenuItemAbout.Name = "toolStripMenuItemAbout";
             this.toolStripMenuItemAbout.Size = new System.Drawing.Size(213, 22);
-            this.toolStripMenuItemAbout.Text = "Über ...";
+            this.toolStripMenuItemAbout.Text = "Ãœber ...";
             this.toolStripMenuItemAbout.Click += new System.EventHandler(this.toolStripMenuItemAbout_Click);
             // 
             // toolStripMenuItemCheckForNewVersion
             // 
             this.toolStripMenuItemCheckForNewVersion.Name = "toolStripMenuItemCheckForNewVersion";
             this.toolStripMenuItemCheckForNewVersion.Size = new System.Drawing.Size(213, 22);
-            this.toolStripMenuItemCheckForNewVersion.Text = "Auf neue Version prüfen ...";
+            this.toolStripMenuItemCheckForNewVersion.Text = "Auf neue Version prÃ¼fen ...";
             this.toolStripMenuItemCheckForNewVersion.Click += new System.EventHandler(this.toolStripMenuItemCheckForNewVersion_Click);
             // 
             // ToolStripMenuItemWebPage
@@ -1938,7 +1939,7 @@ namespace QuickImageComment
             // 
             this.ToolStripMenuItemWebPageChangeHistory.Name = "ToolStripMenuItemWebPageChangeHistory";
             this.ToolStripMenuItemWebPageChangeHistory.Size = new System.Drawing.Size(180, 22);
-            this.ToolStripMenuItemWebPageChangeHistory.Text = "Änderungshistorie";
+            this.ToolStripMenuItemWebPageChangeHistory.Text = "Ã„nderungshistorie";
             this.ToolStripMenuItemWebPageChangeHistory.Click += new System.EventHandler(this.ToolStripMenuItemWebPageChangeHistory_Click);
             // 
             // toolStripMenuItemGitHub
@@ -2060,8 +2061,8 @@ namespace QuickImageComment
             this.toolStripButtonDateTimeChange.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonDateTimeChange.Name = "toolStripButtonDateTimeChange";
             this.toolStripButtonDateTimeChange.Size = new System.Drawing.Size(36, 36);
-            this.toolStripButtonDateTimeChange.Text = "Aufnahmedatum und Uhrzeit ändern";
-            this.toolStripButtonDateTimeChange.ToolTipText = "Aufnahmedatum und Uhrzeit ändern";
+            this.toolStripButtonDateTimeChange.Text = "Aufnahmedatum und Uhrzeit Ã¤ndern";
+            this.toolStripButtonDateTimeChange.ToolTipText = "Aufnahmedatum und Uhrzeit Ã¤ndern";
             this.toolStripButtonDateTimeChange.Click += new System.EventHandler(this.toolStripMenuItemDateTimeChange_Click);
             // 
             // toolStripSeparator3
@@ -2112,8 +2113,8 @@ namespace QuickImageComment
             this.toolStripButtonNext.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonNext.Name = "toolStripButtonNext";
             this.toolStripButtonNext.Size = new System.Drawing.Size(36, 36);
-            this.toolStripButtonNext.Text = "Bild speichern und nächstes Bild anzeigen";
-            this.toolStripButtonNext.ToolTipText = "Bild speichern und nächstes Bild anzeigen";
+            this.toolStripButtonNext.Text = "Bild speichern und nÃ¤chstes Bild anzeigen";
+            this.toolStripButtonNext.ToolTipText = "Bild speichern und nÃ¤chstes Bild anzeigen";
             this.toolStripButtonNext.Click += new System.EventHandler(this.toolStripMenuItemNext_Click);
             // 
             // toolStripButtonLast
@@ -2141,7 +2142,7 @@ namespace QuickImageComment
             this.dynamicToolStripButtonLoadDataFromTemplate.Name = "dynamicToolStripButtonLoadDataFromTemplate";
             this.dynamicToolStripButtonLoadDataFromTemplate.Size = new System.Drawing.Size(36, 36);
             this.dynamicToolStripButtonLoadDataFromTemplate.Text = "toolStripButton1";
-            this.dynamicToolStripButtonLoadDataFromTemplate.ToolTipText = "Daten übernehmen aus Vorlage:";
+            this.dynamicToolStripButtonLoadDataFromTemplate.ToolTipText = "Daten Ã¼bernehmen aus Vorlage:";
             this.dynamicToolStripButtonLoadDataFromTemplate.Click += new System.EventHandler(this.dynamciToolStripMenuItemLoadDataFromTemplate_Click);
             // 
             // toolStripButtonReset
@@ -2152,8 +2153,8 @@ namespace QuickImageComment
             this.toolStripButtonReset.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonReset.Name = "toolStripButtonReset";
             this.toolStripButtonReset.Size = new System.Drawing.Size(36, 36);
-            this.toolStripButtonReset.Text = "Zurücksetzen der Eingaben seit dem letzten Speichern";
-            this.toolStripButtonReset.ToolTipText = "Zurücksetzen der Eingaben seit dem letzten Speichern";
+            this.toolStripButtonReset.Text = "ZurÃ¼cksetzen der Eingaben seit dem letzten Speichern";
+            this.toolStripButtonReset.ToolTipText = "ZurÃ¼cksetzen der Eingaben seit dem letzten Speichern";
             this.toolStripButtonReset.Click += new System.EventHandler(this.toolStripMenuItemReset_Click);
             // 
             // toolStripButtonDelete
@@ -2164,8 +2165,8 @@ namespace QuickImageComment
             this.toolStripButtonDelete.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonDelete.Name = "toolStripButtonDelete";
             this.toolStripButtonDelete.Size = new System.Drawing.Size(36, 36);
-            this.toolStripButtonDelete.Text = "Bild löschen";
-            this.toolStripButtonDelete.ToolTipText = "Bild löschen";
+            this.toolStripButtonDelete.Text = "Bild lÃ¶schen";
+            this.toolStripButtonDelete.ToolTipText = "Bild lÃ¶schen";
             this.toolStripButtonDelete.Click += new System.EventHandler(this.toolStripMenuItemDelete_Click);
             // 
             // toolStripSeparator6
@@ -2270,8 +2271,8 @@ namespace QuickImageComment
             this.toolStripButtonSettings.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonSettings.Name = "toolStripButtonSettings";
             this.toolStripButtonSettings.Size = new System.Drawing.Size(36, 36);
-            this.toolStripButtonSettings.Text = "Einstellungen ändern";
-            this.toolStripButtonSettings.ToolTipText = "Einstellungen ändern";
+            this.toolStripButtonSettings.Text = "Einstellungen Ã¤ndern";
+            this.toolStripButtonSettings.ToolTipText = "Einstellungen Ã¤ndern";
             this.toolStripButtonSettings.Click += new System.EventHandler(this.toolStripMenuItemSettings_Click);
             // 
             // toolStripButtonFields
@@ -2305,8 +2306,8 @@ namespace QuickImageComment
             this.toolStripButtonPredefinedKeyWords.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonPredefinedKeyWords.Name = "toolStripButtonPredefinedKeyWords";
             this.toolStripButtonPredefinedKeyWords.Size = new System.Drawing.Size(36, 36);
-            this.toolStripButtonPredefinedKeyWords.Text = "vordefinierte IPTC-Schlüsselwörter ändern";
-            this.toolStripButtonPredefinedKeyWords.ToolTipText = "vordefinierte IPTC-Schlüsselwörter ändern";
+            this.toolStripButtonPredefinedKeyWords.Text = "vordefinierte IPTC-SchlÃ¼sselwÃ¶rter Ã¤ndern";
+            this.toolStripButtonPredefinedKeyWords.ToolTipText = "vordefinierte IPTC-SchlÃ¼sselwÃ¶rter Ã¤ndern";
             this.toolStripButtonPredefinedKeyWords.Click += new System.EventHandler(this.toolStripMenuItemPredefinedKeyWords_Click);
             // 
             // toolStripSeparator14
@@ -2323,22 +2324,22 @@ namespace QuickImageComment
             this.toolStripButtonFind.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonFind.Name = "toolStripButtonFind";
             this.toolStripButtonFind.Size = new System.Drawing.Size(36, 36);
-            this.toolStripButtonFind.Text = "Suche über Eigenschaften";
-            this.toolStripButtonFind.ToolTipText = "Suche über Eigenschaften";
+            this.toolStripButtonFind.Text = "Suche Ã¼ber Eigenschaften";
+            this.toolStripButtonFind.ToolTipText = "Suche Ã¼ber Eigenschaften";
             this.toolStripButtonFind.Click += new System.EventHandler(this.toolStripMenuItemFind_Click);
             // 
             // toolStripMenuItemDataPrivacy
             // 
             this.toolStripMenuItemDataPrivacy.Name = "toolStripMenuItemDataPrivacy";
             this.toolStripMenuItemDataPrivacy.Size = new System.Drawing.Size(213, 22);
-            this.toolStripMenuItemDataPrivacy.Text = "Datenschutzerklärung";
+            this.toolStripMenuItemDataPrivacy.Text = "DatenschutzerklÃ¤rung";
             this.toolStripMenuItemDataPrivacy.Click += new System.EventHandler(this.toolStripMenuItemDataPrivacy_Click);
             // 
             // toolStripMenuItemChangesInVersion
             // 
             this.toolStripMenuItemChangesInVersion.Name = "toolStripMenuItemChangesInVersion";
             this.toolStripMenuItemChangesInVersion.Size = new System.Drawing.Size(213, 22);
-            this.toolStripMenuItemChangesInVersion.Text = "Änderungen in dieser Version ...";
+            this.toolStripMenuItemChangesInVersion.Text = "Ã„nderungen in dieser Version ...";
             this.toolStripMenuItemChangesInVersion.Click += new System.EventHandler(this.toolStripMenuItemChangesInVersion_Click);
             // 
             // FormQuickImageComment

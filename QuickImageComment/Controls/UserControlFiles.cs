@@ -513,6 +513,8 @@ namespace QuickImageComment
                                 // clear thumbnail to get it recreated during redraw item
                                 listViewFiles.clearThumbnailForFile(fullFileName);
                                 listViewFiles.Refresh();
+                                // refresh data in multi-edit-tab
+                                theFormQuickImageComment.refreshdataGridViewSelectedFiles();
                             }
                         }
                         else
@@ -558,6 +560,8 @@ namespace QuickImageComment
                     int ii = listViewFiles.getIndexOf(fullFileName);
                     if (ii >= 0)
                     {
+                        bool wasSelected = listViewFiles.SelectedIndices.Contains(ii);
+
                         // file in listViewFiles --> delete
                         ImageManager.deleteExtendedImage(ii);
                         // remove item in listView
@@ -578,6 +582,11 @@ namespace QuickImageComment
                         if (listViewFiles.selectedFilesOld.Contains(fullFileName))
                         {
                             listViewFiles.selectedFilesOld.Remove(fullFileName);
+                        }
+                        if (wasSelected)
+                        {
+                            // refresh data in multi-edit-tab
+                            theFormQuickImageComment.refreshdataGridViewSelectedFiles();
                         }
                         theFormQuickImageComment.toolStripStatusLabelFiles.Text = LangCfg.translate("Bilder/Videos", this.Name) + ": " + listViewFiles.Items.Count.ToString();
                     }
@@ -642,6 +651,11 @@ namespace QuickImageComment
                             listViewFiles.SelectedIndices.Add(listViewItem.Index);
                             listViewFiles.selectedFilesOld.Add(newFullFileName);
                         }
+                    }
+                    if (wasSelected)
+                    {
+                        // refresh data in multi-edit-tab
+                        theFormQuickImageComment.refreshdataGridViewSelectedFiles();
                     }
                 }
 
