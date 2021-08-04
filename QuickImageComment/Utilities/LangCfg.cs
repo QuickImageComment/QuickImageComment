@@ -168,7 +168,8 @@ namespace QuickImageComment
             W_findDataTableNotRead,
             W_MetaDate1Empty,
             Q_deleteGeoDataEntry,
-            Q_renameSearchEntry
+            Q_renameSearchEntry,
+            W_noPDBfile
         }
 
         public enum Others

@@ -130,8 +130,17 @@ namespace QuickImageComment
             System.Diagnostics.StackTrace stackTrace = new System.Diagnostics.StackTrace(true);
             System.Diagnostics.StackFrame[] stackFrames = stackTrace.GetFrames();
 
+            int offset = 1;
+
+            //if (stackFrames[offset].GetMethod().Name.Equals("trace") && stackFrames[offset].GetMethod
+            System.Reflection.MethodBase mb = stackFrames[offset].GetMethod();
+            if (mb.Name.Equals("trace") && mb.DeclaringType.Name.Equals("GeneralUtilities"))
+            {
+                offset++;
+            }
+
             string traceString = "";
-            for (long ii = 1; ii < stackFrames.Length && ii <= stackLevel + 1; ii++)
+            for (long ii = offset; ii < stackFrames.Length && ii <= stackLevel + offset; ii++)
             {
                 traceString = traceString + "@" + stackFrames[ii].GetMethod().Name + "-" + stackFrames[ii].GetFileLineNumber().ToString();
             }

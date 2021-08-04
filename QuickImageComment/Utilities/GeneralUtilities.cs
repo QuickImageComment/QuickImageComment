@@ -778,12 +778,7 @@ namespace QuickImageComment
             }
         }
 
-        // create trace string and hand it over to main mask
-        public static void trace(ConfigDefinition.enumConfigFlags traceFlag, string inputString)
-        {
-            trace(traceFlag, inputString, 0);
-        }
-        public static void trace(ConfigDefinition.enumConfigFlags traceFlag, string inputString, int stackLevel)
+        public static void trace(ConfigDefinition.enumConfigFlags traceFlag, string inputString, int stackLevel = 0)
         {
             if (ConfigDefinition.getConfigFlag(traceFlag))
             {

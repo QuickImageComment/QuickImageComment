@@ -52,13 +52,13 @@ namespace QuickImageComment
             this.textBoxErrorDetails.Name = "textBoxErrorDetails";
             this.textBoxErrorDetails.ReadOnly = true;
             this.textBoxErrorDetails.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxErrorDetails.Size = new System.Drawing.Size(678, 211);
+            this.textBoxErrorDetails.Size = new System.Drawing.Size(854, 208);
             this.textBoxErrorDetails.TabIndex = 0;
             // 
             // buttonPrepareMail
             // 
             this.buttonPrepareMail.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonPrepareMail.Location = new System.Drawing.Point(3, 361);
+            this.buttonPrepareMail.Location = new System.Drawing.Point(3, 358);
             this.buttonPrepareMail.Name = "buttonPrepareMail";
             this.buttonPrepareMail.Size = new System.Drawing.Size(150, 23);
             this.buttonPrepareMail.TabIndex = 1;
@@ -69,7 +69,7 @@ namespace QuickImageComment
             // buttonClose
             // 
             this.buttonClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonClose.Location = new System.Drawing.Point(531, 361);
+            this.buttonClose.Location = new System.Drawing.Point(707, 358);
             this.buttonClose.Name = "buttonClose";
             this.buttonClose.Size = new System.Drawing.Size(150, 23);
             this.buttonClose.TabIndex = 4;
@@ -85,7 +85,7 @@ namespace QuickImageComment
             this.textBoxErrorMessage.Name = "textBoxErrorMessage";
             this.textBoxErrorMessage.ReadOnly = true;
             this.textBoxErrorMessage.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxErrorMessage.Size = new System.Drawing.Size(640, 20);
+            this.textBoxErrorMessage.Size = new System.Drawing.Size(816, 20);
             this.textBoxErrorMessage.TabIndex = 5;
             // 
             // label1
@@ -112,17 +112,17 @@ namespace QuickImageComment
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxInstructions.BackColor = System.Drawing.SystemColors.Control;
             this.textBoxInstructions.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBoxInstructions.Location = new System.Drawing.Point(3, 295);
+            this.textBoxInstructions.Location = new System.Drawing.Point(3, 292);
             this.textBoxInstructions.Multiline = true;
             this.textBoxInstructions.Name = "textBoxInstructions";
-            this.textBoxInstructions.Size = new System.Drawing.Size(677, 60);
+            this.textBoxInstructions.Size = new System.Drawing.Size(853, 60);
             this.textBoxInstructions.TabIndex = 8;
             this.textBoxInstructions.Text = "Instructions";
             // 
             // buttonGitHubIssue
             // 
             this.buttonGitHubIssue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonGitHubIssue.Location = new System.Drawing.Point(159, 361);
+            this.buttonGitHubIssue.Location = new System.Drawing.Point(159, 358);
             this.buttonGitHubIssue.Name = "buttonGitHubIssue";
             this.buttonGitHubIssue.Size = new System.Drawing.Size(150, 23);
             this.buttonGitHubIssue.TabIndex = 9;
@@ -143,7 +143,7 @@ namespace QuickImageComment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(684, 386);
+            this.ClientSize = new System.Drawing.Size(860, 383);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.buttonGitHubIssue);
             this.Controls.Add(this.textBoxInstructions);

@@ -293,14 +293,11 @@ namespace QuickImageComment
             //System.Diagnostics.StackTrace stackTrace = new System.Diagnostics.StackTrace();
             //System.Diagnostics.StackFrame[] stackFrames = stackTrace.GetFrames();
             //string traceString = handleExceptionCallCount.ToString() + " " + stackFrames.Length.ToString();
-            //for (long ii = 1; ii < stackFrames.Length; ii++)
+            //for (long ii = 1; ii < stackFrames.Length && ii < 10; ii++)
             //{
             //    traceString = traceString + "\n@" + stackFrames[ii].GetMethod().Name;
             //}
             //GeneralUtilities.debugMessage("handleException start " + traceString);
-
-            string hints = "Closing=" + FormQuickImageComment.closing.ToString() + " CfgSaved=" + FormQuickImageComment.cfgSaved.ToString();
-            ex.Data.Add("Hints", hints);
 
             if (!initialzationCompleted)
             {
@@ -310,6 +307,23 @@ namespace QuickImageComment
             }
             else
             {
+                string hints = "Closing=" + FormQuickImageComment.closing.ToString() + " CfgSaved=" + FormQuickImageComment.cfgSaved.ToString();
+#pragma warning disable CS0162
+                if (GeneralUtilities.MicrosoftStore)
+                {
+                    hints += " MicrosoftStore";
+                }
+                else
+                {
+                    bool pdb = System.IO.File.Exists(ProgramPath + System.IO.Path.DirectorySeparatorChar + "QuickImageComment.pdb");
+                    hints += " PDB=" + pdb.ToString();
+                    if (!pdb)
+                    {
+                        GeneralUtilities.message(LangCfg.Message.W_noPDBfile);
+                    }
+                }
+#pragma warning restore CS0162
+
 #if APPCENTER
                 // exceptions thrown from backgroundworker are somehow nested, so that handleException in combination
                 // with AppCenter is entered several times. Only in first call message box is shown.
@@ -332,7 +346,6 @@ namespace QuickImageComment
                     if (FormErrorAppCenter.sendToAppCenter)
                     {
                         // escalate exception to AppCenter
-                        //System.Runtime.ExceptionServices.ExceptionDispatchInfo.Capture(ex).Throw();
                         System.Runtime.ExceptionServices.ExceptionDispatchInfo.Capture(new Exception(hints, ex)).Throw();
                     }
                     else
@@ -343,32 +356,27 @@ namespace QuickImageComment
                 }
 #endif
                 // not yet handled 
-                handleExceptionWithoutAppCenter(ex);
+                handleExceptionWithoutAppCenter(ex, hints);
             }
         }
 
         // handle the exception without AppCenter - create error file and inform user
-        internal static void handleExceptionWithoutAppCenter(Exception ex)
+        internal static void handleExceptionWithoutAppCenter(Exception ex, string hints)
         {
             string details = LangCfg.getText(LangCfg.Others.errorFileCreated) + " " + DateTime.Now.ToString();
+            details += "\r\n" + hints + "\r\n";
             details += "\r\n" + LangCfg.getText(LangCfg.Others.errorFileVersion) + " " + Program.VersionNumberInformational
                 + " " + Program.CompileTime.ToString("dd.MM.yyyy");
             details += "\r\n" + ex.Message;
             details += "\r\n" + ex.StackTrace.ToString();
 
-            if (ex.Data.Count > 0)
-            {
-                details += "\r\n" + "\r\n" + "Exception data:";
-                foreach (object key in ex.Data.Keys)
-                {
-                    details += "\r\n" + key.ToString() + "=" + ex.Data[key].ToString();
-                }
-            }
-            if (ex.InnerException != null)
+            Exception exInner = ex.InnerException;
+            while (exInner != null)
             {
                 details += "\r\n" + "\r\nInner exception:";
-                details += "\r\n" + ex.InnerException.Message;
-                details += "\r\n" + ex.InnerException.StackTrace.ToString();
+                details += "\r\n" + exInner.Message;
+                details += "\r\n" + exInner.StackTrace.ToString();
+                exInner = exInner.InnerException;
             }
 
             string ErrorFile = ConfigDefinition.getIniPath() + "QIC" + Program.VersionNumberOnlyWhenSuffixDefined + "-Error.txt";

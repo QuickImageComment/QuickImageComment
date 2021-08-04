@@ -186,7 +186,7 @@ namespace QuickImageComment
                                 // So react only in maintenance mode where usually AppCenter is not used
                                 // As it is a problem in an optional background task, not reacting always is fine
                                 // throwing an exception to get it handled does not work here, so call method directly
-                                Program.handleExceptionWithoutAppCenter(threadingTask.Exception.InnerException);
+                                Program.handleExceptionWithoutAppCenter(threadingTask.Exception.InnerException, "");
                             }
                         }
                     });

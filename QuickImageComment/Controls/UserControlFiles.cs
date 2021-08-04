@@ -268,8 +268,8 @@ namespace QuickImageComment
         {
             GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceWorkAfterSelectionOfFile, "start", 0);
             workAfterSelectedIndexChangedCallback theCallback =
-              new workAfterSelectedIndexChangedCallback(workAfterSelectedIndexChanged);
-            this.Invoke(theCallback);
+                new workAfterSelectedIndexChangedCallback(workAfterSelectedIndexChanged);
+            this.BeginInvoke(theCallback);
             GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceWorkAfterSelectionOfFile, "finish", 0);
         }
 
@@ -471,6 +471,8 @@ namespace QuickImageComment
                     listViewFiles.selectedFilesOld.Add(listViewFiles.SelectedItems[ii].Name);
                 }
                 //Logger.log(getLogStringIndex());
+
+                //throw new Exception("ExceptionTest in workafterselectedindexchanged");
             }
         }
 
@@ -528,8 +530,10 @@ namespace QuickImageComment
                         if (listViewWithCompleteFolder)
                         {
                             // ShellListener event gives network device in capital letters, which at least sometimes differs from Foldername
+                            // check also extension and compare with file filter
                             if (theFileInfo.DirectoryName.ToLower().Equals(theFormQuickImageComment.FolderName.ToLower()) &&
-                                ConfigDefinition.FilesExtensionsArrayList.Contains(theFileInfo.Extension.ToLower()))
+                                ConfigDefinition.FilesExtensionsArrayList.Contains(theFileInfo.Extension.ToLower()) &&
+                                theFileInfo.Name.ToLower().StartsWith(textBoxFileFilter.Text.ToLower()))
                             {
                                 // save current view
                                 View tempView = listViewFiles.View;
@@ -572,8 +576,22 @@ namespace QuickImageComment
                             if (listViewFiles.SelectedIndices.Count > 0)
                             {
                                 listViewFiles.Items[listViewFiles.SelectedIndices[0]].Focused = true;
+                                theFormQuickImageComment.displayImage(listViewFiles.SelectedIndices[0]);
                             }
-                            theFormQuickImageComment.displayImage(listViewFiles.SelectedIndices[0]);
+                            else
+                            {
+                                if (listViewFiles.Items.Count > 0)
+                                {
+                                    // select image after deleted
+                                    if (ii == listViewFiles.Items.Count) ii--;
+                                    listViewFiles.SelectedIndices.Add(ii);
+                                }
+                                else
+                                {
+                                    // folder now empty
+                                    theFormQuickImageComment.displayImage(-1);
+                                }
+                            }
                         }
                         else
                         {
@@ -629,8 +647,10 @@ namespace QuickImageComment
                     // in network devices, rename event was triggered twice
                     FileInfo theFileInfo = new FileInfo(newFullFileName);
                     // ShellListener event gives network device in capital letters, which at least sometimes differs from Foldername
+                    // check also extension and compare with file filter
                     if (theFileInfo.DirectoryName.ToLower().Equals(theFormQuickImageComment.FolderName.ToLower()) &&
-                        ConfigDefinition.FilesExtensionsArrayList.Contains(theFileInfo.Extension.ToLower()))
+                        ConfigDefinition.FilesExtensionsArrayList.Contains(theFileInfo.Extension.ToLower()) &&
+                        theFileInfo.Name.ToLower().StartsWith(textBoxFileFilter.Text.ToLower()))
                     {
                         // save current view
                         View tempView = listViewFiles.View;
