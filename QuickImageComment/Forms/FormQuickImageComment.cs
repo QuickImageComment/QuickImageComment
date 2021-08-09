@@ -712,7 +712,7 @@ namespace QuickImageComment
                     // when format is changing, adjust also toolStripMenuItemCreateScreenshots_Click
                     this.toolStripStatusLabelMemory.Text = LangCfg.textOthersMainMemory + ": " + GeneralUtilities.getPrivateMemoryString() + "   " +
                                                            LangCfg.textOthersFree + ": " + GeneralUtilities.getFreeMemoryString();
-                    //this.toolStripStatusLabelThread.Text = theUserControlFiles.getLogStringIndex();
+                    this.toolStripStatusLabelThread.Text = theUserControlFiles.getLogStringIndex() + "-" +getChangedFields();
                     this.statusStrip1.Refresh();
                 }
                 catch { }
@@ -2326,36 +2326,39 @@ namespace QuickImageComment
         // set file date and time to date and time when image was generated
         private void toolStripMenuItemSetFileDateToDateGenerated_Click(object sender, EventArgs e)
         {
-            lock (UserControlFiles.LockListViewFiles)
+            if (continueAfterCheckForChangesAndOptionalSaving(theUserControlFiles.listViewFiles.SelectedIndices))
             {
-                string tagToChangeFileDate = ConfigDefinition.getConfigString(ConfigDefinition.enumConfigString.TagDateImageGenerated);
-                DialogResult theDialogResult = GeneralUtilities.questionMessage(LangCfg.Message.Q_setFileDateToDateGenerated, tagToChangeFileDate);
-                if (theDialogResult == DialogResult.Yes)
+                lock (UserControlFiles.LockListViewFiles)
                 {
-                    this.Cursor = Cursors.WaitCursor;
-                    for (int ii = 0; ii < theUserControlFiles.listViewFiles.SelectedIndices.Count; ii++)
+                    string tagToChangeFileDate = ConfigDefinition.getConfigString(ConfigDefinition.enumConfigString.TagDateImageGenerated);
+                    DialogResult theDialogResult = GeneralUtilities.questionMessage(LangCfg.Message.Q_setFileDateToDateGenerated, tagToChangeFileDate);
+                    if (theDialogResult == DialogResult.Yes)
                     {
-                        ExtendedImage theExtendedImage = ImageManager.getExtendedImage(theUserControlFiles.listViewFiles.SelectedIndices[ii]);
-                        string dateGenerated = theExtendedImage.getMetaDataValueByKey(tagToChangeFileDate, MetaDataItem.Format.Original);
-                        string fileName = theExtendedImage.getImageFileName();
-                        try
+                        this.Cursor = Cursors.WaitCursor;
+                        for (int ii = 0; ii < theUserControlFiles.listViewFiles.SelectedIndices.Count; ii++)
                         {
-                            DateTime ImageDateTime = GeneralUtilities.getDateTimeFromExifIptcXmpString(dateGenerated, tagToChangeFileDate);
-                            System.IO.File.SetCreationTime(fileName, ImageDateTime);
-                            System.IO.File.SetLastWriteTime(fileName, ImageDateTime);
-                        }
-                        catch (GeneralUtilities.ExceptionConversionError)
-                        {
-                            DialogResult dialogResult = GeneralUtilities.messageOkCancel(LangCfg.Message.E_wrongDateTimeInTag, fileName, tagToChangeFileDate, dateGenerated);
-                            if (dialogResult == DialogResult.Cancel)
+                            ExtendedImage theExtendedImage = ImageManager.getExtendedImage(theUserControlFiles.listViewFiles.SelectedIndices[ii]);
+                            string dateGenerated = theExtendedImage.getMetaDataValueByKey(tagToChangeFileDate, MetaDataItem.Format.Original);
+                            string fileName = theExtendedImage.getImageFileName();
+                            try
                             {
-                                break;
+                                DateTime ImageDateTime = GeneralUtilities.getDateTimeFromExifIptcXmpString(dateGenerated, tagToChangeFileDate);
+                                System.IO.File.SetCreationTime(fileName, ImageDateTime);
+                                System.IO.File.SetLastWriteTime(fileName, ImageDateTime);
                             }
+                            catch (GeneralUtilities.ExceptionConversionError)
+                            {
+                                DialogResult dialogResult = GeneralUtilities.messageOkCancel(LangCfg.Message.E_wrongDateTimeInTag, fileName, tagToChangeFileDate, dateGenerated);
+                                if (dialogResult == DialogResult.Cancel)
+                                {
+                                    break;
+                                }
+                            }
+                            theExtendedImage.readFileDates();
                         }
-                        theExtendedImage.readFileDates();
+                        displayImage(theUserControlFiles.focusedIndex());
+                        this.Cursor = Cursors.Default;
                     }
-                    displayImage(theUserControlFiles.focusedIndex());
-                    this.Cursor = Cursors.Default;
                 }
             }
         }
@@ -3323,20 +3326,23 @@ namespace QuickImageComment
                 foreach (Control anInputControl in theUserControlChangeableFields.ChangeableFieldInputControls.Values)
                 {
                     ChangeableFieldSpecification Spec = (ChangeableFieldSpecification)anInputControl.Tag;
-                    if (compareForMultiSave)
+                    if (!theUserControlChangeableFields.ChangedChangeableFieldTags.Contains(Spec.getKey()))
+                    // fill only if not changed by user
                     {
-                        string oldFieldValue = getFieldValueBySpec(Spec, anInputControl, anExtendedImage);
-                        string newFieldValue = anInputControl.Text;
-                        if (!theUserControlChangeableFields.ChangedChangeableFieldTags.Contains(Spec.getKey()) &&
-                            !oldFieldValue.Equals(newFieldValue))
+                        if (compareForMultiSave)
                         {
-                            theUserControlChangeableFields.enterValueInControlAndOldList(anInputControl, "");
+                            string oldFieldValue = getFieldValueBySpec(Spec, anInputControl, anExtendedImage);
+                            string newFieldValue = anInputControl.Text;
+                            if (!oldFieldValue.Equals(newFieldValue))
+                            {
+                                theUserControlChangeableFields.enterValueInControlAndOldList(anInputControl, "");
+                            }
                         }
-                    }
-                    else
-                    {
-                        theUserControlChangeableFields.enterValueInControlAndOldList(anInputControl,
-                            getFieldValueBySpec(Spec, anInputControl, anExtendedImage));
+                        else
+                        {
+                            theUserControlChangeableFields.enterValueInControlAndOldList(anInputControl,
+                                getFieldValueBySpec(Spec, anInputControl, anExtendedImage));
+                        }
                     }
                 }
             }
@@ -4053,7 +4059,6 @@ namespace QuickImageComment
                     row[jj] = aSelectedExtendedImage.getImageFileName();
                     dataGridViewSelectedFiles.Rows.Add(row);
                     dataGridViewSelectedFiles.Rows[ii].Selected = (index == theUserControlFiles.focusedIndex());
-                    Logger.log("grid " + row[jj].ToString() + " " + index.ToString() + " " + theUserControlFiles.focusedIndex().ToString() + " " + dataGridViewSelectedFiles.Rows[ii].Selected.ToString());
                     // does not work properly for dpi higher than 96
                     //dataGridViewSelectedFiles.Rows[ii].Height = dataGridViewSelectedFiles.Rows[ii].GetPreferredHeight(ii, DataGridViewAutoSizeRowMode.AllCells, true) - 2; 
                     //dataGridViewSelectedFiles.Rows[ii].Height = dataGridViewSelectedFiles.Rows[ii].GetPreferredHeight(ii, DataGridViewAutoSizeRowMode.AllCells, true) - 2; 
@@ -4091,10 +4096,9 @@ namespace QuickImageComment
             //!! images in FormImageWindow und FormImageDetails löschen; Problem, wenn mehrere offen sind und anschließend leerer Ordner selektiert wird
 
             dynamicLabelFileName.Text = FolderName;
-            // clear text boxes only, if maximum one file is selected
-            // if several files are selected, keep text, because later it is checked whether
-            // it has to be cleared or not
-            if (theUserControlFiles.listViewFiles.SelectedItems.Count <= 1)
+            // clear fields only, if no file is to be displayed
+            // if a file is to be displayed, keep text, because later it is checked how to fill the fields - depending on user changes
+            if (fileIndex < 0)
             {
                 dynamicComboBoxArtist.Text = "";
                 textBoxUserComment.Text = "";
@@ -4207,33 +4211,45 @@ namespace QuickImageComment
                 // if multiple images are selected, update of changeable fields is done in listViewFiles_SelectedIndexChanged 
                 if (theUserControlFiles.listViewFiles.SelectedItems.Count == 1)
                 {
-                    // after selecting one image only, reset flags about user changes
-                    clearFlagsIndicatingUserChanges();
+                    // only one image selected: update Artist, user comment, key words and changeable fields
+                    // but only if values are not changed by user (by previous multi-edit-activity, which now is down to one image only due to deselection of files)
 
-                    // show default artist not for videos
-                    if (!theExtendedImage.getIsVideo())
+                    // if not changed by user
+                    if (!comboBoxArtistUserChanged)
                     {
-                        // only one image selected: update Artist, user comment, key words and changeable fields
-                        dynamicComboBoxArtist.Text = theExtendedImage.getArtist();
-                        // no artist defined: set default and show label to indicate this
-                        if (dynamicComboBoxArtist.Text.Trim().Equals("") && ConfigDefinition.getUseDefaultArtist())
+                        // show default artist not for videos
+                        if (!theExtendedImage.getIsVideo())
                         {
-                            dynamicComboBoxArtist.Text = ConfigDefinition.getDefaultArtist();
-                            setControlsEnabledBasedOnDataChange(true);
-
-                            if (!dynamicComboBoxArtist.Text.Equals("") && ConfigDefinition.getShowControlArtist())
+                            dynamicComboBoxArtist.Text = theExtendedImage.getArtist();
+                            // no artist defined: set default and show label to indicate this
+                            if (dynamicComboBoxArtist.Text.Trim().Equals("") && ConfigDefinition.getUseDefaultArtist())
                             {
-                                labelArtistDefault.Visible = true;
+                                dynamicComboBoxArtist.Text = ConfigDefinition.getDefaultArtist();
+                                setControlsEnabledBasedOnDataChange(true);
+
+                                if (!dynamicComboBoxArtist.Text.Equals("") && ConfigDefinition.getShowControlArtist())
+                                {
+                                    labelArtistDefault.Visible = true;
+                                }
                             }
                         }
                     }
 
-                    textBoxUserComment.Text = theExtendedImage.getUserComment();
-                    theUserControlKeyWords.displayKeyWords(theExtendedImage.getIptcKeyWordsArrayList());
+                    if (!textBoxUserCommentUserChanged)
+                    {
+                        textBoxUserComment.Text = theExtendedImage.getUserComment();
+                    }
+
+                    if (!keyWordsUserChanged)
+                    {
+                        theUserControlKeyWords.displayKeyWords(theExtendedImage.getIptcKeyWordsArrayList());
+                    }
+
                     fillChangeableFieldValues(theExtendedImage, false);
 
                     //checkForChangeNecessary = true;
                 }
+
                 // update map display (single and multi can can be done here together)
                 if (theUserControlMap != null && !theUserControlMap.GpsDataChanged)
                 {
@@ -4245,9 +4261,6 @@ namespace QuickImageComment
             else
             {
                 GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceWorkAfterSelectionOfFile, "no image", 2);
-                // no image selected, reset flags about user changes
-                clearFlagsIndicatingUserChanges();
-                //checkForChangeNecessary = false;
                 if (theUserControlMap != null)
                 {
                     theUserControlMap.newLocation(null, false);
@@ -4305,7 +4318,7 @@ namespace QuickImageComment
         }
 
         // clear all flags indicating that user did some changes
-        private void clearFlagsIndicatingUserChanges()
+        internal void clearFlagsIndicatingUserChanges()
         {
             comboBoxArtistUserChanged = false;
             textBoxUserCommentUserChanged = false;
@@ -4964,7 +4977,10 @@ namespace QuickImageComment
                 anExtendedImage = ImageManager.getExtendedImage((int)selectedIndicesToStore[0]);
                 dynamicComboBoxArtist.Text = anExtendedImage.getArtist();
                 textBoxUserComment.Text = anExtendedImage.getUserComment();
+                // reset changed fields to force filling with this image
+                theUserControlChangeableFields.resetChangedChangeableFieldTags();
                 fillChangeableFieldValues(anExtendedImage, false);
+
                 theUserControlKeyWords.displayKeyWords(anExtendedImage.getIptcKeyWordsArrayList());
                 // set properties condering following keywords
                 for (int ii = 1; ii < selectedIndicesToStore.Count; ii++)

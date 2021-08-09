@@ -269,7 +269,10 @@ namespace QuickImageComment
             GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceWorkAfterSelectionOfFile, "start", 0);
             workAfterSelectedIndexChangedCallback theCallback =
                 new workAfterSelectedIndexChangedCallback(workAfterSelectedIndexChanged);
-            this.BeginInvoke(theCallback);
+            if (!FormQuickImageComment.closing)
+            {
+                this.BeginInvoke(theCallback);
+            }
             GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceWorkAfterSelectionOfFile, "finish", 0);
         }
 
@@ -580,6 +583,8 @@ namespace QuickImageComment
                             }
                             else
                             {
+                                // no file selected, cancel flags of user changes
+                                theFormQuickImageComment.clearFlagsIndicatingUserChanges();
                                 if (listViewFiles.Items.Count > 0)
                                 {
                                     // select image after deleted
@@ -636,7 +641,36 @@ namespace QuickImageComment
                         // delete entry in lists in Image Manager
                         ImageManager.deleteExtendedImage(ii);
                         // remove item in listView
-                        listViewFiles.Items.RemoveAt(ii);
+                        if (listViewFiles.Items[ii].Focused)
+                        {
+                            listViewFiles.Items[ii].Focused = false;
+                            listViewFiles.Items.RemoveAt(ii);
+                            if (listViewFiles.SelectedIndices.Count > 0)
+                            {
+                                listViewFiles.Items[listViewFiles.SelectedIndices[0]].Focused = true;
+                                theFormQuickImageComment.displayImage(listViewFiles.SelectedIndices[0]);
+                            }
+                            else
+                            {
+                                // no file selected, cancel flags of user changes
+                                theFormQuickImageComment.clearFlagsIndicatingUserChanges();
+                                if (listViewFiles.Items.Count > 0)
+                                {
+                                    // select image after deleted
+                                    if (ii == listViewFiles.Items.Count) ii--;
+                                    listViewFiles.SelectedIndices.Add(ii);
+                                }
+                                else
+                                {
+                                    // folder now empty
+                                    theFormQuickImageComment.displayImage(-1);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            listViewFiles.Items.RemoveAt(ii);
+                        }
                         if (listViewFiles.selectedFilesOld.Contains(oldFullFileName))
                         {
                             listViewFiles.selectedFilesOld.Remove(oldFullFileName);
