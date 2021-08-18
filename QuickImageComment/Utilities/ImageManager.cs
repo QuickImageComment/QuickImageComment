@@ -30,6 +30,7 @@ namespace QuickImageComment
         private static int cachethread = 0;
 
         private static ArrayList ExtendedCache = new ArrayList();
+        private static Object lockExtendedCache = new Object();
         internal static bool updateCachesRunning = false;
 
         private static System.Collections.Hashtable HashtableExtendedImages = new System.Collections.Hashtable();
@@ -108,7 +109,7 @@ namespace QuickImageComment
 
         public static void initExtendedCacheList()
         {
-            lock (ExtendedCache)
+            lock (lockExtendedCache)
             {
                 ExtendedCache.Clear();
                 for (int ii = 0; ii < ConfigDefinition.getExtendedImageCacheMaxSize(); ii++)
@@ -164,7 +165,7 @@ namespace QuickImageComment
         // start thread to update caches (list of files is filled)
         public static void startThreadToUpdateCaches()
         {
-            lock (ExtendedCache)
+            lock (lockExtendedCache)
             {
                 if (!updateCachesRunning)
                 {
@@ -197,7 +198,7 @@ namespace QuickImageComment
         // add a file at begin of list of files to cache
         public static void requestAddFileToCache(string fullFileName)
         {
-            lock (ExtendedCache)
+            lock (lockExtendedCache)
             {
                 // emove if already entered
                 if (ExtendedCache.Contains(fullFileName)) ExtendedCache.Remove(fullFileName);
@@ -233,7 +234,6 @@ namespace QuickImageComment
         {
             string FullFileName = MainMaskInterface.getFullFileName(FileIndex);
             string FileName = MainMaskInterface.getFileName(FileIndex);
-
             GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceCaching,
                 "FileIndex=" + FileIndex.ToString() + " " + FullFileName + " - start", 2);
 
@@ -354,7 +354,7 @@ namespace QuickImageComment
             int offset = 1;
 
             // get list of files to keep - extended
-            lock (ExtendedCache)
+            lock (lockExtendedCache)
             {
                 ExtendedCache.Clear();
                 if (MainMaskInterface.getListViewFilesCount() > 0)
@@ -416,7 +416,6 @@ namespace QuickImageComment
         private static int updateCaches(int cacheIndex)
         {
             string fullFileName;
-
             GeneralUtilities.writeTraceFileEntry("Start updateCaches");
             string FilenameForExceptionMessage = "";
             GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceCaching, "Cache Extended Start " + cacheIndex.ToString());
@@ -432,9 +431,9 @@ namespace QuickImageComment
                 while (!FormQuickImageComment.closing)
                 {
                     // condition not set in while statement to have check, getting filename and removing entry in 
-                    // onae short code block inside a lock thus minimising the lock time
+                    // one short code block inside a lock thus minimising the lock time
                     // note: ExtendedCache can be filled with new entries by addFileToCache since last interation
-                    lock (ExtendedCache)
+                    lock (lockExtendedCache)
                     {
                         if (ExtendedCache.Count > 0)
                         {

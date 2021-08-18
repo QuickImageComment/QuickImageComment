@@ -421,7 +421,9 @@ namespace QuickImageCommentControls
             ArrayList arrayList = new ArrayList();
             for (int ii = 0; ii < selectedFilesOld.Count; ii++)
             {
-                arrayList.Add(getIndexOf((string)selectedFilesOld[ii]));
+                int index = getIndexOf((string)selectedFilesOld[ii]);
+                // index -1 means: file not in Items; add only still existing indices
+                if (index >= 0) arrayList.Add(index);
             }
             return arrayList;
         }

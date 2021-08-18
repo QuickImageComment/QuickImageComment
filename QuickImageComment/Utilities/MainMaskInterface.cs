@@ -146,7 +146,9 @@ namespace QuickImageComment
             // if main mask is not already closing
             if (!FormQuickImageComment.closing)
             {
-                new System.Threading.Tasks.Task(() => { theFormQuickImageComment.setToolStripStatusLabelBufferingThread(visible); }).Start();
+                new System.Threading.Tasks.Task(() => { 
+                    theFormQuickImageComment.setToolStripStatusLabelBufferingThread(visible); 
+                }).Start();
             }
         }
 

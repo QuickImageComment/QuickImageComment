@@ -2593,7 +2593,7 @@ namespace QuickImageComment
         private System.Windows.Forms.SplitContainer splitContainer1211P1;
         private System.Windows.Forms.Panel panelUsercomment;
         private System.Windows.Forms.Panel panelArtist;
-        private System.Windows.Forms.Label dynamicLabelFileName;
+        internal System.Windows.Forms.Label dynamicLabelFileName;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemWriteTagListFile;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripMetaData;
         private System.Windows.Forms.ToolStripMenuItem contextMenuStripMetaDataMenuItemAdjust;
@@ -2627,7 +2627,7 @@ namespace QuickImageComment
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator14;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemAddToFind;
         internal System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelFiles;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelFileInfo;
+        internal System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelFileInfo;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemGitHub;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemFormLogger;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemDataPrivacy;

@@ -453,8 +453,12 @@ namespace QuickImageCommentControls
                 //Logger.log("ItemCreated Start " + e.Item.ParsingName);
                 if (e.Item.IsFileSystem && !e.Item.IsFolder)
                 {
-                    MainMaskInterface.createOrUpdateItemListViewFiles(e.Item.FileSystemPath);
-                    FormFind.addOrUpdateRow(e.Item.FileSystemPath);
+                    // start in separate thread so that lock is working
+                    new System.Threading.Tasks.Task(() =>
+                    {
+                        MainMaskInterface.createOrUpdateItemListViewFiles(e.Item.FileSystemPath);
+                        FormFind.addOrUpdateRow(e.Item.FileSystemPath);
+                    }).Start();
                 }
             }
         }
@@ -480,8 +484,12 @@ namespace QuickImageCommentControls
                 //Logger.log("ItemDeleted Start " + e.Item.ParsingName);
                 if (e.Item.IsFileSystem && !e.Item.IsFolder)
                 {
-                    MainMaskInterface.deleteItemListViewFiles(e.Item.FileSystemPath);
-                    FormFind.deleteRow(e.Item.FileSystemPath);
+                    // start in separate thread so that lock is working
+                    new System.Threading.Tasks.Task(() =>
+                    {
+                        MainMaskInterface.deleteItemListViewFiles(e.Item.FileSystemPath);
+                        FormFind.deleteRow(e.Item.FileSystemPath);
+                    }).Start();
                 }
             }
         }
@@ -507,9 +515,13 @@ namespace QuickImageCommentControls
                 //Logger.log("ItemRenamed Start " + e.OldItem.ParsingName);
                 if (e.OldItem.IsFileSystem && !e.OldItem.IsFolder)
                 {
-                    MainMaskInterface.renameItemListViewFiles(e.OldItem.FileSystemPath, e.NewItem.FileSystemPath);
-                    FormFind.deleteRow(e.OldItem.FileSystemPath);
-                    FormFind.addOrUpdateRow(e.NewItem.FileSystemPath);
+                    // start in separate thread so that lock is working
+                    new System.Threading.Tasks.Task(() =>
+                    {
+                        MainMaskInterface.renameItemListViewFiles(e.OldItem.FileSystemPath, e.NewItem.FileSystemPath);
+                        FormFind.deleteRow(e.OldItem.FileSystemPath);
+                        FormFind.addOrUpdateRow(e.NewItem.FileSystemPath);
+                    }).Start();
                 }
             }
         }
@@ -535,8 +547,12 @@ namespace QuickImageCommentControls
                 //Logger.log("ItemUpdated Start " + e.Item.ParsingName);
                 if (e.Item.IsFileSystem && !e.Item.IsFolder)
                 {
-                    MainMaskInterface.createOrUpdateItemListViewFiles(e.Item.FileSystemPath);
-                    FormFind.addOrUpdateRow(e.Item.FileSystemPath);
+                    // start in separate thread so that lock is working
+                    new System.Threading.Tasks.Task(() =>
+                    {
+                        MainMaskInterface.createOrUpdateItemListViewFiles(e.Item.FileSystemPath);
+                        FormFind.addOrUpdateRow(e.Item.FileSystemPath);
+                    }).Start();
                 }
             }
         }

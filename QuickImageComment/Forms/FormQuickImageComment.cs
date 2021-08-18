@@ -712,7 +712,7 @@ namespace QuickImageComment
                     // when format is changing, adjust also toolStripMenuItemCreateScreenshots_Click
                     this.toolStripStatusLabelMemory.Text = LangCfg.textOthersMainMemory + ": " + GeneralUtilities.getPrivateMemoryString() + "   " +
                                                            LangCfg.textOthersFree + ": " + GeneralUtilities.getFreeMemoryString();
-                    this.toolStripStatusLabelThread.Text = theUserControlFiles.getLogStringIndex() + "-" +getChangedFields();
+                    this.toolStripStatusLabelThread.Text = theUserControlFiles.getLogStringIndex() + "-" + getChangedFields();
                     this.statusStrip1.Refresh();
                 }
                 catch { }
@@ -755,8 +755,8 @@ namespace QuickImageComment
                     for (int inew = 0; inew < theUserControlFiles.listViewFiles.SelectedIndices.Count; inew++)
                     {
                         int fileIndex = theUserControlFiles.listViewFiles.SelectedIndices[inew];
-                        // skip theExtendedImage which is focused
-                        if (fileIndex != theUserControlFiles.focusedIndex())
+                        // skip theExtendedImage which is displayed
+                        if (fileIndex != theUserControlFiles.displayedIndex())
                         {
                             string newValue = getFieldValueBySpec(Spec, (Control)sender, ImageManager.getExtendedImage(fileIndex, false));
                             if (!newValue.Equals(((Control)sender).Text))
@@ -823,8 +823,8 @@ namespace QuickImageComment
                     for (int inew = 0; inew < theUserControlFiles.listViewFiles.SelectedIndices.Count; inew++)
                     {
                         int fileIndex = theUserControlFiles.listViewFiles.SelectedIndices[inew];
-                        // skip theExtendedImage which is focused
-                        if (fileIndex != theUserControlFiles.focusedIndex())
+                        // skip theExtendedImage which is displayed
+                        if (fileIndex != theUserControlFiles.displayedIndex())
                         {
                             string newValue = ImageManager.getExtendedImage(fileIndex, false).getUserComment();
                             if (!newValue.Equals(((Control)sender).Text))
@@ -901,8 +901,8 @@ namespace QuickImageComment
                     for (int inew = 0; inew < theUserControlFiles.listViewFiles.SelectedIndices.Count; inew++)
                     {
                         int fileIndex = theUserControlFiles.listViewFiles.SelectedIndices[inew];
-                        // skip theExtendedImage which is focused
-                        if (fileIndex != theUserControlFiles.focusedIndex())
+                        // skip theExtendedImage which is displayed
+                        if (fileIndex != theUserControlFiles.displayedIndex())
                         {
                             string newValue = ImageManager.getExtendedImage(fileIndex, false).getArtist();
                             if (!newValue.Equals(((Control)sender).Text))
@@ -986,8 +986,8 @@ namespace QuickImageComment
                     for (int inew = 0; inew < theUserControlFiles.listViewFiles.SelectedIndices.Count; inew++)
                     {
                         int fileIndex = theUserControlFiles.listViewFiles.SelectedIndices[inew];
-                        // skip theExtendedImage which is focused
-                        if (fileIndex != theUserControlFiles.focusedIndex())
+                        // skip theExtendedImage which is displayed
+                        if (fileIndex != theUserControlFiles.displayedIndex())
                         {
                             updateKeywordsForMultipleSelection(ImageManager.getExtendedImage(fileIndex, false));
                         }
@@ -1014,8 +1014,8 @@ namespace QuickImageComment
                     for (int inew = 0; inew < theUserControlFiles.listViewFiles.SelectedIndices.Count; inew++)
                     {
                         int fileIndex = theUserControlFiles.listViewFiles.SelectedIndices[inew];
-                        // skip theExtendedImage which is focused
-                        if (fileIndex != theUserControlFiles.focusedIndex())
+                        // skip theExtendedImage which is displayed
+                        if (fileIndex != theUserControlFiles.displayedIndex())
                         {
                             updateKeywordsForMultipleSelection(ImageManager.getExtendedImage(fileIndex, false));
                         }
@@ -1228,9 +1228,8 @@ namespace QuickImageComment
                     {
                         if (listViewItem.Name.Equals(dataGridViewSelectedFiles.CurrentRow.Cells[fullFileNameColumn].Value))
                         {
-                            if (!listViewItem.Focused)
+                            if (!theUserControlFiles.isDisplayed(listViewItem.Index))
                             {
-                                listViewItem.Focused = true;
                                 displayImage(listViewItem.Index);
                             }
                         }
@@ -1379,7 +1378,7 @@ namespace QuickImageComment
                 }
                 else if (theUserControlFiles.listViewFiles.SelectedItems.Count == 1)
                 {
-                    int status = singleSaveAndStoreInLastList(theUserControlFiles.focusedIndex(), null, null);
+                    int status = singleSaveAndStoreInLastList(theUserControlFiles.displayedIndex(), null, null);
                     if (status == 0)
                     {
                         // get newFileIndex since clearing selected indices will clear lastFileIndex
@@ -1405,16 +1404,16 @@ namespace QuickImageComment
                 }
                 else if (theUserControlFiles.listViewFiles.SelectedItems.Count == 1)
                 {
-                    int status = singleSaveAndStoreInLastList(theUserControlFiles.focusedIndex(), null, null);
+                    int status = singleSaveAndStoreInLastList(theUserControlFiles.displayedIndex(), null, null);
                     if (status == 0)
                     {
-                        // set newFileIndex to focused index
+                        // set newFileIndex to displayed index
                         // if this image is the last one it will force the image to be redisplayed with changed values
                         int newFileIndex = 0;
-                        if (theUserControlFiles.focusedIndex() > 0)
+                        if (theUserControlFiles.displayedIndex() > 0)
                         {
                             // get newFileIndex since clearing selected indices will clear lastFileIndex
-                            newFileIndex = theUserControlFiles.focusedIndex() - 1;
+                            newFileIndex = theUserControlFiles.displayedIndex() - 1;
                         }
                         // mark selected Image in listbox containing file names
                         // changing selected index in listBoxFiles forces display 
@@ -1437,12 +1436,12 @@ namespace QuickImageComment
                 }
                 else if (theUserControlFiles.listViewFiles.SelectedItems.Count == 1)
                 {
-                    int status = singleSaveAndStoreInLastList(theUserControlFiles.focusedIndex(), null, null);
+                    int status = singleSaveAndStoreInLastList(theUserControlFiles.displayedIndex(), null, null);
                     if (status == 0)
                     {
-                        // set newFileIndex to focused index
+                        // set newFileIndex to displayed index
                         // if this image is the last one it will force the image to be redisplayed with changed values
-                        int newFileIndex = theUserControlFiles.focusedIndex();
+                        int newFileIndex = theUserControlFiles.displayedIndex();
                         if (newFileIndex < theUserControlFiles.listViewFiles.Items.Count - 1)
                         {
                             // get newFileIndex since clearing selected indices will clear lastFileIndex
@@ -1469,7 +1468,7 @@ namespace QuickImageComment
                 }
                 else if (theUserControlFiles.listViewFiles.SelectedItems.Count == 1)
                 {
-                    int status = singleSaveAndStoreInLastList(theUserControlFiles.focusedIndex(), null, null);
+                    int status = singleSaveAndStoreInLastList(theUserControlFiles.displayedIndex(), null, null);
                     if (status == 0)
                     {
                         // get newFileIndex since clearing selected indices will clear lastFileIndex
@@ -1648,8 +1647,8 @@ namespace QuickImageComment
                 for (int inew = 0; inew < theUserControlFiles.listViewFiles.SelectedIndices.Count; inew++)
                 {
                     int fileIndex = theUserControlFiles.listViewFiles.SelectedIndices[inew];
-                    // skip theExtendedImage which is focused
-                    if (fileIndex != theUserControlFiles.focusedIndex())
+                    // skip theExtendedImage which is displayed
+                    if (fileIndex != theUserControlFiles.displayedIndex())
                     {
                         updateAllChangeableDataForMultipleSelection(ImageManager.getExtendedImage(fileIndex, false));
                     }
@@ -1995,7 +1994,7 @@ namespace QuickImageComment
                 {
                     lock (UserControlFiles.LockListViewFiles)
                     {
-                        readFolderAndDisplayImage(theUserControlFiles.focusedIndex());
+                        readFolderAndDisplayImage(theUserControlFiles.displayedIndex());
                     }
                 }
             }
@@ -2275,7 +2274,7 @@ namespace QuickImageComment
                         theFormDateTimeChange.ShowDialog();
                         if (theFormDateTimeChange.dateTimeChanged)
                         {
-                            readFolderAndDisplayImage(theUserControlFiles.focusedIndex());
+                            readFolderAndDisplayImage(theUserControlFiles.displayedIndex());
                         }
                     }
                 }
@@ -2356,7 +2355,7 @@ namespace QuickImageComment
                             }
                             theExtendedImage.readFileDates();
                         }
-                        displayImage(theUserControlFiles.focusedIndex());
+                        displayImage(theUserControlFiles.displayedIndex());
                         this.Cursor = Cursors.Default;
                     }
                 }
@@ -3470,8 +3469,8 @@ namespace QuickImageComment
         {
             bool enableEditable = enable && theExtendedImage.changePossible();
             bool enableRenameDelete = enable && !theExtendedImage.getIsReadOnly() && !theExtendedImage.getNoAccess();
-            bool enableFirst = enable && (theUserControlFiles.focusedIndex() > 0);
-            bool enableLast = enable && (theUserControlFiles.focusedIndex() < theUserControlFiles.listViewFiles.Items.Count - 1);
+            bool enableFirst = enable && (theUserControlFiles.displayedIndex() > 0);
+            bool enableLast = enable && (theUserControlFiles.displayedIndex() < theUserControlFiles.listViewFiles.Items.Count - 1);
 
             toolStripButtonDateTimeChange.Enabled = enableEditable;
             toolStripButtonDelete.Enabled = enableRenameDelete;
@@ -3694,10 +3693,10 @@ namespace QuickImageComment
             }
             lock (UserControlFiles.LockListViewFiles)
             {
-                if (theUserControlFiles.focusedIndex() >= 0)
+                if (theUserControlFiles.displayedIndex() >= 0)
                 {
                     // rotate the thumbnail image for list view
-                    ExtendedImage ExtendedImageForThumbnail = ImageManager.getExtendedImage(theUserControlFiles.focusedIndex());
+                    ExtendedImage ExtendedImageForThumbnail = ImageManager.getExtendedImage(theUserControlFiles.displayedIndex());
                     Image theImage = ExtendedImageForThumbnail.getThumbNailBitmap();
                     theImage.RotateFlip(theRotateFlipType);
                     theUserControlFiles.listViewFiles.Refresh();
@@ -4058,7 +4057,7 @@ namespace QuickImageComment
                     // full file name at the end - added for technical purposes
                     row[jj] = aSelectedExtendedImage.getImageFileName();
                     dataGridViewSelectedFiles.Rows.Add(row);
-                    dataGridViewSelectedFiles.Rows[ii].Selected = (index == theUserControlFiles.focusedIndex());
+                    dataGridViewSelectedFiles.Rows[ii].Selected = (index == theUserControlFiles.displayedIndex());
                     // does not work properly for dpi higher than 96
                     //dataGridViewSelectedFiles.Rows[ii].Height = dataGridViewSelectedFiles.Rows[ii].GetPreferredHeight(ii, DataGridViewAutoSizeRowMode.AllCells, true) - 2; 
                     //dataGridViewSelectedFiles.Rows[ii].Height = dataGridViewSelectedFiles.Rows[ii].GetPreferredHeight(ii, DataGridViewAutoSizeRowMode.AllCells, true) - 2; 
@@ -4579,8 +4578,8 @@ namespace QuickImageComment
                         //multiSaveAndStoreInLastList returns true if data were saved.
                         //it returns false e.g. if options were not set reasonably and user stopped saving.
                         //display image only if data were saved because otherwise data entered for multi save are lost
-                        theUserControlFiles.storeNameDateTimeLastSaveFocusedFile();
-                        displayImage(theUserControlFiles.focusedIndex());
+                        theUserControlFiles.storeNameDateTimeLastSaveDisplayedFile();
+                        displayImage(theUserControlFiles.displayedIndex());
                         refreshdataGridViewSelectedFiles();
                         saveSuccessful = true;
                     }
@@ -4595,8 +4594,8 @@ namespace QuickImageComment
                 int status = singleSaveAndStoreInLastList((int)selectedIndicesToStore[0], null, null);
                 if (status == 0)
                 {
-                    theUserControlFiles.storeNameDateTimeLastSaveFocusedFile();
-                    displayImage(theUserControlFiles.focusedIndex());
+                    theUserControlFiles.storeNameDateTimeLastSaveDisplayedFile();
+                    displayImage((int)selectedIndicesToStore[0]);
                     refreshdataGridViewSelectedFiles();
                     saveSuccessful = true;
                 }
@@ -5332,7 +5331,7 @@ namespace QuickImageComment
             // read folder again, due to changed field definitions display has to be updated
             lock (UserControlFiles.LockListViewFiles)
             {
-                readFolderAndDisplayImage(theUserControlFiles.focusedIndex());
+                readFolderAndDisplayImage(theUserControlFiles.displayedIndex());
             }
         }
 

@@ -424,6 +424,7 @@ namespace QuickImageComment
                 string comment = "";
                 string errorText = "";
 
+                // lock because this method can be called in main thread or via updateCaches
                 lock (LockReadExiv2)
                 {
                     status = exiv2readImageByFileName(ImageFileName, iniPath, ref comment, ref IptcUTF8, ref errorText);
