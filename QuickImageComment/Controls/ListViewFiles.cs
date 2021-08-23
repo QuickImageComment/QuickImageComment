@@ -19,6 +19,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -30,10 +31,44 @@ namespace QuickImageCommentControls
         const int thickLine = 3;
         const int tileLine = 2;
 
+        // definitions for setSortIcon
+        // based on: https://www.codeproject.com/tips/734463/sort-listview-columns-and-set-sort-arrow-icon-on-c
+        // licensed under The Code Project Open License (CPOL)
+        public struct LVCOLUMN
+        {
+            public Int32 mask;
+            public Int32 cx;
+            [MarshalAs(UnmanagedType.LPTStr)]
+            public string pszText;
+            public IntPtr hbm;
+            public Int32 cchTextMax;
+            public Int32 fmt;
+            public Int32 iSubItem;
+            public Int32 iImage;
+            public Int32 iOrder;
+        }
+
+        const Int32 HDI_FORMAT = 0x0004;
+
+        const Int32 HDF_LEFT = 0x0000;
+        const Int32 HDF_BITMAP_ON_RIGHT = 0x1000;
+        const Int32 HDF_SORTUP = 0x0400;
+        const Int32 HDF_SORTDOWN = 0x0200;
+
+        const Int32 LVM_FIRST = 0x1000;         // List messages
+        const Int32 LVM_GETHEADER = LVM_FIRST + 31;
+        const Int32 HDM_FIRST = 0x1200;         // Header messages
+        const Int32 HDM_GETITEM = HDM_FIRST + 11;
+        const Int32 HDM_SETITEM = HDM_FIRST + 12;
+
         [System.Runtime.InteropServices.DllImport("user32.dll")]
-        private static extern int SendMessage(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam);
+        private static extern IntPtr SendMessage(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
+
+        [System.Runtime.InteropServices.DllImport("user32.dll", EntryPoint = "SendMessage")]
+        private static extern IntPtr SendMessageLVCOLUMN(IntPtr hWnd, Int32 Msg, IntPtr wParam, ref LVCOLUMN lPLVCOLUMN);
 
         internal bool sortAscending = true;
+        internal int columnToSort = 0;
 
         private Thread delayAfterMouseWheelThread;
         private delegate void workAfterMouseWheelCallback();
@@ -62,32 +97,34 @@ namespace QuickImageCommentControls
         // Implements the manual sorting of items by columns.
         internal class ListViewItemComparer : IComparer
         {
-            private int col;
             private readonly ListViewFiles listViewFiles;
             public ListViewItemComparer(ListViewFiles listViewFiles)
             {
-                col = 0;
-                this.listViewFiles = listViewFiles;
-            }
-            public ListViewItemComparer(int column, ListViewFiles listViewFiles)
-            {
-                col = column;
                 this.listViewFiles = listViewFiles;
             }
             public int Compare(object x, object y)
             {
                 int result = 0;
-                if (col == 2 || col == 3)
+                if (listViewFiles.columnToSort == 1)
+                {
+                    // column 1 is file size
+                    string[] textx = ((ListViewItem)x).SubItems[listViewFiles.columnToSort].Text.Split(' ');
+                    string[] texty = ((ListViewItem)y).SubItems[listViewFiles.columnToSort].Text.Split(' ');
+                    Double sizex = double.Parse(textx[0]);
+                    Double sizey = double.Parse(texty[0]);
+                    result = sizex.CompareTo(sizey);
+                }
+                else if (listViewFiles.columnToSort == 2 || listViewFiles.columnToSort == 3)
                 {
                     // column 2 and 3 are dates
-                    DateTime dateTimex = DateTime.Parse(((ListViewItem)x).SubItems[col].Text);
-                    DateTime dateTimey = DateTime.Parse(((ListViewItem)y).SubItems[col].Text);
+                    DateTime dateTimex = DateTime.Parse(((ListViewItem)x).SubItems[listViewFiles.columnToSort].Text);
+                    DateTime dateTimey = DateTime.Parse(((ListViewItem)y).SubItems[listViewFiles.columnToSort].Text);
                     result = DateTime.Compare(dateTimex, dateTimey);
                 }
                 else
                 {
                     // other columns compared as string
-                    result = string.Compare(((ListViewItem)x).SubItems[col].Text, ((ListViewItem)y).SubItems[col].Text);
+                    result = string.Compare(((ListViewItem)x).SubItems[listViewFiles.columnToSort].Text, ((ListViewItem)y).SubItems[listViewFiles.columnToSort].Text);
                 }
 
                 if (listViewFiles.sortAscending)
@@ -125,6 +162,8 @@ namespace QuickImageCommentControls
             short sizeY = (short)(ThumbNailSize + ConfigDefinition.getConfigInt(ConfigDefinition.enumConfigInt.LargeIconVerticalSpace));
             ListViewItem_SetSpacing(this, sizeX, sizeY);
             this.DoubleBuffered = true;
+
+            this.ListViewItemSorter = new ListViewItemComparer(this);
         }
 
         public void clearItems()
@@ -454,19 +493,48 @@ namespace QuickImageCommentControls
         }
 
         // set column for sorting
-        internal void setColumnToSort(string senderName)
+        internal void setColumnToSort(int columnIndex)
         {
-            for (int ii = 0; ii < Columns.Count; ii++)
+            columnToSort = columnIndex;
+            this.Sort();
+        }
+
+        // set sort icon for details view
+        // based on: https://www.codeproject.com/tips/734463/sort-listview-columns-and-set-sort-arrow-icon-on-c
+        // licensed under The Code Project Open License (CPOL)
+        internal void setSortIcon()
+        {
+            IntPtr columnHeader = SendMessage(this.Handle, LVM_GETHEADER, IntPtr.Zero, IntPtr.Zero);
+
+            for (int columnNumber = 0; columnNumber <= this.Columns.Count - 1; columnNumber++)
             {
-                // column headers are columnHeaderxxx
-                if (senderName.EndsWith(Columns[ii].Name.Substring(12)))
+                IntPtr columnPtr = new IntPtr(columnNumber);
+                LVCOLUMN lvColumn = new LVCOLUMN();
+                lvColumn.mask = HDI_FORMAT;
+
+                SendMessageLVCOLUMN(columnHeader, HDM_GETITEM, columnPtr, ref lvColumn);
+
+                if (columnNumber == columnToSort)
                 {
-                    this.ListViewItemSorter = new ListViewItemComparer(ii, this);
-                    return;
+                    if (sortAscending)
+                    {
+                        lvColumn.fmt &= ~HDF_SORTDOWN;
+                        lvColumn.fmt |= HDF_SORTUP;
+                    }
+                    else
+                    {
+                        lvColumn.fmt &= ~HDF_SORTUP;
+                        lvColumn.fmt |= HDF_SORTDOWN;
+                    }
+                    lvColumn.fmt |= (HDF_LEFT | HDF_BITMAP_ON_RIGHT);
                 }
+                else
+                {
+                    lvColumn.fmt &= ~HDF_SORTDOWN & ~HDF_SORTUP & ~HDF_BITMAP_ON_RIGHT;
+                }
+
+                SendMessageLVCOLUMN(columnHeader, HDM_SETITEM, columnPtr, ref lvColumn);
             }
-            // header not found
-            throw new Exception("Internal error: senderName \"" + senderName + "\" not considered");
         }
 
         // to allow disabling refreshing thumbnails during scrolling

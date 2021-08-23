@@ -154,15 +154,21 @@ namespace QuickImageComment
             this.toolStripMenuItemToolStripHide = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemToolsInMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparatorViewConfigurations = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItemLargeIcons = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemTile = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemList = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemDetails = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripMenuItemSortSortAsc = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemSortName = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemSortSize = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemSortChanged = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemSortCreated = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator15 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItemPanelPictureOnly = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemImageWithGrid = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemDefineImageGrids = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparatorViewConfigurations = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItemZoomRotate = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemImageFit = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemImage4 = new System.Windows.Forms.ToolStripMenuItem();
@@ -208,12 +214,14 @@ namespace QuickImageComment
             this.toolStripMenuItemListShortcuts = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemCheckForNewVersion = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemChangesInVersion = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItemWebPage = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItemWebPageHome = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItemWebPageDownload = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItemWebPageChangeHistory = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemGitHub = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemHelp2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemDataPrivacy = new System.Windows.Forms.ToolStripMenuItem();
             this.BottomToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.TopToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.RightToolStripPanel = new System.Windows.Forms.ToolStripPanel();
@@ -247,8 +255,6 @@ namespace QuickImageComment
             this.toolStripButtonPredefinedKeyWords = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator14 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButtonFind = new System.Windows.Forms.ToolStripButton();
-            this.toolStripMenuItemDataPrivacy = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItemChangesInVersion = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer12)).BeginInit();
             this.splitContainer12.Panel1.SuspendLayout();
             this.splitContainer12.Panel2.SuspendLayout();
@@ -1421,6 +1427,12 @@ namespace QuickImageComment
             this.toolStripMenuItemList,
             this.toolStripMenuItemDetails,
             this.toolStripSeparator4,
+            this.toolStripMenuItemSortSortAsc,
+            this.toolStripMenuItemSortName,
+            this.toolStripMenuItemSortSize,
+            this.toolStripMenuItemSortChanged,
+            this.toolStripMenuItemSortCreated,
+            this.toolStripSeparator15,
             this.toolStripMenuItemPanelPictureOnly,
             this.toolStripMenuItemImageWithGrid,
             this.toolStripMenuItemDefineImageGrids,
@@ -1475,11 +1487,6 @@ namespace QuickImageComment
             this.toolStripSeparator7.Name = "toolStripSeparator7";
             this.toolStripSeparator7.Size = new System.Drawing.Size(232, 6);
             // 
-            // toolStripSeparatorViewConfigurations
-            // 
-            this.toolStripSeparatorViewConfigurations.Name = "toolStripSeparatorViewConfigurations";
-            this.toolStripSeparatorViewConfigurations.Size = new System.Drawing.Size(232, 6);
-            // 
             // toolStripMenuItemLargeIcons
             // 
             this.toolStripMenuItemLargeIcons.Name = "toolStripMenuItemLargeIcons";
@@ -1513,6 +1520,46 @@ namespace QuickImageComment
             this.toolStripSeparator4.Name = "toolStripSeparator4";
             this.toolStripSeparator4.Size = new System.Drawing.Size(232, 6);
             // 
+            // toolStripMenuItemSortSortAsc
+            // 
+            this.toolStripMenuItemSortSortAsc.Name = "toolStripMenuItemSortSortAsc";
+            this.toolStripMenuItemSortSortAsc.Size = new System.Drawing.Size(235, 22);
+            this.toolStripMenuItemSortSortAsc.Text = "Sortierung - aufsteigend";
+            this.toolStripMenuItemSortSortAsc.Click += new System.EventHandler(this.toolStripMenuItemSortSortAsc_Click);
+            // 
+            // toolStripMenuItemSortName
+            // 
+            this.toolStripMenuItemSortName.Name = "toolStripMenuItemSortName";
+            this.toolStripMenuItemSortName.Size = new System.Drawing.Size(235, 22);
+            this.toolStripMenuItemSortName.Text = "... nach Name";
+            this.toolStripMenuItemSortName.Click += new System.EventHandler(this.toolStripMenuItemSortColumn_Click);
+            // 
+            // toolStripMenuItemSortSize
+            // 
+            this.toolStripMenuItemSortSize.Name = "toolStripMenuItemSortSize";
+            this.toolStripMenuItemSortSize.Size = new System.Drawing.Size(235, 22);
+            this.toolStripMenuItemSortSize.Text = "... nach Größe";
+            this.toolStripMenuItemSortSize.Click += new System.EventHandler(this.toolStripMenuItemSortColumn_Click);
+            // 
+            // toolStripMenuItemSortChanged
+            // 
+            this.toolStripMenuItemSortChanged.Name = "toolStripMenuItemSortChanged";
+            this.toolStripMenuItemSortChanged.Size = new System.Drawing.Size(235, 22);
+            this.toolStripMenuItemSortChanged.Text = "... nach Geändert am";
+            this.toolStripMenuItemSortChanged.Click += new System.EventHandler(this.toolStripMenuItemSortColumn_Click);
+            // 
+            // toolStripMenuItemSortCreated
+            // 
+            this.toolStripMenuItemSortCreated.Name = "toolStripMenuItemSortCreated";
+            this.toolStripMenuItemSortCreated.Size = new System.Drawing.Size(235, 22);
+            this.toolStripMenuItemSortCreated.Text = "... nach Erstellt am";
+            this.toolStripMenuItemSortCreated.Click += new System.EventHandler(this.toolStripMenuItemSortColumn_Click);
+            // 
+            // toolStripSeparator15
+            // 
+            this.toolStripSeparator15.Name = "toolStripSeparator15";
+            this.toolStripSeparator15.Size = new System.Drawing.Size(232, 6);
+            // 
             // toolStripMenuItemPanelPictureOnly
             // 
             this.toolStripMenuItemPanelPictureOnly.Name = "toolStripMenuItemPanelPictureOnly";
@@ -1534,6 +1581,11 @@ namespace QuickImageComment
             this.toolStripMenuItemDefineImageGrids.Size = new System.Drawing.Size(235, 22);
             this.toolStripMenuItemDefineImageGrids.Text = "Raster definieren ...";
             this.toolStripMenuItemDefineImageGrids.Click += new System.EventHandler(this.toolStripMenuItemDefineImageGrids_Click);
+            // 
+            // toolStripSeparatorViewConfigurations
+            // 
+            this.toolStripSeparatorViewConfigurations.Name = "toolStripSeparatorViewConfigurations";
+            this.toolStripSeparatorViewConfigurations.Size = new System.Drawing.Size(232, 6);
             // 
             // toolStripMenuItemZoomRotate
             // 
@@ -1911,6 +1963,13 @@ namespace QuickImageComment
             this.toolStripMenuItemCheckForNewVersion.Text = "Auf neue Version prüfen ...";
             this.toolStripMenuItemCheckForNewVersion.Click += new System.EventHandler(this.toolStripMenuItemCheckForNewVersion_Click);
             // 
+            // toolStripMenuItemChangesInVersion
+            // 
+            this.toolStripMenuItemChangesInVersion.Name = "toolStripMenuItemChangesInVersion";
+            this.toolStripMenuItemChangesInVersion.Size = new System.Drawing.Size(213, 22);
+            this.toolStripMenuItemChangesInVersion.Text = "Änderungen in dieser Version ...";
+            this.toolStripMenuItemChangesInVersion.Click += new System.EventHandler(this.toolStripMenuItemChangesInVersion_Click);
+            // 
             // ToolStripMenuItemWebPage
             // 
             this.ToolStripMenuItemWebPage.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -1956,6 +2015,13 @@ namespace QuickImageComment
             this.toolStripMenuItemHelp2.Size = new System.Drawing.Size(213, 22);
             this.toolStripMenuItemHelp2.Text = "Hilfe";
             this.toolStripMenuItemHelp2.Click += new System.EventHandler(this.toolStripMenuItemHelp2_Click);
+            // 
+            // toolStripMenuItemDataPrivacy
+            // 
+            this.toolStripMenuItemDataPrivacy.Name = "toolStripMenuItemDataPrivacy";
+            this.toolStripMenuItemDataPrivacy.Size = new System.Drawing.Size(213, 22);
+            this.toolStripMenuItemDataPrivacy.Text = "Datenschutzerklärung";
+            this.toolStripMenuItemDataPrivacy.Click += new System.EventHandler(this.toolStripMenuItemDataPrivacy_Click);
             // 
             // BottomToolStripPanel
             // 
@@ -2328,20 +2394,6 @@ namespace QuickImageComment
             this.toolStripButtonFind.ToolTipText = "Suche über Eigenschaften";
             this.toolStripButtonFind.Click += new System.EventHandler(this.toolStripMenuItemFind_Click);
             // 
-            // toolStripMenuItemDataPrivacy
-            // 
-            this.toolStripMenuItemDataPrivacy.Name = "toolStripMenuItemDataPrivacy";
-            this.toolStripMenuItemDataPrivacy.Size = new System.Drawing.Size(213, 22);
-            this.toolStripMenuItemDataPrivacy.Text = "Datenschutzerklärung";
-            this.toolStripMenuItemDataPrivacy.Click += new System.EventHandler(this.toolStripMenuItemDataPrivacy_Click);
-            // 
-            // toolStripMenuItemChangesInVersion
-            // 
-            this.toolStripMenuItemChangesInVersion.Name = "toolStripMenuItemChangesInVersion";
-            this.toolStripMenuItemChangesInVersion.Size = new System.Drawing.Size(213, 22);
-            this.toolStripMenuItemChangesInVersion.Text = "Änderungen in dieser Version ...";
-            this.toolStripMenuItemChangesInVersion.Click += new System.EventHandler(this.toolStripMenuItemChangesInVersion_Click);
-            // 
             // FormQuickImageComment
             // 
             this.AllowDrop = true;
@@ -2632,5 +2684,11 @@ namespace QuickImageComment
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemFormLogger;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemDataPrivacy;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemChangesInVersion;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator15;
+        internal System.Windows.Forms.ToolStripMenuItem toolStripMenuItemSortSortAsc;
+        internal System.Windows.Forms.ToolStripMenuItem toolStripMenuItemSortName;
+        internal System.Windows.Forms.ToolStripMenuItem toolStripMenuItemSortChanged;
+        internal System.Windows.Forms.ToolStripMenuItem toolStripMenuItemSortCreated;
+        internal System.Windows.Forms.ToolStripMenuItem toolStripMenuItemSortSize;
     }
 }

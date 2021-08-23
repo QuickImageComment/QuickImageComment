@@ -51,8 +51,9 @@ namespace QuickImageComment
             delayAfterSelectedIndexChangedThread = new Thread(delayAfterSelectedIndexChanged);
 
             listViewFiles.init();
-            contextMenuStripMenuItemSortColumn_Click(contextMenuStripMenuItemSortName, null);
+            setColumnToSortAndCheckMenu("Name");
             contextMenuStripMenuItemSortAsc.Checked = listViewFiles.sortAscending;
+            theFormQuickImageComment.toolStripMenuItemSortSortAsc.Checked = listViewFiles.sortAscending;
 
             // adjust width of columns
             // attention: in listViewFiles it works only in view "Details"
@@ -128,11 +129,44 @@ namespace QuickImageComment
         // set sorting of files
         private void contextMenuStripMenuItemSortColumn_Click(object sender, EventArgs e)
         {
-            contextMenuStripMenuItemSortCreated.Checked = false;
-            contextMenuStripMenuItemSortChanged.Checked = false;
-            contextMenuStripMenuItemSortName.Checked = false;
-            ((ToolStripMenuItem)sender).Checked = true;
-            listViewFiles.setColumnToSort(((ToolStripMenuItem)sender).Name);
+            setColumnToSortAndCheckMenu(((ToolStripMenuItem)sender).Name);
+        }
+        internal void setColumnToSortAndCheckMenu(string senderName)
+        {
+            string columnName = "";
+            int columnIndex = -1;
+            for (int ii = 0; ii < listViewFiles.Columns.Count; ii++)
+            {
+                // column headers are columnHeaderxxx
+                if (senderName.EndsWith(listViewFiles.Columns[ii].Name.Substring(12)))
+                {
+                    columnIndex = ii;
+                    columnName = listViewFiles.Columns[ii].Name.Substring(12);
+                    break;
+                }
+            }
+            if (columnName.Equals(""))
+            {
+                // header not found
+                throw new Exception("Internal error: senderName \"" + senderName + "\" not considered");
+            }
+
+            setColumnToSortAndCheckMenu(columnName, columnIndex);
+        }
+        internal void setColumnToSortAndCheckMenu(string columnName, int columnIndex)
+        {
+            listViewFiles.setColumnToSort(columnIndex);
+
+            contextMenuStripMenuItemSortCreated.Checked = columnName.Equals("Created");
+            contextMenuStripMenuItemSortChanged.Checked = columnName.Equals("Changed");
+            contextMenuStripMenuItemSortName.Checked = columnName.Equals("Name");
+            contextMenuStripMenuItemSortSize.Checked = columnName.Equals("Size");
+
+            theFormQuickImageComment.toolStripMenuItemSortCreated.Checked = columnName.Equals("Created");
+            theFormQuickImageComment.toolStripMenuItemSortChanged.Checked = columnName.Equals("Changed");
+            theFormQuickImageComment.toolStripMenuItemSortName.Checked = columnName.Equals("Name");
+            theFormQuickImageComment.toolStripMenuItemSortSize.Checked = columnName.Equals("Size");
+
             // to enable/disable buttons first, previous, next last
             if (theFormQuickImageComment.theExtendedImage != null && listViewFiles.SelectedIndices.Count == 1)
             {
@@ -142,12 +176,20 @@ namespace QuickImageComment
             {
                 listViewFiles.EnsureVisible(displayedIndex());
             }
+            listViewFiles.setSortIcon();
         }
+
         private void contextMenuStripMenuItemSortAsc_Click(object sender, EventArgs e)
+        {
+            switchSortOrder();
+        }
+        internal void switchSortOrder()
         {
             listViewFiles.sortAscending = !listViewFiles.sortAscending;
             listViewFiles.Sort();
             contextMenuStripMenuItemSortAsc.Checked = listViewFiles.sortAscending;
+            theFormQuickImageComment.toolStripMenuItemSortSortAsc.Checked = listViewFiles.sortAscending;
+
             // to enable/disable buttons first, previous, next last
             if (theFormQuickImageComment.theExtendedImage != null && listViewFiles.SelectedIndices.Count == 1)
             {
@@ -156,6 +198,23 @@ namespace QuickImageComment
             if (displayedIndex() >= 0)
             {
                 listViewFiles.EnsureVisible(displayedIndex());
+            }
+            listViewFiles.setSortIcon();
+        }
+
+        // event handler when column is clicked
+        private void listViewFiles_ColumnClick(object sender, ColumnClickEventArgs e)
+        {
+            if (listViewFiles.columnToSort == e.Column)
+            {
+                // click on sorted column, change sort order
+                switchSortOrder();
+            }
+            else
+            {
+                // column headers are columnHeaderxxx
+                listViewFiles.sortAscending = true;
+                setColumnToSortAndCheckMenu(listViewFiles.Columns[e.Column].Name.Substring(12), e.Column);
             }
         }
 
@@ -467,7 +526,7 @@ namespace QuickImageComment
                 {
                     listViewFiles.selectedFilesOld.Add(listViewFiles.SelectedItems[ii].Name);
                 }
-                Logger.log(getLogStringIndex());
+                //Logger.log(getLogStringIndex());
 
                 //throw new Exception("ExceptionTest in workafterselectedindexchanged");
             }

@@ -41,8 +41,6 @@ namespace QuickImageComment
 
         // delegate for call within thread
         public delegate void setToolStripStatusLabelThreadCallback(string text, bool clearNow, bool clearBeforeNext);
-        public delegate void setToolStripStatusLabelBufferingCallback(bool visible);
-        public delegate void initFormLoggerCallback();
         private delegate void selectFileFolderCallback(string[] fileName);
 
         private Thread checkForNewVersionThread;
@@ -712,7 +710,7 @@ namespace QuickImageComment
                     // when format is changing, adjust also toolStripMenuItemCreateScreenshots_Click
                     this.toolStripStatusLabelMemory.Text = LangCfg.textOthersMainMemory + ": " + GeneralUtilities.getPrivateMemoryString() + "   " +
                                                            LangCfg.textOthersFree + ": " + GeneralUtilities.getFreeMemoryString();
-                    this.toolStripStatusLabelThread.Text = theUserControlFiles.getLogStringIndex() + "-" + getChangedFields();
+                    //this.toolStripStatusLabelThread.Text = theUserControlFiles.getLogStringIndex(); // + "-" + getChangedFields();
                     this.statusStrip1.Refresh();
                 }
                 catch { }
@@ -2497,6 +2495,18 @@ namespace QuickImageComment
         {
             theUserControlFiles.listViewFilesSetView(View.Tile);
             ConfigDefinition.setListViewFilesView(theUserControlFiles.listViewFiles.View.ToString());
+        }
+
+        // switch file sort order
+        private void toolStripMenuItemSortSortAsc_Click(object sender, EventArgs e)
+        {
+            theUserControlFiles.switchSortOrder();
+        }
+
+        // set column to sort files
+        private void toolStripMenuItemSortColumn_Click(object sender, EventArgs e)
+        {
+            theUserControlFiles.setColumnToSortAndCheckMenu(((ToolStripMenuItem)sender).Name);
         }
 
         // move tool strip buttons and separators from menu strip to tool strip

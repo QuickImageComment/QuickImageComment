@@ -43,6 +43,7 @@ namespace QuickImageComment
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.contextMenuStripMenuItemSortAsc = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripMenuItemSortName = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuStripMenuItemSortSize = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripMenuItemSortChanged = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripMenuItemSortCreated = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
@@ -74,6 +75,7 @@ namespace QuickImageComment
             this.listViewFiles.TileSize = new System.Drawing.Size(200, 120);
             this.listViewFiles.UseCompatibleStateImageBehavior = false;
             this.listViewFiles.View = System.Windows.Forms.View.List;
+            this.listViewFiles.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listViewFiles_ColumnClick);
             this.listViewFiles.SelectedIndexChanged += new System.EventHandler(this.listViewFiles_SelectedIndexChanged);
             this.listViewFiles.DoubleClick += new System.EventHandler(this.listViewFiles_DoubleClick);
             this.listViewFiles.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listViewFiles_KeyDown);
@@ -109,6 +111,7 @@ namespace QuickImageComment
             this.toolStripSeparator1,
             this.contextMenuStripMenuItemSortAsc,
             this.contextMenuStripMenuItemSortName,
+            this.contextMenuStripMenuItemSortSize,
             this.contextMenuStripMenuItemSortChanged,
             this.contextMenuStripMenuItemSortCreated,
             this.toolStripSeparator2,
@@ -116,7 +119,7 @@ namespace QuickImageComment
             this.contextMenuStripListViewFiles.Name = "contextMenuStripListViewFiles";
             this.contextMenuStripListViewFiles.ShowCheckMargin = true;
             this.contextMenuStripListViewFiles.ShowImageMargin = false;
-            this.contextMenuStripListViewFiles.Size = new System.Drawing.Size(203, 214);
+            this.contextMenuStripListViewFiles.Size = new System.Drawing.Size(203, 258);
             // 
             // contextMenuStripMenuItemLargeIcons
             // 
@@ -165,18 +168,25 @@ namespace QuickImageComment
             this.contextMenuStripMenuItemSortName.Text = "... nach Name";
             this.contextMenuStripMenuItemSortName.Click += new System.EventHandler(this.contextMenuStripMenuItemSortColumn_Click);
             // 
+            // contextMenuStripMenuItemSortSize
+            // 
+            this.contextMenuStripMenuItemSortSize.Name = "contextMenuStripMenuItemSortSize";
+            this.contextMenuStripMenuItemSortSize.Size = new System.Drawing.Size(202, 22);
+            this.contextMenuStripMenuItemSortSize.Text = "... nach Größe";
+            this.contextMenuStripMenuItemSortSize.Click += new System.EventHandler(this.contextMenuStripMenuItemSortColumn_Click);
+            // 
             // contextMenuStripMenuItemSortChanged
             // 
             this.contextMenuStripMenuItemSortChanged.Name = "contextMenuStripMenuItemSortChanged";
             this.contextMenuStripMenuItemSortChanged.Size = new System.Drawing.Size(202, 22);
-            this.contextMenuStripMenuItemSortChanged.Text = "... nach Modifiziert";
+            this.contextMenuStripMenuItemSortChanged.Text = "... nach Geändert am";
             this.contextMenuStripMenuItemSortChanged.Click += new System.EventHandler(this.contextMenuStripMenuItemSortColumn_Click);
             // 
             // contextMenuStripMenuItemSortCreated
             // 
             this.contextMenuStripMenuItemSortCreated.Name = "contextMenuStripMenuItemSortCreated";
             this.contextMenuStripMenuItemSortCreated.Size = new System.Drawing.Size(202, 22);
-            this.contextMenuStripMenuItemSortCreated.Text = "... nach Erstellt";
+            this.contextMenuStripMenuItemSortCreated.Text = "... nach Erstellt am";
             this.contextMenuStripMenuItemSortCreated.Click += new System.EventHandler(this.contextMenuStripMenuItemSortColumn_Click);
             // 
             // toolStripSeparator2
@@ -260,5 +270,6 @@ namespace QuickImageComment
         private System.Windows.Forms.ToolStripMenuItem contextMenuStripMenuItemSortCreated;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem contextMenuStripMenuItemSortAsc;
+        private System.Windows.Forms.ToolStripMenuItem contextMenuStripMenuItemSortSize;
     }
 }

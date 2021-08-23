@@ -21,7 +21,6 @@ namespace QuickImageComment
 {
     public partial class FormFindReadErrors : Form
     {
-        public delegate void addLogCallback(string message);
 
         public FormFindReadErrors()
         {
