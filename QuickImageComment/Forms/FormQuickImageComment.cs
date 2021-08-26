@@ -402,16 +402,6 @@ namespace QuickImageComment
             collapsePanelKeyWords(ConfigDefinition.getPanelKeyWordsCollapsed());
             //Program.StartupPerformance.measure("FormQIC after collapse panels");
 
-            // adjusting splitter distance before show mask does not work correct
-            GeneralUtilities.setSplitterDistanceWithCheck(this.splitContainer1, ConfigDefinition.enumCfgUserInt.Splitter1Distance);
-            GeneralUtilities.setSplitterDistanceWithCheck(this.splitContainer11, ConfigDefinition.enumCfgUserInt.Splitter11Distance);
-            GeneralUtilities.setSplitterDistanceWithCheck(this.splitContainer12, ConfigDefinition.enumCfgUserInt.Splitter12Distance);
-            GeneralUtilities.setSplitterDistanceWithCheck(this.splitContainer121, ConfigDefinition.enumCfgUserInt.Splitter121Distance);
-            GeneralUtilities.setSplitterDistanceWithCheck(this.splitContainer1211, ConfigDefinition.enumCfgUserInt.Splitter1211Distance);
-            GeneralUtilities.setSplitterDistanceWithCheck(theUserControlKeyWords.splitContainer1212, ConfigDefinition.enumCfgUserInt.Splitter1212Distance);
-            GeneralUtilities.setSplitterDistanceWithCheck(this.splitContainer122, ConfigDefinition.enumCfgUserInt.Splitter122Distance);
-            //Program.StartupPerformance.measure("FormQIC After set splitter distance");
-
             // fill list of Controls to be displayed in Panels
             SplitContainerPanelControls = new SortedList();
             SplitContainerPanelControls.Add(LangCfg.PanelContent.Folders, theFolderTreeView);
@@ -550,6 +540,16 @@ namespace QuickImageComment
             // adjust panels according configuration
             //Program.StartupPerformance.measure("FormQIC before set split container panels content");
             setSplitContainerPanelsContent();
+
+            // adjusting splitter distance before show mask does not work correct
+            GeneralUtilities.setSplitterDistanceWithCheck(this.splitContainer1, ConfigDefinition.enumCfgUserInt.Splitter1Distance);
+            GeneralUtilities.setSplitterDistanceWithCheck(this.splitContainer11, ConfigDefinition.enumCfgUserInt.Splitter11Distance);
+            GeneralUtilities.setSplitterDistanceWithCheck(this.splitContainer12, ConfigDefinition.enumCfgUserInt.Splitter12Distance);
+            GeneralUtilities.setSplitterDistanceWithCheck(this.splitContainer121, ConfigDefinition.enumCfgUserInt.Splitter121Distance);
+            GeneralUtilities.setSplitterDistanceWithCheck(this.splitContainer1211, ConfigDefinition.enumCfgUserInt.Splitter1211Distance);
+            GeneralUtilities.setSplitterDistanceWithCheck(theUserControlKeyWords.splitContainer1212, ConfigDefinition.enumCfgUserInt.Splitter1212Distance);
+            GeneralUtilities.setSplitterDistanceWithCheck(this.splitContainer122, ConfigDefinition.enumCfgUserInt.Splitter122Distance);
+            //Program.StartupPerformance.measure("FormQIC After set splitter distance");
 
             // translate all controls
             //Program.StartupPerformance.measure("FormQIC before translate controls");
