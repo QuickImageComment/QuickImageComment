@@ -206,6 +206,9 @@ namespace QuickImageComment
             GeneralUtilities.adjustpanelSizeHighDpi(this.splitContainer1.Panel2);
             // set top for label file name, needed if dpi is higher than 96
             dynamicLabelFileName.Top = splitContainer1211P1.Panel2.Height - dynamicLabelFileName.Height - 2;
+            // in order to avoid a change of splitContainer12P1.SplitterDistance as side effect of changes, which in no way are 
+            // related to this control, Anchor in Designer.cs is set to Top, but Bottom is needed for correct runtime behaviour
+            dynamicLabelFileName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 
             // separate call to set Columns of dataGridViewMetaData
             // when those instructions are part of constructor (or method called by constructor),
