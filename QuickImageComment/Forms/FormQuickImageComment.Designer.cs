@@ -46,10 +46,6 @@ namespace QuickImageComment
         {
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormQuickImageComment));
             this.dynamicLabelArtist = new System.Windows.Forms.Label();
             this.textBoxUserComment = new System.Windows.Forms.TextBox();
@@ -80,13 +76,9 @@ namespace QuickImageComment
             this.toolStripMenuItemAddToFind = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripMetaDataMenuItemAdjustOverview = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPageExif = new System.Windows.Forms.TabPage();
-            this.DataGridViewExif = new QuickImageCommentControls.DataGridViewMetaData();
             this.tabPageIptc = new System.Windows.Forms.TabPage();
-            this.DataGridViewIptc = new QuickImageCommentControls.DataGridViewMetaData();
             this.tabPageXmp = new System.Windows.Forms.TabPage();
-            this.DataGridViewXmp = new QuickImageCommentControls.DataGridViewMetaData();
             this.tabPageOther = new System.Windows.Forms.TabPage();
-            this.DataGridViewOtherMetaData = new QuickImageCommentControls.DataGridViewMetaData();
             this.tabPageMulti = new System.Windows.Forms.TabPage();
             this.checkBoxGpsDataChange = new System.Windows.Forms.CheckBox();
             this.dataGridViewSelectedFiles = new System.Windows.Forms.DataGridView();
@@ -284,14 +276,6 @@ namespace QuickImageComment
             this.tabPageOverview.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewOverview)).BeginInit();
             this.contextMenuStripOverview.SuspendLayout();
-            this.tabPageExif.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DataGridViewExif)).BeginInit();
-            this.tabPageIptc.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DataGridViewIptc)).BeginInit();
-            this.tabPageXmp.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DataGridViewXmp)).BeginInit();
-            this.tabPageOther.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DataGridViewOtherMetaData)).BeginInit();
             this.tabPageMulti.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSelectedFiles)).BeginInit();
             this.contextMenuStripMetaData.SuspendLayout();
@@ -684,7 +668,6 @@ namespace QuickImageComment
             // tabPageExif
             // 
             this.tabPageExif.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.tabPageExif.Controls.Add(this.DataGridViewExif);
             this.tabPageExif.Location = new System.Drawing.Point(4, 22);
             this.tabPageExif.Name = "tabPageExif";
             this.tabPageExif.Padding = new System.Windows.Forms.Padding(3);
@@ -693,28 +676,9 @@ namespace QuickImageComment
             this.tabPageExif.Text = "Exif";
             this.tabPageExif.UseVisualStyleBackColor = true;
             // 
-            // DataGridViewExif
-            // 
-            this.DataGridViewExif.AllowUserToAddRows = false;
-            this.DataGridViewExif.AllowUserToDeleteRows = false;
-            this.DataGridViewExif.AllowUserToResizeRows = false;
-            this.DataGridViewExif.BackgroundColor = System.Drawing.SystemColors.Window;
-            this.DataGridViewExif.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DataGridViewExif.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DataGridViewExif.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.DataGridViewExif.GridColor = System.Drawing.SystemColors.ScrollBar;
-            this.DataGridViewExif.Location = new System.Drawing.Point(3, 3);
-            this.DataGridViewExif.Name = "DataGridViewExif";
-            this.DataGridViewExif.RowHeadersVisible = false;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            this.DataGridViewExif.RowsDefaultCellStyle = dataGridViewCellStyle2;
-            this.DataGridViewExif.Size = new System.Drawing.Size(263, 160);
-            this.DataGridViewExif.TabIndex = 0;
-            // 
             // tabPageIptc
             // 
             this.tabPageIptc.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.tabPageIptc.Controls.Add(this.DataGridViewIptc);
             this.tabPageIptc.Location = new System.Drawing.Point(4, 22);
             this.tabPageIptc.Name = "tabPageIptc";
             this.tabPageIptc.Padding = new System.Windows.Forms.Padding(3);
@@ -723,28 +687,9 @@ namespace QuickImageComment
             this.tabPageIptc.Text = "IPTC";
             this.tabPageIptc.UseVisualStyleBackColor = true;
             // 
-            // DataGridViewIptc
-            // 
-            this.DataGridViewIptc.AllowUserToAddRows = false;
-            this.DataGridViewIptc.AllowUserToDeleteRows = false;
-            this.DataGridViewIptc.AllowUserToResizeRows = false;
-            this.DataGridViewIptc.BackgroundColor = System.Drawing.SystemColors.Window;
-            this.DataGridViewIptc.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DataGridViewIptc.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DataGridViewIptc.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.DataGridViewIptc.GridColor = System.Drawing.SystemColors.ScrollBar;
-            this.DataGridViewIptc.Location = new System.Drawing.Point(3, 3);
-            this.DataGridViewIptc.Name = "DataGridViewIptc";
-            this.DataGridViewIptc.RowHeadersVisible = false;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            this.DataGridViewIptc.RowsDefaultCellStyle = dataGridViewCellStyle3;
-            this.DataGridViewIptc.Size = new System.Drawing.Size(263, 160);
-            this.DataGridViewIptc.TabIndex = 0;
-            // 
             // tabPageXmp
             // 
             this.tabPageXmp.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.tabPageXmp.Controls.Add(this.DataGridViewXmp);
             this.tabPageXmp.Location = new System.Drawing.Point(4, 22);
             this.tabPageXmp.Name = "tabPageXmp";
             this.tabPageXmp.Padding = new System.Windows.Forms.Padding(3);
@@ -752,28 +697,9 @@ namespace QuickImageComment
             this.tabPageXmp.TabIndex = 4;
             this.tabPageXmp.Text = "XMP";
             // 
-            // DataGridViewXmp
-            // 
-            this.DataGridViewXmp.AllowUserToAddRows = false;
-            this.DataGridViewXmp.AllowUserToDeleteRows = false;
-            this.DataGridViewXmp.AllowUserToResizeRows = false;
-            this.DataGridViewXmp.BackgroundColor = System.Drawing.SystemColors.Window;
-            this.DataGridViewXmp.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DataGridViewXmp.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DataGridViewXmp.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.DataGridViewXmp.GridColor = System.Drawing.SystemColors.ScrollBar;
-            this.DataGridViewXmp.Location = new System.Drawing.Point(3, 3);
-            this.DataGridViewXmp.Name = "DataGridViewXmp";
-            this.DataGridViewXmp.RowHeadersVisible = false;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            this.DataGridViewXmp.RowsDefaultCellStyle = dataGridViewCellStyle4;
-            this.DataGridViewXmp.Size = new System.Drawing.Size(263, 160);
-            this.DataGridViewXmp.TabIndex = 0;
-            // 
             // tabPageOther
             // 
             this.tabPageOther.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.tabPageOther.Controls.Add(this.DataGridViewOtherMetaData);
             this.tabPageOther.Location = new System.Drawing.Point(4, 22);
             this.tabPageOther.Name = "tabPageOther";
             this.tabPageOther.Padding = new System.Windows.Forms.Padding(3);
@@ -781,24 +707,6 @@ namespace QuickImageComment
             this.tabPageOther.TabIndex = 3;
             this.tabPageOther.Text = "Sonstige";
             this.tabPageOther.UseVisualStyleBackColor = true;
-            // 
-            // DataGridViewOtherMetaData
-            // 
-            this.DataGridViewOtherMetaData.AllowUserToAddRows = false;
-            this.DataGridViewOtherMetaData.AllowUserToDeleteRows = false;
-            this.DataGridViewOtherMetaData.AllowUserToResizeRows = false;
-            this.DataGridViewOtherMetaData.BackgroundColor = System.Drawing.SystemColors.Window;
-            this.DataGridViewOtherMetaData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DataGridViewOtherMetaData.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DataGridViewOtherMetaData.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.DataGridViewOtherMetaData.GridColor = System.Drawing.SystemColors.ScrollBar;
-            this.DataGridViewOtherMetaData.Location = new System.Drawing.Point(3, 3);
-            this.DataGridViewOtherMetaData.Name = "DataGridViewOtherMetaData";
-            this.DataGridViewOtherMetaData.RowHeadersVisible = false;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            this.DataGridViewOtherMetaData.RowsDefaultCellStyle = dataGridViewCellStyle5;
-            this.DataGridViewOtherMetaData.Size = new System.Drawing.Size(263, 160);
-            this.DataGridViewOtherMetaData.TabIndex = 1;
             // 
             // tabPageMulti
             // 
@@ -2442,14 +2350,6 @@ namespace QuickImageComment
             this.tabPageOverview.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewOverview)).EndInit();
             this.contextMenuStripOverview.ResumeLayout(false);
-            this.tabPageExif.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.DataGridViewExif)).EndInit();
-            this.tabPageIptc.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.DataGridViewIptc)).EndInit();
-            this.tabPageXmp.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.DataGridViewXmp)).EndInit();
-            this.tabPageOther.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.DataGridViewOtherMetaData)).EndInit();
             this.tabPageMulti.ResumeLayout(false);
             this.tabPageMulti.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSelectedFiles)).EndInit();

@@ -42,12 +42,23 @@ namespace QuickImageCommentControls
 
         private int userSetColumnWidth_1;
 
-        public DataGridViewMetaData()
+        public DataGridViewMetaData(string name)
         {
             this.AllowUserToAddRows = false;
             this.AllowUserToDeleteRows = false;
             this.AllowUserToResizeRows = false;
-            this.EditMode = DataGridViewEditMode.EditProgrammatically;
+            this.BackgroundColor = System.Drawing.SystemColors.Window;
+            this.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.GridColor = System.Drawing.SystemColors.ScrollBar;
+            this.Location = new System.Drawing.Point(3, 3);
+            this.Name = name;
+            this.RowHeadersVisible = false;
+
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle = new System.Windows.Forms.DataGridViewCellStyle();
+            dataGridViewCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            this.RowsDefaultCellStyle = dataGridViewCellStyle;
 
             this.components = new System.ComponentModel.Container();
             this.ContextMenuStripDataGridViewMetaData = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -165,12 +176,7 @@ namespace QuickImageCommentControls
             this.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewMetaData_CellClick);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataGridViewMetaData_KeyDown);
             this.ColumnWidthChanged += new System.Windows.Forms.DataGridViewColumnEventHandler(this.dataGridViewMetaData_ColumnWidthChanged);
-        }
 
-        // separate method: when following instructions are part of constructor (or method called by constructor),
-        // then each time the mask is changed, new columns are added.
-        public void setColumns()
-        {
             this.ColumnCount = 6;
             this.Columns[0].HeaderText = "Tag-Name";
             // width set automatically after filling
@@ -188,10 +194,13 @@ namespace QuickImageCommentControls
             this.Columns[4].Width = 61;
             this.Columns[4].ValueType = typeof(long);
             this.Columns[4].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            // nothing to set for [5], column is hidden later
+            // nothing to set for [5], which holds the tag name, used to add a tag to changeable area via context menu
+            // as column is used internally only, hide it
+            this.Columns[5].Visible = false;
 
             userSetColumnWidth_1 = 300;
         }
+
         public void fillData(string givenPrefix, System.Collections.SortedList givenMetaDataItems)
         {
             Prefix = givenPrefix;

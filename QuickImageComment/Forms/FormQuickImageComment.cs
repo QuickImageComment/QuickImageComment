@@ -164,6 +164,19 @@ namespace QuickImageComment
             theUserControlFiles.init(this);
             //Program.StartupPerformance.measure("FormQIC after theUserControlFiles.init");
 
+            // data grids for meta data
+            // controls added here, so that all settings can be defined in constructor of DataGridViewMetaData
+            // when controls are added in Designer.cs then each time the mask is changed, new columns are added by Visual Studio Designer
+            this.DataGridViewExif = new QuickImageCommentControls.DataGridViewMetaData("DataGridViewExif");
+            this.tabPageExif.Controls.Add(this.DataGridViewExif);
+            this.DataGridViewIptc = new QuickImageCommentControls.DataGridViewMetaData("DataGridViewIptc");
+            this.tabPageIptc.Controls.Add(this.DataGridViewIptc);
+            this.DataGridViewXmp = new QuickImageCommentControls.DataGridViewMetaData("DataGridViewXmp");
+            this.tabPageXmp.Controls.Add(this.DataGridViewXmp);
+            this.DataGridViewOtherMetaData = new QuickImageCommentControls.DataGridViewMetaData("DataGridViewOtherMetaData");
+            this.tabPageOther.Controls.Add(this.DataGridViewOtherMetaData);
+
+
             readFolderPerfomance = new Performance();
 #if USESTARTUPTHREAD
             Thread StartupInitNewFolderThread = new Thread(StartupInitNewFolder);
@@ -209,22 +222,6 @@ namespace QuickImageComment
             // in order to avoid a change of splitContainer12P1.SplitterDistance as side effect of changes, which in no way are 
             // related to this control, Anchor in Designer.cs is set to Top, but Bottom is needed for correct runtime behaviour
             dynamicLabelFileName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-
-            // separate call to set Columns of dataGridViewMetaData
-            // when those instructions are part of constructor (or method called by constructor),
-            // then each time the mask is changed, new columns are added.
-            //Program.StartupPerformance.measure("FormQIC before DataGrids set columns");
-            DataGridViewExif.setColumns();
-            DataGridViewIptc.setColumns();
-            DataGridViewXmp.setColumns();
-            DataGridViewOtherMetaData.setColumns();
-            //Program.StartupPerformance.measure("FormQIC after DataGrids set columns");
-
-            // hide column 5 which holds the tag name, used to add a tag to changeable area via context menu
-            DataGridViewExif.Columns[5].Visible = false;
-            DataGridViewIptc.Columns[5].Visible = false;
-            DataGridViewXmp.Columns[5].Visible = false;
-            DataGridViewOtherMetaData.Columns[5].Visible = false;
 
             // listViewOtherMetaData is inherited from same class as listViewExif and listViewIptc
             // but some columns are only filled with standard values, so hide them
