@@ -7,9 +7,10 @@ namespace QuickImageComment
     {
         protected FormPrevNext previousWindow;
         protected FormPrevNext nextWindow;
+        protected string displayedFileName;
         private static SortedList<string, FormPrevNext> lastWindows = new SortedList<string, FormPrevNext>();
 
-        public FormPrevNext()
+        public FormPrevNext(ExtendedImage extendedImage)
         {
             InitializeComponent();
             if (lastWindows.ContainsKey(this.GetType().Name))
@@ -23,6 +24,11 @@ namespace QuickImageComment
             {
                 // create new chaing
                 lastWindows.Add(this.GetType().Name, this);
+            }
+            displayedFileName = "";
+            if (extendedImage != null)
+            {
+                displayedFileName = extendedImage.getImageFileName();
             }
         }
 
@@ -38,8 +44,8 @@ namespace QuickImageComment
                 }
                 else
                 {
-                    // there is no next window, so this is now the last in chain
-                    lastWindows[this.GetType().Name] = this;
+                    // there is no next window, so this was the last in chain
+                    lastWindows[this.GetType().Name] = this.previousWindow;
                 }
                 if (previousWindow != null)
                 {
@@ -65,6 +71,27 @@ namespace QuickImageComment
             {
                 return null;
             }
+        }
+
+        // get window displaying file
+        internal static FormPrevNext getWindowForImage(string typeName, ExtendedImage extendedImage)
+        {
+            string fullFileName = "";
+            if (extendedImage != null)
+            {
+                fullFileName = extendedImage.getImageFileName();
+            }
+            FormPrevNext prev1 = getLastWindow(typeName);
+            while (prev1 != null)
+            {
+                FormPrevNext prev2 = prev1.previousWindow;
+                if (prev1.displayedFileName.Equals(fullFileName))
+                {
+                    return prev1;
+                }
+                prev1 = prev2;
+            }
+            return null;
         }
 
         // close all opened windows
@@ -99,6 +126,21 @@ namespace QuickImageComment
             else
             {
                 return false;
+            }
+        }
+
+        internal static void closeUnusedWindows(string typeName)
+        {
+            FormPrevNext prev1 = getLastWindow(typeName);
+            while (prev1 != null)
+            {
+                FormPrevNext prev2 = prev1.previousWindow;
+                // displayed file is not selected
+                if (!MainMaskInterface.isFileSelected(prev1.displayedFileName))
+                {
+                    prev1.Close();
+                }
+                prev1 = prev2;
             }
         }
 

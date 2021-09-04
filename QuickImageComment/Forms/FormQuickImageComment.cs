@@ -4284,15 +4284,17 @@ namespace QuickImageComment
             {
                 if (FormPrevNext.windowsAreOpen(nameof(FormImageDetails)))
                 {
-                    if (theUserControlFiles.listViewFiles.SelectedItems.Count > 1)
+                    FormPrevNext.closeUnusedWindows(nameof(FormImageDetails));
+                    FormImageDetails formImageDetails = (FormImageDetails)FormPrevNext.getWindowForImage(nameof(FormImageDetails), theExtendedImage);
+                    if (formImageDetails != null)
                     {
-                        // several images selected, open new window for image
-                        new FormImageDetails(dpiSettings, theExtendedImage);
+                        // image already displayed, update
+                        formImageDetails.newImage(theExtendedImage);
                     }
                     else
                     {
-                        // only one image selected, update last window and close potentially existing previous windows
-                        FormImageDetails.newImageInLastWindowAndClosePrevious(theExtendedImage);
+                        // image not displayed, new form
+                        new FormImageDetails(dpiSettings, theExtendedImage);
                     }
                 }
                 else
@@ -4304,17 +4306,17 @@ namespace QuickImageComment
             // if forms for image in own window are displayed, inform that there is a new image selected
             if (FormPrevNext.windowsAreOpen(nameof(FormImageWindow)))
             {
+                FormPrevNext.closeUnusedWindows(nameof(FormImageWindow));
+                FormImageWindow formImageWindow = (FormImageWindow)FormPrevNext.getWindowForImage(nameof(FormImageWindow), theExtendedImage);
+                if (formImageWindow != null)
                 {
-                    if (theUserControlFiles.listViewFiles.SelectedItems.Count > 1)
-                    {
-                        // several images selected, open new window for image
-                        new FormImageWindow(theExtendedImage, toolStripMenuItemImageWithGrid.Checked);
-                    }
-                    else
-                    {
-                        // only one image selected, update last window and close potentially existing previous windows
-                        FormImageWindow.newImageInLastWindowAndClosePrevious(theExtendedImage, toolStripMenuItemImageWithGrid.Checked);
-                    }
+                    // image already displayed, update
+                    formImageWindow.newImage(theExtendedImage, toolStripMenuItemImageWithGrid.Checked);
+                }
+                else
+                {
+                    // image not displayed, new form
+                    new FormImageWindow(theExtendedImage, toolStripMenuItemImageWithGrid.Checked);
                 }
             }
 

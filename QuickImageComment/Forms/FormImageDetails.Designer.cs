@@ -34,6 +34,7 @@
             this.buttonClose = new System.Windows.Forms.Button();
             this.buttonCustomizeForm = new System.Windows.Forms.Button();
             this.buttonOtherWindowsEqual = new System.Windows.Forms.Button();
+            this.buttonCloseAll = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // panel1
@@ -91,11 +92,23 @@
             this.buttonOtherWindowsEqual.UseVisualStyleBackColor = true;
             this.buttonOtherWindowsEqual.Click += new System.EventHandler(this.buttonOtherWindowsEqual_Click);
             // 
+            // buttonCloseAll
+            // 
+            this.buttonCloseAll.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.buttonCloseAll.Location = new System.Drawing.Point(140, 296);
+            this.buttonCloseAll.Name = "buttonCloseAll";
+            this.buttonCloseAll.Size = new System.Drawing.Size(100, 22);
+            this.buttonCloseAll.TabIndex = 72;
+            this.buttonCloseAll.Text = "Alle Schließen";
+            this.buttonCloseAll.UseVisualStyleBackColor = true;
+            this.buttonCloseAll.Click += new System.EventHandler(this.buttonCloseAll_Click);
+            // 
             // FormImageDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(593, 325);
+            this.Controls.Add(this.buttonCloseAll);
             this.Controls.Add(this.buttonOtherWindowsEqual);
             this.Controls.Add(this.buttonCustomizeForm);
             this.Controls.Add(this.buttonClose);
@@ -117,5 +130,6 @@
         private System.Windows.Forms.Button buttonClose;
         private System.Windows.Forms.Button buttonCustomizeForm;
         private System.Windows.Forms.Button buttonOtherWindowsEqual;
+        private System.Windows.Forms.Button buttonCloseAll;
     }
 }

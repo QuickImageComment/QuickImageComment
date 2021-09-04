@@ -404,6 +404,11 @@ namespace QuickImageComment
             }
         }
 
+        internal static bool isFileSelected(string fullFileName)
+        {
+            return theFormQuickImageComment.theUserControlFiles.listViewFiles.SelectedItems.ContainsKey(fullFileName);
+        }
+
         internal static void initFormLogger()
         {
             // when FormLogger is initialized before initialzing of main mask, FormLogger may crash

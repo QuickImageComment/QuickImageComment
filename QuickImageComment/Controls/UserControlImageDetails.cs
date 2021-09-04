@@ -1119,24 +1119,24 @@ namespace QuickImageComment
         }
 
         // hide controls for slave windows
-        public void hideControlsSetValuesForSlaveWindows()
+        public void setVisibilityControlsSetValuesForSlaveWindows(bool visible)
         {
-            comboBoxZoom.Visible = false;
-            labelZoom.Visible = false;
-            hScrollBarZoom.Visible = false;
-            labelGrafics.Visible = false;
-            comboBoxGraphicDisplay.Visible = false;
-            checkBoxColorR.Visible = false;
-            checkBoxColorG.Visible = false;
-            checkBoxColorB.Visible = false;
-            labelGrid.Visible = false;
-            numericUpDownGridSize.Visible = false;
-            labelScale.Visible = false;
-            numericUpDownScaleLines.Visible = false;
-            labelFrameColor.Visible = false;
-            buttonFrameColor.Visible = false;
-            labelGridColor.Visible = false;
-            buttonGridColor.Visible = false;
+            comboBoxZoom.Visible = visible;
+            labelZoom.Visible = visible;
+            hScrollBarZoom.Visible = visible;
+            labelGrafics.Visible = visible;
+            comboBoxGraphicDisplay.Visible = visible;
+            checkBoxColorR.Visible = visible;
+            checkBoxColorG.Visible = visible;
+            checkBoxColorB.Visible = visible;
+            labelGrid.Visible = visible;
+            numericUpDownGridSize.Visible = visible;
+            labelScale.Visible = visible;
+            numericUpDownScaleLines.Visible = visible;
+            labelFrameColor.Visible = visible;
+            buttonFrameColor.Visible = visible;
+            labelGridColor.Visible = visible;
+            buttonGridColor.Visible = visible;
         }
 
         // shift the image position (from outside to sync several windows)

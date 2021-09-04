@@ -23,27 +23,15 @@ namespace QuickImageComment
     {
         private FormCustomization.Interface CustomizationInterface;
         // made internal to allow creating static methods to modify reference window
-        protected UserControlImageDetails theUserControlImageDetails;
+        private UserControlImageDetails theUserControlImageDetails;
 
-        public FormImageDetails(float dpiSettings, ExtendedImage givenExtendedImage) : base()
+        public FormImageDetails(float dpiSettings, ExtendedImage givenExtendedImage) : base(givenExtendedImage)
         {
             InitializeComponent();
 #if APPCENTER
             if (Program.AppCenterUsable) Microsoft.AppCenter.Analytics.Analytics.TrackEvent(this.Name);
 #endif
             CustomizationInterface = MainMaskInterface.getCustomizationInterface();
-            if (previousWindow == null)
-            {
-                // no other windows, button not needed
-                buttonOtherWindowsEqual.Visible = false;
-            }
-            else
-            {
-                // make previous window to slave window
-                ((FormImageDetails)previousWindow).buttonOtherWindowsEqual.Visible = false;
-                ((FormImageDetails)previousWindow).theUserControlImageDetails.hideControlsSetValuesForSlaveWindows();
-                ((FormImageDetails)previousWindow).buttonClose.Text = LangCfg.getText(LangCfg.Others.close);
-            }
 
             this.MinimumSize = this.Size;
             int newHeight = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.FormImageDetailsHeight);
@@ -58,7 +46,7 @@ namespace QuickImageComment
             }
 
             theUserControlImageDetails = new UserControlImageDetails(dpiSettings, this);
-            MainMaskInterface.setUserControlImageDetails(theUserControlImageDetails);
+            setMasterSlaveAndUserControlImageDetailsMainMask();
             theUserControlImageDetails.isInOwnWindow = true;
             panel1.Controls.Add(theUserControlImageDetails.splitContainerImageDetails1);
             theUserControlImageDetails.adjustSizeAndSplitterDistances(panel1.Size);
@@ -66,12 +54,6 @@ namespace QuickImageComment
 
             CustomizationInterface.setFormToCustomizedValues(this);
             LangCfg.translateControlTexts(this);
-
-            if (previousWindow != null)
-            {
-                // this is a master window, change text of close button
-                buttonClose.Text = LangCfg.getText(LangCfg.Others.closeAll);
-            }
 
             // if flag set, create screenshot and return
             if (GeneralUtilities.CreateScreenshots)
@@ -110,6 +92,12 @@ namespace QuickImageComment
             Close();
         }
 
+        private void buttonCloseAll_Click(object sender, EventArgs e)
+        {
+            // close all windows
+            FormPrevNext.closeAllWindows(nameof(FormImageDetails));
+        }
+
         // make other Image Detail windows equal
         private void buttonOtherWindowsEqual_Click(object sender, EventArgs e)
         {
@@ -133,17 +121,16 @@ namespace QuickImageComment
         //*****************************************************************
         protected override void FormPrevNext_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (nextWindow == null)
+            if (previousWindow == null &&  nextWindow == null)
             {
-                // close slave windows
-                FormPrevNext.closePreviousWindows(this);
+                // last window to close
                 // set UserControl to null, as existance is checked for updates of content
                 MainMaskInterface.setUserControlImageDetails(null);
                 // call to remove frame showing image details range in main mask
                 MainMaskInterface.refreshImageDetailsFrame();
-
             }
             base.FormPrevNext_FormClosing(sender, e);
+            setMasterSlaveAndUserControlImageDetailsMainMask();
         }
 
         private void FormImageDetails_KeyDown(object sender, KeyEventArgs theKeyEventArgs)
@@ -170,15 +157,6 @@ namespace QuickImageComment
                 Text = System.IO.Path.GetFileName(givenExtendedImage.getImageFileName())
                     + "  (" + System.IO.Path.GetDirectoryName(givenExtendedImage.getImageFileName()) + ")";
                 theUserControlImageDetails.newImage(givenExtendedImage);
-            }
-        }
-        internal static void newImageInLastWindowAndClosePrevious(ExtendedImage givenExtendedImage)
-        {
-            FormImageDetails lastFormImageDetails = (FormImageDetails)getLastWindow(nameof(FormImageDetails));
-            if (lastFormImageDetails != null)
-            {
-                lastFormImageDetails.newImage(givenExtendedImage);
-                FormPrevNext.closePreviousWindows(lastFormImageDetails);
             }
         }
 
@@ -219,6 +197,38 @@ namespace QuickImageComment
             theUserControlImageDetails.refreshGraphicDisplay(true);
             // seems not have much impact on speeding up layout change, but keep it
             this.ResumeLayout();
+        }
+
+        // show or hide controls in chain to set master/slave behaviour and show close-all only if more than one window
+        // set UserControlImageDetails for main mask
+        private void setMasterSlaveAndUserControlImageDetailsMainMask()
+        {
+            FormImageDetails master = (FormImageDetails)FormPrevNext.getLastWindow(nameof(FormImageDetails));
+            if (master != null)
+            {
+                master.theUserControlImageDetails.setVisibilityControlsSetValuesForSlaveWindows(true);
+                MainMaskInterface.setUserControlImageDetails(master.theUserControlImageDetails);
+
+                if (master.previousWindow == null)
+                {
+                    master.buttonCloseAll.Visible = false;
+                    master.buttonOtherWindowsEqual.Visible = false;
+                }
+                else
+                {
+                    master.buttonCloseAll.Visible = true;
+                    master.buttonOtherWindowsEqual.Visible = true;
+
+                    FormImageDetails prev = (FormImageDetails)master.previousWindow;
+                    while (prev != null)
+                    {
+                        prev.buttonCloseAll.Visible = false;
+                        prev.buttonOtherWindowsEqual.Visible = false;
+                        prev.theUserControlImageDetails.setVisibilityControlsSetValuesForSlaveWindows(false);
+                        prev = (FormImageDetails)prev.previousWindow;
+                    }
+                }
+            }
         }
     }
 }

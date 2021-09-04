@@ -23,7 +23,7 @@ namespace QuickImageComment
     public partial class FormImageWindow : FormPrevNext
     {
         private ExtendedImage theExtendedImage;
-        public FormImageWindow(ExtendedImage givenExtendedImage, bool showGrid) : base()
+        public FormImageWindow(ExtendedImage givenExtendedImage, bool showGrid) : base(givenExtendedImage)
         {
             InitializeComponent();
 #if APPCENTER
@@ -99,7 +99,7 @@ namespace QuickImageComment
             }
         }
 
-        private void newImage(ExtendedImage givenExtendedImage, bool showGrid)
+        internal void newImage(ExtendedImage givenExtendedImage, bool showGrid)
         {
             if (givenExtendedImage == null)
             {
@@ -115,16 +115,6 @@ namespace QuickImageComment
                 Text = System.IO.Path.GetFileName(theExtendedImage.getImageFileName())
                     + "  (" + System.IO.Path.GetDirectoryName(theExtendedImage.getImageFileName()) + ")";
                 displayProperties();
-            }
-        }
-
-        internal static void newImageInLastWindowAndClosePrevious(ExtendedImage givenExtendedImage, bool showGrid)
-        {
-            FormImageWindow lastFormImageWindow = (FormImageWindow)getLastWindow(nameof(FormImageWindow));
-            if (lastFormImageWindow != null)
-            {
-                lastFormImageWindow.newImage(givenExtendedImage, showGrid);
-                FormPrevNext.closePreviousWindows(lastFormImageWindow);
             }
         }
 
