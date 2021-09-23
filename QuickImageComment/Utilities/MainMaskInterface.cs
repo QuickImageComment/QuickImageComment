@@ -409,6 +409,11 @@ namespace QuickImageComment
             return theFormQuickImageComment.theUserControlFiles.listViewFiles.SelectedItems.ContainsKey(fullFileName);
         }
 
+        internal static bool showGrid()
+        {
+            return theFormQuickImageComment.toolStripMenuItemImageWithGrid.Checked;
+        }
+
         internal static void initFormLogger()
         {
             // when FormLogger is initialized before initialzing of main mask, FormLogger may crash

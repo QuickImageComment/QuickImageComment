@@ -22,7 +22,7 @@ namespace QuickImageComment
             }
             else
             {
-                // create new chaing
+                // create new chain
                 lastWindows.Add(this.GetType().Name, this);
             }
             displayedFileName = "";
@@ -74,7 +74,7 @@ namespace QuickImageComment
         }
 
         // get window displaying file
-        internal static FormPrevNext getWindowForImage(string typeName, ExtendedImage extendedImage)
+        protected static FormPrevNext getWindowForImage(string typeName, ExtendedImage extendedImage)
         {
             string fullFileName = "";
             if (extendedImage != null)
@@ -95,7 +95,7 @@ namespace QuickImageComment
         }
 
         // close all opened windows
-        internal static void closeAllWindows(string typeName)
+        protected static void closeAllWindows(string typeName)
         {
             FormPrevNext lastFormPrevNext = getLastWindow(typeName);
             if (lastFormPrevNext != null)
@@ -106,7 +106,7 @@ namespace QuickImageComment
         }
 
         // close referenced previous windows (used when several windows were opened and then only one image is selected)
-        internal static void closePreviousWindows(FormPrevNext keep)
+        private static void closePreviousWindows(FormPrevNext keep)
         {
             FormPrevNext prev1 = keep.previousWindow;
             while (prev1 != null)
@@ -117,7 +117,7 @@ namespace QuickImageComment
             }
         }
 
-        internal static bool windowsAreOpen(string typeName)
+        protected static bool windowsAreOpen(string typeName)
         {
             if (lastWindows.ContainsKey(typeName))
             {
@@ -129,7 +129,7 @@ namespace QuickImageComment
             }
         }
 
-        internal static void closeUnusedWindows(string typeName)
+        protected static void closeUnusedWindows(string typeName)
         {
             FormPrevNext prev1 = getLastWindow(typeName);
             while (prev1 != null)
@@ -144,14 +144,18 @@ namespace QuickImageComment
             }
         }
 
+        protected static bool onlyOneWindow(string typeName)
+        {
+            FormPrevNext prev1 = getLastWindow(typeName);
+            if (prev1 == null)
+                return false;
+            else
+                return prev1.previousWindow == null;
+        }
+
         // save the configuration data; usually needs overload in derived classes
         protected virtual void saveConfigDefinitions()
         {
         }
-
-        //// reference window is static and thus needs to be declared in derived class
-        //// these methods need to be overriden to get and set reference window in derived class
-        //protected abstract FormPrevNext getReferenceWindow();
-        //protected abstract void setReferenceWindow(FormPrevNext formPrevNext);
     }
 }

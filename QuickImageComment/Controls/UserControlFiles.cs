@@ -560,6 +560,8 @@ namespace QuickImageComment
                             if (MessageText.Equals("") || !listViewFiles.SelectedIndices.Contains(ii))
                             {
                                 ListViewItem listViewItem = ImageManager.updateListViewItemAndImage(theFileInfo);
+                                ExtendedImage extendedImage = ImageManager.getExtendedImage(ii, true);
+
                                 for (int kk = 0; kk < listViewItem.SubItems.Count; kk++)
                                 {
                                     listViewFiles.Items[ii].SubItems[kk] = listViewItem.SubItems[kk];
@@ -567,7 +569,7 @@ namespace QuickImageComment
                                 if (listViewFiles.SelectedIndices.Count > 1 && listViewFiles.SelectedIndices.Contains(ii))
                                 {
                                     theFormQuickImageComment.disableEventHandlersRecogniseUserInput();
-                                    theFormQuickImageComment.updateAllChangeableDataForMultipleSelection(ImageManager.getExtendedImage(ii, false));
+                                    theFormQuickImageComment.updateAllChangeableDataForMultipleSelection(extendedImage);
                                     theFormQuickImageComment.enableEventHandlersRecogniseUserInput();
                                 }
                                 if (isDisplayed(ii))
@@ -579,6 +581,18 @@ namespace QuickImageComment
                                 listViewFiles.Refresh();
                                 // refresh data in multi-edit-tab
                                 theFormQuickImageComment.refreshdataGridViewSelectedFiles();
+
+                                // update image and detail window
+                                FormImageDetails formImageDetails = FormImageDetails.getWindowForImage(extendedImage);
+                                if (formImageDetails != null)
+                                {
+                                    formImageDetails.newImage(extendedImage);
+                                }
+                                FormImageWindow formImageWindow = FormImageWindow.getWindowForImage(extendedImage);
+                                if (formImageWindow != null)
+                                {
+                                    formImageWindow.newImage(extendedImage);
+                                }
                             }
                         }
                         else
@@ -643,6 +657,9 @@ namespace QuickImageComment
                         {
                             // refresh data in multi-edit-tab
                             theFormQuickImageComment.refreshdataGridViewSelectedFiles();
+                            // close image/details window
+                            FormImageDetails.closeUnusedWindows();
+                            FormImageWindow.closeUnusedWindows();
                         }
                         theFormQuickImageComment.toolStripStatusLabelFiles.Text = LangCfg.translate("Bilder/Videos", this.Name) + ": " + listViewFiles.Items.Count.ToString();
                     }
@@ -661,6 +678,8 @@ namespace QuickImageComment
 
                 bool wasDisplayed = false;
                 bool wasSelected = false;
+                FormImageDetails formImageDetails = null;
+                FormImageWindow formImageWindow = null;
 
                 lock (LockListViewFiles)
                 {
@@ -670,6 +689,8 @@ namespace QuickImageComment
                     {
                         wasDisplayed = isDisplayed(ii);
                         if (listViewFiles.SelectedIndices.Contains(ii)) wasSelected = true;
+                        formImageDetails = FormImageDetails.getWindowForImage(ImageManager.getExtendedImage(ii));
+                        formImageWindow = FormImageWindow.getWindowForImage(ImageManager.getExtendedImage(ii));
 
                         // delete entry in lists in Image Manager
                         ImageManager.deleteExtendedImage(ii);
@@ -696,17 +717,28 @@ namespace QuickImageComment
                         // restore view
                         listViewFiles.View = tempView;
 
-                        if (wasDisplayed)
-                        {
-                            theFormQuickImageComment.displayImage(listViewItem.Index);
-                            theFormQuickImageComment.toolStripStatusLabelFileInfo.Text = LangCfg.getText(LangCfg.Others.fileRenamedOutsideQIC, oldFullFileName);
-                        }
                         if (wasSelected)
                         {
                             listViewFiles.SelectedIndices.Add(listViewItem.Index);
                             listViewFiles.selectedFilesOld.Add(newFullFileName);
+
                             // refresh data in multi-edit-tab
                             theFormQuickImageComment.refreshdataGridViewSelectedFiles();
+
+                            if (formImageDetails != null)
+                            {
+                                formImageDetails.newImage(ImageManager.getExtendedImage(listViewItem.Index, true));
+                            }
+                            if (formImageWindow != null)
+                            {
+                                formImageWindow.newImage(ImageManager.getExtendedImage(listViewItem.Index, true));
+                            }
+
+                            if (wasDisplayed)
+                            {
+                                theFormQuickImageComment.displayImage(listViewItem.Index);
+                                theFormQuickImageComment.toolStripStatusLabelFileInfo.Text = LangCfg.getText(LangCfg.Others.fileRenamedOutsideQIC, oldFullFileName);
+                            }
                         }
                     }
                     else
@@ -722,6 +754,8 @@ namespace QuickImageComment
                             theFormQuickImageComment.refreshdataGridViewSelectedFiles();
                         }
                     }
+                    FormImageDetails.closeUnusedWindows();
+                    FormImageWindow.closeUnusedWindows();
                 }
 
                 theFormQuickImageComment.toolStripStatusLabelFiles.Text = LangCfg.translate("Bilder/Videos", this.Name) + ": " + listViewFiles.Items.Count.ToString();

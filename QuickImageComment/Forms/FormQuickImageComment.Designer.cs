@@ -2523,7 +2523,7 @@ namespace QuickImageComment
         private System.Windows.Forms.NumericUpDown numericUpDownFramePosition;
         private System.Windows.Forms.Label labelFramePosition;
         private System.Windows.Forms.Panel panelFramePosition;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemImageWithGrid;
+        internal System.Windows.Forms.ToolStripMenuItem toolStripMenuItemImageWithGrid;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemDefineImageGrids;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemMaintenance;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemCreateScreenshots;

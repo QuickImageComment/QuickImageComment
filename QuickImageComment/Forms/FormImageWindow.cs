@@ -23,7 +23,7 @@ namespace QuickImageComment
     public partial class FormImageWindow : FormPrevNext
     {
         private ExtendedImage theExtendedImage;
-        public FormImageWindow(ExtendedImage givenExtendedImage, bool showGrid) : base(givenExtendedImage)
+        public FormImageWindow(ExtendedImage givenExtendedImage) : base(givenExtendedImage)
         {
             InitializeComponent();
 #if APPCENTER
@@ -78,7 +78,7 @@ namespace QuickImageComment
             {
                 Show();
                 // show before newImage, because otherwise resize column included in newImage/displayProperties does not work
-                newImage(givenExtendedImage, showGrid);
+                newImage(givenExtendedImage);
                 Refresh();
                 GeneralUtilities.saveScreenshot(this, this.Name);
                 Close();
@@ -95,14 +95,15 @@ namespace QuickImageComment
                 // the normal case
                 Show();
                 // show before newImage, because otherwise resize column included in newImage/displayProperties does not work
-                newImage(givenExtendedImage, showGrid);
+                newImage(givenExtendedImage);
             }
         }
 
-        internal void newImage(ExtendedImage givenExtendedImage, bool showGrid)
+        internal void newImage(ExtendedImage givenExtendedImage)
         {
             if (givenExtendedImage == null)
             {
+                displayedFileName = "";
                 Text = "";
                 pictureBox1.Image = null;
                 dataGridView1.Rows.Clear();
@@ -110,26 +111,27 @@ namespace QuickImageComment
             else
             {
                 theExtendedImage = givenExtendedImage;
-                pictureBox1.Image = theExtendedImage.getAdjustedImage();
+                pictureBox1.Image = theExtendedImage.createAndGetAdjustedImage(MainMaskInterface.showGrid());
                 pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-                Text = System.IO.Path.GetFileName(theExtendedImage.getImageFileName())
-                    + "  (" + System.IO.Path.GetDirectoryName(theExtendedImage.getImageFileName()) + ")";
+                displayedFileName = theExtendedImage.getImageFileName();
+                Text = System.IO.Path.GetFileName(displayedFileName)
+                    + "  (" + System.IO.Path.GetDirectoryName(displayedFileName) + ")";
                 displayProperties();
             }
         }
 
-        internal static void refreshImageInLastWindow(ExtendedImage givenExtendedImage, bool showGrid)
+        internal static void refreshImageInLastWindow(ExtendedImage givenExtendedImage)
         {
-            FormImageWindow lastFormImageWindow = (FormImageWindow)getLastWindow(nameof(FormImageWindow));
+            FormImageWindow lastFormImageWindow = getLastWindow();
             if (lastFormImageWindow != null)
             {
-                lastFormImageWindow.newImage(givenExtendedImage, showGrid);
+                lastFormImageWindow.newImage(givenExtendedImage);
             }
         }
 
         internal static void rotateImageInLastWindow(System.Drawing.RotateFlipType theRotateFlipType)
         {
-            FormImageWindow lastFormImageWindow = (FormImageWindow)getLastWindow(nameof(FormImageWindow));
+            FormImageWindow lastFormImageWindow = getLastWindow();
             if (lastFormImageWindow != null && lastFormImageWindow.pictureBox1.Image != null)
             {
                 lastFormImageWindow.pictureBox1.Image.RotateFlip(theRotateFlipType);
@@ -249,6 +251,40 @@ namespace QuickImageComment
             else
                 ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.FormImageWindowSplitter1DistanceHoriz, splitContainer1.SplitterDistance);
             ConfigDefinition.setCfgUserBool(ConfigDefinition.enumCfgUserBool.FormImageWindowSplitContainer1Panel2Collapsed, splitContainer1.Panel2Collapsed);
+        }
+
+        //*****************************************************************
+        // wrapper for protected methods of FormPrevNext
+        //*****************************************************************
+
+        internal static FormImageWindow getLastWindow()
+        {
+            return (FormImageWindow)getLastWindow(nameof(FormImageWindow));
+        }
+
+        internal static FormImageWindow getWindowForImage(ExtendedImage extendedImage)
+        {
+            return (FormImageWindow)getWindowForImage(nameof(FormImageWindow), extendedImage);
+        }
+
+        internal static void closeAllWindows()
+        {
+            closeAllWindows(nameof(FormImageWindow));
+        }
+
+        internal static bool windowsAreOpen()
+        {
+            return windowsAreOpen(nameof(FormImageWindow));
+        }
+
+        internal static void closeUnusedWindows()
+        {
+            closeUnusedWindows(nameof(FormImageWindow));
+        }
+
+        internal static bool onlyOneWindow()
+        {
+            return onlyOneWindow(nameof(FormImageWindow));
         }
     }
 }

@@ -95,7 +95,7 @@ namespace QuickImageComment
         private void buttonCloseAll_Click(object sender, EventArgs e)
         {
             // close all windows
-            FormPrevNext.closeAllWindows(nameof(FormImageDetails));
+            closeAllWindows();
         }
 
         // make other Image Detail windows equal
@@ -149,13 +149,15 @@ namespace QuickImageComment
         {
             if (givenExtendedImage == null)
             {
+                displayedFileName = "";
                 Text = "";
                 theUserControlImageDetails.newImage(null);
             }
             else
             {
-                Text = System.IO.Path.GetFileName(givenExtendedImage.getImageFileName())
-                    + "  (" + System.IO.Path.GetDirectoryName(givenExtendedImage.getImageFileName()) + ")";
+                displayedFileName = givenExtendedImage.getImageFileName();
+                Text = System.IO.Path.GetFileName(displayedFileName)
+                    + "  (" + System.IO.Path.GetDirectoryName(displayedFileName) + ")";
                 theUserControlImageDetails.newImage(givenExtendedImage);
             }
         }
@@ -203,7 +205,7 @@ namespace QuickImageComment
         // set UserControlImageDetails for main mask
         private void setMasterSlaveAndUserControlImageDetailsMainMask()
         {
-            FormImageDetails master = (FormImageDetails)FormPrevNext.getLastWindow(nameof(FormImageDetails));
+            FormImageDetails master = FormImageDetails.getLastWindow();
             if (master != null)
             {
                 master.theUserControlImageDetails.setVisibilityControlsSetValuesForSlaveWindows(true);
@@ -229,6 +231,40 @@ namespace QuickImageComment
                     }
                 }
             }
+        }
+
+        //*****************************************************************
+        // wrapper for protected methods of FormPrevNext
+        //*****************************************************************
+
+        internal static FormImageDetails getLastWindow()
+        {
+            return (FormImageDetails)getLastWindow(nameof(FormImageDetails));
+        }
+
+        internal static FormImageDetails getWindowForImage(ExtendedImage extendedImage)
+        {
+            return (FormImageDetails)getWindowForImage(nameof(FormImageDetails), extendedImage);
+        }
+
+        internal static void closeAllWindows()
+        {
+            closeAllWindows(nameof(FormImageDetails));
+        }
+
+        internal static bool windowsAreOpen()
+        {
+            return windowsAreOpen(nameof(FormImageDetails));
+        }
+
+        internal static void closeUnusedWindows()
+        {
+            closeUnusedWindows(nameof(FormImageDetails));
+        }
+
+        internal static bool onlyOneWindow()
+        {
+            return onlyOneWindow(nameof(FormImageDetails));
         }
     }
 }

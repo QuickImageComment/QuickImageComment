@@ -1109,8 +1109,8 @@ namespace QuickImageComment
                     formFind.storeDataTable();
                 }
 
-                FormPrevNext.closeAllWindows(nameof(FormImageDetails));
-                FormPrevNext.closeAllWindows(nameof(FormImageWindow));
+                FormImageDetails.closeAllWindows();
+                FormImageWindow.closeAllWindows();
 
                 FormCollection formCollection = Application.OpenForms;
                 for (int ii = formCollection.Count - 1; ii >= 0; ii--)
@@ -2056,12 +2056,12 @@ namespace QuickImageComment
             lock (UserControlFiles.LockListViewFiles)
             {
                 // some windows may still be open from a previous call; close them
-                FormPrevNext.closeAllWindows(nameof(FormImageWindow));
+                FormImageWindow.closeAllWindows();
                 // open one window for each selected file
                 for (int ii = 0; ii < theUserControlFiles.listViewFiles.SelectedItems.Count; ii++)
                 {
                     int selectedIndex = theUserControlFiles.listViewFiles.SelectedIndices[ii];
-                    new FormImageWindow(ImageManager.getExtendedImage(selectedIndex), toolStripMenuItemImageWithGrid.Checked);
+                    new FormImageWindow(ImageManager.getExtendedImage(selectedIndex));
                 }
             }
         }
@@ -2072,7 +2072,7 @@ namespace QuickImageComment
             lock (UserControlFiles.LockListViewFiles)
             {
                 // some windows may still be open from a previous call; close them
-                FormPrevNext.closeAllWindows(nameof(FormImageDetails));
+                FormImageDetails.closeAllWindows();
                 // open one window for each selected file
                 for (int ii = 0; ii < theUserControlFiles.listViewFiles.SelectedItems.Count; ii++)
                 {
@@ -2866,7 +2866,7 @@ namespace QuickImageComment
                 theUserControlImageDetails.newImage(theExtendedImage);
             }
             // FormImageWindow checks, if a winodow is open
-            FormImageWindow.refreshImageInLastWindow(theExtendedImage, toolStripMenuItemImageWithGrid.Checked);
+            FormImageWindow.refreshImageInLastWindow(theExtendedImage);
             // Force Garbage Collection as creating adjusted image may use a lot of memory
             GC.Collect();
         }
@@ -3784,7 +3784,7 @@ namespace QuickImageComment
                     // if image details are displayed in panel, save settings and close form for image details
                     if (ContentEnum == LangCfg.PanelContent.ImageDetails && panelIsVisible(aPanel))
                     {
-                        FormPrevNext.closeAllWindows(nameof(FormImageDetails));
+                        FormImageDetails.closeAllWindows();
                         if (theUserControlImageDetails == null)
                         {
                             theUserControlImageDetails = new UserControlImageDetails(dpiSettings, null);
@@ -4102,7 +4102,6 @@ namespace QuickImageComment
             DateTime StartTime = DateTime.Now;
             theExtendedImage = null;
             pictureBox1.Image = null;
-            //!! images in FormImageWindow und FormImageDetails löschen; Problem, wenn mehrere offen sind und anschließend leerer Ordner selektiert wird
 
             dynamicLabelFileName.Text = FolderName;
             // clear fields only, if no file is to be displayed
@@ -4282,19 +4281,26 @@ namespace QuickImageComment
             // if the panel of theUserControlImageDetails is displayed, inform that there is a new image selected
             if (theUserControlImageDetails != null)
             {
-                if (FormPrevNext.windowsAreOpen(nameof(FormImageDetails)))
+                if (FormImageDetails.windowsAreOpen())
                 {
-                    FormPrevNext.closeUnusedWindows(nameof(FormImageDetails));
-                    FormImageDetails formImageDetails = (FormImageDetails)FormPrevNext.getWindowForImage(nameof(FormImageDetails), theExtendedImage);
-                    if (formImageDetails != null)
+                    if (FormImageDetails.onlyOneWindow())
                     {
-                        // image already displayed, update
-                        formImageDetails.newImage(theExtendedImage);
+                        FormImageDetails.getLastWindow().newImage(theExtendedImage);
                     }
                     else
                     {
-                        // image not displayed, new form
-                        new FormImageDetails(dpiSettings, theExtendedImage);
+                        FormImageDetails.closeUnusedWindows();
+                        FormImageDetails formImageDetails = FormImageDetails.getWindowForImage(theExtendedImage);
+                        if (formImageDetails != null)
+                        {
+                            // image already displayed, update
+                            formImageDetails.newImage(theExtendedImage);
+                        }
+                        else
+                        {
+                            // image not displayed, new form
+                            new FormImageDetails(dpiSettings, theExtendedImage);
+                        }
                     }
                 }
                 else
@@ -4304,19 +4310,26 @@ namespace QuickImageComment
                 }
             }
             // if forms for image in own window are displayed, inform that there is a new image selected
-            if (FormPrevNext.windowsAreOpen(nameof(FormImageWindow)))
+            if (FormImageWindow.windowsAreOpen())
             {
-                FormPrevNext.closeUnusedWindows(nameof(FormImageWindow));
-                FormImageWindow formImageWindow = (FormImageWindow)FormPrevNext.getWindowForImage(nameof(FormImageWindow), theExtendedImage);
-                if (formImageWindow != null)
+                if (FormImageWindow.onlyOneWindow())
                 {
-                    // image already displayed, update
-                    formImageWindow.newImage(theExtendedImage, toolStripMenuItemImageWithGrid.Checked);
+                    FormImageWindow.getLastWindow().newImage(theExtendedImage);
                 }
                 else
                 {
-                    // image not displayed, new form
-                    new FormImageWindow(theExtendedImage, toolStripMenuItemImageWithGrid.Checked);
+                    FormImageWindow.closeUnusedWindows();
+                    FormImageWindow formImageWindow = FormImageWindow.getWindowForImage(theExtendedImage);
+                    if (formImageWindow != null)
+                    {
+                        // image already displayed, update
+                        formImageWindow.newImage(theExtendedImage);
+                    }
+                    else
+                    {
+                        // image not displayed, new form
+                        new FormImageWindow(theExtendedImage);
+                    }
                 }
             }
 
@@ -5729,7 +5742,7 @@ namespace QuickImageComment
             new FormFindReadErrors();
             new FormImageDetails(dpiSettings, theExtendedImage);
             new FormImageGrid();
-            new FormImageWindow(theExtendedImage, toolStripMenuItemImageWithGrid.Checked);
+            new FormImageWindow(theExtendedImage);
             new FormInputCheckConfiguration("Iptc.Application2.Category");
             new FormMap();
             new FormMetaDataDefinition(theExtendedImage);
@@ -5891,7 +5904,7 @@ namespace QuickImageComment
             new FormFirstUserSettings(true);
             new FormImageDetails(dpiSettings, theExtendedImage);
             new FormImageGrid();
-            new FormImageWindow(theExtendedImage, false);
+            new FormImageWindow(theExtendedImage);
             // input check for Exif.Image.Orientation is always available as created by program, so use this for check
             new FormInputCheckConfiguration("Exif.Image.Orientation");
             new FormLogger();

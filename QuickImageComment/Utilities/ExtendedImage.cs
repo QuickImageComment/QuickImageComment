@@ -172,7 +172,6 @@ namespace QuickImageComment
         private string ImageFileName;
         private System.Drawing.Bitmap ThumbNailBitmap;
         private System.Drawing.Bitmap FullSizeImage;
-        private System.Drawing.Bitmap AdjustedImage;
 
         private SortedList ExifMetaDataItems;
         private SortedList IptcMetaDataItems;
@@ -355,7 +354,6 @@ namespace QuickImageComment
                 this.FullSizeImage = createImageWithText(LangCfg.getText(LangCfg.Others.imageFileNotFound));
                 MetaDataWarnings.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.metaWarningFileNotFound), ""));
             }
-            this.AdjustedImage = FullSizeImage;
             this.ThumbNailBitmap = FullSizeImage;
 
             fillTileViewMetaDataItems();
@@ -3211,19 +3209,11 @@ namespace QuickImageComment
             return FullSizeImage;
         }
 
-        public System.Drawing.Image getAdjustedImage()
-        {
-            if (AdjustedImage == null)
-            {
-                GeneralUtilities.message(LangCfg.Message.E_fullSizeImageNotAvailable);
-                AdjustedImage = new System.Drawing.Bitmap(100, 100);
-            }
-            return AdjustedImage;
-        }
-
         // image considering brightness, contrast and gamma adjustments as well as grid
         internal System.Drawing.Image createAndGetAdjustedImage(bool showGrid)
         {
+            System.Drawing.Image AdjustedImage;
+
             // float Gamma = theExtendedImage.getGamma();
             float Brightness = (float)0.0;
             // float Contrast = theExtendedImage.getContrast();
