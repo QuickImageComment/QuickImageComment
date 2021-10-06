@@ -73,7 +73,7 @@ namespace QuickImageComment
         {
             if (theFormQuickImageComment.continueAfterCheckForChangesAndOptionalSaving(listViewFiles.SelectedIndices))
             {
-                theFormQuickImageComment.readFolderAndDisplayImage(0);
+                theFormQuickImageComment.readFolderAndDisplayImage(true);
             }
         }
 
@@ -287,7 +287,7 @@ namespace QuickImageComment
             {
                 if (theFormQuickImageComment.continueAfterCheckForChangesAndOptionalSaving(listViewFiles.SelectedIndices))
                 {
-                    theFormQuickImageComment.readFolderAndDisplayImage(0);
+                    theFormQuickImageComment.readFolderAndDisplayImage(true);
                 }
             }
         }
@@ -450,13 +450,18 @@ namespace QuickImageComment
                                 theFormQuickImageComment.disableEventHandlersRecogniseUserInput();
                                 theFormQuickImageComment.updateAllChangeableDataForMultipleSelection(ImageManager.getExtendedImage(fileIndex, false));
                                 theFormQuickImageComment.enableEventHandlersRecogniseUserInput();
+                                // set newDisplayIndex to have one image to display in case it cannot be set later based on FocusedItem,
+                                // e.g. because previously focused item does not fit new filter
+                                newDisplayIndex = fileIndex;
 #if APPCENTER
                                 newIndexFound = true;
 #endif
                             }
                         }
-                        // the item which was last selected
-                        newDisplayIndex = listViewFiles.FocusedItem.Index;
+                        if (listViewFiles.FocusedItem != null)
+                        {
+                            newDisplayIndex = listViewFiles.FocusedItem.Index;
+                        }
 #if APPCENTER
                         if (Program.AppCenterUsable && !newIndexFound)
                             Microsoft.AppCenter.Analytics.Analytics.TrackEvent("workAfterSelectedIndexChanged newIndexCount > oldIndexCount new Index not found");
@@ -699,12 +704,14 @@ namespace QuickImageComment
                     }
 
                     // step 2: add new entry
-                    // only if old entry was deleted
                     // in network devices, rename event was triggered twice
+                    // this is also triggered, when files are renamed in QIC, so check if new file is already there
+                    int jj = listViewFiles.getIndexOf(newFullFileName);
                     FileInfo theFileInfo = new FileInfo(newFullFileName);
                     // ShellListener event gives network device in capital letters, which at least sometimes differs from Foldername
                     // check also extension and compare with file filter
-                    if (theFileInfo.DirectoryName.ToLower().Equals(theFormQuickImageComment.FolderName.ToLower()) &&
+                    if (jj < 0 &&
+                        theFileInfo.DirectoryName.ToLower().Equals(theFormQuickImageComment.FolderName.ToLower()) &&
                         ConfigDefinition.FilesExtensionsArrayList.Contains(theFileInfo.Extension.ToLower()) &&
                         theFileInfo.Name.ToLower().StartsWith(textBoxFileFilter.Text.ToLower()))
                     {

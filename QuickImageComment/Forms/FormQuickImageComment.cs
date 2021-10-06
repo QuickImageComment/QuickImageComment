@@ -616,7 +616,7 @@ namespace QuickImageComment
             }
 
             // moved to here as during filling dataGridViews size of panels is important to adjust column widths
-            displayImageAfterReadFolder(0);
+            displayImageAfterReadFolder(false);
             Program.StartupPerformance.measure("FormQIC after displayImageAfterReadFolder");
 
             starting = false;
@@ -1195,13 +1195,13 @@ namespace QuickImageComment
                 try
                 {
                     FolderName = theFolderTreeView.SelectedFolder.FileSystemPath;
-                    readFolderAndDisplayImage(0);
+                    readFolderAndDisplayImage(false);
                 }
                 catch
                 {
                     // invalid file system path, set folder to blank and clear display
                     FolderName = "";
-                    readFolderAndDisplayImage(-1);
+                    readFolderAndDisplayImage(false);
                 }
             }
             else
@@ -1616,7 +1616,7 @@ namespace QuickImageComment
         {
             if (continueAfterCheckForChangesAndOptionalSaving(theUserControlFiles.listViewFiles.SelectedIndices))
             {
-                readFolderAndDisplayImage(-1);
+                readFolderAndDisplayImage(true);
             }
         }
 
@@ -1992,7 +1992,7 @@ namespace QuickImageComment
                 {
                     lock (UserControlFiles.LockListViewFiles)
                     {
-                        readFolderAndDisplayImage(theUserControlFiles.displayedIndex());
+                        readFolderAndDisplayImage(true);
                     }
                 }
             }
@@ -2035,7 +2035,7 @@ namespace QuickImageComment
                 if (formFind.findExecuted)
                 {
                     theUserControlFiles.listViewFiles.clearThumbnails();
-                    displayImageAfterReadFolder(0);
+                    displayImageAfterReadFolder(false);
                     // before searching for files, FormFind sets cursor to wait, so reset here
                     this.Cursor = Cursors.Default;
                 }
@@ -2228,7 +2228,7 @@ namespace QuickImageComment
                         theFormRename.ShowDialog();
                         if (theFormRename.filesRenamed)
                         {
-                            readFolderAndDisplayImage(0);
+                            readFolderAndDisplayImage(false);
                         }
                     }
                 }
@@ -2272,7 +2272,7 @@ namespace QuickImageComment
                         theFormDateTimeChange.ShowDialog();
                         if (theFormDateTimeChange.dateTimeChanged)
                         {
-                            readFolderAndDisplayImage(theUserControlFiles.displayedIndex());
+                            readFolderAndDisplayImage(true);
                         }
                     }
                 }
@@ -3918,7 +3918,7 @@ namespace QuickImageComment
                 theFolderTreeView.SelectedFolder = new GongSolutions.Shell.ShellItem(FolderName);
                 ImageManager.initWithImageFilesArrayList(DisplayFolder, DisplayFiles, false);
                 theUserControlFiles.listViewFiles.clearThumbnails();
-                displayImageAfterReadFolder(0);
+                displayImageAfterReadFolder(false);
             }
             catch (Exception ex)
             {
@@ -3927,7 +3927,7 @@ namespace QuickImageComment
         }
 
         // read content of folder and display image with given index
-        internal void readFolderAndDisplayImage(int FileIndex)
+        internal void readFolderAndDisplayImage(bool restoreSelection)
         {
             readFolderPerfomance = new Performance();
             readFolderPerfomance.measure("read folder start");
@@ -3935,7 +3935,7 @@ namespace QuickImageComment
 
             theUserControlFiles.listViewFiles.clearThumbnails();
             ImageManager.initNewFolder(FolderName, theUserControlFiles.textBoxFileFilter.Text);
-            displayImageAfterReadFolder(FileIndex);
+            displayImageAfterReadFolder(restoreSelection);
 
             readFolderPerfomance.measure("read folder finish");
             readFolderPerfomance.log(ConfigDefinition.enumConfigFlags.PerformanceReadFolder);
@@ -3945,20 +3945,23 @@ namespace QuickImageComment
         }
 
         // read content of folder and display image with given index
-        private void displayImageAfterReadFolder(int FileIndex)
+        private void displayImageAfterReadFolder(bool restoreSelection)
         {
+            int fileIndex = -1;
             // lock here and not in calling routine, because either the call is with constant (0, -1) 
             // or the call one level higher is within lock
             lock (UserControlFiles.LockListViewFiles)
             {
                 toolStripStatusLabelFiles.Text = "";
+                string displayedFile = dynamicLabelFileName.Text;
 
                 // disable all image related tool strip items; folder may be empty
                 // tool strip items will be enabled if an image is displayed
                 setMultiImageControlsEnabled(false);
                 setSingleImageControlsEnabled(false);
-                setControlsEnabledBasedOnDataChange(false);
 
+                bool FormImageWindowsAreOpen = FormImageWindow.windowsAreOpen();
+                bool FormImageDetailsAreOpen = FormImageDetails.windowsAreOpen();
                 // Clear all data from image in mask
                 theUserControlFiles.listViewFiles.clearItems();
                 if (!starting)
@@ -4000,6 +4003,7 @@ namespace QuickImageComment
                         }
 
                         theUserControlFiles.listViewFiles.SelectedIndices.Clear();
+                        ArrayList selectedFilesOldCopy = (ArrayList)theUserControlFiles.listViewFiles.selectedFilesOld.Clone();
                         theUserControlFiles.listViewFiles.selectedFilesOld = new ArrayList();
 
                         // fill status bar
@@ -4009,18 +4013,44 @@ namespace QuickImageComment
                         }
                         else
                         {
-                            // mark selected Image in listbox containing file names
-                            // changing selected index in listBoxFiles forces display 
-                            // see function "listBoxFiles_SelectedIndexChanged"
-                            if (FileIndex < 0)
+
+                            if (restoreSelection)
                             {
-                                FileIndex = 0;
+                                // mark previously selected images in listbox containing file names
+                                // changing selected index in listBoxFiles forces display 
+                                // see function "listBoxFiles_SelectedIndexChanged"
+                                foreach (string fileName in selectedFilesOldCopy)
+                                {
+                                    fileIndex = theUserControlFiles.listViewFiles.getIndexOf(fileName);
+                                    if (fileIndex >= 0)
+                                    {
+                                        theUserControlFiles.listViewFiles.SelectedIndices.Add(fileIndex);
+                                        if (FormImageWindowsAreOpen)
+                                        {
+                                            new FormImageWindow(ImageManager.getExtendedImage(fileIndex));
+                                        }
+                                        if (FormImageDetailsAreOpen)
+                                        {
+                                            new FormImageDetails(dpiSettings, ImageManager.getExtendedImage(fileIndex));
+                                        }
+                                        //theUserControlFiles.listViewFiles.selectedFilesOld.Add(fileName);
+                                    }
+                                }
+                                // set last displayed file as focused
+                                fileIndex = theUserControlFiles.listViewFiles.getIndexOf(displayedFile);
+                                if (fileIndex >= 0)
+                                {
+                                    theUserControlFiles.listViewFiles.FocusedItem = theUserControlFiles.listViewFiles.Items[fileIndex];
+                                }
                             }
-                            else if (FileIndex >= theUserControlFiles.listViewFiles.Items.Count - 1)
+                            else
                             {
-                                FileIndex = theUserControlFiles.listViewFiles.Items.Count - 1;
+                                // mark first entry
+                                fileIndex = 0;
+                                theUserControlFiles.listViewFiles.SelectedIndices.Add(fileIndex);
+                                theUserControlFiles.listViewFiles.FocusedItem = theUserControlFiles.listViewFiles.Items[fileIndex];
                             }
-                            theUserControlFiles.listViewFiles.SelectedIndices.Add(FileIndex);
+
                             toolStripStatusLabelFiles.Text = LangCfg.translate("Bilder/Videos", this.Name) + ": " + theUserControlFiles.listViewFiles.Items.Count.ToString();
                         }
                         readFolderPerfomance.measure("after selected indices add");
@@ -4123,6 +4153,9 @@ namespace QuickImageComment
             DataGridViewOtherMetaData.Rows.Clear();
             panelWarningMetaData.Visible = false;
             toolStripStatusLabelFileInfo.Text = "";
+
+            // fields may be changed due as part of a multi edit 
+            bool enableSave = getChangedFields() != "";
 
             if (fileIndex >= 0)
             {
@@ -4233,7 +4266,7 @@ namespace QuickImageComment
                             if (dynamicComboBoxArtist.Text.Trim().Equals("") && ConfigDefinition.getUseDefaultArtist())
                             {
                                 dynamicComboBoxArtist.Text = ConfigDefinition.getDefaultArtist();
-                                setControlsEnabledBasedOnDataChange(true);
+                                enableSave = true;
 
                                 if (!dynamicComboBoxArtist.Text.Equals("") && ConfigDefinition.getShowControlArtist())
                                 {
@@ -4283,7 +4316,7 @@ namespace QuickImageComment
             {
                 if (FormImageDetails.windowsAreOpen())
                 {
-                    if (FormImageDetails.onlyOneWindow())
+                    if (FormImageDetails.onlyOneWindow() && theUserControlFiles.listViewFiles.SelectedIndices.Count == 1)
                     {
                         FormImageDetails.getLastWindow().newImage(theExtendedImage);
                     }
@@ -4312,7 +4345,7 @@ namespace QuickImageComment
             // if forms for image in own window are displayed, inform that there is a new image selected
             if (FormImageWindow.windowsAreOpen())
             {
-                if (FormImageWindow.onlyOneWindow())
+                if (FormImageWindow.onlyOneWindow() && theUserControlFiles.listViewFiles.SelectedIndices.Count == 1)
                 {
                     FormImageWindow.getLastWindow().newImage(theExtendedImage);
                 }
@@ -4334,6 +4367,7 @@ namespace QuickImageComment
             }
 
             enableEventHandlersRecogniseUserInput();
+            setControlsEnabledBasedOnDataChange(enableSave);
 
             GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceDisplayImage,
             "finished" +
@@ -4985,6 +5019,12 @@ namespace QuickImageComment
                     ReturnStatus = (int)StatusDefinition.Code.exceptionPlaceholderReplacement;
                     break;
                 }
+
+                FormImageWindow formImageWindow = FormImageWindow.getWindowForImage(anExtendedImage);
+                if (formImageWindow != null)
+                {
+                    formImageWindow.newImage(anExtendedImage);
+                }
             }
 
             if (ReturnStatus == 0)
@@ -5006,7 +5046,7 @@ namespace QuickImageComment
                 fillChangeableFieldValues(anExtendedImage, false);
 
                 theUserControlKeyWords.displayKeyWords(anExtendedImage.getIptcKeyWordsArrayList());
-                // set properties condering following keywords
+                // set properties considering following keywords
                 for (int ii = 1; ii < selectedIndicesToStore.Count; ii++)
                 {
                     anExtendedImage = ImageManager.getExtendedImage((int)selectedIndicesToStore[ii]);
@@ -5356,7 +5396,7 @@ namespace QuickImageComment
             // read folder again, due to changed field definitions display has to be updated
             lock (UserControlFiles.LockListViewFiles)
             {
-                readFolderAndDisplayImage(theUserControlFiles.displayedIndex());
+                readFolderAndDisplayImage(true);
             }
         }
 
