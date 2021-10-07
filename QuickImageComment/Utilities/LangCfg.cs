@@ -73,7 +73,6 @@ namespace QuickImageComment
             W_metaDataConspicuity,
             W_noChangeSelected,
             E_invalidStatusValue,
-            E_fullSizeImageNotAvailable,
             E_errorGetListOfTags,
             E_configValueInvalidYesNo,
             E_configMissingValue,

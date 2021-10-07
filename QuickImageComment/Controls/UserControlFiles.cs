@@ -505,6 +505,8 @@ namespace QuickImageComment
                     }
                     else if (newIndexCount > 1)
                     {
+                        // here first setSingle, then setMulti, because setMulti has to override some settings on setSingle
+                        theFormQuickImageComment.setSingleImageControlsEnabled(true);
                         theFormQuickImageComment.setMultiImageControlsEnabled(true);
                     }
 

@@ -3203,8 +3203,9 @@ namespace QuickImageComment
         {
             if (FullSizeImage == null)
             {
-                GeneralUtilities.message(LangCfg.Message.E_fullSizeImageNotAvailable);
-                FullSizeImage = new System.Drawing.Bitmap(100, 100);
+                // in some strange cases it may happen that full size image is not yet created when this method is called
+                // so just create it now
+                storeFullSizeImage();
             }
             return FullSizeImage;
         }
@@ -3235,6 +3236,9 @@ namespace QuickImageComment
             {
                 TxtContrast = -1;
             }
+
+            // save full size image - if not yet done
+            if (FullSizeImage == null) storeFullSizeImage();
 
             // add check for Gamma when Gamma is used for changinge image
             if (Brightness == 0.0 && TxtContrast == 0.0 && TxtGamma == 1.0 && !showGrid)
