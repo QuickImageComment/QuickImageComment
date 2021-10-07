@@ -2860,15 +2860,7 @@ namespace QuickImageComment
         private void toolStripMenuItemImageWithGrid_Click(object sender, EventArgs e)
         {
             toolStripMenuItemImageWithGrid.Checked = !toolStripMenuItemImageWithGrid.Checked;
-            pictureBox1.Image = theExtendedImage.createAndGetAdjustedImage(toolStripMenuItemImageWithGrid.Checked);
-            if (theUserControlImageDetails != null)
-            {
-                theUserControlImageDetails.newImage(theExtendedImage);
-            }
-            // FormImageWindow checks, if a winodow is open
-            FormImageWindow.refreshImageInLastWindow(theExtendedImage);
-            // Force Garbage Collection as creating adjusted image may use a lot of memory
-            GC.Collect();
+            refreshImageGrid();
         }
 
         // define image grids
@@ -5421,16 +5413,31 @@ namespace QuickImageComment
             Program.handleException(ThreadExcEvtArgs.Exception);
         }
 
-        // for refresh of grid by FormImageGrid
+        // for show and refresh of grid by FormImageGrid
+        public void showRefreshImageGrid()
+        {
+            toolStripMenuItemImageWithGrid.Checked = true;
+            refreshImageGrid();
+        }
+
+        // refresh image grid - also in FormImageWindow
         public void refreshImageGrid()
         {
             this.Cursor = Cursors.WaitCursor;
-            toolStripMenuItemImageWithGrid.Checked = true;
             pictureBox1.Image = theExtendedImage.createAndGetAdjustedImage(toolStripMenuItemImageWithGrid.Checked);
-            if (theUserControlImageDetails != null)
+
+            foreach (ListViewItem listViewItem in theUserControlFiles.listViewFiles.SelectedItems)
             {
-                theUserControlImageDetails.newImage(theExtendedImage);
+                string filename = listViewItem.Name;
+                ExtendedImage extendedImage = ImageManager.getExtendedImage(listViewItem.Index);
+
+                FormImageWindow formImageWindow = FormImageWindow.getWindowForImage(extendedImage);
+                if (formImageWindow != null)
+                {
+                    formImageWindow.newImage(extendedImage);
+                }
             }
+
             // Force Garbage Collection as creating adjusted image may use a lot of memory
             GC.Collect();
             this.Cursor = Cursors.Default;
@@ -5654,11 +5661,11 @@ namespace QuickImageComment
             {
                 theImageGrid = ConfigDefinition.getImageGrid(gridIdx);
                 theImageGrid.active = true;
-                refreshImageGrid();
+                showRefreshImageGrid();
                 GeneralUtilities.saveScreenshot(this, this.Name + "-grid-" + gridIdx.ToString("0"));
                 theImageGrid.active = false;
             }
-            refreshImageGrid();
+            showRefreshImageGrid();
             toolStripMenuItemImageWithGrid.Checked = false;
             toolStripMenuItemImageFit_Click(null, null);
 

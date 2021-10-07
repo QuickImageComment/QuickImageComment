@@ -104,7 +104,7 @@ namespace QuickImageComment
                 if (checkBoxRefreshImmediately.Checked)
                 {
                     saveGridDefinitions();
-                    MainMaskInterface.refreshImageGrid();
+                    MainMaskInterface.showRefreshImageGrid();
                 }
             }
         }
@@ -118,7 +118,7 @@ namespace QuickImageComment
         {
             //DateTime StartTime = DateTime.Now;
             saveGridDefinitions();
-            MainMaskInterface.refreshImageGrid();
+            MainMaskInterface.showRefreshImageGrid();
             //DateTime EndTime = DateTime.Now;
             //labelActive.Text = EndTime.Subtract(StartTime).TotalMilliseconds.ToString("0");
         }
@@ -126,7 +126,7 @@ namespace QuickImageComment
         private void buttonOK_Click(object sender, EventArgs e)
         {
             saveGridDefinitions();
-            MainMaskInterface.refreshImageGrid();
+            MainMaskInterface.showRefreshImageGrid();
             Close();
         }
 
@@ -190,7 +190,7 @@ namespace QuickImageComment
             if (checkBoxRefreshImmediately.Checked)
             {
                 saveGridDefinitions();
-                MainMaskInterface.refreshImageGrid();
+                MainMaskInterface.showRefreshImageGrid();
             }
         }
 
@@ -207,7 +207,16 @@ namespace QuickImageComment
             if (checkBoxRefreshImmediately.Checked)
             {
                 saveGridDefinitions();
-                MainMaskInterface.refreshImageGrid();
+                MainMaskInterface.showRefreshImageGrid();
+            }
+        }
+
+        private void checkBoxActive_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxRefreshImmediately.Checked)
+            {
+                saveGridDefinitions();
+                MainMaskInterface.showRefreshImageGrid();
             }
         }
     }

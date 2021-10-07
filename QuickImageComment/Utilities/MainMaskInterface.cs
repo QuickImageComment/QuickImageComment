@@ -170,12 +170,12 @@ namespace QuickImageComment
             }
         }
 
-        public static void refreshImageGrid()
+        public static void showRefreshImageGrid()
         {
             // if main mask is not already closing
             if (!FormQuickImageComment.closing)
             {
-                theFormQuickImageComment.refreshImageGrid();
+                theFormQuickImageComment.showRefreshImageGrid();
             }
         }
 

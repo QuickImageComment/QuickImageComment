@@ -120,15 +120,6 @@ namespace QuickImageComment
             }
         }
 
-        internal static void refreshImageInLastWindow(ExtendedImage givenExtendedImage)
-        {
-            FormImageWindow lastFormImageWindow = getLastWindow();
-            if (lastFormImageWindow != null)
-            {
-                lastFormImageWindow.newImage(givenExtendedImage);
-            }
-        }
-
         internal static void rotateImageInLastWindow(System.Drawing.RotateFlipType theRotateFlipType)
         {
             FormImageWindow lastFormImageWindow = getLastWindow();

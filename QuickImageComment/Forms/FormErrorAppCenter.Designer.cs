@@ -37,8 +37,7 @@ namespace QuickImageComment
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxErrorMessage = new System.Windows.Forms.TextBox();
             this.textBoxInstructions = new System.Windows.Forms.TextBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // buttonSendOnly
@@ -122,21 +121,24 @@ namespace QuickImageComment
             this.textBoxInstructions.TabIndex = 9;
             this.textBoxInstructions.Text = "Instructions";
             // 
-            // pictureBox1
+            // label2
             // 
-            this.pictureBox1.Image = global::QuickImageComment.Properties.Resources.Error;
-            this.pictureBox1.Location = new System.Drawing.Point(3, 5);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox1.TabIndex = 11;
-            this.pictureBox1.TabStop = false;
+            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.Red;
+            this.label2.Location = new System.Drawing.Point(3, 9);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(32, 31);
+            this.label2.TabIndex = 10;
+            this.label2.Text = "!!";
             // 
             // FormErrorAppCenter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(688, 249);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.textBoxInstructions);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBoxErrorMessage);
@@ -149,7 +151,6 @@ namespace QuickImageComment
             this.MinimizeBox = false;
             this.Name = "FormErrorAppCenter";
             this.Text = "QuickImageComment Fehler";
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -163,6 +164,6 @@ namespace QuickImageComment
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBoxErrorMessage;
         private System.Windows.Forms.TextBox textBoxInstructions;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Label label2;
     }
 }

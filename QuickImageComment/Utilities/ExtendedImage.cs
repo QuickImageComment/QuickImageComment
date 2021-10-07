@@ -3300,6 +3300,10 @@ namespace QuickImageComment
                                 helpGridPosY = theImageGrid.height - 1;
                                 setGridPosY(helpGridPosY);
                             }
+                            // in case grid is moved far to the right or down, shift back to start grind in upper left corner,
+                            // but keeping the offset modulo grid widht and height
+                            helpGridPosX = helpGridPosX % theImageGrid.width;
+                            helpGridPosY = helpGridPosY % theImageGrid.height;
 
                             // solid line or solid with scale
                             if (theImageGrid.lineStyle == ImageGrid.enumLineStyle.solidLine ||

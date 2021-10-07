@@ -254,6 +254,7 @@
             this.checkBoxActive_0.Size = new System.Drawing.Size(15, 14);
             this.checkBoxActive_0.TabIndex = 9;
             this.checkBoxActive_0.UseVisualStyleBackColor = true;
+            this.checkBoxActive_0.CheckedChanged += new System.EventHandler(this.checkBoxActive_CheckedChanged);
             // 
             // label6
             // 
@@ -345,6 +346,7 @@
             this.checkBoxActive_1.Size = new System.Drawing.Size(15, 14);
             this.checkBoxActive_1.TabIndex = 18;
             this.checkBoxActive_1.UseVisualStyleBackColor = true;
+            this.checkBoxActive_1.CheckedChanged += new System.EventHandler(this.checkBoxActive_CheckedChanged);
             // 
             // checkBoxActive_2
             // 
@@ -354,6 +356,7 @@
             this.checkBoxActive_2.Size = new System.Drawing.Size(15, 14);
             this.checkBoxActive_2.TabIndex = 27;
             this.checkBoxActive_2.UseVisualStyleBackColor = true;
+            this.checkBoxActive_2.CheckedChanged += new System.EventHandler(this.checkBoxActive_CheckedChanged);
             // 
             // numericUpDownSize_2
             // 
@@ -427,6 +430,7 @@
             this.checkBoxActive_3.Size = new System.Drawing.Size(15, 14);
             this.checkBoxActive_3.TabIndex = 36;
             this.checkBoxActive_3.UseVisualStyleBackColor = true;
+            this.checkBoxActive_3.CheckedChanged += new System.EventHandler(this.checkBoxActive_CheckedChanged);
             // 
             // numericUpDownSize_3
             // 
@@ -500,6 +504,7 @@
             this.checkBoxActive_4.Size = new System.Drawing.Size(15, 14);
             this.checkBoxActive_4.TabIndex = 45;
             this.checkBoxActive_4.UseVisualStyleBackColor = true;
+            this.checkBoxActive_4.CheckedChanged += new System.EventHandler(this.checkBoxActive_CheckedChanged);
             // 
             // numericUpDownSize_4
             // 
@@ -573,6 +578,7 @@
             this.checkBoxActive_5.Size = new System.Drawing.Size(15, 14);
             this.checkBoxActive_5.TabIndex = 54;
             this.checkBoxActive_5.UseVisualStyleBackColor = true;
+            this.checkBoxActive_5.CheckedChanged += new System.EventHandler(this.checkBoxActive_CheckedChanged);
             // 
             // numericUpDownSize_5
             // 
