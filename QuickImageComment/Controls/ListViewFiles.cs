@@ -36,36 +36,36 @@ namespace QuickImageCommentControls
         // licensed under The Code Project Open License (CPOL)
         public struct LVCOLUMN
         {
-            public Int32 mask;
-            public Int32 cx;
+            public int mask;
+            public int cx;
             [MarshalAs(UnmanagedType.LPTStr)]
             public string pszText;
             public IntPtr hbm;
-            public Int32 cchTextMax;
-            public Int32 fmt;
-            public Int32 iSubItem;
-            public Int32 iImage;
-            public Int32 iOrder;
+            public int cchTextMax;
+            public int fmt;
+            public int iSubItem;
+            public int iImage;
+            public int iOrder;
         }
 
-        const Int32 HDI_FORMAT = 0x0004;
+        const int HDI_FORMAT = 0x0004;
 
-        const Int32 HDF_LEFT = 0x0000;
-        const Int32 HDF_BITMAP_ON_RIGHT = 0x1000;
-        const Int32 HDF_SORTUP = 0x0400;
-        const Int32 HDF_SORTDOWN = 0x0200;
+        const int HDF_LEFT = 0x0000;
+        const int HDF_BITMAP_ON_RIGHT = 0x1000;
+        const int HDF_SORTUP = 0x0400;
+        const int HDF_SORTDOWN = 0x0200;
 
-        const Int32 LVM_FIRST = 0x1000;         // List messages
-        const Int32 LVM_GETHEADER = LVM_FIRST + 31;
-        const Int32 HDM_FIRST = 0x1200;         // Header messages
-        const Int32 HDM_GETITEM = HDM_FIRST + 11;
-        const Int32 HDM_SETITEM = HDM_FIRST + 12;
+        const int LVM_FIRST = 0x1000;         // List messages
+        const int LVM_GETHEADER = LVM_FIRST + 31;
+        const int HDM_FIRST = 0x1200;         // Header messages
+        const int HDM_GETITEM = HDM_FIRST + 11;
+        const int HDM_SETITEM = HDM_FIRST + 12;
 
         [System.Runtime.InteropServices.DllImport("user32.dll")]
         private static extern IntPtr SendMessage(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
 
         [System.Runtime.InteropServices.DllImport("user32.dll", EntryPoint = "SendMessage")]
-        private static extern IntPtr SendMessageLVCOLUMN(IntPtr hWnd, Int32 Msg, IntPtr wParam, ref LVCOLUMN lPLVCOLUMN);
+        private static extern IntPtr SendMessageLVCOLUMN(IntPtr hWnd, int Msg, IntPtr wParam, ref LVCOLUMN lPLVCOLUMN);
 
         internal bool sortAscending = true;
         internal int columnToSort = 0;
@@ -110,8 +110,8 @@ namespace QuickImageCommentControls
                     // column 1 is file size
                     string[] textx = ((ListViewItem)x).SubItems[listViewFiles.columnToSort].Text.Split(' ');
                     string[] texty = ((ListViewItem)y).SubItems[listViewFiles.columnToSort].Text.Split(' ');
-                    Double sizex = double.Parse(textx[0]);
-                    Double sizey = double.Parse(texty[0]);
+                    double sizex = double.Parse(textx[0]);
+                    double sizey = double.Parse(texty[0]);
                     result = sizex.CompareTo(sizey);
                 }
                 else if (listViewFiles.columnToSort == 2 || listViewFiles.columnToSort == 3)

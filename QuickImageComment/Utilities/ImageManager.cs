@@ -30,7 +30,7 @@ namespace QuickImageComment
         private static int cachethread = 0;
 
         private static ArrayList ExtendedCache = new ArrayList();
-        private static Object lockExtendedCache = new Object();
+        private static object lockExtendedCache = new object();
         internal static bool updateCachesRunning = false;
 
         private static System.Collections.Hashtable HashtableExtendedImages = new System.Collections.Hashtable();
