@@ -1,27 +1,21 @@
-﻿<Program_Version>4.44</Program_Version>
+﻿<Program_Version>4.45</Program_Version>
 <Program_Change_Info_German>
 Erweiterungen und Verbesserungen:
-Wenn für die Dateiliste die Ansicht "Miniaturansicht" oder "Kacheln" ausgewählt war, wurden bisher erst alle anzuzeigenden Bilder mit deren Vorschaubildern geladen, bevor eine Nutzereingabe akzeptiert wurde. Speziell bei RAW-Bildern konnte das lange dauern. Jetzt werden die Bilder zuerst mit Dateinamen aufgelistet wodurch Nutzereingaben schneller akzeptiert werden. Die Vorschaubilder werden im Hintergrund nachgeladen.
-Anzeige von RAW-Bildern von einigen Nikon-Modellen beschleunigt.
-Neue Version 0.27.4 der Bibliothek exiv2 integriert, unterstützt DNG 1.6 und Exif 2.32 (etwa 150 neue Tags).
-Platzhalter: für Datum/Zeit-Eigenschaften kann das Format ausgewählt werden. Neues Datum/Zeit-Format: Exif.
+Die Dateien können über das Menü "Ansicht", über das Kontextmenü in der Dateiliste oder durch klicken in die Überschriften in der Ansicht "Details" aufsteigend oder absteigend nach Namen, Größe, Geändert oder Erstellt sortiert werden.
 
-Folgender Fehler wurde behoben:
-Programmabsturz mit Ausnahmefehler "System.NullReferenceException: Referencia a objeto no establecida como instancia de un objeto.". Gemeldet über AppCenter.
-
-Hinweis:
-Für diejenigen, die die allgemeine Konfigurationsdatei geändert haben: der (undokumentierte) Parameter DisplayFullSizeImageCacheContent wurde entfernt.
+Folgende Fehler wurden behoben:
+Konfigurierbarer Eingabebereich: Datumsänderungen über Kalender (Schaltfläche recht neben Eingabefeld) funktionierte nicht.
+Mehrfach-Bildbearbeitung: angezeigte Datei wurde nicht markiert, keine Aktualisierung, wenn Dateien außerhalb QuickImageComment verändert wurden.
+Die Einstellungen für "IPTC Schlüsselworte" wurden nicht korrekt geladen, so dass das Feld für freie Eingabe von Schlüsselworten unsichtbar werden konnte.
+Nach Umbenennen wurden umbenannten Dateien in Dateiliste doppelt angezeigt.
 </Program_Change_Info_German>
 <Program_Change_Info_English>
 Enhancements and improvements:
-If the "Thumbnail" or "Tile" view was selected for the file list, all images to be displayed with their thumbnails were loaded before a user input was accepted. Especially with RAW images this could take a long time. Now the images are listed with their filenames first and user input is accepted faster. The thumbnails are loaded in the background.
-Display of RAW images from some Nikon models accelerated.
-New version 0.27.4 of exiv2 library integrated, supports DNG 1.6 and Exif 2.32 (about 150 new tags).
-Placeholder: for date/time properties the format can be selected. New date/time format: Exif.
+The files can be sorted in ascending or descending order by Name, Size, Modified or Created using the menu "View", the context menu in file list or by clicking on the headers in view "Details".
 
-Following error is corrected:
-Program crash with exception "System.NullReferenceException: Referencia a objeto no establecida como instancia de un objeto.". Reported via AppCenter.
-
-Hint:
-For those who modified the general configuration file: the (undocumented) parameter DisplayFullSizeImageCacheContent has been removed.
+Following errors are corrected:
+Configurable input area: Date changes via calendar (button right next to input field) did not work.
+Multiple image editing: displayed file was not marked, no update if files were modified outside QuickImageComment.
+The settings for "IPTC Keywords" were not loaded correctly, so that the field for free entry of keywords could become invisible.
+After renaming, renamed files were shown twice in file list.
 </Program_Change_Info_English>

@@ -67,6 +67,8 @@ namespace QuickImageComment
             // if flag set, return (is sufficient to create control texts list)
             else if (GeneralUtilities.CloseAfterConstructing)
             {
+                // to avoid crash during check translation
+                System.Threading.Thread.Sleep(500);
                 Close();
                 return;
             }

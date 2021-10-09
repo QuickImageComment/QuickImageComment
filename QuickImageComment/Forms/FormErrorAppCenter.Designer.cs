@@ -37,7 +37,7 @@ namespace QuickImageComment
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxErrorMessage = new System.Windows.Forms.TextBox();
             this.textBoxInstructions = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
+            this.fixedLabelExclamation = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // buttonSendOnly
@@ -121,24 +121,24 @@ namespace QuickImageComment
             this.textBoxInstructions.TabIndex = 9;
             this.textBoxInstructions.Text = "Instructions";
             // 
-            // label2
+            // fixedLabelExclamation
             // 
-            this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.Red;
-            this.label2.Location = new System.Drawing.Point(3, 9);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(32, 31);
-            this.label2.TabIndex = 10;
-            this.label2.Text = "!!";
+            this.fixedLabelExclamation.AutoSize = true;
+            this.fixedLabelExclamation.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.fixedLabelExclamation.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.fixedLabelExclamation.ForeColor = System.Drawing.Color.Red;
+            this.fixedLabelExclamation.Location = new System.Drawing.Point(3, 9);
+            this.fixedLabelExclamation.Name = "fixedLabelExclamation";
+            this.fixedLabelExclamation.Size = new System.Drawing.Size(32, 31);
+            this.fixedLabelExclamation.TabIndex = 10;
+            this.fixedLabelExclamation.Text = "!!";
             // 
             // FormErrorAppCenter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(688, 249);
-            this.Controls.Add(this.label2);
+            this.Controls.Add(this.fixedLabelExclamation);
             this.Controls.Add(this.textBoxInstructions);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBoxErrorMessage);
@@ -164,6 +164,6 @@ namespace QuickImageComment
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBoxErrorMessage;
         private System.Windows.Forms.TextBox textBoxInstructions;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label fixedLabelExclamation;
     }
 }
