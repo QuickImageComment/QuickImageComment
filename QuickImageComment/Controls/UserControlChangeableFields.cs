@@ -661,7 +661,8 @@ namespace QuickImageComment
             {
                 for (int ii = 0; ii < Values.Length; ii++)
                 {
-                    if (!Values[ii].Equals(""))
+                    // no check of empty values and values which probably have placeholder
+                    if (!Values[ii].Equals("") && !Values[ii].Contains("{{"))
                     {
                         InputCheckConfig theInputCheckConfig = ConfigDefinition.getInputCheckConfig(Spec.KeyPrim);
 
