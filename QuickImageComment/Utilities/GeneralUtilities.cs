@@ -30,13 +30,11 @@ namespace QuickImageComment
     {
         // folder to save screenshots
         private const string ProgramDevelopmentFolder = @"D:\_prg\VisualCS\QuickImageComment\";
+        private const string ChangeInfoFile = "http://www.quickimagecomment.de/phocadownload/ChangeInfo.xml";
 
-        // URL of change info file; separate for Microsoft Store as availability there could be delayed
 #if MICROSOFT_STORE
-        private const string ChangeInfoFile = "http://www.quickimagecomment.de/phocadownload/ChangeInfoMicrosoftStore.xml";
         internal const bool MicrosoftStore = true;
 #else
-        private const string ChangeInfoFile = "http://www.quickimagecomment.de/phocadownload/ChangeInfo.xml";
         internal const bool MicrosoftStore = false;
 #endif
         // formats include formats which are tolerated and can be converted before saving

@@ -193,6 +193,7 @@ namespace QuickImageComment
             this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItemCustomizeForm = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemRemoveAllMaskCustomizations = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemUserButtons = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItemLanguage = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItemUserConfigStorage = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemMaintenance = new System.Windows.Forms.ToolStripMenuItem();
@@ -247,6 +248,7 @@ namespace QuickImageComment
             this.toolStripButtonPredefinedKeyWords = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator14 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButtonFind = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator16 = new System.Windows.Forms.ToolStripSeparator();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer12)).BeginInit();
             this.splitContainer12.Panel1.SuspendLayout();
             this.splitContainer12.Panel2.SuspendLayout();
@@ -1652,6 +1654,8 @@ namespace QuickImageComment
             this.toolStripSeparator10,
             this.toolStripMenuItemCustomizeForm,
             this.toolStripMenuItemRemoveAllMaskCustomizations,
+            this.toolStripMenuItemUserButtons,
+            this.toolStripSeparator16,
             this.ToolStripMenuItemLanguage,
             this.ToolStripMenuItemUserConfigStorage,
             this.toolStripMenuItemMaintenance});
@@ -1760,6 +1764,13 @@ namespace QuickImageComment
             this.toolStripMenuItemRemoveAllMaskCustomizations.Size = new System.Drawing.Size(291, 22);
             this.toolStripMenuItemRemoveAllMaskCustomizations.Text = "&Alle Masken Anpassungen entfernen";
             this.toolStripMenuItemRemoveAllMaskCustomizations.Click += new System.EventHandler(this.toolStripMenuItemRemoveAllMaskCustomizations_Click);
+            // 
+            // toolStripMenuItemUserButtons
+            // 
+            this.toolStripMenuItemUserButtons.Name = "toolStripMenuItemUserButtons";
+            this.toolStripMenuItemUserButtons.Size = new System.Drawing.Size(291, 22);
+            this.toolStripMenuItemUserButtons.Text = "Benutzerdefinierte Schaltflächen";
+            this.toolStripMenuItemUserButtons.Click += new System.EventHandler(this.toolStripMenuItemUserButtons_Click);
             // 
             // ToolStripMenuItemLanguage
             // 
@@ -2298,6 +2309,11 @@ namespace QuickImageComment
             this.toolStripButtonFind.ToolTipText = "Suche über Eigenschaften";
             this.toolStripButtonFind.Click += new System.EventHandler(this.toolStripMenuItemFind_Click);
             // 
+            // toolStripSeparator16
+            // 
+            this.toolStripSeparator16.Name = "toolStripSeparator16";
+            this.toolStripSeparator16.Size = new System.Drawing.Size(288, 6);
+            // 
             // FormQuickImageComment
             // 
             this.AllowDrop = true;
@@ -2586,5 +2602,7 @@ namespace QuickImageComment
         internal System.Windows.Forms.ToolStripMenuItem toolStripMenuItemSortChanged;
         internal System.Windows.Forms.ToolStripMenuItem toolStripMenuItemSortCreated;
         internal System.Windows.Forms.ToolStripMenuItem toolStripMenuItemSortSize;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemUserButtons;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator16;
     }
 }

@@ -115,7 +115,14 @@
     <Compile Include="Forms\FormErrorAppCenter.Designer.cs">
       <DependentUpon>FormErrorAppCenter.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FormUserButtons.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormUserButtons.Designer.cs">
+      <DependentUpon>FormUserButtons.cs</DependentUpon>
+    </Compile>
     <Compile Include="Utilities\ChangeableFieldSpecification.cs" />
+    <Compile Include="Utilities\UserButtonDefinition.cs" />
     <Compile Include="Utilities\ConfigDefinition.cs" />
     <Compile Include="Controls\DataGridViewMetaData.cs">
       <SubType>Component</SubType>
@@ -572,6 +579,9 @@
     <EmbeddedResource Include="Forms\FormTagValueInput.resx">
       <DependentUpon>FormTagValueInput.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormUserButtons.resx">
+      <DependentUpon>FormUserButtons.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormView.resx">
       <DependentUpon>FormView.cs</DependentUpon>
     </EmbeddedResource>
@@ -668,6 +678,150 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+    <Content Include="Resources\16 colors.bmp" />
+    <Content Include="Resources\256 colors.bmp" />
+    <Content Include="Resources\3d bar chart.bmp" />
+    <Content Include="Resources\3d chart.bmp" />
+    <Content Include="Resources\3d graph.bmp" />
+    <Content Include="Resources\Add.bmp" />
+    <Content Include="Resources\Apply.bmp" />
+    <Content Include="Resources\Back.bmp" />
+    <Content Include="Resources\Brightness.bmp" />
+    <Content Include="Resources\Camera.bmp" />
+    <Content Include="Resources\Cancel.bmp" />
+    <Content Include="Resources\Check boxes.bmp" />
+    <Content Include="Resources\Clear.bmp" />
+    <Content Include="Resources\Close file.bmp" />
+    <Content Include="Resources\Close.bmp" />
+    <Content Include="Resources\CMYK.bmp" />
+    <Content Include="Resources\Coffee.bmp" />
+    <Content Include="Resources\Color layers.bmp" />
+    <Content Include="Resources\Comment.bmp" />
+    <Content Include="Resources\Contrast.bmp" />
+    <Content Include="Resources\Create.bmp" />
+    <Content Include="Resources\Critical details.bmp" />
+    <Content Include="Resources\Danger.bmp" />
+    <Content Include="Resources\Delete.bmp" />
+    <Content Include="Resources\Diagram.bmp" />
+    <Content Include="Resources\Down.bmp" />
+    <Content Include="Resources\Edit page.bmp" />
+    <Content Include="Resources\Edit text.bmp" />
+    <Content Include="Resources\Equipment.bmp" />
+    <Content Include="Resources\Erase.bmp" />
+    <Content Include="Resources\Eraser.bmp" />
+    <Content Include="Resources\Export.bmp" />
+    <Content Include="Resources\Favourites.bmp" />
+    <Content Include="Resources\Find.bmp" />
+    <Content Include="Resources\Flip.bmp" />
+    <Content Include="Resources\Flow block.bmp" />
+    <Content Include="Resources\Flower.bmp" />
+    <Content Include="Resources\Form.bmp" />
+    <Content Include="Resources\Forward.bmp" />
+    <Content Include="Resources\Funnel.bmp" />
+    <Content Include="Resources\Gpadient.bmp" />
+    <Content Include="Resources\Graphic designer.bmp" />
+    <Content Include="Resources\Grid.bmp" />
+    <Content Include="Resources\Help book.bmp" />
+    <Content Include="Resources\Help.bmp" />
+    <Content Include="Resources\Hide.bmp" />
+    <Content Include="Resources\Hint.bmp" />
+    <Content Include="Resources\Hints.bmp" />
+    <Content Include="Resources\Home.bmp" />
+    <Content Include="Resources\Homepage.bmp" />
+    <Content Include="Resources\HSL.bmp" />
+    <Content Include="Resources\HSV.bmp" />
+    <Content Include="Resources\Import.bmp" />
+    <Content Include="Resources\Index.bmp" />
+    <Content Include="Resources\Info.bmp" />
+    <Content Include="Resources\Key.bmp" />
+    <Content Include="Resources\LAB color model.bmp" />
+    <Content Include="Resources\Layers.bmp" />
+    <Content Include="Resources\Left.bmp" />
+    <Content Include="Resources\List.bmp" />
+    <Content Include="Resources\Lock.bmp" />
+    <Content Include="Resources\Measure.bmp" />
+    <Content Include="Resources\Monitor.bmp" />
+    <Content Include="Resources\Monitors.bmp" />
+    <Content Include="Resources\Move.bmp" />
+    <Content Include="Resources\New clip art.bmp" />
+    <Content Include="Resources\New image.bmp" />
+    <Content Include="Resources\No.bmp" />
+    <Content Include="Resources\Objects.bmp" />
+    <Content Include="Resources\Ok.bmp" />
+    <Content Include="Resources\Paint over pixels.bmp" />
+    <Content Include="Resources\Pantone.bmp" />
+    <Content Include="Resources\Picture.bmp" />
+    <Content Include="Resources\Pie chart.bmp" />
+    <Content Include="Resources\Pin.bmp" />
+    <Content Include="Resources\Pinion.bmp" />
+    <Content Include="Resources\Pixels.bmp" />
+    <Content Include="Resources\Play.bmp" />
+    <Content Include="Resources\Preview.bmp" />
+    <Content Include="Resources\Problem.bmp" />
+    <Content Include="Resources\Properties.bmp" />
+    <Content Include="Resources\QuickImageComment.bmp" />
+    <Content Include="Resources\QuickImageComment.gif" />
+    <Content Include="Resources\QuickImageComment.ico" />
+    <Content Include="Resources\QuickImageComment.jpg" />
+    <Content Include="Resources\Red book.bmp" />
+    <Content Include="Resources\Refresh.bmp" />
+    <Content Include="Resources\Rename.bmp" />
+    <Content Include="Resources\Replace pixels.bmp" />
+    <Content Include="Resources\Resize image.bmp" />
+    <Content Include="Resources\Revert.bmp" />
+    <Content Include="Resources\RGB.bmp" />
+    <Content Include="Resources\Right.bmp" />
+    <Content Include="Resources\Rotate CCW.bmp" />
+    <Content Include="Resources\Rotate CW.bmp" />
+    <Content Include="Resources\RotateLeft.bmp" />
+    <Content Include="Resources\RotateRight.bmp" />
+    <Content Include="Resources\Rotation.bmp" />
+    <Content Include="Resources\Save data.bmp" />
+    <Content Include="Resources\Save.bmp" />
+    <Content Include="Resources\Scenario.bmp" />
+    <Content Include="Resources\Script.bmp" />
+    <Content Include="Resources\Select gpadient.bmp" />
+    <Content Include="Resources\Settings.bmp" />
+    <Content Include="Resources\Sharpness.bmp" />
+    <Content Include="Resources\Show.bmp" />
+    <Content Include="Resources\Sizes.bmp" />
+    <Content Include="Resources\Smooth.bmp" />
+    <Content Include="Resources\Stop playing.bmp" />
+    <Content Include="Resources\Stop.bmp" />
+    <Content Include="Resources\Synchronize.bmp" />
+    <Content Include="Resources\Tag.bmp" />
+    <Content Include="Resources\Target.bmp" />
+    <Content Include="Resources\Target1.bmp" />
+    <Content Include="Resources\Test line.bmp" />
+    <Content Include="Resources\Text tool.bmp" />
+    <Content Include="Resources\Time.bmp" />
+    <Content Include="Resources\Tip of the day.bmp" />
+    <Content Include="Resources\To do list.bmp" />
+    <Content Include="Resources\Tools.bmp" />
+    <Content Include="Resources\Touch.bmp" />
+    <Content Include="Resources\Transparency.bmp" />
+    <Content Include="Resources\Transparent background.bmp" />
+    <Content Include="Resources\Transparent color.bmp" />
+    <Content Include="Resources\True color.bmp" />
+    <Content Include="Resources\Units.bmp" />
+    <Content Include="Resources\Unlock.bmp" />
+    <Content Include="Resources\Up-down.bmp" />
+    <Content Include="Resources\Up.bmp" />
+    <Content Include="Resources\Upload image.bmp" />
+    <Content Include="Resources\Upload.bmp" />
+    <Content Include="Resources\Wait.bmp" />
+    <Content Include="Resources\Warning.bmp" />
+    <Content Include="Resources\Web designer.bmp" />
+    <Content Include="Resources\Work area.bmp" />
+    <Content Include="Resources\Wrong.bmp" />
+    <Content Include="Resources\Yes.bmp" />
+    <Content Include="Resources\YUV color space.bmp" />
+    <Content Include="Resources\Zoom.bmp" />
+    <Content Include="Resources\Zoom_1.bmp" />
+    <Content Include="Resources\Zoom_2.bmp" />
+    <Content Include="Resources\Zoom_4.bmp" />
+    <Content Include="Resources\Zoom_fit.bmp" />
+    <None Include="Resources\Error.bmp" />
     <None Include="exiv2Cdecl.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

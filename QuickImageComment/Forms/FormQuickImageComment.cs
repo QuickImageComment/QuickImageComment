@@ -319,20 +319,24 @@ namespace QuickImageComment
             foreach (string language in configuredLanguages)
             {
                 this.ToolStripMenuItemLanguage.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-                     new ToolStripMenuItem(language, null, ToolStripMenuItemLanguageX_Click)});
+                     new ToolStripMenuItem(language, null, ToolStripMenuItemLanguageX_Click, "LANGUAGE " + language)});
             }
             //Program.StartupPerformance.measure("FormQIC languages in menu");
 
             // add configured map-URLs in menu
-            ToolStripMenuItemMapUrl.DropDownItems.AddRange(new System.Windows.Forms.ToolStripMenuItem[] {
-                 new ToolStripMenuItem("Aus", null, ToolStripMenuItemMapUrlX_Click, "")});
+            ToolStripMenuItem toolStripMenuItem = new ToolStripMenuItem("Aus", null, ToolStripMenuItemMapUrlX_Click, "MAPURL Aus");
+            toolStripMenuItem.Tag = "";
+            ToolStripMenuItemMapUrl.DropDownItems.AddRange(new System.Windows.Forms.ToolStripMenuItem[] { toolStripMenuItem });
+            //                 new ToolStripMenuItem("Aus", null, ToolStripMenuItemMapUrlX_Click, "")});
             // select this as default
             ToolStripMenuItemMapUrlX_Click(ToolStripMenuItemMapUrl.DropDownItems[0], null);
 
             foreach (string key in ConfigDefinition.MapUrls.Keys)
             {
-                ToolStripMenuItemMapUrl.DropDownItems.AddRange(new System.Windows.Forms.ToolStripMenuItem[] {
-                     new ToolStripMenuItem(key, null, ToolStripMenuItemMapUrlX_Click, key)});
+                toolStripMenuItem = new ToolStripMenuItem(key, null, ToolStripMenuItemMapUrlX_Click, "MAPURL " + key);
+                toolStripMenuItem.Tag = key;
+                ToolStripMenuItemMapUrl.DropDownItems.AddRange(new System.Windows.Forms.ToolStripMenuItem[] { toolStripMenuItem });
+                //                     new ToolStripMenuItem(key, null, ToolStripMenuItemMapUrlX_Click, key)});
                 if (ToolStripMenuItemMapUrl.DropDownItems.Count == ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.MapUrlSelected))
                 {
                     ToolStripMenuItemMapUrlX_Click(ToolStripMenuItemMapUrl.DropDownItems[ToolStripMenuItemMapUrl.DropDownItems.Count - 1], null);
@@ -457,6 +461,9 @@ namespace QuickImageComment
                 toolStripMenuItemToolsInMenu_Click(null, null);
             }
 
+            // add user defined buttons
+            addUserDefinedButtions();
+            
             // initialize status strip
             this.toolStripStatusLabelThread.Text = "";
             this.toolStripStatusLabelFiles.Text = "";
@@ -1827,7 +1834,7 @@ namespace QuickImageComment
             // delete existing dynamic view configurations 
             for (int ii = toolStripMenuItemView.DropDownItems.Count - 1; ii >= 0; ii--)
             {
-                if (toolStripMenuItemView.DropDownItems[ii].Name == "dynamicViewConfiguration")
+                if (toolStripMenuItemView.DropDownItems[ii].Name.StartsWith("dynamicViewConfiguration"))
                 {
                     ToolStripItem toolStripItem = toolStripMenuItemView.DropDownItems[ii];
                     toolStripMenuItemView.DropDownItems.Remove(toolStripItem);
@@ -1841,7 +1848,64 @@ namespace QuickImageComment
             foreach (string ConfigurationName in ConfigDefinition.getViewConfigurationNames())
             {
                 toolStripMenuItemView.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-                     new ToolStripMenuItem(ConfigurationName, null, ToolStripMenuItemViewConfigurationX_Click, "dynamicViewConfiguration")});
+                     new ToolStripMenuItem(ConfigurationName, null, ToolStripMenuItemViewConfigurationX_Click, "dynamicViewConfiguration "+ConfigurationName)});
+            }
+        }
+
+        // add user defined buttons
+        internal void addUserDefinedButtions()
+        {
+            // symbols usually are in toolStrip1, but can be moved to MenuStrip1
+            ToolStrip toolStrip = toolStrip1;
+            if (ConfigDefinition.getToolstripStyle().Equals("inMenu"))
+            {
+                toolStrip = MenuStrip1;
+            }
+
+            // delete existing dynamic view configurations 
+            for (int ii = toolStrip.Items.Count - 1; ii >= 0; ii--)
+            {
+                if (toolStrip.Items[ii].Name.StartsWith("dynmaicUserDefinedButton"))
+                {
+                    ToolStripItem toolStripItem = toolStrip.Items[ii];
+                    toolStrip.Items.Remove(toolStripItem);
+                }
+                else
+                    break;
+            }
+
+            // add new user defined buttons
+            int jj = 1;
+            foreach (UserButtonDefinition userButtonDefinition in ConfigDefinition.getUserButtonDefinitions())
+            {
+                ToolStripButton toolStripButton = new ToolStripButton();
+                toolStripButton.Name = "dynamicUserDefinedButton" + jj.ToString();
+                toolStripButton.Size = new System.Drawing.Size(36, 36);
+                Bitmap bitmap = (Bitmap)Properties.Resources.ResourceManager.GetObject(userButtonDefinition.iconSpec);
+                if (bitmap == null)
+                {
+                    toolStripButton.Text = jj.ToString();
+                    toolStripButton.DisplayStyle = ToolStripItemDisplayStyle.Text;
+                }
+                else
+                {
+                    toolStripButton.Image = bitmap;
+                    toolStripButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
+                    if (ConfigDefinition.getToolstripStyle().Equals("inMenu"))
+                    {
+                        toolStripButton.ImageScaling = ToolStripItemImageScaling.SizeToFit;
+                    }
+                    else
+                    {
+                        toolStripButton.ImageScaling = ToolStripItemImageScaling.None;
+                    }
+                }
+                toolStripButton.ToolTipText = userButtonDefinition.text;
+                toolStripButton.Tag = userButtonDefinition.tag;
+                toolStripButton.Click += new System.EventHandler(userDefinedButton_Click);
+
+                toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripButton });
+                jj++;
             }
         }
 
@@ -2106,8 +2170,19 @@ namespace QuickImageComment
                 CustomizationInterface.clearLastCustomizationFile();
                 GeneralUtilities.message(LangCfg.Message.I_changeAppliesWithNextStart);
             }
-
         }
+
+        // open form for user defined buttons
+        private void toolStripMenuItemUserButtons_Click(object sender, EventArgs e)
+        {
+            FormUserButtons formUserButtons = new FormUserButtons(this.MenuStrip1);
+            formUserButtons.ShowDialog();
+            if (formUserButtons.settingsChanged)
+            {
+                addUserDefinedButtions();
+            }
+        }
+
 
         // set language
         private void ToolStripMenuItemLanguageX_Click(object sender, EventArgs e)
@@ -2163,7 +2238,7 @@ namespace QuickImageComment
         // show map using Url in external browser
         private void ToolStripMenuItemMapUrlX_Click(object sender, EventArgs e)
         {
-            string key = ((ToolStripMenuItem)sender).Name;
+            string key = (string)((ToolStripMenuItem)sender).Tag;
             if (key.Equals(""))
             {
                 MapInExternalBrowser.stopShowMaps();
@@ -2531,6 +2606,27 @@ namespace QuickImageComment
                         ((ToolStripButton)MenuStrip1.Items[indexFirst]).ImageScaling = ToolStripItemImageScaling.None;
                     }
                     toolStrip1.Items.Add(MenuStrip1.Items[indexFirst]);
+                }
+            }
+        }
+
+        // generic event handler for user defined buttons
+        private void userDefinedButton_Click(object sender, EventArgs e)
+        {
+            ToolStripDropDownItem toolstripdropdownitem = getToolStriptem((string)((ToolStripButton)sender).Tag);
+            if (toolstripdropdownitem == null)
+            {
+                GeneralUtilities.message(LangCfg.Message.W_menuEntryMissing);
+            }
+            else
+            {
+                if (toolstripdropdownitem.Enabled)
+                {
+                    toolstripdropdownitem.PerformClick();
+                }
+                else
+                {
+                    GeneralUtilities.message(LangCfg.Message.I_menEntryDisabled);
                 }
             }
         }
@@ -5405,7 +5501,6 @@ namespace QuickImageComment
             dynamicToolStripMenuItemLoadDataFromTemplate.Enabled = !dataTemplateName.Equals("");
             dynamicToolStripButtonLoadDataFromTemplate.Enabled = !dataTemplateName.Equals("");
         }
-        #endregion
 
         // Catch the UI exceptions
         public static void Form1_UIThreadException(object sender, System.Threading.ThreadExceptionEventArgs ThreadExcEvtArgs)
@@ -5537,6 +5632,45 @@ namespace QuickImageComment
                 Logger.initFormLogger(); // permanent use of Logger
             }
         }
+
+        // get tool strip menu item by name
+        private ToolStripDropDownItem getToolStriptem(string itemName)
+        {
+            ToolStripDropDownItem toolStripItem = null;
+            foreach (System.ComponentModel.Component aMenuItem in MenuStrip1.Items)
+            {
+                toolStripItem = getToolStripItem(aMenuItem, itemName);
+                if (toolStripItem != null)
+                {
+                    break;
+                }
+            }
+            return toolStripItem;
+        }
+        private ToolStripDropDownItem getToolStripItem(System.ComponentModel.Component parentMenuItem, string itemName)
+        {
+            ToolStripDropDownItem toolStripItem = null;
+            if (parentMenuItem is ToolStripDropDownItem)
+            {
+                if (((ToolStripDropDownItem)parentMenuItem).Name.Equals(itemName))
+                {
+                    toolStripItem = (ToolStripDropDownItem)parentMenuItem;
+                }
+                else
+                {
+                    foreach (System.ComponentModel.Component aMenuItem in ((ToolStripDropDownItem)parentMenuItem).DropDownItems)
+                    {
+                        toolStripItem = getToolStripItem(aMenuItem, itemName);
+                        if (toolStripItem != null)
+                        {
+                            break;
+                        }
+                    }
+                }
+            }
+            return toolStripItem;
+        }
+        #endregion
 
         #region Maintenance
 
@@ -5823,7 +5957,7 @@ namespace QuickImageComment
                 new FormTagValueInput(HeaderText, aControl, FormTagValueInput.type.configurable);
                 GeneralUtilities.debugMessage("Internal warning: field planned to be used for screenshot from FormTagValueInput not found.");
             }
-
+            new FormUserButtons(this.MenuStrip1);
             new FormView(SplitContainerPanelControls, DefaultSplitContainerPanelContents,
                 DataGridViewExif, DataGridViewIptc, DataGridViewXmp, DataGridViewOtherMetaData);
 
@@ -5908,6 +6042,7 @@ namespace QuickImageComment
             LangCfg.getListOfControlsWithText(new FormFirstUserSettings(true), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormSettings(), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormTagValueInput("", textBoxUserComment, FormTagValueInput.type.configurable), ControlTextList);
+            LangCfg.getListOfControlsWithText(new FormUserButtons(this.MenuStrip1), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormView(SplitContainerPanelControls, DefaultSplitContainerPanelContents,
                 DataGridViewExif, DataGridViewIptc, DataGridViewXmp, DataGridViewOtherMetaData), ControlTextList);
             LangCfg.getListOfControlsWithText(new UserControlImageDetails(dpiSettings, null), ControlTextList);
@@ -5969,6 +6104,7 @@ namespace QuickImageComment
             new FormSelectLanguage(ConfigDefinition.getConfigPath());
             new FormSettings();
             new FormTagValueInput("", textBoxUserComment, FormTagValueInput.type.configurable);
+            new FormUserButtons(this.MenuStrip1);
             new FormView(SplitContainerPanelControls, DefaultSplitContainerPanelContents,
                 DataGridViewExif, DataGridViewIptc, DataGridViewXmp, DataGridViewOtherMetaData);
             new UserControlImageDetails(dpiSettings, null);

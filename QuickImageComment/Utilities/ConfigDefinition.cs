@@ -237,6 +237,7 @@ namespace QuickImageComment
         private static SortedList<string, ArrayList> FindFilterEntriesLists;
         private static ArrayList PredefinedComments;
         private static ArrayList PredefinedKeyWords;
+        private static ArrayList UserButtonDefinitions;
         private static ArrayList XmpLangAltNames;
         private static SortedList SplitContainerPanelContents;
 
@@ -304,6 +305,7 @@ namespace QuickImageComment
             FindFilterEntriesLists = new SortedList<string, ArrayList>();
             PredefinedComments = new ArrayList();
             PredefinedKeyWords = new ArrayList();
+            UserButtonDefinitions = new ArrayList();
             XmpLangAltNames = new ArrayList();
             UserConfigCommentLines = new ArrayList();
             TagDependencies = new ArrayList();
@@ -2351,6 +2353,16 @@ namespace QuickImageComment
             }
         }
 
+        // user defined buttons
+        public static ArrayList getUserButtonDefinitions()
+        {
+            return UserButtonDefinitions;
+        }
+        public static void setUserButtonDefinitions(ArrayList userButtonDefinitionsChange)
+        {
+            UserButtonDefinitions = userButtonDefinitionsChange;
+        }
+
         // XMP LangAlt names
         public static ArrayList getXmpLangAltNames()
         {
@@ -2549,6 +2561,10 @@ namespace QuickImageComment
                     else if (firstPart.Equals("PredefinedKeyWord"))
                     {
                         PredefinedKeyWords.Add(secondPart);
+                    }
+                    else if (firstPart.Equals("UserButton"))
+                    {
+                        UserButtonDefinitions.Add(new UserButtonDefinition(secondPart));
                     }
                     else if (firstPart.Equals("XmpLangAltName"))
                     {
@@ -3105,6 +3121,11 @@ namespace QuickImageComment
             foreach (string keyWord in PredefinedKeyWords)
             {
                 StreamOut.WriteLine("PredefinedKeyWord:" + keyWord);
+            }
+
+            foreach (UserButtonDefinition userButtonDefinition in UserButtonDefinitions)
+            {
+                StreamOut.WriteLine("UserButton:" + userButtonDefinition.ToString());
             }
 
             foreach (string keyWord in XmpLangAltNames)
