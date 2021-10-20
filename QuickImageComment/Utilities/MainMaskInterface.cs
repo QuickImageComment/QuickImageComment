@@ -99,8 +99,9 @@ namespace QuickImageComment
 
         public static void adjustViewAfterFormView()
         {
-            // if main mask is not already closing
-            if (!FormQuickImageComment.closing)
+            // if main mask is not already closing and not minimized
+            // in minimized state adjusting view will cause exception
+            if (!FormQuickImageComment.closing && theFormQuickImageComment.WindowState != System.Windows.Forms.FormWindowState.Minimized)
             {
                 theFormQuickImageComment.adjustViewAfterFormView();
             }
@@ -108,7 +109,9 @@ namespace QuickImageComment
 
         public static void saveSplitterDistanceRatiosInConfiguration()
         {
-            if (theFormQuickImageComment != null)
+            // if main mask is not not minimized
+            // in minimized state saving splitter distances will cause exception
+            if (theFormQuickImageComment != null && theFormQuickImageComment.WindowState != System.Windows.Forms.FormWindowState.Minimized)
             {
                 theFormQuickImageComment.saveSplitterDistanceRatiosInConfiguration();
             }
