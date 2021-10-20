@@ -385,7 +385,8 @@ namespace QuickImageComment
                     HashtableExtendedImages.Keys.CopyTo(HashtableKeys, 0);
                     for (int ii = 0; ii < HashtableKeys.Length; ii++)
                     {
-                        if (!ExtendedCache.Contains(HashtableKeys[ii])) HashtableExtendedImages.Remove(HashtableKeys[ii]);
+                        // it happened, that HashtableKeys[ii] was null; not clear why, perhaps between creating HashtableKeys and CopyTo an entry was deleted
+                        if (HashtableKeys[ii] != null && !ExtendedCache.Contains(HashtableKeys[ii])) HashtableExtendedImages.Remove(HashtableKeys[ii]);
                     }
                     CachePerformance.measure("delete extended images outside cache range");
 
