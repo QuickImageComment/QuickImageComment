@@ -809,6 +809,11 @@ namespace FormCustomization
                     addMenuItemsToTreeNodes(AddedNode.Nodes, aMenuItem);
                 }
             }
+            else if (parentMenuItem is ToolStripButton)
+            {
+                // this case is entered when content of command strip is moved to menu
+                // nothing to do
+            }
             else if (parentMenuItem is ToolStripSeparator)
             {
                 // nothing to do
