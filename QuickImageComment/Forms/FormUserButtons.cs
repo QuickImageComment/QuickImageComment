@@ -65,6 +65,7 @@ namespace QuickImageComment
             if (GeneralUtilities.CreateScreenshots)
             {
                 addRowForUserButtonDefinition(new UserButtonDefinition(LangCfg.translate("Meta-Daten entfernen", "FormUserButton-Source"), "ToolStripMenuItemRemoveMetaData", "Eraser"));
+                addRowForUserButtonDefinition(new UserButtonDefinition(LangCfg.translate("Bild mit Raster", "FormUserButton - Source"), "toolStripMenuItemImageWithGrid", "Grid"));
                 Show();
                 Refresh();
                 GeneralUtilities.saveScreenshot(this, this.Name);
@@ -173,6 +174,7 @@ namespace QuickImageComment
                 if (treeViewComponents.SelectedNode.Nodes.Count == 0)
                 {
                     dataGridViewButtons.Rows.Add(new object[] { null, treeViewComponents.SelectedNode.Name, (string)treeViewComponents.SelectedNode.Tag, "" });
+                    dataGridViewButtons.Rows[dataGridViewButtons.Rows.Count - 1].Cells[0].Selected = true;
                 }
                 else
                 {

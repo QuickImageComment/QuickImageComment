@@ -1865,7 +1865,7 @@ namespace QuickImageComment
             // delete existing dynamic view configurations 
             for (int ii = toolStrip.Items.Count - 1; ii >= 0; ii--)
             {
-                if (toolStrip.Items[ii].Name.StartsWith("dynmaicUserDefinedButton"))
+                if (toolStrip.Items[ii].Name.StartsWith("dynamicUserDefinedButton"))
                 {
                     ToolStripItem toolStripItem = toolStrip.Items[ii];
                     toolStrip.Items.Remove(toolStripItem);
