@@ -1,21 +1,19 @@
-﻿<Program_Version>4.45</Program_Version>
+﻿<Program_Version>4.46</Program_Version>
 <Program_Change_Info_German>
 Erweiterungen und Verbesserungen:
-Die Dateien können über das Menü "Ansicht", über das Kontextmenü in der Dateiliste oder durch klicken in die Überschriften in der Ansicht "Details" aufsteigend oder absteigend nach Namen, Größe, Geändert oder Erstellt sortiert werden.
+Für häufig benutzte Menüeinträge können Schaltflächen definiert werden. Selbst definierte Schaltflächen werden in der Symbolleiste angezeigt, rechts von den vordefinierten. Menüeintrag: "Extras - Benutzerdefinierte Schaltflächen".
 
 Folgende Fehler wurden behoben:
-Konfigurierbarer Eingabebereich: Datumsänderungen über Kalender (Schaltfläche recht neben Eingabefeld) funktionierte nicht.
-Mehrfach-Bildbearbeitung: angezeigte Datei wurde nicht markiert, keine Aktualisierung, wenn Dateien außerhalb QuickImageComment verändert wurden.
-Die Einstellungen für "IPTC Schlüsselworte" wurden nicht korrekt geladen, so dass das Feld für freie Eingabe von Schlüsselworten unsichtbar werden konnte.
-Nach Umbenennen wurden umbenannten Dateien in Dateiliste doppelt angezeigt.
+Verwendung von Platzhaltern scheiterte bei Feldern mit bestimmtem Format (z.B. für Datum) an der Eingabeprüfung. Werte mit Platzhalter werden nicht mehr geprüft.
+Programmabsturz, wenn Hauptmaske minimiert ist, während Änderungen in Maske "Ansicht anpassen" vorgenommen werden.
+Programmabsturz mit Ausnahmefehler "System.ArgumentNullException: Der Schlüssel darf nicht NULL sein. Parametername: key".
 </Program_Change_Info_German>
 <Program_Change_Info_English>
 Enhancements and improvements:
-The files can be sorted in ascending or descending order by Name, Size, Modified or Created using the menu "View", the context menu in file list or by clicking on the headers in view "Details".
+Buttons can be defined for frequently used menu items. Self-defined buttons are displayed in the command strip, to the right of the predefined ones. Menu entry: "Tools – User defined buttons".
 
 Following errors are corrected:
-Configurable input area: Date changes via calendar (button right next to input field) did not work.
-Multiple image editing: displayed file was not marked, no update if files were modified outside QuickImageComment.
-The settings for "IPTC Keywords" were not loaded correctly, so that the field for free entry of keywords could become invisible.
-After renaming, renamed files were shown twice in file list.
+Use of placeholders failed input validation for fields with specific format (e.g., for date). Values with placeholders are no longer checked.
+Program crash when main mask is minimized while making changes in mask "Adjust view".
+Program crash with exception "System.ArgumentNullException:  Key cannot be null. Parameter name: key
 </Program_Change_Info_English>
