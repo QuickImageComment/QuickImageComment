@@ -390,7 +390,8 @@ namespace QuickImageComment
             }
             else
             {
-                return "";
+                // return something not blank to avoid a crash during closing
+                return "CLOSING";
             }
         }
 

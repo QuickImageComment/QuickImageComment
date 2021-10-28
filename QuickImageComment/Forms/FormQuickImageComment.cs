@@ -41,6 +41,7 @@ namespace QuickImageComment
 
         // delegate for call within thread
         public delegate void setToolStripStatusLabelThreadCallback(string text, bool clearNow, bool clearBeforeNext);
+        public delegate void setToolStripStatusLabelBufferingThreadCallback(bool visible);
         private delegate void selectFileFolderCallback(string[] fileName);
 
         private Thread checkForNewVersionThread;
@@ -637,8 +638,8 @@ namespace QuickImageComment
                 cyclicDisplayMemory();
             });
 
-            // check if already configured, if not open mask
-            if (ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.LastCheckForNewVersion).Equals("not configured"))
+            // check if check for version already configured, if not and not Microsoft Store version, open mask
+            if (!GeneralUtilities.MicrosoftStore && ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.LastCheckForNewVersion).Equals("not configured"))
             {
                 ConfigDefinition.setCfgUserString(ConfigDefinition.enumCfgUserString.LastCheckForNewVersion, "");
                 DialogResult theDialogResult = GeneralUtilities.questionMessage(LangCfg.Message.Q_openMaskCheckNewVersion);
@@ -3557,8 +3558,19 @@ namespace QuickImageComment
             // do not perform actions when already closing - might try to access objects already gone
             if (!closing)
             {
-                this.toolStripStatusLabelBuffering.Visible = visible;
-                this.statusStrip1.Refresh();
+                // InvokeRequired compares the thread ID of the calling thread to the thread ID of the creating thread.
+                // If these threads are different, it returns true.
+                if (this.InvokeRequired)
+                {
+                    setToolStripStatusLabelBufferingThreadCallback theCallback =
+                      new setToolStripStatusLabelBufferingThreadCallback(setToolStripStatusLabelBufferingThread);
+                    this.Invoke(theCallback, new object[] { visible });
+                }
+                else
+                {
+                    this.toolStripStatusLabelBuffering.Visible = visible;
+                    this.statusStrip1.Refresh();
+                }
             }
         }
 
