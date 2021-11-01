@@ -30,7 +30,7 @@ namespace QuickImageComment
         public bool isInPanel = false;
         public bool GpsDataChanged = false;
 
-        //private bool useWebView2;
+        private bool useWebView2;
         private bool startWithMarker;
         private bool changeLocationAllowed;
         // coordinates to be used to center map if image has no coordinates or for reset
@@ -46,7 +46,7 @@ namespace QuickImageComment
         private GeoDataItem startGeoDataItem;
         private GeoDataItem markerGeoDataItem;
 
-        //private Microsoft.Web.WebView2.WinForms.WebView2 webView2;
+        private Microsoft.Web.WebView2.WinForms.WebView2 webView2;
         private System.Windows.Forms.WebBrowser webBrowser1;
         // is either webView2 or webBrowser1 and used for generic actions like setting visibilty:
         private Control browserControl;
@@ -124,16 +124,19 @@ namespace QuickImageComment
         {
             InitializeComponent();
 
-            //string webView2Version = "";
-            //try
-            //{
-            //    webView2Version = Microsoft.Web.WebView2.Core.CoreWebView2Environment.GetAvailableBrowserVersionString();
-            //}
-            //catch 
-            //{
-            //    // nothing to do, as no version of WebView2 could be retrieved, use WebBrowser
-            //}
-            //if (webView2Version.Equals(""))
+            string webView2Version = "";
+            if (ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.UseWebView2))
+            {
+                try
+                {
+                    webView2Version = Microsoft.Web.WebView2.Core.CoreWebView2Environment.GetAvailableBrowserVersionString();
+                }
+                catch
+                {
+                    // nothing to do, as no version of WebView2 could be retrieved, use WebBrowser
+                }
+            }
+            if (webView2Version.Equals(""))
             {
                 // webView2 not available, use webBrowser
                 this.webBrowser1 = new System.Windows.Forms.WebBrowser();
@@ -150,28 +153,34 @@ namespace QuickImageComment
                 this.webBrowser1.WebBrowserShortcutsEnabled = false;
 
                 this.panelTop.ResumeLayout(false);
-                //useWebView2 = false;
+                useWebView2 = false;
                 browserControl = webBrowser1;
             }
-            //else
-            //{
-            //    // use webView2
-            //    this.webView2 = new Microsoft.Web.WebView2.WinForms.WebView2();
-            //    this.panelTop.SuspendLayout();
-            //    this.panelTop.Controls.Add(this.webView2);
+            else
+            {
+                // use webView2
+                Logger.log("webView2 start");
+                this.webView2 = new Microsoft.Web.WebView2.WinForms.WebView2();
+                this.panelTop.SuspendLayout();
+                this.panelTop.Controls.Add(this.webView2);
 
-            //    this.webView2.Dock = System.Windows.Forms.DockStyle.Fill;
-            //    this.webView2.Name = "webView2";
-            //    this.webView2.TabIndex = 0;
+                this.webView2.Dock = System.Windows.Forms.DockStyle.Fill;
+                this.webView2.Name = "webView2";
+                this.webView2.TabIndex = 0;
 
-            //    this.panelTop.ResumeLayout(false);
-            //    useWebView2 = true;
-            //    browserControl = webView2;
+                this.panelTop.ResumeLayout(false);
+                webView2.CoreWebView2InitializationCompleted += WebView_CoreWebView2InitializationCompleted;
+                webView2.NavigationCompleted += WebView2_NavigationCompleted;
+                webView2.WebMessageReceived += WebView2_WebMessageReceived;
 
-            //    System.Threading.Tasks.Task initTask = webView2.EnsureCoreWebView2Async(null);
-            //    initTask.Wait(5000);
-            //    webView2.CoreWebView2.Settings.AreDefaultContextMenusEnabled = false;
-            //}
+                // some initialisation of WebView2 needs to be done async
+                webView2InitializeAsync();
+                useWebView2 = true;
+                browserControl = webView2;
+                Logger.log("webView2 created");
+            }
+
+            labelUseMapUrls.Visible = false;
 
             // configure map sources
             MapSources = new List<MapSource>();
@@ -272,14 +281,15 @@ namespace QuickImageComment
                                          "",
                                          19));
 
-            //if (useWebView2 && !locationChangeNeeded)
-            //{
-            //    // also URLs configured as MapURL in general configuration file can be used
-            //    foreach (string key in ConfigDefinition.MapUrls.Keys)
-            //    {
-            //        MapSources.Add(new MapSource(key, ConfigDefinition.MapUrls[key]));
-            //    }
-            //}
+            if (useWebView2 && !locationChangeNeeded)
+            {
+                // also URLs configured as MapURL in general configuration file can be used
+                foreach (string key in ConfigDefinition.MapUrls.Keys)
+                {
+                    MapSources.Add(new MapSource(key, ConfigDefinition.MapUrls[key]));
+                }
+                labelUseMapUrls.Visible = true;
+            }
 
             // deactivate event for map source changed to avoid navigation during starting
             dynamicComboBoxMapSource.SelectedIndexChanged -= dynamicComboBoxMapSource_SelectedIndexChanged;
@@ -306,19 +316,21 @@ namespace QuickImageComment
             dynamicComboBoxMapSource.SelectedIndexChanged += dynamicComboBoxMapSource_SelectedIndexChanged;
 
             selectedMapSource = MapSources[this.dynamicComboBoxMapSource.SelectedIndex];
-            // change of location is enabled, if map source is not a configured map URL
-            enableChangeLocation(!selectedMapSource.isconfiguredMapURL);
             // display of zoom and location only if if map source is not a configured map URL
             dynamicLabelCoordinates.Visible = !selectedMapSource.isconfiguredMapURL;
             dynamicLabelZoom.Visible = !selectedMapSource.isconfiguredMapURL;
             labelZoom.Visible = !selectedMapSource.isconfiguredMapURL;
 
-            //if (useWebView2)
-            //{
-
-            //}
-            //else
+            if (useWebView2)
             {
+                // no usage of object for scripting as it causes message "This page says" when calling C# from JS
+                // Context menu is disable in webView2InitializeAsync (requires CoreWeb2 to be initialised)
+                // enableChangeLocation is done in webView2InitializeAsync (requires CoreWeb2 to be initialised)
+            }
+            else
+            {
+                // change of location is enabled, if map source is not a configured map URL
+                enableChangeLocation(!selectedMapSource.isconfiguredMapURL);
                 webBrowser1.ObjectForScripting = this;
                 webBrowser1.IsWebBrowserContextMenuEnabled = true;
             }
@@ -347,7 +359,7 @@ namespace QuickImageComment
                 }
             }
 
-            // if search data not yet filled, fill static Hashtable and comboBoxSearch with geo data and 
+            // if search data not yet filled, fill static Hashtable and comboBoxSearch with geo data
             if (!searchFilled)
             {
                 comboBoxSearchList = new List<ComboBox>();
@@ -374,6 +386,70 @@ namespace QuickImageComment
             }
             comboBoxSearchList.Add(this.dynamicComboBoxSearch);
             LangCfg.translateControlTexts(this);
+            Logger.log("Constructor finished", 0);
+        }
+
+        private void WebView2_WebMessageReceived(object sender, Microsoft.Web.WebView2.Core.CoreWebView2WebMessageReceivedEventArgs e)
+        {
+            string webMessage = e.TryGetWebMessageAsString();
+            int pos = webMessage.IndexOf(':');
+            if (pos > 0)
+            {
+                string method = webMessage.Substring(0, pos);
+                string value = webMessage.Substring(pos + 1);
+                Logger.log(method + "|" + value + "|", 0);
+                switch (method)
+                {
+                    case "setLatitudeLongitudeMarker":
+                        setLatitudeLongitudeMarker(value);
+                        break;
+                    case "setLatitudeLongitudeMapCenter":
+                        setLatitudeLongitudeMapCenter(value);
+                        break;
+                    case "setZoom":
+                        setZoom(value);
+                        break;
+                    case "setMarkerStatus":
+                        setMarkerStatus(value == "true");
+                        break;
+                    case "htmlDebug":
+                        htmlDebug(value);
+                        break;
+                    default:
+                        GeneralUtilities.debugMessage("-not supported message from web:\n" + webMessage);
+                        break;
+                }
+            }
+        }
+
+        //!! remove later
+        private void WebView_CoreWebView2InitializationCompleted(object sender, Microsoft.Web.WebView2.Core.CoreWebView2InitializationCompletedEventArgs e)
+        {
+            Logger.log("CoreWebView2 initialised");
+        }
+
+        //!! remove later
+        private void WebView2_NavigationCompleted(object sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationCompletedEventArgs e)
+        {
+            Logger.log("WebView2_NavigationCompleted finish");
+        }
+
+        // Webview2 needs async initialisation
+        async void webView2InitializeAsync()
+        {
+            Logger.log("start", 0);
+            string webView2UserData = System.Environment.GetEnvironmentVariable("APPDATA")
+              + System.IO.Path.DirectorySeparatorChar + "QuickImageCommentWebView2";
+            Logger.log(webView2UserData, 0);
+            var env = await Microsoft.Web.WebView2.Core.CoreWebView2Environment.CreateAsync(null, webView2UserData, null);
+            await webView2.EnsureCoreWebView2Async(env);
+
+            Logger.log("after await", 0);
+            webView2.CoreWebView2.Settings.AreDefaultContextMenusEnabled = false;
+
+            // change of location is enabled, if map source is not a configured map URL
+            enableChangeLocation(!selectedMapSource.isconfiguredMapURL);
+            Logger.log("finish", 0);
         }
 
         // adjust size and splitter distances considering the size of panel where thesplitContainerImageDetails1 is included
@@ -424,14 +500,24 @@ namespace QuickImageComment
 
             if (startGeoDataItem == null)
             {
-                if (lastUrl != null)
+                if (selectedMapSource.isconfiguredMapURL)
                 {
-                    invokeLeafletMethod("removeMarker", new string[] { changeLocationAllowed.ToString() });
+                    // when using configurable Map URLs, changig location is not possible
+                    // showing last location when no location is given makes no sense (cannot be used as start for setting location) and would 
+                    // require to change URL in a way that user knows "no location", e.g. do not show a marker as it is done with leaflet
+                    openUrl("about:blank");
                 }
                 else
                 {
-                    // show map based on last coordinates (during initialisation read from configuration)
-                    navigateToNewUrl();
+                    if (lastUrl != null)
+                    {
+                        invokeLeafletMethod("removeMarker", new string[] { changeLocationAllowed.ToString() });
+                    }
+                    else
+                    {
+                        // show map based on last coordinates (during initialisation read from configuration)
+                        navigateToNewUrl();
+                    }
                 }
             }
             else
@@ -449,15 +535,16 @@ namespace QuickImageComment
         {
             if (selectedMapSource.isconfiguredMapURL)
             {
+                string newUrl = "about:blank";
                 if (markerGeoDataItem != null)
                 {
-                    string url = selectedMapSource.tileLayerUrlTemplate1.Replace("<LATITUDE>", markerGeoDataItem.lat);
-                    url = url.Replace("<LONGITUDE>", markerGeoDataItem.lon);
-                    openUrl(url);
+                    newUrl = selectedMapSource.tileLayerUrlTemplate1.Replace("<LATITUDE>", markerGeoDataItem.lat);
+                    newUrl = newUrl.Replace("<LONGITUDE>", markerGeoDataItem.lon);
                 }
-                else
+                if (!newUrl.Equals(lastUrl))
                 {
-                    openUrl("about:blank");
+                    lastUrl = newUrl;
+                    openUrl(newUrl);
                 }
             }
             else
@@ -1098,27 +1185,25 @@ namespace QuickImageComment
         // open URL
         private void openUrl(string url)
         {
-            //if (useWebView2)
-            //{
-            //    webView2.Source = new Uri(url, System.UriKind.Absolute);
-            //    //Logger.log("before context");
-            //    //webView2.CoreWebView2.Settings.AreDefaultContextMenusEnabled = false;
-            //    //Logger.log("after context");
-            //}
-            //else
+            if (useWebView2)
+            {
+                webView2.Source = new Uri(url, System.UriKind.Absolute);
+            }
+            else
             {
                 webBrowser1.Navigate(url, "", null, "User-Agent: QuickImageComment " + AssemblyInfo.VersionToCheck);
             }
         }
 
         // execute java script method from Leaflet
-        private void invokeLeafletMethod(string method)
+        private async void invokeLeafletMethod(string method)
         {
-            //if (useWebView2)
-            //{
-
-            //}
-            //else
+            if (useWebView2)
+            {
+                Logger.log(method, 0);
+                await webView2.ExecuteScriptAsync(method + "()");
+            }
+            else
             {
                 if (webBrowser1.Document != null)
                 {
@@ -1126,13 +1211,21 @@ namespace QuickImageComment
                 }
             }
         }
-        private void invokeLeafletMethod(string method, string[] arguments)
+        private async void invokeLeafletMethod(string method, string[] arguments)
         {
-            //if (useWebView2)
-            //{
-
-            //}
-            //else
+            if (useWebView2)
+            {
+                string command = method + "(";
+                command += arguments[0];
+                for (int ii = 1; ii < arguments.Length; ii++)
+                {
+                    command += "," + arguments[ii];
+                }
+                command += ")";
+                Logger.log(command, 0);
+                await webView2.ExecuteScriptAsync(command);
+            }
+            else
             {
                 if (webBrowser1.Document != null)
                 {
@@ -1141,9 +1234,20 @@ namespace QuickImageComment
             }
         }
 
+        // enable or disable changing location
+        // to be used if not implicitely done by newLocation
+        public void enableChangeLocation(bool enable)
+        {
+            dynamicComboBoxSearch.Enabled = enable;
+            buttonSearch.Enabled = enable;
+            changeLocationAllowed = enable;
+            invokeLeafletMethod("setchangeLocationAllowed", new string[] { enable.ToString() });
+        }
+
         //---------------------------------------------------------------------
         // methods called from webbrowser
         //---------------------------------------------------------------------
+
         // method called from webbrowser after marker was moved
         public void setLatitudeLongitudeMarker(string lat_lng)
         {
@@ -1164,6 +1268,7 @@ namespace QuickImageComment
         // method called from webbrowser after map was moved
         public void setLatitudeLongitudeMapCenter(string lat_lng)
         {
+            Logger.log(lat_lng, 0);
             lat_lng = lat_lng.Trim();
             string[] parts = lat_lng.Split(new string[] { "#" }, StringSplitOptions.None);
             centerLatitude = parts[0];
@@ -1173,6 +1278,7 @@ namespace QuickImageComment
         // method called from webbrowser after zoom changed
         public void setZoom(string zoom)
         {
+            Logger.log(zoom, 0);
             dynamicLabelZoom.Text = zoom;
         }
 
@@ -1190,16 +1296,6 @@ namespace QuickImageComment
             // a status change is a data change by user
             if (startWithMarker != enabled) GpsDataChanged = true;
             if (GpsDataChanged) buttonReset.Enabled = true;
-        }
-
-        // enable or disable chaning location
-        // to be used if not implicitely done by newLocation
-        public void enableChangeLocation(bool enable)
-        {
-            dynamicComboBoxSearch.Enabled = enable;
-            buttonSearch.Enabled = enable;
-            changeLocationAllowed = enable;
-            invokeLeafletMethod("setchangeLocationAllowed", new string[] { enable.ToString() });
         }
 
         // called from leaflet.html for test of values in html

@@ -61,7 +61,8 @@ namespace QuickImageComment
             LoggerToFile,
             ShowHiddenFiles,
             KeepFileModifiedTime,
-            FindShowDataTable
+            FindShowDataTable,
+            UseWebView2
         };
 
         public enum enumConfigInt

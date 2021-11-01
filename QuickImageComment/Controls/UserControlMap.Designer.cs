@@ -30,9 +30,10 @@
         {
             this.panel1 = new System.Windows.Forms.Panel();
             this.panelBottom = new System.Windows.Forms.Panel();
+            this.dynamicComboBoxMapSource = new System.Windows.Forms.ComboBox();
+            this.labelUseMapUrls = new System.Windows.Forms.Label();
             this.buttonDelete = new System.Windows.Forms.Button();
             this.buttonRename = new System.Windows.Forms.Button();
-            this.dynamicComboBoxMapSource = new System.Windows.Forms.ComboBox();
             this.labelZoom = new System.Windows.Forms.Label();
             this.buttonReset = new System.Windows.Forms.Button();
             this.buttonCenterMarker = new System.Windows.Forms.Button();
@@ -61,9 +62,10 @@
             // 
             this.panelBottom.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelBottom.Controls.Add(this.dynamicComboBoxMapSource);
+            this.panelBottom.Controls.Add(this.labelUseMapUrls);
             this.panelBottom.Controls.Add(this.buttonDelete);
             this.panelBottom.Controls.Add(this.buttonRename);
-            this.panelBottom.Controls.Add(this.dynamicComboBoxMapSource);
             this.panelBottom.Controls.Add(this.labelZoom);
             this.panelBottom.Controls.Add(this.buttonReset);
             this.panelBottom.Controls.Add(this.buttonCenterMarker);
@@ -75,6 +77,27 @@
             this.panelBottom.Name = "panelBottom";
             this.panelBottom.Size = new System.Drawing.Size(674, 50);
             this.panelBottom.TabIndex = 15;
+            // 
+            // dynamicComboBoxMapSource
+            // 
+            this.dynamicComboBoxMapSource.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.dynamicComboBoxMapSource.FormattingEnabled = true;
+            this.dynamicComboBoxMapSource.Location = new System.Drawing.Point(424, 17);
+            this.dynamicComboBoxMapSource.Name = "dynamicComboBoxMapSource";
+            this.dynamicComboBoxMapSource.Size = new System.Drawing.Size(247, 21);
+            this.dynamicComboBoxMapSource.TabIndex = 15;
+            this.dynamicComboBoxMapSource.SelectedIndexChanged += new System.EventHandler(this.dynamicComboBoxMapSource_SelectedIndexChanged);
+            // 
+            // labelUseMapUrls
+            // 
+            this.labelUseMapUrls.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelUseMapUrls.AutoSize = true;
+            this.labelUseMapUrls.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelUseMapUrls.Location = new System.Drawing.Point(424, 37);
+            this.labelUseMapUrls.Name = "labelUseMapUrls";
+            this.labelUseMapUrls.Size = new System.Drawing.Size(235, 12);
+            this.labelUseMapUrls.TabIndex = 18;
+            this.labelUseMapUrls.Text = "Mit Karten-Optionen aus allgemeiner Konfigurationsdatei";
             // 
             // buttonDelete
             // 
@@ -95,16 +118,6 @@
             this.buttonRename.Text = "Umbenennen";
             this.buttonRename.UseVisualStyleBackColor = true;
             this.buttonRename.Click += new System.EventHandler(this.buttonRename_Click);
-            // 
-            // dynamicComboBoxMapSource
-            // 
-            this.dynamicComboBoxMapSource.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.dynamicComboBoxMapSource.FormattingEnabled = true;
-            this.dynamicComboBoxMapSource.Location = new System.Drawing.Point(424, 17);
-            this.dynamicComboBoxMapSource.Name = "dynamicComboBoxMapSource";
-            this.dynamicComboBoxMapSource.Size = new System.Drawing.Size(247, 21);
-            this.dynamicComboBoxMapSource.TabIndex = 15;
-            this.dynamicComboBoxMapSource.SelectedIndexChanged += new System.EventHandler(this.dynamicComboBoxMapSource_SelectedIndexChanged);
             // 
             // labelZoom
             // 
@@ -223,5 +236,6 @@
         private System.Windows.Forms.ComboBox dynamicComboBoxMapSource;
         private System.Windows.Forms.Button buttonRename;
         private System.Windows.Forms.Button buttonDelete;
+        private System.Windows.Forms.Label labelUseMapUrls;
     }
 }

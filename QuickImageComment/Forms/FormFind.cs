@@ -1575,7 +1575,7 @@ namespace QuickImageComment
             checkBoxFilterGPS.Enabled = enable;
             numericUpDownGpsRange.Enabled = enable;
             labelKm.Enabled = enable;
-            theUserControlMap.enableChangeLocation(enable);
+            //!! remove? theUserControlMap.enableChangeLocation(enable);
         }
 
         private void showDataTableContent()
