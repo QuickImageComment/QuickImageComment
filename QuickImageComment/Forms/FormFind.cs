@@ -129,13 +129,18 @@ namespace QuickImageComment
             Width = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.FormFindWidth);
             int gpsFindRangeInMeter = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.GpsFindRangeInMeter);
 
-            theUserControlMap = new UserControlMap(true);
+            // show map with last used coordinates for find
+            theUserControlMap = new UserControlMap(true, new GeoDataItem(ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.LastGeoDataItemForFind)),
+                false, gpsFindRangeInMeter);
             splitContainer1.Panel2.Controls.Add(theUserControlMap);
             theUserControlMap.Dock = DockStyle.Fill;
-            // value is stored in meter; set value after theUserControlMap is initialised, because event is fired set radius in UserControlMap 
+
+            // disable ValueChanged-event to avoid setting radius in UserControlMap again
+            // radius is set via constructor, which ensures to have CoreWebView2 initialised, which is needed when using WebView2
+            numericUpDownGpsRange.ValueChanged -= numericUpDownGpsRange_ValueChanged;
+            // value is stored in meter
             numericUpDownGpsRange.Value = ((decimal)gpsFindRangeInMeter) / 1000;
-            // show map with last used coordinates for find
-            theUserControlMap.newLocation(new GeoDataItem(ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.LastGeoDataItemForFind)), false);
+            numericUpDownGpsRange.ValueChanged += numericUpDownGpsRange_ValueChanged;
 
             splitContainer1.SplitterDistance = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.FormFindSplitContainer1_Distance);
 

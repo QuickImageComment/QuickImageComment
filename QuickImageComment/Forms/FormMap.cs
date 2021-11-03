@@ -43,7 +43,8 @@ namespace QuickImageComment
             {
                 this.Width = newWidth;
             }
-            theUserControlMap = new UserControlMap(false);
+            bool changeLocationAllowed = MainMaskInterface.getTheExtendedImage() != null && MainMaskInterface.getTheExtendedImage().changePossible();
+            theUserControlMap = new UserControlMap(false, MainMaskInterface.commonRecordingLocation(), changeLocationAllowed, 0);
             MainMaskInterface.setUserControlMap(theUserControlMap);
             theUserControlMap.isInOwnWindow = true;
             panel1.Controls.Add(theUserControlMap.panel1);
@@ -51,9 +52,6 @@ namespace QuickImageComment
             buttonClose.Select();
             CustomizationInterface.setFormToCustomizedValues(this);
             LangCfg.translateControlTexts(this);
-
-            bool changeLocationAllowed = MainMaskInterface.getTheExtendedImage() != null && MainMaskInterface.getTheExtendedImage().changePossible();
-            theUserControlMap.newLocation(MainMaskInterface.commonRecordingLocation(), changeLocationAllowed);
 
             // if flag set, create screenshot and return
             if (GeneralUtilities.CreateScreenshots)

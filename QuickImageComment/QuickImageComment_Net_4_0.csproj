@@ -853,9 +853,6 @@
     <Content Include="leaflet\leaflet-src.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="leaflet\leaflet-src.min.js">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="leaflet\leaflet.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

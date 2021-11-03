@@ -3903,14 +3903,17 @@ namespace QuickImageComment
                         }
                         if (theUserControlMap == null)
                         {
-                            theUserControlMap = new UserControlMap(false);
+                            if (starting)
+                            {
+                                theUserControlMap = new UserControlMap(false, null, false, 0);
+                            }
+                            else
+                            {
+                                bool changeIsPossible = theExtendedImage != null && theExtendedImage.changePossible();
+                                theUserControlMap = new UserControlMap(false, commonRecordingLocation(), changeIsPossible, 0);
+                            }
                         }
                         theUserControlMap.isInPanel = true;
-                        if (!starting)
-                        {
-                            bool changeIsPossible = theExtendedImage != null && theExtendedImage.changePossible();
-                            theUserControlMap.newLocation(commonRecordingLocation(), changeIsPossible);
-                        }
                         aControl = theUserControlMap.panel1;
                     }
                     else

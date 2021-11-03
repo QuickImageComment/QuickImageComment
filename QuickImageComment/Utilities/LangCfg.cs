@@ -172,7 +172,8 @@ namespace QuickImageComment
             W_menuEntryMissing,
             I_entryDeletionMissingMenuEntry,
             I_menEntryDisabled,
-            I_noUserButtonChilds
+            I_noUserButtonChilds,
+            I_CoreWebView2NotInitialised
         }
 
         public enum Others
