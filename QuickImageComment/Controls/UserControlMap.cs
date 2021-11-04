@@ -161,7 +161,9 @@ namespace QuickImageComment
 
                 this.panelTop.ResumeLayout(false);
                 this.webBrowser1.Navigated += WebBrowser1_Navigated;
+#if WEBVIEW2
                 useWebView2 = false;
+#endif
                 browserControl = webBrowser1;
             }
 #if WEBVIEW2
@@ -195,6 +197,11 @@ namespace QuickImageComment
             dynamicLabelZoom.Visible = !selectedMapSource.isconfiguredMapURL;
             labelZoom.Visible = !selectedMapSource.isconfiguredMapURL;
 
+            dynamicLabelCoordinates.Text = "";
+            dynamicLabelZoom.Text = ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.MapZoom);
+            centerLatitude = ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.LastLatitude);
+            centerLongitude = ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.LastLongitude);
+#if WEBVIEW2
             if (useWebView2)
             {
                 // some initialisation of WebView2 needs to be done async
@@ -206,6 +213,7 @@ namespace QuickImageComment
                 // new location is set in webView2InitializeAsync (requires CoreWebView2 to be initialised)
             }
             else
+#endif
             {
                 // change of location is enabled, if map source is not a configured map URL
                 enableChangeLocation(!selectedMapSource.isconfiguredMapURL);
@@ -214,10 +222,6 @@ namespace QuickImageComment
 
                 newLocation(geoDataItem, changeLocationAllowed);
             }
-            dynamicLabelCoordinates.Text = "";
-            dynamicLabelZoom.Text = ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.MapZoom);
-            centerLatitude = ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.LastLatitude);
-            centerLongitude = ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.LastLongitude);
 
             // check existance and content of list of comboBoxes for Search
             bool searchFilled = true;
@@ -371,6 +375,7 @@ namespace QuickImageComment
                                          "",
                                          19));
 
+#if WEBVIEW2
             if (useWebView2 && !locationChangeNeeded)
             {
                 // also URLs configured as MapURL in general configuration file can be used
@@ -380,6 +385,7 @@ namespace QuickImageComment
                 }
                 labelUseMapUrls.Visible = true;
             }
+#endif
             Logger.log("fill Mapsources end");
 
             // deactivate event for map source changed to avoid navigation during starting
@@ -1152,6 +1158,9 @@ namespace QuickImageComment
                     string url = "http://nominatim.openstreetmap.org/search/"
                         + queryParameterNormalized
                         + "?format=json&limit=1&addressdetails=1";
+#if NET4
+                    ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
+#endif
                     WebClient theWebClient = new WebClient();
                     theWebClient.Encoding = System.Text.Encoding.UTF8;
                     theWebClient.Headers.Add("user-agent", "QuickImageComment " + AssemblyInfo.VersionToCheck);
@@ -1212,6 +1221,7 @@ namespace QuickImageComment
         //---------------------------------------------------------------------
         // methods to use browserControl
         //---------------------------------------------------------------------
+#if WEBVIEW2
         // check (and wait) if CoreWebView2 is initialised
         private bool isCoreWebView2Initialised()
         {
@@ -1233,10 +1243,12 @@ namespace QuickImageComment
             }
             return coreWebView2Initialised;
         }
+#endif
 
         // open URL
         private void openUrl(string url)
         {
+            Logger.log(url, 0);
 #if WEBVIEW2
             if (useWebView2)
             {
