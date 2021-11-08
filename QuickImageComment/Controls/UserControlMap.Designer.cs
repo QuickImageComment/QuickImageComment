@@ -97,7 +97,7 @@
             this.labelUseMapUrls.Name = "labelUseMapUrls";
             this.labelUseMapUrls.Size = new System.Drawing.Size(235, 12);
             this.labelUseMapUrls.TabIndex = 18;
-            this.labelUseMapUrls.Text = "Mit Karten-Optionen aus allgemeiner Konfigurationsdatei";
+            this.labelUseMapUrls.Text = "* nur Anzeige (konfigurierte Karten-Option)";
             // 
             // buttonDelete
             // 

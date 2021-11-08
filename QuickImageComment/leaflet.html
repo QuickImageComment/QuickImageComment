@@ -50,7 +50,6 @@
             });
             withMarker = true;
             drawCircle();
-            win_setMarkerStatus(withMarker);
         }
 
         // function to set radius for circle (called from outside)
@@ -69,6 +68,7 @@
                     var coords = marker.getLatLng();
                     removeMarkerFromMap();
                     createMarker(coords.lat, coords.lng);
+                    win_setMarkerStatus(withMarker);
                 }
             }
         }
@@ -98,6 +98,7 @@
                 removeMarkerFromMap();
             }
             createMarker(mlat, mlon);
+            win_setMarkerStatus(withMarker);
         }
 
         // function to get marker status
@@ -254,6 +255,7 @@
 
         if (params.mlat != null) {
             createMarker(params.mlat, params.mlon);
+            // no info about marker back to C# as with bad timiing it may set the flag GpsDataChanged
         }
 
         // react on click in map to add marker
@@ -267,6 +269,7 @@
                     var coords = e.latlng;
                     win_setLatitudeLongitudeMarker(coords.lat + "#" + coords.lng);
                     createMarker(coords.lat, coords.lng);
+                    win_setMarkerStatus(withMarker);
                 }
             }
         });

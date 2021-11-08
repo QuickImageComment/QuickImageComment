@@ -45,6 +45,12 @@ namespace QuickImageComment
         private GeoDataItem startGeoDataItem;
         private GeoDataItem markerGeoDataItem;
 
+        // to avoid interrupting showing new map with a call of leaflet function
+        // e.g. reset map directly followed by remove marker
+        private bool browserControlNavigating = false;
+        private const int navigatingWaitingLoopMax = 20;
+        private const int navigatingWaitingLoopSleepDuration = 100; // in msec
+
 #if WEBVIEW2
         private bool useWebView2;
         private bool coreWebView2Initialised = false;
@@ -381,7 +387,7 @@ namespace QuickImageComment
                 // also URLs configured as MapURL in general configuration file can be used
                 foreach (string key in ConfigDefinition.MapUrls.Keys)
                 {
-                    MapSources.Add(new MapSource(key, ConfigDefinition.MapUrls[key]));
+                    MapSources.Add(new MapSource("* " + LangCfg.translate(key, "fillMapSourcesAndSelectLastUsed"), ConfigDefinition.MapUrls[key]));
                 }
                 labelUseMapUrls.Visible = true;
             }
@@ -417,6 +423,7 @@ namespace QuickImageComment
         }
         private void WebBrowser1_Navigated(object sender, WebBrowserNavigatedEventArgs e)
         {
+            browserControlNavigating = false;
             Logger.log("WebBrowser1_Navigated finished");
         }
 
@@ -429,7 +436,7 @@ namespace QuickImageComment
             {
                 string method = webMessage.Substring(0, pos);
                 string value = webMessage.Substring(pos + 1);
-                Logger.log(method + "|" + value + "|", 0);
+                //!! Logger.log(method + "|" + value + "|", 0);
                 switch (method)
                 {
                     case "setLatitudeLongitudeMarker":
@@ -463,6 +470,7 @@ namespace QuickImageComment
         //!! remove later
         private void WebView2_NavigationCompleted(object sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationCompletedEventArgs e)
         {
+            browserControlNavigating = false;
             Logger.log("WebView2_NavigationCompleted finish");
         }
 
@@ -521,8 +529,8 @@ namespace QuickImageComment
             showStartPosition();
             browserControl.Visible = true;
 
-            dynamicComboBoxSearch.Enabled = changeLocationAllowed;
-            buttonSearch.Enabled = changeLocationAllowed;
+            dynamicComboBoxSearch.Enabled = changeLocationAllowed && !selectedMapSource.isconfiguredMapURL;
+            buttonSearch.Enabled = changeLocationAllowed && !selectedMapSource.isconfiguredMapURL;
         }
 
         // show position of image
@@ -580,27 +588,23 @@ namespace QuickImageComment
                 }
                 if (!newUrl.Equals(lastUrl))
                 {
-                    lastUrl = newUrl;
                     openUrl(newUrl);
                 }
             }
             else
             {
                 // method may be called without getting new URL, then avoid navigation
-                string newUrl = createUrl();
+                string urlParams = createUrlParams();
+                string additionalMarkerParams = "";
+                string newUrl = @"file:///" + Program.getProgramPath() + @"\leaflet.html" + urlParams;
                 if (!newUrl.Equals(lastUrl))
                 {
-                    lastUrl = newUrl;
                     if (markerGeoDataItem != null)
                     {
-                        newUrl = newUrl + "?mlat=" + markerGeoDataItem.lat + "?mlon=" + markerGeoDataItem.lon;
+                        additionalMarkerParams = "?mlat=" + markerGeoDataItem.lat + "?mlon=" + markerGeoDataItem.lon;
                     }
-                    if (circleRadiusInMeter >= 0)
-                    {
-                        newUrl = newUrl + "?radiusInMeter=" + circleRadiusInMeter.ToString();
-                    }
-                    newUrl = newUrl + "?changeLocationAllowed=" + changeLocationAllowed.ToString();
-                    openUrl(newUrl);
+                    openUrl(newUrl + additionalMarkerParams);
+
                     GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceWorkAfterSelectionOfFile,
                         "new URL; startWithMarker=" + startWithMarker.ToString() + " " + centerLatitude + " " + centerLongitude, 3);
                 }
@@ -625,7 +629,7 @@ namespace QuickImageComment
         }
 
         // create URL for given Latitude and Longitude
-        private string createUrl()
+        private string createUrlParams()
         {
             // set dynamic zoom to maximum allowed for map source
             int dynamicZoom = int.Parse(dynamicLabelZoom.Text);
@@ -633,8 +637,7 @@ namespace QuickImageComment
             if (selectedMapSource.maxZoom2 < dynamicZoom) dynamicZoom = selectedMapSource.maxZoom2;
             dynamicLabelZoom.Text = dynamicZoom.ToString();
 
-            string url = @"file:///" + Program.getProgramPath() + @"\leaflet.html";
-            url = url +
+            string urlParams =
                 "?zoom=" + dynamicLabelZoom.Text +
                 "?lat=" + centerLatitude +
                 "?lon=" + centerLongitude +
@@ -643,20 +646,25 @@ namespace QuickImageComment
                 "?maxZoom1=" + selectedMapSource.maxZoom1.ToString();
             if (!selectedMapSource.subdomains1.Equals(""))
             {
-                url = url + "?subdomains1=" + selectedMapSource.subdomains1;
+                urlParams += "?subdomains1=" + selectedMapSource.subdomains1;
             }
             if (selectedMapSource.tileLayerUrlTemplate2 != null)
             {
-                url = url +
+                urlParams +=
                     "?attribution2=" + selectedMapSource.attribution2.Replace("\"", "%22").Replace(" ", "%20").Replace("=", "%3D") +
                     "?tileLayerUrlTemplate2=" + selectedMapSource.tileLayerUrlTemplate2.Replace("=", "%3D") +
                     "?maxZoom2=" + selectedMapSource.maxZoom2.ToString();
                 if (!selectedMapSource.subdomains2.Equals(""))
                 {
-                    url = url + "?subdomains2=" + selectedMapSource.subdomains2;
+                    urlParams += "?subdomains2=" + selectedMapSource.subdomains2;
                 }
             }
-            return url;
+            if (circleRadiusInMeter >= 0)
+            {
+                urlParams += "?radiusInMeter=" + circleRadiusInMeter.ToString();
+            }
+            urlParams += "?changeLocationAllowed=" + changeLocationAllowed.ToString();
+            return urlParams;
         }
 
         //---------------------------------------------------------------------
@@ -669,7 +677,7 @@ namespace QuickImageComment
         }
 
         // reset display to saved coordinates resp. remove marker if no saved coordinates available
-        private void buttonReset_Click(object sender, EventArgs e)
+        internal void buttonReset_Click(object sender, EventArgs e)
         {
             if (startWithMarker)
             {
@@ -1248,7 +1256,8 @@ namespace QuickImageComment
         // open URL
         private void openUrl(string url)
         {
-            Logger.log(url, 0);
+            Logger.log(url, 3);
+            browserControlNavigating = true;
 #if WEBVIEW2
             if (useWebView2)
             {
@@ -1262,6 +1271,7 @@ namespace QuickImageComment
             {
                 webBrowser1.Navigate(url, "", null, "User-Agent: QuickImageComment " + AssemblyInfo.VersionToCheck);
             }
+            lastUrl = url;
         }
 
         // execute java script method from Leaflet
@@ -1271,21 +1281,35 @@ namespace QuickImageComment
         private void invokeLeafletMethod(string method)
 #endif
         {
-#if WEBVIEW2
-            if (useWebView2)
+            // invoke leaflet only for built-in map configurations
+            if (!selectedMapSource.isconfiguredMapURL)
             {
-                if (isCoreWebView2Initialised())
+                // to avoid interrupting showing new map with a call of leaflet function
+                // e.g. reset map directly followed by remove marker
+                int ll = 0;
+                while (browserControlNavigating && ll < navigatingWaitingLoopMax)
                 {
-                    Logger.log("invoke leaflet: " + method);
-                    await webView2.ExecuteScriptAsync(method + "()");
+                    System.Threading.Thread.Sleep(navigatingWaitingLoopSleepDuration);
+                    System.Windows.Forms.Application.DoEvents();
+                    ll++;
                 }
-            }
-            else
-#endif
-            {
-                if (webBrowser1.Document != null)
+                Logger.log("loop count = " + ll.ToString(), 3);
+#if WEBVIEW2
+                if (useWebView2)
                 {
-                    webBrowser1.Document.InvokeScript(method);
+                    if (isCoreWebView2Initialised())
+                    {
+                        Logger.log("invoke leaflet: " + method);
+                        await webView2.ExecuteScriptAsync(method + "()");
+                    }
+                }
+                else
+#endif
+                {
+                    if (webBrowser1.Document != null)
+                    {
+                        webBrowser1.Document.InvokeScript(method);
+                    }
                 }
             }
         }
@@ -1295,28 +1319,42 @@ namespace QuickImageComment
         private void invokeLeafletMethod(string method, string[] arguments)
 #endif
         {
+            // invoke leaflet only for built-in map configurations
+            if (!selectedMapSource.isconfiguredMapURL)
+            {
+                // to avoid interrupting showing new map with a call of leaflet function
+                // e.g. reset map directly followed by remove marker
+                int ll = 0;
+                while (browserControlNavigating && ll < navigatingWaitingLoopMax)
+                {
+                    System.Threading.Thread.Sleep(navigatingWaitingLoopSleepDuration);
+                    System.Windows.Forms.Application.DoEvents();
+                    ll++;
+                }
+                Logger.log("loop count = " + ll.ToString(), 3);
 #if WEBVIEW2
-            if (useWebView2)
-            {
-                string command = method + "(";
-                command += arguments[0];
-                for (int ii = 1; ii < arguments.Length; ii++)
+                if (useWebView2)
                 {
-                    command += "," + arguments[ii];
+                    string command = method + "(";
+                    command += "\"" + arguments[0] + "\"";
+                    for (int ii = 1; ii < arguments.Length; ii++)
+                    {
+                        command += ",\"" + arguments[ii] + "\"";
+                    }
+                    command += ")";
+                    if (isCoreWebView2Initialised())
+                    {
+                        Logger.log("invoke leaflet: " + command);
+                        await webView2.ExecuteScriptAsync(command);
+                    }
                 }
-                command += ")";
-                if (isCoreWebView2Initialised())
-                {
-                    Logger.log("invoke leaflet: " + command);
-                    await webView2.ExecuteScriptAsync(command);
-                }
-            }
-            else
+                else
 #endif
-            {
-                if (webBrowser1.Document != null)
                 {
-                    webBrowser1.Document.InvokeScript(method, arguments);
+                    if (webBrowser1.Document != null)
+                    {
+                        webBrowser1.Document.InvokeScript(method, arguments);
+                    }
                 }
             }
         }
@@ -1326,6 +1364,7 @@ namespace QuickImageComment
         public void enableChangeLocation(bool enable)
         {
             dynamicComboBoxSearch.Enabled = enable;
+            buttonCenterMarker.Enabled = enable;
             buttonSearch.Enabled = enable;
             changeLocationAllowed = enable;
             invokeLeafletMethod("setchangeLocationAllowed", new string[] { enable.ToString() });
@@ -1365,7 +1404,7 @@ namespace QuickImageComment
         // method called from webbrowser after zoom changed
         public void setZoom(string zoom)
         {
-            Logger.log(zoom, 0);
+            //!! Logger.log(zoom, 0);
             dynamicLabelZoom.Text = zoom;
         }
 

@@ -847,9 +847,7 @@
     <Content Include="leaflet\images\marker-shadow.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="leaflet\leaflet-src.esm.js">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Content Include="leaflet\leaflet-src.esm.js" />
     <Content Include="leaflet\leaflet-src.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

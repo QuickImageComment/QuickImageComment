@@ -131,7 +131,7 @@ namespace QuickImageComment
 
             // show map with last used coordinates for find
             theUserControlMap = new UserControlMap(true, new GeoDataItem(ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.LastGeoDataItemForFind)),
-                false, gpsFindRangeInMeter);
+                true, gpsFindRangeInMeter);
             splitContainer1.Panel2.Controls.Add(theUserControlMap);
             theUserControlMap.Dock = DockStyle.Fill;
 

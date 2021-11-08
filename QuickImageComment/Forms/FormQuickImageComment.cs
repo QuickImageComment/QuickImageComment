@@ -1643,7 +1643,7 @@ namespace QuickImageComment
             fillListBoxLastUserComments("");
             if (theUserControlMap != null)
             {
-                theUserControlMap.newLocation(theExtendedImage.getRecordingLocation(), theExtendedImage.changePossible());
+                theUserControlMap.buttonReset_Click(sender, e);
             }
             // if external browser is started or not is checked in showMap
             MapInExternalBrowser.newImage(theExtendedImage.getRecordingLocation());
