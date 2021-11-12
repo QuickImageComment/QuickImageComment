@@ -3117,11 +3117,17 @@ namespace QuickImageComment
 #if !DEBUG
                 catch (Exception ex)
                 {
-                    if (System.IO.File.Exists(ImageFileName))
+                    try
                     {
-                        System.IO.File.Delete(ImageFileName);
+                        if (System.IO.File.Exists(ImageFileNameBak))
+                        {
+                            System.IO.File.Delete(ImageFileName);
+                            System.IO.File.Move(ImageFileNameBak, ImageFileName);
+                        }
                     }
-                    System.IO.File.Move(ImageFileNameBak, ImageFileName);
+                    // no error handling of errors during error handling
+                    // most likely original file could not be restored due to permissions - then it is still unchanged
+                    catch { }
                     GeneralUtilities.message(LangCfg.Message.E_saveImage, ImageFileName, ex.Message);
                 }
 #endif
