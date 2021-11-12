@@ -144,7 +144,7 @@
         // function call Windows to set latitude and longitude of map center
         function win_setLatitudeLongitudeMapCenter(value) {
             if (window.chrome != null) {
-                window.chrome.webview.postMessage("setLatitudeLongitudeMapCenter" + value);
+                window.chrome.webview.postMessage("setLatitudeLongitudeMapCenter:" + value);
             }
             else {
                 window.external.setLatitudeLongitudeMapCenter(value);
@@ -255,7 +255,7 @@
 
         if (params.mlat != null) {
             createMarker(params.mlat, params.mlon);
-            // no info about marker back to C# as with bad timiing it may set the flag GpsDataChanged
+            // no info about marker back to C# as with bad timing it may set the flag GpsDataChanged
         }
 
         // react on click in map to add marker
@@ -282,7 +282,14 @@
         // react on moving map
         map.on('moveend', function () {
             var coords = map.getCenter();
-            win_setLatitudeLongitudeMapCenter(coords.lat + "#" + coords.lng);
+            var centered = false;
+            if (withMarker) {
+                var centerPoint = map.latLngToLayerPoint(coords);
+                var markerPoint = map.latLngToLayerPoint(marker.getLatLng());
+                // equals sometimes returns false after centering map, so use some tolerance
+                centered = centerPoint.distanceTo(markerPoint) < 2;
+            }
+            win_setLatitudeLongitudeMapCenter(coords.lat + "#" + coords.lng + "#" + centered);
         });
     </script>
 </body>
