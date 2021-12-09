@@ -476,12 +476,12 @@ namespace Exiv2 {
         // create vector of signedShorts from unsignedShorts in Exif.Canon.AFInfo
         std::vector<int16_t>  ints;
         std::vector<uint16_t> uint;
-        for (int i = 0; i < object->pValue()->count(); i++) {
+        for (long i = 0; i < object->pValue()->count(); i++) {
             ints.push_back((int16_t) object->pValue()->toLong(i));
             uint.push_back((uint16_t) object->pValue()->toLong(i));
         }
         // Check this is AFInfo2 (ints[0] = bytes in object)
-        if ( ints[0] != object->pValue()->count()*2 ) return ;
+        if ( ints.at(0) != object->pValue()->count()*2 ) return ;
 
         std::string familyGroup(std::string("Exif.") + groupName(object->group()) + ".");
 
@@ -523,9 +523,9 @@ namespace Exiv2 {
                 Exiv2::Value::AutoPtr v = Exiv2::Value::create(records[i].bSigned?Exiv2::signedShort:Exiv2::unsignedShort);
                 std::ostringstream    s;
                 if ( records[i].bSigned ) {
-                    for ( int16_t k = 0 ; k < records[i].size ; k++ ) s << " " << ints.at(nStart++);
+                    for ( uint16_t k = 0 ; k < records[i].size ; k++ ) s << " " << ints.at(nStart++);
                 } else {
-                    for ( int16_t k = 0 ; k < records[i].size ; k++ ) s << " " << uint.at(nStart++);
+                    for ( uint16_t k = 0 ; k < records[i].size ; k++ ) s << " " << uint.at(nStart++);
                 }
 
                 v->read(s.str());
@@ -979,10 +979,12 @@ namespace Exiv2 {
                 std::cerr << "Writing data area for " << key << "\n";
 #endif
                 DataBuf buf = object->pValue()->dataArea();
-                memcpy(object->pDataArea_, buf.pData_, buf.size_);
-                if (object->sizeDataArea_ > static_cast<uint32_t>(buf.size_)) {
-                    memset(object->pDataArea_ + buf.size_,
+                if ( buf.pData_ ) {
+                    memcpy(object->pDataArea_, buf.pData_, buf.size_);
+                    if (object->sizeDataArea_ > static_cast<uint32_t>(buf.size_)) {
+                        memset(object->pDataArea_ + buf.size_,
                            0x0, object->sizeDataArea_ - buf.size_);
+                    }
                 }
             }
         }
@@ -1630,6 +1632,9 @@ namespace Exiv2 {
         if ( !isize ) {
             v->read(pData, size, byteOrder());
         } else {
+            // Prevent large memory allocations: https://github.com/Exiv2/exiv2/issues/1881
+            enforce(isize <= 1024 * 1024, kerCorruptedMetadata);
+
             // #1143 Write a "hollow" buffer for the preview image
             //       Sadly: we don't know the exact location of the image in the source (it's near offset)
             //       And neither TiffReader nor TiffEntryBase have access to the BasicIo object being processed

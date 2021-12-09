@@ -128,7 +128,7 @@ namespace Exiv2 {
 
         // TODO: Tag 0x0103 : quality or image size (see ExifTool doc).
         TagInfo(0x0103, "0x0103", N_("0x0103"),
-                N_("Unknown"),
+                N_("0x0103"),
                 minoltaId, makerTags, unsignedLong, -1, printValue),
 
         TagInfo(0x0104, "FlashExposureComp", N_("Flash Exposure Compensation"),
@@ -2030,7 +2030,7 @@ namespace Exiv2 {
     {
         const TagDetails* td = find(minoltaSonyLensID, lensID);
         std::vector<std::string> tokens = split(td[0].label_,"|");
-        return os << exvGettext(trim(tokens[index-1]).c_str());
+        return os << exvGettext(trim(tokens.at(index-1)).c_str());
     }
 
     static std::ostream& resolveLens0x1c(std::ostream& os, const Value& value,
@@ -2172,16 +2172,20 @@ namespace Exiv2 {
 
             if ( model == "ILCE-6000" && maxAperture == F1_8 ) try {
                 long    focalLength = getKeyLong  ("Exif.Photo.FocalLength"      ,metadata);
-                long    focalL35mm  = getKeyLong  ("Exif.Photo.FocalLengthIn35mmFilm",metadata);
-                long    focalRatio  = (focalL35mm*100)/focalLength;
-                if ( inRange(focalRatio,145,155) ) index = 2 ;
+                if (focalLength > 0) {
+                  long    focalL35mm  = getKeyLong  ("Exif.Photo.FocalLengthIn35mmFilm",metadata);
+                  long    focalRatio  = (focalL35mm*100)/focalLength;
+                  if ( inRange(focalRatio,145,155) ) index = 2 ;
+                }
             } catch (...) {}
 
             if ( model == "ILCE-6000" && maxApertures.find(maxAperture) != maxApertures.end() ) try {
                 long    focalLength = getKeyLong  ("Exif.Photo.FocalLength"      ,metadata);
-                long    focalL35mm  = getKeyLong  ("Exif.Photo.FocalLengthIn35mmFilm",metadata);
-                long    focalRatio  = (focalL35mm*100)/focalLength;
-                if ( inRange(focalRatio,145,155) ) index = 3 ;
+                if (focalLength > 0) {
+                  long    focalL35mm  = getKeyLong  ("Exif.Photo.FocalLengthIn35mmFilm",metadata);
+                  long    focalRatio  = (focalL35mm*100)/focalLength;
+                  if ( inRange(focalRatio,145,155) ) index = 3 ;
+                }
             } catch (...) {}
 
             if ( index > 0 ) {

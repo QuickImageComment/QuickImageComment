@@ -91,8 +91,8 @@ namespace Exiv2
           @param start offset in file (default, io_->tell())
          @
          */
-        void parseTiff(uint32_t root_tag, uint32_t length);
-        void parseTiff(uint32_t root_tag, uint32_t length,uint32_t start);
+        void parseTiff(uint32_t root_tag, uint64_t length);
+        void parseTiff(uint32_t root_tag, uint64_t length,uint64_t start);
         //@}
 
         //@{
@@ -102,7 +102,30 @@ namespace Exiv2
           @param start offset in file
          @
          */
-        void parseXmp(uint32_t length,uint32_t start);
+        void parseXmp(uint64_t length,uint64_t start);
+        //@}
+
+        //@{
+        /*!
+        @brief Parse a Canon PRVW or THMB box and add an entry to the set
+            of native previews.
+        @param data Buffer containing the box
+        @param out Logging stream
+        @param bTrace Controls logging
+        @param width_offset Index of image width field in data
+        @param height_offset Index of image height field in data
+        @param size_offset Index of image size field in data
+        @param relative_position Location of the start of image data in the file,
+            relative to the current file position indicator.
+        */
+        void parseCr3Preview(DataBuf &data,
+                             std::ostream &out,
+                             bool bTrace,
+                             uint8_t version,
+                             uint32_t width_offset,
+                             uint32_t height_offset,
+                             uint32_t size_offset,
+                             uint32_t relative_position);
         //@}
 
         //! @name Manipulators
@@ -127,10 +150,13 @@ namespace Exiv2
         /*!
           @brief recursiveBoxHandler
           @throw Error if we visit a box more than once
+          @param pbox_end The end location of the parent box. Boxes are
+              nested, so we must not read beyond this.
           @return address of next box
           @warning This function should only be called by readMetadata()
          */
-        long boxHandler(std::ostream& out=std::cout, Exiv2::PrintStructureOption option=kpsNone,int depth = 0);
+        long boxHandler(std::ostream& out, Exiv2::PrintStructureOption option,
+                        const long pbox_end, int depth);
         std::string indent(int i)
         {
             return std::string(2*i,' ');

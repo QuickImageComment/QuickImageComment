@@ -36,6 +36,7 @@
 #include <sstream>
 #include <utility>
 #include <cctype>
+#include <climits>
 #include <ctime>
 #include <cstdio>
 #include <cstdlib>
@@ -552,7 +553,7 @@ namespace Exiv2 {
         assert(buf != 0);
         assert(tm != 0);
         int rc = 1;
-        int year, mon, mday, hour, min, sec;
+        int year = 0, mon = 0, mday = 0, hour = 0, min = 0, sec = 0;
         int scanned = std::sscanf(buf, "%4d:%2d:%2d %2d:%2d:%2d",
                                   &year, &mon, &mday, &hour, &min, &sec);
         if (scanned == 6) {
@@ -606,7 +607,7 @@ namespace Exiv2 {
     bool stringTo<bool>(const std::string& s, bool& ok)
     {
         std::string lcs(s); /* lowercase string */
-        for(unsigned i = 0; i < lcs.length(); i++) {
+        for(size_t i = 0; i < lcs.length(); i++) {
             lcs[i] = std::tolower(s[i]);
         }
         /* handle the same values as xmp sdk */
@@ -687,27 +688,28 @@ namespace Exiv2 {
 
     Rational floatToRationalCast(float f)
     {
-#if defined(_MSC_VER) && _MSC_VER < 1800
-        if (!_finite(f)) {
-#else
-        if (!std::isfinite(f)) {
-#endif
-            return Rational(f > 0 ? 1 : -1, 0);
+        // Convert f to double because it simplifies the "in_range" check
+        // below. (INT_MAX can be represented accurately as a double, but
+        // gets rounded when it's converted to float.)
+        const double d = f;
+        const bool in_range = INT_MIN <= d && d <= INT_MAX;
+        if (!in_range) {
+            return Rational(d > 0 ? 1 : -1, 0);
         }
         // Beware: primitive conversion algorithm
         int32_t den = 1000000;
-        const long f_as_long = static_cast<long>(f);
-        if (Safe::abs(f_as_long) > 2147) {
+        const long d_as_long = static_cast<long>(d);
+        if (Safe::abs(d_as_long) > 2147) {
             den = 10000;
         }
-        if (Safe::abs(f_as_long) > 214748) {
+        if (Safe::abs(d_as_long) > 214748) {
             den = 100;
         }
-        if (Safe::abs(f_as_long) > 21474836) {
+        if (Safe::abs(d_as_long) > 21474836) {
             den = 1;
         }
-        const float rnd = f >= 0 ? 0.5f : -0.5f;
-        const int32_t nom = static_cast<int32_t>(f * den + rnd);
+        const float rnd = d >= 0 ? 0.5f : -0.5f;
+        const int32_t nom = static_cast<int32_t>(d * den + rnd);
         const int32_t g = gcd(nom, den);
 
         return Rational(nom / g, den / g);

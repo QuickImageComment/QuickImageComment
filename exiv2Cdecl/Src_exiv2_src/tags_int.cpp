@@ -24,6 +24,7 @@
 
 #include "convert.hpp"
 #include "error.hpp"
+#include "enforce.hpp"
 #include "i18n.h"                // NLS support.
 
 #include "canonmn_int.hpp"
@@ -2081,6 +2082,11 @@ namespace Exiv2 {
         TagInfo(0xa462, "SourceExposureTimesOfCompositeImage", N_("Source Exposure Times Of Composite Image"),
                 N_("For a composite image, records the parameters relating exposure time of the exposures for generating the said composite image, such as respective exposure times of captured source images (tentatively recorded images)."),
                 exifId, captureCond, undefined, 0, printValue), // Exif 2.32
+        TagInfo(0xa500, "Gamma", N_("Gamma"),
+                N_("Indicates the value of coefficient gamma. The formula of transfer function used for image reproduction "
+                "is expressed as follows: (reproduced value) = (input value)^gamma. Both reproduced value and input value "
+                "indicate normalized value, whose minimum value is 0 and maximum value is 1."),
+                exifId, imgCharacter, unsignedRational, 1, printFloat),
         // End of list marker
         TagInfo(0xffff, "(UnknownExifTag)", N_("Unknown Exif tag"),
                 N_("Unknown Exif tag"),
@@ -2549,7 +2555,9 @@ namespace Exiv2 {
         {
             uint16_t bit   = 0;
             uint16_t comma = 0;
-            for (uint16_t i = 0; i < value.count(); i++ ) { // for each element in value array
+            long count = value.count();
+            enforce(0 <= count && count <= std::numeric_limits<uint16_t>::max(), kerCorruptedMetadata);
+            for (uint16_t i = 0; i < count; i++ ) { // for each element in value array
                 uint16_t bits = static_cast<uint16_t>(value.toLong(i));
                 for (uint16_t b = 0; b < 16; ++b) { // for every bit
                     if (bits & (1 << b)) {
@@ -2577,12 +2585,22 @@ namespace Exiv2 {
     URational exposureTime(float shutterSpeedValue)
     {
         URational ur(1, 1);
-        double tmp = std::exp(std::log(2.0) * static_cast<double>(shutterSpeedValue));
+        const double tmp = std::exp(std::log(2.0) * static_cast<double>(shutterSpeedValue));
         if (tmp > 1) {
-            ur.second = static_cast<long>(tmp + 0.5);
+            // Add 0.5 for rounding.
+            const double x = tmp + 0.5;
+            // Check that x is within the range of a uint32_t before casting.
+            if (x <= std::numeric_limits<uint32_t>::max()) {
+                ur.second = static_cast<uint32_t>(x);
+            }
         }
         else {
-            ur.first = static_cast<long>(1/tmp + 0.5);
+            // Add 0.5 for rounding.
+            const double x = 1/tmp + 0.5;
+            // Check that x is within the range of a uint32_t before casting.
+            if (0 <= x && x <= std::numeric_limits<uint32_t>::max()) {
+                ur.first = static_cast<uint32_t>(x);
+            }
         }
         return ur;
     }
@@ -2593,7 +2611,7 @@ namespace Exiv2 {
         if (ti != 0 && ti->tag_ != 0xffff) return ti->tag_;
         if (!isHex(tagName, 4, "0x")) throw Error(kerInvalidTag, tagName, ifdId);
         std::istringstream is(tagName);
-        uint16_t tag;
+        uint16_t tag = 0;
         is >> std::hex >> tag;
         return tag;
     } // tagNumber
@@ -2601,7 +2619,7 @@ namespace Exiv2 {
     std::ostream& printLong(std::ostream& os, const Value& value, const ExifData*)
     {
         Rational r = value.toRational();
-        if (r.second != 0) return os << static_cast<long>(r.first) / r.second;
+        if (r.second > 0) return os << static_cast<long>(r.first) / r.second;
         return os << "(" << value << ")";
     } // printLong
 
@@ -3209,10 +3227,10 @@ namespace Exiv2 {
         }
 
         std::string stringValue = value.toString();
-        if (stringValue[19] == 'Z') {
-            stringValue = stringValue.substr(0, 19);
+        if (stringValue.size() == 20 && stringValue.at(19) == 'Z') {
+            stringValue.erase(19,1);
         }
-        for (unsigned int i = 0; i < stringValue.length(); ++i) {
+        for (size_t i = 0; i < stringValue.length(); ++i) {
             if (stringValue[i] == 'T') stringValue[i] = ' ';
             if (stringValue[i] == '-') stringValue[i] = ':';
         }

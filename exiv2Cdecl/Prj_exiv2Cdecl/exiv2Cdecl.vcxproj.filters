@@ -121,9 +121,6 @@
     <ClCompile Include="..\Src_exiv2_src\jpgimage.cpp">
       <Filter>SourceExt</Filter>
     </ClCompile>
-    <ClCompile Include="..\Src_expat_lib\loadlibrary.c">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
     <ClCompile Include="..\Src_exiv2_src\makernote_int.cpp">
       <Filter>SourceExt</Filter>
     </ClCompile>
@@ -713,6 +710,9 @@
     <ClInclude Include="makernote_int_add.hpp" />
     <ClInclude Include="..\Src_zlib\zconf.h" />
     <ClInclude Include="..\Src_exiv2_src\exiv2\bmffimage.hpp">
+      <Filter>IncludeExt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_expat_lib\expat_config.h">
       <Filter>IncludeExt</Filter>
     </ClInclude>
   </ItemGroup>

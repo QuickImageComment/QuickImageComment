@@ -26,6 +26,10 @@
 #  include <limits.h>
 #endif
 
+#ifdef __APPLE__
+#include <unistd.h>
+#endif
+
 #ifndef _POSIX_SOURCE
 #  define _POSIX_SOURCE
 #endif
@@ -39,7 +43,7 @@
 #  include <io.h>
 #endif
 
-#if defined(_WIN32) || defined(__CYGWIN__)
+#if defined(_WIN32) || defined(__MINGW32__)
 #  define WIDECHAR
 #endif
 

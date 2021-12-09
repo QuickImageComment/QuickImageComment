@@ -22,7 +22,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{DF0B650A-E6FC-34B2-86D6-5F32A500B17F}</ProjectGuid>
+    <ProjectGuid>{77172216-0CE3-35B1-8F8E-73F7D419FBA5}</ProjectGuid>
     <WindowsTargetPlatformVersion>10.0.19041.0</WindowsTargetPlatformVersion>
     <Keyword>Win32Proj</Keyword>
     <Platform>x64</Platform>
@@ -59,25 +59,25 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:\_prg\VisualCpp\exiv2-0.27.4-Source\build\bin\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:\_prg\VisualCpp\exiv2-0.27.5-Source\build\bin\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">exiv2lib.dir\Debug\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">exiv2</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.dll</TargetExt>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</GenerateManifest>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:\_prg\VisualCpp\exiv2-0.27.4-Source\build\bin\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:\_prg\VisualCpp\exiv2-0.27.5-Source\build\bin\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">exiv2lib.dir\Release\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">exiv2</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.dll</TargetExt>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</GenerateManifest>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">D:\_prg\VisualCpp\exiv2-0.27.4-Source\build\bin\MinSizeRel\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">D:\_prg\VisualCpp\exiv2-0.27.5-Source\build\bin\MinSizeRel\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">exiv2lib.dir\MinSizeRel\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">exiv2</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">.dll</TargetExt>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">true</GenerateManifest>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">D:\_prg\VisualCpp\exiv2-0.27.4-Source\build\bin\RelWithDebInfo\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">D:\_prg\VisualCpp\exiv2-0.27.5-Source\build\bin\RelWithDebInfo\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">exiv2lib.dir\RelWithDebInfo\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">exiv2</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">.dll</TargetExt>
@@ -86,7 +86,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>D:\_prg\VisualCpp\exiv2-0.27.4-Source\build;D:\_prg\VisualCpp\exiv2-0.27.4-Source\build\src;D:\_prg\VisualCpp\exiv2-0.27.4-Source\xmpsdk\include;C:\Users\Normal\.conan\data\zlib\1.2.11\conan\stable\package\d057732059ea44a47760900cb5e4855d2bea8714\include;D:\_prg\VisualCpp\exiv2-0.27.4-Source\include\exiv2;D:\_prg\VisualCpp\exiv2-0.27.4-Source\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\_prg\VisualCpp\exiv2-0.27.5-Source\build;D:\_prg\VisualCpp\exiv2-0.27.5-Source\build\src;C:\Users\Normal\.conan\data\expat\2.4.1\_\_\package\b49a4f13d5f917b326e0b0b876c9af8b30b9bf47\include;D:\_prg\VisualCpp\exiv2-0.27.5-Source\include\exiv2;D:\_prg\VisualCpp\exiv2-0.27.5-Source\include;D:\_prg\VisualCpp\exiv2-0.27.5-Source\xmpsdk\include;C:\Users\Normal\.conan\data\zlib\1.2.11\_\_\package\d057732059ea44a47760900cb5e4855d2bea8714\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>%(AdditionalOptions) /Zc:__cplusplus</AdditionalOptions>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -100,15 +100,15 @@
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;PSAPI_VERSION=1;WIN32_LEAN_AND_MEAN;NOMINMAX;CMAKE_INTDIR="Debug";exiv2lib_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;XML_STATIC;PSAPI_VERSION=1;WIN32_LEAN_AND_MEAN;NOMINMAX;CMAKE_INTDIR="Debug";exiv2lib_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
     </ClCompile>
     <ResourceCompile>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;PSAPI_VERSION=1;WIN32_LEAN_AND_MEAN;NOMINMAX;CMAKE_INTDIR=\"Debug\";exiv2lib_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>D:\_prg\VisualCpp\exiv2-0.27.4-Source\build;D:\_prg\VisualCpp\exiv2-0.27.4-Source\build\src;D:\_prg\VisualCpp\exiv2-0.27.4-Source\xmpsdk\include;C:\Users\Normal\.conan\data\zlib\1.2.11\conan\stable\package\d057732059ea44a47760900cb5e4855d2bea8714\include;D:\_prg\VisualCpp\exiv2-0.27.4-Source\include\exiv2;D:\_prg\VisualCpp\exiv2-0.27.4-Source\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;XML_STATIC;PSAPI_VERSION=1;WIN32_LEAN_AND_MEAN;NOMINMAX;CMAKE_INTDIR=\"Debug\";exiv2lib_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\_prg\VisualCpp\exiv2-0.27.5-Source\build;D:\_prg\VisualCpp\exiv2-0.27.5-Source\build\src;C:\Users\Normal\.conan\data\expat\2.4.1\_\_\package\b49a4f13d5f917b326e0b0b876c9af8b30b9bf47\include;D:\_prg\VisualCpp\exiv2-0.27.5-Source\include\exiv2;D:\_prg\VisualCpp\exiv2-0.27.5-Source\include;D:\_prg\VisualCpp\exiv2-0.27.5-Source\xmpsdk\include;C:\Users\Normal\.conan\data\zlib\1.2.11\_\_\package\d057732059ea44a47760900cb5e4855d2bea8714\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>D:\_prg\VisualCpp\exiv2-0.27.4-Source\build;D:\_prg\VisualCpp\exiv2-0.27.4-Source\build\src;D:\_prg\VisualCpp\exiv2-0.27.4-Source\xmpsdk\include;C:\Users\Normal\.conan\data\zlib\1.2.11\conan\stable\package\d057732059ea44a47760900cb5e4855d2bea8714\include;D:\_prg\VisualCpp\exiv2-0.27.4-Source\include\exiv2;D:\_prg\VisualCpp\exiv2-0.27.4-Source\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\_prg\VisualCpp\exiv2-0.27.5-Source\build;D:\_prg\VisualCpp\exiv2-0.27.5-Source\build\src;C:\Users\Normal\.conan\data\expat\2.4.1\_\_\package\b49a4f13d5f917b326e0b0b876c9af8b30b9bf47\include;D:\_prg\VisualCpp\exiv2-0.27.5-Source\include\exiv2;D:\_prg\VisualCpp\exiv2-0.27.5-Source\include;D:\_prg\VisualCpp\exiv2-0.27.5-Source\xmpsdk\include;C:\Users\Normal\.conan\data\zlib\1.2.11\_\_\package\d057732059ea44a47760900cb5e4855d2bea8714\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -116,13 +116,13 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Link>
-      <AdditionalDependencies>..\lib\Debug\exiv2-xmp.lib;psapi.lib;ws2_32.lib;shell32.lib;C:\Users\Normal\.conan\data\zlib\1.2.11\conan\stable\package\d057732059ea44a47760900cb5e4855d2bea8714\lib\zlib.lib;C:\Users\Normal\.conan\data\Expat\2.2.6\pix4d\stable\package\eb4102e772b530edfbc4b0e1be0c1f346423e000\lib\expat.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalDependencies>C:\Users\Normal\.conan\data\expat\2.4.1\_\_\package\b49a4f13d5f917b326e0b0b876c9af8b30b9bf47\lib\libexpatdMD.lib;..\lib\Debug\exiv2-xmp.lib;psapi.lib;ws2_32.lib;shell32.lib;C:\Users\Normal\.conan\data\zlib\1.2.11\_\_\package\d057732059ea44a47760900cb5e4855d2bea8714\lib\zlib.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64 /ignore:4099</AdditionalOptions>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <ImportLibrary>D:/_prg/VisualCpp/exiv2-0.27.4-Source/build/lib/Debug/exiv2.lib</ImportLibrary>
-      <ProgramDataBaseFile>D:/_prg/VisualCpp/exiv2-0.27.4-Source/build/src/Debug/exiv2.pdb</ProgramDataBaseFile>
+      <ImportLibrary>D:/_prg/VisualCpp/exiv2-0.27.5-Source/build/lib/Debug/exiv2.lib</ImportLibrary>
+      <ProgramDataBaseFile>D:/_prg/VisualCpp/exiv2-0.27.5-Source/build/src/Debug/exiv2.pdb</ProgramDataBaseFile>
       <SubSystem>Console</SubSystem>
     </Link>
     <ProjectReference>
@@ -131,7 +131,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>D:\_prg\VisualCpp\exiv2-0.27.4-Source\build;D:\_prg\VisualCpp\exiv2-0.27.4-Source\build\src;D:\_prg\VisualCpp\exiv2-0.27.4-Source\xmpsdk\include;C:\Users\Normal\.conan\data\zlib\1.2.11\conan\stable\package\d057732059ea44a47760900cb5e4855d2bea8714\include;D:\_prg\VisualCpp\exiv2-0.27.4-Source\include\exiv2;D:\_prg\VisualCpp\exiv2-0.27.4-Source\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\_prg\VisualCpp\exiv2-0.27.5-Source\build;D:\_prg\VisualCpp\exiv2-0.27.5-Source\build\src;C:\Users\Normal\.conan\data\expat\2.4.1\_\_\package\b49a4f13d5f917b326e0b0b876c9af8b30b9bf47\include;D:\_prg\VisualCpp\exiv2-0.27.5-Source\include\exiv2;D:\_prg\VisualCpp\exiv2-0.27.5-Source\include;D:\_prg\VisualCpp\exiv2-0.27.5-Source\xmpsdk\include;C:\Users\Normal\.conan\data\zlib\1.2.11\_\_\package\d057732059ea44a47760900cb5e4855d2bea8714\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>%(AdditionalOptions) /Zc:__cplusplus</AdditionalOptions>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <ExceptionHandling>Sync</ExceptionHandling>
@@ -142,17 +142,17 @@
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;PSAPI_VERSION=1;WIN32_LEAN_AND_MEAN;NOMINMAX;CMAKE_INTDIR="Release";exiv2lib_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;XML_STATIC;PSAPI_VERSION=1;WIN32_LEAN_AND_MEAN;NOMINMAX;CMAKE_INTDIR="Release";exiv2lib_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <DebugInformationFormat>
       </DebugInformationFormat>
     </ClCompile>
     <ResourceCompile>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;PSAPI_VERSION=1;WIN32_LEAN_AND_MEAN;NOMINMAX;CMAKE_INTDIR=\"Release\";exiv2lib_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>D:\_prg\VisualCpp\exiv2-0.27.4-Source\build;D:\_prg\VisualCpp\exiv2-0.27.4-Source\build\src;D:\_prg\VisualCpp\exiv2-0.27.4-Source\xmpsdk\include;C:\Users\Normal\.conan\data\zlib\1.2.11\conan\stable\package\d057732059ea44a47760900cb5e4855d2bea8714\include;D:\_prg\VisualCpp\exiv2-0.27.4-Source\include\exiv2;D:\_prg\VisualCpp\exiv2-0.27.4-Source\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;XML_STATIC;PSAPI_VERSION=1;WIN32_LEAN_AND_MEAN;NOMINMAX;CMAKE_INTDIR=\"Release\";exiv2lib_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\_prg\VisualCpp\exiv2-0.27.5-Source\build;D:\_prg\VisualCpp\exiv2-0.27.5-Source\build\src;C:\Users\Normal\.conan\data\expat\2.4.1\_\_\package\b49a4f13d5f917b326e0b0b876c9af8b30b9bf47\include;D:\_prg\VisualCpp\exiv2-0.27.5-Source\include\exiv2;D:\_prg\VisualCpp\exiv2-0.27.5-Source\include;D:\_prg\VisualCpp\exiv2-0.27.5-Source\xmpsdk\include;C:\Users\Normal\.conan\data\zlib\1.2.11\_\_\package\d057732059ea44a47760900cb5e4855d2bea8714\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>D:\_prg\VisualCpp\exiv2-0.27.4-Source\build;D:\_prg\VisualCpp\exiv2-0.27.4-Source\build\src;D:\_prg\VisualCpp\exiv2-0.27.4-Source\xmpsdk\include;C:\Users\Normal\.conan\data\zlib\1.2.11\conan\stable\package\d057732059ea44a47760900cb5e4855d2bea8714\include;D:\_prg\VisualCpp\exiv2-0.27.4-Source\include\exiv2;D:\_prg\VisualCpp\exiv2-0.27.4-Source\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\_prg\VisualCpp\exiv2-0.27.5-Source\build;D:\_prg\VisualCpp\exiv2-0.27.5-Source\build\src;C:\Users\Normal\.conan\data\expat\2.4.1\_\_\package\b49a4f13d5f917b326e0b0b876c9af8b30b9bf47\include;D:\_prg\VisualCpp\exiv2-0.27.5-Source\include\exiv2;D:\_prg\VisualCpp\exiv2-0.27.5-Source\include;D:\_prg\VisualCpp\exiv2-0.27.5-Source\xmpsdk\include;C:\Users\Normal\.conan\data\zlib\1.2.11\_\_\package\d057732059ea44a47760900cb5e4855d2bea8714\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -160,13 +160,13 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Link>
-      <AdditionalDependencies>..\lib\Release\exiv2-xmp.lib;psapi.lib;ws2_32.lib;shell32.lib;C:\Users\Normal\.conan\data\zlib\1.2.11\conan\stable\package\d057732059ea44a47760900cb5e4855d2bea8714\lib\zlib.lib;C:\Users\Normal\.conan\data\Expat\2.2.6\pix4d\stable\package\eb4102e772b530edfbc4b0e1be0c1f346423e000\lib\expat.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalDependencies>C:\Users\Normal\.conan\data\expat\2.4.1\_\_\package\b49a4f13d5f917b326e0b0b876c9af8b30b9bf47\lib\libexpatdMD.lib;..\lib\Release\exiv2-xmp.lib;psapi.lib;ws2_32.lib;shell32.lib;C:\Users\Normal\.conan\data\zlib\1.2.11\_\_\package\d057732059ea44a47760900cb5e4855d2bea8714\lib\zlib.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64 /ignore:4099</AdditionalOptions>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <ImportLibrary>D:/_prg/VisualCpp/exiv2-0.27.4-Source/build/lib/Release/exiv2.lib</ImportLibrary>
-      <ProgramDataBaseFile>D:/_prg/VisualCpp/exiv2-0.27.4-Source/build/src/Release/exiv2.pdb</ProgramDataBaseFile>
+      <ImportLibrary>D:/_prg/VisualCpp/exiv2-0.27.5-Source/build/lib/Release/exiv2.lib</ImportLibrary>
+      <ProgramDataBaseFile>D:/_prg/VisualCpp/exiv2-0.27.5-Source/build/src/Release/exiv2.pdb</ProgramDataBaseFile>
       <SubSystem>Console</SubSystem>
     </Link>
     <ProjectReference>
@@ -175,7 +175,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>D:\_prg\VisualCpp\exiv2-0.27.4-Source\build;D:\_prg\VisualCpp\exiv2-0.27.4-Source\build\src;D:\_prg\VisualCpp\exiv2-0.27.4-Source\xmpsdk\include;C:\Users\Normal\.conan\data\zlib\1.2.11\conan\stable\package\d057732059ea44a47760900cb5e4855d2bea8714\include;D:\_prg\VisualCpp\exiv2-0.27.4-Source\include\exiv2;D:\_prg\VisualCpp\exiv2-0.27.4-Source\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\_prg\VisualCpp\exiv2-0.27.5-Source\build;D:\_prg\VisualCpp\exiv2-0.27.5-Source\build\src;C:\Users\Normal\.conan\data\expat\2.4.1\_\_\package\b49a4f13d5f917b326e0b0b876c9af8b30b9bf47\include;D:\_prg\VisualCpp\exiv2-0.27.5-Source\include\exiv2;D:\_prg\VisualCpp\exiv2-0.27.5-Source\include;D:\_prg\VisualCpp\exiv2-0.27.5-Source\xmpsdk\include;C:\Users\Normal\.conan\data\zlib\1.2.11\_\_\package\d057732059ea44a47760900cb5e4855d2bea8714\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>%(AdditionalOptions) /Zc:__cplusplus</AdditionalOptions>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <ExceptionHandling>Sync</ExceptionHandling>
@@ -186,17 +186,17 @@
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;PSAPI_VERSION=1;WIN32_LEAN_AND_MEAN;NOMINMAX;CMAKE_INTDIR="MinSizeRel";exiv2lib_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;XML_STATIC;PSAPI_VERSION=1;WIN32_LEAN_AND_MEAN;NOMINMAX;CMAKE_INTDIR="MinSizeRel";exiv2lib_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <DebugInformationFormat>
       </DebugInformationFormat>
     </ClCompile>
     <ResourceCompile>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;PSAPI_VERSION=1;WIN32_LEAN_AND_MEAN;NOMINMAX;CMAKE_INTDIR=\"MinSizeRel\";exiv2lib_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>D:\_prg\VisualCpp\exiv2-0.27.4-Source\build;D:\_prg\VisualCpp\exiv2-0.27.4-Source\build\src;D:\_prg\VisualCpp\exiv2-0.27.4-Source\xmpsdk\include;C:\Users\Normal\.conan\data\zlib\1.2.11\conan\stable\package\d057732059ea44a47760900cb5e4855d2bea8714\include;D:\_prg\VisualCpp\exiv2-0.27.4-Source\include\exiv2;D:\_prg\VisualCpp\exiv2-0.27.4-Source\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;XML_STATIC;PSAPI_VERSION=1;WIN32_LEAN_AND_MEAN;NOMINMAX;CMAKE_INTDIR=\"MinSizeRel\";exiv2lib_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\_prg\VisualCpp\exiv2-0.27.5-Source\build;D:\_prg\VisualCpp\exiv2-0.27.5-Source\build\src;C:\Users\Normal\.conan\data\expat\2.4.1\_\_\package\b49a4f13d5f917b326e0b0b876c9af8b30b9bf47\include;D:\_prg\VisualCpp\exiv2-0.27.5-Source\include\exiv2;D:\_prg\VisualCpp\exiv2-0.27.5-Source\include;D:\_prg\VisualCpp\exiv2-0.27.5-Source\xmpsdk\include;C:\Users\Normal\.conan\data\zlib\1.2.11\_\_\package\d057732059ea44a47760900cb5e4855d2bea8714\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>D:\_prg\VisualCpp\exiv2-0.27.4-Source\build;D:\_prg\VisualCpp\exiv2-0.27.4-Source\build\src;D:\_prg\VisualCpp\exiv2-0.27.4-Source\xmpsdk\include;C:\Users\Normal\.conan\data\zlib\1.2.11\conan\stable\package\d057732059ea44a47760900cb5e4855d2bea8714\include;D:\_prg\VisualCpp\exiv2-0.27.4-Source\include\exiv2;D:\_prg\VisualCpp\exiv2-0.27.4-Source\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\_prg\VisualCpp\exiv2-0.27.5-Source\build;D:\_prg\VisualCpp\exiv2-0.27.5-Source\build\src;C:\Users\Normal\.conan\data\expat\2.4.1\_\_\package\b49a4f13d5f917b326e0b0b876c9af8b30b9bf47\include;D:\_prg\VisualCpp\exiv2-0.27.5-Source\include\exiv2;D:\_prg\VisualCpp\exiv2-0.27.5-Source\include;D:\_prg\VisualCpp\exiv2-0.27.5-Source\xmpsdk\include;C:\Users\Normal\.conan\data\zlib\1.2.11\_\_\package\d057732059ea44a47760900cb5e4855d2bea8714\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -204,13 +204,13 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Link>
-      <AdditionalDependencies>..\lib\MinSizeRel\exiv2-xmp.lib;psapi.lib;ws2_32.lib;shell32.lib;C:\Users\Normal\.conan\data\zlib\1.2.11\conan\stable\package\d057732059ea44a47760900cb5e4855d2bea8714\lib\zlib.lib;C:\Users\Normal\.conan\data\Expat\2.2.6\pix4d\stable\package\eb4102e772b530edfbc4b0e1be0c1f346423e000\lib\expat.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalDependencies>C:\Users\Normal\.conan\data\expat\2.4.1\_\_\package\b49a4f13d5f917b326e0b0b876c9af8b30b9bf47\lib\libexpatdMD.lib;..\lib\MinSizeRel\exiv2-xmp.lib;psapi.lib;ws2_32.lib;shell32.lib;C:\Users\Normal\.conan\data\zlib\1.2.11\_\_\package\d057732059ea44a47760900cb5e4855d2bea8714\lib\zlib.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64 /ignore:4099</AdditionalOptions>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <ImportLibrary>D:/_prg/VisualCpp/exiv2-0.27.4-Source/build/lib/MinSizeRel/exiv2.lib</ImportLibrary>
-      <ProgramDataBaseFile>D:/_prg/VisualCpp/exiv2-0.27.4-Source/build/src/MinSizeRel/exiv2.pdb</ProgramDataBaseFile>
+      <ImportLibrary>D:/_prg/VisualCpp/exiv2-0.27.5-Source/build/lib/MinSizeRel/exiv2.lib</ImportLibrary>
+      <ProgramDataBaseFile>D:/_prg/VisualCpp/exiv2-0.27.5-Source/build/src/MinSizeRel/exiv2.pdb</ProgramDataBaseFile>
       <SubSystem>Console</SubSystem>
     </Link>
     <ProjectReference>
@@ -219,7 +219,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>D:\_prg\VisualCpp\exiv2-0.27.4-Source\build;D:\_prg\VisualCpp\exiv2-0.27.4-Source\build\src;D:\_prg\VisualCpp\exiv2-0.27.4-Source\xmpsdk\include;C:\Users\Normal\.conan\data\zlib\1.2.11\conan\stable\package\d057732059ea44a47760900cb5e4855d2bea8714\include;D:\_prg\VisualCpp\exiv2-0.27.4-Source\include\exiv2;D:\_prg\VisualCpp\exiv2-0.27.4-Source\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\_prg\VisualCpp\exiv2-0.27.5-Source\build;D:\_prg\VisualCpp\exiv2-0.27.5-Source\build\src;C:\Users\Normal\.conan\data\expat\2.4.1\_\_\package\b49a4f13d5f917b326e0b0b876c9af8b30b9bf47\include;D:\_prg\VisualCpp\exiv2-0.27.5-Source\include\exiv2;D:\_prg\VisualCpp\exiv2-0.27.5-Source\include;D:\_prg\VisualCpp\exiv2-0.27.5-Source\xmpsdk\include;C:\Users\Normal\.conan\data\zlib\1.2.11\_\_\package\d057732059ea44a47760900cb5e4855d2bea8714\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>%(AdditionalOptions) /Zc:__cplusplus</AdditionalOptions>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -231,15 +231,15 @@
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;PSAPI_VERSION=1;WIN32_LEAN_AND_MEAN;NOMINMAX;CMAKE_INTDIR="RelWithDebInfo";exiv2lib_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;XML_STATIC;PSAPI_VERSION=1;WIN32_LEAN_AND_MEAN;NOMINMAX;CMAKE_INTDIR="RelWithDebInfo";exiv2lib_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
     </ClCompile>
     <ResourceCompile>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;PSAPI_VERSION=1;WIN32_LEAN_AND_MEAN;NOMINMAX;CMAKE_INTDIR=\"RelWithDebInfo\";exiv2lib_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>D:\_prg\VisualCpp\exiv2-0.27.4-Source\build;D:\_prg\VisualCpp\exiv2-0.27.4-Source\build\src;D:\_prg\VisualCpp\exiv2-0.27.4-Source\xmpsdk\include;C:\Users\Normal\.conan\data\zlib\1.2.11\conan\stable\package\d057732059ea44a47760900cb5e4855d2bea8714\include;D:\_prg\VisualCpp\exiv2-0.27.4-Source\include\exiv2;D:\_prg\VisualCpp\exiv2-0.27.4-Source\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;XML_STATIC;PSAPI_VERSION=1;WIN32_LEAN_AND_MEAN;NOMINMAX;CMAKE_INTDIR=\"RelWithDebInfo\";exiv2lib_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\_prg\VisualCpp\exiv2-0.27.5-Source\build;D:\_prg\VisualCpp\exiv2-0.27.5-Source\build\src;C:\Users\Normal\.conan\data\expat\2.4.1\_\_\package\b49a4f13d5f917b326e0b0b876c9af8b30b9bf47\include;D:\_prg\VisualCpp\exiv2-0.27.5-Source\include\exiv2;D:\_prg\VisualCpp\exiv2-0.27.5-Source\include;D:\_prg\VisualCpp\exiv2-0.27.5-Source\xmpsdk\include;C:\Users\Normal\.conan\data\zlib\1.2.11\_\_\package\d057732059ea44a47760900cb5e4855d2bea8714\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>D:\_prg\VisualCpp\exiv2-0.27.4-Source\build;D:\_prg\VisualCpp\exiv2-0.27.4-Source\build\src;D:\_prg\VisualCpp\exiv2-0.27.4-Source\xmpsdk\include;C:\Users\Normal\.conan\data\zlib\1.2.11\conan\stable\package\d057732059ea44a47760900cb5e4855d2bea8714\include;D:\_prg\VisualCpp\exiv2-0.27.4-Source\include\exiv2;D:\_prg\VisualCpp\exiv2-0.27.4-Source\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\_prg\VisualCpp\exiv2-0.27.5-Source\build;D:\_prg\VisualCpp\exiv2-0.27.5-Source\build\src;C:\Users\Normal\.conan\data\expat\2.4.1\_\_\package\b49a4f13d5f917b326e0b0b876c9af8b30b9bf47\include;D:\_prg\VisualCpp\exiv2-0.27.5-Source\include\exiv2;D:\_prg\VisualCpp\exiv2-0.27.5-Source\include;D:\_prg\VisualCpp\exiv2-0.27.5-Source\xmpsdk\include;C:\Users\Normal\.conan\data\zlib\1.2.11\_\_\package\d057732059ea44a47760900cb5e4855d2bea8714\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -247,13 +247,13 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Link>
-      <AdditionalDependencies>..\lib\RelWithDebInfo\exiv2-xmp.lib;psapi.lib;ws2_32.lib;shell32.lib;C:\Users\Normal\.conan\data\zlib\1.2.11\conan\stable\package\d057732059ea44a47760900cb5e4855d2bea8714\lib\zlib.lib;C:\Users\Normal\.conan\data\Expat\2.2.6\pix4d\stable\package\eb4102e772b530edfbc4b0e1be0c1f346423e000\lib\expat.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalDependencies>C:\Users\Normal\.conan\data\expat\2.4.1\_\_\package\b49a4f13d5f917b326e0b0b876c9af8b30b9bf47\lib\libexpatdMD.lib;..\lib\RelWithDebInfo\exiv2-xmp.lib;psapi.lib;ws2_32.lib;shell32.lib;C:\Users\Normal\.conan\data\zlib\1.2.11\_\_\package\d057732059ea44a47760900cb5e4855d2bea8714\lib\zlib.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64 /ignore:4099</AdditionalOptions>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <ImportLibrary>D:/_prg/VisualCpp/exiv2-0.27.4-Source/build/lib/RelWithDebInfo/exiv2.lib</ImportLibrary>
-      <ProgramDataBaseFile>D:/_prg/VisualCpp/exiv2-0.27.4-Source/build/src/RelWithDebInfo/exiv2.pdb</ProgramDataBaseFile>
+      <ImportLibrary>D:/_prg/VisualCpp/exiv2-0.27.5-Source/build/lib/RelWithDebInfo/exiv2.lib</ImportLibrary>
+      <ProgramDataBaseFile>D:/_prg/VisualCpp/exiv2-0.27.5-Source/build/src/RelWithDebInfo/exiv2.pdb</ProgramDataBaseFile>
       <SubSystem>Console</SubSystem>
     </Link>
     <ProjectReference>
@@ -261,11 +261,11 @@
     </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <CustomBuild Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\src\CMakeLists.txt">
+    <CustomBuild Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\src\CMakeLists.txt">
       <StdOutEncoding>UTF-8</StdOutEncoding>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule D:/_prg/VisualCpp/exiv2-0.27.4-Source/src/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule D:/_prg/VisualCpp/exiv2-0.27.5-Source/src/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -SD:/_prg/VisualCpp/exiv2-0.27.4-Source -BD:/_prg/VisualCpp/exiv2-0.27.4-Source/build --check-stamp-file D:/_prg/VisualCpp/exiv2-0.27.4-Source/build/src/CMakeFiles/generate.stamp
+"C:\Program Files\CMake\bin\cmake.exe" -SD:/_prg/VisualCpp/exiv2-0.27.5-Source -BD:/_prg/VisualCpp/exiv2-0.27.5-Source/build --check-stamp-file D:/_prg/VisualCpp/exiv2-0.27.5-Source/build/src/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -274,11 +274,11 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Program Files\CMake\share\cmake-3.20\Modules\BasicConfigVersion-ExactVersion.cmake.in;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakePackageConfigHelpers.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\WriteBasicConfigVersionFile.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\exportheader.cmake.in;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:\_prg\VisualCpp\exiv2-0.27.4-Source\build\src\CMakeFiles\generate.stamp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:\_prg\VisualCpp\exiv2-0.27.5-Source\build\src\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule D:/_prg/VisualCpp/exiv2-0.27.4-Source/src/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule D:/_prg/VisualCpp/exiv2-0.27.5-Source/src/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -SD:/_prg/VisualCpp/exiv2-0.27.4-Source -BD:/_prg/VisualCpp/exiv2-0.27.4-Source/build --check-stamp-file D:/_prg/VisualCpp/exiv2-0.27.4-Source/build/src/CMakeFiles/generate.stamp
+"C:\Program Files\CMake\bin\cmake.exe" -SD:/_prg/VisualCpp/exiv2-0.27.5-Source -BD:/_prg/VisualCpp/exiv2-0.27.5-Source/build --check-stamp-file D:/_prg/VisualCpp/exiv2-0.27.5-Source/build/src/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -287,11 +287,11 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Program Files\CMake\share\cmake-3.20\Modules\BasicConfigVersion-ExactVersion.cmake.in;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakePackageConfigHelpers.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\WriteBasicConfigVersionFile.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\exportheader.cmake.in;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:\_prg\VisualCpp\exiv2-0.27.4-Source\build\src\CMakeFiles\generate.stamp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:\_prg\VisualCpp\exiv2-0.27.5-Source\build\src\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule D:/_prg/VisualCpp/exiv2-0.27.4-Source/src/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule D:/_prg/VisualCpp/exiv2-0.27.5-Source/src/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -SD:/_prg/VisualCpp/exiv2-0.27.4-Source -BD:/_prg/VisualCpp/exiv2-0.27.4-Source/build --check-stamp-file D:/_prg/VisualCpp/exiv2-0.27.4-Source/build/src/CMakeFiles/generate.stamp
+"C:\Program Files\CMake\bin\cmake.exe" -SD:/_prg/VisualCpp/exiv2-0.27.5-Source -BD:/_prg/VisualCpp/exiv2-0.27.5-Source/build --check-stamp-file D:/_prg/VisualCpp/exiv2-0.27.5-Source/build/src/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -300,11 +300,11 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Program Files\CMake\share\cmake-3.20\Modules\BasicConfigVersion-ExactVersion.cmake.in;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakePackageConfigHelpers.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\WriteBasicConfigVersionFile.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\exportheader.cmake.in;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">D:\_prg\VisualCpp\exiv2-0.27.4-Source\build\src\CMakeFiles\generate.stamp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">D:\_prg\VisualCpp\exiv2-0.27.5-Source\build\src\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule D:/_prg/VisualCpp/exiv2-0.27.4-Source/src/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule D:/_prg/VisualCpp/exiv2-0.27.5-Source/src/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -SD:/_prg/VisualCpp/exiv2-0.27.4-Source -BD:/_prg/VisualCpp/exiv2-0.27.4-Source/build --check-stamp-file D:/_prg/VisualCpp/exiv2-0.27.4-Source/build/src/CMakeFiles/generate.stamp
+"C:\Program Files\CMake\bin\cmake.exe" -SD:/_prg/VisualCpp/exiv2-0.27.5-Source -BD:/_prg/VisualCpp/exiv2-0.27.5-Source/build --check-stamp-file D:/_prg/VisualCpp/exiv2-0.27.5-Source/build/src/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -313,138 +313,138 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Program Files\CMake\share\cmake-3.20\Modules\BasicConfigVersion-ExactVersion.cmake.in;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakePackageConfigHelpers.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\WriteBasicConfigVersionFile.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\exportheader.cmake.in;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">D:\_prg\VisualCpp\exiv2-0.27.4-Source\build\src\CMakeFiles\generate.stamp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">D:\_prg\VisualCpp\exiv2-0.27.5-Source\build\src\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\include\exiv2\config.h" />
-    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\include\exiv2\exiv2.hpp" />
-    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\include\exiv2\rwlock.hpp" />
-    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\include\exiv2\slice.hpp" />
-    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\src\basicio.cpp" />
-    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\include\exiv2\basicio.hpp" />
-    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\src\bmpimage.cpp" />
-    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\include\exiv2\bmpimage.hpp" />
-    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\src\convert.cpp" />
-    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\include\exiv2\convert.hpp" />
-    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\src\cr2image.cpp" />
-    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\include\exiv2\cr2image.hpp" />
-    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\src\crwimage.cpp" />
-    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\include\exiv2\crwimage.hpp" />
-    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\src\datasets.cpp" />
-    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\include\exiv2\datasets.hpp" />
-    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\src\easyaccess.cpp" />
-    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\include\exiv2\easyaccess.hpp" />
-    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\src\epsimage.cpp" />
-    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\include\exiv2\epsimage.hpp" />
-    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\src\error.cpp" />
-    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\include\exiv2\error.hpp" />
-    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\src\exif.cpp" />
-    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\include\exiv2\exif.hpp" />
-    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\src\futils.cpp" />
-    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\include\exiv2\futils.hpp" />
-    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\src\gifimage.cpp" />
-    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\include\exiv2\gifimage.hpp" />
-    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\src\http.cpp" />
-    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\include\exiv2\http.hpp" />
-    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\src\image.cpp" />
-    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\include\exiv2\image.hpp" />
-    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\src\ini.cpp" />
-    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\include\exiv2\ini.hpp" />
-    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\src\iptc.cpp" />
-    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\include\exiv2\iptc.hpp" />
-    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\src\jp2image.cpp" />
-    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\include\exiv2\jp2image.hpp" />
-    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\src\jpgimage.cpp" />
-    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\include\exiv2\jpgimage.hpp" />
-    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\src\metadatum.cpp" />
-    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\include\exiv2\metadatum.hpp" />
-    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\src\mrwimage.cpp" />
-    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\include\exiv2\mrwimage.hpp" />
-    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\src\orfimage.cpp" />
-    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\include\exiv2\orfimage.hpp" />
-    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\src\pgfimage.cpp" />
-    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\include\exiv2\pgfimage.hpp" />
-    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\src\preview.cpp" />
-    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\include\exiv2\preview.hpp" />
-    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\src\properties.cpp" />
-    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\include\exiv2\properties.hpp" />
-    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\src\psdimage.cpp" />
-    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\include\exiv2\psdimage.hpp" />
-    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\src\rafimage.cpp" />
-    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\include\exiv2\rafimage.hpp" />
-    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\src\rw2image.cpp" />
-    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\include\exiv2\rw2image.hpp" />
-    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\src\tags.cpp" />
-    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\include\exiv2\tags.hpp" />
-    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\src\tgaimage.cpp" />
-    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\include\exiv2\tgaimage.hpp" />
-    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\src\tiffimage.cpp" />
-    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\include\exiv2\tiffimage.hpp" />
-    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\src\types.cpp" />
-    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\include\exiv2\types.hpp" />
-    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\src\value.cpp" />
-    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\include\exiv2\value.hpp" />
-    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\src\version.cpp" />
-    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\include\exiv2\version.hpp" />
-    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\src\webpimage.cpp" />
-    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\include\exiv2\webpimage.hpp" />
-    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\src\xmp.cpp" />
-    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\include\exiv2\xmp_exiv2.hpp" />
-    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\src\xmpsidecar.cpp" />
-    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\include\exiv2\xmpsidecar.hpp" />
-    <Object Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\build\src\exiv2lib_int.dir\$(Configuration)\canonmn_int.obj" />
-    <Object Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\build\src\exiv2lib_int.dir\$(Configuration)\casiomn_int.obj" />
-    <Object Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\build\src\exiv2lib_int.dir\$(Configuration)\cr2header_int.obj" />
-    <Object Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\build\src\exiv2lib_int.dir\$(Configuration)\crwimage_int.obj" />
-    <Object Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\build\src\exiv2lib_int.dir\$(Configuration)\fujimn_int.obj" />
-    <Object Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\build\src\exiv2lib_int.dir\$(Configuration)\helper_functions.obj" />
-    <Object Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\build\src\exiv2lib_int.dir\$(Configuration)\image_int.obj" />
-    <Object Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\build\src\exiv2lib_int.dir\$(Configuration)\makernote_int.obj" />
-    <Object Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\build\src\exiv2lib_int.dir\$(Configuration)\minoltamn_int.obj" />
-    <Object Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\build\src\exiv2lib_int.dir\$(Configuration)\nikonmn_int.obj" />
-    <Object Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\build\src\exiv2lib_int.dir\$(Configuration)\olympusmn_int.obj" />
-    <Object Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\build\src\exiv2lib_int.dir\$(Configuration)\orfimage_int.obj" />
-    <Object Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\build\src\exiv2lib_int.dir\$(Configuration)\panasonicmn_int.obj" />
-    <Object Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\build\src\exiv2lib_int.dir\$(Configuration)\pentaxmn_int.obj" />
-    <Object Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\build\src\exiv2lib_int.dir\$(Configuration)\rw2image_int.obj" />
-    <Object Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\build\src\exiv2lib_int.dir\$(Configuration)\samsungmn_int.obj" />
-    <Object Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\build\src\exiv2lib_int.dir\$(Configuration)\sigmamn_int.obj" />
-    <Object Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\build\src\exiv2lib_int.dir\$(Configuration)\sonymn_int.obj" />
-    <Object Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\build\src\exiv2lib_int.dir\$(Configuration)\tags_int.obj" />
-    <Object Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\build\src\exiv2lib_int.dir\$(Configuration)\tiffcomposite_int.obj" />
-    <Object Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\build\src\exiv2lib_int.dir\$(Configuration)\tiffimage_int.obj" />
-    <Object Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\build\src\exiv2lib_int.dir\$(Configuration)\tiffvisitor_int.obj" />
-    <Object Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\build\src\exiv2lib_int.dir\$(Configuration)\pngchunk_int.obj" />
-    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\src\pngimage.cpp" />
-    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\include\exiv2\pngimage.hpp" />
-    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\src\asfvideo.cpp" />
-    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\include\exiv2\asfvideo.hpp" />
-    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\src\matroskavideo.cpp" />
-    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\include\exiv2\matroskavideo.hpp" />
-    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\src\quicktimevideo.cpp" />
-    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\include\exiv2\quicktimevideo.hpp" />
-    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\src\riffvideo.cpp" />
-    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\include\exiv2\riffvideo.hpp" />
-    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\src\utilsvideo.cpp" />
-    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\include\exiv2\utilsvideo.hpp" />
-    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\src\bmffimage.cpp" />
-    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\include\exiv2\bmffimage.hpp" />
+    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\include\exiv2\config.h" />
+    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\include\exiv2\exiv2.hpp" />
+    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\include\exiv2\rwlock.hpp" />
+    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\include\exiv2\slice.hpp" />
+    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\src\basicio.cpp" />
+    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\include\exiv2\basicio.hpp" />
+    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\src\bmpimage.cpp" />
+    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\include\exiv2\bmpimage.hpp" />
+    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\src\convert.cpp" />
+    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\include\exiv2\convert.hpp" />
+    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\src\cr2image.cpp" />
+    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\include\exiv2\cr2image.hpp" />
+    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\src\crwimage.cpp" />
+    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\include\exiv2\crwimage.hpp" />
+    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\src\datasets.cpp" />
+    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\include\exiv2\datasets.hpp" />
+    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\src\easyaccess.cpp" />
+    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\include\exiv2\easyaccess.hpp" />
+    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\src\epsimage.cpp" />
+    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\include\exiv2\epsimage.hpp" />
+    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\src\error.cpp" />
+    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\include\exiv2\error.hpp" />
+    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\src\exif.cpp" />
+    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\include\exiv2\exif.hpp" />
+    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\src\futils.cpp" />
+    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\include\exiv2\futils.hpp" />
+    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\src\gifimage.cpp" />
+    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\include\exiv2\gifimage.hpp" />
+    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\src\http.cpp" />
+    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\include\exiv2\http.hpp" />
+    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\src\image.cpp" />
+    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\include\exiv2\image.hpp" />
+    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\src\ini.cpp" />
+    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\include\exiv2\ini.hpp" />
+    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\src\iptc.cpp" />
+    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\include\exiv2\iptc.hpp" />
+    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\src\jp2image.cpp" />
+    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\include\exiv2\jp2image.hpp" />
+    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\src\jpgimage.cpp" />
+    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\include\exiv2\jpgimage.hpp" />
+    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\src\metadatum.cpp" />
+    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\include\exiv2\metadatum.hpp" />
+    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\src\mrwimage.cpp" />
+    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\include\exiv2\mrwimage.hpp" />
+    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\src\orfimage.cpp" />
+    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\include\exiv2\orfimage.hpp" />
+    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\src\pgfimage.cpp" />
+    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\include\exiv2\pgfimage.hpp" />
+    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\src\preview.cpp" />
+    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\include\exiv2\preview.hpp" />
+    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\src\properties.cpp" />
+    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\include\exiv2\properties.hpp" />
+    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\src\psdimage.cpp" />
+    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\include\exiv2\psdimage.hpp" />
+    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\src\rafimage.cpp" />
+    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\include\exiv2\rafimage.hpp" />
+    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\src\rw2image.cpp" />
+    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\include\exiv2\rw2image.hpp" />
+    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\src\tags.cpp" />
+    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\include\exiv2\tags.hpp" />
+    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\src\tgaimage.cpp" />
+    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\include\exiv2\tgaimage.hpp" />
+    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\src\tiffimage.cpp" />
+    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\include\exiv2\tiffimage.hpp" />
+    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\src\types.cpp" />
+    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\include\exiv2\types.hpp" />
+    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\src\value.cpp" />
+    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\include\exiv2\value.hpp" />
+    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\src\version.cpp" />
+    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\include\exiv2\version.hpp" />
+    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\src\webpimage.cpp" />
+    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\include\exiv2\webpimage.hpp" />
+    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\src\xmp.cpp" />
+    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\include\exiv2\xmp_exiv2.hpp" />
+    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\src\xmpsidecar.cpp" />
+    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\include\exiv2\xmpsidecar.hpp" />
+    <Object Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\build\src\exiv2lib_int.dir\$(Configuration)\canonmn_int.obj" />
+    <Object Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\build\src\exiv2lib_int.dir\$(Configuration)\casiomn_int.obj" />
+    <Object Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\build\src\exiv2lib_int.dir\$(Configuration)\cr2header_int.obj" />
+    <Object Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\build\src\exiv2lib_int.dir\$(Configuration)\crwimage_int.obj" />
+    <Object Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\build\src\exiv2lib_int.dir\$(Configuration)\fujimn_int.obj" />
+    <Object Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\build\src\exiv2lib_int.dir\$(Configuration)\helper_functions.obj" />
+    <Object Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\build\src\exiv2lib_int.dir\$(Configuration)\image_int.obj" />
+    <Object Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\build\src\exiv2lib_int.dir\$(Configuration)\makernote_int.obj" />
+    <Object Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\build\src\exiv2lib_int.dir\$(Configuration)\minoltamn_int.obj" />
+    <Object Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\build\src\exiv2lib_int.dir\$(Configuration)\nikonmn_int.obj" />
+    <Object Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\build\src\exiv2lib_int.dir\$(Configuration)\olympusmn_int.obj" />
+    <Object Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\build\src\exiv2lib_int.dir\$(Configuration)\orfimage_int.obj" />
+    <Object Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\build\src\exiv2lib_int.dir\$(Configuration)\panasonicmn_int.obj" />
+    <Object Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\build\src\exiv2lib_int.dir\$(Configuration)\pentaxmn_int.obj" />
+    <Object Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\build\src\exiv2lib_int.dir\$(Configuration)\rw2image_int.obj" />
+    <Object Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\build\src\exiv2lib_int.dir\$(Configuration)\samsungmn_int.obj" />
+    <Object Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\build\src\exiv2lib_int.dir\$(Configuration)\sigmamn_int.obj" />
+    <Object Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\build\src\exiv2lib_int.dir\$(Configuration)\sonymn_int.obj" />
+    <Object Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\build\src\exiv2lib_int.dir\$(Configuration)\tags_int.obj" />
+    <Object Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\build\src\exiv2lib_int.dir\$(Configuration)\tiffcomposite_int.obj" />
+    <Object Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\build\src\exiv2lib_int.dir\$(Configuration)\tiffimage_int.obj" />
+    <Object Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\build\src\exiv2lib_int.dir\$(Configuration)\tiffvisitor_int.obj" />
+    <Object Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\build\src\exiv2lib_int.dir\$(Configuration)\pngchunk_int.obj" />
+    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\src\pngimage.cpp" />
+    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\include\exiv2\pngimage.hpp" />
+    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\src\asfvideo.cpp" />
+    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\include\exiv2\asfvideo.hpp" />
+    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\src\matroskavideo.cpp" />
+    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\include\exiv2\matroskavideo.hpp" />
+    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\src\quicktimevideo.cpp" />
+    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\include\exiv2\quicktimevideo.hpp" />
+    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\src\riffvideo.cpp" />
+    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\include\exiv2\riffvideo.hpp" />
+    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\src\utilsvideo.cpp" />
+    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\include\exiv2\utilsvideo.hpp" />
+    <ClCompile Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\src\bmffimage.cpp" />
+    <ClInclude Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\include\exiv2\bmffimage.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\build\ZERO_CHECK.vcxproj">
-      <Project>{9906DFBF-74E6-378A-A0EF-B673009E2095}</Project>
+    <ProjectReference Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\build\ZERO_CHECK.vcxproj">
+      <Project>{152C71E2-5ACC-3CC9-908A-4F1F2937C6B0}</Project>
       <Name>ZERO_CHECK</Name>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </ProjectReference>
-    <ProjectReference Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\build\xmpsdk\exiv2-xmp.vcxproj">
-      <Project>{4C716BFC-B13D-362A-BFA2-BBB5FC5C0BA6}</Project>
+    <ProjectReference Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\build\xmpsdk\exiv2-xmp.vcxproj">
+      <Project>{7CEBF200-EEAE-3039-A621-2CA893F37E10}</Project>
       <Name>exiv2-xmp</Name>
     </ProjectReference>
-    <ProjectReference Include="D:\_prg\VisualCpp\exiv2-0.27.4-Source\build\src\exiv2lib_int.vcxproj">
-      <Project>{E0DC6882-62F5-3347-9BF7-11D0CBAF3EF4}</Project>
+    <ProjectReference Include="D:\_prg\VisualCpp\exiv2-0.27.5-Source\build\src\exiv2lib_int.vcxproj">
+      <Project>{5F738182-0B75-3BA7-88E2-959DAFA1E9EB}</Project>
       <Name>exiv2lib_int</Name>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>

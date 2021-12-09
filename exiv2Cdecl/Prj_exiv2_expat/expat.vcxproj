@@ -1,0 +1,295 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|x64">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|x64">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{42A11BB1-6DF1-3E69-B564-0E979DB366E2}</ProjectGuid>
+    <WindowsTargetPlatformVersion>10.0.19041.0</WindowsTargetPlatformVersion>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>x64</Platform>
+    <ProjectName>expat</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\Normal\.conan\data\expat\2.4.1\_\_\build\b49a4f13d5f917b326e0b0b876c9af8b30b9bf47\build_subfolder\lib\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">expat.dir\Debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">libexpatdMD</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\Normal\.conan\data\expat\2.4.1\_\_\build\b49a4f13d5f917b326e0b0b876c9af8b30b9bf47\build_subfolder\lib\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">expat.dir\Release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">libexpatMD</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\Normal\.conan\data\expat\2.4.1\_\_\build\b49a4f13d5f917b326e0b0b876c9af8b30b9bf47\build_subfolder\lib\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">expat.dir\MinSizeRel\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">libexpatMD</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\Normal\.conan\data\expat\2.4.1\_\_\build\b49a4f13d5f917b326e0b0b876c9af8b30b9bf47\build_subfolder\lib\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">expat.dir\RelWithDebInfo\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">libexpatMD</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">.lib</TargetExt>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\Normal\.conan\data\expat\2.4.1\_\_\build\b49a4f13d5f917b326e0b0b876c9af8b30b9bf47\build_subfolder\source_subfolder;C:\Users\Normal\.conan\data\expat\2.4.1\_\_\build\b49a4f13d5f917b326e0b0b876c9af8b30b9bf47\source_subfolder\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4996</DisableSpecificWarnings>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <ProcessorNumber>4</ProcessorNumber>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;XML_STATIC;_CRT_SECURE_NO_WARNINGS;CMAKE_INTDIR="Debug";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;XML_STATIC;_CRT_SECURE_NO_WARNINGS;CMAKE_INTDIR=\"Debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\Normal\.conan\data\expat\2.4.1\_\_\build\b49a4f13d5f917b326e0b0b876c9af8b30b9bf47\build_subfolder\source_subfolder;C:\Users\Normal\.conan\data\expat\2.4.1\_\_\build\b49a4f13d5f917b326e0b0b876c9af8b30b9bf47\source_subfolder\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\Normal\.conan\data\expat\2.4.1\_\_\build\b49a4f13d5f917b326e0b0b876c9af8b30b9bf47\build_subfolder\source_subfolder;C:\Users\Normal\.conan\data\expat\2.4.1\_\_\build\b49a4f13d5f917b326e0b0b876c9af8b30b9bf47\source_subfolder\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\Normal\.conan\data\expat\2.4.1\_\_\build\b49a4f13d5f917b326e0b0b876c9af8b30b9bf47\build_subfolder\source_subfolder;C:\Users\Normal\.conan\data\expat\2.4.1\_\_\build\b49a4f13d5f917b326e0b0b876c9af8b30b9bf47\source_subfolder\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <DisableSpecificWarnings>4996</DisableSpecificWarnings>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <ProcessorNumber>4</ProcessorNumber>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;XML_STATIC;_CRT_SECURE_NO_WARNINGS;CMAKE_INTDIR="Release";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;XML_STATIC;_CRT_SECURE_NO_WARNINGS;CMAKE_INTDIR=\"Release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\Normal\.conan\data\expat\2.4.1\_\_\build\b49a4f13d5f917b326e0b0b876c9af8b30b9bf47\build_subfolder\source_subfolder;C:\Users\Normal\.conan\data\expat\2.4.1\_\_\build\b49a4f13d5f917b326e0b0b876c9af8b30b9bf47\source_subfolder\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\Normal\.conan\data\expat\2.4.1\_\_\build\b49a4f13d5f917b326e0b0b876c9af8b30b9bf47\build_subfolder\source_subfolder;C:\Users\Normal\.conan\data\expat\2.4.1\_\_\build\b49a4f13d5f917b326e0b0b876c9af8b30b9bf47\source_subfolder\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\Normal\.conan\data\expat\2.4.1\_\_\build\b49a4f13d5f917b326e0b0b876c9af8b30b9bf47\build_subfolder\source_subfolder;C:\Users\Normal\.conan\data\expat\2.4.1\_\_\build\b49a4f13d5f917b326e0b0b876c9af8b30b9bf47\source_subfolder\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <DisableSpecificWarnings>4996</DisableSpecificWarnings>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>MinSpace</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <ProcessorNumber>4</ProcessorNumber>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;XML_STATIC;_CRT_SECURE_NO_WARNINGS;CMAKE_INTDIR="MinSizeRel";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;XML_STATIC;_CRT_SECURE_NO_WARNINGS;CMAKE_INTDIR=\"MinSizeRel\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\Normal\.conan\data\expat\2.4.1\_\_\build\b49a4f13d5f917b326e0b0b876c9af8b30b9bf47\build_subfolder\source_subfolder;C:\Users\Normal\.conan\data\expat\2.4.1\_\_\build\b49a4f13d5f917b326e0b0b876c9af8b30b9bf47\source_subfolder\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\Normal\.conan\data\expat\2.4.1\_\_\build\b49a4f13d5f917b326e0b0b876c9af8b30b9bf47\build_subfolder\source_subfolder;C:\Users\Normal\.conan\data\expat\2.4.1\_\_\build\b49a4f13d5f917b326e0b0b876c9af8b30b9bf47\source_subfolder\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\Normal\.conan\data\expat\2.4.1\_\_\build\b49a4f13d5f917b326e0b0b876c9af8b30b9bf47\build_subfolder\source_subfolder;C:\Users\Normal\.conan\data\expat\2.4.1\_\_\build\b49a4f13d5f917b326e0b0b876c9af8b30b9bf47\source_subfolder\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4996</DisableSpecificWarnings>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <ProcessorNumber>4</ProcessorNumber>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;XML_STATIC;_CRT_SECURE_NO_WARNINGS;CMAKE_INTDIR="RelWithDebInfo";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;XML_STATIC;_CRT_SECURE_NO_WARNINGS;CMAKE_INTDIR=\"RelWithDebInfo\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\Normal\.conan\data\expat\2.4.1\_\_\build\b49a4f13d5f917b326e0b0b876c9af8b30b9bf47\build_subfolder\source_subfolder;C:\Users\Normal\.conan\data\expat\2.4.1\_\_\build\b49a4f13d5f917b326e0b0b876c9af8b30b9bf47\source_subfolder\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\Normal\.conan\data\expat\2.4.1\_\_\build\b49a4f13d5f917b326e0b0b876c9af8b30b9bf47\build_subfolder\source_subfolder;C:\Users\Normal\.conan\data\expat\2.4.1\_\_\build\b49a4f13d5f917b326e0b0b876c9af8b30b9bf47\source_subfolder\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\Normal\.conan\data\expat\2.4.1\_\_\build\b49a4f13d5f917b326e0b0b876c9af8b30b9bf47\source_subfolder\CMakeLists.txt">
+      <StdOutEncoding>UTF-8</StdOutEncoding>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule C:/Users/Normal/.conan/data/expat/2.4.1/_/_/build/b49a4f13d5f917b326e0b0b876c9af8b30b9bf47/source_subfolder/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/Normal/.conan/data/expat/2.4.1/_/_/build/b49a4f13d5f917b326e0b0b876c9af8b30b9bf47 -BC:/Users/Normal/.conan/data/expat/2.4.1/_/_/build/b49a4f13d5f917b326e0b0b876c9af8b30b9bf47/build_subfolder --check-stamp-file C:/Users/Normal/.conan/data/expat/2.4.1/_/_/build/b49a4f13d5f917b326e0b0b876c9af8b30b9bf47/build_subfolder/source_subfolder/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Program Files\CMake\share\cmake-3.20\Modules\BasicConfigVersion-SameMajorVersion.cmake.in;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeCheckCompilerFlagCommonPatterns.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeConfigurableFile.in;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakePackageConfigHelpers.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CPack.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CPackComponent.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CheckCCompilerFlag.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CheckCSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CheckIncludeFile.c.in;C:\Program Files\CMake\share\cmake-3.20\Modules\CheckIncludeFile.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CheckIncludeFileCXX.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CheckIncludeFiles.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CheckSymbolExists.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CheckTypeSize.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\GNUInstallDirs.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\Internal\CheckCompilerFlag.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\Internal\CheckSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\TestBigEndian.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\WriteBasicConfigVersionFile.cmake;C:\Program Files\CMake\share\cmake-3.20\Templates\CPackConfig.cmake.in;C:\Users\Normal\.conan\data\expat\2.4.1\_\_\build\b49a4f13d5f917b326e0b0b876c9af8b30b9bf47\build_subfolder\CMakeFiles\CheckIncludeFiles\STDC_HEADERS.c;C:\Users\Normal\.conan\data\expat\2.4.1\_\_\build\b49a4f13d5f917b326e0b0b876c9af8b30b9bf47\source_subfolder\Changes;C:\Users\Normal\.conan\data\expat\2.4.1\_\_\build\b49a4f13d5f917b326e0b0b876c9af8b30b9bf47\source_subfolder\ConfigureChecks.cmake;C:\Users\Normal\.conan\data\expat\2.4.1\_\_\build\b49a4f13d5f917b326e0b0b876c9af8b30b9bf47\source_subfolder\cmake\expat-config.cmake.in;C:\Users\Normal\.conan\data\expat\2.4.1\_\_\build\b49a4f13d5f917b326e0b0b876c9af8b30b9bf47\source_subfolder\expat_config.h.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\Normal\.conan\data\expat\2.4.1\_\_\build\b49a4f13d5f917b326e0b0b876c9af8b30b9bf47\build_subfolder\source_subfolder\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule C:/Users/Normal/.conan/data/expat/2.4.1/_/_/build/b49a4f13d5f917b326e0b0b876c9af8b30b9bf47/source_subfolder/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/Normal/.conan/data/expat/2.4.1/_/_/build/b49a4f13d5f917b326e0b0b876c9af8b30b9bf47 -BC:/Users/Normal/.conan/data/expat/2.4.1/_/_/build/b49a4f13d5f917b326e0b0b876c9af8b30b9bf47/build_subfolder --check-stamp-file C:/Users/Normal/.conan/data/expat/2.4.1/_/_/build/b49a4f13d5f917b326e0b0b876c9af8b30b9bf47/build_subfolder/source_subfolder/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Program Files\CMake\share\cmake-3.20\Modules\BasicConfigVersion-SameMajorVersion.cmake.in;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeCheckCompilerFlagCommonPatterns.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeConfigurableFile.in;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakePackageConfigHelpers.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CPack.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CPackComponent.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CheckCCompilerFlag.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CheckCSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CheckIncludeFile.c.in;C:\Program Files\CMake\share\cmake-3.20\Modules\CheckIncludeFile.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CheckIncludeFileCXX.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CheckIncludeFiles.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CheckSymbolExists.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CheckTypeSize.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\GNUInstallDirs.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\Internal\CheckCompilerFlag.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\Internal\CheckSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\TestBigEndian.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\WriteBasicConfigVersionFile.cmake;C:\Program Files\CMake\share\cmake-3.20\Templates\CPackConfig.cmake.in;C:\Users\Normal\.conan\data\expat\2.4.1\_\_\build\b49a4f13d5f917b326e0b0b876c9af8b30b9bf47\build_subfolder\CMakeFiles\CheckIncludeFiles\STDC_HEADERS.c;C:\Users\Normal\.conan\data\expat\2.4.1\_\_\build\b49a4f13d5f917b326e0b0b876c9af8b30b9bf47\source_subfolder\Changes;C:\Users\Normal\.conan\data\expat\2.4.1\_\_\build\b49a4f13d5f917b326e0b0b876c9af8b30b9bf47\source_subfolder\ConfigureChecks.cmake;C:\Users\Normal\.conan\data\expat\2.4.1\_\_\build\b49a4f13d5f917b326e0b0b876c9af8b30b9bf47\source_subfolder\cmake\expat-config.cmake.in;C:\Users\Normal\.conan\data\expat\2.4.1\_\_\build\b49a4f13d5f917b326e0b0b876c9af8b30b9bf47\source_subfolder\expat_config.h.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\Normal\.conan\data\expat\2.4.1\_\_\build\b49a4f13d5f917b326e0b0b876c9af8b30b9bf47\build_subfolder\source_subfolder\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule C:/Users/Normal/.conan/data/expat/2.4.1/_/_/build/b49a4f13d5f917b326e0b0b876c9af8b30b9bf47/source_subfolder/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/Normal/.conan/data/expat/2.4.1/_/_/build/b49a4f13d5f917b326e0b0b876c9af8b30b9bf47 -BC:/Users/Normal/.conan/data/expat/2.4.1/_/_/build/b49a4f13d5f917b326e0b0b876c9af8b30b9bf47/build_subfolder --check-stamp-file C:/Users/Normal/.conan/data/expat/2.4.1/_/_/build/b49a4f13d5f917b326e0b0b876c9af8b30b9bf47/build_subfolder/source_subfolder/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Program Files\CMake\share\cmake-3.20\Modules\BasicConfigVersion-SameMajorVersion.cmake.in;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeCheckCompilerFlagCommonPatterns.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeConfigurableFile.in;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakePackageConfigHelpers.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CPack.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CPackComponent.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CheckCCompilerFlag.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CheckCSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CheckIncludeFile.c.in;C:\Program Files\CMake\share\cmake-3.20\Modules\CheckIncludeFile.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CheckIncludeFileCXX.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CheckIncludeFiles.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CheckSymbolExists.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CheckTypeSize.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\GNUInstallDirs.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\Internal\CheckCompilerFlag.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\Internal\CheckSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\TestBigEndian.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\WriteBasicConfigVersionFile.cmake;C:\Program Files\CMake\share\cmake-3.20\Templates\CPackConfig.cmake.in;C:\Users\Normal\.conan\data\expat\2.4.1\_\_\build\b49a4f13d5f917b326e0b0b876c9af8b30b9bf47\build_subfolder\CMakeFiles\CheckIncludeFiles\STDC_HEADERS.c;C:\Users\Normal\.conan\data\expat\2.4.1\_\_\build\b49a4f13d5f917b326e0b0b876c9af8b30b9bf47\source_subfolder\Changes;C:\Users\Normal\.conan\data\expat\2.4.1\_\_\build\b49a4f13d5f917b326e0b0b876c9af8b30b9bf47\source_subfolder\ConfigureChecks.cmake;C:\Users\Normal\.conan\data\expat\2.4.1\_\_\build\b49a4f13d5f917b326e0b0b876c9af8b30b9bf47\source_subfolder\cmake\expat-config.cmake.in;C:\Users\Normal\.conan\data\expat\2.4.1\_\_\build\b49a4f13d5f917b326e0b0b876c9af8b30b9bf47\source_subfolder\expat_config.h.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\Normal\.conan\data\expat\2.4.1\_\_\build\b49a4f13d5f917b326e0b0b876c9af8b30b9bf47\build_subfolder\source_subfolder\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule C:/Users/Normal/.conan/data/expat/2.4.1/_/_/build/b49a4f13d5f917b326e0b0b876c9af8b30b9bf47/source_subfolder/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/Normal/.conan/data/expat/2.4.1/_/_/build/b49a4f13d5f917b326e0b0b876c9af8b30b9bf47 -BC:/Users/Normal/.conan/data/expat/2.4.1/_/_/build/b49a4f13d5f917b326e0b0b876c9af8b30b9bf47/build_subfolder --check-stamp-file C:/Users/Normal/.conan/data/expat/2.4.1/_/_/build/b49a4f13d5f917b326e0b0b876c9af8b30b9bf47/build_subfolder/source_subfolder/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Program Files\CMake\share\cmake-3.20\Modules\BasicConfigVersion-SameMajorVersion.cmake.in;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeCheckCompilerFlagCommonPatterns.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakeConfigurableFile.in;C:\Program Files\CMake\share\cmake-3.20\Modules\CMakePackageConfigHelpers.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CPack.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CPackComponent.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CheckCCompilerFlag.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CheckCSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CheckIncludeFile.c.in;C:\Program Files\CMake\share\cmake-3.20\Modules\CheckIncludeFile.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CheckIncludeFileCXX.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CheckIncludeFiles.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CheckSymbolExists.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\CheckTypeSize.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\GNUInstallDirs.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\Internal\CheckCompilerFlag.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\Internal\CheckSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\TestBigEndian.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\WriteBasicConfigVersionFile.cmake;C:\Program Files\CMake\share\cmake-3.20\Templates\CPackConfig.cmake.in;C:\Users\Normal\.conan\data\expat\2.4.1\_\_\build\b49a4f13d5f917b326e0b0b876c9af8b30b9bf47\build_subfolder\CMakeFiles\CheckIncludeFiles\STDC_HEADERS.c;C:\Users\Normal\.conan\data\expat\2.4.1\_\_\build\b49a4f13d5f917b326e0b0b876c9af8b30b9bf47\source_subfolder\Changes;C:\Users\Normal\.conan\data\expat\2.4.1\_\_\build\b49a4f13d5f917b326e0b0b876c9af8b30b9bf47\source_subfolder\ConfigureChecks.cmake;C:\Users\Normal\.conan\data\expat\2.4.1\_\_\build\b49a4f13d5f917b326e0b0b876c9af8b30b9bf47\source_subfolder\cmake\expat-config.cmake.in;C:\Users\Normal\.conan\data\expat\2.4.1\_\_\build\b49a4f13d5f917b326e0b0b876c9af8b30b9bf47\source_subfolder\expat_config.h.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\Normal\.conan\data\expat\2.4.1\_\_\build\b49a4f13d5f917b326e0b0b876c9af8b30b9bf47\build_subfolder\source_subfolder\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="C:\Users\Normal\.conan\data\expat\2.4.1\_\_\build\b49a4f13d5f917b326e0b0b876c9af8b30b9bf47\source_subfolder\lib\xmlparse.c" />
+    <ClCompile Include="C:\Users\Normal\.conan\data\expat\2.4.1\_\_\build\b49a4f13d5f917b326e0b0b876c9af8b30b9bf47\source_subfolder\lib\xmlrole.c" />
+    <ClCompile Include="C:\Users\Normal\.conan\data\expat\2.4.1\_\_\build\b49a4f13d5f917b326e0b0b876c9af8b30b9bf47\source_subfolder\lib\xmltok.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="C:\Users\Normal\.conan\data\expat\2.4.1\_\_\build\b49a4f13d5f917b326e0b0b876c9af8b30b9bf47\build_subfolder\ZERO_CHECK.vcxproj">
+      <Project>{81BDF3BB-A7F4-3AD4-80A1-E7D1002D18E9}</Project>
+      <Name>ZERO_CHECK</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

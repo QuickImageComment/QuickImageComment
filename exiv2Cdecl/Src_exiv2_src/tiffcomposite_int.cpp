@@ -427,7 +427,7 @@ namespace Exiv2 {
             return;
         }
         uint32_t size = 0;
-        for (int i = 0; i < pSize->count(); ++i) {
+        for (long i = 0; i < pSize->count(); ++i) {
             size += static_cast<uint32_t>(pSize->toLong(i));
         }
         uint32_t offset = static_cast<uint32_t>(pValue()->toLong(0));
@@ -484,7 +484,7 @@ namespace Exiv2 {
 #endif
             return;
         }
-        for (int i = 0; i < pValue()->count(); ++i) {
+        for (long i = 0; i < pValue()->count(); ++i) {
             const uint32_t offset = static_cast<uint32_t>(pValue()->toLong(i));
             const byte* pStrip = pData + baseOffset + offset;
             const uint32_t size = static_cast<uint32_t>(pSize->toLong(i));
@@ -1025,9 +1025,16 @@ namespace Exiv2 {
         if (!mn_) {
             return TiffEntryBase::doCount();
         }
+#ifndef SUPPRESS_WARNINGS
         // Count of IFD makernote in tag Exif.Photo.MakerNote is the size of the
         // Makernote in bytes
-        assert(tiffType() == ttUndefined || tiffType() == ttUnsignedByte || tiffType() == ttSignedByte);
+        if (tiffType() != ttUndefined && tiffType() != ttUnsignedByte && tiffType() != ttSignedByte) {
+            EXV_ERROR << "Makernote entry 0x" << std::setw(4)
+                      << std::setfill('0') << std::hex << tag()
+                      << " has incorrect Exif (TIFF) type " << std::dec << tiffType()
+                      << ". (Expected signed or unsigned byte.)\n";
+        }
+#endif
         return mn_->size();
     }
 
@@ -1229,7 +1236,12 @@ namespace Exiv2 {
                                                   valueIdx,
                                                   dataIdx,
                                                   imageIdx);
-            assert(len <= 4);
+#ifndef SUPPRESS_WARNINGS
+            if (len > 4) {
+                EXV_ERROR << "Unexpected length in TiffDirectory::writeDirEntry(): len == "
+                          << len << ".\n";
+            }
+#endif
             if (len < 4) {
                 memset(buf, 0x0, 4);
                 ioWrapper.write(buf, 4 - len);
@@ -1565,7 +1577,11 @@ namespace Exiv2 {
         for (Components::const_iterator i = components_.begin(); i != components_.end(); ++i) {
             if ((*i)->tag() == 0x014a) {
                 // Hack: delay writing of sub-IFD image data to get the order correct
-                assert(pSubIfd == 0);
+#ifndef SUPPRESS_WARNINGS
+                if (pSubIfd != 0) {
+                    EXV_ERROR << "Multiple sub-IFD image data tags found\n";
+                }
+#endif
                 pSubIfd = *i;
                 continue;
             }

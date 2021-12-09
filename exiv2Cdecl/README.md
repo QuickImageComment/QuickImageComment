@@ -34,50 +34,31 @@ When installing new version of Python, ensure to include pip.
        $ conan profile list  
    Note: should show msvc2019Release64, if not copy it from exiv2\cmake\msvc_conan_profiles to %USERPROFILE%\.conan\profiles
 
-       $ conan install .. --profile msvc2019Release64 --build=Expat --build=zlib --build=gtest
+       $ conan install .. --profile msvc2019Release64 --build=expat --build=zlib --build=gtest
        $ cmake         .. -G "Visual Studio 16 2019" -A x64
        $ cmake --build .  --config Release
 
    Note: --build ensures to get sources copied
+
 * new exiv2.exe and exiv2.dll are located in build\bin
 
 ## Copy sources to exiv2Cdecl and update project files
 
-Delete content of subfolders in exiv2Cdecl (to ensure that no old sources are used by mistake):
-- Src_exiv2_src
-- Src_exiv2_xmpsdk
-- Src_expat_lib
-- Src_zlib
+* To copy the sources and project files to exiv2Cdecl a batch file is available: __replace_exiv2_axpat_zlib_sources.bat__
 
-Copy:  
-From | To
------|---
-exiv2-0.xx.x-Source\include\exiv2 |Src_exiv2_src\exiv2  
-exiv2-0.xx.x-Source\src | Src_exiv2_src  
-exiv2-0.xx.x-Source\build\exv_conf.h | Src_exiv2_src  
-exiv2-0.xx.x-Source\build\exiv2lib_export.h | Src_exiv2_src  
-exiv2-0.xx.x-Source\xmpsdk\include | Src_exiv2_xmpsdk\include
-exiv2-0.xx.x-Source\xmpsdk\include\client-glue | Src_exiv2_xmpsdk\include\client-glue
-exiv2-0.xx.x-Source\xmpsdk\src | Src_exiv2_xmpsdk\src
-C:\Users\<user>\.conan\data\Expat\x.x.x\pix4d\stable\source\libexpat\expat\lib | Src_expat_lib
-C:\Users\<user>\.conan\data\zlib\x.x.x\conan\stable\source\source_subfolder | Src_zlib
+* Check the following lines in this batch file and adjust them as needed:
 
-In Source folders of exiv2Cdecl delete:
-- Src_exiv2_src\exiv2.cpp
-- files starting with dot
-- files with any extensions but:
-  h hpp c cpp incl_cpp
+       rem start of settings: paths for sources
+       set Exiv2=...
+       set Expat=...
+       set Zlib=...
+       rem end of settings
 
-Use git and check changes to see, which files are new or removed and update __Prj_exiv2Cdecl\exiv2Cdecl.vcxproj__ accordingly.
+* Execute __replace_exiv2_axpat_zlib_sources.bat__
 
-Copy following project files to exiv2Cdecl\Prj_exiv2_expat:
-* C:\Users\<user>\.conan\data\Expat\x.x.x\pix4d\stable\build\<UUID>\libexpat\expat\lib\expat_static.vcxproj
-* C:\Users\<user>\.conan\data\zlib\x.x.x\conan\stable\build\<UUID>\source_subfolder\contrib\vstudio\vc14\zlibstat.vcxproj
-* exiv2-0.xx.x-Source\build\src\exiv2lib.vcxproj
-* exiv2-0.xx.x-Source\build\src\exiv2lib_int.vcxproj
-* exiv2-0.xx.x-Source\contrib\vs2019\solution\xmpsdk\exiv2-xmp.vcxproj
+* Use git and check changes to see, which files are new or removed and update __Prj_exiv2Cdecl\exiv2Cdecl.vcxproj__ accordingly.
 
-Check for changes in project files, e.g. PreprocessorDefinitions, additional dependencies (libs) and adjust __Prj_exiv2Cdecl\exiv2Cdecl.vcxproj__ if needed.
+* Check for changes in project files copied to __Prj_exiv2_expat__, e.g. PreprocessorDefinitions, additional dependencies (libs) and adjust __Prj_exiv2Cdecl\exiv2Cdecl.vcxproj__ if needed.
 
 ## Source adjustments
 
@@ -85,7 +66,7 @@ Check for changes in project files, e.g. PreprocessorDefinitions, additional dep
 
 * exiv2getFirstXmpTagDescription:  
 Compare calls of method printProperties with definition of xmpNsInfo[] in properties.cpp.    
-All entries in xmpNsInfo[] shall be considered in printProperties.
+All schema entries in xmpNsInfo[] shall be considered in printProperties.
 
 * Update version (#define VERSION ...)
 

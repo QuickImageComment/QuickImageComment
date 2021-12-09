@@ -294,6 +294,7 @@
     <ClInclude Include="..\Src_expat_lib\ascii.h" />
     <ClInclude Include="..\Src_expat_lib\asciitab.h" />
     <ClInclude Include="..\Src_expat_lib\expat.h" />
+    <ClInclude Include="..\Src_expat_lib\expat_config.h" />
     <ClInclude Include="..\Src_expat_lib\expat_external.h" />
     <ClInclude Include="..\Src_expat_lib\iasciitab.h" />
     <ClInclude Include="..\Src_expat_lib\internal.h" />
@@ -404,7 +405,6 @@
     <ClCompile Include="..\Src_exiv2_xmpsdk\src\XMPMeta.cpp" />
     <ClCompile Include="..\Src_exiv2_xmpsdk\src\XMPUtils-FileInfo.cpp" />
     <ClCompile Include="..\Src_exiv2_xmpsdk\src\XMPUtils.cpp" />
-    <ClCompile Include="..\Src_expat_lib\loadlibrary.c" />
     <ClCompile Include="..\Src_expat_lib\xmlparse.c" />
     <ClCompile Include="..\Src_expat_lib\xmlrole.c" />
     <ClCompile Include="..\Src_expat_lib\xmltok.c" />

@@ -548,7 +548,7 @@ namespace Exiv2 {
         TagInfo(0x0007, "FirmwareVersion", N_("Firmware Version"), N_("Firmware version"), canonId, makerTags, asciiString, -1, printValue),
         TagInfo(0x0008, "FileNumber", N_("File Number"), N_("File number"), canonId, makerTags, unsignedLong, -1, print0x0008),
         TagInfo(0x0009, "OwnerName", N_("Owner Name"), N_("Owner Name"), canonId, makerTags, asciiString, -1, printValue),
-        TagInfo(0x000a, "0x000a", N_("0x000a"), N_("Unknown"), canonId, makerTags, unsignedLong, -1, print0x000c),
+        TagInfo(0x000a, "0x000a", N_("0x000a"), N_("Unknow"), canonId, makerTags, unsignedLong, -1, print0x000c),
         TagInfo(0x000c, "SerialNumber", N_("Serial Number"), N_("Camera serial number"), canonId, makerTags, unsignedLong, -1, print0x000c),
         TagInfo(0x000d, "CameraInfo", N_("Camera Info"), N_("Camera info"), canonId, makerTags, unsignedShort, -1, printValue),
         TagInfo(0x000e, "FileLength", N_("FileLength"), N_("FileLength"), canonId, makerTags, unsignedLong, -1, printValue),
@@ -589,7 +589,7 @@ namespace Exiv2 {
         TagInfo(0x00a0, "ProcessingInfo", N_("Processing Info"), N_("Processing info"), canonId, makerTags, unsignedShort, -1, printValue),
         TagInfo(0x00a1, "ToneCurveTable", N_("ToneCurveTable"), N_("ToneCurveTable"), canonId, makerTags, unsignedShort, -1, printValue), 
         TagInfo(0x00a2, "SharpnessTable", N_("SharpnessTable"), N_("SharpnessTable"), canonId, makerTags, unsignedShort, -1, printValue), 
-        TagInfo(0x00a3, "SharpnessFreqTable", N_("SharpnessFreqTable"), N_("SharpnessFreqTable"), canonId, makerTags, unsignedShort, -1, printValue), 
+        TagInfo(0x00a3, "SharpnessFreqTable", N_("SharpnessTable"), N_("SharpnessTable"), canonId, makerTags, unsignedShort, -1, printValue), 
         TagInfo(0x00a4, "WhiteBalanceTable", N_("SharpnessTable"), N_("SharpnessTable"), canonId, makerTags, unsignedShort, -1, printValue), 
         TagInfo(0x00a9, "ColorBalance", N_("ColorBalance"), N_("ColorBalance"), canonId, makerTags, unsignedShort, -1, printValue), 
         TagInfo(0x00aa, "MeasuredColor", N_("Measured Color"), N_("Measured color"), canonId, makerTags, unsignedShort, -1, printValue),
@@ -1676,7 +1676,7 @@ namespace Exiv2 {
         {   37, "Tamron AF 28-300mm f/3.5-6.3 XR Di VC LD Aspherical [IF] Macro"}, // 2
         {   37, "Tamron SP AF 17-50mm f/2.8 XR Di II VC LD Aspherical [IF]" }, // 3
         {   37, "Tamron AF 18-270mm f/3.5-6.3 Di II VC LD Aspherical [IF] Macro"}, // 4
-        {   38, "Canon EF 80-200mm f/4.5-5.6"                               },
+        {   38, "Canon EF 80-200mm f/4.5-5.6 II"                            },
         {   39, "Canon EF 75-300mm f/4-5.6"                                 },
         {   40, "Canon EF 28-80mm f/3.5-5.6"                                },
         {   41, "Canon EF 28-90mm f/4-5.6"                                  },
@@ -2761,7 +2761,7 @@ namespace Exiv2 {
                                               const ExifData*)
     {
         std::istringstream is(value.toString());
-        uint32_t l;
+        uint32_t l = 0;
         is >> l;
         return os << std::setw(4) << std::setfill('0') << std::hex
                   << ((l & 0xffff0000) >> 16)
