@@ -464,7 +464,7 @@ namespace QuickImageComment
 
             // add user defined buttons
             addUserDefinedButtions();
-            
+
             // initialize status strip
             this.toolStripStatusLabelThread.Text = "";
             this.toolStripStatusLabelFiles.Text = "";
@@ -1384,6 +1384,11 @@ namespace QuickImageComment
                 }
                 else if (theUserControlFiles.listViewFiles.SelectedItems.Count == 1)
                 {
+                    // if menu entry or button to save are activated for one image only: 
+                    // check if there are  different entries for artist or comment and set flag to get them saved and thus aligned
+                    if (theExtendedImage.getArtistDifferentEntries()) comboBoxArtistUserChanged = true;
+                    if (theExtendedImage.getCommentDifferentEntries()) textBoxUserCommentUserChanged = true;
+
                     int status = singleSaveAndStoreInLastList(theUserControlFiles.displayedIndex(), null, null);
                     if (status == 0)
                     {
@@ -1410,6 +1415,11 @@ namespace QuickImageComment
                 }
                 else if (theUserControlFiles.listViewFiles.SelectedItems.Count == 1)
                 {
+                    // if menu entry or button to save are activated for one image only: 
+                    // check if there are  different entries for artist or comment and set flag to get them saved and thus aligned
+                    if (theExtendedImage.getArtistDifferentEntries()) comboBoxArtistUserChanged = true;
+                    if (theExtendedImage.getCommentDifferentEntries()) textBoxUserCommentUserChanged = true;
+
                     int status = singleSaveAndStoreInLastList(theUserControlFiles.displayedIndex(), null, null);
                     if (status == 0)
                     {
@@ -1442,6 +1452,11 @@ namespace QuickImageComment
                 }
                 else if (theUserControlFiles.listViewFiles.SelectedItems.Count == 1)
                 {
+                    // if menu entry or button to save are activated for one image only: 
+                    // check if there are  different entries for artist or comment and set flag to get them saved and thus aligned
+                    if (theExtendedImage.getArtistDifferentEntries()) comboBoxArtistUserChanged = true;
+                    if (theExtendedImage.getCommentDifferentEntries()) textBoxUserCommentUserChanged = true;
+
                     int status = singleSaveAndStoreInLastList(theUserControlFiles.displayedIndex(), null, null);
                     if (status == 0)
                     {
@@ -1474,6 +1489,11 @@ namespace QuickImageComment
                 }
                 else if (theUserControlFiles.listViewFiles.SelectedItems.Count == 1)
                 {
+                    // if menu entry or button to save are activated for one image only: 
+                    // check if there are  different entries for artist or comment and set flag to get them saved and thus aligned
+                    if (theExtendedImage.getArtistDifferentEntries()) comboBoxArtistUserChanged = true;
+                    if (theExtendedImage.getCommentDifferentEntries()) textBoxUserCommentUserChanged = true;
+
                     int status = singleSaveAndStoreInLastList(theUserControlFiles.displayedIndex(), null, null);
                     if (status == 0)
                     {
@@ -4225,6 +4245,10 @@ namespace QuickImageComment
             disableEventHandlersRecogniseUserInput();
 
             this.Cursor = Cursors.WaitCursor;
+            pictureBox1.Visible = false;
+            dynamicLabelFileName.Visible = false;
+            dataGridViewSelectedFiles.Visible = false;
+
             // save AutoScrollPosition for next display of current image
             if (theExtendedImage != null)
             {
@@ -4473,8 +4497,11 @@ namespace QuickImageComment
             setControlsEnabledBasedOnDataChange(enableSave);
 
             GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceDisplayImage,
-            "finished" +
-            DateTime.Now.Subtract(StartTime).TotalMilliseconds.ToString("   0") + " ms");
+                "finished" +
+                DateTime.Now.Subtract(StartTime).TotalMilliseconds.ToString("   0") + " ms");
+            pictureBox1.Visible = true;
+            dynamicLabelFileName.Visible = true;
+            dataGridViewSelectedFiles.Visible = true;
             this.Cursor = Cursors.Default;
         }
 
