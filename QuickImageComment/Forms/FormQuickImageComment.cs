@@ -2060,21 +2060,21 @@ namespace QuickImageComment
             {
                 FormSettings theFormSettings = new FormSettings();
                 theFormSettings.ShowDialog();
-                listBoxPredefinedComments.set_MouseDoubleClickAction(ConfigDefinition.getPredefinedCommentMouseDoubleClickAction());
-                setNavigationTabSplitBars(ConfigDefinition.getNavigationTabSplitBars());
-                setArtistCommentLabel();
-                theUserControlChangeableFields.fillChangeableFieldPanelWithControls(theExtendedImage);
-                assignEventHandlersForChangeableFields();
-                fillCheckedListBoxChangeableFieldsChange();
-                // try to reload Customization to get settings from dynamic controls again
-                try
-                {
-                    CustomizationInterface.loadCustomizationFile(CustomizationInterface.getLastCustomizationFile());
-                    CustomizationInterface.setFormToCustomizedValues(this);
-                }
-                catch { }
                 if (theFormSettings.settingsChanged)
                 {
+                    listBoxPredefinedComments.set_MouseDoubleClickAction(ConfigDefinition.getPredefinedCommentMouseDoubleClickAction());
+                    setNavigationTabSplitBars(ConfigDefinition.getNavigationTabSplitBars());
+                    setArtistCommentLabel();
+                    theUserControlChangeableFields.fillChangeableFieldPanelWithControls(theExtendedImage);
+                    assignEventHandlersForChangeableFields();
+                    fillCheckedListBoxChangeableFieldsChange();
+                    // try to reload Customization to get settings from dynamic controls again
+                    try
+                    {
+                        CustomizationInterface.loadCustomizationFile(CustomizationInterface.getLastCustomizationFile());
+                        CustomizationInterface.setFormToCustomizedValues(this);
+                    }
+                    catch { }
                     lock (UserControlFiles.LockListViewFiles)
                     {
                         readFolderAndDisplayImage(true);
