@@ -406,7 +406,7 @@ namespace QuickImageComment
                     }
                     int x = (int)(e.X / zoomFactor + xOffset + pixelXmin);
                     int y = (int)(e.Y / zoomFactor + yOffset + pixelYmin);
-                    if (x >= 0 && x < theImage.Width && y >= 0 && y <= theImage.Height)
+                    if (x >= 0 && x < theImage.Width && y >= 0 && y < theImage.Height)
                     {
                         Color pixel = theImage.GetPixel(x, y);
                         dataGridViewMinMaxValues.Rows[rowMousepointer].Cells[colBright].Value = pixel.GetBrightness().ToString("0.000");
