@@ -95,15 +95,20 @@ namespace QuickImageComment
             this.listViewTags.EndUpdate();
             this.fillComboBoxSearch();
 
+            // mark first placeholder for edit
+            int ii = richTextBoxValue.Find("{{");
+            if (ii >= 0 && richTextBoxValue.Find("}}", ii, RichTextBoxFinds.None) > 0)
+            {
+                richTextBoxValue.Select(ii + 1, 0);
+                // simulate edit button to get controls filled
+                buttonEdit_Click(null, null);
+                setConvertedValue();
+            }
+
             // if flag set, create screenshot and return
             if (GeneralUtilities.CreateScreenshots)
             {
                 Show();
-                // mark first placeholder
-                richTextBoxValue.SelectionStart = 15;
-                // simulate edit button to get controls filled
-                buttonEdit_Click(null, null);
-                Refresh();
                 GeneralUtilities.saveScreenshot(this, this.Name);
                 Close();
                 return;
@@ -116,9 +121,6 @@ namespace QuickImageComment
             }
 
             initialisationFinished = true;
-
-            // use the event handler of richTextBoxValue to fill textBoxValueConverted
-            richTextBoxValue_TextChanged(null, null);
         }
 
         // fill the list view with tag definitions
