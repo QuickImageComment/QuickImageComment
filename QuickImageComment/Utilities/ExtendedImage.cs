@@ -167,6 +167,9 @@ namespace QuickImageComment
 
         private const string TagReplacePrefixRefToOld = "{{#Exif. {{#Iptc. {{#Xmp. {{#Define. {{#File. {{#Image. {{#Txt. {{Datum {{Uhrzeit {{Date {{Time";
 
+        // to identify "dummy" bitmaps created with text as real image cannot be loaded
+        private const string createdWithText = "createdWithText";
+
         private static object LockReadExiv2 = new object();
 
         private string ImageFileName;
@@ -278,7 +281,10 @@ namespace QuickImageComment
             //StreamOut.Dispose();
 
             System.Drawing.Bitmap TempImage = readImage(ConstructorPerformance);
-            addReplaceOtherMetaDataKnownType("File.ImageSize", TempImage.Width.ToString() + " x " + TempImage.Height.ToString());
+            if (TempImage.Tag == null || (string)TempImage.Tag != createdWithText)
+            {
+                addReplaceOtherMetaDataKnownType("File.ImageSize", TempImage.Width.ToString() + " x " + TempImage.Height.ToString());
+            }
             ConstructorPerformance.measure("FullsizeImage loaded");
 
             if (saveFullSizeImage)
@@ -312,7 +318,10 @@ namespace QuickImageComment
             if (neededKeys.Contains("File.ImageSize"))
             {
                 System.Drawing.Bitmap TempImage = readImage(ConstructorPerformance);
-                addReplaceOtherMetaDataKnownType("File.ImageSize", TempImage.Width.ToString() + " x " + TempImage.Height.ToString());
+                if (TempImage.Tag == null || (string)TempImage.Tag != createdWithText)
+                {
+                    addReplaceOtherMetaDataKnownType("File.ImageSize", TempImage.Width.ToString() + " x " + TempImage.Height.ToString());
+                }
             }
 
             setOldArtistAndComment();
@@ -417,53 +426,53 @@ namespace QuickImageComment
 #if !DEBUG
                 try
 #endif
-            {
-                string iniPath = ConfigDefinition.getIniPath();
-                string comment = "";
-                string errorText = "";
-
-                // lock because this method can be called in main thread or via updateCaches
-                lock (LockReadExiv2)
                 {
-                    status = exiv2readImageByFileName(ImageFileName, iniPath, ref comment, ref IptcUTF8, ref errorText);
-                    if (!errorText.Equals("") && !ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.HideExiv2Error))
-                    {
-                        MetaDataWarnings.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error), errorText));
-                    }
+                    string iniPath = ConfigDefinition.getIniPath();
+                    string comment = "";
+                    string errorText = "";
 
-                    // read Exif, Iptc and XMP only, if exiv2readImageByFileName did not return with exception
-                    if (status != exiv2StatusException)
+                    // lock because this method can be called in main thread or via updateCaches
+                    lock (LockReadExiv2)
                     {
-                        // get image comment
-                        addReplaceOtherMetaDataKnownType("Image.Comment", comment);
-
-                        if (neededKeys == null)
+                        status = exiv2readImageByFileName(ImageFileName, iniPath, ref comment, ref IptcUTF8, ref errorText);
+                        if (!errorText.Equals("") && !ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.HideExiv2Error))
                         {
-                            // read all Exif, IPTC and XMP data
-                            readAllExifIptcXmp();
+                            MetaDataWarnings.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error), errorText));
                         }
-                        else
+
+                        // read Exif, Iptc and XMP only, if exiv2readImageByFileName did not return with exception
+                        if (status != exiv2StatusException)
                         {
-                            // read all Exif, IPTC and XMP data
-                            readExifIptcXmpForNeededKeys(neededKeys);
+                            // get image comment
+                            addReplaceOtherMetaDataKnownType("Image.Comment", comment);
+
+                            if (neededKeys == null)
+                            {
+                                // read all Exif, IPTC and XMP data
+                                readAllExifIptcXmp();
+                            }
+                            else
+                            {
+                                // read all Exif, IPTC and XMP data
+                                readExifIptcXmpForNeededKeys(neededKeys);
+                            }
                         }
                     }
                 }
-            }
 #if !DEBUG
                 catch (Exception ex)
                 {
                     MetaDataWarnings.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error), ex.Message));
                 }
 #endif
-            ReadPerformance.measure("Meta data copied");
+                ReadPerformance.measure("Meta data copied");
 
-            XmpLangAltEntries.Sort();
-            readSpecialExifIptcInformation();
+                XmpLangAltEntries.Sort();
+                readSpecialExifIptcInformation();
 
 
-            // end of: 32-Bit version cannot read big videos; exiv2 returns exception, 
-            // so check here allowing language depending and better understandable error message
+                // end of: 32-Bit version cannot read big videos; exiv2 returns exception, 
+                // so check here allowing language depending and better understandable error message
 #if !PLATFORMTARGET_X64
             }
 #endif
@@ -1117,33 +1126,82 @@ namespace QuickImageComment
             addReplaceOtherMetaDataKnownType("Image.ArtistAccordingSettings", OldArtist);
             addReplaceOtherMetaDataKnownType("Image.CommentAccordingSettings", OldUserComment);
 
-            ArrayList tempArrayList = new ArrayList();
-            foreach (string key in ConfigDefinition.getAllTagNamesArtist())
-            {
-                string value = getMetaDataValueByKey(key, MetaDataItem.Format.Interpreted);
-                if (!value.Equals("") && !tempArrayList.Contains(value)) tempArrayList.Add(value);
-            }
-            string combinedValue = "";
-            foreach (string value in tempArrayList)
-            {
-                combinedValue += " | " + value;
-            }
-            if (combinedValue.Length > 3) combinedValue = combinedValue.Substring(3);
-            addReplaceOtherMetaDataKnownType("Image.ArtistCombinedFields", combinedValue);
+            addReplaceOtherMetaDataKnownType("Image.ArtistCombinedFields", combinedFieldValues(ConfigDefinition.getAllTagNamesArtist(), null, null));
+            addReplaceOtherMetaDataKnownType("Image.CommentCombinedFields", combinedFieldValues(ConfigDefinition.getAllTagNamesComment(), null, null));
+        }
 
-            tempArrayList = new ArrayList();
-            foreach (string key in ConfigDefinition.getAllTagNamesComment())
+        // combine fields: concatinate all values skipping duplicates
+        private string combinedFieldValues(ArrayList keyList, SortedList changedFieldsForSaveChecked, string skipValue)
+        {
+            string combinedValue = "";
+            string value;
+            ArrayList values;
+            ArrayList tempArrayList = new ArrayList();
+            bool valuesSet;
+
+            foreach (string key in keyList)
             {
-                string value = getMetaDataValueByKey(key, MetaDataItem.Format.Interpreted);
-                if (!value.Equals("") && !tempArrayList.Contains(value)) tempArrayList.Add(value);
+                values = new ArrayList();
+                valuesSet = false;
+
+                if (changedFieldsForSaveChecked != null && changedFieldsForSaveChecked.ContainsKey(key))
+                {
+                    // get values from changed fields
+                    valuesSet = true;
+
+                    if (changedFieldsForSaveChecked[key].GetType().Equals(typeof(ArrayList)))
+                    {
+                        values = (ArrayList)changedFieldsForSaveChecked[key];
+                    }
+                    else
+                    {
+                        values.Add((string)changedFieldsForSaveChecked[key]);
+                    }
+                    // do not use the values if they contain the value to be skipped (which is the placeholder spec of this combined field):
+                    // then replacing placeholder would not come to an end until reaching the fixed loop limit
+                    foreach (string entry in values)
+                    {
+                        if (entry.Contains(skipValue))
+                        {
+                            valuesSet = false;
+                            break;
+                        }
+                    }
+                }
+                if (!valuesSet)
+                {
+                    // get values from stored fields
+                    values = getMetaDataArrayListByKey(key, MetaDataItem.Format.Interpreted);
+                }
+
+                // split values and add to temporary array list
+                foreach (string entry in values)
+                {
+                    if (!entry.Equals(""))
+                    {
+                        //!! Logger.log("key=" + key + " value=" + value);
+                        string[] splitEntries = entry.Split('|');
+                        for (int ii = 0; ii < splitEntries.Length; ii++)
+                        {
+                            tempArrayList.Add(splitEntries[ii].Trim());
+                        }
+                    }
+                }
             }
-            combinedValue = "";
-            foreach (string value in tempArrayList)
+
+            while (tempArrayList.Count > 0)
             {
-                combinedValue += " | " + value;
+                value = (string)tempArrayList[0];
+                tempArrayList.RemoveAt(0);
+                if (!tempArrayList.Contains(value))
+                {
+                    combinedValue += " | " + value;
+                }
             }
+            // if lenght is greate 3, at least one value was found, remove the leading " | "
             if (combinedValue.Length > 3) combinedValue = combinedValue.Substring(3);
-            addReplaceOtherMetaDataKnownType("Image.CommentCombinedFields", combinedValue);
+
+            return combinedValue;
         }
 
         // fill array list for meta data items to be displayed in tile view
@@ -1274,6 +1332,7 @@ namespace QuickImageComment
             ImageGraphics.DrawString(ImageText, ImageFont, new System.Drawing.SolidBrush(System.Drawing.Color.DarkBlue), 0, 0);
             ImageGraphics.Flush();
 
+            TempImage.Tag = createdWithText;
             return TempImage;
         }
 
@@ -2442,6 +2501,9 @@ namespace QuickImageComment
                 remainingKeysToHandle.Add(changedFieldsForSaveChecked.GetKey(ii));
             }
 
+            addFieldsDependingOnOthersToChangedFields(changedFieldsForSaveChecked);
+
+            // replace placeholders in loop with fixed limit
             int loopCount = 5;
 
             while (loopCount > 0 && remainingKeysToHandle.Count > 0)
@@ -2478,6 +2540,90 @@ namespace QuickImageComment
                 }
                 throw new ExceptionErrorReplacePlaceholder(LangCfg.getText(LangCfg.Message.E_maxNestingLevelReplace, Message));
             }
+        }
+
+        // add fields whose values depend on others (Define. ...) to changed fields
+        private void addFieldsDependingOnOthersToChangedFields(SortedList changedFieldsForSaveChecked)
+        {
+            string key;
+            string value;
+
+            foreach (OtherMetaDataDefinition anOtherMetaDataDefinition in ConfigDefinition.getOtherMetaDataDefinitions())
+            {
+                value = anOtherMetaDataDefinition.getValue(changedFieldsForSaveChecked);
+                if (value != null)
+                {
+                    key = anOtherMetaDataDefinition.getKey();
+                    if (changedFieldsForSaveChecked.ContainsKey(key))
+                        changedFieldsForSaveChecked[key] = value;
+                    else
+                        changedFieldsForSaveChecked.Add(key, value);
+                }
+            }
+
+            key = "Image.IPTC_KeyWordsString";
+            if (changedFieldsForSaveChecked.ContainsKey("Iptc.Application2.Keywords"))
+            {
+                value = GeneralUtilities.getValuesStringOfArrayList((ArrayList)changedFieldsForSaveChecked["Iptc.Application2.Keywords"], " | ", true);
+                changedFieldsForSaveChecked.Add(key, value);
+            }
+
+            key = "Image.IPTC_SuppCategoriesString";
+            if (changedFieldsForSaveChecked.ContainsKey("Iptc.Application2.SuppCategory"))
+            {
+                value = GeneralUtilities.getValuesStringOfArrayList((ArrayList)changedFieldsForSaveChecked["Iptc.Application2.SuppCategory"], " | ", true);
+                changedFieldsForSaveChecked.Add(key, value);
+            }
+
+            key = "Image.CommentAccordingSettings";
+            value = getValueAccordingSettings(ConfigDefinition.getTagNamesComment(), changedFieldsForSaveChecked);
+            changedFieldsForSaveChecked.Add(key, value);
+
+            key = "Image.CommentCombinedFields";
+            value = combinedFieldValues(ConfigDefinition.getAllTagNamesComment(), changedFieldsForSaveChecked, "{{Image.CommentCombinedFields}}");
+            changedFieldsForSaveChecked.Add(key, value);
+
+            key = "Image.ArtistAccordingSettings";
+            value = getValueAccordingSettings(ConfigDefinition.getTagNamesArtist(), changedFieldsForSaveChecked);
+            changedFieldsForSaveChecked.Add(key, value);
+
+            key = "Image.ArtistCombinedFields";
+            value = combinedFieldValues(ConfigDefinition.getAllTagNamesArtist(), changedFieldsForSaveChecked, "{{Image.ArtistCombinedFields}}");
+            changedFieldsForSaveChecked.Add(key, value);
+
+            // Following fields are not determined as the most likely never will be uses in placeholders 
+            // and even then it is unlikely that the placeholders has to refer to the just changed value
+            // Image.GPSLatitudeDecimal
+            // Image.GPSLongitudeDecimal
+            // Image.GPSPosition
+            // Image.GPSsignedLatitude
+            // Image.GPSsignedLongitude
+        }
+
+        // get (first) value according settings for artist or comment
+        private string getValueAccordingSettings(ArrayList TagNames, SortedList changedFieldsForSaveChecked)
+        {
+            foreach (string TagName in TagNames)
+            {
+                if (changedFieldsForSaveChecked != null && changedFieldsForSaveChecked.ContainsKey(TagName))
+                {
+                    // get values from changed fields
+                    if (changedFieldsForSaveChecked[TagName].GetType().Equals(typeof(ArrayList)))
+                    {
+                        return (string)((ArrayList)changedFieldsForSaveChecked[TagName])[0];
+                    }
+                    else
+                    {
+                        return (string)changedFieldsForSaveChecked[TagName];
+                    }
+                }
+                else
+                {
+                    return getMetaDataValueByKey(TagName, MetaDataItem.Format.Interpreted);
+                }
+            }
+            // no value found
+            return null;
         }
 
         // replace all tag placeholders in values and copy the handled tags to SortedLists to write meta data

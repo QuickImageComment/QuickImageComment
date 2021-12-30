@@ -3530,10 +3530,10 @@ namespace QuickImageComment
             AllTagNamesComment.Add("Exif.Image.XPComment");
             AllTagNamesComment.Add("Exif.Image.XPTitle");
             AllTagNamesComment.Add("Exif.Photo.UserComment");
-            AllTagNamesComment.Add("Image.Comment");
             AllTagNamesComment.Add("Iptc.Application2.Caption");
             AllTagNamesComment.Add("Xmp.dc.description");
             AllTagNamesComment.Add("Xmp.dc.title");
+            AllTagNamesComment.Add("Image.Comment");
             if (!ConfigDefinition.getTxtKeyWordComment().Equals(""))
             {
                 AllTagNamesComment.Add("Txt." + ConfigDefinition.getTxtKeyWordComment());

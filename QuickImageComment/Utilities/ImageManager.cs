@@ -285,7 +285,9 @@ namespace QuickImageComment
                 {
                     // create extended image just with file name and images indicating, that file was not found
                     HashtableExtendedImages.Add(FullFileName, new ExtendedImage(FullFileName));
-                    GeneralUtilities.message(LangCfg.Message.W_fileNotFound, FullFileName);
+                    // Often this happens when a temporary file was created and short after deleted again
+                    // message is then confusing, so commented on 2021-12-20
+                    // GeneralUtilities.message(LangCfg.Message.W_fileNotFound, FullFileName);
                 }
                 else
                 {

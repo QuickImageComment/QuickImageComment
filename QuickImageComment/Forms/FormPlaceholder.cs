@@ -31,7 +31,6 @@ namespace QuickImageComment
 
         private ExtendedImage theExtendedImage;
         private FormCustomization.Interface CustomizationInterface;
-        private SortedList changedFields;
         private SortedList MetaDataFormatIndex = new SortedList();
 
         private bool definitionControlsFilledProgrammatically = false;
@@ -50,7 +49,6 @@ namespace QuickImageComment
             keyToChange = givenkeyToChange;
             theExtendedImage = MainMaskInterface.getTheExtendedImage();
             CustomizationInterface = MainMaskInterface.getCustomizationInterface();
-            changedFields = MainMaskInterface.fillAllChangedFieldsForSave();
 
             dynamicComboBoxLanguage.Items.Add("");
             dynamicComboBoxLanguage.Items.Add("x-default");
@@ -817,6 +815,10 @@ namespace QuickImageComment
         // set converted value
         private void setConvertedValue()
         {
+            SortedList changedFields;
+            // fill changedFields here as replaceAllTagPlaceholdersInLoop modifies it
+            // and can result in duplicate key error when converted value is determined again
+            changedFields = MainMaskInterface.fillAllChangedFieldsForSave();
             changedFields[keyToChange] = richTextBoxValue.Text;
             SortedList ImageChangedFieldsForCompare = new SortedList();
             SortedList TxtChangedFieldsForRun = new SortedList();

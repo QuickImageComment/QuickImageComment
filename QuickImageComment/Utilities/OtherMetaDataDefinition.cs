@@ -97,10 +97,31 @@ namespace QuickImageComment
             return Description;
         }
 
-        // return value based on this definition
+        // return value based on this definition - from read data in ExtendedImage
+        
         public string getValue(ExtendedImage theExtendedImage)
         {
             string originalValue = theExtendedImage.getMetaDataValueByKey(ReferenceKey, MetaDataItem.Format.Original);
+            return getValue(originalValue);
+        }
+
+        // return value based on this definition - from changed values
+        public string getValue(SortedList ChangedValues)
+        {
+            if (ChangedValues.ContainsKey(ReferenceKey))
+            {
+                string originalValue = (string)ChangedValues[ReferenceKey];
+                return getValue(originalValue);
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        // return value based on this definition - from given original value of reference key
+        private string getValue(string originalValue)
+        {
             string Value = "";
             foreach (SubStringDefinition aSubStringDefinition in SubstringDefinitions)
             {
