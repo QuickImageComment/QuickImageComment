@@ -65,7 +65,9 @@ namespace QuickImageComment
             // if flag set, return (is sufficient to create control texts list)
             else if (GeneralUtilities.CloseAfterConstructing)
             {
-                Close();
+                Show();
+                // do not close, will cause exception in UserControlMap with WebView2
+                //Close();
                 return;
             }
         }
