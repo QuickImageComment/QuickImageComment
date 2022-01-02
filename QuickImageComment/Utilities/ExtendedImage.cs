@@ -1068,66 +1068,53 @@ namespace QuickImageComment
         // set the values for old artist and comment from different tags
         private void setOldArtistAndComment()
         {
-            OldArtist = null;
-            OldUserComment = null;
             artistDifferentEntries = false;
             commentDifferentEntries = false;
 
-            foreach (string TagName in ConfigDefinition.getTagNamesArtist())
-            {
-                string TagValue = getMetaDataValueByKey(TagName, MetaDataItem.Format.Interpreted);
-                if (OldArtist == null)
-                {
-                    OldArtist = TagValue;
-                }
-                else if (!OldArtist.Equals(TagValue))
-                {
-                    // change value for display in warning message
-                    if (TagValue.Equals(""))
-                    {
-                        TagValue = LangCfg.getText(LangCfg.Others.empty);
-                    }
-                    MetaDataWarnings.Add(new MetaDataWarningItem(TagName, LangCfg.getText(LangCfg.Others.differentEntry) + ": " + TagValue));
-                    artistDifferentEntries = true;
-                }
-            }
+            OldArtist = valueAccordingSetting(ConfigDefinition.getTagNamesArtist(), ref artistDifferentEntries);
+            OldUserComment = valueAccordingSetting(ConfigDefinition.getTagNamesComment(), ref commentDifferentEntries);
 
-            foreach (string TagName in ConfigDefinition.getTagNamesComment())
-            {
-                string TagValue = getMetaDataValueByKey(TagName, MetaDataItem.Format.Interpreted);
-                if (OldUserComment == null)
-                {
-                    OldUserComment = TagValue;
-                }
-                else if (!OldUserComment.Equals(TagValue))
-                {
-                    // change value for display in warning message
-                    if (TagValue.Equals(""))
-                    {
-                        TagValue = LangCfg.getText(LangCfg.Others.empty);
-                    }
-                    MetaDataWarnings.Add(new MetaDataWarningItem(TagName, LangCfg.getText(LangCfg.Others.differentEntry) + ": " + TagValue));
-                    commentDifferentEntries = true;
-                }
-            }
+            addReplaceOtherMetaDataKnownType("Image.ArtistAccordingSettings", OldArtist);
+            addReplaceOtherMetaDataKnownType("Image.CommentAccordingSettings", OldUserComment);
             if (artistDifferentEntries || commentDifferentEntries)
             {
                 MetaDataWarnings.Add(new MetaDataWarningItem("", LangCfg.getText(LangCfg.Others.saveToMakeConsistent)));
             }
 
-            if (OldArtist == null)
-            {
-                OldArtist = "";
-            }
-            if (OldUserComment == null)
-            {
-                OldUserComment = "";
-            }
-            addReplaceOtherMetaDataKnownType("Image.ArtistAccordingSettings", OldArtist);
-            addReplaceOtherMetaDataKnownType("Image.CommentAccordingSettings", OldUserComment);
-
             addReplaceOtherMetaDataKnownType("Image.ArtistCombinedFields", combinedFieldValues(ConfigDefinition.getAllTagNamesArtist(), null, null));
             addReplaceOtherMetaDataKnownType("Image.CommentCombinedFields", combinedFieldValues(ConfigDefinition.getAllTagNamesComment(), null, null));
+        }
+
+        // get first non-blank value from fields according setting
+        // if logic changes, adjust also newValueAccordingSettings
+        private string valueAccordingSetting(ArrayList keyList, ref bool differentEntries)
+        {
+            string value = "";
+            foreach (string TagName in keyList)
+            {
+                string TagValue = getMetaDataValueByKey(TagName, MetaDataItem.Format.Interpreted);
+                if (!TagValue.Equals(""))
+                {
+                    value = TagValue;
+                    break;
+                }
+            }
+            foreach (string TagName in keyList)
+            {
+                string TagValue = getMetaDataValueByKey(TagName, MetaDataItem.Format.Interpreted);
+
+                if (!value.Equals(TagValue))
+                {
+                    // change value for display in warning message
+                    if (TagValue.Equals(""))
+                    {
+                        TagValue = LangCfg.getText(LangCfg.Others.empty);
+                    }
+                    MetaDataWarnings.Add(new MetaDataWarningItem(TagName, LangCfg.getText(LangCfg.Others.differentEntry) + ": " + TagValue));
+                    differentEntries = true;
+                }
+            }
+            return value;
         }
 
         // combine fields: concatinate all values skipping duplicates
@@ -2576,7 +2563,7 @@ namespace QuickImageComment
             }
 
             key = "Image.CommentAccordingSettings";
-            value = getValueAccordingSettings(ConfigDefinition.getTagNamesComment(), changedFieldsForSaveChecked);
+            value = newValueAccordingSettings(ConfigDefinition.getTagNamesComment(), changedFieldsForSaveChecked);
             changedFieldsForSaveChecked.Add(key, value);
 
             key = "Image.CommentCombinedFields";
@@ -2584,7 +2571,7 @@ namespace QuickImageComment
             changedFieldsForSaveChecked.Add(key, value);
 
             key = "Image.ArtistAccordingSettings";
-            value = getValueAccordingSettings(ConfigDefinition.getTagNamesArtist(), changedFieldsForSaveChecked);
+            value = newValueAccordingSettings(ConfigDefinition.getTagNamesArtist(), changedFieldsForSaveChecked);
             changedFieldsForSaveChecked.Add(key, value);
 
             key = "Image.ArtistCombinedFields";
@@ -2601,8 +2588,10 @@ namespace QuickImageComment
         }
 
         // get (first) value according settings for artist or comment
-        private string getValueAccordingSettings(ArrayList TagNames, SortedList changedFieldsForSaveChecked)
+        // logic changes, adjust also valueAccordingSettings
+        private string newValueAccordingSettings(ArrayList TagNames, SortedList changedFieldsForSaveChecked)
         {
+            string value = "";
             foreach (string TagName in TagNames)
             {
                 if (changedFieldsForSaveChecked != null && changedFieldsForSaveChecked.ContainsKey(TagName))
@@ -2610,20 +2599,20 @@ namespace QuickImageComment
                     // get values from changed fields
                     if (changedFieldsForSaveChecked[TagName].GetType().Equals(typeof(ArrayList)))
                     {
-                        return (string)((ArrayList)changedFieldsForSaveChecked[TagName])[0];
+                        value = (string)((ArrayList)changedFieldsForSaveChecked[TagName])[0];
                     }
                     else
                     {
-                        return (string)changedFieldsForSaveChecked[TagName];
+                        value = (string)changedFieldsForSaveChecked[TagName];
                     }
                 }
-                else
+                if (!value.Trim().Equals(""))
                 {
-                    return getMetaDataValueByKey(TagName, MetaDataItem.Format.Interpreted);
+                    return value;
                 }
             }
             // no value found
-            return null;
+            return "";
         }
 
         // replace all tag placeholders in values and copy the handled tags to SortedLists to write meta data
