@@ -72,7 +72,7 @@ namespace QuickImageCommentControls
 
         private Thread delayAfterMouseWheelThread;
         private delegate void workAfterMouseWheelCallback();
-        private delegate void redrawItemWithThumbnailCallback(string fullFileName);
+        private delegate int getIndexOfCallback(string fullFileName);
 
         // flag indicating scrolling in listViewFiles
         private bool listViewFilesScrolling = false;
@@ -283,7 +283,10 @@ namespace QuickImageCommentControls
 
                 if (displayThumbnail)
                 {
-                    lock (UserControlFiles.LockListViewFiles)
+                    // no lock: can cause freeze when there are many updates outside QuickImageComment
+                    // very low risk here to get wrong information here due to parallel updates
+                    // and it is about updating thumbnails only
+                    // lock (UserControlFiles.LockListViewFiles)
                     {
                         ExtendedImageForThumbnail = ImageManager.getExtendedImageFromCache(theListViewItem.Index);
                         // if extended image was not yet loaded, thumbnail is of size 1x1
@@ -419,29 +422,18 @@ namespace QuickImageCommentControls
         {
             if (!FormQuickImageComment.closing && (View == View.Tile || View == View.LargeIcon) && filesNeedingRedraw.Contains(fullFileName))
             {
-                // InvokeRequired compares the thread ID of the calling thread to the thread ID of the creating thread.
-                // If these threads are different, it returns true.
-                if (this.InvokeRequired)
+                filesNeedingRedraw.Remove(fullFileName);
+                // no lock: can cause freeze when there are many updates outside QuickImageComment
+                // very low risk here to get wrong information here due to parallel updates
+                // and it is about updating thumbnails only
+                // lock (UserControlFiles.LockListViewFiles)
                 {
-                    // try-catch: avoid crash when program is terminated when still logs from background processes are created
-                    try
+                    int ii = getIndexOf(fullFileName);
+                    if (ii >= 0)
                     {
-                        this.Invoke(new redrawItemWithThumbnailCallback(redrawItemWithThumbnail), new object[] { fullFileName });
-                    }
-                    catch { }
-                }
-                else
-                {
-                    filesNeedingRedraw.Remove(fullFileName);
-                    lock (UserControlFiles.LockListViewFiles)
-                    {
-                        int ii = getIndexOf(fullFileName);
-                        if (ii >= 0)
-                        {
-                            // clear thumbnails to force redraw
-                            clearThumbnails();
-                            Refresh();
-                        }
+                        // clear thumbnails to force redraw
+                        clearThumbnails();
+                        Refresh();
                     }
                 }
             }
@@ -450,8 +442,21 @@ namespace QuickImageCommentControls
         // get index of file in listViewFiles
         public int getIndexOf(string fullFileName)
         {
-            // hint: is case insensitive
-            return Items.IndexOfKey(fullFileName);
+#if DEBUG
+            // checking InvokeRequired is only needed in Debug mode, in Release it works fine without
+            // InvokeRequired compares the thread ID of the calling thread to the thread ID of the creating thread.
+            // If these threads are different, it returns true.
+            if (this.InvokeRequired)
+            {
+                getIndexOfCallback theCallback = new getIndexOfCallback(getIndexOf);
+                return (int)this.Invoke(theCallback, new object[] { fullFileName });
+            }
+            else
+#endif
+            {
+                // hint: is case insensitive
+                return Items.IndexOfKey(fullFileName);
+            }
         }
 
         // get indices of old selected files

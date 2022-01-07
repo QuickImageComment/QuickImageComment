@@ -22,6 +22,9 @@ namespace QuickImageComment
     class MainMaskInterface
     {
         private static FormQuickImageComment theFormQuickImageComment;
+        private delegate string getFullFileNameCallback(int index);
+        private delegate string getFileNameCallback(int index);
+        private delegate void redrawItemWithThumbnailCallback(string fullFileName);
 
         public static void init(FormQuickImageComment givenFormQuickImageComment)
         {
@@ -150,7 +153,7 @@ namespace QuickImageComment
             if (!FormQuickImageComment.closing)
             {
                 new System.Threading.Tasks.Task(() => { 
-                    theFormQuickImageComment.setToolStripStatusLabelBufferingThread(visible); 
+                    theFormQuickImageComment.setToolStripStatusLabelBufferingThread(visible);
                 }).Start();
             }
         }
@@ -364,7 +367,20 @@ namespace QuickImageComment
             // if main mask is not already closing
             if (!FormQuickImageComment.closing)
             {
-                theFormQuickImageComment.theUserControlFiles.listViewFiles.redrawItemWithThumbnail(fullFileName);
+                // InvokeRequired compares the thread ID of the calling thread to the thread ID of the creating thread.
+                // If these threads are different, it returns true.
+                if (theFormQuickImageComment.InvokeRequired)
+                {
+                    // no Invoke or BeginInvoke here, because application can freeze due to lock in redrawItemWithThumbnail
+                    //new System.Threading.Tasks.Task(() => { theFormQuickImageComment.theUserControlFiles.listViewFiles.redrawItemWithThumbnail(fullFileName); }).Start();
+                    redrawItemWithThumbnailCallback theCallback = new redrawItemWithThumbnailCallback(redrawItemWithThumbnail);
+                    theFormQuickImageComment.theUserControlFiles.listViewFiles.Invoke(theCallback, new object[] { fullFileName});
+
+                }
+                else
+                {
+                    theFormQuickImageComment.theUserControlFiles.listViewFiles.redrawItemWithThumbnail(fullFileName);
+                }
             }
         }
 
@@ -373,7 +389,20 @@ namespace QuickImageComment
             // if main mask is not already closing
             if (!FormQuickImageComment.closing)
             {
-                return theFormQuickImageComment.theUserControlFiles.listViewFiles.Items[index].Text;
+#if DEBUG
+                // checking InvokeRequired is only needed in Debug mode, in Release it works fine without
+                // InvokeRequired compares the thread ID of the calling thread to the thread ID of the creating thread.
+                // If these threads are different, it returns true.
+                if (theFormQuickImageComment.InvokeRequired)
+                {
+                    getFileNameCallback theCallback = new getFileNameCallback(getFileName);
+                    return (string)theFormQuickImageComment.Invoke(theCallback, new object[] { index });
+                }
+                else
+#endif
+                {
+                    return theFormQuickImageComment.theUserControlFiles.listViewFiles.Items[index].Text;
+                }
             }
             else
             {
@@ -386,7 +415,20 @@ namespace QuickImageComment
             // if main mask is not already closing
             if (!FormQuickImageComment.closing)
             {
-                return theFormQuickImageComment.theUserControlFiles.listViewFiles.Items[index].Name;
+#if DEBUG
+                // checking InvokeRequired is only needed in Debug mode, in Release it works fine without
+                // InvokeRequired compares the thread ID of the calling thread to the thread ID of the creating thread.
+                // If these threads are different, it returns true.
+                if (theFormQuickImageComment.InvokeRequired)
+                {
+                    getFullFileNameCallback theCallback = new getFullFileNameCallback(getFullFileName);
+                    return (string)theFormQuickImageComment.Invoke(theCallback, new object[] { index });
+                }
+                else
+#endif
+                {
+                    return theFormQuickImageComment.theUserControlFiles.listViewFiles.Items[index].Name;
+                }
             }
             else
             {
