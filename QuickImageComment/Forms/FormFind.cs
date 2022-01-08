@@ -187,7 +187,7 @@ namespace QuickImageComment
 
             Show();
             Refresh();
-            GeneralUtilities.saveScreenshot(this, this.Name);
+            GeneralUtilities.saveScreenshot(this, this.Name, ConfigDefinition.getConfigInt(ConfigDefinition.enumConfigInt.DelayBeforeSavingScreenshotsMap));
             Close();
             return;
         }

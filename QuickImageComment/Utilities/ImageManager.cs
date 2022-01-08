@@ -349,6 +349,19 @@ namespace QuickImageComment
             if (HashtableExtendedImages.ContainsKey(FullFileName)) HashtableExtendedImages.Remove(FullFileName);
         }
 
+        // return last modified date/time of an image in cache
+        public static string lastModifiedFromCachedImage(string fullFileName)
+        {
+            if (HashtableExtendedImages.ContainsKey(fullFileName))
+            {
+                return ((ExtendedImage)HashtableExtendedImages[fullFileName]).getMetaDataValueByKey("File.Modified", MetaDataItem.Format.Original);
+            }
+            else
+            {
+                return "";
+            }
+        }
+
         // fill list of files to be cached
         public static void fillListOfFilesToCache(int FileIndex)
         {

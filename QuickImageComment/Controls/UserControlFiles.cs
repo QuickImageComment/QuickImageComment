@@ -37,9 +37,6 @@ namespace QuickImageComment
         // is used to decide, which updates from ShellListener affect listViewFiles
         internal static bool listViewWithCompleteFolder = false;
 
-        private string lastSavedFileName = "";
-        private DateTime lastSavedFileDateTime = DateTime.Now;
-
         internal UserControlFiles()
         {
             InitializeComponent();
@@ -560,9 +557,9 @@ namespace QuickImageComment
                     if (ii >= 0)
                     {
                         // file already in listViewFiles --> update
-                        if (!fullFileName.Equals(lastSavedFileName) || !theFileInfo.LastWriteTime.Equals(lastSavedFileDateTime))
+                        if (!theFileInfo.LastWriteTime.ToString().Equals(ImageManager.lastModifiedFromCachedImage(fullFileName)))
                         {
-                            // this is not information about the last saving within this program
+                            // this is not information about a file change done by this program
                             string MessageText = theFormQuickImageComment.getChangedFields();
                             if (MessageText.Equals("") || !listViewFiles.SelectedIndices.Contains(ii))
                             {
@@ -769,15 +766,6 @@ namespace QuickImageComment
 
                 theFormQuickImageComment.toolStripStatusLabelFiles.Text = LangCfg.translate("Bilder/Videos", this.Name) + ": " + listViewFiles.Items.Count.ToString();
             }
-        }
-
-        // save name and DateTime of last saved file
-        // used to check in createOrUpdateItemListViewFiles, if ShellListener informs about just saved file
-        internal void storeNameDateTimeLastSaveDisplayedFile()
-        {
-            lastSavedFileName = theFormQuickImageComment.dynamicLabelFileName.Text;
-            FileInfo fileInfo = new FileInfo(lastSavedFileName);
-            lastSavedFileDateTime = fileInfo.LastWriteTime;
         }
 
         //*****************************************************************

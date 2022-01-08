@@ -4767,7 +4767,6 @@ namespace QuickImageComment
                         //multiSaveAndStoreInLastList returns true if data were saved.
                         //it returns false e.g. if options were not set reasonably and user stopped saving.
                         //display image only if data were saved because otherwise data entered for multi save are lost
-                        theUserControlFiles.storeNameDateTimeLastSaveDisplayedFile();
                         displayImage(theUserControlFiles.displayedIndex());
                         refreshdataGridViewSelectedFiles();
                         saveSuccessful = true;
@@ -4783,7 +4782,6 @@ namespace QuickImageComment
                 int status = singleSaveAndStoreInLastList((int)selectedIndicesToStore[0], null, null);
                 if (status == 0)
                 {
-                    theUserControlFiles.storeNameDateTimeLastSaveDisplayedFile();
                     displayImage((int)selectedIndicesToStore[0]);
                     refreshdataGridViewSelectedFiles();
                     saveSuccessful = true;
