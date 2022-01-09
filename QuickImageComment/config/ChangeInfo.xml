@@ -1,19 +1,23 @@
-﻿<Program_Version>4.46</Program_Version>
+﻿<Program_Version>4.47</Program_Version>
 <Program_Change_Info_German>
 Erweiterungen und Verbesserungen:
-Für häufig benutzte Menüeinträge können Schaltflächen definiert werden. Selbst definierte Schaltflächen werden in der Symbolleiste angezeigt, rechts von den vordefinierten. Menüeintrag: "Extras - Benutzerdefinierte Schaltflächen".
+Mit der Version für .Net 4.6.1 und höher und wenn WebView2 Runtime installiert ist: Für die Kartenanzeige kann nun auch Google-Maps oder Bing Maps verwendet werden. Hierfür werden die Links verwendet, die bisher schon für "Karte in Standard Browser" verwendet wurden. Mit diesen Links ist nur eine Anzeige möglich, die Koordinaten können nicht verändert werden.
+Neue Version 0.27.5 der Bibliothek exiv2 integriert, mit neuem Tag Exif.Photo.Gamma.
 
 Folgende Fehler wurden behoben:
-Verwendung von Platzhaltern scheiterte bei Feldern mit bestimmtem Format (z.B. für Datum) an der Eingabeprüfung. Werte mit Platzhalter werden nicht mehr geprüft.
-Programmabsturz, wenn Hauptmaske minimiert ist, während Änderungen in Maske "Ansicht anpassen" vorgenommen werden.
-Programmabsturz mit Ausnahmefehler "System.ArgumentNullException: Der Schlüssel darf nicht NULL sein. Parametername: key".
+Programmabsturz, wenn während des Entfernens von Meta-Daten das Bild von einem anderen Prozess verwendet wurde.
+Kartenansicht: Suche funktionierte nicht in der Version für .Net4, Fehlermeldung: Could not create SSL/TLS secure channel.
+Wenn die Maske "Einstellungen" mit "Abbrechen" verlassen wurde, wurden keine Werte im konfigurierbaren Eingabebereich angezeigt.
+Die Anwendung konnte in der Kachelansicht oder der Miniaturansicht einfrieren, wenn mehrere Dateien innerhalb kurzer Zeit geändert wurden.
 </Program_Change_Info_German>
 <Program_Change_Info_English>
 Enhancements and improvements:
-Buttons can be defined for frequently used menu items. Self-defined buttons are displayed in the command strip, to the right of the predefined ones. Menu entry: "Tools – User defined buttons".
+In the version for .Net 4.6.1 and higher and if WebView2 Runtime is installed: Google Maps or Bing Maps can now also be used for the map display. The links that were previously used for "Map in Standard Browser" are used for this. With these links only display is possible, the coordinates cannot be changed.
+New version 0.27.5 of exiv2 library integrated, with new tag Exif.Photo.Gamma.
 
 Following errors are corrected:
-Use of placeholders failed input validation for fields with specific format (e.g., for date). Values with placeholders are no longer checked.
-Program crash when main mask is minimized while making changes in mask "Adjust view".
-Program crash with exception "System.ArgumentNullException:  Key cannot be null. Parameter name: key
+Program crash if during meta data removal the image was used by another process.
+Map view: Search did not work in the version for .Net4, error message: Could not create SSL/TLS secure channel.
+If the mask "Settings" was exited with "Cancel", no values were displayed in the configurable input area.
+Application could freeze in views tile or thumbnails, if several files were changed within short time period.
 </Program_Change_Info_English>

@@ -24,7 +24,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Norbert Wagner")]
 [assembly: AssemblyProduct("QuickImageComment")]
-[assembly: AssemblyCopyright("Copyright © Norbert Wagner 2007-2021")]
+[assembly: AssemblyCopyright("Copyright © Norbert Wagner 2007-2022")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -43,9 +43,9 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("4.46.*")]
-[assembly: AssemblyInformationalVersion("4.46" + AssemblyInfo.VersionSuffix + AssemblyInfo.Platform + AssemblyInfo.Framework)]
-[assembly: AssemblyFileVersion("4.46.0.0")]
+[assembly: AssemblyVersion("4.47.*")]
+[assembly: AssemblyInformationalVersion("4.47" + AssemblyInfo.VersionSuffix + AssemblyInfo.Platform + AssemblyInfo.Framework)]
+[assembly: AssemblyFileVersion("4.47.0.0")]
 
 class AssemblyInfo
 {
@@ -53,7 +53,7 @@ class AssemblyInfo
     // Version to Check is the last published version
     // for beta versions it is one before AssemblyVersion
     // for released versions it is same as AssemblyVersion
-    public const string VersionToCheck = "4.46";
+    public const string VersionToCheck = "4.47";
 
 #if PLATFORMTARGET_X64
     public const string Platform = " - 64 Bit";
