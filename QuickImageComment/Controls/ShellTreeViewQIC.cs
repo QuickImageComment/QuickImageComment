@@ -547,12 +547,19 @@ namespace QuickImageCommentControls
                 //Logger.log("ItemUpdated Start " + e.Item.ParsingName);
                 if (e.Item.IsFileSystem && !e.Item.IsFolder)
                 {
+#if !DEBUG
                     // start in separate thread so that lock is working
+                    // only in Release, in Debug creating a thread here will lead to 
+                    // System.InvalidOperationException: 'Cross-thread operation not valid: Control 'listViewFiles' accessed from a thread other than the thread it was created on.'
+                    // Due to this, in Debug it is accepted not to have the security of lock
                     new System.Threading.Tasks.Task(() =>
                     {
+#endif
                         MainMaskInterface.createOrUpdateItemListViewFiles(e.Item.FileSystemPath);
                         FormFind.addOrUpdateRow(e.Item.FileSystemPath);
+#if !DEBUG
                     }).Start();
+#endif
                 }
             }
         }
