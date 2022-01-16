@@ -896,7 +896,7 @@
       <Version>1.0.1083-prerelease</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools">
-      <Version>10.0.22504-preview</Version>
+      <Version>10.0.22000.196</Version>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>13.0.1</Version>
