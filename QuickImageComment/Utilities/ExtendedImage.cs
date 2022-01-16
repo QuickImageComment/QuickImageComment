@@ -199,6 +199,7 @@ namespace QuickImageComment
         private float TxtContrast = 0;
         private string OldArtist = "";
         private string OldUserComment = "";
+        private string imageSize = "";
         private bool artistDifferentEntries = false;
         private bool commentDifferentEntries = false;
         private int FramePosition;
@@ -258,6 +259,12 @@ namespace QuickImageComment
             AutoScrollPosition.X = 1;
             AutoScrollPosition.Y = 1;
 
+            System.Drawing.Bitmap TempImage = readImage(ConstructorPerformance);
+            if (TempImage.Tag == null || (string)TempImage.Tag != createdWithText)
+            {
+                imageSize = TempImage.Width.ToString() + " x " + TempImage.Height.ToString();
+            }
+
             readMetaData(ConstructorPerformance, null);
             DateTime CurrentTime = DateTime.Now;
             readTxtFile();
@@ -280,11 +287,6 @@ namespace QuickImageComment
             //StreamOut.Close();
             //StreamOut.Dispose();
 
-            System.Drawing.Bitmap TempImage = readImage(ConstructorPerformance);
-            if (TempImage.Tag == null || (string)TempImage.Tag != createdWithText)
-            {
-                addReplaceOtherMetaDataKnownType("File.ImageSize", TempImage.Width.ToString() + " x " + TempImage.Height.ToString());
-            }
             ConstructorPerformance.measure("FullsizeImage loaded");
 
             if (saveFullSizeImage)
@@ -311,18 +313,18 @@ namespace QuickImageComment
         {
             this.ImageFileName = ImageFileName;
 
-            readMetaData(ConstructorPerformance, neededKeys);
-            DateTime CurrentTime = DateTime.Now;
-            readTxtFile();
-
             if (neededKeys.Contains("File.ImageSize"))
             {
                 System.Drawing.Bitmap TempImage = readImage(ConstructorPerformance);
                 if (TempImage.Tag == null || (string)TempImage.Tag != createdWithText)
                 {
-                    addReplaceOtherMetaDataKnownType("File.ImageSize", TempImage.Width.ToString() + " x " + TempImage.Height.ToString());
+                    imageSize = TempImage.Width.ToString() + " x " + TempImage.Height.ToString();
                 }
             }
+
+            readMetaData(ConstructorPerformance, neededKeys);
+            DateTime CurrentTime = DateTime.Now;
+            readTxtFile();
 
             setOldArtistAndComment();
         }
@@ -485,6 +487,10 @@ namespace QuickImageComment
             addReplaceOtherMetaDataKnownType("File.Size", FileSize.ToString("#,### KB"));
             addReplaceOtherMetaDataKnownType("File.Modified", theFileInfo.LastWriteTime.ToString());
             addReplaceOtherMetaDataKnownType("File.Created", theFileInfo.CreationTime.ToString());
+            if (!imageSize.Equals(""))
+            {
+                addReplaceOtherMetaDataKnownType("File.ImageSize", imageSize);
+            }
 
             // add other meta data defined by general config file
             foreach (OtherMetaDataDefinition anOtherMetaDataDefinition in ConfigDefinition.getOtherMetaDataDefinitions())
@@ -2563,7 +2569,7 @@ namespace QuickImageComment
             }
 
             key = "Image.CommentAccordingSettings";
-            value = newValueAccordingSettings(ConfigDefinition.getTagNamesComment(), changedFieldsForSaveChecked);
+            value = newValueAccordingSettings(key, ConfigDefinition.getTagNamesComment(), changedFieldsForSaveChecked);
             changedFieldsForSaveChecked.Add(key, value);
 
             key = "Image.CommentCombinedFields";
@@ -2571,7 +2577,7 @@ namespace QuickImageComment
             changedFieldsForSaveChecked.Add(key, value);
 
             key = "Image.ArtistAccordingSettings";
-            value = newValueAccordingSettings(ConfigDefinition.getTagNamesArtist(), changedFieldsForSaveChecked);
+            value = newValueAccordingSettings(key, ConfigDefinition.getTagNamesArtist(), changedFieldsForSaveChecked);
             changedFieldsForSaveChecked.Add(key, value);
 
             key = "Image.ArtistCombinedFields";
@@ -2589,7 +2595,7 @@ namespace QuickImageComment
 
         // get (first) value according settings for artist or comment
         // logic changes, adjust also valueAccordingSettings
-        private string newValueAccordingSettings(ArrayList TagNames, SortedList changedFieldsForSaveChecked)
+        private string newValueAccordingSettings(string key, ArrayList TagNames, SortedList changedFieldsForSaveChecked)
         {
             string value = "";
             foreach (string TagName in TagNames)
@@ -2611,8 +2617,8 @@ namespace QuickImageComment
                     return value;
                 }
             }
-            // no value found
-            return "";
+            // no value found, return saved value
+            return getMetaDataValueByKey(key, MetaDataItem.Format.Interpreted);
         }
 
         // replace all tag placeholders in values and copy the handled tags to SortedLists to write meta data
@@ -2827,7 +2833,11 @@ namespace QuickImageComment
                         //definition.
                         else if (key.Equals("Exif.Photo.UserComment"))
                         {
-                            if (ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.CharsetExifPhotoUserComment).Equals("Unicode"))
+                            if (((string)ImageChangedFields[key]).Trim().Equals(""))
+                            {
+                                exiv2addUtf8ItemToBuffer(key, "", exiv2WriteOptionDefault);
+                            }
+                            else if (ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.CharsetExifPhotoUserComment).Equals("Unicode"))
                             {
                                 // charset Unicode needs to be written with UTF8
                                 exiv2addUtf8ItemToBuffer(key, "charset=Unicode " + (string)ImageChangedFields[key], exiv2WriteOptionDefault);
