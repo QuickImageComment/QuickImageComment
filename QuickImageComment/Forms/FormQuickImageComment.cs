@@ -5562,7 +5562,10 @@ namespace QuickImageComment
         public void refreshImageGrid()
         {
             this.Cursor = Cursors.WaitCursor;
-            pictureBox1.Image = theExtendedImage.createAndGetAdjustedImage(toolStripMenuItemImageWithGrid.Checked);
+            if (theExtendedImage != null)
+            {
+                pictureBox1.Image = theExtendedImage.createAndGetAdjustedImage(toolStripMenuItemImageWithGrid.Checked);
+            }
 
             foreach (ListViewItem listViewItem in theUserControlFiles.listViewFiles.SelectedItems)
             {

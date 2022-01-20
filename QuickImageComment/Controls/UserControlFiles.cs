@@ -218,14 +218,17 @@ namespace QuickImageComment
         // event handler when item is double clicked
         private void listViewFiles_DoubleClick(object sender, EventArgs e)
         {
-            string fileName = theFormQuickImageComment.theExtendedImage.getImageFileName();
-            if (System.IO.File.Exists(fileName))
+            if (theFormQuickImageComment.theExtendedImage != null)
             {
-                System.Diagnostics.Process.Start(fileName);
-            }
-            else
-            {
-                GeneralUtilities.message(LangCfg.Message.W_fileNotFound, fileName);
+                string fileName = theFormQuickImageComment.theExtendedImage.getImageFileName();
+                if (System.IO.File.Exists(fileName))
+                {
+                    System.Diagnostics.Process.Start(fileName);
+                }
+                else
+                {
+                    GeneralUtilities.message(LangCfg.Message.W_fileNotFound, fileName);
+                }
             }
         }
 

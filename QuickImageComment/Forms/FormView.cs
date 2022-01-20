@@ -706,10 +706,13 @@ namespace QuickImageComment
             ShowContent.Add(LangCfg.getText(LangCfg.PanelContent.Properties));
 
             allowSaveSettingsAndAdjustView = false;
+            // set default
+            dynamicComboBoxCentralInputArea.Text = LangCfg.getText(LangCfg.PanelContent.ArtistComment);
             foreach (string key in DefaultPanelContents.GetKeyList())
             {
                 ConfigControlsComboBoxes[key].Text = LangCfg.getText((LangCfg.PanelContent)DefaultPanelContents[key]);
             }
+            // adjust specific
             for (int ii = 0; ii < ConfigControlsCheckBoxes.Count; ii++)
             {
                 if (ShowContent.Contains(ConfigControlsComboBoxes.Values[ii].Text))
@@ -735,10 +738,13 @@ namespace QuickImageComment
             ShowContent.Add(LangCfg.getText(LangCfg.PanelContent.ImageDetails));
 
             allowSaveSettingsAndAdjustView = false;
+            // set default
+            dynamicComboBoxCentralInputArea.Text = LangCfg.getText(LangCfg.PanelContent.ArtistComment);
             foreach (string key in DefaultPanelContents.GetKeyList())
             {
                 ConfigControlsComboBoxes[key].Text = LangCfg.getText((LangCfg.PanelContent)DefaultPanelContents[key]);
             }
+            // adjust specific
             ConfigControlsComboBoxes["splitContainer122.Panel1"].Text = LangCfg.getText(LangCfg.PanelContent.ImageDetails);
             for (int ii = 0; ii < ConfigControlsCheckBoxes.Count; ii++)
             {
@@ -765,10 +771,13 @@ namespace QuickImageComment
             ShowContent.Add(LangCfg.getText(LangCfg.PanelContent.Map));
 
             allowSaveSettingsAndAdjustView = false;
+            // set default
+            dynamicComboBoxCentralInputArea.Text = LangCfg.getText(LangCfg.PanelContent.ArtistComment);
             foreach (string key in DefaultPanelContents.GetKeyList())
             {
                 ConfigControlsComboBoxes[key].Text = LangCfg.getText((LangCfg.PanelContent)DefaultPanelContents[key]);
             }
+            // adjust specific
             ConfigControlsComboBoxes["splitContainer122.Panel1"].Text = LangCfg.getText(LangCfg.PanelContent.Map);
             for (int ii = 0; ii < ConfigControlsCheckBoxes.Count; ii++)
             {

@@ -152,7 +152,8 @@ namespace QuickImageComment
             // if main mask is not already closing
             if (!FormQuickImageComment.closing)
             {
-                new System.Threading.Tasks.Task(() => { 
+                new System.Threading.Tasks.Task(() =>
+                {
                     theFormQuickImageComment.setToolStripStatusLabelBufferingThread(visible);
                 }).Start();
             }
@@ -371,11 +372,8 @@ namespace QuickImageComment
                 // If these threads are different, it returns true.
                 if (theFormQuickImageComment.InvokeRequired)
                 {
-                    // no Invoke or BeginInvoke here, because application can freeze due to lock in redrawItemWithThumbnail
-                    //new System.Threading.Tasks.Task(() => { theFormQuickImageComment.theUserControlFiles.listViewFiles.redrawItemWithThumbnail(fullFileName); }).Start();
                     redrawItemWithThumbnailCallback theCallback = new redrawItemWithThumbnailCallback(redrawItemWithThumbnail);
-                    theFormQuickImageComment.theUserControlFiles.listViewFiles.Invoke(theCallback, new object[] { fullFileName});
-
+                    theFormQuickImageComment.theUserControlFiles.listViewFiles.Invoke(theCallback, new object[] { fullFileName });
                 }
                 else
                 {
