@@ -4621,12 +4621,15 @@ namespace QuickImageComment
                 }
 
                 int nameStart = urlString.LastIndexOf('/') + 1;
-                string fileName = System.Environment.GetEnvironmentVariable("USERPROFILE") + System.IO.Path.DirectorySeparatorChar
-                    + "Downloads" + System.IO.Path.DirectorySeparatorChar + urlString.Substring(nameStart);
+                string[] fileNames = new string[] {
+                    System.Environment.GetEnvironmentVariable("USERPROFILE") + System.IO.Path.DirectorySeparatorChar
+                    + "Downloads" + System.IO.Path.DirectorySeparatorChar + urlString.Substring(nameStart) };
 
-                theWebClient.DownloadFile(urlString, fileName);
+                theWebClient.DownloadFile(urlString, fileNames[0]);
                 selectFileFolderCallback theSelectFileFolderCallback = new selectFileFolderCallback(selectFolderFile);
-                this.Invoke(theSelectFileFolderCallback, new object[] { fileName });
+                //string[] fileNames = new string[] { fileName };
+                //fileNames[0] = fileName;
+                this.Invoke(theSelectFileFolderCallback, new object[] { fileNames });
             }
             catch (Exception)
             {
