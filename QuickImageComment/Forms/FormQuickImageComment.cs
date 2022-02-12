@@ -67,6 +67,9 @@ namespace QuickImageComment
         // to avoid moving the splitter just due to rounding
         public static int SplitterRatioScale = 1000;
 
+        // background color for non-default selections in multi edit tab
+        public static System.Drawing.Color nonDefaultBackColor = System.Drawing.Color.Gold;
+
         public UserControlImageDetails theUserControlImageDetails;
         public UserControlMap theUserControlMap = null;
         internal UserControlChangeableFields theUserControlChangeableFields;
@@ -146,6 +149,8 @@ namespace QuickImageComment
             ToolStripMenuItemWebPageDownload.Visible = !GeneralUtilities.MicrosoftStore;
             // Microsoft Store updates automatically
             toolStripMenuItemCheckForNewVersion.Visible = !GeneralUtilities.MicrosoftStore;
+
+            checkedListBoxChangeableFieldsChange.CheckedColor = nonDefaultBackColor;
 
             Program.StartupPerformance.measure("FormQIC constructor finish");
         }
@@ -1268,6 +1273,39 @@ namespace QuickImageComment
         private void textBoxLastCommentsFilter_TextChanged(object sender, EventArgs e)
         {
             fillListBoxLastUserComments(textBoxLastCommentsFilter.Text);
+        }
+
+        // event handler triggered when check box artist is changed in multi edit tab
+        private void checkBoxArtistChange_CheckedChanged(object sender, EventArgs e)
+        {
+            setMultiEditSelectionBackground((Control)sender, checkBoxArtistChange.Checked);
+        }
+
+        // event handler triggered when combo box comment is changed in multi edit tab
+        private void comboBoxCommentChange_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            setMultiEditSelectionBackground((Control)sender, comboBoxCommentChange.SelectedIndex != 0);
+        }
+
+        // event handler triggered when combo box key words is changed in multi edit tab
+        private void comboBoxKeyWordsChange_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            setMultiEditSelectionBackground((Control)sender, comboBoxKeyWordsChange.SelectedIndex != 0);
+        }
+
+        // event handler triggered when check box GPS data is changed in multi edit tab
+        private void checkBoxGpsDataChange_CheckedChanged(object sender, EventArgs e)
+        {
+            setMultiEditSelectionBackground((Control)sender, checkBoxGpsDataChange.Checked);
+        }
+
+        // general method to change background color if value in multi edit selection is not default
+        private void setMultiEditSelectionBackground(Control control, bool isNotDefault)
+        {
+            if (isNotDefault)
+                control.BackColor = nonDefaultBackColor;
+            else
+                control.BackColor = Control.DefaultBackColor;
         }
 
         // event handler for changing split ratio of splitContainer1

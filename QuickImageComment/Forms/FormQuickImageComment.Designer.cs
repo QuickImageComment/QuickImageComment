@@ -84,7 +84,7 @@ namespace QuickImageComment
             this.dataGridViewSelectedFiles = new System.Windows.Forms.DataGridView();
             this.contextMenuStripMetaData = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.contextMenuStripMetaDataMenuItemAdjust = new System.Windows.Forms.ToolStripMenuItem();
-            this.checkedListBoxChangeableFieldsChange = new System.Windows.Forms.CheckedListBox();
+            this.checkedListBoxChangeableFieldsChange = new QuickImageCommentControls.CheckedListBoxItemBackcolor();
             this.comboBoxKeyWordsChange = new System.Windows.Forms.ComboBox();
             this.comboBoxCommentChange = new System.Windows.Forms.ComboBox();
             this.checkBoxArtistChange = new System.Windows.Forms.CheckBox();
@@ -194,6 +194,7 @@ namespace QuickImageComment
             this.toolStripMenuItemCustomizeForm = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemRemoveAllMaskCustomizations = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemUserButtons = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator16 = new System.Windows.Forms.ToolStripSeparator();
             this.ToolStripMenuItemLanguage = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItemUserConfigStorage = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemMaintenance = new System.Windows.Forms.ToolStripMenuItem();
@@ -248,7 +249,6 @@ namespace QuickImageComment
             this.toolStripButtonPredefinedKeyWords = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator14 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButtonFind = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator16 = new System.Windows.Forms.ToolStripSeparator();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer12)).BeginInit();
             this.splitContainer12.Panel1.SuspendLayout();
             this.splitContainer12.Panel2.SuspendLayout();
@@ -737,6 +737,7 @@ namespace QuickImageComment
             this.checkBoxGpsDataChange.TabIndex = 5;
             this.checkBoxGpsDataChange.Text = "GPS-Daten ändern";
             this.checkBoxGpsDataChange.UseVisualStyleBackColor = true;
+            this.checkBoxGpsDataChange.CheckedChanged += new System.EventHandler(this.checkBoxGpsDataChange_CheckedChanged);
             // 
             // dataGridViewSelectedFiles
             // 
@@ -786,6 +787,7 @@ namespace QuickImageComment
             // comboBoxKeyWordsChange
             // 
             this.comboBoxKeyWordsChange.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxKeyWordsChange.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.comboBoxKeyWordsChange.FormattingEnabled = true;
             this.comboBoxKeyWordsChange.Items.AddRange(new object[] {
             "Vorhandene Schlüsselworte nicht ändern",
@@ -795,10 +797,12 @@ namespace QuickImageComment
             this.comboBoxKeyWordsChange.Name = "comboBoxKeyWordsChange";
             this.comboBoxKeyWordsChange.Size = new System.Drawing.Size(250, 21);
             this.comboBoxKeyWordsChange.TabIndex = 2;
+            this.comboBoxKeyWordsChange.SelectedIndexChanged += new System.EventHandler(this.comboBoxKeyWordsChange_SelectedIndexChanged);
             // 
             // comboBoxCommentChange
             // 
             this.comboBoxCommentChange.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxCommentChange.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.comboBoxCommentChange.FormattingEnabled = true;
             this.comboBoxCommentChange.Items.AddRange(new object[] {
             "Vorhandenen Kommentar nicht ändern",
@@ -809,6 +813,7 @@ namespace QuickImageComment
             this.comboBoxCommentChange.Name = "comboBoxCommentChange";
             this.comboBoxCommentChange.Size = new System.Drawing.Size(250, 21);
             this.comboBoxCommentChange.TabIndex = 1;
+            this.comboBoxCommentChange.SelectedIndexChanged += new System.EventHandler(this.comboBoxCommentChange_SelectedIndexChanged);
             // 
             // checkBoxArtistChange
             // 
@@ -820,6 +825,7 @@ namespace QuickImageComment
             this.checkBoxArtistChange.TabIndex = 0;
             this.checkBoxArtistChange.Text = "Künstler (Autor) ändern";
             this.checkBoxArtistChange.UseVisualStyleBackColor = true;
+            this.checkBoxArtistChange.CheckedChanged += new System.EventHandler(this.checkBoxArtistChange_CheckedChanged);
             // 
             // panelUsercomment
             // 
@@ -1772,6 +1778,11 @@ namespace QuickImageComment
             this.toolStripMenuItemUserButtons.Text = "Benutzerdefinierte Schaltflächen";
             this.toolStripMenuItemUserButtons.Click += new System.EventHandler(this.toolStripMenuItemUserButtons_Click);
             // 
+            // toolStripSeparator16
+            // 
+            this.toolStripSeparator16.Name = "toolStripSeparator16";
+            this.toolStripSeparator16.Size = new System.Drawing.Size(288, 6);
+            // 
             // ToolStripMenuItemLanguage
             // 
             this.ToolStripMenuItemLanguage.Name = "ToolStripMenuItemLanguage";
@@ -2309,11 +2320,6 @@ namespace QuickImageComment
             this.toolStripButtonFind.ToolTipText = "Suche über Eigenschaften";
             this.toolStripButtonFind.Click += new System.EventHandler(this.toolStripMenuItemFind_Click);
             // 
-            // toolStripSeparator16
-            // 
-            this.toolStripSeparator16.Name = "toolStripSeparator16";
-            this.toolStripSeparator16.Size = new System.Drawing.Size(288, 6);
-            // 
             // FormQuickImageComment
             // 
             this.AllowDrop = true;
@@ -2454,7 +2460,7 @@ namespace QuickImageComment
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemFields;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemPredefinedComments;
         private System.Windows.Forms.ComboBox comboBoxCommentChange;
-        private System.Windows.Forms.CheckedListBox checkedListBoxChangeableFieldsChange;
+        private QuickImageCommentControls.CheckedListBoxItemBackcolor checkedListBoxChangeableFieldsChange;
         private System.Windows.Forms.ComboBox comboBoxKeyWordsChange;
         private System.Windows.Forms.TabPage tabPageOther;
         private QuickImageCommentControls.DataGridViewMetaData DataGridViewOtherMetaData;

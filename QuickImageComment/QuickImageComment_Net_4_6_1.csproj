@@ -112,6 +112,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppCenterSecureID.cs" />
+    <Compile Include="Controls\CheckedListBoxItemBackcolor.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Forms\FormChangesInVersion.cs">
       <SubType>Form</SubType>
     </Compile>
