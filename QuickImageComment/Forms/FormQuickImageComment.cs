@@ -4439,6 +4439,10 @@ namespace QuickImageComment
                                 }
                             }
                         }
+                        else
+                        {
+                            dynamicComboBoxArtist.Text = "";
+                        }
                     }
 
                     if (!textBoxUserCommentUserChanged)
