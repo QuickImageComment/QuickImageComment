@@ -4428,7 +4428,8 @@ namespace QuickImageComment
                         {
                             dynamicComboBoxArtist.Text = theExtendedImage.getArtist();
                             // no artist defined: set default and show label to indicate this
-                            if (dynamicComboBoxArtist.Text.Trim().Equals("") && ConfigDefinition.getUseDefaultArtist())
+                            if (dynamicComboBoxArtist.Text.Trim().Equals("") && ConfigDefinition.getUseDefaultArtist()
+                                && !theExtendedImage.getIsReadOnly() && !theExtendedImage.getNoAccess())
                             {
                                 dynamicComboBoxArtist.Text = ConfigDefinition.getDefaultArtist();
                                 enableSave = true;
