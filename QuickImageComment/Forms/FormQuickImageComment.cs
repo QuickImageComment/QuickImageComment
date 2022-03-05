@@ -158,7 +158,7 @@ namespace QuickImageComment
         public void init(string DisplayFolder, ArrayList DisplayFiles)
         {
             Program.StartupPerformance.measure("FormQIC init start");
-            if (DisplayFolder.Equals("") || !File.Exists(DisplayFolder))
+            if (DisplayFolder.Equals("") || !Directory.Exists(DisplayFolder))
                 // DisplayFolder is blank in case there is no common root folder for files given on command line
                 FolderName = GongSolutions.Shell.ShellItem.Desktop.FileSystemPath;
             else
@@ -5136,12 +5136,9 @@ namespace QuickImageComment
                     if (GivenKeyWordsArrayList.Count == 0)
                     {
                         // add empty String to ensure that tag is passed to exiv2 for deletion
-                        changeableFieldsForSave.Add("Iptc.Application2.Keywords", "");
+                        GivenKeyWordsArrayList.Add("");
                     }
-                    else
-                    {
-                        changeableFieldsForSave.Add("Iptc.Application2.Keywords", GivenKeyWordsArrayList);
-                    }
+                    changeableFieldsForSave.Add("Iptc.Application2.Keywords", GivenKeyWordsArrayList);
                 }
                 else if (comboBoxKeyWordsChange.SelectedIndex == (int)enumComboBoxKeyWordChange.add)
                 {
@@ -5328,12 +5325,9 @@ namespace QuickImageComment
                 if (KeyWordsArrayList.Count == 0)
                 {
                     // add empty String to ensure that tag is passed to exiv2 for deletion
-                    changedFieldsForSave.Add("Iptc.Application2.Keywords", "");
+                    KeyWordsArrayList.Add("");
                 }
-                else
-                {
-                    changedFieldsForSave.Add("Iptc.Application2.Keywords", theUserControlKeyWords.getKeyWordsArrayList());
-                }
+                changedFieldsForSave.Add("Iptc.Application2.Keywords", KeyWordsArrayList);
             }
 
             // copy values from changeable fields

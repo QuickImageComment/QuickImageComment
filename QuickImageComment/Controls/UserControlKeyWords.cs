@@ -55,14 +55,17 @@ namespace QuickImageComment
 
             foreach (string keyWord in KeyWords)
             {
-                int indexKeyWord = checkedListBoxPredefKeyWords.Items.IndexOf(keyWord);
-                if (indexKeyWord > -1)
+                if (keyWord.Length > 0)
                 {
-                    checkedListBoxPredefKeyWords.SetItemChecked(indexKeyWord, true);
-                }
-                else
-                {
-                    textBoxFreeInputKeyWords.Text = textBoxFreeInputKeyWords.Text + keyWord + "\r\n";
+                    int indexKeyWord = checkedListBoxPredefKeyWords.Items.IndexOf(keyWord);
+                    if (indexKeyWord > -1)
+                    {
+                        checkedListBoxPredefKeyWords.SetItemChecked(indexKeyWord, true);
+                    }
+                    else
+                    {
+                        textBoxFreeInputKeyWords.Text = textBoxFreeInputKeyWords.Text + keyWord + "\r\n";
+                    }
                 }
             }
         }
