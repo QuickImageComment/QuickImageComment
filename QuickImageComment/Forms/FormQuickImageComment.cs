@@ -158,7 +158,7 @@ namespace QuickImageComment
         public void init(string DisplayFolder, ArrayList DisplayFiles)
         {
             Program.StartupPerformance.measure("FormQIC init start");
-            if (DisplayFolder.Equals(""))
+            if (DisplayFolder.Equals("") || !File.Exists(DisplayFolder))
                 // DisplayFolder is blank in case there is no common root folder for files given on command line
                 FolderName = GongSolutions.Shell.ShellItem.Desktop.FileSystemPath;
             else
