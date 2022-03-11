@@ -249,6 +249,7 @@ namespace QuickImageComment
             this.toolStripButtonPredefinedKeyWords = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator14 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButtonFind = new System.Windows.Forms.ToolStripButton();
+            this.toolStripMenuItemTutorials = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer12)).BeginInit();
             this.splitContainer12.Panel1.SuspendLayout();
             this.splitContainer12.Panel2.SuspendLayout();
@@ -776,6 +777,7 @@ namespace QuickImageComment
             // 
             this.checkedListBoxChangeableFieldsChange.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
+            this.checkedListBoxChangeableFieldsChange.CheckedColor = System.Drawing.Color.LightGreen;
             this.checkedListBoxChangeableFieldsChange.CheckOnClick = true;
             this.checkedListBoxChangeableFieldsChange.Font = new System.Drawing.Font("Tahoma", 8.25F);
             this.checkedListBoxChangeableFieldsChange.FormattingEnabled = true;
@@ -1861,6 +1863,7 @@ namespace QuickImageComment
             this.toolStripMenuItemChangesInVersion,
             this.ToolStripMenuItemWebPage,
             this.toolStripMenuItemGitHub,
+            this.toolStripMenuItemTutorials,
             this.toolStripMenuItemHelp2,
             this.toolStripMenuItemDataPrivacy});
             this.toolStripMenuItemHelp.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -2320,6 +2323,13 @@ namespace QuickImageComment
             this.toolStripButtonFind.ToolTipText = "Suche über Eigenschaften";
             this.toolStripButtonFind.Click += new System.EventHandler(this.toolStripMenuItemFind_Click);
             // 
+            // toolStripMenuItemTutorials
+            // 
+            this.toolStripMenuItemTutorials.Name = "toolStripMenuItemTutorials";
+            this.toolStripMenuItemTutorials.Size = new System.Drawing.Size(240, 22);
+            this.toolStripMenuItemTutorials.Text = "Tutorials auf YouTube";
+            this.toolStripMenuItemTutorials.Click += new System.EventHandler(this.toolStripMenuItemTutorials_Click);
+            // 
             // FormQuickImageComment
             // 
             this.AllowDrop = true;
@@ -2610,5 +2620,6 @@ namespace QuickImageComment
         internal System.Windows.Forms.ToolStripMenuItem toolStripMenuItemSortSize;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemUserButtons;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator16;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemTutorials;
     }
 }

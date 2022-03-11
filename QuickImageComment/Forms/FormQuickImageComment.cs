@@ -3104,6 +3104,12 @@ namespace QuickImageComment
             System.Diagnostics.Process.Start("https://github.com/QuickImageComment/QuickImageComment");
         }
 
+        // open YouTube channel tutorials
+        private void toolStripMenuItemTutorials_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://www.youtube.com/channel/UCrTOh1TBYB2e_4rANDnN6BA");
+        }
+
         // show help
         private void toolStripMenuItemHelp2_Click(object sender, EventArgs e)
         {

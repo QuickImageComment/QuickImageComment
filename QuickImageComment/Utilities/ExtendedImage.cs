@@ -200,6 +200,7 @@ namespace QuickImageComment
         private string OldArtist = "";
         private string OldUserComment = "";
         private string imageSize = "";
+        private string codecInfo = "";
         private bool artistDifferentEntries = false;
         private bool commentDifferentEntries = false;
         private int FramePosition;
@@ -490,6 +491,10 @@ namespace QuickImageComment
             if (!imageSize.Equals(""))
             {
                 addReplaceOtherMetaDataKnownType("File.ImageSize", imageSize);
+            }
+            if (!codecInfo.Equals(""))
+            {
+                addReplaceOtherMetaDataKnownType("Image.CodecInfo", codecInfo);
             }
 
             // add other meta data defined by general config file
@@ -2116,7 +2121,6 @@ namespace QuickImageComment
         // convert BitmapSource to Bitmap
         private System.Drawing.Bitmap convertMemoryStreamToBitmap(System.IO.MemoryStream theMemoryStream, Performance ReadPerformance)
         {
-            string codecInfo;
             ReadPerformance.measure("RAW start");
             BitmapDecoder bmpDec = BitmapDecoder.Create(theMemoryStream, BitmapCreateOptions.DelayCreation, BitmapCacheOption.None);
             codecInfo = bmpDec.CodecInfo.FriendlyName + " " + bmpDec.CodecInfo.Version + " ";
@@ -2136,7 +2140,6 @@ namespace QuickImageComment
 
             Bitmap bmp = (System.Drawing.Bitmap)System.Drawing.Bitmap.FromStream(memoryStream, true, false);
             ReadPerformance.measure("RAW finish encoder");
-            addReplaceOtherMetaDataKnownType("Image.CodecInfo", codecInfo);
             return bmp;
 
             //// old solution with copy pixels
