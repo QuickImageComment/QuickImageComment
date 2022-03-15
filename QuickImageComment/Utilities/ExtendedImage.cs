@@ -260,12 +260,6 @@ namespace QuickImageComment
             AutoScrollPosition.X = 1;
             AutoScrollPosition.Y = 1;
 
-            System.Drawing.Bitmap TempImage = readImage(ConstructorPerformance);
-            if (TempImage.Tag == null || (string)TempImage.Tag != createdWithText)
-            {
-                imageSize = TempImage.Width.ToString() + " x " + TempImage.Height.ToString();
-            }
-
             readMetaData(ConstructorPerformance, null);
             DateTime CurrentTime = DateTime.Now;
             readTxtFile();
@@ -287,6 +281,13 @@ namespace QuickImageComment
             //}
             //StreamOut.Close();
             //StreamOut.Dispose();
+
+            System.Drawing.Bitmap TempImage = readImage(ConstructorPerformance);
+            if (TempImage.Tag == null || (string)TempImage.Tag != createdWithText)
+            {
+                imageSize = TempImage.Width.ToString() + " x " + TempImage.Height.ToString();
+            }
+            addMetaDataFromBitMap();
 
             ConstructorPerformance.measure("FullsizeImage loaded");
 
@@ -314,18 +315,25 @@ namespace QuickImageComment
         {
             this.ImageFileName = ImageFileName;
 
-            if (neededKeys.Contains("File.ImageSize"))
+            readMetaData(ConstructorPerformance, neededKeys);
+            DateTime CurrentTime = DateTime.Now;
+            readTxtFile();
+
+            bool tagFromBitmapNeeded = false;
+            foreach (string tag in ConfigDefinition.TagsFromBitmap)
+            {
+                if (neededKeys.Contains(tag)) tagFromBitmapNeeded = true;
+
+            }
+            if (tagFromBitmapNeeded)
             {
                 System.Drawing.Bitmap TempImage = readImage(ConstructorPerformance);
                 if (TempImage.Tag == null || (string)TempImage.Tag != createdWithText)
                 {
                     imageSize = TempImage.Width.ToString() + " x " + TempImage.Height.ToString();
                 }
+                addMetaDataFromBitMap();
             }
-
-            readMetaData(ConstructorPerformance, neededKeys);
-            DateTime CurrentTime = DateTime.Now;
-            readTxtFile();
 
             setOldArtistAndComment();
         }
@@ -488,6 +496,19 @@ namespace QuickImageComment
             addReplaceOtherMetaDataKnownType("File.Size", FileSize.ToString("#,### KB"));
             addReplaceOtherMetaDataKnownType("File.Modified", theFileInfo.LastWriteTime.ToString());
             addReplaceOtherMetaDataKnownType("File.Created", theFileInfo.CreationTime.ToString());
+
+            // add other meta data defined by general config file
+            foreach (OtherMetaDataDefinition anOtherMetaDataDefinition in ConfigDefinition.getOtherMetaDataDefinitions())
+            {
+                addOtherMetaDataReadonly(anOtherMetaDataDefinition.getKey(), anOtherMetaDataDefinition.getValue(this));
+            }
+            ReadPerformance.measure("readMetaData finish");
+        }
+
+        // add meta data which are derived when getting BitMap of image
+        // when changing this method, ConfigDefinition.TagsFromBitmap needs to be changed as well
+        private void addMetaDataFromBitMap()
+        {
             if (!imageSize.Equals(""))
             {
                 addReplaceOtherMetaDataKnownType("File.ImageSize", imageSize);
@@ -496,13 +517,6 @@ namespace QuickImageComment
             {
                 addReplaceOtherMetaDataKnownType("Image.CodecInfo", codecInfo);
             }
-
-            // add other meta data defined by general config file
-            foreach (OtherMetaDataDefinition anOtherMetaDataDefinition in ConfigDefinition.getOtherMetaDataDefinitions())
-            {
-                addOtherMetaDataReadonly(anOtherMetaDataDefinition.getKey(), anOtherMetaDataDefinition.getValue(this));
-            }
-            ReadPerformance.measure("readMetaData finish");
         }
 
         // read all Exif, IPTC and XMP data
@@ -2938,6 +2952,7 @@ namespace QuickImageComment
             // then are not added again in case only text file was written
             readMetaData(SavePerformance, null);
             readTxtFile();
+            addMetaDataFromBitMap();
 
             SavePerformance.measure("Meta data read");
             setOldArtistAndComment();
@@ -3256,6 +3271,7 @@ namespace QuickImageComment
                     }
                     readMetaData(SavePerformance, null);
                     readTxtFile();
+                    addMetaDataFromBitMap();
                     setOldArtistAndComment();
                     fillTileViewMetaDataItems();
                     // update data table for find

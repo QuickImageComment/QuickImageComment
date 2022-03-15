@@ -278,15 +278,17 @@ namespace QuickImageComment
             {
                 this.StartPosition = FormStartPosition.Manual;
             }
-            // special problem with Windows XP: after first showing input box for language during first start, 
+            // after first showing input box for language during first start, 
             // top and left are so high, that mask is not shown. So check top and left.
-            if (this.Top > Screen.FromControl(this).WorkingArea.Height - this.Height)
+            if (this.Top > Screen.FromControl(this).WorkingArea.Height - this.Height/2)
             {
-                this.Top = 10;
+                // keep some space in case task bar is on top
+                this.Top = 60;
             }
-            if (this.Left > Screen.FromControl(this).WorkingArea.Width - this.Width)
+            if (this.Left > Screen.FromControl(this).WorkingArea.Width - this.Width/2)
             {
-                this.Left = 10;
+                // keep some space in case task bar is on the left hand side
+                this.Left = 120;
             }
             //Program.StartupPerformance.measure("FormQIC size position set");
 

@@ -148,6 +148,11 @@ namespace QuickImageComment
             TagDefinitionList = new SortedList<string, TagDefinition>();
             ExifEasyTagIndexList = new SortedList<string, int>();
             getListOfTagsFromExiv2();
+        }
+
+        internal static void fillUnchangeableLists()
+        { 
+            getTagsFromConfiguration();
 
             // fill list of unchangeable types
             foreach (TagDefinition aTagDefinition in TagDefinitionList.Values)

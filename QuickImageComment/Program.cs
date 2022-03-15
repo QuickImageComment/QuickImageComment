@@ -205,7 +205,7 @@ namespace QuickImageComment
             getGeneralConfiguration();
             getTags();
 #endif
-            Exiv2TagDefinitions.getTagsFromConfiguration();
+            Exiv2TagDefinitions.fillUnchangeableLists();
             StartupPerformance.measure("Program after getTags from configuration");
 
             // read user config file after getting all tags, as tags are needed to init meta data groups with type
