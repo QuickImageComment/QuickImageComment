@@ -1245,6 +1245,15 @@ namespace QuickImageComment
                         }
                         else
                         {
+                            // check for tags which should normally not be changed; exceptions those with defined input check
+                            if (Exiv2TagDefinitions.ChangeableWarningTags.Contains(key) && ConfigDefinition.getInputCheckConfig(key) == null)
+                            {
+                                if (GeneralUtilities.questionMessage(LangCfg.Message.Q_changeDataOfThisTypeNotUseful, key) == DialogResult.No)
+                                {
+                                    continue;
+                                }
+                            }
+
                             // check if tag is already entered in changeable fields
                             bool inList = false;
                             int ii = 1;
@@ -1260,11 +1269,6 @@ namespace QuickImageComment
                             }
                             if (!inList)
                             {
-                                // check for tags which should normally not be changed; exceptions those with defined input check
-                                if (Exiv2TagDefinitions.ChangeableWarningTags.Contains(key) && ConfigDefinition.getInputCheckConfig(key) == null)
-                                {
-                                    GeneralUtilities.message(LangCfg.Message.W_changeDataOfThisTypeNotUseful, key);
-                                }
                                 MetaDataDefinitionItem theMetaDataDefinitionItem;
                                 theMetaDataDefinitionItem = new MetaDataDefinitionItem(key, key, getFormatForTagChange(key));
                                 MetaDataDefinitionsWork.Add(theMetaDataDefinitionItem);
@@ -1298,6 +1302,13 @@ namespace QuickImageComment
                     // consider that changes here may be usefull in input check in FormMetaDataDefinition as well
                     foreach (string key in TagsToAdd)
                     {
+                        if (ConfigDefinition.TagsFromBitmap.Contains(key))
+                        {
+                            if (GeneralUtilities.questionMessage(LangCfg.Message.Q_tagRequiresReadBitmap, key) == DialogResult.No)
+                            {
+                                continue;
+                            }
+                        }
                         // check if tag is already entered in fields for find
                         bool inList = false;
                         int ii = 1;

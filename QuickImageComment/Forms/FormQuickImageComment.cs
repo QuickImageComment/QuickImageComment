@@ -2428,6 +2428,11 @@ namespace QuickImageComment
                     if (!theFormRemoveMetaData.abort)
                     {
                         theFormRemoveMetaData.ShowDialog();
+                        if (theFormRemoveMetaData.tagsRemoved)
+                        {
+                            displayImage(theUserControlFiles.displayedIndex());
+                            refreshdataGridViewSelectedFiles();
+                        }
                     }
                 }
             }

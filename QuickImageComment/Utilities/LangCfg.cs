@@ -173,7 +173,10 @@ namespace QuickImageComment
             I_entryDeletionMissingMenuEntry,
             I_menEntryDisabled,
             I_noUserButtonChilds,
-            I_CoreWebView2NotInitialised
+            I_CoreWebView2NotInitialised,
+            Q_tagRequiresReadBitmap,
+            W_tagRequiresReadBitmap,
+            Q_changeDataOfThisTypeNotUseful
         }
 
         public enum Others

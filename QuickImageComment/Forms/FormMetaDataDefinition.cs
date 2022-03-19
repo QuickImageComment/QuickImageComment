@@ -602,6 +602,14 @@ namespace QuickImageComment
                 {
                     dynamicComboBoxMetaDataFormat1.SelectedIndex = (int)MetaDataFormatIndex1[MetaDataItem.Format.Original];
                 }
+                // warning only if tag is changed manually
+                if (fieldDefinitionChangedActive)
+                {
+                    if (ConfigDefinition.TagsFromBitmap.Contains(textBoxMetaDatum1.Text))
+                    {
+                        GeneralUtilities.message(LangCfg.Message.W_tagRequiresReadBitmap, textBoxMetaDatum1.Text);
+                    }
+                }
             }
             // when tags are edited manually, the name may not be valid
             else if (theTagDefinition != null)
