@@ -4153,8 +4153,12 @@ namespace QuickImageComment
                     {
                         theUserControlFiles.listViewFiles.Items.AddRange(ImageManager.getTheListViewItems());
                         readFolderPerfomance.measure("after read folder add ranges");
-                        ImageManager.fillListOfFilesToCache(0);
-                        ImageManager.startThreadToUpdateCaches();
+                        if (theUserControlFiles.listViewFiles.Items.Count > 1)
+                        {
+                            // initiate caching starting with second image; first image is loaded anyhow a few rows below
+                            ImageManager.fillListOfFilesToCache(1);
+                            ImageManager.startThreadToUpdateCaches();
+                        }
 
                         if (theUserControlFiles.listViewFiles.Items.Count > 0)
                         {
