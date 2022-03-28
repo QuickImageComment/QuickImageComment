@@ -348,8 +348,15 @@ namespace QuickImageComment
         // https://stackoverflow.com/questions/786119/editbox-portion-of-combobox-gets-selected-automatically
         public static void comboBox_Resize_Unselect(object sender, EventArgs e)
         {
-            ComboBox comboBox = (ComboBox)sender;
-            if (!comboBox.Focused) comboBox.SelectionLength = 0;
+            // this handler unselects text in combobox when combobox is resized
+            // it happened to crash during startup, so try-catch is added without action in catch
+            // in worst case it may happen to have something selected after resize, which should not be
+            try
+            {
+                ComboBox comboBox = (ComboBox)sender;
+                if (!comboBox.Focused) comboBox.SelectionLength = 0;
+            }
+            catch { }
         }
 
         // return text-file name associated to Image-file
