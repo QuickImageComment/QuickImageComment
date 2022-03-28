@@ -437,53 +437,53 @@ namespace QuickImageComment
 #if !DEBUG
                 try
 #endif
+            {
+                string iniPath = ConfigDefinition.getIniPath();
+                string comment = "";
+                string errorText = "";
+
+                // lock because this method can be called in main thread or via updateCaches
+                lock (LockReadExiv2)
                 {
-                    string iniPath = ConfigDefinition.getIniPath();
-                    string comment = "";
-                    string errorText = "";
-
-                    // lock because this method can be called in main thread or via updateCaches
-                    lock (LockReadExiv2)
+                    status = exiv2readImageByFileName(ImageFileName, iniPath, ref comment, ref IptcUTF8, ref errorText);
+                    if (!errorText.Equals("") && !ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.HideExiv2Error))
                     {
-                        status = exiv2readImageByFileName(ImageFileName, iniPath, ref comment, ref IptcUTF8, ref errorText);
-                        if (!errorText.Equals("") && !ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.HideExiv2Error))
+                        MetaDataWarnings.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error), errorText));
+                    }
+
+                    // read Exif, Iptc and XMP only, if exiv2readImageByFileName did not return with exception
+                    if (status != exiv2StatusException)
+                    {
+                        // get image comment
+                        addReplaceOtherMetaDataKnownType("Image.Comment", comment);
+
+                        if (neededKeys == null)
                         {
-                            MetaDataWarnings.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error), errorText));
+                            // read all Exif, IPTC and XMP data
+                            readAllExifIptcXmp();
                         }
-
-                        // read Exif, Iptc and XMP only, if exiv2readImageByFileName did not return with exception
-                        if (status != exiv2StatusException)
+                        else
                         {
-                            // get image comment
-                            addReplaceOtherMetaDataKnownType("Image.Comment", comment);
-
-                            if (neededKeys == null)
-                            {
-                                // read all Exif, IPTC and XMP data
-                                readAllExifIptcXmp();
-                            }
-                            else
-                            {
-                                // read all Exif, IPTC and XMP data
-                                readExifIptcXmpForNeededKeys(neededKeys);
-                            }
+                            // read all Exif, IPTC and XMP data
+                            readExifIptcXmpForNeededKeys(neededKeys);
                         }
                     }
                 }
+            }
 #if !DEBUG
                 catch (Exception ex)
                 {
                     MetaDataWarnings.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error), ex.Message));
                 }
 #endif
-                ReadPerformance.measure("Meta data copied");
+            ReadPerformance.measure("Meta data copied");
 
-                XmpLangAltEntries.Sort();
-                readSpecialExifIptcInformation();
+            XmpLangAltEntries.Sort();
+            readSpecialExifIptcInformation();
 
 
-                // end of: 32-Bit version cannot read big videos; exiv2 returns exception, 
-                // so check here allowing language depending and better understandable error message
+            // end of: 32-Bit version cannot read big videos; exiv2 returns exception, 
+            // so check here allowing language depending and better understandable error message
 #if !PLATFORMTARGET_X64
             }
 #endif
@@ -1286,6 +1286,7 @@ namespace QuickImageComment
                         System.IO.MemoryStream theMemoryStream = new System.IO.MemoryStream(buffer);
                         if (ConfigDefinition.SystemDrawingImageExtensions.Contains((System.IO.Path.GetExtension(ImageFileName)).ToLower()))
                         {
+                            // for SystemDrawingImageExtensions this is by far much faster than the way needed for other extensions
                             TempImage = (System.Drawing.Bitmap)System.Drawing.Bitmap.FromStream(theMemoryStream, true, false);
                         }
                         else
@@ -2136,14 +2137,16 @@ namespace QuickImageComment
         private System.Drawing.Bitmap convertMemoryStreamToBitmap(System.IO.MemoryStream theMemoryStream, Performance ReadPerformance)
         {
             ReadPerformance.measure("RAW start");
-            BitmapDecoder bmpDec = BitmapDecoder.Create(theMemoryStream, BitmapCreateOptions.DelayCreation, BitmapCacheOption.None);
+
+            // BitmapCacheOption.OnLoad is necessary to avoid exception when reading e.g. Samsung S21 ultra DNG files
+            BitmapDecoder bmpDec = BitmapDecoder.Create(theMemoryStream, BitmapCreateOptions.DelayCreation, BitmapCacheOption.OnLoad);
+
             codecInfo = bmpDec.CodecInfo.FriendlyName + " " + bmpDec.CodecInfo.Version + " ";
             BitmapSource theBitmapSource = bmpDec.Frames[0];
 
             // get bitmap using encoder
             BitmapFrame bmf = BitmapFrame.Create(theBitmapSource, null, null, null);
-            // JpegBitmapEncoder is fastest BitmapEncoder, BmpBitmapEncoder is near to it but hopefully with better quality
-            // at least memorystrem from bmp is bigger than from jpeg
+            // JpegBitmapEncoder is fastest BitmapEncoder, BmpBitmapEncoder is near to 
             // other BitmapEncoder are significantly slower
             JpegBitmapEncoder encoder = new JpegBitmapEncoder();
 
