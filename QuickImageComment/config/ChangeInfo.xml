@@ -1,23 +1,33 @@
-﻿<Program_Version>4.47</Program_Version>
+﻿<Program_Version>4.48</Program_Version>
 <Program_Change_Info_German>
 Erweiterungen und Verbesserungen:
-Mit der Version für .Net 4.6.1 und höher und wenn WebView2 Runtime installiert ist: Für die Kartenanzeige kann nun auch Google-Maps oder Bing Maps verwendet werden. Hierfür werden die Links verwendet, die bisher schon für "Karte in Standard Browser" verwendet wurden. Mit diesen Links ist nur eine Anzeige möglich, die Koordinaten können nicht verändert werden.
-Neue Version 0.27.5 der Bibliothek exiv2 integriert, mit neuem Tag Exif.Photo.Gamma.
+Unter Windows 10 mit Microsoft Raw Image Extension: DNG-Bilder von einigen Samsung-Modellen können jetzt angezeigt werden.
 
 Folgende Fehler wurden behoben:
-Programmabsturz, wenn während des Entfernens von Meta-Daten das Bild von einem anderen Prozess verwendet wurde.
-Kartenansicht: Suche funktionierte nicht in der Version für .Net4, Fehlermeldung: Could not create SSL/TLS secure channel.
-Wenn die Maske "Einstellungen" mit "Abbrechen" verlassen wurde, wurden keine Werte im konfigurierbaren Eingabebereich angezeigt.
-Die Anwendung konnte in der Kachelansicht oder der Miniaturansicht einfrieren, wenn mehrere Dateien innerhalb kurzer Zeit geändert wurden.
+Die Eigenschaften File.ImageSize und Image.CodecInfo waren nach dem Speichern leer.
+Das Öffnen einer Datei über Menü "Datei – Öffnen" und Eingabe einer URL funktionierte nicht.
+Programmabsturz, wenn in der Kommandozeile nicht vorhandene Datei oder Ordner angegeben waren.
+Es war nicht möglich, alle IPTC Schlüsselworte zu löschen, sondern nur alle bis auf eines.
+Programmabsturz mit Ausnahmefehler "GeneralUtilities.comboBox_Resize_Unselect (Object sender, EventArgs e) System.ArgumentOutOfRangeException: InvalidArgument=El valor de '-1544604736' no es válido para 'start'. Nombre del parámetro: start". Gemeldet über AppCenter
+
+Hinweise:
+Für die Anzeige von RAW-Bildern muss ggfs. ein Codec des Kameraherstellers installiert werden. Als Alternative kann die Microsoft Raw Image Extension installiert werden, die verschiedene RAW-Formate unterstützt. Mit dem Codec des Kameraherstellers könnte die Anzeige aber schneller sein. Man kann einen spezifischen Codec und die Microsoft Extension installieren. Der spezifische Codec wird dann für die entsprechenden Bilder verwendet, für alle anderen die Microsoft Extension.
+
+Um den Einstieg in QuickImageComment zu erleichtern, gibt es jetzt Tutorials auf YouTube. Für den Zugriff gibt es einen neuen Eintrag im Hilfe-Menü. Derzeit decken fünf Videos die Grundlagen ab, weitere sollen folgen. 
 </Program_Change_Info_German>
 <Program_Change_Info_English>
 Enhancements and improvements:
-In the version for .Net 4.6.1 and higher and if WebView2 Runtime is installed: Google Maps or Bing Maps can now also be used for the map display. The links that were previously used for "Map in Standard Browser" are used for this. With these links only display is possible, the coordinates cannot be changed.
-New version 0.27.5 of exiv2 library integrated, with new tag Exif.Photo.Gamma.
+Under Windows 10 with Microsoft Raw Image Extension: DNG images from some Samsung models can now be displayed.
 
 Following errors are corrected:
-Program crash if during meta data removal the image was used by another process.
-Map view: Search did not work in the version for .Net4, error message: Could not create SSL/TLS secure channel.
-If the mask "Settings" was exited with "Cancel", no values were displayed in the configurable input area.
-Application could freeze in views tile or thumbnails, if several files were changed within short time period.
+The properties File.ImageSize and Image.CodecInfo were empty after saving.
+Opening a file via menu "File - Open" and entering a URL did not work.
+Program crash when file or folder not present in the command line was specified.
+It was not possible to delete all IPTC keywords, but only all but one.
+Program crash with exception " GeneralUtilities.comboBox_Resize_Unselect (Object sender, EventArgs e) System.ArgumentOutOfRangeException: InvalidArgument=El valor de '-1544604736' no es válido para 'start'. Nombre del parámetro: start". Reported via AppCenter.
+
+Hints:
+To display RAW images, a codec from the camera manufacturer may need to be installed. As an alternative, the Microsoft Raw Image Extension can be installed, which supports various RAW formats. However, with the camera manufacturer's codec, the display could be faster. One can install a specific codec and the Microsoft Extension. The specific codec is then used for the corresponding images, for all others the Microsoft Extension.
+
+To make it easier to get started with QuickImageComment, there are now tutorials on YouTube. To access them, there is a new entry in the Help menu. Currently five videos cover the basics, more are to follow. 
 </Program_Change_Info_English>

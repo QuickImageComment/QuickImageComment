@@ -29,9 +29,11 @@ For reading and changing the EXIF, IPTC, and XMP properties the library exiv2 is
 * Images: http://dev.exiv2.org/projects/exiv2/wiki/Supported_image_formats
 * Videos: http://dev.exiv2.org/projects/exiv2/wiki/Supported_video_formats
 
-To display RAW images, a codec from the camera manufacturer may have to be installed.
+To display RAW images, a codec from the camera manufacturer may need to be installed. As an alternative, the Microsoft Raw Image Extension can be installed, which supports various RAW formats. However, with the camera manufacturer's codec, the display could be faster. One can install a specific codec and the Microsoft Extension. The specific codec is then used for the corresponding images, for all others the Microsoft Extension.
 
-The program runs on Microsoft Windows XP, Vista, Windows 7, 8 and 10. For Windows 7, 8  and 10 a 64-Bit-version is available. German and English can be selected as language.
+The program runs under Microsoft Windows 7, 8 and 10 (Windows 11 not yet tested) and is available as 32-bit and 64-bit variant. German or English can be selected as the language.
+
+QuickImageComment is free software; you can use it under the terms of the GNU General Public License as published by the Free Software Foundation.
 
 On www.quickimagecomment.de you find further information and can download zip-files with the excecutable packages.
 
