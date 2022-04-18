@@ -477,6 +477,7 @@ namespace QuickImageComment
                     {
                         // not enough memory: stop work
                         GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceCaching, "Cache Extended break: memory limitation");
+                        updateCachesRunning = false;
                         break;
                     }
                 }
