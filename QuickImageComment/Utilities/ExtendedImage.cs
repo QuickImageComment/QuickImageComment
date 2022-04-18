@@ -201,6 +201,7 @@ namespace QuickImageComment
         private string OldUserComment = "";
         private string imageSize = "";
         private string codecInfo = "";
+        private string pixelFormat = "";
         private bool artistDifferentEntries = false;
         private bool commentDifferentEntries = false;
         private int FramePosition;
@@ -516,6 +517,10 @@ namespace QuickImageComment
             if (!codecInfo.Equals(""))
             {
                 addReplaceOtherMetaDataKnownType("Image.CodecInfo", codecInfo);
+            }
+            if (!pixelFormat.Equals(""))
+            {
+                addReplaceOtherMetaDataKnownType("Image.PixelFormat", pixelFormat);
             }
         }
 
@@ -1191,7 +1196,6 @@ namespace QuickImageComment
                 {
                     if (!entry.Equals(""))
                     {
-                        //!! Logger.log("key=" + key + " value=" + value);
                         string[] splitEntries = entry.Split('|');
                         for (int ii = 0; ii < splitEntries.Length; ii++)
                         {
@@ -2137,15 +2141,31 @@ namespace QuickImageComment
         private System.Drawing.Bitmap convertMemoryStreamToBitmap(System.IO.MemoryStream theMemoryStream, Performance ReadPerformance)
         {
             ReadPerformance.measure("RAW start");
+            BitmapFrame bmf = null;
 
-            // BitmapCacheOption.OnLoad is necessary to avoid exception when reading e.g. Samsung S21 ultra DNG files
-            BitmapDecoder bmpDec = BitmapDecoder.Create(theMemoryStream, BitmapCreateOptions.DelayCreation, BitmapCacheOption.OnLoad);
+#if PLATFORMTARGET_X64 && !NET4
+            try
+            {
+#endif
+                // BitmapCacheOption.OnLoad is necessary to avoid exception when reading e.g. Samsung S21 ultra DNG files
+                BitmapDecoder bmpDec = BitmapDecoder.Create(theMemoryStream, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.OnLoad);
+                codecInfo = bmpDec.CodecInfo.FriendlyName + " " + bmpDec.CodecInfo.Version + " ";
+                BitmapSource theBitmapSource = bmpDec.Frames[0];
+                // get bitmap using encoder
+                bmf = BitmapFrame.Create(theBitmapSource, null, null, null);
+#if PLATFORMTARGET_X64 && !NET4
+            }
+            catch 
+            {
+                HurlbertVisionLab.LibRawWrapper.LibRawBitmapDecoder raw = new HurlbertVisionLab.LibRawWrapper.LibRawBitmapDecoder(new Uri(ImageFileName),
+                                                      BitmapCreateOptions.PreservePixelFormat,
+                                                      BitmapCacheOption.None);
+                codecInfo = raw.CodecInfo.FriendlyName + " " + raw.CodecInfo.Version + " ";
+                bmf = raw.Frames[0];
+            }
+#endif
 
-            codecInfo = bmpDec.CodecInfo.FriendlyName + " " + bmpDec.CodecInfo.Version + " ";
-            BitmapSource theBitmapSource = bmpDec.Frames[0];
-
-            // get bitmap using encoder
-            BitmapFrame bmf = BitmapFrame.Create(theBitmapSource, null, null, null);
+            pixelFormat = bmf.Format.ToString();
             // JpegBitmapEncoder is fastest BitmapEncoder, BmpBitmapEncoder is near to 
             // other BitmapEncoder are significantly slower
             JpegBitmapEncoder encoder = new JpegBitmapEncoder();

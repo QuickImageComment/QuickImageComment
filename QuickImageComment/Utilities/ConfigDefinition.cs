@@ -42,7 +42,7 @@ namespace QuickImageComment
         // note: video extensions are read from config file
         // tags whose values are derived when getting Bitmap (which takes longer than other tags)
         // when changing this list, ExtendedImage.addMetaDataFromBitMap needs to changes as well
-        public static ArrayList TagsFromBitmap = new ArrayList { "File.ImageSize", "Image.CodecInfo" }; 
+        public static ArrayList TagsFromBitmap = new ArrayList { "File.ImageSize", "Image.CodecInfo", "Image.PixelFormat" }; 
 
         public enum enumConfigFlags
         {
@@ -560,6 +560,7 @@ namespace QuickImageComment
             InternalMetaDataDefinitions.Add("File.Modified", new TagDefinition("File.Modified", "Readonly", "Date/time of file modification"));
             InternalMetaDataDefinitions.Add("File.Created", new TagDefinition("File.Created", "Readonly", "Date/time of file creation"));
             InternalMetaDataDefinitions.Add("Image.CodecInfo", new TagDefinition("Image.CodecInfo", "Readonly", "Info about codec used to convert RAW image for display"));
+            InternalMetaDataDefinitions.Add("Image.PixelFormat", new TagDefinition("Image.PixelFormat", "Readonly", "Pixel format in RAW image (provided from RAW decoder)"));
             InternalMetaDataDefinitions.Add("Image.Comment", new TagDefinition("Image.Comment", "Ascii", "Comment assigned to image, called \"Jpeg-comment\" in Exifer"));
             InternalMetaDataDefinitions.Add("Image.IPTC_KeyWordsString", new TagDefinition("Image.IPTC_KeyWordsString", "Readonly", "IPTC key words concatenated in one string"));
             InternalMetaDataDefinitions.Add("Image.IPTC_SuppCategoriesString", new TagDefinition("Image.IPTC_SuppCategoriesString", "Readonly", "IPTC supplemental categories concatenated in one string"));
