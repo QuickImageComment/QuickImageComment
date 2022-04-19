@@ -50,6 +50,7 @@ namespace QuickImageComment
         private bool browserControlNavigating = false;
         private const int navigatingWaitingLoopMax = 20;
         private const int navigatingWaitingLoopSleepDuration = 100; // in msec
+        private string userAgentQIC = "QuickImageComment " + AssemblyInfo.VersionToCheck;
 
 #if WEBVIEW2
         private bool useWebView2;
@@ -57,6 +58,7 @@ namespace QuickImageComment
         private Microsoft.Web.WebView2.WinForms.WebView2 webView2;
         // maxCycleCountCoreWebView2Initialised is used to avoid endless loop
         private const int maxCycleCountCoreWebView2Initialised = 1000000;
+        private string userAgentWebView2Default = "";
 #endif
         private System.Windows.Forms.WebBrowser webBrowser1;
         // is either webView2 or webBrowser1 and used for generic actions like setting visibilty:
@@ -473,6 +475,7 @@ namespace QuickImageComment
 
             coreWebView2Initialised = true;
             webView2.CoreWebView2.Settings.AreDefaultContextMenusEnabled = false;
+            userAgentWebView2Default = webView2.CoreWebView2.Settings.UserAgent;
 
             // change of location is enabled, if map source is not a configured map URL
             // is done here as it uses invokeLeafletMethod, which requires CoreWebView2 to be initialised
@@ -1156,7 +1159,7 @@ namespace QuickImageComment
 #endif
                     WebClient theWebClient = new WebClient();
                     theWebClient.Encoding = System.Text.Encoding.UTF8;
-                    theWebClient.Headers.Add("user-agent", "QuickImageComment " + AssemblyInfo.VersionToCheck);
+                    theWebClient.Headers.Add("user-agent", userAgentQIC);
                     string jsonResponse = theWebClient.DownloadString(url);
 
                     if (jsonResponse.Length < 3)
@@ -1245,13 +1248,18 @@ namespace QuickImageComment
             {
                 if (isCoreWebView2Initialised())
                 {
+                    if (selectedMapSource.isconfiguredMapURL)
+                        webView2.CoreWebView2.Settings.UserAgent = userAgentWebView2Default;
+                    else
+                        webView2.CoreWebView2.Settings.UserAgent = userAgentQIC;
+
                     webView2.CoreWebView2.Navigate(url);
                 }
             }
             else
 #endif
             {
-                webBrowser1.Navigate(url, "", null, "User-Agent: QuickImageComment " + AssemblyInfo.VersionToCheck);
+                webBrowser1.Navigate(url, "", null, "User-Agent: " + userAgentQIC);
             }
             lastUrl = url;
         }
