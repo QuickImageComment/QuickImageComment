@@ -90,7 +90,9 @@ namespace QuickImageComment
         private static System.IO.StreamWriter StreamTraceFile = null;
 
         private static System.Diagnostics.PerformanceCounter ramCounter;
+        private static System.Diagnostics.PerformanceCounter idCounter;
         private static System.Diagnostics.PerformanceCounter memCounter;
+        private static Process currentProcess;
 
         internal delegate void DelegateProvideInformation(string information);
 
@@ -886,7 +888,7 @@ namespace QuickImageComment
                 {
                     ramCounter = new System.Diagnostics.PerformanceCounter("Memory", "Available MBytes");
                 }
-                long availableMemory = (int)ramCounter.NextValue();
+                long availableMemory = (long)ramCounter.NextValue();
                 if (remainingAllowedMemory < availableMemory)
                 {
                     return remainingAllowedMemory;
@@ -928,14 +930,42 @@ namespace QuickImageComment
 
         public static long getPrivateMemory()
         {
-            // initiate memCounter here, so it is created only when needed
-            // initiation takes about 1.5 seconds
+            // PerformanceCounter is created with instance name, which is for the first instance equal to process name.
+            // For following instances # plus running number is added.
+            // When first instance is closed, remaining instance names are renumbered.
+            // So iCounter is used to get process id of instance name
             try
             {
-                if (memCounter == null)
+                if (idCounter == null)
                 {
-                    string prcName = Process.GetCurrentProcess().ProcessName;
-                    memCounter = new System.Diagnostics.PerformanceCounter("Process", "Working Set - Private", prcName);
+                    currentProcess = Process.GetCurrentProcess();
+                    idCounter = new PerformanceCounter("Process", "ID Process", currentProcess.ProcessName, true);
+                    memCounter = new System.Diagnostics.PerformanceCounter("Process", "Working Set - Private", currentProcess.ProcessName, true);
+                }
+
+                // init idCounterID: if instance name of idCounter no longer exists, getting RawValue raises exception
+                long idCounterID = -1;
+                try
+                {
+                    idCounterID = idCounter.RawValue;
+                }
+                catch { }
+
+                // check if instance name still fits to current process
+                if (idCounterID != currentProcess.Id)
+                {
+                    // init instanceName just for the almost impossible case that the following loop fails
+                    string instanceName = currentProcess.ProcessName;
+                    for (int ii = 1; ii < 99; ii++)
+                    {
+                        idCounter.InstanceName = instanceName;
+                        if (idCounter.RawValue == currentProcess.Id)
+                        {
+                            memCounter.InstanceName = instanceName;
+                            break;
+                        }
+                        instanceName = currentProcess.ProcessName + "#" + ii.ToString();
+                    }
                 }
                 // + 512 * 1024 for rounding
                 return (memCounter.RawValue + 512 * 1024) / 1024 / 1024;

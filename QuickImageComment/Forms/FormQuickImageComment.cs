@@ -280,12 +280,12 @@ namespace QuickImageComment
             }
             // after first showing input box for language during first start, 
             // top and left are so high, that mask is not shown. So check top and left.
-            if (this.Top > Screen.FromControl(this).WorkingArea.Height - this.Height/2)
+            if (this.Top > Screen.FromControl(this).WorkingArea.Height - this.Height / 2)
             {
                 // keep some space in case task bar is on top
                 this.Top = 60;
             }
-            if (this.Left > Screen.FromControl(this).WorkingArea.Width - this.Width/2)
+            if (this.Left > Screen.FromControl(this).WorkingArea.Width - this.Width / 2)
             {
                 // keep some space in case task bar is on the left hand side
                 this.Left = 120;
@@ -1694,19 +1694,22 @@ namespace QuickImageComment
             clearFlagsIndicatingUserChanges();
             disableEventHandlersRecogniseUserInput();
 
-            // display data from main selected file (whose image is displayed)
-            theUserControlKeyWords.displayKeyWords(theExtendedImage.getIptcKeyWordsArrayList());
-            dynamicComboBoxArtist.Text = theExtendedImage.getArtist();
-            labelArtistDefault.Visible = false;
-            textBoxUserComment.Text = theExtendedImage.getUserComment();
-            fillChangeableFieldValues(theExtendedImage, false);
-            fillListBoxLastUserComments("");
-            if (theUserControlMap != null)
+            if (theExtendedImage != null)
             {
-                theUserControlMap.buttonReset_Click(sender, e);
+                // display data from main selected file (whose image is displayed)
+                theUserControlKeyWords.displayKeyWords(theExtendedImage.getIptcKeyWordsArrayList());
+                dynamicComboBoxArtist.Text = theExtendedImage.getArtist();
+                labelArtistDefault.Visible = false;
+                textBoxUserComment.Text = theExtendedImage.getUserComment();
+                fillChangeableFieldValues(theExtendedImage, false);
+                fillListBoxLastUserComments("");
+                if (theUserControlMap != null)
+                {
+                    theUserControlMap.buttonReset_Click(sender, e);
+                }
+                // if external browser is started or not is checked in showMap
+                MapInExternalBrowser.newImage(theExtendedImage.getRecordingLocation());
             }
-            // if external browser is started or not is checked in showMap
-            MapInExternalBrowser.newImage(theExtendedImage.getRecordingLocation());
 
             lock (UserControlFiles.LockListViewFiles)
             {
