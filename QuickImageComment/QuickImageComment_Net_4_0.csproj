@@ -889,6 +889,7 @@
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>
+echo Copy exiv2cdecl.dll
 copy $(ProjectDir)..\exiv2Cdecl\Prj_exiv2Cdecl\$(ConfigurationName)_$(Platform)\*.dll  $(ProjectDir)
 </PreBuildEvent>
   </PropertyGroup>
