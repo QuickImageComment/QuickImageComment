@@ -787,7 +787,7 @@ LibRaw_bigfile_buffered_datastream::LibRaw_bigfile_buffered_datastream(const wch
             OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, 0)) != INVALID_HANDLE_VALUE)
 #endif
         {
-            if (fhandle > 0)
+            if (fhandle != NULL)
             {
                 LARGE_INTEGER fs;
                 if (GetFileSizeEx(fhandle, &fs))
@@ -811,11 +811,11 @@ const wchar_t *LibRaw_bigfile_buffered_datastream::wfname()
 
 LibRaw_bigfile_buffered_datastream::~LibRaw_bigfile_buffered_datastream()
 {
-    if (fhandle > 0)
+    if (fhandle != NULL)
         CloseHandle(fhandle);
 }
 int LibRaw_bigfile_buffered_datastream::valid() {
-    return fhandle > 0 && fhandle != INVALID_HANDLE_VALUE;
+    return (fhandle != NULL) && (fhandle != INVALID_HANDLE_VALUE);
 }
 
 const char *LibRaw_bigfile_buffered_datastream::fname()
@@ -912,6 +912,7 @@ int LibRaw_bigfile_buffered_datastream::read(void *data, size_t size, size_t nme
 
 bool LibRaw_bigfile_buffered_datastream::fillBufferAt(int bi, INT64 off)
 {
+    if (off < 0LL) return false;
     iobuffers[bi]._bstart = off;
     if (iobuffers[bi].size() >= LIBRAW_BUFFER_ALIGN * 2)// Align to a file block.
         iobuffers[bi]._bstart &= (INT64)~((INT64)(LIBRAW_BUFFER_ALIGN - 1));
@@ -941,7 +942,6 @@ int LibRaw_bigfile_buffered_datastream::seek(INT64 o, int whence)
     if (whence == SEEK_SET) _fpos = o;
     else if (whence == SEEK_END) _fpos = o > 0 ? _fsize : _fsize + o;
     else if (whence == SEEK_CUR) _fpos += o;
-
     return 0;
 }
 

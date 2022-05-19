@@ -43,6 +43,15 @@ namespace HurlbertVisionLab {
 					void set(LibRawWrapper::Native::ProcessingOptions value) { m_params->options = (unsigned int)value; }
 				}
 
+				/// <summary>
+				/// Gets or sets the image number for processing (for formats that contain several RAW images in one file).
+				/// </summary>
+				property int ShotSelect
+				{
+					int get() { return m_params->shot_select; }
+					void set(int value) { m_params->shot_select = value; }
+				}
+
 				property ProcessingSpecials Specials
 				{
 					ProcessingSpecials get() { return (ProcessingSpecials)m_params->specials; }

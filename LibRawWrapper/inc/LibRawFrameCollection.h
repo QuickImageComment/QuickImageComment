@@ -91,7 +91,7 @@ namespace HurlbertVisionLab {
 		private:
 			BitmapFrame^ GetFrame(int index)
 			{
-				_libraw->OutputParameters->ShotSelect = index;
+				_libraw->RawParameters->ShotSelect = index;
 				BitmapSource^ bitmap = _libraw->GetProcessedBitmap();
 				return BitmapFrame::Create(bitmap); // TODO: metadata, color context
 			}

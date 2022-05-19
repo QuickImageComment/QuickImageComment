@@ -23,7 +23,7 @@
     <OutputDirectory>debug-x86_64\</OutputDirectory>
     <ATLMinimizesCRunTimeLibraryUsage>false</ATLMinimizesCRunTimeLibraryUsage>
     <CharacterSet>NotSet</CharacterSet>
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <IntermediateDirectory>debug-x86_64\libraw.obj\</IntermediateDirectory>
     <PrimaryOutput>libraw</PrimaryOutput>
   </PropertyGroup>
@@ -32,7 +32,7 @@
     <OutputDirectory>release-x86_64\</OutputDirectory>
     <ATLMinimizesCRunTimeLibraryUsage>false</ATLMinimizesCRunTimeLibraryUsage>
     <CharacterSet>NotSet</CharacterSet>
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <IntermediateDirectory>release-x86_64\libraw.obj\</IntermediateDirectory>
     <PrimaryOutput>libraw</PrimaryOutput>
   </PropertyGroup>

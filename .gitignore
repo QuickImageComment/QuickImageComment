@@ -37,6 +37,7 @@
 # Visual Studio
 /.vs
 *.csproj.user
+*.vcxproj.user
 *.wapproj.user
 
 # output folder from build (includes e.g. ini-files copied for deployment) 
@@ -45,8 +46,17 @@
 /exiv2Cdecl/Prj_exiv2Cdecl/Debug_x64
 /exiv2Cdecl/Prj_exiv2Cdecl/Release_x86
 /exiv2Cdecl/Prj_exiv2Cdecl/Release_x64
-/exiv2Cdecl/Prj_exiv2Cdecl/x86
-/exiv2Cdecl/Prj_exiv2Cdecl/x64
+/exiv2Cdecl/Prj_exiv2Cdecl/obj
+/LibRaw/Debug_x86
+/LibRaw/Debug_x64
+/LibRaw/Release_x86
+/LibRaw/Release_x64
+/LibRaw/obj
+/LibRawWrapper/Debug_x86
+/LibRawWrapper/Debug_x64
+/LibRawWrapper/Release_x86
+/LibRawWrapper/Release_x64
+/LibRawWrapper/obj
 /QuickImageComment/obj
 /QuickImageCommentPackage/AppPackages
 /QuickImageCommentPackage/BundleArtifacts
