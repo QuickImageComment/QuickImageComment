@@ -137,7 +137,7 @@ namespace QuickImageComment
             {
                 double FileSize = theFileInfo.Length;
                 FileSize = FileSize / 1024;
-                listViewItem.SubItems.Add(FileSize.ToString("N3") + " KB");
+                listViewItem.SubItems.Add(FileSize.ToString("#,### KB"));
                 listViewItem.SubItems.Add(theFileInfo.LastWriteTime.ToString());
                 listViewItem.SubItems.Add(theFileInfo.CreationTime.ToString());
             }
