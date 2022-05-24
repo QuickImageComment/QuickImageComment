@@ -438,53 +438,53 @@ namespace QuickImageComment
 #if !DEBUG
                 try
 #endif
-            {
-                string iniPath = ConfigDefinition.getIniPath();
-                string comment = "";
-                string errorText = "";
-
-                // lock because this method can be called in main thread or via updateCaches
-                lock (LockReadExiv2)
                 {
-                    status = exiv2readImageByFileName(ImageFileName, iniPath, ref comment, ref IptcUTF8, ref errorText);
-                    if (!errorText.Equals("") && !ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.HideExiv2Error))
-                    {
-                        MetaDataWarnings.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error), errorText));
-                    }
+                    string iniPath = ConfigDefinition.getIniPath();
+                    string comment = "";
+                    string errorText = "";
 
-                    // read Exif, Iptc and XMP only, if exiv2readImageByFileName did not return with exception
-                    if (status != exiv2StatusException)
+                    // lock because this method can be called in main thread or via updateCaches
+                    lock (LockReadExiv2)
                     {
-                        // get image comment
-                        addReplaceOtherMetaDataKnownType("Image.Comment", comment);
-
-                        if (neededKeys == null)
+                        status = exiv2readImageByFileName(ImageFileName, iniPath, ref comment, ref IptcUTF8, ref errorText);
+                        if (!errorText.Equals("") && !ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.HideExiv2Error))
                         {
-                            // read all Exif, IPTC and XMP data
-                            readAllExifIptcXmp();
+                            MetaDataWarnings.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error), errorText));
                         }
-                        else
+
+                        // read Exif, Iptc and XMP only, if exiv2readImageByFileName did not return with exception
+                        if (status != exiv2StatusException)
                         {
-                            // read all Exif, IPTC and XMP data
-                            readExifIptcXmpForNeededKeys(neededKeys);
+                            // get image comment
+                            addReplaceOtherMetaDataKnownType("Image.Comment", comment);
+
+                            if (neededKeys == null)
+                            {
+                                // read all Exif, IPTC and XMP data
+                                readAllExifIptcXmp();
+                            }
+                            else
+                            {
+                                // read all Exif, IPTC and XMP data
+                                readExifIptcXmpForNeededKeys(neededKeys);
+                            }
                         }
                     }
                 }
-            }
 #if !DEBUG
                 catch (Exception ex)
                 {
                     MetaDataWarnings.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error), ex.Message));
                 }
 #endif
-            ReadPerformance.measure("Meta data copied");
+                ReadPerformance.measure("Meta data copied");
 
-            XmpLangAltEntries.Sort();
-            readSpecialExifIptcInformation();
+                XmpLangAltEntries.Sort();
+                readSpecialExifIptcInformation();
 
 
-            // end of: 32-Bit version cannot read big videos; exiv2 returns exception, 
-            // so check here allowing language depending and better understandable error message
+                // end of: 32-Bit version cannot read big videos; exiv2 returns exception, 
+                // so check here allowing language depending and better understandable error message
 #if !PLATFORMTARGET_X64
             }
 #endif
@@ -1254,6 +1254,7 @@ namespace QuickImageComment
             try
 #endif
             {
+                string exceptionMessagePrefix = "";
                 try
                 {
                     if (isVideo)
@@ -1295,7 +1296,7 @@ namespace QuickImageComment
                         }
                         else
                         {
-                            TempImage = convertMemoryStreamToBitmap(theMemoryStream, ReadImagePerformance);
+                            TempImage = convertMemoryStreamToBitmap(theMemoryStream, ReadImagePerformance, ref exceptionMessagePrefix);
                         }
                     }
                 }
@@ -1306,7 +1307,12 @@ namespace QuickImageComment
                 }
                 catch (Exception ex)
                 {
-                    DisplayImageErrorMessage = ex.Message;
+                    //OPT log exception during decoding RAW
+                    //if (ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.Maintenance))
+                    //{
+                    //    Logger.log(exceptionMessagePrefix + ex.Message + "\n" + ex.StackTrace);
+                    //}
+                    DisplayImageErrorMessage = exceptionMessagePrefix + ex.Message;
                     TempImage = createImageWithText(LangCfg.getText(LangCfg.Others.imageNotShown));
                 }
 
@@ -2138,33 +2144,44 @@ namespace QuickImageComment
         }
 
         // convert BitmapSource to Bitmap
-        private System.Drawing.Bitmap convertMemoryStreamToBitmap(System.IO.MemoryStream theMemoryStream, Performance ReadPerformance)
+        private System.Drawing.Bitmap convertMemoryStreamToBitmap(System.IO.MemoryStream theMemoryStream, Performance ReadPerformance,
+                                                                  ref string exceptionMessagePrefix)
         {
             ReadPerformance.measure("RAW start");
             BitmapFrame bmf = null;
 
-#if PLATFORMTARGET_X64 && !NET4
+#if LIBRAW
             try
             {
 #endif
-                // BitmapCacheOption.OnLoad is necessary to avoid exception when reading e.g. Samsung S21 ultra DNG files
+                exceptionMessagePrefix = "BitmapDecoder: ";
+                // BitmapCacheOption.OnLoad is necessary to avoid exception when reading e.g.Samsung S21 ultra DNG files
                 BitmapDecoder bmpDec = BitmapDecoder.Create(theMemoryStream, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.OnLoad);
                 codecInfo = bmpDec.CodecInfo.FriendlyName + " " + bmpDec.CodecInfo.Version + " ";
                 BitmapSource theBitmapSource = bmpDec.Frames[0];
                 // get bitmap using encoder
                 bmf = BitmapFrame.Create(theBitmapSource, null, null, null);
-#if PLATFORMTARGET_X64 && !NET4
+#if LIBRAW
             }
-            catch 
+#pragma warning disable CS0168
+            catch (Exception ex)
             {
-                HurlbertVisionLab.LibRawWrapper.LibRawBitmapDecoder raw = new HurlbertVisionLab.LibRawWrapper.LibRawBitmapDecoder(new Uri(ImageFileName),
-                                                      BitmapCreateOptions.PreservePixelFormat,
-                                                      BitmapCacheOption.None);
-                codecInfo = raw.CodecInfo.FriendlyName + " " + raw.CodecInfo.Version + " ";
-                bmf = raw.Frames[0];
+                //OPT log exception during decoding RAW
+                //if (ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.Maintenance))
+                //{
+                //    Logger.log(exceptionMessagePrefix + ex.Message + "\n" + ex.StackTrace);
+                //}
+                exceptionMessagePrefix = "LibRaw: ";
+                // Allthough it is only a few lines of code and called only once, getBitmapFrameViaLibRaw is a separate function.
+                // In case HurlbertVisionLab.LibRawWrapper.dll or one of its dependencies is missing, this can still work using
+                // the BitmapDecoder. If getBitmapFrameViaLibRaw's code would be included here, the whole function would not work
+                // when HurlbertVisionLab.LibRawWrapper.dll or one of its dependencies is missing.
+                bmf = getBitmapFrameViaLibRaw();
             }
+#pragma warning restore CS0168
 #endif
 
+            exceptionMessagePrefix = "";
             pixelFormat = bmf.Format.ToString();
             // JpegBitmapEncoder is fastest BitmapEncoder, BmpBitmapEncoder is near to 
             // other BitmapEncoder are significantly slower
@@ -2210,6 +2227,16 @@ namespace QuickImageComment
             //ReadPerformance.measure("RAW finish copy pixel");
             //addReplaceOtherMetaDataKnownType("Image.CodecInfo", codecInfo + LangCfg.getText(LangCfg.Others.codecCopyPixel));
             //return bmp;
+        }
+
+        // get BitmapFrame via LibRaw
+        private BitmapFrame getBitmapFrameViaLibRaw()
+        {
+            HurlbertVisionLab.LibRawWrapper.LibRawBitmapDecoder raw = new HurlbertVisionLab.LibRawWrapper.LibRawBitmapDecoder(new Uri(ImageFileName),
+                                      BitmapCreateOptions.PreservePixelFormat,
+                                      BitmapCacheOption.None);
+            codecInfo = raw.CodecInfo.FriendlyName + " " + raw.CodecInfo.Version + " ";
+            return raw.Frames[0];
         }
 
         // get frame Position
