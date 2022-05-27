@@ -26,6 +26,8 @@ namespace QuickImageCommentControls
 
             if (Items.Count <= 0)
                 return;
+            if (e.Index < 0)
+                return;
 
             var contentRect = e.Bounds;
             contentRect.X = 16;
