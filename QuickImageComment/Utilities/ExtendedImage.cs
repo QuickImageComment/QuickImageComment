@@ -2229,6 +2229,7 @@ namespace QuickImageComment
             //return bmp;
         }
 
+#if LIBRAW
         // get BitmapFrame via LibRaw
         private BitmapFrame getBitmapFrameViaLibRaw()
         {
@@ -2238,6 +2239,7 @@ namespace QuickImageComment
             codecInfo = raw.CodecInfo.FriendlyName + " " + raw.CodecInfo.Version + " ";
             return raw.Frames[0];
         }
+#endif
 
         // get frame Position
         public decimal getFramePositionInSeconds()
