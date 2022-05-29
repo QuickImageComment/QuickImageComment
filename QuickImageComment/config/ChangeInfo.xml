@@ -1,33 +1,21 @@
-﻿<Program_Version>4.48</Program_Version>
+﻿<Program_Version>4.49</Program_Version>
 <Program_Change_Info_German>
 Erweiterungen und Verbesserungen:
-Unter Windows 10 mit Microsoft Raw Image Extension: DNG-Bilder von einigen Samsung-Modellen können jetzt angezeigt werden.
+Die Anzeige von RAW-Bildern wird für mehr Kameramodelle unterstützt. 
+In der Version für .Net 4.6.1 ist LibRaw für die Anzeige von RAW-Bildern integriert. Bei Verwendung der Version für .Net 4.0 oder wenn LibRaw das RAW-Format nicht unterstützt, muss ein Codec des Kameraherstellers installiert werden, um das Bild anzuzeigen. Als Alternative kann die Microsoft Raw Image Extension installiert werden, die verschiedene RAW-Formate unterstützt.
 
 Folgende Fehler wurden behoben:
-Die Eigenschaften File.ImageSize und Image.CodecInfo waren nach dem Speichern leer.
-Das Öffnen einer Datei über Menü "Datei – Öffnen" und Eingabe einer URL funktionierte nicht.
-Programmabsturz, wenn in der Kommandozeile nicht vorhandene Datei oder Ordner angegeben waren.
-Es war nicht möglich, alle IPTC Schlüsselworte zu löschen, sondern nur alle bis auf eines.
-Programmabsturz mit Ausnahmefehler "GeneralUtilities.comboBox_Resize_Unselect (Object sender, EventArgs e) System.ArgumentOutOfRangeException: InvalidArgument=El valor de '-1544604736' no es válido para 'start'. Nombre del parámetro: start". Gemeldet über AppCenter
-
-Hinweise:
-Für die Anzeige von RAW-Bildern muss ggfs. ein Codec des Kameraherstellers installiert werden. Als Alternative kann die Microsoft Raw Image Extension installiert werden, die verschiedene RAW-Formate unterstützt. Mit dem Codec des Kameraherstellers könnte die Anzeige aber schneller sein. Man kann einen spezifischen Codec und die Microsoft Extension installieren. Der spezifische Codec wird dann für die entsprechenden Bilder verwendet, für alle anderen die Microsoft Extension.
-
-Um den Einstieg in QuickImageComment zu erleichtern, gibt es jetzt Tutorials auf YouTube. Für den Zugriff gibt es einen neuen Eintrag im Hilfe-Menü. Derzeit decken fünf Videos die Grundlagen ab, weitere sollen folgen. 
+Aufnahmeort auf Karte: einige Karten konnten nicht angezeigt werden, wenn WebView2 installiert war.
+Aufnahmeort auf Karte: Die Karten "HikeBike.HikeBike" und "OpenMapSurfer.Roads" sind nicht mehr frei verfügbar. Sie wurden daher aus der Auswahlliste entfernt.
+Programmabsturz "Not a valid Win32 FileTime" aufgrund von ungültigem Änderungsdatum/-zeit einer Datei. Gemeldet über AppCenter.
 </Program_Change_Info_German>
 <Program_Change_Info_English>
 Enhancements and improvements:
-Under Windows 10 with Microsoft Raw Image Extension: DNG images from some Samsung models can now be displayed.
+RAW image display is supported for more camera models. 
+The version for .Net 4.6.1 has LibRaw integrated for displaying RAW images. When using the version for .Net 4.0 or if LibRaw does not support the RAW format, a codec from the camera manufacturer must be installed to display the image. As an alternative, the Microsoft Raw Image Extension can be installed, which supports various RAW formats. 
 
 Following errors are corrected:
-The properties File.ImageSize and Image.CodecInfo were empty after saving.
-Opening a file via menu "File - Open" and entering a URL did not work.
-Program crash when file or folder not present in the command line was specified.
-It was not possible to delete all IPTC keywords, but only all but one.
-Program crash with exception " GeneralUtilities.comboBox_Resize_Unselect (Object sender, EventArgs e) System.ArgumentOutOfRangeException: InvalidArgument=El valor de '-1544604736' no es válido para 'start'. Nombre del parámetro: start". Reported via AppCenter.
-
-Hints:
-To display RAW images, a codec from the camera manufacturer may need to be installed. As an alternative, the Microsoft Raw Image Extension can be installed, which supports various RAW formats. However, with the camera manufacturer's codec, the display could be faster. One can install a specific codec and the Microsoft Extension. The specific codec is then used for the corresponding images, for all others the Microsoft Extension.
-
-To make it easier to get started with QuickImageComment, there are now tutorials on YouTube. To access them, there is a new entry in the Help menu. Currently five videos cover the basics, more are to follow. 
+Recording location on map: some maps could not be displayed when WebView2 was installed.
+Recording location on map: The maps "HikeBike.HikeBike" and "OpenMapSurfer.Roads" are no longer freely available. They have therefore been removed from the selection list.
+Program crash "Not a valid Win32 FileTime" due to invalid modification date/time of a file. Reported via AppCenter.
 </Program_Change_Info_English>
