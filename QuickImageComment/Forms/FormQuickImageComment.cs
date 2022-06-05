@@ -6109,14 +6109,6 @@ namespace QuickImageComment
         // create file containing texts from all controls to be translated
         private void toolStripMenuItemCreateControlTextList_Click(object sender, EventArgs e)
         {
-            //!! for testing if line numbers are in stack trace, when AppCenter crashes is disabled
-#pragma warning disable CS0162
-            if (GeneralUtilities.MicrosoftStore)
-            {
-                throw new Exception("not supported for MicrosoftStore installation");
-            }
-
-
             // Prepare for getting control texts from sub masks
             GeneralUtilities.CloseAfterConstructing = true;
 
@@ -6173,7 +6165,6 @@ namespace QuickImageComment
             StreamOut.Close();
 
             GeneralUtilities.debugMessage(ControlTextList.Count.ToString() + " entries written in \n" + fileName);
-#pragma warning restore CS0162
         }
 
         // open all masks to check if translation is complete

@@ -92,20 +92,14 @@ namespace QuickImageComment
             StartupPerformance = new Performance();
 
 #if !DEBUG
-#pragma warning disable CS0162
-            if (!GeneralUtilities.MicrosoftStore || System.Environment.GetEnvironmentVariable("HANDLEEXCEPTION") == null)
-            {
-                // Add the event handler for handling UI thread exceptions to the event.
-                Application.ThreadException += new System.Threading.ThreadExceptionEventHandler(FormQuickImageComment.Form1_UIThreadException);
+            // Add the event handler for handling UI thread exceptions to the event.
+            Application.ThreadException += new System.Threading.ThreadExceptionEventHandler(FormQuickImageComment.Form1_UIThreadException);
 
-                // Set the unhandled exception mode to force all Windows Forms errors to go through our handler.
-                Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
+            // Set the unhandled exception mode to force all Windows Forms errors to go through our handler.
+            Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
 
-                // Add the event handler for handling non-UI thread exceptions to the event. 
-                AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
-            }
-#pragma warning restore CS0162
-
+            // Add the event handler for handling non-UI thread exceptions to the event. 
+            AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
 #endif
 
 #if USESTARTUPTHREAD
@@ -239,12 +233,7 @@ namespace QuickImageComment
 #if APPCENTER
             if (AppCenterUsable && ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.AppCenterUsage).Equals("y"))
             {
-#pragma warning disable CS0162
-                if (GeneralUtilities.MicrosoftStore)
-                    AppCenter.Start(AppCenterSecureID, typeof(Analytics));
-                else
-                    AppCenter.Start(AppCenterSecureID, typeof(Analytics), typeof(Crashes));
-#pragma warning restore CS0162
+                AppCenter.Start(AppCenterSecureID, typeof(Analytics), typeof(Crashes));
             }
 #endif
             // flag is used in exception handling to decide if only a message box can be displayed or handling is based on configuration
