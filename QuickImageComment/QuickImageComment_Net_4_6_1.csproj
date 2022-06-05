@@ -696,7 +696,16 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+    <None Include="vcruntime140.dll" Condition=" '$(Configuration)' == 'Release'">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="vcruntime140_1.dll" Condition=" '$(Configuration)' == 'Release' and '$(PlatformTarget)'=='x64'">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="exiv2Cdecl.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="msvcp140.dll" Condition=" '$(Configuration)' == 'Release'">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <Content Include="Resources\16 colors.bmp" />
@@ -914,20 +923,19 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>
-if "$(DefineConstants.Contains('LIBRAW'))" == "True" (
-if "$(ConfigurationName)"== "Release" (
-echo Copy needed VC runtime DLLs
-copy $(ProjectDir)..\LibRawWrapper\$(ConfigurationName)_$(PlatformTarget)\MSVCP140.dll  $(TargetDir)
-copy $(ProjectDir)..\LibRawWrapper\$(ConfigurationName)_$(PlatformTarget)\VCRUNTIME140.dll  $(TargetDir)
-if "$(PlatformTarget)"=="x64" copy $(ProjectDir)..\LibRawWrapper\$(ConfigurationName)_$(PlatformTarget)\VCRUNTIME140_1.dll  $(TargetDir)
-)
-)
-</PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>
 echo Copy exiv2cdecl.dll
 copy $(ProjectDir)..\exiv2Cdecl\Prj_exiv2Cdecl\$(ConfigurationName)_$(PlatformTarget)\exiv2cdecl.dll  $(ProjectDir)
+
+if "$(ConfigurationName)"== "Release" (
+echo Copy needed VC runtime DLLs
+copy $(ProjectDir)..\LibRawWrapper\$(ConfigurationName)_$(PlatformTarget)\MSVCP140.dll  $(ProjectDir)
+copy $(ProjectDir)..\LibRawWrapper\$(ConfigurationName)_$(PlatformTarget)\VCRUNTIME140.dll $(ProjectDir)
+if "$(PlatformTarget)"=="x64" copy $(ProjectDir)..\LibRawWrapper\$(ConfigurationName)_$(PlatformTarget)\VCRUNTIME140_1.dll  $(ProjectDir)
+)
 </PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
