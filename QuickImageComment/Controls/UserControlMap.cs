@@ -753,7 +753,7 @@ namespace QuickImageComment
         // other position selected
         private void dynamicComboBoxSearch_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (dynamicComboBoxSearch.SelectedIndex >= 0)
+            if (dynamicComboBoxSearch.SelectedIndex >= 0 && !dynamicComboBoxSearch.Text.Equals(""))
             {
                 updateMap((GeoDataItem)dynamicComboBoxSearch.SelectedItem);
             }
