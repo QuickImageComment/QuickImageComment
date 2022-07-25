@@ -188,7 +188,7 @@ namespace QuickImageComment
             // end of obsolete code
 
             // alternative for tags with listed values
-            if (ConfigDefinition.getAlternativeValues().ContainsKey(key))
+            if (ConfigDefinition.getAlternativeValues().ContainsKey(key + valueString))
             {
                 InterpretedValue = (string)ConfigDefinition.getAlternativeValues()[key + valueString];
             }
