@@ -532,7 +532,7 @@ namespace QuickImageComment
         public static string translate(string TextToTranslate, string Source)
         {
             bool endsWithColon = false;
-            string Translation = TextToTranslate;
+            string Translation = TextToTranslate.TrimEnd();
             if (Translation.EndsWith(":"))
             {
                 endsWithColon = true;
@@ -577,7 +577,8 @@ namespace QuickImageComment
                 // not translated texts collected only in maintenance mode, so check existance of array list
                 if (NotTranslatedTexts != null)
                 {
-                    NotTranslatedTexts.Add(TextToTranslate + "\t" + Source);
+                    // tool tip text can have line breaks
+                    NotTranslatedTexts.Add(TextToTranslate.Replace("\r\n", "\\r\\n") + "\t" + Source);
                 }
                 return TextToTranslate;
             }
@@ -725,6 +726,9 @@ namespace QuickImageComment
 
             if (line.Length > 0)
             {
+                // tool tip text can have line breaks
+                line = line.Replace("\\r\\n", "\r\n");
+
                 firstChar = line.Substring(0, 1);
 
                 if (firstChar.Equals(";"))
