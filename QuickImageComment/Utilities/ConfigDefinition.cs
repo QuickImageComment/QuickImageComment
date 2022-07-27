@@ -44,7 +44,7 @@ namespace QuickImageComment
         // note: video extensions are read from config file
         // tags whose values are derived when getting Bitmap (which takes longer than other tags)
         // when changing this list, ExtendedImage.addMetaDataFromBitMap needs to changes as well
-        public static ArrayList TagsFromBitmap = new ArrayList { "File.ImageSize", "Image.CodecInfo", "Image.PixelFormat" }; 
+        public static ArrayList TagsFromBitmap = new ArrayList { "File.ImageSize", "Image.CodecInfo", "Image.PixelFormat" };
 
         public enum enumConfigFlags
         {
@@ -259,6 +259,8 @@ namespace QuickImageComment
         private static Hashtable AlternativeValues;
         private static Hashtable InputCheckConfigurations;
         private static ArrayList GeoDataItemArrayList;
+        private static ArrayList RawDecoderNotRotatingArrayList;
+
         internal static SortedList<string, DataTemplate> DataTemplates;
         internal static SortedList<string, string> MapUrls;
         // for reading data for a DataTemplate
@@ -333,6 +335,7 @@ namespace QuickImageComment
             AlternativeValues = new Hashtable();
             InputCheckConfigurations = new Hashtable();
             GeoDataItemArrayList = new ArrayList();
+            RawDecoderNotRotatingArrayList = new ArrayList();
             OtherMetaDataDefinitions = new ArrayList();
             InternalMetaDataDefinitions = new SortedList();
             IgnoreLines = new ArrayList();
@@ -2165,6 +2168,12 @@ namespace QuickImageComment
             return GeoDataItemArrayList;
         }
 
+        // raw decoders not rotating according Exif Orientation
+        public static ArrayList getRawDecoderNotRotatingArrayList()
+        {
+            return RawDecoderNotRotatingArrayList;
+        }
+
         // get predefiend comment categories
         public static ArrayList getPredefinedCommentCategories()
         {
@@ -2580,6 +2589,10 @@ namespace QuickImageComment
                     else if (firstPart.Equals("GeoData"))
                     {
                         GeoDataItemArrayList.Add(new GeoDataItem(secondPart));
+                    }
+                    else if (firstPart.Equals("RawDecoderNotRotating"))
+                    {
+                        RawDecoderNotRotatingArrayList.Add(secondPart);
                     }
                     else if (firstPart.StartsWith("#"))
                     {
@@ -3161,6 +3174,10 @@ namespace QuickImageComment
             {
                 StreamOut.WriteLine("GeoData:" + aGeoDataItem.ToConfigString());
             }
+            foreach (string aRawDecoderNotRotatingItem in RawDecoderNotRotatingArrayList)
+            {
+                StreamOut.WriteLine("RawDecoderNotRotating:" + aRawDecoderNotRotatingItem);
+            }
 
             foreach (DataTemplate aDataTemplate in DataTemplates.Values)
             {
@@ -3332,7 +3349,6 @@ namespace QuickImageComment
                             unknownKeyWords = unknownKeyWords + "\n line " + lineNo.ToString() + ": " + firstPart;
                         }
                     }
-
 
                     // items from general configuration file are marked with "_" at beginning
                     else if (ConfigItems.ContainsKey("_" + firstPart))

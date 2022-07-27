@@ -167,6 +167,19 @@ namespace QuickImageComment
 
         private const string TagReplacePrefixRefToOld = "{{#Exif. {{#Iptc. {{#Xmp. {{#Define. {{#File. {{#Image. {{#Txt. {{Datum {{Uhrzeit {{Date {{Time";
 
+        // matches to definition of exifOrientation in tags_int.cpp
+        private readonly System.Collections.Generic.Dictionary<string, int> OrientationDictionary = new System.Collections.Generic.Dictionary<string, int>()
+        {
+            { "top, left",     1 },
+            { "top, right",    2 },
+            { "bottom, right", 3 },
+            { "bottom, left",  4 },
+            { "left, top",     5 },
+            { "right, top",    6 },
+            { "right, bottom", 7 },
+            { "left, bottom",  8 }
+        };
+
         // to identify "dummy" bitmaps created with text as real image cannot be loaded
         private const string createdWithText = "createdWithText";
 
@@ -193,6 +206,8 @@ namespace QuickImageComment
         private ArrayList TileViewMetaDataItems;
         private ArrayList XmpLangAltEntries;
 
+        // AppliedOrientation indicates how image is rotated 
+        private int AppliedOrientation = 0;
         private int ExifOrientation = 1;
         private int TxtOrientation = 0;
         private float TxtGamma = (float)1.0;
@@ -210,6 +225,8 @@ namespace QuickImageComment
         private int ImageDetailsPosX;
         private int ImageDetailsPosY;
         private System.Drawing.Point AutoScrollPosition;
+        private bool RawWithNonStandardOrientation = false;
+        private bool RotateAfterRawDecode = false;
 
         // Array for complete content of text-File
         private ArrayList TxtEntries;
@@ -438,53 +455,53 @@ namespace QuickImageComment
 #if !DEBUG
                 try
 #endif
+            {
+                string iniPath = ConfigDefinition.getIniPath();
+                string comment = "";
+                string errorText = "";
+
+                // lock because this method can be called in main thread or via updateCaches
+                lock (LockReadExiv2)
                 {
-                    string iniPath = ConfigDefinition.getIniPath();
-                    string comment = "";
-                    string errorText = "";
-
-                    // lock because this method can be called in main thread or via updateCaches
-                    lock (LockReadExiv2)
+                    status = exiv2readImageByFileName(ImageFileName, iniPath, ref comment, ref IptcUTF8, ref errorText);
+                    if (!errorText.Equals("") && !ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.HideExiv2Error))
                     {
-                        status = exiv2readImageByFileName(ImageFileName, iniPath, ref comment, ref IptcUTF8, ref errorText);
-                        if (!errorText.Equals("") && !ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.HideExiv2Error))
+                        MetaDataWarnings.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error), errorText));
+                    }
+
+                    // read Exif, Iptc and XMP only, if exiv2readImageByFileName did not return with exception
+                    if (status != exiv2StatusException)
+                    {
+                        // get image comment
+                        addReplaceOtherMetaDataKnownType("Image.Comment", comment);
+
+                        if (neededKeys == null)
                         {
-                            MetaDataWarnings.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error), errorText));
+                            // read all Exif, IPTC and XMP data
+                            readAllExifIptcXmp();
                         }
-
-                        // read Exif, Iptc and XMP only, if exiv2readImageByFileName did not return with exception
-                        if (status != exiv2StatusException)
+                        else
                         {
-                            // get image comment
-                            addReplaceOtherMetaDataKnownType("Image.Comment", comment);
-
-                            if (neededKeys == null)
-                            {
-                                // read all Exif, IPTC and XMP data
-                                readAllExifIptcXmp();
-                            }
-                            else
-                            {
-                                // read all Exif, IPTC and XMP data
-                                readExifIptcXmpForNeededKeys(neededKeys);
-                            }
+                            // read all Exif, IPTC and XMP data
+                            readExifIptcXmpForNeededKeys(neededKeys);
                         }
                     }
                 }
+            }
 #if !DEBUG
                 catch (Exception ex)
                 {
                     MetaDataWarnings.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error), ex.Message));
                 }
 #endif
-                ReadPerformance.measure("Meta data copied");
+            ReadPerformance.measure("Meta data copied");
 
-                XmpLangAltEntries.Sort();
-                readSpecialExifIptcInformation();
+            XmpLangAltEntries.Sort();
+            readSpecialExifIptcInformation();
 
 
-                // end of: 32-Bit version cannot read big videos; exiv2 returns exception, 
-                // so check here allowing language depending and better understandable error message
+            // end of: 32-Bit version cannot read big videos; exiv2 returns exception, 
+            // so check here allowing language depending and better understandable error message
 #if !PLATFORMTARGET_X64
             }
 #endif
@@ -1053,15 +1070,44 @@ namespace QuickImageComment
             return tempString;
         }
 
-        // rotate an image according orientation setting
-        private void rotateAccordingOrientation(System.Drawing.Image theImage)
+        // get required orientation based on Txt, Exif and Codec
+        private int requiredOrientation()
         {
-            // get orientation and rotate 
-            int Orientation = TxtOrientation;
-            if (Orientation == 0)
+            RawWithNonStandardOrientation = false;
+            RotateAfterRawDecode = false;
+            int Orientation = 1;
+
+            if (codecInfo.Equals(""))
             {
-                Orientation = ExifOrientation;
+                // not RAW
+                Orientation = TxtOrientation;
+                if (Orientation == 0)
+                {
+                    Orientation = ExifOrientation;
+                }
             }
+            else
+            {
+                // RAW
+                if (ConfigDefinition.getRawDecoderNotRotatingArrayList().Contains(codecInfo))
+                {
+                    // RAW decoder does not rotate according Exif Orientation
+                    // TxtOrientation not supported for RAW 
+                    Orientation = ExifOrientation;
+                }
+                else
+                {
+                    // Orientation remains at 1, because RAW decoder rotates if needed
+                }
+                RawWithNonStandardOrientation = ExifOrientation != 1;
+                RotateAfterRawDecode = Orientation != 1;
+            }
+            return Orientation;
+        }
+
+        // rotate an image according orientation setting
+        private void rotateAccordingOrientation(int Orientation, System.Drawing.Image theImage)
+        {
             switch (Orientation)
             {
                 case 1:
@@ -1087,6 +1133,50 @@ namespace QuickImageComment
                     break;
                 case 8:
                     theImage.RotateFlip(System.Drawing.RotateFlipType.Rotate270FlipNone);
+                    break;
+                default:
+                    //GeneralUtilities.errorMessage("Exif-Orientation " + Orientation.ToString() + " wird nicht unterstützt.");
+                    // no rotation
+                    break;
+            }
+        }
+
+        // rotate an image according orientation setting
+        private void undoRotation(int Orientation, System.Drawing.Image theImage)
+        {
+            switch (Orientation)
+            {
+                case 1:
+                    // no rotation, no flip
+                    break;
+                case 2:
+                    // was RotateNoneFlipX
+                    theImage.RotateFlip(System.Drawing.RotateFlipType.RotateNoneFlipX);
+                    break;
+                case 3:
+                    // was Rotate180FlipNone
+                    theImage.RotateFlip(System.Drawing.RotateFlipType.Rotate180FlipNone);
+                    break;
+                case 4:
+                    // was Rotate180FlipX
+                    theImage.RotateFlip(System.Drawing.RotateFlipType.Rotate180FlipX);
+                    break;
+                case 5:
+                    // was Rotate90FlipX
+                    theImage.RotateFlip(System.Drawing.RotateFlipType.RotateNoneFlipX);
+                    theImage.RotateFlip(System.Drawing.RotateFlipType.Rotate270FlipNone);
+                    break;
+                case 6:
+                    // was Rotate90FlipNone
+                    theImage.RotateFlip(System.Drawing.RotateFlipType.Rotate270FlipNone);
+                    break;
+                case 7:
+                    // was Rotate90FlipY
+                    theImage.RotateFlip(System.Drawing.RotateFlipType.Rotate90FlipY);
+                    break;
+                case 8:
+                    // was Rotate270FlipNone
+                    theImage.RotateFlip(System.Drawing.RotateFlipType.Rotate90FlipNone);
                     break;
                 default:
                     //GeneralUtilities.errorMessage("Exif-Orientation " + Orientation.ToString() + " wird nicht unterstützt.");
@@ -1318,10 +1408,16 @@ namespace QuickImageComment
 
                 //ReadImagePerformance.measure("temp image loaded");
                 createThumbNail(TempImage);
-                rotateAccordingOrientation(ThumbNailBitmap);
-                ReadImagePerformance.measure("thumbnail created/rotated");
-                rotateAccordingOrientation(TempImage);
-                ReadImagePerformance.measure("temp image rotated");
+
+                // do not rotate images created with text
+                if (TempImage.Tag == null || (string)TempImage.Tag != createdWithText)
+                {
+                    AppliedOrientation = requiredOrientation();
+                    rotateAccordingOrientation(AppliedOrientation, ThumbNailBitmap);
+                    ReadImagePerformance.measure("thumbnail created/rotated");
+                    rotateAccordingOrientation(AppliedOrientation, TempImage);
+                    ReadImagePerformance.measure("temp image rotated");
+                }
                 ReadImagePerformance.measure("readImage finish");
                 return TempImage;
             }
@@ -1511,15 +1607,18 @@ namespace QuickImageComment
                 // nothing to do, values are kept empty
             }
 
-            if (ExifMetaDataItems.ContainsKey("Exif.Image.Orientation"))
+            if (OtherMetaDataItems.ContainsKey("ExifEasy.Orientation"))
             {
-                MetaDataItem theMetaDataItem = (MetaDataItem)ExifMetaDataItems["Exif.Image.Orientation"];
+                MetaDataItem theMetaDataItem = (MetaDataItem)OtherMetaDataItems["ExifEasy.Orientation"];
                 // Exif entry might be invalid
                 try
                 {
-                    ExifOrientation = int.Parse(theMetaDataItem.getValueString());
+                    ExifOrientation = OrientationDictionary[theMetaDataItem.getValueString()];
                 }
-                catch { }
+                catch
+                {
+                    // Logger.log("###Orientation not found " + ImageFileName + " >" + theMetaDataItem.getValueString() + "<");
+                }
             }
         }
 
@@ -2301,6 +2400,24 @@ namespace QuickImageComment
             AutoScrollPosition = givenAutoScrollPosition;
         }
 
+        // get flag if rotation after RAW decoding is needed
+        internal bool getRotateAfterRawDecode()
+        {
+            return RotateAfterRawDecode;
+        }
+
+        // get flag if it is RAW with non-standard orientation
+        internal bool getRawWithNonStandardOrientation()
+        {
+            return RawWithNonStandardOrientation;
+        }
+
+        // get RAW decoder and manufacturer
+        internal string getCodecInfo()
+        {
+            return codecInfo;
+        }
+
         //*****************************************************************
         // Save new data
         // only if attributes changed
@@ -2536,11 +2653,7 @@ namespace QuickImageComment
                     MainMaskInterface.setToolStripStatusLabelInfo("");
                 }
 
-                if (changedFieldsForSave.ContainsKey("Exif.Image.Orientation"))
-                {
-                    FullSizeImage = readImage(SavePerformance);
-                    SavePerformance.measure("image read again");
-                }
+                rotateIfRequired();
 
                 SavePerformance.log(ConfigDefinition.enumConfigFlags.PerformanceExtendedImage_save);
             }
@@ -2551,6 +2664,20 @@ namespace QuickImageComment
                 ReturnStatus = statusWrite;
             }
             return ReturnStatus;
+        }
+
+        // rotate image after changing orientation or configuration for RAW decoder requires rotation
+        internal void rotateIfRequired()
+        {
+            int newRequiredOrientation = requiredOrientation();
+            if (newRequiredOrientation != AppliedOrientation)
+            {
+                undoRotation(AppliedOrientation, FullSizeImage);
+                undoRotation(AppliedOrientation, ThumbNailBitmap);
+                AppliedOrientation = newRequiredOrientation;
+                rotateAccordingOrientation(AppliedOrientation, FullSizeImage);
+                rotateAccordingOrientation(AppliedOrientation, ThumbNailBitmap);
+            }
         }
 
         // replace all tag placeholders in loop to allow several levels of replacement

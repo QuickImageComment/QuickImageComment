@@ -232,10 +232,17 @@ namespace QuickImageComment
         // return folder for internal files
         public static string getMaintenanceOutputFolder()
         {
+            string message = "";
             string folder = ConfigDefinition.getConfigString(ConfigDefinition.enumConfigString.OutputPathMaintenance);
+            if (!Directory.Exists(folder))
+            {
+                message = "Folder for maintenance output does not exist: \n" + folder + "\n";
+                folder = "-";
+            }
             if (folder.Equals("-"))
             {
                 folder = System.Environment.GetEnvironmentVariable("TEMP") + System.IO.Path.DirectorySeparatorChar;
+                GeneralUtilities.debugMessage(message + "Maintenance output written to:\n" + folder);
             }
             return folder;
         }

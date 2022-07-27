@@ -289,6 +289,8 @@ namespace QuickImageCommentControls
                     // lock (UserControlFiles.LockListViewFiles)
                     {
                         ExtendedImageForThumbnail = ImageManager.getExtendedImageFromCache(theListViewItem.Index);
+                        // configuration of decoders requiring rotaton may have changed
+                        ExtendedImageForThumbnail.rotateIfRequired();
                         // if extended image was not yet loaded, thumbnail is of size 1x1
                         if (ExtendedImageForThumbnail.getThumbNailBitmap().Size.Width == 1)
                         {

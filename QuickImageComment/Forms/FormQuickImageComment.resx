@@ -170,6 +170,11 @@
   <metadata name="MenuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>534, 17</value>
   </metadata>
+  <data name="toolStripMenuItemRotateAfterRawDecoder.ToolTipText" xml:space="preserve">
+    <value>Nur bei RAW-Bildern mit Exif-Orientierung-Information: Bild wird nach Decodierung gedreht.
+Wenn ausgewählt, gilt dies für alle Bilder, die mit diesem Decoder gelesen werden.
+Hinweis: Einige RAW-Decoder drehen bereits gemäß Exif-Orientierung, andere nicht. Daher diese Konfigurationsmöglichkeit.</value>
+  </data>
   <metadata name="toolStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>649, 17</value>
   </metadata>

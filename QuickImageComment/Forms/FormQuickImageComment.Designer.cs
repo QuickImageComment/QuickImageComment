@@ -177,6 +177,8 @@ namespace QuickImageComment
             this.toolStripMenuItemZoomD = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemRotateLeft = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemRotateRight = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator17 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripMenuItemRotateAfterRawDecoder = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemExtras = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemSettings = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemFields = new System.Windows.Forms.ToolStripMenuItem();
@@ -214,6 +216,7 @@ namespace QuickImageComment
             this.ToolStripMenuItemWebPageDownload = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItemWebPageChangeHistory = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemGitHub = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemTutorials = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemHelp2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemDataPrivacy = new System.Windows.Forms.ToolStripMenuItem();
             this.BottomToolStripPanel = new System.Windows.Forms.ToolStripPanel();
@@ -249,7 +252,6 @@ namespace QuickImageComment
             this.toolStripButtonPredefinedKeyWords = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator14 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButtonFind = new System.Windows.Forms.ToolStripButton();
-            this.toolStripMenuItemTutorials = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer12)).BeginInit();
             this.splitContainer12.Panel1.SuspendLayout();
             this.splitContainer12.Panel2.SuspendLayout();
@@ -1515,7 +1517,9 @@ namespace QuickImageComment
             this.toolStripSeparator9,
             this.toolStripMenuItemZoomFactor,
             this.toolStripMenuItemRotateLeft,
-            this.toolStripMenuItemRotateRight});
+            this.toolStripMenuItemRotateRight,
+            this.toolStripSeparator17,
+            this.toolStripMenuItemRotateAfterRawDecoder});
             this.toolStripMenuItemZoomRotate.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripMenuItemZoomRotate.Name = "toolStripMenuItemZoomRotate";
             this.toolStripMenuItemZoomRotate.Size = new System.Drawing.Size(94, 20);
@@ -1526,7 +1530,7 @@ namespace QuickImageComment
             this.toolStripMenuItemImageFit.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.toolStripMenuItemImageFit.Name = "toolStripMenuItemImageFit";
             this.toolStripMenuItemImageFit.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F)));
-            this.toolStripMenuItemImageFit.Size = new System.Drawing.Size(182, 22);
+            this.toolStripMenuItemImageFit.Size = new System.Drawing.Size(251, 22);
             this.toolStripMenuItemImageFit.Text = "fit";
             this.toolStripMenuItemImageFit.Click += new System.EventHandler(this.toolStripMenuItemImageFit_Click);
             // 
@@ -1535,7 +1539,7 @@ namespace QuickImageComment
             this.toolStripMenuItemImage4.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.toolStripMenuItemImage4.Name = "toolStripMenuItemImage4";
             this.toolStripMenuItemImage4.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D4)));
-            this.toolStripMenuItemImage4.Size = new System.Drawing.Size(182, 22);
+            this.toolStripMenuItemImage4.Size = new System.Drawing.Size(251, 22);
             this.toolStripMenuItemImage4.Text = "1:4";
             this.toolStripMenuItemImage4.Click += new System.EventHandler(this.toolStripMenuItemImage4_Click);
             // 
@@ -1544,7 +1548,7 @@ namespace QuickImageComment
             this.toolStripMenuItemImage2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.toolStripMenuItemImage2.Name = "toolStripMenuItemImage2";
             this.toolStripMenuItemImage2.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D2)));
-            this.toolStripMenuItemImage2.Size = new System.Drawing.Size(182, 22);
+            this.toolStripMenuItemImage2.Size = new System.Drawing.Size(251, 22);
             this.toolStripMenuItemImage2.Text = "1:2";
             this.toolStripMenuItemImage2.Click += new System.EventHandler(this.toolStripMenuItemImage2_Click);
             // 
@@ -1553,7 +1557,7 @@ namespace QuickImageComment
             this.toolStripMenuItemImage1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.toolStripMenuItemImage1.Name = "toolStripMenuItemImage1";
             this.toolStripMenuItemImage1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D1)));
-            this.toolStripMenuItemImage1.Size = new System.Drawing.Size(182, 22);
+            this.toolStripMenuItemImage1.Size = new System.Drawing.Size(251, 22);
             this.toolStripMenuItemImage1.Text = "1:1";
             this.toolStripMenuItemImage1.Click += new System.EventHandler(this.toolStripMenuItemImage1_Click);
             // 
@@ -1562,7 +1566,7 @@ namespace QuickImageComment
             this.toolStripMenuItemImageX2.Name = "toolStripMenuItemImageX2";
             this.toolStripMenuItemImageX2.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.D2)));
-            this.toolStripMenuItemImageX2.Size = new System.Drawing.Size(182, 22);
+            this.toolStripMenuItemImageX2.Size = new System.Drawing.Size(251, 22);
             this.toolStripMenuItemImageX2.Text = "2:1";
             this.toolStripMenuItemImageX2.Click += new System.EventHandler(this.toolStripMenuItemImageX2_Click);
             // 
@@ -1571,7 +1575,7 @@ namespace QuickImageComment
             this.toolStripMenuItemImageX4.Name = "toolStripMenuItemImageX4";
             this.toolStripMenuItemImageX4.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.D4)));
-            this.toolStripMenuItemImageX4.Size = new System.Drawing.Size(182, 22);
+            this.toolStripMenuItemImageX4.Size = new System.Drawing.Size(251, 22);
             this.toolStripMenuItemImageX4.Text = "4:1";
             this.toolStripMenuItemImageX4.Click += new System.EventHandler(this.toolStripMenuItemImageX4_Click);
             // 
@@ -1580,14 +1584,14 @@ namespace QuickImageComment
             this.toolStripMenuItemImageX8.Name = "toolStripMenuItemImageX8";
             this.toolStripMenuItemImageX8.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.D8)));
-            this.toolStripMenuItemImageX8.Size = new System.Drawing.Size(182, 22);
+            this.toolStripMenuItemImageX8.Size = new System.Drawing.Size(251, 22);
             this.toolStripMenuItemImageX8.Text = "8:1";
             this.toolStripMenuItemImageX8.Click += new System.EventHandler(this.toolStripMenuItemImageX8_Click);
             // 
             // toolStripSeparator9
             // 
             this.toolStripSeparator9.Name = "toolStripSeparator9";
-            this.toolStripSeparator9.Size = new System.Drawing.Size(179, 6);
+            this.toolStripSeparator9.Size = new System.Drawing.Size(248, 6);
             // 
             // toolStripMenuItemZoomFactor
             // 
@@ -1597,7 +1601,7 @@ namespace QuickImageComment
             this.toolStripMenuItemZoomC,
             this.toolStripMenuItemZoomD});
             this.toolStripMenuItemZoomFactor.Name = "toolStripMenuItemZoomFactor";
-            this.toolStripMenuItemZoomFactor.Size = new System.Drawing.Size(182, 22);
+            this.toolStripMenuItemZoomFactor.Size = new System.Drawing.Size(251, 22);
             this.toolStripMenuItemZoomFactor.Text = "&Vergrößerungsfaktor";
             // 
             // toolStripMenuItemZoomA
@@ -1632,7 +1636,7 @@ namespace QuickImageComment
             // 
             this.toolStripMenuItemRotateLeft.Name = "toolStripMenuItemRotateLeft";
             this.toolStripMenuItemRotateLeft.ShortcutKeys = System.Windows.Forms.Keys.F7;
-            this.toolStripMenuItemRotateLeft.Size = new System.Drawing.Size(182, 22);
+            this.toolStripMenuItemRotateLeft.Size = new System.Drawing.Size(251, 22);
             this.toolStripMenuItemRotateLeft.Text = "Drehen - Links";
             this.toolStripMenuItemRotateLeft.Click += new System.EventHandler(this.toolStripMenuItemRotateLeft_Click);
             // 
@@ -1640,9 +1644,22 @@ namespace QuickImageComment
             // 
             this.toolStripMenuItemRotateRight.Name = "toolStripMenuItemRotateRight";
             this.toolStripMenuItemRotateRight.ShortcutKeys = System.Windows.Forms.Keys.F8;
-            this.toolStripMenuItemRotateRight.Size = new System.Drawing.Size(182, 22);
+            this.toolStripMenuItemRotateRight.Size = new System.Drawing.Size(251, 22);
             this.toolStripMenuItemRotateRight.Text = "Drehen - Rechts";
             this.toolStripMenuItemRotateRight.Click += new System.EventHandler(this.toolStripMenuItemRotateRight_Click);
+            // 
+            // toolStripSeparator17
+            // 
+            this.toolStripSeparator17.Name = "toolStripSeparator17";
+            this.toolStripSeparator17.Size = new System.Drawing.Size(248, 6);
+            // 
+            // toolStripMenuItemRotateAfterRawDecoder
+            // 
+            this.toolStripMenuItemRotateAfterRawDecoder.Name = "toolStripMenuItemRotateAfterRawDecoder";
+            this.toolStripMenuItemRotateAfterRawDecoder.Size = new System.Drawing.Size(251, 22);
+            this.toolStripMenuItemRotateAfterRawDecoder.Text = "RAW: Drehung nach Decodierung";
+            this.toolStripMenuItemRotateAfterRawDecoder.ToolTipText = resources.GetString("toolStripMenuItemRotateAfterRawDecoder.ToolTipText");
+            this.toolStripMenuItemRotateAfterRawDecoder.Click += new System.EventHandler(this.toolStripMenuItemRotateByRawDecoder_Click);
             // 
             // toolStripMenuItemExtras
             // 
@@ -1936,6 +1953,13 @@ namespace QuickImageComment
             this.toolStripMenuItemGitHub.Size = new System.Drawing.Size(240, 22);
             this.toolStripMenuItemGitHub.Text = "GitHub";
             this.toolStripMenuItemGitHub.Click += new System.EventHandler(this.toolStripMenuItemGitHub_Click);
+            // 
+            // toolStripMenuItemTutorials
+            // 
+            this.toolStripMenuItemTutorials.Name = "toolStripMenuItemTutorials";
+            this.toolStripMenuItemTutorials.Size = new System.Drawing.Size(240, 22);
+            this.toolStripMenuItemTutorials.Text = "Tutorials auf YouTube";
+            this.toolStripMenuItemTutorials.Click += new System.EventHandler(this.toolStripMenuItemTutorials_Click);
             // 
             // toolStripMenuItemHelp2
             // 
@@ -2323,13 +2347,6 @@ namespace QuickImageComment
             this.toolStripButtonFind.ToolTipText = "Suche über Eigenschaften";
             this.toolStripButtonFind.Click += new System.EventHandler(this.toolStripMenuItemFind_Click);
             // 
-            // toolStripMenuItemTutorials
-            // 
-            this.toolStripMenuItemTutorials.Name = "toolStripMenuItemTutorials";
-            this.toolStripMenuItemTutorials.Size = new System.Drawing.Size(240, 22);
-            this.toolStripMenuItemTutorials.Text = "Tutorials auf YouTube";
-            this.toolStripMenuItemTutorials.Click += new System.EventHandler(this.toolStripMenuItemTutorials_Click);
-            // 
             // FormQuickImageComment
             // 
             this.AllowDrop = true;
@@ -2621,5 +2638,7 @@ namespace QuickImageComment
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemUserButtons;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator16;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemTutorials;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator17;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemRotateAfterRawDecoder;
     }
 }

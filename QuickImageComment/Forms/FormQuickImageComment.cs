@@ -3025,7 +3025,7 @@ namespace QuickImageComment
         private void toolStripMenuItemImageWithGrid_Click(object sender, EventArgs e)
         {
             toolStripMenuItemImageWithGrid.Checked = !toolStripMenuItemImageWithGrid.Checked;
-            refreshImageGrid();
+            refreshImage();
         }
 
         // define image grids
@@ -3043,6 +3043,25 @@ namespace QuickImageComment
         private void toolStripMenuItemRotateRight_Click(object sender, EventArgs e)
         {
             rotateImage(System.Drawing.RotateFlipType.Rotate90FlipNone);
+        }
+
+        // configuration rotate by RAW Decoder
+        private void toolStripMenuItemRotateByRawDecoder_Click(object sender, EventArgs e)
+        {
+            if (theExtendedImage != null)
+            {
+                ArrayList RawDecoderRotateReqArrayList = ConfigDefinition.getRawDecoderNotRotatingArrayList();
+
+                if (RawDecoderRotateReqArrayList.Contains(theExtendedImage.getCodecInfo()))
+                    RawDecoderRotateReqArrayList.Remove(theExtendedImage.getCodecInfo());
+                else
+                    RawDecoderRotateReqArrayList.Add(theExtendedImage.getCodecInfo());
+
+                theExtendedImage.rotateIfRequired();
+                theUserControlFiles.listViewFiles.Refresh();
+                refreshImage();
+                toolStripMenuItemRotateAfterRawDecoder.Checked = theExtendedImage.getRotateAfterRawDecode();
+            }
         }
 
         // list shortcuts
@@ -3253,7 +3272,7 @@ namespace QuickImageComment
                         // for shifting the grid
                         theExtendedImage.setGridPosX(theExtendedImage.getGridPosX() + DiffX);
                         theExtendedImage.setGridPosY(theExtendedImage.getGridPosY() + DiffY);
-                        refreshImageGrid();
+                        refreshImage();
                     }
                 }
             }
@@ -3481,6 +3500,7 @@ namespace QuickImageComment
             dataGridViewSelectedFiles.Columns.Clear();
             dataGridViewSelectedFiles.ColumnCount = ConfigDefinition.getMetaDataDefinitions(ConfigDefinition.enumMetaDataGroup.MetaDataDefForMultiEditTable).Count + 2;
             dataGridViewSelectedFiles.Columns[0].Name = LangCfg.translate("Dateiname", this.Name);
+            dataGridViewSelectedFiles.Columns[0].Frozen = true;
             int ii = 1;
             foreach (MetaDataDefinitionItem anMetaDataDefinitionItem in ConfigDefinition.getMetaDataDefinitions(ConfigDefinition.enumMetaDataGroup.MetaDataDefForMultiEditTable))
             {
@@ -4376,6 +4396,8 @@ namespace QuickImageComment
                     DateTime.Now.Subtract(StartTime).TotalMilliseconds.ToString("   0") + " ms");
                 pictureBox1.Image = I2;
 #else
+                // configuration for RAW decoders requiring rotation may have changed
+                theExtendedImage.rotateIfRequired();
                 pictureBox1.Image = theExtendedImage.createAndGetAdjustedImage(toolStripMenuItemImageWithGrid.Checked);
                 // Force Garbage Collection as creating adjusted image may use a lot of memory
                 GC.Collect();
@@ -4488,6 +4510,11 @@ namespace QuickImageComment
                 }
                 // if external browser is started or not is checked in showMap
                 MapInExternalBrowser.newImage(commonRecordingLocation());
+
+                // indicate if it is a RAW with non-standard orientation
+                toolStripMenuItemRotateAfterRawDecoder.Enabled = theExtendedImage.getRawWithNonStandardOrientation();
+                // indicate if rotated after RAW decoding
+                toolStripMenuItemRotateAfterRawDecoder.Checked = theExtendedImage.getRotateAfterRawDecode();
             }
             else
             {
@@ -5612,11 +5639,11 @@ namespace QuickImageComment
         public void showRefreshImageGrid()
         {
             toolStripMenuItemImageWithGrid.Checked = true;
-            refreshImageGrid();
+            refreshImage();
         }
 
         // refresh image grid - also in FormImageWindow
-        public void refreshImageGrid()
+        public void refreshImage()
         {
             this.Cursor = Cursors.WaitCursor;
             if (theExtendedImage != null)
@@ -5783,294 +5810,301 @@ namespace QuickImageComment
         // create all screen shots
         private void toolStripMenuItemCreateScreenshots_Click(object sender, EventArgs e)
         {
-            this.Cursor = Cursors.WaitCursor;
-
-            // scroll down a little bit by making next nodes visible
-            // this.theFolderTreeView.SelectedNode.NextNode.NextNode.NextNode.EnsureVisible();
-            // required to ensure that images are loaded for screenshots with several images
-            ConfigDefinition.setConfigFlagThreadAfterSelectionOfFile(false);
-
-            // stop thread to get memory
-            cancellationTokenSourceCyclicDisplayMemory.Cancel();
-            // instead set fix memory so that screen shots do not differ just because of memory
-            this.toolStripStatusLabelMemory.Text = LangCfg.textOthersMainMemory + ": " + "50" + " MB   " +
-                                                   LangCfg.textOthersFree + ": " + "3000" + " MB";
-
-            GeneralUtilities.CreateScreenshots = true;
-
-            GeneralUtilities.debugMessage("After pressing \"OK\", move cursor outside the area, where screen shots are taken.\"" +
-                "Program will wait a few second, before it continues.");
-            System.Threading.Thread.Sleep(2000);
-
-            ConfigDefinition.loadViewConfiguration("Standard");
-            adjustViewAfterFormView();
-
-            // screenshots from main mask
-            int index = 0;
-            this.toolStripMenuItemTile_Click(null, null);
-
-            // first screenshot without and with additional comments
-            Bitmap bmp = GeneralUtilities.createScreenshotBitmap(this);
-
-            // save without additional comments
-            GeneralUtilities.saveScreenshotBitmap(bmp, this.Name + index++.ToString("-00"));
-
-            // add additional comments and save
-            Graphics OutputBitmapGraphics = Graphics.FromImage(bmp);
-            int thisX = this.PointToScreen(Point.Empty).X;
-            int thisY = this.PointToScreen(Point.Empty).Y;
-            int controlX = theUserControlFiles.listViewFiles.PointToScreen(Point.Empty).X;
-            int controlY = theUserControlFiles.listViewFiles.PointToScreen(Point.Empty).Y;
-            int baseX = controlX - thisX + theUserControlFiles.listViewFiles.Width - 18;
-            int baseY = controlY - thisY + 44;
-            OutputBitmapGraphics.DrawLine(new Pen(Color.Blue, 4.0F), new Point(baseX, baseY), new Point(baseX, baseY + 80));
-            OutputBitmapGraphics.DrawString(LangCfg.translate("bis zu 5 Eigenschaften frei wählbar", this.Name),
-                new Font("Verdana", 15, FontStyle.Bold), new SolidBrush(Color.Blue), new RectangleF(baseX, baseY, 180, 100));
-
-            controlX = DataGridViewOverview.PointToScreen(Point.Empty).X;
-            controlY = DataGridViewOverview.PointToScreen(Point.Empty).Y;
-            baseX = controlX - thisX + 5;
-            baseY = controlY - thisY + 50;
-            OutputBitmapGraphics.DrawLine(new Pen(Color.Blue, 4.0F), new Point(baseX, baseY), new Point(baseX, baseY + 223));
-            OutputBitmapGraphics.DrawString(LangCfg.translate("Eigenschaften frei wählbar", this.Name),
-                new Font("Verdana", 15, FontStyle.Bold), new SolidBrush(Color.Blue), new RectangleF(baseX, baseY, 180, 100));
-
-            controlX = theUserControlChangeableFields.PointToScreen(Point.Empty).X;
-            controlY = theUserControlChangeableFields.PointToScreen(Point.Empty).Y;
-            baseX = controlX - thisX + 3;
-            baseY = controlY - thisY + 30;
-            OutputBitmapGraphics.DrawLine(new Pen(Color.Blue, 4.0F), new Point(baseX, baseY), new Point(baseX, baseY + 224));
-            OutputBitmapGraphics.DrawString(LangCfg.translate("Änderbare Eigenschaften frei wählbar", this.Name),
-                new Font("Verdana", 15, FontStyle.Bold), new SolidBrush(Color.Blue), new RectangleF(baseX, baseY, 180, 100));
-
-            GeneralUtilities.saveScreenshotBitmap(bmp, this.Name + index++.ToString("-00"));
-
-            // next screenshots
-            this.toolStripMenuItemLargeIcons_Click(null, null);
-            GeneralUtilities.saveScreenshot(this, this.Name + index++.ToString("-00"));
-
-            this.toolStripMenuItemDetails_Click(null, null);
-            GeneralUtilities.saveScreenshot(this, this.Name + index++.ToString("-00"));
-            this.toolStripMenuItemList_Click(null, null);
-            GeneralUtilities.saveScreenshot(this, this.Name + index++.ToString("-00"));
-
-            ConfigDefinition.setPanelLastPredefCommentsCollapsed(true);
-            collapsePanelLastPredefComments(ConfigDefinition.getPanelLastPredefCommentsCollapsed());
-            GeneralUtilities.saveScreenshot(this, this.Name + index++.ToString("-00"));
-
-            ConfigDefinition.setPanelKeyWordsCollapsed(true);
-            collapsePanelKeyWords(ConfigDefinition.getPanelKeyWordsCollapsed());
-            GeneralUtilities.saveScreenshot(this, this.Name + index++.ToString("-00"));
-
-            ConfigDefinition.setPanelChangeableFieldsCollapsed(true);
-            collapsePanelChangeableFields(ConfigDefinition.getPanelChangeableFieldsCollapsed());
-            GeneralUtilities.saveScreenshot(this, this.Name + index++.ToString("-00"));
-
-            ConfigDefinition.setPanelPropertiesCollapsed(true);
-            collapsePanelProperties(ConfigDefinition.getPanelPropertiesCollapsed());
-            GeneralUtilities.saveScreenshot(this, this.Name + index++.ToString("-00"));
-
-            ConfigDefinition.setPanelFolderCollapsed(true);
-            collapsePanelFolder(ConfigDefinition.getPanelFolderCollapsed());
-            GeneralUtilities.saveScreenshot(this, this.Name + index++.ToString("-00"));
-
-            ConfigDefinition.setPanelFilesCollapsed(true);
-            collapsePanelFiles(ConfigDefinition.getPanelFilesCollapsed());
-            GeneralUtilities.saveScreenshot(this, this.Name + index++.ToString("-00"));
-
-            this.toolStripMenuItemToolsInMenu_Click(null, null);
-            GeneralUtilities.saveScreenshot(this, this.Name + index++.ToString("-00"));
-            this.toolStripMenuItemToolStripHide_Click(null, null);
-            GeneralUtilities.saveScreenshot(this, this.Name + index++.ToString("-00"));
-
-            // show menu, folder and files again
-            this.toolStripMenuItemTile_Click(null, null);
-            this.toolStripMenuItemToolStripShow_Click(null, null);
-            ConfigDefinition.setPanelFolderCollapsed(false);
-            collapsePanelFolder(ConfigDefinition.getPanelFolderCollapsed());
-            ConfigDefinition.setPanelFilesCollapsed(false);
-            collapsePanelFiles(ConfigDefinition.getPanelFilesCollapsed());
-
-            // screenshots with grid
-            ImageGrid theImageGrid;
-            this.toolStripMenuItemImage1_Click(null, null);
-            for (int gridIdx = 0; gridIdx < 6; gridIdx++)
+            try
             {
-                theImageGrid = ConfigDefinition.getImageGrid(gridIdx);
-                theImageGrid.active = true;
+                this.Cursor = Cursors.WaitCursor;
+
+                // scroll down a little bit by making next nodes visible
+                // this.theFolderTreeView.SelectedNode.NextNode.NextNode.NextNode.EnsureVisible();
+                // required to ensure that images are loaded for screenshots with several images
+                ConfigDefinition.setConfigFlagThreadAfterSelectionOfFile(false);
+
+                // stop thread to get memory
+                cancellationTokenSourceCyclicDisplayMemory.Cancel();
+                // instead set fix memory so that screen shots do not differ just because of memory
+                this.toolStripStatusLabelMemory.Text = LangCfg.textOthersMainMemory + ": " + "50" + " MB   " +
+                                                       LangCfg.textOthersFree + ": " + "3000" + " MB";
+
+                GeneralUtilities.CreateScreenshots = true;
+
+                GeneralUtilities.debugMessage("After pressing \"OK\", move cursor outside the area, where screen shots are taken.\"" +
+                    "Program will wait a few second, before it continues.");
+                System.Threading.Thread.Sleep(2000);
+
+                ConfigDefinition.loadViewConfiguration("Standard");
+                adjustViewAfterFormView();
+
+                // screenshots from main mask
+                int index = 0;
+                this.toolStripMenuItemTile_Click(null, null);
+
+                // first screenshot without and with additional comments
+                Bitmap bmp = GeneralUtilities.createScreenshotBitmap(this);
+
+                // save without additional comments
+                GeneralUtilities.saveScreenshotBitmap(bmp, this.Name + index++.ToString("-00"));
+
+                // add additional comments and save
+                Graphics OutputBitmapGraphics = Graphics.FromImage(bmp);
+                int thisX = this.PointToScreen(Point.Empty).X;
+                int thisY = this.PointToScreen(Point.Empty).Y;
+                int controlX = theUserControlFiles.listViewFiles.PointToScreen(Point.Empty).X;
+                int controlY = theUserControlFiles.listViewFiles.PointToScreen(Point.Empty).Y;
+                int baseX = controlX - thisX + theUserControlFiles.listViewFiles.Width - 18;
+                int baseY = controlY - thisY + 44;
+                OutputBitmapGraphics.DrawLine(new Pen(Color.Blue, 4.0F), new Point(baseX, baseY), new Point(baseX, baseY + 80));
+                OutputBitmapGraphics.DrawString(LangCfg.translate("bis zu 5 Eigenschaften frei wählbar", this.Name),
+                    new Font("Verdana", 15, FontStyle.Bold), new SolidBrush(Color.Blue), new RectangleF(baseX, baseY, 180, 100));
+
+                controlX = DataGridViewOverview.PointToScreen(Point.Empty).X;
+                controlY = DataGridViewOverview.PointToScreen(Point.Empty).Y;
+                baseX = controlX - thisX + 5;
+                baseY = controlY - thisY + 50;
+                OutputBitmapGraphics.DrawLine(new Pen(Color.Blue, 4.0F), new Point(baseX, baseY), new Point(baseX, baseY + 223));
+                OutputBitmapGraphics.DrawString(LangCfg.translate("Eigenschaften frei wählbar", this.Name),
+                    new Font("Verdana", 15, FontStyle.Bold), new SolidBrush(Color.Blue), new RectangleF(baseX, baseY, 180, 100));
+
+                controlX = theUserControlChangeableFields.PointToScreen(Point.Empty).X;
+                controlY = theUserControlChangeableFields.PointToScreen(Point.Empty).Y;
+                baseX = controlX - thisX + 3;
+                baseY = controlY - thisY + 30;
+                OutputBitmapGraphics.DrawLine(new Pen(Color.Blue, 4.0F), new Point(baseX, baseY), new Point(baseX, baseY + 224));
+                OutputBitmapGraphics.DrawString(LangCfg.translate("Änderbare Eigenschaften frei wählbar", this.Name),
+                    new Font("Verdana", 15, FontStyle.Bold), new SolidBrush(Color.Blue), new RectangleF(baseX, baseY, 180, 100));
+
+                GeneralUtilities.saveScreenshotBitmap(bmp, this.Name + index++.ToString("-00"));
+
+                // next screenshots
+                this.toolStripMenuItemLargeIcons_Click(null, null);
+                GeneralUtilities.saveScreenshot(this, this.Name + index++.ToString("-00"));
+
+                this.toolStripMenuItemDetails_Click(null, null);
+                GeneralUtilities.saveScreenshot(this, this.Name + index++.ToString("-00"));
+                this.toolStripMenuItemList_Click(null, null);
+                GeneralUtilities.saveScreenshot(this, this.Name + index++.ToString("-00"));
+
+                ConfigDefinition.setPanelLastPredefCommentsCollapsed(true);
+                collapsePanelLastPredefComments(ConfigDefinition.getPanelLastPredefCommentsCollapsed());
+                GeneralUtilities.saveScreenshot(this, this.Name + index++.ToString("-00"));
+
+                ConfigDefinition.setPanelKeyWordsCollapsed(true);
+                collapsePanelKeyWords(ConfigDefinition.getPanelKeyWordsCollapsed());
+                GeneralUtilities.saveScreenshot(this, this.Name + index++.ToString("-00"));
+
+                ConfigDefinition.setPanelChangeableFieldsCollapsed(true);
+                collapsePanelChangeableFields(ConfigDefinition.getPanelChangeableFieldsCollapsed());
+                GeneralUtilities.saveScreenshot(this, this.Name + index++.ToString("-00"));
+
+                ConfigDefinition.setPanelPropertiesCollapsed(true);
+                collapsePanelProperties(ConfigDefinition.getPanelPropertiesCollapsed());
+                GeneralUtilities.saveScreenshot(this, this.Name + index++.ToString("-00"));
+
+                ConfigDefinition.setPanelFolderCollapsed(true);
+                collapsePanelFolder(ConfigDefinition.getPanelFolderCollapsed());
+                GeneralUtilities.saveScreenshot(this, this.Name + index++.ToString("-00"));
+
+                ConfigDefinition.setPanelFilesCollapsed(true);
+                collapsePanelFiles(ConfigDefinition.getPanelFilesCollapsed());
+                GeneralUtilities.saveScreenshot(this, this.Name + index++.ToString("-00"));
+
+                this.toolStripMenuItemToolsInMenu_Click(null, null);
+                GeneralUtilities.saveScreenshot(this, this.Name + index++.ToString("-00"));
+                this.toolStripMenuItemToolStripHide_Click(null, null);
+                GeneralUtilities.saveScreenshot(this, this.Name + index++.ToString("-00"));
+
+                // show menu, folder and files again
+                this.toolStripMenuItemTile_Click(null, null);
+                this.toolStripMenuItemToolStripShow_Click(null, null);
+                ConfigDefinition.setPanelFolderCollapsed(false);
+                collapsePanelFolder(ConfigDefinition.getPanelFolderCollapsed());
+                ConfigDefinition.setPanelFilesCollapsed(false);
+                collapsePanelFiles(ConfigDefinition.getPanelFilesCollapsed());
+
+                // screenshots with grid
+                ImageGrid theImageGrid;
+                this.toolStripMenuItemImage1_Click(null, null);
+                for (int gridIdx = 0; gridIdx < 6; gridIdx++)
+                {
+                    theImageGrid = ConfigDefinition.getImageGrid(gridIdx);
+                    theImageGrid.active = true;
+                    showRefreshImageGrid();
+                    GeneralUtilities.saveScreenshot(this, this.Name + "-grid-" + gridIdx.ToString("0"));
+                    theImageGrid.active = false;
+                }
                 showRefreshImageGrid();
-                GeneralUtilities.saveScreenshot(this, this.Name + "-grid-" + gridIdx.ToString("0"));
-                theImageGrid.active = false;
-            }
-            showRefreshImageGrid();
-            toolStripMenuItemImageWithGrid.Checked = false;
-            toolStripMenuItemImageFit_Click(null, null);
+                toolStripMenuItemImageWithGrid.Checked = false;
+                toolStripMenuItemImageFit_Click(null, null);
 
-            ConfigDefinition.loadViewConfiguration("LeftVertical");
-            adjustViewAfterFormView();
-            GeneralUtilities.saveScreenshot(this, this.Name + index++.ToString("-00"));
+                ConfigDefinition.loadViewConfiguration("LeftVertical");
+                adjustViewAfterFormView();
+                GeneralUtilities.saveScreenshot(this, this.Name + index++.ToString("-00"));
 
-            ConfigDefinition.loadViewConfiguration("RightVertical");
-            adjustViewAfterFormView();
-            GeneralUtilities.saveScreenshot(this, this.Name + index++.ToString("-00"));
+                ConfigDefinition.loadViewConfiguration("RightVertical");
+                adjustViewAfterFormView();
+                GeneralUtilities.saveScreenshot(this, this.Name + index++.ToString("-00"));
 
-            // With FormCustomization
-            ConfigDefinition.loadViewConfiguration("Standard");
-            adjustViewAfterFormView();
+                // With FormCustomization
+                ConfigDefinition.loadViewConfiguration("Standard");
+                adjustViewAfterFormView();
 
-            ConfigDefinition.setPanelLastPredefCommentsCollapsed(false);
-            collapsePanelLastPredefComments(ConfigDefinition.getPanelLastPredefCommentsCollapsed());
-            ConfigDefinition.setPanelChangeableFieldsCollapsed(true);
-            collapsePanelChangeableFields(ConfigDefinition.getPanelChangeableFieldsCollapsed());
+                ConfigDefinition.setPanelLastPredefCommentsCollapsed(false);
+                collapsePanelLastPredefComments(ConfigDefinition.getPanelLastPredefCommentsCollapsed());
+                ConfigDefinition.setPanelChangeableFieldsCollapsed(true);
+                collapsePanelChangeableFields(ConfigDefinition.getPanelChangeableFieldsCollapsed());
 
-            // following lines to show image details
-            ConfigDefinition.loadViewConfiguration("ImageDetails");
-            adjustViewAfterFormView();
-            GeneralUtilities.saveScreenshot(this, this.Name + "-ImageDetails");
+                // following lines to show image details
+                ConfigDefinition.loadViewConfiguration("ImageDetails");
+                adjustViewAfterFormView();
+                GeneralUtilities.saveScreenshot(this, this.Name + "-ImageDetails");
 
-            // following lines to show map
-            ConfigDefinition.loadViewConfiguration("Map");
-            adjustViewAfterFormView();
-            GeneralUtilities.saveScreenshot(this, this.Name + "-Map", ConfigDefinition.getConfigInt(ConfigDefinition.enumConfigInt.DelayBeforeSavingScreenshotsMap));
+                // following lines to show map
+                ConfigDefinition.loadViewConfiguration("Map");
+                adjustViewAfterFormView();
+                GeneralUtilities.saveScreenshot(this, this.Name + "-Map", ConfigDefinition.getConfigInt(ConfigDefinition.enumConfigInt.DelayBeforeSavingScreenshotsMap));
 
-            // set display for Video screen shot
-            ConfigDefinition.loadViewConfiguration("Video");
-            adjustViewAfterFormView();
+                // set display for Video screen shot
+                ConfigDefinition.loadViewConfiguration("Video");
+                adjustViewAfterFormView();
 
-            // select a video
-            theUserControlFiles.listViewFiles.SelectedIndices.Clear();
-            for (int ii = 0; ii < theUserControlFiles.listViewFiles.Items.Count; ii++)
-            {
-                if (theUserControlFiles.listViewFiles.Items[ii].Name.ToLower().EndsWith("mov"))
+                // select a video
+                theUserControlFiles.listViewFiles.SelectedIndices.Clear();
+                for (int ii = 0; ii < theUserControlFiles.listViewFiles.Items.Count; ii++)
                 {
-                    theUserControlFiles.listViewFiles.SelectedIndices.Add(ii);
+                    if (theUserControlFiles.listViewFiles.Items[ii].Name.ToLower().EndsWith("mov"))
+                    {
+                        theUserControlFiles.listViewFiles.SelectedIndices.Add(ii);
+                    }
                 }
-            }
-            GeneralUtilities.saveScreenshot(this, this.Name + "-Video");
+                GeneralUtilities.saveScreenshot(this, this.Name + "-Video");
 
-            // reset display to standard
-            ConfigDefinition.loadViewConfiguration("Standard");
-            adjustViewAfterFormView();
+                // reset display to standard
+                ConfigDefinition.loadViewConfiguration("Standard");
+                adjustViewAfterFormView();
 
-            // select several images for multi-edit view
-            theUserControlFiles.listViewFiles.SelectedIndices.Clear();
-            for (int ii = 0; ii < theUserControlFiles.listViewFiles.Items.Count; ii++)
-            {
-                if (theUserControlFiles.listViewFiles.Items[ii].Name.ToLower().EndsWith("jpg"))
+                // select several images for multi-edit view
+                theUserControlFiles.listViewFiles.SelectedIndices.Clear();
+                for (int ii = 0; ii < theUserControlFiles.listViewFiles.Items.Count; ii++)
                 {
-                    theUserControlFiles.listViewFiles.SelectedIndices.Add(ii);
+                    if (theUserControlFiles.listViewFiles.Items[ii].Name.ToLower().EndsWith("jpg"))
+                    {
+                        theUserControlFiles.listViewFiles.SelectedIndices.Add(ii);
+                    }
                 }
-            }
-            // Video display might take longer
-            System.Threading.Thread.Sleep(1000);
-            this.tabControlSingleMulti.SelectTab(1);
-            GeneralUtilities.saveScreenshot(this, this.Name + index++.ToString("-00"));
+                // Video display might take longer
+                System.Threading.Thread.Sleep(1000);
+                this.tabControlSingleMulti.SelectTab(1);
+                GeneralUtilities.saveScreenshot(this, this.Name + index++.ToString("-00"));
 
-            // select single edit again and first image
-            this.tabControlSingleMulti.SelectTab(0);
-            theUserControlFiles.listViewFiles.SelectedIndices.Clear();
-            theUserControlFiles.listViewFiles.SelectedIndices.Add(0);
-            CustomizationInterface.resetForm(this);
-            CustomizationInterface.loadCustomizationFileNoOptionalSavePrevChanges(ConfigDefinition.getConfigPath() + @"\FormCustomization-bunt.ini");
-            CustomizationInterface.setFormToCustomizedValues(this);
-            this.Refresh();
-            GeneralUtilities.saveScreenshot(this, this.Name + "-bunt");
+                // select single edit again and first image
+                this.tabControlSingleMulti.SelectTab(0);
+                theUserControlFiles.listViewFiles.SelectedIndices.Clear();
+                theUserControlFiles.listViewFiles.SelectedIndices.Add(0);
+                CustomizationInterface.resetForm(this);
+                CustomizationInterface.loadCustomizationFileNoOptionalSavePrevChanges(ConfigDefinition.getConfigPath() + @"\FormCustomization-bunt.ini");
+                CustomizationInterface.setFormToCustomizedValues(this);
+                this.Refresh();
+                GeneralUtilities.saveScreenshot(this, this.Name + "-bunt");
 
-            CustomizationInterface.resetForm(this);
-            CustomizationInterface.loadCustomizationFileNoOptionalSavePrevChanges(ConfigDefinition.getConfigPath() + @"\FormCustomization-Schrift.ini");
-            CustomizationInterface.setFormToCustomizedValues(this);
-            this.Refresh();
-            GeneralUtilities.saveScreenshot(this, this.Name + "-Schrift");
+                CustomizationInterface.resetForm(this);
+                CustomizationInterface.loadCustomizationFileNoOptionalSavePrevChanges(ConfigDefinition.getConfigPath() + @"\FormCustomization-Schrift.ini");
+                CustomizationInterface.setFormToCustomizedValues(this);
+                this.Refresh();
+                GeneralUtilities.saveScreenshot(this, this.Name + "-Schrift");
 
-            CustomizationInterface.resetForm(this);
-            CustomizationInterface.loadCustomizationFileNoOptionalSavePrevChanges(ConfigDefinition.getConfigPath() + @"\FormCustomization-schwarze-Trennlinien.ini");
-            CustomizationInterface.setFormToCustomizedValues(this);
-            this.Refresh();
-            GeneralUtilities.saveScreenshot(this, this.Name + "-schwarze-Trennlinien");
+                CustomizationInterface.resetForm(this);
+                CustomizationInterface.loadCustomizationFileNoOptionalSavePrevChanges(ConfigDefinition.getConfigPath() + @"\FormCustomization-schwarze-Trennlinien.ini");
+                CustomizationInterface.setFormToCustomizedValues(this);
+                this.Refresh();
+                GeneralUtilities.saveScreenshot(this, this.Name + "-schwarze-Trennlinien");
 
-            // this one as last, because some settings are not reset correctly - did not check why
-            CustomizationInterface.resetForm(this);
-            CustomizationInterface.loadCustomizationFileNoOptionalSavePrevChanges(ConfigDefinition.getConfigPath() + @"\FormCustomization-grau.ini");
-            CustomizationInterface.setFormToCustomizedValues(this);
-            this.Refresh();
-            GeneralUtilities.saveScreenshot(this, this.Name + "-grau");
+                // this one as last, because some settings are not reset correctly - did not check why
+                CustomizationInterface.resetForm(this);
+                CustomizationInterface.loadCustomizationFileNoOptionalSavePrevChanges(ConfigDefinition.getConfigPath() + @"\FormCustomization-grau.ini");
+                CustomizationInterface.setFormToCustomizedValues(this);
+                this.Refresh();
+                GeneralUtilities.saveScreenshot(this, this.Name + "-grau");
 
-            // reset customization
-            CustomizationInterface.resetForm(this);
-            CustomizationInterface.clearLastCustomizationFile();
-            CustomizationInterface.setFormToCustomizedValues(this);
-            this.Refresh();
+                // reset customization
+                CustomizationInterface.resetForm(this);
+                CustomizationInterface.clearLastCustomizationFile();
+                CustomizationInterface.setFormToCustomizedValues(this);
+                this.Refresh();
 
-            // select several images:
-            // some masks require several images, for the others it does no harm
-            theUserControlFiles.listViewFiles.SelectedIndices.Clear();
-            for (int ii = 0; ii < theUserControlFiles.listViewFiles.Items.Count; ii++)
-            {
-                if (theUserControlFiles.listViewFiles.Items[ii].Name.ToLower().EndsWith("jpg"))
+                // select several images:
+                // some masks require several images, for the others it does no harm
+                theUserControlFiles.listViewFiles.SelectedIndices.Clear();
+                for (int ii = 0; ii < theUserControlFiles.listViewFiles.Items.Count; ii++)
                 {
-                    theUserControlFiles.listViewFiles.SelectedIndices.Add(ii);
+                    if (theUserControlFiles.listViewFiles.Items[ii].Name.ToLower().EndsWith("jpg"))
+                    {
+                        theUserControlFiles.listViewFiles.SelectedIndices.Add(ii);
+                    }
                 }
-            }
-            // Prepare for screenshots from sub masks
-            //new FormAbout();
-            new FormCheckNewVersion("", "");
-            new FormCompare(theUserControlFiles.listViewFiles.SelectedIndices, FolderName);
-            new FormDataTemplates();
-            new FormDateTimeChange(theUserControlFiles.listViewFiles.SelectedIndices);
-            // FormError not needed
-            // FormErrorAppCenter not needed
-            new FormExportAllMetaData(theUserControlFiles.listViewFiles.SelectedIndices, FolderName);
-            new FormExportMetaData(FolderName);
-            FormFind formFind = new FormFind();
-            formFind.createScreenShot(FolderName);
-            new FormFindReadErrors();
-            new FormImageDetails(dpiSettings, theExtendedImage);
-            new FormImageGrid();
-            new FormImageWindow(theExtendedImage);
-            new FormInputCheckConfiguration("Iptc.Application2.Category");
-            new FormMap();
-            new FormMetaDataDefinition(theExtendedImage);
-            //new FormMultiSave(0);
-            new FormPlaceholder("Exif.Image.Copyright", "Copyright {{#Exif.Photo.DateTimeOriginal;;4}} {{Exif.Image.Artist}}");
-            new FormPredefinedComments();
-            new FormPredefinedKeyWords();
-            new FormRemoveMetaData(theUserControlFiles.listViewFiles.SelectedIndices);
-            new FormRename(theUserControlFiles.listViewFiles.SelectedIndices, FolderName);
-            new FormSelectLanguage(ConfigDefinition.getConfigPath());
-            new FormSettings();
-            // exclude FormSelectUserConfigStorage: not interisting for screen shot 
+                // Prepare for screenshots from sub masks
+                //new FormAbout();
+                new FormCheckNewVersion("", "");
+                new FormCompare(theUserControlFiles.listViewFiles.SelectedIndices, FolderName);
+                new FormDataTemplates();
+                new FormDateTimeChange(theUserControlFiles.listViewFiles.SelectedIndices);
+                // FormError not needed
+                // FormErrorAppCenter not needed
+                new FormExportAllMetaData(theUserControlFiles.listViewFiles.SelectedIndices, FolderName);
+                new FormExportMetaData(FolderName);
+                FormFind formFind = new FormFind();
+                formFind.createScreenShot(FolderName);
+                new FormFindReadErrors();
+                new FormImageDetails(dpiSettings, theExtendedImage);
+                new FormImageGrid();
+                new FormImageWindow(theExtendedImage);
+                new FormInputCheckConfiguration("Iptc.Application2.Category");
+                new FormMap();
+                new FormMetaDataDefinition(theExtendedImage);
+                //new FormMultiSave(0);
+                new FormPlaceholder("Exif.Image.Copyright", "Copyright {{#Exif.Photo.DateTimeOriginal;;4}} {{Exif.Image.Artist}}");
+                new FormPredefinedComments();
+                new FormPredefinedKeyWords();
+                new FormRemoveMetaData(theUserControlFiles.listViewFiles.SelectedIndices);
+                new FormRename(theUserControlFiles.listViewFiles.SelectedIndices, FolderName);
+                new FormSelectLanguage(ConfigDefinition.getConfigPath());
+                new FormSettings();
+                // exclude FormSelectUserConfigStorage: not interisting for screen shot 
 
-            bool ControlForFormTagValueInputFound = false;
-            foreach (Control aControl in theUserControlChangeableFields.ChangeableFieldInputControls.Values)
-            {
-                if (aControl.Name.Contains("Application2.LocationName"))
+                bool ControlForFormTagValueInputFound = false;
+                foreach (Control aControl in theUserControlChangeableFields.ChangeableFieldInputControls.Values)
                 {
+                    if (aControl.Name.Contains("Application2.LocationName"))
+                    {
+                        ChangeableFieldSpecification theChangeableFieldSpecification = (ChangeableFieldSpecification)aControl.Tag;
+                        string HeaderText = theChangeableFieldSpecification.DisplayName + "(" + theChangeableFieldSpecification.TypePrim + ")";
+                        new FormTagValueInput(HeaderText, aControl, FormTagValueInput.type.configurable);
+                        ControlForFormTagValueInputFound = true;
+                        break;
+                    }
+                }
+                if (!ControlForFormTagValueInputFound)
+                {
+                    Control aControl = theUserControlChangeableFields.ChangeableFieldInputControls.Values[0];
                     ChangeableFieldSpecification theChangeableFieldSpecification = (ChangeableFieldSpecification)aControl.Tag;
                     string HeaderText = theChangeableFieldSpecification.DisplayName + "(" + theChangeableFieldSpecification.TypePrim + ")";
                     new FormTagValueInput(HeaderText, aControl, FormTagValueInput.type.configurable);
-                    ControlForFormTagValueInputFound = true;
-                    break;
+                    GeneralUtilities.debugMessage("Internal warning: field planned to be used for screenshot from FormTagValueInput not found.");
                 }
+                new FormUserButtons(this.MenuStrip1);
+                new FormView(SplitContainerPanelControls, DefaultSplitContainerPanelContents,
+                    DataGridViewExif, DataGridViewIptc, DataGridViewXmp, DataGridViewOtherMetaData);
+
+                GeneralUtilities.CreateScreenshots = false;
+
+                CustomizationInterface.clearCustomizedSettingsChanged();
+                ConfigDefinition.setConfigFlagThreadAfterSelectionOfFile(true);
+
+                this.Cursor = Cursors.Default;
+                GeneralUtilities.debugMessage("finished");
             }
-            if (!ControlForFormTagValueInputFound)
+            catch (Exception ex)
             {
-                Control aControl = theUserControlChangeableFields.ChangeableFieldInputControls.Values[0];
-                ChangeableFieldSpecification theChangeableFieldSpecification = (ChangeableFieldSpecification)aControl.Tag;
-                string HeaderText = theChangeableFieldSpecification.DisplayName + "(" + theChangeableFieldSpecification.TypePrim + ")";
-                new FormTagValueInput(HeaderText, aControl, FormTagValueInput.type.configurable);
-                GeneralUtilities.debugMessage("Internal warning: field planned to be used for screenshot from FormTagValueInput not found.");
+                GeneralUtilities.debugMessage("Error during creating screen shots:\n" + ex.Message + "\n" + ex.StackTrace);
             }
-            new FormUserButtons(this.MenuStrip1);
-            new FormView(SplitContainerPanelControls, DefaultSplitContainerPanelContents,
-                DataGridViewExif, DataGridViewIptc, DataGridViewXmp, DataGridViewOtherMetaData);
-
-            GeneralUtilities.CreateScreenshots = false;
-
-            CustomizationInterface.clearCustomizedSettingsChanged();
-            ConfigDefinition.setConfigFlagThreadAfterSelectionOfFile(true);
-
-            this.Cursor = Cursors.Default;
-            GeneralUtilities.debugMessage("finished");
         }
 
         // write lookup reference file containing meta data not yet translated
