@@ -258,8 +258,8 @@ namespace QuickImageComment
 
         private void numericUpDownX_ValueChanged(object sender, EventArgs e)
         {
-            // action only if there is an image and value was changed by user
-            if (theExtendedImage != null && numericUpDownX.Focused)
+            // action only if there is an image
+            if (theExtendedImage != null)
             {
                 theExtendedImage.setImageDetailsPosX((int)numericUpDownX.Value);
                 refreshGraphicDisplay(true);
@@ -268,8 +268,8 @@ namespace QuickImageComment
 
         private void numericUpDownY_ValueChanged(object sender, EventArgs e)
         {
-            // action only if there is an image and value was changed by user
-            if (theExtendedImage != null && numericUpDownY.Focused)
+            // action only if there is an image
+            if (theExtendedImage != null)
             {
                 theExtendedImage.setImageDetailsPosY((int)numericUpDownY.Value);
                 refreshGraphicDisplay(true);
