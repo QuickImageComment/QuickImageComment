@@ -74,6 +74,7 @@ namespace QuickImageComment
             this.contextMenuStripOverview = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItemAddToChangeable = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemAddToFind = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemAddToMultiEditTab = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripMetaDataMenuItemAdjustOverview = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPageExif = new System.Windows.Forms.TabPage();
             this.tabPageIptc = new System.Windows.Forms.TabPage();
@@ -645,9 +646,10 @@ namespace QuickImageComment
             this.contextMenuStripOverview.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItemAddToChangeable,
             this.toolStripMenuItemAddToFind,
+            this.toolStripMenuItemAddToMultiEditTab,
             this.contextMenuStripMetaDataMenuItemAdjustOverview});
             this.contextMenuStripOverview.Name = "contextMenuStripOverview";
-            this.contextMenuStripOverview.Size = new System.Drawing.Size(343, 70);
+            this.contextMenuStripOverview.Size = new System.Drawing.Size(343, 92);
             // 
             // toolStripMenuItemAddToChangeable
             // 
@@ -662,6 +664,13 @@ namespace QuickImageComment
             this.toolStripMenuItemAddToFind.Size = new System.Drawing.Size(342, 22);
             this.toolStripMenuItemAddToFind.Text = "Markierte Felder zu Feldern für Suche hinzufügen";
             this.toolStripMenuItemAddToFind.Click += new System.EventHandler(this.toolStripMenuItemAddToFind_Click);
+            // 
+            // toolStripMenuItemAddToMultiEditTab
+            // 
+            this.toolStripMenuItemAddToMultiEditTab.Name = "toolStripMenuItemAddToMultiEditTab";
+            this.toolStripMenuItemAddToMultiEditTab.Size = new System.Drawing.Size(342, 22);
+            this.toolStripMenuItemAddToMultiEditTab.Text = "Markierte Felder zu Multi-Edit-Tabelle hinzufügen";
+            this.toolStripMenuItemAddToMultiEditTab.Click += new System.EventHandler(this.toolStripMenuItemAddToMultiEditTab_Click);
             // 
             // contextMenuStripMetaDataMenuItemAdjustOverview
             // 
@@ -2640,5 +2649,6 @@ namespace QuickImageComment
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemTutorials;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator17;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemRotateAfterRawDecoder;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemAddToMultiEditTab;
     }
 }
