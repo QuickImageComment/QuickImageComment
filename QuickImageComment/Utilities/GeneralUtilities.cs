@@ -1433,6 +1433,53 @@ namespace QuickImageComment
             }
         }
 
+        // add fields to overview
+        public static void addFieldToListOfFieldsForMultiEditTable(System.Collections.ArrayList TagsToMove)
+        {
+            ArrayList MetaDataDefinitionsWork;
+
+            MetaDataDefinitionsWork = ConfigDefinition.getMetaDataDefinitions(ConfigDefinition.enumMetaDataGroup.MetaDataDefForMultiEditTable);
+
+            if (TagsToMove.Count == 0)
+            {
+                GeneralUtilities.message(LangCfg.Message.W_noFieldSelected);
+            }
+            else
+            {
+                string message = "";
+                foreach (string key in TagsToMove)
+                {
+                    message = message + "\n" + key;
+                }
+
+                if (GeneralUtilities.questionMessage(LangCfg.Message.Q_addFollowingPropertiesMultiEditTable, message) == DialogResult.Yes)
+                {
+                    foreach (string key in TagsToMove)
+                    {
+                        // check if tag is already entered in fields for overview
+                        bool inList = false;
+                        int ii = 1;
+                        foreach (MetaDataDefinitionItem aMetaDataDefinitionItem in MetaDataDefinitionsWork)
+                        {
+                            if (key.Equals(aMetaDataDefinitionItem.KeyPrim))
+                            {
+                                GeneralUtilities.message(LangCfg.Message.E_tagAlreadyEntered, aMetaDataDefinitionItem.Name, ii.ToString());
+                                inList = true;
+                                break;
+                            }
+                            ii++;
+                        }
+                        if (!inList)
+                        {
+                            MetaDataDefinitionItem theMetaDataDefinitionItem = new MetaDataDefinitionItem(key, key, MetaDataItem.Format.Original);
+                            MetaDataDefinitionsWork.Add(theMetaDataDefinitionItem);
+                            MainMaskInterface.afterMetaDataDefinitionChange();
+                        }
+                    }
+                }
+            }
+        }
+
         // get format for a new tag for group MetaDataDefForChange
         internal static MetaDataItem.Format getFormatForTagChange(string key)
         {

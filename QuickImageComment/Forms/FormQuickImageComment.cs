@@ -2586,6 +2586,12 @@ namespace QuickImageComment
         {
             GeneralUtilities.addFieldToListOfFieldsForFind(collectSelectedFields());
         }
+        // context menu add fields to fields in multi-edit-tab
+        private void toolStripMenuItemAddToMultiEditTab_Click(object sender, EventArgs e)
+        {
+            GeneralUtilities.addFieldToListOfFieldsForMultiEditTable(collectSelectedFields());
+        }
+
         private System.Collections.ArrayList collectSelectedFields()
         {
             System.Collections.ArrayList TagsToAdd = new System.Collections.ArrayList();

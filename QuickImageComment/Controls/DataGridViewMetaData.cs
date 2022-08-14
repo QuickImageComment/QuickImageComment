@@ -34,6 +34,7 @@ namespace QuickImageCommentControls
         private ToolStripMenuItem toolStripMenuItemWithHeaderEnglish;
         private ToolStripMenuItem toolStripMenuItemAddToChangeable;
         private ToolStripMenuItem toolStripMenuItemAddToOverview;
+        private ToolStripMenuItem toolStripMenuItemAddToMultiEditTable;
         private ToolStripMenuItem toolStripMenuItemAddToFind;
         private ToolStripSeparator toolStripSeparator1;
         private System.Collections.ArrayList HeadersNonVisibleRows = new System.Collections.ArrayList();
@@ -71,6 +72,7 @@ namespace QuickImageCommentControls
             this.toolStripMenuItemAddToChangeable = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemAddToOverview = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemAddToFind = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemAddToMultiEditTable = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.ContextMenuStripDataGridViewMetaData.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItemWithHeader,
@@ -82,7 +84,8 @@ namespace QuickImageCommentControls
             this.toolStripSeparator1,
             this.toolStripMenuItemAddToChangeable,
             this.toolStripMenuItemAddToOverview,
-            this.toolStripMenuItemAddToFind});
+            this.toolStripMenuItemAddToFind,
+            this.toolStripMenuItemAddToMultiEditTable});
             this.ContextMenuStripDataGridViewMetaData.Name = "ContextMenuStripDataGridViewMetaData";
             this.ContextMenuStripDataGridViewMetaData.ShowCheckMargin = true;
             this.ContextMenuStripDataGridViewMetaData.ShowImageMargin = false;
@@ -172,6 +175,15 @@ namespace QuickImageCommentControls
             this.toolStripMenuItemAddToFind.Size = new System.Drawing.Size(258, 22);
             this.toolStripMenuItemAddToFind.Text = "Markierte Felder zu Feldern für Suche hinzufügen";
             this.toolStripMenuItemAddToFind.Click += new System.EventHandler(this.toolStripMenuItemAddToFind_Click);
+
+            // 
+            // toolStripMenuItemAddToMultiEditTable
+            // 
+            this.toolStripMenuItemAddToMultiEditTable.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripMenuItemAddToMultiEditTable.Name = "toolStripMenuItemAddToMultiEditTable";
+            this.toolStripMenuItemAddToMultiEditTable.Size = new System.Drawing.Size(258, 22);
+            this.toolStripMenuItemAddToMultiEditTable.Text = "Markierte Felder zu Multi-Edit-Tabelle hinzufügen";
+            this.toolStripMenuItemAddToMultiEditTable.Click += new System.EventHandler(this.toolStripMenuItemAddToMultiEditTable_Click);
 
             this.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewMetaData_CellClick);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataGridViewMetaData_KeyDown);
@@ -519,6 +531,11 @@ namespace QuickImageCommentControls
         {
             GeneralUtilities.addFieldToListOfFieldsForFind(collectSelectedFields());
         }
+        private void toolStripMenuItemAddToMultiEditTable_Click(object sender, System.EventArgs e)
+        {
+            GeneralUtilities.addFieldToListOfFieldsForMultiEditTable(collectSelectedFields());
+        }
+
         private System.Collections.ArrayList collectSelectedFields()
         {
             System.Collections.ArrayList TagsToAdd = new System.Collections.ArrayList();

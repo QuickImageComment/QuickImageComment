@@ -176,7 +176,8 @@ namespace QuickImageComment
             I_CoreWebView2NotInitialised,
             Q_tagRequiresReadBitmap,
             W_tagRequiresReadBitmap,
-            Q_changeDataOfThisTypeNotUseful
+            Q_changeDataOfThisTypeNotUseful,
+            Q_addFollowingPropertiesMultiEditTable
         }
 
         public enum Others
