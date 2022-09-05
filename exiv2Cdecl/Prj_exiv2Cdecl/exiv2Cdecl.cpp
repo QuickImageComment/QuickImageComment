@@ -27,7 +27,7 @@
 
 //#define TRACING 200
 
-#define VERSION "0.27.5.0"
+#define VERSION "0.27.5.1"
 
 // definitions for Exif Easy Access
 typedef Exiv2::ExifData::const_iterator(*EasyAccessFct)(const Exiv2::ExifData& ed);
@@ -37,17 +37,22 @@ struct EasyAccess {
     const char* label_;
 };
 
+// definitions to read XMP tag list
+namespace Exiv2 {
+
+    extern const Exiv2::XmpNsInfo xmpNsInfo[];
+    const Exiv2::XmpNsInfo* getXmpNsInfo()
+    {
+        return xmpNsInfo;
+    }
+}
+
 // status and option codes
 static const int exiv2StatusException = 100;
 static const int exiv2WriteOptionDefault = 0;
 static const int exiv2WriteOptionXmpText = 1;
 static const int exiv2WriteOptionXaBag = 2;
 static const int exiv2WriteOptionXsStruct = 3;
-
-// used to separate entries in ouptut stream with tag descriptions
-char const separator[] = "\n";
-static char* token;
-static char* next_token;
 
 // used to iterator through meta data
 static Exiv2::Image::AutoPtr image;
@@ -101,59 +106,54 @@ static const EasyAccess easyAccess[] = {
 //-------------------------------------------------------------------------
 // get list of Exif tags
 //-------------------------------------------------------------------------
-// prepare and get first description
-extern "C" __declspec(dllexport) int __cdecl exiv2getFirstExifTagDescription(LPSTR * retStr) {
+extern "C" __declspec(dllexport) int __cdecl exiv2getExifTagDescriptions(LPSTR * retStr) {
     std::ostringstream oss;
-    // get standard tags
-    Exiv2::ExifTags::taglist(oss);
 
-    // get also mpf tags
-    const Exiv2::TagInfo* mpf = Exiv2::Internal::mpfTagList();
-    for (int i = 0; mpf[i].tag_ != 0xffff; ++i) {
-        oss << mpf[i] << "\n";
-    }
-
-    // get makernotes, based on http://dev.exiv2.org/boards/3/topics/583
-    const Exiv2::GroupInfo* gi = Exiv2::ExifTags::groupList();
-    while (gi->tagList_ != 0) {
-        if (strcmp(gi->ifdName_, "Makernote") == 0) {
-            Exiv2::ExifTags::taglist(oss, gi->groupName_);
+    const Exiv2::GroupInfo* groupList = Exiv2::ExifTags::groupList();
+    if (groupList) {
+        std::string line;
+        while (groupList->tagList_) {
+            if (strcmp(groupList->groupName_, "Image2") &&
+                strcmp(groupList->groupName_, "Image3") &&
+                strcmp(groupList->groupName_, "SubImage1") &&
+                strcmp(groupList->groupName_, "SubImage2") &&
+                strcmp(groupList->groupName_, "SubImage3") &&
+                strcmp(groupList->groupName_, "SubImage4") &&
+                strcmp(groupList->groupName_, "SubImage5") &&
+                strcmp(groupList->groupName_, "SubImage6") &&
+                strcmp(groupList->groupName_, "SubImage7") &&
+                strcmp(groupList->groupName_, "SubImage8") &&
+                strcmp(groupList->groupName_, "SubImage9") &&
+                strcmp(groupList->groupName_, "SubThumb1") &&
+                strcmp(groupList->groupName_, "NikonPreview") &&
+                strcmp(groupList->groupName_, "SamsungPreview"))
+            {
+                Exiv2::Internal::IfdId ifdId = Exiv2::Internal::groupId(groupList->groupName_);
+                const Exiv2::TagInfo* ti = Exiv2::Internal::tagList(ifdId);
+                if (ti != 0) {
+                    for (int k = 0; ti[k].tag_ != 0xffff; ++k) {
+                        oss << "Exif." << groupList->groupName_ << "."
+                            << ti[k].name_ << "\t"
+                            << Exiv2::TypeInfo::typeName(ti[k].typeId_) << "\t"
+                            << ti[k].desc_ << "\n";
+                    }
+                }
+            }
+            groupList++;
         }
-        ++gi;
     }
 
-    char* tagListString = strdup(oss.str().c_str());
-    token = NULL;
-    next_token = NULL;
-
-    token = strtok_s(tagListString, separator, &next_token);
-    *retStr = strdup(token);
+    *retStr = strdup(oss.str().c_str());
     return 0;
-}
-
-// get next description (also used for IPTC and XMP)
-extern "C" __declspec(dllexport) int __cdecl exiv2getNextTagDescription(LPSTR * retStr) {
-    token = strtok_s(NULL, separator, &next_token);
-    if (token == NULL) {
-        return 1;
-    }
-    else {
-        *retStr = strdup(token);
-        return 0;
-    }
 }
 
 //-------------------------------------------------------------------------
 // get Exif Easy description by index
 //-------------------------------------------------------------------------
-extern "C" __declspec(dllexport) int __cdecl exiv2getExifEasyTagDescription(int index, LPSTR * retStr) {
+extern "C" __declspec(dllexport) int __cdecl exiv2getExifEasyTagDescription(int index, LPSTR * key, LPSTR * desc) {
     if (index < EXV_COUNTOF(easyAccess)) {
-        char* tagDescription;
-        tagDescription = (char*)malloc(strlen(easyAccess[index].tagName) + 12 + strlen(easyAccess[index].label_) + 1);
-        strcpy(tagDescription, easyAccess[index].tagName);
-        strcat(tagDescription, ",\tReadonly,\t");
-        strcat(tagDescription, easyAccess[index].label_);
-        *retStr = strdup(tagDescription);
+        *key = strdup(easyAccess[index].tagName);
+        *desc = strdup(easyAccess[index].label_);
         return 0;
     }
     else {
@@ -164,84 +164,53 @@ extern "C" __declspec(dllexport) int __cdecl exiv2getExifEasyTagDescription(int 
 //-------------------------------------------------------------------------
 // get list of IPTC tags
 //-------------------------------------------------------------------------
-// prepare and get first description
-extern "C" __declspec(dllexport) int __cdecl exiv2getFirstIptcTagDescription(LPSTR * retStr) {
+//!! with exiv2 1.0 try a more generic approach (see loop in Exiv2::IptcDataSets::dataSetList)
+extern "C" __declspec(dllexport) int __cdecl exiv2getIptcTagDescriptions(LPSTR * retStr) {
     std::ostringstream oss;
-    Exiv2::IptcDataSets::dataSetList(oss);
 
-    char* tagListString = strdup(oss.str().c_str());
-    token = NULL;
-    next_token = NULL;
+    const Exiv2::DataSet* record = Exiv2::IptcDataSets::envelopeRecordList();
+    for (int j = 0; record != 0 && record[j].number_ != 0xffff; ++j) {
+        oss << "Iptc.Envelope."
+            << record[j].name_ << "\t"
+            << Exiv2::TypeInfo::typeName(record[j].type_) << "\t"
+            << record[j].desc_ << "\n";
+    }
+    record = Exiv2::IptcDataSets::application2RecordList();
+    for (int j = 0; record != 0 && record[j].number_ != 0xffff; ++j) {
+        oss << "Iptc.Application2."
+            << record[j].name_ << "\t"
+            << Exiv2::TypeInfo::typeName(record[j].type_) << "\t"
+            << record[j].desc_ << "\n";
+    }
 
-    token = strtok_s(tagListString, separator, &next_token);
-    *retStr = strdup(token);
+    *retStr = strdup(oss.str().c_str());
     return 0;
 }
 
 //-------------------------------------------------------------------------
 // get list of XMP tags
 //-------------------------------------------------------------------------
-// print properties of one XMP group
-void printProperties(std::ostream& oss, const std::string& prefix)
-{
-    const Exiv2::XmpPropertyInfo* pl = Exiv2::XmpProperties::propertyList(prefix);
-    if (pl) {
-        for (int i = 0; pl[i].name_ != 0; ++i) {
-            oss << "Xmp." << prefix << "." << pl[i];
-        }
-    }
-}
-
-// prepare and get first description
-extern "C" __declspec(dllexport) int __cdecl exiv2getFirstXmpTagDescription(LPSTR * retStr) {
+extern "C" __declspec(dllexport) int __cdecl exiv2getXmpTagDescriptions(LPSTR * retStr) {
     std::ostringstream oss;
 
-    printProperties(oss, "dc");
-    printProperties(oss, "digiKam");
-    printProperties(oss, "kipi");
-    printProperties(oss, "xmp");
-    printProperties(oss, "xmpRights");
-    printProperties(oss, "xmpMM");
-    printProperties(oss, "xmpBJ");
-    printProperties(oss, "xmpTPg");
-    printProperties(oss, "xmpDM");
-    printProperties(oss, "MicrosoftPhoto");
-    printProperties(oss, "lr");
-    printProperties(oss, "pdf");
-    printProperties(oss, "photoshop");
-    printProperties(oss, "crs");
-    printProperties(oss, "crss");
-    printProperties(oss, "tiff");
-    printProperties(oss, "exif");
-    printProperties(oss, "exifEX");
-    printProperties(oss, "aux");
-    printProperties(oss, "iptc");
-    printProperties(oss, "Iptc4xmpCore");
-    printProperties(oss, "iptcExt");
-    printProperties(oss, "Iptc4xmpExt");
-    printProperties(oss, "plus");
-    printProperties(oss, "mediapro");
-    printProperties(oss, "expressionmedia");
-    printProperties(oss, "MP");
-    printProperties(oss, "MPRI");
-    printProperties(oss, "MPReg");
-    printProperties(oss, "mwg-rs");
-    printProperties(oss, "mwg-kw");
-    printProperties(oss, "video");
-    printProperties(oss, "audio");
-    printProperties(oss, "dwc");
-    printProperties(oss, "dcterms");
-    printProperties(oss, "acdsee");
-    printProperties(oss, "GPano");
+    const Exiv2::XmpNsInfo* groupList = Exiv2::getXmpNsInfo();
+    if (groupList) {
+        std::string line;
+        while (groupList->xmpPropertyInfo_) {
+            const Exiv2::XmpPropertyInfo* pl = groupList->xmpPropertyInfo_;
+            if (pl) {
+                for (int i = 0; pl[i].name_ != 0; ++i) {
+                    oss << "Xmp." << groupList->prefix_ << "."
+                        << pl[i].name_ << "\t"
+                        << Exiv2::TypeInfo::typeName(pl[i].typeId_) << "\t"
+                        << pl[i].desc_ << "\n";
+                }
+            }
+            groupList++;
+        }
+    }
 
-    char* tagListString = strdup(oss.str().c_str());
-    token = NULL;
-    next_token = NULL;
-
-    // Copy tokens
-    // Establish string and get the first token:
-    token = strtok_s(tagListString, separator, &next_token);
-    *retStr = strdup(token);
+    *retStr = strdup(oss.str().c_str());
     return 0;
 }
 
@@ -274,7 +243,7 @@ extern "C" __declspec(dllexport) int __cdecl exiv2readImageByFileName(LPSTR file
         *comment = strdup(image->comment().c_str());
 
         // get flag IptcUTF8
-        * IptcUTF8 = false;
+        *IptcUTF8 = false;
         Exiv2::IptcData& iptcData = image->iptcData();
         Exiv2::IptcData::const_iterator metaDataItem = iptcData.findKey(Exiv2::IptcKey("Iptc.Envelope.CharacterSet"));
         if (metaDataItem != iptcData.end()) {

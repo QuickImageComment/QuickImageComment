@@ -25,19 +25,16 @@ namespace QuickImageComment
         const string exiv2DllImport = "exiv2Cdecl.dll";
 
         [DllImport(exiv2DllImport, CallingConvention = CallingConvention.Cdecl)]
-        static extern int exiv2getExifEasyTagDescription(int index, [MarshalAs(UnmanagedType.LPStr)] ref string retStr);
+        static extern int exiv2getExifEasyTagDescription(int index, [MarshalAs(UnmanagedType.LPStr)] ref string key, [MarshalAs(UnmanagedType.LPStr)] ref string desc);
 
         [DllImport(exiv2DllImport, CallingConvention = CallingConvention.Cdecl)]
-        static extern int exiv2getFirstExifTagDescription([MarshalAs(UnmanagedType.LPStr)] ref string retStr);
+        static extern int exiv2getExifTagDescriptions([MarshalAs(UnmanagedType.LPStr)] ref string retStr);
 
         [DllImport(exiv2DllImport, CallingConvention = CallingConvention.Cdecl)]
-        static extern int exiv2getFirstIptcTagDescription([MarshalAs(UnmanagedType.LPStr)] ref string retStr);
+        static extern int exiv2getIptcTagDescriptions([MarshalAs(UnmanagedType.LPStr)] ref string retStr);
 
         [DllImport(exiv2DllImport, CallingConvention = CallingConvention.Cdecl)]
-        static extern int exiv2getFirstXmpTagDescription([MarshalAs(UnmanagedType.LPStr)] ref string retStr);
-
-        [DllImport(exiv2DllImport, CallingConvention = CallingConvention.Cdecl)]
-        static extern int exiv2getNextTagDescription([MarshalAs(UnmanagedType.LPStr)] ref string retStr);
+        static extern int exiv2getXmpTagDescriptions([MarshalAs(UnmanagedType.LPStr)] ref string retStr);
 
 
         public static ArrayList ChangeableTypes;
@@ -151,7 +148,7 @@ namespace QuickImageComment
         }
 
         internal static void fillUnchangeableLists()
-        { 
+        {
             getTagsFromConfiguration();
 
             // fill list of unchangeable types
@@ -232,150 +229,79 @@ namespace QuickImageComment
         private static void getListOfTagsFromExiv2()
         {
             int status;
-            int startIndex;
-            int endIndex;
-            int endIndex1;
+            string tagStringComplete = "";
             string tagString = "";
+            string key = "";
+            string type = "";
+            string description = "";
 
-            status = exiv2getFirstExifTagDescription(ref tagString);
-            while (status == 0)
+            // get Exif tags
+            status = exiv2getExifTagDescriptions(ref tagStringComplete);
+            string[] tagStrings = tagStringComplete.Split(new string[] { "\n" }, System.StringSplitOptions.None);
+            int count = tagStrings.Length;
+            if (tagStrings[count - 1].Equals("")) count--;
+            //while (status == 0)
+            for (int ii = 0; ii < count; ii++)
             {
-                startIndex = 0;
-                endIndex = 1;
-                // ignore first four values
-                // values are separated by comma plus tabulator
-                endIndex = tagString.IndexOf(",", startIndex);
-                startIndex = endIndex + 1;
-                endIndex = tagString.IndexOf(",", startIndex);
-                startIndex = endIndex + 1;
-                endIndex = tagString.IndexOf(",", startIndex);
-                startIndex = endIndex + 1;
-                endIndex = tagString.IndexOf(",", startIndex);
-                startIndex = endIndex + 1;
+                tagString = tagStrings[ii];
+                string[] tagValues = tagString.Split(new string[] { "\t" }, System.StringSplitOptions.None);
+                key = tagValues[0];
+                type = tagValues[1];
+                description = tagValues[2];
 
-                endIndex = tagString.IndexOf(",", startIndex);
-                string key = tagString.Substring(startIndex, endIndex - startIndex);
-                startIndex = endIndex + 1;
-
-                endIndex = tagString.IndexOf(",", startIndex);
-                string type = tagString.Substring(startIndex, endIndex - startIndex);
-                startIndex = endIndex + 2;
-
-                string description = tagString.Substring(startIndex, tagString.Length - startIndex - 1);
-                description = description.Replace("\"\"", "\"");
-
-                // workaround: some keys are twice in list returned from exiv2
                 if (!TagDefinitionList.ContainsKey(key))
                 {
                     TagDefinitionList.Add(key, new TagDefinition(key, type, description));
-                    // add also related tag for Exif.Thumbnail as it is not returned by exiv2
-                    if (key.StartsWith("Exif.Image"))
-                    {
-                        string key2 = key.Replace("Exif.Image", "Exif.Thumbnail");
-                        TagDefinitionList.Add(key2, new TagDefinition(key2, type, description));
-                    }
                 }
-                status = exiv2getNextTagDescription(ref tagString);
+                else
+                {
+                    //!!GeneralUtilities.writeDebugFileEntry(key + " DUPLICATE ");
+                    //!! TagDefinitionList.Add(key+"2", new TagDefinition(key, type, description));
+                }
             }
 
             // get Exif Easy Tags
             int index = 0;
-            status = exiv2getExifEasyTagDescription(index, ref tagString);
+            status = exiv2getExifEasyTagDescription(index, ref key, ref description);
             while (status == 0)
             {
-                startIndex = 0;
-                endIndex = 1;
-                // values are separated by comma plus tabulator
-                endIndex = tagString.IndexOf(",\t", startIndex);
-                string key = tagString.Substring(startIndex, endIndex - startIndex);
-                startIndex = endIndex + 2;
-
-                endIndex = tagString.IndexOf(",\t", startIndex);
-                string type = tagString.Substring(startIndex, endIndex - startIndex);
-                startIndex = endIndex + 2;
-
-                string description = tagString.Substring(startIndex);
-
-                TagDefinitionList.Add(key, new TagDefinition(key, type, description));
+                TagDefinitionList.Add(key, new TagDefinition(key, "Readonly", description));
                 ExifEasyTagIndexList.Add(key, index);
 
                 index++;
-                status = exiv2getExifEasyTagDescription(index, ref tagString);
+                status = exiv2getExifEasyTagDescription(index, ref key, ref description);
             }
 
-            // get Iptc Tags
-            status = exiv2getFirstIptcTagDescription(ref tagString);
-            while (status == 0)
+            // get IPTC Tags
+            status = exiv2getIptcTagDescriptions(ref tagStringComplete);
+            tagStrings = tagStringComplete.Split(new string[] { "\n" }, System.StringSplitOptions.None);
+            count = tagStrings.Length;
+            if (tagStrings[count - 1].Equals("")) count--;
+            //while (status == 0)
+            for (int ii = 0; ii < count; ii++)
             {
-                startIndex = 0;
-                endIndex = 1;
-                // ignore first eight values
-                // values are separated by comma (no additional tabulator)
-                endIndex = tagString.IndexOf(",", startIndex);
-                startIndex = endIndex + 1;
-                endIndex = tagString.IndexOf(",", startIndex);
-                startIndex = endIndex + 1;
-                endIndex = tagString.IndexOf(",", startIndex);
-                startIndex = endIndex + 1;
-                endIndex = tagString.IndexOf(",", startIndex);
-                startIndex = endIndex + 1;
-                endIndex = tagString.IndexOf(",", startIndex);
-                startIndex = endIndex + 1;
-                endIndex = tagString.IndexOf(",", startIndex);
-                startIndex = endIndex + 1;
-                endIndex = tagString.IndexOf(",", startIndex);
-                startIndex = endIndex + 1;
-                endIndex = tagString.IndexOf(",", startIndex);
-                startIndex = endIndex + 2;
-
-                endIndex = tagString.IndexOf(",", startIndex);
-                string key = tagString.Substring(startIndex, endIndex - startIndex);
-                startIndex = endIndex + 2;
-
-                endIndex = tagString.IndexOf(",", startIndex);
-                string type = tagString.Substring(startIndex, endIndex - startIndex);
-                startIndex = endIndex + 3;
-
-                string description = tagString.Substring(startIndex, tagString.Length - startIndex - 1);
-                description = description.Replace("\"\"", "\"");
+                tagString = tagStrings[ii];
+                string[] tagValues = tagString.Split(new string[] { "\t" }, System.StringSplitOptions.None);
+                key = tagValues[0];
+                type = tagValues[1];
+                description = tagValues[2];
 
                 TagDefinitionList.Add(key, new TagDefinition(key, type, description));
-
-                status = exiv2getNextTagDescription(ref tagString);
             }
 
             // get XMP Tags
-            status = exiv2getFirstXmpTagDescription(ref tagString);
-            while (status == 0)
+            status = exiv2getXmpTagDescriptions(ref tagStringComplete);
+            tagStrings = tagStringComplete.Split(new string[] { "\n" }, System.StringSplitOptions.None);
+            count = tagStrings.Length;
+            if (tagStrings[count - 1].Equals("")) count--;
+            //while (status == 0)
+            for (int ii = 0; ii < count; ii++)
             {
-                startIndex = 0;
-                endIndex = 1;
-                // values are separated by comma plus tabulator
-                endIndex = tagString.IndexOf(",", startIndex);
-                string key = tagString.Substring(startIndex, endIndex - startIndex);
-                startIndex = endIndex + 1;
-
-                endIndex = tagString.IndexOf(",", startIndex);
-                startIndex = endIndex + 1;
-                endIndex = tagString.IndexOf(",", startIndex);
-                endIndex1 = tagString.IndexOf("(", startIndex);
-                if (endIndex1 >= 0 && endIndex1 < endIndex)
-                {
-                    // tagString contains value like: Seq of points (Integer, Integer)
-                    endIndex = tagString.IndexOf(")", endIndex1 + 1);
-                    endIndex = tagString.IndexOf(",", endIndex);
-                }
-                startIndex = endIndex + 1;
-
-                endIndex = tagString.IndexOf(",", startIndex);
-                string type = tagString.Substring(startIndex, endIndex - startIndex);
-                startIndex = endIndex + 1;
-
-                endIndex = tagString.IndexOf(",", startIndex);
-                startIndex = endIndex + 2;
-
-                string description = tagString.Substring(startIndex, tagString.Length - startIndex - 1);
-                description = description.Replace("\"\"", "\"");
+                tagString = tagStrings[ii];
+                string[] tagValues = tagString.Split(new string[] { "\t" }, System.StringSplitOptions.None);
+                key = tagValues[0];
+                type = tagValues[1];
+                description = tagValues[2];
 
                 // Some Tags were depreciated and new with same name (other address) were created
                 // If there is a conflict use the not-depreciated one
@@ -391,8 +317,6 @@ namespace QuickImageComment
                 {
                     TagDefinitionList.Add(key, new TagDefinition(key, type, description));
                 }
-
-                status = exiv2getNextTagDescription(ref tagString);
             }
         }
 
