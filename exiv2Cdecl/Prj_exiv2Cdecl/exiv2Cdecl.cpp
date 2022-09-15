@@ -56,6 +56,7 @@ static const int exiv2WriteOptionXsStruct = 3;
 
 // used to iterator through meta data
 static Exiv2::Image::AutoPtr image;
+static Exiv2::ExifData exifDataRead;
 static Exiv2::ExifData::const_iterator exifEndItem;
 static Exiv2::ExifData::const_iterator exifMetaDataItem;
 static Exiv2::IptcData::const_iterator iptcEndItem;
@@ -268,10 +269,10 @@ extern "C" __declspec(dllexport) int __cdecl exiv2readImageByFileName(LPSTR file
 // get Exif buffer and first meta data item
 extern "C" __declspec(dllexport) void __cdecl exiv2getExifDataIteratorAll(bool* exifAvail) {
     *exifAvail = false;
-    Exiv2::ExifData& exifData = image->exifData();
-    if (!exifData.empty()) {
-        exifEndItem = exifData.end();
-        exifMetaDataItem = exifData.begin();
+    exifDataRead = image->exifData();
+    if (!exifDataRead.empty()) {
+        exifEndItem = exifDataRead.end();
+        exifMetaDataItem = exifDataRead.begin();
         if (exifMetaDataItem != exifEndItem) {
             *exifAvail = true;
         }
@@ -281,10 +282,10 @@ extern "C" __declspec(dllexport) void __cdecl exiv2getExifDataIteratorAll(bool* 
 // get Exif buffer and first meta data item for key
 extern "C" __declspec(dllexport) void __cdecl exiv2getExifDataIteratorKey(LPSTR keyString, bool* exifAvail) {
     *exifAvail = false;
-    Exiv2::ExifData& exifData = image->exifData();
-    if (!exifData.empty()) {
-        exifEndItem = exifData.end();
-        exifMetaDataItem = exifData.findKey(Exiv2::ExifKey(keyString));
+    exifDataRead = image->exifData();
+    if (!exifDataRead.empty()) {
+        exifEndItem = exifDataRead.end();
+        exifMetaDataItem = exifDataRead.findKey(Exiv2::ExifKey(keyString));
         if (exifMetaDataItem != exifEndItem) {
             *exifAvail = true;
         }
@@ -345,7 +346,7 @@ extern "C" __declspec(dllexport) int __cdecl exiv2getExifDataItem(LPSTR * keyStr
             else
             {
                 *valueString = strdup(exifMetaDataItem->toString().c_str());
-                *interpretedString = strdup(exifMetaDataItem->print().c_str());
+                *interpretedString = strdup(exifMetaDataItem->print(&exifDataRead).c_str());
             }
             if (!strcmp(*typeName, "Rational") || !strcmp(*typeName, "SRational"))
             {
