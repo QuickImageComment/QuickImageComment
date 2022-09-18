@@ -748,7 +748,7 @@ namespace QuickImageComment
                 {
                     if (ShowHiddenFiles || !Files[ii].Attributes.HasFlag(FileAttributes.Hidden))
                     {
-                        if (Files[ii].Name.ToLower().StartsWith(FileFilter))
+                        if (Files[ii].Name.ToLower().Contains(FileFilter))
                         {
                             if (ConfigDefinition.FilesExtensionsArrayList.Contains(Files[ii].Extension.ToLower()))
                             {
