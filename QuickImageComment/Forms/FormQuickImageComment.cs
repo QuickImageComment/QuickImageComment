@@ -557,6 +557,7 @@ namespace QuickImageComment
             setSplitContainerPanelsContent();
 
             // adjusting splitter distance before show mask does not work correct
+            // and must be done after setting splitContainer content, because else some automatic adjustments change splitter distances again
             GeneralUtilities.setSplitterDistanceWithCheck(this.splitContainer1, ConfigDefinition.enumCfgUserInt.Splitter1Distance);
             GeneralUtilities.setSplitterDistanceWithCheck(this.splitContainer11, ConfigDefinition.enumCfgUserInt.Splitter11Distance);
             GeneralUtilities.setSplitterDistanceWithCheck(this.splitContainer12, ConfigDefinition.enumCfgUserInt.Splitter12Distance);
@@ -564,6 +565,8 @@ namespace QuickImageComment
             GeneralUtilities.setSplitterDistanceWithCheck(this.splitContainer1211, ConfigDefinition.enumCfgUserInt.Splitter1211Distance);
             GeneralUtilities.setSplitterDistanceWithCheck(theUserControlKeyWords.splitContainer1212, ConfigDefinition.enumCfgUserInt.Splitter1212Distance);
             GeneralUtilities.setSplitterDistanceWithCheck(this.splitContainer122, ConfigDefinition.enumCfgUserInt.Splitter122Distance);
+            if (theUserControlImageDetails != null) theUserControlImageDetails.adjustSplitterDistances();
+
             //Program.StartupPerformance.measure("FormQIC After set splitter distance");
 
             // translate all controls

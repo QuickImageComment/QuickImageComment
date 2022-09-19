@@ -967,6 +967,16 @@ namespace QuickImageComment
         {
             splitContainerImageDetails1.Width = size.Width;
             splitContainerImageDetails1.Height = size.Height;
+
+            adjustSplitterDistances();
+
+            setMinimumPanelSize(splitContainerImageDetails11);
+            setMinimumPanelSize(splitContainerImageDetails111);
+            setMinimumPanelSize(splitContainerImageDetails112);
+        }
+
+        internal void adjustSplitterDistances()
+        {
             int splitterDistance;
             if (isInOwnWindow)
             {
@@ -1019,10 +1029,6 @@ namespace QuickImageComment
             {
                 splitContainerImageDetails111.SplitterDistance = splitterDistance;
             }
-
-            setMinimumPanelSize(splitContainerImageDetails11);
-            setMinimumPanelSize(splitContainerImageDetails111);
-            setMinimumPanelSize(splitContainerImageDetails112);
         }
 
         // set minimum panel size of split containers
