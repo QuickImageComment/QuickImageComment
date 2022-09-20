@@ -1412,6 +1412,7 @@ namespace QuickImageComment
             // a status change is a data change by user
             if (startWithMarker != enabled) GpsDataChanged = true;
             if (GpsDataChanged) buttonReset.Enabled = true;
+            MainMaskInterface.setControlsEnabledBasedOnDataChange();
         }
 
         // called from leaflet.html for test of values in html
