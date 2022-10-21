@@ -637,6 +637,11 @@ namespace QuickImageComment
             displayImageAfterReadFolder(false);
             Program.StartupPerformance.measure("FormQIC after displayImageAfterReadFolder");
 
+            // start update caching after display first image via displayImageAfterReadFolder
+            // when caching is started before e.g. via StartupInitNewFolder it happened that first file in folder 
+            // was read twice (first during caching) which caused delays in display first image
+            ImageManager.startThreadToUpdateCaches();
+
             starting = false;
             this.toolStripStatusLabelMemory.Text = "";
 
@@ -707,7 +712,6 @@ namespace QuickImageComment
             Program.StartupPerformance.measure("FormQIC *** StartupInitNewFolder start");
             ImageManager.initNewFolder(FolderName, theUserControlFiles.textBoxFileFilter.Text);
             ImageManager.initExtendedCacheList();
-            ImageManager.startThreadToUpdateCaches();
 
             Program.StartupPerformance.measure("FormQIC *** ImageManager.initNewFolder finish");
             ShellItemStartupSelectedFolder = new GongSolutions.Shell.ShellItem(FolderName);
