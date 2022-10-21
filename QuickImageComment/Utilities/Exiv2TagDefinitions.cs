@@ -255,8 +255,17 @@ namespace QuickImageComment
                 }
                 else
                 {
-                    //!!GeneralUtilities.writeDebugFileEntry(key + " DUPLICATE ");
-                    //!! TagDefinitionList.Add(key+"2", new TagDefinition(key, type, description));
+                    //!! change following block when duplicate keys are renamed in exiv2 code
+                    // add following line
+                    // GeneralUtilities.debugMessage("duplicate key in exiv2: " + key);
+                    // and remove the rest of this block
+                    //
+                    // some rare tag names appear twice with different format
+                    // just added with different key but same name
+                    // for display this is no problem, when saving the type is relevant to determine 
+                    // which tag exactly is written
+                    // GeneralUtilities.writeDebugFileEntry("duplicate: " + key);
+                    TagDefinitionList.Add(key+"2", new TagDefinition(key, type, description));
                 }
             }
 
