@@ -182,7 +182,7 @@ namespace QuickImageCommentControls
             this.toolStripMenuItemAddToMultiEditTable.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.toolStripMenuItemAddToMultiEditTable.Name = "toolStripMenuItemAddToMultiEditTable";
             this.toolStripMenuItemAddToMultiEditTable.Size = new System.Drawing.Size(258, 22);
-            this.toolStripMenuItemAddToMultiEditTable.Text = "Markierte Felder zu Multi-Edit-Tabelle hinzufügen";
+            this.toolStripMenuItemAddToMultiEditTable.Text = "Markierte Felder zu Tabelle in \"Mehrfach-Bildbearbeitung\" hinzufügen";
             this.toolStripMenuItemAddToMultiEditTable.Click += new System.EventHandler(this.toolStripMenuItemAddToMultiEditTable_Click);
 
             this.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewMetaData_CellClick);

@@ -29,9 +29,9 @@ For reading and changing the EXIF, IPTC, and XMP properties the library exiv2 is
 * Images: http://dev.exiv2.org/projects/exiv2/wiki/Supported_image_formats
 * Videos: http://dev.exiv2.org/projects/exiv2/wiki/Supported_video_formats
 
-The version for .Net 4.6.1 has LibRaw integrated for displaying RAW images. When using the version for .Net 4.0 or if LibRaw does not support the RAW format, a codec from the camera manufacturer must be installed to display the image. As an alternative, the Microsoft Raw Image Extension can be installed, which supports various RAW formats. However, with the camera manufacturer's codec, the display could be faster. One can install a specific codec and the Microsoft Extension. The specific codec is then used for the corresponding images, for all others the Microsoft Extension. For the display of the metadata no codec is needed.
+For displaying RAW images, the LibRaw library is integrated. If the camera manufacturer's codec or the Microsoft Raw Image Extension (which supports various RAW formats) are installed, they are used and then display is usually faster. One can install both a specific codec and the Microsoft Extension. The specific codec is then used for the corresponding images. For all others first the Microsoft Extension is tried and as last option the integrated LibRaw library. For the display of the metadata no codec is needed.
 
-The program runs under Microsoft Windows 7, 8 and 10 (Windows 11 not yet tested) and is available as 32-bit and 64-bit variant. German or English can be selected as the language.
+The program runs under Microsoft Windows 7, 8, 10 and 11 and is available as 32-bit and 64-bit variant. German or English can be selected as the language.
 
 QuickImageComment is free software; you can use it under the terms of the GNU General Public License as published by the Free Software Foundation.
 
@@ -52,12 +52,7 @@ UserManual | User manual as Word document and PDF, subfolder with images used
 
 # Build the program
 
-The program is built using Visual Studio 2022. Two build options are available:
-
-* __.Net 4.6.1 framework__  
-This is the preferred option with all functionalities. The solution includes a reference to the project MSIXpackage for creating an MSIX package. As the project contains confidential information for signing, it is not included.
-* __.Net 4.0 framework__  
-This option is based on .Net 4.0 and is intended for systems without .Net 4.6.1, especially older versions of Windows. It does not support using AppCenter.ms which allows sending error reports and anonymous usage data. It also does not include LibRaw for display of RAW images.
+The program is built using Visual Studio 2022 with .Net 4.6.1 framework.
 
 The AppCenter secure Id is not included in the sources (to keep it secret). So when you build the program (and do not get a secure Id on your own), the program runs without AppCenter.ms.
 

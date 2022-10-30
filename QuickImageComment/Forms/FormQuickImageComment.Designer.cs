@@ -669,7 +669,7 @@ namespace QuickImageComment
             // 
             this.toolStripMenuItemAddToMultiEditTab.Name = "toolStripMenuItemAddToMultiEditTab";
             this.toolStripMenuItemAddToMultiEditTab.Size = new System.Drawing.Size(342, 22);
-            this.toolStripMenuItemAddToMultiEditTab.Text = "Markierte Felder zu Multi-Edit-Tabelle hinzufügen";
+            this.toolStripMenuItemAddToMultiEditTab.Text = "Markierte Felder zu Tabelle in \"Mehrfach-Bildbearbeitung\" hinzufügen";
             this.toolStripMenuItemAddToMultiEditTab.Click += new System.EventHandler(this.toolStripMenuItemAddToMultiEditTab_Click);
             // 
             // contextMenuStripMetaDataMenuItemAdjustOverview
