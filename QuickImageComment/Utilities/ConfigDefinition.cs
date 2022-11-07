@@ -19,6 +19,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using static QuickImageComment.UserControlMap;
 
 namespace QuickImageComment
 {
@@ -263,6 +264,8 @@ namespace QuickImageComment
 
         internal static SortedList<string, DataTemplate> DataTemplates;
         internal static SortedList<string, string> MapUrls;
+        internal static SortedList<string, MapSource> MapLeafletList;
+
         // for reading data for a DataTemplate
         private static DataTemplate aDataTemplate;
 
@@ -298,6 +301,11 @@ namespace QuickImageComment
         {
             public ExceptionTagNotYetDefined(int LineNo)
                 : base("line: " + LineNo.ToString() + "\nTag not yet defined") { }
+        }
+        private class ExceptionMapNotYetDefined : ApplicationException
+        {
+            public ExceptionMapNotYetDefined(int LineNo)
+                : base("line: " + LineNo.ToString() + "\nMap not yet defined") { }
         }
 
         //*****************************************************************
@@ -343,6 +351,7 @@ namespace QuickImageComment
             ViewConfigurationNames = new ArrayList();
             DataTemplates = new SortedList<string, DataTemplate>();
             MapUrls = new SortedList<string, string>();
+            MapLeafletList = new SortedList<string, MapSource>();
 
             for (int ii = 0; ii < ImageGridsCount; ii++)
             {
@@ -3245,7 +3254,7 @@ namespace QuickImageComment
             catch (Exception ex)
             {
                 GeneralUtilities.fatalInitMessage("Fehler beim Lesen der Konfigurationsdatei\n" + "Error reading configuration file\n\n"
-                    + GeneralConfigFile, ex);
+                    + GeneralConfigFile + "\nline: " + lineNo.ToString() + "\n", ex);
             }
 #endif
         }
@@ -3338,6 +3347,94 @@ namespace QuickImageComment
                         if (!MapUrls.ContainsKey(Key))
                         {
                             MapUrls.Add(Key, Url);
+                        }
+                    }
+
+                    else if (firstPart.Equals("MapLeafletURL"))
+                    {
+                        int indexEqual = secondPart.IndexOf("=");
+                        string Key = secondPart.Substring(0, indexEqual);
+                        string URL = secondPart.Substring(indexEqual + 1);
+
+                        if (!MapLeafletList.ContainsKey(Key))
+                        {
+                            // add with empty attribution and subdomain and a max zoom of 20
+                            MapLeafletList.Add(Key, new UserControlMap.MapSource(Key, "", URL, "", 20));
+                        }
+                    }
+                    else if (firstPart.Equals("MapLeafletMaxZoom"))
+                    {
+                        int indexEqual = secondPart.IndexOf("=");
+                        string Key = secondPart.Substring(0, indexEqual);
+                        string maxZoom = secondPart.Substring(indexEqual + 1);
+
+                        if (!MapLeafletList.ContainsKey(Key))
+                        {
+                            throw new ExceptionMapNotYetDefined(lineNo);
+                        }
+                        else 
+                        {
+                            MapLeafletList[Key].maxZoom1 = int.Parse(maxZoom);
+                        }
+                    }
+                    else if (firstPart.Equals("MapLeafletAttribution"))
+                    {
+                        int indexEqual = secondPart.IndexOf("=");
+                        string Key = secondPart.Substring(0, indexEqual);
+                        string attribution = secondPart.Substring(indexEqual + 1);
+
+                        if (!MapLeafletList.ContainsKey(Key))
+                        {
+                            throw new ExceptionMapNotYetDefined(lineNo);
+                        }
+                        else
+                        {
+                            MapLeafletList[Key].attribution1 = attribution;
+                        }
+                    }
+                    else if (firstPart.Equals("MapLeafletURL2"))
+                    {
+                        int indexEqual = secondPart.IndexOf("=");
+                        string Key = secondPart.Substring(0, indexEqual);
+                        string URL = secondPart.Substring(indexEqual + 1);
+
+                        if (!MapLeafletList.ContainsKey(Key))
+                        {
+                            throw new ExceptionMapNotYetDefined(lineNo);
+                        }
+                        else
+                        {
+                            MapLeafletList[Key].tileLayerUrlTemplate2 = URL;
+                        }
+                    }
+                    else if (firstPart.Equals("MapLeafletMaxZoom2"))
+                    {
+                        int indexEqual = secondPart.IndexOf("=");
+                        string Key = secondPart.Substring(0, indexEqual);
+                        string maxZoom = secondPart.Substring(indexEqual + 1);
+
+                        if (!MapLeafletList.ContainsKey(Key))
+                        {
+                            throw new ExceptionMapNotYetDefined(lineNo);
+                        }
+                        else
+                        {
+                            MapLeafletList[Key].maxZoom2 = int.Parse(maxZoom);
+                        }
+                    }
+                    else if (firstPart.Equals("MapLeafletAttribution2"))
+                    {
+                        int indexEqual = secondPart.IndexOf("=");
+                        string Key = secondPart.Substring(0, indexEqual);
+                        string attribution = secondPart.Substring(indexEqual + 1);
+
+                        if (!MapLeafletList.ContainsKey(Key))
+                        {
+                            throw new ExceptionMapNotYetDefined(lineNo);
+                        }
+                        else
+                        {
+                            MapLeafletList[Key].attribution2 = attribution;
                         }
                     }
 

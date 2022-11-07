@@ -64,7 +64,7 @@ namespace QuickImageComment
         // is either webView2 or webBrowser1 and used for generic actions like setting visibilty:
         private Control browserControl;
 
-        private class MapSource
+        internal class MapSource : IComparable<MapSource>
         {
             public string name;
             public string attribution1;
@@ -90,6 +90,9 @@ namespace QuickImageComment
                 tileLayerUrlTemplate1 = givenTileLayerUrlTemplate1;
                 subdomains1 = givenSubdomains1;
                 maxZoom1 = givenMaxZoom1;
+                attribution2 = "";
+                // tileLayerUrlTemplate2 not initialised: null means no second layer set
+                subdomains2 = "";
                 maxZoom2 = 99; // preset for easy check of dynamic zoom
                 isconfiguredMapURL = false;
             }
@@ -128,6 +131,13 @@ namespace QuickImageComment
                 isconfiguredMapURL = true;
             }
 
+            public int CompareTo(MapSource other)
+            {
+                if (null == other)
+                    return 1;
+
+                return string.Compare(this.name, other.name);
+            }
         }
 
         private MapSource selectedMapSource;
@@ -377,6 +387,13 @@ namespace QuickImageComment
                                          "https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}{r}.png",
                                          "",
                                          19));
+
+            // add map sources configured in general configuration filealso URLs configured as MapURL in general configuration file can be used
+            foreach (string key in ConfigDefinition.MapLeafletList.Keys)
+            {
+                MapSources.Add(ConfigDefinition.MapLeafletList[key]);
+            }
+            MapSources.Sort();
 
 #if WEBVIEW2
             if (useWebView2 && !locationChangeNeeded)
