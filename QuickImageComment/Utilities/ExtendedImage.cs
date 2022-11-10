@@ -18,9 +18,13 @@
 //#define LOG_DEVIATION_ORIGINAL_INTERPRETED
 //#define DEBUG_PRINT_READ_STRINGS_ENCODING
 
+using CSJ2K;
+using CSJ2K.j2k.util;
+using CSJ2K.Util;
 using System;
 using System.Collections;
 using System.Drawing;
+using System.IO;
 using System.Runtime.InteropServices; // for DllImport
 using System.Text;
 using System.Windows.Media;
@@ -455,53 +459,53 @@ namespace QuickImageComment
 #if !DEBUG
                 try
 #endif
-            {
-                string iniPath = ConfigDefinition.getIniPath();
-                string comment = "";
-                string errorText = "";
-
-                // lock because this method can be called in main thread or via updateCaches
-                lock (LockReadExiv2)
                 {
-                    status = exiv2readImageByFileName(ImageFileName, iniPath, ref comment, ref IptcUTF8, ref errorText);
-                    if (!errorText.Equals("") && !ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.HideExiv2Error))
-                    {
-                        MetaDataWarnings.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error), errorText));
-                    }
+                    string iniPath = ConfigDefinition.getIniPath();
+                    string comment = "";
+                    string errorText = "";
 
-                    // read Exif, Iptc and XMP only, if exiv2readImageByFileName did not return with exception
-                    if (status != exiv2StatusException)
+                    // lock because this method can be called in main thread or via updateCaches
+                    lock (LockReadExiv2)
                     {
-                        // get image comment
-                        addReplaceOtherMetaDataKnownType("Image.Comment", comment);
-
-                        if (neededKeys == null)
+                        status = exiv2readImageByFileName(ImageFileName, iniPath, ref comment, ref IptcUTF8, ref errorText);
+                        if (!errorText.Equals("") && !ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.HideExiv2Error))
                         {
-                            // read all Exif, IPTC and XMP data
-                            readAllExifIptcXmp();
+                            MetaDataWarnings.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error), errorText));
                         }
-                        else
+
+                        // read Exif, Iptc and XMP only, if exiv2readImageByFileName did not return with exception
+                        if (status != exiv2StatusException)
                         {
-                            // read all Exif, IPTC and XMP data
-                            readExifIptcXmpForNeededKeys(neededKeys);
+                            // get image comment
+                            addReplaceOtherMetaDataKnownType("Image.Comment", comment);
+
+                            if (neededKeys == null)
+                            {
+                                // read all Exif, IPTC and XMP data
+                                readAllExifIptcXmp();
+                            }
+                            else
+                            {
+                                // read all Exif, IPTC and XMP data
+                                readExifIptcXmpForNeededKeys(neededKeys);
+                            }
                         }
                     }
                 }
-            }
 #if !DEBUG
                 catch (Exception ex)
                 {
                     MetaDataWarnings.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error), ex.Message));
                 }
 #endif
-            ReadPerformance.measure("Meta data copied");
+                ReadPerformance.measure("Meta data copied");
 
-            XmpLangAltEntries.Sort();
-            readSpecialExifIptcInformation();
+                XmpLangAltEntries.Sort();
+                readSpecialExifIptcInformation();
 
 
-            // end of: 32-Bit version cannot read big videos; exiv2 returns exception, 
-            // so check here allowing language depending and better understandable error message
+                // end of: 32-Bit version cannot read big videos; exiv2 returns exception, 
+                // so check here allowing language depending and better understandable error message
 #if !PLATFORMTARGET_X64
             }
 #endif
@@ -1384,6 +1388,10 @@ namespace QuickImageComment
                             // for SystemDrawingImageExtensions this is by far much faster than the way needed for other extensions
                             TempImage = (System.Drawing.Bitmap)System.Drawing.Bitmap.FromStream(theMemoryStream, true, false);
                         }
+                        if (ConfigDefinition.Jpeg2000Extensions.Contains((System.IO.Path.GetExtension(ImageFileName)).ToLower()))
+                        {
+                            TempImage = jpeg2000BitmapFromStream(theMemoryStream);
+                        }
                         else
                         {
                             TempImage = convertMemoryStreamToBitmap(theMemoryStream, ReadImagePerformance, ref exceptionMessagePrefix);
@@ -2240,6 +2248,15 @@ namespace QuickImageComment
         static private bool ThumbnailCallback()
         {
             return false;
+        }
+
+        // 
+        private System.Drawing.Bitmap jpeg2000BitmapFromStream(System.IO.MemoryStream theMemoryStream)
+        {
+            // reference: https://github.com/cureos/csj2k
+            BitmapImageCreator.Register();
+            PortableImage portableImage = J2kImage.FromStream(theMemoryStream);
+            return portableImage.As<Bitmap>();
         }
 
         // convert BitmapSource to Bitmap

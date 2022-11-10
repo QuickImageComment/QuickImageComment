@@ -42,6 +42,8 @@ namespace QuickImageComment
             + " .3fr .arw .dcr .erf .kdc .mdc .mef .nrw .raw .srf";
         // extensions of files which can be read using System.Drawing.Image (which is fast)
         public static ArrayList SystemDrawingImageExtensions = new ArrayList { ".bmp", ".gif", ".jpg", ".jpeg", ".png", ".tif", ".tiff" };
+        // extensions JPEG 2000 format
+        public static ArrayList Jpeg2000Extensions = new ArrayList { ".jp2" };
         // note: video extensions are read from config file
         // tags whose values are derived when getting Bitmap (which takes longer than other tags)
         // when changing this list, ExtendedImage.addMetaDataFromBitMap needs to changes as well
