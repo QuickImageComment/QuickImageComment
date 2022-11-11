@@ -5,6 +5,7 @@ VisualStudioVersion = 17.1.32414.318
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickImageComment_Net_4_6_1", "QuickImageComment\QuickImageComment_Net_4_6_1.csproj", "{8658DA34-73F6-4C52-89AA-7BC7AC646F37}"
 	ProjectSection(ProjectDependencies) = postProject
+		{0B73D848-C02D-4EAB-8999-4FC5D086B08E} = {0B73D848-C02D-4EAB-8999-4FC5D086B08E}
 		{16180316-D623-4790-830C-8173B8DA7DA5} = {16180316-D623-4790-830C-8173B8DA7DA5}
 	EndProjectSection
 EndProject
@@ -18,6 +19,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LibRawWrapper", "LibRawWrap
 	ProjectSection(ProjectDependencies) = postProject
 		{0126708F-2003-48F8-8445-DC0FA8FCCCE2} = {0126708F-2003-48F8-8445-DC0FA8FCCCE2}
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimplePsd", "SimplePsd\SimplePsd.csproj", "{0B73D848-C02D-4EAB-8999-4FC5D086B08E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -71,6 +74,14 @@ Global
 		{3CA4543C-2E0F-4C7A-95B7-3173477BCDA1}.Release|x64.Build.0 = Release|x64
 		{3CA4543C-2E0F-4C7A-95B7-3173477BCDA1}.Release|x86.ActiveCfg = Release|Win32
 		{3CA4543C-2E0F-4C7A-95B7-3173477BCDA1}.Release|x86.Build.0 = Release|Win32
+		{0B73D848-C02D-4EAB-8999-4FC5D086B08E}.Debug|x64.ActiveCfg = Debug|x64
+		{0B73D848-C02D-4EAB-8999-4FC5D086B08E}.Debug|x64.Build.0 = Debug|x64
+		{0B73D848-C02D-4EAB-8999-4FC5D086B08E}.Debug|x86.ActiveCfg = Debug|x86
+		{0B73D848-C02D-4EAB-8999-4FC5D086B08E}.Debug|x86.Build.0 = Debug|x86
+		{0B73D848-C02D-4EAB-8999-4FC5D086B08E}.Release|x64.ActiveCfg = Release|x64
+		{0B73D848-C02D-4EAB-8999-4FC5D086B08E}.Release|x64.Build.0 = Release|x64
+		{0B73D848-C02D-4EAB-8999-4FC5D086B08E}.Release|x86.ActiveCfg = Release|x86
+		{0B73D848-C02D-4EAB-8999-4FC5D086B08E}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

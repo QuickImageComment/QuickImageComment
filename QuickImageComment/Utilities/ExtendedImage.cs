@@ -27,6 +27,7 @@ using System.Drawing;
 using System.IO;
 using System.Runtime.InteropServices; // for DllImport
 using System.Text;
+using System.Windows.Forms;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 //using DexterLib; // ImageExtractor
@@ -166,6 +167,12 @@ namespace QuickImageComment
         {
             public static int status = 1001;
             public ExceptionErrorReplacePlaceholder(string Message)
+                : base(Message) { }
+        }
+
+        private class SimplePsdLoadError : ApplicationException
+        {
+            public SimplePsdLoadError(string Message)
                 : base(Message) { }
         }
 
@@ -1388,9 +1395,13 @@ namespace QuickImageComment
                             // for SystemDrawingImageExtensions this is by far much faster than the way needed for other extensions
                             TempImage = (System.Drawing.Bitmap)System.Drawing.Bitmap.FromStream(theMemoryStream, true, false);
                         }
-                        if (ConfigDefinition.Jpeg2000Extensions.Contains((System.IO.Path.GetExtension(ImageFileName)).ToLower()))
+                        else if (ConfigDefinition.Jpeg2000Extensions.Contains((System.IO.Path.GetExtension(ImageFileName)).ToLower()))
                         {
                             TempImage = jpeg2000BitmapFromStream(theMemoryStream);
+                        }
+                        else if (ConfigDefinition.PhotoshopExtensions.Contains((System.IO.Path.GetExtension(ImageFileName)).ToLower()))
+                        {
+                            TempImage = bitmapFromPhotoshopFile();
                         }
                         else
                         {
@@ -2250,13 +2261,39 @@ namespace QuickImageComment
             return false;
         }
 
-        // 
+        // Bitmap from Jpeg 2000 memory stream
         private System.Drawing.Bitmap jpeg2000BitmapFromStream(System.IO.MemoryStream theMemoryStream)
         {
             // reference: https://github.com/cureos/csj2k
             BitmapImageCreator.Register();
             PortableImage portableImage = J2kImage.FromStream(theMemoryStream);
             return portableImage.As<Bitmap>();
+        }
+
+        // Bitmap from Photoshop file by file name
+        private System.Drawing.Bitmap bitmapFromPhotoshopFile()
+        {
+            // reference: https://www.codeproject.com/Articles/10885/Reading-Adobe-Photoshop-images
+            SimplePsd.CPSD psd = new SimplePsd.CPSD();
+            int nResult = psd.Load(ImageFileName);
+            if (nResult == 0)
+            {
+                return System.Drawing.Image.FromHbitmap(psd.GetHBitmap());
+            }
+            else if (nResult == -1)
+                throw new ExceptionErrorReplacePlaceholder(LangCfg.getText(LangCfg.Message.E_SimplePsdOpenFile));
+            else if (nResult == -2)
+                throw new ExceptionErrorReplacePlaceholder(LangCfg.getText(LangCfg.Message.E_SimplePsdFileHeader));
+            else if (nResult == -3)
+                throw new ExceptionErrorReplacePlaceholder(LangCfg.getText(LangCfg.Message.E_SimplePsdColourMode));
+            else if (nResult == -4)
+                throw new ExceptionErrorReplacePlaceholder(LangCfg.getText(LangCfg.Message.E_SimplePsdImageResource));
+            else if (nResult == -5)
+                throw new ExceptionErrorReplacePlaceholder(LangCfg.getText(LangCfg.Message.E_SimplePsdLayerAndMask));
+            else if (nResult == -6)
+                throw new ExceptionErrorReplacePlaceholder(LangCfg.getText(LangCfg.Message.E_SimplePsdImageData));
+            else
+                throw new ExceptionErrorReplacePlaceholder(LangCfg.getText(LangCfg.Message.E_SimplePsdErrorCode, nResult.ToString()));
         }
 
         // convert BitmapSource to Bitmap

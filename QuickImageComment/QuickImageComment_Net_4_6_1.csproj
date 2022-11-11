@@ -922,6 +922,10 @@
       <Project>{3ca4543c-2e0f-4c7a-95b7-3173477bcda1}</Project>
       <Name>LibRawWrapper</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SimplePsd\SimplePsd.csproj">
+      <Project>{0b73d848-c02d-4eab-8999-4fc5d086b08e}</Project>
+      <Name>SimplePsd</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

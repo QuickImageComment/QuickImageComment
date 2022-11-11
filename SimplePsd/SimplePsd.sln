@@ -1,0 +1,29 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimplePsd", "SimplePsd.csproj", "{0B73D848-C02D-4EAB-8999-4FC5D086B08E}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestPsd", "..\TestPsd\TestPsd.csproj", "{6E5F3A6A-9CD0-4B54-ACAF-7309F0333E8B}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{0B73D848-C02D-4EAB-8999-4FC5D086B08E}.Debug.ActiveCfg = Debug|.NET
+		{0B73D848-C02D-4EAB-8999-4FC5D086B08E}.Debug.Build.0 = Debug|.NET
+		{0B73D848-C02D-4EAB-8999-4FC5D086B08E}.Release.ActiveCfg = Release|.NET
+		{0B73D848-C02D-4EAB-8999-4FC5D086B08E}.Release.Build.0 = Release|.NET
+		{6E5F3A6A-9CD0-4B54-ACAF-7309F0333E8B}.Debug.ActiveCfg = Debug|.NET
+		{6E5F3A6A-9CD0-4B54-ACAF-7309F0333E8B}.Debug.Build.0 = Debug|.NET
+		{6E5F3A6A-9CD0-4B54-ACAF-7309F0333E8B}.Release.ActiveCfg = Release|.NET
+		{6E5F3A6A-9CD0-4B54-ACAF-7309F0333E8B}.Release.Build.0 = Release|.NET
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal
