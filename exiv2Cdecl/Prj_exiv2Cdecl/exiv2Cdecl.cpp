@@ -338,7 +338,7 @@ extern "C" __declspec(dllexport) int __cdecl exiv2getExifDataItem(LPSTR * keyStr
                 {
                     longValue = longValue - 256;
                 }
-                char StringValue[4];
+                char StringValue[5];
                 sprintf(StringValue, "%d", longValue);
                 *valueString = strdup(StringValue);
                 *interpretedString = strdup(StringValue);
@@ -397,14 +397,8 @@ extern "C" __declspec(dllexport) int __cdecl exiv2getExifEasyDataItem(int* index
                 *size = metaDataItem->size();
                 *valueString = strdup(metaDataItem->print(&exifData).c_str());
                 *interpretedString = strdup(metaDataItem->print(&exifData).c_str());
-                if (!strcmp(metaDataItem->typeName(), "Rational") || !strcmp(metaDataItem->typeName(), "SRational"))
-                {
-                    *valueFloat = metaDataItem->toFloat();
-                }
-                else
-                {
-                    *valueFloat = (float)-999.999;
-                }
+                // type is set to Readonly, so float value will not be used
+                *valueFloat = (float)-999.999;
                 // increase index for next call
                 *index = *index + 1;
                 return 0;
@@ -714,8 +708,8 @@ extern "C" __declspec(dllexport) int __cdecl exiv2writeImage(LPSTR fileName, LPS
 #endif
                     iptcData.erase(pos);
                     pos = iptcData.findKey(theIptcKey);
-                }
             }
+        }
             else if (!strncmp(writeTags[ii], "Xmp.", 4)) {
                 size_t taglen = strlen(writeTags[ii]);
                 Exiv2::XmpData::iterator metaDataItem = xmpData.end();
@@ -735,14 +729,14 @@ extern "C" __declspec(dllexport) int __cdecl exiv2writeImage(LPSTR fileName, LPS
                         if (tracingCount < TRACING) tracingLog[tracingCount++] = strdup(tracingTemp);
 #endif
                         xmpData.erase(metaDataItem);
-                    }
                 }
             }
+    }
             else {
                 *errorText = strdup("Tag name does not start with Exif, Iptc or Xmp");
                 return exiv2StatusException;
             }
-        }
+}
 
         for (int ii = 0; ii < writeMetaDatumCountAct; ii++) {
 #ifdef TRACING
@@ -790,7 +784,7 @@ extern "C" __declspec(dllexport) int __cdecl exiv2writeImage(LPSTR fileName, LPS
                         *errorText = strdup("Tag name does not start with Exif, Iptc or Xmp");
                         return exiv2StatusException;
                     }
-                }
+            }
                 else if (writeOptions[ii] == exiv2WriteOptionXaBag)
                 {
 #ifdef TRACING
