@@ -807,18 +807,18 @@ namespace QuickImageComment
             }
         }
 
+        // INTENDED FOR TEMPORARY USE ONLY: write debug information into a file
+        // due to Flush after each writing, information will not be lost even if an exception caused in C++ code
+        // is not caught in C# code and thus program crashes without further information
         public static void writeDebugFileEntry(string messageText)
         {
-            if (ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.Maintenance))
+            if (StreamDebugFile == null)
             {
-                if (StreamDebugFile == null)
-                {
-                    string DebugFileName = ConfigDefinition.getIniPath() + "QIC" + Program.VersionNumberOnlyWhenSuffixDefined + "-Debug.txt";
-                    StreamDebugFile = new System.IO.StreamWriter(DebugFileName, false, System.Text.Encoding.UTF8);
-                }
-                StreamDebugFile.WriteLine(messageText);
-                StreamDebugFile.Flush();
+                string DebugFileName = ConfigDefinition.getIniPath() + "QIC" + Program.VersionNumberOnlyWhenSuffixDefined + "-Debug.txt";
+                StreamDebugFile = new System.IO.StreamWriter(DebugFileName, false, System.Text.Encoding.UTF8);
             }
+            StreamDebugFile.WriteLine(messageText);
+            StreamDebugFile.Flush();
         }
 
         public static void closeDebugFile()
