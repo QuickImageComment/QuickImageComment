@@ -935,13 +935,17 @@
   <PropertyGroup>
     <PreBuildEvent>
 echo Copy exiv2cdecl.dll
-copy $(ProjectDir)..\exiv2Cdecl\Prj_exiv2Cdecl\$(ConfigurationName)_$(PlatformTarget)\exiv2cdecl.dll  $(ProjectDir)
+xcopy /y $(ProjectDir)..\exiv2Cdecl\Prj_exiv2Cdecl\$(ConfigurationName)_$(PlatformTarget)\exiv2cdecl.dll  $(ProjectDir)
+if %25errorlevel%25 neq 0 exit /b %25errorlevel%25
 
 if "$(ConfigurationName)"== "Release" (
 echo Copy needed VC runtime DLLs
-copy $(ProjectDir)..\LibRawWrapper\$(ConfigurationName)_$(PlatformTarget)\MSVCP140.dll  $(ProjectDir)
-copy $(ProjectDir)..\LibRawWrapper\$(ConfigurationName)_$(PlatformTarget)\VCRUNTIME140.dll $(ProjectDir)
-if "$(PlatformTarget)"=="x64" copy $(ProjectDir)..\LibRawWrapper\$(ConfigurationName)_$(PlatformTarget)\VCRUNTIME140_1.dll  $(ProjectDir)
+xcopy /y $(ProjectDir)..\LibRawWrapper\$(ConfigurationName)_$(PlatformTarget)\MSVCP140.dll  $(ProjectDir)
+if %25errorlevel%25 neq 0 exit /b %25errorlevel%25
+xcopy /y $(ProjectDir)..\LibRawWrapper\$(ConfigurationName)_$(PlatformTarget)\VCRUNTIME140.dll $(ProjectDir)
+if %25errorlevel%25 neq 0 exit /b %25errorlevel%25
+if "$(PlatformTarget)"=="x64" xcopy /y $(ProjectDir)..\LibRawWrapper\$(ConfigurationName)_$(PlatformTarget)\VCRUNTIME140_1.dll  $(ProjectDir)
+if %25errorlevel%25 neq 0 exit /b %25errorlevel%25
 )
 </PreBuildEvent>
   </PropertyGroup>
