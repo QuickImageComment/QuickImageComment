@@ -1443,8 +1443,11 @@ namespace QuickImageComment
 #if !DEBUG
             catch (Exception ex)
             {
-                GeneralUtilities.message(LangCfg.Message.E_fileOpen, ImageFileName, ex.Message);
-                return null;
+                //GeneralUtilities.message(LangCfg.Message.E_fileOpen, ImageFileName, ex.Message);
+                TempImage = createImageWithText(LangCfg.getText(LangCfg.Others.imageReadError));
+                createThumbNail(TempImage);
+                DisplayImageErrorMessage = ex.Message;
+                return TempImage;
             }
 #endif
         }

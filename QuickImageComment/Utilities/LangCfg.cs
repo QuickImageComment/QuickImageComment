@@ -307,7 +307,8 @@ namespace QuickImageComment
             errorMailTemplate,
             fileDeletedOutsideQIC,
             fileRenamedOutsideQIC,
-            invalidMenuReference
+            invalidMenuReference,
+            imageReadError
         }
 
         // defined as variable
