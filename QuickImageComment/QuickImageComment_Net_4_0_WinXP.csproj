@@ -1,0 +1,912 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{EE46C5E6-E72C-4519-9D35-5044EE81C9A6}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>QuickImageComment</RootNamespace>
+    <AssemblyName>QuickImageComment</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\bin\DebugNet4WinXP\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;NET4</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\bin\ReleaseNet4WinXP\</OutputPath>
+    <DefineConstants>TRACE;NET4</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DebugSymbols>true</DebugSymbols>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
+    <PlatformTarget>x64</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\bin\DebugX64Net4WinXP\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;PLATFORMTARGET_X64;NET4</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+    <AssemblyName>QuickImageComment</AssemblyName>
+    <NoWarn>IDE1006</NoWarn>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
+    <PlatformTarget>x64</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\bin\ReleaseX64Net4WinXP\</OutputPath>
+    <DefineConstants>TRACE;PLATFORMTARGET_X64;NET4</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <AssemblyName>QuickImageComment</AssemblyName>
+    <DebugSymbols>true</DebugSymbols>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>QuickImageComment.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RunPostBuildEvent>Always</RunPostBuildEvent>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controls\CheckedListBoxItemBackcolor.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Forms\FormChangesInVersion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormChangesInVersion.designer.cs">
+      <DependentUpon>FormChangesInVersion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormError.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormError.Designer.cs">
+      <DependentUpon>FormError.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormErrorAppCenter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormErrorAppCenter.Designer.cs">
+      <DependentUpon>FormErrorAppCenter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormUserButtons.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormUserButtons.Designer.cs">
+      <DependentUpon>FormUserButtons.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Utilities\ChangeableFieldSpecification.cs" />
+    <Compile Include="Utilities\UserButtonDefinition.cs" />
+    <Compile Include="Utilities\ConfigDefinition.cs" />
+    <Compile Include="Controls\DataGridViewMetaData.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Utilities\DataTemplate.cs" />
+    <Compile Include="Utilities\Exiv2TagDefinitions.cs" />
+    <Compile Include="Utilities\ExtendedImage.cs" />
+    <Compile Include="Forms\FormAbout.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormAbout.Designer.cs">
+      <DependentUpon>FormAbout.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormCheckNewVersion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormCheckNewVersion.Designer.cs">
+      <DependentUpon>FormCheckNewVersion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormCompare.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormCompare.Designer.cs">
+      <DependentUpon>FormCompare.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormCustomization\FormCustomization.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormCustomization\FormCustomization.designer.cs">
+      <DependentUpon>FormCustomization.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormCustomization\FormListOfKeys.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormCustomization\FormListOfKeys.designer.cs">
+      <DependentUpon>FormListOfKeys.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormDateTimeChange.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormDateTimeChange.Designer.cs">
+      <DependentUpon>FormDateTimeChange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormExportAllMetaData.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormExportAllMetaData.designer.cs">
+      <DependentUpon>FormExportAllMetaData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormExportMetaData.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormExportMetaData.Designer.cs">
+      <DependentUpon>FormExportMetaData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormFindReadErrors.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormFindReadErrors.designer.cs">
+      <DependentUpon>FormFindReadErrors.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormFirstAppCenterSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormFirstAppCenterSettings.Designer.cs">
+      <DependentUpon>FormFirstAppCenterSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormImageDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormImageDetails.Designer.cs">
+      <DependentUpon>FormImageDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormImageGrid.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormImageGrid.Designer.cs">
+      <DependentUpon>FormImageGrid.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormImageWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormImageWindow.Designer.cs">
+      <DependentUpon>FormImageWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormInputCheckConfiguration.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormInputCheckConfiguration.Designer.cs">
+      <DependentUpon>FormInputCheckConfiguration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormLogger.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormLogger.Designer.cs">
+      <DependentUpon>FormLogger.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormMap.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormMap.Designer.cs">
+      <DependentUpon>FormMap.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormMetaDataDefinition.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormMetaDataDefinition.Designer.cs">
+      <DependentUpon>FormMetaDataDefinition.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormMultiSave.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormMultiSave.designer.cs">
+      <DependentUpon>FormMultiSave.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormDataTemplates.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormDataTemplates.Designer.cs">
+      <DependentUpon>FormDataTemplates.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormPlaceholder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormPlaceholder.Designer.cs">
+      <DependentUpon>FormPlaceholder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormFind.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormFind.Designer.cs">
+      <DependentUpon>FormFind.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormPredefinedComments.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormPredefinedComments.Designer.cs">
+      <DependentUpon>FormPredefinedComments.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormPredefinedKeyWords.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormPredefinedKeyWords.Designer.cs">
+      <DependentUpon>FormPredefinedKeyWords.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormPrevNext.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormPrevNext.Designer.cs">
+      <DependentUpon>FormPrevNext.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormQuickImageComment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormQuickImageComment.Designer.cs">
+      <DependentUpon>FormQuickImageComment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormRemoveMetaData.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormRemoveMetaData.Designer.cs">
+      <DependentUpon>FormRemoveMetaData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormRename.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormRename.Designer.cs">
+      <DependentUpon>FormRename.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormSelectFolder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormSelectFolder.Designer.cs">
+      <DependentUpon>FormSelectFolder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormSelectLanguage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormSelectLanguage.Designer.cs">
+      <DependentUpon>FormSelectLanguage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormFirstUserSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormFirstUserSettings.Designer.cs">
+      <DependentUpon>FormFirstUserSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormSettings.Designer.cs">
+      <DependentUpon>FormSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormTagValueInput.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormTagValueInput.Designer.cs">
+      <DependentUpon>FormTagValueInput.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormView.Designer.cs">
+      <DependentUpon>FormView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Utilities\FrameGrabber.cs" />
+    <Compile Include="Utilities\GeneralUtilities.cs" />
+    <Compile Include="Utilities\GeoDataItem.cs" />
+    <Compile Include="Utilities\ImageGrid.cs" />
+    <Compile Include="Utilities\ImageManager.cs" />
+    <Compile Include="Utilities\InputCheckConfig.cs" />
+    <Compile Include="Utilities\LangCfg.cs" />
+    <Compile Include="Controls\ListBoxComments.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\ListViewMetaData.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\ListViewFiles.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Utilities\Logger.cs" />
+    <Compile Include="Utilities\MainMaskInterface.cs" />
+    <Compile Include="Utilities\MapInExternalBrowser.cs" />
+    <Compile Include="Utilities\MetaDataDefinitionItem.cs" />
+    <Compile Include="Utilities\MetaDataItem.cs" />
+    <Compile Include="Utilities\MetaDataWarningItem.cs" />
+    <Compile Include="FormCustomization\Customizer.cs" />
+    <Compile Include="FormCustomization\FileDialogExtender.cs" />
+    <Compile Include="FormCustomization\Interface.cs" />
+    <Compile Include="DirectShowLib\amstream.cs" />
+    <Compile Include="DirectShowLib\amvideo.cs" />
+    <Compile Include="DirectShowLib\atscpsipparser.cs" />
+    <Compile Include="DirectShowLib\austream.cs" />
+    <Compile Include="DirectShowLib\AxCore.cs" />
+    <Compile Include="DirectShowLib\AXExtend.cs" />
+    <Compile Include="DirectShowLib\BDAIface.cs" />
+    <Compile Include="DirectShowLib\Bdatif.cs" />
+    <Compile Include="DirectShowLib\BDATypes.cs" />
+    <Compile Include="DirectShowLib\Control.cs" />
+    <Compile Include="DirectShowLib\DES.cs" />
+    <Compile Include="DirectShowLib\DevEnum.cs" />
+    <Compile Include="DirectShowLib\DMODShow.cs" />
+    <Compile Include="DirectShowLib\dsattrib.cs" />
+    <Compile Include="DirectShowLib\DsUtils.cs" />
+    <Compile Include="DirectShowLib\dvbsiparser.cs" />
+    <Compile Include="DirectShowLib\DVDIf.cs" />
+    <Compile Include="DirectShowLib\DynGraph.cs" />
+    <Compile Include="DirectShowLib\encdec.cs" />
+    <Compile Include="DirectShowLib\EvCode.cs" />
+    <Compile Include="DirectShowLib\IL21Dec.cs" />
+    <Compile Include="DirectShowLib\MediaObj.cs" />
+    <Compile Include="DirectShowLib\MediaParam.cs" />
+    <Compile Include="DirectShowLib\Misc.cs" />
+    <Compile Include="DirectShowLib\Mixerocx.cs" />
+    <Compile Include="DirectShowLib\mmstream.cs" />
+    <Compile Include="DirectShowLib\mpconfig.cs" />
+    <Compile Include="DirectShowLib\Mpeg2Data.cs" />
+    <Compile Include="DirectShowLib\mpeg2psiparser.cs" />
+    <Compile Include="DirectShowLib\Mpeg2Structs.cs" />
+    <Compile Include="DirectShowLib\other.cs" />
+    <Compile Include="DirectShowLib\PlayList.cs" />
+    <Compile Include="DirectShowLib\QEdit.cs" />
+    <Compile Include="DirectShowLib\qnetwork.cs" />
+    <Compile Include="DirectShowLib\RegBag.cs" />
+    <Compile Include="DirectShowLib\Sbe.cs" />
+    <Compile Include="DirectShowLib\Tuner.cs" />
+    <Compile Include="DirectShowLib\TvRatings.cs" />
+    <Compile Include="DirectShowLib\Uuids.cs" />
+    <Compile Include="DirectShowLib\Vidcap.cs" />
+    <Compile Include="DirectShowLib\VidPort.cs" />
+    <Compile Include="DirectShowLib\Vmr9.cs" />
+    <Compile Include="DirectShowLib\VmRender.cs" />
+    <Compile Include="GongShell\Interop\BHID.cs" />
+    <Compile Include="GongShell\Interop\CoClass.cs" />
+    <Compile Include="GongShell\Interop\ComCtl32.cs" />
+    <Compile Include="GongShell\Interop\HResult.cs" />
+    <Compile Include="GongShell\Interop\IEnumIDList.cs" />
+    <Compile Include="GongShell\Interop\IKnownFolder.cs" />
+    <Compile Include="GongShell\Interop\IKnownFolderManager.cs" />
+    <Compile Include="GongShell\Interop\IShellFolder.cs" />
+    <Compile Include="GongShell\Interop\IShellItem.cs" />
+    <Compile Include="GongShell\Interop\Shell32.cs" />
+    <Compile Include="GongShell\Interop\ShlWapi.cs" />
+    <Compile Include="GongShell\Interop\User32.cs" />
+    <Compile Include="GongShell\Interop\VistaBridge\ShellItemImpl.cs" />
+    <Compile Include="GongShell\KnownFolderManager.cs" />
+    <Compile Include="GongShell\ShellItem.cs" />
+    <Compile Include="GongShell\ShellNotificationListener.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GongShell\SystemImageList.cs" />
+    <Compile Include="Utilities\OtherMetaDataDefinition.cs" />
+    <Compile Include="Utilities\Performance.cs" />
+    <Compile Include="Utilities\PlaceholderDefinition.cs" />
+    <Compile Include="Utilities\PredefinedCommentItem.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Controls\ProgressPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\ProgressPanel.Designer.cs">
+      <DependentUpon>ProgressPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Controls\ShellTreeViewQIC.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Utilities\StatusDefinition.cs" />
+    <Compile Include="Utilities\TagDefinition.cs" />
+    <Compile Include="Controls\UserControlChangeableFields.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\UserControlChangeableFields.Designer.cs">
+      <DependentUpon>UserControlChangeableFields.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\UserControlFiles.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\UserControlFiles.Designer.cs">
+      <DependentUpon>UserControlFiles.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\UserControlImageDetails.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\UserControlImageDetails.Designer.cs">
+      <DependentUpon>UserControlImageDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\UserControlKeyWords.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\UserControlKeyWords.Designer.cs">
+      <DependentUpon>UserControlKeyWords.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\UserControlMap.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\UserControlMap.Designer.cs">
+      <DependentUpon>UserControlMap.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Forms\FormChangesInVersion.resx">
+      <DependentUpon>FormChangesInVersion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormAbout.resx">
+      <DependentUpon>FormAbout.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormCheckNewVersion.resx">
+      <DependentUpon>FormCheckNewVersion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormCompare.resx">
+      <DependentUpon>FormCompare.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormCustomization\FormCustomization.resx">
+      <DependentUpon>FormCustomization.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormCustomization\FormListOfKeys.resx">
+      <DependentUpon>FormListOfKeys.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormDateTimeChange.resx">
+      <DependentUpon>FormDateTimeChange.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormError.resx">
+      <DependentUpon>FormError.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormErrorAppCenter.resx">
+      <DependentUpon>FormErrorAppCenter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormExportAllMetaData.resx">
+      <DependentUpon>FormExportAllMetaData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormExportMetaData.resx">
+      <DependentUpon>FormExportMetaData.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormFindReadErrors.resx">
+      <DependentUpon>FormFindReadErrors.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormFirstAppCenterSettings.resx">
+      <DependentUpon>FormFirstAppCenterSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormImageDetails.resx">
+      <DependentUpon>FormImageDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormImageGrid.resx">
+      <DependentUpon>FormImageGrid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormImageWindow.resx">
+      <DependentUpon>FormImageWindow.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormInputCheckConfiguration.resx">
+      <DependentUpon>FormInputCheckConfiguration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormLogger.resx">
+      <DependentUpon>FormLogger.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormMap.resx">
+      <DependentUpon>FormMap.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormMetaDataDefinition.resx">
+      <DependentUpon>FormMetaDataDefinition.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormMultiSave.resx">
+      <DependentUpon>FormMultiSave.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormDataTemplates.resx">
+      <DependentUpon>FormDataTemplates.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormPlaceholder.resx">
+      <DependentUpon>FormPlaceholder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormFind.resx">
+      <DependentUpon>FormFind.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormPredefinedComments.resx">
+      <DependentUpon>FormPredefinedComments.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormPredefinedKeyWords.resx">
+      <DependentUpon>FormPredefinedKeyWords.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormPrevNext.resx">
+      <DependentUpon>FormPrevNext.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormQuickImageComment.resx">
+      <DependentUpon>FormQuickImageComment.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormRemoveMetaData.resx">
+      <DependentUpon>FormRemoveMetaData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormRename.resx">
+      <DependentUpon>FormRename.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormSelectFolder.resx">
+      <DependentUpon>FormSelectFolder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormSelectLanguage.resx">
+      <DependentUpon>FormSelectLanguage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormFirstUserSettings.resx">
+      <DependentUpon>FormFirstUserSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormSettings.resx">
+      <DependentUpon>FormSettings.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormTagValueInput.resx">
+      <DependentUpon>FormTagValueInput.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormUserButtons.resx">
+      <DependentUpon>FormUserButtons.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormView.resx">
+      <DependentUpon>FormView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="Controls\UserControlChangeableFields.resx">
+      <DependentUpon>UserControlChangeableFields.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\UserControlFiles.resx">
+      <DependentUpon>UserControlFiles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\UserControlImageDetails.resx">
+      <DependentUpon>UserControlImageDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\UserControlKeyWords.resx">
+      <DependentUpon>UserControlKeyWords.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\UserControlMap.resx">
+      <DependentUpon>UserControlMap.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="app.manifest" />
+    <None Include="App_Net4_WinXP.config" />
+    <None Include="config\FormCustomization-bunt.ini">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="config\FormCustomization-grau.ini">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="config\FormCustomization-Schrift.ini">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="config\FormCustomization-schwarze-Trennlinien.ini">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="config\QIC_Help_Deutsch.chm">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="config\QIC_Help_English.chm">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="config\QIC_Language_Deutsch.cfg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="config\QIC_Language_English.cfg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="config\QIC_TagLookup_Deutsch.cfg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="config\QuickImageCommentGeneral.ini">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="leaflet\leaflet-src.esm.js.map" />
+    <None Include="leaflet\leaflet-src.js.map" />
+    <None Include="leaflet\leaflet.js.map" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 Client Profile %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <Content Include="Resources\16 colors.bmp" />
+    <Content Include="Resources\256 colors.bmp" />
+    <Content Include="Resources\3d bar chart.bmp" />
+    <Content Include="Resources\3d chart.bmp" />
+    <Content Include="Resources\3d graph.bmp" />
+    <Content Include="Resources\Add.bmp" />
+    <Content Include="Resources\Apply.bmp" />
+    <Content Include="Resources\Back.bmp" />
+    <Content Include="Resources\Brightness.bmp" />
+    <Content Include="Resources\Camera.bmp" />
+    <Content Include="Resources\Cancel.bmp" />
+    <Content Include="Resources\Check boxes.bmp" />
+    <Content Include="Resources\Clear.bmp" />
+    <Content Include="Resources\Close file.bmp" />
+    <Content Include="Resources\Close.bmp" />
+    <Content Include="Resources\CMYK.bmp" />
+    <Content Include="Resources\Coffee.bmp" />
+    <Content Include="Resources\Color layers.bmp" />
+    <Content Include="Resources\Comment.bmp" />
+    <Content Include="Resources\Contrast.bmp" />
+    <Content Include="Resources\Create.bmp" />
+    <Content Include="Resources\Critical details.bmp" />
+    <Content Include="Resources\Danger.bmp" />
+    <Content Include="Resources\Delete.bmp" />
+    <Content Include="Resources\Diagram.bmp" />
+    <Content Include="Resources\Down.bmp" />
+    <Content Include="Resources\Edit page.bmp" />
+    <Content Include="Resources\Edit text.bmp" />
+    <Content Include="Resources\Equipment.bmp" />
+    <Content Include="Resources\Erase.bmp" />
+    <Content Include="Resources\Eraser.bmp" />
+    <Content Include="Resources\Export.bmp" />
+    <Content Include="Resources\Favourites.bmp" />
+    <Content Include="Resources\Find.bmp" />
+    <Content Include="Resources\Flip.bmp" />
+    <Content Include="Resources\Flow block.bmp" />
+    <Content Include="Resources\Flower.bmp" />
+    <Content Include="Resources\Form.bmp" />
+    <Content Include="Resources\Forward.bmp" />
+    <Content Include="Resources\Funnel.bmp" />
+    <Content Include="Resources\Gpadient.bmp" />
+    <Content Include="Resources\Graphic designer.bmp" />
+    <Content Include="Resources\Grid.bmp" />
+    <Content Include="Resources\Help book.bmp" />
+    <Content Include="Resources\Help.bmp" />
+    <Content Include="Resources\Hide.bmp" />
+    <Content Include="Resources\Hint.bmp" />
+    <Content Include="Resources\Hints.bmp" />
+    <Content Include="Resources\Home.bmp" />
+    <Content Include="Resources\Homepage.bmp" />
+    <Content Include="Resources\HSL.bmp" />
+    <Content Include="Resources\HSV.bmp" />
+    <Content Include="Resources\Import.bmp" />
+    <Content Include="Resources\Index.bmp" />
+    <Content Include="Resources\Info.bmp" />
+    <Content Include="Resources\Key.bmp" />
+    <Content Include="Resources\LAB color model.bmp" />
+    <Content Include="Resources\Layers.bmp" />
+    <Content Include="Resources\Left.bmp" />
+    <Content Include="Resources\List.bmp" />
+    <Content Include="Resources\Lock.bmp" />
+    <Content Include="Resources\Measure.bmp" />
+    <Content Include="Resources\Monitor.bmp" />
+    <Content Include="Resources\Monitors.bmp" />
+    <Content Include="Resources\Move.bmp" />
+    <Content Include="Resources\New clip art.bmp" />
+    <Content Include="Resources\New image.bmp" />
+    <Content Include="Resources\No.bmp" />
+    <Content Include="Resources\Objects.bmp" />
+    <Content Include="Resources\Ok.bmp" />
+    <Content Include="Resources\Paint over pixels.bmp" />
+    <Content Include="Resources\Pantone.bmp" />
+    <Content Include="Resources\Picture.bmp" />
+    <Content Include="Resources\Pie chart.bmp" />
+    <Content Include="Resources\Pin.bmp" />
+    <Content Include="Resources\Pinion.bmp" />
+    <Content Include="Resources\Pixels.bmp" />
+    <Content Include="Resources\Play.bmp" />
+    <Content Include="Resources\Preview.bmp" />
+    <Content Include="Resources\Problem.bmp" />
+    <Content Include="Resources\Properties.bmp" />
+    <Content Include="Resources\QuickImageComment.bmp" />
+    <Content Include="Resources\QuickImageComment.gif" />
+    <Content Include="Resources\QuickImageComment.ico" />
+    <Content Include="Resources\QuickImageComment.jpg" />
+    <Content Include="Resources\Red book.bmp" />
+    <Content Include="Resources\Refresh.bmp" />
+    <Content Include="Resources\Rename.bmp" />
+    <Content Include="Resources\Replace pixels.bmp" />
+    <Content Include="Resources\Resize image.bmp" />
+    <Content Include="Resources\Revert.bmp" />
+    <Content Include="Resources\RGB.bmp" />
+    <Content Include="Resources\Right.bmp" />
+    <Content Include="Resources\Rotate CCW.bmp" />
+    <Content Include="Resources\Rotate CW.bmp" />
+    <Content Include="Resources\RotateLeft.bmp" />
+    <Content Include="Resources\RotateRight.bmp" />
+    <Content Include="Resources\Rotation.bmp" />
+    <Content Include="Resources\Save data.bmp" />
+    <Content Include="Resources\Save.bmp" />
+    <Content Include="Resources\Scenario.bmp" />
+    <Content Include="Resources\Script.bmp" />
+    <Content Include="Resources\Select gpadient.bmp" />
+    <Content Include="Resources\Settings.bmp" />
+    <Content Include="Resources\Sharpness.bmp" />
+    <Content Include="Resources\Show.bmp" />
+    <Content Include="Resources\Sizes.bmp" />
+    <Content Include="Resources\Smooth.bmp" />
+    <Content Include="Resources\Stop playing.bmp" />
+    <Content Include="Resources\Stop.bmp" />
+    <Content Include="Resources\Synchronize.bmp" />
+    <Content Include="Resources\Tag.bmp" />
+    <Content Include="Resources\Target.bmp" />
+    <Content Include="Resources\Target1.bmp" />
+    <Content Include="Resources\Test line.bmp" />
+    <Content Include="Resources\Text tool.bmp" />
+    <Content Include="Resources\Time.bmp" />
+    <Content Include="Resources\Tip of the day.bmp" />
+    <Content Include="Resources\To do list.bmp" />
+    <Content Include="Resources\Tools.bmp" />
+    <Content Include="Resources\Touch.bmp" />
+    <Content Include="Resources\Transparency.bmp" />
+    <Content Include="Resources\Transparent background.bmp" />
+    <Content Include="Resources\Transparent color.bmp" />
+    <Content Include="Resources\True color.bmp" />
+    <Content Include="Resources\Units.bmp" />
+    <Content Include="Resources\Unlock.bmp" />
+    <Content Include="Resources\Up-down.bmp" />
+    <Content Include="Resources\Up.bmp" />
+    <Content Include="Resources\Upload image.bmp" />
+    <Content Include="Resources\Upload.bmp" />
+    <Content Include="Resources\Wait.bmp" />
+    <Content Include="Resources\Warning.bmp" />
+    <Content Include="Resources\Web designer.bmp" />
+    <Content Include="Resources\Work area.bmp" />
+    <Content Include="Resources\Wrong.bmp" />
+    <Content Include="Resources\Yes.bmp" />
+    <Content Include="Resources\YUV color space.bmp" />
+    <Content Include="Resources\Zoom.bmp" />
+    <Content Include="Resources\Zoom_1.bmp" />
+    <Content Include="Resources\Zoom_2.bmp" />
+    <Content Include="Resources\Zoom_4.bmp" />
+    <Content Include="Resources\Zoom_fit.bmp" />
+    <None Include="Resources\Error.bmp" />
+    <None Include="exiv2Cdecl.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Content Include="config\ChangeInfo.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="QuickImageComment.ico" />
+    <None Include="leaflet.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Content Include="leaflet\images\layers-2x.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="leaflet\images\layers.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="leaflet\images\marker-icon-2x.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="leaflet\images\marker-icon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="leaflet\images\marker-shadow.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="leaflet\leaflet-src.esm.js" />
+    <Content Include="leaflet\leaflet-src.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="leaflet\leaflet.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="Resources\Designer.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="SHDocVw">
+      <Guid>{EAB22AC0-30C1-11CF-A7EB-0000C05BAE0B}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>1</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="CSJ2K">
+      <Version>3.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>13.0.2</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SimplePsd\SimplePsd.csproj">
+      <Project>{0b73d848-c02d-4eab-8999-4fc5d086b08e}</Project>
+      <Name>SimplePsd</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>echo Copy application configuration file
+copy $(ProjectDir)\App_Net4_WinXP.config $(TargetDir)\$(TargetName).exe.config</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>
+echo Copy exiv2cdecl.dll
+xcopy /y $(ProjectDir)..\exiv2Cdecl\Prj_exiv2Cdecl\$(ConfigurationName)_$(Platform)_WinXP\exiv2Cdecl_WinXP.dll  $(ProjectDir)\exiv2Cdecl.dll
+if %25errorlevel%25 neq 0 exit /b %25errorlevel%25</PreBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

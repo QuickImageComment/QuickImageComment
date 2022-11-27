@@ -42,10 +42,14 @@
 
 # output folder from build (includes e.g. ini-files copied for deployment) 
 /bin
-/exiv2Cdecl/Prj_exiv2Cdecl/Debug_x86
 /exiv2Cdecl/Prj_exiv2Cdecl/Debug_x64
-/exiv2Cdecl/Prj_exiv2Cdecl/Release_x86
+/exiv2Cdecl/Prj_exiv2Cdecl/Debug_x64_WinXP
+/exiv2Cdecl/Prj_exiv2Cdecl/Debug_x86
+/exiv2Cdecl/Prj_exiv2Cdecl/Debug_x86_WinXP
 /exiv2Cdecl/Prj_exiv2Cdecl/Release_x64
+/exiv2Cdecl/Prj_exiv2Cdecl/Release_x64_WinXP
+/exiv2Cdecl/Prj_exiv2Cdecl/Release_x86
+/exiv2Cdecl/Prj_exiv2Cdecl/Release_x86_WinXP
 /exiv2Cdecl/Prj_exiv2Cdecl/obj
 /LibRaw/Debug_x86
 /LibRaw/Debug_x64
