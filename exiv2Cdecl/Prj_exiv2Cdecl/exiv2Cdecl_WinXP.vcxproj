@@ -97,7 +97,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;PSAPI_VERSION=1;NOMINMAX;WIN32_LEAN_AND_MEAN;exiv2lib_EXPORTS;BanAllEntityUsage=1;XML_STATIC;ZLIB_WINAPI;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS; WIN_XP;PSAPI_VERSION=1;NOMINMAX;WIN32_LEAN_AND_MEAN;exiv2lib_EXPORTS;BanAllEntityUsage=1;XML_STATIC;ZLIB_WINAPI;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\Src_exiv2_src;..\Src_exiv2_src\exiv2;..\Src_exiv2_xmpsdk\include;..\Src_expat_lib;..\Src_zlib</AdditionalIncludeDirectories>
       <ConformanceMode>true</ConformanceMode>
       <UndefinePreprocessorDefinitions>_MSC_EXTENSIONS</UndefinePreprocessorDefinitions>
@@ -127,7 +127,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;PSAPI_VERSION=1;NOMINMAX;WIN32_LEAN_AND_MEAN;exiv2lib_EXPORTS;BanAllEntityUsage=1;XML_STATIC;ZLIB_WINAPI;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS; WIN_XP;PSAPI_VERSION=1;NOMINMAX;WIN32_LEAN_AND_MEAN;exiv2lib_EXPORTS;BanAllEntityUsage=1;XML_STATIC;ZLIB_WINAPI;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\Src_exiv2_src;..\Src_exiv2_src\exiv2;..\Src_exiv2_xmpsdk\include;..\Src_expat_lib;..\Src_zlib</AdditionalIncludeDirectories>
       <UndefinePreprocessorDefinitions>_MSC_EXTENSIONS</UndefinePreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
@@ -158,7 +158,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;PSAPI_VERSION=1;NOMINMAX;WIN32_LEAN_AND_MEAN;exiv2lib_EXPORTS;BanAllEntityUsage=1;XML_STATIC;ZLIB_WINAPI;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS; WIN_XP;NDEBUG;PSAPI_VERSION=1;NOMINMAX;WIN32_LEAN_AND_MEAN;exiv2lib_EXPORTS;BanAllEntityUsage=1;XML_STATIC;ZLIB_WINAPI;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\Src_exiv2_src;..\Src_exiv2_src\exiv2;..\Src_exiv2_xmpsdk\include;..\Src_expat_lib;..\Src_zlib</AdditionalIncludeDirectories>
       <ConformanceMode>true</ConformanceMode>
       <UndefinePreprocessorDefinitions>_MSC_EXTENSIONS</UndefinePreprocessorDefinitions>
@@ -191,7 +191,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;PSAPI_VERSION=1;NOMINMAX;WIN32_LEAN_AND_MEAN;exiv2lib_EXPORTS;BanAllEntityUsage=1;XML_STATIC;ZLIB_WINAPI;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS; WIN_XP;NDEBUG;PSAPI_VERSION=1;NOMINMAX;WIN32_LEAN_AND_MEAN;exiv2lib_EXPORTS;BanAllEntityUsage=1;XML_STATIC;ZLIB_WINAPI;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\Src_exiv2_src;..\Src_exiv2_src\exiv2;..\Src_exiv2_xmpsdk\include;..\Src_expat_lib;..\Src_zlib</AdditionalIncludeDirectories>
       <UndefinePreprocessorDefinitions>_MSC_EXTENSIONS</UndefinePreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>

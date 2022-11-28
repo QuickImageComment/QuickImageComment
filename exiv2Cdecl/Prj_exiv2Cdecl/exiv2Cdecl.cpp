@@ -956,12 +956,15 @@ extern "C" __declspec(dllexport) float __cdecl exiv2floatValue(LPSTR tagName, LP
 // get version
 //-------------------------------------------------------------------------
 extern "C" __declspec(dllexport) void __cdecl exiv2getVersion(LPSTR * version) {
-    char tempVersion[32];
+    char tempVersion[38];
     strcpy(tempVersion, VERSION);
 #ifdef _WIN64
     strcat(tempVersion, " - 64 Bit");
 #else
     strcat(tempVersion, " - 32 Bit");
+#endif
+#ifdef WIN_XP
+    strcat(tempVersion, " WinXP");
 #endif
     * version = strdup(tempVersion);
 }
