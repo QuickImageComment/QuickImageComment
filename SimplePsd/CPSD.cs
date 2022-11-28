@@ -1,7 +1,7 @@
 using System;
+using System.Drawing;
 using System.IO;
 using System.Text;
-using System.Drawing;
 using System.Windows.Forms;
 
 namespace SimplePsd
@@ -48,7 +48,7 @@ namespace SimplePsd
 
 			FileStream stream = new FileStream(strPathName, FileMode.Open, FileAccess.Read, FileShare.Read);
 
-			if(!stream.Handle.Equals(0))
+			if(!stream.SafeFileHandle.Equals(0))
 			{
 				bool bSuccessHeader = false;
 				bool bSuccessColourModeData = false;
@@ -308,7 +308,7 @@ namespace SimplePsd
 						byte SizeOfName = binReader.ReadByte();
 						nBytesRead += 1;
 						
-						int nSizeOfName = (int)SizeOfName;
+						int nSizeOfName = SizeOfName;
 						if(nSizeOfName>0)
 						{
 							if((nSizeOfName % 2)!=0)	// must read 1 more byte to make size even
@@ -706,8 +706,8 @@ namespace SimplePsd
 
 							if(m_bResolutionInfoFilled)
 							{
-								int nHorzResolution = (int)m_ResolutionInfo.hRes;
-								int nVertResolution = (int)m_ResolutionInfo.vRes;
+								int nHorzResolution = m_ResolutionInfo.hRes;
+								int nVertResolution = m_ResolutionInfo.vRes;
 
 								ppm_x = ( nHorzResolution * 10000 ) / 254;
 								ppm_y = ( nVertResolution * 10000 ) / 254;
@@ -778,7 +778,7 @@ namespace SimplePsd
 							{
 								ByteValue = binReader.ReadByte();
 
-								int len = (int)ByteValue;
+								int len = ByteValue;
 								if(len < 128)
 								{
 									len++;
@@ -841,8 +841,8 @@ namespace SimplePsd
 
 						if(m_bResolutionInfoFilled)
 						{
-							int nHorResolution = (int)m_ResolutionInfo.hRes;
-							int nVertResolution = (int)m_ResolutionInfo.vRes;
+							int nHorResolution = m_ResolutionInfo.hRes;
+							int nVertResolution = m_ResolutionInfo.vRes;
 
 							ppm_x = (nHorResolution * 10000 )/254;
 							ppm_y = (nVertResolution * 10000 )/254;
@@ -1026,10 +1026,10 @@ namespace SimplePsd
 
 						for(int nCounter=0; nCounter<nTotalBytes; ++nCounter)
 						{
-							nIndex = (int)pData[nCounter];
-							nRed = (int)m_ColorModeData.ColourData[nIndex];
-							nGreen = (int)m_ColorModeData.ColourData[nIndex+256];
-							nBlue = (int)m_ColorModeData.ColourData[nIndex+2*256];
+							nIndex = pData[nCounter];
+							nRed = m_ColorModeData.ColourData[nIndex];
+							nGreen = m_ColorModeData.ColourData[nIndex + 256];
+							nBlue = m_ColorModeData.ColourData[nIndex + 2 * 256];
 
 							nColor = ColorTranslator.ToWin32(Color.FromArgb(nRed, nGreen, nBlue));
 							WinInvoke32.SetPixel(hdcMemory, nCol, nRow, nColor);
@@ -1113,19 +1113,19 @@ namespace SimplePsd
 					{
 						Array.Copy(pData,nCounter,ColorValue,0,bytesPerPixelPerChannel);
 						SwapBytes(ColorValue,bytesPerPixelPerChannel);
-						exC = (double)BitConverter.ToUInt32(ColorValue,0);
+						exC = BitConverter.ToUInt32(ColorValue, 0);
 
 						Array.Copy(pData,nCounter+bytesPerPixelPerChannel,ColorValue,0,bytesPerPixelPerChannel);
 						SwapBytes(ColorValue,bytesPerPixelPerChannel);
-						exM = (double)BitConverter.ToUInt32(ColorValue,0);
+						exM = BitConverter.ToUInt32(ColorValue, 0);
 
 						Array.Copy(pData,nCounter+2*bytesPerPixelPerChannel,ColorValue,0,bytesPerPixelPerChannel);
 						SwapBytes(ColorValue,bytesPerPixelPerChannel);
-						exY = (double)BitConverter.ToUInt32(ColorValue,0);
+						exY = BitConverter.ToUInt32(ColorValue, 0);
 
 						Array.Copy(pData,nCounter+3*bytesPerPixelPerChannel,ColorValue,0,bytesPerPixelPerChannel);
 						SwapBytes(ColorValue,bytesPerPixelPerChannel);
-						exK = (double)BitConverter.ToUInt32(ColorValue,0);
+						exK = BitConverter.ToUInt32(ColorValue, 0);
 
 						C = (1.0 - exC/dMaxColours);
 						M = (1.0 - exM/dMaxColours);
@@ -1173,15 +1173,15 @@ namespace SimplePsd
 						{
 							Array.Copy(pData,nCounter,ColorValue,0,bytesPerPixelPerChannel);
 							SwapBytes(ColorValue,bytesPerPixelPerChannel);
-							exC = (double)BitConverter.ToUInt32(ColorValue,0);
+							exC = BitConverter.ToUInt32(ColorValue, 0);
 
 							Array.Copy(pData,nCounter+bytesPerPixelPerChannel,ColorValue,0,bytesPerPixelPerChannel);
 							SwapBytes(ColorValue,bytesPerPixelPerChannel);
-							exM = (double)BitConverter.ToUInt32(ColorValue,0);
+							exM = BitConverter.ToUInt32(ColorValue, 0);
 
 							Array.Copy(pData,nCounter+2*bytesPerPixelPerChannel,ColorValue,0,bytesPerPixelPerChannel);
 							SwapBytes(ColorValue,bytesPerPixelPerChannel);
-							exY = (double)BitConverter.ToUInt32(ColorValue,0);
+							exY = BitConverter.ToUInt32(ColorValue, 0);
 							
 							C = (1.0 - exC/dMaxColours);
 							M = (1.0 - exM/dMaxColours);
@@ -1192,7 +1192,7 @@ namespace SimplePsd
 							{
 								Array.Copy(pData,nCounter+3*bytesPerPixelPerChannel,ColorValue,0,bytesPerPixelPerChannel);
 								SwapBytes(ColorValue,bytesPerPixelPerChannel);
-								exK = (double)BitConverter.ToUInt32(ColorValue,0);
+								exK = BitConverter.ToUInt32(ColorValue, 0);
 
 								K = (1.0 - exK/dMaxColours);
 							}
@@ -1241,15 +1241,15 @@ namespace SimplePsd
 					{
 						Array.Copy(pData,nCounter,ColorValue,0,bytesPerPixelPerChannel);
 						SwapBytes(ColorValue,bytesPerPixelPerChannel);
-						exL = (double)BitConverter.ToUInt32(ColorValue,0);
+						exL = BitConverter.ToUInt32(ColorValue, 0);
 						
 						Array.Copy(pData,nCounter+bytesPerPixelPerChannel,ColorValue,0,bytesPerPixelPerChannel);
 						SwapBytes(ColorValue,bytesPerPixelPerChannel);
-						exA = (double)BitConverter.ToUInt32(ColorValue,0);
+						exA = BitConverter.ToUInt32(ColorValue, 0);
 
 						Array.Copy(pData,nCounter+2*bytesPerPixelPerChannel,ColorValue,0,bytesPerPixelPerChannel);
 						SwapBytes(ColorValue,bytesPerPixelPerChannel);
-						exB = (double)BitConverter.ToUInt32(ColorValue,0);
+						exB = BitConverter.ToUInt32(ColorValue, 0);
 
 						L = (int)(exL/L_coef);
 						a = (int)(exA/a_coef - 128.0);
@@ -1283,9 +1283,9 @@ namespace SimplePsd
 			const double ref_Y = 100.000;
 			const double ref_Z = 108.883;
 
-			double var_Y = ( (double)L + 16.0 ) / 116.0;
-			double var_X = (double)a / 500.0 + var_Y;
-			double var_Z = var_Y - (double)b / 200.0;
+			double var_Y = (L + 16.0 ) / 116.0;
+			double var_X = a / 500.0 + var_Y;
+			double var_Z = var_Y - b / 200.0;
 
 			if ( Math.Pow(var_Y, 3) > 0.008856 )
 			var_Y = Math.Pow(var_Y, 3);

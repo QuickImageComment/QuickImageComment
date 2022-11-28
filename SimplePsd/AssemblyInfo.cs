@@ -1,5 +1,4 @@
 using System.Reflection;
-using System.Runtime.CompilerServices;
 
 //
 // General Information about an assembly is controlled through the following 
@@ -13,7 +12,7 @@ using System.Runtime.CompilerServices;
 [assembly: AssemblyProduct("SimplePsd.dll")]
 [assembly: AssemblyCopyright("Copyright © 2005 Igor Tolmachev")]
 [assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]		
+[assembly: AssemblyCulture("")]
 
 //
 // Version information for an assembly consists of the following four values:

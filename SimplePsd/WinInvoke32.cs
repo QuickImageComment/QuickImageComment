@@ -62,24 +62,24 @@ namespace SimplePsd
 	[StructLayout(LayoutKind.Sequential, Pack=1)]
 	public struct BITMAPINFOHEADER
 	{
-		public Int32 biSize;
-		public Int32 biWidth;
-		public Int32 biHeight;
+		public int biSize;
+		public int biWidth;
+		public int biHeight;
 		public short biPlanes;
 		public short biBitCount;
-		public Int32 biCompression;
-		public Int32 biSizeImage;
-		public Int32 biXPelsPerMeter;
-		public Int32 biYPelsPerMeter;
-		public Int32 biClrUsed;
-		public Int32 biClrImportant;
+		public int biCompression;
+		public int biSizeImage;
+		public int biXPelsPerMeter;
+		public int biYPelsPerMeter;
+		public int biClrUsed;
+		public int biClrImportant;
 	} 
  
 	[StructLayout(LayoutKind.Sequential, Pack=1)]
 	public struct BITMAPINFO
 	{
 		public BITMAPINFOHEADER bmiHeader;
-		public Int32[] bmiColors;
+		public int[] bmiColors;
 	}
 
 	[StructLayout(LayoutKind.Sequential, Pack=1)]

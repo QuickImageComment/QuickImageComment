@@ -19,15 +19,12 @@
 //#define DEBUG_PRINT_READ_STRINGS_ENCODING
 
 using CSJ2K;
-using CSJ2K.j2k.util;
 using CSJ2K.Util;
 using System;
 using System.Collections;
 using System.Drawing;
-using System.IO;
 using System.Runtime.InteropServices; // for DllImport
 using System.Text;
-using System.Windows.Forms;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 //using DexterLib; // ImageExtractor
