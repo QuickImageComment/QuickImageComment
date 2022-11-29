@@ -31,7 +31,7 @@ For reading and changing the EXIF, IPTC, and XMP properties the library exiv2 is
 
 For displaying RAW images, the LibRaw library is integrated. If the camera manufacturer's codec or the Microsoft Raw Image Extension (which supports various RAW formats) are installed, they are used and then display is usually faster. One can install both a specific codec and the Microsoft Extension. The specific codec is then used for the corresponding images. For all others first the Microsoft Extension is tried and as last option the integrated LibRaw library. For the display of the metadata no codec is needed.
 
-The program runs under Microsoft Windows 7, 8, 10 and 11 and is available as 32-bit and 64-bit variant. German or English can be selected as the language.
+The program runs under Microsoft Windows 7, 8, 10 and 11 and is available as 32-bit and 64-bit variant. German or English can be selected as the language. There is also a version with sligthly reduced functionality available, which runs on Windows XP with .Net 4.0 framework.
 
 QuickImageComment is free software; you can use it under the terms of the GNU General Public License as published by the Free Software Foundation.
 
@@ -54,7 +54,7 @@ UserManual | User manual as Word document and PDF, subfolder with images used
 
 The program is built using Visual Studio 2022 with .Net 4.6.1 framework.
 
-There is also a solution to build a program with sligthly reduced functionality running on Windows XP with .Net 4.0 framework. This solution can be built with Visual Studio 2017 or 2019, when Platform Toolset Visual Studio 2017 (v141) is installed. Building exiv2Cdecl with v142 or higher will not run on Windows XP. The limitations of this version:
+There is also a solution to build a program with slightly reduced functionality running on Windows XP with .Net 4.0 framework. This solution can be built with Visual Studio 2017 or 2019, when Platform Toolset Visual Studio 2017 (v141) is installed. Building exiv2Cdecl with v142 or higher will not run on Windows XP. The limitations of this version:
 * It does not include LibRaw for display of RAW images, so for display of RAW images a manufacturer's codec or the Microsoft Raw Image Extension is needed.
 * Google Maps or Bing Maps cannot be used for the map display in the program itself, only via "Map in Standard Browser".
 * It does not support using AppCenter.ms which allows sending error reports and anonymous usage data. Note: Using AppCenter.ms has to be enabled explicitely in the version for .Net 4.6.1, so using the version for Windows XP/.Net 4.0 is not necessary to avoid sending data via AppCenter.ms.

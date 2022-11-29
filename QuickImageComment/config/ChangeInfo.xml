@@ -1,31 +1,21 @@
-﻿<Program_Version>4.50</Program_Version>
+﻿<Program_Version>4.51</Program_Version>
 <Program_Change_Info_German>
 Erweiterungen und Verbesserungen:
-Bei der Anzeige von Bildern wird auch die Orientierungsinformation der herstellerspezifischen Tags berücksichtigt (bisher wurde nur Exif.Image.Orientation verwendet).
-Da einige RAW-Dekoder die Bilder gemäß Exif.Image.Orientation drehen, kann mit dem neuen Menüpunkt "Zoom/Drehen - RAW: Drehen nach Dekodierung" ausgewählt werden, ob die Drehung nach der Dekodierung angewendet werden soll oder nicht. Wird dies für ein Bild ausgewählt, gilt es für alle Bilder, die mit demselben Decoder gelesen werden.
-Über Kontextmenü können Feld-Einträge aus den Reitern "Übersicht", "Exif", "IPTC", "XMP" und "Sonstige" in die Tabelle im Reiter "Mehrfach-Bildbearbeitung" übernommen werden.
-In der Maske "Felddefinitionen" werden zusätzliche Gruppen von Exif-Tags angezeigt. Sofern sie in Bildern enthalten waren, wurden die Werte auch in der vorherigen Version angezeigt.
-Der Dateifilter wurde geändert: Dateien werden danach gefiltert, ob sie die Filterzeichenfolge enthalten, und nicht wie bisher danach, ob sie mit der Filterzeichenfolge beginnen.
+In der allgemeinen Konfigurationsdatei können Karten-Quellen für Leaflet definiert werden. Mit diesen Karten ist - anders als bei den Karten für "Karte in Standard Browser" - der Aufnahmeort geändert werden.
+Bilder von JPEG-2000- (*.jp2) und Photoshop-Dateien (*.psd) können angezeigt werden; bisher wurden nur die Metadaten angezeigt.
 
-Folgende Fehler wurden behoben:
-In sehr seltenen Fällen wurde der Objektivnamen falsch angezeigt.
-Die Schaltfläche "Speichern" wurde nicht aktiviert, wenn die Geodaten gelöscht wurden.
-Die Einstellungen für "Bilddetails" wurden nicht korrekt geladen, so dass ein Bereich bei jedem Neustart des Programms kleiner wurde.
+Folgender Fehler wurde behoben:
+Programmabsturz mit Ausnahmefehler "ctor System.NullReferenceException: Der Objektverweis wurde nicht auf eine Objektinstanz festgelegt. ExtendedImage.cs:Zeile 287.". Gemeldet über AppCenter.
 
-Hinweis: Version 4.50 ist nur für .Net 4.6.1 (oder höher) verfügbar. Net 4.6.1 wurde bereits im November 2015 veröffentlicht und somit wird die Unterstützung für das sehr alte .Net 4.0 eingestellt.
+Hinweis: Version 4.51 ist auch für Windows XP 32-Bit und .Net 4.0 Framework verfügbar.
 </Program_Change_Info_German>
 <Program_Change_Info_English>
 Enhancements and improvements:
-When displaying images, orientation information of manufacturer specific tags is also considered (up to now only Exif.Image.Orientation was used).
-As some RAW decoders rotate images according Exif.Image.Orientation, with the new menu item "Zoom/Rotate - RAW: Rotate after decoding" it can be selected, if rotation is applied after decoding or not. If it is selected on one image, it applies to all images read with the same decoder.
-Field entries from the "Overview", "Exif", "IPTC", "XMP" and "Other" tabs can be transferred to the table in the "Multiple image edit" tab via the context menu.
-Additional groups of Exif tags are displayed in the mask "Field definitions". If they were included in images, the values were also displayed in the previous version.
-File filter is changed: files are filtered for containing the filter string, not for starting with the filter string as before.
+In the general configuration file map sources for Leaflet can be defined. With these maps - unlike the maps for "Map in Standard Browser" - the recording location can be changed.
+Images from JPEG-2000 (*.jp2) and Photoshop (*.psd) files can be displayed; previously only the metadata was displayed.
 
-Following errors are corrected:
-In very rare cases, the lens name was displayed incorrectly.
-The save button was not enabled when geo data were cleared.
-The settings for "Image details" were not loaded correctly, so that one area became smaller with each new start of the program.
+Following error is corrected:
+Program crash with exception "ctor System.NullReferenceException: Der Objektverweis wurde nicht auf eine Objektinstanz festgelegt. ExtendedImage.cs:Zeile 287.". Reported via AppCenter.
 
-Note: Version 4.50 is available to run with .Net 4.6.1 (or higher) only. Net 4.6.1 was published already in November 2015 and so support for the very old .Net 4.0 is cancelled.
+Note: Version 4.51 is also available for Windows XP 32-bit and .Net 4.0 Framework.
 </Program_Change_Info_English>
