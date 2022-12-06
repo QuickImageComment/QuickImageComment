@@ -142,11 +142,17 @@ namespace QuickImageComment
 
         private MapSource selectedMapSource;
         private List<MapSource> MapSources;
+        bool initLocationChangeNeeded;
+        GeoDataItem initGeoDataItem;
+        bool initChangeLocationAllowed;
 
-        internal UserControlMap(bool locationChangeNeeded, GeoDataItem geoDataItem, bool changeLocationAllowed, int radiusInMeter)
+        internal UserControlMap(bool locationChangeNeeded, GeoDataItem geoDataItem, bool givenChangeLocationAllowed, int radiusInMeter)
         {
             InitializeComponent();
             circleRadiusInMeter = radiusInMeter;
+            initLocationChangeNeeded = locationChangeNeeded;
+            initGeoDataItem = geoDataItem;
+            initChangeLocationAllowed = givenChangeLocationAllowed;
 #if WEBVIEW2
             string webView2Version = "";
             if (ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.UseWebView2))
@@ -161,33 +167,29 @@ namespace QuickImageComment
                 }
             }
             if (webView2Version.Equals(""))
-#endif
             {
-                // webView2 not available, use webBrowser
-                this.webBrowser1 = new System.Windows.Forms.WebBrowser();
-                this.panelTop.SuspendLayout();
-                this.panelTop.Controls.Add(this.webBrowser1);
-
-                this.webBrowser1.AllowWebBrowserDrop = false;
-                this.webBrowser1.CausesValidation = false;
-                this.webBrowser1.Dock = System.Windows.Forms.DockStyle.Fill;
-                this.webBrowser1.IsWebBrowserContextMenuEnabled = false;
-                this.webBrowser1.Name = "webBrowser1";
-                this.webBrowser1.ScrollBarsEnabled = false;
-                this.webBrowser1.TabIndex = 0;
-                this.webBrowser1.WebBrowserShortcutsEnabled = false;
-
-                this.panelTop.ResumeLayout(false);
-                this.webBrowser1.Navigated += WebBrowser1_Navigated;
-#if WEBVIEW2
-                useWebView2 = false;
-#endif
-                browserControl = webBrowser1;
+                initWebBrowser();
+                initCommonControls();
             }
-#if WEBVIEW2
             else
             {
-                // use webView2
+                initWebView2();
+                // initOtherControls is done in event WebView_CoreWebView2InitializationCompleted
+            }
+#else
+                initWebBrowser();
+                initCommonControls();
+#endif
+        }
+
+#if WEBVIEW2
+        // some initialisation of WebView2 needs to be done async
+        private async void initWebView2()
+        {
+            useWebView2 = true;
+            // use webView2
+            try
+            {
                 this.webView2 = new Microsoft.Web.WebView2.WinForms.WebView2();
                 this.panelTop.SuspendLayout();
                 this.panelTop.Controls.Add(this.webView2);
@@ -199,14 +201,89 @@ namespace QuickImageComment
                 this.panelTop.ResumeLayout(false);
                 webView2.NavigationCompleted += WebView2_NavigationCompleted;
                 webView2.WebMessageReceived += WebView2_WebMessageReceived;
+                // no usage of object for scripting as it causes message "This page says" when calling C# from JS
 
-                useWebView2 = true;
                 browserControl = webView2;
+
+                Microsoft.Web.WebView2.Core.CoreWebView2Environment coreWebView2Environment;
+
+                webView2.CoreWebView2InitializationCompleted += WebView_CoreWebView2InitializationCompleted;
+
+                string webView2UserData = System.Environment.GetEnvironmentVariable("APPDATA")
+                  + System.IO.Path.DirectorySeparatorChar + "QuickImageComment.WebView2";
+                coreWebView2Environment = await Microsoft.Web.WebView2.Core.CoreWebView2Environment.CreateAsync(null, webView2UserData, null);
+                await webView2.EnsureCoreWebView2Async(coreWebView2Environment);
+
+                webView2.CoreWebView2.Settings.AreDefaultContextMenusEnabled = false;
+                userAgentWebView2Default = webView2.CoreWebView2.Settings.UserAgent;
             }
+            catch (Exception ex)
+            {
+                // initialisation error may have caught in WebView_CoreWebView2InitializationCompleted
+                // then useWebView2 is set to false and switch to webBrwoser is done there
+                if (useWebView2)
+                {
+                    // use WebBrowser
+                    useWebView2 = false;
+                    webView2.Dispose();
+                    initWebBrowser();
+                    initCommonControls();
+                }
+            }
+        }
+
+        // event initialization of WebView2 completed
+        private void WebView_CoreWebView2InitializationCompleted(object sender, Microsoft.Web.WebView2.Core.CoreWebView2InitializationCompletedEventArgs e)
+        {
+            if (!e.IsSuccess)
+            {
+                // use WebBrowser
+                useWebView2 = false;
+                webView2.Dispose();
+                initWebBrowser();
+            }
+            initCommonControls();
+        }
 #endif
+
+        private void initWebBrowser()
+        {
+            // webView2 not available, use webBrowser
+            this.webBrowser1 = new System.Windows.Forms.WebBrowser();
+            this.panelTop.SuspendLayout();
+            this.panelTop.Controls.Add(this.webBrowser1);
+
+            this.webBrowser1.AllowWebBrowserDrop = false;
+            this.webBrowser1.CausesValidation = false;
+            this.webBrowser1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.webBrowser1.IsWebBrowserContextMenuEnabled = false;
+            this.webBrowser1.Name = "webBrowser1";
+            this.webBrowser1.ScrollBarsEnabled = false;
+            this.webBrowser1.TabIndex = 0;
+            this.webBrowser1.WebBrowserShortcutsEnabled = false;
+
+            this.panelTop.ResumeLayout(false);
+            this.webBrowser1.Navigated += WebBrowser1_Navigated;
+
+            webBrowser1.ObjectForScripting = this;
+            webBrowser1.IsWebBrowserContextMenuEnabled = true;
+
+            browserControl = webBrowser1;
+        }
+
+        private void initCommonControls()
+        {
             labelUseMapUrls.Visible = false;
 
-            fillMapSourcesAndSelectLastUsed(locationChangeNeeded);
+            fillMapSourcesAndSelectLastUsed();
+#if WEBVIEW2
+            coreWebView2Initialised = true;
+#endif
+
+            // change of location is enabled, if map source is not a configured map URL
+            enableChangeLocation(!selectedMapSource.isconfiguredMapURL);
+            newLocation(initGeoDataItem, initChangeLocationAllowed);
+
             // display of zoom and location only if if map source is not a configured map URL
             dynamicLabelCoordinates.Visible = !selectedMapSource.isconfiguredMapURL;
             dynamicLabelZoom.Visible = !selectedMapSource.isconfiguredMapURL;
@@ -216,27 +293,6 @@ namespace QuickImageComment
             dynamicLabelZoom.Text = ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.MapZoom);
             centerLatitude = ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.LastLatitude);
             centerLongitude = ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.LastLongitude);
-#if WEBVIEW2
-            if (useWebView2)
-            {
-                // some initialisation of WebView2 needs to be done async
-                webView2InitializeAsync(geoDataItem, changeLocationAllowed);
-
-                // enableChangeLocation is done in webView2InitializeAsync (requires CoreWebView2 to be initialised)
-                // no usage of object for scripting as it causes message "This page says" when calling C# from JS
-                // Context menu is disabled in webView2InitializeAsync (requires CoreWebView2 to be initialised)
-                // new location is set in webView2InitializeAsync (requires CoreWebView2 to be initialised)
-            }
-            else
-#endif
-            {
-                // change of location is enabled, if map source is not a configured map URL
-                enableChangeLocation(!selectedMapSource.isconfiguredMapURL);
-                webBrowser1.ObjectForScripting = this;
-                webBrowser1.IsWebBrowserContextMenuEnabled = true;
-
-                newLocation(geoDataItem, changeLocationAllowed);
-            }
 
             // check existance and content of list of comboBoxes for Search
             bool searchFilled = true;
@@ -287,7 +343,7 @@ namespace QuickImageComment
             LangCfg.translateControlTexts(this);
         }
 
-        private void fillMapSourcesAndSelectLastUsed(bool locationChangeNeeded)
+        private void fillMapSourcesAndSelectLastUsed()
         {
             // configure map sources
             MapSources = new List<MapSource>();
@@ -396,7 +452,7 @@ namespace QuickImageComment
             MapSources.Sort();
 
 #if WEBVIEW2
-            if (useWebView2 && !locationChangeNeeded)
+            if (useWebView2 && !initLocationChangeNeeded)
             {
                 // also URLs configured as MapURL in general configuration file can be used
                 foreach (string key in ConfigDefinition.MapUrls.Keys)
@@ -480,26 +536,6 @@ namespace QuickImageComment
             browserControlNavigating = false;
         }
 
-        // Webview2 needs async initialisation
-        private async void webView2InitializeAsync(GeoDataItem givenGeoDataItem, bool givenChangeLocationAllowed)
-        {
-            Microsoft.Web.WebView2.Core.CoreWebView2Environment coreWebView2Environment;
-
-            string webView2UserData = System.Environment.GetEnvironmentVariable("APPDATA")
-              + System.IO.Path.DirectorySeparatorChar + "QuickImageComment.WebView2";
-            coreWebView2Environment = await Microsoft.Web.WebView2.Core.CoreWebView2Environment.CreateAsync(null, webView2UserData, null);
-            await webView2.EnsureCoreWebView2Async(coreWebView2Environment);
-
-            coreWebView2Initialised = true;
-            webView2.CoreWebView2.Settings.AreDefaultContextMenusEnabled = false;
-            userAgentWebView2Default = webView2.CoreWebView2.Settings.UserAgent;
-
-            // change of location is enabled, if map source is not a configured map URL
-            // is done here as it uses invokeLeafletMethod, which requires CoreWebView2 to be initialised
-            enableChangeLocation(!selectedMapSource.isconfiguredMapURL);
-
-            newLocation(givenGeoDataItem, givenChangeLocationAllowed);
-        }
 #endif
 
         // adjust size and splitter distances considering the size of panel where thesplitContainerImageDetails1 is included
@@ -1235,22 +1271,12 @@ namespace QuickImageComment
         // methods to use browserControl
         //---------------------------------------------------------------------
 #if WEBVIEW2
-        // check (and wait) if CoreWebView2 is initialised
+        // check if CoreWebView2 is initialised
         private bool isCoreWebView2Initialised()
         {
             if (!coreWebView2Initialised)
             {
-                int count = 0;
-                // maxCycleCountCoreWebView2Initialised is used to avoid endless loop
-                while (!coreWebView2Initialised && count < maxCycleCountCoreWebView2Initialised)
-                {
-                    System.Windows.Forms.Application.DoEvents();
-                    count++;
-                }
-            }
-            if (!coreWebView2Initialised)
-            {
-                GeneralUtilities.message(LangCfg.Message.I_CoreWebView2NotInitialised);
+                //GeneralUtilities.message(LangCfg.Message.I_CoreWebView2NotInitialised);
             }
             return coreWebView2Initialised;
         }
