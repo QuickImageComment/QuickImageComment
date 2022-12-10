@@ -30,8 +30,8 @@
         {
             this.panel1 = new System.Windows.Forms.Panel();
             this.panelBottom = new System.Windows.Forms.Panel();
+            this.checkBoxWebView2 = new System.Windows.Forms.CheckBox();
             this.dynamicComboBoxMapSource = new System.Windows.Forms.ComboBox();
-            this.labelUseMapUrls = new System.Windows.Forms.Label();
             this.buttonDelete = new System.Windows.Forms.Button();
             this.buttonRename = new System.Windows.Forms.Button();
             this.labelZoom = new System.Windows.Forms.Label();
@@ -62,8 +62,8 @@
             // 
             this.panelBottom.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelBottom.Controls.Add(this.checkBoxWebView2);
             this.panelBottom.Controls.Add(this.dynamicComboBoxMapSource);
-            this.panelBottom.Controls.Add(this.labelUseMapUrls);
             this.panelBottom.Controls.Add(this.buttonDelete);
             this.panelBottom.Controls.Add(this.buttonRename);
             this.panelBottom.Controls.Add(this.labelZoom);
@@ -78,26 +78,25 @@
             this.panelBottom.Size = new System.Drawing.Size(674, 50);
             this.panelBottom.TabIndex = 15;
             // 
+            // checkBoxWebView2
+            // 
+            this.checkBoxWebView2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkBoxWebView2.Location = new System.Drawing.Point(424, 27);
+            this.checkBoxWebView2.Name = "checkBoxWebView2";
+            this.checkBoxWebView2.Size = new System.Drawing.Size(241, 17);
+            this.checkBoxWebView2.TabIndex = 19;
+            this.checkBoxWebView2.Text = "einschl. Karten nur für Anzeige (Einträge mit *)";
+            this.checkBoxWebView2.UseVisualStyleBackColor = true;
+            // 
             // dynamicComboBoxMapSource
             // 
             this.dynamicComboBoxMapSource.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.dynamicComboBoxMapSource.FormattingEnabled = true;
-            this.dynamicComboBoxMapSource.Location = new System.Drawing.Point(424, 17);
+            this.dynamicComboBoxMapSource.Location = new System.Drawing.Point(424, 3);
             this.dynamicComboBoxMapSource.Name = "dynamicComboBoxMapSource";
             this.dynamicComboBoxMapSource.Size = new System.Drawing.Size(247, 21);
             this.dynamicComboBoxMapSource.TabIndex = 15;
             this.dynamicComboBoxMapSource.SelectedIndexChanged += new System.EventHandler(this.dynamicComboBoxMapSource_SelectedIndexChanged);
-            // 
-            // labelUseMapUrls
-            // 
-            this.labelUseMapUrls.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelUseMapUrls.AutoSize = true;
-            this.labelUseMapUrls.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelUseMapUrls.Location = new System.Drawing.Point(424, 37);
-            this.labelUseMapUrls.Name = "labelUseMapUrls";
-            this.labelUseMapUrls.Size = new System.Drawing.Size(235, 12);
-            this.labelUseMapUrls.TabIndex = 18;
-            this.labelUseMapUrls.Text = "* nur Anzeige (konfigurierte Karten-Option)";
             // 
             // buttonDelete
             // 
@@ -122,9 +121,9 @@
             // labelZoom
             // 
             this.labelZoom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelZoom.Location = new System.Drawing.Point(601, 3);
+            this.labelZoom.Location = new System.Drawing.Point(209, 35);
             this.labelZoom.Name = "labelZoom";
-            this.labelZoom.Size = new System.Drawing.Size(50, 13);
+            this.labelZoom.Size = new System.Drawing.Size(52, 13);
             this.labelZoom.TabIndex = 6;
             this.labelZoom.Text = "Zoom:";
             this.labelZoom.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -132,9 +131,9 @@
             // buttonReset
             // 
             this.buttonReset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonReset.Location = new System.Drawing.Point(340, 3);
+            this.buttonReset.Location = new System.Drawing.Point(340, 2);
             this.buttonReset.Name = "buttonReset";
-            this.buttonReset.Size = new System.Drawing.Size(80, 36);
+            this.buttonReset.Size = new System.Drawing.Size(80, 23);
             this.buttonReset.TabIndex = 10;
             this.buttonReset.Text = "Zurücksetzen";
             this.buttonReset.UseVisualStyleBackColor = true;
@@ -143,9 +142,9 @@
             // buttonCenterMarker
             // 
             this.buttonCenterMarker.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonCenterMarker.Location = new System.Drawing.Point(257, 3);
+            this.buttonCenterMarker.Location = new System.Drawing.Point(257, 2);
             this.buttonCenterMarker.Name = "buttonCenterMarker";
-            this.buttonCenterMarker.Size = new System.Drawing.Size(80, 36);
+            this.buttonCenterMarker.Size = new System.Drawing.Size(80, 23);
             this.buttonCenterMarker.TabIndex = 11;
             this.buttonCenterMarker.Text = "Zentrieren";
             this.buttonCenterMarker.UseVisualStyleBackColor = true;
@@ -154,7 +153,7 @@
             // buttonSearch
             // 
             this.buttonSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSearch.Location = new System.Drawing.Point(223, 3);
+            this.buttonSearch.Location = new System.Drawing.Point(223, 2);
             this.buttonSearch.Name = "buttonSearch";
             this.buttonSearch.Size = new System.Drawing.Size(30, 23);
             this.buttonSearch.TabIndex = 14;
@@ -166,7 +165,7 @@
             // 
             this.dynamicLabelZoom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.dynamicLabelZoom.AutoSize = true;
-            this.dynamicLabelZoom.Location = new System.Drawing.Point(650, 3);
+            this.dynamicLabelZoom.Location = new System.Drawing.Point(256, 35);
             this.dynamicLabelZoom.Name = "dynamicLabelZoom";
             this.dynamicLabelZoom.Size = new System.Drawing.Size(19, 13);
             this.dynamicLabelZoom.TabIndex = 7;
@@ -179,19 +178,18 @@
             this.dynamicComboBoxSearch.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.dynamicComboBoxSearch.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.dynamicComboBoxSearch.FormattingEnabled = true;
-            this.dynamicComboBoxSearch.Location = new System.Drawing.Point(3, 4);
+            this.dynamicComboBoxSearch.Location = new System.Drawing.Point(3, 3);
             this.dynamicComboBoxSearch.Name = "dynamicComboBoxSearch";
             this.dynamicComboBoxSearch.Size = new System.Drawing.Size(218, 21);
             this.dynamicComboBoxSearch.TabIndex = 13;
             this.dynamicComboBoxSearch.SelectedIndexChanged += new System.EventHandler(this.dynamicComboBoxSearch_SelectedIndexChanged);
             this.dynamicComboBoxSearch.TextUpdate += new System.EventHandler(this.dynamicComboBoxSearch_TextUpdate);
             this.dynamicComboBoxSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dynamicComboBoxSearch_KeyDown);
-            this.dynamicComboBoxSearch.Resize += new System.EventHandler(GeneralUtilities.comboBox_Resize_Unselect);
             // 
             // dynamicLabelCoordinates
             // 
             this.dynamicLabelCoordinates.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.dynamicLabelCoordinates.Location = new System.Drawing.Point(460, 3);
+            this.dynamicLabelCoordinates.Location = new System.Drawing.Point(264, 35);
             this.dynamicLabelCoordinates.Name = "dynamicLabelCoordinates";
             this.dynamicLabelCoordinates.Size = new System.Drawing.Size(135, 13);
             this.dynamicLabelCoordinates.TabIndex = 5;
@@ -236,6 +234,6 @@
         private System.Windows.Forms.ComboBox dynamicComboBoxMapSource;
         private System.Windows.Forms.Button buttonRename;
         private System.Windows.Forms.Button buttonDelete;
-        private System.Windows.Forms.Label labelUseMapUrls;
+        private System.Windows.Forms.CheckBox checkBoxWebView2;
     }
 }

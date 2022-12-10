@@ -184,7 +184,8 @@ namespace QuickImageComment
             E_SimplePsdImageResource,
             E_SimplePsdLayerAndMask,
             E_SimplePsdImageData,
-            E_SimplePsdErrorCode
+            E_SimplePsdErrorCode,
+            I_WebView2NotUsable
         }
 
         public enum Others

@@ -153,9 +153,14 @@ namespace QuickImageComment
             initLocationChangeNeeded = locationChangeNeeded;
             initGeoDataItem = geoDataItem;
             initChangeLocationAllowed = givenChangeLocationAllowed;
+            checkBoxWebView2.Visible = false;
 #if WEBVIEW2
             string webView2Version = "";
-            if (ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.UseWebView2))
+
+            // offer WebView2 for usage only if no location change is needed
+            // WebView2 has only the advantage to allow display of maps like Google Maps
+            // which do not work with WebBrowser, but do not allow to change location
+            if (!locationChangeNeeded)
             {
                 try
                 {
@@ -166,7 +171,9 @@ namespace QuickImageComment
                     // nothing to do, as no version of WebView2 could be retrieved, use WebBrowser
                 }
             }
-            if (webView2Version.Equals(""))
+
+            checkBoxWebView2.Visible = !webView2Version.Equals("");
+            if (webView2Version.Equals("") || !ConfigDefinition.getCfgUserBool(ConfigDefinition.enumCfgUserBool.UseWebView2))
             {
                 initWebBrowser();
                 initCommonControls();
@@ -177,8 +184,8 @@ namespace QuickImageComment
                 // initOtherControls is done in event WebView_CoreWebView2InitializationCompleted
             }
 #else
-                initWebBrowser();
-                initCommonControls();
+            initWebBrowser();
+            initCommonControls();
 #endif
         }
 
@@ -220,9 +227,10 @@ namespace QuickImageComment
             catch (Exception ex)
             {
                 // initialisation error may have caught in WebView_CoreWebView2InitializationCompleted
-                // then useWebView2 is set to false and switch to webBrwoser is done there
+                // then useWebView2 is set to false and message/switch to webBrwoser is done there
                 if (useWebView2)
                 {
+                    GeneralUtilities.message(LangCfg.Message.I_WebView2NotUsable, ex.Message);
                     // use WebBrowser
                     useWebView2 = false;
                     webView2.Dispose();
@@ -237,6 +245,7 @@ namespace QuickImageComment
         {
             if (!e.IsSuccess)
             {
+                GeneralUtilities.message(LangCfg.Message.I_WebView2NotUsable, e.InitializationException.Message);
                 // use WebBrowser
                 useWebView2 = false;
                 webView2.Dispose();
@@ -273,13 +282,11 @@ namespace QuickImageComment
 
         private void initCommonControls()
         {
-            labelUseMapUrls.Visible = false;
-
             fillMapSourcesAndSelectLastUsed();
 #if WEBVIEW2
             coreWebView2Initialised = true;
 #endif
-
+            dynamicLabelCoordinates.Text = "";
             // change of location is enabled, if map source is not a configured map URL
             enableChangeLocation(!selectedMapSource.isconfiguredMapURL);
             newLocation(initGeoDataItem, initChangeLocationAllowed);
@@ -289,7 +296,6 @@ namespace QuickImageComment
             dynamicLabelZoom.Visible = !selectedMapSource.isconfiguredMapURL;
             labelZoom.Visible = !selectedMapSource.isconfiguredMapURL;
 
-            dynamicLabelCoordinates.Text = "";
             dynamicLabelZoom.Text = ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.MapZoom);
             centerLatitude = ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.LastLatitude);
             centerLongitude = ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.LastLongitude);
@@ -340,6 +346,12 @@ namespace QuickImageComment
                 }
             }
             comboBoxSearchList.Add(this.dynamicComboBoxSearch);
+
+#if WEBVIEW2
+            this.checkBoxWebView2.CheckedChanged -= new System.EventHandler(this.checkBoxWebView2_CheckedChanged);
+            checkBoxWebView2.Checked = useWebView2;
+            this.checkBoxWebView2.CheckedChanged += new System.EventHandler(this.checkBoxWebView2_CheckedChanged);
+#endif
             LangCfg.translateControlTexts(this);
         }
 
@@ -459,7 +471,6 @@ namespace QuickImageComment
                 {
                     MapSources.Add(new MapSource("* " + LangCfg.translate(key, "fillMapSourcesAndSelectLastUsed"), ConfigDefinition.MapUrls[key]));
                 }
-                labelUseMapUrls.Visible = true;
             }
 #endif
 
@@ -586,6 +597,7 @@ namespace QuickImageComment
 
             if (startGeoDataItem == null)
             {
+                dynamicLabelCoordinates.Text = "";
                 if (selectedMapSource.isconfiguredMapURL)
                 {
                     // when using configurable Map URLs, changig location is not possible
@@ -780,6 +792,30 @@ namespace QuickImageComment
                 }
             }
         }
+
+
+#if WEBVIEW2
+        // only needed when built with WebView2
+        // checkbox to select browser component for map display
+        private void checkBoxWebView2_CheckedChanged(object sender, EventArgs e)
+        {
+            initGeoDataItem = startGeoDataItem;
+            initChangeLocationAllowed = changeLocationAllowed;comboBoxSearchList = null;
+            if (checkBoxWebView2.Checked) 
+            {
+                if(webBrowser1 != null) webBrowser1.Dispose();
+                initWebView2();
+            }
+            else
+            {
+                useWebView2 = false;
+                if (webView2 != null) webView2.Dispose();
+                initWebBrowser();
+                initCommonControls();
+            }
+            ConfigDefinition.setCfgUserBool(ConfigDefinition.enumCfgUserBool.UseWebView2, checkBoxWebView2.Checked);
+        }
+#endif
 
         // to react on return in comboBox for Search
         private void dynamicComboBoxSearch_KeyDown(object sender, KeyEventArgs e)

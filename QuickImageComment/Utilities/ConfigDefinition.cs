@@ -71,8 +71,7 @@ namespace QuickImageComment
             LoggerToFile,
             ShowHiddenFiles,
             KeepFileModifiedTime,
-            FindShowDataTable,
-            UseWebView2
+            FindShowDataTable
         };
 
         public enum enumConfigInt
@@ -118,7 +117,8 @@ namespace QuickImageComment
             DisplayFullSizeImageCacheSize,
             PerformanceExtendedImage_readImage,
             ShowStackTraceInSevereErrorMessage,
-            TileDescWidth
+            TileDescWidth,
+            UseWebView2
         };
 
 
@@ -134,7 +134,8 @@ namespace QuickImageComment
             WriteIptcUtf8,
             FormImageWindowSplitContainer1OrientationVertical,
             FormImageWindowSplitContainer1Panel2Collapsed,
-            SaveFindDataTable
+            SaveFindDataTable,
+            UseWebView2
         };
 
         public enum enumCfgUserInt
@@ -485,6 +486,7 @@ namespace QuickImageComment
             ConfigItems.Add(enumCfgUserBool.FormImageWindowSplitContainer1OrientationVertical.ToString(), false);
             ConfigItems.Add(enumCfgUserBool.FormImageWindowSplitContainer1Panel2Collapsed.ToString(), false);
             ConfigItems.Add(enumCfgUserBool.SaveFindDataTable.ToString(), false);
+            ConfigItems.Add(enumCfgUserBool.UseWebView2.ToString(), false);
 
             ConfigItems.Add(enumCfgUserString.LastCheckForNewVersion.ToString(), "not configured");
             ConfigItems.Add(enumCfgUserString.NextCheckForNewVersion.ToString(), "not configured");
