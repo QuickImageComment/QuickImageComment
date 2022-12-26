@@ -585,6 +585,7 @@ namespace QuickImageComment
         private void buttonCriteriaFromImage_Click(object sender, EventArgs e)
         {
             if (MainMaskInterface.getTheExtendedImage() != null)
+            {
                 foreach (FilterDefinition filterDefinition in filterDefinitions)
                 {
                     filterDefinition.comboBoxOperator1.Text = "";
@@ -592,6 +593,8 @@ namespace QuickImageComment
                     filterDefinition.comboBoxValue1.Text = MainMaskInterface.getTheExtendedImage().getMetaDataValuesStringByDefinition(filterDefinition.metaDataDefinitionItem);
                     filterDefinition.comboBoxValue2.Text = "";
                 }
+                theUserControlMap.newLocation(MainMaskInterface.getTheExtendedImage().getRecordingLocation(), true);
+            }
         }
 
         // button customize form
