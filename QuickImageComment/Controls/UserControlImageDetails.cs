@@ -308,6 +308,16 @@ namespace QuickImageComment
             setPanel2MinSizeToMinimum();
             if (splitContainerImageDetails1.Height > splitContainerImageDetails1.Width && !isInOwnWindow)
             {
+                // avoid exception "SplitterDistance must be between Panel1MinSize and Width - Panel2MinSize"
+                // during changing Orientation when splitContainer is rather small
+                int diff = splitContainerImageDetails1.Width - splitContainerImageDetails1.Panel2MinSize;
+                if (splitContainerImageDetails1.SplitterDistance > diff)
+                {
+                    if (diff < 0)
+                        splitContainerImageDetails1.Panel2MinSize = 0;
+                    else
+                        splitContainerImageDetails1.Panel2MinSize = diff;
+                }
                 splitContainerImageDetails1.Orientation = Orientation.Horizontal;
                 splitContainerImageDetails1.Panel2MinSize = 50;
             }
