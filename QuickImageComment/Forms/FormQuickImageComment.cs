@@ -710,7 +710,7 @@ namespace QuickImageComment
         private void StartupInitNewFolder()
         {
             Program.StartupPerformance.measure("FormQIC *** StartupInitNewFolder start");
-            ImageManager.initNewFolder(FolderName, theUserControlFiles.textBoxFileFilter.Text);
+            ImageManager.initNewFolder(FolderName);
             ImageManager.initExtendedCacheList();
 
             Program.StartupPerformance.measure("FormQIC *** ImageManager.initNewFolder finish");
@@ -4144,7 +4144,7 @@ namespace QuickImageComment
             this.Cursor = Cursors.WaitCursor;
 
             theUserControlFiles.listViewFiles.clearThumbnails();
-            ImageManager.initNewFolder(FolderName, theUserControlFiles.textBoxFileFilter.Text);
+            ImageManager.initNewFolder(FolderName);
             displayImageAfterReadFolder(restoreSelection);
 
             readFolderPerfomance.measure("read folder finish");

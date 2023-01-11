@@ -736,7 +736,7 @@ namespace QuickImageComment
         }
 
         // get arraylist of all Image-files
-        public static void addImageFilesFromFolderToList(string FolderName, string FileFilter, ArrayList ImageFiles)
+        public static void addImageFilesFromFolderToList(string FolderName, ArrayList ImageFiles, bool useFileFilter)
         {
             DirectoryInfo FolderNameInfo = new DirectoryInfo(FolderName);
 
@@ -748,7 +748,7 @@ namespace QuickImageComment
                 {
                     if (ShowHiddenFiles || !Files[ii].Attributes.HasFlag(FileAttributes.Hidden))
                     {
-                        if (Files[ii].Name.ToLower().Contains(FileFilter))
+                        if (!useFileFilter || UserControlFiles.fileNameFitsToFilter(Files[ii].Name))
                         {
                             if (ConfigDefinition.FilesExtensionsArrayList.Contains(Files[ii].Extension.ToLower()))
                             {
@@ -786,7 +786,7 @@ namespace QuickImageComment
                 DirectoryInfo TopFolderNameInfo = new DirectoryInfo(TopFolderName);
                 DirectoryInfo[] SubFolders = TopFolderNameInfo.GetDirectories();
 
-                GeneralUtilities.addImageFilesFromFolderToList(TopFolderName, "", ImageFiles);
+                GeneralUtilities.addImageFilesFromFolderToList(TopFolderName, ImageFiles, false);
 
                 for (int ii = 0; ii < SubFolders.Length; ii++)
                 {

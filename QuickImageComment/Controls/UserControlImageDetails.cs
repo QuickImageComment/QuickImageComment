@@ -313,10 +313,7 @@ namespace QuickImageComment
                 int diff = splitContainerImageDetails1.Width - splitContainerImageDetails1.Panel2MinSize;
                 if (splitContainerImageDetails1.SplitterDistance > diff)
                 {
-                    if (diff < 0)
-                        splitContainerImageDetails1.Panel2MinSize = 0;
-                    else
-                        splitContainerImageDetails1.Panel2MinSize = diff;
+                    splitContainerImageDetails1.Panel2MinSize = diff < 0 ? 0 : diff;
                 }
                 splitContainerImageDetails1.Orientation = Orientation.Horizontal;
                 splitContainerImageDetails1.Panel2MinSize = 50;

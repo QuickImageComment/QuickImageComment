@@ -17,6 +17,7 @@
 using System;
 using System.Collections;
 using System.IO;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -24,6 +25,14 @@ namespace QuickImageComment
 {
     internal partial class UserControlFiles : UserControl
     {
+        private enum enumFileFilterType
+        {
+            contains, withWildCards
+        };
+        // file filter variables, set when filter is activated
+        static string fileFilterNormalised = "";
+        static enumFileFilterType fileFilterType = enumFileFilterType.contains;
+
         // delay in milliseconds after event "selected index changed" to display image and do further actions
         private const int delayTimeAfterSelectedIndexChanged = 50;
 
@@ -70,6 +79,7 @@ namespace QuickImageComment
         {
             if (theFormQuickImageComment.continueAfterCheckForChangesAndOptionalSaving(listViewFiles.SelectedIndices))
             {
+                analyseNormaliseFileFilter();
                 theFormQuickImageComment.readFolderAndDisplayImage(true);
             }
         }
@@ -287,6 +297,7 @@ namespace QuickImageComment
             {
                 if (theFormQuickImageComment.continueAfterCheckForChangesAndOptionalSaving(listViewFiles.SelectedIndices))
                 {
+                    analyseNormaliseFileFilter();
                     theFormQuickImageComment.readFolderAndDisplayImage(true);
                 }
             }
@@ -616,7 +627,7 @@ namespace QuickImageComment
                             // check also extension and compare with file filter
                             if (theFileInfo.DirectoryName.ToLower().Equals(theFormQuickImageComment.FolderName.ToLower()) &&
                                 ConfigDefinition.FilesExtensionsArrayList.Contains(theFileInfo.Extension.ToLower()) &&
-                                theFileInfo.Name.ToLower().StartsWith(textBoxFileFilter.Text.ToLower()))
+                                fileNameFitsToFilter(theFileInfo.Name.ToLower()))
                             {
                                 // save current view
                                 View tempView = listViewFiles.View;
@@ -715,7 +726,7 @@ namespace QuickImageComment
                     if (jj < 0 &&
                         theFileInfo.DirectoryName.ToLower().Equals(theFormQuickImageComment.FolderName.ToLower()) &&
                         ConfigDefinition.FilesExtensionsArrayList.Contains(theFileInfo.Extension.ToLower()) &&
-                        theFileInfo.Name.ToLower().StartsWith(textBoxFileFilter.Text.ToLower()))
+                        fileNameFitsToFilter(theFileInfo.Name.ToLower()))
                     {
                         // save current view
                         View tempView = listViewFiles.View;
@@ -807,6 +818,34 @@ namespace QuickImageComment
             }
 
             return temp;
+        }
+
+        // analyse and normalise the file filter
+        internal void analyseNormaliseFileFilter()
+        {
+            fileFilterNormalised = textBoxFileFilter.Text.ToLower();
+            if (textBoxFileFilter.Text.Contains("*") || textBoxFileFilter.Text.Contains("?"))
+            {
+                fileFilterNormalised = "^" + Regex.Escape(fileFilterNormalised).Replace("\\?", ".").Replace("\\*", ".*") + "$";
+                fileFilterType = enumFileFilterType.withWildCards;
+            }
+            else
+            {
+                fileFilterType = enumFileFilterType.contains;
+            }
+        }
+
+        // check if file name fits to filter
+        internal static bool fileNameFitsToFilter(string fileName)
+        {
+            switch (fileFilterType)
+            {
+                // fileFilter is here already lower case
+                case enumFileFilterType.withWildCards:
+                    return Regex.IsMatch(fileName.ToLower(), fileFilterNormalised);
+                default:
+                    return fileName.ToLower().Contains(fileFilterNormalised);
+            }
         }
 
         // reset selected images to those before last user selection,

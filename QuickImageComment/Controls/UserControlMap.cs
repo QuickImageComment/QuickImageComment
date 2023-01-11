@@ -351,6 +351,9 @@ namespace QuickImageComment
             this.checkBoxWebView2.CheckedChanged -= new System.EventHandler(this.checkBoxWebView2_CheckedChanged);
             checkBoxWebView2.Checked = useWebView2;
             this.checkBoxWebView2.CheckedChanged += new System.EventHandler(this.checkBoxWebView2_CheckedChanged);
+#if APPCENTER
+            if (Program.AppCenterUsable) Microsoft.AppCenter.Analytics.Analytics.TrackEvent("Map initialised with useWebView2="+useWebView2.ToString());
+#endif
 #endif
             LangCfg.translateControlTexts(this);
         }

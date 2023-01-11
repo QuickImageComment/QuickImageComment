@@ -39,7 +39,7 @@ namespace QuickImageComment
         //-------------------------------------------------------------------------
         // initialisation
         //-------------------------------------------------------------------------
-        public static void initNewFolder(string newFolderName, string fileFilter)
+        public static void initNewFolder(string newFolderName)
         {
             FormQuickImageComment.readFolderPerfomance.measure("ImageManager initNewFolder start");
 
@@ -48,7 +48,7 @@ namespace QuickImageComment
             // "my computer" now on top of tree, but this cannot be expanded
             if (!newFolderName.Equals(""))
             {
-                GeneralUtilities.addImageFilesFromFolderToList(newFolderName, fileFilter.ToLower(), ImageFiles);
+                GeneralUtilities.addImageFilesFromFolderToList(newFolderName, ImageFiles, true);
             }
 
             initWithImageFilesArrayList(newFolderName, ImageFiles, true);
