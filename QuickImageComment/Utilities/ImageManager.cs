@@ -411,22 +411,28 @@ namespace QuickImageComment
                     }
 
                     string[] HashtableKeys = new string[HashtableExtendedImages.Keys.Count];
-                    HashtableExtendedImages.Keys.CopyTo(HashtableKeys, 0);
-                    for (int ii = 0; ii < HashtableKeys.Length; ii++)
+                    if (HashtableExtendedImages.Keys.Count > 0)
                     {
-                        // it happened, that HashtableKeys[ii] was null; not clear why, perhaps between creating HashtableKeys and CopyTo an entry was deleted
-                        if (HashtableKeys[ii] != null && !ExtendedCache.Contains(HashtableKeys[ii])) HashtableExtendedImages.Remove(HashtableKeys[ii]);
+                        HashtableExtendedImages.Keys.CopyTo(HashtableKeys, 0);
+                        for (int ii = 0; ii < HashtableKeys.Length; ii++)
+                        {
+                            // it happened, that HashtableKeys[ii] was null; not clear why, perhaps between creating HashtableKeys and CopyTo an entry was deleted
+                            if (HashtableKeys[ii] != null && !ExtendedCache.Contains(HashtableKeys[ii])) HashtableExtendedImages.Remove(HashtableKeys[ii]);
+                        }
+                        CachePerformance.measure("delete extended images outside cache range");
                     }
-                    CachePerformance.measure("delete extended images outside cache range");
 
                     HashtableKeys = new string[HashtableFullSizeImages.Keys.Count];
-                    HashtableFullSizeImages.Keys.CopyTo(HashtableKeys, 0);
-                    for (int ii = 0; ii < HashtableKeys.Length; ii++)
+                    if (HashtableFullSizeImages.Keys.Count > 0)
                     {
-                        // never remove the displayed image, can cause error when redisplay is needed
-                        if (!FullsizeCache.Contains(HashtableKeys[ii]) && !HashtableKeys[ii].Equals(MainMaskInterface.displayedImageFullName()))
+                        HashtableFullSizeImages.Keys.CopyTo(HashtableKeys, 0);
+                        for (int ii = 0; ii < HashtableKeys.Length; ii++)
                         {
-                            HashtableFullSizeImages.Remove(HashtableKeys[ii]);
+                            // never remove the displayed image, can cause error when redisplay is needed
+                            if (!FullsizeCache.Contains(HashtableKeys[ii]) && !HashtableKeys[ii].Equals(MainMaskInterface.displayedImageFullName()))
+                            {
+                                HashtableFullSizeImages.Remove(HashtableKeys[ii]);
+                            }
                         }
                     }
                 }
