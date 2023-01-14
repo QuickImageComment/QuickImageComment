@@ -1,21 +1,23 @@
-﻿<Program_Version>4.51</Program_Version>
+﻿<Program_Version>4.52</Program_Version>
 <Program_Change_Info_German>
 Erweiterungen und Verbesserungen:
-In der allgemeinen Konfigurationsdatei können Karten-Quellen für Leaflet definiert werden. Mit diesen Karten ist - anders als bei den Karten für "Karte in Standard Browser" - der Aufnahmeort geändert werden.
-Bilder von JPEG-2000- (*.jp2) und Photoshop-Dateien (*.psd) können angezeigt werden; bisher wurden nur die Metadaten angezeigt.
+Variante für Net 4.6.1 und höher und wenn WebView2 Runtime installiert ist: Bei der Anzeige des Aufnahmeortes auf Karte können Karten nur für Anzeige (z.B. Google Maps und Bing Maps) ausgeblendet werden (was technisch das Deaktivieren von WebView2 bedeutet).
+Hintergrund: Für Google Maps und Bing Maps ist WebView2 erforderlich. WebView2 verursacht aber gelegentlich Probleme. Anstatt wie bisher WebView2 über die allgemeine Konfigurationsdatei zu deaktivieren, kann man dies nun direkt in der Oberfläche.
+Im Dateifilter können nun auch Platzhalterzeichen ("?" für ein beliebiges Zeichen, "*" für eine beliebige Anzahl von Zeichen) verwendet werden.
 
 Folgender Fehler wurde behoben:
-Programmabsturz mit Ausnahmefehler "ctor System.NullReferenceException: Der Objektverweis wurde nicht auf eine Objektinstanz festgelegt. ExtendedImage.cs:Zeile 287.". Gemeldet über AppCenter.
-
-Hinweis: Version 4.51 ist auch für Windows XP 32-Bit und .Net 4.0 Framework verfügbar.
+Wenn die installierte Version von WebView2 nicht zu den mit dem Programm gelieferten Komponenten passte, konnte das Programm abstürzen. In solchen Fällen wird jetzt die "alte" Browserkomponente verwendet, die aber Google Maps und Bing Maps nicht unterstützt.
+Maske "Suche über Eigenschaften": Mit der Schaltfläche "Kriterien von akt. Datei" wurden die GPS-Daten des Aufnahmeortes nicht übernommen.
+Programm konnte mit "Die SplitterDistance muss zwischen Panel1MinSize und Width - Panel2MinSize liegen." abstürzen, wenn der Container mit Bild-Details sehr klein gemacht wurde.
 </Program_Change_Info_German>
 <Program_Change_Info_English>
 Enhancements and improvements:
-In the general configuration file map sources for Leaflet can be defined. With these maps - unlike the maps for "Map in Standard Browser" - the recording location can be changed.
-Images from JPEG-2000 (*.jp2) and Photoshop (*.psd) files can be displayed; previously only the metadata was displayed.
+Variant for Net 4.6.1 and higher and if WebView2 Runtime is installed: When displaying the recording location on map, maps only for display (e.g. Google Maps and Bing Maps) can be hidden (which technically means disabling WebView2).
+Background: Google Maps and Bing Maps require WebView2. However, WebView2 occasionally causes problems. Instead of disabling WebView2 via the general configuration file as before, you can now do this directly in the interface.
+Wildcard characters ("?" for any one character, "*" for any number of characters) can now be used in the file filter.
 
 Following error is corrected:
-Program crash with exception "ctor System.NullReferenceException: Der Objektverweis wurde nicht auf eine Objektinstanz festgelegt. ExtendedImage.cs:Zeile 287.". Reported via AppCenter.
-
-Note: Version 4.51 is also available for Windows XP 32-bit and .Net 4.0 Framework.
+If the installed version of WebView2 did not match the components shipped with the program, the program could crash. In such cases, the "old" browser component is now used, but it does not support Google Maps and Bing Maps.
+Mask "Search via properties": With the button " Criteria of current file" the GPS data of the recording location were not taken over.
+Program could crash with "SplitterDistance must be between Panel1MinSize and Width - Panel2MinSize" when container with image details was made very small.
 </Program_Change_Info_English>
