@@ -266,6 +266,7 @@ namespace QuickImageComment
         private static Hashtable InputCheckConfigurations;
         private static ArrayList GeoDataItemArrayList;
         private static ArrayList RawDecoderNotRotatingArrayList;
+        private static ArrayList EditExternalDefinitionArrayList;
 
         internal static SortedList<string, DataTemplate> DataTemplates;
         internal static SortedList<string, string> MapUrls;
@@ -349,6 +350,7 @@ namespace QuickImageComment
             InputCheckConfigurations = new Hashtable();
             GeoDataItemArrayList = new ArrayList();
             RawDecoderNotRotatingArrayList = new ArrayList();
+            EditExternalDefinitionArrayList = new ArrayList();
             OtherMetaDataDefinitions = new ArrayList();
             InternalMetaDataDefinitions = new SortedList();
             IgnoreLines = new ArrayList();
@@ -2189,6 +2191,16 @@ namespace QuickImageComment
             return RawDecoderNotRotatingArrayList;
         }
 
+        // edit external definitions
+        public static ArrayList getEditExternalDefinitionArrayList()
+        {
+            return EditExternalDefinitionArrayList;
+        }
+        public static void setEditExternalArrayList(ArrayList newEditExternalArrayList)
+        {
+            EditExternalDefinitionArrayList = new ArrayList(newEditExternalArrayList);
+        }
+
         // get predefiend comment categories
         public static ArrayList getPredefinedCommentCategories()
         {
@@ -2608,6 +2620,10 @@ namespace QuickImageComment
                     else if (firstPart.Equals("RawDecoderNotRotating"))
                     {
                         RawDecoderNotRotatingArrayList.Add(secondPart);
+                    }
+                    else if (firstPart.Equals("EditExternal"))
+                    {
+                        EditExternalDefinitionArrayList.Add(new EditExternalDefinition(secondPart));
                     }
                     else if (firstPart.StartsWith("#"))
                     {
@@ -3192,6 +3208,10 @@ namespace QuickImageComment
             foreach (string aRawDecoderNotRotatingItem in RawDecoderNotRotatingArrayList)
             {
                 StreamOut.WriteLine("RawDecoderNotRotating:" + aRawDecoderNotRotatingItem);
+            }
+            foreach (EditExternalDefinition editExternalDefinition in EditExternalDefinitionArrayList)
+            {
+                StreamOut.WriteLine("EditExternal:" + editExternalDefinition);
             }
 
             foreach (DataTemplate aDataTemplate in DataTemplates.Values)

@@ -309,7 +309,9 @@ namespace QuickImageComment
             fileDeletedOutsideQIC,
             fileRenamedOutsideQIC,
             invalidMenuReference,
-            imageReadError
+            imageReadError,
+            selectProgram,
+            editExternalProgramFilter
         }
 
         // defined as variable

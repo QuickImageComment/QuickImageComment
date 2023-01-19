@@ -354,6 +354,8 @@ namespace QuickImageComment
 
             // add view configurations in menu
             fillMenuViewConfigurations();
+            // fill menu edit external
+            fillMenuEditExternal();
 
             // create and fill user control for changeable fields 
             Program.StartupPerformance.measure("FormQIC before user control changeable fields");
@@ -1420,6 +1422,20 @@ namespace QuickImageComment
             }
         }
 
+        // administration of entries for external edit
+        private void toolStripMenuItemEditExternalAdministration_Click(object sender, EventArgs e)
+        {
+            if (continueAfterCheckForChangesAndOptionalSaving(theUserControlFiles.listViewFiles.SelectedIndices))
+            {
+                FormEditExternal formEditExternal = new FormEditExternal();
+                formEditExternal.ShowDialog();
+                if (formEditExternal.settingsChanged)
+                {
+                    fillMenuEditExternal();
+                }
+            }
+        }
+
         // save changes from actual image, then goto to first
         private void toolStripMenuItemFirst_Click(object sender, EventArgs e)
         {
@@ -1923,6 +1939,31 @@ namespace QuickImageComment
             }
         }
 
+        // fill view menu with edit external definitions
+        internal void fillMenuEditExternal()
+        {
+            // delete existing dynamic view configurations 
+            for (int ii = toolStripMenuItemEditExtern.DropDownItems.Count - 1; ii >= 0; ii--)
+            {
+                if (toolStripMenuItemEditExtern.DropDownItems[ii].Name.StartsWith("editExternalDefinition"))
+                {
+                    ToolStripItem toolStripItem = toolStripMenuItemEditExtern.DropDownItems[ii];
+                    toolStripMenuItemEditExtern.DropDownItems.Remove(toolStripItem);
+                }
+            }
+
+            // add entries 
+            int jj = 0;
+            foreach (EditExternalDefinition editExternalDefinition in ConfigDefinition.getEditExternalDefinitionArrayList())
+            {
+                ToolStripItem toolStripItem = new ToolStripMenuItem(editExternalDefinition.Name, null, toolStripMenuItemEditExternConfigurationX_Click,
+                     "editExternalDefinition " + editExternalDefinition.Name);
+                toolStripItem.Tag = editExternalDefinition;
+                toolStripMenuItemEditExtern.DropDownItems.Insert(jj, toolStripItem);
+                jj++;
+            }
+        }
+
         // add user defined buttons
         internal void addUserDefinedButtions()
         {
@@ -1987,6 +2028,13 @@ namespace QuickImageComment
             ConfigDefinition.loadViewConfiguration(ConfigurationName);
             adjustViewAfterFormView();
             ConfigDefinition.setCfgUserString(ConfigDefinition.enumCfgUserString.ViewConfiguration, ConfigurationName);
+        }
+
+        // execute edit external
+        private void toolStripMenuItemEditExternConfigurationX_Click(object sender, EventArgs e)
+        {
+            EditExternalDefinition editExternalDefinition = ((ToolStripMenuItem)sender).Tag as EditExternalDefinition;
+            editExternalDefinition.execute();
         }
 
         // save old splitter ratio
@@ -5748,6 +5796,17 @@ namespace QuickImageComment
             }
         }
 
+        // return array list with selected file names
+        internal ArrayList getSelectedFileNames()
+        {
+            ArrayList FileNames = new ArrayList();
+            for (int ii = 0; ii < theUserControlFiles.listViewFiles.SelectedIndices.Count; ii++)
+            {
+                FileNames.Add(ImageManager.getExtendedImage(theUserControlFiles.listViewFiles.SelectedIndices[ii]).getImageFileName());
+            }
+            return FileNames;
+        }
+
         // FormLogger may be filled also in a thread, but it must be initialized in main thread
         // So initialzation is done from main mask
         // When FormLogger was initialized in Program.cs before running main mask, FormLogger closed again before main mask was opened
@@ -6059,6 +6118,7 @@ namespace QuickImageComment
                 new FormCompare(theUserControlFiles.listViewFiles.SelectedIndices, FolderName);
                 new FormDataTemplates();
                 new FormDateTimeChange(theUserControlFiles.listViewFiles.SelectedIndices);
+                new FormEditExternal();
                 // FormError not needed
                 // FormErrorAppCenter not needed
                 new FormExportAllMetaData(theUserControlFiles.listViewFiles.SelectedIndices, FolderName);
@@ -6165,6 +6225,7 @@ namespace QuickImageComment
             LangCfg.getListOfControlsWithText(new FormCompare(theUserControlFiles.listViewFiles.SelectedIndices, FolderName), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormDataTemplates(), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormDateTimeChange(theUserControlFiles.listViewFiles.SelectedIndices), ControlTextList);
+            LangCfg.getListOfControlsWithText(new FormEditExternal(), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormError("", "", ""), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormErrorAppCenter(""), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormExportAllMetaData(theUserControlFiles.listViewFiles.SelectedIndices, FolderName), ControlTextList);
@@ -6226,6 +6287,7 @@ namespace QuickImageComment
             new FormCompare(theUserControlFiles.listViewFiles.SelectedIndices, FolderName);
             new FormDataTemplates();
             new FormDateTimeChange(theUserControlFiles.listViewFiles.SelectedIndices);
+            new FormEditExternal();
             new FormError("", "", "");
             new FormErrorAppCenter("");
             new FormExportAllMetaData(theUserControlFiles.listViewFiles.SelectedIndices, FolderName);

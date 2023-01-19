@@ -207,6 +207,8 @@ namespace QuickImageComment
             this.toolStripMenuItemCreateControlTextList = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemCheckTranslationComplete = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemFormLogger = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemEditExtern = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemEditExternalAdministration = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemListShortcuts = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemAbout = new System.Windows.Forms.ToolStripMenuItem();
@@ -253,6 +255,7 @@ namespace QuickImageComment
             this.toolStripButtonPredefinedKeyWords = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator14 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButtonFind = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparatorEditExternal = new System.Windows.Forms.ToolStripSeparator();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer12)).BeginInit();
             this.splitContainer12.Panel1.SuspendLayout();
             this.splitContainer12.Panel2.SuspendLayout();
@@ -649,33 +652,33 @@ namespace QuickImageComment
             this.toolStripMenuItemAddToMultiEditTab,
             this.contextMenuStripMetaDataMenuItemAdjustOverview});
             this.contextMenuStripOverview.Name = "contextMenuStripOverview";
-            this.contextMenuStripOverview.Size = new System.Drawing.Size(343, 92);
+            this.contextMenuStripOverview.Size = new System.Drawing.Size(443, 92);
             // 
             // toolStripMenuItemAddToChangeable
             // 
             this.toolStripMenuItemAddToChangeable.Name = "toolStripMenuItemAddToChangeable";
-            this.toolStripMenuItemAddToChangeable.Size = new System.Drawing.Size(342, 22);
+            this.toolStripMenuItemAddToChangeable.Size = new System.Drawing.Size(442, 22);
             this.toolStripMenuItemAddToChangeable.Text = "Markierte Felder zu änderbaren Feldern hinzufügen";
             this.toolStripMenuItemAddToChangeable.Click += new System.EventHandler(this.toolStripMenuItemAddFromOverviewToChangeable_Click);
             // 
             // toolStripMenuItemAddToFind
             // 
             this.toolStripMenuItemAddToFind.Name = "toolStripMenuItemAddToFind";
-            this.toolStripMenuItemAddToFind.Size = new System.Drawing.Size(342, 22);
+            this.toolStripMenuItemAddToFind.Size = new System.Drawing.Size(442, 22);
             this.toolStripMenuItemAddToFind.Text = "Markierte Felder zu Feldern für Suche hinzufügen";
             this.toolStripMenuItemAddToFind.Click += new System.EventHandler(this.toolStripMenuItemAddToFind_Click);
             // 
             // toolStripMenuItemAddToMultiEditTab
             // 
             this.toolStripMenuItemAddToMultiEditTab.Name = "toolStripMenuItemAddToMultiEditTab";
-            this.toolStripMenuItemAddToMultiEditTab.Size = new System.Drawing.Size(342, 22);
+            this.toolStripMenuItemAddToMultiEditTab.Size = new System.Drawing.Size(442, 22);
             this.toolStripMenuItemAddToMultiEditTab.Text = "Markierte Felder zu Tabelle in \"Mehrfach-Bildbearbeitung\" hinzufügen";
             this.toolStripMenuItemAddToMultiEditTab.Click += new System.EventHandler(this.toolStripMenuItemAddToMultiEditTab_Click);
             // 
             // contextMenuStripMetaDataMenuItemAdjustOverview
             // 
             this.contextMenuStripMetaDataMenuItemAdjustOverview.Name = "contextMenuStripMetaDataMenuItemAdjustOverview";
-            this.contextMenuStripMetaDataMenuItemAdjustOverview.Size = new System.Drawing.Size(342, 22);
+            this.contextMenuStripMetaDataMenuItemAdjustOverview.Size = new System.Drawing.Size(442, 22);
             this.contextMenuStripMetaDataMenuItemAdjustOverview.Text = "Felder anpassen";
             this.contextMenuStripMetaDataMenuItemAdjustOverview.Click += new System.EventHandler(this.contextMenuStripMetaDataMenuItemAdjust_Click);
             // 
@@ -1131,6 +1134,7 @@ namespace QuickImageComment
             this.toolStripMenuItemView,
             this.toolStripMenuItemZoomRotate,
             this.toolStripMenuItemExtras,
+            this.toolStripMenuItemEditExtern,
             this.toolStripMenuItemHelp});
             this.MenuStrip1.Location = new System.Drawing.Point(0, 0);
             this.MenuStrip1.Name = "MenuStrip1";
@@ -1879,6 +1883,22 @@ namespace QuickImageComment
             this.toolStripMenuItemFormLogger.Text = "FormLogger";
             this.toolStripMenuItemFormLogger.Click += new System.EventHandler(this.toolStripMenuItemFormLogger_Click);
             // 
+            // toolStripMenuItemEditExtern
+            // 
+            this.toolStripMenuItemEditExtern.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripSeparatorEditExternal,
+            this.toolStripMenuItemEditExternalAdministration});
+            this.toolStripMenuItemEditExtern.Name = "toolStripMenuItemEditExtern";
+            this.toolStripMenuItemEditExtern.Size = new System.Drawing.Size(113, 20);
+            this.toolStripMenuItemEditExtern.Text = "Bearbeiten-extern";
+            // 
+            // toolStripMenuItemEditExternalAdministration
+            // 
+            this.toolStripMenuItemEditExternalAdministration.Name = "toolStripMenuItemEditExternalAdministration";
+            this.toolStripMenuItemEditExternalAdministration.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItemEditExternalAdministration.Text = "Verwalten...";
+            this.toolStripMenuItemEditExternalAdministration.Click += new System.EventHandler(this.toolStripMenuItemEditExternalAdministration_Click);
+            // 
             // toolStripMenuItemHelp
             // 
             this.toolStripMenuItemHelp.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
@@ -2356,6 +2376,11 @@ namespace QuickImageComment
             this.toolStripButtonFind.ToolTipText = "Suche über Eigenschaften";
             this.toolStripButtonFind.Click += new System.EventHandler(this.toolStripMenuItemFind_Click);
             // 
+            // toolStripSeparatorEditExternal
+            // 
+            this.toolStripSeparatorEditExternal.Name = "toolStripSeparatorEditExternal";
+            this.toolStripSeparatorEditExternal.Size = new System.Drawing.Size(177, 6);
+            // 
             // FormQuickImageComment
             // 
             this.AllowDrop = true;
@@ -2650,5 +2675,8 @@ namespace QuickImageComment
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator17;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemRotateAfterRawDecoder;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemAddToMultiEditTab;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemEditExtern;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemEditExternalAdministration;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparatorEditExternal;
     }
 }
