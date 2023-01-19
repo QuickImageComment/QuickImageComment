@@ -784,8 +784,17 @@ namespace QuickImageComment
         // Ok pressed
         private void buttonOk_Click(object sender, EventArgs e)
         {
+            if (listBoxMetaData.Items.Count == 0)
+            {
+                // list is empty, nothing to check
+                noCheckEnteredMetaDefinitionIsOk = true;
+            }
+
             if (enteredMetaDefinitionIsOk())
             {
+                // reset flag
+                noCheckEnteredMetaDefinitionIsOk = false;
+
                 // remove meta definition items without primary key 
                 // possible reason: user tried to add a key, which is not allowed there and
                 // thus primary key field is cleared
@@ -861,6 +870,12 @@ namespace QuickImageComment
         // create new field
         private void buttonNew_Click(object sender, EventArgs e)
         {
+            if (listBoxMetaData.Items.Count == 0)
+            {
+                // list is empty, nothing to check
+                noCheckEnteredMetaDefinitionIsOk = true;
+            }
+
             string Name = LangCfg.getText(LangCfg.Others.newEntry);
             string MetaDataKey = "";
             int posDot = 0;
@@ -890,13 +905,15 @@ namespace QuickImageComment
                 // now set the primary key; format and type are set via textBoxMetaDatum1_TextChanged based on different rules
                 textBoxMetaDatum1.Text = MetaDataKey;
             }
+            // reset flag
+            noCheckEnteredMetaDefinitionIsOk = false;
         }
 
         // create copy of field
         private void buttonCopy_Click(object sender, EventArgs e)
         {
             if (listBoxMetaData.SelectedIndex >= 0 &&
-                listBoxMetaData.SelectedIndex < listBoxMetaData.Items.Count - 1)
+                listBoxMetaData.SelectedIndex < listBoxMetaData.Items.Count)
             {
                 int index = listBoxMetaData.SelectedIndex;
                 MetaDataDefinitionItem MetaDataDefinitionItemForCopy = (MetaDataDefinitionItem)MetaDataDefinitionsWork[index];
