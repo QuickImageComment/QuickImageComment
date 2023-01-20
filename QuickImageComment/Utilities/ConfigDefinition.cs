@@ -47,10 +47,11 @@ namespace QuickImageComment
         // extensions photoshop files
         public static ArrayList PhotoshopExtensions = new ArrayList { ".psd" };
         // note: video extensions are read from config file
+
         // tags whose values are derived when getting Bitmap (which takes longer than other tags)
         // when changing this list, ExtendedImage.addMetaDataFromBitMap needs to changes as well
-        public static ArrayList TagsFromBitmap = new ArrayList { "File.ImageSize", "Image.CodecInfo", "Image.PixelFormat" };
-
+        public static ArrayList TagsFromBitmap = new ArrayList { "File.ImageSize", "Image.CodecInfo", "Image.PixelFormat", "Image.DisplayImageErrorMessage" };
+        
         public enum enumConfigFlags
         {
             PerformanceStartup,
@@ -595,6 +596,11 @@ namespace QuickImageComment
             InternalMetaDataDefinitions.Add("Image.GPSPosition", new TagDefinition("Image.GPSPosition", "Readonly", "GPS position, latitude and longitude as degrees in decimal notation"));
             InternalMetaDataDefinitions.Add("Image.GPSsignedLatitude", new TagDefinition("Image.GPSsignedLatitude", "Readonly", "Indicates the latitude expressed as degrees in decimal notation with negative values for South"));
             InternalMetaDataDefinitions.Add("Image.GPSsignedLongitude", new TagDefinition("Image.GPSsignedLongitude", "Readonly", "Indicates the longitude expressed as degrees in decimal notation with negative values for West"));
+            InternalMetaDataDefinitions.Add("Image.DisplayImageErrorMessage", new TagDefinition("Image.DisplayImageErrorMessage", "Readonly", "Error message when displaying image"));
+            // note: following tag may be filled incomplete during find - as then not everything is read
+            // but as all artist and comment entries are read, it will include warnings related to artist and comment
+            InternalMetaDataDefinitions.Add("Image.MetaDataWarnings", new TagDefinition("Image.MetaDataWarnings", "Readonly", "Warnings from reading meta data"));
+
 
             // fill list of tags needed for special Exif or IPTC information
             // TagDependencies contains the tags needed to fill the tag listed as first in the array

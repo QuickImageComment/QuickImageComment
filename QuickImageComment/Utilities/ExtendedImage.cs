@@ -323,7 +323,7 @@ namespace QuickImageComment
                 ConstructorPerformance.measure("FullSizeImage created");
             }
 
-            setOldArtistAndComment();
+            setOldArtistAndCommentAndOtherInternalTags();
             fillTileViewMetaDataItems();
             ConstructorPerformance.measure("Meta data compared, tile view filled");
 
@@ -340,6 +340,10 @@ namespace QuickImageComment
         public ExtendedImage(string ImageFileName, ArrayList neededKeys)
         {
             this.ImageFileName = ImageFileName;
+            this.isVideo = ConfigDefinition.getVideoExtensionsPropertiesList().Contains((System.IO.Path.GetExtension(ImageFileName)).ToLower()) ||
+                           ConfigDefinition.getVideoExtensionsFrameList().Contains((System.IO.Path.GetExtension(ImageFileName)).ToLower());
+            this.displayFrame = ConfigDefinition.getVideoExtensionsFrameList().Contains((System.IO.Path.GetExtension(ImageFileName)).ToLower());
+            this.notFrameGrabber = ConfigDefinition.getVideoExtensionsNotFrameGrabberList().Contains((System.IO.Path.GetExtension(ImageFileName)).ToLower());
 
             readMetaData(ConstructorPerformance, neededKeys);
             DateTime CurrentTime = DateTime.Now;
@@ -361,7 +365,7 @@ namespace QuickImageComment
                 addMetaDataFromBitMap();
             }
 
-            setOldArtistAndComment();
+            setOldArtistAndCommentAndOtherInternalTags();
         }
 
         //*****************************************************************
@@ -546,6 +550,10 @@ namespace QuickImageComment
             if (!pixelFormat.Equals(""))
             {
                 addReplaceOtherMetaDataKnownType("Image.PixelFormat", pixelFormat);
+            }
+            if (!DisplayImageErrorMessage.Equals(""))
+            {
+                addReplaceOtherMetaDataKnownType("Image.DisplayImageErrorMessage", DisplayImageErrorMessage);
             }
         }
 
@@ -1193,8 +1201,8 @@ namespace QuickImageComment
             }
         }
 
-        // set the values for old artist and comment from different tags
-        private void setOldArtistAndComment()
+        // set the values for old artist and comment and other internal tags
+        private void setOldArtistAndCommentAndOtherInternalTags()
         {
             artistDifferentEntries = false;
             commentDifferentEntries = false;
@@ -1211,6 +1219,23 @@ namespace QuickImageComment
 
             addReplaceOtherMetaDataKnownType("Image.ArtistCombinedFields", combinedFieldValues(ConfigDefinition.getAllTagNamesArtist(), null, null));
             addReplaceOtherMetaDataKnownType("Image.CommentCombinedFields", combinedFieldValues(ConfigDefinition.getAllTagNamesComment(), null, null));
+
+            if (MetaDataWarnings.Count > 0)
+            {
+                string MessageText = "";
+                foreach (MetaDataWarningItem ExifWarning in MetaDataWarnings)
+                {
+                    MessageText += " | " + ExifWarning.getName() + ": " + ExifWarning.getMessage();
+                }
+                // remove first separator string
+                MessageText = MessageText.Substring(3);
+
+                addReplaceOtherMetaDataKnownType("Image.MetaDataWarnings", MessageText);
+            }
+            else
+            {
+                addReplaceOtherMetaDataKnownType("Image.MetaDataWarnings", "");
+            }
         }
 
         // get first non-blank value from fields according setting
@@ -3188,7 +3213,7 @@ namespace QuickImageComment
             addMetaDataFromBitMap();
 
             SavePerformance.measure("Meta data read");
-            setOldArtistAndComment();
+            setOldArtistAndCommentAndOtherInternalTags();
             fillTileViewMetaDataItems();
             // update data table for find
             // check if table exists and image is in scope is done in FormFind
@@ -3505,7 +3530,7 @@ namespace QuickImageComment
                     readMetaData(SavePerformance, null);
                     readTxtFile();
                     addMetaDataFromBitMap();
-                    setOldArtistAndComment();
+                    setOldArtistAndCommentAndOtherInternalTags();
                     fillTileViewMetaDataItems();
                     // update data table for find
                     // check if table exists and image is in scope is done in FormFind

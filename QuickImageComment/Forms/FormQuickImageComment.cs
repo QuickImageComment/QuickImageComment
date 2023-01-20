@@ -3388,7 +3388,7 @@ namespace QuickImageComment
                 row[3] = "";
                 DataGridViewOverview.Rows.Add(row);
                 MessageText = MessageText + "\n" + LangCfg.getText(LangCfg.Others.displayErrorMessage)
-                    + " " + theExtendedImage.getDisplayImageErrorMessage();
+                    + ": " + theExtendedImage.getDisplayImageErrorMessage();
             }
 
             // check for Exif Warnings and display them
@@ -3401,7 +3401,7 @@ namespace QuickImageComment
                     row[2] = "";
                     row[3] = "";
                     DataGridViewOverview.Rows.Add(row);
-                    MessageText = MessageText + "\n" + ExifWarning.getName() + " " + ExifWarning.getMessage();
+                    MessageText = MessageText + "\n" + ExifWarning.getName() + ": " + ExifWarning.getMessage();
                 }
             }
 
