@@ -708,8 +708,8 @@ extern "C" __declspec(dllexport) int __cdecl exiv2writeImage(LPSTR fileName, LPS
 #endif
                     iptcData.erase(pos);
                     pos = iptcData.findKey(theIptcKey);
+                }
             }
-        }
             else if (!strncmp(writeTags[ii], "Xmp.", 4)) {
                 size_t taglen = strlen(writeTags[ii]);
                 Exiv2::XmpData::iterator metaDataItem = xmpData.end();
@@ -729,14 +729,14 @@ extern "C" __declspec(dllexport) int __cdecl exiv2writeImage(LPSTR fileName, LPS
                         if (tracingCount < TRACING) tracingLog[tracingCount++] = strdup(tracingTemp);
 #endif
                         xmpData.erase(metaDataItem);
+                    }
                 }
             }
-    }
             else {
                 *errorText = strdup("Tag name does not start with Exif, Iptc or Xmp");
                 return exiv2StatusException;
             }
-}
+        }
 
         for (int ii = 0; ii < writeMetaDatumCountAct; ii++) {
 #ifdef TRACING
@@ -784,7 +784,7 @@ extern "C" __declspec(dllexport) int __cdecl exiv2writeImage(LPSTR fileName, LPS
                         *errorText = strdup("Tag name does not start with Exif, Iptc or Xmp");
                         return exiv2StatusException;
                     }
-            }
+                }
                 else if (writeOptions[ii] == exiv2WriteOptionXaBag)
                 {
 #ifdef TRACING
@@ -868,8 +868,15 @@ extern "C" __declspec(dllexport) bool __cdecl exiv2tagRepeatable(LPSTR tagName) 
         return false;
     }
     else if (!strncmp(tagName, "Iptc.", 5)) {
-        Exiv2::IptcKey iptcKey(tagName);
-        return Exiv2::IptcDataSets::dataSetRepeatable(iptcKey.tag(), iptcKey.record());
+        try
+        {
+            Exiv2::IptcKey iptcKey(tagName);
+            return Exiv2::IptcDataSets::dataSetRepeatable(iptcKey.tag(), iptcKey.record());
+        }
+        catch (Exiv2::AnyError&)
+        {
+            return false;
+        }
     }
     else if (!strncmp(tagName, "Xmp.", 4)) {
         Exiv2::XmpKey xmpKey(tagName);
