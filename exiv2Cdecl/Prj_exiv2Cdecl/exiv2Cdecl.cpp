@@ -879,13 +879,20 @@ extern "C" __declspec(dllexport) bool __cdecl exiv2tagRepeatable(LPSTR tagName) 
         }
     }
     else if (!strncmp(tagName, "Xmp.", 4)) {
-        Exiv2::XmpKey xmpKey(tagName);
-        if (Exiv2::XmpProperties::propertyType(xmpKey) == Exiv2::xmpBag ||
-            Exiv2::XmpProperties::propertyType(xmpKey) == Exiv2::xmpSeq ||
-            Exiv2::XmpProperties::propertyType(xmpKey) == Exiv2::xmpText) {
-            return true;
+        try
+        {
+            Exiv2::XmpKey xmpKey(tagName);
+            if (Exiv2::XmpProperties::propertyType(xmpKey) == Exiv2::xmpBag ||
+                Exiv2::XmpProperties::propertyType(xmpKey) == Exiv2::xmpSeq ||
+                Exiv2::XmpProperties::propertyType(xmpKey) == Exiv2::xmpText) {
+                return true;
+            }
+            else {
+                return false;
+            }
         }
-        else {
+        catch (Exiv2::AnyError&)
+        {
             return false;
         }
     }
