@@ -80,6 +80,8 @@ namespace FormCustomization
             checkBoxMultiSelect.Checked = false;
             treeViewComponents.CheckBoxes = checkBoxMultiSelect.Checked;
             addControlsToTreeNodesAndTypeToList(treeViewComponents.Nodes, ChangeableForm, ChangeableForm.Name);
+            // select first node (avoids crash if user does not select a node, but tries changes)
+            treeViewComponents.SelectedNode = treeViewComponents.Nodes[0];
 
             // add control types in selection menu
             ControlTypes.Sort();
