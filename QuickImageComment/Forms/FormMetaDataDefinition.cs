@@ -1327,10 +1327,18 @@ namespace QuickImageComment
             }
             else if (!Exiv2TagDefinitions.getList().ContainsKey(metaDatumText))
             {
-                // an entry may have been created based on tag found in an image, but is not generally documented
-                // so just give a warning and continue
-                GeneralUtilities.message(LangCfg.Message.W_unknownEntry, metaDatumText);
-                return false;
+                if (metaDatumText.StartsWith("Xmp.") || metaDatumText.StartsWith("Txt."))
+                {
+                    // an XMP or TXT entry may have been created based on tag found in an image, but is not generally documented
+                    // so just give a warning and continue
+                    GeneralUtilities.message(LangCfg.Message.W_unknownEntry, metaDatumText);
+                    return false;
+                }
+                else
+                {
+                    GeneralUtilities.message(LangCfg.Message.E_unknownEntry, metaDatumText);
+                    return true;
+                }
             }
             else
             {
