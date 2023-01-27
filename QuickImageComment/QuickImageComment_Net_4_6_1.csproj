@@ -146,6 +146,7 @@
       <DependentUpon>FormUserButtons.cs</DependentUpon>
     </Compile>
     <Compile Include="Utilities\ChangeableFieldSpecification.cs" />
+    <Compile Include="Utilities\DropFileOnProcess.cs" />
     <Compile Include="Utilities\EditExternalDefinition.cs" />
     <Compile Include="Utilities\UserButtonDefinition.cs" />
     <Compile Include="Utilities\ConfigDefinition.cs" />

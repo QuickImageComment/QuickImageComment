@@ -127,7 +127,8 @@ namespace QuickImageComment
                 textBoxName.Text = editExternalDefinition.Name;
                 checkBoxMultipleFiles.Checked = editExternalDefinition.multipleFiles;
                 checkBoxOptionsFirst.Checked = editExternalDefinition.optionsFirst;
-                checkBoxPauseAfterBatch.Checked = editExternalDefinition.pauseAfterExecution;
+                checkBoxDropOnWindow.Checked = editExternalDefinition.dropInWindow;
+                checkBoxWindowPauseAfterExecution.Checked = editExternalDefinition.windowPauseAfterExecution;
 
                 switch (editExternalDefinition.commandType)
                 {
@@ -135,12 +136,14 @@ namespace QuickImageComment
                         radioButtonBatchCommand.Checked = true;
                         textBoxProgramPath.Text = "";
                         textBoxProgramOptions.Text = "";
+                        textBoxWindowsTitle.Text = "";
                         textBoxBatchCommand.Text = editExternalDefinition.commandOrOptions.Replace(GeneralUtilities.UniqueSeparator, "\r\n");
                         break;
                     case EditExternalDefinition.CommandType.ProgramReference:
                         radioButtonProgram.Checked = true;
                         textBoxProgramPath.Text = editExternalDefinition.programPath;
                         textBoxProgramOptions.Text = editExternalDefinition.commandOrOptions;
+                        textBoxWindowsTitle.Text = editExternalDefinition.windowTitle;
                         textBoxBatchCommand.Text = "";
                         break;
                     default:
@@ -148,6 +151,7 @@ namespace QuickImageComment
                         radioButtonProgram.Checked = false;
                         textBoxProgramPath.Text = "";
                         textBoxProgramOptions.Text = "";
+                        textBoxWindowsTitle.Text = "";
                         textBoxBatchCommand.Text = "";
                         break;
                 }
@@ -188,7 +192,8 @@ namespace QuickImageComment
                 editExternalDefinition.Name = textBoxName.Text;
                 editExternalDefinition.multipleFiles = checkBoxMultipleFiles.Checked;
                 editExternalDefinition.optionsFirst = checkBoxOptionsFirst.Checked;
-                editExternalDefinition.pauseAfterExecution = checkBoxPauseAfterBatch.Checked;
+                editExternalDefinition.dropInWindow = checkBoxDropOnWindow.Checked;
+                editExternalDefinition.windowPauseAfterExecution = checkBoxWindowPauseAfterExecution.Checked;
 
                 if (radioButtonBatchCommand.Checked)
                     editExternalDefinition.commandType = EditExternalDefinition.CommandType.BatchCommand;
@@ -204,10 +209,12 @@ namespace QuickImageComment
                     case EditExternalDefinition.CommandType.ProgramReference:
                         editExternalDefinition.programPath = textBoxProgramPath.Text;
                         editExternalDefinition.commandOrOptions = textBoxProgramOptions.Text;
+                        editExternalDefinition.windowTitle = textBoxWindowsTitle.Text;
                         break;
                     default:
                         editExternalDefinition.programPath = "";
                         editExternalDefinition.commandOrOptions = "";
+                        editExternalDefinition.windowTitle = "";
                         break;
                 }
             }
@@ -399,11 +406,15 @@ namespace QuickImageComment
             labelProgramOptions.Enabled = radioButtonProgram.Checked;
             textBoxProgramOptions.Enabled = radioButtonProgram.Checked;
             checkBoxOptionsFirst.Enabled = radioButtonProgram.Checked;
+            checkBoxDropOnWindow.Enabled = radioButtonProgram.Checked;
+            labelWindowTitle.Enabled= radioButtonProgram.Checked;
+            textBoxWindowsTitle.Enabled = radioButtonProgram.Checked;
 
             // controls for choice batch
             labelBatchCommand.Enabled = radioButtonBatchCommand.Checked;
             textBoxBatchCommand.Enabled = radioButtonBatchCommand.Checked;
-            checkBoxPauseAfterBatch.Enabled = radioButtonBatchCommand.Checked;
+            checkBoxWindowPauseAfterExecution.Enabled = radioButtonBatchCommand.Checked;
+            labelPlaceholder.Enabled = radioButtonBatchCommand.Checked;
         }
 
         // enable / disable controls based on selection
@@ -430,7 +441,7 @@ namespace QuickImageComment
             textBoxProgramOptions.Text = "";
             checkBoxOptionsFirst.Checked = false;
             textBoxProgramPath.Text = "";
-            checkBoxPauseAfterBatch.Checked = false;
+            checkBoxWindowPauseAfterExecution.Checked = false;
 
             this.buttonUp.Enabled = false;
             this.buttonDown.Enabled = false;

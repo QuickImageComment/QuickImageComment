@@ -17,6 +17,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace QuickImageComment
 {
@@ -480,6 +481,11 @@ namespace QuickImageComment
             {
                 theFormQuickImageComment.fillMenuViewConfigurations();
             }
+        }
+
+        internal static void setMainMaskCursor(Cursor cursor)
+        {
+            theFormQuickImageComment.Cursor = cursor;
         }
     }
 }

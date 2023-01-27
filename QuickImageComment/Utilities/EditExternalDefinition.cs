@@ -32,8 +32,10 @@ namespace QuickImageComment
         internal string programPath;
         internal string commandOrOptions;
         internal bool optionsFirst;
+        internal bool dropInWindow;
+        internal string windowTitle;
         internal bool multipleFiles;
-        internal bool pauseAfterExecution;
+        internal bool windowPauseAfterExecution;
 
         // complete constructor 
         internal EditExternalDefinition(
@@ -42,16 +44,20 @@ namespace QuickImageComment
          string ProgramPath,
          string CommandOrOptions,
          bool OptionsFirst,
+         bool DropInWindow,
+         string WindowTitle,
          bool MultipleFiles,
-         bool pauseAfterExecution)
+         bool WindowPauseAfterExecution)
         {
             this.Name = Name;
             this.commandType = CommandType;
             this.programPath = ProgramPath;
             this.commandOrOptions = CommandOrOptions;
             this.optionsFirst = OptionsFirst;
+            this.dropInWindow = DropInWindow;
+            this.windowTitle = WindowTitle;
             this.multipleFiles = MultipleFiles;
-            this.pauseAfterExecution = pauseAfterExecution;
+            this.windowPauseAfterExecution = WindowPauseAfterExecution;
         }
 
         // constructor to create empty definition
@@ -62,8 +68,10 @@ namespace QuickImageComment
             this.programPath = "";
             this.commandOrOptions = "";
             this.optionsFirst = true;
+            this.dropInWindow = true;
+            this.windowTitle = "";
             this.multipleFiles = false;
-            this.pauseAfterExecution = true;
+            this.windowPauseAfterExecution = true;
         }
 
         // constructor based on other EditExternalItem
@@ -74,8 +82,10 @@ namespace QuickImageComment
             programPath = sourceEditExternalItem.programPath;
             commandOrOptions = sourceEditExternalItem.commandOrOptions;
             optionsFirst = sourceEditExternalItem.optionsFirst;
+            dropInWindow = sourceEditExternalItem.dropInWindow;
+            windowTitle = sourceEditExternalItem.windowTitle;
             multipleFiles = sourceEditExternalItem.multipleFiles;
-            pauseAfterExecution = sourceEditExternalItem.pauseAfterExecution;
+            windowPauseAfterExecution = sourceEditExternalItem.windowPauseAfterExecution;
         }
 
         // constructor based on string which is result of ToString
@@ -87,6 +97,7 @@ namespace QuickImageComment
             Name = "";
             programPath = "";
             commandOrOptions = "";
+            windowTitle = "";
 
             endIndex = DefinitionString.IndexOf("|", startIndex);
             Name = DefinitionString.Substring(startIndex, endIndex);
@@ -103,8 +114,9 @@ namespace QuickImageComment
                     // do not translate here, as language configuration is not yet loaded
                     GeneralUtilities.debugMessage("Error in user configuration file: external edit definition \"" + Name + "\" without valid command type");
                 optionsFirst = flags.Contains("F");
+                dropInWindow = flags.Contains("D");
                 multipleFiles = flags.Contains("M");
-                pauseAfterExecution = flags.Contains("A");
+                windowPauseAfterExecution = flags.Contains("W");
 
                 startIndex = endIndex + 1;
 
@@ -116,7 +128,14 @@ namespace QuickImageComment
                         programPath = DefinitionString.Substring(startIndex, endIndex - startIndex);
 
                         startIndex = endIndex + 1;
-                        commandOrOptions = DefinitionString.Substring(startIndex);
+                        endIndex = DefinitionString.IndexOf("|", startIndex);
+                        if (endIndex > 0)
+                        {
+                            commandOrOptions = DefinitionString.Substring(startIndex, endIndex - startIndex);
+
+                            startIndex = endIndex + 1;
+                            windowTitle = DefinitionString.Substring(startIndex);
+                        }
                     }
                 }
                 else if (commandType == CommandType.BatchCommand)
@@ -134,10 +153,11 @@ namespace QuickImageComment
             if (commandType == CommandType.ProgramReference) definitionString += "P";
             if (commandType == CommandType.BatchCommand) definitionString += "B";
             if (optionsFirst) definitionString += "F";
+            if (dropInWindow) definitionString += "D";
             if (multipleFiles) definitionString += "M";
-            if (pauseAfterExecution) definitionString += "A";
+            if (windowPauseAfterExecution) definitionString += "W";
             if (commandType == CommandType.ProgramReference)
-                definitionString += "|" + programPath + "|" + commandOrOptions;
+                definitionString += "|" + programPath + "|" + commandOrOptions + "|" + windowTitle;
             if (commandType == CommandType.BatchCommand)
                 definitionString += "|" + commandOrOptions;
 
@@ -149,6 +169,8 @@ namespace QuickImageComment
         {
             string[] placeholders = { "%f", "%~f", "%~df", "%~pf", "%~nf", "%~xf", "%~nxf" };
 
+            Logger.log("start Execute " + Name);
+            MainMaskInterface.setMainMaskCursor(System.Windows.Forms.Cursors.WaitCursor);
             ArrayList FileNames = MainMaskInterface.getSelectedFileNames();
             if (FileNames.Count == 0)
             {
@@ -158,23 +180,44 @@ namespace QuickImageComment
 
             if (commandType == CommandType.ProgramReference)
             {
-                if (multipleFiles)
+                bool dropped = false;
+                IntPtr handle = IntPtr.Zero;
+                if (dropInWindow)
                 {
-                    string fileNamesString = arrayListToString(FileNames, "%f");
-                    if (optionsFirst)
-                        startProcessProgram(commandOrOptions + " " + fileNamesString);
-                    else
-                        startProcessProgram(fileNamesString + " " + commandOrOptions);
-                }
-                else
-                {
-                    for (int ii = 0; ii < FileNames.Count; ii++)
+                    handle = DropFileOnProcess.getWindowHandle(programPath, windowTitle);
+                    Logger.log("handle Title = " + handle.ToString("X"));
+
+                    if (handle != IntPtr.Zero)
                     {
-                        string fileNamesString = quotedAndSubstitedFileName((string)FileNames[ii], "%f");
+                        bool result = false;
+                        foreach (string fileName in FileNames)
+                        {
+                            result = DropFileOnProcess.dropFileOnWindowsHandle(handle, fileName);
+                            Logger.log("drop >" + fileName + "< result=" + result.ToString());
+                        }
+                        dropped = true;
+                    }
+                }
+                if (!dropped)
+                {
+                    if (multipleFiles)
+                    {
+                        string fileNamesString = arrayListToString(FileNames, "%f");
                         if (optionsFirst)
                             startProcessProgram(commandOrOptions + " " + fileNamesString);
                         else
                             startProcessProgram(fileNamesString + " " + commandOrOptions);
+                    }
+                    else
+                    {
+                        for (int ii = 0; ii < FileNames.Count; ii++)
+                        {
+                            string fileNamesString = quotedAndSubstitedFileName((string)FileNames[ii], "%f");
+                            if (optionsFirst)
+                                startProcessProgram(commandOrOptions + " " + fileNamesString);
+                            else
+                                startProcessProgram(fileNamesString + " " + commandOrOptions);
+                        }
                     }
                 }
             }
@@ -205,13 +248,15 @@ namespace QuickImageComment
                     command = command.Substring(0, command.Length - 3);
                 }
                 command = command.Replace(GeneralUtilities.UniqueSeparator, " & ");
-                if (pauseAfterExecution) command += "& pause";
+                if (windowPauseAfterExecution) command += "& pause";
                 startProcessBatch(command);
             }
             else
             {
                 throw new Exception("Internal error: command type \"" + commandType.ToString() + "\" not considered");
             }
+            MainMaskInterface.setMainMaskCursor(System.Windows.Forms.Cursors.Default);
+            Logger.log("finish Execute " + Name);
         }
 
         private string arrayListToString(ArrayList FileNames, string placeholder)
@@ -252,20 +297,27 @@ namespace QuickImageComment
 
         private void startProcessProgram(string arguments)
         {
-            System.Diagnostics.Process process = new System.Diagnostics.Process();
-            System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
-            startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Normal;
-            startInfo.FileName = programPath;
-            startInfo.Arguments = arguments;
-            process.StartInfo = startInfo;
-            process.Start();
+            try
+            {
+                System.Diagnostics.Process process = new System.Diagnostics.Process();
+                System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+                startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Normal;
+                startInfo.FileName = programPath;
+                startInfo.Arguments = arguments;
+                process.StartInfo = startInfo;
+                process.Start();
+            }
+            catch (Exception ex)
+            {
+                GeneralUtilities.message(LangCfg.Message.E_exceptionStartProcess, ex.Message, programPath, arguments);
+            }
         }
 
         private void startProcessBatch(string command)
         {
             System.Diagnostics.Process process = new System.Diagnostics.Process();
             System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
-            if (pauseAfterExecution)
+            if (windowPauseAfterExecution)
                 startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Normal;
             else
                 startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
