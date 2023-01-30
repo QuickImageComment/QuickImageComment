@@ -1,4 +1,4 @@
-//Copyright (C) 2020 Norbert Wagner
+﻿//Copyright (C) 2020 Norbert Wagner
 
 //This program is free software; you can redistribute it and/or
 //modify it under the terms of the GNU General Public License
@@ -111,6 +111,7 @@ namespace QuickImageComment
             dynamicLabelRemainingTime.Visible = false;
             buttonCancelRead.Visible = false;
 
+            Logger.log("Suchmaske initialisieren Start");
             dataTableFileName = ConfigDefinition.getConfigString(ConfigDefinition.enumConfigString.FindDataTableFileName);
             if (!ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.FindShowDataTable))
             {
@@ -121,7 +122,7 @@ namespace QuickImageComment
             {
                 loadDataTable();
             }
-
+            Logger.log("Daten verfügbar");
             dataGridView1.Visible = checkBoxShowDataTable.Checked;
             buttonAbort.Select();
             CustomizationInterface = MainMaskInterface.getCustomizationInterface();
@@ -132,8 +133,8 @@ namespace QuickImageComment
             // show map with last used coordinates for find
             theUserControlMap = new UserControlMap(true, new GeoDataItem(ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.LastGeoDataItemForFind)),
                 true, gpsFindRangeInMeter);
-            splitContainer1.Panel2.Controls.Add(theUserControlMap);
-            theUserControlMap.Dock = DockStyle.Fill;
+            splitContainer1.Panel2.Controls.Add(theUserControlMap.panel1);
+            theUserControlMap.panel1.Dock = DockStyle.Fill;
 
             // disable ValueChanged-event to avoid setting radius in UserControlMap again
             // radius is set via constructor, which ensures to have CoreWebView2 initialised, which is needed when using WebView2
@@ -159,6 +160,7 @@ namespace QuickImageComment
                 LangCfg.translateControlTexts(this);
                 return;
             }
+            Logger.log("Suchmaske initialisieren Ende");
         }
 
         // set folder and controls enable/disable based on data table (empty or not), then show dialog
@@ -362,7 +364,7 @@ namespace QuickImageComment
             panelFilterInner.Controls.Add(aLabel);
             aLabel.Anchor = dynamicLabelFind.Anchor;
             aLabel.AutoSize = dynamicLabelFind.AutoSize;
-            aLabel.Font = dynamicLabelFind.Font;
+            // do net set Font, shall be inherited by parent
             aLabel.ForeColor = dynamicLabelFind.ForeColor;
             aLabel.BackColor = dynamicLabelFind.BackColor;
             aLabel.Left = dynamicLabelFind.Left;
@@ -386,7 +388,7 @@ namespace QuickImageComment
             dateTimePicker.CustomFormat = this.dateTimePicker.CustomFormat;
             dateTimePicker.Anchor = this.dateTimePicker.Anchor;
             dateTimePicker.AutoSize = this.dateTimePicker.AutoSize;
-            dateTimePicker.Font = this.dateTimePicker.Font;
+            // do net set Font, shall be inherited by parent
             dateTimePicker.ForeColor = this.dateTimePicker.ForeColor;
             dateTimePicker.BackColor = this.dateTimePicker.BackColor;
             dateTimePicker.Size = this.dateTimePicker.Size;
@@ -404,7 +406,7 @@ namespace QuickImageComment
             comboBoxOperator.Visible = true;
             comboBoxOperator.Anchor = dynamicComboBoxOperator.Anchor;
             comboBoxOperator.AutoSize = dynamicComboBoxOperator.AutoSize;
-            comboBoxOperator.Font = dynamicComboBoxOperator.Font;
+            // do net set Font, shall be inherited by parent
             comboBoxOperator.ForeColor = dynamicComboBoxOperator.ForeColor;
             comboBoxOperator.BackColor = dynamicComboBoxOperator.BackColor;
             comboBoxOperator.Size = dynamicComboBoxOperator.Size;
@@ -424,7 +426,7 @@ namespace QuickImageComment
             comboBoxValue.Enabled = false;
             comboBoxValue.Anchor = dynamicComboBoxValue.Anchor;
             comboBoxValue.AutoSize = dynamicComboBoxValue.AutoSize;
-            comboBoxValue.Font = dynamicComboBoxValue.Font;
+            // do net set Font, shall be inherited by parent
             comboBoxValue.ForeColor = dynamicComboBoxValue.ForeColor;
             comboBoxValue.BackColor = dynamicComboBoxValue.BackColor;
             comboBoxValue.Size = dynamicComboBoxValue.Size;
@@ -529,10 +531,27 @@ namespace QuickImageComment
             theFormMetaDataDefinition.ShowDialog();
             if (theFormMetaDataDefinition.settingsChanged)
             {
+                // stop background workers - is now useless when table changes and avoid possible crash
+                if (backgroundWorkerInit.WorkerSupportsCancellation == true)
+                {
+                    // Cancel the asynchronous operation.
+                    backgroundWorkerInit.CancelAsync();
+                }
+                if (backgroundWorkerUpdate.WorkerSupportsCancellation == true)
+                {
+                    // Cancel the asynchronous operation.
+                    backgroundWorkerUpdate.CancelAsync();
+                }
+
                 fillFilterPanelWithControls();
                 fillItemsFilterFields();
-                dataTable = null;
-                setControlsDependingOnDataTable();
+                Logger.log("before lock");
+                lock (LockDataTable)
+                {
+                    Logger.log("lock free");
+                    dataTable = null;
+                    setControlsDependingOnDataTable();
+                }
             }
         }
 
@@ -1003,6 +1022,7 @@ namespace QuickImageComment
 
         private void backgroundWorkerUpdate_DoWork(object sender, System.ComponentModel.DoWorkEventArgs doWorkEventArgs)
         {
+            Logger.log("Update Daten Start");
             ExtendedImage extendedImage;
             System.IO.FileInfo theFileInfo;
             object[] findSpec = new object[1];
@@ -1011,7 +1031,7 @@ namespace QuickImageComment
 
             // get all files including files in subfolders
             GeneralUtilities.addImageFilesFromFolderToListRecursively(FolderName, ImageFiles, worker, doWorkEventArgs);
-
+            Logger.log("Liste der Dateien erstellt");
             progressPanel1.init(ImageFiles.Count);
 
             startTime2 = DateTime.Now;
@@ -1035,6 +1055,7 @@ namespace QuickImageComment
                         break;
                     }
                 }
+                Logger.log("Liste der zu löschenden Einträge erstellt: " + RowsToDelete.Count.ToString() + " Einträge");
                 foreach (DataRow row in RowsToDelete)
                 {
                     row.Delete();
@@ -1044,8 +1065,10 @@ namespace QuickImageComment
                         break;
                     }
                 }
+                Logger.log("Einträge gelöscht");
 
                 // handle new or changed files
+                int count = 0;
                 foreach (string FullFileName in ImageFiles)
                 {
                     theFileInfo = new System.IO.FileInfo(FullFileName);
@@ -1056,6 +1079,7 @@ namespace QuickImageComment
                         // new file or file was updated since table was filled
                         extendedImage = new ExtendedImage(FullFileName, ConfigDefinition.getNeededKeysIncludingReferences(MetaDataDefinitionsForFind));
                         addOrUpdateRow(extendedImage);
+                        count++;
                     }
 
                     if (worker.CancellationPending == true)
@@ -1064,7 +1088,9 @@ namespace QuickImageComment
                         break;
                     }
                 }
+                Logger.log("Neue Einträge ergänzt, veränderte Einträge aktualisiert: " + count.ToString() + " Einträge");
             }
+            Logger.log("Update Daten Ende");
         }
 
         private void backgroundWorkerUpdate_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
@@ -1350,6 +1376,7 @@ namespace QuickImageComment
         // set data table to null (used when fields are added for find in main mask)
         public static void setDataTableToNull()
         {
+            //!! mit lock, backgroundworker stoppen
             dataTable = null;
         }
         #endregion
@@ -1613,7 +1640,9 @@ namespace QuickImageComment
                 if (dataTable != null && dataTable.Rows.Count > 0)
                 {
                     string fileName = ConfigDefinition.getIniPath() + dataTableFileName;
+                    Logger.log("XML-Daten-Datei schreiben Start");
                     dataTable.WriteXml(fileName, System.Data.XmlWriteMode.WriteSchema);
+                    Logger.log("XML-Daten-Datei schreiben Ende");
                 }
             }
         }
@@ -1644,7 +1673,9 @@ namespace QuickImageComment
                         }
                     }
                     // columns are identical, load data
+                    Logger.log("Lese XML-Daten-Datei Start");
                     dataTable.ReadXml(fileName);
+                    Logger.log("Lese XML-Daten-Datei Ende");
                     // copy folder name from table schema read from XML file
                     dataTable.ExtendedProperties["Folder"] = checkTable.ExtendedProperties["Folder"];
                     FolderName = (string)dataTable.ExtendedProperties["Folder"];
