@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -11,7 +12,7 @@ namespace QuickImageComment
 {
     internal class DropFileOnProcess
     {
-        const uint WM_DROPFILES = 0x0233;
+        private const uint WM_DROPFILES = 0x0233;
 
         [DllImport("user32.dll", EntryPoint = "FindWindow", SetLastError = true)]
         static extern IntPtr FindWindowByCaption(IntPtr ZeroOnly, string lpWindowName);
@@ -49,27 +50,27 @@ namespace QuickImageComment
         [DllImport("user32.dll")]
         private static extern int GetWindowThreadProcessId(IntPtr handle, out uint processId);
 
-        public struct POINT
-        {
-            public int X;
-            public int Y;
+        [DllImport("user32.dll")]
+        static extern bool SetForegroundWindow(IntPtr hWnd);
 
-            public POINT(int x, int y)
-            {
-                this.X = x;
-                this.Y = y;
-            }
-        }
+        [DllImport("user32.dll")]
+        public static extern bool GetWindowRect(IntPtr hwnd, ref Rectangle rectangle);
+
+        [DllImport("user32.dll")]
+        public static extern IntPtr WindowFromPoint(Point Point);
+
+        [DllImport("user32.dll")]
+        public static extern bool GetCursorPos(out Point lpPoint);
+
         [Serializable]
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
         class DROPFILES
         {
             public int size;    //<-- offset to filelist (this should be defined 20)
-            public POINT pt;    //<-- where we "release the mouse button"
+            public Point pt;    //<-- where we "release the mouse button"
             public bool fND;    //<-- the point origins (0;0) (this should be false, if true, the origin will be the screens (0;0), else, the handle the the window we send in PostMessage)
             public bool WIDE;   //<-- ANSI or Unicode (should be false)
         }
-
 
         /// <summary>Returns a dictionary that contains the handle and title of all the open windows.</summary>
         /// <returns>A dictionary that contains the handle and title of all the open windows.</returns>
@@ -108,13 +109,22 @@ namespace QuickImageComment
             return rawdatas;
         }
 
-        // get window handle, title must match exactly
+        /// <summary>
+        /// get window handle, title must match exactly
+        /// </summary>
+        /// <param name="windowTitle"></param>
+        /// <returns></returns>
         public static IntPtr getWindowHandleByWindowTitle(string windowTitle)
         {
             return FindWindowByCaption(IntPtr.Zero, windowTitle);
         }
 
-        // get window handle from program path or window title, title may have wildcards
+        /// <summary>
+        /// get window handle from program path or window title, title may have wildcards
+        /// </summary>
+        /// <param name="programPath"></param>
+        /// <param name="windowTitle"></param>
+        /// <returns></returns>
         public static IntPtr getWindowHandle(string programPath, string windowTitle)
         {
             string windowTitleNormalised = "^" + Regex.Escape(windowTitle).Replace("\\?", ".").Replace("\\*", ".*") + "$";
@@ -141,7 +151,7 @@ namespace QuickImageComment
                         uint pid = 0;
                         GetWindowThreadProcessId(handle, out pid);
                         Process proc = Process.GetProcessById((int)pid); //Gets the process by ID.
-                        path = proc.MainModule.FileName.ToString();   //Returns the path.
+                        path = proc.MainModule.FileName.ToString();      //Returns the path.
 
                         if (programPath.ToLower().Equals(path.ToLower()))
                         {
@@ -163,16 +173,56 @@ namespace QuickImageComment
             return IntPtr.Zero;
         }
 
-        public static bool dropFileOnWindowsHandle(IntPtr handle, string fileName)
+        /// <summary>
+        /// drop file via DoDragDrop
+        /// </summary>
+        /// <param name="handle"></param>
+        /// <param name="fileNames"></param>
+        /// <param name="control"></param>
+        /// <returns>false if it fails</returns>
+        public static bool dropFileViaDoDragDrop(IntPtr handle, string[] fileNames, Control control)
+        {
+            bool status = false;
+            DataObject dataObject = new System.Windows.Forms.DataObject(System.Windows.Forms.DataFormats.FileDrop, fileNames);
+
+            SetForegroundWindow(handle);
+            Rectangle rectangle = new Rectangle();
+            GetWindowRect(handle, ref rectangle);
+            control.Cursor = new Cursor(Cursor.Current.Handle);
+            Cursor.Position = new Point(rectangle.X + 15, rectangle.Y + 15);
+
+            Point point = new Point();
+            GetCursorPos(out point);
+            IntPtr windowBelowCursor = WindowFromPoint(point);
+
+            if (windowBelowCursor == handle)
+            {
+                DragDropEffects dragDropEffects = control.DoDragDrop(dataObject, System.Windows.Forms.DragDropEffects.Copy);
+            }
+            else
+            {
+                status = true;
+            }
+            return status;
+        }
+
+        /// <summary>
+        /// drop file using PostMessage
+        // does work on Paint, but on some others programs not
+        /// </summary>
+        /// <param name="handle"></param>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
+        public static bool dropFileViaPostMessage(IntPtr handle, string fileName)
         {
             bool status = false;
             DROPFILES s = new DROPFILES();
             s.size = 20;                            //<-- 20 is the size of this struct in memory
-            s.pt = new POINT(10, 10);    //<-- drop file 20 pixels from left, total height minus 40 from top
+            s.pt = new Point(10, 10);               //<-- drop file 20 pixels from left, total height minus 40 from top
             s.fND = false;                          //<-- the point 0;0 will be in the window
             s.WIDE = false;                         //<-- ANSI
 
-            string file = fileName + "\0";         //<-- add null terminator at end
+            string file = fileName + "\0";          //<-- add null terminator at end
             int filelen = Convert.ToInt32(file.Length);
             byte[] bytes = RawSerialize(s);
             int structlen = bytes.Length;
@@ -195,6 +245,8 @@ namespace QuickImageComment
             Marshal.WriteByte(p, i, 0);
 
             GlobalUnlock(p);
+            SetForegroundWindow(handle);
+
             status = PostMessage(handle, WM_DROPFILES, p, IntPtr.Zero);
             // line copied from example, but crashes allways
             //Marshal.FreeHGlobal(p);

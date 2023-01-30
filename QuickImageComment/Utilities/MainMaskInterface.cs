@@ -487,5 +487,10 @@ namespace QuickImageComment
         {
             theFormQuickImageComment.Cursor = cursor;
         }
+
+        internal static Form getMainMask()
+        {
+            return theFormQuickImageComment;
+        }
     }
 }

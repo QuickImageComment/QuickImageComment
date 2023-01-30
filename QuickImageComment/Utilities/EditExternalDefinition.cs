@@ -190,11 +190,9 @@ namespace QuickImageComment
                     if (handle != IntPtr.Zero)
                     {
                         bool result = false;
-                        foreach (string fileName in FileNames)
-                        {
-                            result = DropFileOnProcess.dropFileOnWindowsHandle(handle, fileName);
-                            Logger.log("drop >" + fileName + "< result=" + result.ToString());
-                        }
+                        string[] fileNamesArray = (string[])FileNames.ToArray(typeof(string));
+                        result = DropFileOnProcess.dropFileViaDoDragDrop(handle, fileNamesArray, MainMaskInterface.getMainMask());
+                        Logger.log("drop >" + fileNamesArray.ToString() + "< result=" + result.ToString());
                         dropped = true;
                     }
                 }
@@ -248,6 +246,10 @@ namespace QuickImageComment
                     command = command.Substring(0, command.Length - 3);
                 }
                 command = command.Replace(GeneralUtilities.UniqueSeparator, " & ");
+                // remove blank lines in between
+                command = System.Text.RegularExpressions.Regex.Replace(command, "(&\\s+)+&", "&");
+                // remove blank line at the end
+                command = System.Text.RegularExpressions.Regex.Replace(command, "(&\\s*)+$", "");
                 if (windowPauseAfterExecution) command += "& pause";
                 startProcessBatch(command);
             }
