@@ -136,10 +136,7 @@ namespace QuickImageCommentControls
 
         public void init()
         {
-            this.Scroll += new System.Windows.Forms.ScrollEventHandler(this.listViewFiles_Scroll);
-            this.DrawItem += new System.Windows.Forms.DrawListViewItemEventHandler(this.listViewFiles_DrawItem);
-            this.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.listViewFiles_MouseWheel);
-            this.SizeChanged += new System.EventHandler(this.listViewFiles_SizeChanged);
+            InitializeComponent();
 
             delayAfterMouseWheelThread = new Thread(delayAfterMouseWheel);
 
@@ -164,6 +161,22 @@ namespace QuickImageCommentControls
             this.DoubleBuffered = true;
 
             this.ListViewItemSorter = new ListViewItemComparer(this);
+        }
+
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            // 
+            // ListViewFiles
+            // 
+            this.Scroll += new System.Windows.Forms.ScrollEventHandler(this.listViewFiles_Scroll);
+            this.DrawItem += new System.Windows.Forms.DrawListViewItemEventHandler(this.listViewFiles_DrawItem);
+            this.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.listViewFiles_MouseWheel);
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ListViewFiles_MouseDown);
+            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ListViewFiles_MouseMove);
+            this.SizeChanged += new System.EventHandler(this.listViewFiles_SizeChanged);
+
+            this.ResumeLayout(false);
         }
 
         public void clearItems()
@@ -556,6 +569,53 @@ namespace QuickImageCommentControls
             if (m.Msg == WM_VSCROLL)
             { // Trap WM_VSCROLL
                 OnScroll(new ScrollEventArgs((ScrollEventType)(m.WParam.ToInt32() & 0xffff), 0));
+            }
+        }
+
+        private void ListViewFiles_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                // select new if needed
+                Point localPoint = this.PointToClient(Cursor.Position);
+                ListViewItem item = this.GetItemAt(localPoint.X, localPoint.Y);
+                if (!SelectedItems.Contains(item))
+                {
+                    // only select the item if mouse down could be start of drag-and-drop
+                    if (Control.ModifierKeys != Keys.Control &&
+                        Control.ModifierKeys != Keys.Shift &&
+                        Control.ModifierKeys != (Keys.Control | Keys.Shift))
+                    {
+                        SelectedItems.Clear();
+                        item.Selected = true;
+                    }
+                }
+            }
+        }
+
+        private void ListViewFiles_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left &&
+                Control.ModifierKeys != Keys.Control &&
+                Control.ModifierKeys != Keys.Shift &&
+                Control.ModifierKeys != (Keys.Control | Keys.Shift))
+            {
+                Point localPoint = this.PointToClient(Cursor.Position);
+                ListViewItem item = this.GetItemAt(localPoint.X, localPoint.Y);
+                if (SelectedItems.Contains(item))
+                {
+                    // do drag-and-drop
+                    MainMaskInterface.getMainMask().AllowDrop = false;
+                    DataObject data = new DataObject();
+                    System.Collections.Specialized.StringCollection filePaths = new System.Collections.Specialized.StringCollection();
+                    for (int ii = 0; ii < SelectedItems.Count; ii++)
+                    {
+                        filePaths.Add(SelectedItems[ii].Name);
+                    }
+                    data.SetFileDropList(filePaths);
+                    DoDragDrop(data, DragDropEffects.Copy);
+                    MainMaskInterface.getMainMask().AllowDrop = true;
+                }
             }
         }
     }
