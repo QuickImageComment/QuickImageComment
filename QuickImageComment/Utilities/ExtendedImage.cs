@@ -263,12 +263,12 @@ namespace QuickImageComment
         // reads properties in text-file
         // compares values from EXIF, IPTC and text-file
         //*****************************************************************
-        public ExtendedImage(string ImageFileName, bool saveFullSizeImage)
+        public ExtendedImage(System.IO.FileInfo fileInfo, bool saveFullSizeImage)
         {
             //ConstructorPerformance.measure("start");
             PerformanceMeasurements.Clear();
 
-            this.ImageFileName = ImageFileName;
+            this.ImageFileName = fileInfo.FullName;
             this.isVideo = ConfigDefinition.getVideoExtensionsPropertiesList().Contains((System.IO.Path.GetExtension(ImageFileName)).ToLower()) ||
                            ConfigDefinition.getVideoExtensionsFrameList().Contains((System.IO.Path.GetExtension(ImageFileName)).ToLower());
             this.displayFrame = ConfigDefinition.getVideoExtensionsFrameList().Contains((System.IO.Path.GetExtension(ImageFileName)).ToLower());
@@ -286,7 +286,7 @@ namespace QuickImageComment
             AutoScrollPosition.X = 1;
             AutoScrollPosition.Y = 1;
 
-            readMetaData(ConstructorPerformance, null);
+            readMetaData(ConstructorPerformance, null, fileInfo);
             DateTime CurrentTime = DateTime.Now;
             readTxtFile();
 
@@ -337,15 +337,15 @@ namespace QuickImageComment
         // Constructor
         // to get meta data only (for export and search)
         //*****************************************************************
-        public ExtendedImage(string ImageFileName, ArrayList neededKeys)
+        public ExtendedImage(System.IO.FileInfo fileInfo, ArrayList neededKeys)
         {
-            this.ImageFileName = ImageFileName;
+            this.ImageFileName = fileInfo.FullName;
             this.isVideo = ConfigDefinition.getVideoExtensionsPropertiesList().Contains((System.IO.Path.GetExtension(ImageFileName)).ToLower()) ||
                            ConfigDefinition.getVideoExtensionsFrameList().Contains((System.IO.Path.GetExtension(ImageFileName)).ToLower());
             this.displayFrame = ConfigDefinition.getVideoExtensionsFrameList().Contains((System.IO.Path.GetExtension(ImageFileName)).ToLower());
             this.notFrameGrabber = ConfigDefinition.getVideoExtensionsNotFrameGrabberList().Contains((System.IO.Path.GetExtension(ImageFileName)).ToLower());
 
-            readMetaData(ConstructorPerformance, neededKeys);
+            readMetaData(ConstructorPerformance, neededKeys, fileInfo);
             DateTime CurrentTime = DateTime.Now;
             readTxtFile();
 
@@ -391,7 +391,7 @@ namespace QuickImageComment
 
             if (System.IO.File.Exists(ImageFileName))
             {
-                this.FullSizeImage = new Bitmap(1, 1); // just an empty image
+                this.FullSizeImage = new Bitmap(1, 1); // just an empty image ok
                 System.IO.FileInfo theFileInfo = new System.IO.FileInfo(ImageFileName);
                 double FileSize = theFileInfo.Length;
                 FileSize = FileSize / 1024;
@@ -430,7 +430,7 @@ namespace QuickImageComment
         }
 
         // read and analyze meta data
-        private void readMetaData(Performance ReadPerformance, ArrayList neededKeys)
+        private void readMetaData(Performance ReadPerformance, ArrayList neededKeys, System.IO.FileInfo fileInfo)
         {
             int status = 0;
             ReadPerformance.measure("readMetaData start");
@@ -449,9 +449,8 @@ namespace QuickImageComment
                                 + ConfigDefinition.getOtherMetaDataDefinitions().Count;
             OtherMetaDataItems = new SortedList(initialCapacity);
 
-            System.IO.FileInfo theFileInfo = new System.IO.FileInfo(ImageFileName);
-            isReadOnly = theFileInfo.Attributes.HasFlag(System.IO.FileAttributes.ReadOnly);
-            double FileSize = theFileInfo.Length;
+            isReadOnly = fileInfo.Attributes.HasFlag(System.IO.FileAttributes.ReadOnly);
+            double FileSize = fileInfo.Length;
             FileSize = FileSize / 1024;
 
             // 32-Bit version cannot read big videos; exiv2 returns exception, 
@@ -524,8 +523,8 @@ namespace QuickImageComment
             addReplaceOtherMetaDataKnownType("File.NameWithoutExtension", System.IO.Path.GetFileNameWithoutExtension(ImageFileName));
 
             addReplaceOtherMetaDataKnownType("File.Size", FileSize.ToString("#,### KB"));
-            addReplaceOtherMetaDataKnownType("File.Modified", theFileInfo.LastWriteTime.ToString());
-            addReplaceOtherMetaDataKnownType("File.Created", theFileInfo.CreationTime.ToString());
+            addReplaceOtherMetaDataKnownType("File.Modified", fileInfo.LastWriteTime.ToString());
+            addReplaceOtherMetaDataKnownType("File.Created", fileInfo.CreationTime.ToString());
 
             // add other meta data defined by general config file
             foreach (OtherMetaDataDefinition anOtherMetaDataDefinition in ConfigDefinition.getOtherMetaDataDefinitions())
@@ -1035,7 +1034,7 @@ namespace QuickImageComment
         // to read creation and modification time after changing these file data
         public void readFileDates()
         {
-            System.IO.FileInfo theFileInfo = new System.IO.FileInfo(ImageFileName);
+            System.IO.FileInfo theFileInfo = new System.IO.FileInfo(ImageFileName); //ok
             addReplaceOtherMetaDataKnownType("File.Modified", theFileInfo.LastWriteTime.ToString());
             addReplaceOtherMetaDataKnownType("File.Created", theFileInfo.CreationTime.ToString());
             // add other meta data defined by general config file
@@ -3208,7 +3207,7 @@ namespace QuickImageComment
             // but then old warnings from deviating text entries remain
             // deleting all warnings outside readMetaData would delete warnings, which
             // then are not added again in case only text file was written
-            readMetaData(SavePerformance, null);
+            readMetaData(SavePerformance, null, new System.IO.FileInfo(ImageFileName));
             readTxtFile();
             addMetaDataFromBitMap();
 
@@ -3527,7 +3526,7 @@ namespace QuickImageComment
                     {
                         System.IO.File.Delete(ImageFileNameBak);
                     }
-                    readMetaData(SavePerformance, null);
+                    readMetaData(SavePerformance, null, new System.IO.FileInfo(ImageFileName));
                     readTxtFile();
                     addMetaDataFromBitMap();
                     setOldArtistAndCommentAndOtherInternalTags();

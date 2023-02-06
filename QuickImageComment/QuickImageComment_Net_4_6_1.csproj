@@ -488,6 +488,9 @@
     <Compile Include="Controls\UserControlMap.Designer.cs">
       <DependentUpon>UserControlMap.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Controls\ListViewFiles.resx">
+      <DependentUpon>ListViewFiles.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormChangesInVersion.resx">
       <DependentUpon>FormChangesInVersion.cs</DependentUpon>
     </EmbeddedResource>

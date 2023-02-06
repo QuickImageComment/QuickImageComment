@@ -48,7 +48,7 @@ namespace QuickImageComment
             // "my computer" now on top of tree, but this cannot be expanded
             if (!newFolderName.Equals(""))
             {
-                GeneralUtilities.addImageFilesFromFolderToList(newFolderName, ImageFiles, true);
+                GeneralUtilities.addImageFilesFromFolderToListConsideringFileFilterSorted(newFolderName, ImageFiles);
             }
 
             initWithImageFilesArrayList(newFolderName, ImageFiles, true);
@@ -295,7 +295,8 @@ namespace QuickImageComment
             if (!HashtableExtendedImages.ContainsKey(FullFileName))
             {
                 GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceCaching, "Add FullFileName=" + FullFileName);
-                if (!System.IO.File.Exists(FullFileName))
+                System.IO.FileInfo fileInfo = new System.IO.FileInfo(FullFileName);
+                if (fileInfo == null)
                 {
                     // create extended image just with file name and images indicating, that file was not found
                     HashtableExtendedImages.Add(FullFileName, new ExtendedImage(FullFileName));
@@ -316,11 +317,11 @@ namespace QuickImageComment
                     // to be safe in case the image was added in the meantime as here no lock is used to avoid blocking user
                     try
                     {
-                        HashtableExtendedImages.Add(FullFileName, new ExtendedImage(FullFileName, saveFullSizeImage));
+                        HashtableExtendedImages.Add(FullFileName, new ExtendedImage(fileInfo, saveFullSizeImage));
                     }
                     catch
                     {
-                        HashtableExtendedImages[FullFileName] = new ExtendedImage(FullFileName, saveFullSizeImage);
+                        HashtableExtendedImages[FullFileName] = new ExtendedImage(fileInfo, saveFullSizeImage);
                     }
                     FormQuickImageComment.readFolderPerfomance.measure("ImageManager after new ExtendedImage");
                     if (displayReading)

@@ -225,9 +225,9 @@ namespace QuickImageComment
             this.checkBoxMultipleFiles.AutoSize = true;
             this.checkBoxMultipleFiles.Location = new System.Drawing.Point(457, 55);
             this.checkBoxMultipleFiles.Name = "checkBoxMultipleFiles";
-            this.checkBoxMultipleFiles.Size = new System.Drawing.Size(158, 17);
+            this.checkBoxMultipleFiles.Size = new System.Drawing.Size(309, 17);
             this.checkBoxMultipleFiles.TabIndex = 9;
-            this.checkBoxMultipleFiles.Text = "Mehrere Dateien zusammen";
+            this.checkBoxMultipleFiles.Text = "Bei Start von Programm/Batch: Mehrere Dateien übergeben";
             this.checkBoxMultipleFiles.UseVisualStyleBackColor = true;
             this.checkBoxMultipleFiles.CheckedChanged += new System.EventHandler(this.editExternalDefinitionChanged);
             // 

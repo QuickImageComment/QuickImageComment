@@ -169,7 +169,6 @@ namespace QuickImageComment
         {
             string[] placeholders = { "%f", "%~f", "%~df", "%~pf", "%~nf", "%~xf", "%~nxf" };
 
-            Logger.log("start Execute " + Name);
             MainMaskInterface.setMainMaskCursor(System.Windows.Forms.Cursors.WaitCursor);
             ArrayList FileNames = MainMaskInterface.getSelectedFileNames();
             if (FileNames.Count == 0)
@@ -185,14 +184,12 @@ namespace QuickImageComment
                 if (dropInWindow)
                 {
                     handle = DropFileOnProcess.getWindowHandle(programPath, windowTitle);
-                    Logger.log("handle Title = " + handle.ToString("X"));
 
                     if (handle != IntPtr.Zero)
                     {
                         bool result = false;
                         string[] fileNamesArray = (string[])FileNames.ToArray(typeof(string));
                         result = DropFileOnProcess.dropFileViaDoDragDrop(handle, fileNamesArray, MainMaskInterface.getMainMask());
-                        Logger.log("drop >" + fileNamesArray.ToString() + "< result=" + result.ToString());
                         dropped = true;
                     }
                 }
@@ -258,7 +255,6 @@ namespace QuickImageComment
                 throw new Exception("Internal error: command type \"" + commandType.ToString() + "\" not considered");
             }
             MainMaskInterface.setMainMaskCursor(System.Windows.Forms.Cursors.Default);
-            Logger.log("finish Execute " + Name);
         }
 
         private string arrayListToString(ArrayList FileNames, string placeholder)

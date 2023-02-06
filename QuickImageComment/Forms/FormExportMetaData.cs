@@ -19,6 +19,7 @@
 using System;
 using System.Collections;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace QuickImageComment
@@ -35,11 +36,15 @@ namespace QuickImageComment
         private DateTime startTime2;
         // used to reduce counts of refresh when reading folder
         private DateTime lastCall = DateTime.Now;
-        // holds image files, filled in backgroundworker1
-        ArrayList ImageFiles;
-        int exportedCount;
+        // count of files, filled in backgroundworker1
+        int totalCount = 0;
+        int exportedCount = 0;
         StreamWriter StreamOut;
         Cursor OldCursor;
+#if LOG_MEMORY
+        long newRemMem;
+        long oldRemMem;
+#endif
 
         public FormExportMetaData(string FolderName)
         {
@@ -50,8 +55,7 @@ namespace QuickImageComment
             buttonCancel.Select();
 
 #if LOG_MEMORY
-            int newRemMem;
-            int oldRemMem = GeneralUtilities.getRemainingAllowedMemory();
+            oldRemMem = GeneralUtilities.getRemainingAllowedMemory();
 #endif
 
             LangCfg.translateControlTexts(this);
@@ -123,6 +127,7 @@ namespace QuickImageComment
                 dynamicLabelImageCount.Visible = false;
                 dynamicLabelRemainingTime.Visible = false;
                 dynamicLabelPassedTime.Visible = true;
+                dynamicLabelPassedTime.Text = "";
                 progressPanel1.Visible = false;
 
                 dynamicLabelScanInformation.Text = "";
@@ -130,8 +135,6 @@ namespace QuickImageComment
                 buttonClose.Enabled = false;
                 buttonCancel.Enabled = true;
                 this.Show();
-
-                ImageFiles = new ArrayList();
 
                 // Start the asynchronous operation.
                 backgroundWorker1.RunWorkerAsync(FolderName);
@@ -145,10 +148,13 @@ namespace QuickImageComment
 
             // get all files to export including files in subfolders
             string FolderName = (string)doWorkEventArgs.Argument;
-            GeneralUtilities.addImageFilesFromFolderToListRecursively(FolderName, ImageFiles, worker, doWorkEventArgs);
+            FileInfo[] ImageFilesInfo = GeneralUtilities.getFileInfosFromFolderAllDirectories(FolderName, worker, doWorkEventArgs);
+            totalCount = ImageFilesInfo.Length;
+            var ImageFilesInfoSorted = ImageFilesInfo.OrderBy(item => item.FullName);
+
             worker.ReportProgress(0);
 
-            this.progressPanel1.init(ImageFiles.Count);
+            this.progressPanel1.init(totalCount);
 
             startTime2 = DateTime.Now;
             exportedCount = 0;
@@ -156,23 +162,22 @@ namespace QuickImageComment
             // get arraylist with needed keys
             ArrayList neededKeys = ConfigDefinition.getNeededKeysIncludingReferences(ConfigDefinition.getMetaDataDefinitions(ConfigDefinition.enumMetaDataGroup.MetaDataDefForTextExport));
 
-            foreach (string FullFileName in ImageFiles)
+            foreach (FileInfo fileInfo in ImageFilesInfoSorted)
             {
 #if LOG_MEMORY
                     newRemMem = GeneralUtilities.getRemainingAllowedMemory();
-                    FileInfo theFileInfo = new FileInfo(FullFileName);
-                    Double FileSize = theFileInfo.Length;
+                    Double FileSize = fileInfo.Length;
                     FileSize = FileSize / 1024;
                     if (newRemMem < oldRemMem)
                     {
                         Logger.log(newRemMem.ToString() + " MB remaining   file:" + exportedCount.ToString() + " size:" + 
-                            FileSize.ToString("#") + " " + FullFileName);
+                            FileSize.ToString("#") + " " + fileInfo.FullName);
                         oldRemMem = newRemMem;
                     }
 #endif
                 exportedCount++;
 
-                theExtendedImage = new ExtendedImage(FullFileName, neededKeys);
+                theExtendedImage = new ExtendedImage(fileInfo, neededKeys);
                 StreamOut.WriteLine(theExtendedImage.getMetaDataForTextExport());
                 StreamOut.Flush();
 
@@ -213,7 +218,7 @@ namespace QuickImageComment
             else if (e.ProgressPercentage == 0)
             {
                 // addImageFilesFromFolderToListRecursively finished, show total count and change visibility of progress controls
-                dynamicLabelImageCount.Text = ImageFiles.Count.ToString();
+                dynamicLabelImageCount.Text = totalCount.ToString();
                 dynamicLabelScanInformation.Visible = false;
                 progressPanel1.Visible = true;
                 this.dynamicLabelImageCount.Visible = true;
@@ -228,7 +233,7 @@ namespace QuickImageComment
                 if (timeDifference2.TotalSeconds > minTimePassedForRemCalc)
                 {
                     RemainingTime = new DateTime(timeDifference2.Ticks
-                        * (ImageFiles.Count - exportedCount) / exportedCount);
+                        * (totalCount - exportedCount) / exportedCount);
                     dynamicLabelRemainingTime.Text = RemainingTime.ToString("HH:mm:ss");
                     dynamicLabelRemainingTime.Visible = true;
                 }

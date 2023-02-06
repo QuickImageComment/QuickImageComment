@@ -18,6 +18,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Windows.Forms;
 
 namespace QuickImageComment
@@ -36,7 +37,8 @@ namespace QuickImageComment
         private const string comboBoxValueNamePrefix = "dynamicComboBoxValue_";
         private const string comboBoxOperatorNamePrefix = "dynamicComboBoxOperator_";
         private const string dateTimePickerNamePrefix = "dateTimePicker_";
-        private const string dataTableName = "FindData";
+        private const string dataTableNameFind = "FindData";
+        private const string dataTableNameMerge = "MergeData";
 
         enum DateModifierForSelect
         {
@@ -68,8 +70,8 @@ namespace QuickImageComment
         private DateTime startTime2;
         // used to reduce counts of refresh when reading folder
         private DateTime lastCall = DateTime.Now;
-        // holds image files, filled in backgroundWorkerInit
-        ArrayList ImageFiles;
+        // counts image files, filled in backgroundWorkerInit
+        int totalCount;
         int exportedCount;
         FormFindReadErrors formFindReadErrors;
         GeoDataItem lastGeoDataItemForFind;
@@ -864,7 +866,6 @@ namespace QuickImageComment
 
             if (backgroundWorkerInit.IsBusy != true)
             {
-                ImageFiles = new ArrayList();
                 formFindReadErrors = new FormFindReadErrors();
 
                 dataTable = null;
@@ -895,12 +896,15 @@ namespace QuickImageComment
             ExtendedImage extendedImage;
             System.ComponentModel.BackgroundWorker worker = sender as System.ComponentModel.BackgroundWorker;
 
+            Logger.log("Initiale Befüllung Start");
             // get all files including files in subfolders
-            GeneralUtilities.addImageFilesFromFolderToListRecursively(FolderName, ImageFiles, worker, doWorkEventArgs);
+            FileInfo[] ImageFilesInfo = GeneralUtilities.getFileInfosFromFolderAllDirectories(FolderName, worker, doWorkEventArgs);
+            totalCount = ImageFilesInfo.Length;
+            Logger.log("Dateiliste erzeugt rekursiv ohne Backgroundworker");
             // ProgressPercentage is used as case indication for updating mask
             worker.ReportProgress(0);
 
-            progressPanel1.init(ImageFiles.Count);
+            progressPanel1.init(totalCount);
 
             startTime2 = DateTime.Now;
             exportedCount = 0;
@@ -908,17 +912,19 @@ namespace QuickImageComment
             lock (LockDataTable)
             {
                 getMetaDataDefinitionsForFindAndCreateDataTable();
+                Logger.log("Datentabelle erzeugt");
+
                 // throw (new Exception("ExceptionTest in BackgroundWorker"));
 
                 // get arraylist with needed keys
                 ArrayList neededKeys = ConfigDefinition.getNeededKeysIncludingReferences(MetaDataDefinitionsForFind);
 
-                foreach (string FullFileName in ImageFiles)
+                for (int ii = 0; ii < ImageFilesInfo.Length; ii++)
                 {
                     exportedCount++;
                     DataRow row = dataTable.NewRow();
-                    row["FileName"] = FullFileName;
-                    extendedImage = new ExtendedImage(FullFileName, neededKeys);
+                    row["FileName"] = ImageFilesInfo[ii].FullName;
+                    extendedImage = new ExtendedImage(ImageFilesInfo[ii], neededKeys);
                     fillDataTableRow(row, extendedImage, formFindReadErrors);
                     dataTable.Rows.Add(row);
 
@@ -935,6 +941,7 @@ namespace QuickImageComment
                     }
                 }
             }
+            Logger.log("Initiale Befüllung Ende");
         }
 
         private void backgroundWorkerInit_ProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)
@@ -959,7 +966,7 @@ namespace QuickImageComment
             else if (e.ProgressPercentage == 0)
             {
                 // addImageFilesFromFolderToListRecursively finished, show total count and change visibility of progress controls
-                dynamicLabelCount.Text = ImageFiles.Count.ToString();
+                dynamicLabelCount.Text = totalCount.ToString();
                 dynamicLabelScanInformation.Visible = false;
                 progressPanel1.Visible = true;
                 labelRemainingTime.Visible = true;
@@ -974,7 +981,7 @@ namespace QuickImageComment
                 if (timeDifference2.TotalSeconds > minTimePassedForRemCalc)
                 {
                     RemainingTime = new DateTime(timeDifference2.Ticks
-                        * (ImageFiles.Count - exportedCount) / exportedCount);
+                        * (totalCount - exportedCount) / exportedCount);
                     dynamicLabelRemainingTime.Text = RemainingTime.ToString("HH:mm:ss");
                     dynamicLabelRemainingTime.Visible = true;
                 }
@@ -1024,73 +1031,60 @@ namespace QuickImageComment
         {
             Logger.log("Update Daten Start");
             ExtendedImage extendedImage;
-            System.IO.FileInfo theFileInfo;
             object[] findSpec = new object[1];
 
             System.ComponentModel.BackgroundWorker worker = sender as System.ComponentModel.BackgroundWorker;
 
             // get all files including files in subfolders
-            GeneralUtilities.addImageFilesFromFolderToListRecursively(FolderName, ImageFiles, worker, doWorkEventArgs);
-            Logger.log("Liste der Dateien erstellt");
-            progressPanel1.init(ImageFiles.Count);
+            FileInfo[] ImageFilesInfo = GeneralUtilities.getFileInfosFromFolderAllDirectories(FolderName, worker, doWorkEventArgs);
+            totalCount = ImageFilesInfo.Length;
+            Logger.log("Liste der Dateien erstellt " + totalCount.ToString());
 
-            startTime2 = DateTime.Now;
+            progressPanel1.init(totalCount);
 
-            lock (LockDataTable)
+            // fill a table with read file information
+            DataTable dataTableMerge = new DataTable(dataTableNameMerge);
+            dataTableMerge.Columns.Add("FileName", System.Type.GetType("System.String"));
+            dataTableMerge.Columns.Add("ModifiedRead", System.Type.GetType("System.DateTime"));
+            var primaryKey = new DataColumn[1];
+            primaryKey[0] = dataTableMerge.Columns[0];
+            dataTableMerge.PrimaryKey = primaryKey;
+
+            for (int ii = 0; ii < ImageFilesInfo.Length; ii++)
             {
-                // get arraylist with needed keys
-                ArrayList neededKeys = ConfigDefinition.getNeededKeysIncludingReferences(MetaDataDefinitionsForFind);
-
-                // handle deleted files
-                ArrayList RowsToDelete = new ArrayList();
-                foreach (DataRow row in dataTable.Rows)
-                {
-                    if (!ImageFiles.Contains((string)row["FileName"]))
-                    {
-                        RowsToDelete.Add(row);
-                    }
-                    if (worker.CancellationPending == true)
-                    {
-                        doWorkEventArgs.Cancel = true;
-                        break;
-                    }
-                }
-                Logger.log("Liste der zu löschenden Einträge erstellt: " + RowsToDelete.Count.ToString() + " Einträge");
-                foreach (DataRow row in RowsToDelete)
-                {
-                    row.Delete();
-                    if (worker.CancellationPending == true)
-                    {
-                        doWorkEventArgs.Cancel = true;
-                        break;
-                    }
-                }
-                Logger.log("Einträge gelöscht");
-
-                // handle new or changed files
-                int count = 0;
-                foreach (string FullFileName in ImageFiles)
-                {
-                    theFileInfo = new System.IO.FileInfo(FullFileName);
-                    findSpec[0] = FullFileName;
-                    DataRow row = dataTable.Rows.Find(findSpec);
-                    if (row == null || (DateTime)row["Modified"] < theFileInfo.LastWriteTime)
-                    {
-                        // new file or file was updated since table was filled
-                        extendedImage = new ExtendedImage(FullFileName, ConfigDefinition.getNeededKeysIncludingReferences(MetaDataDefinitionsForFind));
-                        addOrUpdateRow(extendedImage);
-                        count++;
-                    }
-
-                    if (worker.CancellationPending == true)
-                    {
-                        doWorkEventArgs.Cancel = true;
-                        break;
-                    }
-                }
-                Logger.log("Neue Einträge ergänzt, veränderte Einträge aktualisiert: " + count.ToString() + " Einträge");
+                DataRow row = dataTableMerge.NewRow();
+                row["FileName"] = ImageFilesInfo[ii].FullName;
+                row["ModifiedRead"] = ImageFilesInfo[ii].LastWriteTime;
+                dataTableMerge.Rows.Add(row);
             }
-            Logger.log("Update Daten Ende");
+            Logger.log("Tabelle mit Liste der Dateien gefüllt " + dataTableMerge.Rows.Count.ToString());
+
+            dataTableMerge.Merge(dataTable);
+            Logger.log("Daten alt/neu kombiniert " + dataTableMerge.Rows.Count.ToString());
+
+            // file was deleted since last update of table
+            DataRow[] selectResult = dataTableMerge.Select("ModifiedRead is null");
+            int count = 0;
+            foreach (DataRow dataRow in selectResult)
+            {
+                Logger.log("nicht mehr vorhanden: " + dataRow["FileName"]);
+                dataTable.Rows.Find(dataRow["FileName"]).Delete();
+                count++;
+            }
+            Logger.log("Nicht mehr vorhandene gelöscht " + count.ToString());
+
+            // new file or file was updated since table was filled
+            selectResult = dataTableMerge.Select("ModifiedRead > Modified or Modified is null");
+            count = 0;
+            foreach (DataRow dataRow in selectResult)
+            {
+                Logger.log("verändert oder neu: " + dataRow["FileName"]);
+                extendedImage = new ExtendedImage(new FileInfo((string)dataRow["FileName"]), 
+                    ConfigDefinition.getNeededKeysIncludingReferences(MetaDataDefinitionsForFind));
+                addOrUpdateRow(extendedImage);
+                count++;
+            }
+            Logger.log("Neue ergänzt, veränderte aktualisiert " + count.ToString());
         }
 
         private void backgroundWorkerUpdate_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
@@ -1340,7 +1334,8 @@ namespace QuickImageComment
             {
                 try
                 {
-                    ExtendedImage extendedImage = new ExtendedImage(fullFileName, ConfigDefinition.getNeededKeysIncludingReferences(MetaDataDefinitionsForFind));
+                    ExtendedImage extendedImage = new ExtendedImage(new FileInfo(fullFileName), 
+                        ConfigDefinition.getNeededKeysIncludingReferences(MetaDataDefinitionsForFind));
                     addOrUpdateRow(extendedImage);
                 }
                 // in case of errors do nothing, most likely it is no valid image or video file
@@ -1431,7 +1426,7 @@ namespace QuickImageComment
             if (!signedLatFound) MetaDataDefinitionsForFind.Add(new MetaDataDefinitionItem("Image.GPSsignedLatitude", "Image.GPSsignedLatitude"));
             if (!signedLonFound) MetaDataDefinitionsForFind.Add(new MetaDataDefinitionItem("Image.GPSsignedLongitude", "Image.GPSsignedLongitude"));
 
-            dataTable = new DataTable(dataTableName);
+            dataTable = new DataTable(dataTableNameFind);
             dataTable.ExtendedProperties.Add("Folder", FolderName);
             dataTable.Columns.Add("FileName", System.Type.GetType("System.String"));
             dataTable.Columns.Add("Modified", System.Type.GetType("System.DateTime"));
@@ -1618,6 +1613,7 @@ namespace QuickImageComment
             // avoid trying to translate column headers
             for (int ii = 0; ii < dataGridView1.ColumnCount; ii++)
             {
+                dataGridView1.Columns[ii].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
                 dataGridView1.Columns[ii].Name = "Dynamic_" + ii.ToString();
             }
             dataGridView1.Visible = true;
@@ -1657,7 +1653,7 @@ namespace QuickImageComment
                 try
                 {
                     // create table using schema in XML file and compare columns
-                    DataTable checkTable = new DataTable(dataTableName);
+                    DataTable checkTable = new DataTable(dataTableNameFind);
                     checkTable.ReadXmlSchema(fileName);
 
                     if (checkTable.Columns.Count != dataTable.Columns.Count)
@@ -1686,7 +1682,6 @@ namespace QuickImageComment
                     // start backgroundworker to update dataTable
                     if (backgroundWorkerUpdate.IsBusy != true)
                     {
-                        ImageFiles = new ArrayList();
                         formFindReadErrors = new FormFindReadErrors();
                         // Start the asynchronous operation.
                         backgroundWorkerUpdate.RunWorkerAsync();

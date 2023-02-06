@@ -22,6 +22,7 @@ using System.Collections;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace QuickImageComment
@@ -735,25 +736,45 @@ namespace QuickImageComment
             }
         }
 
-        // get arraylist of all Image-files
-        public static void addImageFilesFromFolderToList(string FolderName, ArrayList ImageFiles, bool useFileFilter)
+        // get FileInfo array from folder
+        public static FileInfo[] getFileInfosFromFolder(string FolderName, bool allDirectories)
         {
-            DirectoryInfo FolderNameInfo = new DirectoryInfo(FolderName);
+            string[] extensions = (string[])ConfigDefinition.FilesExtensionsArrayList.ToArray(typeof(string));
 
+            DirectoryInfo FolderNameInfo = new DirectoryInfo(FolderName);
+            bool ShowHiddenFiles = ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.ShowHiddenFiles);
+            SearchOption searchOption;
+            if (allDirectories)
+                searchOption = SearchOption.AllDirectories;
+            else
+                searchOption = SearchOption.TopDirectoryOnly;
+
+            if (ShowHiddenFiles)
+            {
+                return FolderNameInfo.GetFiles("*.*", searchOption).Where(
+                    f => extensions.Contains(f.Extension.ToLower())).ToArray();
+            }
+            else
+            {
+                return FolderNameInfo.GetFiles("*.*", searchOption).Where(
+                    f => extensions.Contains(f.Extension.ToLower()) && !f.Attributes.HasFlag(FileAttributes.Hidden)).ToArray();
+            }
+        }
+
+        // get arraylist of all Image-files
+        //!! return FileInfo - if it can be used
+        public static void addImageFilesFromFolderToListConsideringFileFilterSorted(string FolderName, ArrayList ImageFiles)
+        {
             try
             {
-                FileInfo[] Files = FolderNameInfo.GetFiles();
-                bool ShowHiddenFiles = ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.ShowHiddenFiles);
+                FileInfo[] Files = getFileInfosFromFolder(FolderName, false);
                 for (int ii = 0; ii < Files.Length; ii++)
                 {
-                    if (ShowHiddenFiles || !Files[ii].Attributes.HasFlag(FileAttributes.Hidden))
+                    if (UserControlFiles.fileNameFitsToFilter(Files[ii].Name))
                     {
-                        if (!useFileFilter || UserControlFiles.fileNameFitsToFilter(Files[ii].Name))
+                        if (ConfigDefinition.FilesExtensionsArrayList.Contains(Files[ii].Extension.ToLower()))
                         {
-                            if (ConfigDefinition.FilesExtensionsArrayList.Contains(Files[ii].Extension.ToLower()))
-                            {
-                                ImageFiles.Add(FolderName + "\\" + Files[ii].Name);
-                            }
+                            ImageFiles.Add(FolderName + "\\" + Files[ii].Name);
                         }
                     }
                 }
@@ -766,37 +787,11 @@ namespace QuickImageComment
             }
         }
 
-        // get arraylist of all image files recursively without filter
-        // if CancelPressed is set, execution is interrupted
-        public static void addImageFilesFromFolderToListRecursively(string TopFolderName, ArrayList ImageFiles, BackgroundWorker worker, DoWorkEventArgs doWorkEventArgs)
+        // get arraylist of all Image-files, all directories, recursively in case of access denied exception
+        //!! Rekursion when access denied
+        public static FileInfo[] getFileInfosFromFolderAllDirectories(string TopFolderName, BackgroundWorker worker, DoWorkEventArgs doWorkEventArgs)
         {
-            if (worker.CancellationPending)
-            {
-                doWorkEventArgs.Cancel = true;
-                return;
-            }
-            else if (worker.WorkerReportsProgress)
-            {
-                worker.ReportProgress(0, LangCfg.getText(LangCfg.Others.scanFolder) + " " + TopFolderName);
-            }
-
-            // try-catch to skip if there is no access to a specific folder
-            try
-            {
-                DirectoryInfo TopFolderNameInfo = new DirectoryInfo(TopFolderName);
-                DirectoryInfo[] SubFolders = TopFolderNameInfo.GetDirectories();
-
-                GeneralUtilities.addImageFilesFromFolderToList(TopFolderName, ImageFiles, false);
-
-                for (int ii = 0; ii < SubFolders.Length; ii++)
-                {
-                    addImageFilesFromFolderToListRecursively(TopFolderName + "\\" + SubFolders[ii].Name, ImageFiles, worker, doWorkEventArgs);
-                }
-            }
-            catch (System.UnauthorizedAccessException)
-            {
-                // ignore this exception
-            }
+            return getFileInfosFromFolder(TopFolderName, true);
         }
 
         public static void trace(ConfigDefinition.enumConfigFlags traceFlag, string inputString, int stackLevel = 0)
