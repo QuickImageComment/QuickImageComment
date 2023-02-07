@@ -60,8 +60,11 @@ namespace QuickImageComment
         public bool findExecuted = false;
 
         internal List<string> FilterFieldTags = new List<string>();
-        private ArrayList filterDefinitions;
-        private static ArrayList MetaDataDefinitionsForFind;
+        // contains information to filter, including GPS latitude and longitude 
+        // for searching recording location
+        private static ArrayList filterDefinitions;
+        private bool filterDefinitionsComplete = false;
+        private static ArrayList MetaDataDefinitionsToRead;
 
         // definitions used with background worker
         // used to show passed time when reading folder
@@ -81,7 +84,9 @@ namespace QuickImageComment
 
         private class FilterDefinition
         {
-            internal string name;
+            internal string displayName;
+            internal string columnNameForQuery;
+            internal bool visible; // visible in FormFind - list of columns
             internal MetaDataDefinitionItem metaDataDefinitionItem;
             internal ComboBox comboBoxOperator1;
             internal ComboBox comboBoxOperator2;
@@ -90,9 +95,10 @@ namespace QuickImageComment
             internal DateTimePicker dateTimePicker1;
             internal DateTimePicker dateTimePicker2;
 
-            internal FilterDefinition(MetaDataDefinitionItem givenMetaDataDefinitionItem)
+            internal FilterDefinition(MetaDataDefinitionItem givenMetaDataDefinitionItem, bool givenVisible)
             {
                 metaDataDefinitionItem = givenMetaDataDefinitionItem;
+                visible = givenVisible;
             }
         }
 
@@ -104,6 +110,7 @@ namespace QuickImageComment
 
         public FormFind()
         {
+            Logger.log("Maske initialisieren Start");
             InitializeComponent();
             dynamicLabelScanInformation.Visible = false;
             progressPanel1.Visible = false;
@@ -119,6 +126,10 @@ namespace QuickImageComment
             {
                 checkBoxShowDataTable.Visible = false;
             }
+            Logger.log("vor load data table");
+
+            fillFilterDefinitionsAndKeyLists();
+
             checkBoxSaveFindDataTable.Checked = ConfigDefinition.getCfgUserBool(ConfigDefinition.enumCfgUserBool.SaveFindDataTable);
             if (checkBoxSaveFindDataTable.Checked)
             {
@@ -152,9 +163,11 @@ namespace QuickImageComment
 
             // Specific constructor code
             CustomizationInterface.setFormToCustomizedValues(this);
-
+            Logger.log("vor fillFilterPanelWithControls");
             fillFilterPanelWithControls();
+            Logger.log("nach fillFilterPanelWithControls");
             fillItemsFilterFields();
+            Logger.log("fillItemsFilterFields");
 
             // if flag set, return (is sufficient to create control texts list)
             if (GeneralUtilities.CloseAfterConstructing)
@@ -168,6 +181,7 @@ namespace QuickImageComment
         // set folder and controls enable/disable based on data table (empty or not), then show dialog
         public void setFolderDependingControlsAndShowDialog(string givenFolderName)
         {
+            Logger.log("enter setFolderDependingControlsAndShowDialog");
 #if APPCENTER
             if (Program.AppCenterUsable) Microsoft.AppCenter.Analytics.Analytics.TrackEvent(this.Name);
 #endif
@@ -181,6 +195,7 @@ namespace QuickImageComment
             dynamicLabelFolder.Text = FolderName;
             setControlsDependingOnDataTable();
             this.ShowDialog();
+            Logger.log("Anzeige Suchmaske");
         }
 
         // create screenshot and close
@@ -227,26 +242,28 @@ namespace QuickImageComment
             // add new controls
             int lastTop = dynamicLabelFind.Top;
             int maxLabelWidth = 0;
-            filterDefinitions = new ArrayList();
 
-            foreach (MetaDataDefinitionItem aMetaDataDefinitionItem in ConfigDefinition.getMetaDataDefinitions(ConfigDefinition.enumMetaDataGroup.MetaDataDefForFind))
+            foreach (FilterDefinition fd in filterDefinitions)
             {
-                Label aLabel = new Label();
-                FilterDefinition fd = new FilterDefinition(aMetaDataDefinitionItem);
-                aLabel.Name = dynamicLabelNamePrefix + aMetaDataDefinitionItem.KeyPrim;
-                if (aMetaDataDefinitionItem.FormatPrim == MetaDataItem.Format.Interpreted &&
-                    (Exiv2TagDefinitions.IntegerTypes.Contains(aMetaDataDefinitionItem.TypePrim) ||
-                     Exiv2TagDefinitions.FloatTypes.Contains(aMetaDataDefinitionItem.TypePrim)))
+                if (fd.visible)
                 {
-                    aLabel.Text = aMetaDataDefinitionItem.Name + " [" + LangCfg.getText(LangCfg.Others.fmtIntrpr) + "]";
+                    MetaDataDefinitionItem aMetaDataDefinitionItem = fd.metaDataDefinitionItem;
+
+                    Label aLabel = new Label();
+                    aLabel.Name = dynamicLabelNamePrefix + aMetaDataDefinitionItem.KeyPrim;
+                    if (aMetaDataDefinitionItem.FormatPrim == MetaDataItem.Format.Interpreted &&
+                        (Exiv2TagDefinitions.IntegerTypes.Contains(aMetaDataDefinitionItem.TypePrim) ||
+                         Exiv2TagDefinitions.FloatTypes.Contains(aMetaDataDefinitionItem.TypePrim)))
+                    {
+                        aLabel.Text = aMetaDataDefinitionItem.Name + " [" + LangCfg.getText(LangCfg.Others.fmtIntrpr) + "]";
+                    }
+                    else
+                    {
+                        aLabel.Text = aMetaDataDefinitionItem.Name + " [" + aMetaDataDefinitionItem.TypePrim + "]";
+                    }
+                    fd.displayName = aLabel.Text;
+                    configureDynamicLabel(aMetaDataDefinitionItem, aLabel, ref lastTop, ref maxLabelWidth);
                 }
-                else
-                {
-                    aLabel.Text = aMetaDataDefinitionItem.Name + " [" + aMetaDataDefinitionItem.TypePrim + "]";
-                }
-                fd.name = aLabel.Text;
-                filterDefinitions.Add(fd);
-                configureDynamicLabel(aMetaDataDefinitionItem, aLabel, ref lastTop, ref maxLabelWidth);
             }
 
             Array Labels = new Control[panelFilterInner.Controls.Count];
@@ -468,36 +485,40 @@ namespace QuickImageComment
         {
             foreach (FilterDefinition filterDefinition in filterDefinitions)
             {
-                InputCheckConfig theInputCheckConfig = ConfigDefinition.getInputCheckConfig(filterDefinition.metaDataDefinitionItem.KeyPrim);
-
-                if (theInputCheckConfig != null && !theInputCheckConfig.isUserCheck())
+                if (filterDefinition.visible)
                 {
-                    // input checks defined in program consider all valid values, so use them to fill item list and do not allow others
-                    if (!theInputCheckConfig.allowOtherValues)
-                    {
-                        filterDefinition.comboBoxValue1.DropDownStyle = ComboBoxStyle.DropDownList;
-                        filterDefinition.comboBoxValue2.DropDownStyle = ComboBoxStyle.DropDownList;
-                    }
-                    // first add empty value
-                    filterDefinition.comboBoxValue1.Items.Add("");
-                    filterDefinition.comboBoxValue2.Items.Add("");
+                    InputCheckConfig theInputCheckConfig = ConfigDefinition.getInputCheckConfig(filterDefinition.metaDataDefinitionItem.KeyPrim);
 
-                    foreach (string Entry in theInputCheckConfig.ValidValues)
+                    if (theInputCheckConfig != null && !theInputCheckConfig.isUserCheck())
                     {
-                        // do not add empty value again if it is in ValidValues
-                        if (!Entry.Trim().Equals(""))
+                        // input checks defined in program consider all valid values, so use them to fill item list and do not allow others
+                        if (!theInputCheckConfig.allowOtherValues)
                         {
-                            filterDefinition.comboBoxValue1.Items.Add(Entry);
-                            filterDefinition.comboBoxValue2.Items.Add(Entry);
+                            filterDefinition.comboBoxValue1.DropDownStyle = ComboBoxStyle.DropDownList;
+                            filterDefinition.comboBoxValue2.DropDownStyle = ComboBoxStyle.DropDownList;
+                        }
+                        // first add empty value
+                        filterDefinition.comboBoxValue1.Items.Add("");
+                        filterDefinition.comboBoxValue2.Items.Add("");
+
+                        foreach (string Entry in theInputCheckConfig.ValidValues)
+                        {
+                            // do not add empty value again if it is in ValidValues
+                            if (!Entry.Trim().Equals(""))
+                            {
+                                filterDefinition.comboBoxValue1.Items.Add(Entry);
+                                filterDefinition.comboBoxValue2.Items.Add(Entry);
+                            }
                         }
                     }
-                }
-                else
-                {
-                    fillItemsFilterFieldLastUsed(filterDefinition.comboBoxValue1);
-                    fillItemsFilterFieldLastUsed(filterDefinition.comboBoxValue2);
+                    else
+                    {
+                        fillItemsFilterFieldLastUsed(filterDefinition.comboBoxValue1);
+                        fillItemsFilterFieldLastUsed(filterDefinition.comboBoxValue2);
+                    }
                 }
             }
+            filterDefinitionsComplete = true;
         }
 
         private void fillItemsFilterFieldLastUsed(ComboBox comboBoxValue)
@@ -545,6 +566,7 @@ namespace QuickImageComment
                     backgroundWorkerUpdate.CancelAsync();
                 }
 
+                fillFilterDefinitionsAndKeyLists();
                 fillFilterPanelWithControls();
                 fillItemsFilterFields();
                 Logger.log("before lock");
@@ -595,10 +617,13 @@ namespace QuickImageComment
         {
             foreach (FilterDefinition filterDefinition in filterDefinitions)
             {
-                filterDefinition.comboBoxOperator1.Text = "";
-                filterDefinition.comboBoxOperator2.Text = "";
-                filterDefinition.comboBoxValue1.Text = "";
-                filterDefinition.comboBoxValue2.Text = "";
+                if (filterDefinition.visible)
+                {
+                    filterDefinition.comboBoxOperator1.Text = "";
+                    filterDefinition.comboBoxOperator2.Text = "";
+                    filterDefinition.comboBoxValue1.Text = "";
+                    filterDefinition.comboBoxValue2.Text = "";
+                }
             }
         }
 
@@ -609,10 +634,13 @@ namespace QuickImageComment
             {
                 foreach (FilterDefinition filterDefinition in filterDefinitions)
                 {
-                    filterDefinition.comboBoxOperator1.Text = "";
-                    filterDefinition.comboBoxOperator2.Text = "";
-                    filterDefinition.comboBoxValue1.Text = MainMaskInterface.getTheExtendedImage().getMetaDataValuesStringByDefinition(filterDefinition.metaDataDefinitionItem);
-                    filterDefinition.comboBoxValue2.Text = "";
+                    if (filterDefinition.visible)
+                    {
+                        filterDefinition.comboBoxOperator1.Text = "";
+                        filterDefinition.comboBoxOperator2.Text = "";
+                        filterDefinition.comboBoxValue1.Text = MainMaskInterface.getTheExtendedImage().getMetaDataValuesStringByDefinition(filterDefinition.metaDataDefinitionItem);
+                        filterDefinition.comboBoxValue2.Text = "";
+                    }
                 }
                 theUserControlMap.newLocation(MainMaskInterface.getTheExtendedImage().getRecordingLocation(), true);
             }
@@ -633,130 +661,133 @@ namespace QuickImageComment
             {
                 foreach (FilterDefinition filterDefinition in filterDefinitions)
                 {
-                    if (filterDefinition.comboBoxOperator1 != null && !filterDefinition.comboBoxOperator1.Text.Equals(""))
+                    if (filterDefinition.visible)
                     {
-                        if (filterDefinition.comboBoxValue1.Text.Trim().Equals("") &&
-                            !filterDefinition.comboBoxOperator1.Text.Equals("=") &&
-                            !filterDefinition.comboBoxOperator1.Text.Equals("<>"))
+                        if (filterDefinition.comboBoxOperator1 != null && !filterDefinition.comboBoxOperator1.Text.Equals(""))
                         {
-                            GeneralUtilities.message(LangCfg.Message.W_emptyFindValueNotAllowed1, filterDefinition.metaDataDefinitionItem.Name);
-                            throw new ExceptionFilterError();
-                        }
-
-                        addAndSortFindFilterEntries(filterDefinition.comboBoxValue1);
-
-                        if (filterDefinition.comboBoxOperator1.Text.Equals(LangCfg.getText(LangCfg.Others.selectOpContains)))
-                        {
-                            query += " and " + filterDefinition.metaDataDefinitionItem.KeyPrim
-                                             + " like '*" + filterDefinition.comboBoxValue1.Text + "*'";
-                        }
-                        else if (filterDefinition.comboBoxOperator1.Text.Equals(LangCfg.getText(LangCfg.Others.selectOpContainsNot)))
-                        {
-                            query += " and (not " + filterDefinition.metaDataDefinitionItem.KeyPrim
-                                                  + " like '*" + filterDefinition.comboBoxValue1.Text + "*'"
-                                                  + " or " + filterDefinition.metaDataDefinitionItem.KeyPrim + " is null)";
-                        }
-                        else if (filterDefinition.comboBoxOperator1.Text.Equals(LangCfg.getText(LangCfg.Others.selectOpStartsWith)))
-                        {
-                            query += " and " + filterDefinition.metaDataDefinitionItem.KeyPrim
-                                             + " like '" + filterDefinition.comboBoxValue1.Text + "*'";
-                        }
-                        else if (filterDefinition.comboBoxOperator1.Text.Equals(LangCfg.getText(LangCfg.Others.selectOpStartsNotWith)))
-                        {
-                            query += " and (not " + filterDefinition.metaDataDefinitionItem.KeyPrim
-                                                  + " like '" + filterDefinition.comboBoxValue1.Text + "*'"
-                                                  + " or " + filterDefinition.metaDataDefinitionItem.KeyPrim + " is null)";
-                        }
-                        else if (filterDefinition.comboBoxOperator1.Text.Equals(LangCfg.getText(LangCfg.Others.selectOpEndsWith)))
-                        {
-                            query += " and " + filterDefinition.metaDataDefinitionItem.KeyPrim
-                                             + " like '*" + filterDefinition.comboBoxValue1.Text + "'";
-                        }
-                        else if (filterDefinition.comboBoxOperator1.Text.Equals(LangCfg.getText(LangCfg.Others.selectOpEndsNotWith)))
-                        {
-                            query += " and (not " + filterDefinition.metaDataDefinitionItem.KeyPrim
-                                                  + " like '*" + filterDefinition.comboBoxValue1.Text + "'"
-                                                  + " or " + filterDefinition.metaDataDefinitionItem.KeyPrim + " is null)";
-                        }
-                        else
-                        {
-                            MetaDataDefinitionItem aMetaDataDefinitionItem = ((FilterDefinition)filterDefinition.comboBoxValue1.Tag).metaDataDefinitionItem;
-                            if (filterDefinition.comboBoxValue1.Text.Trim().Equals(""))
+                            if (filterDefinition.comboBoxValue1.Text.Trim().Equals("") &&
+                                !filterDefinition.comboBoxOperator1.Text.Equals("=") &&
+                                !filterDefinition.comboBoxOperator1.Text.Equals("<>"))
                             {
-                                if (filterDefinition.comboBoxOperator1.Text.Equals("="))
-                                    query += " and " + filterDefinition.metaDataDefinitionItem.KeyPrim + " is null";
-                                else
-                                    query += " and " + filterDefinition.metaDataDefinitionItem.KeyPrim + " is not null";
+                                GeneralUtilities.message(LangCfg.Message.W_emptyFindValueNotAllowed1, filterDefinition.metaDataDefinitionItem.Name);
+                                throw new ExceptionFilterError();
                             }
-                            else if (GeneralUtilities.isDateProperty(aMetaDataDefinitionItem.KeyPrim, aMetaDataDefinitionItem.TypePrim))
-                            {
-                                if (filterDefinition.comboBoxOperator1.Text.Equals("="))
-                                {
-                                    query += " and " + filterDefinition.metaDataDefinitionItem.KeyPrim + " >= "
-                                                     + getValueForSelectWithCheck(filterDefinition.comboBoxValue1, DateModifierForSelect.min);
-                                    query += " and " + filterDefinition.metaDataDefinitionItem.KeyPrim + " <= "
-                                                     + getValueForSelectWithCheck(filterDefinition.comboBoxValue1, DateModifierForSelect.max);
-                                }
-                                else if (filterDefinition.comboBoxOperator1.Text.Equals("<>"))
-                                {
-                                    query += " and (" + filterDefinition.metaDataDefinitionItem.KeyPrim + " < "
-                                                      + getValueForSelectWithCheck(filterDefinition.comboBoxValue1, DateModifierForSelect.min)
-                                                      + " or " + filterDefinition.metaDataDefinitionItem.KeyPrim + " > "
-                                                      + getValueForSelectWithCheck(filterDefinition.comboBoxValue1, DateModifierForSelect.max)
-                                                      + " or " + filterDefinition.metaDataDefinitionItem.KeyPrim + " is null)";
-                                }
-                                else
-                                {
-                                    DateModifierForSelect dateModifierForSelect = DateModifierForSelect.none;
-                                    if (filterDefinition.comboBoxOperator1.Text.Equals(">"))
-                                        dateModifierForSelect = DateModifierForSelect.max;
-                                    else if (filterDefinition.comboBoxOperator1.Text.Equals(">="))
-                                        dateModifierForSelect = DateModifierForSelect.min;
-                                    else
-                                        throw new Exception("Internal program error: select operator '" + filterDefinition.comboBoxOperator1.Text + "' not handled.");
 
-                                    query += " and " + filterDefinition.metaDataDefinitionItem.KeyPrim + " "
-                                                     + filterDefinition.comboBoxOperator1.Text + " "
-                                                     + getValueForSelectWithCheck(filterDefinition.comboBoxValue1, dateModifierForSelect);
-                                }
-                            }
-                            else if (filterDefinition.comboBoxOperator1.Text.Equals("<>"))
+                            addAndSortFindFilterEntries(filterDefinition.comboBoxValue1);
+
+                            if (filterDefinition.comboBoxOperator1.Text.Equals(LangCfg.getText(LangCfg.Others.selectOpContains)))
                             {
-                                query += " and (" + filterDefinition.metaDataDefinitionItem.KeyPrim + " "
-                                                  + filterDefinition.comboBoxOperator1.Text + " "
-                                                  + getValueForSelectWithCheck(filterDefinition.comboBoxValue1, DateModifierForSelect.none)
-                                                  + " or " + filterDefinition.metaDataDefinitionItem.KeyPrim + " is null)";
+                                query += " and " + filterDefinition.columnNameForQuery
+                                                 + " like '*" + filterDefinition.comboBoxValue1.Text + "*'";
+                            }
+                            else if (filterDefinition.comboBoxOperator1.Text.Equals(LangCfg.getText(LangCfg.Others.selectOpContainsNot)))
+                            {
+                                query += " and (not " + filterDefinition.columnNameForQuery
+                                                      + " like '*" + filterDefinition.comboBoxValue1.Text + "*'"
+                                                      + " or " + filterDefinition.columnNameForQuery + " is null)";
+                            }
+                            else if (filterDefinition.comboBoxOperator1.Text.Equals(LangCfg.getText(LangCfg.Others.selectOpStartsWith)))
+                            {
+                                query += " and " + filterDefinition.columnNameForQuery
+                                                 + " like '" + filterDefinition.comboBoxValue1.Text + "*'";
+                            }
+                            else if (filterDefinition.comboBoxOperator1.Text.Equals(LangCfg.getText(LangCfg.Others.selectOpStartsNotWith)))
+                            {
+                                query += " and (not " + filterDefinition.columnNameForQuery
+                                                      + " like '" + filterDefinition.comboBoxValue1.Text + "*'"
+                                                      + " or " + filterDefinition.columnNameForQuery + " is null)";
+                            }
+                            else if (filterDefinition.comboBoxOperator1.Text.Equals(LangCfg.getText(LangCfg.Others.selectOpEndsWith)))
+                            {
+                                query += " and " + filterDefinition.columnNameForQuery
+                                                 + " like '*" + filterDefinition.comboBoxValue1.Text + "'";
+                            }
+                            else if (filterDefinition.comboBoxOperator1.Text.Equals(LangCfg.getText(LangCfg.Others.selectOpEndsNotWith)))
+                            {
+                                query += " and (not " + filterDefinition.columnNameForQuery
+                                                      + " like '*" + filterDefinition.comboBoxValue1.Text + "'"
+                                                      + " or " + filterDefinition.columnNameForQuery + " is null)";
                             }
                             else
                             {
-                                query += " and " + filterDefinition.metaDataDefinitionItem.KeyPrim + " "
-                                                 + filterDefinition.comboBoxOperator1.Text + " "
-                                                 + getValueForSelectWithCheck(filterDefinition.comboBoxValue1, DateModifierForSelect.none);
+                                MetaDataDefinitionItem aMetaDataDefinitionItem = ((FilterDefinition)filterDefinition.comboBoxValue1.Tag).metaDataDefinitionItem;
+                                if (filterDefinition.comboBoxValue1.Text.Trim().Equals(""))
+                                {
+                                    if (filterDefinition.comboBoxOperator1.Text.Equals("="))
+                                        query += " and " + filterDefinition.columnNameForQuery + " is null";
+                                    else
+                                        query += " and " + filterDefinition.columnNameForQuery + " is not null";
+                                }
+                                else if (GeneralUtilities.isDateProperty(aMetaDataDefinitionItem.KeyPrim, aMetaDataDefinitionItem.TypePrim))
+                                {
+                                    if (filterDefinition.comboBoxOperator1.Text.Equals("="))
+                                    {
+                                        query += " and " + filterDefinition.columnNameForQuery + " >= "
+                                                         + getValueForSelectWithCheck(filterDefinition.comboBoxValue1, DateModifierForSelect.min);
+                                        query += " and " + filterDefinition.columnNameForQuery + " <= "
+                                                         + getValueForSelectWithCheck(filterDefinition.comboBoxValue1, DateModifierForSelect.max);
+                                    }
+                                    else if (filterDefinition.comboBoxOperator1.Text.Equals("<>"))
+                                    {
+                                        query += " and (" + filterDefinition.columnNameForQuery + " < "
+                                                          + getValueForSelectWithCheck(filterDefinition.comboBoxValue1, DateModifierForSelect.min)
+                                                          + " or " + filterDefinition.columnNameForQuery + " > "
+                                                          + getValueForSelectWithCheck(filterDefinition.comboBoxValue1, DateModifierForSelect.max)
+                                                          + " or " + filterDefinition.columnNameForQuery + " is null)";
+                                    }
+                                    else
+                                    {
+                                        DateModifierForSelect dateModifierForSelect = DateModifierForSelect.none;
+                                        if (filterDefinition.comboBoxOperator1.Text.Equals(">"))
+                                            dateModifierForSelect = DateModifierForSelect.max;
+                                        else if (filterDefinition.comboBoxOperator1.Text.Equals(">="))
+                                            dateModifierForSelect = DateModifierForSelect.min;
+                                        else
+                                            throw new Exception("Internal program error: select operator '" + filterDefinition.comboBoxOperator1.Text + "' not handled.");
+
+                                        query += " and " + filterDefinition.columnNameForQuery + " "
+                                                         + filterDefinition.comboBoxOperator1.Text + " "
+                                                         + getValueForSelectWithCheck(filterDefinition.comboBoxValue1, dateModifierForSelect);
+                                    }
+                                }
+                                else if (filterDefinition.comboBoxOperator1.Text.Equals("<>"))
+                                {
+                                    query += " and (" + filterDefinition.columnNameForQuery + " "
+                                                      + filterDefinition.comboBoxOperator1.Text + " "
+                                                      + getValueForSelectWithCheck(filterDefinition.comboBoxValue1, DateModifierForSelect.none)
+                                                      + " or " + filterDefinition.columnNameForQuery + " is null)";
+                                }
+                                else
+                                {
+                                    query += " and " + filterDefinition.columnNameForQuery + " "
+                                                     + filterDefinition.comboBoxOperator1.Text + " "
+                                                     + getValueForSelectWithCheck(filterDefinition.comboBoxValue1, DateModifierForSelect.none);
+                                }
                             }
                         }
-                    }
 
-                    if (filterDefinition.comboBoxOperator2 != null && !filterDefinition.comboBoxOperator2.Text.Equals(""))
-                    {
-                        if (filterDefinition.comboBoxValue2.Text.Trim().Equals(""))
+                        if (filterDefinition.comboBoxOperator2 != null && !filterDefinition.comboBoxOperator2.Text.Equals(""))
                         {
-                            GeneralUtilities.message(LangCfg.Message.W_emptyFindValueNotAllowed2, filterDefinition.metaDataDefinitionItem.Name);
-                            throw new ExceptionFilterError();
+                            if (filterDefinition.comboBoxValue2.Text.Trim().Equals(""))
+                            {
+                                GeneralUtilities.message(LangCfg.Message.W_emptyFindValueNotAllowed2, filterDefinition.metaDataDefinitionItem.Name);
+                                throw new ExceptionFilterError();
+                            }
+
+                            addAndSortFindFilterEntries(filterDefinition.comboBoxValue2);
+
+                            DateModifierForSelect dateModifierForSelect;
+                            if (filterDefinition.comboBoxOperator2.Text.Equals("<"))
+                                dateModifierForSelect = DateModifierForSelect.min;
+                            else if (filterDefinition.comboBoxOperator2.Text.Equals("<="))
+                                dateModifierForSelect = DateModifierForSelect.max;
+                            else
+                                throw new Exception("Internal program error: select operator '" + filterDefinition.comboBoxOperator2.Text + "' not handled.");
+
+                            query += " and " + filterDefinition.columnNameForQuery + " "
+                                             + filterDefinition.comboBoxOperator2.Text + " "
+                                             + getValueForSelectWithCheck(filterDefinition.comboBoxValue2, dateModifierForSelect);
                         }
-
-                        addAndSortFindFilterEntries(filterDefinition.comboBoxValue2);
-
-                        DateModifierForSelect dateModifierForSelect;
-                        if (filterDefinition.comboBoxOperator2.Text.Equals("<"))
-                            dateModifierForSelect = DateModifierForSelect.min;
-                        else if (filterDefinition.comboBoxOperator2.Text.Equals("<="))
-                            dateModifierForSelect = DateModifierForSelect.max;
-                        else
-                            throw new Exception("Internal program error: select operator '" + filterDefinition.comboBoxOperator2.Text + "' not handled.");
-
-                        query += " and " + filterDefinition.metaDataDefinitionItem.KeyPrim + " "
-                                         + filterDefinition.comboBoxOperator2.Text + " "
-                                         + getValueForSelectWithCheck(filterDefinition.comboBoxValue2, dateModifierForSelect);
                     }
                 }
 
@@ -911,20 +942,17 @@ namespace QuickImageComment
 
             lock (LockDataTable)
             {
-                getMetaDataDefinitionsForFindAndCreateDataTable();
+                createDataTable();
                 Logger.log("Datentabelle erzeugt");
 
                 // throw (new Exception("ExceptionTest in BackgroundWorker"));
-
-                // get arraylist with needed keys
-                ArrayList neededKeys = ConfigDefinition.getNeededKeysIncludingReferences(MetaDataDefinitionsForFind);
 
                 for (int ii = 0; ii < ImageFilesInfo.Length; ii++)
                 {
                     exportedCount++;
                     DataRow row = dataTable.NewRow();
                     row["FileName"] = ImageFilesInfo[ii].FullName;
-                    extendedImage = new ExtendedImage(ImageFilesInfo[ii], neededKeys);
+                    extendedImage = new ExtendedImage(ImageFilesInfo[ii], MetaDataDefinitionsToRead);
                     fillDataTableRow(row, extendedImage, formFindReadErrors);
                     dataTable.Rows.Add(row);
 
@@ -1079,8 +1107,7 @@ namespace QuickImageComment
             foreach (DataRow dataRow in selectResult)
             {
                 Logger.log("verändert oder neu: " + dataRow["FileName"]);
-                extendedImage = new ExtendedImage(new FileInfo((string)dataRow["FileName"]), 
-                    ConfigDefinition.getNeededKeysIncludingReferences(MetaDataDefinitionsForFind));
+                extendedImage = new ExtendedImage(new FileInfo((string)dataRow["FileName"]), MetaDataDefinitionsToRead);
                 addOrUpdateRow(extendedImage);
                 count++;
             }
@@ -1283,11 +1310,15 @@ namespace QuickImageComment
 
         private void panelFilterInner_Resize(object sender, EventArgs e)
         {
-            if (filterDefinitions != null)
+            // event can be fired, before filter definitions are completed with controls
+            if (filterDefinitionsComplete)
             {
                 foreach (FilterDefinition filterDefinition in filterDefinitions)
                 {
-                    setLeftWidthOfRightFilterControls(filterDefinition);
+                    if (filterDefinition.visible)
+                    {
+                        setLeftWidthOfRightFilterControls(filterDefinition);
+                    }
                 }
             }
         }
@@ -1330,16 +1361,19 @@ namespace QuickImageComment
         // add or update a row with file name
         public static void addOrUpdateRow(string fullFileName)
         {
-            if (dataTable != null && fullFileName.StartsWith((string)dataTable.ExtendedProperties["Folder"]))
+            if (dataTable != null && dataTable.ExtendedProperties.Count > 0)
             {
-                try
+                string tableFolder = (string)dataTable.ExtendedProperties["Folder"];
+                if (tableFolder != null && fullFileName.StartsWith(tableFolder))
                 {
-                    ExtendedImage extendedImage = new ExtendedImage(new FileInfo(fullFileName), 
-                        ConfigDefinition.getNeededKeysIncludingReferences(MetaDataDefinitionsForFind));
-                    addOrUpdateRow(extendedImage);
+                    try
+                    {
+                        ExtendedImage extendedImage = new ExtendedImage(new FileInfo(fullFileName), MetaDataDefinitionsToRead);
+                        addOrUpdateRow(extendedImage);
+                    }
+                    // in case of errors do nothing, most likely it is no valid image or video file
+                    catch { }
                 }
-                // in case of errors do nothing, most likely it is no valid image or video file
-                catch { }
             }
         }
 
@@ -1379,6 +1413,49 @@ namespace QuickImageComment
         //*****************************************************************
         #region Utilities
         //*****************************************************************
+        private void fillFilterDefinitionsAndKeyLists()
+        {
+            filterDefinitionsComplete = false;
+            filterDefinitions = new ArrayList();
+
+            // initialse filterDefinitions with MetaDataDefinitions visible in mask
+            foreach (MetaDataDefinitionItem aMetaDataDefinitionItem in
+                ConfigDefinition.getMetaDataDefinitions(ConfigDefinition.enumMetaDataGroup.MetaDataDefForFind))
+            {
+                filterDefinitions.Add(new FilterDefinition(aMetaDataDefinitionItem, true));
+            }
+
+            // check if latitude and longitude are included. if not: add
+            bool signedLatFound = false;
+            bool signedLonFound = false;
+
+            for (int ii = 0; ii < filterDefinitions.Count; ii++)
+            {
+                MetaDataDefinitionItem aMetaDataDefinitionItem = ((FilterDefinition)filterDefinitions[ii]).metaDataDefinitionItem;
+                if (aMetaDataDefinitionItem.KeyPrim.Equals(""))
+                {
+                    // if primary key is not defined, it will cause a crash later
+                    // checked here although it is now checked in FormMetaDataDefinition but could have been configured before
+                    filterDefinitions.RemoveAt(ii);
+                }
+                else
+                {
+                    if (aMetaDataDefinitionItem.KeyPrim.Equals("Image.GPSsignedLatitude")) signedLatFound = true;
+                    if (aMetaDataDefinitionItem.KeyPrim.Equals("Image.GPSsignedLongitude")) signedLonFound = true;
+                }
+            }
+            if (!signedLatFound) filterDefinitions.Add(new FilterDefinition(
+                new MetaDataDefinitionItem("Image.GPSsignedLatitude", "Image.GPSsignedLatitude"), false));
+            if (!signedLonFound) filterDefinitions.Add(new FilterDefinition(
+                new MetaDataDefinitionItem("Image.GPSsignedLongitude", "Image.GPSsignedLongitude"), false));
+
+            ArrayList MetaDataDefinitionsToStore = new ArrayList();
+            for (int ii = 0; ii < filterDefinitions.Count; ii++)
+            {
+                MetaDataDefinitionsToStore.Add(((FilterDefinition)filterDefinitions[ii]).metaDataDefinitionItem);
+            }
+            MetaDataDefinitionsToRead = ConfigDefinition.getNeededKeysIncludingReferences(MetaDataDefinitionsToStore);
+        }
 
         // add an entry to list of filter entries and sort list
         private void addAndSortFindFilterEntries(ComboBox comboBoxValue)
@@ -1401,31 +1478,8 @@ namespace QuickImageComment
         }
 
         // create the data table based on meta data configuration
-        private void getMetaDataDefinitionsForFindAndCreateDataTable()
+        private void createDataTable()
         {
-            bool signedLatFound = false;
-            bool signedLonFound = false;
-
-            MetaDataDefinitionsForFind = new ArrayList(ConfigDefinition.getMetaDataDefinitions(ConfigDefinition.enumMetaDataGroup.MetaDataDefForFind));
-            // check if latitude and longitude are included. if not: add
-            for (int ii = 0; ii < MetaDataDefinitionsForFind.Count; ii++)
-            {
-                MetaDataDefinitionItem aMetaDataDefinitionItem = (MetaDataDefinitionItem)MetaDataDefinitionsForFind[ii];
-                if (aMetaDataDefinitionItem.KeyPrim.Equals(""))
-                {
-                    // if primary key is not defined, it will cause a crash later
-                    // checked here although it is now checked in FormMetaDataDefinition but could have been configured before
-                    MetaDataDefinitionsForFind.RemoveAt(ii);
-                }
-                else
-                {
-                    if (aMetaDataDefinitionItem.KeyPrim.Equals("Image.GPSsignedLatitude")) signedLatFound = true;
-                    if (aMetaDataDefinitionItem.KeyPrim.Equals("Image.GPSsignedLongitude")) signedLonFound = true;
-                }
-            }
-            if (!signedLatFound) MetaDataDefinitionsForFind.Add(new MetaDataDefinitionItem("Image.GPSsignedLatitude", "Image.GPSsignedLatitude"));
-            if (!signedLonFound) MetaDataDefinitionsForFind.Add(new MetaDataDefinitionItem("Image.GPSsignedLongitude", "Image.GPSsignedLongitude"));
-
             dataTable = new DataTable(dataTableNameFind);
             dataTable.ExtendedProperties.Add("Folder", FolderName);
             dataTable.Columns.Add("FileName", System.Type.GetType("System.String"));
@@ -1435,8 +1489,9 @@ namespace QuickImageComment
             dataTable.PrimaryKey = primaryKey;
 
             // add columns for cofigured properties
-            foreach (MetaDataDefinitionItem aMetaDataDefinitionItem in MetaDataDefinitionsForFind)
+            foreach (FilterDefinition filterDefinition in filterDefinitions)
             {
+                MetaDataDefinitionItem aMetaDataDefinitionItem = filterDefinition.metaDataDefinitionItem;
                 if (GeneralUtilities.isDateProperty(aMetaDataDefinitionItem.KeyPrim, aMetaDataDefinitionItem.TypePrim))
                 {
                     dataTable.Columns.Add(aMetaDataDefinitionItem.KeyPrim, System.Type.GetType("System.DateTime"));
@@ -1455,6 +1510,12 @@ namespace QuickImageComment
                 {
                     dataTable.Columns.Add(aMetaDataDefinitionItem.KeyPrim, System.Type.GetType("System.String"));
                 }
+                filterDefinition.columnNameForQuery = aMetaDataDefinitionItem.KeyPrim;
+                if (filterDefinition.columnNameForQuery.Contains("["))
+                {
+                    filterDefinition.columnNameForQuery = filterDefinition.columnNameForQuery.Replace("]", "\\]");
+                    filterDefinition.columnNameForQuery = "[" + filterDefinition.columnNameForQuery + "]";
+                }
             }
         }
 
@@ -1464,8 +1525,9 @@ namespace QuickImageComment
             System.IO.FileInfo theFileInfo = new System.IO.FileInfo(extendedImage.getImageFileName());
             row["Modified"] = theFileInfo.LastWriteTime;
 
-            foreach (MetaDataDefinitionItem aMetaDataDefinitionItem in MetaDataDefinitionsForFind)
+            foreach (FilterDefinition filterDefinition in filterDefinitions)
             {
+                MetaDataDefinitionItem aMetaDataDefinitionItem = filterDefinition.metaDataDefinitionItem;
                 string stringValue = extendedImage.getMetaDataValuesStringByDefinition(aMetaDataDefinitionItem).Trim();
                 if (!stringValue.Equals(""))
                 {
@@ -1563,7 +1625,7 @@ namespace QuickImageComment
             }
             catch (GeneralUtilities.ExceptionConversionError ex)
             {
-                GeneralUtilities.message(LangCfg.Message.W_invalidFilterValue, ((FilterDefinition)comboBoxValue.Tag).name, ex.Message);
+                GeneralUtilities.message(LangCfg.Message.W_invalidFilterValue, ((FilterDefinition)comboBoxValue.Tag).displayName, ex.Message);
                 throw new ExceptionFilterError();
             }
         }
@@ -1648,7 +1710,7 @@ namespace QuickImageComment
             string fileName = ConfigDefinition.getIniPath() + dataTableFileName;
             if (System.IO.File.Exists(fileName))
             {
-                getMetaDataDefinitionsForFindAndCreateDataTable();
+                createDataTable();
 
                 try
                 {
