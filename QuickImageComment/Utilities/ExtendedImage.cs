@@ -391,7 +391,7 @@ namespace QuickImageComment
 
             if (System.IO.File.Exists(ImageFileName))
             {
-                this.FullSizeImage = new Bitmap(1, 1); // just an empty image ok
+                this.FullSizeImage = new Bitmap(1, 1); // just an empty image
                 System.IO.FileInfo theFileInfo = new System.IO.FileInfo(ImageFileName);
                 double FileSize = theFileInfo.Length;
                 FileSize = FileSize / 1024;
@@ -1034,7 +1034,7 @@ namespace QuickImageComment
         // to read creation and modification time after changing these file data
         public void readFileDates()
         {
-            System.IO.FileInfo theFileInfo = new System.IO.FileInfo(ImageFileName); //ok
+            System.IO.FileInfo theFileInfo = new System.IO.FileInfo(ImageFileName);
             addReplaceOtherMetaDataKnownType("File.Modified", theFileInfo.LastWriteTime.ToString());
             addReplaceOtherMetaDataKnownType("File.Created", theFileInfo.CreationTime.ToString());
             // add other meta data defined by general config file

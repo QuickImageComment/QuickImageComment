@@ -788,10 +788,50 @@ namespace QuickImageComment
         }
 
         // get arraylist of all Image-files, all directories, recursively in case of access denied exception
-        //!! Rekursion when access denied
         public static FileInfo[] getFileInfosFromFolderAllDirectories(string TopFolderName, BackgroundWorker worker, DoWorkEventArgs doWorkEventArgs)
         {
-            return getFileInfosFromFolder(TopFolderName, true);
+            try
+            {
+                return getFileInfosFromFolder(TopFolderName, true);
+            }
+            catch (System.UnauthorizedAccessException)
+            {
+                // not access for at least one folder
+                // recursively read folders
+                if (worker.CancellationPending)
+                {
+                    doWorkEventArgs.Cancel = true;
+                    return new FileInfo[0];
+                }
+                else if (worker.WorkerReportsProgress)
+                {
+                    worker.ReportProgress(0, LangCfg.getText(LangCfg.Others.scanFolder) + " " + TopFolderName);
+                }
+
+                FileInfo[] fileInfos;
+                FileInfo[] fileInfosSub;
+                {
+                    fileInfos = getFileInfosFromFolder(TopFolderName, false);
+
+                    DirectoryInfo TopFolderNameInfo = new DirectoryInfo(TopFolderName);
+                    DirectoryInfo[] SubFolders = TopFolderNameInfo.GetDirectories();
+
+                    for (int ii = 0; ii < SubFolders.Length; ii++)
+                    {
+                        // try-catch to skip if there is no access to a specific folder
+                        try
+                        {
+                            fileInfosSub = getFileInfosFromFolderAllDirectories(TopFolderName + "\\" + SubFolders[ii].Name, worker, doWorkEventArgs);
+                            fileInfos = fileInfos.Concat(fileInfosSub).ToArray();
+                        }
+                        catch (System.UnauthorizedAccessException)
+                        {
+                            // ignore this exception
+                        }
+                    }
+                }
+                return fileInfos;
+            }
         }
 
         public static void trace(ConfigDefinition.enumConfigFlags traceFlag, string inputString, int stackLevel = 0)

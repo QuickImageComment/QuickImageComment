@@ -19,6 +19,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace QuickImageComment
@@ -110,7 +111,6 @@ namespace QuickImageComment
 
         public FormFind()
         {
-            Logger.log("Maske initialisieren Start");
             InitializeComponent();
             dynamicLabelScanInformation.Visible = false;
             progressPanel1.Visible = false;
@@ -120,13 +120,11 @@ namespace QuickImageComment
             dynamicLabelRemainingTime.Visible = false;
             buttonCancelRead.Visible = false;
 
-            Logger.log("Suchmaske initialisieren Start");
             dataTableFileName = ConfigDefinition.getConfigString(ConfigDefinition.enumConfigString.FindDataTableFileName);
             if (!ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.FindShowDataTable))
             {
                 checkBoxShowDataTable.Visible = false;
             }
-            Logger.log("vor load data table");
 
             fillFilterDefinitionsAndKeyLists();
 
@@ -135,7 +133,7 @@ namespace QuickImageComment
             {
                 loadDataTable();
             }
-            Logger.log("Daten verfügbar");
+            Logger.log("Daten verfügbar *");
             dataGridView1.Visible = checkBoxShowDataTable.Checked;
             buttonAbort.Select();
             CustomizationInterface = MainMaskInterface.getCustomizationInterface();
@@ -163,11 +161,8 @@ namespace QuickImageComment
 
             // Specific constructor code
             CustomizationInterface.setFormToCustomizedValues(this);
-            Logger.log("vor fillFilterPanelWithControls");
             fillFilterPanelWithControls();
-            Logger.log("nach fillFilterPanelWithControls");
             fillItemsFilterFields();
-            Logger.log("fillItemsFilterFields");
 
             // if flag set, return (is sufficient to create control texts list)
             if (GeneralUtilities.CloseAfterConstructing)
@@ -175,13 +170,11 @@ namespace QuickImageComment
                 LangCfg.translateControlTexts(this);
                 return;
             }
-            Logger.log("Suchmaske initialisieren Ende");
         }
 
         // set folder and controls enable/disable based on data table (empty or not), then show dialog
         public void setFolderDependingControlsAndShowDialog(string givenFolderName)
         {
-            Logger.log("enter setFolderDependingControlsAndShowDialog");
 #if APPCENTER
             if (Program.AppCenterUsable) Microsoft.AppCenter.Analytics.Analytics.TrackEvent(this.Name);
 #endif
@@ -195,7 +188,6 @@ namespace QuickImageComment
             dynamicLabelFolder.Text = FolderName;
             setControlsDependingOnDataTable();
             this.ShowDialog();
-            Logger.log("Anzeige Suchmaske");
         }
 
         // create screenshot and close
@@ -569,10 +561,8 @@ namespace QuickImageComment
                 fillFilterDefinitionsAndKeyLists();
                 fillFilterPanelWithControls();
                 fillItemsFilterFields();
-                Logger.log("before lock");
                 lock (LockDataTable)
                 {
-                    Logger.log("lock free");
                     dataTable = null;
                     setControlsDependingOnDataTable();
                 }
@@ -927,11 +917,11 @@ namespace QuickImageComment
             ExtendedImage extendedImage;
             System.ComponentModel.BackgroundWorker worker = sender as System.ComponentModel.BackgroundWorker;
 
-            Logger.log("Initiale Befüllung Start");
+            Logger.log("Initiale Befüllung Start *");
             // get all files including files in subfolders
             FileInfo[] ImageFilesInfo = GeneralUtilities.getFileInfosFromFolderAllDirectories(FolderName, worker, doWorkEventArgs);
             totalCount = ImageFilesInfo.Length;
-            Logger.log("Dateiliste erzeugt rekursiv ohne Backgroundworker");
+            Logger.log("Dateiliste erzeugt *");
             // ProgressPercentage is used as case indication for updating mask
             worker.ReportProgress(0);
 
@@ -943,7 +933,7 @@ namespace QuickImageComment
             lock (LockDataTable)
             {
                 createDataTable();
-                Logger.log("Datentabelle erzeugt");
+                Logger.log("Datentabelle erzeugt *");
 
                 // throw (new Exception("ExceptionTest in BackgroundWorker"));
 
@@ -969,7 +959,7 @@ namespace QuickImageComment
                     }
                 }
             }
-            Logger.log("Initiale Befüllung Ende");
+            Logger.log("Initiale Befüllung Ende *");
         }
 
         private void backgroundWorkerInit_ProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)
@@ -1057,7 +1047,7 @@ namespace QuickImageComment
 
         private void backgroundWorkerUpdate_DoWork(object sender, System.ComponentModel.DoWorkEventArgs doWorkEventArgs)
         {
-            Logger.log("Update Daten Start");
+            Logger.log("Update Daten Start *");
             ExtendedImage extendedImage;
             object[] findSpec = new object[1];
 
@@ -1066,7 +1056,7 @@ namespace QuickImageComment
             // get all files including files in subfolders
             FileInfo[] ImageFilesInfo = GeneralUtilities.getFileInfosFromFolderAllDirectories(FolderName, worker, doWorkEventArgs);
             totalCount = ImageFilesInfo.Length;
-            Logger.log("Liste der Dateien erstellt " + totalCount.ToString());
+            Logger.log("Liste der Dateien erstellt * " + totalCount.ToString());
 
             progressPanel1.init(totalCount);
 
@@ -1085,33 +1075,32 @@ namespace QuickImageComment
                 row["ModifiedRead"] = ImageFilesInfo[ii].LastWriteTime;
                 dataTableMerge.Rows.Add(row);
             }
-            Logger.log("Tabelle mit Liste der Dateien gefüllt " + dataTableMerge.Rows.Count.ToString());
+            Logger.log("Tabelle mit Liste der Dateien gefüllt * " + dataTableMerge.Rows.Count.ToString());
 
             dataTableMerge.Merge(dataTable);
-            Logger.log("Daten alt/neu kombiniert " + dataTableMerge.Rows.Count.ToString());
+            Logger.log("Daten alt/neu kombiniert * " + dataTableMerge.Rows.Count.ToString());
 
             // file was deleted since last update of table
             DataRow[] selectResult = dataTableMerge.Select("ModifiedRead is null");
             int count = 0;
             foreach (DataRow dataRow in selectResult)
             {
-                Logger.log("nicht mehr vorhanden: " + dataRow["FileName"]);
                 dataTable.Rows.Find(dataRow["FileName"]).Delete();
                 count++;
             }
-            Logger.log("Nicht mehr vorhandene gelöscht " + count.ToString());
+            Logger.log("Nicht mehr vorhandene gelöscht * " + count.ToString());
 
             // new file or file was updated since table was filled
             selectResult = dataTableMerge.Select("ModifiedRead > Modified or Modified is null");
             count = 0;
             foreach (DataRow dataRow in selectResult)
             {
-                Logger.log("verändert oder neu: " + dataRow["FileName"]);
                 extendedImage = new ExtendedImage(new FileInfo((string)dataRow["FileName"]), MetaDataDefinitionsToRead);
                 addOrUpdateRow(extendedImage);
                 count++;
             }
-            Logger.log("Neue ergänzt, veränderte aktualisiert " + count.ToString());
+            Logger.log("Neue ergänzt, veränderte aktualisiert * " + count.ToString());
+            Logger.log("Update Daten Ende *");
         }
 
         private void backgroundWorkerUpdate_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
@@ -1698,9 +1687,9 @@ namespace QuickImageComment
                 if (dataTable != null && dataTable.Rows.Count > 0)
                 {
                     string fileName = ConfigDefinition.getIniPath() + dataTableFileName;
-                    Logger.log("XML-Daten-Datei schreiben Start");
+                    Logger.log("XML-Daten-Datei schreiben Start *");
                     dataTable.WriteXml(fileName, System.Data.XmlWriteMode.WriteSchema);
-                    Logger.log("XML-Daten-Datei schreiben Ende");
+                    Logger.log("XML-Daten-Datei schreiben Ende *");
                 }
             }
         }
@@ -1731,9 +1720,9 @@ namespace QuickImageComment
                         }
                     }
                     // columns are identical, load data
-                    Logger.log("Lese XML-Daten-Datei Start");
+                    Logger.log("Lese XML-Daten-Datei Start *");
                     dataTable.ReadXml(fileName);
-                    Logger.log("Lese XML-Daten-Datei Ende");
+                    Logger.log("Lese XML-Daten-Datei Ende *");
                     // copy folder name from table schema read from XML file
                     dataTable.ExtendedProperties["Folder"] = checkTable.ExtendedProperties["Folder"];
                     FolderName = (string)dataTable.ExtendedProperties["Folder"];
