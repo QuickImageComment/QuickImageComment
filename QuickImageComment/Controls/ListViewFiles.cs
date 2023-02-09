@@ -172,8 +172,8 @@ namespace QuickImageCommentControls
             this.Scroll += new System.Windows.Forms.ScrollEventHandler(this.listViewFiles_Scroll);
             this.DrawItem += new System.Windows.Forms.DrawListViewItemEventHandler(this.listViewFiles_DrawItem);
             this.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.listViewFiles_MouseWheel);
-            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ListViewFiles_MouseDown);
-            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ListViewFiles_MouseMove);
+            //this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ListViewFiles_MouseDown);
+            //this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ListViewFiles_MouseMove);
             this.SizeChanged += new System.EventHandler(this.listViewFiles_SizeChanged);
 
             this.ResumeLayout(false);
@@ -579,7 +579,7 @@ namespace QuickImageCommentControls
                 // select new if needed
                 Point localPoint = this.PointToClient(Cursor.Position);
                 ListViewItem item = this.GetItemAt(localPoint.X, localPoint.Y);
-                if (!SelectedItems.Contains(item))
+                if (item != null && !SelectedItems.Contains(item))
                 {
                     // only select the item if mouse down could be start of drag-and-drop
                     if (Control.ModifierKeys != Keys.Control &&

@@ -1419,10 +1419,14 @@ namespace QuickImageComment
                 else
 #endif
                 {
-                    if (webBrowser1.Document != null)
+                    try
                     {
-                        webBrowser1.Document.InvokeScript(method, arguments);
+                        if (webBrowser1.Document != null)
+                        {
+                            webBrowser1.Document.InvokeScript(method, arguments);
+                        }
                     }
+                    catch { } 
                 }
             }
         }
