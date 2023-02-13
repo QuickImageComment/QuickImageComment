@@ -254,7 +254,7 @@ namespace QuickImageComment
             // labelProgramOptions
             // 
             this.labelProgramOptions.AutoSize = true;
-            this.labelProgramOptions.Location = new System.Drawing.Point(354, 105);
+            this.labelProgramOptions.Location = new System.Drawing.Point(351, 105);
             this.labelProgramOptions.Name = "labelProgramOptions";
             this.labelProgramOptions.Size = new System.Drawing.Size(100, 13);
             this.labelProgramOptions.TabIndex = 13;
@@ -285,7 +285,7 @@ namespace QuickImageComment
             // labelBatchCommand
             // 
             this.labelBatchCommand.AutoSize = true;
-            this.labelBatchCommand.Location = new System.Drawing.Point(363, 204);
+            this.labelBatchCommand.Location = new System.Drawing.Point(360, 204);
             this.labelBatchCommand.Name = "labelBatchCommand";
             this.labelBatchCommand.Size = new System.Drawing.Size(91, 13);
             this.labelBatchCommand.TabIndex = 20;
@@ -308,7 +308,7 @@ namespace QuickImageComment
             // labelName
             // 
             this.labelName.AutoSize = true;
-            this.labelName.Location = new System.Drawing.Point(416, 8);
+            this.labelName.Location = new System.Drawing.Point(416, 12);
             this.labelName.Name = "labelName";
             this.labelName.Size = new System.Drawing.Size(35, 13);
             this.labelName.TabIndex = 6;
@@ -361,7 +361,7 @@ namespace QuickImageComment
             // labelPlaceholder
             // 
             this.labelPlaceholder.AutoSize = true;
-            this.labelPlaceholder.Location = new System.Drawing.Point(383, 223);
+            this.labelPlaceholder.Location = new System.Drawing.Point(380, 223);
             this.labelPlaceholder.Name = "labelPlaceholder";
             this.labelPlaceholder.Size = new System.Drawing.Size(71, 65);
             this.labelPlaceholder.TabIndex = 21;
@@ -382,11 +382,11 @@ namespace QuickImageComment
             // labelWindowTitle
             // 
             this.labelWindowTitle.AutoSize = true;
-            this.labelWindowTitle.Location = new System.Drawing.Point(386, 164);
+            this.labelWindowTitle.Location = new System.Drawing.Point(393, 164);
             this.labelWindowTitle.Name = "labelWindowTitle";
-            this.labelWindowTitle.Size = new System.Drawing.Size(65, 13);
+            this.labelWindowTitle.Size = new System.Drawing.Size(58, 13);
             this.labelWindowTitle.TabIndex = 17;
-            this.labelWindowTitle.Text = "Fenster-Titel";
+            this.labelWindowTitle.Text = "Fenstertitel";
             this.labelWindowTitle.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // textBoxWindowsTitle
@@ -438,7 +438,7 @@ namespace QuickImageComment
             this.MinimumSize = new System.Drawing.Size(840, 331);
             this.Name = "FormEditExternal";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Definitionen Bearbeiten-Extern";
+            this.Text = "Konfiguration Bearbeiten-extern";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FormEditExternal_KeyDown);
             this.panelType.ResumeLayout(false);
             this.panelType.PerformLayout();

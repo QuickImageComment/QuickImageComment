@@ -1896,7 +1896,7 @@ namespace QuickImageComment
             // 
             this.toolStripMenuItemEditExternalAdministration.Name = "toolStripMenuItemEditExternalAdministration";
             this.toolStripMenuItemEditExternalAdministration.Size = new System.Drawing.Size(180, 22);
-            this.toolStripMenuItemEditExternalAdministration.Text = "Verwalten...";
+            this.toolStripMenuItemEditExternalAdministration.Text = "Verwalten ...";
             this.toolStripMenuItemEditExternalAdministration.Click += new System.EventHandler(this.toolStripMenuItemEditExternalAdministration_Click);
             // 
             // toolStripMenuItemHelp

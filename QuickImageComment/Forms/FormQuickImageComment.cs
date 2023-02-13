@@ -1945,7 +1945,7 @@ namespace QuickImageComment
             // delete existing dynamic view configurations 
             for (int ii = toolStripMenuItemEditExtern.DropDownItems.Count - 1; ii >= 0; ii--)
             {
-                if (toolStripMenuItemEditExtern.DropDownItems[ii].Name.StartsWith("editExternalDefinition"))
+                if (toolStripMenuItemEditExtern.DropDownItems[ii].Name.StartsWith("dynamicEditExternalDefinition"))
                 {
                     ToolStripItem toolStripItem = toolStripMenuItemEditExtern.DropDownItems[ii];
                     toolStripMenuItemEditExtern.DropDownItems.Remove(toolStripItem);
@@ -1957,7 +1957,7 @@ namespace QuickImageComment
             foreach (EditExternalDefinition editExternalDefinition in ConfigDefinition.getEditExternalDefinitionArrayList())
             {
                 ToolStripItem toolStripItem = new ToolStripMenuItem(editExternalDefinition.Name, null, toolStripMenuItemEditExternConfigurationX_Click,
-                     "editExternalDefinition " + editExternalDefinition.Name);
+                     "dynamicEditExternalDefinition " + editExternalDefinition.Name);
                 toolStripItem.Tag = editExternalDefinition;
                 toolStripMenuItemEditExtern.DropDownItems.Insert(jj, toolStripItem);
                 jj++;
@@ -4228,104 +4228,101 @@ namespace QuickImageComment
                 }
                 toolStripStatusLabelFiles.Text = "";
 
-                if (!FolderName.Equals(""))
-                {
-                    toolStripStatusLabelInfo.Text = LangCfg.getText(LangCfg.Others.readFileNofM, "");
+                toolStripStatusLabelInfo.Text = LangCfg.getText(LangCfg.Others.readFileNofM, "");
 #if !DEBUG
                     try
 #endif
+                {
+                    theUserControlFiles.listViewFiles.Items.AddRange(ImageManager.getTheListViewItems());
+                    readFolderPerfomance.measure("after read folder add ranges");
+                    if (theUserControlFiles.listViewFiles.Items.Count > 1)
                     {
-                        theUserControlFiles.listViewFiles.Items.AddRange(ImageManager.getTheListViewItems());
-                        readFolderPerfomance.measure("after read folder add ranges");
-                        if (theUserControlFiles.listViewFiles.Items.Count > 1)
-                        {
-                            // initiate caching starting with second image; first image is loaded anyhow a few rows below
-                            ImageManager.fillListOfFilesToCache(1);
-                            ImageManager.startThreadToUpdateCaches();
-                        }
+                        // initiate caching starting with second image; first image is loaded anyhow a few rows below
+                        ImageManager.fillListOfFilesToCache(1);
+                        ImageManager.startThreadToUpdateCaches();
+                    }
 
-                        if (theUserControlFiles.listViewFiles.Items.Count > 0)
+                    if (theUserControlFiles.listViewFiles.Items.Count > 0)
+                    {
+                        if (theUserControlFiles.listViewFiles.View == View.List)
                         {
-                            if (theUserControlFiles.listViewFiles.View == View.List)
+                            theUserControlFiles.listViewFiles.AutoResizeColumns(ColumnHeaderAutoResizeStyle.None);
+                        }
+                    }
+                    else
+                    {
+                        // if folder contains an image, dataGridViewSelectedFiles is refreshed when this image is displayed
+                        // if folder is empty, explicit refresh is needed
+                        refreshdataGridViewSelectedFiles();
+                    }
+                    // read first image with saving fullSizeImage
+                    // avoids that image is first read without saving fullSizeImage via listViewFiles_DrawItem
+                    if (theUserControlFiles.listViewFiles.Items.Count > 0)
+                    {
+                        ImageManager.getExtendedImage(0, true);
+                    }
+
+                    theUserControlFiles.listViewFiles.SelectedIndices.Clear();
+                    ArrayList selectedFilesOldCopy = (ArrayList)theUserControlFiles.listViewFiles.selectedFilesOld.Clone();
+                    theUserControlFiles.listViewFiles.selectedFilesOld = new ArrayList();
+
+                    // fill status bar
+                    if (theUserControlFiles.listViewFiles.Items.Count == 0)
+                    {
+                        toolStripStatusLabelFiles.Text = LangCfg.translate("Bilder/Videos", this.Name) + ": 0";
+                    }
+                    else
+                    {
+
+                        if (restoreSelection)
+                        {
+                            // mark previously selected images in listbox containing file names
+                            // changing selected index in listBoxFiles forces display 
+                            // see function "listBoxFiles_SelectedIndexChanged"
+                            foreach (string fileName in selectedFilesOldCopy)
                             {
-                                theUserControlFiles.listViewFiles.AutoResizeColumns(ColumnHeaderAutoResizeStyle.None);
-                            }
-                        }
-                        else
-                        {
-                            // if folder contains an image, dataGridViewSelectedFiles is refreshed when this image is displayed
-                            // if folder is empty, explicit refresh is needed
-                            refreshdataGridViewSelectedFiles();
-                        }
-                        // read first image with saving fullSizeImage
-                        // avoids that image is first read without saving fullSizeImage via listViewFiles_DrawItem
-                        if (theUserControlFiles.listViewFiles.Items.Count > 0)
-                        {
-                            ImageManager.getExtendedImage(0, true);
-                        }
-
-                        theUserControlFiles.listViewFiles.SelectedIndices.Clear();
-                        ArrayList selectedFilesOldCopy = (ArrayList)theUserControlFiles.listViewFiles.selectedFilesOld.Clone();
-                        theUserControlFiles.listViewFiles.selectedFilesOld = new ArrayList();
-
-                        // fill status bar
-                        if (theUserControlFiles.listViewFiles.Items.Count == 0)
-                        {
-                            toolStripStatusLabelFiles.Text = LangCfg.translate("Bilder/Videos", this.Name) + ": 0";
-                        }
-                        else
-                        {
-
-                            if (restoreSelection)
-                            {
-                                // mark previously selected images in listbox containing file names
-                                // changing selected index in listBoxFiles forces display 
-                                // see function "listBoxFiles_SelectedIndexChanged"
-                                foreach (string fileName in selectedFilesOldCopy)
-                                {
-                                    fileIndex = theUserControlFiles.listViewFiles.getIndexOf(fileName);
-                                    if (fileIndex >= 0)
-                                    {
-                                        theUserControlFiles.listViewFiles.SelectedIndices.Add(fileIndex);
-                                        if (FormImageWindowsAreOpen)
-                                        {
-                                            new FormImageWindow(ImageManager.getExtendedImage(fileIndex));
-                                        }
-                                        if (FormImageDetailsAreOpen)
-                                        {
-                                            new FormImageDetails(dpiSettings, ImageManager.getExtendedImage(fileIndex));
-                                        }
-                                        //theUserControlFiles.listViewFiles.selectedFilesOld.Add(fileName);
-                                    }
-                                }
-                                // set last displayed file as focused
-                                fileIndex = theUserControlFiles.listViewFiles.getIndexOf(displayedFile);
+                                fileIndex = theUserControlFiles.listViewFiles.getIndexOf(fileName);
                                 if (fileIndex >= 0)
                                 {
-                                    theUserControlFiles.listViewFiles.FocusedItem = theUserControlFiles.listViewFiles.Items[fileIndex];
+                                    theUserControlFiles.listViewFiles.SelectedIndices.Add(fileIndex);
+                                    if (FormImageWindowsAreOpen)
+                                    {
+                                        new FormImageWindow(ImageManager.getExtendedImage(fileIndex));
+                                    }
+                                    if (FormImageDetailsAreOpen)
+                                    {
+                                        new FormImageDetails(dpiSettings, ImageManager.getExtendedImage(fileIndex));
+                                    }
+                                    //theUserControlFiles.listViewFiles.selectedFilesOld.Add(fileName);
                                 }
                             }
-                            else
+                            // set last displayed file as focused
+                            fileIndex = theUserControlFiles.listViewFiles.getIndexOf(displayedFile);
+                            if (fileIndex >= 0)
                             {
-                                // mark first entry
-                                fileIndex = 0;
-                                theUserControlFiles.listViewFiles.SelectedIndices.Add(fileIndex);
                                 theUserControlFiles.listViewFiles.FocusedItem = theUserControlFiles.listViewFiles.Items[fileIndex];
                             }
-
-                            toolStripStatusLabelFiles.Text = LangCfg.translate("Bilder/Videos", this.Name) + ": " + theUserControlFiles.listViewFiles.Items.Count.ToString();
                         }
-                        readFolderPerfomance.measure("after selected indices add");
+                        else
+                        {
+                            // mark first entry
+                            fileIndex = 0;
+                            theUserControlFiles.listViewFiles.SelectedIndices.Add(fileIndex);
+                            theUserControlFiles.listViewFiles.FocusedItem = theUserControlFiles.listViewFiles.Items[fileIndex];
+                        }
+
+                        toolStripStatusLabelFiles.Text = LangCfg.translate("Bilder/Videos", this.Name) + ": " + theUserControlFiles.listViewFiles.Items.Count.ToString();
                     }
+                    readFolderPerfomance.measure("after selected indices add");
+                }
 #if !DEBUG
                     catch (Exception ex)
                     {
                         GeneralUtilities.message(LangCfg.Message.E_readFolder, ex.ToString());
                     }
 #endif
-                    toolStripStatusLabelInfo.Text = "";
-                    statusStrip1.Refresh();
-                }
+                toolStripStatusLabelInfo.Text = "";
+                statusStrip1.Refresh();
             }
         }
 

@@ -474,8 +474,9 @@ namespace QuickImageComment
             // 
             // checkBoxSaveFindDataTable
             // 
+            this.checkBoxSaveFindDataTable.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBoxSaveFindDataTable.AutoSize = true;
-            this.checkBoxSaveFindDataTable.Location = new System.Drawing.Point(581, 2);
+            this.checkBoxSaveFindDataTable.Location = new System.Drawing.Point(594, 3);
             this.checkBoxSaveFindDataTable.Name = "checkBoxSaveFindDataTable";
             this.checkBoxSaveFindDataTable.Size = new System.Drawing.Size(167, 17);
             this.checkBoxSaveFindDataTable.TabIndex = 24;
