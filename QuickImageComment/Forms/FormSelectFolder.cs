@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Windows.Forms;
 
 namespace QuickImageComment
@@ -12,6 +13,10 @@ namespace QuickImageComment
             newSelectedFolder = FolderName;
             //GongSolutions.Shell.ShellItem ShellItemSelectedFolder = new GongSolutions.Shell.ShellItem(FolderName);
             theFolderTreeView.SelectedFolder = new GongSolutions.Shell.ShellItem(FolderName);
+            comboBoxLastFolders.Items.AddRange(ConfigDefinition.getFormSelectFolderLastFolders().ToArray());
+            StartPosition = FormStartPosition.Manual;
+            this.Top = Cursor.Position.Y - 20;
+            this.Left = Cursor.Position.X - 40;
         }
 
         internal string getSelectedFolder()
@@ -21,7 +26,16 @@ namespace QuickImageComment
 
         private void buttonOk_Click(object sender, EventArgs e)
         {
-            newSelectedFolder = theFolderTreeView.SelectedFolder.FileSystemPath;
+            if (comboBoxLastFolders.Text.Equals(""))
+                newSelectedFolder = theFolderTreeView.SelectedFolder.FileSystemPath;
+            else
+                newSelectedFolder = comboBoxLastFolders.Text;
+            // remove existing entry
+            ConfigDefinition.getFormSelectFolderLastFolders().Remove(newSelectedFolder);
+            // add at begin of list (if folder exists)
+            if (Directory.Exists(newSelectedFolder)) 
+                ConfigDefinition.getFormSelectFolderLastFolders().Insert(0, newSelectedFolder);
+
             Close();
         }
 
@@ -30,14 +44,9 @@ namespace QuickImageComment
             Close();
         }
 
-        private void theFolderTreeView_DoubleClick(object sender, EventArgs e)
+        private void theFolderTreeView_SelectionChanged(object sender, EventArgs e)
         {
-
-        }
-
-        private void theFolderTreeView_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-
+            comboBoxLastFolders.Text = "";
         }
     }
 }

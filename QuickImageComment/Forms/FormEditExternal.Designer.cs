@@ -200,10 +200,10 @@ namespace QuickImageComment
             this.radioButtonBatchCommand.ForeColor = System.Drawing.SystemColors.ControlText;
             this.radioButtonBatchCommand.Location = new System.Drawing.Point(131, 10);
             this.radioButtonBatchCommand.Name = "radioButtonBatchCommand";
-            this.radioButtonBatchCommand.Size = new System.Drawing.Size(109, 17);
+            this.radioButtonBatchCommand.Size = new System.Drawing.Size(114, 17);
             this.radioButtonBatchCommand.TabIndex = 1;
             this.radioButtonBatchCommand.TabStop = true;
-            this.radioButtonBatchCommand.Text = "Batch-Kommando";
+            this.radioButtonBatchCommand.Text = "Batch-Kommandos";
             this.radioButtonBatchCommand.UseVisualStyleBackColor = true;
             this.radioButtonBatchCommand.CheckedChanged += new System.EventHandler(this.radioButtonBatchCommand_CheckedChanged);
             // 
@@ -233,10 +233,9 @@ namespace QuickImageComment
             // 
             // labelProgramPath
             // 
-            this.labelProgramPath.AutoSize = true;
-            this.labelProgramPath.Location = new System.Drawing.Point(372, 81);
+            this.labelProgramPath.Location = new System.Drawing.Point(334, 81);
             this.labelProgramPath.Name = "labelProgramPath";
-            this.labelProgramPath.Size = new System.Drawing.Size(79, 13);
+            this.labelProgramPath.Size = new System.Drawing.Size(120, 13);
             this.labelProgramPath.TabIndex = 10;
             this.labelProgramPath.Text = "Programm-Pfad";
             this.labelProgramPath.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -253,10 +252,9 @@ namespace QuickImageComment
             // 
             // labelProgramOptions
             // 
-            this.labelProgramOptions.AutoSize = true;
-            this.labelProgramOptions.Location = new System.Drawing.Point(351, 105);
+            this.labelProgramOptions.Location = new System.Drawing.Point(334, 105);
             this.labelProgramOptions.Name = "labelProgramOptions";
-            this.labelProgramOptions.Size = new System.Drawing.Size(100, 13);
+            this.labelProgramOptions.Size = new System.Drawing.Size(120, 13);
             this.labelProgramOptions.TabIndex = 13;
             this.labelProgramOptions.Text = "Programm-Optionen";
             this.labelProgramOptions.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -284,12 +282,11 @@ namespace QuickImageComment
             // 
             // labelBatchCommand
             // 
-            this.labelBatchCommand.AutoSize = true;
-            this.labelBatchCommand.Location = new System.Drawing.Point(360, 204);
+            this.labelBatchCommand.Location = new System.Drawing.Point(334, 204);
             this.labelBatchCommand.Name = "labelBatchCommand";
-            this.labelBatchCommand.Size = new System.Drawing.Size(91, 13);
+            this.labelBatchCommand.Size = new System.Drawing.Size(120, 13);
             this.labelBatchCommand.TabIndex = 20;
-            this.labelBatchCommand.Text = "Batch-Kommando";
+            this.labelBatchCommand.Text = "Batch-Kommandos";
             this.labelBatchCommand.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // textBoxBatchCommand
@@ -307,10 +304,9 @@ namespace QuickImageComment
             // 
             // labelName
             // 
-            this.labelName.AutoSize = true;
-            this.labelName.Location = new System.Drawing.Point(416, 12);
+            this.labelName.Location = new System.Drawing.Point(334, 13);
             this.labelName.Name = "labelName";
-            this.labelName.Size = new System.Drawing.Size(35, 13);
+            this.labelName.Size = new System.Drawing.Size(120, 13);
             this.labelName.TabIndex = 6;
             this.labelName.Text = "Name";
             this.labelName.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -319,7 +315,7 @@ namespace QuickImageComment
             // 
             this.textBoxName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxName.Location = new System.Drawing.Point(457, 8);
+            this.textBoxName.Location = new System.Drawing.Point(457, 9);
             this.textBoxName.Name = "textBoxName";
             this.textBoxName.Size = new System.Drawing.Size(297, 20);
             this.textBoxName.TabIndex = 7;
@@ -360,10 +356,9 @@ namespace QuickImageComment
             // 
             // labelPlaceholder
             // 
-            this.labelPlaceholder.AutoSize = true;
-            this.labelPlaceholder.Location = new System.Drawing.Point(380, 223);
+            this.labelPlaceholder.Location = new System.Drawing.Point(334, 223);
             this.labelPlaceholder.Name = "labelPlaceholder";
-            this.labelPlaceholder.Size = new System.Drawing.Size(71, 65);
+            this.labelPlaceholder.Size = new System.Drawing.Size(120, 65);
             this.labelPlaceholder.TabIndex = 21;
             this.labelPlaceholder.Text = "Platzhalter für\r\nDateinamen:\r\n%f oder %~f\r\n(Siehe Hilfe)\r\n\r\n";
             this.labelPlaceholder.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -381,10 +376,9 @@ namespace QuickImageComment
             // 
             // labelWindowTitle
             // 
-            this.labelWindowTitle.AutoSize = true;
-            this.labelWindowTitle.Location = new System.Drawing.Point(393, 164);
+            this.labelWindowTitle.Location = new System.Drawing.Point(334, 163);
             this.labelWindowTitle.Name = "labelWindowTitle";
-            this.labelWindowTitle.Size = new System.Drawing.Size(58, 13);
+            this.labelWindowTitle.Size = new System.Drawing.Size(120, 13);
             this.labelWindowTitle.TabIndex = 17;
             this.labelWindowTitle.Text = "Fenstertitel";
             this.labelWindowTitle.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -406,12 +400,12 @@ namespace QuickImageComment
             this.ClientSize = new System.Drawing.Size(824, 405);
             this.Controls.Add(this.textBoxWindowsTitle);
             this.Controls.Add(this.labelWindowTitle);
+            this.Controls.Add(this.textBoxName);
             this.Controls.Add(this.checkBoxDropOnWindow);
             this.Controls.Add(this.labelPlaceholder);
             this.Controls.Add(this.buttonBrowse);
             this.Controls.Add(this.buttonExecute);
             this.Controls.Add(this.checkBoxWindowPauseAfterExecution);
-            this.Controls.Add(this.textBoxName);
             this.Controls.Add(this.labelName);
             this.Controls.Add(this.textBoxBatchCommand);
             this.Controls.Add(this.labelBatchCommand);

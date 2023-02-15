@@ -51,7 +51,7 @@ namespace QuickImageComment
         // tags whose values are derived when getting Bitmap (which takes longer than other tags)
         // when changing this list, ExtendedImage.addMetaDataFromBitMap needs to changes as well
         public static ArrayList TagsFromBitmap = new ArrayList { "File.ImageSize", "Image.CodecInfo", "Image.PixelFormat", "Image.DisplayImageErrorMessage" };
-        
+
         public enum enumConfigFlags
         {
             PerformanceStartup,
@@ -252,6 +252,7 @@ namespace QuickImageComment
         private static ArrayList PredefinedKeyWords;
         private static ArrayList UserButtonDefinitions;
         private static ArrayList XmpLangAltNames;
+        private static ArrayList FormSelectFolderLastFolders;
         private static SortedList SplitContainerPanelContents;
 
         internal static SortedList<enumMetaDataGroup, ArrayList> MetaDataDefinitions = new SortedList<enumMetaDataGroup, ArrayList>();
@@ -330,6 +331,7 @@ namespace QuickImageComment
             PredefinedKeyWords = new ArrayList();
             UserButtonDefinitions = new ArrayList();
             XmpLangAltNames = new ArrayList();
+            FormSelectFolderLastFolders = new ArrayList();
             UserConfigCommentLines = new ArrayList();
             TagDependencies = new ArrayList();
 
@@ -2221,7 +2223,7 @@ namespace QuickImageComment
                     }
                 }
                 PredefinedCommentCategories.Add(aPredefinedComment.Category);
-                allreadyContained:
+            allreadyContained:
                 continue;
             }
             return PredefinedCommentCategories;
@@ -2422,6 +2424,12 @@ namespace QuickImageComment
             XmpLangAltNames = NewXmpLangAltNames;
         }
 
+        // last selected folders in FormSelectFolder
+        public static ArrayList getFormSelectFolderLastFolders()
+        {
+            return FormSelectFolderLastFolders;
+        }
+
         //*****************************************************************
         // Read user configuration file
         //*****************************************************************
@@ -2618,6 +2626,10 @@ namespace QuickImageComment
                     else if (firstPart.Equals("XmpLangAltName"))
                     {
                         XmpLangAltNames.Add(secondPart);
+                    }
+                    else if (firstPart.Equals("FormSelectFolderLastFolders"))
+                    {
+                        FormSelectFolderLastFolders.Add(secondPart);
                     }
                     else if (firstPart.Equals("GeoData"))
                     {
@@ -3190,6 +3202,11 @@ namespace QuickImageComment
                 StreamOut.WriteLine("XmpLangAltName:" + keyWord);
             }
 
+            for (int ii = 0; ii < getMaxChangeableFieldEntries() && ii < FormSelectFolderLastFolders.Count; ii++)
+            {
+                StreamOut.WriteLine("FormSelectFolderLastFolders:" + (string)FormSelectFolderLastFolders[ii]);
+            }
+
             foreach (string key in SplitContainerPanelContents.GetKeyList())
             {
                 StreamOut.WriteLine(key + ":" + SplitContainerPanelContents[key]);
@@ -3404,7 +3421,7 @@ namespace QuickImageComment
                         {
                             throw new ExceptionMapNotYetDefined(lineNo);
                         }
-                        else 
+                        else
                         {
                             MapLeafletList[Key].maxZoom1 = int.Parse(maxZoom);
                         }

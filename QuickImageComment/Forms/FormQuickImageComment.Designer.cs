@@ -208,6 +208,7 @@ namespace QuickImageComment
             this.toolStripMenuItemCheckTranslationComplete = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemFormLogger = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemEditExtern = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparatorEditExternal = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItemEditExternalAdministration = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemListShortcuts = new System.Windows.Forms.ToolStripMenuItem();
@@ -255,7 +256,7 @@ namespace QuickImageComment
             this.toolStripButtonPredefinedKeyWords = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator14 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButtonFind = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparatorEditExternal = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripMenuItemSelectFolder = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer12)).BeginInit();
             this.splitContainer12.Panel1.SuspendLayout();
             this.splitContainer12.Panel2.SuspendLayout();
@@ -1147,6 +1148,7 @@ namespace QuickImageComment
             // 
             this.toolStripMenuItemFile.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.toolStripMenuItemFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItemSelectFolder,
             this.toolStripMenuItemOpen,
             this.toolStripMenuItemFind,
             this.toolStripSeparator12,
@@ -1892,10 +1894,15 @@ namespace QuickImageComment
             this.toolStripMenuItemEditExtern.Size = new System.Drawing.Size(113, 20);
             this.toolStripMenuItemEditExtern.Text = "Bearbeiten-extern";
             // 
+            // toolStripSeparatorEditExternal
+            // 
+            this.toolStripSeparatorEditExternal.Name = "toolStripSeparatorEditExternal";
+            this.toolStripSeparatorEditExternal.Size = new System.Drawing.Size(134, 6);
+            // 
             // toolStripMenuItemEditExternalAdministration
             // 
             this.toolStripMenuItemEditExternalAdministration.Name = "toolStripMenuItemEditExternalAdministration";
-            this.toolStripMenuItemEditExternalAdministration.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItemEditExternalAdministration.Size = new System.Drawing.Size(137, 22);
             this.toolStripMenuItemEditExternalAdministration.Text = "Verwalten ...";
             this.toolStripMenuItemEditExternalAdministration.Click += new System.EventHandler(this.toolStripMenuItemEditExternalAdministration_Click);
             // 
@@ -2376,10 +2383,12 @@ namespace QuickImageComment
             this.toolStripButtonFind.ToolTipText = "Suche über Eigenschaften";
             this.toolStripButtonFind.Click += new System.EventHandler(this.toolStripMenuItemFind_Click);
             // 
-            // toolStripSeparatorEditExternal
+            // toolStripMenuItemSelectFolder
             // 
-            this.toolStripSeparatorEditExternal.Name = "toolStripSeparatorEditExternal";
-            this.toolStripSeparatorEditExternal.Size = new System.Drawing.Size(177, 6);
+            this.toolStripMenuItemSelectFolder.Name = "toolStripMenuItemSelectFolder";
+            this.toolStripMenuItemSelectFolder.Size = new System.Drawing.Size(367, 22);
+            this.toolStripMenuItemSelectFolder.Text = "Ordner wählen ...";
+            this.toolStripMenuItemSelectFolder.Click += new System.EventHandler(this.toolStripMenuItemSelectFolder_Click);
             // 
             // FormQuickImageComment
             // 
@@ -2678,5 +2687,6 @@ namespace QuickImageComment
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemEditExtern;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemEditExternalAdministration;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparatorEditExternal;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemSelectFolder;
     }
 }

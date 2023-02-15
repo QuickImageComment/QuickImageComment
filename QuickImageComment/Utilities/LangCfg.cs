@@ -188,7 +188,8 @@ namespace QuickImageComment
             I_WebView2NotUsable,
             E_exceptionStartProcess,
             E_exceptionStartBatch,
-            E_unknownEntry
+            E_unknownEntry,
+            E_folderNotExist
         }
 
         public enum Others

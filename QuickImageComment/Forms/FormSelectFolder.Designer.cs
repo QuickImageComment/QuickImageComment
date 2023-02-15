@@ -32,12 +32,14 @@
             this.buttonOk = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.theFolderTreeView = new QuickImageCommentControls.ShellTreeViewQIC();
+            this.comboBoxLastFolders = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // buttonOk
             // 
             this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonOk.Location = new System.Drawing.Point(54, 397);
+            this.buttonOk.Location = new System.Drawing.Point(54, 426);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(93, 23);
             this.buttonOk.TabIndex = 2;
@@ -48,7 +50,7 @@
             // buttonCancel
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonCancel.Location = new System.Drawing.Point(170, 397);
+            this.buttonCancel.Location = new System.Drawing.Point(170, 426);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(93, 23);
             this.buttonCancel.TabIndex = 3;
@@ -65,14 +67,34 @@
             this.theFolderTreeView.Cursor = System.Windows.Forms.Cursors.Default;
             this.theFolderTreeView.Location = new System.Drawing.Point(0, 0);
             this.theFolderTreeView.Name = "theFolderTreeView";
-            this.theFolderTreeView.Size = new System.Drawing.Size(316, 391);
+            this.theFolderTreeView.Size = new System.Drawing.Size(316, 373);
             this.theFolderTreeView.TabIndex = 1;
+            this.theFolderTreeView.SelectionChanged += new System.EventHandler(this.theFolderTreeView_SelectionChanged);
+            // 
+            // comboBoxLastFolders
+            // 
+            this.comboBoxLastFolders.FormattingEnabled = true;
+            this.comboBoxLastFolders.Location = new System.Drawing.Point(0, 401);
+            this.comboBoxLastFolders.Name = "comboBoxLastFolders";
+            this.comboBoxLastFolders.Size = new System.Drawing.Size(316, 21);
+            this.comboBoxLastFolders.TabIndex = 4;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(0, 385);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(160, 13);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "Zuletzt hier ausgewählte Ordner:";
             // 
             // FormSelectFolder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(316, 423);
+            this.ClientSize = new System.Drawing.Size(316, 452);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.comboBoxLastFolders);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonOk);
             this.Controls.Add(this.theFolderTreeView);
@@ -80,6 +102,7 @@
             this.Name = "FormSelectFolder";
             this.Text = "Ordner wählen ...";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -88,5 +111,7 @@
         private QuickImageCommentControls.ShellTreeViewQIC theFolderTreeView;
         private System.Windows.Forms.Button buttonOk;
         private System.Windows.Forms.Button buttonCancel;
+        private System.Windows.Forms.ComboBox comboBoxLastFolders;
+        private System.Windows.Forms.Label label1;
     }
 }

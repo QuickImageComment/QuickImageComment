@@ -2591,6 +2591,28 @@ namespace QuickImageComment
             }
         }
 
+        // open mask to select folder
+        private void toolStripMenuItemSelectFolder_Click(object sender, EventArgs e)
+        {
+            FormSelectFolder formSelectFolder = new FormSelectFolder(FolderName);
+            formSelectFolder.ShowDialog();
+            string newFolderName = formSelectFolder.getSelectedFolder();
+            if (!newFolderName.Equals(FolderName))
+            {
+                // folder changed
+                if (Directory.Exists(newFolderName))
+                {
+                    FolderName = newFolderName;
+                    theFolderTreeView.SelectedFolder = new GongSolutions.Shell.ShellItem(FolderName);
+                    readFolderAndDisplayImage(false);
+                }
+                else
+                {
+                    GeneralUtilities.message(LangCfg.Message.E_folderNotExist, newFolderName);
+                }
+            }
+        }
+
         //// open Internet Explorer to allow display images from Internet
         //private void toolStripMenuItemOpenIE_Click(object sender, EventArgs e)
         //{
@@ -6110,6 +6132,11 @@ namespace QuickImageComment
                     }
                 }
                 // Prepare for screenshots from sub masks
+                // minimize main mask, so that other masks in most cases can have a black background 
+                // which looks better with the rounded edges in Windows 11
+                FormWindowState formWindowState = this.WindowState;
+                this.WindowState = FormWindowState.Minimized;
+
                 //new FormAbout();
                 new FormCheckNewVersion("", "");
                 new FormCompare(theUserControlFiles.listViewFiles.SelectedIndices, FolderName);
@@ -6168,6 +6195,8 @@ namespace QuickImageComment
                 CustomizationInterface.clearCustomizedSettingsChanged();
                 ConfigDefinition.setConfigFlagThreadAfterSelectionOfFile(true);
 
+                // restore main mask
+                this.WindowState = formWindowState;
                 this.Cursor = Cursors.Default;
                 GeneralUtilities.debugMessage("finished");
             }
