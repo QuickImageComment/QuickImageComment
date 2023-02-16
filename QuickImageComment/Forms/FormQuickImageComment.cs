@@ -6131,6 +6131,29 @@ namespace QuickImageComment
                         theUserControlFiles.listViewFiles.SelectedIndices.Add(ii);
                     }
                 }
+
+                // FormTagValueInput needs main mask to be visible
+                bool ControlForFormTagValueInputFound = false;
+                foreach (Control aControl in theUserControlChangeableFields.ChangeableFieldInputControls.Values)
+                {
+                    if (aControl.Name.Contains("Application2.LocationName"))
+                    {
+                        ChangeableFieldSpecification theChangeableFieldSpecification = (ChangeableFieldSpecification)aControl.Tag;
+                        string HeaderText = theChangeableFieldSpecification.DisplayName + "(" + theChangeableFieldSpecification.TypePrim + ")";
+                        new FormTagValueInput(HeaderText, aControl, FormTagValueInput.type.configurable);
+                        ControlForFormTagValueInputFound = true;
+                        break;
+                    }
+                }
+                if (!ControlForFormTagValueInputFound)
+                {
+                    Control aControl = theUserControlChangeableFields.ChangeableFieldInputControls.Values[0];
+                    ChangeableFieldSpecification theChangeableFieldSpecification = (ChangeableFieldSpecification)aControl.Tag;
+                    string HeaderText = theChangeableFieldSpecification.DisplayName + "(" + theChangeableFieldSpecification.TypePrim + ")";
+                    new FormTagValueInput(HeaderText, aControl, FormTagValueInput.type.configurable);
+                    GeneralUtilities.debugMessage("Internal warning: field planned to be used for screenshot from FormTagValueInput not found.");
+                }
+
                 // Prepare for screenshots from sub masks
                 // minimize main mask, so that other masks in most cases can have a black background 
                 // which looks better with the rounded edges in Windows 11
@@ -6165,27 +6188,7 @@ namespace QuickImageComment
                 new FormSelectLanguage(ConfigDefinition.getConfigPath());
                 new FormSettings();
                 // exclude FormSelectUserConfigStorage: not interisting for screen shot 
-
-                bool ControlForFormTagValueInputFound = false;
-                foreach (Control aControl in theUserControlChangeableFields.ChangeableFieldInputControls.Values)
-                {
-                    if (aControl.Name.Contains("Application2.LocationName"))
-                    {
-                        ChangeableFieldSpecification theChangeableFieldSpecification = (ChangeableFieldSpecification)aControl.Tag;
-                        string HeaderText = theChangeableFieldSpecification.DisplayName + "(" + theChangeableFieldSpecification.TypePrim + ")";
-                        new FormTagValueInput(HeaderText, aControl, FormTagValueInput.type.configurable);
-                        ControlForFormTagValueInputFound = true;
-                        break;
-                    }
-                }
-                if (!ControlForFormTagValueInputFound)
-                {
-                    Control aControl = theUserControlChangeableFields.ChangeableFieldInputControls.Values[0];
-                    ChangeableFieldSpecification theChangeableFieldSpecification = (ChangeableFieldSpecification)aControl.Tag;
-                    string HeaderText = theChangeableFieldSpecification.DisplayName + "(" + theChangeableFieldSpecification.TypePrim + ")";
-                    new FormTagValueInput(HeaderText, aControl, FormTagValueInput.type.configurable);
-                    GeneralUtilities.debugMessage("Internal warning: field planned to be used for screenshot from FormTagValueInput not found.");
-                }
+                // FormTagValueInput needs main mask to be visible, screen shot taken above
                 new FormUserButtons(this.MenuStrip1);
                 new FormView(SplitContainerPanelControls, DefaultSplitContainerPanelContents,
                     DataGridViewExif, DataGridViewIptc, DataGridViewXmp, DataGridViewOtherMetaData);
@@ -6197,6 +6200,7 @@ namespace QuickImageComment
 
                 // restore main mask
                 this.WindowState = formWindowState;
+
                 this.Cursor = Cursors.Default;
                 GeneralUtilities.debugMessage("finished");
             }

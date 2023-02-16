@@ -13,10 +13,11 @@ namespace QuickImageComment
             newSelectedFolder = FolderName;
             //GongSolutions.Shell.ShellItem ShellItemSelectedFolder = new GongSolutions.Shell.ShellItem(FolderName);
             theFolderTreeView.SelectedFolder = new GongSolutions.Shell.ShellItem(FolderName);
-            comboBoxLastFolders.Items.AddRange(ConfigDefinition.getFormSelectFolderLastFolders().ToArray());
+            dynamicComboBoxLastFolders.Items.AddRange(ConfigDefinition.getFormSelectFolderLastFolders().ToArray());
             StartPosition = FormStartPosition.Manual;
             this.Top = Cursor.Position.Y - 20;
             this.Left = Cursor.Position.X - 40;
+            LangCfg.translateControlTexts(this);
         }
 
         internal string getSelectedFolder()
@@ -26,10 +27,10 @@ namespace QuickImageComment
 
         private void buttonOk_Click(object sender, EventArgs e)
         {
-            if (comboBoxLastFolders.Text.Equals(""))
+            if (dynamicComboBoxLastFolders.Text.Equals(""))
                 newSelectedFolder = theFolderTreeView.SelectedFolder.FileSystemPath;
             else
-                newSelectedFolder = comboBoxLastFolders.Text;
+                newSelectedFolder = dynamicComboBoxLastFolders.Text;
             // remove existing entry
             ConfigDefinition.getFormSelectFolderLastFolders().Remove(newSelectedFolder);
             // add at begin of list (if folder exists)
@@ -46,7 +47,7 @@ namespace QuickImageComment
 
         private void theFolderTreeView_SelectionChanged(object sender, EventArgs e)
         {
-            comboBoxLastFolders.Text = "";
+            dynamicComboBoxLastFolders.Text = "";
         }
     }
 }

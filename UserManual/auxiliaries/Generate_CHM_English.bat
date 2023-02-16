@@ -10,7 +10,7 @@ if not exist UserManual\NuHelp_Output\ mkdir UserManual\NuHelp_Output\
 copy UserManual\QIC_User_Manual.docm UserManual\NuHelp_Output\
 
 echo Create .docx making tags and index entries visible for NuHelp
-"C:\Program Files\Microsoft Office\root\Office16\WINWORD.EXE" /t UserManual\NuHelp_Output\QIC_User_Manual.docm /mPrepareForNuHelp
+"C:\Program Files\Microsoft Office\root\Office16\WINWORD.EXE" UserManual\NuHelp_Output\QIC_User_Manual.docm /n /a /mPrepareForNuHelp
 
 echo Run NuHelp
 C:\PROGRAM1\NuHelp\NuHelp.exe -Ini:UserManual\auxiliaries\NuHelp_English.ini -File:UserManual\NuHelp_Output\QIC_User_Manual.docx -SuccessBox:-1 -ErrorBox:0

@@ -590,13 +590,22 @@ namespace QuickImageComment
             dynamicLabelScanInformation.Visible = false;
             FormSelectFolder formSelectFolder = new FormSelectFolder(FolderName);
             formSelectFolder.ShowDialog();
-            if (!formSelectFolder.getSelectedFolder().Equals(FolderName))
+            string newFolderName = formSelectFolder.getSelectedFolder();
+            if (!newFolderName.Equals(FolderName))
             {
                 // folder changed
-                FolderName = formSelectFolder.getSelectedFolder();
-                dynamicLabelFolder.Text = FolderName;
-                dataTable = null;
-                setControlsDependingOnDataTable();
+                if (Directory.Exists(newFolderName))
+                {
+                    // folder changed
+                    FolderName = formSelectFolder.getSelectedFolder();
+                    dynamicLabelFolder.Text = FolderName;
+                    dataTable = null;
+                    setControlsDependingOnDataTable();
+                }
+                else
+                {
+                    GeneralUtilities.message(LangCfg.Message.E_folderNotExist, newFolderName);
+                }
             }
         }
 

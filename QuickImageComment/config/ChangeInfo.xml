@@ -1,23 +1,23 @@
-﻿<Program_Version>4.52</Program_Version>
+﻿<Program_Version>4.53</Program_Version>
 <Program_Change_Info_German>
 Erweiterungen und Verbesserungen:
-Variante für Net 4.6.1 und höher und wenn WebView2 Runtime installiert ist: Bei der Anzeige des Aufnahmeortes auf Karte können Karten nur für Anzeige (z.B. Google Maps und Bing Maps) ausgeblendet werden (was technisch das Deaktivieren von WebView2 bedeutet).
-Hintergrund: Für Google Maps und Bing Maps ist WebView2 erforderlich. WebView2 verursacht aber gelegentlich Probleme. Anstatt wie bisher WebView2 über die allgemeine Konfigurationsdatei zu deaktivieren, kann man dies nun direkt in der Oberfläche.
-Im Dateifilter können nun auch Platzhalterzeichen ("?" für ein beliebiges Zeichen, "*" für eine beliebige Anzahl von Zeichen) verwendet werden.
+Die ausgewählten Dateien können zur weiteren Bearbeitung an andere Programme oder an Windows-Batch-Skripte übergeben werden.
+Das erste Einlesen und vor allem das Aktualisieren der eingelesenen Daten für die Suche wurde beschleunigt.
+Das Menü "Datei" hat einen neuen Eintrag zur Auswahl eines Ordners. Es wird eine Maske geöffnet, in der ein Ordner in einem Verzeichnisbaum oder aus einer Auswahlliste mit zuletzt ausgewählten Ordnern ausgewählt werden kann. Auf diese Weise kann der Platz für den Verzeichnisbaum in der Hauptmaske für andere Informationen genutzt werden, z.B. für eine längere Liste von Dateien.
+Neue Felder: "Image (Bild).Fehlermeldung Bild-Anzeige" enthält Fehlermeldung bei der Anzeige des Bildes, "Image (Bild).Meta-Daten Warnungen" enthält Warnungen beim Lesen von Metadaten. Beide Informationen werden schon jetzt im Reiter Übersicht angezeigt. Die Felder erlauben es nach Bildern mit entsprechenden Meldungen zu suchen. Da bei der Suche die Meta-Daten nicht vollständig gelesen werden, können die Warnungen unvollständig sein.
 
-Folgender Fehler wurde behoben:
-Wenn die installierte Version von WebView2 nicht zu den mit dem Programm gelieferten Komponenten passte, konnte das Programm abstürzen. In solchen Fällen wird jetzt die "alte" Browserkomponente verwendet, die aber Google Maps und Bing Maps nicht unterstützt.
-Maske "Suche über Eigenschaften": Mit der Schaltfläche "Kriterien von akt. Datei" wurden die GPS-Daten des Aufnahmeortes nicht übernommen.
-Programm konnte mit "Die SplitterDistance muss zwischen Panel1MinSize und Width - Panel2MinSize liegen." abstürzen, wenn der Container mit Bild-Details sehr klein gemacht wurde.
+Folgende Fehler wurden behoben:
+Das Programm konnte abstürzen, wenn unbekannte XMP-Tags für die Änderung von Daten ausgewählt wurden.
+Das Programm konnte abstürzen, wenn XMP-Struct-Felder (z.B. Xmp.iptcExt.LocationShown[1]/…) für die Suche konfiguriert wurden.
 </Program_Change_Info_German>
 <Program_Change_Info_English>
 Enhancements and improvements:
-Variant for Net 4.6.1 and higher and if WebView2 Runtime is installed: When displaying the recording location on map, maps only for display (e.g. Google Maps and Bing Maps) can be hidden (which technically means disabling WebView2).
-Background: Google Maps and Bing Maps require WebView2. However, WebView2 occasionally causes problems. Instead of disabling WebView2 via the general configuration file as before, you can now do this directly in the interface.
-Wildcard characters ("?" for any one character, "*" for any number of characters) can now be used in the file filter.
+The selected files can be passed to other programs or to Windows batch scripts for further processing.
+The first reading and especially the updating of the read data for the search has been accelerated.
+Menu "File" has new entry to select a folder. A mask is opened where a folder can be selected in a folder tree or from a drop-down list with last selected folders. In this way the space for folder tree in main mask can be used for other information, e.g., a longer a list of files.
+New fields: "Image.DisplayImageErrorMessage" contains error message when displaying the image, "Image.MetaDataWarnings" contains warnings when reading metadata. Both information is already displayed in the Overview tab. The fields allow to search for images with corresponding messages. Since the meta data is not read completely during the search, the warnings may be incomplete
 
-Following error is corrected:
-If the installed version of WebView2 did not match the components shipped with the program, the program could crash. In such cases, the "old" browser component is now used, but it does not support Google Maps and Bing Maps.
-Mask "Search via properties": With the button " Criteria of current file" the GPS data of the recording location were not taken over.
-Program could crash with "SplitterDistance must be between Panel1MinSize and Width - Panel2MinSize" when container with image details was made very small.
+Following errorr are corrected:
+The program could crash if unknown XMP tags were selected for modifying data.
+The program could crash if XMP-Struct fields (e.g. Xmp.iptcExt.LocationShown[1]/...) were configured for searching.
 </Program_Change_Info_English>

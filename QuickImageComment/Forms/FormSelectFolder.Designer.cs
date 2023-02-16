@@ -32,7 +32,7 @@
             this.buttonOk = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.theFolderTreeView = new QuickImageCommentControls.ShellTreeViewQIC();
-            this.comboBoxLastFolders = new System.Windows.Forms.ComboBox();
+            this.dynamicComboBoxLastFolders = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
@@ -43,7 +43,7 @@
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(93, 23);
             this.buttonOk.TabIndex = 2;
-            this.buttonOk.Text = "Ok";
+            this.buttonOk.Text = "OK";
             this.buttonOk.UseVisualStyleBackColor = true;
             this.buttonOk.Click += new System.EventHandler(this.buttonOk_Click);
             // 
@@ -73,11 +73,11 @@
             // 
             // comboBoxLastFolders
             // 
-            this.comboBoxLastFolders.FormattingEnabled = true;
-            this.comboBoxLastFolders.Location = new System.Drawing.Point(0, 401);
-            this.comboBoxLastFolders.Name = "comboBoxLastFolders";
-            this.comboBoxLastFolders.Size = new System.Drawing.Size(316, 21);
-            this.comboBoxLastFolders.TabIndex = 4;
+            this.dynamicComboBoxLastFolders.FormattingEnabled = true;
+            this.dynamicComboBoxLastFolders.Location = new System.Drawing.Point(0, 401);
+            this.dynamicComboBoxLastFolders.Name = "dynamicComboBoxLastFolders";
+            this.dynamicComboBoxLastFolders.Size = new System.Drawing.Size(316, 21);
+            this.dynamicComboBoxLastFolders.TabIndex = 4;
             // 
             // label1
             // 
@@ -94,7 +94,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(316, 452);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.comboBoxLastFolders);
+            this.Controls.Add(this.dynamicComboBoxLastFolders);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonOk);
             this.Controls.Add(this.theFolderTreeView);
@@ -111,7 +111,7 @@
         private QuickImageCommentControls.ShellTreeViewQIC theFolderTreeView;
         private System.Windows.Forms.Button buttonOk;
         private System.Windows.Forms.Button buttonCancel;
-        private System.Windows.Forms.ComboBox comboBoxLastFolders;
+        private System.Windows.Forms.ComboBox dynamicComboBoxLastFolders;
         private System.Windows.Forms.Label label1;
     }
 }
