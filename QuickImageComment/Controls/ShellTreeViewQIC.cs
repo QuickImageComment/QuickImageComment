@@ -44,6 +44,10 @@ namespace QuickImageCommentControls
     /// </remarks>
     public class ShellTreeViewQIC : Control
     {
+        // lists to hold file system changes, which cause ShellListener to fire,
+        // but should be ignored, as they are handled inside
+        private static ArrayList ShellListenerIgnoreDelete = new ArrayList();
+        private static ArrayList ShellListenerIgnoreRename = new ArrayList();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ShellTreeView"/> class.
@@ -457,7 +461,6 @@ namespace QuickImageCommentControls
                     new System.Threading.Tasks.Task(() =>
                     {
                         MainMaskInterface.createOrUpdateItemListViewFiles(e.Item.FileSystemPath);
-                        FormFind.addOrUpdateRow(e.Item.FileSystemPath);
                     }).Start();
                 }
             }
@@ -482,14 +485,20 @@ namespace QuickImageCommentControls
             if (!FormQuickImageComment.closing && !parsingName.StartsWith("::"))
             {
                 //Logger.log("ItemDeleted Start " + e.Item.ParsingName);
-                if (e.Item.IsFileSystem && !e.Item.IsFolder)
+                if (ShellListenerIgnoreDelete.Contains(e.Item.FileSystemPath))
                 {
-                    // start in separate thread so that lock is working
-                    new System.Threading.Tasks.Task(() =>
+                    ShellListenerIgnoreDelete.Remove(e.Item.FileSystemPath);
+                }
+                else
+                {
+                    if (e.Item.IsFileSystem && !e.Item.IsFolder)
                     {
-                        MainMaskInterface.deleteItemListViewFiles(e.Item.FileSystemPath);
-                        FormFind.deleteRow(e.Item.FileSystemPath);
-                    }).Start();
+                        // start in separate thread so that lock is working
+                        new System.Threading.Tasks.Task(() =>
+                        {
+                            MainMaskInterface.deleteItemListViewFiles(e.Item.FileSystemPath);
+                        }).Start();
+                    }
                 }
             }
         }
@@ -513,15 +522,21 @@ namespace QuickImageCommentControls
             if (!FormQuickImageComment.closing && !parsingName.StartsWith("::"))
             {
                 //Logger.log("ItemRenamed Start " + e.OldItem.ParsingName);
-                if (e.OldItem.IsFileSystem && !e.OldItem.IsFolder)
+                string key = e.OldItem.FileSystemPath + "*" + e.NewItem.FileSystemPath;
+                if (ShellListenerIgnoreRename.Contains(key))
                 {
-                    // start in separate thread so that lock is working
-                    new System.Threading.Tasks.Task(() =>
+                    ShellListenerIgnoreRename.Remove(key);
+                }
+                else
+                {
+                    if (e.OldItem.IsFileSystem && !e.OldItem.IsFolder)
                     {
-                        MainMaskInterface.renameItemListViewFiles(e.OldItem.FileSystemPath, e.NewItem.FileSystemPath);
-                        FormFind.deleteRow(e.OldItem.FileSystemPath);
-                        FormFind.addOrUpdateRow(e.NewItem.FileSystemPath);
-                    }).Start();
+                        // start in separate thread so that lock is working
+                        new System.Threading.Tasks.Task(() =>
+                        {
+                            MainMaskInterface.renameItemListViewFiles(e.OldItem.FileSystemPath, e.NewItem.FileSystemPath);
+                        }).Start();
+                    }
                 }
             }
         }
@@ -545,6 +560,8 @@ namespace QuickImageCommentControls
             if (!FormQuickImageComment.closing && !parsingName.StartsWith("::"))
             {
                 //Logger.log("ItemUpdated Start " + e.Item.ParsingName);
+                // here no check for external/internal like for delete or rename
+                // check is done in UserControlFiles.createOrUpdateItemListViewFiles using last write time
                 if (e.Item.IsFileSystem && !e.Item.IsFolder)
                 {
 #if !DEBUG
@@ -555,8 +572,7 @@ namespace QuickImageCommentControls
                     new System.Threading.Tasks.Task(() =>
                     {
 #endif
-                        MainMaskInterface.createOrUpdateItemListViewFiles(e.Item.FileSystemPath);
-                        FormFind.addOrUpdateRow(e.Item.FileSystemPath);
+                    MainMaskInterface.createOrUpdateItemListViewFiles(e.Item.FileSystemPath);
 #if !DEBUG
                     }).Start();
 #endif
@@ -611,6 +627,16 @@ namespace QuickImageCommentControls
             }
             // sometimes it crashes; just do nothing in this case, probably the reason for this trigger is not important
             catch { };
+        }
+
+        // add entry to ShellListener events to be ignored
+        internal static void addShellListenerIgnoreDelete(string fileName)
+        {
+            ShellListenerIgnoreDelete.Add(fileName);
+        }
+        internal static void addShellListenerIgnoreRename(string oldFileName, string newFileName)
+        {
+            ShellListenerIgnoreRename.Add(oldFileName + "*" + newFileName);
         }
 
         TreeView m_TreeView;

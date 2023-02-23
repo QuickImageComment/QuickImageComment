@@ -16,6 +16,7 @@
 
 #define USESTARTUPTHREAD
 
+using QuickImageCommentControls;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -1634,6 +1635,7 @@ namespace QuickImageComment
                             try
 #endif
                             {
+                                ShellTreeViewQIC.addShellListenerIgnoreDelete(filesToBeDeleted[ii]);
                                 Microsoft.VisualBasic.FileIO.FileSystem.DeleteFile(filesToBeDeleted[ii],
                                   theUIOption, Microsoft.VisualBasic.FileIO.RecycleOption.SendToRecycleBin);
                                 // update data table for find
@@ -2417,13 +2419,10 @@ namespace QuickImageComment
                     // other files than selected might be modified if ShellListener is modifies the file list 
                     lock (UserControlFiles.LockListViewFiles)
                     {
-                        FormRename theFormRename = new FormRename(theUserControlFiles.listViewFiles.SelectedIndices, FolderName);
+                        FormRename theFormRename = new FormRename(theUserControlFiles.listViewFiles.SelectedIndices);
 
                         theFormRename.ShowDialog();
-                        if (theFormRename.filesRenamed)
-                        {
-                            readFolderAndDisplayImage(false);
-                        }
+                        // no further action needed here: FormRename updates list of files if needed
                     }
                 }
             }
@@ -2444,7 +2443,7 @@ namespace QuickImageComment
                     // other files than selected might be compared if ShellListener is modifies the file list 
                     lock (UserControlFiles.LockListViewFiles)
                     {
-                        FormCompare theFormCompare = new FormCompare(theUserControlFiles.listViewFiles.SelectedIndices, FolderName);
+                        FormCompare theFormCompare = new FormCompare(theUserControlFiles.listViewFiles.SelectedIndices);
                         theFormCompare.ShowDialog();
                     }
                 }
@@ -5182,7 +5181,7 @@ namespace QuickImageComment
                 SortedList changeableFieldsForSave = (SortedList)changeableFieldsForSaveCommon.Clone();
 
                 theListViewItem = theUserControlFiles.listViewFiles.Items[(int)selectedIndicesToStore[ii]];
-                FileName = FolderName + Path.DirectorySeparatorChar + theListViewItem.Name;
+                FileName = theListViewItem.Name;
                 theFormMultiSave.setProgress(ii, LangCfg.getText(LangCfg.Others.saveFileNofM, (ii + 1).ToString(),
                     selectedIndicesToStore.Count.ToString(), FileName));
 
@@ -6162,7 +6161,7 @@ namespace QuickImageComment
 
                 //new FormAbout();
                 new FormCheckNewVersion("", "");
-                new FormCompare(theUserControlFiles.listViewFiles.SelectedIndices, FolderName);
+                new FormCompare(theUserControlFiles.listViewFiles.SelectedIndices);
                 new FormDataTemplates();
                 new FormDateTimeChange(theUserControlFiles.listViewFiles.SelectedIndices);
                 new FormEditExternal();
@@ -6184,7 +6183,7 @@ namespace QuickImageComment
                 new FormPredefinedComments();
                 new FormPredefinedKeyWords();
                 new FormRemoveMetaData(theUserControlFiles.listViewFiles.SelectedIndices);
-                new FormRename(theUserControlFiles.listViewFiles.SelectedIndices, FolderName);
+                new FormRename(theUserControlFiles.listViewFiles.SelectedIndices);
                 new FormSelectLanguage(ConfigDefinition.getConfigPath());
                 new FormSettings();
                 // exclude FormSelectUserConfigStorage: not interisting for screen shot 
@@ -6252,7 +6251,7 @@ namespace QuickImageComment
             ArrayList ControlTextList = new ArrayList();
             LangCfg.getListOfControlsWithText(new FormAbout(), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormCheckNewVersion("", ""), ControlTextList);
-            LangCfg.getListOfControlsWithText(new FormCompare(theUserControlFiles.listViewFiles.SelectedIndices, FolderName), ControlTextList);
+            LangCfg.getListOfControlsWithText(new FormCompare(theUserControlFiles.listViewFiles.SelectedIndices), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormDataTemplates(), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormDateTimeChange(theUserControlFiles.listViewFiles.SelectedIndices), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormEditExternal(), ControlTextList);
@@ -6277,7 +6276,7 @@ namespace QuickImageComment
             // FormQuickImageComment is this
             LangCfg.getListOfControlsWithText(this, ControlTextList);
             LangCfg.getListOfControlsWithText(new FormRemoveMetaData(theUserControlFiles.listViewFiles.SelectedIndices), ControlTextList);
-            LangCfg.getListOfControlsWithText(new FormRename(theUserControlFiles.listViewFiles.SelectedIndices, FolderName), ControlTextList);
+            LangCfg.getListOfControlsWithText(new FormRename(theUserControlFiles.listViewFiles.SelectedIndices), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormSelectLanguage(ConfigDefinition.getConfigPath()), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormFirstAppCenterSettings(), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormFirstUserSettings(true), ControlTextList);
@@ -6314,7 +6313,7 @@ namespace QuickImageComment
             new FormAbout();
             new FormChangesInVersion();
             new FormCheckNewVersion("", "");
-            new FormCompare(theUserControlFiles.listViewFiles.SelectedIndices, FolderName);
+            new FormCompare(theUserControlFiles.listViewFiles.SelectedIndices);
             new FormDataTemplates();
             new FormDateTimeChange(theUserControlFiles.listViewFiles.SelectedIndices);
             new FormEditExternal();
@@ -6341,7 +6340,7 @@ namespace QuickImageComment
             // FormPrevNext is base form
             // FormQuickImageComment is already translated
             new FormRemoveMetaData(theUserControlFiles.listViewFiles.SelectedIndices);
-            new FormRename(theUserControlFiles.listViewFiles.SelectedIndices, FolderName);
+            new FormRename(theUserControlFiles.listViewFiles.SelectedIndices);
             new FormSelectFolder("C:\\");
             new FormSelectLanguage(ConfigDefinition.getConfigPath());
             new FormSettings();

@@ -32,7 +32,6 @@ namespace QuickImageComment
         private Cursor OldCursor;
 
         private int[] listViewFilesSelectedIndices;
-        private string listViewFilesFolderName;
         private string ExportExtension = "";
 
         private const long minTimePassedForRemCalc = 2;
@@ -66,7 +65,6 @@ namespace QuickImageComment
 
             listViewFilesSelectedIndices = new int[SelectedIndices.Count];
             SelectedIndices.CopyTo(listViewFilesSelectedIndices, 0);
-            listViewFilesFolderName = FolderName;
 
             ExportExtension = GeneralUtilities.inputBox(LangCfg.Message.Q_filExtensionForExport, "txt");
             if (!ExportExtension.Equals(""))

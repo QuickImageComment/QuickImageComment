@@ -644,6 +644,7 @@ namespace QuickImageComment
                         }
                     }
                 }
+                FormFind.addOrUpdateRow(fullFileName);
             }
         }
 
@@ -679,6 +680,8 @@ namespace QuickImageComment
                             FormImageDetails.closeUnusedWindows();
                             FormImageWindow.closeUnusedWindows();
                         }
+                        FormFind.deleteRow(fullFileName);
+
                         theFormQuickImageComment.toolStripStatusLabelFiles.Text = LangCfg.translate("Bilder/Videos", this.Name) + ": " + listViewFiles.Items.Count.ToString();
                     }
                 }
@@ -707,8 +710,10 @@ namespace QuickImageComment
                     {
                         wasDisplayed = isDisplayed(ii);
                         if (listViewFiles.SelectedIndices.Contains(ii)) wasSelected = true;
-                        formImageDetails = FormImageDetails.getWindowForImage(ImageManager.getExtendedImage(ii));
-                        formImageWindow = FormImageWindow.getWindowForImage(ImageManager.getExtendedImage(ii));
+                        // use getExtendedImageFromCache, can avoid deadlock and
+                        // here extendedImage should be in cache, if it is shown in those windows
+                        formImageDetails = FormImageDetails.getWindowForImage(ImageManager.getExtendedImageFromCache(ii));
+                        formImageWindow = FormImageWindow.getWindowForImage(ImageManager.getExtendedImageFromCache(ii));
 
                         // delete entry in lists in Image Manager
                         ImageManager.deleteExtendedImage(ii);
@@ -721,12 +726,27 @@ namespace QuickImageComment
                     // this is also triggered, when files are renamed in QIC, so check if new file is already there
                     int jj = listViewFiles.getIndexOf(newFullFileName);
                     FileInfo theFileInfo = new FileInfo(newFullFileName);
-                    // ShellListener event gives network device in capital letters, which at least sometimes differs from Foldername
-                    // check also extension and compare with file filter
-                    if (jj < 0 &&
-                        theFileInfo.DirectoryName.ToLower().Equals(theFormQuickImageComment.FolderName.ToLower()) &&
-                        ConfigDefinition.FilesExtensionsArrayList.Contains(theFileInfo.Extension.ToLower()) &&
-                        fileNameFitsToFilter(theFileInfo.Name.ToLower()))
+
+                    bool show = false;
+                    if (jj < 0)
+                    {
+                        if (listViewWithCompleteFolder)
+                        {
+                            // ShellListener event gives network device in capital letters, which at least sometimes differs from Foldername
+                            // check also extension and compare with file filter
+                            show = theFileInfo.DirectoryName.ToLower().Equals(theFormQuickImageComment.FolderName.ToLower()) &&
+                                   ConfigDefinition.FilesExtensionsArrayList.Contains(theFileInfo.Extension.ToLower()) &&
+                                   fileNameFitsToFilter(theFileInfo.Name.ToLower());
+                        }
+                        else
+                        {
+                            // file names are given individually, e.g by search result or drag-and-drop
+                            // so no check on folder or extension, but it must have been in list before
+                            if (ii >= 0) show = true;
+                        }
+                    }
+
+                    if (show)
                     {
                         // save current view
                         View tempView = listViewFiles.View;
@@ -777,6 +797,8 @@ namespace QuickImageComment
                     FormImageDetails.closeUnusedWindows();
                     FormImageWindow.closeUnusedWindows();
                 }
+                FormFind.deleteRow(oldFullFileName);
+                FormFind.addOrUpdateRow(newFullFileName);
 
                 theFormQuickImageComment.toolStripStatusLabelFiles.Text = LangCfg.translate("Bilder/Videos", this.Name) + ": " + listViewFiles.Items.Count.ToString();
             }

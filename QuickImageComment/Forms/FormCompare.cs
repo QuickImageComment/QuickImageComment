@@ -29,7 +29,6 @@ namespace QuickImageComment
         /// </summary>
 
         private int[] listViewFilesSelectedIndices;
-        private string listViewFilesFolderName;
         private FormCustomization.Interface CustomizationInterface;
 
         private ArrayList differentTagsAll;
@@ -37,7 +36,7 @@ namespace QuickImageComment
         private System.Collections.SortedList KeyList;
 
         // constructor
-        public FormCompare(ListView.SelectedIndexCollection SelectedIndices, string FolderName)
+        public FormCompare(ListView.SelectedIndexCollection SelectedIndices)
         {
             InitializeComponent();
 #if APPCENTER
@@ -52,7 +51,6 @@ namespace QuickImageComment
 
             listViewFilesSelectedIndices = new int[SelectedIndices.Count];
             SelectedIndices.CopyTo(listViewFilesSelectedIndices, 0);
-            listViewFilesFolderName = FolderName;
             differentTagsAll = new ArrayList();
             searchDifferentTags();
             fillDataTable();

@@ -1321,7 +1321,8 @@ namespace QuickImageComment
                 {
                     //!! Prüfung vereinfachen, nicht hier?
                     string fullFileName = extendedImage.getImageFileName();
-                    if (fullFileName.StartsWith((string)dataTable.ExtendedProperties["Folder"]))
+                    // add DirectorySeparatorChar to avoid adding C:\folder-suffix\... if table contains C:\folder
+                    if (fullFileName.StartsWith((string)dataTable.ExtendedProperties["Folder"] + System.IO.Path.DirectorySeparatorChar))
                     {
                         object[] findSpec = new object[1];
                         findSpec[0] = fullFileName;
@@ -1349,7 +1350,8 @@ namespace QuickImageComment
             if (dataTable != null && dataTable.ExtendedProperties.Count > 0)
             {
                 string tableFolder = (string)dataTable.ExtendedProperties["Folder"];
-                if (tableFolder != null && fullFileName.StartsWith(tableFolder))
+                // add DirectorySeparatorChar to avoid adding C:\folder-suffix\... if table contains C:\folder
+                if (tableFolder != null && fullFileName.StartsWith(tableFolder + System.IO.Path.DirectorySeparatorChar))
                 {
                     try
                     {
@@ -1369,7 +1371,7 @@ namespace QuickImageComment
             {
                 lock (LockDataTable)
                 {
-                    if (fullFileName.StartsWith((string)dataTable.ExtendedProperties["Folder"]))
+                    if (fullFileName.StartsWith((string)dataTable.ExtendedProperties["Folder"] + System.IO.Path.DirectorySeparatorChar))
                     {
                         object[] findSpec = new object[1];
                         findSpec[0] = fullFileName;

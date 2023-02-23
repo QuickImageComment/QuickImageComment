@@ -14,6 +14,7 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
+using QuickImageCommentControls;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -57,12 +58,14 @@ namespace QuickImageComment
 
         private int[] listViewFilesSelectedIndices;
         // list contains new file names; used to check for duplicate new names
-        private List<string> newFileNamesList = new List<string>();
+        private List<string> newFullFileNamesList = new List<string>();
         // hashtable contains old and new file name which could not be renamed 
         // because new file name is still used
         private Hashtable filesStillToRename;
+        // hashtable contains old and new file name for update of list view
+        // list view update after complete renaming as it changes order of files
+        private SortedList filesToUpdateListView;
 
-        private string listViewFilesFolderName;
         private ExtendedImage OneExtendedImage;
 
         private System.Windows.Forms.CheckBox checkBoxRenameFormat = null;
@@ -83,7 +86,7 @@ namespace QuickImageComment
         private int CurrentLine = 1;
 
         // constructor
-        public FormRename(ListView.SelectedIndexCollection SelectedIndices, string FolderName)
+        public FormRename(ListView.SelectedIndexCollection SelectedIndices)
         {
             InitializeComponent();
 #if APPCENTER
@@ -95,7 +98,6 @@ namespace QuickImageComment
 
             listViewFilesSelectedIndices = new int[SelectedIndices.Count];
             SelectedIndices.CopyTo(listViewFilesSelectedIndices, 0);
-            listViewFilesFolderName = FolderName;
             OneExtendedImage = ImageManager.getExtendedImage(listViewFilesSelectedIndices[0]);
 
             // Initialize list of field definitions
@@ -320,8 +322,9 @@ namespace QuickImageComment
             progressPanel1.Visible = true;
             progressPanel1.init(listViewFilesSelectedIndices.Length);
 
-            newFileNamesList.Clear();
+            newFullFileNamesList.Clear();
             filesStillToRename = new Hashtable();
+            filesToUpdateListView = new SortedList();
             int[] SortedIndices = new int[listViewFilesSelectedIndices.Length];
             for (int ii = 0; ii < listViewFilesSelectedIndices.Length; ii++)
             {
@@ -367,13 +370,33 @@ namespace QuickImageComment
                     string FullNewFileName = (string)filesStillToRename[FullOldFileName];
                     if (!System.IO.File.Exists(FullNewFileName))
                     {
+                        ShellTreeViewQIC.addShellListenerIgnoreRename(FullOldFileName, FullNewFileName);
                         System.IO.File.Move(FullOldFileName, FullNewFileName);
+                        // enter new file name in update list for list view
+                        int index = filesToUpdateListView.IndexOfValue(FullOldFileName);
+                        filesToUpdateListView.SetByIndex(index, FullNewFileName);
                         filesStillToRename.Remove(FullOldFileName);
                         oneRenamed = true;
                         break;
                     }
                 }
             }
+
+            // now update list view; if done before, order is changed and indexes on files 
+            // can point to the wrong file
+            while (filesToUpdateListView.Count > 0)
+            {
+                string FullOldFileName = (string)filesToUpdateListView.GetKey(0);
+                string FullNewFileName = (string)filesToUpdateListView[FullOldFileName];
+                while (filesToUpdateListView.ContainsKey(FullNewFileName))
+                {
+                    FullOldFileName = FullNewFileName;
+                    FullNewFileName = (string)filesToUpdateListView[FullOldFileName];
+                }
+                MainMaskInterface.renameItemListViewFiles(FullOldFileName, (string)filesToUpdateListView[FullOldFileName]);
+                filesToUpdateListView.Remove(FullOldFileName);
+            }
+
             if (filesStillToRename.Count > 0)
             {
                 string FileList = "";
@@ -390,18 +413,16 @@ namespace QuickImageComment
         {
             ExtendedImage theExtendedImage = ImageManager.getExtendedImage(index);
             string FullOldFileName = theExtendedImage.getImageFileName();
-            string OldFileName = System.IO.Path.GetFileName(FullOldFileName);
-            string NewFileName = getNewFileName(theExtendedImage, FullOldFileName);
-            if (System.IO.Path.GetFileNameWithoutExtension(NewFileName).Equals(""))
+            string FullNewFileName = getFullNewFileName(theExtendedImage, FullOldFileName);
+            if (System.IO.Path.GetFileNameWithoutExtension(FullNewFileName).Equals(""))
             {
-                GeneralUtilities.message(LangCfg.Message.E_noRename, OldFileName, NewFileName);
+                GeneralUtilities.message(LangCfg.Message.E_noRename, FullOldFileName, FullNewFileName);
             }
-            else if (!OldFileName.Equals(NewFileName))
+            else if (!FullOldFileName.Equals(FullNewFileName))
             {
-                dynamicLabelRenameFiles.Text = OldFileName + " > " + NewFileName;
+                dynamicLabelRenameFiles.Text = FullOldFileName + " > " + FullNewFileName;
                 this.Refresh();
 
-                string FullNewFileName = listViewFilesFolderName + System.IO.Path.DirectorySeparatorChar + NewFileName;
                 string FullNewFileNameUnique = FullNewFileName;
                 string originalExtension = System.IO.Path.GetExtension(FullNewFileName);
 
@@ -418,7 +439,9 @@ namespace QuickImageComment
                     filesStillToRename.Add(FullNewFileNameUnique, FullNewFileName);
                 }
 
+                ShellTreeViewQIC.addShellListenerIgnoreRename(FullOldFileName, FullNewFileName);
                 System.IO.File.Move(FullOldFileName, FullNewFileNameUnique);
+                filesToUpdateListView.Add(FullOldFileName, FullNewFileNameUnique);
                 // rename additional files
                 foreach (string additionalExtension in ConfigDefinition.getAdditionalFileExtensionsList())
                 {
@@ -444,7 +467,7 @@ namespace QuickImageComment
         }
 
         // return new file name based on given format
-        public string getNewFileName(ExtendedImage theExtendedImage, string OldFullFileName)
+        public string getFullNewFileName(ExtendedImage theExtendedImage, string OldFullFileName)
         {
             string NewName = "";
             string FieldValue = "";
@@ -542,16 +565,18 @@ namespace QuickImageComment
                   + richTextBoxRunningSuffix.Text + Extension;
             }
 
+            string FullNewFileName = System.IO.Path.GetDirectoryName(OldFullFileName) + System.IO.Path.DirectorySeparatorChar + NewFileName;
             // make name unique
-            while (newFileNamesList.Contains(NewFileName.ToLower()))
+            while (newFullFileNamesList.Contains(FullNewFileName.ToLower()))
             {
                 runningNumber++;
-                NewFileName = NewName + richTextBoxRunningPrefix.Text + runningNumber.ToString(Format)
+                FullNewFileName = System.IO.Path.GetDirectoryName(OldFullFileName) + System.IO.Path.DirectorySeparatorChar
+                  + NewName + richTextBoxRunningPrefix.Text + runningNumber.ToString(Format)
                   + richTextBoxRunningSuffix.Text + Extension;
             }
 
-            newFileNamesList.Add(NewFileName.ToLower());
-            return NewFileName;
+            newFullFileNamesList.Add(FullNewFileName.ToLower());
+            return FullNewFileName;
         }
 
         // replace characters, which are invalid in file names
@@ -585,7 +610,8 @@ namespace QuickImageComment
         // display an example of new file name
         private void displayExampleNewFileName()
         {
-            dynamicLabelRenameFiles.Text = LangCfg.getText(LangCfg.Others.example) + ": " + getNewFileName(OneExtendedImage, OneExtendedImage.getImageFileName());
+            dynamicLabelRenameFiles.Text = LangCfg.getText(LangCfg.Others.example) + ": " +
+                System.IO.Path.GetFileName(getFullNewFileName(OneExtendedImage, OneExtendedImage.getImageFileName()));
         }
 
         // set the controls for rename format based on string
