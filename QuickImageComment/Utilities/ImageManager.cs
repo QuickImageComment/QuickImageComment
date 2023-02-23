@@ -490,9 +490,16 @@ namespace QuickImageComment
                         bool saveFullSizeImage = HashtableFullSizeImages.Count < ConfigDefinition.getFullSizeImageCacheMaxSize();
 
                         string fileName = System.IO.Path.GetFileName(fullFileName);
-                        storeExtendedImage(fileName, fullFileName, false, saveFullSizeImage);
-                        CachePerformance.measure("storeExtendedImage" + fileName);
-                        // throw (new Exception("ExceptionTest Thread created by Task.Factory"));
+                        try
+                        {
+                            storeExtendedImage(fileName, fullFileName, false, saveFullSizeImage);
+                            CachePerformance.measure("storeExtendedImage" + fileName);
+                            // throw (new Exception("ExceptionTest Thread created by Task.Factory"));
+                        }
+                        catch (System.IO.FileNotFoundException) 
+                        {
+                            // when file is not found, it probably was deleted since creating cache list
+                        }
                     }
                     else
                     {
