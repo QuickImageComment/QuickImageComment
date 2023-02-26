@@ -45,7 +45,7 @@ namespace QuickImageComment
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormQuickImageComment));
             this.dynamicLabelArtist = new System.Windows.Forms.Label();
             this.textBoxUserComment = new System.Windows.Forms.TextBox();
@@ -116,6 +116,7 @@ namespace QuickImageComment
             this.toolStripStatusLabelThread = new System.Windows.Forms.ToolStripStatusLabel();
             this.MenuStrip1 = new System.Windows.Forms.MenuStrip();
             this.toolStripMenuItemFile = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemSelectFolder = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemOpen = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemFind = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator12 = new System.Windows.Forms.ToolStripSeparator();
@@ -194,6 +195,7 @@ namespace QuickImageComment
             this.toolStripMenuItemMapWindow = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItemMapUrl = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripMenuItemScale = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemCustomizeForm = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemRemoveAllMaskCustomizations = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemUserButtons = new System.Windows.Forms.ToolStripMenuItem();
@@ -256,7 +258,6 @@ namespace QuickImageComment
             this.toolStripButtonPredefinedKeyWords = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator14 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButtonFind = new System.Windows.Forms.ToolStripButton();
-            this.toolStripMenuItemSelectFolder = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer12)).BeginInit();
             this.splitContainer12.Panel1.SuspendLayout();
             this.splitContainer12.Panel2.SuspendLayout();
@@ -409,7 +410,6 @@ namespace QuickImageComment
             this.tabControlSingleMulti.Controls.Add(this.tabPageSingle);
             this.tabControlSingleMulti.Controls.Add(this.tabPageMulti);
             this.tabControlSingleMulti.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControlSingleMulti.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             this.tabControlSingleMulti.Location = new System.Drawing.Point(0, 0);
             this.tabControlSingleMulti.Name = "tabControlSingleMulti";
             this.tabControlSingleMulti.SelectedIndex = 0;
@@ -423,9 +423,9 @@ namespace QuickImageComment
             this.tabPageSingle.BackColor = System.Drawing.SystemColors.ControlLight;
             this.tabPageSingle.Controls.Add(this.splitContainer1211);
             this.tabPageSingle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.tabPageSingle.Location = new System.Drawing.Point(4, 24);
+            this.tabPageSingle.Location = new System.Drawing.Point(4, 22);
             this.tabPageSingle.Name = "tabPageSingle";
-            this.tabPageSingle.Size = new System.Drawing.Size(505, 192);
+            this.tabPageSingle.Size = new System.Drawing.Size(505, 194);
             this.tabPageSingle.TabIndex = 0;
             this.tabPageSingle.Text = "Einzel-Bildbearbeitung";
             this.tabPageSingle.UseVisualStyleBackColor = true;
@@ -451,7 +451,7 @@ namespace QuickImageComment
             this.splitContainer1211.Panel2.BackColor = System.Drawing.SystemColors.Control;
             this.splitContainer1211.Panel2.Controls.Add(this.tabControlProperties);
             this.splitContainer1211.Panel2MinSize = 20;
-            this.splitContainer1211.Size = new System.Drawing.Size(505, 192);
+            this.splitContainer1211.Size = new System.Drawing.Size(505, 194);
             this.splitContainer1211.SplitterDistance = 224;
             this.splitContainer1211.TabIndex = 0;
             // 
@@ -474,8 +474,8 @@ namespace QuickImageComment
             this.splitContainer1211P1.Panel2.Controls.Add(this.dynamicLabelFileName);
             this.splitContainer1211P1.Panel2.Controls.Add(this.panelFramePosition);
             this.splitContainer1211P1.Panel2MinSize = 20;
-            this.splitContainer1211P1.Size = new System.Drawing.Size(224, 192);
-            this.splitContainer1211P1.SplitterDistance = 111;
+            this.splitContainer1211P1.Size = new System.Drawing.Size(224, 194);
+            this.splitContainer1211P1.SplitterDistance = 112;
             this.splitContainer1211P1.SplitterWidth = 2;
             this.splitContainer1211P1.TabIndex = 4;
             // 
@@ -487,7 +487,7 @@ namespace QuickImageComment
             this.panelPictureBox.Location = new System.Drawing.Point(0, 0);
             this.panelPictureBox.Margin = new System.Windows.Forms.Padding(0);
             this.panelPictureBox.Name = "panelPictureBox";
-            this.panelPictureBox.Size = new System.Drawing.Size(224, 111);
+            this.panelPictureBox.Size = new System.Drawing.Size(224, 112);
             this.panelPictureBox.TabIndex = 0;
             this.panelPictureBox.TabStop = true;
             // 
@@ -500,7 +500,7 @@ namespace QuickImageComment
             this.pictureBox1.Cursor = System.Windows.Forms.Cursors.Default;
             this.pictureBox1.Location = new System.Drawing.Point(1, 1);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(226, 130);
+            this.pictureBox1.Size = new System.Drawing.Size(226, 131);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox1_Paint);
@@ -563,7 +563,7 @@ namespace QuickImageComment
             this.tabControlProperties.Location = new System.Drawing.Point(0, 0);
             this.tabControlProperties.Name = "tabControlProperties";
             this.tabControlProperties.SelectedIndex = 0;
-            this.tabControlProperties.Size = new System.Drawing.Size(277, 192);
+            this.tabControlProperties.Size = new System.Drawing.Size(277, 194);
             this.tabControlProperties.TabIndex = 0;
             this.tabControlProperties.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.tabControl_DrawItem);
             // 
@@ -576,7 +576,7 @@ namespace QuickImageComment
             this.tabPageOverview.Margin = new System.Windows.Forms.Padding(0);
             this.tabPageOverview.Name = "tabPageOverview";
             this.tabPageOverview.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageOverview.Size = new System.Drawing.Size(269, 166);
+            this.tabPageOverview.Size = new System.Drawing.Size(269, 168);
             this.tabPageOverview.TabIndex = 0;
             this.tabPageOverview.Text = "Übersicht";
             this.tabPageOverview.UseVisualStyleBackColor = true;
@@ -588,7 +588,7 @@ namespace QuickImageComment
             this.panelWarningMetaData.BackColor = System.Drawing.Color.Red;
             this.panelWarningMetaData.Location = new System.Drawing.Point(0, 0);
             this.panelWarningMetaData.Name = "panelWarningMetaData";
-            this.panelWarningMetaData.Size = new System.Drawing.Size(6, 168);
+            this.panelWarningMetaData.Size = new System.Drawing.Size(6, 170);
             this.panelWarningMetaData.TabIndex = 1;
             // 
             // DataGridViewOverview
@@ -613,10 +613,10 @@ namespace QuickImageComment
             this.DataGridViewOverview.Name = "DataGridViewOverview";
             this.DataGridViewOverview.ReadOnly = true;
             this.DataGridViewOverview.RowHeadersVisible = false;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            this.DataGridViewOverview.RowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            this.DataGridViewOverview.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.DataGridViewOverview.RowTemplate.Height = 18;
-            this.DataGridViewOverview.Size = new System.Drawing.Size(263, 162);
+            this.DataGridViewOverview.Size = new System.Drawing.Size(263, 164);
             this.DataGridViewOverview.TabIndex = 0;
             // 
             // dataGridViewOverviewColumnName
@@ -924,7 +924,6 @@ namespace QuickImageComment
             this.tabControlLastPredefComments.Controls.Add(this.tabPageLastComments);
             this.tabControlLastPredefComments.Controls.Add(this.tabPagePredefComments);
             this.tabControlLastPredefComments.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControlLastPredefComments.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             this.tabControlLastPredefComments.Location = new System.Drawing.Point(0, 0);
             this.tabControlLastPredefComments.Name = "tabControlLastPredefComments";
             this.tabControlLastPredefComments.SelectedIndex = 0;
@@ -938,10 +937,10 @@ namespace QuickImageComment
             this.tabPageLastComments.Controls.Add(this.textBoxLastCommentsFilter);
             this.tabPageLastComments.Controls.Add(this.labelLastCommentsFilter);
             this.tabPageLastComments.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.tabPageLastComments.Location = new System.Drawing.Point(4, 24);
+            this.tabPageLastComments.Location = new System.Drawing.Point(4, 22);
             this.tabPageLastComments.Name = "tabPageLastComments";
             this.tabPageLastComments.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageLastComments.Size = new System.Drawing.Size(311, 163);
+            this.tabPageLastComments.Size = new System.Drawing.Size(311, 165);
             this.tabPageLastComments.TabIndex = 0;
             this.tabPageLastComments.Text = "Letzte Kommentare";
             this.tabPageLastComments.UseVisualStyleBackColor = true;
@@ -1168,6 +1167,13 @@ namespace QuickImageComment
             this.toolStripMenuItemFile.Name = "toolStripMenuItemFile";
             this.toolStripMenuItemFile.Size = new System.Drawing.Size(46, 20);
             this.toolStripMenuItemFile.Text = "&Datei";
+            // 
+            // toolStripMenuItemSelectFolder
+            // 
+            this.toolStripMenuItemSelectFolder.Name = "toolStripMenuItemSelectFolder";
+            this.toolStripMenuItemSelectFolder.Size = new System.Drawing.Size(367, 22);
+            this.toolStripMenuItemSelectFolder.Text = "Ordner wählen ...";
+            this.toolStripMenuItemSelectFolder.Click += new System.EventHandler(this.toolStripMenuItemSelectFolder_Click);
             // 
             // toolStripMenuItemOpen
             // 
@@ -1692,6 +1698,7 @@ namespace QuickImageComment
             this.toolStripMenuItemMapWindow,
             this.ToolStripMenuItemMapUrl,
             this.toolStripSeparator10,
+            this.toolStripMenuItemScale,
             this.toolStripMenuItemCustomizeForm,
             this.toolStripMenuItemRemoveAllMaskCustomizations,
             this.toolStripMenuItemUserButtons,
@@ -1790,6 +1797,13 @@ namespace QuickImageComment
             // 
             this.toolStripSeparator10.Name = "toolStripSeparator10";
             this.toolStripSeparator10.Size = new System.Drawing.Size(288, 6);
+            // 
+            // toolStripMenuItemScale
+            // 
+            this.toolStripMenuItemScale.Name = "toolStripMenuItemScale";
+            this.toolStripMenuItemScale.Size = new System.Drawing.Size(291, 22);
+            this.toolStripMenuItemScale.Text = "Skalierung";
+            this.toolStripMenuItemScale.Click += new System.EventHandler(this.toolStripMenuItemScale_Click);
             // 
             // toolStripMenuItemCustomizeForm
             // 
@@ -2383,13 +2397,6 @@ namespace QuickImageComment
             this.toolStripButtonFind.ToolTipText = "Suche über Eigenschaften";
             this.toolStripButtonFind.Click += new System.EventHandler(this.toolStripMenuItemFind_Click);
             // 
-            // toolStripMenuItemSelectFolder
-            // 
-            this.toolStripMenuItemSelectFolder.Name = "toolStripMenuItemSelectFolder";
-            this.toolStripMenuItemSelectFolder.Size = new System.Drawing.Size(367, 22);
-            this.toolStripMenuItemSelectFolder.Text = "Ordner wählen ...";
-            this.toolStripMenuItemSelectFolder.Click += new System.EventHandler(this.toolStripMenuItemSelectFolder_Click);
-            // 
             // FormQuickImageComment
             // 
             this.AllowDrop = true;
@@ -2688,5 +2695,6 @@ namespace QuickImageComment
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemEditExternalAdministration;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparatorEditExternal;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemSelectFolder;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemScale;
     }
 }

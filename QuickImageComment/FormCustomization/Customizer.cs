@@ -67,6 +67,7 @@ namespace FormCustomization
         private static ArrayList UsedTranslations = new ArrayList();
         private static ArrayList NotTranslatedTexts = new ArrayList();
 
+        private static float generalZoomFactor = 1f;
 
         // contains properties of components
         private class PropertyPair
@@ -126,6 +127,7 @@ namespace FormCustomization
         private string HelpUrl = "";
         // HelpTopic to show when using menu entry "Help"
         private string HelpTopic = "";
+        private SortedList<string, float> UsedGeneralZoomFactors= new SortedList<string, float>();
         // holds changed properties and their orignal values
         private Hashtable PropertyTable = new Hashtable();
         // holds zoom basis data (before first zoom)
@@ -314,6 +316,7 @@ namespace FormCustomization
             enumProperty propertyIndex;
             int indexColon;
             float zoomFactor = (float)1.0;
+            bool usingGeneralZoomFactor = true;
 
             // zoom the form
             string zoomKey = theForm.Name + ":" + PropertyNameZoom;
@@ -325,6 +328,7 @@ namespace FormCustomization
                 }
                 else if (SetTo == enumSetTo.Customized)
                 {
+                    usingGeneralZoomFactor = false;
                     zoomFactor = (float)((PropertyPair)PropertyTable[zoomKey]).Customized;
                 }
                 else
@@ -332,7 +336,13 @@ namespace FormCustomization
                     throw new Exception("Internal Error");
                 }
             }
-            zoomForm(theForm, zoomFactor);
+
+            // if no specific zoom factor is set, use general zoom factor
+            if (usingGeneralZoomFactor)
+            {
+                zoomFactor = generalZoomFactor;
+            }
+            zoomForm(theForm, zoomFactor, usingGeneralZoomFactor);
 
             // adjust all form components
             // first create sorted list of keys
@@ -449,32 +459,49 @@ namespace FormCustomization
         //*****************************************************************
 
         // zoom a form and all its components
-        public void zoomForm(Form zoomableForm, float NewZoomFactor)
+        public void zoomForm(Form zoomableForm, float NewZoomFactor, bool usingGeneralZoomFactor)
         {
             zoomableForm.SuspendLayout();
-            float OldZoomFactor;
+            float OldZoomFactor = 0f;
             string key = zoomableForm.Name + ":" + PropertyNameZoom;
-            if (PropertyTable.ContainsKey(key))
+            if (usingGeneralZoomFactor)
             {
-                // Original value is set when first zoom is triggered
-                // thus original value is used for proper initialisation
-                if (((PropertyPair)PropertyTable[key]).Original == null)
+                if (UsedGeneralZoomFactors.ContainsKey(zoomableForm.Name))
                 {
-                    OldZoomFactor = 1;
-                    ((PropertyPair)PropertyTable[key]).Original = OldZoomFactor;
+                    OldZoomFactor = UsedGeneralZoomFactors[zoomableForm.Name];
+                    UsedGeneralZoomFactors[zoomableForm.Name] = NewZoomFactor;
                 }
                 else
                 {
-                    OldZoomFactor = (float)((PropertyPair)PropertyTable[key]).Customized;
+                    OldZoomFactor= 1f;
+                    UsedGeneralZoomFactors.Add(zoomableForm.Name, NewZoomFactor);
                 }
-                ((PropertyPair)PropertyTable[key]).Customized = NewZoomFactor;
             }
-            else
-            {
-                OldZoomFactor = 1;
-                // property not in list, add it customized value, original value not used here
-                PropertyTable.Add(key, new PropertyPair(null, NewZoomFactor));
+            else 
+            { 
+                if (PropertyTable.ContainsKey(key))
+                {
+                    // Original value is set when first zoom is triggered
+                    // thus original value is used for proper initialisation
+                    if (((PropertyPair)PropertyTable[key]).Original == null)
+                    {
+                        OldZoomFactor = 1;
+                        ((PropertyPair)PropertyTable[key]).Original = OldZoomFactor;
+                    }
+                    else
+                    {
+                        OldZoomFactor = (float)((PropertyPair)PropertyTable[key]).Customized;
+                    }
+                    ((PropertyPair)PropertyTable[key]).Customized = NewZoomFactor;
+                }
+                else
+                {
+                    OldZoomFactor = 1;
+                    // property not in list, add it customized value, original value not used here
+                    PropertyTable.Add(key, new PropertyPair(null, NewZoomFactor));
+                }
             }
+
             if (NewZoomFactor != OldZoomFactor)
             {
                 // if zoom basis data of form are not yet stored, fill them into hashtable
@@ -493,7 +520,9 @@ namespace FormCustomization
                     }
                 }
                 zoomControls(zoomableForm, NewZoomFactor, ToolStripOffsetCorrection);
-                customizedSettingChanged = true;
+                // when general zoom factor is used, do not set customizedSettingChanged as this
+                // flag is used for form specific settings only (to save customization settings)
+                customizedSettingChanged = !usingGeneralZoomFactor;
             }
             zoomableForm.ResumeLayout();
         }
@@ -544,57 +573,83 @@ namespace FormCustomization
             // get the zoom basis data
             ZoomBasisData theZoomBasisData = (ZoomBasisData)ZoomBasisDataTable[ParentControlFullName];
 
-            // reset minimum size to avoid that minimum size prevents changing size
-            ParentControl.MinimumSize = new Size(0, 0);
-
-            if (ParentControl is SplitContainer)
+            if (theZoomBasisData != null)
             {
-                ((SplitContainer)ParentControl).Panel1MinSize = 0;
-                ((SplitContainer)ParentControl).Panel2MinSize = 0;
-            }
+                // reset minimum size to avoid that minimum size prevents changing size
+                ParentControl.MinimumSize = new Size(0, 0);
 
-            // get new font size as truncated value (as it is done for width and height)
-            float newFontSize = theZoomBasisData.FontSize * zoomFactor;
-            newFontSize = (int)newFontSize;
-            ParentControl.Font = new Font(ParentControl.Font.FontFamily, newFontSize, ParentControl.Font.Style);
-
-            if (ParentControl is Form)
-            {
-                // zoom only inner part of form (not the borders)
-                ParentControl.Width = (int)((theZoomBasisData.Width - zoomOffsetWidth) * zoomFactor + zoomOffsetWidth);
-                ParentControl.Height = (int)((theZoomBasisData.Height - zoomOffsetHeight) * zoomFactor + zoomOffsetHeight);
-            }
-            else
-            {
-                // deactivate AutoSize for menu strip and status strip to ensure that control changes size
-                // for other controls it can have the effect, that text is truncated
-                if (ParentControl is MenuStrip || ParentControl is StatusStrip)
+                if (ParentControl is SplitContainer)
                 {
-                    ParentControl.AutoSize = false;
+                    ((SplitContainer)ParentControl).Panel1MinSize = 0;
+                    ((SplitContainer)ParentControl).Panel2MinSize = 0;
                 }
-                ParentControl.Width = (int)(theZoomBasisData.Width * zoomFactor);
-                ParentControl.Height = (int)(theZoomBasisData.Height * zoomFactor);
-            }
 
-            // do not change position of form
-            if (!(ParentControl is Form))
-            {
-                ParentControl.Left = (int)(theZoomBasisData.Left * zoomFactor);
-                ParentControl.Top = (int)(theZoomBasisData.Top * zoomFactor);
-                // controls in form: consider that toolstrip is not zoomed
-                if (ParentControl.Parent is Form)
+                // get new font size as truncated value (as it is done for width and height)
+                float newFontSize = theZoomBasisData.FontSize * zoomFactor;
+                newFontSize = (int)newFontSize;
+                ParentControl.Font = new Font(ParentControl.Font.FontFamily, newFontSize, ParentControl.Font.Style);
+
+                if (ParentControl is Form)
                 {
-                    ParentControl.Top = ParentControl.Top + (int)toolStripOffsetCorrection;
+                    // zoom only inner part of form (not the borders)
+                    ParentControl.Width = (int)((theZoomBasisData.Width - zoomOffsetWidth) * zoomFactor + zoomOffsetWidth);
+                    ParentControl.Height = (int)((theZoomBasisData.Height - zoomOffsetHeight) * zoomFactor + zoomOffsetHeight);
+                }
+                else
+                {
+                    // deactivate AutoSize for menu strip and status strip to ensure that control changes size
+                    // for other controls it can have the effect, that text is truncated
+                    if (ParentControl is MenuStrip || ParentControl is StatusStrip)
+                    {
+                        ParentControl.AutoSize = false;
+                    }
+                    ParentControl.Width = (int)(theZoomBasisData.Width * zoomFactor);
+                    ParentControl.Height = (int)(theZoomBasisData.Height * zoomFactor);
+                }
+
+                // do not change position of form
+                if (!(ParentControl is Form))
+                {
+                    ParentControl.Left = (int)(theZoomBasisData.Left * zoomFactor);
+                    ParentControl.Top = (int)(theZoomBasisData.Top * zoomFactor);
+                    // controls in form: consider that toolstrip is not zoomed
+                    if (ParentControl.Parent is Form)
+                    {
+                        ParentControl.Top = ParentControl.Top + (int)toolStripOffsetCorrection;
+                    }
                 }
             }
 
             // zoom the child controls
-            foreach (Control ChildControl in ParentControl.Controls)
+            if (ParentControl is StatusStrip)
             {
-                // do not try to zoom markup panels; no zoom basis data available for them
-                if (!(ChildControl is Panel && ChildControl.Name.Equals("_MARKUP_PANEL_")))
+                foreach (ToolStripStatusLabel ChildControl in ((StatusStrip)ParentControl).Items)
                 {
-                    zoomControls(ChildControl, zoomFactor, toolStripOffsetCorrection);
+                    ChildControl.Height = (int)(ChildControl.Height * zoomFactor);
+                    ChildControl.Width = (int)(ChildControl.Width * zoomFactor);
+                }
+            }
+            // following code block does not work 
+            //if (ParentControl is ToolStrip)
+            //{
+            //    ParentControl.Width=(int)(ParentControl.Width * zoomFactor);
+            //    ParentControl.Height = (int)(ParentControl.Height * zoomFactor);
+
+            //    foreach (ToolStripItem ChildControl in ((ToolStrip)ParentControl).Items)
+            //    {
+            //        ChildControl.Height = (int)(ChildControl.Height * zoomFactor);
+            //        ChildControl.Width = (int)(ChildControl.Width * zoomFactor);
+            //    }
+            //}
+            else
+            {
+                foreach (Control ChildControl in ParentControl.Controls)
+                {
+                    // do not try to zoom markup panels; no zoom basis data available for them
+                    if (!(ChildControl is Panel && ChildControl.Name.Equals("_MARKUP_PANEL_")))
+                    {
+                        zoomControls(ChildControl, zoomFactor, toolStripOffsetCorrection);
+                    }
                 }
             }
 
@@ -1604,6 +1659,16 @@ namespace FormCustomization
             }
             MessageBox.Show(Customizer.getText(Texts.W_noValidShortcut, KeyString));
             return Keys.None;
+        }
+
+        // get and set general zoom factor
+        public static float getGeneralZoomFactor()
+        {
+            return generalZoomFactor;
+        }
+        public static void setGeneralZoomFactor(float value)
+        {
+            generalZoomFactor = value;
         }
         #endregion
     }

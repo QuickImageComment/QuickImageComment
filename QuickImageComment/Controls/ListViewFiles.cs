@@ -464,7 +464,8 @@ namespace QuickImageCommentControls
             if (this.InvokeRequired)
             {
                 getIndexOfCallback theCallback = new getIndexOfCallback(getIndexOf);
-                return (int)this.Invoke(theCallback, new object[] { fullFileName });
+                this.BeginInvoke(theCallback, new object[] { fullFileName });
+                return -1;
             }
             else
 #endif

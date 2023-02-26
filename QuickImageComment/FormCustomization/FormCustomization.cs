@@ -657,7 +657,7 @@ namespace FormCustomization
             // save selected node because it changes sometimes by zooming
             int selectedNodeIndex = treeViewComponents.SelectedNode.Index;
 
-            theCustomizer.zoomForm(ChangeableForm, (float)numericUpDownZoom.Value / 100);
+            theCustomizer.zoomForm(ChangeableForm, (float)numericUpDownZoom.Value / 100, false);
 
             // reselect previously selected node
             treeViewComponents.SelectedImageIndex = selectedNodeIndex;

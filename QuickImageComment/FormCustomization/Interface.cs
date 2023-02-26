@@ -44,8 +44,9 @@ namespace FormCustomization
             if (!CustomizationFile.Equals(""))
             {
                 theCustomizer.loadCustomizationFile(CustomizationFile, true);
-                setFormToCustomizedValues(theForm);
             }
+            setFormToCustomizedValues(theForm);
+
             // add generic key event handler
             theForm.KeyDown += new System.Windows.Forms.KeyEventHandler(theCustomizer.Form_KeyDown);
         }
@@ -124,12 +125,6 @@ namespace FormCustomization
             return theCustomizer.getActualZoomFactor(theForm);
         }
 
-        // zoom the form
-        public void zoomForm(Form theForm, float zoomFactor)
-        {
-            theCustomizer.zoomForm(theForm, zoomFactor);
-        }
-
         // if settings are changed and saving is confirmed, save settings
         public void saveIfChangedAndConfirmed()
         {
@@ -146,6 +141,16 @@ namespace FormCustomization
         public void resetForm(Form theForm)
         {
             theCustomizer.setAllComponents(Customizer.enumSetTo.Original, theForm);
+        }
+
+        // get and set general zoom factor
+        public static float getGeneralZoomFactor()
+        {
+            return Customizer.getGeneralZoomFactor();
+        }
+        public static void setGeneralZoomFactor(float value)
+        {
+            Customizer.setGeneralZoomFactor(value);
         }
     }
 }

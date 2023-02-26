@@ -194,7 +194,8 @@ namespace QuickImageComment
             FormFindHeight,
             FormFindWidth,
             FormFindSplitContainer1_Distance,
-            GpsFindRangeInMeter
+            GpsFindRangeInMeter,
+            generalZoomFactorPerCent
         };
 
         public enum enumCfgUserString
@@ -537,6 +538,7 @@ namespace QuickImageComment
             ConfigItems.Add(enumCfgUserInt.FormFindWidth.ToString(), 0);
             ConfigItems.Add(enumCfgUserInt.FormFindSplitContainer1_Distance.ToString(), 100);
             ConfigItems.Add(enumCfgUserInt.GpsFindRangeInMeter.ToString(), 1000);
+            ConfigItems.Add(enumCfgUserInt.generalZoomFactorPerCent.ToString(), 100);
 
             // the following are not contained in standard general configuration file and are optional
             // so they are not defined via enum

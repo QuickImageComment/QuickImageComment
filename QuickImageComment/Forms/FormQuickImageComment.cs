@@ -447,14 +447,8 @@ namespace QuickImageComment
                 else
                     GeneralUtilities.message(LangCfg.Message.E_loadErrorCustomization, ConfigDefinition.getMaskCustomizationFile());
             }
-            CustomizationInterface = new FormCustomization.Interface(this,
-              maskCustomizationFile,
-              LangCfg.getText(LangCfg.Others.configFileQicCustomization),
-              "file://" + LangCfg.getHelpFile(),
-              "FormCustomization.htm",
-              LangCfg.getTranslationsFromGerman());
 
-            // translate menu before showing mask, rest is translated lalter
+            // translate menu before showing mask, rest is translated later
             //Program.StartupPerformance.measure("FormQIC before translate menu");
             LangCfg.translateControlTexts(this.MenuStrip1);
             //Program.StartupPerformance.measure("FormQIC after translate menu");
@@ -547,9 +541,6 @@ namespace QuickImageComment
                 }
             }
 
-            showHideControlsCentralInputArea();
-            //Program.StartupPerformance.measure("FormQIC showHideControlsCentralInputArea");
-
             // set the flags indicating if user controls are visible
             setUserControlVisibilityFlags();
 
@@ -571,6 +562,18 @@ namespace QuickImageComment
             if (theUserControlImageDetails != null) theUserControlImageDetails.adjustSplitterDistances();
 
             //Program.StartupPerformance.measure("FormQIC After set splitter distance");
+
+            FormCustomization.Interface.setGeneralZoomFactor(ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.generalZoomFactorPerCent) / 100f);
+            CustomizationInterface = new FormCustomization.Interface(this,
+              maskCustomizationFile,
+              LangCfg.getText(LangCfg.Others.configFileQicCustomization),
+              "file://" + LangCfg.getHelpFile(),
+              "FormCustomization.htm",
+              LangCfg.getTranslationsFromGerman());
+
+            // needs to be called after customization to adjust distances artist/comment
+            showHideControlsCentralInputArea();
+            //Program.StartupPerformance.measure("FormQIC showHideControlsCentralInputArea");
 
             // translate all controls
             //Program.StartupPerformance.measure("FormQIC before translate controls");
@@ -1150,13 +1153,20 @@ namespace QuickImageComment
                 ConfigDefinition.setCfgUserBool(ConfigDefinition.enumCfgUserBool.SplitContainer12_OrientationVertical, splitContainer12.Orientation == Orientation.Vertical);
 
                 // save splitterdistance normalized for 96 dpi
-                ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.Splitter1Distance, (int)(this.splitContainer1.SplitterDistance * 96.0f / dpiSettings));
-                ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.Splitter11Distance, (int)(this.splitContainer11.SplitterDistance * 96.0f / dpiSettings));
-                ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.Splitter12Distance, (int)(this.splitContainer12.SplitterDistance * 96.0f / dpiSettings));
-                ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.Splitter121Distance, (int)(this.splitContainer121.SplitterDistance * 96.0f / dpiSettings));
-                ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.Splitter1211Distance, (int)(this.splitContainer1211.SplitterDistance * 96.0f / dpiSettings));
-                ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.Splitter1212Distance, (int)(theUserControlKeyWords.splitContainer1212.SplitterDistance * 96.0f / dpiSettings));
-                ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.Splitter122Distance, (int)(this.splitContainer122.SplitterDistance * 96.0f / dpiSettings));
+                ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.Splitter1Distance, (int)(this.splitContainer1.SplitterDistance * 96.0f 
+                    / dpiSettings / FormCustomization.Interface.getGeneralZoomFactor()));
+                ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.Splitter11Distance, (int)(this.splitContainer11.SplitterDistance * 96.0f 
+                    / dpiSettings / FormCustomization.Interface.getGeneralZoomFactor()));
+                ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.Splitter12Distance, (int)(this.splitContainer12.SplitterDistance * 96.0f 
+                    / dpiSettings / FormCustomization.Interface.getGeneralZoomFactor()));
+                ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.Splitter121Distance, (int)(this.splitContainer121.SplitterDistance * 96.0f 
+                    / dpiSettings / FormCustomization.Interface.getGeneralZoomFactor()));
+                ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.Splitter1211Distance, (int)(this.splitContainer1211.SplitterDistance * 96.0f 
+                    / dpiSettings / FormCustomization.Interface.getGeneralZoomFactor()));
+                ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.Splitter1212Distance, (int)(theUserControlKeyWords.splitContainer1212.SplitterDistance * 96.0f 
+                    / dpiSettings / FormCustomization.Interface.getGeneralZoomFactor()));
+                ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.Splitter122Distance, (int)(this.splitContainer122.SplitterDistance * 96.0f 
+                    / dpiSettings / FormCustomization.Interface.getGeneralZoomFactor()));
                 ConfigDefinition.setShowImageWithGrid(this.toolStripMenuItemImageWithGrid.Checked);
                 ConfigDefinition.setPredefinedCommentsCategory(this.dynamicComboBoxPredefinedComments.Text);
 
@@ -1167,8 +1177,8 @@ namespace QuickImageComment
                     // set state to normal to get size in normal state
                     this.WindowState = FormWindowState.Normal;
                 }
-                ConfigDefinition.setFormMainHeight((int)(this.Height * 96.0f / dpiSettings));
-                ConfigDefinition.setFormMainWidth((int)(this.Width * 96.0f / dpiSettings));
+                ConfigDefinition.setFormMainHeight((int)(this.Height * 96.0f / dpiSettings / FormCustomization.Interface.getGeneralZoomFactor()));
+                ConfigDefinition.setFormMainWidth((int)(this.Width * 96.0f / dpiSettings / FormCustomization.Interface.getGeneralZoomFactor()));
                 ConfigDefinition.setFormMainTop(this.Top);
                 ConfigDefinition.setFormMainLeft(this.Left);
 
@@ -2274,6 +2284,23 @@ namespace QuickImageComment
         {
             theFormMap = new FormMap();
             theFormMap.Show();
+        }
+
+        // open form to set overall scaling
+        private void toolStripMenuItemScale_Click(object sender, EventArgs e)
+        {
+            FormScale theFormScale = new FormScale();
+            theFormScale.ShowDialog();
+            if (theFormScale.scaleChanged)
+            {
+                // hide the main splitContainer to avoid flickering during update
+                // using SuspendLayout still caused too much flickering 
+                this.splitContainer1.Visible = false;
+                CustomizationInterface.setFormToCustomizedValues(this);
+                // needs to be called to adjust distances artist/comment
+                showHideControlsCentralInputArea();
+                this.splitContainer1.Visible = true;
+            }
         }
 
         // open form customization settings
@@ -4251,7 +4278,7 @@ namespace QuickImageComment
 
                 toolStripStatusLabelInfo.Text = LangCfg.getText(LangCfg.Others.readFileNofM, "");
 #if !DEBUG
-                    try
+                try
 #endif
                 {
                     theUserControlFiles.listViewFiles.Items.AddRange(ImageManager.getTheListViewItems());
@@ -4337,10 +4364,10 @@ namespace QuickImageComment
                     readFolderPerfomance.measure("after selected indices add");
                 }
 #if !DEBUG
-                    catch (Exception ex)
-                    {
-                        GeneralUtilities.message(LangCfg.Message.E_readFolder, ex.ToString());
-                    }
+                catch (Exception ex)
+                {
+                    GeneralUtilities.message(LangCfg.Message.E_readFolder, ex.ToString());
+                }
 #endif
                 toolStripStatusLabelInfo.Text = "";
                 statusStrip1.Refresh();
