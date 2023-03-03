@@ -140,25 +140,20 @@ namespace QuickImageCommentControls
 
             delayAfterMouseWheelThread = new Thread(delayAfterMouseWheel);
 
-            ThumbNailSize = ConfigDefinition.getConfigInt(ConfigDefinition.enumConfigInt.ThumbNailSize);
-
             // Init list of last selected files
             selectedFilesOld = new ArrayList();
 
             // set size and other properties for image lists
             // imageListTiles only used to set image size for Tiles display
             this.imageListTiles = new ImageList();
-            this.imageListTiles.ImageSize = new Size(ThumbNailSize, ThumbNailSize);
             adjustTileViewWidth();
 
             // imageListIcon only used to set image size for LargeIcon display
             this.imageListIcon = new ImageList();
-            this.imageListIcon.ImageSize = new Size(ThumbNailSize, ThumbNailSize);
             this.LargeImageList = imageListIcon;
-            short sizeX = (short)(ThumbNailSize + ConfigDefinition.getConfigInt(ConfigDefinition.enumConfigInt.LargeIconHorizontalSpace));
-            short sizeY = (short)(ThumbNailSize + ConfigDefinition.getConfigInt(ConfigDefinition.enumConfigInt.LargeIconVerticalSpace));
-            ListViewItem_SetSpacing(this, sizeX, sizeY);
             this.DoubleBuffered = true;
+
+            setThumbNailSizeAndDependingValues();
 
             this.ListViewItemSorter = new ListViewItemComparer(this);
         }
@@ -262,7 +257,8 @@ namespace QuickImageCommentControls
         }
         public void adjustTileViewWidth()
         {
-            if (this.View == View.Tile)
+            // it happened, that this method was called, when Width was zero
+            if (this.View == View.Tile && this.Width > 0) 
             {
                 // reason for the need to substract 13 pixels unclear, determined by trying
                 // 13 is required in scaled remote desktop, else 11 would be enough
@@ -556,6 +552,18 @@ namespace QuickImageCommentControls
 
                 SendMessageLVCOLUMN(columnHeader, HDM_SETITEM, columnPtr, ref lvColumn);
             }
+        }
+
+        // set thumbnail size (after change of general scaling factor)
+        internal void setThumbNailSizeAndDependingValues()
+        {
+            ThumbNailSize = ConfigDefinition.getConfigInt(ConfigDefinition.enumConfigInt.ThumbNailSize) *
+                ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.generalZoomFactorPerCent) / 100;
+            short sizeX = (short)(ThumbNailSize + ConfigDefinition.getConfigInt(ConfigDefinition.enumConfigInt.LargeIconHorizontalSpace));
+            short sizeY = (short)(ThumbNailSize + ConfigDefinition.getConfigInt(ConfigDefinition.enumConfigInt.LargeIconVerticalSpace));
+            ListViewItem_SetSpacing(this, sizeX, sizeY);
+            this.imageListTiles.ImageSize = new Size(ThumbNailSize, ThumbNailSize);
+            this.imageListIcon.ImageSize = new Size(ThumbNailSize, ThumbNailSize);
         }
 
         // to allow disabling refreshing thumbnails during scrolling
