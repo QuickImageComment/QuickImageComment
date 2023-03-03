@@ -17,6 +17,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Net;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
@@ -149,6 +150,11 @@ namespace QuickImageComment
         internal UserControlMap(bool locationChangeNeeded, GeoDataItem geoDataItem, bool givenChangeLocationAllowed, int radiusInMeter)
         {
             InitializeComponent();
+            // set font for panel1 explicitely, so that it is not inherited
+            // if font is inherited, font is zoomed twice when adding this user control by user
+            Font mainFont = MainMaskInterface.getMainMask().Font;
+            panel1.Font = new Font(mainFont.FontFamily, mainFont.Size, mainFont.Style);
+            
             circleRadiusInMeter = radiusInMeter;
             initLocationChangeNeeded = locationChangeNeeded;
             initGeoDataItem = geoDataItem;
