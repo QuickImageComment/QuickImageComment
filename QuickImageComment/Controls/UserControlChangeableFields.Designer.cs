@@ -51,9 +51,8 @@
             this.panelChangeableFieldsInner.Controls.Add(this.dynamicLabelChangeableField);
             this.panelChangeableFieldsInner.Controls.Add(this.textBoxChangeableField);
             this.panelChangeableFieldsInner.Location = new System.Drawing.Point(0, 0);
-            this.panelChangeableFieldsInner.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.panelChangeableFieldsInner.Name = "panelChangeableFieldsInner";
-            this.panelChangeableFieldsInner.Size = new System.Drawing.Size(429, 369);
+            this.panelChangeableFieldsInner.Size = new System.Drawing.Size(368, 320);
             this.panelChangeableFieldsInner.TabIndex = 9;
             // 
             // dateTimePickerChangeableField
@@ -61,10 +60,9 @@
             this.dateTimePickerChangeableField.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.dateTimePickerChangeableField.CustomFormat = "yyyy:MM:dd hh:mm:ss";
             this.dateTimePickerChangeableField.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePickerChangeableField.Location = new System.Drawing.Point(406, 65);
-            this.dateTimePickerChangeableField.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.dateTimePickerChangeableField.Location = new System.Drawing.Point(348, 56);
             this.dateTimePickerChangeableField.Name = "dateTimePickerChangeableField";
-            this.dateTimePickerChangeableField.Size = new System.Drawing.Size(19, 23);
+            this.dateTimePickerChangeableField.Size = new System.Drawing.Size(14, 20);
             this.dateTimePickerChangeableField.TabIndex = 4;
             // 
             // comboBoxChangeableField
@@ -74,19 +72,17 @@
             this.comboBoxChangeableField.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.comboBoxChangeableField.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.comboBoxChangeableField.FormattingEnabled = true;
-            this.comboBoxChangeableField.Location = new System.Drawing.Point(170, 33);
-            this.comboBoxChangeableField.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.comboBoxChangeableField.Location = new System.Drawing.Point(146, 29);
             this.comboBoxChangeableField.Name = "comboBoxChangeableField";
-            this.comboBoxChangeableField.Size = new System.Drawing.Size(255, 23);
+            this.comboBoxChangeableField.Size = new System.Drawing.Size(219, 21);
             this.comboBoxChangeableField.TabIndex = 3;
             // 
             // dynamicLabelChangeableField
             // 
             this.dynamicLabelChangeableField.AutoSize = true;
-            this.dynamicLabelChangeableField.Location = new System.Drawing.Point(4, 8);
-            this.dynamicLabelChangeableField.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.dynamicLabelChangeableField.Location = new System.Drawing.Point(3, 7);
             this.dynamicLabelChangeableField.Name = "dynamicLabelChangeableField";
-            this.dynamicLabelChangeableField.Size = new System.Drawing.Size(38, 15);
+            this.dynamicLabelChangeableField.Size = new System.Drawing.Size(35, 13);
             this.dynamicLabelChangeableField.TabIndex = 1;
             this.dynamicLabelChangeableField.Tag = "0";
             this.dynamicLabelChangeableField.Text = "label1";
@@ -95,11 +91,10 @@
             // 
             this.textBoxChangeableField.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxChangeableField.Location = new System.Drawing.Point(170, 3);
-            this.textBoxChangeableField.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.textBoxChangeableField.Location = new System.Drawing.Point(146, 3);
             this.textBoxChangeableField.Name = "textBoxChangeableField";
             this.textBoxChangeableField.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBoxChangeableField.Size = new System.Drawing.Size(255, 23);
+            this.textBoxChangeableField.Size = new System.Drawing.Size(219, 20);
             this.textBoxChangeableField.TabIndex = 2;
             this.textBoxChangeableField.Tag = "0";
             this.textBoxChangeableField.WordWrap = false;
@@ -110,9 +105,8 @@
             this.panelChangeableFieldsOuter.Controls.Add(this.panelChangeableFieldsInner);
             this.panelChangeableFieldsOuter.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelChangeableFieldsOuter.Location = new System.Drawing.Point(0, 0);
-            this.panelChangeableFieldsOuter.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.panelChangeableFieldsOuter.Name = "panelChangeableFieldsOuter";
-            this.panelChangeableFieldsOuter.Size = new System.Drawing.Size(429, 373);
+            this.panelChangeableFieldsOuter.Size = new System.Drawing.Size(368, 323);
             this.panelChangeableFieldsOuter.TabIndex = 10;
             // 
             // dateTimePicker1
@@ -122,7 +116,7 @@
             this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateTimePicker1.Location = new System.Drawing.Point(345, 56);
             this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(17, 23);
+            this.dateTimePicker1.Size = new System.Drawing.Size(17, 20);
             this.dateTimePicker1.TabIndex = 4;
             // 
             // comboBox1
@@ -134,7 +128,7 @@
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Location = new System.Drawing.Point(146, 29);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(216, 23);
+            this.comboBox1.Size = new System.Drawing.Size(216, 21);
             this.comboBox1.TabIndex = 3;
             // 
             // label1
@@ -154,19 +148,18 @@
             this.textBox1.Location = new System.Drawing.Point(146, 3);
             this.textBox1.Name = "textBox1";
             this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox1.Size = new System.Drawing.Size(216, 23);
+            this.textBox1.Size = new System.Drawing.Size(216, 20);
             this.textBox1.TabIndex = 2;
             this.textBox1.Tag = "0";
             this.textBox1.WordWrap = false;
             // 
             // UserControlChangeableFields
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.panelChangeableFieldsOuter);
-            this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Name = "UserControlChangeableFields";
-            this.Size = new System.Drawing.Size(429, 373);
+            this.Size = new System.Drawing.Size(368, 323);
             this.panelChangeableFieldsInner.ResumeLayout(false);
             this.panelChangeableFieldsInner.PerformLayout();
             this.panelChangeableFieldsOuter.ResumeLayout(false);
@@ -179,11 +172,11 @@
         private System.Windows.Forms.ComboBox comboBoxChangeableField;
         private System.Windows.Forms.Label dynamicLabelChangeableField;
         private System.Windows.Forms.TextBox textBoxChangeableField;
-        private System.Windows.Forms.Panel panelChangeableFieldsOuter;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBox1;
         internal System.Windows.Forms.Panel panelChangeableFieldsInner;
+        private System.Windows.Forms.Panel panelChangeableFieldsOuter;
     }
 }

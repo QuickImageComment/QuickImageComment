@@ -68,6 +68,8 @@ namespace FormCustomization
         private static ArrayList NotTranslatedTexts = new ArrayList();
 
         private static float generalZoomFactor = 1f;
+        private static SortedList<string, int> NewFontSizesForZoom = new SortedList<string, int>();
+        private const string fontSizeTest = "MlMlMlMlM";
 
         // contains properties of components
         private class PropertyPair
@@ -95,6 +97,9 @@ namespace FormCustomization
             public float SplitterDistance = 0;
             public float Panel1MinSize = 0;
             public float Panel2MinSize = 0;
+            public float ItemSizeWidth = 0;
+            public float ItemSizeHeight = 0;
+            public float RowTemplateHeight = 0;
 
             public ZoomBasisData(Control givenControl)
             {
@@ -127,7 +132,7 @@ namespace FormCustomization
         private string HelpUrl = "";
         // HelpTopic to show when using menu entry "Help"
         private string HelpTopic = "";
-        private SortedList<string, float> UsedGeneralZoomFactors= new SortedList<string, float>();
+        private SortedList<string, float> UsedGeneralZoomFactors = new SortedList<string, float>();
         // holds changed properties and their orignal values
         private Hashtable PropertyTable = new Hashtable();
         // holds zoom basis data (before first zoom)
@@ -473,12 +478,12 @@ namespace FormCustomization
                 }
                 else
                 {
-                    OldZoomFactor= 1f;
+                    OldZoomFactor = 1f;
                     UsedGeneralZoomFactors.Add(zoomableForm.Name, NewZoomFactor);
                 }
             }
-            else 
-            { 
+            else
+            {
                 if (PropertyTable.ContainsKey(key))
                 {
                     // Original value is set when first zoom is triggered
@@ -563,6 +568,26 @@ namespace FormCustomization
                 ((ZoomBasisData)ZoomBasisDataTable[theControlFullName]).Panel2MinSize =
                     ((SplitContainer)theControl).Panel2MinSize / zoomFactor;
             }
+            else if (theControl is DataGridView)
+            {
+                ((ZoomBasisData)ZoomBasisDataTable[theControlFullName]).RowTemplateHeight =
+                    ((DataGridView)theControl).RowTemplate.Height;
+            }
+            else if (theControl is TabControl)
+            {
+                ((ZoomBasisData)ZoomBasisDataTable[theControlFullName]).ItemSizeHeight =
+                    ((TabControl)theControl).ItemSize.Height;
+                ((ZoomBasisData)ZoomBasisDataTable[theControlFullName]).ItemSizeWidth =
+                    ((TabControl)theControl).ItemSize.Width;
+            }
+        }
+
+        // zoom controls including childs using general zoom factor
+        internal void zoomControlsUsingGeneralZoomFactor(Control ParentControl)
+        {
+            // method can be called when zoom basis data are not yet filled
+            fillZoomBasisData(ParentControl, 1f);
+            zoomControls(ParentControl, generalZoomFactor, 0f);
         }
 
         // zoom controls including childs
@@ -584,10 +609,8 @@ namespace FormCustomization
                     ((SplitContainer)ParentControl).Panel2MinSize = 0;
                 }
 
-                // get new font size as truncated value (as it is done for width and height)
-                float newFontSize = theZoomBasisData.FontSize * zoomFactor;
-                newFontSize = (int)newFontSize;
-                ParentControl.Font = new Font(ParentControl.Font.FontFamily, newFontSize, ParentControl.Font.Style);
+                // get new font size by trying which font size fits in zoomed size of control
+                ParentControl.Font = getZoomedFont(ParentControl.Font, theZoomBasisData.FontSize, zoomFactor);
 
                 if (ParentControl is Form)
                 {
@@ -605,6 +628,28 @@ namespace FormCustomization
                     }
                     ParentControl.Width = (int)(theZoomBasisData.Width * zoomFactor);
                     ParentControl.Height = (int)(theZoomBasisData.Height * zoomFactor);
+                }
+
+                if (ParentControl is DataGridView)
+                {
+                    ((DataGridView)ParentControl).RowTemplate.Height = (int)(theZoomBasisData.RowTemplateHeight * zoomFactor);
+                }
+                else if (ParentControl is TabControl)
+                {
+                    ((TabControl)ParentControl).ItemSize =
+                        new Size((int)(theZoomBasisData.ItemSizeWidth * zoomFactor) + 20, (int)(theZoomBasisData.ItemSizeHeight * zoomFactor));
+                }
+                else if (ParentControl is DateTimePicker)
+                {
+                    ((DateTimePicker)ParentControl).CalendarFont = getZoomedFont(((DateTimePicker)ParentControl).CalendarFont,
+                        theZoomBasisData.FontSize, zoomFactor);
+                    if (ParentControl.Width < ParentControl.Height)
+                    {
+                        // size of date time picker indicates, that only the drop down symbol shall be visible,
+                        // not the date value as well
+                        // adjust width not to show parts of date behind drop down
+                        ParentControl.Width = (int)theZoomBasisData.Width;
+                    }
                 }
 
                 // do not change position of form
@@ -1669,6 +1714,47 @@ namespace FormCustomization
         public static void setGeneralZoomFactor(float value)
         {
             generalZoomFactor = value;
+        }
+
+        // get zoomed font
+        // the width of a text does not change proportional to font size
+        // font size is determined to ensure, that text fits into boundaries
+        public static Font getZoomedFont(Font usedFont, float initialFontSize, float zoomFactor)
+        {
+            int maxWidth;
+            int newFontSize;
+            Font newFont;
+            SizeF newSize;
+            Font initialFont = new Font(usedFont.FontFamily, initialFontSize, usedFont.Style);
+
+            if (zoomFactor == 1f)
+            {
+                return initialFont;
+            }
+
+            //string key = oldFont.ToString() + zoomFactor.ToString();
+            string key = usedFont.Name + initialFontSize.ToString() + " " + zoomFactor.ToString();
+            if (NewFontSizesForZoom.ContainsKey(key))
+            {
+                return new Font(usedFont.FontFamily, NewFontSizesForZoom[key], usedFont.Style);
+            }
+            else
+            {
+                SizeF oldSize = TextRenderer.MeasureText(fontSizeTest, initialFont);
+                maxWidth = (int)(oldSize.Width * zoomFactor);
+                // start with font size proportional to zoom factor +1 as tolerance
+                // note that newFontSize is decremented at begin of loop
+                newFontSize = (int)(initialFontSize * zoomFactor) + 2;
+                do
+                {
+                    newFontSize--;
+                    newFont = new Font(usedFont.FontFamily, newFontSize, usedFont.Style);
+                    newSize = TextRenderer.MeasureText(fontSizeTest, newFont);
+                }
+                while (newSize.Width > maxWidth);
+                NewFontSizesForZoom.Add(key, newFontSize);
+                return newFont;
+            }
         }
         #endregion
     }

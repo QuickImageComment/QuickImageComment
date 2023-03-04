@@ -151,7 +151,6 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.checkedListBoxRemoveMetaDataList.CheckOnClick = true;
-            this.checkedListBoxRemoveMetaDataList.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkedListBoxRemoveMetaDataList.FormattingEnabled = true;
             this.checkedListBoxRemoveMetaDataList.Location = new System.Drawing.Point(225, 191);
             this.checkedListBoxRemoveMetaDataList.Name = "checkedListBoxRemoveMetaDataList";
@@ -193,7 +192,6 @@
             this.checkedListBoxRemoveMetaDataExceptions.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.checkedListBoxRemoveMetaDataExceptions.CheckOnClick = true;
-            this.checkedListBoxRemoveMetaDataExceptions.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkedListBoxRemoveMetaDataExceptions.FormattingEnabled = true;
             this.checkedListBoxRemoveMetaDataExceptions.Location = new System.Drawing.Point(225, 32);
             this.checkedListBoxRemoveMetaDataExceptions.Name = "checkedListBoxRemoveMetaDataExceptions";

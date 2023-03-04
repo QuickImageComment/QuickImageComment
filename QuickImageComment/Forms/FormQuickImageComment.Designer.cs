@@ -410,6 +410,7 @@ namespace QuickImageComment
             this.tabControlSingleMulti.Controls.Add(this.tabPageSingle);
             this.tabControlSingleMulti.Controls.Add(this.tabPageMulti);
             this.tabControlSingleMulti.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControlSingleMulti.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabControlSingleMulti.Location = new System.Drawing.Point(0, 0);
             this.tabControlSingleMulti.Name = "tabControlSingleMulti";
             this.tabControlSingleMulti.SelectedIndex = 0;
@@ -423,9 +424,9 @@ namespace QuickImageComment
             this.tabPageSingle.BackColor = System.Drawing.SystemColors.ControlLight;
             this.tabPageSingle.Controls.Add(this.splitContainer1211);
             this.tabPageSingle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.tabPageSingle.Location = new System.Drawing.Point(4, 22);
+            this.tabPageSingle.Location = new System.Drawing.Point(4, 24);
             this.tabPageSingle.Name = "tabPageSingle";
-            this.tabPageSingle.Size = new System.Drawing.Size(505, 194);
+            this.tabPageSingle.Size = new System.Drawing.Size(505, 192);
             this.tabPageSingle.TabIndex = 0;
             this.tabPageSingle.Text = "Einzel-Bildbearbeitung";
             this.tabPageSingle.UseVisualStyleBackColor = true;
@@ -451,7 +452,7 @@ namespace QuickImageComment
             this.splitContainer1211.Panel2.BackColor = System.Drawing.SystemColors.Control;
             this.splitContainer1211.Panel2.Controls.Add(this.tabControlProperties);
             this.splitContainer1211.Panel2MinSize = 20;
-            this.splitContainer1211.Size = new System.Drawing.Size(505, 194);
+            this.splitContainer1211.Size = new System.Drawing.Size(505, 192);
             this.splitContainer1211.SplitterDistance = 224;
             this.splitContainer1211.TabIndex = 0;
             // 
@@ -474,8 +475,8 @@ namespace QuickImageComment
             this.splitContainer1211P1.Panel2.Controls.Add(this.dynamicLabelFileName);
             this.splitContainer1211P1.Panel2.Controls.Add(this.panelFramePosition);
             this.splitContainer1211P1.Panel2MinSize = 20;
-            this.splitContainer1211P1.Size = new System.Drawing.Size(224, 194);
-            this.splitContainer1211P1.SplitterDistance = 112;
+            this.splitContainer1211P1.Size = new System.Drawing.Size(224, 192);
+            this.splitContainer1211P1.SplitterDistance = 110;
             this.splitContainer1211P1.SplitterWidth = 2;
             this.splitContainer1211P1.TabIndex = 4;
             // 
@@ -487,7 +488,7 @@ namespace QuickImageComment
             this.panelPictureBox.Location = new System.Drawing.Point(0, 0);
             this.panelPictureBox.Margin = new System.Windows.Forms.Padding(0);
             this.panelPictureBox.Name = "panelPictureBox";
-            this.panelPictureBox.Size = new System.Drawing.Size(224, 112);
+            this.panelPictureBox.Size = new System.Drawing.Size(224, 110);
             this.panelPictureBox.TabIndex = 0;
             this.panelPictureBox.TabStop = true;
             // 
@@ -500,7 +501,7 @@ namespace QuickImageComment
             this.pictureBox1.Cursor = System.Windows.Forms.Cursors.Default;
             this.pictureBox1.Location = new System.Drawing.Point(1, 1);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(226, 131);
+            this.pictureBox1.Size = new System.Drawing.Size(226, 129);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox1_Paint);
@@ -563,7 +564,7 @@ namespace QuickImageComment
             this.tabControlProperties.Location = new System.Drawing.Point(0, 0);
             this.tabControlProperties.Name = "tabControlProperties";
             this.tabControlProperties.SelectedIndex = 0;
-            this.tabControlProperties.Size = new System.Drawing.Size(277, 194);
+            this.tabControlProperties.Size = new System.Drawing.Size(277, 192);
             this.tabControlProperties.TabIndex = 0;
             this.tabControlProperties.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.tabControl_DrawItem);
             // 
@@ -576,7 +577,7 @@ namespace QuickImageComment
             this.tabPageOverview.Margin = new System.Windows.Forms.Padding(0);
             this.tabPageOverview.Name = "tabPageOverview";
             this.tabPageOverview.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageOverview.Size = new System.Drawing.Size(269, 168);
+            this.tabPageOverview.Size = new System.Drawing.Size(269, 166);
             this.tabPageOverview.TabIndex = 0;
             this.tabPageOverview.Text = "Übersicht";
             this.tabPageOverview.UseVisualStyleBackColor = true;
@@ -588,7 +589,7 @@ namespace QuickImageComment
             this.panelWarningMetaData.BackColor = System.Drawing.Color.Red;
             this.panelWarningMetaData.Location = new System.Drawing.Point(0, 0);
             this.panelWarningMetaData.Name = "panelWarningMetaData";
-            this.panelWarningMetaData.Size = new System.Drawing.Size(6, 170);
+            this.panelWarningMetaData.Size = new System.Drawing.Size(6, 168);
             this.panelWarningMetaData.TabIndex = 1;
             // 
             // DataGridViewOverview
@@ -616,7 +617,7 @@ namespace QuickImageComment
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             this.DataGridViewOverview.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.DataGridViewOverview.RowTemplate.Height = 18;
-            this.DataGridViewOverview.Size = new System.Drawing.Size(263, 164);
+            this.DataGridViewOverview.Size = new System.Drawing.Size(263, 162);
             this.DataGridViewOverview.TabIndex = 0;
             // 
             // dataGridViewOverviewColumnName
@@ -794,11 +795,10 @@ namespace QuickImageComment
             | System.Windows.Forms.AnchorStyles.Left)));
             this.checkedListBoxChangeableFieldsChange.CheckedColor = System.Drawing.Color.LightGreen;
             this.checkedListBoxChangeableFieldsChange.CheckOnClick = true;
-            this.checkedListBoxChangeableFieldsChange.Font = new System.Drawing.Font("Tahoma", 8.25F);
             this.checkedListBoxChangeableFieldsChange.FormattingEnabled = true;
             this.checkedListBoxChangeableFieldsChange.Location = new System.Drawing.Point(1, 101);
             this.checkedListBoxChangeableFieldsChange.Name = "checkedListBoxChangeableFieldsChange";
-            this.checkedListBoxChangeableFieldsChange.Size = new System.Drawing.Size(250, 52);
+            this.checkedListBoxChangeableFieldsChange.Size = new System.Drawing.Size(250, 36);
             this.checkedListBoxChangeableFieldsChange.TabIndex = 3;
             // 
             // comboBoxKeyWordsChange
@@ -924,6 +924,7 @@ namespace QuickImageComment
             this.tabControlLastPredefComments.Controls.Add(this.tabPageLastComments);
             this.tabControlLastPredefComments.Controls.Add(this.tabPagePredefComments);
             this.tabControlLastPredefComments.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControlLastPredefComments.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabControlLastPredefComments.Location = new System.Drawing.Point(0, 0);
             this.tabControlLastPredefComments.Name = "tabControlLastPredefComments";
             this.tabControlLastPredefComments.SelectedIndex = 0;
@@ -937,10 +938,10 @@ namespace QuickImageComment
             this.tabPageLastComments.Controls.Add(this.textBoxLastCommentsFilter);
             this.tabPageLastComments.Controls.Add(this.labelLastCommentsFilter);
             this.tabPageLastComments.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.tabPageLastComments.Location = new System.Drawing.Point(4, 22);
+            this.tabPageLastComments.Location = new System.Drawing.Point(4, 24);
             this.tabPageLastComments.Name = "tabPageLastComments";
             this.tabPageLastComments.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageLastComments.Size = new System.Drawing.Size(311, 165);
+            this.tabPageLastComments.Size = new System.Drawing.Size(311, 163);
             this.tabPageLastComments.TabIndex = 0;
             this.tabPageLastComments.Text = "Letzte Kommentare";
             this.tabPageLastComments.UseVisualStyleBackColor = true;
@@ -952,7 +953,7 @@ namespace QuickImageComment
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listBoxLastUserComments.Location = new System.Drawing.Point(3, 28);
             this.listBoxLastUserComments.Name = "listBoxLastUserComments";
-            this.listBoxLastUserComments.Size = new System.Drawing.Size(305, 121);
+            this.listBoxLastUserComments.Size = new System.Drawing.Size(305, 134);
             this.listBoxLastUserComments.TabIndex = 2;
             // 
             // textBoxLastCommentsFilter
@@ -998,7 +999,7 @@ namespace QuickImageComment
             this.listBoxPredefinedComments.ColumnWidth = 30;
             this.listBoxPredefinedComments.Location = new System.Drawing.Point(2, 28);
             this.listBoxPredefinedComments.Name = "listBoxPredefinedComments";
-            this.listBoxPredefinedComments.Size = new System.Drawing.Size(306, 121);
+            this.listBoxPredefinedComments.Size = new System.Drawing.Size(306, 108);
             this.listBoxPredefinedComments.Sorted = true;
             this.listBoxPredefinedComments.TabIndex = 2;
             // 

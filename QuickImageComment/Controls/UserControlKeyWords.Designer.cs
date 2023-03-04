@@ -32,6 +32,7 @@
             this.textBoxFreeInputKeyWords = new System.Windows.Forms.TextBox();
             this.labelInputKeyWords = new System.Windows.Forms.Label();
             this.checkedListBoxPredefKeyWords = new System.Windows.Forms.CheckedListBox();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1212)).BeginInit();
             this.splitContainer1212.Panel1.SuspendLayout();
             this.splitContainer1212.Panel2.SuspendLayout();
             this.splitContainer1212.SuspendLayout();
@@ -83,7 +84,6 @@
             // 
             this.checkedListBoxPredefKeyWords.CheckOnClick = true;
             this.checkedListBoxPredefKeyWords.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkedListBoxPredefKeyWords.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkedListBoxPredefKeyWords.FormattingEnabled = true;
             this.checkedListBoxPredefKeyWords.Location = new System.Drawing.Point(0, 0);
             this.checkedListBoxPredefKeyWords.Name = "checkedListBoxPredefKeyWords";
@@ -100,6 +100,7 @@
             this.splitContainer1212.Panel1.ResumeLayout(false);
             this.splitContainer1212.Panel1.PerformLayout();
             this.splitContainer1212.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1212)).EndInit();
             this.splitContainer1212.ResumeLayout(false);
             this.ResumeLayout(false);
 

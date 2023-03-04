@@ -978,7 +978,6 @@
             // 
             this.panelVerticalCheckRight.BackColor = System.Drawing.SystemColors.Desktop;
             this.panelVerticalCheckRight.Controls.Add(this.checkBoxRightPanelVertical);
-            this.panelVerticalCheckRight.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panelVerticalCheckRight.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.panelVerticalCheckRight.Location = new System.Drawing.Point(229, 215);
             this.panelVerticalCheckRight.Name = "panelVerticalCheckRight";

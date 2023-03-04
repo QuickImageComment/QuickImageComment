@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace QuickImageComment
@@ -13,7 +7,6 @@ namespace QuickImageComment
     public partial class FormScale : Form
     {
         private FormCustomization.Interface CustomizationInterface;
-        public bool scaleChanged = true;
         private float initialFontSize;
         private int initialConfigZoomFactorPercent;
 
@@ -22,39 +15,45 @@ namespace QuickImageComment
             CustomizationInterface = MainMaskInterface.getCustomizationInterface();
             InitializeComponent();
             initialFontSize = labelExample.Font.Size;
+            MainMaskInterface.getCustomizationInterface().setFormToCustomizedValues(this);
+            // after possible scaling from customization interface, restore font size from example label
+            labelExample.Font = new Font(labelExample.Font.FontFamily, initialFontSize, labelExample.Font.Style);
+
             initialConfigZoomFactorPercent = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.generalZoomFactorPerCent);
             foreach (RadioButton radioButton in panelRecommendedScales.Controls)
             {
                 string[] textWords = radioButton.Text.Split(' ');
                 int zoomFactorPercent = int.Parse(textWords[0]);
                 radioButton.Tag = zoomFactorPercent;
-                radioButton.Checked = (int)radioButton.Tag == initialConfigZoomFactorPercent;
+                radioButton.CheckedChanged += new System.EventHandler(this.fixedRadioButton_CheckedChanged);
             }
+            // show before set numericUpDown1 to avoid that a radioButton is set 
+            // although the apropriate zoom factor is not configured
+            // (with show one radioButton is checked)
+            this.Show();
             numericUpDown1.Value = initialConfigZoomFactorPercent;
-
-            MainMaskInterface.getCustomizationInterface().setFormToCustomizedValues(this);
         }
 
         private void buttonOk_Click(object sender, EventArgs e)
         {
-            int newConfigZoomFactorPercent = (int)numericUpDown1.Value;
-            if (newConfigZoomFactorPercent != initialConfigZoomFactorPercent)
-            {
-                ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.generalZoomFactorPerCent, (int)numericUpDown1.Value);
-                FormCustomization.Interface.setGeneralZoomFactor((float)numericUpDown1.Value / 100f);
-                Logger.log("new general factor=" + FormCustomization.Interface.getGeneralZoomFactor().ToString());
-                scaleChanged = true;
-            }
-            else
-            {
-                scaleChanged = false;
-            }
             Close();
+
+            int newConfigZoomFactorPercent = (int)numericUpDown1.Value;
+
+            if (newConfigZoomFactorPercent != ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.generalZoomFactorPerCent))
+            {
+                // store new zoom factor and adjust mask
+                storeZoomFactorAndAdjustMainMask(newConfigZoomFactorPercent);
+            }
         }
 
         private void buttonAbort_Click(object sender, EventArgs e)
         {
-            scaleChanged = false;
+            if (initialConfigZoomFactorPercent != ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.generalZoomFactorPerCent))
+            {
+                // restore initial zoom factor and adjust mask
+                storeZoomFactorAndAdjustMainMask(initialConfigZoomFactorPercent);
+            }
             Close();
         }
 
@@ -65,11 +64,15 @@ namespace QuickImageComment
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
-            float newFontSize = (int)initialFontSize * (float)numericUpDown1.Value / 100;
-            labelExample.Font = new Font(labelExample.Font.FontFamily, newFontSize, labelExample.Font.Style);
+            labelExample.Font = FormCustomization.Interface.getZoomedFont(labelExample.Font, initialFontSize, (float)numericUpDown1.Value / 100);
+            int newZoomFactor = (int)numericUpDown1.Value;
             foreach (RadioButton radioButton in panelRecommendedScales.Controls)
             {
-                radioButton.Checked = (int)radioButton.Tag == (int)numericUpDown1.Value;
+                radioButton.Checked = (int)radioButton.Tag == newZoomFactor;
+            }
+            if (checkBoxApplyDirect.Checked)
+            {
+                storeZoomFactorAndAdjustMainMask(newZoomFactor);
             }
         }
 
@@ -79,6 +82,27 @@ namespace QuickImageComment
             {
                 numericUpDown1.Value = (int)((RadioButton)sender).Tag;
             }
+        }
+
+        private void checkBoxApplyDirect_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxApplyDirect.Checked)
+            {
+                int newConfigZoomFactorPercent = (int)numericUpDown1.Value;
+
+                if (newConfigZoomFactorPercent != ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.generalZoomFactorPerCent))
+                {
+                    // store new zoom factor and adjust mask
+                    storeZoomFactorAndAdjustMainMask(newConfigZoomFactorPercent);
+                }
+            }
+        }
+
+        private void storeZoomFactorAndAdjustMainMask(int zoomFactorPercent)
+        {
+            ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.generalZoomFactorPerCent, zoomFactorPercent);
+            FormCustomization.Interface.setGeneralZoomFactor(zoomFactorPercent / 100f);
+            ((FormQuickImageComment)MainMaskInterface.getMainMask()).adjustAfterScaleChange();
         }
     }
 }

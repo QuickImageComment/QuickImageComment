@@ -218,7 +218,10 @@ namespace QuickImageComment
                 }
                 else if (aControl.GetType().Equals(dynamicLabelChangeableField.GetType()))
                 {
-                    aControl.Left = aControl.Left + maxLabelWidth - aControl.PreferredSize.Width;
+                    // adjustment of labels allows easy scaling keeping them right aligned
+                    ((Label)aControl).AutoSize = false;
+                    ((Label)aControl).TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+                    aControl.Width = maxLabelWidth;
                 }
                 else if (aControl.GetType().Equals(dateTimePickerChangeableField.GetType()))
                 {
@@ -314,7 +317,8 @@ namespace QuickImageComment
             aLabel.ForeColor = dynamicLabelChangeableField.ForeColor;
             aLabel.BackColor = dynamicLabelChangeableField.BackColor;
             aLabel.Left = dynamicLabelChangeableField.Left;
-            aLabel.Top = anInputControl.Top + dynamicLabelChangeableField.Top - textBoxChangeableField.Top;
+            // top of labels need some adjustment to look vertically centered, also when scaled/zoomed
+            aLabel.Top = anInputControl.Top - 2;
             if (maxLabelWidth < aLabel.PreferredWidth)
             {
                 maxLabelWidth = aLabel.PreferredWidth;

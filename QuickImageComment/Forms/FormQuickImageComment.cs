@@ -224,8 +224,6 @@ namespace QuickImageComment
             // size of panels is not properly adjusted if dpi is higher than 96, so do it manually
             GeneralUtilities.adjustpanelSizeHighDpi(this.splitContainer1.Panel1);
             GeneralUtilities.adjustpanelSizeHighDpi(this.splitContainer1.Panel2);
-            // set top for label file name, needed if dpi is higher than 96
-            dynamicLabelFileName.Top = splitContainer1211P1.Panel2.Height - dynamicLabelFileName.Height - 2;
             // in order to avoid a change of splitContainer12P1.SplitterDistance as side effect of changes, which in no way are 
             // related to this control, Anchor in Designer.cs is set to Top, but Bottom is needed for correct runtime behaviour
             dynamicLabelFileName.Anchor = (System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left);
@@ -570,6 +568,9 @@ namespace QuickImageComment
               "file://" + LangCfg.getHelpFile(),
               "FormCustomization.htm",
               LangCfg.getTranslationsFromGerman());
+
+            // set top for label file name, needed if dpi is higher than 96
+            dynamicLabelFileName.Top = splitContainer1211P1.Panel2.Height - dynamicLabelFileName.Height - 2;
 
             // needs to be called after customization to adjust distances artist/comment
             showHideControlsCentralInputArea();
@@ -2290,17 +2291,19 @@ namespace QuickImageComment
         private void toolStripMenuItemScale_Click(object sender, EventArgs e)
         {
             FormScale theFormScale = new FormScale();
-            theFormScale.ShowDialog();
-            if (theFormScale.scaleChanged)
-            {
-                // hide the main splitContainer to avoid flickering during update
-                // using SuspendLayout still caused too much flickering 
-                this.splitContainer1.Visible = false;
-                CustomizationInterface.setFormToCustomizedValues(this);
-                // needs to be called to adjust distances artist/comment
-                showHideControlsCentralInputArea();
-                this.splitContainer1.Visible = true;
-            }
+        }
+
+        internal void adjustAfterScaleChange()
+        {
+            // hide the main splitContainer to avoid flickering during update
+            // using SuspendLayout still caused too much flickering 
+            this.splitContainer1.Visible = false;
+            CustomizationInterface.setFormToCustomizedValues(this);
+            // needs to be called to adjust distances artist/comment
+            showHideControlsCentralInputArea();
+            dynamicLabelFileName.Top = splitContainer1211P1.Panel2.Height - dynamicLabelFileName.Height - 2;
+            readFolderAndDisplayImage(true);
+            this.splitContainer1.Visible = true;
         }
 
         // open form customization settings
@@ -4077,6 +4080,8 @@ namespace QuickImageComment
         private void setOneSplitContainerPanelContent(Panel aPanel)
         {
             Control aControl;
+            bool controlRequiresZoomWithGeneralFactor = false;
+
             string key = GeneralUtilities.getNameOfPanelInSplitContainer(aPanel);
             aPanel.Controls.Clear();
             if (ConfigDefinition.getSplitContainerPanelContents().ContainsKey(key))
@@ -4091,6 +4096,7 @@ namespace QuickImageComment
                         if (theUserControlImageDetails == null)
                         {
                             theUserControlImageDetails = new UserControlImageDetails(dpiSettings, null);
+                            controlRequiresZoomWithGeneralFactor = true;
                         }
                         theUserControlImageDetails.isInPanel = true;
                         theUserControlImageDetails.adjustSizeAndSplitterDistances(aPanel.Size);
@@ -4115,6 +4121,7 @@ namespace QuickImageComment
                                 bool changeIsPossible = theExtendedImage != null && theExtendedImage.changePossible();
                                 theUserControlMap = new UserControlMap(false, commonRecordingLocation(), changeIsPossible, 0);
                             }
+                            controlRequiresZoomWithGeneralFactor = true;
                         }
                         theUserControlMap.isInPanel = true;
                         aControl = theUserControlMap.panel1;
@@ -4134,6 +4141,15 @@ namespace QuickImageComment
                         aControl.Height = aPanel.Height;
                         aControl.Width = aPanel.Width;
                         aPanel.Controls.Add(aControl);
+                        if (controlRequiresZoomWithGeneralFactor)
+                        {
+                            if (CustomizationInterface != null)
+                            {
+                                CustomizationInterface.zoomControlsUsingGeneralZoomFactor("",aControl);
+                            }
+                            aControl.Height = aPanel.Height;
+                            aControl.Width = aPanel.Width;
+                        }
                         // if aControl is SplitContainer, adjust PanelMinSize
                         if (aControl.GetType().Equals(typeof(SplitContainer)))
                         {

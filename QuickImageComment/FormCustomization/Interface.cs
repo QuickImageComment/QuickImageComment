@@ -16,6 +16,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace FormCustomization
@@ -96,6 +97,12 @@ namespace FormCustomization
             theCustomizer.setAllComponents(Customizer.enumSetTo.Original, theForm);
         }
 
+        // zoom controls (e.g. a user control)
+        public void zoomControlsUsingGeneralZoomFactor(string prefix, Control ParentControl)
+        {
+            theCustomizer.zoomControlsUsingGeneralZoomFactor(ParentControl);
+        }
+
         // load the settings from file
         public void loadCustomizationFile(string CustomizationFile)
         {
@@ -151,6 +158,14 @@ namespace FormCustomization
         public static void setGeneralZoomFactor(float value)
         {
             Customizer.setGeneralZoomFactor(value);
+        }
+
+        // get zoom factor for font
+        // the width of a text does not change proportional to font size
+        // to ensure, that text fits into boundaries, zoom factor for font size is adjusted
+        public static Font getZoomedFont(Font usedFont, float initialFontSize, float zoomFactor)
+        {
+            return Customizer.getZoomedFont(usedFont, initialFontSize, zoomFactor);
         }
     }
 }
