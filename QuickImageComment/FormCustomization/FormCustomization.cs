@@ -61,7 +61,7 @@ namespace FormCustomization
 
             translateControlTexts(this);
 
-            theCustomizer.fillZoomBasisData(ChangeableForm, theCustomizer.getActualZoomFactor(ChangeableForm));
+            theCustomizer.fillOrUpdateZoomBasisData(ChangeableForm, theCustomizer.getActualZoomFactor(ChangeableForm));
             // add event handler to be informed when changeable mask is deactivated
             ChangeableForm.Deactivate += new System.EventHandler(this.ChangeableForm_Deactivated);
 
@@ -656,8 +656,7 @@ namespace FormCustomization
         {
             // save selected node because it changes sometimes by zooming
             int selectedNodeIndex = treeViewComponents.SelectedNode.Index;
-
-            theCustomizer.zoomForm(ChangeableForm, (float)numericUpDownZoom.Value / 100, false);
+            theCustomizer.zoomForm( Customizer.enumSetTo.Customized, ChangeableForm, (float)numericUpDownZoom.Value / 100, false);
 
             // reselect previously selected node
             treeViewComponents.SelectedImageIndex = selectedNodeIndex;

@@ -47,6 +47,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.checkBoxApplyDirect = new System.Windows.Forms.CheckBox();
+            this.fixedRadioButton8 = new System.Windows.Forms.RadioButton();
             this.panelRecommendedScales.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
@@ -54,7 +55,7 @@
             // buttonHelp
             // 
             this.buttonHelp.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.buttonHelp.Location = new System.Drawing.Point(250, 402);
+            this.buttonHelp.Location = new System.Drawing.Point(250, 328);
             this.buttonHelp.Name = "buttonHelp";
             this.buttonHelp.Size = new System.Drawing.Size(95, 22);
             this.buttonHelp.TabIndex = 10;
@@ -65,7 +66,7 @@
             // buttonOk
             // 
             this.buttonOk.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.buttonOk.Location = new System.Drawing.Point(12, 402);
+            this.buttonOk.Location = new System.Drawing.Point(12, 328);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(95, 22);
             this.buttonOk.TabIndex = 8;
@@ -76,7 +77,7 @@
             // buttonAbort
             // 
             this.buttonAbort.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.buttonAbort.Location = new System.Drawing.Point(131, 402);
+            this.buttonAbort.Location = new System.Drawing.Point(131, 328);
             this.buttonAbort.Name = "buttonAbort";
             this.buttonAbort.Size = new System.Drawing.Size(95, 22);
             this.buttonAbort.TabIndex = 9;
@@ -89,6 +90,7 @@
             this.panelRecommendedScales.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelRecommendedScales.Controls.Add(this.fixedRadioButton8);
             this.panelRecommendedScales.Controls.Add(this.fixedRadioButton1);
             this.panelRecommendedScales.Controls.Add(this.fixedRadioButton7);
             this.panelRecommendedScales.Controls.Add(this.fixedRadioButton6);
@@ -98,7 +100,7 @@
             this.panelRecommendedScales.Controls.Add(this.fixedRadioButton2);
             this.panelRecommendedScales.Location = new System.Drawing.Point(0, 27);
             this.panelRecommendedScales.Name = "panelRecommendedScales";
-            this.panelRecommendedScales.Size = new System.Drawing.Size(357, 178);
+            this.panelRecommendedScales.Size = new System.Drawing.Size(357, 104);
             this.panelRecommendedScales.TabIndex = 0;
             // 
             // fixedRadioButton1
@@ -106,7 +108,7 @@
             this.fixedRadioButton1.AutoSize = true;
             this.fixedRadioButton1.Location = new System.Drawing.Point(12, 7);
             this.fixedRadioButton1.Name = "fixedRadioButton1";
-            this.fixedRadioButton1.Size = new System.Drawing.Size(54, 17);
+            this.fixedRadioButton1.Size = new System.Drawing.Size(57, 17);
             this.fixedRadioButton1.TabIndex = 0;
             this.fixedRadioButton1.TabStop = true;
             this.fixedRadioButton1.Text = "100 %";
@@ -115,34 +117,34 @@
             // fixedRadioButton7
             // 
             this.fixedRadioButton7.AutoSize = true;
-            this.fixedRadioButton7.Location = new System.Drawing.Point(12, 145);
+            this.fixedRadioButton7.Location = new System.Drawing.Point(159, 53);
             this.fixedRadioButton7.Name = "fixedRadioButton7";
-            this.fixedRadioButton7.Size = new System.Drawing.Size(54, 17);
+            this.fixedRadioButton7.Size = new System.Drawing.Size(57, 17);
             this.fixedRadioButton7.TabIndex = 6;
             this.fixedRadioButton7.TabStop = true;
-            this.fixedRadioButton7.Text = "204 %";
+            this.fixedRadioButton7.Text = "184 %";
             this.fixedRadioButton7.UseVisualStyleBackColor = true;
             // 
             // fixedRadioButton6
             // 
             this.fixedRadioButton6.AutoSize = true;
-            this.fixedRadioButton6.Location = new System.Drawing.Point(12, 122);
+            this.fixedRadioButton6.Location = new System.Drawing.Point(159, 30);
             this.fixedRadioButton6.Name = "fixedRadioButton6";
-            this.fixedRadioButton6.Size = new System.Drawing.Size(54, 17);
+            this.fixedRadioButton6.Size = new System.Drawing.Size(57, 17);
             this.fixedRadioButton6.TabIndex = 5;
             this.fixedRadioButton6.TabStop = true;
-            this.fixedRadioButton6.Text = "189 %";
+            this.fixedRadioButton6.Text = "175 %";
             this.fixedRadioButton6.UseVisualStyleBackColor = true;
             // 
             // fixedRadioButton5
             // 
             this.fixedRadioButton5.AutoSize = true;
-            this.fixedRadioButton5.Location = new System.Drawing.Point(12, 99);
+            this.fixedRadioButton5.Location = new System.Drawing.Point(159, 7);
             this.fixedRadioButton5.Name = "fixedRadioButton5";
-            this.fixedRadioButton5.Size = new System.Drawing.Size(54, 17);
+            this.fixedRadioButton5.Size = new System.Drawing.Size(57, 17);
             this.fixedRadioButton5.TabIndex = 4;
             this.fixedRadioButton5.TabStop = true;
-            this.fixedRadioButton5.Text = "177 %";
+            this.fixedRadioButton5.Text = "155 %";
             this.fixedRadioButton5.UseVisualStyleBackColor = true;
             // 
             // fixedRadioButton3
@@ -150,10 +152,10 @@
             this.fixedRadioButton3.AutoSize = true;
             this.fixedRadioButton3.Location = new System.Drawing.Point(12, 53);
             this.fixedRadioButton3.Name = "fixedRadioButton3";
-            this.fixedRadioButton3.Size = new System.Drawing.Size(54, 17);
+            this.fixedRadioButton3.Size = new System.Drawing.Size(57, 17);
             this.fixedRadioButton3.TabIndex = 2;
             this.fixedRadioButton3.TabStop = true;
-            this.fixedRadioButton3.Text = "144 %";
+            this.fixedRadioButton3.Text = "120 %";
             this.fixedRadioButton3.UseVisualStyleBackColor = false;
             // 
             // fixedRadioButton4
@@ -161,10 +163,10 @@
             this.fixedRadioButton4.AutoSize = true;
             this.fixedRadioButton4.Location = new System.Drawing.Point(12, 76);
             this.fixedRadioButton4.Name = "fixedRadioButton4";
-            this.fixedRadioButton4.Size = new System.Drawing.Size(54, 17);
+            this.fixedRadioButton4.Size = new System.Drawing.Size(57, 17);
             this.fixedRadioButton4.TabIndex = 3;
             this.fixedRadioButton4.TabStop = true;
-            this.fixedRadioButton4.Text = "160 %";
+            this.fixedRadioButton4.Text = "139 %";
             this.fixedRadioButton4.UseVisualStyleBackColor = true;
             // 
             // fixedRadioButton2
@@ -172,16 +174,16 @@
             this.fixedRadioButton2.AutoSize = true;
             this.fixedRadioButton2.Location = new System.Drawing.Point(12, 30);
             this.fixedRadioButton2.Name = "fixedRadioButton2";
-            this.fixedRadioButton2.Size = new System.Drawing.Size(54, 17);
+            this.fixedRadioButton2.Size = new System.Drawing.Size(57, 17);
             this.fixedRadioButton2.TabIndex = 1;
             this.fixedRadioButton2.TabStop = true;
-            this.fixedRadioButton2.Text = "125 %";
+            this.fixedRadioButton2.Text = "110 %";
             this.fixedRadioButton2.UseVisualStyleBackColor = true;
             // 
             // numericUpDown1
             // 
             this.numericUpDown1.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.numericUpDown1.Location = new System.Drawing.Point(97, 211);
+            this.numericUpDown1.Location = new System.Drawing.Point(97, 137);
             this.numericUpDown1.Maximum = new decimal(new int[] {
             300,
             0,
@@ -193,7 +195,7 @@
             0,
             0});
             this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(67, 20);
+            this.numericUpDown1.Size = new System.Drawing.Size(67, 21);
             this.numericUpDown1.TabIndex = 3;
             this.numericUpDown1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.numericUpDown1.Value = new decimal(new int[] {
@@ -207,7 +209,7 @@
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 279);
+            this.label1.Location = new System.Drawing.Point(9, 205);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(46, 13);
             this.label1.TabIndex = 6;
@@ -216,7 +218,7 @@
             // labelExample
             // 
             this.labelExample.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.labelExample.Location = new System.Drawing.Point(9, 301);
+            this.labelExample.Location = new System.Drawing.Point(9, 227);
             this.labelExample.Name = "labelExample";
             this.labelExample.Size = new System.Drawing.Size(333, 94);
             this.labelExample.TabIndex = 7;
@@ -226,9 +228,9 @@
             // 
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(170, 215);
+            this.label2.Location = new System.Drawing.Point(170, 141);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(15, 13);
+            this.label2.Size = new System.Drawing.Size(18, 13);
             this.label2.TabIndex = 4;
             this.label2.Text = "%";
             // 
@@ -237,7 +239,7 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(9, 9);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(320, 13);
+            this.label4.Size = new System.Drawing.Size(327, 13);
             this.label4.TabIndex = 0;
             this.label4.Text = "Empfohlene Skalierungen (passend zu verfügbaren Schriftgrößen):";
             // 
@@ -245,9 +247,9 @@
             // 
             this.label5.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(9, 215);
+            this.label5.Location = new System.Drawing.Point(9, 141);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(86, 13);
+            this.label5.Size = new System.Drawing.Size(87, 13);
             this.label5.TabIndex = 2;
             this.label5.Text = "Freie Skalierung:";
             // 
@@ -255,7 +257,7 @@
             // 
             this.checkBoxApplyDirect.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.checkBoxApplyDirect.AutoSize = true;
-            this.checkBoxApplyDirect.Location = new System.Drawing.Point(12, 247);
+            this.checkBoxApplyDirect.Location = new System.Drawing.Point(12, 173);
             this.checkBoxApplyDirect.Name = "checkBoxApplyDirect";
             this.checkBoxApplyDirect.Size = new System.Drawing.Size(188, 17);
             this.checkBoxApplyDirect.TabIndex = 5;
@@ -263,11 +265,23 @@
             this.checkBoxApplyDirect.UseVisualStyleBackColor = true;
             this.checkBoxApplyDirect.CheckedChanged += new System.EventHandler(this.checkBoxApplyDirect_CheckedChanged);
             // 
+            // fixedRadioButton8
+            // 
+            this.fixedRadioButton8.AutoSize = true;
+            this.fixedRadioButton8.Location = new System.Drawing.Point(159, 76);
+            this.fixedRadioButton8.Name = "fixedRadioButton8";
+            this.fixedRadioButton8.Size = new System.Drawing.Size(57, 17);
+            this.fixedRadioButton8.TabIndex = 7;
+            this.fixedRadioButton8.TabStop = true;
+            this.fixedRadioButton8.Text = "191 %";
+            this.fixedRadioButton8.UseVisualStyleBackColor = true;
+            this.fixedRadioButton8.CheckedChanged += new System.EventHandler(this.fixedRadioButton_CheckedChanged);
+            // 
             // FormScale
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(358, 436);
+            this.ClientSize = new System.Drawing.Size(358, 362);
             this.Controls.Add(this.checkBoxApplyDirect);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
@@ -279,6 +293,7 @@
             this.Controls.Add(this.buttonHelp);
             this.Controls.Add(this.buttonOk);
             this.Controls.Add(this.buttonAbort);
+            this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FormScale";
             this.Text = "Skalierung";
@@ -310,5 +325,6 @@
         private System.Windows.Forms.RadioButton fixedRadioButton4;
         private System.Windows.Forms.CheckBox checkBoxApplyDirect;
         private System.Windows.Forms.RadioButton fixedRadioButton1;
+        private System.Windows.Forms.RadioButton fixedRadioButton8;
     }
 }

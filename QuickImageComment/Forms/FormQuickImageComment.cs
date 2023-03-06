@@ -569,7 +569,7 @@ namespace QuickImageComment
               "FormCustomization.htm",
               LangCfg.getTranslationsFromGerman());
 
-            // set top for label file name, needed if dpi is higher than 96
+            //set top for label file name, needed if dpi is higher than 96
             dynamicLabelFileName.Top = splitContainer1211P1.Panel2.Height - dynamicLabelFileName.Height - 2;
 
             // needs to be called after customization to adjust distances artist/comment
@@ -2183,7 +2183,7 @@ namespace QuickImageComment
                     try
                     {
                         CustomizationInterface.loadCustomizationFile(CustomizationInterface.getLastCustomizationFile());
-                        CustomizationInterface.setFormToCustomizedValues(this);
+                        CustomizationInterface.setFormToCustomizedValuesZoomIfChanged(this);
                     }
                     catch { }
                     lock (UserControlFiles.LockListViewFiles)
@@ -2298,7 +2298,7 @@ namespace QuickImageComment
             // hide the main splitContainer to avoid flickering during update
             // using SuspendLayout still caused too much flickering 
             this.splitContainer1.Visible = false;
-            CustomizationInterface.setFormToCustomizedValues(this);
+            CustomizationInterface.setFormToCustomizedValuesZoomIfChanged(this);
             // needs to be called to adjust distances artist/comment
             showHideControlsCentralInputArea();
             dynamicLabelFileName.Top = splitContainer1211P1.Panel2.Height - dynamicLabelFileName.Height - 2;
@@ -4145,7 +4145,7 @@ namespace QuickImageComment
                         {
                             if (CustomizationInterface != null)
                             {
-                                CustomizationInterface.zoomControlsUsingGeneralZoomFactor("",aControl);
+                                CustomizationInterface.zoomControlsUsingGeneralZoomFactor(aControl, this);
                             }
                             aControl.Height = aPanel.Height;
                             aControl.Width = aPanel.Width;
@@ -4542,7 +4542,8 @@ namespace QuickImageComment
                     // simple try catch in case new splitter distance is invalid
                     try
                     {
-                        splitContainer1211P1.SplitterDistance = splitContainer1211P1.Height - dynamicLabelFileName.Height;
+                        splitContainer1211P1.SplitterDistance = splitContainer1211P1.Height - dynamicLabelFileName.Height
+                            - splitContainer1211P1.SplitterWidth;
                         panelFramePosition.Visible = false;
                     }
                     catch { }
@@ -5724,7 +5725,7 @@ namespace QuickImageComment
             try
             {
                 CustomizationInterface.loadCustomizationFile(CustomizationInterface.getLastCustomizationFile());
-                CustomizationInterface.setFormToCustomizedValues(this);
+                CustomizationInterface.setFormToCustomizedValuesZoomIfChanged(this);
             }
             catch { }
 
@@ -6134,33 +6135,33 @@ namespace QuickImageComment
                 theUserControlFiles.listViewFiles.SelectedIndices.Add(0);
                 CustomizationInterface.resetForm(this);
                 CustomizationInterface.loadCustomizationFileNoOptionalSavePrevChanges(ConfigDefinition.getConfigPath() + @"\FormCustomization-bunt.ini");
-                CustomizationInterface.setFormToCustomizedValues(this);
+                CustomizationInterface.setFormToCustomizedValuesZoomIfChanged(this);
                 this.Refresh();
                 GeneralUtilities.saveScreenshot(this, this.Name + "-bunt");
 
                 CustomizationInterface.resetForm(this);
                 CustomizationInterface.loadCustomizationFileNoOptionalSavePrevChanges(ConfigDefinition.getConfigPath() + @"\FormCustomization-Schrift.ini");
-                CustomizationInterface.setFormToCustomizedValues(this);
+                CustomizationInterface.setFormToCustomizedValuesZoomIfChanged(this);
                 this.Refresh();
                 GeneralUtilities.saveScreenshot(this, this.Name + "-Schrift");
 
                 CustomizationInterface.resetForm(this);
                 CustomizationInterface.loadCustomizationFileNoOptionalSavePrevChanges(ConfigDefinition.getConfigPath() + @"\FormCustomization-schwarze-Trennlinien.ini");
-                CustomizationInterface.setFormToCustomizedValues(this);
+                CustomizationInterface.setFormToCustomizedValuesZoomIfChanged(this);
                 this.Refresh();
                 GeneralUtilities.saveScreenshot(this, this.Name + "-schwarze-Trennlinien");
 
                 // this one as last, because some settings are not reset correctly - did not check why
                 CustomizationInterface.resetForm(this);
                 CustomizationInterface.loadCustomizationFileNoOptionalSavePrevChanges(ConfigDefinition.getConfigPath() + @"\FormCustomization-grau.ini");
-                CustomizationInterface.setFormToCustomizedValues(this);
+                CustomizationInterface.setFormToCustomizedValuesZoomIfChanged(this);
                 this.Refresh();
                 GeneralUtilities.saveScreenshot(this, this.Name + "-grau");
 
                 // reset customization
                 CustomizationInterface.resetForm(this);
                 CustomizationInterface.clearLastCustomizationFile();
-                CustomizationInterface.setFormToCustomizedValues(this);
+                CustomizationInterface.setFormToCustomizedValuesZoomIfChanged(this);
                 this.Refresh();
 
                 // select several images:

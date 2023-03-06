@@ -66,6 +66,19 @@ namespace QuickImageComment
         {
             this.Visible = false;
             Label LabelTemplate = dynamicLabelChangeableField;
+
+            // scale the template controls if customization interface is initiated
+            // interface is not initiated at startup, but then controls are scaled after initiating interface
+            FormCustomization.Interface customziationInterface = MainMaskInterface.getCustomizationInterface();
+            if (customziationInterface != null)
+            {
+                Form mainMask = MainMaskInterface.getMainMask();
+                customziationInterface.zoomControlsUsingGeneralZoomFactor(dynamicLabelChangeableField, mainMask);
+                customziationInterface.zoomControlsUsingGeneralZoomFactor(textBoxChangeableField, mainMask);
+                customziationInterface.zoomControlsUsingGeneralZoomFactor(comboBoxChangeableField, mainMask);
+                customziationInterface.zoomControlsUsingGeneralZoomFactor(dateTimePickerChangeableField, mainMask);
+            }
+
             ChangeableFieldInputControls = new SortedList<string, Control>();
 
             // to check that each key can be set only once

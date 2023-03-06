@@ -111,17 +111,6 @@ namespace FormCustomization
                 minHeight = givenControl.MinimumSize.Height;
                 minWidth = givenControl.MinimumSize.Width;
             }
-
-            public ZoomBasisData(Control givenControl, float zoomFactor)
-            {
-                Top = givenControl.Top / zoomFactor;
-                Left = givenControl.Left / zoomFactor;
-                Width = givenControl.Width / zoomFactor;
-                Height = givenControl.Height / zoomFactor;
-                FontSize = givenControl.Font.Size / zoomFactor;
-                minHeight = givenControl.MinimumSize.Height / zoomFactor;
-                minWidth = givenControl.MinimumSize.Width / zoomFactor;
-            }
         }
 
         // name of last loaded or saved customization settings file
@@ -145,7 +134,7 @@ namespace FormCustomization
         // enum to change properties of form components
         // when adding new enumProperty, adjust also:
         // PropertyNames, getProperty, set
-        public enum enumProperty
+        internal enum enumProperty
         {
             BackColor, ForeColor, Font, Left, Top, Width, Height,
             TabIndex, Text, BackgroundImage, AutoSize, Shortcut
@@ -155,10 +144,10 @@ namespace FormCustomization
         "TabIndex", "Text", "BackgroundImage", "AutoSize", "Shortcut" };
 
         // enum to select original or customized for setting form components
-        public enum enumSetTo { Original, Customized };
+        internal enum enumSetTo { Original, Customized };
 
         // constructor
-        public Customizer(string givenFileHeaderLine, string givenHelpUrl, string givenHelpTopic,
+        internal Customizer(string givenFileHeaderLine, string givenHelpUrl, string givenHelpTopic,
             SortedList<string, string> givenTranslations)
         {
             customizedSettingChanged = false;
@@ -200,37 +189,41 @@ namespace FormCustomization
         }
 
         //*****************************************************************
-        #region general public methods
+        #region general internal methods
         //*****************************************************************
 
         // get the name of last loaded or saved customization settings file
-        public string getLastCustomizationFile()
+        internal string getLastCustomizationFile()
         {
             return lastCustomizationFile;
         }
         // get the settings for help
-        public string getHelpUrl()
+        internal string getHelpUrl()
         {
             return HelpUrl;
         }
-        public string getHelpTopic()
+        internal string getHelpTopic()
         {
             return HelpTopic;
         }
 
         // clear name of last loaded or saved customization settings file
-        public void clearLastCustomizationFile()
+        internal void clearLastCustomizationFile()
         {
             lastCustomizationFile = "";
         }
 
         // get actual zoom factor
-        public float getActualZoomFactor(Form theForm)
+        internal float getActualZoomFactor(Form theForm)
         {
             string zoomKey = theForm.Name + ":" + PropertyNameZoom;
             if (PropertyTable.ContainsKey(zoomKey))
             {
                 return (float)((PropertyPair)PropertyTable[zoomKey]).Customized;
+            }
+            else if (UsedGeneralZoomFactors.ContainsKey(theForm.Name))
+            {
+                return UsedGeneralZoomFactors[theForm.Name];
             }
             else
             {
@@ -239,12 +232,12 @@ namespace FormCustomization
         }
 
         // set list of translations
-        public static void setTranslations(SortedList<string, string> givenTranslations)
+        internal static void setTranslations(SortedList<string, string> givenTranslations)
         {
             Translations = givenTranslations;
         }
 
-        public static ArrayList getUsedTranslations()
+        internal static ArrayList getUsedTranslations()
         {
             string translation;
             foreach (string text in GermanTexts.Values)
@@ -258,27 +251,27 @@ namespace FormCustomization
             return UsedTranslations;
         }
 
-        public static ArrayList getNotTranslatedTexts()
+        internal static ArrayList getNotTranslatedTexts()
         {
             return NotTranslatedTexts;
         }
 
         // get text via key, if needed translate 
-        public static string getText(Texts key)
+        internal static string getText(Texts key)
         {
             return translate(GermanTexts[key]);
         }
-        public static string getText(Texts key, string Parameter1)
+        internal static string getText(Texts key, string Parameter1)
         {
             return translate(GermanTexts[key], Parameter1);
         }
-        public static string getText(Texts key, string Parameter1, string Parameter2)
+        internal static string getText(Texts key, string Parameter1, string Parameter2)
         {
             return translate(GermanTexts[key], Parameter1, Parameter2);
         }
 
         // translate a text and issue error message if text not found in SortedList translations
-        public static string translate(string TextToTranslate)
+        internal static string translate(string TextToTranslate)
         {
             if (Translations.ContainsKey(TextToTranslate))
             {
@@ -297,7 +290,7 @@ namespace FormCustomization
         }
 
         // translate a text and issue error message if text not found in SortedList translations - with one parameter
-        public static string translate(string TextToTranslate, string Parameter1)
+        internal static string translate(string TextToTranslate, string Parameter1)
         {
             string Temp = translate(TextToTranslate);
             Temp = Temp.Replace("\\1", Parameter1);
@@ -305,7 +298,7 @@ namespace FormCustomization
         }
 
         // translate a text and issue error message if text not found in SortedList translations - with two parameters
-        public static string translate(string TextToTranslate, string Parameter1, string Parameter2)
+        internal static string translate(string TextToTranslate, string Parameter1, string Parameter2)
         {
             string Temp = translate(TextToTranslate);
             Temp = Temp.Replace("\\1", Parameter1);
@@ -313,28 +306,42 @@ namespace FormCustomization
             return Temp;
         }
 
+        // set properties of all form components based on original settings
+        // always zoom (no comparison old/new zoom factor)
+
+        internal void setAllComponents(enumSetTo SetTo, Form theForm)
+        {
+            setAllComponents(SetTo, theForm, true);
+        }
+
+        // set properties of all form components based on original settings
+        // zoom only if zoom factor changed
+        internal void setAllComponentsZoomIfChanged(enumSetTo SetTo, Form theForm)
+        {
+            setAllComponents(SetTo, theForm, false);
+        }
+
         // zoom the form and set properties of all form components based on original settings
-        public void setAllComponents(enumSetTo SetTo, Form theForm)
+        internal void setAllComponents(enumSetTo SetTo, Form theForm, bool alwaysZoomForm)
         {
             string ComponentFullName;
             string PropertyName;
             enumProperty propertyIndex;
             int indexColon;
-            float zoomFactor = (float)1.0;
-            bool usingGeneralZoomFactor = true;
 
-            // zoom the form
+            // determine new individual zoom factor
+            float NewIndividualZoomFactor = 0f;
+
             string zoomKey = theForm.Name + ":" + PropertyNameZoom;
             if (PropertyTable.ContainsKey(zoomKey))
             {
                 if (SetTo == enumSetTo.Original)
                 {
-                    zoomFactor = (float)1.0;
+                    NewIndividualZoomFactor = 1f;
                 }
                 else if (SetTo == enumSetTo.Customized)
                 {
-                    usingGeneralZoomFactor = false;
-                    zoomFactor = (float)((PropertyPair)PropertyTable[zoomKey]).Customized;
+                    NewIndividualZoomFactor = (float)((PropertyPair)PropertyTable[zoomKey]).Customized;
                 }
                 else
                 {
@@ -342,12 +349,8 @@ namespace FormCustomization
                 }
             }
 
-            // if no specific zoom factor is set, use general zoom factor
-            if (usingGeneralZoomFactor)
-            {
-                zoomFactor = generalZoomFactor;
-            }
-            zoomForm(theForm, zoomFactor, usingGeneralZoomFactor);
+            // zoom the form
+            zoomForm(SetTo, theForm, NewIndividualZoomFactor, alwaysZoomForm);
 
             // adjust all form components
             // first create sorted list of keys
@@ -398,13 +401,13 @@ namespace FormCustomization
         }
 
         // clear flag indicating that customized settings were changed
-        public void clearCustomizedSettingsChanged()
+        internal void clearCustomizedSettingsChanged()
         {
             customizedSettingChanged = false;
         }
 
         // if settings are changed and saving is confirmed, save settings
-        public void saveIfChangedAndConfirmed()
+        internal void saveIfChangedAndConfirmed()
         {
             if (customizedSettingChanged)
             {
@@ -433,7 +436,7 @@ namespace FormCustomization
         }
 
         // show mask with list of keys
-        public void showListOfKeys(Form theForm)
+        internal void showListOfKeys(Form theForm)
         {
             ArrayList ShortcutKeys = new ArrayList();
             ArrayList ShortcutDescriptions = new ArrayList();
@@ -442,7 +445,7 @@ namespace FormCustomization
         }
 
         // returns Description of key if key is contained in list of shortcut keys, else empty string
-        public string ShortcutKeysListContains(Form theForm, string KeyString)
+        internal string ShortcutKeysListContains(Form theForm, string KeyString)
         {
             ArrayList ShortcutKeys = new ArrayList();
             ArrayList ShortcutDescriptions = new ArrayList();
@@ -464,56 +467,57 @@ namespace FormCustomization
         //*****************************************************************
 
         // zoom a form and all its components
-        public void zoomForm(Form zoomableForm, float NewZoomFactor, bool usingGeneralZoomFactor)
+        internal void zoomForm(enumSetTo SetTo, Form zoomableForm, float NewIndividualZoomFactor, bool alwaysZoomForm)
         {
-            zoomableForm.SuspendLayout();
-            float OldZoomFactor = 0f;
-            string key = zoomableForm.Name + ":" + PropertyNameZoom;
-            if (usingGeneralZoomFactor)
+            // get old zoom factor
+            float OldZoomFactor = getActualZoomFactor(zoomableForm);
+            float NewZoomFactor;
+
+            if (NewIndividualZoomFactor > 0f)
             {
-                if (UsedGeneralZoomFactors.ContainsKey(zoomableForm.Name))
+                // individual zoom factor is given
+                NewZoomFactor = NewIndividualZoomFactor;
+
+                // save new zoom factor in property table
+                string zoomKey = zoomableForm.Name + ":" + PropertyNameZoom;
+
+                if (PropertyTable.ContainsKey(zoomKey))
                 {
-                    OldZoomFactor = UsedGeneralZoomFactors[zoomableForm.Name];
-                    UsedGeneralZoomFactors[zoomableForm.Name] = NewZoomFactor;
+                    // Original value is set when first zoom is triggered
+                    // thus original value is used for proper initialisation
+                    if (((PropertyPair)PropertyTable[zoomKey]).Original == null)
+                    {
+                        ((PropertyPair)PropertyTable[zoomKey]).Original = OldZoomFactor;
+                    }
+                    ((PropertyPair)PropertyTable[zoomKey]).Customized = NewZoomFactor;
                 }
                 else
                 {
-                    OldZoomFactor = 1f;
-                    UsedGeneralZoomFactors.Add(zoomableForm.Name, NewZoomFactor);
+                    // property not in list, add it customized value, original value not used here
+                    PropertyTable.Add(zoomKey, new PropertyPair(null, NewZoomFactor));
                 }
             }
             else
             {
-                if (PropertyTable.ContainsKey(key))
+                // no individual factor given, use general zoom factor
+                NewZoomFactor = generalZoomFactor;
+
+                // store factor as used general factor
+                if (UsedGeneralZoomFactors.ContainsKey(zoomableForm.Name))
                 {
-                    // Original value is set when first zoom is triggered
-                    // thus original value is used for proper initialisation
-                    if (((PropertyPair)PropertyTable[key]).Original == null)
-                    {
-                        OldZoomFactor = 1;
-                        ((PropertyPair)PropertyTable[key]).Original = OldZoomFactor;
-                    }
-                    else
-                    {
-                        OldZoomFactor = (float)((PropertyPair)PropertyTable[key]).Customized;
-                    }
-                    ((PropertyPair)PropertyTable[key]).Customized = NewZoomFactor;
+                    UsedGeneralZoomFactors[zoomableForm.Name] = NewZoomFactor;
                 }
                 else
                 {
-                    OldZoomFactor = 1;
-                    // property not in list, add it customized value, original value not used here
-                    PropertyTable.Add(key, new PropertyPair(null, NewZoomFactor));
+                    UsedGeneralZoomFactors.Add(zoomableForm.Name, NewZoomFactor);
                 }
             }
 
-            if (NewZoomFactor != OldZoomFactor)
+            if (NewZoomFactor != OldZoomFactor || alwaysZoomForm)
             {
-                // if zoom basis data of form are not yet stored, fill them into hashtable
-                if (!ZoomBasisDataTable.ContainsKey(getFullNameOfComponent(zoomableForm)))
-                {
-                    fillZoomBasisData(zoomableForm, getActualZoomFactor(zoomableForm));
-                }
+                zoomableForm.SuspendLayout();
+
+                fillOrUpdateZoomBasisData(zoomableForm, OldZoomFactor);
 
                 // tool strips are not zoomed, consider this in the "top" of controls in form
                 float ToolStripOffsetCorrection = 0;
@@ -525,68 +529,82 @@ namespace FormCustomization
                     }
                 }
                 zoomControls(zoomableForm, NewZoomFactor, ToolStripOffsetCorrection);
-                // when general zoom factor is used, do not set customizedSettingChanged as this
-                // flag is used for form specific settings only (to save customization settings)
-                customizedSettingChanged = !usingGeneralZoomFactor;
+                // set customizedSettingChanged to true only if individual zoom factor is used
+                // as this flag is used to check only if form specific settings have to be saved
+                customizedSettingChanged = NewIndividualZoomFactor > 0f;
+
+                zoomableForm.ResumeLayout();
             }
-            zoomableForm.ResumeLayout();
         }
 
         // fill the hashtable with zoom basis data of the control and its childs
-        public void fillZoomBasisData(Control ParentControl, float zoomFactor)
+        internal void fillOrUpdateZoomBasisData(Control ParentControl, float actualZoomFactor)
         {
-            addOverwriteZoomBasisData(ParentControl, zoomFactor);
+            addOrUpdateZoomBasisData(ParentControl, actualZoomFactor);
             foreach (Control ChildControl in ParentControl.Controls)
             {
                 // do not add markup panels, name not unique and panels are varying
                 if (!(ChildControl is Panel && ChildControl.Name.Equals("_MARKUP_PANEL_")))
                 {
-                    fillZoomBasisData(ChildControl, zoomFactor);
+                    fillOrUpdateZoomBasisData(ChildControl, actualZoomFactor);
                 }
             }
         }
 
         // add or overwrite zoom basis data for one control
-        private void addOverwriteZoomBasisData(Control theControl, float zoomFactor)
+        private void addOrUpdateZoomBasisData(Control theControl, float actualZoomFactor)
         {
             string theControlFullName = getFullNameOfComponent(theControl);
             if (ZoomBasisDataTable.ContainsKey(theControlFullName))
             {
-                // data already available, update considering actual zoom factor
-                ZoomBasisDataTable[theControlFullName] = new ZoomBasisData(theControl, zoomFactor);
+                // basis data already available, update considering actual zoom factor
+                ZoomBasisData zoomBasisData = (ZoomBasisData)ZoomBasisDataTable[theControlFullName];
+
+                // depending on Anchor, position and size may have been changed due to 
+                // size change of mask or moving splitter
+                if ((theControl.Anchor | AnchorStyles.Left) != AnchorStyles.Left)
+                {
+                    zoomBasisData.Left = theControl.Left / actualZoomFactor;
+                }
+                if ((theControl.Anchor | AnchorStyles.Right) != AnchorStyles.Right)
+                {
+                    zoomBasisData.Width = theControl.Width / actualZoomFactor;
+                }
+
+                if (theControl is SplitContainer)
+                {
+                    zoomBasisData.SplitterDistance = ((SplitContainer)theControl).SplitterDistance / actualZoomFactor;
+                    zoomBasisData.Panel1MinSize = ((SplitContainer)theControl).Panel1MinSize / actualZoomFactor;
+                    zoomBasisData.Panel2MinSize = ((SplitContainer)theControl).Panel2MinSize / actualZoomFactor;
+                }
             }
             else
             {
-                ZoomBasisDataTable.Add(theControlFullName, new ZoomBasisData(theControl));
-            }
-            if (theControl is SplitContainer)
-            {
-                ((ZoomBasisData)ZoomBasisDataTable[theControlFullName]).SplitterDistance =
-                    ((SplitContainer)theControl).SplitterDistance / zoomFactor;
-                ((ZoomBasisData)ZoomBasisDataTable[theControlFullName]).Panel1MinSize =
-                    ((SplitContainer)theControl).Panel1MinSize / zoomFactor;
-                ((ZoomBasisData)ZoomBasisDataTable[theControlFullName]).Panel2MinSize =
-                    ((SplitContainer)theControl).Panel2MinSize / zoomFactor;
-            }
-            else if (theControl is DataGridView)
-            {
-                ((ZoomBasisData)ZoomBasisDataTable[theControlFullName]).RowTemplateHeight =
-                    ((DataGridView)theControl).RowTemplate.Height;
-            }
-            else if (theControl is TabControl)
-            {
-                ((ZoomBasisData)ZoomBasisDataTable[theControlFullName]).ItemSizeHeight =
-                    ((TabControl)theControl).ItemSize.Height;
-                ((ZoomBasisData)ZoomBasisDataTable[theControlFullName]).ItemSizeWidth =
-                    ((TabControl)theControl).ItemSize.Width;
+                // add basis data
+                ZoomBasisData zoomBasisData = new ZoomBasisData(theControl);
+
+                ZoomBasisDataTable.Add(theControlFullName, zoomBasisData);
+
+                if (theControl is DataGridView)
+                {
+                    ((ZoomBasisData)ZoomBasisDataTable[theControlFullName]).RowTemplateHeight =
+                        ((DataGridView)theControl).RowTemplate.Height;
+                }
+                else if (theControl is TabControl)
+                {
+                    ((ZoomBasisData)ZoomBasisDataTable[theControlFullName]).ItemSizeHeight =
+                        ((TabControl)theControl).ItemSize.Height;
+                    ((ZoomBasisData)ZoomBasisDataTable[theControlFullName]).ItemSizeWidth =
+                        ((TabControl)theControl).ItemSize.Width;
+                }
             }
         }
 
         // zoom controls including childs using general zoom factor
-        internal void zoomControlsUsingGeneralZoomFactor(Control ParentControl)
+        internal void zoomControlsUsingGeneralZoomFactor(Control ParentControl, float actualZoomFactor)
         {
             // method can be called when zoom basis data are not yet filled
-            fillZoomBasisData(ParentControl, 1f);
+            fillOrUpdateZoomBasisData(ParentControl, actualZoomFactor);
             zoomControls(ParentControl, generalZoomFactor, 0f);
         }
 
@@ -718,7 +736,7 @@ namespace FormCustomization
         //*****************************************************************
 
         // add or overwrite the shortcut in table
-        public void addOverwriteShortcutInTable(string ShortcutKeyString, Control theControl)
+        internal void addOverwriteShortcutInTable(string ShortcutKeyString, Control theControl)
         {
             if (ShortcutKeyString.Equals(""))
             {
@@ -742,7 +760,7 @@ namespace FormCustomization
         }
 
         // general event handler for key down
-        public void Form_KeyDown(object sender, KeyEventArgs e)
+        internal void Form_KeyDown(object sender, KeyEventArgs e)
         {
             string ShortcutKeyString = ((Form)sender).Name + "." + e.KeyData.ToString();
             Control assignedControl = (Control)ShortcutsForHandler[ShortcutKeyString];
@@ -843,7 +861,7 @@ namespace FormCustomization
         //*****************************************************************
 
         // load the settings from file
-        public void loadCustomizationFile(string CustomizationFile, bool optionalSavePreviousChanges)
+        internal void loadCustomizationFile(string CustomizationFile, bool optionalSavePreviousChanges)
         {
             lastCustomizationFile = "";
             if (optionalSavePreviousChanges)
@@ -1040,7 +1058,7 @@ namespace FormCustomization
         }
 
         // write the settings into file with asking for file name
-        public void writeCustomizationFile()
+        internal void writeCustomizationFile()
         {
             SaveFileDialog saveCustomizationFileDialog = new SaveFileDialog();
             saveCustomizationFileDialog.InitialDirectory = lastCustomizationFile;
@@ -1056,7 +1074,7 @@ namespace FormCustomization
         }
 
         // write the settings into file
-        public void writeCustomizationFile(string CustomizationFile)
+        internal void writeCustomizationFile(string CustomizationFile)
         {
             System.IO.StreamWriter StreamOut = null;
 
@@ -1196,7 +1214,7 @@ namespace FormCustomization
         }
 
         // get full name of form component (with all parents)
-        public static string getFullNameOfComponent(Component theComponent)
+        internal static string getFullNameOfComponent(Component theComponent)
         {
             string theName = "";
             if (theComponent is Control)
@@ -1277,7 +1295,7 @@ namespace FormCustomization
         }
 
         // gets the property of given form component
-        public object getProperty(Component givenComponent, enumProperty propertyIndex)
+        internal object getProperty(Component givenComponent, enumProperty propertyIndex)
         {
             if (givenComponent is Control)
             {
@@ -1634,8 +1652,8 @@ namespace FormCustomization
         }
 
         // set property of form component, given as object, and save settings in property table
-        public void setPropertyByObjectAndSaveSettings(Component ChangeableComponent,
-          enumProperty propertyIndex, object newProperty, float zoomFactor)
+        internal void setPropertyByObjectAndSaveSettings(Component ChangeableComponent,
+          enumProperty propertyIndex, object newProperty, float actualZoomFactor)
         {
             string ComponentFullName = getFullNameOfComponent(ChangeableComponent);
             string propertyTableKey = ComponentFullName + ":" + PropertyNames[(int)propertyIndex];
@@ -1657,7 +1675,7 @@ namespace FormCustomization
             setProperty(ChangeableComponent, propertyIndex, newProperty);
             if (ChangeableComponent is Control)
             {
-                addOverwriteZoomBasisData((Control)ChangeableComponent, zoomFactor);
+                addOrUpdateZoomBasisData((Control)ChangeableComponent, actualZoomFactor);
             }
 
             // necessary to force owner draw of control and that is necessary to change color
@@ -1671,7 +1689,7 @@ namespace FormCustomization
         }
 
         // reset property of component, given as Component-object
-        public void resetPropertyByObject(Component ChangeableComponent, enumProperty propertyIndex)
+        internal void resetPropertyByObject(Component ChangeableComponent, enumProperty propertyIndex)
         {
             string ComponentFullName = getFullNameOfComponent(ChangeableComponent);
             string propertyTableKey = ComponentFullName + ":" + PropertyNames[(int)propertyIndex];
@@ -1693,7 +1711,7 @@ namespace FormCustomization
         }
 
         // return keys from string
-        public static Keys getKeysFromString(string KeyString)
+        internal static Keys getKeysFromString(string KeyString)
         {
             foreach (Keys Key in Enum.GetValues(typeof(Shortcut)))
             {
@@ -1707,11 +1725,11 @@ namespace FormCustomization
         }
 
         // get and set general zoom factor
-        public static float getGeneralZoomFactor()
+        internal static float getGeneralZoomFactor()
         {
             return generalZoomFactor;
         }
-        public static void setGeneralZoomFactor(float value)
+        internal static void setGeneralZoomFactor(float value)
         {
             generalZoomFactor = value;
         }
@@ -1719,7 +1737,7 @@ namespace FormCustomization
         // get zoomed font
         // the width of a text does not change proportional to font size
         // font size is determined to ensure, that text fits into boundaries
-        public static Font getZoomedFont(Font usedFont, float initialFontSize, float zoomFactor)
+        internal static Font getZoomedFont(Font usedFont, float initialFontSize, float zoomFactor)
         {
             int maxWidth;
             int newFontSize;

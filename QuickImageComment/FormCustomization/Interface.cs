@@ -46,7 +46,8 @@ namespace FormCustomization
             {
                 theCustomizer.loadCustomizationFile(CustomizationFile, true);
             }
-            setFormToCustomizedValues(theForm);
+            // when initiating Customization Interface, nothing can have been zoomed before, so do not force zoóming
+            setFormToCustomizedValuesZoomIfChanged(theForm);
 
             // add generic key event handler
             theForm.KeyDown += new System.Windows.Forms.KeyEventHandler(theCustomizer.Form_KeyDown);
@@ -85,10 +86,20 @@ namespace FormCustomization
             theCustomizer.clearCustomizedSettingsChanged();
         }
 
-        // zoom form and set properties of all form components to customized values
+        // set properties of all form components based on original settings
+        // always zoom (no comparison old/new zoom factor)
+        // when same form is created again, old zoom data are still in Customizer,
+        // which would prevent zooming
         public void setFormToCustomizedValues(Form theForm)
         {
             theCustomizer.setAllComponents(Customizer.enumSetTo.Customized, theForm);
+        }
+
+        // set properties of all form components based on original settings
+        // zoom only if zoom factor changed
+        public void setFormToCustomizedValuesZoomIfChanged(Form theForm)
+        {
+            theCustomizer.setAllComponentsZoomIfChanged(Customizer.enumSetTo.Customized, theForm);
         }
 
         // zoom form and set properties of all form components to original values
@@ -98,9 +109,10 @@ namespace FormCustomization
         }
 
         // zoom controls (e.g. a user control)
-        public void zoomControlsUsingGeneralZoomFactor(string prefix, Control ParentControl)
+        public void zoomControlsUsingGeneralZoomFactor(Control ParentControl, Form ContainingForm)
         {
-            theCustomizer.zoomControlsUsingGeneralZoomFactor(ParentControl);
+            float actualZoomFactor = theCustomizer.getActualZoomFactor(ContainingForm);
+            theCustomizer.zoomControlsUsingGeneralZoomFactor(ParentControl, actualZoomFactor);
         }
 
         // load the settings from file
