@@ -333,7 +333,7 @@
             this.labelCentralInputArea.AutoSize = true;
             this.labelCentralInputArea.Location = new System.Drawing.Point(3, 5);
             this.labelCentralInputArea.Name = "labelCentralInputArea";
-            this.labelCentralInputArea.Size = new System.Drawing.Size(126, 13);
+            this.labelCentralInputArea.Size = new System.Drawing.Size(127, 13);
             this.labelCentralInputArea.TabIndex = 0;
             this.labelCentralInputArea.Text = "Zentraler Eingabebereich";
             // 
@@ -406,7 +406,7 @@
             this.radioButtonTile.AutoSize = true;
             this.radioButtonTile.Location = new System.Drawing.Point(6, 38);
             this.radioButtonTile.Name = "radioButtonTile";
-            this.radioButtonTile.Size = new System.Drawing.Size(102, 17);
+            this.radioButtonTile.Size = new System.Drawing.Size(100, 17);
             this.radioButtonTile.TabIndex = 1;
             this.radioButtonTile.TabStop = true;
             this.radioButtonTile.Text = "Ansicht Kacheln";
@@ -442,7 +442,7 @@
             this.radioButtonLargeIcons.AutoSize = true;
             this.radioButtonLargeIcons.Location = new System.Drawing.Point(6, 15);
             this.radioButtonLargeIcons.Name = "radioButtonLargeIcons";
-            this.radioButtonLargeIcons.Size = new System.Drawing.Size(96, 17);
+            this.radioButtonLargeIcons.Size = new System.Drawing.Size(97, 17);
             this.radioButtonLargeIcons.TabIndex = 0;
             this.radioButtonLargeIcons.TabStop = true;
             this.radioButtonLargeIcons.Text = "Miniaturansicht";
@@ -477,7 +477,7 @@
             this.label11.AutoSize = true;
             this.label11.Location = new System.Drawing.Point(139, 164);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(301, 13);
+            this.label11.Size = new System.Drawing.Size(307, 13);
             this.label11.TabIndex = 13;
             this.label11.Text = "Einfache Liste, Gruppe hinten (kann sortiert werden) - Englisch";
             // 
@@ -495,7 +495,7 @@
             this.fixedLabel9.AutoSize = true;
             this.fixedLabel9.Location = new System.Drawing.Point(74, 16);
             this.fixedLabel9.Name = "fixedLabel9";
-            this.fixedLabel9.Size = new System.Drawing.Size(30, 13);
+            this.fixedLabel9.Size = new System.Drawing.Size(27, 13);
             this.fixedLabel9.TabIndex = 2;
             this.fixedLabel9.Text = "XMP";
             // 
@@ -504,7 +504,7 @@
             this.fixedLabel8.AutoSize = true;
             this.fixedLabel8.Location = new System.Drawing.Point(39, 16);
             this.fixedLabel8.Name = "fixedLabel8";
-            this.fixedLabel8.Size = new System.Drawing.Size(31, 13);
+            this.fixedLabel8.Size = new System.Drawing.Size(30, 13);
             this.fixedLabel8.TabIndex = 1;
             this.fixedLabel8.Text = "IPTC";
             // 
@@ -513,7 +513,7 @@
             this.fixedLabel7.AutoSize = true;
             this.fixedLabel7.Location = new System.Drawing.Point(9, 16);
             this.fixedLabel7.Name = "fixedLabel7";
-            this.fixedLabel7.Size = new System.Drawing.Size(24, 13);
+            this.fixedLabel7.Size = new System.Drawing.Size(25, 13);
             this.fixedLabel7.TabIndex = 0;
             this.fixedLabel7.Text = "Exif";
             // 
@@ -522,7 +522,7 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(139, 141);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(274, 13);
+            this.label6.Size = new System.Drawing.Size(278, 13);
             this.label6.TabIndex = 12;
             this.label6.Text = "Einfache Liste anzeigen (kann sortiert werden) - Englisch";
             // 
@@ -531,7 +531,7 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(139, 118);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(291, 13);
+            this.label5.Size = new System.Drawing.Size(299, 13);
             this.label5.TabIndex = 11;
             this.label5.Text = "Liste mit Überschriften (kann nicht sortiert werden) - Englisch";
             // 
@@ -540,7 +540,7 @@
             this.labelSuffixFirst.AutoSize = true;
             this.labelSuffixFirst.Location = new System.Drawing.Point(139, 95);
             this.labelSuffixFirst.Name = "labelSuffixFirst";
-            this.labelSuffixFirst.Size = new System.Drawing.Size(252, 13);
+            this.labelSuffixFirst.Size = new System.Drawing.Size(259, 13);
             this.labelSuffixFirst.TabIndex = 10;
             this.labelSuffixFirst.Text = "Einfache Liste, Gruppe hinten (kann sortiert werden)";
             // 
@@ -549,7 +549,7 @@
             this.labelHeader.AutoSize = true;
             this.labelHeader.Location = new System.Drawing.Point(139, 49);
             this.labelHeader.Name = "labelHeader";
-            this.labelHeader.Size = new System.Drawing.Size(242, 13);
+            this.labelHeader.Size = new System.Drawing.Size(251, 13);
             this.labelHeader.TabIndex = 8;
             this.labelHeader.Text = "Liste mit Überschriften (kann nicht sortiert werden)";
             // 
@@ -558,7 +558,7 @@
             this.labelPlain.AutoSize = true;
             this.labelPlain.Location = new System.Drawing.Point(139, 72);
             this.labelPlain.Name = "labelPlain";
-            this.labelPlain.Size = new System.Drawing.Size(225, 13);
+            this.labelPlain.Size = new System.Drawing.Size(230, 13);
             this.labelPlain.TabIndex = 9;
             this.labelPlain.Text = "Einfache Liste anzeigen (kann sortiert werden)";
             // 
@@ -923,7 +923,7 @@
             this.radioButtonToolStripShow.AutoSize = true;
             this.radioButtonToolStripShow.Location = new System.Drawing.Point(6, 15);
             this.radioButtonToolStripShow.Name = "radioButtonToolStripShow";
-            this.radioButtonToolStripShow.Size = new System.Drawing.Size(78, 17);
+            this.radioButtonToolStripShow.Size = new System.Drawing.Size(77, 17);
             this.radioButtonToolStripShow.TabIndex = 0;
             this.radioButtonToolStripShow.TabStop = true;
             this.radioButtonToolStripShow.Text = "Einblenden";
@@ -957,7 +957,7 @@
             this.checkBoxLeftPanelVertical.AutoSize = true;
             this.checkBoxLeftPanelVertical.Location = new System.Drawing.Point(3, 4);
             this.checkBoxLeftPanelVertical.Name = "checkBoxLeftPanelVertical";
-            this.checkBoxLeftPanelVertical.Size = new System.Drawing.Size(104, 17);
+            this.checkBoxLeftPanelVertical.Size = new System.Drawing.Size(106, 17);
             this.checkBoxLeftPanelVertical.TabIndex = 12;
             this.checkBoxLeftPanelVertical.Text = "Vertikal aufteilen";
             this.checkBoxLeftPanelVertical.UseVisualStyleBackColor = true;
@@ -968,7 +968,7 @@
             this.checkBoxRightPanelVertical.AutoSize = true;
             this.checkBoxRightPanelVertical.Location = new System.Drawing.Point(6, 4);
             this.checkBoxRightPanelVertical.Name = "checkBoxRightPanelVertical";
-            this.checkBoxRightPanelVertical.Size = new System.Drawing.Size(104, 17);
+            this.checkBoxRightPanelVertical.Size = new System.Drawing.Size(106, 17);
             this.checkBoxRightPanelVertical.TabIndex = 13;
             this.checkBoxRightPanelVertical.Text = "Vertikal aufteilen";
             this.checkBoxRightPanelVertical.UseVisualStyleBackColor = true;
@@ -999,7 +999,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(11, 17);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(161, 13);
+            this.label1.Size = new System.Drawing.Size(166, 13);
             this.label1.TabIndex = 16;
             this.label1.Text = "Benutzerdefinierte Einstellungen:";
             // 
@@ -1090,6 +1090,7 @@
             this.Controls.Add(this.buttonClose);
             this.Controls.Add(this.buttonHelp);
             this.Controls.Add(this.buttonCustomizeForm);
+            this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;

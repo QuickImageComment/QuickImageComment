@@ -29,15 +29,11 @@
         private void InitializeComponent()
         {
             this.panelChangeableFieldsInner = new System.Windows.Forms.Panel();
-            this.dateTimePickerChangeableField = new System.Windows.Forms.DateTimePicker();
             this.comboBoxChangeableField = new System.Windows.Forms.ComboBox();
             this.dynamicLabelChangeableField = new System.Windows.Forms.Label();
             this.textBoxChangeableField = new System.Windows.Forms.TextBox();
             this.panelChangeableFieldsOuter = new System.Windows.Forms.Panel();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.dateTimePickerChangeableField = new QuickImageComment.DateTimePickerQIC();
             this.panelChangeableFieldsInner.SuspendLayout();
             this.panelChangeableFieldsOuter.SuspendLayout();
             this.SuspendLayout();
@@ -55,22 +51,13 @@
             this.panelChangeableFieldsInner.Size = new System.Drawing.Size(368, 320);
             this.panelChangeableFieldsInner.TabIndex = 9;
             // 
-            // dateTimePickerChangeableField
-            // 
-            this.dateTimePickerChangeableField.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.dateTimePickerChangeableField.CustomFormat = "yyyy:MM:dd hh:mm:ss";
-            this.dateTimePickerChangeableField.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePickerChangeableField.Location = new System.Drawing.Point(348, 56);
-            this.dateTimePickerChangeableField.Name = "dateTimePickerChangeableField";
-            this.dateTimePickerChangeableField.Size = new System.Drawing.Size(14, 20);
-            this.dateTimePickerChangeableField.TabIndex = 4;
-            // 
             // comboBoxChangeableField
             // 
             this.comboBoxChangeableField.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxChangeableField.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.comboBoxChangeableField.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.comboBoxChangeableField.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxChangeableField.FormattingEnabled = true;
             this.comboBoxChangeableField.Location = new System.Drawing.Point(146, 29);
             this.comboBoxChangeableField.Name = "comboBoxChangeableField";
@@ -80,6 +67,7 @@
             // dynamicLabelChangeableField
             // 
             this.dynamicLabelChangeableField.AutoSize = true;
+            this.dynamicLabelChangeableField.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dynamicLabelChangeableField.Location = new System.Drawing.Point(3, 7);
             this.dynamicLabelChangeableField.Name = "dynamicLabelChangeableField";
             this.dynamicLabelChangeableField.Size = new System.Drawing.Size(35, 13);
@@ -91,10 +79,11 @@
             // 
             this.textBoxChangeableField.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxChangeableField.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxChangeableField.Location = new System.Drawing.Point(146, 3);
             this.textBoxChangeableField.Name = "textBoxChangeableField";
             this.textBoxChangeableField.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBoxChangeableField.Size = new System.Drawing.Size(219, 20);
+            this.textBoxChangeableField.Size = new System.Drawing.Size(219, 21);
             this.textBoxChangeableField.TabIndex = 2;
             this.textBoxChangeableField.Tag = "0";
             this.textBoxChangeableField.WordWrap = false;
@@ -109,49 +98,17 @@
             this.panelChangeableFieldsOuter.Size = new System.Drawing.Size(368, 323);
             this.panelChangeableFieldsOuter.TabIndex = 10;
             // 
-            // dateTimePicker1
+            // dateTimePickerChangeableField
             // 
-            this.dateTimePicker1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.dateTimePicker1.CustomFormat = "yyyy:MM:dd hh:mm:ss";
-            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker1.Location = new System.Drawing.Point(345, 56);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(17, 20);
-            this.dateTimePicker1.TabIndex = 4;
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBox1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.comboBox1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(146, 29);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(216, 21);
-            this.comboBox1.TabIndex = 3;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 7);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Tag = "0";
-            this.label1.Text = "label1";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Location = new System.Drawing.Point(146, 3);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox1.Size = new System.Drawing.Size(216, 20);
-            this.textBox1.TabIndex = 2;
-            this.textBox1.Tag = "0";
-            this.textBox1.WordWrap = false;
+            this.dateTimePickerChangeableField.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.dateTimePickerChangeableField.ButtonFillColor = System.Drawing.Color.White;
+            this.dateTimePickerChangeableField.CustomFormat = ".";
+            this.dateTimePickerChangeableField.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dateTimePickerChangeableField.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTimePickerChangeableField.Location = new System.Drawing.Point(343, 56);
+            this.dateTimePickerChangeableField.Name = "dateTimePickerChangeableField";
+            this.dateTimePickerChangeableField.Size = new System.Drawing.Size(19, 21);
+            this.dateTimePickerChangeableField.TabIndex = 4;
             // 
             // UserControlChangeableFields
             // 
@@ -168,14 +125,10 @@
         }
 
         #endregion
-        private System.Windows.Forms.DateTimePicker dateTimePickerChangeableField;
+        private QuickImageComment.DateTimePickerQIC dateTimePickerChangeableField;
         private System.Windows.Forms.ComboBox comboBoxChangeableField;
         private System.Windows.Forms.Label dynamicLabelChangeableField;
         private System.Windows.Forms.TextBox textBoxChangeableField;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
         internal System.Windows.Forms.Panel panelChangeableFieldsInner;
         private System.Windows.Forms.Panel panelChangeableFieldsOuter;
     }

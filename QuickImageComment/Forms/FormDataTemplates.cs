@@ -78,9 +78,9 @@ namespace QuickImageComment
                 {
                     aControl.KeyDown += new KeyEventHandler(inputControlChangeableField_KeyDown);
                 }
-                else if (aControl.GetType().Equals(typeof(DateTimePicker)))
+                else if (aControl.GetType().Equals(typeof(DateTimePickerQIC)))
                 {
-                    ((DateTimePicker)aControl).ValueChanged += new EventHandler(dateTimePickerChangeableField_ValueChanged);
+                    ((DateTimePickerQIC)aControl).ValueChanged += new EventHandler(dateTimePickerChangeableField_ValueChanged);
                 }
             }
 

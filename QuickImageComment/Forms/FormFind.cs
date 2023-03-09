@@ -92,8 +92,8 @@ namespace QuickImageComment
             internal ComboBox comboBoxOperator2;
             internal ComboBox comboBoxValue1;
             internal ComboBox comboBoxValue2;
-            internal DateTimePicker dateTimePicker1;
-            internal DateTimePicker dateTimePicker2;
+            internal DateTimePickerQIC dateTimePicker1;
+            internal DateTimePickerQIC dateTimePicker2;
 
             internal FilterDefinition(MetaDataDefinitionItem givenMetaDataDefinitionItem, bool givenVisible)
             {
@@ -271,10 +271,10 @@ namespace QuickImageComment
                 {
                     ComboBox comboBoxOperator1 = addComboBoxOperator(metaDataDefinitionItem.KeyPrim + "_1");
                     ComboBox comboBoxValue1 = addComboBoxValue(metaDataDefinitionItem.KeyPrim + "_1");
-                    DateTimePicker dateTimePicker1 = addDateTimePicker(metaDataDefinitionItem.KeyPrim + "_1");
+                    DateTimePickerQIC dateTimePicker1 = addDateTimePicker(metaDataDefinitionItem.KeyPrim + "_1");
                     ComboBox comboBoxOperator2 = addComboBoxOperator(metaDataDefinitionItem.KeyPrim + "_2");
                     ComboBox comboBoxValue2 = addComboBoxValue(metaDataDefinitionItem.KeyPrim + "_2");
-                    DateTimePicker dateTimePicker2 = addDateTimePicker(metaDataDefinitionItem.KeyPrim + "_2");
+                    DateTimePickerQIC dateTimePicker2 = addDateTimePicker(metaDataDefinitionItem.KeyPrim + "_2");
 
                     filterDefinition.comboBoxOperator1 = comboBoxOperator1;
                     filterDefinition.comboBoxValue1 = comboBoxValue1;
@@ -386,9 +386,9 @@ namespace QuickImageComment
         }
 
         // add date time picker
-        private DateTimePicker addDateTimePicker(string nameSuffix)
+        private DateTimePickerQIC addDateTimePicker(string nameSuffix)
         {
-            DateTimePicker dateTimePicker = new DateTimePicker();
+            DateTimePickerQIC dateTimePicker = new DateTimePickerQIC();
             panelFilterInner.Controls.Add(dateTimePicker);
             dateTimePicker.Name = dateTimePickerNamePrefix + nameSuffix;
             dateTimePicker.Visible = true;
@@ -400,6 +400,7 @@ namespace QuickImageComment
             // do net set Font, shall be inherited by parent
             dateTimePicker.ForeColor = this.dateTimePicker.ForeColor;
             dateTimePicker.BackColor = this.dateTimePicker.BackColor;
+            dateTimePicker.ButtonFillColor = this.dateTimePicker.ButtonFillColor;
             dateTimePicker.Size = this.dateTimePicker.Size;
             dateTimePicker.Height = this.dateTimePicker.Height;
 
@@ -1152,7 +1153,7 @@ namespace QuickImageComment
 
         private void dateTimePickerFind_Enter(object sender, EventArgs e)
         {
-            DateTimePicker dateTimePicker = (DateTimePicker)sender;
+            DateTimePickerQIC dateTimePicker = (DateTimePickerQIC)sender;
             FilterDefinition filterDefinition = (FilterDefinition)dateTimePicker.Tag;
 
             Control valueControl;
@@ -1187,7 +1188,7 @@ namespace QuickImageComment
 
         private void dateTimePickerFind_ValueChanged(object sender, EventArgs e)
         {
-            DateTimePicker dateTimePicker = (DateTimePicker)sender;
+            DateTimePickerQIC dateTimePicker = (DateTimePickerQIC)sender;
             FilterDefinition filterDefinition = (FilterDefinition)dateTimePicker.Tag;
             DateTime dateTime = DateTime.MinValue;
 

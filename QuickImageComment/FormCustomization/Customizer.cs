@@ -231,6 +231,20 @@ namespace FormCustomization
             }
         }
 
+        // get actual tool strip offset correction
+        internal float getActualToolStripOffsetCorrection(Form theForm)
+        {
+            float ToolStripOffsetCorrection = 0;
+            foreach (Control aControl in theForm.Controls)
+            {
+                if (aControl is ToolStrip)
+                {
+                    ToolStripOffsetCorrection = aControl.Height;
+                }
+            }
+            return ToolStripOffsetCorrection;
+        }
+
         // set list of translations
         internal static void setTranslations(SortedList<string, string> givenTranslations)
         {
@@ -470,7 +484,11 @@ namespace FormCustomization
         internal void zoomForm(enumSetTo SetTo, Form zoomableForm, float NewIndividualZoomFactor, bool alwaysZoomForm)
         {
             // get old zoom factor
-            float OldZoomFactor = getActualZoomFactor(zoomableForm);
+            float OldZoomFactor = 1f;
+            if (!alwaysZoomForm)
+            {
+                OldZoomFactor = getActualZoomFactor(zoomableForm);
+            }
             float NewZoomFactor;
 
             if (NewIndividualZoomFactor > 0f)
@@ -517,7 +535,7 @@ namespace FormCustomization
             {
                 zoomableForm.SuspendLayout();
 
-                fillOrUpdateZoomBasisData(zoomableForm, OldZoomFactor);
+                fillOrUpdateZoomBasisData(zoomableForm, OldZoomFactor, getActualToolStripOffsetCorrection(zoomableForm));
 
                 // tool strips are not zoomed, consider this in the "top" of controls in form
                 float ToolStripOffsetCorrection = 0;
@@ -538,21 +556,21 @@ namespace FormCustomization
         }
 
         // fill the hashtable with zoom basis data of the control and its childs
-        internal void fillOrUpdateZoomBasisData(Control ParentControl, float actualZoomFactor)
+        internal void fillOrUpdateZoomBasisData(Control ParentControl, float actualZoomFactor, float actualToolStripOffsetCorrection)
         {
-            addOrUpdateZoomBasisData(ParentControl, actualZoomFactor);
+            addOrUpdateZoomBasisData(ParentControl, actualZoomFactor, actualToolStripOffsetCorrection);
             foreach (Control ChildControl in ParentControl.Controls)
             {
                 // do not add markup panels, name not unique and panels are varying
                 if (!(ChildControl is Panel && ChildControl.Name.Equals("_MARKUP_PANEL_")))
                 {
-                    fillOrUpdateZoomBasisData(ChildControl, actualZoomFactor);
+                    fillOrUpdateZoomBasisData(ChildControl, actualZoomFactor, actualToolStripOffsetCorrection);
                 }
             }
         }
 
         // add or overwrite zoom basis data for one control
-        private void addOrUpdateZoomBasisData(Control theControl, float actualZoomFactor)
+        private void addOrUpdateZoomBasisData(Control theControl, float actualZoomFactor, float actualToolStripOffsetCorrection)
         {
             string theControlFullName = getFullNameOfComponent(theControl);
             if (ZoomBasisDataTable.ContainsKey(theControlFullName))
@@ -569,6 +587,22 @@ namespace FormCustomization
                 if ((theControl.Anchor | AnchorStyles.Right) != AnchorStyles.Right)
                 {
                     zoomBasisData.Width = theControl.Width / actualZoomFactor;
+                }
+
+                if ((theControl.Anchor | AnchorStyles.Top) != AnchorStyles.Top)
+                {
+                    if (theControl.Parent is Form)
+                    {
+                        zoomBasisData.Top = (theControl.Top - actualToolStripOffsetCorrection) / actualZoomFactor + actualToolStripOffsetCorrection;
+                    }
+                    else
+                    {
+                        zoomBasisData.Top = theControl.Top / actualZoomFactor;
+                    }
+                }
+                if ((theControl.Anchor | AnchorStyles.Bottom) != AnchorStyles.Bottom)
+                {
+                    zoomBasisData.Height = theControl.Height / actualZoomFactor;
                 }
 
                 if (theControl is SplitContainer)
@@ -604,7 +638,12 @@ namespace FormCustomization
         internal void zoomControlsUsingGeneralZoomFactor(Control ParentControl, float actualZoomFactor)
         {
             // method can be called when zoom basis data are not yet filled
-            fillOrUpdateZoomBasisData(ParentControl, actualZoomFactor);
+            float actualToolStripOffsetCorrection = 0f;
+            if (ParentControl is Form)
+            {
+                actualToolStripOffsetCorrection = getActualToolStripOffsetCorrection((Form)ParentControl);
+            }
+            fillOrUpdateZoomBasisData(ParentControl, actualZoomFactor, actualToolStripOffsetCorrection);
             zoomControls(ParentControl, generalZoomFactor, 0f);
         }
 
@@ -659,15 +698,10 @@ namespace FormCustomization
                 }
                 else if (ParentControl is DateTimePicker)
                 {
+                    // note: the DateTimePicker out of the box does not consider font changes
+                    // see https://stackoverflow.com/questions/48020286/is-it-possible-to-increase-size-of-calendar-popup-in-winform
                     ((DateTimePicker)ParentControl).CalendarFont = getZoomedFont(((DateTimePicker)ParentControl).CalendarFont,
                         theZoomBasisData.FontSize, zoomFactor);
-                    if (ParentControl.Width < ParentControl.Height)
-                    {
-                        // size of date time picker indicates, that only the drop down symbol shall be visible,
-                        // not the date value as well
-                        // adjust width not to show parts of date behind drop down
-                        ParentControl.Width = (int)theZoomBasisData.Width;
-                    }
                 }
 
                 // do not change position of form
@@ -714,6 +748,11 @@ namespace FormCustomization
                         zoomControls(ChildControl, zoomFactor, toolStripOffsetCorrection);
                     }
                 }
+            }
+            if (ParentControl.ContextMenuStrip != null)
+            {
+                // Context menu strip may have a different font, but for simplicity just use the control's font
+                ParentControl.ContextMenuStrip.Font = ParentControl.Font;
             }
 
             // set new minimum size considering zoom factor
@@ -1675,7 +1714,12 @@ namespace FormCustomization
             setProperty(ChangeableComponent, propertyIndex, newProperty);
             if (ChangeableComponent is Control)
             {
-                addOrUpdateZoomBasisData((Control)ChangeableComponent, actualZoomFactor);
+                float actualToolStripOffsetCorrection = 0f;
+                if (ChangeableComponent is Form)
+                {
+                    actualToolStripOffsetCorrection = getActualToolStripOffsetCorrection((Form)ChangeableComponent);
+                }
+                addOrUpdateZoomBasisData((Control)ChangeableComponent, actualZoomFactor, actualToolStripOffsetCorrection);
             }
 
             // necessary to force owner draw of control and that is necessary to change color

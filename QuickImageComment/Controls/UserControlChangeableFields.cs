@@ -301,7 +301,7 @@ namespace QuickImageComment
             {
                 // add a date picker
                 anInputControl.Width = anInputControl.Width - dateTimePickerChangeableField.Width - 2;
-                DateTimePicker aDateTimePicker = new DateTimePicker();
+                DateTimePickerQIC aDateTimePicker = new DateTimePickerQIC();
                 aDateTimePicker.Enter += new System.EventHandler(this.dateTimePickerChangeableField_Enter);
                 aDateTimePicker.Tag = anInputControl.Tag;
                 aDateTimePicker.Name = inputControlName(aDateTimePicker);
@@ -312,6 +312,7 @@ namespace QuickImageComment
                 aDateTimePicker.Font = dateTimePickerChangeableField.Font;
                 aDateTimePicker.ForeColor = dateTimePickerChangeableField.ForeColor;
                 aDateTimePicker.BackColor = dateTimePickerChangeableField.BackColor;
+                aDateTimePicker.ButtonFillColor = dateTimePickerChangeableField.ButtonFillColor;
                 aDateTimePicker.Size = dateTimePickerChangeableField.Size;
                 aDateTimePicker.Left = anInputControl.Left + anInputControl.Width + 2;
                 aDateTimePicker.Height = dateTimePickerChangeableField.Height;
@@ -586,12 +587,12 @@ namespace QuickImageComment
 
         internal void dateTimePickerChangeableField_Enter(object sender, EventArgs e)
         {
-            DateTimePicker theDateTimePicker = (DateTimePicker)sender;
+            DateTimePickerQIC theDateTimePicker = (DateTimePickerQIC)sender;
 
             ChangeableFieldSpecification Spec = (ChangeableFieldSpecification)theDateTimePicker.Tag;
             Control theInputControl = null;
             // try to get associated combo box
-            string controlName = theDateTimePicker.Name.Replace("System.Windows.Forms.DateTimePicker", "System.Windows.Forms.ComboBox");
+            string controlName = theDateTimePicker.Name.Replace("QuickImageComment.DateTimePickerQIC", "System.Windows.Forms.ComboBox");
             if (ChangeableFieldInputControls.ContainsKey(controlName))
             {
                 theInputControl = ChangeableFieldInputControls[controlName];
@@ -599,7 +600,7 @@ namespace QuickImageComment
             else
             {
                 // try to get associated text box
-                controlName = theDateTimePicker.Name.Replace("System.Windows.Forms.DateTimePicker", "System.Windows.Forms.TextBox");
+                controlName = theDateTimePicker.Name.Replace("QuickImageComment.DateTimePickerQIC", "System.Windows.Forms.TextBox");
                 theInputControl = ChangeableFieldInputControls[controlName];
             }
 
@@ -616,12 +617,12 @@ namespace QuickImageComment
         // handle event value changed in dateTimePickerChangeableField
         internal void dateTimePickerChangeableField_handleValueChanged(object sender, EventArgs e)
         {
-            DateTimePicker theDateTimePicker = (DateTimePicker)sender;
+            DateTimePickerQIC theDateTimePicker = (DateTimePickerQIC)sender;
 
             ChangeableFieldSpecification Spec = (ChangeableFieldSpecification)theDateTimePicker.Tag;
             Control theInputControl = null;
             // try to get associated combo box
-            string controlName = theDateTimePicker.Name.Replace("System.Windows.Forms.DateTimePicker", "System.Windows.Forms.ComboBox");
+            string controlName = theDateTimePicker.Name.Replace("QuickImageComment.DateTimePickerQIC", "System.Windows.Forms.ComboBox");
             if (ChangeableFieldInputControls.ContainsKey(controlName))
             {
                 theInputControl = ChangeableFieldInputControls[controlName];
@@ -629,7 +630,7 @@ namespace QuickImageComment
             else
             {
                 // try to get associated text box
-                controlName = theDateTimePicker.Name.Replace("System.Windows.Forms.DateTimePicker", "System.Windows.Forms.TextBox");
+                controlName = theDateTimePicker.Name.Replace("QuickImageComment.DateTimePickerQIC", "System.Windows.Forms.TextBox");
                 theInputControl = ChangeableFieldInputControls[controlName];
             }
 

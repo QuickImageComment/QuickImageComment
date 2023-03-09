@@ -202,7 +202,7 @@ namespace QuickImageComment
             // 
             this.splitContainer1.Panel2.BackColor = System.Drawing.SystemColors.Control;
             this.splitContainer1.Size = new System.Drawing.Size(745, 415);
-            this.splitContainer1.SplitterDistance = 348;
+            this.splitContainer1.SplitterDistance = 347;
             this.splitContainer1.TabIndex = 131;
             // 
             // label1
@@ -255,7 +255,6 @@ namespace QuickImageComment
             this.dynamicComboBoxUserComment.TabIndex = 138;
             this.dynamicComboBoxUserComment.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dynamicComboBoxUserComment_KeyDown);
             this.dynamicComboBoxUserComment.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dynamicComboBoxUserComment_MouseClick);
-            this.dynamicComboBoxUserComment.Resize += new System.EventHandler(GeneralUtilities.comboBox_Resize_Unselect);
             // 
             // FormDataTemplates
             // 
@@ -273,6 +272,7 @@ namespace QuickImageComment
             this.Controls.Add(this.buttonHelp);
             this.Controls.Add(this.buttonCustomizeForm);
             this.Controls.Add(this.buttonClose);
+            this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.MinimumSize = new System.Drawing.Size(455, 380);

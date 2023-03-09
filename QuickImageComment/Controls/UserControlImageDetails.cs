@@ -87,10 +87,6 @@ namespace QuickImageComment
         public UserControlImageDetails(float dpiSettings, FormImageDetails givenMasterFormImageDetails)
         {
             InitializeComponent();
-            // set font for panel1 explicitely, so that it is not inherited
-            // if font is inherited, font is zoomed twice when adding this user control by user
-            Font mainFont = MainMaskInterface.getMainMask().Font;
-            splitContainerImageDetails1.Font = new System.Drawing.Font(mainFont.FontFamily, mainFont.Size, mainFont.Style);
 
             masterFormImageDetails = givenMasterFormImageDetails;
 

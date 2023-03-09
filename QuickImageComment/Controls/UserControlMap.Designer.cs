@@ -121,7 +121,7 @@
             // labelZoom
             // 
             this.labelZoom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelZoom.Location = new System.Drawing.Point(209, 35);
+            this.labelZoom.Location = new System.Drawing.Point(209, 29);
             this.labelZoom.Name = "labelZoom";
             this.labelZoom.Size = new System.Drawing.Size(52, 13);
             this.labelZoom.TabIndex = 6;
@@ -165,7 +165,7 @@
             // 
             this.dynamicLabelZoom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.dynamicLabelZoom.AutoSize = true;
-            this.dynamicLabelZoom.Location = new System.Drawing.Point(256, 35);
+            this.dynamicLabelZoom.Location = new System.Drawing.Point(263, 29);
             this.dynamicLabelZoom.Name = "dynamicLabelZoom";
             this.dynamicLabelZoom.Size = new System.Drawing.Size(19, 13);
             this.dynamicLabelZoom.TabIndex = 7;
@@ -189,7 +189,7 @@
             // dynamicLabelCoordinates
             // 
             this.dynamicLabelCoordinates.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.dynamicLabelCoordinates.Location = new System.Drawing.Point(264, 35);
+            this.dynamicLabelCoordinates.Location = new System.Drawing.Point(276, 29);
             this.dynamicLabelCoordinates.Name = "dynamicLabelCoordinates";
             this.dynamicLabelCoordinates.Size = new System.Drawing.Size(135, 13);
             this.dynamicLabelCoordinates.TabIndex = 5;
@@ -211,6 +211,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.panel1);
+            this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "UserControlMap";
             this.Size = new System.Drawing.Size(674, 410);
             this.panel1.ResumeLayout(false);

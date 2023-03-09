@@ -263,9 +263,7 @@ namespace QuickImageComment
             //GeneralUtilities.setPanelMinSizeAsActual(this.splitContainer122);
             this.MinimumSize = this.Size;
 
-            // adjust size and position according configuration
-            this.Width = (int)(ConfigDefinition.getFormMainWidth() * dpiSettings / 96.0f);
-            this.Height = (int)(ConfigDefinition.getFormMainHeight() * dpiSettings / 96.0f);
+            // adjust position according configuration
             if (ConfigDefinition.getFormMainMaximized())
             {
                 this.WindowState = FormWindowState.Maximized;
@@ -548,17 +546,6 @@ namespace QuickImageComment
             //Program.StartupPerformance.measure("FormQIC before set split container panels content");
             setSplitContainerPanelsContent();
 
-            // adjusting splitter distance before show mask does not work correct
-            // and must be done after setting splitContainer content, because else some automatic adjustments change splitter distances again
-            GeneralUtilities.setSplitterDistanceWithCheck(this.splitContainer1, ConfigDefinition.enumCfgUserInt.Splitter1Distance);
-            GeneralUtilities.setSplitterDistanceWithCheck(this.splitContainer11, ConfigDefinition.enumCfgUserInt.Splitter11Distance);
-            GeneralUtilities.setSplitterDistanceWithCheck(this.splitContainer12, ConfigDefinition.enumCfgUserInt.Splitter12Distance);
-            GeneralUtilities.setSplitterDistanceWithCheck(this.splitContainer121, ConfigDefinition.enumCfgUserInt.Splitter121Distance);
-            GeneralUtilities.setSplitterDistanceWithCheck(this.splitContainer1211, ConfigDefinition.enumCfgUserInt.Splitter1211Distance);
-            GeneralUtilities.setSplitterDistanceWithCheck(theUserControlKeyWords.splitContainer1212, ConfigDefinition.enumCfgUserInt.Splitter1212Distance);
-            GeneralUtilities.setSplitterDistanceWithCheck(this.splitContainer122, ConfigDefinition.enumCfgUserInt.Splitter122Distance);
-            if (theUserControlImageDetails != null) theUserControlImageDetails.adjustSplitterDistances();
-
             //Program.StartupPerformance.measure("FormQIC After set splitter distance");
 
             FormCustomization.Interface.setGeneralZoomFactor(ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.generalZoomFactorPerCent) / 100f);
@@ -571,6 +558,21 @@ namespace QuickImageComment
 
             //set top for label file name, needed if dpi is higher than 96
             dynamicLabelFileName.Top = splitContainer1211P1.Panel2.Height - dynamicLabelFileName.Height - 2;
+
+            // adjust size according configuration
+            this.Width = (int)(ConfigDefinition.getFormMainWidth() * dpiSettings / 96.0f);
+            this.Height = (int)(ConfigDefinition.getFormMainHeight() * dpiSettings / 96.0f);
+
+            // adjusting splitter distance before show mask does not work correct
+            // and must be done after setting splitContainer content, because else some automatic adjustments change splitter distances again
+            GeneralUtilities.setSplitterDistanceWithCheck(this.splitContainer1, ConfigDefinition.enumCfgUserInt.Splitter1Distance);
+            GeneralUtilities.setSplitterDistanceWithCheck(this.splitContainer11, ConfigDefinition.enumCfgUserInt.Splitter11Distance);
+            GeneralUtilities.setSplitterDistanceWithCheck(this.splitContainer12, ConfigDefinition.enumCfgUserInt.Splitter12Distance);
+            GeneralUtilities.setSplitterDistanceWithCheck(this.splitContainer121, ConfigDefinition.enumCfgUserInt.Splitter121Distance);
+            GeneralUtilities.setSplitterDistanceWithCheck(this.splitContainer1211, ConfigDefinition.enumCfgUserInt.Splitter1211Distance);
+            GeneralUtilities.setSplitterDistanceWithCheck(theUserControlKeyWords.splitContainer1212, ConfigDefinition.enumCfgUserInt.Splitter1212Distance);
+            GeneralUtilities.setSplitterDistanceWithCheck(this.splitContainer122, ConfigDefinition.enumCfgUserInt.Splitter122Distance);
+            if (theUserControlImageDetails != null) theUserControlImageDetails.adjustSplitterDistances();
 
             // needs to be called after customization to adjust distances artist/comment
             showHideControlsCentralInputArea();
@@ -706,9 +708,9 @@ namespace QuickImageComment
                 {
                     aControl.KeyDown += new KeyEventHandler(inputControlChangeableField_KeyDown);
                 }
-                else if (aControl.GetType().Equals(typeof(DateTimePicker)))
+                else if (aControl.GetType().Equals(typeof(DateTimePickerQIC)))
                 {
-                    ((DateTimePicker)aControl).ValueChanged += new EventHandler(dateTimePickerChangeableField_ValueChanged);
+                    ((DateTimePickerQIC)aControl).ValueChanged += new EventHandler(dateTimePickerChangeableField_ValueChanged);
                 }
             }
         }
@@ -1154,20 +1156,13 @@ namespace QuickImageComment
                 ConfigDefinition.setCfgUserBool(ConfigDefinition.enumCfgUserBool.SplitContainer12_OrientationVertical, splitContainer12.Orientation == Orientation.Vertical);
 
                 // save splitterdistance normalized for 96 dpi
-                ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.Splitter1Distance, (int)(this.splitContainer1.SplitterDistance * 96.0f 
-                    / dpiSettings / FormCustomization.Interface.getGeneralZoomFactor()));
-                ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.Splitter11Distance, (int)(this.splitContainer11.SplitterDistance * 96.0f 
-                    / dpiSettings / FormCustomization.Interface.getGeneralZoomFactor()));
-                ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.Splitter12Distance, (int)(this.splitContainer12.SplitterDistance * 96.0f 
-                    / dpiSettings / FormCustomization.Interface.getGeneralZoomFactor()));
-                ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.Splitter121Distance, (int)(this.splitContainer121.SplitterDistance * 96.0f 
-                    / dpiSettings / FormCustomization.Interface.getGeneralZoomFactor()));
-                ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.Splitter1211Distance, (int)(this.splitContainer1211.SplitterDistance * 96.0f 
-                    / dpiSettings / FormCustomization.Interface.getGeneralZoomFactor()));
-                ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.Splitter1212Distance, (int)(theUserControlKeyWords.splitContainer1212.SplitterDistance * 96.0f 
-                    / dpiSettings / FormCustomization.Interface.getGeneralZoomFactor()));
-                ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.Splitter122Distance, (int)(this.splitContainer122.SplitterDistance * 96.0f 
-                    / dpiSettings / FormCustomization.Interface.getGeneralZoomFactor()));
+                ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.Splitter1Distance, (int)(this.splitContainer1.SplitterDistance * 96.0f / dpiSettings));
+                ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.Splitter11Distance, (int)(this.splitContainer11.SplitterDistance * 96.0f / dpiSettings));
+                ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.Splitter12Distance, (int)(this.splitContainer12.SplitterDistance * 96.0f / dpiSettings));
+                ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.Splitter121Distance, (int)(this.splitContainer121.SplitterDistance * 96.0f / dpiSettings));
+                ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.Splitter1211Distance, (int)(this.splitContainer1211.SplitterDistance * 96.0f / dpiSettings));
+                ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.Splitter1212Distance, (int)(theUserControlKeyWords.splitContainer1212.SplitterDistance * 96.0f / dpiSettings));
+                ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.Splitter122Distance, (int)(this.splitContainer122.SplitterDistance * 96.0f / dpiSettings));
                 ConfigDefinition.setShowImageWithGrid(this.toolStripMenuItemImageWithGrid.Checked);
                 ConfigDefinition.setPredefinedCommentsCategory(this.dynamicComboBoxPredefinedComments.Text);
 
@@ -1178,8 +1173,8 @@ namespace QuickImageComment
                     // set state to normal to get size in normal state
                     this.WindowState = FormWindowState.Normal;
                 }
-                ConfigDefinition.setFormMainHeight((int)(this.Height * 96.0f / dpiSettings / FormCustomization.Interface.getGeneralZoomFactor()));
-                ConfigDefinition.setFormMainWidth((int)(this.Width * 96.0f / dpiSettings / FormCustomization.Interface.getGeneralZoomFactor()));
+                ConfigDefinition.setFormMainHeight((int)(this.Height * 96.0f / dpiSettings));
+                ConfigDefinition.setFormMainWidth((int)(this.Width * 96.0f / dpiSettings));
                 ConfigDefinition.setFormMainTop(this.Top);
                 ConfigDefinition.setFormMainLeft(this.Left);
 
@@ -4140,11 +4135,18 @@ namespace QuickImageComment
                         // value than in previous panel did not work
                         aControl.Height = aPanel.Height;
                         aControl.Width = aPanel.Width;
+
+                        // save the font as it will be inherited from form when adding this control
+                        // for proper scaling, the font needs to be reset after adding
+                        Font font = new System.Drawing.Font(aControl.Font.FontFamily, aControl.Font.Size, aControl.Font.Style);
                         aPanel.Controls.Add(aControl);
                         if (controlRequiresZoomWithGeneralFactor)
                         {
                             if (CustomizationInterface != null)
                             {
+                                // restore font to overwrite font inherited during adding the control
+                                aControl.Font = font;
+
                                 CustomizationInterface.zoomControlsUsingGeneralZoomFactor(aControl, this);
                             }
                             aControl.Height = aPanel.Height;

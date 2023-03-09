@@ -276,6 +276,7 @@
             this.dataGridViewMinMaxValues.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridViewMinMaxValues.BackgroundColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -293,6 +294,7 @@
             this.dataGridViewMinMaxValues.Name = "dataGridViewMinMaxValues";
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -319,7 +321,7 @@
             this.Brightness.MinimumWidth = 38;
             this.Brightness.Name = "Brightness";
             this.Brightness.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Brightness.Width = 48;
+            this.Brightness.Width = 47;
             // 
             // R
             // 
@@ -354,7 +356,7 @@
             this.checkBoxColorB.AutoSize = true;
             this.checkBoxColorB.Location = new System.Drawing.Point(119, 248);
             this.checkBoxColorB.Name = "checkBoxColorB";
-            this.checkBoxColorB.Size = new System.Drawing.Size(33, 17);
+            this.checkBoxColorB.Size = new System.Drawing.Size(32, 17);
             this.checkBoxColorB.TabIndex = 13;
             this.checkBoxColorB.Text = "B";
             this.checkBoxColorB.UseVisualStyleBackColor = true;
@@ -365,7 +367,7 @@
             this.checkBoxColorG.AutoSize = true;
             this.checkBoxColorG.Location = new System.Drawing.Point(65, 248);
             this.checkBoxColorG.Name = "checkBoxColorG";
-            this.checkBoxColorG.Size = new System.Drawing.Size(34, 17);
+            this.checkBoxColorG.Size = new System.Drawing.Size(33, 17);
             this.checkBoxColorG.TabIndex = 12;
             this.checkBoxColorG.Text = "G";
             this.checkBoxColorG.UseVisualStyleBackColor = true;
@@ -376,7 +378,7 @@
             this.checkBoxColorR.AutoSize = true;
             this.checkBoxColorR.Location = new System.Drawing.Point(11, 248);
             this.checkBoxColorR.Name = "checkBoxColorR";
-            this.checkBoxColorR.Size = new System.Drawing.Size(34, 17);
+            this.checkBoxColorR.Size = new System.Drawing.Size(33, 17);
             this.checkBoxColorR.TabIndex = 11;
             this.checkBoxColorR.Text = "R";
             this.checkBoxColorR.UseVisualStyleBackColor = true;
@@ -406,7 +408,7 @@
             this.labelScale.AutoSize = true;
             this.labelScale.Location = new System.Drawing.Point(4, 300);
             this.labelScale.Name = "labelScale";
-            this.labelScale.Size = new System.Drawing.Size(65, 13);
+            this.labelScale.Size = new System.Drawing.Size(63, 13);
             this.labelScale.TabIndex = 16;
             this.labelScale.Text = "Skala-Linien";
             // 
@@ -419,7 +421,7 @@
             0,
             0});
             this.numericUpDownScaleLines.Name = "numericUpDownScaleLines";
-            this.numericUpDownScaleLines.Size = new System.Drawing.Size(50, 20);
+            this.numericUpDownScaleLines.Size = new System.Drawing.Size(50, 21);
             this.numericUpDownScaleLines.TabIndex = 17;
             this.numericUpDownScaleLines.Value = new decimal(new int[] {
             20,
@@ -433,7 +435,7 @@
             this.labelGrid.AutoSize = true;
             this.labelGrid.Location = new System.Drawing.Point(4, 278);
             this.labelGrid.Name = "labelGrid";
-            this.labelGrid.Size = new System.Drawing.Size(68, 13);
+            this.labelGrid.Size = new System.Drawing.Size(70, 13);
             this.labelGrid.TabIndex = 14;
             this.labelGrid.Text = "Rastergröße ";
             // 
@@ -446,7 +448,7 @@
             0,
             0});
             this.numericUpDownGridSize.Name = "numericUpDownGridSize";
-            this.numericUpDownGridSize.Size = new System.Drawing.Size(50, 20);
+            this.numericUpDownGridSize.Size = new System.Drawing.Size(50, 21);
             this.numericUpDownGridSize.TabIndex = 15;
             this.numericUpDownGridSize.Value = new decimal(new int[] {
             20,
@@ -460,7 +462,7 @@
             this.labelGridColor.AutoSize = true;
             this.labelGridColor.Location = new System.Drawing.Point(4, 338);
             this.labelGridColor.Name = "labelGridColor";
-            this.labelGridColor.Size = new System.Drawing.Size(62, 13);
+            this.labelGridColor.Size = new System.Drawing.Size(65, 13);
             this.labelGridColor.TabIndex = 20;
             this.labelGridColor.Text = "Rasterfarbe";
             // 
@@ -488,7 +490,7 @@
             this.labelFrameColor.AutoSize = true;
             this.labelFrameColor.Location = new System.Drawing.Point(4, 320);
             this.labelFrameColor.Name = "labelFrameColor";
-            this.labelFrameColor.Size = new System.Drawing.Size(71, 13);
+            this.labelFrameColor.Size = new System.Drawing.Size(72, 13);
             this.labelFrameColor.TabIndex = 18;
             this.labelFrameColor.Text = "Rahmenfarbe";
             this.labelFrameColor.Click += new System.EventHandler(this.buttonFrameColor_Click);
@@ -498,7 +500,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(3, 27);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(54, 13);
+            this.label1.Size = new System.Drawing.Size(53, 13);
             this.label1.TabIndex = 2;
             this.label1.Text = "Position Y";
             // 
@@ -516,7 +518,7 @@
             0,
             -2147483648});
             this.numericUpDownX.Name = "numericUpDownX";
-            this.numericUpDownX.Size = new System.Drawing.Size(50, 20);
+            this.numericUpDownX.Size = new System.Drawing.Size(50, 21);
             this.numericUpDownX.TabIndex = 0;
             this.numericUpDownX.ValueChanged += new System.EventHandler(this.numericUpDownX_ValueChanged);
             // 
@@ -525,7 +527,7 @@
             this.labelZoom.AutoSize = true;
             this.labelZoom.Location = new System.Drawing.Point(4, 49);
             this.labelZoom.Name = "labelZoom";
-            this.labelZoom.Size = new System.Drawing.Size(34, 13);
+            this.labelZoom.Size = new System.Drawing.Size(33, 13);
             this.labelZoom.TabIndex = 4;
             this.labelZoom.Text = "Zoom";
             // 
@@ -543,7 +545,7 @@
             0,
             -2147483648});
             this.numericUpDownY.Name = "numericUpDownY";
-            this.numericUpDownY.Size = new System.Drawing.Size(50, 20);
+            this.numericUpDownY.Size = new System.Drawing.Size(50, 21);
             this.numericUpDownY.TabIndex = 3;
             this.numericUpDownY.Value = new decimal(new int[] {
             9999,
@@ -557,7 +559,7 @@
             this.dynamicLabelZoom.AutoSize = true;
             this.dynamicLabelZoom.Location = new System.Drawing.Point(131, 49);
             this.dynamicLabelZoom.Name = "dynamicLabelZoom";
-            this.dynamicLabelZoom.Size = new System.Drawing.Size(20, 13);
+            this.dynamicLabelZoom.Size = new System.Drawing.Size(23, 13);
             this.dynamicLabelZoom.TabIndex = 6;
             this.dynamicLabelZoom.Text = "x.x";
             // 
@@ -566,7 +568,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(3, 5);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(54, 13);
+            this.label2.Size = new System.Drawing.Size(53, 13);
             this.label2.TabIndex = 1;
             this.label2.Text = "Position X";
             // 
@@ -595,6 +597,7 @@
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.Controls.Add(this.splitContainerImageDetails1);
+            this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "UserControlImageDetails";
             this.Size = new System.Drawing.Size(500, 358);
             this.splitContainerImageDetails1.Panel1.ResumeLayout(false);

@@ -62,7 +62,7 @@ namespace QuickImageComment
             this.buttonHelp = new System.Windows.Forms.Button();
             this.panelFilterInner = new System.Windows.Forms.Panel();
             this.dynamicComboBoxOperator = new System.Windows.Forms.ComboBox();
-            this.dateTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.dateTimePicker = new QuickImageComment.DateTimePickerQIC();
             this.dynamicComboBoxValue = new System.Windows.Forms.ComboBox();
             this.dynamicLabelFind = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
@@ -173,11 +173,12 @@ namespace QuickImageComment
             // dateTimePicker
             // 
             this.dateTimePicker.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.dateTimePicker.ButtonFillColor = System.Drawing.Color.White;
             this.dateTimePicker.CustomFormat = "yyyy:MM:dd hh:mm:ss";
             this.dateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateTimePicker.Location = new System.Drawing.Point(564, 3);
             this.dateTimePicker.Name = "dateTimePicker";
-            this.dateTimePicker.Size = new System.Drawing.Size(17, 20);
+            this.dateTimePicker.Size = new System.Drawing.Size(17, 21);
             this.dateTimePicker.TabIndex = 8;
             // 
             // dynamicComboBoxValue
@@ -216,7 +217,7 @@ namespace QuickImageComment
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(5, 4);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(42, 13);
+            this.label1.Size = new System.Drawing.Size(45, 13);
             this.label1.TabIndex = 7;
             this.label1.Text = "Ordner:";
             // 
@@ -225,7 +226,7 @@ namespace QuickImageComment
             this.dynamicLabelFolder.AutoSize = true;
             this.dynamicLabelFolder.Location = new System.Drawing.Point(64, 4);
             this.dynamicLabelFolder.Name = "dynamicLabelFolder";
-            this.dynamicLabelFolder.Size = new System.Drawing.Size(33, 13);
+            this.dynamicLabelFolder.Size = new System.Drawing.Size(35, 13);
             this.dynamicLabelFolder.TabIndex = 8;
             this.dynamicLabelFolder.Text = "folder";
             // 
@@ -235,7 +236,7 @@ namespace QuickImageComment
             this.labelCount.AutoSize = true;
             this.labelCount.Location = new System.Drawing.Point(598, 29);
             this.labelCount.Name = "labelCount";
-            this.labelCount.Size = new System.Drawing.Size(132, 13);
+            this.labelCount.Size = new System.Drawing.Size(134, 13);
             this.labelCount.TabIndex = 9;
             this.labelCount.Text = "Anzahl geladener Dateien:";
             // 
@@ -245,7 +246,7 @@ namespace QuickImageComment
             this.dynamicLabelCount.AutoSize = true;
             this.dynamicLabelCount.Location = new System.Drawing.Point(753, 29);
             this.dynamicLabelCount.Name = "dynamicLabelCount";
-            this.dynamicLabelCount.Size = new System.Drawing.Size(18, 13);
+            this.dynamicLabelCount.Size = new System.Drawing.Size(19, 13);
             this.dynamicLabelCount.TabIndex = 10;
             this.dynamicLabelCount.Text = "-/-";
             // 
@@ -284,7 +285,7 @@ namespace QuickImageComment
             this.dynamicLabelPassedTime.AutoSize = true;
             this.dynamicLabelPassedTime.Location = new System.Drawing.Point(403, 29);
             this.dynamicLabelPassedTime.Name = "dynamicLabelPassedTime";
-            this.dynamicLabelPassedTime.Size = new System.Drawing.Size(65, 13);
+            this.dynamicLabelPassedTime.Size = new System.Drawing.Size(63, 13);
             this.dynamicLabelPassedTime.TabIndex = 15;
             this.dynamicLabelPassedTime.Text = "PassedTime";
             // 
@@ -293,7 +294,7 @@ namespace QuickImageComment
             this.labelPassedTime.AutoSize = true;
             this.labelPassedTime.Location = new System.Drawing.Point(306, 29);
             this.labelPassedTime.Name = "labelPassedTime";
-            this.labelPassedTime.Size = new System.Drawing.Size(91, 13);
+            this.labelPassedTime.Size = new System.Drawing.Size(93, 13);
             this.labelPassedTime.TabIndex = 16;
             this.labelPassedTime.Text = "Abgelaufene Zeit:";
             // 
@@ -313,7 +314,7 @@ namespace QuickImageComment
             this.dynamicLabelScanInformation.AutoSize = true;
             this.dynamicLabelScanInformation.Location = new System.Drawing.Point(5, 54);
             this.dynamicLabelScanInformation.Name = "dynamicLabelScanInformation";
-            this.dynamicLabelScanInformation.Size = new System.Drawing.Size(84, 13);
+            this.dynamicLabelScanInformation.Size = new System.Drawing.Size(86, 13);
             this.dynamicLabelScanInformation.TabIndex = 18;
             this.dynamicLabelScanInformation.Text = "scan information";
             // 
@@ -344,7 +345,7 @@ namespace QuickImageComment
             this.labelRemainingTime.AutoSize = true;
             this.labelRemainingTime.Location = new System.Drawing.Point(474, 29);
             this.labelRemainingTime.Name = "labelRemainingTime";
-            this.labelRemainingTime.Size = new System.Drawing.Size(32, 13);
+            this.labelRemainingTime.Size = new System.Drawing.Size(33, 13);
             this.labelRemainingTime.TabIndex = 21;
             this.labelRemainingTime.Text = "Rest:";
             // 
@@ -353,7 +354,7 @@ namespace QuickImageComment
             this.dynamicLabelRemainingTime.AutoSize = true;
             this.dynamicLabelRemainingTime.Location = new System.Drawing.Point(516, 29);
             this.dynamicLabelRemainingTime.Name = "dynamicLabelRemainingTime";
-            this.dynamicLabelRemainingTime.Size = new System.Drawing.Size(58, 13);
+            this.dynamicLabelRemainingTime.Size = new System.Drawing.Size(57, 13);
             this.dynamicLabelRemainingTime.TabIndex = 22;
             this.dynamicLabelRemainingTime.Text = "Rem. Time";
             // 
@@ -388,9 +389,9 @@ namespace QuickImageComment
             // 
             this.checkBoxShowDataTable.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBoxShowDataTable.AutoSize = true;
-            this.checkBoxShowDataTable.Location = new System.Drawing.Point(631, 109);
+            this.checkBoxShowDataTable.Location = new System.Drawing.Point(630, 109);
             this.checkBoxShowDataTable.Name = "checkBoxShowDataTable";
-            this.checkBoxShowDataTable.Size = new System.Drawing.Size(132, 17);
+            this.checkBoxShowDataTable.Size = new System.Drawing.Size(133, 17);
             this.checkBoxShowDataTable.TabIndex = 5;
             this.checkBoxShowDataTable.Text = "Datentabelle anzeigen";
             this.checkBoxShowDataTable.UseVisualStyleBackColor = true;
@@ -402,7 +403,7 @@ namespace QuickImageComment
             this.labelKm.AutoSize = true;
             this.labelKm.Location = new System.Drawing.Point(292, 111);
             this.labelKm.Name = "labelKm";
-            this.labelKm.Size = new System.Drawing.Size(21, 13);
+            this.labelKm.Size = new System.Drawing.Size(20, 13);
             this.labelKm.TabIndex = 4;
             this.labelKm.Text = "km";
             // 
@@ -417,7 +418,7 @@ namespace QuickImageComment
             0,
             0});
             this.numericUpDownGpsRange.Name = "numericUpDownGpsRange";
-            this.numericUpDownGpsRange.Size = new System.Drawing.Size(76, 20);
+            this.numericUpDownGpsRange.Size = new System.Drawing.Size(76, 21);
             this.numericUpDownGpsRange.TabIndex = 3;
             this.numericUpDownGpsRange.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.numericUpDownGpsRange.ThousandsSeparator = true;
@@ -434,7 +435,7 @@ namespace QuickImageComment
             this.checkBoxFilterGPS.AutoSize = true;
             this.checkBoxFilterGPS.Location = new System.Drawing.Point(3, 109);
             this.checkBoxFilterGPS.Name = "checkBoxFilterGPS";
-            this.checkBoxFilterGPS.Size = new System.Drawing.Size(161, 17);
+            this.checkBoxFilterGPS.Size = new System.Drawing.Size(163, 17);
             this.checkBoxFilterGPS.TabIndex = 2;
             this.checkBoxFilterGPS.Text = "Aufnahmeort im Umkreis von";
             this.checkBoxFilterGPS.UseVisualStyleBackColor = true;
@@ -476,9 +477,9 @@ namespace QuickImageComment
             // 
             this.checkBoxSaveFindDataTable.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBoxSaveFindDataTable.AutoSize = true;
-            this.checkBoxSaveFindDataTable.Location = new System.Drawing.Point(594, 3);
+            this.checkBoxSaveFindDataTable.Location = new System.Drawing.Point(595, 3);
             this.checkBoxSaveFindDataTable.Name = "checkBoxSaveFindDataTable";
-            this.checkBoxSaveFindDataTable.Size = new System.Drawing.Size(167, 17);
+            this.checkBoxSaveFindDataTable.Size = new System.Drawing.Size(166, 17);
             this.checkBoxSaveFindDataTable.TabIndex = 24;
             this.checkBoxSaveFindDataTable.Text = "Daten bei Beenden speichern";
             this.checkBoxSaveFindDataTable.UseVisualStyleBackColor = true;
@@ -516,6 +517,7 @@ namespace QuickImageComment
             this.Controls.Add(this.buttonCustomizeForm);
             this.Controls.Add(this.buttonAbort);
             this.Controls.Add(this.buttonFind);
+            this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.MinimumSize = new System.Drawing.Size(816, 407);
@@ -543,7 +545,7 @@ namespace QuickImageComment
     private System.Windows.Forms.Button buttonCustomizeForm;
     private System.Windows.Forms.Button buttonHelp;
         private System.Windows.Forms.Panel panelFilterInner;
-        private System.Windows.Forms.DateTimePicker dateTimePicker;
+        private QuickImageComment.DateTimePickerQIC dateTimePicker;
         private System.Windows.Forms.ComboBox dynamicComboBoxValue;
         private System.Windows.Forms.Label dynamicLabelFind;
         private System.Windows.Forms.ComboBox dynamicComboBoxOperator;
