@@ -174,15 +174,14 @@ namespace QuickImageComment
             // data grids for meta data
             // controls added here, so that all settings can be defined in constructor of DataGridViewMetaData
             // when controls are added in Designer.cs then each time the mask is changed, new columns are added by Visual Studio Designer
-            this.DataGridViewExif = new QuickImageCommentControls.DataGridViewMetaData("DataGridViewExif");
+            this.DataGridViewExif = new QuickImageCommentControls.DataGridViewMetaData("DataGridViewExif", toolTip1);
             this.tabPageExif.Controls.Add(this.DataGridViewExif);
-            this.DataGridViewIptc = new QuickImageCommentControls.DataGridViewMetaData("DataGridViewIptc");
+            this.DataGridViewIptc = new QuickImageCommentControls.DataGridViewMetaData("DataGridViewIptc", toolTip1);
             this.tabPageIptc.Controls.Add(this.DataGridViewIptc);
-            this.DataGridViewXmp = new QuickImageCommentControls.DataGridViewMetaData("DataGridViewXmp");
+            this.DataGridViewXmp = new QuickImageCommentControls.DataGridViewMetaData("DataGridViewXmp", toolTip1);
             this.tabPageXmp.Controls.Add(this.DataGridViewXmp);
-            this.DataGridViewOtherMetaData = new QuickImageCommentControls.DataGridViewMetaData("DataGridViewOtherMetaData");
+            this.DataGridViewOtherMetaData = new QuickImageCommentControls.DataGridViewMetaData("DataGridViewOtherMetaData", toolTip1);
             this.tabPageOther.Controls.Add(this.DataGridViewOtherMetaData);
-
 
             readFolderPerfomance = new Performance();
 #if USESTARTUPTHREAD
@@ -1413,6 +1412,16 @@ namespace QuickImageComment
         // Buttons and menu items
         //*****************************************************************
         #region Buttons and menu items
+        // for display of tool tips with scaling
+        private void toolStripItem_MouseHover(object sender, EventArgs e)
+        {
+            toolTip1.ShowAtOffset(((ToolStripButton)sender).ToolTipText, this.toolStrip1);
+        }
+        private void toolStripItem_MouseLeave(object sender, EventArgs e)
+        {
+            toolTip1.Hide(this);
+        }
+
         // save, single image or multiple images
         private void toolStripMenuItemSave_Click(object sender, EventArgs e)
         {
@@ -2023,6 +2032,8 @@ namespace QuickImageComment
                 toolStripButton.ToolTipText = userButtonDefinition.text;
                 toolStripButton.Tag = userButtonDefinition.tag;
                 toolStripButton.Click += new System.EventHandler(userDefinedButton_Click);
+                toolStripButton.MouseHover += new System.EventHandler(this.toolStripItem_MouseHover);
+                toolStripButton.MouseLeave += new System.EventHandler(this.toolStripItem_MouseLeave);
 
                 toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripButton });
                 jj++;

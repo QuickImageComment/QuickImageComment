@@ -118,6 +118,12 @@
     <Compile Include="Controls\DateTimePickerQIC.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controls\ToolTipQIC.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\ToolTipQIC.Designer.cs">
+      <DependentUpon>ToolTipQIC.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FormChangesInVersion.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -497,8 +503,14 @@
     <Compile Include="Controls\UserControlMap.Designer.cs">
       <DependentUpon>UserControlMap.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Controls\DataGridViewMetaData.resx">
+      <DependentUpon>DataGridViewMetaData.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\ListViewFiles.resx">
       <DependentUpon>ListViewFiles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ToolTipQIC.resx">
+      <DependentUpon>ToolTipQIC.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormChangesInVersion.resx">
       <DependentUpon>FormChangesInVersion.cs</DependentUpon>

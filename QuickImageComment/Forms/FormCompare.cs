@@ -22,8 +22,6 @@ namespace QuickImageComment
 {
     public partial class FormCompare : Form
     {
-        private const int toolTipTextLineBreakPosition = 100;
-
         /// <summary>
         /// //////
         /// </summary>
@@ -42,10 +40,6 @@ namespace QuickImageComment
 #if APPCENTER
             if (Program.AppCenterUsable) Microsoft.AppCenter.Analytics.Analytics.TrackEvent(this.Name);
 #endif
-            // only values inside range MinimumSize and MaximumSize will be used,
-            // so no separate check neccessary
-            this.Width = ConfigDefinition.getFormCompareWidth();
-            this.Height = ConfigDefinition.getFormCompareHeight();
             buttonClose.Select();
             CustomizationInterface = MainMaskInterface.getCustomizationInterface();
 
@@ -56,6 +50,10 @@ namespace QuickImageComment
             fillDataTable();
 
             CustomizationInterface.setFormToCustomizedValues(this);
+            // only values inside range MinimumSize and MaximumSize will be used,
+            // so no separate check neccessary
+            this.Width = ConfigDefinition.getFormCompareWidth();
+            this.Height = ConfigDefinition.getFormCompareHeight();
 
             if (LangCfg.getLoadedLanguage().Equals("English"))
             {
@@ -204,16 +202,6 @@ namespace QuickImageComment
                 if (Exiv2TagDefinitions.getList().ContainsKey(key))
                 {
                     toolTipText = Exiv2TagDefinitions.getList()[key].descriptionTranslated;
-                    int pos = toolTipTextLineBreakPosition;
-                    while (pos < toolTipText.Length && pos > 0)
-                    {
-                        pos = toolTipText.IndexOf(" ", pos);
-                        if (pos > 0)
-                        {
-                            toolTipText = toolTipText.Insert(pos + 1, "\n");
-                            pos = pos + toolTipTextLineBreakPosition;
-                        }
-                    }
                     dataGridViewDifferences.Columns[colidx].ToolTipText = toolTipText;
                 }
             }
@@ -308,6 +296,19 @@ namespace QuickImageComment
             {
                 buttonHelp_Click(sender, null);
             }
+        }
+
+        // for display of tool tip
+        private void dataGridViewDifferences_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex > 0 && e.RowIndex == -1)
+            {
+                toolTip1.ShowAtOffset(dataGridViewDifferences.Columns[e.ColumnIndex].ToolTipText, this);
+            }
+        }
+        private void dataGridViewDifferences_CellMouseLeave(object sender, DataGridViewCellEventArgs e)
+        {
+            toolTip1.Hide(this);
         }
     }
 }

@@ -106,7 +106,6 @@ namespace QuickImageComment
             this.columnHeaderOverviewValue = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer11 = new System.Windows.Forms.SplitContainer();
-            this.theFolderTreeView = new QuickImageCommentControls.ShellTreeViewQIC();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabelFiles = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabelMemory = new System.Windows.Forms.ToolStripStatusLabel();
@@ -258,6 +257,8 @@ namespace QuickImageComment
             this.toolStripButtonPredefinedKeyWords = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator14 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButtonFind = new System.Windows.Forms.ToolStripButton();
+            this.toolTip1 = new QuickImageComment.ToolTipQIC();
+            this.theFolderTreeView = new QuickImageCommentControls.ShellTreeViewQIC();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer12)).BeginInit();
             this.splitContainer12.Panel1.SuspendLayout();
             this.splitContainer12.Panel2.SuspendLayout();
@@ -1061,17 +1062,6 @@ namespace QuickImageComment
             this.splitContainer11.SplitterDistance = 127;
             this.splitContainer11.TabIndex = 1;
             // 
-            // theFolderTreeView
-            // 
-            this.theFolderTreeView.AllowDrop = true;
-            this.theFolderTreeView.Cursor = System.Windows.Forms.Cursors.Default;
-            this.theFolderTreeView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.theFolderTreeView.Location = new System.Drawing.Point(0, 0);
-            this.theFolderTreeView.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.theFolderTreeView.Name = "theFolderTreeView";
-            this.theFolderTreeView.Size = new System.Drawing.Size(253, 147);
-            this.theFolderTreeView.TabIndex = 0;
-            // 
             // statusStrip1
             // 
             this.statusStrip1.BackColor = System.Drawing.Color.White;
@@ -1142,7 +1132,6 @@ namespace QuickImageComment
             this.toolStripMenuItemHelp});
             this.MenuStrip1.Location = new System.Drawing.Point(0, 0);
             this.MenuStrip1.Name = "MenuStrip1";
-            this.MenuStrip1.ShowItemToolTips = true;
             this.MenuStrip1.Size = new System.Drawing.Size(887, 24);
             this.MenuStrip1.TabIndex = 1;
             this.MenuStrip1.Text = "menuStrip1";
@@ -2098,6 +2087,7 @@ namespace QuickImageComment
             this.toolStrip1.Location = new System.Drawing.Point(0, 24);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Padding = new System.Windows.Forms.Padding(7, 0, 1, 0);
+            this.toolStrip1.ShowItemToolTips = false;
             this.toolStrip1.Size = new System.Drawing.Size(887, 39);
             this.toolStrip1.TabIndex = 2;
             this.toolStrip1.Text = "toolStrip1";
@@ -2113,6 +2103,8 @@ namespace QuickImageComment
             this.toolStripButtonRefresh.Text = "Dateiliste aktualisieren";
             this.toolStripButtonRefresh.ToolTipText = "Dateiliste aktualisieren";
             this.toolStripButtonRefresh.Click += new System.EventHandler(this.toolStripMenuItemRefresh_Click);
+            this.toolStripButtonRefresh.MouseLeave += new System.EventHandler(this.toolStripItem_MouseLeave);
+            this.toolStripButtonRefresh.MouseHover += new System.EventHandler(this.toolStripItem_MouseHover);
             // 
             // toolStripButtonRename
             // 
@@ -2125,6 +2117,8 @@ namespace QuickImageComment
             this.toolStripButtonRename.Text = "Dateien umbenennen";
             this.toolStripButtonRename.ToolTipText = "Dateien umbenennen";
             this.toolStripButtonRename.Click += new System.EventHandler(this.toolStripMenuItemRename_Click);
+            this.toolStripButtonRename.MouseLeave += new System.EventHandler(this.toolStripItem_MouseLeave);
+            this.toolStripButtonRename.MouseHover += new System.EventHandler(this.toolStripItem_MouseHover);
             // 
             // toolStripButtonDateTimeChange
             // 
@@ -2137,6 +2131,8 @@ namespace QuickImageComment
             this.toolStripButtonDateTimeChange.Text = "Aufnahmedatum und Uhrzeit ändern";
             this.toolStripButtonDateTimeChange.ToolTipText = "Aufnahmedatum und Uhrzeit ändern";
             this.toolStripButtonDateTimeChange.Click += new System.EventHandler(this.toolStripMenuItemDateTimeChange_Click);
+            this.toolStripButtonDateTimeChange.MouseLeave += new System.EventHandler(this.toolStripItem_MouseLeave);
+            this.toolStripButtonDateTimeChange.MouseHover += new System.EventHandler(this.toolStripItem_MouseHover);
             // 
             // toolStripSeparator3
             // 
@@ -2154,6 +2150,8 @@ namespace QuickImageComment
             this.toolStripButtonSave.Text = "Speichern";
             this.toolStripButtonSave.ToolTipText = "Speichern";
             this.toolStripButtonSave.Click += new System.EventHandler(this.toolStripMenuItemSave_Click);
+            this.toolStripButtonSave.MouseLeave += new System.EventHandler(this.toolStripItem_MouseLeave);
+            this.toolStripButtonSave.MouseHover += new System.EventHandler(this.toolStripItem_MouseHover);
             // 
             // toolStripButtonFirst
             // 
@@ -2165,6 +2163,8 @@ namespace QuickImageComment
             this.toolStripButtonFirst.Size = new System.Drawing.Size(36, 36);
             this.toolStripButtonFirst.Text = "Bild speichern und erstes Bild anzeigen";
             this.toolStripButtonFirst.Click += new System.EventHandler(this.toolStripMenuItemFirst_Click);
+            this.toolStripButtonFirst.MouseLeave += new System.EventHandler(this.toolStripItem_MouseLeave);
+            this.toolStripButtonFirst.MouseHover += new System.EventHandler(this.toolStripItem_MouseHover);
             // 
             // toolStripButtonPrevious
             // 
@@ -2177,6 +2177,8 @@ namespace QuickImageComment
             this.toolStripButtonPrevious.Text = "Bild speichern und vorheriges Bild anzeigen";
             this.toolStripButtonPrevious.ToolTipText = "Bild speichern und vorheriges Bild anzeigen";
             this.toolStripButtonPrevious.Click += new System.EventHandler(this.toolStripMenuItemPrevious_Click);
+            this.toolStripButtonPrevious.MouseLeave += new System.EventHandler(this.toolStripItem_MouseLeave);
+            this.toolStripButtonPrevious.MouseHover += new System.EventHandler(this.toolStripItem_MouseHover);
             // 
             // toolStripButtonNext
             // 
@@ -2189,6 +2191,8 @@ namespace QuickImageComment
             this.toolStripButtonNext.Text = "Bild speichern und nächstes Bild anzeigen";
             this.toolStripButtonNext.ToolTipText = "Bild speichern und nächstes Bild anzeigen";
             this.toolStripButtonNext.Click += new System.EventHandler(this.toolStripMenuItemNext_Click);
+            this.toolStripButtonNext.MouseLeave += new System.EventHandler(this.toolStripItem_MouseLeave);
+            this.toolStripButtonNext.MouseHover += new System.EventHandler(this.toolStripItem_MouseHover);
             // 
             // toolStripButtonLast
             // 
@@ -2200,6 +2204,8 @@ namespace QuickImageComment
             this.toolStripButtonLast.Size = new System.Drawing.Size(36, 36);
             this.toolStripButtonLast.Text = "Bild speichern und letztes Bild anzeigen";
             this.toolStripButtonLast.Click += new System.EventHandler(this.toolStripMenuItemLast_Click);
+            this.toolStripButtonLast.MouseLeave += new System.EventHandler(this.toolStripItem_MouseLeave);
+            this.toolStripButtonLast.MouseHover += new System.EventHandler(this.toolStripItem_MouseHover);
             // 
             // toolStripSeparator2
             // 
@@ -2217,6 +2223,8 @@ namespace QuickImageComment
             this.dynamicToolStripButtonLoadDataFromTemplate.Text = "toolStripButton1";
             this.dynamicToolStripButtonLoadDataFromTemplate.ToolTipText = "Daten übernehmen aus Vorlage:";
             this.dynamicToolStripButtonLoadDataFromTemplate.Click += new System.EventHandler(this.dynamciToolStripMenuItemLoadDataFromTemplate_Click);
+            this.dynamicToolStripButtonLoadDataFromTemplate.MouseLeave += new System.EventHandler(this.toolStripItem_MouseLeave);
+            this.dynamicToolStripButtonLoadDataFromTemplate.MouseHover += new System.EventHandler(this.toolStripItem_MouseHover);
             // 
             // toolStripButtonReset
             // 
@@ -2229,6 +2237,8 @@ namespace QuickImageComment
             this.toolStripButtonReset.Text = "Zurücksetzen der Eingaben seit dem letzten Speichern";
             this.toolStripButtonReset.ToolTipText = "Zurücksetzen der Eingaben seit dem letzten Speichern";
             this.toolStripButtonReset.Click += new System.EventHandler(this.toolStripMenuItemReset_Click);
+            this.toolStripButtonReset.MouseLeave += new System.EventHandler(this.toolStripItem_MouseLeave);
+            this.toolStripButtonReset.MouseHover += new System.EventHandler(this.toolStripItem_MouseHover);
             // 
             // toolStripButtonDelete
             // 
@@ -2241,6 +2251,8 @@ namespace QuickImageComment
             this.toolStripButtonDelete.Text = "Bild löschen";
             this.toolStripButtonDelete.ToolTipText = "Bild löschen";
             this.toolStripButtonDelete.Click += new System.EventHandler(this.toolStripMenuItemDelete_Click);
+            this.toolStripButtonDelete.MouseLeave += new System.EventHandler(this.toolStripItem_MouseLeave);
+            this.toolStripButtonDelete.MouseHover += new System.EventHandler(this.toolStripItem_MouseHover);
             // 
             // toolStripSeparator6
             // 
@@ -2258,6 +2270,8 @@ namespace QuickImageComment
             this.toolStripButtonImageFit.Text = "Zoom - fit";
             this.toolStripButtonImageFit.ToolTipText = "Zoom - fit";
             this.toolStripButtonImageFit.Click += new System.EventHandler(this.toolStripMenuItemImageFit_Click);
+            this.toolStripButtonImageFit.MouseLeave += new System.EventHandler(this.toolStripItem_MouseLeave);
+            this.toolStripButtonImageFit.MouseHover += new System.EventHandler(this.toolStripItem_MouseHover);
             // 
             // toolStripButtonImage4
             // 
@@ -2270,6 +2284,8 @@ namespace QuickImageComment
             this.toolStripButtonImage4.Text = "Zoom - 1:4";
             this.toolStripButtonImage4.ToolTipText = "Zoom - 1:4";
             this.toolStripButtonImage4.Click += new System.EventHandler(this.toolStripMenuItemImage4_Click);
+            this.toolStripButtonImage4.MouseLeave += new System.EventHandler(this.toolStripItem_MouseLeave);
+            this.toolStripButtonImage4.MouseHover += new System.EventHandler(this.toolStripItem_MouseHover);
             // 
             // toolStripButtonImage2
             // 
@@ -2282,6 +2298,8 @@ namespace QuickImageComment
             this.toolStripButtonImage2.Text = "Zoom - 1:2";
             this.toolStripButtonImage2.ToolTipText = "Zoom - 1:2";
             this.toolStripButtonImage2.Click += new System.EventHandler(this.toolStripMenuItemImage2_Click);
+            this.toolStripButtonImage2.MouseLeave += new System.EventHandler(this.toolStripItem_MouseLeave);
+            this.toolStripButtonImage2.MouseHover += new System.EventHandler(this.toolStripItem_MouseHover);
             // 
             // toolStripButtonImage1
             // 
@@ -2294,6 +2312,8 @@ namespace QuickImageComment
             this.toolStripButtonImage1.Text = "Zoom - 1:1";
             this.toolStripButtonImage1.ToolTipText = "Zoom - 1:1";
             this.toolStripButtonImage1.Click += new System.EventHandler(this.toolStripMenuItemImage1_Click);
+            this.toolStripButtonImage1.MouseLeave += new System.EventHandler(this.toolStripItem_MouseLeave);
+            this.toolStripButtonImage1.MouseHover += new System.EventHandler(this.toolStripItem_MouseHover);
             // 
             // toolStripButtonRotateLeft
             // 
@@ -2306,6 +2326,8 @@ namespace QuickImageComment
             this.toolStripButtonRotateLeft.Text = "Bild nach links drehen";
             this.toolStripButtonRotateLeft.ToolTipText = "Bild nach links drehen";
             this.toolStripButtonRotateLeft.Click += new System.EventHandler(this.toolStripMenuItemRotateLeft_Click);
+            this.toolStripButtonRotateLeft.MouseLeave += new System.EventHandler(this.toolStripItem_MouseLeave);
+            this.toolStripButtonRotateLeft.MouseHover += new System.EventHandler(this.toolStripItem_MouseHover);
             // 
             // toolStripButtonRotateRight
             // 
@@ -2318,6 +2340,8 @@ namespace QuickImageComment
             this.toolStripButtonRotateRight.Text = "Bild nach rechts drehen";
             this.toolStripButtonRotateRight.ToolTipText = "Bild nach rechts drehen";
             this.toolStripButtonRotateRight.Click += new System.EventHandler(this.toolStripMenuItemRotateRight_Click);
+            this.toolStripButtonRotateRight.MouseLeave += new System.EventHandler(this.toolStripItem_MouseLeave);
+            this.toolStripButtonRotateRight.MouseHover += new System.EventHandler(this.toolStripItem_MouseHover);
             // 
             // toolStripSeparator8
             // 
@@ -2335,6 +2359,8 @@ namespace QuickImageComment
             this.toolStripButtonView.Text = "Ansicht anpassen";
             this.toolStripButtonView.ToolTipText = "Ansicht anpassen";
             this.toolStripButtonView.Click += new System.EventHandler(this.toolStripMenuItemViewAdjust_Click);
+            this.toolStripButtonView.MouseLeave += new System.EventHandler(this.toolStripItem_MouseLeave);
+            this.toolStripButtonView.MouseHover += new System.EventHandler(this.toolStripItem_MouseHover);
             // 
             // toolStripButtonSettings
             // 
@@ -2347,6 +2373,8 @@ namespace QuickImageComment
             this.toolStripButtonSettings.Text = "Einstellungen ändern";
             this.toolStripButtonSettings.ToolTipText = "Einstellungen ändern";
             this.toolStripButtonSettings.Click += new System.EventHandler(this.toolStripMenuItemSettings_Click);
+            this.toolStripButtonSettings.MouseLeave += new System.EventHandler(this.toolStripItem_MouseLeave);
+            this.toolStripButtonSettings.MouseHover += new System.EventHandler(this.toolStripItem_MouseHover);
             // 
             // toolStripButtonFields
             // 
@@ -2358,6 +2386,8 @@ namespace QuickImageComment
             this.toolStripButtonFields.Size = new System.Drawing.Size(36, 36);
             this.toolStripButtonFields.Text = "Felddefinitionen";
             this.toolStripButtonFields.Click += new System.EventHandler(this.toolStripMenuItemFields_Click);
+            this.toolStripButtonFields.MouseLeave += new System.EventHandler(this.toolStripItem_MouseLeave);
+            this.toolStripButtonFields.MouseHover += new System.EventHandler(this.toolStripItem_MouseHover);
             // 
             // toolStripButtonPredefinedComments
             // 
@@ -2369,6 +2399,8 @@ namespace QuickImageComment
             this.toolStripButtonPredefinedComments.Size = new System.Drawing.Size(36, 36);
             this.toolStripButtonPredefinedComments.Text = "Vordefinierte Kommentare";
             this.toolStripButtonPredefinedComments.Click += new System.EventHandler(this.toolStripMenuItemPredefinedComments_Click);
+            this.toolStripButtonPredefinedComments.MouseLeave += new System.EventHandler(this.toolStripItem_MouseLeave);
+            this.toolStripButtonPredefinedComments.MouseHover += new System.EventHandler(this.toolStripItem_MouseHover);
             // 
             // toolStripButtonPredefinedKeyWords
             // 
@@ -2382,6 +2414,8 @@ namespace QuickImageComment
             this.toolStripButtonPredefinedKeyWords.Text = "vordefinierte IPTC-Schlüsselwörter ändern";
             this.toolStripButtonPredefinedKeyWords.ToolTipText = "vordefinierte IPTC-Schlüsselwörter ändern";
             this.toolStripButtonPredefinedKeyWords.Click += new System.EventHandler(this.toolStripMenuItemPredefinedKeyWords_Click);
+            this.toolStripButtonPredefinedKeyWords.MouseLeave += new System.EventHandler(this.toolStripItem_MouseLeave);
+            this.toolStripButtonPredefinedKeyWords.MouseHover += new System.EventHandler(this.toolStripItem_MouseHover);
             // 
             // toolStripSeparator14
             // 
@@ -2400,6 +2434,27 @@ namespace QuickImageComment
             this.toolStripButtonFind.Text = "Suche über Eigenschaften";
             this.toolStripButtonFind.ToolTipText = "Suche über Eigenschaften";
             this.toolStripButtonFind.Click += new System.EventHandler(this.toolStripMenuItemFind_Click);
+            this.toolStripButtonFind.MouseLeave += new System.EventHandler(this.toolStripItem_MouseLeave);
+            this.toolStripButtonFind.MouseHover += new System.EventHandler(this.toolStripItem_MouseHover);
+            // 
+            // toolTip1
+            // 
+            this.toolTip1.AutoPopDelay = 5000;
+            this.toolTip1.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.toolTip1.InitialDelay = 1000;
+            this.toolTip1.OwnerDraw = true;
+            this.toolTip1.ReshowDelay = 100;
+            // 
+            // theFolderTreeView
+            // 
+            this.theFolderTreeView.AllowDrop = true;
+            this.theFolderTreeView.Cursor = System.Windows.Forms.Cursors.Default;
+            this.theFolderTreeView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.theFolderTreeView.Location = new System.Drawing.Point(0, 0);
+            this.theFolderTreeView.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.theFolderTreeView.Name = "theFolderTreeView";
+            this.theFolderTreeView.Size = new System.Drawing.Size(253, 147);
+            this.theFolderTreeView.TabIndex = 0;
             // 
             // FormQuickImageComment
             // 
@@ -2701,5 +2756,6 @@ namespace QuickImageComment
         private System.Windows.Forms.ToolStripSeparator toolStripSeparatorEditExternal;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemSelectFolder;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemScale;
+        private ToolTipQIC toolTip1;
     }
 }

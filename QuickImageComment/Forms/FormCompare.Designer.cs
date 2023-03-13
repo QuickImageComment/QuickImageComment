@@ -40,6 +40,7 @@
             this.buttonDisableCompareForColumn = new System.Windows.Forms.Button();
             this.checkBoxTagNamesOriginal = new System.Windows.Forms.CheckBox();
             this.buttonHiddenColumns = new System.Windows.Forms.Button();
+            this.toolTip1 = new QuickImageComment.ToolTipQIC();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDifferences)).BeginInit();
             this.SuspendLayout();
             // 
@@ -64,10 +65,13 @@
             this.dataGridViewDifferences.RowHeadersVisible = false;
             this.dataGridViewDifferences.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.dataGridViewDifferences.ShowCellErrors = false;
+            this.dataGridViewDifferences.ShowCellToolTips = false;
             this.dataGridViewDifferences.ShowEditingIcon = false;
             this.dataGridViewDifferences.ShowRowErrors = false;
             this.dataGridViewDifferences.Size = new System.Drawing.Size(876, 297);
             this.dataGridViewDifferences.TabIndex = 4;
+            this.dataGridViewDifferences.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewDifferences_CellMouseEnter);
+            this.dataGridViewDifferences.CellMouseLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewDifferences_CellMouseLeave);
             // 
             // Column1
             // 
@@ -119,7 +123,7 @@
             this.checkBoxFormatOriginal.AutoSize = true;
             this.checkBoxFormatOriginal.Location = new System.Drawing.Point(2, 4);
             this.checkBoxFormatOriginal.Name = "checkBoxFormatOriginal";
-            this.checkBoxFormatOriginal.Size = new System.Drawing.Size(187, 17);
+            this.checkBoxFormatOriginal.Size = new System.Drawing.Size(192, 17);
             this.checkBoxFormatOriginal.TabIndex = 0;
             this.checkBoxFormatOriginal.Text = "Werte im Original-Format anzeigen";
             this.checkBoxFormatOriginal.UseVisualStyleBackColor = true;
@@ -167,6 +171,10 @@
             this.buttonHiddenColumns.UseVisualStyleBackColor = true;
             this.buttonHiddenColumns.Click += new System.EventHandler(this.buttonHiddenColumns_Click);
             // 
+            // toolTip1
+            // 
+            this.toolTip1.OwnerDraw = true;
+            // 
             // FormCompare
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -181,6 +189,7 @@
             this.Controls.Add(this.buttonCustomizeForm);
             this.Controls.Add(this.buttonClose);
             this.Controls.Add(this.dataGridViewDifferences);
+            this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.MinimumSize = new System.Drawing.Size(897, 394);
@@ -207,5 +216,6 @@
         private System.Windows.Forms.Button buttonDisableCompareForColumn;
         private System.Windows.Forms.CheckBox checkBoxTagNamesOriginal;
         private System.Windows.Forms.Button buttonHiddenColumns;
+        private QuickImageComment.ToolTipQIC toolTip1;
     }
 }

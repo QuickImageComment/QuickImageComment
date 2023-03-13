@@ -22,8 +22,6 @@ namespace QuickImageCommentControls
 
     class DataGridViewMetaData : System.Windows.Forms.DataGridView
     {
-        private const int toolTipTextLineBreakPosition = 100;
-
         private System.ComponentModel.IContainer components = null;
         private ContextMenuStrip ContextMenuStripDataGridViewMetaData;
         private ToolStripMenuItem toolStripMenuItemPlain;
@@ -42,9 +40,11 @@ namespace QuickImageCommentControls
         System.Collections.SortedList MetaDataItems = new System.Collections.SortedList();
 
         private int userSetColumnWidth_1;
+        private ToolTipQIC toolTip;
 
-        public DataGridViewMetaData(string name)
+        public DataGridViewMetaData(string name, ToolTipQIC toolTip)
         {
+            this.toolTip = toolTip;
             this.AllowUserToAddRows = false;
             this.AllowUserToDeleteRows = false;
             this.AllowUserToResizeRows = false;
@@ -98,6 +98,15 @@ namespace QuickImageCommentControls
             DataGridViewCellStyle dataGridViewCellStyleMetaData = new DataGridViewCellStyle();
             dataGridViewCellStyleMetaData.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             this.RowsDefaultCellStyle = dataGridViewCellStyleMetaData;
+            this.ShowCellToolTips = false;
+
+            //
+            // register event handlers
+            // CellMouseEnter and CellMouseLeave are used to display tool tip text using own ToolTip, which scales
+            // CellToolTipTextNeeded did not work: according documentation either DataSource has to be set (there is no here)
+            // VirtualMode=true, which runs into exception in refreshData.
+            this.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridViewMetaData_CellMouseEnter);
+            this.CellMouseLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridViewMetaData_CellMouseLeave);
 
             // 
             // toolStripMenuItemPlain
@@ -233,7 +242,6 @@ namespace QuickImageCommentControls
             string lastHeader = "";
             int posUniqueSeparator;
             int posDot;
-            int posSpace;
             string toolTipText;
 
             this.Rows.Clear();
@@ -345,16 +353,6 @@ namespace QuickImageCommentControls
                     else
                     {
                         toolTipText = Exiv2TagDefinitions.getList()[key].descriptionTranslated;
-                    }
-                    posSpace = toolTipTextLineBreakPosition;
-                    while (posSpace < toolTipText.Length && posSpace > 0)
-                    {
-                        posSpace = toolTipText.IndexOf(" ", posSpace);
-                        if (posSpace > 0)
-                        {
-                            toolTipText = toolTipText.Insert(posSpace + 1, "\n");
-                            posSpace = posSpace + toolTipTextLineBreakPosition;
-                        }
                     }
                     this.Rows[rowIndex].Cells[0].ToolTipText = toolTipText;
                 }
@@ -621,6 +619,19 @@ namespace QuickImageCommentControls
                     }
                 }
             }
+        }
+
+        private void DataGridViewMetaData_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 0 && e.RowIndex >= 0)
+            {
+                toolTip.ShowAtOffset(Rows[e.RowIndex].Cells[0].ToolTipText, this);
+            }
+        }
+
+        private void DataGridViewMetaData_CellMouseLeave(object sender, DataGridViewCellEventArgs e)
+        {
+            toolTip.Hide(this);
         }
     }
 }
