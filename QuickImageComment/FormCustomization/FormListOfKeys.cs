@@ -22,10 +22,12 @@ namespace FormCustomization
 {
     public partial class FormListOfKeys : Form
     {
-        public FormListOfKeys(Form theForm, ArrayList ShortcutKeys, ArrayList ShortcutDescriptions)
+        internal FormListOfKeys(Form theForm, ArrayList ShortcutKeys, ArrayList ShortcutDescriptions, Customizer customizer)
         {
             int ii;
             InitializeComponent();
+            customizer.setAllComponents(Customizer.enumSetTo.Customized, this);
+
             for (ii = 0; ii < ShortcutKeys.Count; ii++)
             {
                 // add shortcut in list view

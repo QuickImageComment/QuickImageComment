@@ -26,6 +26,8 @@ namespace QuickImageComment
         public FormImageWindow(ExtendedImage givenExtendedImage) : base(givenExtendedImage)
         {
             InitializeComponent();
+            MainMaskInterface.getCustomizationInterface().setFormToCustomizedValues(this);
+
 #if APPCENTER
             if (Program.AppCenterUsable) Microsoft.AppCenter.Analytics.Analytics.TrackEvent(this.Name);
 #endif

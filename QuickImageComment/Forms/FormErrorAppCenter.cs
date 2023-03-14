@@ -9,6 +9,8 @@ namespace QuickImageComment
         public FormErrorAppCenter(string errorMessage)
         {
             InitializeComponent();
+            MainMaskInterface.getCustomizationInterface().setFormToCustomizedValues(this);
+
             LangCfg.translateControlTexts(this);
 
             textBoxErrorMessage.Text = errorMessage;

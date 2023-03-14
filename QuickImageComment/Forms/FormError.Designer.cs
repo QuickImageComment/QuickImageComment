@@ -84,7 +84,7 @@ namespace QuickImageComment
             this.textBoxErrorMessage.Name = "textBoxErrorMessage";
             this.textBoxErrorMessage.ReadOnly = true;
             this.textBoxErrorMessage.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxErrorMessage.Size = new System.Drawing.Size(816, 20);
+            this.textBoxErrorMessage.Size = new System.Drawing.Size(816, 21);
             this.textBoxErrorMessage.TabIndex = 5;
             // 
             // label1
@@ -92,7 +92,7 @@ namespace QuickImageComment
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(41, 6);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(216, 13);
+            this.label1.Size = new System.Drawing.Size(219, 13);
             this.label1.TabIndex = 6;
             this.label1.Text = "Schwerwiegender Fehler in der Anwendung:";
             // 
@@ -101,7 +101,7 @@ namespace QuickImageComment
             this.labelDetails.AutoSize = true;
             this.labelDetails.Location = new System.Drawing.Point(3, 62);
             this.labelDetails.Name = "labelDetails";
-            this.labelDetails.Size = new System.Drawing.Size(96, 13);
+            this.labelDetails.Size = new System.Drawing.Size(98, 13);
             this.labelDetails.TabIndex = 7;
             this.labelDetails.Text = "Details zum Fehler:";
             // 
@@ -129,7 +129,7 @@ namespace QuickImageComment
             this.buttonGitHubIssue.UseVisualStyleBackColor = true;
             this.buttonGitHubIssue.Click += new System.EventHandler(this.buttonGitHubIssue_Click);
             // 
-            // label2
+            // fixedLabelExclamation
             // 
             this.fixedLabelExclamation.AutoSize = true;
             this.fixedLabelExclamation.BackColor = System.Drawing.SystemColors.ControlLightLight;
@@ -155,6 +155,7 @@ namespace QuickImageComment
             this.Controls.Add(this.buttonClose);
             this.Controls.Add(this.buttonPrepareMail);
             this.Controls.Add(this.textBoxErrorDetails);
+            this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;

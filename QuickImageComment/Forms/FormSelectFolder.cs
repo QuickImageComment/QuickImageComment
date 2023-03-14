@@ -10,6 +10,7 @@ namespace QuickImageComment
         public FormSelectFolder(string FolderName)
         {
             InitializeComponent();
+            MainMaskInterface.getCustomizationInterface().setFormToCustomizedValues(this);
             newSelectedFolder = FolderName;
             //GongSolutions.Shell.ShellItem ShellItemSelectedFolder = new GongSolutions.Shell.ShellItem(FolderName);
             theFolderTreeView.SelectedFolder = new GongSolutions.Shell.ShellItem(FolderName);

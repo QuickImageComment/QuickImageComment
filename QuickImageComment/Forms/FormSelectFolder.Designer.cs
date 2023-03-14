@@ -71,7 +71,7 @@
             this.theFolderTreeView.TabIndex = 1;
             this.theFolderTreeView.SelectionChanged += new System.EventHandler(this.theFolderTreeView_SelectionChanged);
             // 
-            // comboBoxLastFolders
+            // dynamicComboBoxLastFolders
             // 
             this.dynamicComboBoxLastFolders.FormattingEnabled = true;
             this.dynamicComboBoxLastFolders.Location = new System.Drawing.Point(0, 401);
@@ -84,7 +84,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(0, 385);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(160, 13);
+            this.label1.Size = new System.Drawing.Size(166, 13);
             this.label1.TabIndex = 5;
             this.label1.Text = "Zuletzt hier ausgewählte Ordner:";
             // 
@@ -98,6 +98,7 @@
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonOk);
             this.Controls.Add(this.theFolderTreeView);
+            this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FormSelectFolder";
             this.Text = "Ordner wählen ...";

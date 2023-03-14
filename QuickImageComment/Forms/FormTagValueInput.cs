@@ -39,6 +39,7 @@ namespace QuickImageComment
             int OffsetY = 30;
 
             InitializeComponent();
+            MainMaskInterface.getCustomizationInterface().setFormToCustomizedValues(this);
 #if APPCENTER
             if (Program.AppCenterUsable) Microsoft.AppCenter.Analytics.Analytics.TrackEvent(this.Name);
 #endif

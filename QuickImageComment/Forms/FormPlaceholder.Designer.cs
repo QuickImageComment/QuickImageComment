@@ -134,10 +134,10 @@ namespace QuickImageComment
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(303, 3);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(239, 16);
+            this.label1.Size = new System.Drawing.Size(231, 16);
             this.label1.TabIndex = 50;
             this.label1.Text = "Liste der verfügbaren Meta-Daten";
             // 
@@ -210,7 +210,7 @@ namespace QuickImageComment
             this.label10.AutoSize = true;
             this.label10.Location = new System.Drawing.Point(566, 31);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(38, 13);
+            this.label10.Size = new System.Drawing.Size(36, 13);
             this.label10.TabIndex = 3;
             this.label10.Text = "Suche";
             // 
@@ -220,7 +220,7 @@ namespace QuickImageComment
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxSearchTag.Location = new System.Drawing.Point(606, 27);
             this.textBoxSearchTag.Name = "textBoxSearchTag";
-            this.textBoxSearchTag.Size = new System.Drawing.Size(164, 20);
+            this.textBoxSearchTag.Size = new System.Drawing.Size(164, 21);
             this.textBoxSearchTag.TabIndex = 4;
             this.textBoxSearchTag.TextChanged += new System.EventHandler(this.textBoxSearchTag_TextChanged);
             // 
@@ -229,7 +229,7 @@ namespace QuickImageComment
             this.checkBoxOnlyInImage.AutoSize = true;
             this.checkBoxOnlyInImage.Location = new System.Drawing.Point(5, 30);
             this.checkBoxOnlyInImage.Name = "checkBoxOnlyInImage";
-            this.checkBoxOnlyInImage.Size = new System.Drawing.Size(303, 17);
+            this.checkBoxOnlyInImage.Size = new System.Drawing.Size(306, 17);
             this.checkBoxOnlyInImage.TabIndex = 1;
             this.checkBoxOnlyInImage.Text = "Nur im ausgewählten Bild enthaltene Meta-Daten anzeigen";
             this.checkBoxOnlyInImage.UseVisualStyleBackColor = true;
@@ -241,7 +241,7 @@ namespace QuickImageComment
             this.label12.AutoSize = true;
             this.label12.Location = new System.Drawing.Point(4, 236);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(71, 13);
+            this.label12.Size = new System.Drawing.Size(74, 13);
             this.label12.TabIndex = 9;
             this.label12.Text = "Wert Original:";
             // 
@@ -311,7 +311,7 @@ namespace QuickImageComment
             this.checkBoxOriginalLanguage.AutoSize = true;
             this.checkBoxOriginalLanguage.Location = new System.Drawing.Point(5, 7);
             this.checkBoxOriginalLanguage.Name = "checkBoxOriginalLanguage";
-            this.checkBoxOriginalLanguage.Size = new System.Drawing.Size(263, 17);
+            this.checkBoxOriginalLanguage.Size = new System.Drawing.Size(261, 17);
             this.checkBoxOriginalLanguage.TabIndex = 0;
             this.checkBoxOriginalLanguage.Text = "Anzeige Name/Beschreibung in Englisch (Original)";
             this.checkBoxOriginalLanguage.UseVisualStyleBackColor = true;
@@ -367,7 +367,7 @@ namespace QuickImageComment
             0,
             0});
             this.numericUpDownFrom.Name = "numericUpDownFrom";
-            this.numericUpDownFrom.Size = new System.Drawing.Size(58, 20);
+            this.numericUpDownFrom.Size = new System.Drawing.Size(58, 21);
             this.numericUpDownFrom.TabIndex = 56;
             this.numericUpDownFrom.Value = new decimal(new int[] {
             1,
@@ -381,7 +381,7 @@ namespace QuickImageComment
             this.numericUpDownLength.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.numericUpDownLength.Location = new System.Drawing.Point(432, 291);
             this.numericUpDownLength.Name = "numericUpDownLength";
-            this.numericUpDownLength.Size = new System.Drawing.Size(58, 20);
+            this.numericUpDownLength.Size = new System.Drawing.Size(58, 21);
             this.numericUpDownLength.TabIndex = 57;
             this.numericUpDownLength.Value = new decimal(new int[] {
             1,
@@ -439,7 +439,7 @@ namespace QuickImageComment
             this.checkBoxSorted.AutoSize = true;
             this.checkBoxSorted.Location = new System.Drawing.Point(306, 318);
             this.checkBoxSorted.Name = "checkBoxSorted";
-            this.checkBoxSorted.Size = new System.Drawing.Size(59, 17);
+            this.checkBoxSorted.Size = new System.Drawing.Size(62, 17);
             this.checkBoxSorted.TabIndex = 63;
             this.checkBoxSorted.Text = "Sortiert";
             this.checkBoxSorted.UseVisualStyleBackColor = true;
@@ -494,7 +494,7 @@ namespace QuickImageComment
             this.checkBoxSavedValue.AutoSize = true;
             this.checkBoxSavedValue.Location = new System.Drawing.Point(432, 318);
             this.checkBoxSavedValue.Name = "checkBoxSavedValue";
-            this.checkBoxSavedValue.Size = new System.Drawing.Size(118, 17);
+            this.checkBoxSavedValue.Size = new System.Drawing.Size(120, 17);
             this.checkBoxSavedValue.TabIndex = 68;
             this.checkBoxSavedValue.Text = "Gespeicherter Wert";
             this.checkBoxSavedValue.UseVisualStyleBackColor = true;
@@ -539,7 +539,7 @@ namespace QuickImageComment
             this.checkBoxSubStringRight.AutoSize = true;
             this.checkBoxSubStringRight.Location = new System.Drawing.Point(306, 293);
             this.checkBoxSubStringRight.Name = "checkBoxSubStringRight";
-            this.checkBoxSubStringRight.Size = new System.Drawing.Size(76, 17);
+            this.checkBoxSubStringRight.Size = new System.Drawing.Size(77, 17);
             this.checkBoxSubStringRight.TabIndex = 72;
             this.checkBoxSubStringRight.Text = "von rechts";
             this.checkBoxSubStringRight.UseVisualStyleBackColor = true;
@@ -560,7 +560,7 @@ namespace QuickImageComment
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(2, 352);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(147, 13);
+            this.label9.Size = new System.Drawing.Size(153, 13);
             this.label9.TabIndex = 74;
             this.label9.Text = "Platzhalter an Cursor-Position:";
             // 
@@ -583,7 +583,7 @@ namespace QuickImageComment
             this.labelNoPlaceholderMarked.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.labelNoPlaceholderMarked.Location = new System.Drawing.Point(6, 417);
             this.labelNoPlaceholderMarked.Name = "labelNoPlaceholderMarked";
-            this.labelNoPlaceholderMarked.Size = new System.Drawing.Size(120, 13);
+            this.labelNoPlaceholderMarked.Size = new System.Drawing.Size(123, 13);
             this.labelNoPlaceholderMarked.TabIndex = 76;
             this.labelNoPlaceholderMarked.Text = "Kein Platzhalter markiert";
             // 
@@ -635,6 +635,7 @@ namespace QuickImageComment
             this.Controls.Add(this.buttonAbort);
             this.Controls.Add(this.listViewTags);
             this.Controls.Add(this.checkBoxOnlyInImage);
+            this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.MinimumSize = new System.Drawing.Size(840, 546);

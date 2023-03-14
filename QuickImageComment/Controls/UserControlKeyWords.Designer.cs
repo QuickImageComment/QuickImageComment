@@ -64,6 +64,8 @@
             // 
             // textBoxFreeInputKeyWords
             // 
+            this.textBoxFreeInputKeyWords.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.textBoxFreeInputKeyWords.Location = new System.Drawing.Point(0, 20);
             this.textBoxFreeInputKeyWords.Multiline = true;
             this.textBoxFreeInputKeyWords.Name = "textBoxFreeInputKeyWords";

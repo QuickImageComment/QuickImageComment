@@ -54,6 +54,8 @@ namespace QuickImageComment
 #endif
             buttonCancel.Select();
             CustomizationInterface = MainMaskInterface.getCustomizationInterface();
+            CustomizationInterface.setFormToCustomizedValues(this);
+
             progressPanel1.Visible = false;
 
             dateTimeChanged = false;
@@ -76,8 +78,6 @@ namespace QuickImageComment
                 abort = true;
                 return;
             }
-
-            CustomizationInterface.setFormToCustomizedValues(this);
 
             this.Refresh();
 

@@ -39,6 +39,10 @@ namespace QuickImageComment
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.dataGridViewButtons = new System.Windows.Forms.DataGridView();
+            this.Dynamic_ColumnIcon = new System.Windows.Forms.DataGridViewImageColumn();
+            this.Dynamic_ColumnText = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Dynamic_ColumnTag = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Dynamic_ColumnIconPath = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.buttonAdd = new System.Windows.Forms.Button();
             this.buttonRemove = new System.Windows.Forms.Button();
             this.buttonUp = new System.Windows.Forms.Button();
@@ -46,10 +50,6 @@ namespace QuickImageComment
             this.textBoxInfo = new System.Windows.Forms.TextBox();
             this.listViewIcons = new System.Windows.Forms.ListView();
             this.buttonAssign = new System.Windows.Forms.Button();
-            this.Dynamic_ColumnIcon = new System.Windows.Forms.DataGridViewImageColumn();
-            this.Dynamic_ColumnText = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Dynamic_ColumnTag = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Dynamic_ColumnIconPath = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewButtons)).BeginInit();
             this.SuspendLayout();
             // 
@@ -112,7 +112,7 @@ namespace QuickImageComment
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(0, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(72, 13);
+            this.label1.Size = new System.Drawing.Size(73, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Menüeinträge";
             // 
@@ -121,7 +121,7 @@ namespace QuickImageComment
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(289, 9);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(160, 13);
+            this.label2.Size = new System.Drawing.Size(163, 13);
             this.label2.TabIndex = 1;
             this.label2.Text = "Benutzerdefinierte Schaltflächen";
             // 
@@ -156,6 +156,32 @@ namespace QuickImageComment
             this.dataGridViewButtons.Size = new System.Drawing.Size(323, 329);
             this.dataGridViewButtons.TabIndex = 4;
             this.dataGridViewButtons.SelectionChanged += new System.EventHandler(this.dataGridViewButtons_SelectionChanged);
+            // 
+            // Dynamic_ColumnIcon
+            // 
+            this.Dynamic_ColumnIcon.HeaderText = "Icon";
+            this.Dynamic_ColumnIcon.Name = "Dynamic_ColumnIcon";
+            this.Dynamic_ColumnIcon.Width = 5;
+            // 
+            // Dynamic_ColumnText
+            // 
+            this.Dynamic_ColumnText.HeaderText = "Text";
+            this.Dynamic_ColumnText.Name = "Dynamic_ColumnText";
+            this.Dynamic_ColumnText.Width = 5;
+            // 
+            // Dynamic_ColumnTag
+            // 
+            this.Dynamic_ColumnTag.HeaderText = "Tag";
+            this.Dynamic_ColumnTag.Name = "Dynamic_ColumnTag";
+            this.Dynamic_ColumnTag.Visible = false;
+            this.Dynamic_ColumnTag.Width = 5;
+            // 
+            // Dynamic_ColumnIconPath
+            // 
+            this.Dynamic_ColumnIconPath.HeaderText = "IconPath";
+            this.Dynamic_ColumnIconPath.Name = "Dynamic_ColumnIconPath";
+            this.Dynamic_ColumnIconPath.Visible = false;
+            this.Dynamic_ColumnIconPath.Width = 5;
             // 
             // buttonAdd
             // 
@@ -246,32 +272,6 @@ namespace QuickImageComment
             this.buttonAssign.UseVisualStyleBackColor = true;
             this.buttonAssign.Click += new System.EventHandler(this.buttonAssign_Click);
             // 
-            // Dynamic_ColumnIcon
-            // 
-            this.Dynamic_ColumnIcon.HeaderText = "Icon";
-            this.Dynamic_ColumnIcon.Name = "Dynamic_ColumnIcon";
-            this.Dynamic_ColumnIcon.Width = 5;
-            // 
-            // Dynamic_ColumnText
-            // 
-            this.Dynamic_ColumnText.HeaderText = "Text";
-            this.Dynamic_ColumnText.Name = "Dynamic_ColumnText";
-            this.Dynamic_ColumnText.Width = 5;
-            // 
-            // Dynamic_ColumnTag
-            // 
-            this.Dynamic_ColumnTag.HeaderText = "Tag";
-            this.Dynamic_ColumnTag.Name = "Dynamic_ColumnTag";
-            this.Dynamic_ColumnTag.Visible = false;
-            this.Dynamic_ColumnTag.Width = 5;
-            // 
-            // Dynamic_ColumnIconPath
-            // 
-            this.Dynamic_ColumnIconPath.HeaderText = "IconPath";
-            this.Dynamic_ColumnIconPath.Name = "Dynamic_ColumnIconPath";
-            this.Dynamic_ColumnIconPath.Visible = false;
-            this.Dynamic_ColumnIconPath.Width = 5;
-            // 
             // FormUserButtons
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -293,6 +293,7 @@ namespace QuickImageComment
             this.Controls.Add(this.buttonHelp);
             this.Controls.Add(this.buttonCustomizeForm);
             this.Controls.Add(this.treeViewComponents);
+            this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FormUserButtons";
             this.Text = "Benutzerdefinierte Schaltflächen";

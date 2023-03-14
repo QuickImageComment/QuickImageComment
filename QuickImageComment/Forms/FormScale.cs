@@ -22,13 +22,11 @@ namespace QuickImageComment
 {
     public partial class FormScale : Form
     {
-        private FormCustomization.Interface CustomizationInterface;
         private float initialFontSize;
         private int initialConfigZoomFactorPercent;
 
         public FormScale()
         {
-            CustomizationInterface = MainMaskInterface.getCustomizationInterface();
             InitializeComponent();
             initialFontSize = labelExample.Font.Size;
             MainMaskInterface.getCustomizationInterface().setFormToCustomizedValues(this);

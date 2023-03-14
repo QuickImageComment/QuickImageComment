@@ -66,16 +66,6 @@ namespace FormCustomization
             // add event handler to be informed when changeable mask is deactivated
             ChangeableForm.Deactivate += new System.EventHandler(this.ChangeableForm_Deactivated);
 
-            // init layout without extended settings:
-            // remember and adjust size
-            SizeWithExtended = this.Size;
-            groupExtendedWidthAdjust = groupBoxExtended.Width + 3;
-            SizeWithoutExtended =
-              new System.Drawing.Size(this.Size.Width - groupExtendedWidthAdjust, this.Size.Height);
-            this.MinimumSize = this.Size;
-            // call click event to hide extended settings
-            toolStripMenuItemExtendedSettings_Click(null, null);
-
             // fill tree view of form components
             treeViewComponents.Nodes.Clear();
             checkBoxMultiSelect.Checked = false;
@@ -106,6 +96,16 @@ namespace FormCustomization
 
             theCustomizer.setAllComponents(Customizer.enumSetTo.Customized, this);
             this.Text = Customizer.getText(Customizer.Texts.I_adjustMask, ChangeableForm.Text);
+
+            // init layout without extended settings:
+            // remember and adjust size
+            SizeWithExtended = this.Size;
+            groupExtendedWidthAdjust = groupBoxExtended.Width + 3;
+            SizeWithoutExtended =
+              new System.Drawing.Size(this.Size.Width - groupExtendedWidthAdjust, this.Size.Height);
+            this.MinimumSize = this.Size;
+            // call click event to hide extended settings
+            toolStripMenuItemExtendedSettings_Click(null, null);
         }
 
         //*****************************************************************

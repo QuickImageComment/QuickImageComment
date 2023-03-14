@@ -1,4 +1,4 @@
-//Copyright (C) 2009 Norbert Wagner
+ï»¿//Copyright (C) 2009 Norbert Wagner
 
 //This program is free software; you can redistribute it and/or
 //modify it under the terms of the GNU General Public License
@@ -97,9 +97,9 @@ namespace QuickImageComment
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(6, 3);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(267, 13);
+            this.label1.Size = new System.Drawing.Size(266, 13);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Jede Zeile ein Schlüsselwort, Leerzeichen sind zulässig";
+            this.label1.Text = "Jede Zeile ein SchlÃ¼sselwort, Leerzeichen sind zulÃ¤ssig";
             // 
             // buttonCustomizeForm
             // 
@@ -134,6 +134,7 @@ namespace QuickImageComment
             this.Controls.Add(this.buttonOK);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBoxPredefinedKeyWords);
+            this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.MinimumSize = new System.Drawing.Size(448, 409);

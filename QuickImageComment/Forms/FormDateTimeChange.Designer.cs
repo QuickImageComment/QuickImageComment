@@ -138,7 +138,7 @@ namespace QuickImageComment
             0,
             -2147483648});
             this.numericUpDownMinute.Name = "numericUpDownMinute";
-            this.numericUpDownMinute.Size = new System.Drawing.Size(51, 20);
+            this.numericUpDownMinute.Size = new System.Drawing.Size(51, 21);
             this.numericUpDownMinute.TabIndex = 6;
             this.numericUpDownMinute.ValueChanged += new System.EventHandler(this.numericUpDownMinute_ValueChanged);
             // 
@@ -157,7 +157,7 @@ namespace QuickImageComment
             0,
             -2147483648});
             this.numericUpDownSecond.Name = "numericUpDownSecond";
-            this.numericUpDownSecond.Size = new System.Drawing.Size(51, 20);
+            this.numericUpDownSecond.Size = new System.Drawing.Size(51, 21);
             this.numericUpDownSecond.TabIndex = 8;
             this.numericUpDownSecond.ValueChanged += new System.EventHandler(this.numericUpDownSecond_ValueChanged);
             // 
@@ -207,7 +207,7 @@ namespace QuickImageComment
             0,
             -2147483648});
             this.numericUpDownDay.Name = "numericUpDownDay";
-            this.numericUpDownDay.Size = new System.Drawing.Size(51, 20);
+            this.numericUpDownDay.Size = new System.Drawing.Size(51, 21);
             this.numericUpDownDay.TabIndex = 2;
             this.numericUpDownDay.ValueChanged += new System.EventHandler(this.numericUpDownDay_ValueChanged);
             // 
@@ -236,7 +236,7 @@ namespace QuickImageComment
             0,
             -2147483648});
             this.numericUpDownHour.Name = "numericUpDownHour";
-            this.numericUpDownHour.Size = new System.Drawing.Size(51, 20);
+            this.numericUpDownHour.Size = new System.Drawing.Size(51, 21);
             this.numericUpDownHour.TabIndex = 4;
             this.numericUpDownHour.ValueChanged += new System.EventHandler(this.numericUpDownHour_ValueChanged);
             // 
@@ -291,6 +291,7 @@ namespace QuickImageComment
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label1);
+            this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.MinimumSize = new System.Drawing.Size(779, 328);

@@ -24,6 +24,11 @@ namespace QuickImageComment
         public FormFirstUserSettings(bool showfirstView)
         {
             InitializeComponent();
+            FormCustomization.Interface CustomizationInterface = MainMaskInterface.getCustomizationInterface();
+            if (CustomizationInterface != null )
+            {
+                CustomizationInterface.setFormToCustomizedValues(this);
+            }
             groupBoxInitialView.Visible = showfirstView;
 
             // clear label, will be filled after translation, so dummy text from mask layout need not be translated

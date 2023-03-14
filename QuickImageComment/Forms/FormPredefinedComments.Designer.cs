@@ -1,4 +1,4 @@
-//Copyright (C) 2009 Norbert Wagner
+﻿//Copyright (C) 2009 Norbert Wagner
 
 //This program is free software; you can redistribute it and/or
 //modify it under the terms of the GNU General Public License
@@ -96,9 +96,9 @@ namespace QuickImageComment
             this.labelPredefinedComments2.AutoSize = true;
             this.labelPredefinedComments2.Location = new System.Drawing.Point(4, 4);
             this.labelPredefinedComments2.Name = "labelPredefinedComments2";
-            this.labelPredefinedComments2.Size = new System.Drawing.Size(396, 13);
+            this.labelPredefinedComments2.Size = new System.Drawing.Size(410, 13);
             this.labelPredefinedComments2.TabIndex = 0;
-            this.labelPredefinedComments2.Text = "Format: Kategorie-Zeile=\"#<Kategorie>\", andere Zeilen sind Eintr�ge zur Kategorie" +
+            this.labelPredefinedComments2.Text = "Format: Kategorie-Zeile=\"#<Kategorie>\", andere Zeilen sind Einträge zur Kategorie" +
     "";
             // 
             // buttonCustomizeForm
@@ -134,6 +134,7 @@ namespace QuickImageComment
             this.Controls.Add(this.buttonOK);
             this.Controls.Add(this.labelPredefinedComments2);
             this.Controls.Add(this.textBoxPredefinedComments);
+            this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.MinimumSize = new System.Drawing.Size(455, 380);

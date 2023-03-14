@@ -41,6 +41,7 @@ namespace QuickImageComment
 #endif
             buttonCancel.Select();
             CustomizationInterface = MainMaskInterface.getCustomizationInterface();
+            CustomizationInterface.setFormToCustomizedValues(this);
 
             for (int ii = 0; ii < ConfigDefinition.ImageGridsCount; ii++)
             {

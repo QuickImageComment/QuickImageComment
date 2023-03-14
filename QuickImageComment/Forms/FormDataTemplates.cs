@@ -1,4 +1,4 @@
-//Copyright (C) 2009 Norbert Wagner
+﻿//Copyright (C) 2009 Norbert Wagner
 
 //This program is free software; you can redistribute it and/or
 //modify it under the terms of the GNU General Public License
@@ -45,6 +45,7 @@ namespace QuickImageComment
 #endif
             buttonClose.Select();
             CustomizationInterface = MainMaskInterface.getCustomizationInterface();
+            CustomizationInterface.setFormToCustomizedValues(this);
 
             dynamicComboBoxConfigurationName.Items.Add("");
             foreach (string configuration in ConfigDefinition.DataTemplates.Keys)
@@ -113,8 +114,6 @@ namespace QuickImageComment
 
             // load last data template
             dynamicComboBoxConfigurationName.Text = ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.LastDataTemplate);
-
-            CustomizationInterface.setFormToCustomizedValues(this);
 
             LangCfg.translateControlTexts(this);
 

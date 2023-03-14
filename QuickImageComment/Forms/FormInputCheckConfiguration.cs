@@ -33,6 +33,7 @@ namespace QuickImageComment
 #endif
             Text = tag;
             CustomizationInterface = MainMaskInterface.getCustomizationInterface();
+            CustomizationInterface.setFormToCustomizedValues(this);
 
             theInputCheckConfig = ConfigDefinition.getInputCheckConfig(tag);
 

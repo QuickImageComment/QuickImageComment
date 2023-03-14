@@ -270,7 +270,7 @@ namespace QuickImageComment
             this.labelBaseInfo1.AutoSize = true;
             this.labelBaseInfo1.Location = new System.Drawing.Point(39, 7);
             this.labelBaseInfo1.Name = "labelBaseInfo1";
-            this.labelBaseInfo1.Size = new System.Drawing.Size(57, 13);
+            this.labelBaseInfo1.Size = new System.Drawing.Size(61, 13);
             this.labelBaseInfo1.TabIndex = 0;
             this.labelBaseInfo1.Text = "fester Text";
             // 
@@ -523,7 +523,7 @@ namespace QuickImageComment
             this.checkBoxAllwaysRunningNumber.AutoSize = true;
             this.checkBoxAllwaysRunningNumber.Location = new System.Drawing.Point(8, 51);
             this.checkBoxAllwaysRunningNumber.Name = "checkBoxAllwaysRunningNumber";
-            this.checkBoxAllwaysRunningNumber.Size = new System.Drawing.Size(146, 17);
+            this.checkBoxAllwaysRunningNumber.Size = new System.Drawing.Size(147, 17);
             this.checkBoxAllwaysRunningNumber.TabIndex = 5;
             this.checkBoxAllwaysRunningNumber.Text = "Nummer immer anhängen";
             this.checkBoxAllwaysRunningNumber.UseVisualStyleBackColor = true;
@@ -534,7 +534,7 @@ namespace QuickImageComment
             this.labelRunningInfo2.AutoSize = true;
             this.labelRunningInfo2.Location = new System.Drawing.Point(199, 33);
             this.labelRunningInfo2.Name = "labelRunningInfo2";
-            this.labelRunningInfo2.Size = new System.Drawing.Size(57, 13);
+            this.labelRunningInfo2.Size = new System.Drawing.Size(61, 13);
             this.labelRunningInfo2.TabIndex = 1;
             this.labelRunningInfo2.Text = "fester Text";
             // 
@@ -543,7 +543,7 @@ namespace QuickImageComment
             this.labelRunningInfo3.AutoSize = true;
             this.labelRunningInfo3.Location = new System.Drawing.Point(283, 33);
             this.labelRunningInfo3.Name = "labelRunningInfo3";
-            this.labelRunningInfo3.Size = new System.Drawing.Size(88, 13);
+            this.labelRunningInfo3.Size = new System.Drawing.Size(92, 13);
             this.labelRunningInfo3.TabIndex = 2;
             this.labelRunningInfo3.Text = "Anz.Stellen (min.)";
             // 
@@ -552,7 +552,7 @@ namespace QuickImageComment
             this.labelRunningInfo4.AutoSize = true;
             this.labelRunningInfo4.Location = new System.Drawing.Point(383, 33);
             this.labelRunningInfo4.Name = "labelRunningInfo4";
-            this.labelRunningInfo4.Size = new System.Drawing.Size(57, 13);
+            this.labelRunningInfo4.Size = new System.Drawing.Size(61, 13);
             this.labelRunningInfo4.TabIndex = 3;
             this.labelRunningInfo4.Text = "fester Text";
             // 
@@ -575,7 +575,7 @@ namespace QuickImageComment
             0,
             0});
             this.numericUpDownRunningNumberMinLength.Name = "numericUpDownRunningNumberMinLength";
-            this.numericUpDownRunningNumberMinLength.Size = new System.Drawing.Size(89, 20);
+            this.numericUpDownRunningNumberMinLength.Size = new System.Drawing.Size(89, 21);
             this.numericUpDownRunningNumberMinLength.TabIndex = 7;
             this.numericUpDownRunningNumberMinLength.Value = new decimal(new int[] {
             1,
@@ -619,7 +619,7 @@ namespace QuickImageComment
             this.labelRunningInfo5.AutoSize = true;
             this.labelRunningInfo5.Location = new System.Drawing.Point(499, 31);
             this.labelRunningInfo5.Name = "labelRunningInfo5";
-            this.labelRunningInfo5.Size = new System.Drawing.Size(74, 13);
+            this.labelRunningInfo5.Size = new System.Drawing.Size(76, 13);
             this.labelRunningInfo5.TabIndex = 4;
             this.labelRunningInfo5.Text = "sortieren nach";
             // 
@@ -638,7 +638,7 @@ namespace QuickImageComment
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(5, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(439, 13);
+            this.label1.Size = new System.Drawing.Size(450, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Laufende Nummer - fortlaufend über alle Dateien, für die sich sonst der gleiche N" +
     "ame ergibt.";
@@ -673,7 +673,7 @@ namespace QuickImageComment
             // 
             this.numericUpDownFillUpTo_1.Location = new System.Drawing.Point(780, 23);
             this.numericUpDownFillUpTo_1.Name = "numericUpDownFillUpTo_1";
-            this.numericUpDownFillUpTo_1.Size = new System.Drawing.Size(35, 20);
+            this.numericUpDownFillUpTo_1.Size = new System.Drawing.Size(35, 21);
             this.numericUpDownFillUpTo_1.TabIndex = 14;
             // 
             // checkBoxFillUpRight_1
@@ -690,7 +690,7 @@ namespace QuickImageComment
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(674, 7);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(128, 13);
+            this.label3.Size = new System.Drawing.Size(133, 13);
             this.label3.TabIndex = 5;
             this.label3.Text = "rechts   auffüllen mit   auf ";
             // 
@@ -707,7 +707,7 @@ namespace QuickImageComment
             // 
             this.numericUpDownFillUpTo_7.Location = new System.Drawing.Point(780, 161);
             this.numericUpDownFillUpTo_7.Name = "numericUpDownFillUpTo_7";
-            this.numericUpDownFillUpTo_7.Size = new System.Drawing.Size(35, 20);
+            this.numericUpDownFillUpTo_7.Size = new System.Drawing.Size(35, 21);
             this.numericUpDownFillUpTo_7.TabIndex = 68;
             // 
             // richTextBoxFillUpChar_7
@@ -734,7 +734,7 @@ namespace QuickImageComment
             // 
             this.numericUpDownFillUpTo_6.Location = new System.Drawing.Point(780, 138);
             this.numericUpDownFillUpTo_6.Name = "numericUpDownFillUpTo_6";
-            this.numericUpDownFillUpTo_6.Size = new System.Drawing.Size(35, 20);
+            this.numericUpDownFillUpTo_6.Size = new System.Drawing.Size(35, 21);
             this.numericUpDownFillUpTo_6.TabIndex = 59;
             // 
             // richTextBoxFillUpChar_6
@@ -761,7 +761,7 @@ namespace QuickImageComment
             // 
             this.numericUpDownFillUpTo_5.Location = new System.Drawing.Point(780, 115);
             this.numericUpDownFillUpTo_5.Name = "numericUpDownFillUpTo_5";
-            this.numericUpDownFillUpTo_5.Size = new System.Drawing.Size(35, 20);
+            this.numericUpDownFillUpTo_5.Size = new System.Drawing.Size(35, 21);
             this.numericUpDownFillUpTo_5.TabIndex = 50;
             // 
             // richTextBoxFillUpChar_5
@@ -788,7 +788,7 @@ namespace QuickImageComment
             // 
             this.numericUpDownFillUpTo_4.Location = new System.Drawing.Point(780, 92);
             this.numericUpDownFillUpTo_4.Name = "numericUpDownFillUpTo_4";
-            this.numericUpDownFillUpTo_4.Size = new System.Drawing.Size(35, 20);
+            this.numericUpDownFillUpTo_4.Size = new System.Drawing.Size(35, 21);
             this.numericUpDownFillUpTo_4.TabIndex = 41;
             // 
             // richTextBoxFillUpChar_4
@@ -815,7 +815,7 @@ namespace QuickImageComment
             // 
             this.numericUpDownFillUpTo_3.Location = new System.Drawing.Point(780, 69);
             this.numericUpDownFillUpTo_3.Name = "numericUpDownFillUpTo_3";
-            this.numericUpDownFillUpTo_3.Size = new System.Drawing.Size(35, 20);
+            this.numericUpDownFillUpTo_3.Size = new System.Drawing.Size(35, 21);
             this.numericUpDownFillUpTo_3.TabIndex = 32;
             // 
             // richTextBoxFillUpChar_3
@@ -842,7 +842,7 @@ namespace QuickImageComment
             // 
             this.numericUpDownFillUpTo_2.Location = new System.Drawing.Point(780, 46);
             this.numericUpDownFillUpTo_2.Name = "numericUpDownFillUpTo_2";
-            this.numericUpDownFillUpTo_2.Size = new System.Drawing.Size(35, 20);
+            this.numericUpDownFillUpTo_2.Size = new System.Drawing.Size(35, 21);
             this.numericUpDownFillUpTo_2.TabIndex = 23;
             // 
             // richTextBoxFillUpChar_2
@@ -870,7 +870,7 @@ namespace QuickImageComment
             0,
             0});
             this.numericUpDownSubstringStart_1.Name = "numericUpDownSubstringStart_1";
-            this.numericUpDownSubstringStart_1.Size = new System.Drawing.Size(35, 20);
+            this.numericUpDownSubstringStart_1.Size = new System.Drawing.Size(35, 21);
             this.numericUpDownSubstringStart_1.TabIndex = 9;
             this.numericUpDownSubstringStart_1.Value = new decimal(new int[] {
             1,
@@ -883,7 +883,7 @@ namespace QuickImageComment
             this.labelBaseInfo3.AutoSize = true;
             this.labelBaseInfo3.Location = new System.Drawing.Point(521, 7);
             this.labelBaseInfo3.Name = "labelBaseInfo3";
-            this.labelBaseInfo3.Size = new System.Drawing.Size(29, 13);
+            this.labelBaseInfo3.Size = new System.Drawing.Size(31, 13);
             this.labelBaseInfo3.TabIndex = 2;
             this.labelBaseInfo3.Text = "Start";
             // 
@@ -900,7 +900,7 @@ namespace QuickImageComment
             // 
             this.numericUpDownSubstringLength_1.Location = new System.Drawing.Point(619, 23);
             this.numericUpDownSubstringLength_1.Name = "numericUpDownSubstringLength_1";
-            this.numericUpDownSubstringLength_1.Size = new System.Drawing.Size(35, 20);
+            this.numericUpDownSubstringLength_1.Size = new System.Drawing.Size(35, 21);
             this.numericUpDownSubstringLength_1.TabIndex = 11;
             // 
             // labelBaseInfo4
@@ -908,7 +908,7 @@ namespace QuickImageComment
             this.labelBaseInfo4.AutoSize = true;
             this.labelBaseInfo4.Location = new System.Drawing.Point(556, 7);
             this.labelBaseInfo4.Name = "labelBaseInfo4";
-            this.labelBaseInfo4.Size = new System.Drawing.Size(57, 13);
+            this.labelBaseInfo4.Size = new System.Drawing.Size(58, 13);
             this.labelBaseInfo4.TabIndex = 3;
             this.labelBaseInfo4.Text = "von rechts";
             // 
@@ -917,7 +917,7 @@ namespace QuickImageComment
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(617, 7);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(37, 13);
+            this.label2.Size = new System.Drawing.Size(36, 13);
             this.label2.TabIndex = 4;
             this.label2.Text = "Länge";
             // 
@@ -935,7 +935,7 @@ namespace QuickImageComment
             0,
             0});
             this.numericUpDownSubstringStart_4.Name = "numericUpDownSubstringStart_4";
-            this.numericUpDownSubstringStart_4.Size = new System.Drawing.Size(35, 20);
+            this.numericUpDownSubstringStart_4.Size = new System.Drawing.Size(35, 21);
             this.numericUpDownSubstringStart_4.TabIndex = 36;
             this.numericUpDownSubstringStart_4.Value = new decimal(new int[] {
             1,
@@ -956,7 +956,7 @@ namespace QuickImageComment
             // 
             this.numericUpDownSubstringLength_4.Location = new System.Drawing.Point(619, 92);
             this.numericUpDownSubstringLength_4.Name = "numericUpDownSubstringLength_4";
-            this.numericUpDownSubstringLength_4.Size = new System.Drawing.Size(35, 20);
+            this.numericUpDownSubstringLength_4.Size = new System.Drawing.Size(35, 21);
             this.numericUpDownSubstringLength_4.TabIndex = 38;
             // 
             // numericUpDownSubstringStart_3
@@ -973,7 +973,7 @@ namespace QuickImageComment
             0,
             0});
             this.numericUpDownSubstringStart_3.Name = "numericUpDownSubstringStart_3";
-            this.numericUpDownSubstringStart_3.Size = new System.Drawing.Size(35, 20);
+            this.numericUpDownSubstringStart_3.Size = new System.Drawing.Size(35, 21);
             this.numericUpDownSubstringStart_3.TabIndex = 27;
             this.numericUpDownSubstringStart_3.Value = new decimal(new int[] {
             1,
@@ -994,7 +994,7 @@ namespace QuickImageComment
             // 
             this.numericUpDownSubstringLength_3.Location = new System.Drawing.Point(619, 69);
             this.numericUpDownSubstringLength_3.Name = "numericUpDownSubstringLength_3";
-            this.numericUpDownSubstringLength_3.Size = new System.Drawing.Size(35, 20);
+            this.numericUpDownSubstringLength_3.Size = new System.Drawing.Size(35, 21);
             this.numericUpDownSubstringLength_3.TabIndex = 29;
             // 
             // numericUpDownSubstringStart_2
@@ -1011,7 +1011,7 @@ namespace QuickImageComment
             0,
             0});
             this.numericUpDownSubstringStart_2.Name = "numericUpDownSubstringStart_2";
-            this.numericUpDownSubstringStart_2.Size = new System.Drawing.Size(35, 20);
+            this.numericUpDownSubstringStart_2.Size = new System.Drawing.Size(35, 21);
             this.numericUpDownSubstringStart_2.TabIndex = 18;
             this.numericUpDownSubstringStart_2.Value = new decimal(new int[] {
             1,
@@ -1032,7 +1032,7 @@ namespace QuickImageComment
             // 
             this.numericUpDownSubstringLength_2.Location = new System.Drawing.Point(619, 46);
             this.numericUpDownSubstringLength_2.Name = "numericUpDownSubstringLength_2";
-            this.numericUpDownSubstringLength_2.Size = new System.Drawing.Size(35, 20);
+            this.numericUpDownSubstringLength_2.Size = new System.Drawing.Size(35, 21);
             this.numericUpDownSubstringLength_2.TabIndex = 20;
             // 
             // numericUpDownSubstringStart_5
@@ -1049,7 +1049,7 @@ namespace QuickImageComment
             0,
             0});
             this.numericUpDownSubstringStart_5.Name = "numericUpDownSubstringStart_5";
-            this.numericUpDownSubstringStart_5.Size = new System.Drawing.Size(35, 20);
+            this.numericUpDownSubstringStart_5.Size = new System.Drawing.Size(35, 21);
             this.numericUpDownSubstringStart_5.TabIndex = 45;
             this.numericUpDownSubstringStart_5.Value = new decimal(new int[] {
             1,
@@ -1070,7 +1070,7 @@ namespace QuickImageComment
             // 
             this.numericUpDownSubstringLength_5.Location = new System.Drawing.Point(619, 115);
             this.numericUpDownSubstringLength_5.Name = "numericUpDownSubstringLength_5";
-            this.numericUpDownSubstringLength_5.Size = new System.Drawing.Size(35, 20);
+            this.numericUpDownSubstringLength_5.Size = new System.Drawing.Size(35, 21);
             this.numericUpDownSubstringLength_5.TabIndex = 47;
             // 
             // numericUpDownSubstringStart_6
@@ -1087,7 +1087,7 @@ namespace QuickImageComment
             0,
             0});
             this.numericUpDownSubstringStart_6.Name = "numericUpDownSubstringStart_6";
-            this.numericUpDownSubstringStart_6.Size = new System.Drawing.Size(35, 20);
+            this.numericUpDownSubstringStart_6.Size = new System.Drawing.Size(35, 21);
             this.numericUpDownSubstringStart_6.TabIndex = 54;
             this.numericUpDownSubstringStart_6.Value = new decimal(new int[] {
             1,
@@ -1108,7 +1108,7 @@ namespace QuickImageComment
             // 
             this.numericUpDownSubstringLength_6.Location = new System.Drawing.Point(619, 138);
             this.numericUpDownSubstringLength_6.Name = "numericUpDownSubstringLength_6";
-            this.numericUpDownSubstringLength_6.Size = new System.Drawing.Size(35, 20);
+            this.numericUpDownSubstringLength_6.Size = new System.Drawing.Size(35, 21);
             this.numericUpDownSubstringLength_6.TabIndex = 56;
             // 
             // numericUpDownSubstringStart_7
@@ -1125,7 +1125,7 @@ namespace QuickImageComment
             0,
             0});
             this.numericUpDownSubstringStart_7.Name = "numericUpDownSubstringStart_7";
-            this.numericUpDownSubstringStart_7.Size = new System.Drawing.Size(35, 20);
+            this.numericUpDownSubstringStart_7.Size = new System.Drawing.Size(35, 21);
             this.numericUpDownSubstringStart_7.TabIndex = 63;
             this.numericUpDownSubstringStart_7.Value = new decimal(new int[] {
             1,
@@ -1146,7 +1146,7 @@ namespace QuickImageComment
             // 
             this.numericUpDownSubstringLength_7.Location = new System.Drawing.Point(619, 161);
             this.numericUpDownSubstringLength_7.Name = "numericUpDownSubstringLength_7";
-            this.numericUpDownSubstringLength_7.Size = new System.Drawing.Size(35, 20);
+            this.numericUpDownSubstringLength_7.Size = new System.Drawing.Size(35, 21);
             this.numericUpDownSubstringLength_7.TabIndex = 65;
             // 
             // checkBoxFillUpRight_8
@@ -1162,14 +1162,14 @@ namespace QuickImageComment
             // 
             this.numericUpDownFillUpTo_8.Location = new System.Drawing.Point(780, 184);
             this.numericUpDownFillUpTo_8.Name = "numericUpDownFillUpTo_8";
-            this.numericUpDownFillUpTo_8.Size = new System.Drawing.Size(35, 20);
+            this.numericUpDownFillUpTo_8.Size = new System.Drawing.Size(35, 21);
             this.numericUpDownFillUpTo_8.TabIndex = 77;
             // 
             // numericUpDownSubstringLength_8
             // 
             this.numericUpDownSubstringLength_8.Location = new System.Drawing.Point(619, 184);
             this.numericUpDownSubstringLength_8.Name = "numericUpDownSubstringLength_8";
-            this.numericUpDownSubstringLength_8.Size = new System.Drawing.Size(35, 20);
+            this.numericUpDownSubstringLength_8.Size = new System.Drawing.Size(35, 21);
             this.numericUpDownSubstringLength_8.TabIndex = 74;
             // 
             // richTextBoxFillUpChar_8
@@ -1206,7 +1206,7 @@ namespace QuickImageComment
             0,
             0});
             this.numericUpDownSubstringStart_8.Name = "numericUpDownSubstringStart_8";
-            this.numericUpDownSubstringStart_8.Size = new System.Drawing.Size(35, 20);
+            this.numericUpDownSubstringStart_8.Size = new System.Drawing.Size(35, 21);
             this.numericUpDownSubstringStart_8.TabIndex = 72;
             this.numericUpDownSubstringStart_8.Value = new decimal(new int[] {
             1,
@@ -1255,14 +1255,14 @@ namespace QuickImageComment
             // 
             this.numericUpDownFillUpTo_9.Location = new System.Drawing.Point(780, 207);
             this.numericUpDownFillUpTo_9.Name = "numericUpDownFillUpTo_9";
-            this.numericUpDownFillUpTo_9.Size = new System.Drawing.Size(35, 20);
+            this.numericUpDownFillUpTo_9.Size = new System.Drawing.Size(35, 21);
             this.numericUpDownFillUpTo_9.TabIndex = 86;
             // 
             // numericUpDownSubstringLength_9
             // 
             this.numericUpDownSubstringLength_9.Location = new System.Drawing.Point(619, 207);
             this.numericUpDownSubstringLength_9.Name = "numericUpDownSubstringLength_9";
-            this.numericUpDownSubstringLength_9.Size = new System.Drawing.Size(35, 20);
+            this.numericUpDownSubstringLength_9.Size = new System.Drawing.Size(35, 21);
             this.numericUpDownSubstringLength_9.TabIndex = 83;
             // 
             // richTextBoxFillUpChar_9
@@ -1299,7 +1299,7 @@ namespace QuickImageComment
             0,
             0});
             this.numericUpDownSubstringStart_9.Name = "numericUpDownSubstringStart_9";
-            this.numericUpDownSubstringStart_9.Size = new System.Drawing.Size(35, 20);
+            this.numericUpDownSubstringStart_9.Size = new System.Drawing.Size(35, 21);
             this.numericUpDownSubstringStart_9.TabIndex = 81;
             this.numericUpDownSubstringStart_9.Value = new decimal(new int[] {
             1,
@@ -1348,14 +1348,14 @@ namespace QuickImageComment
             // 
             this.numericUpDownFillUpTo_10.Location = new System.Drawing.Point(780, 230);
             this.numericUpDownFillUpTo_10.Name = "numericUpDownFillUpTo_10";
-            this.numericUpDownFillUpTo_10.Size = new System.Drawing.Size(35, 20);
+            this.numericUpDownFillUpTo_10.Size = new System.Drawing.Size(35, 21);
             this.numericUpDownFillUpTo_10.TabIndex = 95;
             // 
             // numericUpDownSubstringLength_10
             // 
             this.numericUpDownSubstringLength_10.Location = new System.Drawing.Point(619, 230);
             this.numericUpDownSubstringLength_10.Name = "numericUpDownSubstringLength_10";
-            this.numericUpDownSubstringLength_10.Size = new System.Drawing.Size(35, 20);
+            this.numericUpDownSubstringLength_10.Size = new System.Drawing.Size(35, 21);
             this.numericUpDownSubstringLength_10.TabIndex = 92;
             // 
             // richTextBoxFillUpChar_10
@@ -1392,7 +1392,7 @@ namespace QuickImageComment
             0,
             0});
             this.numericUpDownSubstringStart_10.Name = "numericUpDownSubstringStart_10";
-            this.numericUpDownSubstringStart_10.Size = new System.Drawing.Size(35, 20);
+            this.numericUpDownSubstringStart_10.Size = new System.Drawing.Size(35, 21);
             this.numericUpDownSubstringStart_10.TabIndex = 90;
             this.numericUpDownSubstringStart_10.Value = new decimal(new int[] {
             1,
@@ -1441,14 +1441,14 @@ namespace QuickImageComment
             // 
             this.numericUpDownFillUpTo_11.Location = new System.Drawing.Point(780, 253);
             this.numericUpDownFillUpTo_11.Name = "numericUpDownFillUpTo_11";
-            this.numericUpDownFillUpTo_11.Size = new System.Drawing.Size(35, 20);
+            this.numericUpDownFillUpTo_11.Size = new System.Drawing.Size(35, 21);
             this.numericUpDownFillUpTo_11.TabIndex = 104;
             // 
             // numericUpDownSubstringLength_11
             // 
             this.numericUpDownSubstringLength_11.Location = new System.Drawing.Point(619, 253);
             this.numericUpDownSubstringLength_11.Name = "numericUpDownSubstringLength_11";
-            this.numericUpDownSubstringLength_11.Size = new System.Drawing.Size(35, 20);
+            this.numericUpDownSubstringLength_11.Size = new System.Drawing.Size(35, 21);
             this.numericUpDownSubstringLength_11.TabIndex = 101;
             // 
             // richTextBoxFillUpChar_11
@@ -1485,7 +1485,7 @@ namespace QuickImageComment
             0,
             0});
             this.numericUpDownSubstringStart_11.Name = "numericUpDownSubstringStart_11";
-            this.numericUpDownSubstringStart_11.Size = new System.Drawing.Size(35, 20);
+            this.numericUpDownSubstringStart_11.Size = new System.Drawing.Size(35, 21);
             this.numericUpDownSubstringStart_11.TabIndex = 99;
             this.numericUpDownSubstringStart_11.Value = new decimal(new int[] {
             1,
@@ -1589,7 +1589,7 @@ namespace QuickImageComment
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(5, 282);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(132, 13);
+            this.label4.Size = new System.Drawing.Size(133, 13);
             this.label4.TabIndex = 117;
             this.label4.Text = "Reihenfolge ändern - Zeile";
             // 
@@ -1745,7 +1745,7 @@ namespace QuickImageComment
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(6, 16);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(130, 13);
+            this.label5.Size = new System.Drawing.Size(131, 13);
             this.label5.TabIndex = 0;
             this.label5.Text = "Einstellungen auswählen: ";
             // 
@@ -1890,6 +1890,7 @@ namespace QuickImageComment
             this.Controls.Add(this.checkBoxRenameFormat_1);
             this.Controls.Add(this.labelBaseInfo1);
             this.Controls.Add(this.buttonStart);
+            this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;

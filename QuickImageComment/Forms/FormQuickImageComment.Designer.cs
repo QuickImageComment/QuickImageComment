@@ -45,7 +45,7 @@ namespace QuickImageComment
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormQuickImageComment));
             this.dynamicLabelArtist = new System.Windows.Forms.Label();
             this.textBoxUserComment = new System.Windows.Forms.TextBox();
@@ -615,8 +615,8 @@ namespace QuickImageComment
             this.DataGridViewOverview.Name = "DataGridViewOverview";
             this.DataGridViewOverview.ReadOnly = true;
             this.DataGridViewOverview.RowHeadersVisible = false;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            this.DataGridViewOverview.RowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            this.DataGridViewOverview.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.DataGridViewOverview.RowTemplate.Height = 18;
             this.DataGridViewOverview.Size = new System.Drawing.Size(263, 161);
             this.DataGridViewOverview.TabIndex = 0;
@@ -691,7 +691,7 @@ namespace QuickImageComment
             this.tabPageExif.Location = new System.Drawing.Point(4, 22);
             this.tabPageExif.Name = "tabPageExif";
             this.tabPageExif.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageExif.Size = new System.Drawing.Size(269, 166);
+            this.tabPageExif.Size = new System.Drawing.Size(269, 165);
             this.tabPageExif.TabIndex = 1;
             this.tabPageExif.Text = "Exif";
             this.tabPageExif.UseVisualStyleBackColor = true;
@@ -702,7 +702,7 @@ namespace QuickImageComment
             this.tabPageIptc.Location = new System.Drawing.Point(4, 22);
             this.tabPageIptc.Name = "tabPageIptc";
             this.tabPageIptc.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageIptc.Size = new System.Drawing.Size(269, 166);
+            this.tabPageIptc.Size = new System.Drawing.Size(269, 165);
             this.tabPageIptc.TabIndex = 2;
             this.tabPageIptc.Text = "IPTC";
             this.tabPageIptc.UseVisualStyleBackColor = true;
@@ -713,7 +713,7 @@ namespace QuickImageComment
             this.tabPageXmp.Location = new System.Drawing.Point(4, 22);
             this.tabPageXmp.Name = "tabPageXmp";
             this.tabPageXmp.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageXmp.Size = new System.Drawing.Size(269, 166);
+            this.tabPageXmp.Size = new System.Drawing.Size(269, 165);
             this.tabPageXmp.TabIndex = 4;
             this.tabPageXmp.Text = "XMP";
             // 
@@ -723,7 +723,7 @@ namespace QuickImageComment
             this.tabPageOther.Location = new System.Drawing.Point(4, 22);
             this.tabPageOther.Name = "tabPageOther";
             this.tabPageOther.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageOther.Size = new System.Drawing.Size(269, 166);
+            this.tabPageOther.Size = new System.Drawing.Size(269, 165);
             this.tabPageOther.TabIndex = 3;
             this.tabPageOther.Text = "Sonstige";
             this.tabPageOther.UseVisualStyleBackColor = true;
@@ -738,10 +738,10 @@ namespace QuickImageComment
             this.tabPageMulti.Controls.Add(this.comboBoxCommentChange);
             this.tabPageMulti.Controls.Add(this.checkBoxArtistChange);
             this.tabPageMulti.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabPageMulti.Location = new System.Drawing.Point(4, 23);
+            this.tabPageMulti.Location = new System.Drawing.Point(4, 25);
             this.tabPageMulti.Name = "tabPageMulti";
-            this.tabPageMulti.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.tabPageMulti.Size = new System.Drawing.Size(505, 193);
+            this.tabPageMulti.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.tabPageMulti.Size = new System.Drawing.Size(505, 191);
             this.tabPageMulti.TabIndex = 1;
             this.tabPageMulti.Text = "Mehrfach-Bildbearbeitung";
             this.tabPageMulti.UseVisualStyleBackColor = true;
@@ -773,7 +773,7 @@ namespace QuickImageComment
             this.dataGridViewSelectedFiles.Name = "dataGridViewSelectedFiles";
             this.dataGridViewSelectedFiles.RowHeadersVisible = false;
             this.dataGridViewSelectedFiles.ShowEditingIcon = false;
-            this.dataGridViewSelectedFiles.Size = new System.Drawing.Size(248, 163);
+            this.dataGridViewSelectedFiles.Size = new System.Drawing.Size(248, 185);
             this.dataGridViewSelectedFiles.TabIndex = 4;
             this.dataGridViewSelectedFiles.SelectionChanged += new System.EventHandler(this.dataGridViewSelectedFiles_SelectionChanged);
             // 
@@ -800,7 +800,7 @@ namespace QuickImageComment
             this.checkedListBoxChangeableFieldsChange.FormattingEnabled = true;
             this.checkedListBoxChangeableFieldsChange.Location = new System.Drawing.Point(1, 101);
             this.checkedListBoxChangeableFieldsChange.Name = "checkedListBoxChangeableFieldsChange";
-            this.checkedListBoxChangeableFieldsChange.Size = new System.Drawing.Size(250, 20);
+            this.checkedListBoxChangeableFieldsChange.Size = new System.Drawing.Size(250, 84);
             this.checkedListBoxChangeableFieldsChange.TabIndex = 3;
             // 
             // comboBoxKeyWordsChange
@@ -955,7 +955,7 @@ namespace QuickImageComment
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listBoxLastUserComments.Location = new System.Drawing.Point(3, 28);
             this.listBoxLastUserComments.Name = "listBoxLastUserComments";
-            this.listBoxLastUserComments.Size = new System.Drawing.Size(305, 121);
+            this.listBoxLastUserComments.Size = new System.Drawing.Size(305, 134);
             this.listBoxLastUserComments.TabIndex = 2;
             // 
             // textBoxLastCommentsFilter
@@ -973,10 +973,10 @@ namespace QuickImageComment
             this.tabPagePredefComments.Controls.Add(this.dynamicComboBoxPredefinedComments);
             this.tabPagePredefComments.Controls.Add(this.listBoxPredefinedComments);
             this.tabPagePredefComments.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabPagePredefComments.Location = new System.Drawing.Point(4, 23);
+            this.tabPagePredefComments.Location = new System.Drawing.Point(4, 25);
             this.tabPagePredefComments.Name = "tabPagePredefComments";
             this.tabPagePredefComments.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPagePredefComments.Size = new System.Drawing.Size(311, 164);
+            this.tabPagePredefComments.Size = new System.Drawing.Size(311, 162);
             this.tabPagePredefComments.TabIndex = 1;
             this.tabPagePredefComments.Text = "Vordefinierte Kommentare";
             this.tabPagePredefComments.UseVisualStyleBackColor = true;
@@ -2054,6 +2054,7 @@ namespace QuickImageComment
             // toolStrip1
             // 
             this.toolStrip1.BackColor = System.Drawing.Color.White;
+            this.toolStrip1.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripButtonRefresh,

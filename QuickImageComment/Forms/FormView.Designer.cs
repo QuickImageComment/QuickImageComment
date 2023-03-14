@@ -311,10 +311,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(59, 38);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(59, 31);
+            this.label2.Size = new System.Drawing.Size(58, 33);
             this.label2.TabIndex = 0;
             this.label2.Text = "Bild";
             // 

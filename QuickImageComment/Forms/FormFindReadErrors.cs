@@ -25,6 +25,7 @@ namespace QuickImageComment
         public FormFindReadErrors()
         {
             InitializeComponent();
+            MainMaskInterface.getCustomizationInterface().setFormToCustomizedValues(this);
 
             LangCfg.translateControlTexts(this);
 

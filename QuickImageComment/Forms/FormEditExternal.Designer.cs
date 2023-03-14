@@ -200,7 +200,7 @@ namespace QuickImageComment
             this.radioButtonBatchCommand.ForeColor = System.Drawing.SystemColors.ControlText;
             this.radioButtonBatchCommand.Location = new System.Drawing.Point(131, 10);
             this.radioButtonBatchCommand.Name = "radioButtonBatchCommand";
-            this.radioButtonBatchCommand.Size = new System.Drawing.Size(114, 17);
+            this.radioButtonBatchCommand.Size = new System.Drawing.Size(113, 17);
             this.radioButtonBatchCommand.TabIndex = 1;
             this.radioButtonBatchCommand.TabStop = true;
             this.radioButtonBatchCommand.Text = "Batch-Kommandos";
@@ -213,7 +213,7 @@ namespace QuickImageComment
             this.radioButtonProgram.ForeColor = System.Drawing.SystemColors.ControlText;
             this.radioButtonProgram.Location = new System.Drawing.Point(8, 10);
             this.radioButtonProgram.Name = "radioButtonProgram";
-            this.radioButtonProgram.Size = new System.Drawing.Size(72, 17);
+            this.radioButtonProgram.Size = new System.Drawing.Size(73, 17);
             this.radioButtonProgram.TabIndex = 0;
             this.radioButtonProgram.TabStop = true;
             this.radioButtonProgram.Text = "Programm";
@@ -225,7 +225,7 @@ namespace QuickImageComment
             this.checkBoxMultipleFiles.AutoSize = true;
             this.checkBoxMultipleFiles.Location = new System.Drawing.Point(457, 55);
             this.checkBoxMultipleFiles.Name = "checkBoxMultipleFiles";
-            this.checkBoxMultipleFiles.Size = new System.Drawing.Size(309, 17);
+            this.checkBoxMultipleFiles.Size = new System.Drawing.Size(312, 17);
             this.checkBoxMultipleFiles.TabIndex = 9;
             this.checkBoxMultipleFiles.Text = "Bei Start von Programm/Batch: Mehrere Dateien übergeben";
             this.checkBoxMultipleFiles.UseVisualStyleBackColor = true;
@@ -246,7 +246,7 @@ namespace QuickImageComment
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxProgramPath.Location = new System.Drawing.Point(457, 77);
             this.textBoxProgramPath.Name = "textBoxProgramPath";
-            this.textBoxProgramPath.Size = new System.Drawing.Size(330, 20);
+            this.textBoxProgramPath.Size = new System.Drawing.Size(330, 21);
             this.textBoxProgramPath.TabIndex = 11;
             this.textBoxProgramPath.TextChanged += new System.EventHandler(this.editExternalDefinitionChanged);
             // 
@@ -265,7 +265,7 @@ namespace QuickImageComment
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxProgramOptions.Location = new System.Drawing.Point(457, 101);
             this.textBoxProgramOptions.Name = "textBoxProgramOptions";
-            this.textBoxProgramOptions.Size = new System.Drawing.Size(361, 20);
+            this.textBoxProgramOptions.Size = new System.Drawing.Size(361, 21);
             this.textBoxProgramOptions.TabIndex = 14;
             this.textBoxProgramOptions.TextChanged += new System.EventHandler(this.editExternalDefinitionChanged);
             // 
@@ -274,7 +274,7 @@ namespace QuickImageComment
             this.checkBoxOptionsFirst.AutoSize = true;
             this.checkBoxOptionsFirst.Location = new System.Drawing.Point(457, 123);
             this.checkBoxOptionsFirst.Name = "checkBoxOptionsFirst";
-            this.checkBoxOptionsFirst.Size = new System.Drawing.Size(170, 17);
+            this.checkBoxOptionsFirst.Size = new System.Drawing.Size(172, 17);
             this.checkBoxOptionsFirst.TabIndex = 15;
             this.checkBoxOptionsFirst.Text = "Optionen vor dem Dateinamen";
             this.checkBoxOptionsFirst.UseVisualStyleBackColor = true;
@@ -317,7 +317,7 @@ namespace QuickImageComment
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxName.Location = new System.Drawing.Point(457, 9);
             this.textBoxName.Name = "textBoxName";
-            this.textBoxName.Size = new System.Drawing.Size(297, 20);
+            this.textBoxName.Size = new System.Drawing.Size(297, 21);
             this.textBoxName.TabIndex = 7;
             this.textBoxName.TextChanged += new System.EventHandler(this.textBoxName_TextChanged);
             // 
@@ -327,7 +327,7 @@ namespace QuickImageComment
             this.checkBoxWindowPauseAfterExecution.AutoSize = true;
             this.checkBoxWindowPauseAfterExecution.Location = new System.Drawing.Point(457, 352);
             this.checkBoxWindowPauseAfterExecution.Name = "checkBoxWindowPauseAfterExecution";
-            this.checkBoxWindowPauseAfterExecution.Size = new System.Drawing.Size(245, 17);
+            this.checkBoxWindowPauseAfterExecution.Size = new System.Drawing.Size(247, 17);
             this.checkBoxWindowPauseAfterExecution.TabIndex = 23;
             this.checkBoxWindowPauseAfterExecution.Text = "Fenster anzeigen und Pause nach Ausführung";
             this.checkBoxWindowPauseAfterExecution.UseVisualStyleBackColor = true;
@@ -368,7 +368,7 @@ namespace QuickImageComment
             this.checkBoxDropOnWindow.AutoSize = true;
             this.checkBoxDropOnWindow.Location = new System.Drawing.Point(457, 142);
             this.checkBoxDropOnWindow.Name = "checkBoxDropOnWindow";
-            this.checkBoxDropOnWindow.Size = new System.Drawing.Size(169, 17);
+            this.checkBoxDropOnWindow.Size = new System.Drawing.Size(176, 17);
             this.checkBoxDropOnWindow.TabIndex = 16;
             this.checkBoxDropOnWindow.Text = "Falls gestartet: Drop in Fenster";
             this.checkBoxDropOnWindow.UseVisualStyleBackColor = true;
@@ -389,7 +389,7 @@ namespace QuickImageComment
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxWindowsTitle.Location = new System.Drawing.Point(457, 160);
             this.textBoxWindowsTitle.Name = "textBoxWindowsTitle";
-            this.textBoxWindowsTitle.Size = new System.Drawing.Size(361, 20);
+            this.textBoxWindowsTitle.Size = new System.Drawing.Size(361, 21);
             this.textBoxWindowsTitle.TabIndex = 18;
             this.textBoxWindowsTitle.TextChanged += new System.EventHandler(this.editExternalDefinitionChanged);
             // 
@@ -426,6 +426,7 @@ namespace QuickImageComment
             this.Controls.Add(this.buttonUp);
             this.Controls.Add(this.listBoxExternalCommands);
             this.Controls.Add(this.buttonAbort);
+            this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.SystemColors.ControlText;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;

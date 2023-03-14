@@ -39,6 +39,7 @@ namespace QuickImageComment
         public FormExportAllMetaData(ListView.SelectedIndexCollection SelectedIndices, string FolderName)
         {
             InitializeComponent();
+            MainMaskInterface.getCustomizationInterface().setFormToCustomizedValues(this);
 #if APPCENTER
             if (Program.AppCenterUsable) Microsoft.AppCenter.Analytics.Analytics.TrackEvent(this.Name);
 #endif

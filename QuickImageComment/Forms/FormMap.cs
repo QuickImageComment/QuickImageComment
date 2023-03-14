@@ -31,6 +31,12 @@ namespace QuickImageComment
             if (Program.AppCenterUsable) Microsoft.AppCenter.Analytics.Analytics.TrackEvent(this.Name);
 #endif
             CustomizationInterface = MainMaskInterface.getCustomizationInterface();
+            bool changeLocationAllowed = MainMaskInterface.getTheExtendedImage() != null && MainMaskInterface.getTheExtendedImage().changePossible();
+            theUserControlMap = new UserControlMap(false, MainMaskInterface.commonRecordingLocation(), changeLocationAllowed, 0);
+            MainMaskInterface.setUserControlMap(theUserControlMap);
+            theUserControlMap.isInOwnWindow = true;
+            panel1.Controls.Add(theUserControlMap.panel1);
+            CustomizationInterface.setFormToCustomizedValues(this);
 
             this.MinimumSize = this.Size;
             int newHeight = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.FormMapHeight);
@@ -43,14 +49,8 @@ namespace QuickImageComment
             {
                 this.Width = newWidth;
             }
-            bool changeLocationAllowed = MainMaskInterface.getTheExtendedImage() != null && MainMaskInterface.getTheExtendedImage().changePossible();
-            theUserControlMap = new UserControlMap(false, MainMaskInterface.commonRecordingLocation(), changeLocationAllowed, 0);
-            MainMaskInterface.setUserControlMap(theUserControlMap);
-            theUserControlMap.isInOwnWindow = true;
-            panel1.Controls.Add(theUserControlMap.panel1);
             theUserControlMap.adjustSize(panel1.Size);
             buttonClose.Select();
-            CustomizationInterface.setFormToCustomizedValues(this);
             LangCfg.translateControlTexts(this);
 
             // if flag set, create screenshot and return

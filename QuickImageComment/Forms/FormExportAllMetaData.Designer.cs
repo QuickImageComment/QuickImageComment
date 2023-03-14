@@ -46,29 +46,26 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(1, 8);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(1, 7);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(67, 15);
+            this.label1.Size = new System.Drawing.Size(64, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Export von:";
             // 
             // labelSourceFolder
             // 
             this.labelSourceFolder.AutoSize = true;
-            this.labelSourceFolder.Location = new System.Drawing.Point(80, 8);
-            this.labelSourceFolder.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelSourceFolder.Location = new System.Drawing.Point(69, 7);
             this.labelSourceFolder.Name = "labelSourceFolder";
-            this.labelSourceFolder.Size = new System.Drawing.Size(41, 15);
+            this.labelSourceFolder.Size = new System.Drawing.Size(37, 13);
             this.labelSourceFolder.TabIndex = 1;
             this.labelSourceFolder.Text = "Quelle";
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(112, 136);
-            this.buttonCancel.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonCancel.Location = new System.Drawing.Point(96, 118);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(102, 29);
+            this.buttonCancel.Size = new System.Drawing.Size(87, 25);
             this.buttonCancel.TabIndex = 15;
             this.buttonCancel.Text = "Abbrechen";
             this.buttonCancel.UseVisualStyleBackColor = true;
@@ -77,69 +74,62 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(1, 34);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Location = new System.Drawing.Point(1, 29);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(114, 15);
+            this.label3.Size = new System.Drawing.Size(105, 13);
             this.label3.TabIndex = 4;
             this.label3.Text = "Ausgewählte Bilder: ";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(1, 112);
-            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label5.Location = new System.Drawing.Point(1, 97);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(100, 15);
+            this.label5.Size = new System.Drawing.Size(93, 13);
             this.label5.TabIndex = 13;
             this.label5.Text = "Abgelaufene Zeit:";
             // 
             // dynamicLabelChosenFolderCount
             // 
             this.dynamicLabelChosenFolderCount.AutoSize = true;
-            this.dynamicLabelChosenFolderCount.Location = new System.Drawing.Point(141, 34);
-            this.dynamicLabelChosenFolderCount.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.dynamicLabelChosenFolderCount.Location = new System.Drawing.Point(121, 29);
             this.dynamicLabelChosenFolderCount.Name = "dynamicLabelChosenFolderCount";
-            this.dynamicLabelChosenFolderCount.Size = new System.Drawing.Size(138, 15);
+            this.dynamicLabelChosenFolderCount.Size = new System.Drawing.Size(124, 13);
             this.dynamicLabelChosenFolderCount.TabIndex = 5;
             this.dynamicLabelChosenFolderCount.Text = "labelChosenFolderCount";
             // 
             // dynamicLabelPassedTime
             // 
             this.dynamicLabelPassedTime.AutoSize = true;
-            this.dynamicLabelPassedTime.Location = new System.Drawing.Point(115, 112);
-            this.dynamicLabelPassedTime.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.dynamicLabelPassedTime.Location = new System.Drawing.Point(99, 97);
             this.dynamicLabelPassedTime.Name = "dynamicLabelPassedTime";
-            this.dynamicLabelPassedTime.Size = new System.Drawing.Size(94, 15);
+            this.dynamicLabelPassedTime.Size = new System.Drawing.Size(85, 13);
             this.dynamicLabelPassedTime.TabIndex = 14;
             this.dynamicLabelPassedTime.Text = "labelPassedTime";
             // 
             // labelChosenFolderRemaining
             // 
             this.labelChosenFolderRemaining.AutoSize = true;
-            this.labelChosenFolderRemaining.Location = new System.Drawing.Point(302, 34);
-            this.labelChosenFolderRemaining.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelChosenFolderRemaining.Location = new System.Drawing.Point(259, 29);
             this.labelChosenFolderRemaining.Name = "labelChosenFolderRemaining";
-            this.labelChosenFolderRemaining.Size = new System.Drawing.Size(101, 15);
+            this.labelChosenFolderRemaining.Size = new System.Drawing.Size(94, 13);
             this.labelChosenFolderRemaining.TabIndex = 6;
             this.labelChosenFolderRemaining.Text = "Verbleibende Zeit:";
             // 
             // fixedLabelChosenFolderRemainingTime
             // 
             this.fixedLabelChosenFolderRemainingTime.AutoSize = true;
-            this.fixedLabelChosenFolderRemainingTime.Location = new System.Drawing.Point(416, 34);
-            this.fixedLabelChosenFolderRemainingTime.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.fixedLabelChosenFolderRemainingTime.Location = new System.Drawing.Point(357, 29);
             this.fixedLabelChosenFolderRemainingTime.Name = "fixedLabelChosenFolderRemainingTime";
-            this.fixedLabelChosenFolderRemainingTime.Size = new System.Drawing.Size(12, 15);
+            this.fixedLabelChosenFolderRemainingTime.Size = new System.Drawing.Size(12, 13);
             this.fixedLabelChosenFolderRemainingTime.TabIndex = 7;
             this.fixedLabelChosenFolderRemainingTime.Text = "?";
             // 
             // buttonClose
             // 
-            this.buttonClose.Location = new System.Drawing.Point(261, 136);
-            this.buttonClose.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonClose.Location = new System.Drawing.Point(224, 118);
             this.buttonClose.Name = "buttonClose";
-            this.buttonClose.Size = new System.Drawing.Size(102, 29);
+            this.buttonClose.Size = new System.Drawing.Size(87, 25);
             this.buttonClose.TabIndex = 16;
             this.buttonClose.Text = "Schließen";
             this.buttonClose.UseVisualStyleBackColor = true;
@@ -150,10 +140,9 @@
             this.progressPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.progressPanel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.progressPanel1.Location = new System.Drawing.Point(4, 65);
-            this.progressPanel1.Margin = new System.Windows.Forms.Padding(4);
+            this.progressPanel1.Location = new System.Drawing.Point(3, 56);
             this.progressPanel1.Name = "progressPanel1";
-            this.progressPanel1.Size = new System.Drawing.Size(466, 26);
+            this.progressPanel1.Size = new System.Drawing.Size(400, 23);
             this.progressPanel1.TabIndex = 17;
             // 
             // backgroundWorker1
@@ -166,9 +155,9 @@
             // 
             // FormExportAllMetaData
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(475, 172);
+            this.ClientSize = new System.Drawing.Size(407, 149);
             this.Controls.Add(this.progressPanel1);
             this.Controls.Add(this.buttonClose);
             this.Controls.Add(this.fixedLabelChosenFolderRemainingTime);
@@ -180,8 +169,8 @@
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.labelSourceFolder);
             this.Controls.Add(this.label1);
+            this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormExportAllMetaData";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;

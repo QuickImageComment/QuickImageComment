@@ -10,6 +10,12 @@ namespace QuickImageComment
         protected string displayedFileName;
         private static SortedList<string, FormPrevNext> lastWindows = new SortedList<string, FormPrevNext>();
 
+        // constructor just for Visual Studio Designer, who can not handle a base constructor with argument
+        public FormPrevNext()
+        {
+            InitializeComponent();
+        }
+
         public FormPrevNext(ExtendedImage extendedImage)
         {
             InitializeComponent();

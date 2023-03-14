@@ -305,6 +305,7 @@ namespace FormCustomization
             // 
             // menuStrip1
             // 
+            this.menuStrip1.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItemFile,
             this.toolStripMenuItemSelection,
@@ -312,7 +313,7 @@ namespace FormCustomization
             this.toolStripMenuItemHelp});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(793, 26);
+            this.menuStrip1.Size = new System.Drawing.Size(793, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -325,42 +326,42 @@ namespace FormCustomization
             this.toolStripMenuItemSaveSettingsAs,
             this.toolStripMenuItemClose});
             this.toolStripMenuItemFile.Name = "toolStripMenuItemFile";
-            this.toolStripMenuItemFile.Size = new System.Drawing.Size(47, 19);
+            this.toolStripMenuItemFile.Size = new System.Drawing.Size(45, 17);
             this.toolStripMenuItemFile.Text = "Datei";
             this.toolStripMenuItemFile.Click += new System.EventHandler(this.toolStripMenuItemFile_Click);
             // 
             // toolStripMenuItemLoadSettingsOverwrite
             // 
             this.toolStripMenuItemLoadSettingsOverwrite.Name = "toolStripMenuItemLoadSettingsOverwrite";
-            this.toolStripMenuItemLoadSettingsOverwrite.Size = new System.Drawing.Size(275, 22);
+            this.toolStripMenuItemLoadSettingsOverwrite.Size = new System.Drawing.Size(259, 22);
             this.toolStripMenuItemLoadSettingsOverwrite.Text = "Einstellungen laden - überschreiben ...";
             this.toolStripMenuItemLoadSettingsOverwrite.Click += new System.EventHandler(this.toolStripMenuItemLoadSettingsOverwrite_Click);
             // 
             // toolStripMenuItemLoadSettingAdd
             // 
             this.toolStripMenuItemLoadSettingAdd.Name = "toolStripMenuItemLoadSettingAdd";
-            this.toolStripMenuItemLoadSettingAdd.Size = new System.Drawing.Size(275, 22);
+            this.toolStripMenuItemLoadSettingAdd.Size = new System.Drawing.Size(259, 22);
             this.toolStripMenuItemLoadSettingAdd.Text = "Einstellungen laden - ergänzen ...";
             this.toolStripMenuItemLoadSettingAdd.Click += new System.EventHandler(this.toolStripMenuItemLoadSettingAdd_Click);
             // 
             // toolStripMenuItemSaveSettings
             // 
             this.toolStripMenuItemSaveSettings.Name = "toolStripMenuItemSaveSettings";
-            this.toolStripMenuItemSaveSettings.Size = new System.Drawing.Size(275, 22);
+            this.toolStripMenuItemSaveSettings.Size = new System.Drawing.Size(259, 22);
             this.toolStripMenuItemSaveSettings.Text = "Einstellungen speichern";
             this.toolStripMenuItemSaveSettings.Click += new System.EventHandler(this.toolStripMenuItemSaveSettings_Click);
             // 
             // toolStripMenuItemSaveSettingsAs
             // 
             this.toolStripMenuItemSaveSettingsAs.Name = "toolStripMenuItemSaveSettingsAs";
-            this.toolStripMenuItemSaveSettingsAs.Size = new System.Drawing.Size(275, 22);
+            this.toolStripMenuItemSaveSettingsAs.Size = new System.Drawing.Size(259, 22);
             this.toolStripMenuItemSaveSettingsAs.Text = "Einstellungen speichern unter ...";
             this.toolStripMenuItemSaveSettingsAs.Click += new System.EventHandler(this.toolStripMenuItemSaveSettingsAs_Click);
             // 
             // toolStripMenuItemClose
             // 
             this.toolStripMenuItemClose.Name = "toolStripMenuItemClose";
-            this.toolStripMenuItemClose.Size = new System.Drawing.Size(275, 22);
+            this.toolStripMenuItemClose.Size = new System.Drawing.Size(259, 22);
             this.toolStripMenuItemClose.Text = "Schließen";
             this.toolStripMenuItemClose.Click += new System.EventHandler(this.toolStripMenuItemClose_Click);
             // 
@@ -371,27 +372,27 @@ namespace FormCustomization
             this.toolStripMenuItemClearSelection,
             this.toolStripSeparator1});
             this.toolStripMenuItemSelection.Name = "toolStripMenuItemSelection";
-            this.toolStripMenuItemSelection.Size = new System.Drawing.Size(65, 19);
+            this.toolStripMenuItemSelection.Size = new System.Drawing.Size(60, 17);
             this.toolStripMenuItemSelection.Text = "Auswahl";
             // 
             // toolStripMenuItemAllControls
             // 
             this.toolStripMenuItemAllControls.Name = "toolStripMenuItemAllControls";
-            this.toolStripMenuItemAllControls.Size = new System.Drawing.Size(163, 22);
+            this.toolStripMenuItemAllControls.Size = new System.Drawing.Size(153, 22);
             this.toolStripMenuItemAllControls.Text = "Alle auswählen";
             this.toolStripMenuItemAllControls.Click += new System.EventHandler(this.toolStripMenuItemAllControls_Click);
             // 
             // toolStripMenuItemClearSelection
             // 
             this.toolStripMenuItemClearSelection.Name = "toolStripMenuItemClearSelection";
-            this.toolStripMenuItemClearSelection.Size = new System.Drawing.Size(163, 22);
+            this.toolStripMenuItemClearSelection.Size = new System.Drawing.Size(153, 22);
             this.toolStripMenuItemClearSelection.Text = "Auswahl löschen";
             this.toolStripMenuItemClearSelection.Click += new System.EventHandler(this.toolStripMenuItemClearSelection_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(160, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(150, 6);
             // 
             // toolStripMenuItemExtras
             // 
@@ -402,7 +403,7 @@ namespace FormCustomization
             this.toolStripMenuItemResetAll,
             this.toolStripMenuItemListOfKeys});
             this.toolStripMenuItemExtras.Name = "toolStripMenuItemExtras";
-            this.toolStripMenuItemExtras.Size = new System.Drawing.Size(51, 19);
+            this.toolStripMenuItemExtras.Size = new System.Drawing.Size(51, 17);
             this.toolStripMenuItemExtras.Text = "Extras";
             // 
             // toolStripMenuItemExtendedSettings
@@ -410,42 +411,42 @@ namespace FormCustomization
             this.toolStripMenuItemExtendedSettings.Checked = true;
             this.toolStripMenuItemExtendedSettings.CheckState = System.Windows.Forms.CheckState.Checked;
             this.toolStripMenuItemExtendedSettings.Name = "toolStripMenuItemExtendedSettings";
-            this.toolStripMenuItemExtendedSettings.Size = new System.Drawing.Size(239, 22);
+            this.toolStripMenuItemExtendedSettings.Size = new System.Drawing.Size(223, 22);
             this.toolStripMenuItemExtendedSettings.Text = "Erweiterte Einstellungen";
             this.toolStripMenuItemExtendedSettings.Click += new System.EventHandler(this.toolStripMenuItemExtendedSettings_Click);
             // 
             // toolStripMenuItemMarkupColor
             // 
             this.toolStripMenuItemMarkupColor.Name = "toolStripMenuItemMarkupColor";
-            this.toolStripMenuItemMarkupColor.Size = new System.Drawing.Size(239, 22);
+            this.toolStripMenuItemMarkupColor.Size = new System.Drawing.Size(223, 22);
             this.toolStripMenuItemMarkupColor.Text = "Rahmenfarbe für Markierung";
             this.toolStripMenuItemMarkupColor.Click += new System.EventHandler(this.toolStripMenuItemMarkupColor_Click);
             // 
             // ToolStripMenuItemCustomizationSettings
             // 
             this.ToolStripMenuItemCustomizationSettings.Name = "ToolStripMenuItemCustomizationSettings";
-            this.ToolStripMenuItemCustomizationSettings.Size = new System.Drawing.Size(239, 22);
+            this.ToolStripMenuItemCustomizationSettings.Size = new System.Drawing.Size(223, 22);
             this.ToolStripMenuItemCustomizationSettings.Text = "Maske anpassen";
             this.ToolStripMenuItemCustomizationSettings.Click += new System.EventHandler(this.toolStripMenuItemCustomizationSettings_Click);
             // 
             // toolStripMenuItemResetAll
             // 
             this.toolStripMenuItemResetAll.Name = "toolStripMenuItemResetAll";
-            this.toolStripMenuItemResetAll.Size = new System.Drawing.Size(239, 22);
+            this.toolStripMenuItemResetAll.Size = new System.Drawing.Size(223, 22);
             this.toolStripMenuItemResetAll.Text = "Alle Einstellungen zurücksetzen";
             this.toolStripMenuItemResetAll.Click += new System.EventHandler(this.toolStripMenuItemResetAll_Click);
             // 
             // toolStripMenuItemListOfKeys
             // 
             this.toolStripMenuItemListOfKeys.Name = "toolStripMenuItemListOfKeys";
-            this.toolStripMenuItemListOfKeys.Size = new System.Drawing.Size(239, 22);
+            this.toolStripMenuItemListOfKeys.Size = new System.Drawing.Size(223, 22);
             this.toolStripMenuItemListOfKeys.Text = "Tastaturkürzel auflisten";
             this.toolStripMenuItemListOfKeys.Click += new System.EventHandler(this.toolStripMenuItemListOfKeys_Click);
             // 
             // toolStripMenuItemHelp
             // 
             this.toolStripMenuItemHelp.Name = "toolStripMenuItemHelp";
-            this.toolStripMenuItemHelp.Size = new System.Drawing.Size(44, 22);
+            this.toolStripMenuItemHelp.Size = new System.Drawing.Size(40, 20);
             this.toolStripMenuItemHelp.Text = "Hilfe";
             this.toolStripMenuItemHelp.Click += new System.EventHandler(this.toolStripMenuItemHelp_Click);
             // 
@@ -468,7 +469,7 @@ namespace FormCustomization
             this.checkBoxMultiSelect.AutoSize = true;
             this.checkBoxMultiSelect.Location = new System.Drawing.Point(5, 29);
             this.checkBoxMultiSelect.Name = "checkBoxMultiSelect";
-            this.checkBoxMultiSelect.Size = new System.Drawing.Size(114, 17);
+            this.checkBoxMultiSelect.Size = new System.Drawing.Size(115, 17);
             this.checkBoxMultiSelect.TabIndex = 1;
             this.checkBoxMultiSelect.Text = "Mehrfach-Auswahl";
             this.checkBoxMultiSelect.UseVisualStyleBackColor = true;
@@ -521,7 +522,7 @@ namespace FormCustomization
             this.checkBoxAutoSize.AutoSize = true;
             this.checkBoxAutoSize.Location = new System.Drawing.Point(9, 23);
             this.checkBoxAutoSize.Name = "checkBoxAutoSize";
-            this.checkBoxAutoSize.Size = new System.Drawing.Size(180, 17);
+            this.checkBoxAutoSize.Size = new System.Drawing.Size(181, 17);
             this.checkBoxAutoSize.TabIndex = 21;
             this.checkBoxAutoSize.Text = "Automatische Größenanpassung";
             this.checkBoxAutoSize.UseVisualStyleBackColor = true;
@@ -556,7 +557,7 @@ namespace FormCustomization
             0,
             0});
             this.numericUpDownZoom.Name = "numericUpDownZoom";
-            this.numericUpDownZoom.Size = new System.Drawing.Size(51, 20);
+            this.numericUpDownZoom.Size = new System.Drawing.Size(51, 21);
             this.numericUpDownZoom.TabIndex = 19;
             this.numericUpDownZoom.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.numericUpDownZoom.Value = new decimal(new int[] {
@@ -570,7 +571,7 @@ namespace FormCustomization
             this.fixedLabelZoomUnit.AutoSize = true;
             this.fixedLabelZoomUnit.Location = new System.Drawing.Point(194, 308);
             this.fixedLabelZoomUnit.Name = "fixedLabelZoomUnit";
-            this.fixedLabelZoomUnit.Size = new System.Drawing.Size(15, 13);
+            this.fixedLabelZoomUnit.Size = new System.Drawing.Size(18, 13);
             this.fixedLabelZoomUnit.TabIndex = 20;
             this.fixedLabelZoomUnit.Text = "%";
             // 
@@ -579,7 +580,7 @@ namespace FormCustomization
             this.labelText.AutoSize = true;
             this.labelText.Location = new System.Drawing.Point(9, 235);
             this.labelText.Name = "labelText";
-            this.labelText.Size = new System.Drawing.Size(66, 13);
+            this.labelText.Size = new System.Drawing.Size(67, 13);
             this.labelText.TabIndex = 15;
             this.labelText.Text = "Beschriftung";
             // 
@@ -587,7 +588,7 @@ namespace FormCustomization
             // 
             this.textBoxText.Location = new System.Drawing.Point(9, 256);
             this.textBoxText.Name = "textBoxText";
-            this.textBoxText.Size = new System.Drawing.Size(200, 20);
+            this.textBoxText.Size = new System.Drawing.Size(200, 21);
             this.textBoxText.TabIndex = 17;
             this.textBoxText.TextChanged += new System.EventHandler(this.textBoxText_TextChanged);
             // 
@@ -628,7 +629,7 @@ namespace FormCustomization
             0,
             0});
             this.numericUpDownTabIndex.Name = "numericUpDownTabIndex";
-            this.numericUpDownTabIndex.Size = new System.Drawing.Size(51, 20);
+            this.numericUpDownTabIndex.Size = new System.Drawing.Size(51, 21);
             this.numericUpDownTabIndex.TabIndex = 13;
             this.numericUpDownTabIndex.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.numericUpDownTabIndex.ValueChanged += new System.EventHandler(this.numericUpDownTabIndex_ValueChanged);
@@ -648,7 +649,7 @@ namespace FormCustomization
             this.labelHeight.AutoSize = true;
             this.labelHeight.Location = new System.Drawing.Point(6, 143);
             this.labelHeight.Name = "labelHeight";
-            this.labelHeight.Size = new System.Drawing.Size(33, 13);
+            this.labelHeight.Size = new System.Drawing.Size(32, 13);
             this.labelHeight.TabIndex = 9;
             this.labelHeight.Text = "Höhe";
             // 
@@ -661,7 +662,7 @@ namespace FormCustomization
             0,
             0});
             this.numericUpDownHeight.Name = "numericUpDownHeight";
-            this.numericUpDownHeight.Size = new System.Drawing.Size(51, 20);
+            this.numericUpDownHeight.Size = new System.Drawing.Size(51, 21);
             this.numericUpDownHeight.TabIndex = 10;
             this.numericUpDownHeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.numericUpDownHeight.ValueChanged += new System.EventHandler(this.numericUpDownHeight_ValueChanged);
@@ -681,7 +682,7 @@ namespace FormCustomization
             this.labelPosY.AutoSize = true;
             this.labelPosY.Location = new System.Drawing.Point(6, 82);
             this.labelPosY.Name = "labelPosY";
-            this.labelPosY.Size = new System.Drawing.Size(54, 13);
+            this.labelPosY.Size = new System.Drawing.Size(53, 13);
             this.labelPosY.TabIndex = 3;
             this.labelPosY.Text = "Position Y";
             // 
@@ -699,7 +700,7 @@ namespace FormCustomization
             0,
             -2147483648});
             this.numericUpDownTop.Name = "numericUpDownTop";
-            this.numericUpDownTop.Size = new System.Drawing.Size(51, 20);
+            this.numericUpDownTop.Size = new System.Drawing.Size(51, 21);
             this.numericUpDownTop.TabIndex = 4;
             this.numericUpDownTop.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.numericUpDownTop.ValueChanged += new System.EventHandler(this.numericUpDownTop_ValueChanged);
@@ -719,7 +720,7 @@ namespace FormCustomization
             this.labelWidth.AutoSize = true;
             this.labelWidth.Location = new System.Drawing.Point(6, 113);
             this.labelWidth.Name = "labelWidth";
-            this.labelWidth.Size = new System.Drawing.Size(34, 13);
+            this.labelWidth.Size = new System.Drawing.Size(35, 13);
             this.labelWidth.TabIndex = 6;
             this.labelWidth.Text = "Breite";
             // 
@@ -732,7 +733,7 @@ namespace FormCustomization
             0,
             0});
             this.numericUpDownWidth.Name = "numericUpDownWidth";
-            this.numericUpDownWidth.Size = new System.Drawing.Size(51, 20);
+            this.numericUpDownWidth.Size = new System.Drawing.Size(51, 21);
             this.numericUpDownWidth.TabIndex = 7;
             this.numericUpDownWidth.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.numericUpDownWidth.ValueChanged += new System.EventHandler(this.numericUpDownWidth_ValueChanged);
@@ -752,7 +753,7 @@ namespace FormCustomization
             this.labelPosX.AutoSize = true;
             this.labelPosX.Location = new System.Drawing.Point(6, 53);
             this.labelPosX.Name = "labelPosX";
-            this.labelPosX.Size = new System.Drawing.Size(54, 13);
+            this.labelPosX.Size = new System.Drawing.Size(53, 13);
             this.labelPosX.TabIndex = 0;
             this.labelPosX.Text = "Position X";
             // 
@@ -770,7 +771,7 @@ namespace FormCustomization
             0,
             -2147483648});
             this.numericUpDownLeft.Name = "numericUpDownLeft";
-            this.numericUpDownLeft.Size = new System.Drawing.Size(51, 20);
+            this.numericUpDownLeft.Size = new System.Drawing.Size(51, 21);
             this.numericUpDownLeft.TabIndex = 1;
             this.numericUpDownLeft.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.numericUpDownLeft.ValueChanged += new System.EventHandler(this.numericUpDownLeft_ValueChanged);
@@ -855,7 +856,7 @@ namespace FormCustomization
             // 
             this.textBoxShortcut.Location = new System.Drawing.Point(6, 13);
             this.textBoxShortcut.Name = "textBoxShortcut";
-            this.textBoxShortcut.Size = new System.Drawing.Size(100, 20);
+            this.textBoxShortcut.Size = new System.Drawing.Size(100, 21);
             this.textBoxShortcut.TabIndex = 0;
             this.textBoxShortcut.TextChanged += new System.EventHandler(this.textBoxShortcut_TextChanged);
             this.textBoxShortcut.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxShortcut_KeyDown);
@@ -874,6 +875,7 @@ namespace FormCustomization
             this.Controls.Add(this.groupBoxBackgroundColor);
             this.Controls.Add(this.treeViewComponents);
             this.Controls.Add(this.menuStrip1);
+            this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FormCustomization";
             this.Text = "Aussehen anpassen";

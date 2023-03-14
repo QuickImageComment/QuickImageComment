@@ -160,7 +160,7 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(7, 74);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(62, 13);
+            this.label3.Size = new System.Drawing.Size(63, 13);
             this.label3.TabIndex = 5;
             this.label3.Text = "Rasterhöhe";
             // 
@@ -169,7 +169,7 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(7, 51);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(64, 13);
+            this.label4.Size = new System.Drawing.Size(67, 13);
             this.label4.TabIndex = 4;
             this.label4.Text = "Rasterbreite";
             // 
@@ -187,7 +187,7 @@
             0,
             0});
             this.numericUpDownWidth_0.Name = "numericUpDownWidth_0";
-            this.numericUpDownWidth_0.Size = new System.Drawing.Size(90, 20);
+            this.numericUpDownWidth_0.Size = new System.Drawing.Size(90, 21);
             this.numericUpDownWidth_0.TabIndex = 13;
             this.numericUpDownWidth_0.Value = new decimal(new int[] {
             3,
@@ -210,7 +210,7 @@
             0,
             0});
             this.numericUpDownHeight_0.Name = "numericUpDownHeight_0";
-            this.numericUpDownHeight_0.Size = new System.Drawing.Size(90, 20);
+            this.numericUpDownHeight_0.Size = new System.Drawing.Size(90, 21);
             this.numericUpDownHeight_0.TabIndex = 14;
             this.numericUpDownHeight_0.Value = new decimal(new int[] {
             3,
@@ -228,7 +228,7 @@
             0,
             0});
             this.numericUpDownSize_0.Name = "numericUpDownSize_0";
-            this.numericUpDownSize_0.Size = new System.Drawing.Size(90, 20);
+            this.numericUpDownSize_0.Size = new System.Drawing.Size(90, 21);
             this.numericUpDownSize_0.TabIndex = 15;
             this.numericUpDownSize_0.Value = new decimal(new int[] {
             3,
@@ -261,7 +261,7 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(7, 27);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(49, 13);
+            this.label6.Size = new System.Drawing.Size(50, 13);
             this.label6.TabIndex = 1;
             this.label6.Text = "Linientyp";
             // 
@@ -274,7 +274,7 @@
             0,
             0});
             this.numericUpDownSize_1.Name = "numericUpDownSize_1";
-            this.numericUpDownSize_1.Size = new System.Drawing.Size(90, 20);
+            this.numericUpDownSize_1.Size = new System.Drawing.Size(90, 21);
             this.numericUpDownSize_1.TabIndex = 24;
             this.numericUpDownSize_1.Value = new decimal(new int[] {
             3,
@@ -297,7 +297,7 @@
             0,
             0});
             this.numericUpDownHeight_1.Name = "numericUpDownHeight_1";
-            this.numericUpDownHeight_1.Size = new System.Drawing.Size(90, 20);
+            this.numericUpDownHeight_1.Size = new System.Drawing.Size(90, 21);
             this.numericUpDownHeight_1.TabIndex = 23;
             this.numericUpDownHeight_1.Value = new decimal(new int[] {
             3,
@@ -320,7 +320,7 @@
             0,
             0});
             this.numericUpDownWidth_1.Name = "numericUpDownWidth_1";
-            this.numericUpDownWidth_1.Size = new System.Drawing.Size(90, 20);
+            this.numericUpDownWidth_1.Size = new System.Drawing.Size(90, 21);
             this.numericUpDownWidth_1.TabIndex = 22;
             this.numericUpDownWidth_1.Value = new decimal(new int[] {
             3,
@@ -367,7 +367,7 @@
             0,
             0});
             this.numericUpDownSize_2.Name = "numericUpDownSize_2";
-            this.numericUpDownSize_2.Size = new System.Drawing.Size(90, 20);
+            this.numericUpDownSize_2.Size = new System.Drawing.Size(90, 21);
             this.numericUpDownSize_2.TabIndex = 33;
             this.numericUpDownSize_2.Value = new decimal(new int[] {
             3,
@@ -390,7 +390,7 @@
             0,
             0});
             this.numericUpDownHeight_2.Name = "numericUpDownHeight_2";
-            this.numericUpDownHeight_2.Size = new System.Drawing.Size(90, 20);
+            this.numericUpDownHeight_2.Size = new System.Drawing.Size(90, 21);
             this.numericUpDownHeight_2.TabIndex = 32;
             this.numericUpDownHeight_2.Value = new decimal(new int[] {
             3,
@@ -413,7 +413,7 @@
             0,
             0});
             this.numericUpDownWidth_2.Name = "numericUpDownWidth_2";
-            this.numericUpDownWidth_2.Size = new System.Drawing.Size(90, 20);
+            this.numericUpDownWidth_2.Size = new System.Drawing.Size(90, 21);
             this.numericUpDownWidth_2.TabIndex = 31;
             this.numericUpDownWidth_2.Value = new decimal(new int[] {
             3,
@@ -441,7 +441,7 @@
             0,
             0});
             this.numericUpDownSize_3.Name = "numericUpDownSize_3";
-            this.numericUpDownSize_3.Size = new System.Drawing.Size(90, 20);
+            this.numericUpDownSize_3.Size = new System.Drawing.Size(90, 21);
             this.numericUpDownSize_3.TabIndex = 42;
             this.numericUpDownSize_3.Value = new decimal(new int[] {
             3,
@@ -464,7 +464,7 @@
             0,
             0});
             this.numericUpDownHeight_3.Name = "numericUpDownHeight_3";
-            this.numericUpDownHeight_3.Size = new System.Drawing.Size(90, 20);
+            this.numericUpDownHeight_3.Size = new System.Drawing.Size(90, 21);
             this.numericUpDownHeight_3.TabIndex = 41;
             this.numericUpDownHeight_3.Value = new decimal(new int[] {
             3,
@@ -487,7 +487,7 @@
             0,
             0});
             this.numericUpDownWidth_3.Name = "numericUpDownWidth_3";
-            this.numericUpDownWidth_3.Size = new System.Drawing.Size(90, 20);
+            this.numericUpDownWidth_3.Size = new System.Drawing.Size(90, 21);
             this.numericUpDownWidth_3.TabIndex = 40;
             this.numericUpDownWidth_3.Value = new decimal(new int[] {
             3,
@@ -515,7 +515,7 @@
             0,
             0});
             this.numericUpDownSize_4.Name = "numericUpDownSize_4";
-            this.numericUpDownSize_4.Size = new System.Drawing.Size(90, 20);
+            this.numericUpDownSize_4.Size = new System.Drawing.Size(90, 21);
             this.numericUpDownSize_4.TabIndex = 51;
             this.numericUpDownSize_4.Value = new decimal(new int[] {
             3,
@@ -538,7 +538,7 @@
             0,
             0});
             this.numericUpDownHeight_4.Name = "numericUpDownHeight_4";
-            this.numericUpDownHeight_4.Size = new System.Drawing.Size(90, 20);
+            this.numericUpDownHeight_4.Size = new System.Drawing.Size(90, 21);
             this.numericUpDownHeight_4.TabIndex = 50;
             this.numericUpDownHeight_4.Value = new decimal(new int[] {
             3,
@@ -561,7 +561,7 @@
             0,
             0});
             this.numericUpDownWidth_4.Name = "numericUpDownWidth_4";
-            this.numericUpDownWidth_4.Size = new System.Drawing.Size(90, 20);
+            this.numericUpDownWidth_4.Size = new System.Drawing.Size(90, 21);
             this.numericUpDownWidth_4.TabIndex = 49;
             this.numericUpDownWidth_4.Value = new decimal(new int[] {
             3,
@@ -589,7 +589,7 @@
             0,
             0});
             this.numericUpDownSize_5.Name = "numericUpDownSize_5";
-            this.numericUpDownSize_5.Size = new System.Drawing.Size(90, 20);
+            this.numericUpDownSize_5.Size = new System.Drawing.Size(90, 21);
             this.numericUpDownSize_5.TabIndex = 60;
             this.numericUpDownSize_5.Value = new decimal(new int[] {
             3,
@@ -612,7 +612,7 @@
             0,
             0});
             this.numericUpDownHeight_5.Name = "numericUpDownHeight_5";
-            this.numericUpDownHeight_5.Size = new System.Drawing.Size(90, 20);
+            this.numericUpDownHeight_5.Size = new System.Drawing.Size(90, 21);
             this.numericUpDownHeight_5.TabIndex = 59;
             this.numericUpDownHeight_5.Value = new decimal(new int[] {
             3,
@@ -635,7 +635,7 @@
             0,
             0});
             this.numericUpDownWidth_5.Name = "numericUpDownWidth_5";
-            this.numericUpDownWidth_5.Size = new System.Drawing.Size(90, 20);
+            this.numericUpDownWidth_5.Size = new System.Drawing.Size(90, 21);
             this.numericUpDownWidth_5.TabIndex = 58;
             this.numericUpDownWidth_5.Value = new decimal(new int[] {
             3,
@@ -649,7 +649,7 @@
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(7, 145);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(34, 13);
+            this.label8.Size = new System.Drawing.Size(35, 13);
             this.label8.TabIndex = 8;
             this.label8.Text = "Farbe";
             // 
@@ -738,7 +738,7 @@
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(7, 120);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(46, 13);
+            this.label9.Size = new System.Drawing.Size(47, 13);
             this.label9.TabIndex = 7;
             this.label9.Text = "Abstand";
             // 
@@ -751,7 +751,7 @@
             0,
             0});
             this.numericUpDownDistance_0.Name = "numericUpDownDistance_0";
-            this.numericUpDownDistance_0.Size = new System.Drawing.Size(90, 20);
+            this.numericUpDownDistance_0.Size = new System.Drawing.Size(90, 21);
             this.numericUpDownDistance_0.TabIndex = 16;
             this.numericUpDownDistance_0.Value = new decimal(new int[] {
             3,
@@ -844,7 +844,7 @@
             0,
             0});
             this.numericUpDownDistance_1.Name = "numericUpDownDistance_1";
-            this.numericUpDownDistance_1.Size = new System.Drawing.Size(90, 20);
+            this.numericUpDownDistance_1.Size = new System.Drawing.Size(90, 21);
             this.numericUpDownDistance_1.TabIndex = 25;
             this.numericUpDownDistance_1.Value = new decimal(new int[] {
             3,
@@ -862,7 +862,7 @@
             0,
             0});
             this.numericUpDownDistance_2.Name = "numericUpDownDistance_2";
-            this.numericUpDownDistance_2.Size = new System.Drawing.Size(90, 20);
+            this.numericUpDownDistance_2.Size = new System.Drawing.Size(90, 21);
             this.numericUpDownDistance_2.TabIndex = 34;
             this.numericUpDownDistance_2.Value = new decimal(new int[] {
             3,
@@ -880,7 +880,7 @@
             0,
             0});
             this.numericUpDownDistance_3.Name = "numericUpDownDistance_3";
-            this.numericUpDownDistance_3.Size = new System.Drawing.Size(90, 20);
+            this.numericUpDownDistance_3.Size = new System.Drawing.Size(90, 21);
             this.numericUpDownDistance_3.TabIndex = 43;
             this.numericUpDownDistance_3.Value = new decimal(new int[] {
             3,
@@ -898,7 +898,7 @@
             0,
             0});
             this.numericUpDownDistance_4.Name = "numericUpDownDistance_4";
-            this.numericUpDownDistance_4.Size = new System.Drawing.Size(90, 20);
+            this.numericUpDownDistance_4.Size = new System.Drawing.Size(90, 21);
             this.numericUpDownDistance_4.TabIndex = 52;
             this.numericUpDownDistance_4.Value = new decimal(new int[] {
             3,
@@ -916,7 +916,7 @@
             0,
             0});
             this.numericUpDownDistance_5.Name = "numericUpDownDistance_5";
-            this.numericUpDownDistance_5.Size = new System.Drawing.Size(90, 20);
+            this.numericUpDownDistance_5.Size = new System.Drawing.Size(90, 21);
             this.numericUpDownDistance_5.TabIndex = 61;
             this.numericUpDownDistance_5.Value = new decimal(new int[] {
             3,
@@ -930,7 +930,7 @@
             this.checkBoxRefreshImmediately.AutoSize = true;
             this.checkBoxRefreshImmediately.Location = new System.Drawing.Point(10, 177);
             this.checkBoxRefreshImmediately.Name = "checkBoxRefreshImmediately";
-            this.checkBoxRefreshImmediately.Size = new System.Drawing.Size(465, 17);
+            this.checkBoxRefreshImmediately.Size = new System.Drawing.Size(477, 17);
             this.checkBoxRefreshImmediately.TabIndex = 68;
             this.checkBoxRefreshImmediately.Text = "Raster-Änderung direkt anwenden (Achtung: Ergibt Wartezeiten für Aktualisierung d" +
     "es Bildes)";
@@ -996,6 +996,7 @@
             this.Controls.Add(this.buttonCustomizeForm);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonOK);
+            this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;

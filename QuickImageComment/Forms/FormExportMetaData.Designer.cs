@@ -51,7 +51,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(1, 7);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(61, 13);
+            this.label1.Size = new System.Drawing.Size(64, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Export von:";
             // 
@@ -60,7 +60,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(1, 27);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(51, 13);
+            this.label2.Size = new System.Drawing.Size(54, 13);
             this.label2.TabIndex = 2;
             this.label2.Text = "Export in:";
             // 
@@ -78,7 +78,7 @@
             this.dynamicLabelExportFile.AutoSize = true;
             this.dynamicLabelExportFile.Location = new System.Drawing.Point(68, 27);
             this.dynamicLabelExportFile.Name = "dynamicLabelExportFile";
-            this.dynamicLabelExportFile.Size = new System.Drawing.Size(24, 13);
+            this.dynamicLabelExportFile.Size = new System.Drawing.Size(23, 13);
             this.dynamicLabelExportFile.TabIndex = 3;
             this.dynamicLabelExportFile.Text = "Ziel";
             // 
@@ -97,7 +97,7 @@
             this.labelImages.AutoSize = true;
             this.labelImages.Location = new System.Drawing.Point(1, 47);
             this.labelImages.Name = "labelImages";
-            this.labelImages.Size = new System.Drawing.Size(240, 13);
+            this.labelImages.Size = new System.Drawing.Size(241, 13);
             this.labelImages.TabIndex = 8;
             this.labelImages.Text = "Bilder im Verzeichnis und in Unterverzeichnissen: ";
             // 
@@ -106,7 +106,7 @@
             this.labelPassedTime.AutoSize = true;
             this.labelPassedTime.Location = new System.Drawing.Point(1, 143);
             this.labelPassedTime.Name = "labelPassedTime";
-            this.labelPassedTime.Size = new System.Drawing.Size(91, 13);
+            this.labelPassedTime.Size = new System.Drawing.Size(93, 13);
             this.labelPassedTime.TabIndex = 13;
             this.labelPassedTime.Text = "Abgelaufene Zeit:";
             // 
@@ -115,7 +115,7 @@
             this.labelRemaining.AutoSize = true;
             this.labelRemaining.Location = new System.Drawing.Point(1, 123);
             this.labelRemaining.Name = "labelRemaining";
-            this.labelRemaining.Size = new System.Drawing.Size(93, 13);
+            this.labelRemaining.Size = new System.Drawing.Size(94, 13);
             this.labelRemaining.TabIndex = 10;
             this.labelRemaining.Text = "Verbleibende Zeit:";
             // 
@@ -133,7 +133,7 @@
             this.dynamicLabelPassedTime.AutoSize = true;
             this.dynamicLabelPassedTime.Location = new System.Drawing.Point(100, 143);
             this.dynamicLabelPassedTime.Name = "dynamicLabelPassedTime";
-            this.dynamicLabelPassedTime.Size = new System.Drawing.Size(87, 13);
+            this.dynamicLabelPassedTime.Size = new System.Drawing.Size(85, 13);
             this.dynamicLabelPassedTime.TabIndex = 14;
             this.dynamicLabelPassedTime.Text = "labelPassedTime";
             // 
@@ -142,7 +142,7 @@
             this.dynamicLabelRemainingTime.AutoSize = true;
             this.dynamicLabelRemainingTime.Location = new System.Drawing.Point(100, 123);
             this.dynamicLabelRemainingTime.Name = "dynamicLabelRemainingTime";
-            this.dynamicLabelRemainingTime.Size = new System.Drawing.Size(102, 13);
+            this.dynamicLabelRemainingTime.Size = new System.Drawing.Size(100, 13);
             this.dynamicLabelRemainingTime.TabIndex = 11;
             this.dynamicLabelRemainingTime.Text = "labelRemainingTime";
             // 
@@ -171,7 +171,7 @@
             this.dynamicLabelScanInformation.AutoSize = true;
             this.dynamicLabelScanInformation.Location = new System.Drawing.Point(1, 71);
             this.dynamicLabelScanInformation.Name = "dynamicLabelScanInformation";
-            this.dynamicLabelScanInformation.Size = new System.Drawing.Size(84, 13);
+            this.dynamicLabelScanInformation.Size = new System.Drawing.Size(86, 13);
             this.dynamicLabelScanInformation.TabIndex = 0;
             this.dynamicLabelScanInformation.Text = "scan information";
             // 
@@ -202,6 +202,7 @@
             this.Controls.Add(this.dynamicLabelSourceFolder);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FormExportMetaData";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;

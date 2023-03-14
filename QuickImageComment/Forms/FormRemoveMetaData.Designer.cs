@@ -140,7 +140,7 @@
             this.checkBoxImageComment.AutoSize = true;
             this.checkBoxImageComment.Location = new System.Drawing.Point(25, 101);
             this.checkBoxImageComment.Name = "checkBoxImageComment";
-            this.checkBoxImageComment.Size = new System.Drawing.Size(194, 17);
+            this.checkBoxImageComment.Size = new System.Drawing.Size(196, 17);
             this.checkBoxImageComment.TabIndex = 127;
             this.checkBoxImageComment.Text = "JPEG Kommentar (Image Comment)";
             this.checkBoxImageComment.UseVisualStyleBackColor = true;
@@ -162,7 +162,7 @@
             this.checkBoxExceptions.AutoSize = true;
             this.checkBoxExceptions.Location = new System.Drawing.Point(225, 11);
             this.checkBoxExceptions.Name = "checkBoxExceptions";
-            this.checkBoxExceptions.Size = new System.Drawing.Size(271, 17);
+            this.checkBoxExceptions.Size = new System.Drawing.Size(278, 17);
             this.checkBoxExceptions.TabIndex = 125;
             this.checkBoxExceptions.Text = "Folgende Meta-Daten nicht entfernen (Ausnahmen):";
             this.checkBoxExceptions.UseVisualStyleBackColor = true;
@@ -172,7 +172,7 @@
             this.checkBoxIPTC.AutoSize = true;
             this.checkBoxIPTC.Location = new System.Drawing.Point(25, 55);
             this.checkBoxIPTC.Name = "checkBoxIPTC";
-            this.checkBoxIPTC.Size = new System.Drawing.Size(50, 17);
+            this.checkBoxIPTC.Size = new System.Drawing.Size(49, 17);
             this.checkBoxIPTC.TabIndex = 124;
             this.checkBoxIPTC.Text = "IPTC";
             this.checkBoxIPTC.UseVisualStyleBackColor = true;
@@ -182,7 +182,7 @@
             this.checkBoxXMP.AutoSize = true;
             this.checkBoxXMP.Location = new System.Drawing.Point(25, 78);
             this.checkBoxXMP.Name = "checkBoxXMP";
-            this.checkBoxXMP.Size = new System.Drawing.Size(49, 17);
+            this.checkBoxXMP.Size = new System.Drawing.Size(46, 17);
             this.checkBoxXMP.TabIndex = 123;
             this.checkBoxXMP.Text = "XMP";
             this.checkBoxXMP.UseVisualStyleBackColor = true;
@@ -203,7 +203,7 @@
             this.checkBoxExif.AutoSize = true;
             this.checkBoxExif.Location = new System.Drawing.Point(25, 32);
             this.checkBoxExif.Name = "checkBoxExif";
-            this.checkBoxExif.Size = new System.Drawing.Size(43, 17);
+            this.checkBoxExif.Size = new System.Drawing.Size(44, 17);
             this.checkBoxExif.TabIndex = 122;
             this.checkBoxExif.Text = "Exif";
             this.checkBoxExif.UseVisualStyleBackColor = true;
@@ -213,7 +213,7 @@
             this.radioButtonSingle.AutoSize = true;
             this.radioButtonSingle.Location = new System.Drawing.Point(6, 191);
             this.radioButtonSingle.Name = "radioButtonSingle";
-            this.radioButtonSingle.Size = new System.Drawing.Size(172, 17);
+            this.radioButtonSingle.Size = new System.Drawing.Size(175, 17);
             this.radioButtonSingle.TabIndex = 2;
             this.radioButtonSingle.TabStop = true;
             this.radioButtonSingle.Text = "Einzelne Meta-Daten entfernen";
@@ -225,7 +225,7 @@
             this.radioButtonGroups.AutoSize = true;
             this.radioButtonGroups.Location = new System.Drawing.Point(6, 10);
             this.radioButtonGroups.Name = "radioButtonGroups";
-            this.radioButtonGroups.Size = new System.Drawing.Size(195, 17);
+            this.radioButtonGroups.Size = new System.Drawing.Size(201, 17);
             this.radioButtonGroups.TabIndex = 0;
             this.radioButtonGroups.TabStop = true;
             this.radioButtonGroups.Text = "Gruppen entfernen (mit Ausnahmen)";
@@ -251,6 +251,7 @@
             this.Controls.Add(this.buttonHelp);
             this.Controls.Add(this.buttonCustomizeForm);
             this.Controls.Add(this.buttonStart);
+            this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.Name = "FormRemoveMetaData";

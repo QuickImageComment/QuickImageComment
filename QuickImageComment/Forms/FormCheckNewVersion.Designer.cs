@@ -61,7 +61,7 @@
             this.checkBoxCyclicCheck.AutoSize = true;
             this.checkBoxCyclicCheck.Location = new System.Drawing.Point(6, 5);
             this.checkBoxCyclicCheck.Name = "checkBoxCyclicCheck";
-            this.checkBoxCyclicCheck.Size = new System.Drawing.Size(246, 17);
+            this.checkBoxCyclicCheck.Size = new System.Drawing.Size(251, 17);
             this.checkBoxCyclicCheck.TabIndex = 1;
             this.checkBoxCyclicCheck.Text = "Regelmäßig prüfen, ob neue Version verfügbar";
             this.checkBoxCyclicCheck.UseVisualStyleBackColor = true;
@@ -76,7 +76,7 @@
             0,
             0});
             this.numericUpDownCycle.Name = "numericUpDownCycle";
-            this.numericUpDownCycle.Size = new System.Drawing.Size(49, 20);
+            this.numericUpDownCycle.Size = new System.Drawing.Size(49, 21);
             this.numericUpDownCycle.TabIndex = 2;
             this.numericUpDownCycle.Value = new decimal(new int[] {
             1,
@@ -99,7 +99,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(111, 25);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(32, 13);
+            this.label2.Size = new System.Drawing.Size(31, 13);
             this.label2.TabIndex = 4;
             this.label2.Text = "Tage";
             // 
@@ -108,7 +108,7 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(3, 62);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(79, 13);
+            this.label3.Size = new System.Drawing.Size(82, 13);
             this.label3.TabIndex = 5;
             this.label3.Text = "Letzte Prüfung:";
             // 
@@ -117,7 +117,7 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(3, 78);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(90, 13);
+            this.label4.Size = new System.Drawing.Size(91, 13);
             this.label4.TabIndex = 6;
             this.label4.Text = "Nächste Prüfung:";
             // 
@@ -126,7 +126,7 @@
             this.dynamicLabelLastCheck.AutoSize = true;
             this.dynamicLabelLastCheck.Location = new System.Drawing.Point(99, 62);
             this.dynamicLabelLastCheck.Name = "dynamicLabelLastCheck";
-            this.dynamicLabelLastCheck.Size = new System.Drawing.Size(61, 13);
+            this.dynamicLabelLastCheck.Size = new System.Drawing.Size(63, 13);
             this.dynamicLabelLastCheck.TabIndex = 7;
             this.dynamicLabelLastCheck.Text = "00.00.0000";
             // 
@@ -135,7 +135,7 @@
             this.dynamicLabelNextCheck.AutoSize = true;
             this.dynamicLabelNextCheck.Location = new System.Drawing.Point(99, 78);
             this.dynamicLabelNextCheck.Name = "dynamicLabelNextCheck";
-            this.dynamicLabelNextCheck.Size = new System.Drawing.Size(61, 13);
+            this.dynamicLabelNextCheck.Size = new System.Drawing.Size(63, 13);
             this.dynamicLabelNextCheck.TabIndex = 8;
             this.dynamicLabelNextCheck.Text = "00.00.0000";
             // 
@@ -194,6 +194,7 @@
             this.Controls.Add(this.numericUpDownCycle);
             this.Controls.Add(this.checkBoxCyclicCheck);
             this.Controls.Add(this.buttonCheckNowForNewVersion);
+            this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;

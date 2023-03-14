@@ -97,6 +97,7 @@ namespace FormCustomization
             this.ClientSize = new System.Drawing.Size(308, 426);
             this.Controls.Add(this.buttonClose);
             this.Controls.Add(this.listViewShortcuts);
+            this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FormListOfKeys";
             this.Text = "<filled dynamic>";

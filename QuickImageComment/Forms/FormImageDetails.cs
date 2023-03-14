@@ -32,6 +32,12 @@ namespace QuickImageComment
             if (Program.AppCenterUsable) Microsoft.AppCenter.Analytics.Analytics.TrackEvent(this.Name);
 #endif
             CustomizationInterface = MainMaskInterface.getCustomizationInterface();
+            theUserControlImageDetails = new UserControlImageDetails(dpiSettings, this);
+            setMasterSlaveAndUserControlImageDetailsMainMask();
+            theUserControlImageDetails.isInOwnWindow = true;
+            panel1.Controls.Add(theUserControlImageDetails.splitContainerImageDetails1);
+
+            CustomizationInterface.setFormToCustomizedValues(this);
 
             this.MinimumSize = this.Size;
             int newHeight = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.FormImageDetailsHeight);
@@ -45,14 +51,9 @@ namespace QuickImageComment
                 this.Width = newWidth;
             }
 
-            theUserControlImageDetails = new UserControlImageDetails(dpiSettings, this);
-            setMasterSlaveAndUserControlImageDetailsMainMask();
-            theUserControlImageDetails.isInOwnWindow = true;
-            panel1.Controls.Add(theUserControlImageDetails.splitContainerImageDetails1);
             theUserControlImageDetails.adjustSizeAndSplitterDistances(panel1.Size);
             newImage(givenExtendedImage);
 
-            CustomizationInterface.setFormToCustomizedValues(this);
             LangCfg.translateControlTexts(this);
 
             // if flag set, create screenshot and return

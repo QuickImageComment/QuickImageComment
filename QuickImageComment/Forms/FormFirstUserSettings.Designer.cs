@@ -53,7 +53,7 @@
             this.radioButtonProgrammPath.AutoSize = true;
             this.radioButtonProgrammPath.Location = new System.Drawing.Point(9, 268);
             this.radioButtonProgrammPath.Name = "radioButtonProgrammPath";
-            this.radioButtonProgrammPath.Size = new System.Drawing.Size(129, 17);
+            this.radioButtonProgrammPath.Size = new System.Drawing.Size(169, 17);
             this.radioButtonProgrammPath.TabIndex = 0;
             this.radioButtonProgrammPath.TabStop = true;
             this.radioButtonProgrammPath.Text = "Programm-Verzeichnis \\ config";
@@ -65,7 +65,7 @@
             this.radioButtonAppdata.AutoSize = true;
             this.radioButtonAppdata.Location = new System.Drawing.Point(9, 245);
             this.radioButtonAppdata.Name = "radioButtonAppdata";
-            this.radioButtonAppdata.Size = new System.Drawing.Size(81, 17);
+            this.radioButtonAppdata.Size = new System.Drawing.Size(88, 17);
             this.radioButtonAppdata.TabIndex = 1;
             this.radioButtonAppdata.TabStop = true;
             this.radioButtonAppdata.Text = "%Appdata%";
@@ -99,7 +99,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(6, 16);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(75, 13);
+            this.label1.Size = new System.Drawing.Size(77, 13);
             this.label1.TabIndex = 6;
             this.label1.Text = "Initiale Ansicht";
             // 
@@ -148,7 +148,7 @@
             this.label3.Location = new System.Drawing.Point(7, 120);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(262, 13);
+            this.label3.Size = new System.Drawing.Size(263, 13);
             this.label3.TabIndex = 12;
             this.label3.Text = "Menüeintrag \"Ansicht - Anpassen\" oder Schaltfläche: ";
             // 
@@ -168,7 +168,7 @@
             this.label2.Location = new System.Drawing.Point(8, 104);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(187, 13);
+            this.label2.Size = new System.Drawing.Size(192, 13);
             this.label2.TabIndex = 10;
             this.label2.Text = "Ansicht kann später geändert werden,";
             // 
@@ -177,7 +177,7 @@
             this.radioButtonReadOptimum.AutoSize = true;
             this.radioButtonReadOptimum.Location = new System.Drawing.Point(9, 57);
             this.radioButtonReadOptimum.Name = "radioButtonReadOptimum";
-            this.radioButtonReadOptimum.Size = new System.Drawing.Size(311, 17);
+            this.radioButtonReadOptimum.Size = new System.Drawing.Size(317, 17);
             this.radioButtonReadOptimum.TabIndex = 9;
             this.radioButtonReadOptimum.Text = "Optimiert für nur Lesen (Eingabemöglichkeiten ausgeblendet)";
             this.radioButtonReadOptimum.UseVisualStyleBackColor = true;
@@ -188,7 +188,7 @@
             this.radioButtonStandard.Checked = true;
             this.radioButtonStandard.Location = new System.Drawing.Point(9, 34);
             this.radioButtonStandard.Name = "radioButtonStandard";
-            this.radioButtonStandard.Size = new System.Drawing.Size(68, 17);
+            this.radioButtonStandard.Size = new System.Drawing.Size(69, 17);
             this.radioButtonStandard.TabIndex = 7;
             this.radioButtonStandard.TabStop = true;
             this.radioButtonStandard.Text = "Standard";
@@ -202,6 +202,7 @@
             this.Controls.Add(this.groupBoxInitialView);
             this.Controls.Add(this.groupBoxUserConfigStorage);
             this.Controls.Add(this.buttonOk);
+            this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;

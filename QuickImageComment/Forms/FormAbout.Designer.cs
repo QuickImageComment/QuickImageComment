@@ -103,7 +103,7 @@ namespace QuickImageComment
             this.fixedLabelQuickImageCommentCopyRight.AutoSize = true;
             this.fixedLabelQuickImageCommentCopyRight.Location = new System.Drawing.Point(9, 51);
             this.fixedLabelQuickImageCommentCopyRight.Name = "fixedLabelQuickImageCommentCopyRight";
-            this.fixedLabelQuickImageCommentCopyRight.Size = new System.Drawing.Size(188, 13);
+            this.fixedLabelQuickImageCommentCopyRight.Size = new System.Drawing.Size(190, 13);
             this.fixedLabelQuickImageCommentCopyRight.TabIndex = 7;
             this.fixedLabelQuickImageCommentCopyRight.Text = "Copyright Norbert Wagner 2007-XXXX";
             // 
@@ -121,7 +121,7 @@ namespace QuickImageComment
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(9, 205);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(216, 13);
+            this.label5.Size = new System.Drawing.Size(218, 13);
             this.label5.TabIndex = 10;
             this.label5.Text = "Verwendete fremde Sourcen/Komponenten:";
             // 
@@ -142,7 +142,7 @@ namespace QuickImageComment
             this.dynamicLabelQuickImageCommentCreated.AutoSize = true;
             this.dynamicLabelQuickImageCommentCreated.Location = new System.Drawing.Point(547, 10);
             this.dynamicLabelQuickImageCommentCreated.Name = "dynamicLabelQuickImageCommentCreated";
-            this.dynamicLabelQuickImageCommentCreated.Size = new System.Drawing.Size(91, 13);
+            this.dynamicLabelQuickImageCommentCreated.Size = new System.Drawing.Size(94, 13);
             this.dynamicLabelQuickImageCommentCreated.TabIndex = 13;
             this.dynamicLabelQuickImageCommentCreated.Text = "9999-99-99 99:99";
             this.dynamicLabelQuickImageCommentCreated.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -163,7 +163,7 @@ namespace QuickImageComment
             this.labelContact.AutoSize = true;
             this.labelContact.Location = new System.Drawing.Point(242, 51);
             this.labelContact.Name = "labelContact";
-            this.labelContact.Size = new System.Drawing.Size(47, 13);
+            this.labelContact.Size = new System.Drawing.Size(48, 13);
             this.labelContact.TabIndex = 16;
             this.labelContact.Text = "Kontakt:";
             // 
@@ -183,7 +183,7 @@ namespace QuickImageComment
             this.fixedLinkLabelMail.AutoSize = true;
             this.fixedLinkLabelMail.Location = new System.Drawing.Point(295, 51);
             this.fixedLinkLabelMail.Name = "fixedLinkLabelMail";
-            this.fixedLinkLabelMail.Size = new System.Drawing.Size(148, 13);
+            this.fixedLinkLabelMail.Size = new System.Drawing.Size(146, 13);
             this.fixedLinkLabelMail.TabIndex = 21;
             this.fixedLinkLabelMail.TabStop = true;
             this.fixedLinkLabelMail.Text = "mail@quickimagecomment.de";
@@ -206,7 +206,7 @@ namespace QuickImageComment
             this.textBoxQuickImageCommentVersion.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBoxQuickImageCommentVersion.Location = new System.Drawing.Point(127, 10);
             this.textBoxQuickImageCommentVersion.Name = "textBoxQuickImageCommentVersion";
-            this.textBoxQuickImageCommentVersion.Size = new System.Drawing.Size(178, 13);
+            this.textBoxQuickImageCommentVersion.Size = new System.Drawing.Size(178, 14);
             this.textBoxQuickImageCommentVersion.TabIndex = 23;
             this.textBoxQuickImageCommentVersion.Text = "Version";
             // 
@@ -216,7 +216,7 @@ namespace QuickImageComment
             this.textBoxExiv2CdeclVersion.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBoxExiv2CdeclVersion.Location = new System.Drawing.Point(127, 27);
             this.textBoxExiv2CdeclVersion.Name = "textBoxExiv2CdeclVersion";
-            this.textBoxExiv2CdeclVersion.Size = new System.Drawing.Size(178, 13);
+            this.textBoxExiv2CdeclVersion.Size = new System.Drawing.Size(178, 14);
             this.textBoxExiv2CdeclVersion.TabIndex = 24;
             this.textBoxExiv2CdeclVersion.Text = "Version";
             // 
@@ -225,7 +225,7 @@ namespace QuickImageComment
             this.fixedLinkLabelGitHub.AutoSize = true;
             this.fixedLinkLabelGitHub.Location = new System.Drawing.Point(520, 71);
             this.fixedLinkLabelGitHub.Name = "fixedLinkLabelGitHub";
-            this.fixedLinkLabelGitHub.Size = new System.Drawing.Size(40, 13);
+            this.fixedLinkLabelGitHub.Size = new System.Drawing.Size(39, 13);
             this.fixedLinkLabelGitHub.TabIndex = 25;
             this.fixedLinkLabelGitHub.TabStop = true;
             this.fixedLinkLabelGitHub.Text = "GitHub";
@@ -236,7 +236,7 @@ namespace QuickImageComment
             this.labelGitHub.AutoSize = true;
             this.labelGitHub.Location = new System.Drawing.Point(295, 71);
             this.labelGitHub.Name = "labelGitHub";
-            this.labelGitHub.Size = new System.Drawing.Size(192, 13);
+            this.labelGitHub.Size = new System.Drawing.Size(191, 13);
             this.labelGitHub.TabIndex = 26;
             this.labelGitHub.Text = "Quellcode, Anliegen und Diskussionen:";
             // 
@@ -262,6 +262,7 @@ namespace QuickImageComment
             this.Controls.Add(this.fixedLabelQuickImageCommentCopyRight);
             this.Controls.Add(this.fixedLabel1);
             this.Controls.Add(this.buttonClose);
+            this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;

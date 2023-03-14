@@ -135,8 +135,6 @@ namespace QuickImageComment
             dataGridView1.Visible = checkBoxShowDataTable.Checked;
             buttonAbort.Select();
             CustomizationInterface = MainMaskInterface.getCustomizationInterface();
-            Height = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.FormFindHeight);
-            Width = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.FormFindWidth);
             int gpsFindRangeInMeter = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.GpsFindRangeInMeter);
 
             // show map with last used coordinates for find
@@ -152,13 +150,15 @@ namespace QuickImageComment
             numericUpDownGpsRange.Value = ((decimal)gpsFindRangeInMeter) / 1000;
             numericUpDownGpsRange.ValueChanged += numericUpDownGpsRange_ValueChanged;
 
-            splitContainer1.SplitterDistance = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.FormFindSplitContainer1_Distance);
-
             topDiffLabelToComboBox = dynamicComboBoxValue.Top - dynamicLabelFind.Top;
             topDiffLabelToDateTimePicker = dateTimePicker.Top - dynamicLabelFind.Top;
 
             // Specific constructor code
             CustomizationInterface.setFormToCustomizedValues(this);
+            Height = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.FormFindHeight);
+            Width = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.FormFindWidth);
+            splitContainer1.SplitterDistance = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.FormFindSplitContainer1_Distance);
+
             fillFilterPanelWithControls();
             fillItemsFilterFields();
 

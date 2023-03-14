@@ -48,7 +48,7 @@
             this.dynamicLabelInfo.AutoSize = true;
             this.dynamicLabelInfo.Location = new System.Drawing.Point(1, 9);
             this.dynamicLabelInfo.Name = "dynamicLabelInfo";
-            this.dynamicLabelInfo.Size = new System.Drawing.Size(47, 13);
+            this.dynamicLabelInfo.Size = new System.Drawing.Size(49, 13);
             this.dynamicLabelInfo.TabIndex = 19;
             this.dynamicLabelInfo.Text = "labelInfo";
             // 
@@ -60,6 +60,7 @@
             this.ControlBox = false;
             this.Controls.Add(this.dynamicLabelInfo);
             this.Controls.Add(this.progressPanel1);
+            this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;

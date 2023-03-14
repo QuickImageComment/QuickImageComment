@@ -93,7 +93,7 @@ namespace QuickImageComment
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(41, 5);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(216, 13);
+            this.label1.Size = new System.Drawing.Size(219, 13);
             this.label1.TabIndex = 8;
             this.label1.Text = "Schwerwiegender Fehler in der Anwendung:";
             // 
@@ -105,7 +105,7 @@ namespace QuickImageComment
             this.textBoxErrorMessage.Name = "textBoxErrorMessage";
             this.textBoxErrorMessage.ReadOnly = true;
             this.textBoxErrorMessage.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxErrorMessage.Size = new System.Drawing.Size(644, 20);
+            this.textBoxErrorMessage.Size = new System.Drawing.Size(644, 21);
             this.textBoxErrorMessage.TabIndex = 7;
             // 
             // textBoxInstructions
@@ -146,6 +146,7 @@ namespace QuickImageComment
             this.Controls.Add(this.buttonSendGitHub);
             this.Controls.Add(this.buttonSendEmail);
             this.Controls.Add(this.buttonSendOnly);
+            this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
