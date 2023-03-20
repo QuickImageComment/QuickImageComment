@@ -140,8 +140,8 @@ namespace QuickImageComment
             // show map with last used coordinates for find
             theUserControlMap = new UserControlMap(true, new GeoDataItem(ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.LastGeoDataItemForFind)),
                 true, gpsFindRangeInMeter);
-            splitContainer1.Panel2.Controls.Add(theUserControlMap.panel1);
-            theUserControlMap.panel1.Dock = DockStyle.Fill;
+            splitContainer1.Panel2.Controls.Add(theUserControlMap.panelMap);
+            theUserControlMap.panelMap.Dock = DockStyle.Fill;
 
             // disable ValueChanged-event to avoid setting radius in UserControlMap again
             // radius is set via constructor, which ensures to have CoreWebView2 initialised, which is needed when using WebView2

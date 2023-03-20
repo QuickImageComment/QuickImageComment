@@ -45,7 +45,7 @@ namespace QuickImageComment
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormQuickImageComment));
             this.dynamicLabelArtist = new System.Windows.Forms.Label();
             this.textBoxUserComment = new System.Windows.Forms.TextBox();
@@ -390,6 +390,7 @@ namespace QuickImageComment
             this.splitContainer121.BackColor = System.Drawing.SystemColors.ControlDark;
             this.splitContainer121.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer121.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer121.Margin = new System.Windows.Forms.Padding(0);
             this.splitContainer121.Name = "splitContainer121";
             // 
             // splitContainer121.Panel1
@@ -588,9 +589,9 @@ namespace QuickImageComment
             this.panelWarningMetaData.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.panelWarningMetaData.BackColor = System.Drawing.Color.Red;
-            this.panelWarningMetaData.Location = new System.Drawing.Point(0, 0);
+            this.panelWarningMetaData.Location = new System.Drawing.Point(0, 3);
             this.panelWarningMetaData.Name = "panelWarningMetaData";
-            this.panelWarningMetaData.Size = new System.Drawing.Size(6, 167);
+            this.panelWarningMetaData.Size = new System.Drawing.Size(6, 166);
             this.panelWarningMetaData.TabIndex = 1;
             // 
             // DataGridViewOverview
@@ -615,10 +616,10 @@ namespace QuickImageComment
             this.DataGridViewOverview.Name = "DataGridViewOverview";
             this.DataGridViewOverview.ReadOnly = true;
             this.DataGridViewOverview.RowHeadersVisible = false;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            this.DataGridViewOverview.RowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            this.DataGridViewOverview.RowsDefaultCellStyle = dataGridViewCellStyle1;
             this.DataGridViewOverview.RowTemplate.Height = 18;
-            this.DataGridViewOverview.Size = new System.Drawing.Size(263, 161);
+            this.DataGridViewOverview.Size = new System.Drawing.Size(271, 166);
             this.DataGridViewOverview.TabIndex = 0;
             // 
             // dataGridViewOverviewColumnName
@@ -773,7 +774,7 @@ namespace QuickImageComment
             this.dataGridViewSelectedFiles.Name = "dataGridViewSelectedFiles";
             this.dataGridViewSelectedFiles.RowHeadersVisible = false;
             this.dataGridViewSelectedFiles.ShowEditingIcon = false;
-            this.dataGridViewSelectedFiles.Size = new System.Drawing.Size(248, 185);
+            this.dataGridViewSelectedFiles.Size = new System.Drawing.Size(248, 188);
             this.dataGridViewSelectedFiles.TabIndex = 4;
             this.dataGridViewSelectedFiles.SelectionChanged += new System.EventHandler(this.dataGridViewSelectedFiles_SelectionChanged);
             // 
@@ -795,12 +796,14 @@ namespace QuickImageComment
             // 
             this.checkedListBoxChangeableFieldsChange.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
+            this.checkedListBoxChangeableFieldsChange.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.checkedListBoxChangeableFieldsChange.CheckedColor = System.Drawing.Color.LightGreen;
             this.checkedListBoxChangeableFieldsChange.CheckOnClick = true;
             this.checkedListBoxChangeableFieldsChange.FormattingEnabled = true;
+            this.checkedListBoxChangeableFieldsChange.IntegralHeight = false;
             this.checkedListBoxChangeableFieldsChange.Location = new System.Drawing.Point(1, 101);
             this.checkedListBoxChangeableFieldsChange.Name = "checkedListBoxChangeableFieldsChange";
-            this.checkedListBoxChangeableFieldsChange.Size = new System.Drawing.Size(250, 84);
+            this.checkedListBoxChangeableFieldsChange.Size = new System.Drawing.Size(250, 87);
             this.checkedListBoxChangeableFieldsChange.TabIndex = 3;
             // 
             // comboBoxKeyWordsChange
@@ -953,9 +956,10 @@ namespace QuickImageComment
             this.listBoxLastUserComments.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.listBoxLastUserComments.Location = new System.Drawing.Point(3, 28);
+            this.listBoxLastUserComments.IntegralHeight = false;
+            this.listBoxLastUserComments.Location = new System.Drawing.Point(1, 28);
             this.listBoxLastUserComments.Name = "listBoxLastUserComments";
-            this.listBoxLastUserComments.Size = new System.Drawing.Size(305, 134);
+            this.listBoxLastUserComments.Size = new System.Drawing.Size(311, 135);
             this.listBoxLastUserComments.TabIndex = 2;
             // 
             // textBoxLastCommentsFilter
@@ -964,7 +968,7 @@ namespace QuickImageComment
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxLastCommentsFilter.Location = new System.Drawing.Point(47, 2);
             this.textBoxLastCommentsFilter.Name = "textBoxLastCommentsFilter";
-            this.textBoxLastCommentsFilter.Size = new System.Drawing.Size(258, 21);
+            this.textBoxLastCommentsFilter.Size = new System.Drawing.Size(264, 21);
             this.textBoxLastCommentsFilter.TabIndex = 1;
             this.textBoxLastCommentsFilter.TextChanged += new System.EventHandler(this.textBoxLastCommentsFilter_TextChanged);
             // 
@@ -989,7 +993,7 @@ namespace QuickImageComment
             this.dynamicComboBoxPredefinedComments.FormattingEnabled = true;
             this.dynamicComboBoxPredefinedComments.Location = new System.Drawing.Point(2, 3);
             this.dynamicComboBoxPredefinedComments.Name = "dynamicComboBoxPredefinedComments";
-            this.dynamicComboBoxPredefinedComments.Size = new System.Drawing.Size(305, 21);
+            this.dynamicComboBoxPredefinedComments.Size = new System.Drawing.Size(309, 21);
             this.dynamicComboBoxPredefinedComments.TabIndex = 1;
             this.dynamicComboBoxPredefinedComments.SelectedIndexChanged += new System.EventHandler(this.comboBoxPredefinedComments_SelectedIndexChanged);
             // 
@@ -999,9 +1003,10 @@ namespace QuickImageComment
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listBoxPredefinedComments.ColumnWidth = 30;
-            this.listBoxPredefinedComments.Location = new System.Drawing.Point(2, 28);
+            this.listBoxPredefinedComments.IntegralHeight = false;
+            this.listBoxPredefinedComments.Location = new System.Drawing.Point(1, 28);
             this.listBoxPredefinedComments.Name = "listBoxPredefinedComments";
-            this.listBoxPredefinedComments.Size = new System.Drawing.Size(306, 134);
+            this.listBoxPredefinedComments.Size = new System.Drawing.Size(311, 135);
             this.listBoxPredefinedComments.Sorted = true;
             this.listBoxPredefinedComments.TabIndex = 2;
             // 
@@ -2053,9 +2058,11 @@ namespace QuickImageComment
             // 
             // toolStrip1
             // 
+            this.toolStrip1.AutoSize = false;
             this.toolStrip1.BackColor = System.Drawing.Color.White;
             this.toolStrip1.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.toolStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripButtonRefresh,
             this.toolStripButtonRename,
@@ -2097,7 +2104,6 @@ namespace QuickImageComment
             // 
             this.toolStripButtonRefresh.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolStripButtonRefresh.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonRefresh.Image")));
-            this.toolStripButtonRefresh.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripButtonRefresh.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonRefresh.Name = "toolStripButtonRefresh";
             this.toolStripButtonRefresh.Size = new System.Drawing.Size(36, 36);
@@ -2111,7 +2117,6 @@ namespace QuickImageComment
             // 
             this.toolStripButtonRename.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolStripButtonRename.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonRename.Image")));
-            this.toolStripButtonRename.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripButtonRename.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonRename.Name = "toolStripButtonRename";
             this.toolStripButtonRename.Size = new System.Drawing.Size(36, 36);
@@ -2125,7 +2130,6 @@ namespace QuickImageComment
             // 
             this.toolStripButtonDateTimeChange.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolStripButtonDateTimeChange.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonDateTimeChange.Image")));
-            this.toolStripButtonDateTimeChange.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripButtonDateTimeChange.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonDateTimeChange.Name = "toolStripButtonDateTimeChange";
             this.toolStripButtonDateTimeChange.Size = new System.Drawing.Size(36, 36);
@@ -2144,7 +2148,6 @@ namespace QuickImageComment
             // 
             this.toolStripButtonSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolStripButtonSave.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonSave.Image")));
-            this.toolStripButtonSave.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripButtonSave.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonSave.Name = "toolStripButtonSave";
             this.toolStripButtonSave.Size = new System.Drawing.Size(36, 36);
@@ -2158,7 +2161,6 @@ namespace QuickImageComment
             // 
             this.toolStripButtonFirst.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolStripButtonFirst.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonFirst.Image")));
-            this.toolStripButtonFirst.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripButtonFirst.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonFirst.Name = "toolStripButtonFirst";
             this.toolStripButtonFirst.Size = new System.Drawing.Size(36, 36);
@@ -2171,7 +2173,6 @@ namespace QuickImageComment
             // 
             this.toolStripButtonPrevious.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolStripButtonPrevious.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonPrevious.Image")));
-            this.toolStripButtonPrevious.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripButtonPrevious.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonPrevious.Name = "toolStripButtonPrevious";
             this.toolStripButtonPrevious.Size = new System.Drawing.Size(36, 36);
@@ -2185,7 +2186,6 @@ namespace QuickImageComment
             // 
             this.toolStripButtonNext.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolStripButtonNext.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonNext.Image")));
-            this.toolStripButtonNext.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripButtonNext.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonNext.Name = "toolStripButtonNext";
             this.toolStripButtonNext.Size = new System.Drawing.Size(36, 36);
@@ -2199,7 +2199,6 @@ namespace QuickImageComment
             // 
             this.toolStripButtonLast.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolStripButtonLast.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonLast.Image")));
-            this.toolStripButtonLast.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripButtonLast.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonLast.Name = "toolStripButtonLast";
             this.toolStripButtonLast.Size = new System.Drawing.Size(36, 36);
@@ -2217,7 +2216,6 @@ namespace QuickImageComment
             // 
             this.dynamicToolStripButtonLoadDataFromTemplate.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.dynamicToolStripButtonLoadDataFromTemplate.Image = ((System.Drawing.Image)(resources.GetObject("dynamicToolStripButtonLoadDataFromTemplate.Image")));
-            this.dynamicToolStripButtonLoadDataFromTemplate.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.dynamicToolStripButtonLoadDataFromTemplate.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.dynamicToolStripButtonLoadDataFromTemplate.Name = "dynamicToolStripButtonLoadDataFromTemplate";
             this.dynamicToolStripButtonLoadDataFromTemplate.Size = new System.Drawing.Size(36, 36);
@@ -2231,7 +2229,6 @@ namespace QuickImageComment
             // 
             this.toolStripButtonReset.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolStripButtonReset.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonReset.Image")));
-            this.toolStripButtonReset.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripButtonReset.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonReset.Name = "toolStripButtonReset";
             this.toolStripButtonReset.Size = new System.Drawing.Size(36, 36);
@@ -2245,7 +2242,6 @@ namespace QuickImageComment
             // 
             this.toolStripButtonDelete.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolStripButtonDelete.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonDelete.Image")));
-            this.toolStripButtonDelete.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripButtonDelete.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonDelete.Name = "toolStripButtonDelete";
             this.toolStripButtonDelete.Size = new System.Drawing.Size(36, 36);
@@ -2264,7 +2260,6 @@ namespace QuickImageComment
             // 
             this.toolStripButtonImageFit.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolStripButtonImageFit.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonImageFit.Image")));
-            this.toolStripButtonImageFit.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripButtonImageFit.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonImageFit.Name = "toolStripButtonImageFit";
             this.toolStripButtonImageFit.Size = new System.Drawing.Size(36, 36);
@@ -2278,7 +2273,6 @@ namespace QuickImageComment
             // 
             this.toolStripButtonImage4.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolStripButtonImage4.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonImage4.Image")));
-            this.toolStripButtonImage4.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripButtonImage4.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonImage4.Name = "toolStripButtonImage4";
             this.toolStripButtonImage4.Size = new System.Drawing.Size(36, 36);
@@ -2292,7 +2286,6 @@ namespace QuickImageComment
             // 
             this.toolStripButtonImage2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolStripButtonImage2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonImage2.Image")));
-            this.toolStripButtonImage2.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripButtonImage2.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonImage2.Name = "toolStripButtonImage2";
             this.toolStripButtonImage2.Size = new System.Drawing.Size(36, 36);
@@ -2306,7 +2299,6 @@ namespace QuickImageComment
             // 
             this.toolStripButtonImage1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolStripButtonImage1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonImage1.Image")));
-            this.toolStripButtonImage1.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripButtonImage1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonImage1.Name = "toolStripButtonImage1";
             this.toolStripButtonImage1.Size = new System.Drawing.Size(36, 36);
@@ -2320,7 +2312,6 @@ namespace QuickImageComment
             // 
             this.toolStripButtonRotateLeft.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolStripButtonRotateLeft.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonRotateLeft.Image")));
-            this.toolStripButtonRotateLeft.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripButtonRotateLeft.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonRotateLeft.Name = "toolStripButtonRotateLeft";
             this.toolStripButtonRotateLeft.Size = new System.Drawing.Size(36, 36);
@@ -2334,7 +2325,6 @@ namespace QuickImageComment
             // 
             this.toolStripButtonRotateRight.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolStripButtonRotateRight.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonRotateRight.Image")));
-            this.toolStripButtonRotateRight.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripButtonRotateRight.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonRotateRight.Name = "toolStripButtonRotateRight";
             this.toolStripButtonRotateRight.Size = new System.Drawing.Size(36, 36);
@@ -2353,7 +2343,6 @@ namespace QuickImageComment
             // 
             this.toolStripButtonView.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolStripButtonView.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonView.Image")));
-            this.toolStripButtonView.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripButtonView.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonView.Name = "toolStripButtonView";
             this.toolStripButtonView.Size = new System.Drawing.Size(36, 36);
@@ -2367,7 +2356,6 @@ namespace QuickImageComment
             // 
             this.toolStripButtonSettings.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolStripButtonSettings.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonSettings.Image")));
-            this.toolStripButtonSettings.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripButtonSettings.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonSettings.Name = "toolStripButtonSettings";
             this.toolStripButtonSettings.Size = new System.Drawing.Size(36, 36);
@@ -2381,7 +2369,6 @@ namespace QuickImageComment
             // 
             this.toolStripButtonFields.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolStripButtonFields.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonFields.Image")));
-            this.toolStripButtonFields.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripButtonFields.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonFields.Name = "toolStripButtonFields";
             this.toolStripButtonFields.Size = new System.Drawing.Size(36, 36);
@@ -2394,7 +2381,6 @@ namespace QuickImageComment
             // 
             this.toolStripButtonPredefinedComments.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolStripButtonPredefinedComments.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonPredefinedComments.Image")));
-            this.toolStripButtonPredefinedComments.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripButtonPredefinedComments.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonPredefinedComments.Name = "toolStripButtonPredefinedComments";
             this.toolStripButtonPredefinedComments.Size = new System.Drawing.Size(36, 36);
@@ -2408,7 +2394,6 @@ namespace QuickImageComment
             this.toolStripButtonPredefinedKeyWords.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.toolStripButtonPredefinedKeyWords.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolStripButtonPredefinedKeyWords.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonPredefinedKeyWords.Image")));
-            this.toolStripButtonPredefinedKeyWords.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripButtonPredefinedKeyWords.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonPredefinedKeyWords.Name = "toolStripButtonPredefinedKeyWords";
             this.toolStripButtonPredefinedKeyWords.Size = new System.Drawing.Size(36, 36);
@@ -2428,7 +2413,6 @@ namespace QuickImageComment
             this.toolStripButtonFind.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.toolStripButtonFind.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolStripButtonFind.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonFind.Image")));
-            this.toolStripButtonFind.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripButtonFind.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonFind.Name = "toolStripButtonFind";
             this.toolStripButtonFind.Size = new System.Drawing.Size(36, 36);

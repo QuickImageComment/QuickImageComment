@@ -61,8 +61,7 @@ namespace FormCustomization
 
             translateControlTexts(this);
 
-            theCustomizer.fillOrUpdateZoomBasisData(ChangeableForm, theCustomizer.getActualZoomFactor(ChangeableForm),
-                theCustomizer.getActualToolStripOffsetCorrection(ChangeableForm));
+            theCustomizer.fillOrUpdateZoomBasisData(ChangeableForm, theCustomizer.getActualZoomFactor(ChangeableForm));
             // add event handler to be informed when changeable mask is deactivated
             ChangeableForm.Deactivate += new System.EventHandler(this.ChangeableForm_Deactivated);
 

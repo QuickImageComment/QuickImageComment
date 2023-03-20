@@ -44,6 +44,13 @@ namespace QuickImageComment
             if (Program.AppCenterUsable) Microsoft.AppCenter.Analytics.Analytics.TrackEvent(this.Name);
 #endif
             buttonClose.Select();
+            // add key words area
+            theUserControlKeyWords = new UserControlKeyWords();
+            splitContainer1.Panel2.Controls.Add(theUserControlKeyWords);
+            // add changeable fields area
+            theUserControlChangeableFields = new UserControlChangeableFields(null);
+            splitContainer1.Panel1.Controls.Add(theUserControlChangeableFields);
+
             CustomizationInterface = MainMaskInterface.getCustomizationInterface();
             CustomizationInterface.setFormToCustomizedValues(this);
 
@@ -66,8 +73,8 @@ namespace QuickImageComment
             }
 
             // configure changeable fields area
-            theUserControlChangeableFields = new UserControlChangeableFields(null);
-            splitContainer1.Panel1.Controls.Add(theUserControlChangeableFields);
+            theUserControlChangeableFields.fillChangeableFieldPanelWithControls(null);
+            theUserControlChangeableFields.fillItemsComboBoxChangeableFields();
             theUserControlChangeableFields.Height = splitContainer1.Panel1.Height;
             theUserControlChangeableFields.Width = splitContainer1.Panel1.Width;
             theUserControlChangeableFields.Dock = DockStyle.Fill;
@@ -86,8 +93,6 @@ namespace QuickImageComment
             }
 
             // configure key words area
-            theUserControlKeyWords = new UserControlKeyWords();
-            splitContainer1.Panel2.Controls.Add(theUserControlKeyWords);
             theUserControlKeyWords.Height = splitContainer1.Panel2.Height;
             theUserControlKeyWords.Width = splitContainer1.Panel2.Width;
             theUserControlKeyWords.Dock = DockStyle.Fill;

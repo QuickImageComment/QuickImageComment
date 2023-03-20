@@ -77,14 +77,14 @@
             // 
             // dynamicLabelChangeableField
             // 
-            this.dynamicLabelChangeableField.AutoSize = true;
             this.dynamicLabelChangeableField.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dynamicLabelChangeableField.Location = new System.Drawing.Point(3, 7);
             this.dynamicLabelChangeableField.Name = "dynamicLabelChangeableField";
-            this.dynamicLabelChangeableField.Size = new System.Drawing.Size(35, 13);
+            this.dynamicLabelChangeableField.Size = new System.Drawing.Size(35, 21);
             this.dynamicLabelChangeableField.TabIndex = 1;
             this.dynamicLabelChangeableField.Tag = "0";
             this.dynamicLabelChangeableField.Text = "label1";
+            this.dynamicLabelChangeableField.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // textBoxChangeableField
             // 

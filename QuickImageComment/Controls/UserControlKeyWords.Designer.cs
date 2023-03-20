@@ -87,6 +87,7 @@
             this.checkedListBoxPredefKeyWords.CheckOnClick = true;
             this.checkedListBoxPredefKeyWords.Dock = System.Windows.Forms.DockStyle.Fill;
             this.checkedListBoxPredefKeyWords.FormattingEnabled = true;
+            this.checkedListBoxPredefKeyWords.IntegralHeight = false;
             this.checkedListBoxPredefKeyWords.Location = new System.Drawing.Point(0, 0);
             this.checkedListBoxPredefKeyWords.Name = "checkedListBoxPredefKeyWords";
             this.checkedListBoxPredefKeyWords.Size = new System.Drawing.Size(363, 276);

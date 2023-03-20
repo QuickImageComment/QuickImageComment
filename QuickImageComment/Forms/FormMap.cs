@@ -35,7 +35,7 @@ namespace QuickImageComment
             theUserControlMap = new UserControlMap(false, MainMaskInterface.commonRecordingLocation(), changeLocationAllowed, 0);
             MainMaskInterface.setUserControlMap(theUserControlMap);
             theUserControlMap.isInOwnWindow = true;
-            panel1.Controls.Add(theUserControlMap.panel1);
+            panel1.Controls.Add(theUserControlMap.panelMap);
             CustomizationInterface.setFormToCustomizedValues(this);
 
             this.MinimumSize = this.Size;
@@ -49,7 +49,8 @@ namespace QuickImageComment
             {
                 this.Width = newWidth;
             }
-            theUserControlMap.adjustSize(panel1.Size);
+            theUserControlMap.panelMap.Dock = DockStyle.Fill;
+
             buttonClose.Select();
             LangCfg.translateControlTexts(this);
 

@@ -541,11 +541,6 @@ namespace QuickImageComment
 
             // adjust position of panel 1, needed for dpi values higher than 96
             adjustSplitContainer1DependingOnToolStrip();
-            // adjust panels according configuration
-            //Program.StartupPerformance.measure("FormQIC before set split container panels content");
-            setSplitContainerPanelsContent();
-
-            //Program.StartupPerformance.measure("FormQIC After set splitter distance");
 
             FormCustomization.Interface.setGeneralZoomFactor(ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.generalZoomFactorPerCent) / 100f);
             CustomizationInterface = new FormCustomization.Interface(this,
@@ -554,6 +549,11 @@ namespace QuickImageComment
               "file://" + LangCfg.getHelpFile(),
               "FormCustomization.htm",
               LangCfg.getTranslationsFromGerman());
+
+            // adjust panels according configuration
+            //Program.StartupPerformance.measure("FormQIC before set split container panels content");
+            setSplitContainerPanelsContent();
+            //Program.StartupPerformance.measure("FormQIC After set splitter distance");
 
             //set top for label file name, needed if dpi is higher than 96
             dynamicLabelFileName.Top = splitContainer1211P1.Panel2.Height - dynamicLabelFileName.Height - 2;
@@ -644,6 +644,9 @@ namespace QuickImageComment
             // moved to here as during filling dataGridViews size of panels is important to adjust column widths
             displayImageAfterReadFolder(false);
             Program.StartupPerformance.measure("FormQIC after displayImageAfterReadFolder");
+
+            theUserControlChangeableFields.fillChangeableFieldPanelWithControls(theExtendedImage);
+            theUserControlChangeableFields.fillItemsComboBoxChangeableFields();
 
             // start update caching after display first image via displayImageAfterReadFolder
             // when caching is started before e.g. via StartupInitNewFolder it happened that first file in folder 
@@ -2020,14 +2023,6 @@ namespace QuickImageComment
                 {
                     toolStripButton.Image = bitmap;
                     toolStripButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
-                    if (ConfigDefinition.getToolstripStyle().Equals("inMenu"))
-                    {
-                        toolStripButton.ImageScaling = ToolStripItemImageScaling.SizeToFit;
-                    }
-                    else
-                    {
-                        toolStripButton.ImageScaling = ToolStripItemImageScaling.None;
-                    }
                 }
                 toolStripButton.ToolTipText = userButtonDefinition.text;
                 toolStripButton.Tag = userButtonDefinition.tag;
@@ -2303,13 +2298,15 @@ namespace QuickImageComment
         {
             // hide the main splitContainer to avoid flickering during update
             // using SuspendLayout still caused too much flickering 
-            this.splitContainer1.Visible = false;
+            foreach (Control control in this.Controls) control.Visible = false;
             CustomizationInterface.setFormToCustomizedValuesZoomIfChanged(this);
             // needs to be called to adjust distances artist/comment
             showHideControlsCentralInputArea();
             dynamicLabelFileName.Top = splitContainer1211P1.Panel2.Height - dynamicLabelFileName.Height - 2;
+            theUserControlChangeableFields.fillChangeableFieldPanelWithControls(theExtendedImage);
+
             readFolderAndDisplayImage(true);
-            this.splitContainer1.Visible = true;
+            foreach (Control control in this.Controls) control.Visible = true;
         }
 
         // open form customization settings
@@ -2788,10 +2785,6 @@ namespace QuickImageComment
 
                 while ((indexFirst < MenuStrip1.Items.Count))
                 {
-                    if (MenuStrip1.Items[indexFirst] is ToolStripButton)
-                    {
-                        ((ToolStripButton)MenuStrip1.Items[indexFirst]).ImageScaling = ToolStripItemImageScaling.None;
-                    }
                     toolStrip1.Items.Add(MenuStrip1.Items[indexFirst]);
                 }
             }
@@ -2884,10 +2877,6 @@ namespace QuickImageComment
             MenuStrip1.Items.Add(new ToolStripSeparator());
             while (toolStrip1.Items.Count > 0)
             {
-                if (toolStrip1.Items[0] is ToolStripButton)
-                {
-                    ((ToolStripButton)toolStrip1.Items[0]).ImageScaling = ToolStripItemImageScaling.SizeToFit;
-                }
                 MenuStrip1.Items.Add(toolStrip1.Items[0]);
             }
             this.toolStripMenuItemToolStripShow.Enabled = true;
@@ -4130,39 +4119,39 @@ namespace QuickImageComment
                             controlRequiresZoomWithGeneralFactor = true;
                         }
                         theUserControlMap.isInPanel = true;
-                        aControl = theUserControlMap.panel1;
+                        aControl = theUserControlMap.panelMap;
                     }
                     else
                     {
                         aControl = (Control)SplitContainerPanelControls[ContentEnum];
                     }
 
-                    // userControls can be shown in panel or form, the are created when needed
+                    // userControls can be shown in panel or form, they are created when needed
                     // if not needed, aControl is null
                     if (aControl != null)
                     {
+                        if (controlRequiresZoomWithGeneralFactor)
+                        {
+                            // save the font as it will be inherited from form when adding this control
+                            // for proper scaling, the font needs to be reset after adding
+                            Font font = new System.Drawing.Font(aControl.Font.FontFamily, aControl.Font.Size, aControl.Font.Style);
+                            if (CustomizationInterface != null)
+                            {
+                                // restore font to overwrite font inherited during adding the control
+                                aControl.Font = font;
+                                CustomizationInterface.zoomControlsUsingGeneralZoomFactor(aControl, this);
+                            }
+                        }
                         // first set size
                         // otherwise in 32-Bit-Version setting width for IPTC-keywords to a higher 
                         // value than in previous panel did not work
                         aControl.Height = aPanel.Height;
                         aControl.Width = aPanel.Width;
-
-                        // save the font as it will be inherited from form when adding this control
-                        // for proper scaling, the font needs to be reset after adding
-                        Font font = new System.Drawing.Font(aControl.Font.FontFamily, aControl.Font.Size, aControl.Font.Style);
                         aPanel.Controls.Add(aControl);
-                        if (controlRequiresZoomWithGeneralFactor)
-                        {
-                            if (CustomizationInterface != null)
-                            {
-                                // restore font to overwrite font inherited during adding the control
-                                aControl.Font = font;
 
-                                CustomizationInterface.zoomControlsUsingGeneralZoomFactor(aControl, this);
-                            }
-                            aControl.Height = aPanel.Height;
-                            aControl.Width = aPanel.Width;
-                        }
+                        // user control for map needs special adjustment after scaling
+                        if (ContentEnum == LangCfg.PanelContent.Map) theUserControlMap.adjustTopBottomAfterScaling(aPanel.Size);
+
                         // if aControl is SplitContainer, adjust PanelMinSize
                         if (aControl.GetType().Equals(typeof(SplitContainer)))
                         {

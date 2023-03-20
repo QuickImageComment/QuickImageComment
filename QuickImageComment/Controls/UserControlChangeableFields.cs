@@ -52,10 +52,12 @@ namespace QuickImageComment
         {
             //Program.StartupPerformance.measure("UserControlChangeableFields constructor start");
             InitializeComponent();
-            fillChangeableFieldPanelWithControls(theExtendedImage);
-            //Program.StartupPerformance.measure("UserControlChangeableFields after fillChangeableFieldPanelWithControls");
-            fillItemsComboBoxChangeableFields();
-            //Program.StartupPerformance.measure("UserControlChangeableFields constructor finish");
+            // remove the template controls from panel
+            // they are still available as template, but do not disturb on screen and during scaling
+            for (int ii = panelChangeableFieldsInner.Controls.Count - 1; ii >= 0; ii--)
+            {
+                panelChangeableFieldsInner.Controls.Remove(panelChangeableFieldsInner.Controls[ii]);
+            }
         }
 
         //*****************************************************************
@@ -67,8 +69,7 @@ namespace QuickImageComment
             this.Visible = false;
             Label LabelTemplate = dynamicLabelChangeableField;
 
-            // scale the template controls if customization interface is initiated
-            // interface is not initiated at startup, but then controls are scaled after initiating interface
+            // scale the templates; this method is called after rest of mask is already scaled
             FormCustomization.Interface customziationInterface = MainMaskInterface.getCustomizationInterface();
             if (customziationInterface != null)
             {
@@ -331,8 +332,7 @@ namespace QuickImageComment
             aLabel.ForeColor = dynamicLabelChangeableField.ForeColor;
             aLabel.BackColor = dynamicLabelChangeableField.BackColor;
             aLabel.Left = dynamicLabelChangeableField.Left;
-            // top of labels need some adjustment to look vertically centered, also when scaled/zoomed
-            aLabel.Top = anInputControl.Top - 2;
+            aLabel.Top = lastTop;
             if (maxLabelWidth < aLabel.PreferredWidth)
             {
                 maxLabelWidth = aLabel.PreferredWidth;

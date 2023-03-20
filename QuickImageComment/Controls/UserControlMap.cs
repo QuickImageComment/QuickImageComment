@@ -38,6 +38,7 @@ namespace QuickImageComment
         private string centerLatitude;
         private string lastUrl;
         private int circleRadiusInMeter = 0;
+        private int panelBottomHeightInitial = 0;
         // for searching known positions
         private static Hashtable GeoDataItemsHashTable;
         // list of comboBoxes for search in different instances of this user control - used to keep list of entries synced
@@ -150,7 +151,8 @@ namespace QuickImageComment
         internal UserControlMap(bool locationChangeNeeded, GeoDataItem geoDataItem, bool givenChangeLocationAllowed, int radiusInMeter)
         {
             InitializeComponent();
-            
+            panelBottomHeightInitial = panelBottom.Height;
+
             circleRadiusInMeter = radiusInMeter;
             initLocationChangeNeeded = locationChangeNeeded;
             initGeoDataItem = geoDataItem;
@@ -554,11 +556,13 @@ namespace QuickImageComment
 
 #endif
 
-        // adjust size and splitter distances considering the size of panel where thesplitContainerImageDetails1 is included
-        internal void adjustSize(System.Drawing.Size size)
+        // adjust size of top and bottom panel after scaling 
+        internal void adjustTopBottomAfterScaling(System.Drawing.Size size)
         {
-            panel1.Width = size.Width;
-            panel1.Height = size.Height;
+            panelBottom.Height = panelBottomHeightInitial
+                * ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.generalZoomFactorPerCent) / 100;
+            panelTop.Height = panelMap.Height - panelBottom.Height;
+            panelBottom.Top = panelTop.Height;
         }
 
         // set radius of circle to be displayes

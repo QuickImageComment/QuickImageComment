@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.panelMap = new System.Windows.Forms.Panel();
             this.panelBottom = new System.Windows.Forms.Panel();
             this.checkBoxWebView2 = new System.Windows.Forms.CheckBox();
             this.dynamicComboBoxMapSource = new System.Windows.Forms.ComboBox();
@@ -42,21 +42,21 @@
             this.dynamicComboBoxSearch = new System.Windows.Forms.ComboBox();
             this.dynamicLabelCoordinates = new System.Windows.Forms.Label();
             this.panelTop = new System.Windows.Forms.Panel();
-            this.panel1.SuspendLayout();
+            this.panelMap.SuspendLayout();
             this.panelBottom.SuspendLayout();
             this.SuspendLayout();
             // 
-            // panel1
+            // panelMap
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.panelMap.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.Controls.Add(this.panelBottom);
-            this.panel1.Controls.Add(this.panelTop);
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(674, 410);
-            this.panel1.TabIndex = 0;
+            this.panelMap.Controls.Add(this.panelBottom);
+            this.panelMap.Controls.Add(this.panelTop);
+            this.panelMap.Location = new System.Drawing.Point(0, 0);
+            this.panelMap.Name = "panelMap";
+            this.panelMap.Size = new System.Drawing.Size(674, 410);
+            this.panelMap.TabIndex = 0;
             // 
             // panelBottom
             // 
@@ -210,11 +210,11 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.panelMap);
             this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "UserControlMap";
             this.Size = new System.Drawing.Size(674, 410);
-            this.panel1.ResumeLayout(false);
+            this.panelMap.ResumeLayout(false);
             this.panelBottom.ResumeLayout(false);
             this.panelBottom.PerformLayout();
             this.ResumeLayout(false);
@@ -223,7 +223,7 @@
 
         #endregion
         private System.Windows.Forms.Panel panelTop;
-        public System.Windows.Forms.Panel panel1;
+        public System.Windows.Forms.Panel panelMap;
         private System.Windows.Forms.Label dynamicLabelCoordinates;
         private System.Windows.Forms.Label dynamicLabelZoom;
         private System.Windows.Forms.Label labelZoom;
