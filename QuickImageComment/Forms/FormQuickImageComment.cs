@@ -34,6 +34,19 @@ namespace QuickImageComment
         // enums for entries in comboBoxKeyWordChange; must fit to definition of comboBox!
         enum enumComboBoxKeyWordChange { nothing, overwrite, add };
 
+        // as controls can be moved between different panels, the leading part of control's full name
+        // shall be ignored, when adding them in zoom basis data collection
+        string[] leadingControlNamePartsToIgnore = new string[]
+        {
+            "FormQuickImageComment.splitContainer1.1.splitContainer11.1.",
+            "FormQuickImageComment.splitContainer1.1.splitContainer11.2.",
+            "FormQuickImageComment.splitContainer1.2.splitContainer12.1.splitContainer12P1.1.splitContainer121.1.tabControlSingleMulti.0.splitContainer1211.2.",
+            "FormQuickImageComment.splitContainer1.2.splitContainer12.1.splitContainer12P1.1.splitContainer121.2.",
+            "FormQuickImageComment.splitContainer1.2.splitContainer12.2.splitContainer122.1.",
+            "FormQuickImageComment.splitContainer1.2.splitContainer12.2.splitContainer122.2.",
+            "UserControlImageDetails."
+        };
+
         public float dpiSettings;
         public static bool closing = false;
         public static bool cfgSaved = false;
@@ -124,6 +137,7 @@ namespace QuickImageComment
         const int viewModeBase = 8;
         private int viewMode = 0;
         private double zoomFactor = -1;
+        private double zoomFactorToolbarLast = 0f;
 
         private string labelArtistInitialText;
         private string labelUserCommentInitialText;
@@ -355,7 +369,7 @@ namespace QuickImageComment
 
             // create and fill user control for changeable fields 
             Program.StartupPerformance.measure("FormQIC before user control changeable fields");
-            theUserControlChangeableFields = new UserControlChangeableFields(theExtendedImage);
+            theUserControlChangeableFields = new UserControlChangeableFields();
             Program.StartupPerformance.measure("FormQIC user control changeable fields created");
             // configure user control
             theUserControlChangeableFields.ContextMenuStrip = contextMenuStripMetaData;
@@ -542,18 +556,24 @@ namespace QuickImageComment
             // adjust position of panel 1, needed for dpi values higher than 96
             adjustSplitContainer1DependingOnToolStrip();
 
-            FormCustomization.Interface.setGeneralZoomFactor(ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.generalZoomFactorPerCent) / 100f);
+            FormCustomization.Interface.setGeneralZoomFactor(ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.zoomFactorPerCentGeneral) / 100f);
             CustomizationInterface = new FormCustomization.Interface(this,
               maskCustomizationFile,
               LangCfg.getText(LangCfg.Others.configFileQicCustomization),
               "file://" + LangCfg.getHelpFile(),
               "FormCustomization.htm",
-              LangCfg.getTranslationsFromGerman());
+              LangCfg.getTranslationsFromGerman(),
+              leadingControlNamePartsToIgnore);
 
-            // adjust panels according configuration
-            //Program.StartupPerformance.measure("FormQIC before set split container panels content");
-            setSplitContainerPanelsContent();
-            //Program.StartupPerformance.measure("FormQIC After set splitter distance");
+            foreach (LangCfg.PanelContent key in SplitContainerPanelControls.Keys)
+            {
+                // SplitContainerPanelControls contains entries for UserControlMap and UserControlImageDetails,
+                // which are not yet initiated here, so check for null
+                if (SplitContainerPanelControls[key] != null)
+                {
+                    CustomizationInterface.fillOrUpdateZoomBasisData((Control)SplitContainerPanelControls[key], CustomizationInterface.getActualZoomFactor(this));
+                }
+            }
 
             //set top for label file name, needed if dpi is higher than 96
             dynamicLabelFileName.Top = splitContainer1211P1.Panel2.Height - dynamicLabelFileName.Height - 2;
@@ -569,13 +589,22 @@ namespace QuickImageComment
             GeneralUtilities.setSplitterDistanceWithCheck(this.splitContainer12, ConfigDefinition.enumCfgUserInt.Splitter12Distance);
             GeneralUtilities.setSplitterDistanceWithCheck(this.splitContainer121, ConfigDefinition.enumCfgUserInt.Splitter121Distance);
             GeneralUtilities.setSplitterDistanceWithCheck(this.splitContainer1211, ConfigDefinition.enumCfgUserInt.Splitter1211Distance);
-            GeneralUtilities.setSplitterDistanceWithCheck(theUserControlKeyWords.splitContainer1212, ConfigDefinition.enumCfgUserInt.Splitter1212Distance);
             GeneralUtilities.setSplitterDistanceWithCheck(this.splitContainer122, ConfigDefinition.enumCfgUserInt.Splitter122Distance);
+
+            // adjust panels according configuration
+            //Program.StartupPerformance.measure("FormQIC before set split container panels content");
+            setSplitContainerPanelsContent();
+            //Program.StartupPerformance.measure("FormQIC After set splitter distance");
+
+            // adjustment to be done after setting content of split container panels
+            GeneralUtilities.setSplitterDistanceWithCheck(theUserControlKeyWords.splitContainer1212, ConfigDefinition.enumCfgUserInt.Splitter1212Distance);
             if (theUserControlImageDetails != null) theUserControlImageDetails.adjustSplitterDistances();
 
             // needs to be called after customization to adjust distances artist/comment
             showHideControlsCentralInputArea();
             //Program.StartupPerformance.measure("FormQIC showHideControlsCentralInputArea");
+
+            adjustToolbarSize();
 
             // translate all controls
             //Program.StartupPerformance.measure("FormQIC before translate controls");
@@ -1932,6 +1961,7 @@ namespace QuickImageComment
 
                 // set the flags indicating if user controls are visible
                 setUserControlVisibilityFlags();
+                //CustomizationInterface.checkFontSize(this, this.Font.Size);
             }
         }
 
@@ -2296,17 +2326,51 @@ namespace QuickImageComment
 
         internal void adjustAfterScaleChange()
         {
-            // hide the main splitContainer to avoid flickering during update
+            // hide the controls to avoid flickering during update
             // using SuspendLayout still caused too much flickering 
             foreach (Control control in this.Controls) control.Visible = false;
+            
             CustomizationInterface.setFormToCustomizedValuesZoomIfChanged(this);
-            // needs to be called to adjust distances artist/comment
-            showHideControlsCentralInputArea();
-            dynamicLabelFileName.Top = splitContainer1211P1.Panel2.Height - dynamicLabelFileName.Height - 2;
+            // refill user control changeable fields
+            // scaling with CustomizationInterface results in different layout than filling new (gaps to big)
             theUserControlChangeableFields.fillChangeableFieldPanelWithControls(theExtendedImage);
 
+            // following code needed to adjust some distances 
+            showHideControlsCentralInputArea();
+            dynamicLabelFileName.Top = splitContainer1211P1.Panel2.Height - dynamicLabelFileName.Height - 2;
+            if (theUserControlMap != null && theUserControlMap.Parent != null && theUserControlMap.isInPanel)
+            {
+                theUserControlMap.adjustTopBottomAfterScaling(theUserControlMap.Parent.Size);
+            }
+
+            adjustToolbarSize();
+
             readFolderAndDisplayImage(true);
+            //CustomizationInterface.checkFontSize(this, this.Font.Size);
             foreach (Control control in this.Controls) control.Visible = true;
+        }
+
+        // adjust toolbar size according specific scaling
+        private void adjustToolbarSize()
+        {
+            float zoomFactorToolbar = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.zoomFactorPerCentToolbar) / 100f;
+
+            // if separate zoom factor is given or general is to be used now, when separate was given before
+            if (zoomFactorToolbar > 0f || zoomFactorToolbarLast > 0)
+            {
+                int toolStrip1HeightOld = this.toolStrip1.Height;
+                if (zoomFactorToolbar > 0)
+                    // use separate zoom factor
+                    CustomizationInterface.zoomControls(this.toolStrip1, zoomFactorToolbar);
+                else
+                    // no separate zoom factor, use general
+                    CustomizationInterface.zoomControls(this.toolStrip1, CustomizationInterface.getActualZoomFactor(this));
+                int delta = this.toolStrip1.Height - toolStrip1HeightOld;
+                this.splitContainer1.Top += delta;
+                this.splitContainer1.Height -= delta;
+
+                zoomFactorToolbarLast = zoomFactorToolbar;
+            }
         }
 
         // open form customization settings
@@ -4075,8 +4139,6 @@ namespace QuickImageComment
         private void setOneSplitContainerPanelContent(Panel aPanel)
         {
             Control aControl;
-            bool controlRequiresZoomWithGeneralFactor = false;
-
             string key = GeneralUtilities.getNameOfPanelInSplitContainer(aPanel);
             aPanel.Controls.Clear();
             if (ConfigDefinition.getSplitContainerPanelContents().ContainsKey(key))
@@ -4091,7 +4153,10 @@ namespace QuickImageComment
                         if (theUserControlImageDetails == null)
                         {
                             theUserControlImageDetails = new UserControlImageDetails(dpiSettings, null);
-                            controlRequiresZoomWithGeneralFactor = true;
+                            if (CustomizationInterface != null)
+                            {
+                                CustomizationInterface.zoomControlsUsingGeneralZoomFactor(theUserControlImageDetails.splitContainerImageDetails1, this);
+                            }
                         }
                         theUserControlImageDetails.isInPanel = true;
                         theUserControlImageDetails.adjustSizeAndSplitterDistances(aPanel.Size);
@@ -4116,7 +4181,10 @@ namespace QuickImageComment
                                 bool changeIsPossible = theExtendedImage != null && theExtendedImage.changePossible();
                                 theUserControlMap = new UserControlMap(false, commonRecordingLocation(), changeIsPossible, 0);
                             }
-                            controlRequiresZoomWithGeneralFactor = true;
+                            if (CustomizationInterface != null)
+                            {
+                                CustomizationInterface.zoomControlsUsingGeneralZoomFactor(theUserControlMap.panelMap, this);
+                            }
                         }
                         theUserControlMap.isInPanel = true;
                         aControl = theUserControlMap.panelMap;
@@ -4130,27 +4198,19 @@ namespace QuickImageComment
                     // if not needed, aControl is null
                     if (aControl != null)
                     {
-                        if (controlRequiresZoomWithGeneralFactor)
-                        {
-                            // save the font as it will be inherited from form when adding this control
-                            // for proper scaling, the font needs to be reset after adding
-                            Font font = new System.Drawing.Font(aControl.Font.FontFamily, aControl.Font.Size, aControl.Font.Style);
-                            if (CustomizationInterface != null)
-                            {
-                                // restore font to overwrite font inherited during adding the control
-                                aControl.Font = font;
-                                CustomizationInterface.zoomControlsUsingGeneralZoomFactor(aControl, this);
-                            }
-                        }
-                        // first set size
-                        // otherwise in 32-Bit-Version setting width for IPTC-keywords to a higher 
-                        // value than in previous panel did not work
-                        aControl.Height = aPanel.Height;
-                        aControl.Width = aPanel.Width;
                         aPanel.Controls.Add(aControl);
+                        aControl.Dock = DockStyle.Fill;
 
                         // user control for map needs special adjustment after scaling
-                        if (ContentEnum == LangCfg.PanelContent.Map) theUserControlMap.adjustTopBottomAfterScaling(aPanel.Size);
+                        if (ContentEnum == LangCfg.PanelContent.Map)
+                        {
+                            theUserControlMap.adjustTopBottomAfterScaling(aPanel.Size);
+                        }
+                        // refill changeable fields to ensure proper gaps between controls and right alignment
+                        if (ContentEnum == LangCfg.PanelContent.Configurable)
+                        {
+                            theUserControlChangeableFields.fillChangeableFieldPanelWithControls(theExtendedImage);
+                        }
 
                         // if aControl is SplitContainer, adjust PanelMinSize
                         if (aControl.GetType().Equals(typeof(SplitContainer)))
@@ -6230,6 +6290,7 @@ namespace QuickImageComment
                 new FormPredefinedKeyWords();
                 new FormRemoveMetaData(theUserControlFiles.listViewFiles.SelectedIndices);
                 new FormRename(theUserControlFiles.listViewFiles.SelectedIndices);
+                new FormScale();
                 new FormSelectLanguage(ConfigDefinition.getConfigPath());
                 new FormSettings();
                 // exclude FormSelectUserConfigStorage: not interisting for screen shot 
@@ -6326,6 +6387,7 @@ namespace QuickImageComment
             LangCfg.getListOfControlsWithText(new FormSelectLanguage(ConfigDefinition.getConfigPath()), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormFirstAppCenterSettings(), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormFirstUserSettings(true), ControlTextList);
+            LangCfg.getListOfControlsWithText(new FormScale(), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormSettings(), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormTagValueInput("", textBoxUserComment, FormTagValueInput.type.configurable), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormUserButtons(this.MenuStrip1), ControlTextList);
@@ -6387,6 +6449,7 @@ namespace QuickImageComment
             // FormQuickImageComment is already translated
             new FormRemoveMetaData(theUserControlFiles.listViewFiles.SelectedIndices);
             new FormRename(theUserControlFiles.listViewFiles.SelectedIndices);
+            new FormScale();
             new FormSelectFolder("C:\\");
             new FormSelectLanguage(ConfigDefinition.getConfigPath());
             new FormSettings();

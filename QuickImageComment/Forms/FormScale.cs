@@ -23,7 +23,8 @@ namespace QuickImageComment
     public partial class FormScale : Form
     {
         private float initialFontSize;
-        private int initialConfigZoomFactorPercent;
+        private int initialConfigZoomFactorPercentGeneral;
+        private int initialConfigZoomFactorPercentToolbar;
 
         public FormScale()
         {
@@ -33,7 +34,8 @@ namespace QuickImageComment
             // after possible scaling from customization interface, restore font size from example label
             labelExample.Font = new Font(labelExample.Font.FontFamily, initialFontSize, labelExample.Font.Style);
 
-            initialConfigZoomFactorPercent = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.generalZoomFactorPerCent);
+            initialConfigZoomFactorPercentGeneral = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.zoomFactorPerCentGeneral);
+            initialConfigZoomFactorPercentToolbar = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.zoomFactorPerCentToolbar);
             foreach (RadioButton radioButton in panelRecommendedScales.Controls)
             {
                 string[] textWords = radioButton.Text.Split(' ');
@@ -45,28 +47,43 @@ namespace QuickImageComment
             // although the apropriate zoom factor is not configured
             // (with show one radioButton is checked)
             this.Show();
-            numericUpDown1.Value = initialConfigZoomFactorPercent;
+            numericUpDownGeneral.Value = initialConfigZoomFactorPercentGeneral;
+            if (initialConfigZoomFactorPercentToolbar > 0)
+            {
+                numericUpDownToolbar.Value = initialConfigZoomFactorPercentToolbar;
+                checkBoxSeparateScaleToolbar.Checked = true;
+            }
+            else
+            {
+                numericUpDownToolbar.Value = 100;
+                numericUpDownToolbar.Visible = false;
+                labelPercentToolbar.Visible = false;
+                checkBoxSeparateScaleToolbar.Checked = false;
+            }
         }
 
         private void buttonOk_Click(object sender, EventArgs e)
         {
             Close();
 
-            int newConfigZoomFactorPercent = (int)numericUpDown1.Value;
+            int newConfigZoomFactorPercentGeneral = (int)numericUpDownGeneral.Value;
+            int newConfigZoomFactorPercentToolbar = -1;
+            if (checkBoxSeparateScaleToolbar.Checked) newConfigZoomFactorPercentToolbar = (int)numericUpDownToolbar.Value;
 
-            if (newConfigZoomFactorPercent != ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.generalZoomFactorPerCent))
+            if (newConfigZoomFactorPercentGeneral != ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.zoomFactorPerCentGeneral))
             {
                 // store new zoom factor and adjust mask
-                storeZoomFactorAndAdjustMainMask(newConfigZoomFactorPercent);
+                storeZoomFactorAndAdjustMainMask(newConfigZoomFactorPercentGeneral, newConfigZoomFactorPercentToolbar);
             }
         }
 
         private void buttonAbort_Click(object sender, EventArgs e)
         {
-            if (initialConfigZoomFactorPercent != ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.generalZoomFactorPerCent))
+            if (initialConfigZoomFactorPercentGeneral != ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.zoomFactorPerCentGeneral) ||
+                initialConfigZoomFactorPercentToolbar != ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.zoomFactorPerCentToolbar))
             {
                 // restore initial zoom factor and adjust mask
-                storeZoomFactorAndAdjustMainMask(initialConfigZoomFactorPercent);
+                storeZoomFactorAndAdjustMainMask(initialConfigZoomFactorPercentGeneral, initialConfigZoomFactorPercentToolbar);
             }
             Close();
         }
@@ -76,17 +93,30 @@ namespace QuickImageComment
             GeneralUtilities.ShowHelp(this, "FormScale");
         }
 
-        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        private void numericUpDownGeneral_ValueChanged(object sender, EventArgs e)
         {
-            labelExample.Font = FormCustomization.Interface.getZoomedFont(labelExample.Font, initialFontSize, (float)numericUpDown1.Value / 100);
-            int newZoomFactor = (int)numericUpDown1.Value;
+            labelExample.Font = FormCustomization.Interface.getZoomedFont(labelExample.Font, initialFontSize, (float)numericUpDownGeneral.Value / 100);
+            int newZoomFactorGeneral = (int)numericUpDownGeneral.Value;
+            int newZoomFactorToolbar = -1;
+            if (checkBoxSeparateScaleToolbar.Checked) newZoomFactorToolbar = (int)numericUpDownToolbar.Value;
             foreach (RadioButton radioButton in panelRecommendedScales.Controls)
             {
-                radioButton.Checked = (int)radioButton.Tag == newZoomFactor;
+                radioButton.Checked = (int)radioButton.Tag == newZoomFactorGeneral;
             }
             if (checkBoxApplyDirect.Checked)
             {
-                storeZoomFactorAndAdjustMainMask(newZoomFactor);
+                storeZoomFactorAndAdjustMainMask(newZoomFactorGeneral, newZoomFactorToolbar);
+            }
+        }
+
+        private void numericUpDownToolbar_ValueChanged(object sender, EventArgs e)
+        {
+            int newZoomFactorGeneral = (int)numericUpDownGeneral.Value;
+            int newZoomFactorToolbar = -1;
+            if (checkBoxSeparateScaleToolbar.Checked) newZoomFactorToolbar = (int)numericUpDownToolbar.Value;
+            if (checkBoxApplyDirect.Checked)
+            {
+                storeZoomFactorAndAdjustMainMask(newZoomFactorGeneral, newZoomFactorToolbar);
             }
         }
 
@@ -94,7 +124,21 @@ namespace QuickImageComment
         {
             if (((RadioButton)sender).Checked)
             {
-                numericUpDown1.Value = (int)((RadioButton)sender).Tag;
+                numericUpDownGeneral.Value = (int)((RadioButton)sender).Tag;
+            }
+        }
+
+        private void checkBoxSeparateScaleToolbar_CheckedChanged(object sender, EventArgs e)
+        {
+            numericUpDownToolbar.Visible = (checkBoxSeparateScaleToolbar.Checked);
+            labelPercentToolbar.Visible = (checkBoxSeparateScaleToolbar.Checked);
+
+            if (checkBoxApplyDirect.Checked)
+            {
+                int newZoomFactorGeneral = (int)numericUpDownGeneral.Value;
+                int newZoomFactorToolbar = -1;
+                if (checkBoxSeparateScaleToolbar.Checked) newZoomFactorToolbar = (int)numericUpDownToolbar.Value;
+                storeZoomFactorAndAdjustMainMask(newZoomFactorGeneral, newZoomFactorToolbar);
             }
         }
 
@@ -102,20 +146,25 @@ namespace QuickImageComment
         {
             if (checkBoxApplyDirect.Checked)
             {
-                int newConfigZoomFactorPercent = (int)numericUpDown1.Value;
+                int newConfigZoomFactorPercentGeneral = (int)numericUpDownGeneral.Value;
+                int newConfigZoomFactorPercentToolbar = -1;
+                if (checkBoxSeparateScaleToolbar.Checked) newConfigZoomFactorPercentToolbar = (int)numericUpDownToolbar.Value;
 
-                if (newConfigZoomFactorPercent != ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.generalZoomFactorPerCent))
+                if (newConfigZoomFactorPercentGeneral != ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.zoomFactorPerCentGeneral) ||
+                    newConfigZoomFactorPercentToolbar != ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.zoomFactorPerCentToolbar))
                 {
                     // store new zoom factor and adjust mask
-                    storeZoomFactorAndAdjustMainMask(newConfigZoomFactorPercent);
+                    storeZoomFactorAndAdjustMainMask(newConfigZoomFactorPercentGeneral, newConfigZoomFactorPercentToolbar);
                 }
             }
         }
 
-        private void storeZoomFactorAndAdjustMainMask(int zoomFactorPercent)
+        private void storeZoomFactorAndAdjustMainMask(int zoomFactorPercentGeneral, int zoomFactorPercentToolbar)
         {
-            ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.generalZoomFactorPerCent, zoomFactorPercent);
-            FormCustomization.Interface.setGeneralZoomFactor(zoomFactorPercent / 100f);
+            ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.zoomFactorPerCentGeneral, zoomFactorPercentGeneral);
+            ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.zoomFactorPerCentToolbar, zoomFactorPercentToolbar);
+
+            FormCustomization.Interface.setGeneralZoomFactor(zoomFactorPercentGeneral / 100f);
             ((FormQuickImageComment)MainMaskInterface.getMainMask()).adjustAfterScaleChange();
         }
     }

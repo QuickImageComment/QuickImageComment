@@ -81,26 +81,26 @@
             // checkBoxWebView2
             // 
             this.checkBoxWebView2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkBoxWebView2.Location = new System.Drawing.Point(424, 27);
+            this.checkBoxWebView2.Location = new System.Drawing.Point(433, 27);
             this.checkBoxWebView2.Name = "checkBoxWebView2";
-            this.checkBoxWebView2.Size = new System.Drawing.Size(241, 17);
+            this.checkBoxWebView2.Size = new System.Drawing.Size(224, 19);
             this.checkBoxWebView2.TabIndex = 19;
-            this.checkBoxWebView2.Text = "einschl. Karten nur für Anzeige (Einträge mit *)";
+            this.checkBoxWebView2.Text = "einschl. Karten nur für Anzeige (* ...)";
             this.checkBoxWebView2.UseVisualStyleBackColor = true;
             // 
             // dynamicComboBoxMapSource
             // 
             this.dynamicComboBoxMapSource.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.dynamicComboBoxMapSource.FormattingEnabled = true;
-            this.dynamicComboBoxMapSource.Location = new System.Drawing.Point(424, 3);
+            this.dynamicComboBoxMapSource.Location = new System.Drawing.Point(433, 3);
             this.dynamicComboBoxMapSource.Name = "dynamicComboBoxMapSource";
-            this.dynamicComboBoxMapSource.Size = new System.Drawing.Size(247, 21);
+            this.dynamicComboBoxMapSource.Size = new System.Drawing.Size(236, 21);
             this.dynamicComboBoxMapSource.TabIndex = 15;
             this.dynamicComboBoxMapSource.SelectedIndexChanged += new System.EventHandler(this.dynamicComboBoxMapSource_SelectedIndexChanged);
             // 
             // buttonDelete
             // 
-            this.buttonDelete.Location = new System.Drawing.Point(80, 25);
+            this.buttonDelete.Location = new System.Drawing.Point(80, 26);
             this.buttonDelete.Name = "buttonDelete";
             this.buttonDelete.Size = new System.Drawing.Size(56, 21);
             this.buttonDelete.TabIndex = 17;
@@ -110,7 +110,7 @@
             // 
             // buttonRename
             // 
-            this.buttonRename.Location = new System.Drawing.Point(2, 25);
+            this.buttonRename.Location = new System.Drawing.Point(2, 26);
             this.buttonRename.Name = "buttonRename";
             this.buttonRename.Size = new System.Drawing.Size(79, 21);
             this.buttonRename.TabIndex = 16;
@@ -121,9 +121,9 @@
             // labelZoom
             // 
             this.labelZoom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelZoom.Location = new System.Drawing.Point(209, 29);
+            this.labelZoom.Location = new System.Drawing.Point(225, 30);
             this.labelZoom.Name = "labelZoom";
-            this.labelZoom.Size = new System.Drawing.Size(52, 13);
+            this.labelZoom.Size = new System.Drawing.Size(38, 13);
             this.labelZoom.TabIndex = 6;
             this.labelZoom.Text = "Zoom:";
             this.labelZoom.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -131,7 +131,7 @@
             // buttonReset
             // 
             this.buttonReset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonReset.Location = new System.Drawing.Point(340, 2);
+            this.buttonReset.Location = new System.Drawing.Point(347, 2);
             this.buttonReset.Name = "buttonReset";
             this.buttonReset.Size = new System.Drawing.Size(80, 23);
             this.buttonReset.TabIndex = 10;
@@ -142,7 +142,7 @@
             // buttonCenterMarker
             // 
             this.buttonCenterMarker.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonCenterMarker.Location = new System.Drawing.Point(257, 2);
+            this.buttonCenterMarker.Location = new System.Drawing.Point(261, 2);
             this.buttonCenterMarker.Name = "buttonCenterMarker";
             this.buttonCenterMarker.Size = new System.Drawing.Size(80, 23);
             this.buttonCenterMarker.TabIndex = 11;
@@ -153,7 +153,7 @@
             // buttonSearch
             // 
             this.buttonSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSearch.Location = new System.Drawing.Point(223, 2);
+            this.buttonSearch.Location = new System.Drawing.Point(225, 2);
             this.buttonSearch.Name = "buttonSearch";
             this.buttonSearch.Size = new System.Drawing.Size(30, 23);
             this.buttonSearch.TabIndex = 14;
@@ -165,7 +165,7 @@
             // 
             this.dynamicLabelZoom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.dynamicLabelZoom.AutoSize = true;
-            this.dynamicLabelZoom.Location = new System.Drawing.Point(263, 29);
+            this.dynamicLabelZoom.Location = new System.Drawing.Point(267, 30);
             this.dynamicLabelZoom.Name = "dynamicLabelZoom";
             this.dynamicLabelZoom.Size = new System.Drawing.Size(19, 13);
             this.dynamicLabelZoom.TabIndex = 7;
@@ -178,9 +178,10 @@
             this.dynamicComboBoxSearch.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.dynamicComboBoxSearch.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.dynamicComboBoxSearch.FormattingEnabled = true;
+            this.dynamicComboBoxSearch.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.dynamicComboBoxSearch.Location = new System.Drawing.Point(3, 3);
             this.dynamicComboBoxSearch.Name = "dynamicComboBoxSearch";
-            this.dynamicComboBoxSearch.Size = new System.Drawing.Size(218, 21);
+            this.dynamicComboBoxSearch.Size = new System.Drawing.Size(216, 21);
             this.dynamicComboBoxSearch.TabIndex = 13;
             this.dynamicComboBoxSearch.SelectedIndexChanged += new System.EventHandler(this.dynamicComboBoxSearch_SelectedIndexChanged);
             this.dynamicComboBoxSearch.TextUpdate += new System.EventHandler(this.dynamicComboBoxSearch_TextUpdate);
@@ -189,7 +190,7 @@
             // dynamicLabelCoordinates
             // 
             this.dynamicLabelCoordinates.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.dynamicLabelCoordinates.Location = new System.Drawing.Point(276, 29);
+            this.dynamicLabelCoordinates.Location = new System.Drawing.Point(292, 30);
             this.dynamicLabelCoordinates.Name = "dynamicLabelCoordinates";
             this.dynamicLabelCoordinates.Size = new System.Drawing.Size(135, 13);
             this.dynamicLabelCoordinates.TabIndex = 5;

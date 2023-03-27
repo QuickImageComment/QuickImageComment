@@ -560,7 +560,7 @@ namespace QuickImageComment
         internal void adjustTopBottomAfterScaling(System.Drawing.Size size)
         {
             panelBottom.Height = panelBottomHeightInitial
-                * ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.generalZoomFactorPerCent) / 100;
+                * ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.zoomFactorPerCentGeneral) / 100;
             panelTop.Height = panelMap.Height - panelBottom.Height;
             panelBottom.Top = panelTop.Height;
         }

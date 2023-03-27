@@ -48,7 +48,7 @@ namespace QuickImageComment
             theUserControlKeyWords = new UserControlKeyWords();
             splitContainer1.Panel2.Controls.Add(theUserControlKeyWords);
             // add changeable fields area
-            theUserControlChangeableFields = new UserControlChangeableFields(null);
+            theUserControlChangeableFields = new UserControlChangeableFields();
             splitContainer1.Panel1.Controls.Add(theUserControlChangeableFields);
 
             CustomizationInterface = MainMaskInterface.getCustomizationInterface();

@@ -14,6 +14,7 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
+using QuickImageComment;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
@@ -39,13 +40,15 @@ namespace FormCustomization
         }
 
         public Interface(Form theForm, string CustomizationFile, string FileHeaderLine, string HelpUrl, string HelpTopic,
-            SortedList<string, string> givenTranslations)
+            SortedList<string, string> givenTranslations, string[] leadingControlNamePartsToIgnore)
         {
             theCustomizer = new Customizer(FileHeaderLine, HelpUrl, HelpTopic, givenTranslations);
             if (!CustomizationFile.Equals(""))
             {
                 theCustomizer.loadCustomizationFile(CustomizationFile, true);
             }
+            Customizer.leadingControlNamePartsToIgnore = leadingControlNamePartsToIgnore;
+
             // when initiating Customization Interface, nothing can have been zoomed before, so do not force zoóming
             setFormToCustomizedValuesZoomIfChanged(theForm);
 
@@ -115,6 +118,12 @@ namespace FormCustomization
             theCustomizer.zoomControlsUsingGeneralZoomFactor(ParentControl, actualZoomFactor);
         }
 
+        // zoom controls including childs
+        internal void zoomControls(Control ParentControl, float zoomFactor)
+        {
+            theCustomizer.zoomControls(ParentControl, zoomFactor);
+        }
+
         // load the settings from file
         public void loadCustomizationFile(string CustomizationFile)
         {
@@ -178,6 +187,23 @@ namespace FormCustomization
         public static Font getZoomedFont(Font usedFont, float initialFontSize, float zoomFactor)
         {
             return Customizer.getZoomedFont(usedFont, initialFontSize, zoomFactor);
+        }
+
+        // fill the hashtable with zoom basis data of the control and its childs
+        public void fillOrUpdateZoomBasisData(Control ParentControl, float actualZoomFactor)
+        {
+            theCustomizer.fillOrUpdateZoomBasisData(ParentControl, actualZoomFactor);
+        }
+
+        // can be used to check if all controls are scaled properly
+        internal void checkFontSize(Control parent, float fontSize)
+        {
+            foreach (Control child in parent.Controls)
+            {
+                if (child.Font.Size != fontSize) Logger.log("# " + Customizer.getFullNameOfComponent(child).Replace("splitContainer", "SP") + " " + child.Font.Size.ToString());
+                if (!child.Font.Name.Equals("Tahoma")) Logger.log("# " + Customizer.getFullNameOfComponent(child).Replace("splitContainer", "SP") + " " + child.Font.Name);
+                checkFontSize(child, fontSize);
+            }
         }
     }
 }

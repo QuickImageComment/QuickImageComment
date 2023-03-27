@@ -558,7 +558,7 @@ namespace QuickImageCommentControls
         internal void setThumbNailSizeAndDependingValues()
         {
             ThumbNailSize = ConfigDefinition.getConfigInt(ConfigDefinition.enumConfigInt.ThumbNailSize) *
-                ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.generalZoomFactorPerCent) / 100;
+                ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.zoomFactorPerCentGeneral) / 100;
             short sizeX = (short)(ThumbNailSize + ConfigDefinition.getConfigInt(ConfigDefinition.enumConfigInt.LargeIconHorizontalSpace));
             short sizeY = (short)(ThumbNailSize + ConfigDefinition.getConfigInt(ConfigDefinition.enumConfigInt.LargeIconVerticalSpace));
             ListViewItem_SetSpacing(this, sizeX, sizeY);

@@ -71,6 +71,8 @@ namespace FormCustomization
         private static SortedList<string, int> NewFontSizesForZoom = new SortedList<string, int>();
         private const string fontSizeTest = "MlMlMlMlM";
 
+        internal static string[] leadingControlNamePartsToIgnore;
+
         // contains properties of components
         private class PropertyPair
         {
@@ -405,24 +407,8 @@ namespace FormCustomization
                     }
                 }
             }
-            //float fontSize = theForm.Font.Size;
-            //foreach (string key in NewFontSizesForZoom.Keys)
-            //{
-            //    Logger.log("Fonttable " + key + " -> " + NewFontSizesForZoom[key].ToString());
-            //}
-            //Logger.log("setAllComponents finish " + theForm.Text + " font=" + fontSize.ToString());
-            //checkFontSize(theForm, fontSize);
+            //foreach (string key in ZoomBasisDataTable.Keys) Logger.log("--" + key);
         }
-
-        //private void checkFontSize(Control parent, float fontSize)
-        //{
-        //    foreach (Control child in parent.Controls)
-        //    {
-        //        if (child.Font.Size != fontSize) Logger.log("# " + getFullNameOfComponent(child).Replace("splitContainer", "SP") + " " + child.Font.Size.ToString());
-        //        if (!child.Font.Name.Equals("Tahoma")) Logger.log("# " + getFullNameOfComponent(child).Replace("splitContainer", "SP") + " " + child.Font.Name);
-        //        checkFontSize(child, fontSize);
-        //    }
-        //}
 
         // clear flag indicating that customized settings were changed
         internal void clearCustomizedSettingsChanged()
@@ -581,20 +567,24 @@ namespace FormCustomization
 
                 // depending on Anchor, position and size may have been changed due to 
                 // size change of mask or moving splitter
-                if ((theControl.Anchor | AnchorStyles.Left) != AnchorStyles.Left)
+                if ((theControl.Anchor & AnchorStyles.Left) != AnchorStyles.Left)
                 {
+                    // control has no anchor Left: moving splitter will change Left
                     zoomBasisData.Left = theControl.Left / actualZoomFactor;
                 }
-                if ((theControl.Anchor | AnchorStyles.Right) != AnchorStyles.Right)
+                if ((theControl.Anchor & AnchorStyles.Left) == AnchorStyles.Left &&
+                    (theControl.Anchor & AnchorStyles.Right) == AnchorStyles.Right)
                 {
+                    // control has anchor Left and Right: moving splitter will change width
                     zoomBasisData.Width = theControl.Width / actualZoomFactor;
                 }
 
-                if ((theControl.Anchor | AnchorStyles.Top) != AnchorStyles.Top)
+                if ((theControl.Anchor & AnchorStyles.Top) != AnchorStyles.Top)
                 {
                     zoomBasisData.Top = theControl.Top / actualZoomFactor;
                 }
-                if ((theControl.Anchor | AnchorStyles.Bottom) != AnchorStyles.Bottom)
+                if ((theControl.Anchor & AnchorStyles.Top) == AnchorStyles.Top &&
+                    (theControl.Anchor & AnchorStyles.Bottom) == AnchorStyles.Bottom)
                 {
                     zoomBasisData.Height = theControl.Height / actualZoomFactor;
                 }
@@ -637,7 +627,7 @@ namespace FormCustomization
         }
 
         // zoom controls including childs
-        private void zoomControls(Control ParentControl, float zoomFactor)
+        internal void zoomControls(Control ParentControl, float zoomFactor)
         {
             string ParentControlFullName = getFullNameOfComponent(ParentControl);
 
@@ -679,11 +669,11 @@ namespace FormCustomization
                     {
                         ParentControl.AutoSize = false;
                     }
-                    if (theZoomBasisData.noGapRight)
+                    if (theZoomBasisData.noGapRight && ParentControl.Parent != null)
                         ParentControl.Width = ParentControl.Parent.Width - ParentControl.Right;
                     else
                         ParentControl.Width = (int)(theZoomBasisData.Width * zoomFactor);
-                    if (theZoomBasisData.noGapBottom)
+                    if (theZoomBasisData.noGapBottom && ParentControl.Parent != null)
                         ParentControl.Height = ParentControl.Parent.Height - ParentControl.Top;
                     else
                         ParentControl.Height = (int)(theZoomBasisData.Height * zoomFactor);
@@ -729,7 +719,6 @@ namespace FormCustomization
             }
             if (minWidth > 0 && minHeight > 0) ParentControl.MinimumSize = new Size(minWidth, minHeight);
 
-            //if (ParentControl.Name.Equals("splitContainer1212")) Logger.log("distance before explicite zoom splitContainer1212 " + ((SplitContainer)ParentControl).SplitterDistance.ToString());
             if (ParentControl is SplitContainer)
             {
                 ((SplitContainer)ParentControl).Panel1MinSize = (int)(theZoomBasisData.Panel1MinSize * zoomFactor);
@@ -1274,6 +1263,13 @@ namespace FormCustomization
                 }
                 Control theParentControl = tempToolStripItem.GetCurrentParent();
                 theName = getFullNameOfComponent(theParentControl) + "." + theName;
+            }
+            // remove specific leading parts of control full name
+            // the controls may move to different panels in form, so ignore this variable leading part
+            for (int ii = 0; ii < leadingControlNamePartsToIgnore.Length; ii++)
+            {
+                if (theName.StartsWith(leadingControlNamePartsToIgnore[ii]))
+                    theName = theName.Substring(leadingControlNamePartsToIgnore[ii].Length);
             }
             return theName;
         }

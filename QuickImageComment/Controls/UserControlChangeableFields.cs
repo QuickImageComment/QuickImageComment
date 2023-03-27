@@ -48,10 +48,11 @@ namespace QuickImageComment
                 : base() { }
         }
 
-        public UserControlChangeableFields(ExtendedImage theExtendedImage)
+        public UserControlChangeableFields()
         {
             //Program.StartupPerformance.measure("UserControlChangeableFields constructor start");
             InitializeComponent();
+            ChangeableFieldInputControls = new SortedList<string, Control>();
             // remove the template controls from panel
             // they are still available as template, but do not disturb on screen and during scaling
             for (int ii = panelChangeableFieldsInner.Controls.Count - 1; ii >= 0; ii--)
@@ -112,21 +113,11 @@ namespace QuickImageComment
                 }
             }
 
-            // remove existing controls, except templates
+            // remove existing controls
             for (int ii = panelChangeableFieldsInner.Controls.Count - 1; ii >= 0; ii--)
             {
-                if (panelChangeableFieldsInner.Controls[ii].Equals(textBoxChangeableField) ||
-                    panelChangeableFieldsInner.Controls[ii].Equals(comboBoxChangeableField) ||
-                    panelChangeableFieldsInner.Controls[ii].Equals(dynamicLabelChangeableField))
-                {
-                    // remove templates from panel (just happens during first call)
-                    panelChangeableFieldsInner.Controls.Remove(panelChangeableFieldsInner.Controls[ii]);
-                }
-                else
-                {
-                    // dispose the dynamically created controls
-                    panelChangeableFieldsInner.Controls[ii].Dispose();
-                }
+                // dispose the dynamically created controls
+                panelChangeableFieldsInner.Controls[ii].Dispose();
             }
 
             // add new controls
