@@ -111,11 +111,11 @@ namespace FormCustomization
             theCustomizer.setAllComponents(Customizer.enumSetTo.Original, theForm);
         }
 
-        // zoom controls (e.g. a user control)
-        public void zoomControlsUsingGeneralZoomFactor(Control ParentControl, Form ContainingForm)
+        // zoom controls including childs using target zoom factor (general or form specific)
+        // applied zoom factor is used for update zoom basis data (if required)
+        public void zoomControlsUsingTargetZoomFactor(Control ParentControl, Form ContainingForm)
         {
-            float actualZoomFactor = theCustomizer.getActualZoomFactor(ContainingForm);
-            theCustomizer.zoomControlsUsingGeneralZoomFactor(ParentControl, actualZoomFactor);
+            theCustomizer.zoomControlsUsingTargetZoomFactor(ParentControl, ContainingForm);
         }
 
         // zoom controls including childs
@@ -166,9 +166,10 @@ namespace FormCustomization
         }
 
         // reset the form
+        // zoom only if zoomed before
         public void resetForm(Form theForm)
         {
-            theCustomizer.setAllComponents(Customizer.enumSetTo.Original, theForm);
+            theCustomizer.setAllComponentsZoomIfChanged(Customizer.enumSetTo.Original, theForm);
         }
 
         // get and set general zoom factor
@@ -193,6 +194,12 @@ namespace FormCustomization
         public void fillOrUpdateZoomBasisData(Control ParentControl, float actualZoomFactor)
         {
             theCustomizer.fillOrUpdateZoomBasisData(ParentControl, actualZoomFactor);
+        }
+
+        // remove entries in hashtable with zoom basis data of the control and its childs
+        internal void removeZoomBasisData(Control ParentControl)
+        {
+            theCustomizer.removeZoomBasisData(ParentControl);
         }
 
         // can be used to check if all controls are scaled properly

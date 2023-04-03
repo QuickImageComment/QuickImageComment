@@ -557,10 +557,9 @@ namespace QuickImageComment
 #endif
 
         // adjust size of top and bottom panel after scaling 
-        internal void adjustTopBottomAfterScaling(System.Drawing.Size size)
+        internal void adjustTopBottomAfterScaling(float actualZoomFactor)
         {
-            panelBottom.Height = panelBottomHeightInitial
-                * ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.zoomFactorPerCentGeneral) / 100;
+            panelBottom.Height = (int)(panelBottomHeightInitial * actualZoomFactor);
             panelTop.Height = panelMap.Height - panelBottom.Height;
             panelBottom.Top = panelTop.Height;
         }

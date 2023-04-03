@@ -89,7 +89,7 @@ namespace FormCustomization
             MarkupPanels = new List<Panel>();
 
             getAndDisplayActiveControl();
-            numericUpDownZoom.Value = (int)(theCustomizer.getActualZoomFactor(ChangeableForm) * 100);
+            numericUpDownZoom.Value = (int)(theCustomizer.getTargetZoomFactor(ChangeableForm) * 100);
             // activate event handler now, so that initialisation with value does not change form
             numericUpDownZoom.ValueChanged += new System.EventHandler(this.numericUpDownZoom_ValueChanged);
 
@@ -278,7 +278,7 @@ namespace FormCustomization
             theCustomizer.setAllComponents(Customizer.enumSetTo.Customized, ChangeableForm);
             theCustomizer.setAllComponents(Customizer.enumSetTo.Customized, this);
             setValuesOfSelectedComponent();
-            numericUpDownZoom.Value = (int)(theCustomizer.getActualZoomFactor(ChangeableForm) * 100);
+            numericUpDownZoom.Value = (int)(theCustomizer.getTargetZoomFactor(ChangeableForm) * 100);
         }
 
         // load settings file, add to existing settings
@@ -288,7 +288,7 @@ namespace FormCustomization
             theCustomizer.setAllComponents(Customizer.enumSetTo.Customized, ChangeableForm);
             theCustomizer.setAllComponents(Customizer.enumSetTo.Customized, this);
             setValuesOfSelectedComponent();
-            numericUpDownZoom.Value = (int)(theCustomizer.getActualZoomFactor(ChangeableForm) * 100);
+            numericUpDownZoom.Value = (int)(theCustomizer.getTargetZoomFactor(ChangeableForm) * 100);
         }
 
         // save settings file
@@ -399,7 +399,7 @@ namespace FormCustomization
         {
             theCustomizer.setAllComponents(Customizer.enumSetTo.Original, ChangeableForm);
             setValuesOfSelectedComponent();
-            numericUpDownZoom.Value = (int)(theCustomizer.getActualZoomFactor(ChangeableForm) * 100);
+            numericUpDownZoom.Value = (int)(theCustomizer.getTargetZoomFactor(ChangeableForm) * 100);
         }
 
         // show list of assigned keys
@@ -657,6 +657,7 @@ namespace FormCustomization
             // save selected node because it changes sometimes by zooming
             int selectedNodeIndex = treeViewComponents.SelectedNode.Index;
             theCustomizer.zoomForm( Customizer.enumSetTo.Customized, ChangeableForm, (float)numericUpDownZoom.Value / 100, false);
+            theCustomizer.setCustomizedSettingsChanged();
 
             // reselect previously selected node
             treeViewComponents.SelectedImageIndex = selectedNodeIndex;

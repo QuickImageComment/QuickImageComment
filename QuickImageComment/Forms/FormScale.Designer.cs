@@ -43,17 +43,21 @@
             this.fixedRadioButton2 = new System.Windows.Forms.RadioButton();
             this.numericUpDownGeneral = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
-            this.labelExample = new System.Windows.Forms.Label();
-            this.labelPercentGeneral = new System.Windows.Forms.Label();
+            this.dynamicLabelExample = new System.Windows.Forms.Label();
+            this.fixedLabelPercentGeneral = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.checkBoxApplyDirect = new System.Windows.Forms.CheckBox();
-            this.labelPercentToolbar = new System.Windows.Forms.Label();
+            this.fixedLabelPercentToolbar = new System.Windows.Forms.Label();
             this.numericUpDownToolbar = new System.Windows.Forms.NumericUpDown();
             this.checkBoxSeparateScaleToolbar = new System.Windows.Forms.CheckBox();
+            this.fixedLabelPercentThumbnail = new System.Windows.Forms.Label();
+            this.numericUpDownThumbnail = new System.Windows.Forms.NumericUpDown();
+            this.checkBoxSeparateScaleThumbnail = new System.Windows.Forms.CheckBox();
             this.panelRecommendedScales.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownGeneral)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownToolbar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownThumbnail)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonHelp
@@ -117,7 +121,6 @@
             this.fixedRadioButton8.TabStop = true;
             this.fixedRadioButton8.Text = "191 %";
             this.fixedRadioButton8.UseVisualStyleBackColor = true;
-            this.fixedRadioButton8.CheckedChanged += new System.EventHandler(this.fixedRadioButton_CheckedChanged);
             // 
             // fixedRadioButton1
             // 
@@ -199,7 +202,7 @@
             // numericUpDownGeneral
             // 
             this.numericUpDownGeneral.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.numericUpDownGeneral.Location = new System.Drawing.Point(250, 134);
+            this.numericUpDownGeneral.Location = new System.Drawing.Point(268, 134);
             this.numericUpDownGeneral.Maximum = new decimal(new int[] {
             300,
             0,
@@ -219,7 +222,7 @@
             0,
             0,
             0});
-            this.numericUpDownGeneral.ValueChanged += new System.EventHandler(this.numericUpDownGeneral_ValueChanged);
+            this.numericUpDownGeneral.ValueChanged += new System.EventHandler(this.scalingConfigurationChanged);
             // 
             // label1
             // 
@@ -231,24 +234,24 @@
             this.label1.TabIndex = 6;
             this.label1.Text = "Beispiel:";
             // 
-            // labelExample
+            // dynamicLabelExample
             // 
-            this.labelExample.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.labelExample.Location = new System.Drawing.Point(9, 274);
-            this.labelExample.Name = "labelExample";
-            this.labelExample.Size = new System.Drawing.Size(333, 94);
-            this.labelExample.TabIndex = 7;
-            this.labelExample.Text = "abcdefghijklmnopqrstuvwxyz 1234567890 ABCDEFGHIJKLMNOPQRSTUVWXYZÖÄÜ";
+            this.dynamicLabelExample.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.dynamicLabelExample.Location = new System.Drawing.Point(9, 274);
+            this.dynamicLabelExample.Name = "dynamicLabelExample";
+            this.dynamicLabelExample.Size = new System.Drawing.Size(333, 94);
+            this.dynamicLabelExample.TabIndex = 7;
+            this.dynamicLabelExample.Text = "abcdefghijklmnopqrstuvwxyz 1234567890 ABCDEFGHIJKLMNOPQRSTUVWXYZÖÄÜ";
             // 
-            // labelPercentGeneral
+            // fixedLabelPercentGeneral
             // 
-            this.labelPercentGeneral.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.labelPercentGeneral.AutoSize = true;
-            this.labelPercentGeneral.Location = new System.Drawing.Point(298, 138);
-            this.labelPercentGeneral.Name = "labelPercentGeneral";
-            this.labelPercentGeneral.Size = new System.Drawing.Size(18, 13);
-            this.labelPercentGeneral.TabIndex = 4;
-            this.labelPercentGeneral.Text = "%";
+            this.fixedLabelPercentGeneral.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.fixedLabelPercentGeneral.AutoSize = true;
+            this.fixedLabelPercentGeneral.Location = new System.Drawing.Point(316, 138);
+            this.fixedLabelPercentGeneral.Name = "fixedLabelPercentGeneral";
+            this.fixedLabelPercentGeneral.Size = new System.Drawing.Size(18, 13);
+            this.fixedLabelPercentGeneral.TabIndex = 4;
+            this.fixedLabelPercentGeneral.Text = "%";
             // 
             // label4
             // 
@@ -279,22 +282,22 @@
             this.checkBoxApplyDirect.TabIndex = 5;
             this.checkBoxApplyDirect.Text = "Direkt auf Hauptmaske anwenden";
             this.checkBoxApplyDirect.UseVisualStyleBackColor = true;
-            this.checkBoxApplyDirect.CheckedChanged += new System.EventHandler(this.checkBoxApplyDirect_CheckedChanged);
+            this.checkBoxApplyDirect.CheckedChanged += new System.EventHandler(this.scalingConfigurationChanged);
             // 
-            // labelPercentToolbar
+            // fixedLabelPercentToolbar
             // 
-            this.labelPercentToolbar.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.labelPercentToolbar.AutoSize = true;
-            this.labelPercentToolbar.Location = new System.Drawing.Point(298, 164);
-            this.labelPercentToolbar.Name = "labelPercentToolbar";
-            this.labelPercentToolbar.Size = new System.Drawing.Size(18, 13);
-            this.labelPercentToolbar.TabIndex = 12;
-            this.labelPercentToolbar.Text = "%";
+            this.fixedLabelPercentToolbar.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.fixedLabelPercentToolbar.AutoSize = true;
+            this.fixedLabelPercentToolbar.Location = new System.Drawing.Point(316, 164);
+            this.fixedLabelPercentToolbar.Name = "fixedLabelPercentToolbar";
+            this.fixedLabelPercentToolbar.Size = new System.Drawing.Size(18, 13);
+            this.fixedLabelPercentToolbar.TabIndex = 12;
+            this.fixedLabelPercentToolbar.Text = "%";
             // 
             // numericUpDownToolbar
             // 
             this.numericUpDownToolbar.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.numericUpDownToolbar.Location = new System.Drawing.Point(250, 160);
+            this.numericUpDownToolbar.Location = new System.Drawing.Point(268, 160);
             this.numericUpDownToolbar.Maximum = new decimal(new int[] {
             300,
             0,
@@ -314,10 +317,11 @@
             0,
             0,
             0});
-            this.numericUpDownToolbar.ValueChanged += new System.EventHandler(this.numericUpDownToolbar_ValueChanged);
+            this.numericUpDownToolbar.ValueChanged += new System.EventHandler(this.scalingConfigurationChanged);
             // 
             // checkBoxSeparateScaleToolbar
             // 
+            this.checkBoxSeparateScaleToolbar.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.checkBoxSeparateScaleToolbar.AutoSize = true;
             this.checkBoxSeparateScaleToolbar.Location = new System.Drawing.Point(9, 162);
             this.checkBoxSeparateScaleToolbar.Name = "checkBoxSeparateScaleToolbar";
@@ -325,21 +329,71 @@
             this.checkBoxSeparateScaleToolbar.TabIndex = 0;
             this.checkBoxSeparateScaleToolbar.Text = "Separate Skalierung für Symbolleiste";
             this.checkBoxSeparateScaleToolbar.UseVisualStyleBackColor = true;
-            this.checkBoxSeparateScaleToolbar.CheckedChanged += new System.EventHandler(this.checkBoxSeparateScaleToolbar_CheckedChanged);
+            this.checkBoxSeparateScaleToolbar.CheckedChanged += new System.EventHandler(this.scalingConfigurationChanged);
+            // 
+            // fixedLabelPercentThumbnail
+            // 
+            this.fixedLabelPercentThumbnail.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.fixedLabelPercentThumbnail.AutoSize = true;
+            this.fixedLabelPercentThumbnail.Location = new System.Drawing.Point(316, 187);
+            this.fixedLabelPercentThumbnail.Name = "fixedLabelPercentThumbnail";
+            this.fixedLabelPercentThumbnail.Size = new System.Drawing.Size(18, 13);
+            this.fixedLabelPercentThumbnail.TabIndex = 15;
+            this.fixedLabelPercentThumbnail.Text = "%";
+            // 
+            // numericUpDownThumbnail
+            // 
+            this.numericUpDownThumbnail.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.numericUpDownThumbnail.Location = new System.Drawing.Point(268, 183);
+            this.numericUpDownThumbnail.Maximum = new decimal(new int[] {
+            300,
+            0,
+            0,
+            0});
+            this.numericUpDownThumbnail.Minimum = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            this.numericUpDownThumbnail.Name = "numericUpDownThumbnail";
+            this.numericUpDownThumbnail.Size = new System.Drawing.Size(44, 21);
+            this.numericUpDownThumbnail.TabIndex = 14;
+            this.numericUpDownThumbnail.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.numericUpDownThumbnail.Value = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            this.numericUpDownThumbnail.ValueChanged += new System.EventHandler(this.scalingConfigurationChanged);
+            // 
+            // checkBoxSeparateScaleThumbnail
+            // 
+            this.checkBoxSeparateScaleThumbnail.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.checkBoxSeparateScaleThumbnail.AutoSize = true;
+            this.checkBoxSeparateScaleThumbnail.Location = new System.Drawing.Point(9, 185);
+            this.checkBoxSeparateScaleThumbnail.Name = "checkBoxSeparateScaleThumbnail";
+            this.checkBoxSeparateScaleThumbnail.Size = new System.Drawing.Size(255, 17);
+            this.checkBoxSeparateScaleThumbnail.TabIndex = 13;
+            this.checkBoxSeparateScaleThumbnail.Text = "Separate Skalierung für Miniaturansicht/Kacheln";
+            this.checkBoxSeparateScaleThumbnail.UseVisualStyleBackColor = true;
+            this.checkBoxSeparateScaleThumbnail.CheckedChanged += new System.EventHandler(this.scalingConfigurationChanged);
             // 
             // FormScale
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(358, 409);
-            this.Controls.Add(this.labelPercentToolbar);
+            this.Controls.Add(this.fixedLabelPercentThumbnail);
+            this.Controls.Add(this.numericUpDownThumbnail);
+            this.Controls.Add(this.checkBoxSeparateScaleThumbnail);
+            this.Controls.Add(this.fixedLabelPercentToolbar);
             this.Controls.Add(this.numericUpDownToolbar);
             this.Controls.Add(this.checkBoxApplyDirect);
             this.Controls.Add(this.checkBoxSeparateScaleToolbar);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.labelPercentGeneral);
-            this.Controls.Add(this.labelExample);
+            this.Controls.Add(this.fixedLabelPercentGeneral);
+            this.Controls.Add(this.dynamicLabelExample);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.numericUpDownGeneral);
             this.Controls.Add(this.panelRecommendedScales);
@@ -354,6 +408,7 @@
             this.panelRecommendedScales.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownGeneral)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownToolbar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownThumbnail)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -369,8 +424,8 @@
         private System.Windows.Forms.RadioButton fixedRadioButton5;
         private System.Windows.Forms.NumericUpDown numericUpDownGeneral;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label labelExample;
-        private System.Windows.Forms.Label labelPercentGeneral;
+        private System.Windows.Forms.Label dynamicLabelExample;
+        private System.Windows.Forms.Label fixedLabelPercentGeneral;
         private System.Windows.Forms.RadioButton fixedRadioButton2;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
@@ -380,8 +435,11 @@
         private System.Windows.Forms.CheckBox checkBoxApplyDirect;
         private System.Windows.Forms.RadioButton fixedRadioButton1;
         private System.Windows.Forms.RadioButton fixedRadioButton8;
-        private System.Windows.Forms.Label labelPercentToolbar;
+        private System.Windows.Forms.Label fixedLabelPercentToolbar;
         private System.Windows.Forms.NumericUpDown numericUpDownToolbar;
         private System.Windows.Forms.CheckBox checkBoxSeparateScaleToolbar;
+        private System.Windows.Forms.Label fixedLabelPercentThumbnail;
+        private System.Windows.Forms.NumericUpDown numericUpDownThumbnail;
+        private System.Windows.Forms.CheckBox checkBoxSeparateScaleThumbnail;
     }
 }

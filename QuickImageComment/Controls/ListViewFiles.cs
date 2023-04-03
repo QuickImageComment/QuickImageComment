@@ -389,9 +389,6 @@ namespace QuickImageCommentControls
                     // for .Net 5 an adjustment is needed
                     size = size * 8 / 10;
 #endif
-                    int RectangleHeight = (DrawItems.Count) * (int)size.Height;
-                    int YOffset = (e.Bounds.Height - RectangleHeight) / 2 - (int)size.Height;
-
                     // draw frames and set Systembrush for text
                     if (theListViewItem.Selected)
                     {
@@ -400,8 +397,8 @@ namespace QuickImageCommentControls
                           new Rectangle(e.Bounds.X + tileLine / 2, e.Bounds.Y + tileLine / 2,
                             ThumbNailSize + tileLine, ThumbNailSize + tileLine));
                         e.Graphics.FillRectangle(new SolidBrush(System.Drawing.SystemColors.Highlight), new Rectangle(
-                                            e.Bounds.X + ThumbNailSize + tileLine + 1, e.Bounds.Y + YOffset + (int)size.Height,
-                                            boundsWidth - ThumbNailSize - tileLine - 1, RectangleHeight + 2));
+                                            e.Bounds.X + ThumbNailSize + tileLine + 1, e.Bounds.Y,
+                                            boundsWidth - ThumbNailSize - tileLine - 1, ThumbNailSize + tileLine + 2));
                         theBrush = SystemBrushes.HighlightText;
                     }
                     else
@@ -419,10 +416,13 @@ namespace QuickImageCommentControls
                         e.Graphics.DrawImage(theThumbNail, new Point(e.Bounds.X + tileLine, e.Bounds.Y + tileLine));
                     }
 
-                    for (int ii = 0; ii < DrawItems.Count; ii++)
+                    // determine maximum number of items fitting in range given by thumbnail size
+                    int maxCount = ThumbNailSize / (int)size.Height;
+                    if (DrawItems.Count < maxCount) maxCount = DrawItems.Count;
+                    for (int ii = 0; ii < maxCount; ii++)
                     {
                         e.Graphics.DrawString((string)DrawItems[ii], this.Font, theBrush,
-                          e.Bounds.X + ThumbNailSize + tileLine + 1, e.Bounds.Y + YOffset + (ii + 1) * (int)size.Height, format);
+                          e.Bounds.X + ThumbNailSize + tileLine + 1, e.Bounds.Y + ii * (int)size.Height, format);
                     }
                 }
             }
@@ -557,8 +557,13 @@ namespace QuickImageCommentControls
         // set thumbnail size (after change of general scaling factor)
         internal void setThumbNailSizeAndDependingValues()
         {
-            ThumbNailSize = ConfigDefinition.getConfigInt(ConfigDefinition.enumConfigInt.ThumbNailSize) *
-                ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.zoomFactorPerCentGeneral) / 100;
+            int zoomFactorPercent = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.zoomFactorPerCentThumbnail);
+            // if no separate zoom factor for thumbnail is given, use general zoom factor
+            if (zoomFactorPercent < 0)
+            {
+                zoomFactorPercent = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.zoomFactorPerCentGeneral);
+            }
+            ThumbNailSize = ConfigDefinition.getConfigInt(ConfigDefinition.enumConfigInt.ThumbNailSize) * zoomFactorPercent / 100;
             short sizeX = (short)(ThumbNailSize + ConfigDefinition.getConfigInt(ConfigDefinition.enumConfigInt.LargeIconHorizontalSpace));
             short sizeY = (short)(ThumbNailSize + ConfigDefinition.getConfigInt(ConfigDefinition.enumConfigInt.LargeIconVerticalSpace));
             ListViewItem_SetSpacing(this, sizeX, sizeY);

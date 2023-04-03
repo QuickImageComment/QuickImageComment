@@ -52,6 +52,9 @@ namespace QuickImageComment
         {
             //Program.StartupPerformance.measure("UserControlChangeableFields constructor start");
             InitializeComponent();
+            FormCustomization.Interface customziationInterface = MainMaskInterface.getCustomizationInterface();
+            // needs to initiated as it is checked, even if this user control is not visible
+            UsedXmpLangAltEntries = new ArrayList();
             ChangeableFieldInputControls = new SortedList<string, Control>();
             // remove the template controls from panel
             // they are still available as template, but do not disturb on screen and during scaling
@@ -75,10 +78,10 @@ namespace QuickImageComment
             if (customziationInterface != null)
             {
                 Form mainMask = MainMaskInterface.getMainMask();
-                customziationInterface.zoomControlsUsingGeneralZoomFactor(dynamicLabelChangeableField, mainMask);
-                customziationInterface.zoomControlsUsingGeneralZoomFactor(textBoxChangeableField, mainMask);
-                customziationInterface.zoomControlsUsingGeneralZoomFactor(comboBoxChangeableField, mainMask);
-                customziationInterface.zoomControlsUsingGeneralZoomFactor(dateTimePickerChangeableField, mainMask);
+                customziationInterface.zoomControlsUsingTargetZoomFactor(dynamicLabelChangeableField, mainMask);
+                customziationInterface.zoomControlsUsingTargetZoomFactor(textBoxChangeableField, mainMask);
+                customziationInterface.zoomControlsUsingTargetZoomFactor(comboBoxChangeableField, mainMask);
+                customziationInterface.zoomControlsUsingTargetZoomFactor(dateTimePickerChangeableField, mainMask);
             }
 
             ChangeableFieldInputControls = new SortedList<string, Control>();

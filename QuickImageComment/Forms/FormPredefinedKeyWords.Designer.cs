@@ -140,7 +140,7 @@ namespace QuickImageComment
             this.MinimumSize = new System.Drawing.Size(448, 409);
             this.Name = "FormPredefinedKeyWords";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Vordefinierte IPTC Schlüsselworte";
+            this.Text = "Vordefinierte IPTC SchlÃ¼sselworte";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FormPredefinedKeyWords_KeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();

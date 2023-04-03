@@ -695,7 +695,7 @@ namespace FormCustomization
             0,
             0});
             this.numericUpDownTop.Minimum = new decimal(new int[] {
-            10,
+            9999,
             0,
             0,
             -2147483648});
@@ -766,7 +766,7 @@ namespace FormCustomization
             0,
             0});
             this.numericUpDownLeft.Minimum = new decimal(new int[] {
-            10,
+            9999,
             0,
             0,
             -2147483648});

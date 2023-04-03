@@ -44,7 +44,8 @@ namespace QuickImageComment
             "FormQuickImageComment.splitContainer1.2.splitContainer12.1.splitContainer12P1.1.splitContainer121.2.",
             "FormQuickImageComment.splitContainer1.2.splitContainer12.2.splitContainer122.1.",
             "FormQuickImageComment.splitContainer1.2.splitContainer12.2.splitContainer122.2.",
-            "UserControlImageDetails."
+            "UserControlImageDetails.",
+            "UserControlMap."
         };
 
         public float dpiSettings;
@@ -674,9 +675,6 @@ namespace QuickImageComment
             displayImageAfterReadFolder(false);
             Program.StartupPerformance.measure("FormQIC after displayImageAfterReadFolder");
 
-            theUserControlChangeableFields.fillChangeableFieldPanelWithControls(theExtendedImage);
-            theUserControlChangeableFields.fillItemsComboBoxChangeableFields();
-
             // start update caching after display first image via displayImageAfterReadFolder
             // when caching is started before e.g. via StartupInitNewFolder it happened that first file in folder 
             // was read twice (first during caching) which caused delays in display first image
@@ -729,6 +727,16 @@ namespace QuickImageComment
                 FormChangesInVersion theFormChangesInVersion = new FormChangesInVersion();
                 theFormChangesInVersion.Show();
             }
+            // CustomizationInterface.checkFontSize(this, this.Font.Size);
+        }
+
+        private void fillAndConfigureChangeableFieldPanel()
+        {
+            theUserControlChangeableFields.fillChangeableFieldPanelWithControls(theExtendedImage);
+            // for updating the comboBox item lists of last used values
+            theUserControlChangeableFields.fillItemsComboBoxChangeableFields();
+
+            assignEventHandlersForChangeableFields();
         }
 
         private void assignEventHandlersForChangeableFields()
@@ -2207,8 +2215,7 @@ namespace QuickImageComment
                     listBoxPredefinedComments.set_MouseDoubleClickAction(ConfigDefinition.getPredefinedCommentMouseDoubleClickAction());
                     setNavigationTabSplitBars(ConfigDefinition.getNavigationTabSplitBars());
                     setArtistCommentLabel();
-                    theUserControlChangeableFields.fillChangeableFieldPanelWithControls(theExtendedImage);
-                    assignEventHandlersForChangeableFields();
+                    fillAndConfigureChangeableFieldPanel();
                     fillCheckedListBoxChangeableFieldsChange();
                     // try to reload Customization to get settings from dynamic controls again
                     try
@@ -2324,30 +2331,51 @@ namespace QuickImageComment
             FormScale theFormScale = new FormScale();
         }
 
-        internal void adjustAfterScaleChange()
+        internal void adjustAfterScaleChange(int zoomFactorPercentGeneral, int zoomFactorPercentToolbar, int zoomFactorPercentThumbnail)
         {
-            // hide the controls to avoid flickering during update
-            // using SuspendLayout still caused too much flickering 
-            foreach (Control control in this.Controls) control.Visible = false;
-            
-            CustomizationInterface.setFormToCustomizedValuesZoomIfChanged(this);
-            // refill user control changeable fields
-            // scaling with CustomizationInterface results in different layout than filling new (gaps to big)
-            theUserControlChangeableFields.fillChangeableFieldPanelWithControls(theExtendedImage);
+            bool generalChanged = zoomFactorPercentGeneral != ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.zoomFactorPerCentGeneral);
+            bool toolbarChanged = zoomFactorPercentGeneral != ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.zoomFactorPerCentToolbar);
+            bool thumbnailChanged = zoomFactorPercentGeneral != ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.zoomFactorPerCentThumbnail);
 
-            // following code needed to adjust some distances 
-            showHideControlsCentralInputArea();
-            dynamicLabelFileName.Top = splitContainer1211P1.Panel2.Height - dynamicLabelFileName.Height - 2;
-            if (theUserControlMap != null && theUserControlMap.Parent != null && theUserControlMap.isInPanel)
+            if (generalChanged || toolbarChanged || thumbnailChanged)
             {
-                theUserControlMap.adjustTopBottomAfterScaling(theUserControlMap.Parent.Size);
+                if (generalChanged) ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.zoomFactorPerCentGeneral, zoomFactorPercentGeneral);
+                if (toolbarChanged) ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.zoomFactorPerCentToolbar, zoomFactorPercentToolbar);
+                if (thumbnailChanged) ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.zoomFactorPerCentThumbnail, zoomFactorPercentThumbnail);
+
+                FormCustomization.Interface.setGeneralZoomFactor(zoomFactorPercentGeneral / 100f);
+
+                // hide the controls to avoid flickering during update
+                // using SuspendLayout still caused too much flickering 
+                foreach (Control control in this.Controls) control.Visible = false;
+
+                if (generalChanged)
+                {
+                    CustomizationInterface.setFormToCustomizedValuesZoomIfChanged(this);
+                    // refill user control changeable fields
+                    // scaling with CustomizationInterface results in different layout than filling new (gaps to big)
+                    fillAndConfigureChangeableFieldPanel();
+
+                    // following code needed to adjust some distances 
+                    showHideControlsCentralInputArea();
+                    dynamicLabelFileName.Top = splitContainer1211P1.Panel2.Height - dynamicLabelFileName.Height - 2;
+                    if (theUserControlMap != null && theUserControlMap.isInPanel)
+                    {
+                        theUserControlMap.adjustTopBottomAfterScaling(CustomizationInterface.getActualZoomFactor(this));
+                    }
+                }
+                if (generalChanged || toolbarChanged)
+                {
+                    adjustToolbarSize();
+                }
+                if (generalChanged || thumbnailChanged)
+                {
+                    theUserControlFiles.listViewFiles.setThumbNailSizeAndDependingValues();
+                    readFolderAndDisplayImage(true);
+                }
+                //CustomizationInterface.checkFontSize(this, this.Font.Size);
+                foreach (Control control in this.Controls) control.Visible = true;
             }
-
-            adjustToolbarSize();
-
-            readFolderAndDisplayImage(true);
-            //CustomizationInterface.checkFontSize(this, this.Font.Size);
-            foreach (Control control in this.Controls) control.Visible = true;
         }
 
         // adjust toolbar size according specific scaling
@@ -2356,7 +2384,7 @@ namespace QuickImageComment
             float zoomFactorToolbar = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.zoomFactorPerCentToolbar) / 100f;
 
             // if separate zoom factor is given or general is to be used now, when separate was given before
-            if (zoomFactorToolbar > 0f || zoomFactorToolbarLast > 0)
+            if (zoomFactorToolbar > 0f || zoomFactorToolbarLast > 0f)
             {
                 int toolStrip1HeightOld = this.toolStrip1.Height;
                 if (zoomFactorToolbar > 0)
@@ -2365,10 +2393,12 @@ namespace QuickImageComment
                 else
                     // no separate zoom factor, use general
                     CustomizationInterface.zoomControls(this.toolStrip1, CustomizationInterface.getActualZoomFactor(this));
-                int delta = this.toolStrip1.Height - toolStrip1HeightOld;
-                this.splitContainer1.Top += delta;
-                this.splitContainer1.Height -= delta;
 
+                this.toolStrip1.Top = this.MenuStrip1.Top + this.MenuStrip1.Height;
+                this.splitContainer1.Top = this.toolStrip1.Top + this.toolStrip1.Height + 1;
+                this.splitContainer1.Anchor -= AnchorStyles.Bottom;
+                this.Height -= toolStrip1HeightOld - this.toolStrip1.Height;
+                this.splitContainer1.Anchor = this.splitContainer1.Anchor | AnchorStyles.Bottom;
                 zoomFactorToolbarLast = zoomFactorToolbar;
             }
         }
@@ -4155,7 +4185,11 @@ namespace QuickImageComment
                             theUserControlImageDetails = new UserControlImageDetails(dpiSettings, null);
                             if (CustomizationInterface != null)
                             {
-                                CustomizationInterface.zoomControlsUsingGeneralZoomFactor(theUserControlImageDetails.splitContainerImageDetails1, this);
+                                // control is instantiated new, available zoom basis data may not fit, so remove them
+                                CustomizationInterface.removeZoomBasisData(
+                                    theUserControlImageDetails.splitContainerImageDetails1);
+                                CustomizationInterface.zoomControlsUsingTargetZoomFactor(
+                                    theUserControlImageDetails.splitContainerImageDetails1, this);
                             }
                         }
                         theUserControlImageDetails.isInPanel = true;
@@ -4183,7 +4217,11 @@ namespace QuickImageComment
                             }
                             if (CustomizationInterface != null)
                             {
-                                CustomizationInterface.zoomControlsUsingGeneralZoomFactor(theUserControlMap.panelMap, this);
+                                // control is instantiated new, available zoom basis data may not fit, so remove them
+                                CustomizationInterface.removeZoomBasisData(theUserControlMap.panelMap);
+                                CustomizationInterface.zoomControlsUsingTargetZoomFactor(theUserControlMap.panelMap, this);
+                                //!! theUserControlMap.Height = aPanel.Height;
+                                //!! theUserControlMap.Width = aPanel.Width;
                             }
                         }
                         theUserControlMap.isInPanel = true;
@@ -4202,14 +4240,15 @@ namespace QuickImageComment
                         aControl.Dock = DockStyle.Fill;
 
                         // user control for map needs special adjustment after scaling
-                        if (ContentEnum == LangCfg.PanelContent.Map)
+                        if (ContentEnum == LangCfg.PanelContent.Map && panelIsVisible(aPanel))
                         {
-                            theUserControlMap.adjustTopBottomAfterScaling(aPanel.Size);
+                            theUserControlMap.adjustTopBottomAfterScaling(CustomizationInterface.getActualZoomFactor(this));
                         }
                         // refill changeable fields to ensure proper gaps between controls and right alignment
-                        if (ContentEnum == LangCfg.PanelContent.Configurable)
+                        if (ContentEnum == LangCfg.PanelContent.Configurable && panelIsVisible(aPanel))
                         {
-                            theUserControlChangeableFields.fillChangeableFieldPanelWithControls(theExtendedImage);
+                            fillAndConfigureChangeableFieldPanel();
+                            fillChangeableFieldValues(theExtendedImage, false);
                         }
 
                         // if aControl is SplitContainer, adjust PanelMinSize
@@ -4631,11 +4670,8 @@ namespace QuickImageComment
                     if (!theUserControlChangeableFields.UsedXmpLangAltEntries.Contains(aLanguage))
                     {
                         // recreate changeable fields
-                        theUserControlChangeableFields.fillChangeableFieldPanelWithControls(theExtendedImage);
-                        assignEventHandlersForChangeableFields();
+                        fillAndConfigureChangeableFieldPanel();
                         fillCheckedListBoxChangeableFieldsChange();
-                        // for updating the comboBox item lists of last used values
-                        theUserControlChangeableFields.fillItemsComboBoxChangeableFields();
                     }
                 }
                 displayProperties();
@@ -5778,8 +5814,7 @@ namespace QuickImageComment
         // actions to be performed after meta data definitions have changed
         public void afterMetaDataDefinitionChange()
         {
-            theUserControlChangeableFields.fillChangeableFieldPanelWithControls(theExtendedImage);
-            assignEventHandlersForChangeableFields();
+            fillAndConfigureChangeableFieldPanel();
             fillCheckedListBoxChangeableFieldsChange();
             filldataGridViewSelectedFilesHeader();
 
@@ -5791,8 +5826,6 @@ namespace QuickImageComment
             }
             catch { }
 
-            // input check settings may have changed
-            theUserControlChangeableFields.fillItemsComboBoxChangeableFields();
             // read folder again, due to changed field definitions display has to be updated
             lock (UserControlFiles.LockListViewFiles)
             {
