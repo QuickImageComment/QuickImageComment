@@ -268,15 +268,15 @@ namespace FormCustomization
         // load settings file, overwrite existing settings
         private void toolStripMenuItemLoadSettingsOverwrite_Click(object sender, EventArgs e)
         {
-            theCustomizer.setAllComponents(Customizer.enumSetTo.Original, ChangeableForm);
-            theCustomizer.setAllComponents(Customizer.enumSetTo.Original, this);
+            theCustomizer.setAllComponentsZoomIfChanged(Customizer.enumSetTo.Original, ChangeableForm);
+            theCustomizer.setAllComponentsZoomIfChanged(Customizer.enumSetTo.Original, this);
             // setting all controls to original sets flag "customized settings change"
             // that flag is used to decide if settings need to be saved in file
             // here this is not wanted, so reset the flag
             theCustomizer.clearCustomizedSettingsChanged();
             loadCustomizationFile();
-            theCustomizer.setAllComponents(Customizer.enumSetTo.Customized, ChangeableForm);
-            theCustomizer.setAllComponents(Customizer.enumSetTo.Customized, this);
+            theCustomizer.setAllComponentsZoomIfChanged(Customizer.enumSetTo.Customized, ChangeableForm);
+            theCustomizer.setAllComponentsZoomIfChanged(Customizer.enumSetTo.Customized, this);
             setValuesOfSelectedComponent();
             numericUpDownZoom.Value = (int)(theCustomizer.getTargetZoomFactor(ChangeableForm) * 100);
         }
@@ -285,8 +285,8 @@ namespace FormCustomization
         private void toolStripMenuItemLoadSettingAdd_Click(object sender, EventArgs e)
         {
             loadCustomizationFile();
-            theCustomizer.setAllComponents(Customizer.enumSetTo.Customized, ChangeableForm);
-            theCustomizer.setAllComponents(Customizer.enumSetTo.Customized, this);
+            theCustomizer.setAllComponentsZoomIfChanged(Customizer.enumSetTo.Customized, ChangeableForm);
+            theCustomizer.setAllComponentsZoomIfChanged(Customizer.enumSetTo.Customized, this);
             setValuesOfSelectedComponent();
             numericUpDownZoom.Value = (int)(theCustomizer.getTargetZoomFactor(ChangeableForm) * 100);
         }
@@ -397,7 +397,7 @@ namespace FormCustomization
         // reset all settings
         private void toolStripMenuItemResetAll_Click(object sender, EventArgs e)
         {
-            theCustomizer.setAllComponents(Customizer.enumSetTo.Original, ChangeableForm);
+            theCustomizer.setAllComponentsZoomIfChanged(Customizer.enumSetTo.Original, ChangeableForm);
             setValuesOfSelectedComponent();
             numericUpDownZoom.Value = (int)(theCustomizer.getTargetZoomFactor(ChangeableForm) * 100);
         }
@@ -656,7 +656,10 @@ namespace FormCustomization
         {
             // save selected node because it changes sometimes by zooming
             int selectedNodeIndex = treeViewComponents.SelectedNode.Index;
-            theCustomizer.zoomForm( Customizer.enumSetTo.Customized, ChangeableForm, (float)numericUpDownZoom.Value / 100, false);
+
+            foreach (Control control in ChangeableForm.Controls) control.Visible = false;
+            theCustomizer.zoomForm( Customizer.enumSetTo.Customized, ChangeableForm, (float)numericUpDownZoom.Value / 100, true);
+            foreach (Control control in ChangeableForm.Controls) control.Visible = true;
             theCustomizer.setCustomizedSettingsChanged();
 
             // reselect previously selected node

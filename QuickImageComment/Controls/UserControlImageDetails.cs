@@ -764,18 +764,23 @@ namespace QuickImageComment
                             ColorB[ii] = new Point(0, ii);
                         }
                     }
-                    if (checkBoxColorR.Checked)
+                    // draw lines may fail, if panels are scaled too small (width/height 1)
+                    try
                     {
-                        e.Graphics.DrawLines(new Pen(Color.Red, RGBlinesWidth), ColorR);
+                        if (checkBoxColorR.Checked)
+                        {
+                            e.Graphics.DrawLines(new Pen(Color.Red, RGBlinesWidth), ColorR);
+                        }
+                        if (checkBoxColorG.Checked)
+                        {
+                            e.Graphics.DrawLines(new Pen(Color.Green, RGBlinesWidth), ColorG);
+                        }
+                        if (checkBoxColorB.Checked)
+                        {
+                            e.Graphics.DrawLines(new Pen(Color.Blue, RGBlinesWidth), ColorB);
+                        }
                     }
-                    if (checkBoxColorG.Checked)
-                    {
-                        e.Graphics.DrawLines(new Pen(Color.Green, RGBlinesWidth), ColorG);
-                    }
-                    if (checkBoxColorB.Checked)
-                    {
-                        e.Graphics.DrawLines(new Pen(Color.Blue, RGBlinesWidth), ColorB);
-                    }
+                    catch { }
                 }
                 // paint grid for zooms 1:3 and 1:5
                 if (zoomFactor == 3.0f || zoomFactor == 5.0f)

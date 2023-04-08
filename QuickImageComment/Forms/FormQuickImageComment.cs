@@ -36,6 +36,7 @@ namespace QuickImageComment
 
         // as controls can be moved between different panels, the leading part of control's full name
         // shall be ignored, when adding them in zoom basis data collection
+        // sequence must be in a way, that no entry is contained in a following one (i.e. "abc" before "ab")
         string[] leadingControlNamePartsToIgnore = new string[]
         {
             "FormQuickImageComment.splitContainer1.1.splitContainer11.1.",
@@ -606,6 +607,9 @@ namespace QuickImageComment
             //Program.StartupPerformance.measure("FormQIC showHideControlsCentralInputArea");
 
             adjustToolbarSize();
+
+            // now layout is set completely, apply customization again
+            CustomizationInterface.setFormToCustomizedValuesZoomIfChanged(this);
 
             // translate all controls
             //Program.StartupPerformance.measure("FormQIC before translate controls");

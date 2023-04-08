@@ -76,6 +76,9 @@ namespace FormCustomization
         private static SortedList<string, int> NewFontSizesForZoom = new SortedList<string, int>();
         private const string fontSizeTest = "MlMlMlMlM";
 
+        // as controls can be moved between different panels, the leading part of control's full name
+        // shall be ignored, when adding them in zoom basis data collection
+        // sequence must be in a way, that no entry is contained in a following one (i.e. "abc" before "ab")
         internal static string[] leadingControlNamePartsToIgnore;
 
         // contains properties of components
@@ -140,6 +143,7 @@ namespace FormCustomization
         private SortedList<string, float> ActualZoomFactors = new SortedList<string, float>();
         // holds changed properties and their orignal values
         private Hashtable PropertyTable = new Hashtable();
+        private bool PropertyTableContainsComponentSettings = false;
         // holds zoom basis data (before first zoom)
         private Hashtable ZoomBasisDataTable = new Hashtable();
         // holds shortcuts for controls (not ToolStripMenuItems)
@@ -376,56 +380,109 @@ namespace FormCustomization
                 }
             }
 
+            foreach (Control control in theForm.Controls) control.Visible = false;
+
             // zoom the form
             zoomForm(SetTo, theForm, NewIndividualZoomFactor, alwaysZoomForm);
 
-            // adjust all form components
-            // first create sorted list of keys
-            // the sort order ensures that first childs are changed, then parents
-            // this is important in case childs inherit properties from parents, 
-            // then the child's original must not be changed because parent is changed before
-            ArrayList SortedKeys = new ArrayList(PropertyTable.Keys);
-            SortedKeys.Sort();
-
-            foreach (string Key in SortedKeys)
+            // in case property table contains only form specific zoom factors, following block can be skipped
+            if (PropertyTableContainsComponentSettings)
             {
-                indexColon = Key.IndexOf(":");
-                ComponentFullName = Key.Substring(0, indexColon);
-                PropertyName = Key.Substring(indexColon + 1);
-                if (!PropertyName.Equals(PropertyNameZoom))
-                {
-                    Component ChangeableComponent = getComponentFromFullName(theForm, ComponentFullName);
-                    if (!(ChangeableComponent == null))
-                    {
-                        propertyIndex = getPropertyIndex(PropertyName);
+                // adjust all form components
+                // first create sorted list of keys
+                // the sort order ensures that first childs are changed, then parents
+                // this is important in case childs inherit properties from parents, 
+                // then the child's original must not be changed because parent is changed before
+                ArrayList SortedKeys = new ArrayList(PropertyTable.Keys);
+                SortedKeys.Sort();
 
-                        if (SetTo == enumSetTo.Original)
+                SortedList<string, Component> sortedListComponents = new SortedList<string, Component>();
+                fillSortedListComponents(sortedListComponents, theForm);
+
+                foreach (string Key in SortedKeys)
+                {
+                    indexColon = Key.IndexOf(":");
+                    ComponentFullName = Key.Substring(0, indexColon);
+                    PropertyName = Key.Substring(indexColon + 1);
+                    if (!PropertyName.Equals(PropertyNameZoom))
+                    {
+                        string componentKey = removeSpecificLeadingPartsControlFullName(ComponentFullName);
+
+                        if (sortedListComponents.ContainsKey(componentKey))
                         {
-                            setProperty(ChangeableComponent, propertyIndex, ((PropertyPair)PropertyTable[Key]).Original);
-                            ((PropertyPair)PropertyTable[Key]).Customized = null;
-                            customizedSettingChanged = true;
-                        }
-                        else if (SetTo == enumSetTo.Customized)
-                        {
-                            if (((PropertyPair)PropertyTable[Key]).Original == null)
+                            Component ChangeableComponent = sortedListComponents[componentKey];
+                            propertyIndex = getPropertyIndex(PropertyName);
+
+                            if (SetTo == enumSetTo.Original)
                             {
-                                ((PropertyPair)PropertyTable[Key]).Original = getProperty(ChangeableComponent, propertyIndex);
+                                setProperty(ChangeableComponent, propertyIndex, ((PropertyPair)PropertyTable[Key]).Original);
+                                ((PropertyPair)PropertyTable[Key]).Customized = null;
+                                customizedSettingChanged = true;
                             }
-                            // due to changing settings property table might have entries 
-                            // whose customized value has been cleared
-                            if (((PropertyPair)PropertyTable[Key]).Customized != null)
+                            else if (SetTo == enumSetTo.Customized)
                             {
-                                setProperty(ChangeableComponent, propertyIndex, ((PropertyPair)PropertyTable[Key]).Customized);
+                                if (((PropertyPair)PropertyTable[Key]).Original == null)
+                                {
+                                    ((PropertyPair)PropertyTable[Key]).Original = getProperty(ChangeableComponent, propertyIndex);
+                                }
+                                // due to changing settings property table might have entries 
+                                // whose customized value has been cleared
+                                if (((PropertyPair)PropertyTable[Key]).Customized != null)
+                                {
+                                    setProperty(ChangeableComponent, propertyIndex, ((PropertyPair)PropertyTable[Key]).Customized);
+                                }
                             }
-                        }
-                        else
-                        {
-                            throw new Exception("Internal Error");
+                            else
+                            {
+                                throw new Exception("Internal Error");
+                            }
                         }
                     }
                 }
             }
+            foreach (Control control in theForm.Controls) control.Visible = true;
+
             //foreach (string key in ZoomBasisDataTable.Keys) Logger.log("--" + key);
+        }
+
+        private void fillSortedListComponents(SortedList<string, Component> sortedListControls, Component parentComponent)
+        {
+            string fullName = getFullNameOfComponent(parentComponent);
+            // some controls have "subcontrols" without name, they would lead to duplicate keys, but can be ignored
+            if (!sortedListControls.ContainsKey(fullName))
+            {
+                sortedListControls.Add(fullName, parentComponent);
+            }
+
+            if (parentComponent is MenuStrip)
+            {
+                MenuStrip menuStrip = (MenuStrip)parentComponent;
+                foreach (Component item in menuStrip.Items)
+                {
+                    fillSortedListComponents(sortedListControls, item);
+                }
+            }
+            else if (parentComponent is ToolStripMenuItem)
+            {
+                foreach (Component item in ((ToolStripMenuItem)parentComponent).DropDownItems)
+                {
+                    fillSortedListComponents(sortedListControls, item);
+                }
+            }
+            else if (parentComponent is ToolStripDropDownButton)
+            {
+                foreach (Component item in ((ToolStripDropDownButton)parentComponent).DropDownItems)
+                {
+                    fillSortedListComponents(sortedListControls, item);
+                }
+            }
+            else if (parentComponent is Control)
+            {
+                foreach (Control childComponent in ((Control)parentComponent).Controls)
+                {
+                    fillSortedListComponents(sortedListControls, childComponent);
+                }
+            }
         }
 
         // clear flag indicating that customized settings were changed
@@ -943,6 +1000,8 @@ namespace FormCustomization
 
             if (System.IO.File.Exists(CustomizationFile))
             {
+                PropertyTableContainsComponentSettings = false;
+
                 try
                 {
                     // if file contains a BOM, StreamReader uses that encoding, else codepage configured in system is used (which is behaviour of QIC upt to 4.37)
@@ -1046,6 +1105,8 @@ namespace FormCustomization
                     }
                     else
                     {
+                        PropertyTableContainsComponentSettings = true;
+
                         propertyIndex = getPropertyIndex(PropertyName);
 
                         propertyValueString = line.Substring(IndexEqual + 1);
@@ -1333,14 +1394,24 @@ namespace FormCustomization
                 Control theParentControl = tempToolStripItem.GetCurrentParent();
                 theName = getFullNameOfComponent(theParentControl) + "." + theName;
             }
-            // remove specific leading parts of control full name
-            // the controls may move to different panels in form, so ignore this variable leading part
+            return removeSpecificLeadingPartsControlFullName(theName);
+        }
+
+        // remove specific leading parts of control full name
+        // the controls may move to different panels in form, so ignore this variable leading part
+        private static string removeSpecificLeadingPartsControlFullName(string theName)
+        {
+            string nameModified = string.Copy(theName);
             for (int ii = 0; ii < leadingControlNamePartsToIgnore.Length; ii++)
             {
-                if (theName.StartsWith(leadingControlNamePartsToIgnore[ii]))
-                    theName = theName.Substring(leadingControlNamePartsToIgnore[ii].Length);
+                if (nameModified.StartsWith(leadingControlNamePartsToIgnore[ii]))
+                {
+                    // use $ as prefix so that these controls are sorted before those with path starting with form name
+                    nameModified = "$" + nameModified.Substring(leadingControlNamePartsToIgnore[ii].Length);
+                    break;
+                }
             }
-            return theName;
+            return nameModified;
         }
 
         // get name of control, considering special controls like tab page and panel
