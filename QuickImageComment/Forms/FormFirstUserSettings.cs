@@ -27,7 +27,7 @@ namespace QuickImageComment
             FormCustomization.Interface CustomizationInterface = MainMaskInterface.getCustomizationInterface();
             if (CustomizationInterface != null )
             {
-                CustomizationInterface.setFormToCustomizedValues(this);
+                CustomizationInterface.setFormToCustomizedValuesZoomInitial(this);
             }
             groupBoxInitialView.Visible = showfirstView;
 

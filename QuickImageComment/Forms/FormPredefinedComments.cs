@@ -38,7 +38,7 @@ namespace QuickImageComment
 
             // Specific constructor code
             textBoxPredefinedComments.Text = ConfigDefinition.getPredefinedCommentText();
-            CustomizationInterface.setFormToCustomizedValues(this);
+            CustomizationInterface.setFormToCustomizedValuesZoomInitial(this);
 
             LangCfg.translateControlTexts(this);
 

@@ -130,7 +130,7 @@ namespace QuickImageComment
             dynamicComboBoxConfigurationName.Text = ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.ViewConfiguration);
             allowDynamicComboBoxConfigurationName_SelectedIndexChanged = true;
 
-            CustomizationInterface.setFormToCustomizedValues(this);
+            CustomizationInterface.setFormToCustomizedValuesZoomInitial(this);
 
             LangCfg.translateControlTexts(this);
 

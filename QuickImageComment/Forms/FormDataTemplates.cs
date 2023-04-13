@@ -52,7 +52,7 @@ namespace QuickImageComment
             splitContainer1.Panel1.Controls.Add(theUserControlChangeableFields);
 
             CustomizationInterface = MainMaskInterface.getCustomizationInterface();
-            CustomizationInterface.setFormToCustomizedValues(this);
+            CustomizationInterface.setFormToCustomizedValuesZoomInitial(this);
 
             dynamicComboBoxConfigurationName.Items.Add("");
             foreach (string configuration in ConfigDefinition.DataTemplates.Keys)

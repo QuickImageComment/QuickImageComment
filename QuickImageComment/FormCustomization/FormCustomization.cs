@@ -93,7 +93,7 @@ namespace FormCustomization
             // activate event handler now, so that initialisation with value does not change form
             numericUpDownZoom.ValueChanged += new System.EventHandler(this.numericUpDownZoom_ValueChanged);
 
-            theCustomizer.setAllComponents(Customizer.enumSetTo.Customized, this);
+            theCustomizer.setAllComponentsZoomInitial(Customizer.enumSetTo.Customized, this);
             this.Text = Customizer.getText(Customizer.Texts.I_adjustMask, ChangeableForm.Text);
 
             // init layout without extended settings:
@@ -658,7 +658,7 @@ namespace FormCustomization
             int selectedNodeIndex = treeViewComponents.SelectedNode.Index;
 
             foreach (Control control in ChangeableForm.Controls) control.Visible = false;
-            theCustomizer.zoomForm( Customizer.enumSetTo.Customized, ChangeableForm, (float)numericUpDownZoom.Value / 100, true);
+            theCustomizer.zoomForm( Customizer.enumSetTo.Customized, ChangeableForm, (float)numericUpDownZoom.Value / 100);
             foreach (Control control in ChangeableForm.Controls) control.Visible = true;
             theCustomizer.setCustomizedSettingsChanged();
 

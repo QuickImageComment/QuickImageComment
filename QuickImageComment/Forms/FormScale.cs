@@ -31,7 +31,7 @@ namespace QuickImageComment
         {
             InitializeComponent();
             initialFontSize = dynamicLabelExample.Font.Size;
-            MainMaskInterface.getCustomizationInterface().setFormToCustomizedValues(this);
+            MainMaskInterface.getCustomizationInterface().setFormToCustomizedValuesZoomInitial(this);
             // after possible scaling from customization interface, restore font size from example label
             dynamicLabelExample.Font = new Font(dynamicLabelExample.Font.FontFamily, initialFontSize, dynamicLabelExample.Font.Style);
 

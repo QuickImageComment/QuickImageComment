@@ -737,7 +737,7 @@ namespace QuickImageComment
             this.Panel2.Controls.Add(this.label1);
             this.Panel2.Location = new System.Drawing.Point(550, -2);
             this.Panel2.Name = "Panel2";
-            this.Panel2.Size = new System.Drawing.Size(213, 408);
+            this.Panel2.Size = new System.Drawing.Size(234, 408);
             this.Panel2.TabIndex = 28;
             // 
             // fixedCheckBoxSaveCommentInExifImageXPTitle
@@ -958,7 +958,7 @@ namespace QuickImageComment
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.ClientSize = new System.Drawing.Size(753, 571);
+            this.ClientSize = new System.Drawing.Size(771, 571);
             this.Controls.Add(this.Panel5);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.Panel2);

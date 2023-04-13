@@ -24,7 +24,7 @@ namespace QuickImageComment
             this.listViewIcons.TileSize = new System.Drawing.Size(tileSize + tileBorderWidth, tileSize + tileBorderWidth);
 
             CustomizationInterface = MainMaskInterface.getCustomizationInterface();
-            CustomizationInterface.setFormToCustomizedValues(this);
+            CustomizationInterface.setFormToCustomizedValuesZoomInitial(this);
             NodeTagList = new ArrayList();
 
             // fill menu tree

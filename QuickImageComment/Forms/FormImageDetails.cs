@@ -37,7 +37,7 @@ namespace QuickImageComment
             theUserControlImageDetails.isInOwnWindow = true;
             panel1.Controls.Add(theUserControlImageDetails.splitContainerImageDetails1);
 
-            CustomizationInterface.setFormToCustomizedValues(this);
+            CustomizationInterface.setFormToCustomizedValuesZoomInitial(this);
 
             this.MinimumSize = this.Size;
             int newHeight = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.FormImageDetailsHeight);

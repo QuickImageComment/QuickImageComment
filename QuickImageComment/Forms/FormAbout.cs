@@ -32,7 +32,7 @@ namespace QuickImageComment
         {
 
             InitializeComponent();
-            MainMaskInterface.getCustomizationInterface().setFormToCustomizedValues(this);
+            MainMaskInterface.getCustomizationInterface().setFormToCustomizedValuesZoomInitial(this);
             buttonClose.Select();
             Assembly ExecAssembly = Assembly.GetExecutingAssembly();
 

@@ -49,7 +49,7 @@ namespace QuickImageComment
                 }
             }
             textBoxPredefinedKeyWords.Text = keyWordsText;
-            CustomizationInterface.setFormToCustomizedValues(this);
+            CustomizationInterface.setFormToCustomizedValuesZoomInitial(this);
 
             LangCfg.translateControlTexts(this);
 

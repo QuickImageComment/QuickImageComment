@@ -54,7 +54,7 @@ namespace QuickImageComment
 #endif
             buttonCancel.Select();
             CustomizationInterface = MainMaskInterface.getCustomizationInterface();
-            CustomizationInterface.setFormToCustomizedValues(this);
+            CustomizationInterface.setFormToCustomizedValuesZoomInitial(this);
 
             progressPanel1.Visible = false;
 

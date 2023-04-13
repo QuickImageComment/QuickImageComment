@@ -8,7 +8,7 @@ namespace QuickImageComment
         public FormError(string errorMessage, string errorDetails, string errorFileName)
         {
             InitializeComponent();
-            MainMaskInterface.getCustomizationInterface().setFormToCustomizedValues(this);
+            MainMaskInterface.getCustomizationInterface().setFormToCustomizedValuesZoomInitial(this);
 
             LangCfg.translateControlTexts(this);
 

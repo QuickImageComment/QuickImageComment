@@ -80,6 +80,7 @@ namespace FormCustomization
         // shall be ignored, when adding them in zoom basis data collection
         // sequence must be in a way, that no entry is contained in a following one (i.e. "abc" before "ab")
         internal static string[] leadingControlNamePartsToIgnore;
+        internal static string[] leadingControlNamePartsPrefixDollar;
 
         // contains properties of components
         private class PropertyPair
@@ -250,7 +251,6 @@ namespace FormCustomization
         // get factor which was used to zoom form)
         internal float getActualZoomFactor(Form theForm)
         {
-            string zoomKey = theForm.Name + ":" + PropertyNameZoom;
             if (ActualZoomFactors.ContainsKey(theForm.Name))
             {
                 return ActualZoomFactors[theForm.Name];
@@ -337,27 +337,43 @@ namespace FormCustomization
         }
 
         // set properties of all form components based on original settings
-        // always zoom (no comparison old/new zoom factor)
-
-        internal void setAllComponents(enumSetTo SetTo, Form theForm)
+        // remove zoom basis data and zoom
+        // when same form is created again, old zoom data are still in Customizer,
+        // so they are deleted in order not to zoom based on wrong data
+        // to be called before .Show (as controls are not hidden during modification)
+        internal void setAllComponentsZoomInitial(enumSetTo SetTo, Form theForm)
         {
-            setAllComponents(SetTo, theForm, true);
+            if (ActualZoomFactors.ContainsKey(theForm.Name))
+            {
+                ActualZoomFactors.Remove(theForm.Name);
+            }
+            removeZoomBasisData(theForm);
+            setAllComponents(SetTo, theForm, false);
         }
 
         // set properties of all form components based on original settings
         // zoom only if zoom factor changed
         internal void setAllComponentsZoomIfChanged(enumSetTo SetTo, Form theForm)
         {
+            setAllComponents(SetTo, theForm, true);
+        }
+
+        // set properties of all form components based on original settings
+        // zoom only if zoom factor changed; no hide of controls during modification
+        internal void setAllComponentsZoomIfChangedNoHideDuringModfication(enumSetTo SetTo, Form theForm)
+        {
             setAllComponents(SetTo, theForm, false);
         }
 
         // zoom the form and set properties of all form components based on original settings
-        internal void setAllComponents(enumSetTo SetTo, Form theForm, bool alwaysZoomForm)
+        internal void setAllComponents(enumSetTo SetTo, Form theForm, bool hideControlsDuringModification)
         {
             string ComponentFullName;
             string PropertyName;
             enumProperty propertyIndex;
             int indexColon;
+
+            float OldZoomFactor = getActualZoomFactor(theForm);
 
             // determine new individual zoom factor
             float NewIndividualZoomFactor = 0f;
@@ -380,10 +396,48 @@ namespace FormCustomization
                 }
             }
 
-            foreach (Control control in theForm.Controls) control.Visible = false;
+            float NewZoomFactor;
 
-            // zoom the form
-            zoomForm(SetTo, theForm, NewIndividualZoomFactor, alwaysZoomForm);
+            if (NewIndividualZoomFactor > 0f)
+            {
+                // individual zoom factor is given
+                NewZoomFactor = NewIndividualZoomFactor;
+
+                // save new zoom factor in property table
+                if (PropertyTable.ContainsKey(zoomKey))
+                {
+                    // Original value is set when first zoom is triggered
+                    // thus original value is used for proper initialisation
+                    if (((PropertyPair)PropertyTable[zoomKey]).Original == null)
+                    {
+                        ((PropertyPair)PropertyTable[zoomKey]).Original = OldZoomFactor;
+                    }
+                    ((PropertyPair)PropertyTable[zoomKey]).Customized = NewZoomFactor;
+                }
+                else
+                {
+                    // property not in list, add it customized value, original value not used here
+                    PropertyTable.Add(zoomKey, new PropertyPair(null, NewZoomFactor));
+                }
+            }
+            else
+            {
+                // no individual factor given, use general zoom factor
+                NewZoomFactor = generalZoomFactor;
+            }
+
+            bool hideAllControls = hideControlsDuringModification && (NewZoomFactor != OldZoomFactor || PropertyTableContainsComponentSettings);
+
+            if (hideAllControls)
+            {
+                foreach (Control control in theForm.Controls) control.Visible = false;
+            }
+
+            if (NewZoomFactor != OldZoomFactor)
+            {
+                // zoom the form
+                zoomForm(SetTo, theForm, NewZoomFactor);
+            }
 
             // in case property table contains only form specific zoom factors, following block can be skipped
             if (PropertyTableContainsComponentSettings)
@@ -406,7 +460,7 @@ namespace FormCustomization
                     PropertyName = Key.Substring(indexColon + 1);
                     if (!PropertyName.Equals(PropertyNameZoom))
                     {
-                        string componentKey = removeSpecificLeadingPartsControlFullName(ComponentFullName);
+                        string componentKey = removeSpecificLeadingPartsControlFullNamePrefixDollar(ComponentFullName);
 
                         if (sortedListComponents.ContainsKey(componentKey))
                         {
@@ -440,7 +494,10 @@ namespace FormCustomization
                     }
                 }
             }
-            foreach (Control control in theForm.Controls) control.Visible = true;
+            if (hideAllControls)
+            {
+                foreach (Control control in theForm.Controls) control.Visible = true;
+            }
 
             //foreach (string key in ZoomBasisDataTable.Keys) Logger.log("--" + key);
         }
@@ -558,64 +615,25 @@ namespace FormCustomization
         //*****************************************************************
 
         // zoom a form and all its components
-        internal void zoomForm(enumSetTo SetTo, Form zoomableForm, float NewIndividualZoomFactor, bool alwaysZoomForm)
+        internal void zoomForm(enumSetTo SetTo, Form zoomableForm, float NewZoomFactor)
         {
-            // get old zoom factor
-            float OldZoomFactor = 1f;
-            if (!alwaysZoomForm)
+            float OldZoomFactor = getActualZoomFactor(zoomableForm);
+
+            zoomableForm.SuspendLayout();
+
+            fillOrUpdateZoomBasisData(zoomableForm, OldZoomFactor);
+            zoomControls(zoomableForm, NewZoomFactor);
+
+            zoomableForm.ResumeLayout();
+
+            // store factor as actual applied zoom factor
+            if (ActualZoomFactors.ContainsKey(zoomableForm.Name))
             {
-                OldZoomFactor = getActualZoomFactor(zoomableForm);
-            }
-            float NewZoomFactor;
-
-            if (NewIndividualZoomFactor > 0f)
-            {
-                // individual zoom factor is given
-                NewZoomFactor = NewIndividualZoomFactor;
-
-                // save new zoom factor in property table
-                string zoomKey = zoomableForm.Name + ":" + PropertyNameZoom;
-
-                if (PropertyTable.ContainsKey(zoomKey))
-                {
-                    // Original value is set when first zoom is triggered
-                    // thus original value is used for proper initialisation
-                    if (((PropertyPair)PropertyTable[zoomKey]).Original == null)
-                    {
-                        ((PropertyPair)PropertyTable[zoomKey]).Original = OldZoomFactor;
-                    }
-                    ((PropertyPair)PropertyTable[zoomKey]).Customized = NewZoomFactor;
-                }
-                else
-                {
-                    // property not in list, add it customized value, original value not used here
-                    PropertyTable.Add(zoomKey, new PropertyPair(null, NewZoomFactor));
-                }
+                ActualZoomFactors[zoomableForm.Name] = NewZoomFactor;
             }
             else
             {
-                // no individual factor given, use general zoom factor
-                NewZoomFactor = generalZoomFactor;
-
-                // store factor as actual applied zoom factor
-                if (ActualZoomFactors.ContainsKey(zoomableForm.Name))
-                {
-                    ActualZoomFactors[zoomableForm.Name] = NewZoomFactor;
-                }
-                else
-                {
-                    ActualZoomFactors.Add(zoomableForm.Name, NewZoomFactor);
-                }
-            }
-
-            if (NewZoomFactor != OldZoomFactor || alwaysZoomForm)
-            {
-                zoomableForm.SuspendLayout();
-
-                fillOrUpdateZoomBasisData(zoomableForm, OldZoomFactor);
-                zoomControls(zoomableForm, NewZoomFactor);
-
-                zoomableForm.ResumeLayout();
+                ActualZoomFactors.Add(zoomableForm.Name, NewZoomFactor);
             }
         }
 
@@ -1394,12 +1412,12 @@ namespace FormCustomization
                 Control theParentControl = tempToolStripItem.GetCurrentParent();
                 theName = getFullNameOfComponent(theParentControl) + "." + theName;
             }
-            return removeSpecificLeadingPartsControlFullName(theName);
+            return removeSpecificLeadingPartsControlFullNamePrefixDollar(theName);
         }
 
         // remove specific leading parts of control full name
         // the controls may move to different panels in form, so ignore this variable leading part
-        private static string removeSpecificLeadingPartsControlFullName(string theName)
+        private static string removeSpecificLeadingPartsControlFullNamePrefixDollar(string theName)
         {
             string nameModified = string.Copy(theName);
             for (int ii = 0; ii < leadingControlNamePartsToIgnore.Length; ii++)
@@ -1408,6 +1426,15 @@ namespace FormCustomization
                 {
                     // use $ as prefix so that these controls are sorted before those with path starting with form name
                     nameModified = "$" + nameModified.Substring(leadingControlNamePartsToIgnore[ii].Length);
+                    break;
+                }
+            }
+            for (int ii = 0; ii < leadingControlNamePartsPrefixDollar.Length; ii++)
+            {
+                if (nameModified.StartsWith(leadingControlNamePartsPrefixDollar[ii]))
+                {
+                    // use $ as prefix so that these controls are sorted before those with path starting with form name
+                    nameModified = "$" + nameModified;
                     break;
                 }
             }

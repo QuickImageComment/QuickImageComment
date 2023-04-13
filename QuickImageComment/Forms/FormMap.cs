@@ -36,7 +36,7 @@ namespace QuickImageComment
             MainMaskInterface.setUserControlMap(theUserControlMap);
             theUserControlMap.isInOwnWindow = true;
             panel1.Controls.Add(theUserControlMap.panelMap);
-            CustomizationInterface.setFormToCustomizedValues(this);
+            CustomizationInterface.setFormToCustomizedValuesZoomInitial(this);
 
             this.MinimumSize = this.Size;
             int newHeight = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.FormMapHeight);

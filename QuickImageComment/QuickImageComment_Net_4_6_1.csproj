@@ -148,6 +148,12 @@
     <Compile Include="Forms\FormErrorAppCenter.Designer.cs">
       <DependentUpon>FormErrorAppCenter.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FormInputBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormInputBox.Designer.cs">
+      <DependentUpon>FormInputBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FormScale.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -160,6 +166,7 @@
     <Compile Include="Forms\FormUserButtons.Designer.cs">
       <DependentUpon>FormUserButtons.cs</DependentUpon>
     </Compile>
+    <Compile Include="JR.Utils.GUI.Forms\FlexibleMessageBox.cs" />
     <Compile Include="Utilities\ChangeableFieldSpecification.cs" />
     <Compile Include="Utilities\DropFileOnProcess.cs" />
     <Compile Include="Utilities\EditExternalDefinition.cs" />
@@ -567,6 +574,9 @@
       <DependentUpon>FormImageWindow.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormInputBox.resx">
+      <DependentUpon>FormInputBox.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormInputCheckConfiguration.resx">
       <DependentUpon>FormInputCheckConfiguration.cs</DependentUpon>
     </EmbeddedResource>
@@ -965,6 +975,7 @@
       <Name>SimplePsd</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>

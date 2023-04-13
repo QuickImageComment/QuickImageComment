@@ -118,7 +118,7 @@ namespace QuickImageComment
                 linkLabelAppCenter.Visible = false;
             }
 
-            CustomizationInterface.setFormToCustomizedValues(this);
+            CustomizationInterface.setFormToCustomizedValuesZoomInitial(this);
 
             // call the text changed event as it is not called during the update above
             this.RichTextBoxBlankDisplay_TextChanged(richTextBoxUserCommentAppendCheckCharacters, new EventArgs());

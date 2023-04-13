@@ -301,7 +301,7 @@ namespace QuickImageComment
 
             if (!initialzationCompleted)
             {
-                MessageBox.Show(ex.Message + "\r\n" + ex.StackTrace.ToString(),
+                JR.Utils.GUI.Forms.FlexibleMessageBox.Show(ex.Message + "\r\n" + ex.StackTrace.ToString(),
                     "QuickImageComment", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 Environment.Exit(Environment.ExitCode);
             }

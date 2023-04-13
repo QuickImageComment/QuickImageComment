@@ -183,7 +183,7 @@ namespace QuickImageComment
                 displayExampleNewFileName();
             }
 
-            CustomizationInterface.setFormToCustomizedValues(this);
+            CustomizationInterface.setFormToCustomizedValuesZoomInitial(this);
 
             // in order to display current line correctly
             numberedControls_Enter(this.richTextBoxRenameFormat_1, new EventArgs());

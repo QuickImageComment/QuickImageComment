@@ -71,7 +71,7 @@ namespace QuickImageComment
             // buttonAbort
             // 
             this.buttonAbort.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonAbort.Location = new System.Drawing.Point(222, 310);
+            this.buttonAbort.Location = new System.Drawing.Point(267, 310);
             this.buttonAbort.Name = "buttonAbort";
             this.buttonAbort.Size = new System.Drawing.Size(99, 26);
             this.buttonAbort.TabIndex = 4;
@@ -88,7 +88,7 @@ namespace QuickImageComment
             this.textBoxPredefinedComments.Multiline = true;
             this.textBoxPredefinedComments.Name = "textBoxPredefinedComments";
             this.textBoxPredefinedComments.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxPredefinedComments.Size = new System.Drawing.Size(421, 280);
+            this.textBoxPredefinedComments.Size = new System.Drawing.Size(466, 280);
             this.textBoxPredefinedComments.TabIndex = 1;
             // 
             // labelPredefinedComments2
@@ -115,7 +115,7 @@ namespace QuickImageComment
             // buttonHelp
             // 
             this.buttonHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonHelp.Location = new System.Drawing.Point(329, 310);
+            this.buttonHelp.Location = new System.Drawing.Point(374, 310);
             this.buttonHelp.Name = "buttonHelp";
             this.buttonHelp.Size = new System.Drawing.Size(99, 26);
             this.buttonHelp.TabIndex = 5;
@@ -127,7 +127,7 @@ namespace QuickImageComment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(439, 342);
+            this.ClientSize = new System.Drawing.Size(484, 342);
             this.Controls.Add(this.buttonHelp);
             this.Controls.Add(this.buttonCustomizeForm);
             this.Controls.Add(this.buttonAbort);

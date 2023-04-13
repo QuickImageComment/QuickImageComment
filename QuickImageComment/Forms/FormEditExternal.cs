@@ -76,7 +76,7 @@ namespace QuickImageComment
 
             buttonAbort.Select();
 
-            CustomizationInterface.setFormToCustomizedValues(this);
+            CustomizationInterface.setFormToCustomizedValuesZoomInitial(this);
 
             LangCfg.translateControlTexts(this);
 

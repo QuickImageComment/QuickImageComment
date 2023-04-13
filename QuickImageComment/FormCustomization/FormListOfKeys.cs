@@ -26,7 +26,7 @@ namespace FormCustomization
         {
             int ii;
             InitializeComponent();
-            customizer.setAllComponents(Customizer.enumSetTo.Customized, this);
+            customizer.setAllComponentsZoomInitial(Customizer.enumSetTo.Customized, this);
 
             for (ii = 0; ii < ShortcutKeys.Count; ii++)
             {

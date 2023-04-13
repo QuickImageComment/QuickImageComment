@@ -16,6 +16,7 @@
 
 #define USESTARTUPTHREAD
 
+using JR.Utils.GUI.Forms;
 using QuickImageCommentControls;
 using System;
 using System.Collections;
@@ -37,6 +38,7 @@ namespace QuickImageComment
         // as controls can be moved between different panels, the leading part of control's full name
         // shall be ignored, when adding them in zoom basis data collection
         // sequence must be in a way, that no entry is contained in a following one (i.e. "abc" before "ab")
+        // for sorting reasons the leading part is replaced by dollor sign
         string[] leadingControlNamePartsToIgnore = new string[]
         {
             "FormQuickImageComment.splitContainer1.1.splitContainer11.1.",
@@ -47,6 +49,15 @@ namespace QuickImageComment
             "FormQuickImageComment.splitContainer1.2.splitContainer12.2.splitContainer122.2.",
             "UserControlImageDetails.",
             "UserControlMap."
+        };
+        // prefix dollar sign to control name of controls starting with ...
+        // needed for sorting reasons (as above)
+        string[] leadingControlNamePartsPrefixDollar = new string[]
+        {
+            "theFolderTreeView",
+            "UserControlChangeableFields",
+            "UserControlFiles",
+            "UserControlKeyWords"
         };
 
         public float dpiSettings;
@@ -559,13 +570,20 @@ namespace QuickImageComment
             adjustSplitContainer1DependingOnToolStrip();
 
             FormCustomization.Interface.setGeneralZoomFactor(ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.zoomFactorPerCentGeneral) / 100f);
+
+            // initiating CustomizationInterface includes a call of setFormToCustomizedValues...
+            // zoom the form only, needed now before layout is completed due to the dynamics of layout
+            // customization file is loaded later after layout of mask is complete
             CustomizationInterface = new FormCustomization.Interface(this,
-              maskCustomizationFile,
+              "",
               LangCfg.getText(LangCfg.Others.configFileQicCustomization),
               "file://" + LangCfg.getHelpFile(),
               "FormCustomization.htm",
               LangCfg.getTranslationsFromGerman(),
-              leadingControlNamePartsToIgnore);
+              leadingControlNamePartsToIgnore,
+              leadingControlNamePartsPrefixDollar);
+
+            FlexibleMessageBox.FONT = this.Font;
 
             foreach (LangCfg.PanelContent key in SplitContainerPanelControls.Keys)
             {
@@ -574,6 +592,15 @@ namespace QuickImageComment
                 if (SplitContainerPanelControls[key] != null)
                 {
                     CustomizationInterface.fillOrUpdateZoomBasisData((Control)SplitContainerPanelControls[key], CustomizationInterface.getActualZoomFactor(this));
+                    
+                    // check of full name of component: as they can be moved, they shall not start with the form's name
+                    // instead name shall start with dollar sign (needed for proper sorting, see in Customizer.cs)
+                    string fullNameOfComponent = FormCustomization.Customizer.getFullNameOfComponent((Control)SplitContainerPanelControls[key]);
+                    if (!fullNameOfComponent.StartsWith("$"))
+                    {
+                        throw new Exception("Internal program error: full name of component does not start with \"$\": "
+                            + fullNameOfComponent);
+                    }
                 }
             }
 
@@ -608,8 +635,9 @@ namespace QuickImageComment
 
             adjustToolbarSize();
 
-            // now layout is set completely, apply customization again
-            CustomizationInterface.setFormToCustomizedValuesZoomIfChanged(this);
+            // now layout is set completely, load customization and apply customization (zoom was applied already before)
+            if (!maskCustomizationFile.Equals("")) CustomizationInterface.loadCustomizationFile(maskCustomizationFile);
+            CustomizationInterface.setFormToCustomizedValuesZoomIfChangedNoHideDuringModification(this);
 
             // translate all controls
             //Program.StartupPerformance.measure("FormQIC before translate controls");
@@ -731,7 +759,7 @@ namespace QuickImageComment
                 FormChangesInVersion theFormChangesInVersion = new FormChangesInVersion();
                 theFormChangesInVersion.Show();
             }
-            // CustomizationInterface.checkFontSize(this, this.Font.Size);
+            //CustomizationInterface.checkFontSize(this, this.Font.Size);
         }
 
         private void fillAndConfigureChangeableFieldPanel()
@@ -2343,6 +2371,11 @@ namespace QuickImageComment
 
             if (generalChanged || toolbarChanged || thumbnailChanged)
             {
+                // when window is maximized, form size is not changed, but included controls
+                // so set to normal, scale and maximize again
+                bool wasMaximized = this.WindowState == FormWindowState.Maximized;
+                this.WindowState = FormWindowState.Normal;
+
                 if (generalChanged) ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.zoomFactorPerCentGeneral, zoomFactorPercentGeneral);
                 if (toolbarChanged) ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.zoomFactorPerCentToolbar, zoomFactorPercentToolbar);
                 if (thumbnailChanged) ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.zoomFactorPerCentThumbnail, zoomFactorPercentThumbnail);
@@ -2377,8 +2410,11 @@ namespace QuickImageComment
                     theUserControlFiles.listViewFiles.setThumbNailSizeAndDependingValues();
                     readFolderAndDisplayImage(true);
                 }
-                //CustomizationInterface.checkFontSize(this, this.Font.Size);
+                if (wasMaximized) this.WindowState = FormWindowState.Maximized;
+
+                FlexibleMessageBox.FONT = this.Font;
                 foreach (Control control in this.Controls) control.Visible = true;
+                //CustomizationInterface.checkFontSize(this, this.Font.Size);
             }
         }
 
@@ -6086,7 +6122,7 @@ namespace QuickImageComment
                 int baseX = controlX - thisX + theUserControlFiles.listViewFiles.Width - 18;
                 int baseY = controlY - thisY + 44;
                 OutputBitmapGraphics.DrawLine(new Pen(Color.Blue, 4.0F), new Point(baseX, baseY), new Point(baseX, baseY + 80));
-                OutputBitmapGraphics.DrawString(LangCfg.translate("bis zu 5 Eigenschaften frei wählbar", this.Name),
+                OutputBitmapGraphics.DrawString(LangCfg.translate("bis zu 7 Eigenschaften frei wählbar", this.Name),
                     new Font("Verdana", 15, FontStyle.Bold), new SolidBrush(Color.Blue), new RectangleF(baseX, baseY, 180, 100));
 
                 controlX = DataGridViewOverview.PointToScreen(Point.Empty).X;
@@ -6318,6 +6354,7 @@ namespace QuickImageComment
                 new FormImageDetails(dpiSettings, theExtendedImage);
                 new FormImageGrid();
                 new FormImageWindow(theExtendedImage);
+                // FormInputBox not needed
                 new FormInputCheckConfiguration("Iptc.Application2.Category");
                 new FormMap();
                 new FormMetaDataDefinition(theExtendedImage);
@@ -6409,6 +6446,7 @@ namespace QuickImageComment
             LangCfg.getListOfControlsWithText(new FormImageGrid(), ControlTextList);
             // exclude FormImageWindow: nothing to translate
             // input check for Exif.Image.Orientation is always available as created by program, so use this for check
+            LangCfg.getListOfControlsWithText(new FormInputBox("prompt", "defaultResponse"), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormInputCheckConfiguration("Exif.Image.Orientation"), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormMap(), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormMetaDataDefinition(theExtendedImage), ControlTextList);
@@ -6473,6 +6511,7 @@ namespace QuickImageComment
             new FormImageDetails(dpiSettings, theExtendedImage);
             new FormImageGrid();
             new FormImageWindow(theExtendedImage);
+            new FormInputBox("prompt", "defaultResponse");
             // input check for Exif.Image.Orientation is always available as created by program, so use this for check
             new FormInputCheckConfiguration("Exif.Image.Orientation");
             new FormLogger();

@@ -49,7 +49,7 @@ namespace QuickImageComment
             searchDifferentTags();
             fillDataTable();
 
-            CustomizationInterface.setFormToCustomizedValues(this);
+            CustomizationInterface.setFormToCustomizedValuesZoomInitial(this);
             // only values inside range MinimumSize and MaximumSize will be used,
             // so no separate check neccessary
             this.Width = ConfigDefinition.getFormCompareWidth();

@@ -33,14 +33,18 @@ namespace FormCustomization
             if (!CustomizationFile.Equals(""))
             {
                 theCustomizer.loadCustomizationFile(CustomizationFile, true);
-                setFormToCustomizedValues(theForm);
             }
+            // when initiating Customization Interface, nothing can have been zoomed before,
+            // so no need to call setFormToCustomizedValuesZoomOnInitial which removes zoom basis data
+            setFormToCustomizedValuesZoomIfChangedNoHideDuringModification(theForm);
+
             // add generic key event handler
             theForm.KeyDown += new System.Windows.Forms.KeyEventHandler(theCustomizer.Form_KeyDown);
         }
 
         public Interface(Form theForm, string CustomizationFile, string FileHeaderLine, string HelpUrl, string HelpTopic,
-            SortedList<string, string> givenTranslations, string[] leadingControlNamePartsToIgnore)
+            SortedList<string, string> givenTranslations, string[] leadingControlNamePartsToIgnore,
+            string[] leadingControlNamePartsPrefixDollar)
         {
             theCustomizer = new Customizer(FileHeaderLine, HelpUrl, HelpTopic, givenTranslations);
             if (!CustomizationFile.Equals(""))
@@ -48,9 +52,11 @@ namespace FormCustomization
                 theCustomizer.loadCustomizationFile(CustomizationFile, true);
             }
             Customizer.leadingControlNamePartsToIgnore = leadingControlNamePartsToIgnore;
+            Customizer.leadingControlNamePartsPrefixDollar = leadingControlNamePartsPrefixDollar;
 
-            // when initiating Customization Interface, nothing can have been zoomed before, so do not force zoóming
-            setFormToCustomizedValuesZoomIfChanged(theForm);
+            // when initiating Customization Interface, nothing can have been zoomed before,
+            // so no need to call setFormToCustomizedValuesZoomOnInitial which removes zoom basis data
+            setFormToCustomizedValuesZoomIfChangedNoHideDuringModification(theForm);
 
             // add generic key event handler
             theForm.KeyDown += new System.Windows.Forms.KeyEventHandler(theCustomizer.Form_KeyDown);
@@ -90,12 +96,13 @@ namespace FormCustomization
         }
 
         // set properties of all form components based on original settings
-        // always zoom (no comparison old/new zoom factor)
+        // remove zoom basis data and zoom
         // when same form is created again, old zoom data are still in Customizer,
-        // which would prevent zooming
-        public void setFormToCustomizedValues(Form theForm)
+        // so they are deleted in order not to zoom based on wrong data
+        // to be called before .Show (as controls are not hidden during modification)
+        public void setFormToCustomizedValuesZoomInitial(Form theForm)
         {
-            theCustomizer.setAllComponents(Customizer.enumSetTo.Customized, theForm);
+            theCustomizer.setAllComponentsZoomInitial(Customizer.enumSetTo.Customized, theForm);
         }
 
         // set properties of all form components based on original settings
@@ -105,10 +112,11 @@ namespace FormCustomization
             theCustomizer.setAllComponentsZoomIfChanged(Customizer.enumSetTo.Customized, theForm);
         }
 
-        // zoom form and set properties of all form components to original values
-        public void setFormToOriginalValues(Form theForm)
+        // set properties of all form components based on original settings
+        // zoom only if zoom factor changed; no hide of controls during modification
+        public void setFormToCustomizedValuesZoomIfChangedNoHideDuringModification(Form theForm)
         {
-            theCustomizer.setAllComponents(Customizer.enumSetTo.Original, theForm);
+            theCustomizer.setAllComponentsZoomIfChangedNoHideDuringModfication(Customizer.enumSetTo.Customized, theForm);
         }
 
         // zoom controls including childs using target zoom factor (general or form specific)
@@ -207,8 +215,8 @@ namespace FormCustomization
         {
             foreach (Control child in parent.Controls)
             {
-                if (child.Font.Size != fontSize) Logger.log("# " + Customizer.getFullNameOfComponent(child).Replace("splitContainer", "SP") + " " + child.Font.Size.ToString());
-                if (!child.Font.Name.Equals("Tahoma")) Logger.log("# " + Customizer.getFullNameOfComponent(child).Replace("splitContainer", "SP") + " " + child.Font.Name);
+                if (child.Font.Size != fontSize) Logger.log("# " + Customizer.getFullNameOfComponent(child).Replace("splitContainer", "SP") + " " + child.Font.Size.ToString()); // permanent use of Logger.log
+                if (!child.Font.Name.Equals("Tahoma")) Logger.log("# " + Customizer.getFullNameOfComponent(child).Replace("splitContainer", "SP") + " " + child.Font.Name); // permanent use of Logger.log
                 checkFontSize(child, fontSize);
             }
         }

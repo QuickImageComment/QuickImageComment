@@ -233,9 +233,9 @@ namespace QuickImageComment
             // 
             // labelProgramPath
             // 
-            this.labelProgramPath.Location = new System.Drawing.Point(334, 81);
+            this.labelProgramPath.Location = new System.Drawing.Point(334, 77);
             this.labelProgramPath.Name = "labelProgramPath";
-            this.labelProgramPath.Size = new System.Drawing.Size(120, 13);
+            this.labelProgramPath.Size = new System.Drawing.Size(120, 21);
             this.labelProgramPath.TabIndex = 10;
             this.labelProgramPath.Text = "Programm-Pfad";
             this.labelProgramPath.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -252,9 +252,9 @@ namespace QuickImageComment
             // 
             // labelProgramOptions
             // 
-            this.labelProgramOptions.Location = new System.Drawing.Point(334, 105);
+            this.labelProgramOptions.Location = new System.Drawing.Point(334, 101);
             this.labelProgramOptions.Name = "labelProgramOptions";
-            this.labelProgramOptions.Size = new System.Drawing.Size(120, 13);
+            this.labelProgramOptions.Size = new System.Drawing.Size(120, 21);
             this.labelProgramOptions.TabIndex = 13;
             this.labelProgramOptions.Text = "Programm-Optionen";
             this.labelProgramOptions.TextAlign = System.Drawing.ContentAlignment.MiddleRight;

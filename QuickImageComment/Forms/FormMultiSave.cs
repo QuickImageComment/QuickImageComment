@@ -27,7 +27,7 @@ namespace QuickImageComment
         public FormMultiSave(int ImageCount)
         {
             InitializeComponent();
-            MainMaskInterface.getCustomizationInterface().setFormToCustomizedValues(this);
+            MainMaskInterface.getCustomizationInterface().setFormToCustomizedValuesZoomInitial(this);
 #if APPCENTER
             if (Program.AppCenterUsable) Microsoft.AppCenter.Analytics.Analytics.TrackEvent(this.Name);
 #endif
