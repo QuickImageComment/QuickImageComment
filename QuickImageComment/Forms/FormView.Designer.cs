@@ -1099,7 +1099,6 @@
             this.Name = "FormView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Ansicht anpassen";
-            this.Activated += new System.EventHandler(this.FormView_Activated);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FormView_KeyDown);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);

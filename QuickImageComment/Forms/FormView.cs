@@ -1100,11 +1100,6 @@ namespace QuickImageComment
             }
         }
 
-        private void FormView_Activated(object sender, EventArgs e)
-        {
-            setControlValuesFromConfiguration();
-        }
-
         private void FormView_KeyDown(object sender, KeyEventArgs theKeyEventArgs)
         {
             if (theKeyEventArgs.KeyCode == Keys.F1)
