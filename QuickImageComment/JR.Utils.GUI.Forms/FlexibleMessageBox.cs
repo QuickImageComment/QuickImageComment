@@ -78,6 +78,19 @@ namespace JR.Utils.GUI.Forms
      *  Version 1.0 - 15.April 2013
      *   - Initial Version
     */
+
+    // Additon by Ambiesoft
+    // Version 1.4.1 2021/06/21
+    // Clear IMF_DUALFONT and IMF_AUTOFONT from RichTextBox to show the font property
+    //
+    // Version 1.4.3 2021/07/17
+    // Add: magicAdd for temporary fix to fit size
+    
+    // Version 1.4.4 2022/02/27
+    // Set .Net Framework ver to 4.5.2
+    // if (owner == null) flexibleMessageBoxForm.ShowInTaskbar = true;
+
+
     public class FlexibleMessageBox
     {
         #region Public statics
@@ -86,7 +99,7 @@ namespace JR.Utils.GUI.Forms
         /// Defines the maximum width for all FlexibleMessageBox instances in percent of the working area.
         /// 
         /// Allowed values are 0.2 - 1.0 where: 
-        /// 0.2 means:  The FlexibleMessageBox can be at most half as wide as the working area.
+        /// 0.2 means:  The FlexibleMessageBox can be at most 20% as wide as the working area.
         /// 1.0 means:  The FlexibleMessageBox can be as wide as the working area.
         /// 
         /// Default is: 70% of the working area width.
@@ -97,7 +110,7 @@ namespace JR.Utils.GUI.Forms
         /// Defines the maximum height for all FlexibleMessageBox instances in percent of the working area.
         /// 
         /// Allowed values are 0.2 - 1.0 where: 
-        /// 0.2 means:  The FlexibleMessageBox can be at most half as high as the working area.
+        /// 0.2 means:  The FlexibleMessageBox can be at most 20% as high as the working area.
         /// 1.0 means:  The FlexibleMessageBox can be as high as the working area.
         /// 
         /// Default is: 90% of the working area height.
@@ -110,6 +123,17 @@ namespace JR.Utils.GUI.Forms
         /// Default is: SystemFonts.MessageBoxFont
         /// </summary>
         public static Font FONT = SystemFonts.MessageBoxFont;
+
+        //If you want to add a new language, add it here and in the GetButtonText-Function
+        //and add a definition BUTTON_TEXTS_...
+        public enum TwoLetterISOLanguageID { undefined, en, de, es, it, ja };
+
+        /// <summary>
+        /// Defines the language to be used - if needs to be set from external
+        /// 
+        /// If not set, language based on culture info is used
+        /// </summary>
+        public static TwoLetterISOLanguageID languageIdExternal;
 
         #endregion
 
@@ -391,11 +415,20 @@ namespace JR.Utils.GUI.Forms
                 this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
                 this.Text = "<Caption>";
                 this.Shown += new System.EventHandler(this.FlexibleMessageBoxForm_Shown);
+                this.Load += FlexibleMessageBoxForm_Load;
                 ((System.ComponentModel.ISupportInitialize)(this.FlexibleMessageBoxFormBindingSource)).EndInit();
                 this.panel1.ResumeLayout(false);
                 ((System.ComponentModel.ISupportInitialize)(this.pictureBoxForIcon)).EndInit();
                 this.ResumeLayout(false);
                 this.PerformLayout();
+            }
+
+            private void FlexibleMessageBoxForm_Load(object sender, EventArgs e)
+            {
+                uint lParam;
+                lParam = SendMessage(richTextBoxMessage.Handle, EM_GETLANGOPTIONS, 0, 0);
+                lParam &= ~(IMF_DUALFONT | IMF_AUTOFONT);
+                SendMessage(richTextBoxMessage.Handle, EM_SETLANGOPTIONS, 0, lParam);
             }
 
             private System.Windows.Forms.Button button1;
@@ -419,11 +452,11 @@ namespace JR.Utils.GUI.Forms
             
             //These are the buttons texts for different languages. 
             //If you want to add a new language, add it here and in the GetButtonText-Function
-            private enum TwoLetterISOLanguageID { en, de, es, it };
             private static readonly String[] BUTTON_TEXTS_ENGLISH_EN = { "OK", "Cancel", "&Yes", "&No", "&Abort", "&Retry", "&Ignore" }; //Note: This is also the fallback language
             private static readonly String[] BUTTON_TEXTS_GERMAN_DE = { "OK", "Abbrechen", "&Ja", "&Nein", "&Abbrechen", "&Wiederholen", "&Ignorieren" };
             private static readonly String[] BUTTON_TEXTS_SPANISH_ES = { "Aceptar", "Cancelar", "&Sí", "&No", "&Abortar", "&Reintentar", "&Ignorar" };
             private static readonly String[] BUTTON_TEXTS_ITALIAN_IT = { "OK", "Annulla", "&Sì", "&No", "&Interrompi", "&Riprova", "&Ignora" };
+            private static readonly String[] BUTTON_TEXTS_ITALIAN_JA = { "OK", "キャンセル", "はい(&Y)", "いいえ(&N)", "中止(&A)", "再試行(&R)", "無視(&I)" };
 
             #endregion
 
@@ -444,8 +477,17 @@ namespace JR.Utils.GUI.Forms
             {
                 InitializeComponent();
 
-                //Try to evaluate the language. If this fails, the fallback language English will be used
-                Enum.TryParse<TwoLetterISOLanguageID>(CultureInfo.CurrentUICulture.TwoLetterISOLanguageName, out this.languageID);
+                if (languageIdExternal == TwoLetterISOLanguageID.undefined)
+                {
+                    //Language not set from external
+                    //Try to evaluate the language. If this fails, the fallback language English will be used
+                    Enum.TryParse<TwoLetterISOLanguageID>(CultureInfo.CurrentUICulture.TwoLetterISOLanguageName, out this.languageID);
+                }
+                else
+                {
+                    //Use language as set from external
+                    languageID = languageIdExternal;
+                }
 
                 this.KeyPreview = true;
                 this.KeyUp += FlexibleMessageBoxForm_KeyUp;
@@ -483,6 +525,7 @@ namespace JR.Utils.GUI.Forms
                     case TwoLetterISOLanguageID.de: return BUTTON_TEXTS_GERMAN_DE[buttonTextArrayIndex];
                     case TwoLetterISOLanguageID.es: return BUTTON_TEXTS_SPANISH_ES[buttonTextArrayIndex];
                     case TwoLetterISOLanguageID.it: return BUTTON_TEXTS_ITALIAN_IT[buttonTextArrayIndex];
+                    case TwoLetterISOLanguageID.ja: return BUTTON_TEXTS_ITALIAN_JA[buttonTextArrayIndex];
 
                     default:                        return BUTTON_TEXTS_ENGLISH_EN[buttonTextArrayIndex];
                 }
@@ -543,7 +586,9 @@ namespace JR.Utils.GUI.Forms
                 if (stringRows == null) return;
 
                 //Calculate whole text height
-                var textHeight = TextRenderer.MeasureText(text, FONT).Height;
+                TextFormatFlags textFormatFlags = new TextFormatFlags();
+                textFormatFlags |= TextFormatFlags.WordBreak;
+                var textHeight = TextRenderer.MeasureText(text, FONT, flexibleMessageBoxForm.MaximumSize, textFormatFlags).Height;
                     
                 //Calculate width for longest text line
                 const int SCROLLBAR_WIDTH_OFFSET = 15;
@@ -554,7 +599,8 @@ namespace JR.Utils.GUI.Forms
                 //Calculate margins
                 var marginWidth = flexibleMessageBoxForm.Width - flexibleMessageBoxForm.richTextBoxMessage.Width;
                 var marginHeight = flexibleMessageBoxForm.Height - flexibleMessageBoxForm.richTextBoxMessage.Height;
-
+                int magicAdd = 12;
+                marginHeight += magicAdd;
                 //Set calculated dialog size (if the calculated values exceed the maximums, they were cut by windows forms automatically)
                 flexibleMessageBoxForm.Size = new Size(textWidth + marginWidth,
                                                        textHeight + marginHeight);
@@ -832,6 +878,8 @@ namespace JR.Utils.GUI.Forms
                 //Bind the caption and the message text
                 flexibleMessageBoxForm.CaptionText = caption;
                 flexibleMessageBoxForm.MessageText = text;
+
+
                 flexibleMessageBoxForm.FlexibleMessageBoxFormBindingSource.DataSource = flexibleMessageBoxForm;
 
                 //Set the buttons visibilities and texts. Also set a default button.
@@ -850,6 +898,9 @@ namespace JR.Utils.GUI.Forms
                 //Set the dialogs start position when given. Otherwise center the dialog on the current screen.
                 SetDialogStartPosition(flexibleMessageBoxForm, owner);
 
+                if (owner == null)
+                    flexibleMessageBoxForm.ShowInTaskbar = true;
+
                 //Show the dialog
                 return flexibleMessageBoxForm.ShowDialog(owner);
             }
@@ -858,5 +909,15 @@ namespace JR.Utils.GUI.Forms
         } //class FlexibleMessageBoxForm
 
         #endregion
+
+        //RichTextBoxでフォントが勝手に変わらないためのAPI
+        private const uint IMF_AUTOFONT = 0x02;
+        private const uint IMF_DUALFONT = 0x80;
+        private const uint WM_USER = 0x0400;
+        private const uint EM_SETLANGOPTIONS = WM_USER + 120;
+        private const uint EM_GETLANGOPTIONS = WM_USER + 121;
+        [System.Runtime.InteropServices.DllImport("USER32.dll")]
+        private static extern uint SendMessage(System.IntPtr hWnd, uint msg, uint wParam, uint lParam);
+
     }
 }

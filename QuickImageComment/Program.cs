@@ -23,6 +23,7 @@ using System.Runtime.InteropServices; // for DllImport
 #endif
 using System.Threading;
 using System.Windows.Forms;
+using JR.Utils.GUI.Forms;
 #if APPCENTER
 using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
@@ -110,6 +111,7 @@ namespace QuickImageComment
 #if NET5
             System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
 #endif
+            FlexibleMessageBox.MAX_WIDTH_FACTOR = 0.3f;
 
             // get version information
             Assembly ExecAssembly = Assembly.GetExecutingAssembly();
