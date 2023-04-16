@@ -2816,8 +2816,17 @@ namespace QuickImageComment
                     else if (firstPart.StartsWith("DataTemplate_"))
                     {
                         int ConfStart = firstPart.IndexOf('_');
-                        int ConfEnd = firstPart.LastIndexOf('_');
-                        if (ConfStart > 0 && ConfEnd > ConfStart)
+                        int ConfEnd = firstPart.Length;
+                        int ii = firstPart.LastIndexOf("_artist");
+                        if (ii > 0 && ii < ConfEnd) ConfEnd = ii;
+                        ii = firstPart.LastIndexOf("_userComment");
+                        if (ii > 0 && ii < ConfEnd) ConfEnd = ii;
+                        ii = firstPart.LastIndexOf("_keyWord");
+                        if (ii > 0 && ii < ConfEnd) ConfEnd = ii;
+                        ii = firstPart.LastIndexOf("_changeableField.");
+                        if (ii > 0 && ii < ConfEnd) ConfEnd = ii;
+
+                        if (ConfStart > 0 && ConfEnd < firstPart.Length)
                         {
                             string Configuration = firstPart.Substring(ConfStart + 1, ConfEnd - ConfStart - 1);
                             if (DataTemplates.ContainsKey(Configuration))
