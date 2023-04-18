@@ -17,6 +17,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using static QuickImageComment.UserControlMap;
@@ -85,7 +86,9 @@ namespace QuickImageComment
             LargeIconHorizontalSpace,
             LargeIconVerticalSpace,
             MaximumMemoryTolerance,
-            MaximumValueLengthExport
+            MaximumValueLengthExport,
+            BackColorValueChanged,
+            BackColorMultiEditNonDefault
         };
 
         public enum enumConfigString
@@ -2129,6 +2132,12 @@ namespace QuickImageComment
             return (int)ConfigItems["_" + ConfigEnum.ToString()];
         }
 
+        // get user general configuration items of type color (stored as integer)
+        public static Color getConfigColor(enumConfigInt ConfigEnum)
+        {
+            return Color.FromArgb((int)ConfigItems["_" + ConfigEnum.ToString()]);
+        }
+
         // get user general configuration items of type string
         public static string getConfigString(enumConfigString ConfigEnum)
         {
@@ -3525,7 +3534,13 @@ namespace QuickImageComment
                         {
                             if (ConfigItems["_" + firstPart] == null)
                             {
-                                ConfigItems["_" + firstPart] = int.Parse(secondPart);
+                                int parseOutput;
+                                if (int.TryParse(secondPart, out parseOutput))
+                                    // it is an integer
+                                    ConfigItems["_" + firstPart] = parseOutput;
+                                else
+                                    // it is a hex number
+                                    ConfigItems["_" + firstPart] = int.Parse(secondPart, System.Globalization.NumberStyles.HexNumber);
                             }
                         }
                         // assume type is string

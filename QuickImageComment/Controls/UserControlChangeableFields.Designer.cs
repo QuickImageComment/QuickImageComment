@@ -90,6 +90,7 @@
             // 
             this.textBoxChangeableField.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxChangeableField.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBoxChangeableField.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxChangeableField.Location = new System.Drawing.Point(146, 3);
             this.textBoxChangeableField.Name = "textBoxChangeableField";

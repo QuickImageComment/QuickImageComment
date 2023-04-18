@@ -210,6 +210,9 @@ namespace QuickImageComment
 
                     if (aControl.GetType().Equals(comboBoxChangeableField.GetType()))
                     {
+                        // FlatStyle.Flat (or Popup) is needed to allow changing Backcolor in DropDownList
+                        // set it also for DropDown to have all input controls without border
+                        ((ComboBox)aControl).FlatStyle = FlatStyle.Flat;
                         ((ComboBox)aControl).DropDownStyle = ComboBoxStyle.DropDown;
                         ((ComboBox)aControl).AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
                         ((ComboBox)aControl).AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
@@ -222,6 +225,11 @@ namespace QuickImageComment
                             ((ComboBox)aControl).AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.None;
                             ((ComboBox)aControl).AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.None;
                         }
+                    }
+                    else
+                    {
+                        // Changing Backcolor in DropDownList not possible, so all input controls without border
+                        ((TextBox)aControl).BorderStyle = BorderStyle.None;
                     }
                 }
                 else if (aControl.GetType().Equals(dynamicLabelChangeableField.GetType()))

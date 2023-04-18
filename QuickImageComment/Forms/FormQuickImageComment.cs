@@ -66,6 +66,13 @@ namespace QuickImageComment
         public static Performance readFolderPerfomance;
         private static FormFind formFind;
 
+        // colors
+        private Color backColorInputUnchanged;
+        private Color backColorInputValueChanged;
+        // background color for non-default selections in multi edit tab
+        private Color backColorMultiEditNonDefault;
+
+
         // delegate for call within thread
         public delegate void setToolStripStatusLabelThreadCallback(string text, bool clearNow, bool clearBeforeNext);
         public delegate void setToolStripStatusLabelBufferingThreadCallback(bool visible);
@@ -93,9 +100,6 @@ namespace QuickImageComment
         // Scale to save splitter ratio as int with sufficient accuracy 
         // to avoid moving the splitter just due to rounding
         public static int SplitterRatioScale = 1000;
-
-        // background color for non-default selections in multi edit tab
-        public static System.Drawing.Color nonDefaultBackColor = System.Drawing.Color.Gold;
 
         public UserControlImageDetails theUserControlImageDetails;
         public UserControlMap theUserControlMap = null;
@@ -178,8 +182,6 @@ namespace QuickImageComment
             // Microsoft Store updates automatically
             toolStripMenuItemCheckForNewVersion.Visible = !GeneralUtilities.MicrosoftStore;
 
-            checkedListBoxChangeableFieldsChange.CheckedColor = nonDefaultBackColor;
-
             Program.StartupPerformance.measure("FormQIC constructor finish");
         }
 
@@ -218,6 +220,12 @@ namespace QuickImageComment
 #else
             StartupInitNewFolder();
 #endif
+            // set colors
+            backColorInputUnchanged = dynamicComboBoxArtist.BackColor;
+            backColorInputValueChanged = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigInt.BackColorValueChanged);
+            backColorMultiEditNonDefault = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigInt.BackColorMultiEditNonDefault);
+
+            checkedListBoxChangeableFieldsChange.CheckedColor = backColorMultiEditNonDefault;
 
             // get dpi configured by user
             Graphics dpiGraphics = this.CreateGraphics();
@@ -847,6 +855,7 @@ namespace QuickImageComment
                 ((Control)sender).Text = getFieldValueBySpec(Spec, (Control)sender, theExtendedImage);
 
                 theUserControlChangeableFields.ChangedChangeableFieldTags.Remove(Spec.getKey());
+                ((Control)sender).BackColor = backColorInputUnchanged;
 
                 // get values from other selected images and compare
                 disableEventHandlersRecogniseUserInput();
@@ -914,6 +923,7 @@ namespace QuickImageComment
             {
                 textBoxUserComment.Text = theExtendedImage.getUserComment();
                 textBoxUserCommentUserChanged = false;
+                textBoxUserComment.BackColor = backColorInputUnchanged;
                 fillListBoxLastUserComments("");
 
                 // get values from other selected images and compare
@@ -993,6 +1003,7 @@ namespace QuickImageComment
             {
                 dynamicComboBoxArtist.Text = theExtendedImage.getArtist();
                 comboBoxArtistUserChanged = false;
+                dynamicComboBoxArtist.BackColor = backColorInputUnchanged;
 
                 // get values from other selected images and compare
                 disableEventHandlersRecogniseUserInput();
@@ -1077,8 +1088,10 @@ namespace QuickImageComment
             if (theKeyEventArgs.KeyCode == Keys.Escape)
             {
                 theUserControlKeyWords.displayKeyWords(theExtendedImage.getIptcKeyWordsArrayList());
+                theUserControlKeyWords.checkedListBoxPredefKeyWords.BackColor = backColorInputUnchanged;
+                theUserControlKeyWords.textBoxFreeInputKeyWords.BackColor = backColorInputUnchanged;
                 keyWordsUserChanged = false;
-
+                
                 // get values from other selected images and compare
                 disableEventHandlersRecogniseUserInput();
                 lock (UserControlFiles.LockListViewFiles)
@@ -1105,6 +1118,8 @@ namespace QuickImageComment
             if (theKeyEventArgs.KeyCode == Keys.Escape)
             {
                 theUserControlKeyWords.displayKeyWords(theExtendedImage.getIptcKeyWordsArrayList());
+                theUserControlKeyWords.checkedListBoxPredefKeyWords.BackColor = backColorInputUnchanged;
+                theUserControlKeyWords.textBoxFreeInputKeyWords.BackColor = backColorInputUnchanged;
                 keyWordsUserChanged = false;
 
                 // get values from other selected images and compare
@@ -1131,6 +1146,7 @@ namespace QuickImageComment
         private void dynamicComboBoxArtist_TextChanged(object sender, System.EventArgs theEventArgs)
         {
             comboBoxArtistUserChanged = true;
+            dynamicComboBoxArtist.BackColor = backColorInputValueChanged;
             labelArtistDefault.Visible = false;
             setControlsEnabledBasedOnDataChange(true);
         }
@@ -1139,6 +1155,7 @@ namespace QuickImageComment
         private void textBoxUserComment_TextChanged(object sender, System.EventArgs theEventArgs)
         {
             textBoxUserCommentUserChanged = true;
+            textBoxUserComment.BackColor = backColorInputValueChanged;
             fillListBoxLastUserComments(textBoxUserComment.Text);
             setControlsEnabledBasedOnDataChange(true);
         }
@@ -1147,6 +1164,7 @@ namespace QuickImageComment
         private void checkedListBoxPredefKeyWords_ItemCheck(object sender, ItemCheckEventArgs e)
         {
             keyWordsUserChanged = true;
+            theUserControlKeyWords.checkedListBoxPredefKeyWords.BackColor = backColorInputValueChanged;
             setControlsEnabledBasedOnDataChange(true);
         }
 
@@ -1154,6 +1172,7 @@ namespace QuickImageComment
         private void textBoxFreeInputKeyWords_TextChanged(object sender, EventArgs e)
         {
             keyWordsUserChanged = true;
+            theUserControlKeyWords.textBoxFreeInputKeyWords.BackColor= backColorInputValueChanged;
             setControlsEnabledBasedOnDataChange(true);
         }
 
@@ -1342,6 +1361,7 @@ namespace QuickImageComment
         private void inputControlChangeableField_TextChanged(object sender, EventArgs e)
         {
             theUserControlChangeableFields.inputControlChangeableField_handleTextChanged(sender, e);
+            ((Control)sender).BackColor = backColorInputValueChanged;
             setControlsEnabledBasedOnDataChange();
         }
 
@@ -1392,7 +1412,7 @@ namespace QuickImageComment
         private void setMultiEditSelectionBackground(Control control, bool isNotDefault)
         {
             if (isNotDefault)
-                control.BackColor = nonDefaultBackColor;
+                control.BackColor = backColorMultiEditNonDefault;
             else
                 control.BackColor = Control.DefaultBackColor;
         }
@@ -4860,9 +4880,17 @@ namespace QuickImageComment
         internal void clearFlagsIndicatingUserChanges()
         {
             comboBoxArtistUserChanged = false;
+            dynamicComboBoxArtist.BackColor = backColorInputUnchanged;
             textBoxUserCommentUserChanged = false;
+            textBoxUserComment.BackColor = backColorInputUnchanged;
             keyWordsUserChanged = false;
+            theUserControlKeyWords.checkedListBoxPredefKeyWords.BackColor = backColorInputUnchanged;
+            theUserControlKeyWords.textBoxFreeInputKeyWords.BackColor = backColorInputUnchanged;
             theUserControlChangeableFields.resetChangedChangeableFieldTags();
+            foreach (Control anInputControl in theUserControlChangeableFields.ChangeableFieldInputControls.Values)
+            {
+                anInputControl.BackColor = backColorInputUnchanged;
+            }
             // if the panel of theUserControlMap is displayed, inform that there is a new image selected and clear change flag
             if (theUserControlMap != null)
             {
