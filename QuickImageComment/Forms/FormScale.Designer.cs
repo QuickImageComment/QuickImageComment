@@ -33,7 +33,6 @@
             this.buttonOk = new System.Windows.Forms.Button();
             this.buttonAbort = new System.Windows.Forms.Button();
             this.panelRecommendedScales = new System.Windows.Forms.Panel();
-            this.fixedRadioButton8 = new System.Windows.Forms.RadioButton();
             this.fixedRadioButton1 = new System.Windows.Forms.RadioButton();
             this.fixedRadioButton7 = new System.Windows.Forms.RadioButton();
             this.fixedRadioButton6 = new System.Windows.Forms.RadioButton();
@@ -98,7 +97,6 @@
             this.panelRecommendedScales.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelRecommendedScales.Controls.Add(this.fixedRadioButton8);
             this.panelRecommendedScales.Controls.Add(this.fixedRadioButton1);
             this.panelRecommendedScales.Controls.Add(this.fixedRadioButton7);
             this.panelRecommendedScales.Controls.Add(this.fixedRadioButton6);
@@ -110,17 +108,6 @@
             this.panelRecommendedScales.Name = "panelRecommendedScales";
             this.panelRecommendedScales.Size = new System.Drawing.Size(357, 105);
             this.panelRecommendedScales.TabIndex = 0;
-            // 
-            // fixedRadioButton8
-            // 
-            this.fixedRadioButton8.AutoSize = true;
-            this.fixedRadioButton8.Location = new System.Drawing.Point(159, 76);
-            this.fixedRadioButton8.Name = "fixedRadioButton8";
-            this.fixedRadioButton8.Size = new System.Drawing.Size(57, 17);
-            this.fixedRadioButton8.TabIndex = 7;
-            this.fixedRadioButton8.TabStop = true;
-            this.fixedRadioButton8.Text = "191 %";
-            this.fixedRadioButton8.UseVisualStyleBackColor = true;
             // 
             // fixedRadioButton1
             // 
@@ -141,7 +128,7 @@
             this.fixedRadioButton7.Size = new System.Drawing.Size(57, 17);
             this.fixedRadioButton7.TabIndex = 6;
             this.fixedRadioButton7.TabStop = true;
-            this.fixedRadioButton7.Text = "184 %";
+            this.fixedRadioButton7.Text = "204 %";
             this.fixedRadioButton7.UseVisualStyleBackColor = true;
             // 
             // fixedRadioButton6
@@ -152,7 +139,7 @@
             this.fixedRadioButton6.Size = new System.Drawing.Size(57, 17);
             this.fixedRadioButton6.TabIndex = 5;
             this.fixedRadioButton6.TabStop = true;
-            this.fixedRadioButton6.Text = "175 %";
+            this.fixedRadioButton6.Text = "184 %";
             this.fixedRadioButton6.UseVisualStyleBackColor = true;
             // 
             // fixedRadioButton5
@@ -163,7 +150,7 @@
             this.fixedRadioButton5.Size = new System.Drawing.Size(57, 17);
             this.fixedRadioButton5.TabIndex = 4;
             this.fixedRadioButton5.TabStop = true;
-            this.fixedRadioButton5.Text = "155 %";
+            this.fixedRadioButton5.Text = "175 %";
             this.fixedRadioButton5.UseVisualStyleBackColor = true;
             // 
             // fixedRadioButton3
@@ -174,7 +161,7 @@
             this.fixedRadioButton3.Size = new System.Drawing.Size(57, 17);
             this.fixedRadioButton3.TabIndex = 2;
             this.fixedRadioButton3.TabStop = true;
-            this.fixedRadioButton3.Text = "120 %";
+            this.fixedRadioButton3.Text = "139 %";
             this.fixedRadioButton3.UseVisualStyleBackColor = false;
             // 
             // fixedRadioButton4
@@ -185,7 +172,7 @@
             this.fixedRadioButton4.Size = new System.Drawing.Size(57, 17);
             this.fixedRadioButton4.TabIndex = 3;
             this.fixedRadioButton4.TabStop = true;
-            this.fixedRadioButton4.Text = "139 %";
+            this.fixedRadioButton4.Text = "166 %";
             this.fixedRadioButton4.UseVisualStyleBackColor = true;
             // 
             // fixedRadioButton2
@@ -196,7 +183,7 @@
             this.fixedRadioButton2.Size = new System.Drawing.Size(57, 17);
             this.fixedRadioButton2.TabIndex = 1;
             this.fixedRadioButton2.TabStop = true;
-            this.fixedRadioButton2.Text = "110 %";
+            this.fixedRadioButton2.Text = "120 %";
             this.fixedRadioButton2.UseVisualStyleBackColor = true;
             // 
             // numericUpDownGeneral
@@ -434,7 +421,6 @@
         private System.Windows.Forms.RadioButton fixedRadioButton4;
         private System.Windows.Forms.CheckBox checkBoxApplyDirect;
         private System.Windows.Forms.RadioButton fixedRadioButton1;
-        private System.Windows.Forms.RadioButton fixedRadioButton8;
         private System.Windows.Forms.Label fixedLabelPercentToolbar;
         private System.Windows.Forms.NumericUpDown numericUpDownToolbar;
         private System.Windows.Forms.CheckBox checkBoxSeparateScaleToolbar;

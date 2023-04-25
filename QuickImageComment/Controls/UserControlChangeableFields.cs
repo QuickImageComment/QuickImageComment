@@ -335,6 +335,7 @@ namespace QuickImageComment
             aLabel.BackColor = dynamicLabelChangeableField.BackColor;
             aLabel.Left = dynamicLabelChangeableField.Left;
             aLabel.Top = lastTop;
+            aLabel.Height = comboBoxChangeableField.Height;
             if (maxLabelWidth < aLabel.PreferredWidth)
             {
                 maxLabelWidth = aLabel.PreferredWidth;

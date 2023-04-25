@@ -1938,6 +1938,11 @@ namespace FormCustomization
         // font size is determined to ensure, that text fits into boundaries
         internal static Font getZoomedFont(Font usedFont, float initialFontSize, float zoomFactor)
         {
+            // font in label and textbox/combobox can look different although font size is the same
+            // explanation in https://stackoverflow.com/questions/25788021/label-and-textbox-same-font-looks-different
+            // solution is to use a font size sligthly higher than an integer value
+            const float fontSizeAdjustment = 0.25f;
+
             int maxWidth;
             int newFontSize;
             Font newFont;
@@ -1953,7 +1958,7 @@ namespace FormCustomization
             string key = usedFont.Name + initialFontSize.ToString() + " " + zoomFactor.ToString();
             if (NewFontSizesForZoom.ContainsKey(key))
             {
-                return new Font(usedFont.FontFamily, NewFontSizesForZoom[key], usedFont.Style);
+                return new Font(usedFont.FontFamily, NewFontSizesForZoom[key] + fontSizeAdjustment, usedFont.Style);
             }
             else
             {
@@ -1965,7 +1970,7 @@ namespace FormCustomization
                 do
                 {
                     newFontSize--;
-                    newFont = new Font(usedFont.FontFamily, newFontSize, usedFont.Style);
+                    newFont = new Font(usedFont.FontFamily, newFontSize + fontSizeAdjustment, usedFont.Style);
                     newSize = TextRenderer.MeasureText(fontSizeTest, newFont);
                 }
                 while (newSize.Width > maxWidth);
