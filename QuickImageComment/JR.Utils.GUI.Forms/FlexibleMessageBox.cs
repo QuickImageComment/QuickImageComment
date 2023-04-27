@@ -585,10 +585,17 @@ namespace JR.Utils.GUI.Forms
                 var stringRows = GetStringRows(text);
                 if (stringRows == null) return;
 
-                //Calculate whole text height
+                //Calculate margins
+                var marginWidth = flexibleMessageBoxForm.Width - flexibleMessageBoxForm.richTextBoxMessage.Width;
+                var marginHeight = flexibleMessageBoxForm.Height - flexibleMessageBoxForm.richTextBoxMessage.Height;
+
+                flexibleMessageBoxForm.richTextBoxMessage.MaximumSize = new Size(flexibleMessageBoxForm.MaximumSize.Width - marginWidth,
+                                                                                 flexibleMessageBoxForm.MaximumSize.Height - marginHeight);
+
+                //Calculate whole text height considering maximum size for richTextBoxMessage and WordBreak
                 TextFormatFlags textFormatFlags = new TextFormatFlags();
                 textFormatFlags |= TextFormatFlags.WordBreak;
-                var textHeight = TextRenderer.MeasureText(text, FONT, flexibleMessageBoxForm.MaximumSize, textFormatFlags).Height;
+                var textHeight = TextRenderer.MeasureText(text, FONT, flexibleMessageBoxForm.richTextBoxMessage.MaximumSize, textFormatFlags).Height;
                     
                 //Calculate width for longest text line
                 const int SCROLLBAR_WIDTH_OFFSET = 15;
@@ -596,11 +603,6 @@ namespace JR.Utils.GUI.Forms
                 var captionWidth = TextRenderer.MeasureText(caption, SystemFonts.CaptionFont).Width;
                 var textWidth = Math.Max(longestTextRowWidth + SCROLLBAR_WIDTH_OFFSET, captionWidth);
                 
-                //Calculate margins
-                var marginWidth = flexibleMessageBoxForm.Width - flexibleMessageBoxForm.richTextBoxMessage.Width;
-                var marginHeight = flexibleMessageBoxForm.Height - flexibleMessageBoxForm.richTextBoxMessage.Height;
-                int magicAdd = 12;
-                marginHeight += magicAdd;
                 //Set calculated dialog size (if the calculated values exceed the maximums, they were cut by windows forms automatically)
                 flexibleMessageBoxForm.Size = new Size(textWidth + marginWidth,
                                                        textHeight + marginHeight);
