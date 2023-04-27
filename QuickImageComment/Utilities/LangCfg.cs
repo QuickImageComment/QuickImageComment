@@ -190,7 +190,8 @@ namespace QuickImageComment
             E_exceptionStartProcess,
             E_exceptionStartBatch,
             E_unknownEntry,
-            E_folderNotExist
+            E_folderNotExist,
+            Q_newValueFromDataGridEdit
         }
 
         public enum Others

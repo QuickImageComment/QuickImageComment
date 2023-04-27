@@ -48,17 +48,18 @@ namespace QuickImageCommentControls
             this.AllowUserToAddRows = false;
             this.AllowUserToDeleteRows = false;
             this.AllowUserToResizeRows = false;
-            this.BackgroundColor = System.Drawing.SystemColors.Window;
+            this.BackgroundColor = System.Drawing.SystemColors.Control;
             this.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.GridColor = System.Drawing.SystemColors.ScrollBar;
             this.Location = new System.Drawing.Point(3, 3);
             this.Name = name;
             this.RowHeadersVisible = false;
+            this.ReadOnly = false;
 
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle = new System.Windows.Forms.DataGridViewCellStyle();
             dataGridViewCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle.BackColor = System.Drawing.SystemColors.Control;
             this.RowsDefaultCellStyle = dataGridViewCellStyle;
 
             this.components = new System.ComponentModel.Container();
@@ -97,6 +98,7 @@ namespace QuickImageCommentControls
             this.RowTemplate.Height = 18;
             DataGridViewCellStyle dataGridViewCellStyleMetaData = new DataGridViewCellStyle();
             dataGridViewCellStyleMetaData.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyleMetaData.BackColor = System.Drawing.SystemColors.Control;
             this.RowsDefaultCellStyle = dataGridViewCellStyleMetaData;
             this.ShowCellToolTips = false;
 
@@ -200,6 +202,7 @@ namespace QuickImageCommentControls
 
             this.ColumnCount = 6;
             this.Columns[0].HeaderText = "Tag-Name";
+            this.Columns[0].ReadOnly = true;
             // width set automatically after filling
             this.Columns[1].HeaderText = "Wert";
             // width set automatically after filling
@@ -208,13 +211,16 @@ namespace QuickImageCommentControls
             this.Columns[2].Width = 69;
             this.Columns[2].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             this.Columns[2].ValueType = typeof(long);
+            this.Columns[2].ReadOnly = true;
             this.Columns[3].HeaderText = "Typ";
             this.Columns[3].Width = 65;
+            this.Columns[3].ReadOnly = true;
             this.Columns[4].HeaderText = "Größe";
             // width is set to minimum value where sort indicator still is visible
             this.Columns[4].Width = 61;
             this.Columns[4].ValueType = typeof(long);
             this.Columns[4].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            this.Columns[4].ReadOnly = true;
             // nothing to set for [5], which holds the tag name, used to add a tag to changeable area via context menu
             // as column is used internally only, hide it
             this.Columns[5].Visible = false;
@@ -247,6 +253,7 @@ namespace QuickImageCommentControls
             this.Rows.Clear();
             this.RowCount = MetaDataItems.GetKeyList().Count;
             int rowIndex = 0;
+            bool singleEdit = MainMaskInterface.getListViewFilesSelectedCount() == 1;
 
             System.Collections.SortedList KeyList = new System.Collections.SortedList();
             foreach (string key in MetaDataItems.GetKeyList())
@@ -303,7 +310,7 @@ namespace QuickImageCommentControls
                             this.Rows[rowIndex].Cells[0].Value = "- " + Header;
                         }
                         this.Rows[rowIndex].DefaultCellStyle.Font = new System.Drawing.Font(this.Font.FontFamily, this.Font.Size, System.Drawing.FontStyle.Bold);
-                        this.Rows[rowIndex].DefaultCellStyle.BackColor = this.GridColor;
+                        this.Rows[rowIndex].DefaultCellStyle.BackColor = System.Drawing.SystemColors.Control;
                         lastHeader = Header;
                         rowIndex++;
                     }
@@ -343,6 +350,19 @@ namespace QuickImageCommentControls
                 this.Rows[rowIndex].Cells[4].Value = aMetaDataItem.getCount();
                 this.Rows[rowIndex].Cells[5].Value = aMetaDataItem.getKey();
                 this.Rows[rowIndex].Cells[0].ToolTipText = "";
+
+                if (aMetaDataItem.isEditableInDataGridView() && 
+                    singleEdit)
+                {
+                    // store original value in tag to allow restore
+                    this.Rows[rowIndex].Cells[1].Tag = this.Rows[rowIndex].Cells[1].Value;
+                    this.Rows[rowIndex].Cells[1].Style.BackColor = System.Drawing.Color.White;
+                }
+                else
+                {
+                    this.Rows[rowIndex].Cells[1].ReadOnly = true;
+                }
+
                 string key = aMetaDataItem.getKey();
                 if (Exiv2TagDefinitions.getList().ContainsKey(key))
                 {

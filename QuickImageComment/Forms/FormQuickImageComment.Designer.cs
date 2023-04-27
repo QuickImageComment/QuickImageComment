@@ -85,10 +85,10 @@ namespace QuickImageComment
             this.dataGridViewSelectedFiles = new System.Windows.Forms.DataGridView();
             this.contextMenuStripMetaData = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.contextMenuStripMetaDataMenuItemAdjust = new System.Windows.Forms.ToolStripMenuItem();
-            this.checkedListBoxChangeableFieldsChange = new QuickImageCommentControls.CheckedListBoxItemBackcolor();
             this.comboBoxKeyWordsChange = new System.Windows.Forms.ComboBox();
             this.comboBoxCommentChange = new System.Windows.Forms.ComboBox();
             this.checkBoxArtistChange = new System.Windows.Forms.CheckBox();
+            this.checkedListBoxChangeableFieldsChange = new QuickImageCommentControls.CheckedListBoxItemBackcolor();
             this.panelUsercomment = new System.Windows.Forms.Panel();
             this.dynamicLabelUserComment = new System.Windows.Forms.Label();
             this.panelArtist = new System.Windows.Forms.Panel();
@@ -614,13 +614,15 @@ namespace QuickImageComment
             this.DataGridViewOverview.GridColor = System.Drawing.SystemColors.ScrollBar;
             this.DataGridViewOverview.Location = new System.Drawing.Point(3, 3);
             this.DataGridViewOverview.Name = "DataGridViewOverview";
-            this.DataGridViewOverview.ReadOnly = true;
             this.DataGridViewOverview.RowHeadersVisible = false;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
             this.DataGridViewOverview.RowsDefaultCellStyle = dataGridViewCellStyle1;
             this.DataGridViewOverview.RowTemplate.Height = 18;
             this.DataGridViewOverview.Size = new System.Drawing.Size(271, 166);
             this.DataGridViewOverview.TabIndex = 0;
+            this.DataGridViewOverview.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridViewsMetaData_CellValueChanged);
+            this.DataGridViewOverview.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DataGridViewsMetaData_KeyDown);
             // 
             // dataGridViewOverviewColumnName
             // 
@@ -632,20 +634,17 @@ namespace QuickImageComment
             // 
             this.dataGridViewOverviewColumValue.HeaderText = "Value";
             this.dataGridViewOverviewColumValue.Name = "dataGridViewOverviewColumValue";
-            this.dataGridViewOverviewColumValue.ReadOnly = true;
             // 
             // KeyPrim
             // 
             this.KeyPrim.HeaderText = "";
             this.KeyPrim.Name = "KeyPrim";
-            this.KeyPrim.ReadOnly = true;
             this.KeyPrim.Visible = false;
             // 
             // KeySec
             // 
             this.KeySec.HeaderText = "";
             this.KeySec.Name = "KeySec";
-            this.KeySec.ReadOnly = true;
             this.KeySec.Visible = false;
             // 
             // contextMenuStripOverview
@@ -734,10 +733,10 @@ namespace QuickImageComment
             this.tabPageMulti.BackColor = System.Drawing.SystemColors.ControlLight;
             this.tabPageMulti.Controls.Add(this.checkBoxGpsDataChange);
             this.tabPageMulti.Controls.Add(this.dataGridViewSelectedFiles);
-            this.tabPageMulti.Controls.Add(this.checkedListBoxChangeableFieldsChange);
             this.tabPageMulti.Controls.Add(this.comboBoxKeyWordsChange);
             this.tabPageMulti.Controls.Add(this.comboBoxCommentChange);
             this.tabPageMulti.Controls.Add(this.checkBoxArtistChange);
+            this.tabPageMulti.Controls.Add(this.checkedListBoxChangeableFieldsChange);
             this.tabPageMulti.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabPageMulti.Location = new System.Drawing.Point(4, 25);
             this.tabPageMulti.Name = "tabPageMulti";
@@ -792,20 +791,6 @@ namespace QuickImageComment
             this.contextMenuStripMetaDataMenuItemAdjust.Text = "Felder anpassen";
             this.contextMenuStripMetaDataMenuItemAdjust.Click += new System.EventHandler(this.contextMenuStripMetaDataMenuItemAdjust_Click);
             // 
-            // checkedListBoxChangeableFieldsChange
-            // 
-            this.checkedListBoxChangeableFieldsChange.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.checkedListBoxChangeableFieldsChange.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.checkedListBoxChangeableFieldsChange.CheckedColor = System.Drawing.Color.LightGreen;
-            this.checkedListBoxChangeableFieldsChange.CheckOnClick = true;
-            this.checkedListBoxChangeableFieldsChange.FormattingEnabled = true;
-            this.checkedListBoxChangeableFieldsChange.IntegralHeight = false;
-            this.checkedListBoxChangeableFieldsChange.Location = new System.Drawing.Point(1, 101);
-            this.checkedListBoxChangeableFieldsChange.Name = "checkedListBoxChangeableFieldsChange";
-            this.checkedListBoxChangeableFieldsChange.Size = new System.Drawing.Size(250, 87);
-            this.checkedListBoxChangeableFieldsChange.TabIndex = 3;
-            // 
             // comboBoxKeyWordsChange
             // 
             this.comboBoxKeyWordsChange.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -848,6 +833,20 @@ namespace QuickImageComment
             this.checkBoxArtistChange.Text = "Künstler (Autor) ändern";
             this.checkBoxArtistChange.UseVisualStyleBackColor = true;
             this.checkBoxArtistChange.CheckedChanged += new System.EventHandler(this.checkBoxArtistChange_CheckedChanged);
+            // 
+            // checkedListBoxChangeableFieldsChange
+            // 
+            this.checkedListBoxChangeableFieldsChange.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.checkedListBoxChangeableFieldsChange.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.checkedListBoxChangeableFieldsChange.CheckedColor = System.Drawing.Color.LightGreen;
+            this.checkedListBoxChangeableFieldsChange.CheckOnClick = true;
+            this.checkedListBoxChangeableFieldsChange.FormattingEnabled = true;
+            this.checkedListBoxChangeableFieldsChange.IntegralHeight = false;
+            this.checkedListBoxChangeableFieldsChange.Location = new System.Drawing.Point(1, 101);
+            this.checkedListBoxChangeableFieldsChange.Name = "checkedListBoxChangeableFieldsChange";
+            this.checkedListBoxChangeableFieldsChange.Size = new System.Drawing.Size(250, 87);
+            this.checkedListBoxChangeableFieldsChange.TabIndex = 3;
             // 
             // panelUsercomment
             // 
@@ -2704,10 +2703,6 @@ namespace QuickImageComment
         private System.Windows.Forms.ContextMenuStrip contextMenuStripOverview;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemAddToChangeable;
         private System.Windows.Forms.ToolStripMenuItem contextMenuStripMetaDataMenuItemAdjustOverview;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewOverviewColumnName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewOverviewColumValue;
-        private System.Windows.Forms.DataGridViewTextBoxColumn KeyPrim;
-        private System.Windows.Forms.DataGridViewTextBoxColumn KeySec;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemDataTemplates;
         internal System.Windows.Forms.TextBox textBoxUserComment;
         internal System.Windows.Forms.ComboBox dynamicComboBoxArtist;
@@ -2742,5 +2737,9 @@ namespace QuickImageComment
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemSelectFolder;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemScale;
         private ToolTipQIC toolTip1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewOverviewColumnName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewOverviewColumValue;
+        private System.Windows.Forms.DataGridViewTextBoxColumn KeyPrim;
+        private System.Windows.Forms.DataGridViewTextBoxColumn KeySec;
     }
 }

@@ -161,6 +161,7 @@ namespace QuickImageComment
                 }
             }
 
+            ArrayList changeable = new ArrayList();
             // fill list of unchangeable and changeableWarning tags using type lists
             foreach (TagDefinition aTagDefinition in TagDefinitionList.Values)
             {
@@ -265,7 +266,7 @@ namespace QuickImageComment
                     // for display this is no problem, when saving the type is relevant to determine 
                     // which tag exactly is written
                     // GeneralUtilities.writeDebugFileEntry("duplicate: " + key);
-                    TagDefinitionList.Add(key+"2", new TagDefinition(key, type, description));
+                    TagDefinitionList.Add(key + "2", new TagDefinition(key, type, description));
                 }
             }
 
@@ -340,6 +341,18 @@ namespace QuickImageComment
             {
                 return "";
             }
+        }
+
+        // return if tag/type is editable in data grid view for meta data
+        public static bool isEditableInDataGridView(string type, string key)
+        {
+            return !Exiv2TagDefinitions.UnChangeableTypes.Contains(type) &&
+                   !Exiv2TagDefinitions.ChangeableWarningTags.Contains(key) &&
+                   !ExtendedImage.exiv2tagRepeatable(key) &&
+                   !type.Equals("LangAlt") &&
+                   !type.Equals("Date") &&
+                   !type.Equals("Time") &&
+                   !GeneralUtilities.isDateProperty(key, type);
         }
     }
 }

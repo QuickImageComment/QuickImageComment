@@ -455,6 +455,19 @@ namespace QuickImageComment
             }
         }
 
+        internal static int getListViewFilesSelectedCount()
+        {
+            // if main mask is not already closing
+            if (!FormQuickImageComment.closing)
+            {
+                return theFormQuickImageComment.theUserControlFiles.listViewFiles.SelectedItems.Count;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
         internal static bool isFileSelected(string fullFileName)
         {
             return theFormQuickImageComment.theUserControlFiles.listViewFiles.SelectedItems.ContainsKey(fullFileName);

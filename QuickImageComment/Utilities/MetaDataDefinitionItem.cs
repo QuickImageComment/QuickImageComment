@@ -239,5 +239,11 @@ namespace QuickImageComment
                 + Separator + "<" + FormatSecLong.ToString("00 ") + KeySec + ">" + Postfix + "|" + TypePrim
                 + "|" + VerticalDisplayOffset.ToString() + "|" + LinesForChange.ToString();
         }
+
+        public bool isEditableInDataGridView()
+        {
+            return KeySec.Equals("") && 
+                   Exiv2TagDefinitions.isEditableInDataGridView(TypePrim, KeyPrim);
+        }
     }
 }

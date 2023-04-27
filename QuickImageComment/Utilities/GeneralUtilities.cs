@@ -211,6 +211,10 @@ namespace QuickImageComment
         {
             return FlexibleMessageBox.Show(LangCfg.getText(messageId, Parameter1, Parameter2), "QuickImageComment", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
         }
+        public static DialogResult questionMessage(LangCfg.Message messageId, string Parameter1, string Parameter2, string Parameter3)
+        {
+            return FlexibleMessageBox.Show(LangCfg.getText(messageId, Parameter1, Parameter2, Parameter3), "QuickImageComment", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+        }
 
         public static DialogResult questionMessageYesNoCancel(LangCfg.Message messageId)
         {

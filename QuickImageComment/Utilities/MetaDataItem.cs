@@ -381,5 +381,12 @@ namespace QuickImageComment
               + interpretedString + " "
               + valueFloat.ToString();
         }
+
+        public bool isEditableInDataGridView()
+        {
+            return valueString.Equals(interpretedString) &&
+                   Exiv2TagDefinitions.isEditableInDataGridView(typeName, key);
+        }
+
     }
 }

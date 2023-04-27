@@ -112,6 +112,9 @@ namespace QuickImageComment
         private bool textBoxUserCommentUserChanged = false;
         private bool keyWordsUserChanged = false;
 
+        // user changed values in data grid views for meta data
+        private SortedList<string,string> ChangedDataGridViewValues = new SortedList<string,string>();
+
         // flag indicating if it is necessary to check, if data of last selected image were changed, 
         // before next image is displayed
         // replaced by using continueAfterCheckForChangesAndOptionalSaving() and getChangedFields()
@@ -204,10 +207,13 @@ namespace QuickImageComment
             // controls added here, so that all settings can be defined in constructor of DataGridViewMetaData
             // when controls are added in Designer.cs then each time the mask is changed, new columns are added by Visual Studio Designer
             this.DataGridViewExif = new QuickImageCommentControls.DataGridViewMetaData("DataGridViewExif", toolTip1);
+            this.DataGridViewExif.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DataGridViewsMetaData_KeyDown);
             this.tabPageExif.Controls.Add(this.DataGridViewExif);
             this.DataGridViewIptc = new QuickImageCommentControls.DataGridViewMetaData("DataGridViewIptc", toolTip1);
+            this.DataGridViewIptc.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DataGridViewsMetaData_KeyDown);
             this.tabPageIptc.Controls.Add(this.DataGridViewIptc);
             this.DataGridViewXmp = new QuickImageCommentControls.DataGridViewMetaData("DataGridViewXmp", toolTip1);
+            this.DataGridViewXmp.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DataGridViewsMetaData_KeyDown);
             this.tabPageXmp.Controls.Add(this.DataGridViewXmp);
             this.DataGridViewOtherMetaData = new QuickImageCommentControls.DataGridViewMetaData("DataGridViewOtherMetaData", toolTip1);
             this.tabPageOther.Controls.Add(this.DataGridViewOtherMetaData);
@@ -1142,6 +1148,45 @@ namespace QuickImageComment
             }
         }
 
+        // key event handler for data grid view Overview
+
+        private void DataGridViewsMetaData_KeyDown(object sender, KeyEventArgs theKeyEventArgs)
+        {
+            DataGridView dataGridView = (DataGridView)sender;
+            if (theKeyEventArgs.KeyCode == Keys.Escape)
+            {
+                for (int jj = 0; jj < dataGridView.SelectedCells.Count; jj++)
+                {
+                    // only for column 1 (value) and if it was editable: then it has a tag
+                    if (dataGridView.SelectedCells[jj].ColumnIndex == 1 &&
+                        dataGridView.SelectedCells[jj].Tag != null)
+                    {
+                        string key;
+                        // DataGridViewOverview has 4 columns, key in column[2]
+                        // other dataGridViews have 6 columns, key in column[5]
+                        if (dataGridView.ColumnCount > 5)
+                            key = (string)dataGridView.Rows[dataGridView.SelectedCells[jj].RowIndex].Cells[5].Value;
+                        else
+                            key = (string)dataGridView.Rows[dataGridView.SelectedCells[jj].RowIndex].Cells[2].Value;
+
+                        if (ChangedDataGridViewValues.ContainsKey(key))
+                        {
+                            ChangedDataGridViewValues.Remove(key);
+                        }
+                        // original value is stored in tag of cell; disable event handler for change before, enable after
+                        dataGridView.CellValueChanged -= DataGridViewsMetaData_CellValueChanged;
+                        dataGridView.Rows[dataGridView.SelectedCells[jj].RowIndex].Cells[1].Value =
+                            dataGridView.Rows[dataGridView.SelectedCells[jj].RowIndex].Cells[1].Tag;
+                        dataGridView.CellValueChanged += DataGridViewsMetaData_CellValueChanged;
+
+                        dataGridView.Rows[dataGridView.SelectedCells[jj].RowIndex].Cells[1].Style.BackColor = backColorInputUnchanged;
+                    }
+                }
+            }
+
+            setControlsEnabledBasedOnDataChange();
+        }
+
         // event handler triggered when text in text box is changed to recognise user changes
         private void dynamicComboBoxArtist_TextChanged(object sender, System.EventArgs theEventArgs)
         {
@@ -1158,6 +1203,39 @@ namespace QuickImageComment
             textBoxUserComment.BackColor = backColorInputValueChanged;
             fillListBoxLastUserComments(textBoxUserComment.Text);
             setControlsEnabledBasedOnDataChange(true);
+        }
+
+        // event handler triggered when text in data grid view Overview is changed
+        private void DataGridViewsMetaData_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridView dataGridView = (DataGridView)sender;
+            if (e.RowIndex >= 0 && e.ColumnIndex == 1)
+            {
+                string newValue = (string)dataGridView.Rows[e.RowIndex].Cells[1].Value;
+                string key;
+                // DataGridViewOverview has 4 columns, key in column[2]
+                // other dataGridViews have 6 columns, key in column[5]
+                if (dataGridView.ColumnCount > 5)
+                {
+                    key = (string)dataGridView.Rows[e.RowIndex].Cells[5].Value;
+                }
+                else
+                {
+                    key = (string)dataGridView.Rows[e.RowIndex].Cells[2].Value;
+                }
+
+                if (ChangedDataGridViewValues.ContainsKey(key))
+                {
+                    ChangedDataGridViewValues[key] = newValue;
+                }
+                else
+                {
+                    ChangedDataGridViewValues.Add(key, newValue);
+                }
+                dataGridView.Rows[e.RowIndex].Cells[1].Style.BackColor = backColorInputValueChanged;
+
+                setControlsEnabledBasedOnDataChange();
+            }
         }
 
         // event handler triggered when item is checked or unchecked to recognise user changes
@@ -1833,6 +1911,7 @@ namespace QuickImageComment
                 dynamicComboBoxArtist.Text = theExtendedImage.getArtist();
                 labelArtistDefault.Visible = false;
                 textBoxUserComment.Text = theExtendedImage.getUserComment();
+                displayProperties();
                 fillChangeableFieldValues(theExtendedImage, false);
                 fillListBoxLastUserComments("");
                 if (theUserControlMap != null)
@@ -2014,10 +2093,12 @@ namespace QuickImageComment
                 showHideControlsCentralInputArea();
 
                 // refresh data grid views for properties
+                disableEventHandlersRecogniseUserInput();
                 DataGridViewExif.refreshData();
                 DataGridViewIptc.refreshData();
                 DataGridViewXmp.refreshData();
                 DataGridViewOtherMetaData.refreshData();
+                enableEventHandlersRecogniseUserInput();
 
                 // set the flags indicating if user controls are visible
                 setUserControlVisibilityFlags();
@@ -3549,6 +3630,7 @@ namespace QuickImageComment
         {
             string[] row = new string[4];
             ArrayList MetaDataDefinitions;
+            bool singleEdit = theUserControlFiles.listViewFiles.SelectedItems.Count == 1;
 
             DataGridViewOverview.Rows.Clear();
 
@@ -3571,6 +3653,30 @@ namespace QuickImageComment
                     row[2] = anMetaDataDefinitionItem.KeyPrim;
                     row[3] = anMetaDataDefinitionItem.KeySec;
                     DataGridViewOverview.Rows.Add(row);
+
+                    bool displayedValueInEditableFormat = false;
+                    if (Exiv2TagDefinitions.ByteUCS2Tags.Contains(anMetaDataDefinitionItem.KeyPrim) ||
+                        anMetaDataDefinitionItem.TypePrim.Equals("Comment"))
+                    {
+                        displayedValueInEditableFormat = anMetaDataDefinitionItem.FormatPrim == MetaDataItem.Format.Interpreted;
+                    }
+                    else
+                    {
+                        displayedValueInEditableFormat = row[1].Equals(theExtendedImage.getMetaDataValueByKey(anMetaDataDefinitionItem.KeyPrim, MetaDataItem.Format.Original));
+                    }
+
+                    // do not allow editing for certain types and tags, if several files are selected and if displayed format is not editable
+                    if (anMetaDataDefinitionItem.isEditableInDataGridView() && singleEdit && displayedValueInEditableFormat)
+                    {
+                        // store original value in tag to allow restore
+                        DataGridViewOverview.Rows[DataGridViewOverview.Rows.Count - 1].Cells[1].Tag =
+                            DataGridViewOverview.Rows[DataGridViewOverview.Rows.Count - 1].Cells[1].Value;
+                        DataGridViewOverview.Rows[DataGridViewOverview.Rows.Count - 1].Cells[1].Style.BackColor = Color.White;
+                    }
+                    else
+                    { 
+                        DataGridViewOverview.Rows[DataGridViewOverview.Rows.Count - 1].Cells[1].ReadOnly = true;
+                    }
                 }
             }
 
@@ -4899,6 +5005,12 @@ namespace QuickImageComment
             setControlsEnabledBasedOnDataChange(false);
         }
 
+        // clear list of values changed in data grid
+        internal void clearChangedDataGridViewValues()
+        {
+            ChangedDataGridViewValues.Clear();
+        }
+
         // enable event handlers to recognize user inputs
         internal void enableEventHandlersRecogniseUserInput()
         {
@@ -4907,6 +5019,10 @@ namespace QuickImageComment
 
             textBoxUserComment.TextChanged += textBoxUserComment_TextChanged;
             dynamicComboBoxArtist.TextChanged += dynamicComboBoxArtist_TextChanged;
+            DataGridViewOverview.CellValueChanged += DataGridViewsMetaData_CellValueChanged;
+            DataGridViewExif.CellValueChanged += DataGridViewsMetaData_CellValueChanged;
+            DataGridViewIptc.CellValueChanged += DataGridViewsMetaData_CellValueChanged;
+            DataGridViewXmp.CellValueChanged += DataGridViewsMetaData_CellValueChanged;
 
             theUserControlKeyWords.textBoxFreeInputKeyWords.TextChanged += textBoxFreeInputKeyWords_TextChanged;
             theUserControlKeyWords.checkedListBoxPredefKeyWords.ItemCheck += checkedListBoxPredefKeyWords_ItemCheck;
@@ -4926,6 +5042,10 @@ namespace QuickImageComment
         {
             textBoxUserComment.TextChanged -= textBoxUserComment_TextChanged;
             dynamicComboBoxArtist.TextChanged -= dynamicComboBoxArtist_TextChanged;
+            DataGridViewOverview.CellValueChanged -= DataGridViewsMetaData_CellValueChanged;
+            DataGridViewExif.CellValueChanged -= DataGridViewsMetaData_CellValueChanged;
+            DataGridViewIptc.CellValueChanged -= DataGridViewsMetaData_CellValueChanged;
+            DataGridViewXmp.CellValueChanged -= DataGridViewsMetaData_CellValueChanged;
 
             theUserControlKeyWords.textBoxFreeInputKeyWords.TextChanged -= textBoxFreeInputKeyWords_TextChanged;
             theUserControlKeyWords.checkedListBoxPredefKeyWords.ItemCheck -= checkedListBoxPredefKeyWords_ItemCheck;
@@ -5175,6 +5295,13 @@ namespace QuickImageComment
         // save image and store comment in list of last comments
         private int singleSaveAndStoreInLastList(int indexToStore, string prompt1, string prompt2)
         {
+            // EndEdit forces _CellValueChanged, which may not have run, if focus 
+            // moves from cell directly to save button without pressing Return
+            DataGridViewOverview.EndEdit();
+            DataGridViewExif.EndEdit();
+            DataGridViewIptc.EndEdit();
+            DataGridViewXmp.EndEdit();
+
             if (ImageSaved)
             {
                 // return 1 to indicate that image was not saved right now
@@ -5692,6 +5819,26 @@ namespace QuickImageComment
                 theUserControlMap.addMarkerPositionToLists();
             }
 
+            // copy values from data grid view meta data
+            foreach (string key in ChangedDataGridViewValues.Keys)
+            {
+                if (changedFieldsForSave.ContainsKey(key))
+                {
+                    System.Windows.Forms.DialogResult saveDialogResult;
+                    saveDialogResult = GeneralUtilities.questionMessage(LangCfg.Message.Q_newValueFromDataGridEdit, key,
+                        (string)changedFieldsForSave[key], ChangedDataGridViewValues[key]);
+                    if (saveDialogResult == System.Windows.Forms.DialogResult.Yes)
+                    {
+                        changedFieldsForSave[key]= ChangedDataGridViewValues[key];
+                    }
+                }
+                else
+                {
+                    changedFieldsForSave.Add(key, ChangedDataGridViewValues[key]);
+                }
+            }
+            clearChangedDataGridViewValues();
+
             // add entries in hash table containing entries for changeable fields
             addAndSortChangeableFields(changedFieldsForSave);
 
@@ -5831,6 +5978,10 @@ namespace QuickImageComment
             if (theUserControlMap != null && theUserControlMap.GpsDataChanged)
             {
                 MessageText = MessageText + "\n   " + LangCfg.getText(LangCfg.Others.recordingLocation);
+            }
+            foreach (string key in ChangedDataGridViewValues.Keys)
+            {
+                MessageText = MessageText + key;
             }
             return MessageText;
         }

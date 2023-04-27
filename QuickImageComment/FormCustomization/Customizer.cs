@@ -1966,7 +1966,7 @@ namespace FormCustomization
                 maxWidth = (int)(oldSize.Width * zoomFactor);
                 // start with font size proportional to zoom factor +1 as tolerance
                 // note that newFontSize is decremented at begin of loop
-                newFontSize = (int)(initialFontSize * zoomFactor) + 2;
+                newFontSize = (int)(initialFontSize  * zoomFactor) + 2;
                 do
                 {
                     newFontSize--;

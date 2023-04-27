@@ -519,6 +519,9 @@ namespace QuickImageComment
                         // here first setSingle, then setMulti, because setMulti has to override some settings on setSingle
                         theFormQuickImageComment.setSingleImageControlsEnabled(true);
                         theFormQuickImageComment.setMultiImageControlsEnabled(true);
+                        // edit in data grid views meta data only supported for single files
+                        // when changing to multi edit, clear list of changed values
+                        theFormQuickImageComment.clearChangedDataGridViewValues();
                     }
 
                     // Scroll List to display selected item
