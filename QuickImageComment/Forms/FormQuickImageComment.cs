@@ -1224,17 +1224,20 @@ namespace QuickImageComment
                     key = (string)dataGridView.Rows[e.RowIndex].Cells[2].Value;
                 }
 
-                if (ChangedDataGridViewValues.ContainsKey(key))
+                if (key != null)
                 {
-                    ChangedDataGridViewValues[key] = newValue;
-                }
-                else
-                {
-                    ChangedDataGridViewValues.Add(key, newValue);
-                }
-                dataGridView.Rows[e.RowIndex].Cells[1].Style.BackColor = backColorInputValueChanged;
+                    if (ChangedDataGridViewValues.ContainsKey(key))
+                    {
+                        ChangedDataGridViewValues[key] = newValue;
+                    }
+                    else
+                    {
+                        ChangedDataGridViewValues.Add(key, newValue);
+                    }
+                    dataGridView.Rows[e.RowIndex].Cells[1].Style.BackColor = backColorInputValueChanged;
 
-                setControlsEnabledBasedOnDataChange();
+                    setControlsEnabledBasedOnDataChange();
+                }
             }
         }
 
@@ -2943,14 +2946,26 @@ namespace QuickImageComment
             for (int jj = 0; jj < DataGridViewOverview.SelectedCells.Count; jj++)
             {
                 string key = (string)DataGridViewOverview.Rows[DataGridViewOverview.SelectedCells[jj].RowIndex].Cells[2].Value;
-                if (!TagsToAdd.Contains(key) && key != null && !key.Equals(""))
+                if (key != null)
                 {
-                    TagsToAdd.Add(key);
+                    // in case of LangAlt, key contains also language specification; remove it
+                    string[] words = key.Split(' ');
+                    key = words[0];
+                    if (!TagsToAdd.Contains(key) && !key.Equals(""))
+                    {
+                        TagsToAdd.Add(key);
+                    }
                 }
                 key = (string)DataGridViewOverview.Rows[DataGridViewOverview.SelectedCells[jj].RowIndex].Cells[3].Value;
-                if (!TagsToAdd.Contains(key) && key != null && !key.Equals(""))
+                if (key != null)
                 {
-                    TagsToAdd.Add(key);
+                    // in case of LangAlt, key contains also language specification; remove it
+                    string[] words = key.Split(' ');
+                    key = words[0];
+                    if (!TagsToAdd.Contains(key) && key != null && !key.Equals(""))
+                    {
+                        TagsToAdd.Add(key);
+                    }
                 }
             }
             return TagsToAdd;

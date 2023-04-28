@@ -561,9 +561,15 @@ namespace QuickImageCommentControls
             for (int jj = 0; jj < SelectedCells.Count; jj++)
             {
                 string key = (string)Rows[SelectedCells[jj].RowIndex].Cells[5].Value;
-                if (!TagsToAdd.Contains(key) && key != null)
+                if (key != null)
                 {
-                    TagsToAdd.Add(key);
+                    // in case of LangAlt, key contains also language specification; remove it
+                    string[] words = key.Split(' ');
+                    key = words[0];
+                    if (!TagsToAdd.Contains(key))
+                    {
+                        TagsToAdd.Add(key);
+                    }
                 }
             }
             return TagsToAdd;
