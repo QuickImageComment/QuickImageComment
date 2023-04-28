@@ -2820,6 +2820,15 @@ namespace QuickImageComment
                                     break;
                                 }
                             }
+                            catch (Exception ex)
+                            {
+                                DialogResult dialogResult = GeneralUtilities.messageOkCancel(LangCfg.Message.E_cannotAssignFileDateTime, fileName, 
+                                    tagToChangeFileDate, dateGenerated, ex.Message);
+                                if (dialogResult == DialogResult.Cancel)
+                                {
+                                    break;
+                                }
+                            }
                             theExtendedImage.readFileDates();
                         }
                         displayImage(theUserControlFiles.displayedIndex());

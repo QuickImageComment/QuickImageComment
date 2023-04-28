@@ -191,7 +191,8 @@ namespace QuickImageComment
             E_exceptionStartBatch,
             E_unknownEntry,
             E_folderNotExist,
-            Q_newValueFromDataGridEdit
+            Q_newValueFromDataGridEdit,
+            E_cannotAssignFileDateTime
         }
 
         public enum Others
