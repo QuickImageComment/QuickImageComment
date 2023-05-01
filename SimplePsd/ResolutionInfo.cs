@@ -1,9 +1,9 @@
 namespace SimplePsd
 {
-	/// <summary>
-	/// ResolutionInfo class
-	/// </summary>
-	public class ResolutionInfo
+    /// <summary>
+    /// ResolutionInfo class
+    /// </summary>
+    public class ResolutionInfo
 	{
 		//  ResolutionInfo class
 		//	Type		Name	Description

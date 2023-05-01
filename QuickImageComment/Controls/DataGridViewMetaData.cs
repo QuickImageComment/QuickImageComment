@@ -51,6 +51,7 @@ namespace QuickImageCommentControls
             this.BackgroundColor = System.Drawing.SystemColors.Control;
             this.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.EditMode = DataGridViewEditMode.EditOnEnter;
             this.GridColor = System.Drawing.SystemColors.ScrollBar;
             this.Location = new System.Drawing.Point(3, 3);
             this.Name = name;

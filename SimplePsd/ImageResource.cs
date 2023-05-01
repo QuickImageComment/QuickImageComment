@@ -1,9 +1,9 @@
 namespace SimplePsd
 {
-	/// <summary>
-	/// Image resource block
-	/// </summary>
-	public class ImageResource
+    /// <summary>
+    /// Image resource block
+    /// </summary>
+    public class ImageResource
 	{
 		//  Image resource block
 		//	Type		Name	Description

@@ -1,9 +1,9 @@
 namespace SimplePsd
 {
-	/// <summary>
-	/// Summary description for HeaderInfo class.
-	/// </summary>
-	public class HeaderInfo
+    /// <summary>
+    /// Summary description for HeaderInfo class.
+    /// </summary>
+    public class HeaderInfo
 	{
 		//Table 2-12: HeaderInfo Color spaces
 		//	Color-ID	Name	Description

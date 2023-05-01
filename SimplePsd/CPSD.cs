@@ -6,10 +6,10 @@ using System.Windows.Forms;
 
 namespace SimplePsd
 {
-	/// <summary>
-	/// Main class is for opening Adobe Photoshop files
-	/// </summary>
-	public class CPSD
+    /// <summary>
+    /// Main class is for opening Adobe Photoshop files
+    /// </summary>
+    public class CPSD
 	{
 
 		private HeaderInfo       m_HeaderInfo;

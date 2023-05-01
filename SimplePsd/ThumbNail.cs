@@ -1,9 +1,9 @@
 namespace SimplePsd
 {
-	/// <summary>
-	/// ThumbNail class
-	/// </summary>
-	public class ThumbNail
+    /// <summary>
+    /// ThumbNail class
+    /// </summary>
+    public class ThumbNail
 	{
 		// Adobe Photoshop 5.0 and later stores thumbnail information for preview
 		// display in an image resource block. These resource blocks consist of an

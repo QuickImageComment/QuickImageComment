@@ -1,9 +1,9 @@
 namespace SimplePsd
 {
-	/// <summary>
-	/// ColorModeData class
-	/// </summary>
-	public class ColorModeData
+    /// <summary>
+    /// ColorModeData class
+    /// </summary>
+    public class ColorModeData
 	{
 		public int nLength;
 		public byte[] ColourData;

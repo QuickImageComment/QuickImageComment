@@ -3,11 +3,11 @@ using System.Runtime.InteropServices;
 
 namespace SimplePsd
 {
-	/// <summary>
-	/// This class shall keep the Win32 APIs being used in 
-	/// the program.
-	/// </summary>
-	public class WinInvoke32
+    /// <summary>
+    /// This class shall keep the Win32 APIs being used in 
+    /// the program.
+    /// </summary>
+    public class WinInvoke32
 	{
 
 		#region Class Variables

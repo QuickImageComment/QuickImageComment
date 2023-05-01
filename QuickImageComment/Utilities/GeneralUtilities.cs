@@ -17,6 +17,7 @@
 // for Microsoft Store, promotion of download has to be disabled
 //#define MICROSOFT_STORE
 
+using JR.Utils.GUI.Forms;
 using System;
 using System.Collections;
 using System.ComponentModel;
@@ -24,7 +25,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using JR.Utils.GUI.Forms;
 
 namespace QuickImageComment
 {

@@ -1,9 +1,9 @@
 namespace SimplePsd
 {
-	/// <summary>
-	/// This structure contains display information about each channel
-	/// </summary>
-	public class DisplayInfo
+    /// <summary>
+    /// This structure contains display information about each channel
+    /// </summary>
+    public class DisplayInfo
 	{
 		// This structure contains display information about each channel.
 		//  DisplayInfo Color spaces

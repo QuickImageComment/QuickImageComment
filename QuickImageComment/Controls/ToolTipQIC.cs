@@ -1,5 +1,4 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Windows.Forms;
 
 namespace QuickImageComment
@@ -35,7 +34,7 @@ namespace QuickImageComment
         private void toolTipQIC_Popup(object sender, PopupEventArgs e)
         {
             e.ToolTipSize = TextRenderer.MeasureText(
-                GetToolTip(e.AssociatedControl), e.AssociatedControl.Font, new Size(600, Int32.MaxValue),
+                GetToolTip(e.AssociatedControl), e.AssociatedControl.Font, new Size(600, int.MaxValue),
                 System.Windows.Forms.TextFormatFlags.WordBreak);
             // increase the width as sometimes one-liner are truncated
             e.ToolTipSize = new Size(e.ToolTipSize.Width + 16, e.ToolTipSize.Height);

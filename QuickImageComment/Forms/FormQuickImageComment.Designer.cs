@@ -611,6 +611,7 @@ namespace QuickImageComment
             this.KeyPrim,
             this.KeySec});
             this.DataGridViewOverview.ContextMenuStrip = this.contextMenuStripOverview;
+            this.DataGridViewOverview.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.DataGridViewOverview.GridColor = System.Drawing.SystemColors.ScrollBar;
             this.DataGridViewOverview.Location = new System.Drawing.Point(3, 3);
             this.DataGridViewOverview.Name = "DataGridViewOverview";
