@@ -67,7 +67,7 @@ namespace QuickImageComment
             // buttonClose
             // 
             this.buttonClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonClose.Location = new System.Drawing.Point(394, 699);
+            this.buttonClose.Location = new System.Drawing.Point(400, 556);
             this.buttonClose.Name = "buttonClose";
             this.buttonClose.Size = new System.Drawing.Size(239, 25);
             this.buttonClose.TabIndex = 12;
@@ -85,7 +85,8 @@ namespace QuickImageComment
             this.textBoxOtherSources.Multiline = true;
             this.textBoxOtherSources.Name = "textBoxOtherSources";
             this.textBoxOtherSources.ReadOnly = true;
-            this.textBoxOtherSources.Size = new System.Drawing.Size(621, 457);
+            this.textBoxOtherSources.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBoxOtherSources.Size = new System.Drawing.Size(627, 320);
             this.textBoxOtherSources.TabIndex = 11;
             this.textBoxOtherSources.Text = resources.GetString("textBoxOtherSources.Text");
             // 
@@ -140,7 +141,7 @@ namespace QuickImageComment
             // 
             this.dynamicLabelQuickImageCommentCreated.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.dynamicLabelQuickImageCommentCreated.AutoSize = true;
-            this.dynamicLabelQuickImageCommentCreated.Location = new System.Drawing.Point(547, 10);
+            this.dynamicLabelQuickImageCommentCreated.Location = new System.Drawing.Point(548, 10);
             this.dynamicLabelQuickImageCommentCreated.Name = "dynamicLabelQuickImageCommentCreated";
             this.dynamicLabelQuickImageCommentCreated.Size = new System.Drawing.Size(94, 13);
             this.dynamicLabelQuickImageCommentCreated.TabIndex = 13;
@@ -150,7 +151,7 @@ namespace QuickImageComment
             // buttonLicenses
             // 
             this.buttonLicenses.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonLicenses.Location = new System.Drawing.Point(12, 699);
+            this.buttonLicenses.Location = new System.Drawing.Point(12, 556);
             this.buttonLicenses.Name = "buttonLicenses";
             this.buttonLicenses.Size = new System.Drawing.Size(239, 25);
             this.buttonLicenses.TabIndex = 14;
@@ -244,7 +245,7 @@ namespace QuickImageComment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(645, 728);
+            this.ClientSize = new System.Drawing.Size(651, 585);
             this.Controls.Add(this.labelGitHub);
             this.Controls.Add(this.fixedLinkLabelGitHub);
             this.Controls.Add(this.textBoxExiv2CdeclVersion);

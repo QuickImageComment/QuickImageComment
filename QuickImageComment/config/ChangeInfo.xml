@@ -1,23 +1,21 @@
-﻿<Program_Version>4.53</Program_Version>
+﻿<Program_Version>4.54</Program_Version>
 <Program_Change_Info_German>
 Erweiterungen und Verbesserungen:
-Die ausgewählten Dateien können zur weiteren Bearbeitung an andere Programme oder an Windows-Batch-Skripte übergeben werden.
-Das erste Einlesen und vor allem das Aktualisieren der eingelesenen Daten für die Suche wurde beschleunigt.
-Das Menü "Datei" hat einen neuen Eintrag zur Auswahl eines Ordners. Es wird eine Maske geöffnet, in der ein Ordner in einem Verzeichnisbaum oder aus einer Auswahlliste mit zuletzt ausgewählten Ordnern ausgewählt werden kann. Auf diese Weise kann der Platz für den Verzeichnisbaum in der Hauptmaske für andere Informationen genutzt werden, z.B. für eine längere Liste von Dateien.
-Neue Felder: "Image (Bild).Fehlermeldung Bild-Anzeige" enthält Fehlermeldung bei der Anzeige des Bildes, "Image (Bild).Meta-Daten Warnungen" enthält Warnungen beim Lesen von Metadaten. Beide Informationen werden schon jetzt im Reiter Übersicht angezeigt. Die Felder erlauben es nach Bildern mit entsprechenden Meldungen zu suchen. Da bei der Suche die Meta-Daten nicht vollständig gelesen werden, können die Warnungen unvollständig sein.
+Neue Maske "Skalierung": Die Vergrößerung aller Masken kann eingestellt werden; separate Skalierung für Symbolleiste und Miniaturansicht/Kacheln. Der Zoom-Faktor in Maske "Maske anpassen" kann weiterhin verwendet werden, um einzelne Masken zu skalieren. Maskenspezifische Zoom-Faktoren können in "Maske anpassen" deaktiviert werden, indem einmalig der Faktor auf den generellen Skalierungsfaktor gesetzt wird.
+Einige Eigenschaften können auch in den Reitern "Übersicht", "Exif" und "IPTC" geändert werden. Änderbare Werte werden mit weißem Hintergrund angezeigt, nicht-änderbare mit hellgrauem Hintergrund. Details in der Hilfe, Kapitel 3.6, Unterabschnitt "Eingabe in den Reitern für Eigenschaften".
+Veränderte Werte für Künstler, Kommentar und IPTC-Schlüsselworte sowie im konfigurierbaren Eingabebereich werden durch hellgelben Hintergrund kenntlich gemacht. Wird die Eingabe rückgängig gemacht, wird der Hintergrund wieder weiß. Anstatt hellgelb kann in der allgemeinen Konfigurationsdatei auch eine andere Farbe festgelegt werden.
 
 Folgende Fehler wurden behoben:
-Das Programm konnte abstürzen, wenn unbekannte XMP-Tags für die Änderung von Daten ausgewählt wurden.
-Das Programm konnte abstürzen, wenn XMP-Struct-Felder (z.B. Xmp.iptcExt.LocationShown[1]/…) für die Suche konfiguriert wurden.
+Beim zweiten Öffnen einer Untermaske wurde der Zoom-Faktor aus Maske "Maske anpassen" nicht berücksichtigt.
+Das Programm konnte bei "Dateidatum auf Aufnahmedatum setzen" abstürzen, wenn Aufnahmedatum außerhalb des zulässigen Bereiches für Dateidatum war.
 </Program_Change_Info_German>
 <Program_Change_Info_English>
 Enhancements and improvements:
-The selected files can be passed to other programs or to Windows batch scripts for further processing.
-The first reading and especially the updating of the read data for the search has been accelerated.
-Menu "File" has new entry to select a folder. A mask is opened where a folder can be selected in a folder tree or from a drop-down list with last selected folders. In this way the space for folder tree in main mask can be used for other information, e.g., a longer a list of files.
-New fields: "Image.DisplayImageErrorMessage" contains error message when displaying the image, "Image.MetaDataWarnings" contains warnings when reading metadata. Both information is already displayed in the Overview tab. The fields allow to search for images with corresponding messages. Since the meta data is not read completely during the search, the warnings may be incomplete
+New mask "Scaling": magnification of all masks can be adjusted; separate scaling for toolbar and thumbnail/tiles. The zoom factor in mask "Customize mask" can still be used to scale individual masks. Mask-specific zoom factors can be disabled in "Customize mask" by setting the factor once to the general scaling factor.
+Some properties can also be changed in the "Overview", "Exif" and "IPTC" tabs. Modifiable values are displayed with a white background, non-modifiable with a light gray background. Details in the Help, Chapter 3.6, subsection "Input in the tabs for properties".
+Changed entries for artist, comment and IPTC keywords as well as in the configurable input area are marked by a light-yellow background. If the entry is reset, the background becomes white again. Instead of light-yellow, another color can be specified in the general configuration file.
 
-Following errorr are corrected:
-The program could crash if unknown XMP tags were selected for modifying data.
-The program could crash if XMP-Struct fields (e.g. Xmp.iptcExt.LocationShown[1]/...) were configured for searching.
+The following errors have been fixed:
+When opening a sub-mask for the second time, the zoom factor from mask "Customize mask" mask was not taken into account.
+The program could crash at "Set file date to date image generated" if recording date was out of the allowed range for file date.
 </Program_Change_Info_English>
