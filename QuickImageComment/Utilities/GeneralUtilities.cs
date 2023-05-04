@@ -30,8 +30,6 @@ namespace QuickImageComment
 {
     class GeneralUtilities
     {
-        // folder to save screenshots
-        private const string ProgramDevelopmentFolder = @"D:\_prg\VisualCS\QuickImageComment\";
         private const string ChangeInfoFile = "http://www.quickimagecomment.de/phocadownload/ChangeInfo.xml";
 
 #if MICROSOFT_STORE

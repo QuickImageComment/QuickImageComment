@@ -88,6 +88,25 @@ namespace QuickImageComment
             LinesForChange = 1;
         }
 
+        // constructor: name, key (tag)
+        public MetaDataDefinitionItem(
+            string givenName,
+            string prefix,
+            string givenKeyPrim)
+        {
+            Name = givenName;
+            Prefix = prefix;
+            KeyPrim = givenKeyPrim;
+            FormatPrim = MetaDataItem.Format.Interpreted;
+            Separator = "";
+            KeySec = "";
+            FormatSec = MetaDataItem.Format.Interpreted;
+            Postfix = "";
+            TypePrim = Exiv2TagDefinitions.getTagType(KeyPrim);
+            VerticalDisplayOffset = 1;
+            LinesForChange = 1;
+        }
+
         // constructor: name, key (tag), format
         public MetaDataDefinitionItem(
             string givenName,

@@ -200,7 +200,8 @@ namespace QuickImageComment
             GpsFindRangeInMeter,
             zoomFactorPerCentGeneral,
             zoomFactorPerCentToolbar,
-            zoomFactorPerCentThumbnail
+            zoomFactorPerCentThumbnail,
+            pageUpDownScrollNumber
         };
 
         public enum enumCfgUserString
@@ -228,6 +229,7 @@ namespace QuickImageComment
             MetaDataDefForTileViewVideo,
             MetaDataDefForImageWindow,
             MetaDataDefForImageWindowVideo,
+            MetaDataDefForImageWindowTitle,
             MetaDataDefForRename,
             MetaDataDefForSortRename,
             MetaDataDefForChange,
@@ -546,6 +548,7 @@ namespace QuickImageComment
             ConfigItems.Add(enumCfgUserInt.zoomFactorPerCentGeneral.ToString(), 100);
             ConfigItems.Add(enumCfgUserInt.zoomFactorPerCentToolbar.ToString(), -1);
             ConfigItems.Add(enumCfgUserInt.zoomFactorPerCentThumbnail.ToString(), -1);
+            ConfigItems.Add(enumCfgUserInt.pageUpDownScrollNumber.ToString(), 5);
 
             // the following are not contained in standard general configuration file and are optional
             // so they are not defined via enum
@@ -826,6 +829,14 @@ namespace QuickImageComment
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForImageWindowVideo].Add(new MetaDataDefinitionItem("Bildrate", "Xmp.video.FrameRate"));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForImageWindowVideo].Add(new MetaDataDefinitionItem("Medien-Dauer", "Xmp.video.MediaDuration"));
                 translateNamesOfMetaDataDefinitionItem(MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForImageWindowVideo]);
+            }
+
+            // if no entries for MetaDataDefinitionsImageWindowVideo found, define initial set
+            if (MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForImageWindowTitle].Count == 0)
+            {
+                MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForImageWindowTitle].Add(new MetaDataDefinitionItem("Dateiname", "File.Name"));
+                MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForImageWindowTitle].Add(new MetaDataDefinitionItem("Kommentar", " ", "Image.CommentAccordingSettings"));
+                translateNamesOfMetaDataDefinitionItem(MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForImageWindowTitle]);
             }
 
             // if no entries for MetaDataDefinitionsMultiEditTable found, define initial set

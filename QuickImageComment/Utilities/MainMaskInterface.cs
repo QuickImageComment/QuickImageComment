@@ -442,6 +442,20 @@ namespace QuickImageComment
             }
         }
 
+        // get index of file name
+        internal static int indexOfFile(string fullFileName)
+        {
+            // if main mask is not already closing
+            if (!FormQuickImageComment.closing)
+            {
+                return theFormQuickImageComment.theUserControlFiles.listViewFiles.getIndexOf(fullFileName);
+            }
+            else
+            {
+                return -1;
+            }
+        }
+
         internal static int getListViewFilesCount()
         {
             // if main mask is not already closing

@@ -192,7 +192,9 @@ namespace QuickImageComment
             E_unknownEntry,
             E_folderNotExist,
             Q_newValueFromDataGridEdit,
-            E_cannotAssignFileDateTime
+            E_cannotAssignFileDateTime,
+            Q_numberScrollPageUpDown,
+            E_pageUpDownScrollNumberInvalid
         }
 
         public enum Others

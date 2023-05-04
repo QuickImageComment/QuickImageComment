@@ -55,9 +55,11 @@ namespace QuickImageComment
             this.ToolStripMenuItemPropertiesOff = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItemPropertiesBottom = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItemPropertiesRight = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuStripScrollPage = new System.Windows.Forms.ToolStripMenuItem();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.dataGridViewOverviewColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewOverviewColumValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.contextMenuStripMetaDataMenuTitleAdjust = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -76,6 +78,7 @@ namespace QuickImageComment
             this.pictureBox1.Size = new System.Drawing.Size(384, 240);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
+            this.pictureBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseClick);
             // 
             // splitContainer1
             // 
@@ -102,14 +105,16 @@ namespace QuickImageComment
             // 
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.contextMenuStripMetaDataMenuItemAdjust,
-            this.contextMenuStripMetaDataMenuItemProperties});
+            this.contextMenuStripMetaDataMenuTitleAdjust,
+            this.contextMenuStripMetaDataMenuItemProperties,
+            this.contextMenuStripScrollPage});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(159, 48);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(278, 114);
             // 
             // contextMenuStripMetaDataMenuItemAdjust
             // 
             this.contextMenuStripMetaDataMenuItemAdjust.Name = "contextMenuStripMetaDataMenuItemAdjust";
-            this.contextMenuStripMetaDataMenuItemAdjust.Size = new System.Drawing.Size(158, 22);
+            this.contextMenuStripMetaDataMenuItemAdjust.Size = new System.Drawing.Size(277, 22);
             this.contextMenuStripMetaDataMenuItemAdjust.Text = "Felder anpassen";
             this.contextMenuStripMetaDataMenuItemAdjust.Click += new System.EventHandler(this.contextMenuStripMetaDataMenuItemAdjust_Click);
             // 
@@ -120,29 +125,36 @@ namespace QuickImageComment
             this.ToolStripMenuItemPropertiesBottom,
             this.ToolStripMenuItemPropertiesRight});
             this.contextMenuStripMetaDataMenuItemProperties.Name = "contextMenuStripMetaDataMenuItemProperties";
-            this.contextMenuStripMetaDataMenuItemProperties.Size = new System.Drawing.Size(158, 22);
+            this.contextMenuStripMetaDataMenuItemProperties.Size = new System.Drawing.Size(277, 22);
             this.contextMenuStripMetaDataMenuItemProperties.Text = "Eigenschaften";
             // 
             // ToolStripMenuItemPropertiesOff
             // 
             this.ToolStripMenuItemPropertiesOff.Name = "ToolStripMenuItemPropertiesOff";
-            this.ToolStripMenuItemPropertiesOff.Size = new System.Drawing.Size(109, 22);
+            this.ToolStripMenuItemPropertiesOff.Size = new System.Drawing.Size(180, 22);
             this.ToolStripMenuItemPropertiesOff.Text = "Aus";
             this.ToolStripMenuItemPropertiesOff.Click += new System.EventHandler(this.ToolStripMenuItemPropertiesOff_Click);
             // 
             // ToolStripMenuItemPropertiesBottom
             // 
             this.ToolStripMenuItemPropertiesBottom.Name = "ToolStripMenuItemPropertiesBottom";
-            this.ToolStripMenuItemPropertiesBottom.Size = new System.Drawing.Size(109, 22);
+            this.ToolStripMenuItemPropertiesBottom.Size = new System.Drawing.Size(180, 22);
             this.ToolStripMenuItemPropertiesBottom.Text = "Unten";
             this.ToolStripMenuItemPropertiesBottom.Click += new System.EventHandler(this.ToolStripMenuItemPropertiesBottom_Click);
             // 
             // ToolStripMenuItemPropertiesRight
             // 
             this.ToolStripMenuItemPropertiesRight.Name = "ToolStripMenuItemPropertiesRight";
-            this.ToolStripMenuItemPropertiesRight.Size = new System.Drawing.Size(109, 22);
+            this.ToolStripMenuItemPropertiesRight.Size = new System.Drawing.Size(180, 22);
             this.ToolStripMenuItemPropertiesRight.Text = "Rechts";
             this.ToolStripMenuItemPropertiesRight.Click += new System.EventHandler(this.ToolStripMenuItemPropertiesRight_Click);
+            // 
+            // contextMenuStripScrollPage
+            // 
+            this.contextMenuStripScrollPage.Name = "contextMenuStripScrollPage";
+            this.contextMenuStripScrollPage.Size = new System.Drawing.Size(277, 22);
+            this.contextMenuStripScrollPage.Text = "Blättern mit Bild auf/ab - Anzahl Bilder";
+            this.contextMenuStripScrollPage.Click += new System.EventHandler(this.contextMenuStripScrollPage_Click);
             // 
             // dataGridView1
             // 
@@ -181,6 +193,13 @@ namespace QuickImageComment
             this.dataGridViewOverviewColumValue.Name = "dataGridViewOverviewColumValue";
             this.dataGridViewOverviewColumValue.ReadOnly = true;
             // 
+            // contextMenuStripMetaDataMenuTitleAdjust
+            // 
+            this.contextMenuStripMetaDataMenuTitleAdjust.Name = "contextMenuStripMetaDataMenuTitleAdjust";
+            this.contextMenuStripMetaDataMenuTitleAdjust.Size = new System.Drawing.Size(277, 22);
+            this.contextMenuStripMetaDataMenuTitleAdjust.Text = "Kopfzeile anpassen";
+            this.contextMenuStripMetaDataMenuTitleAdjust.Click += new System.EventHandler(this.contextMenuStripMetaDataMenuTitleAdjust_Click);
+            // 
             // FormImageWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -189,8 +208,10 @@ namespace QuickImageComment
             this.Controls.Add(this.splitContainer1);
             this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.Name = "FormImageWindow";
             this.Text = "<Bilddatei>";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FormImageWindow_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
@@ -215,5 +236,7 @@ namespace QuickImageComment
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemPropertiesOff;
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemPropertiesBottom;
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemPropertiesRight;
+        private System.Windows.Forms.ToolStripMenuItem contextMenuStripScrollPage;
+        private System.Windows.Forms.ToolStripMenuItem contextMenuStripMetaDataMenuTitleAdjust;
     }
 }

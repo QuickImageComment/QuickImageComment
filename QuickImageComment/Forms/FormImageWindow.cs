@@ -23,6 +23,7 @@ namespace QuickImageComment
     public partial class FormImageWindow : FormPrevNext
     {
         private ExtendedImage theExtendedImage;
+        private int pageUpDownScrollNumber = 5;
         public FormImageWindow(ExtendedImage givenExtendedImage) : base(givenExtendedImage)
         {
             InitializeComponent();
@@ -74,6 +75,7 @@ namespace QuickImageComment
                 ToolStripMenuItemPropertiesBottom.Checked = splitContainer1.Orientation == Orientation.Horizontal;
                 ToolStripMenuItemPropertiesRight.Checked = splitContainer1.Orientation == Orientation.Vertical;
             }
+            pageUpDownScrollNumber = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.pageUpDownScrollNumber);
 
             // if flag set, create screenshot and return
             if (GeneralUtilities.CreateScreenshots)
@@ -116,9 +118,23 @@ namespace QuickImageComment
                 pictureBox1.Image = theExtendedImage.createAndGetAdjustedImage(MainMaskInterface.showGrid());
                 pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
                 displayedFileName = theExtendedImage.getImageFileName();
-                Text = System.IO.Path.GetFileName(displayedFileName)
-                    + "  (" + System.IO.Path.GetDirectoryName(displayedFileName) + ")";
+                setTitleText();
                 displayProperties();
+            }
+        }
+
+        private void setTitleText()
+        {
+            Text = (MainMaskInterface.indexOfFile(displayedFileName) + 1).ToString() + "/"
+                  + MainMaskInterface.getListViewFilesCount().ToString() + ": ";
+            ArrayList MetaDataDefinitions = ConfigDefinition.getMetaDataDefinitions(ConfigDefinition.enumMetaDataGroup.MetaDataDefForImageWindowTitle);
+            foreach (MetaDataDefinitionItem anMetaDataDefinitionItem in MetaDataDefinitions)
+            {
+                ArrayList OverViewMetaDataArrayList = theExtendedImage.getMetaDataArrayListByDefinition(anMetaDataDefinitionItem);
+                foreach (string OverViewMetaDataString in OverViewMetaDataArrayList)
+                {
+                    Text += OverViewMetaDataString.Replace("\r\n", " | ");
+                }
             }
         }
 
@@ -186,6 +202,117 @@ namespace QuickImageComment
             }
         }
 
+        // context menu entry adjust header line meta data
+
+        private void contextMenuStripMetaDataMenuTitleAdjust_Click(object sender, EventArgs e)
+        {
+            string contextSourceControl = ((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl.Name;
+            ConfigDefinition.enumMetaDataGroup theMetaDataGroup = 0;
+
+            theMetaDataGroup = ConfigDefinition.enumMetaDataGroup.MetaDataDefForImageWindowTitle;
+            FormMetaDataDefinition theFormMetaDataDefinition = new FormMetaDataDefinition(theExtendedImage, theMetaDataGroup);
+            theFormMetaDataDefinition.ShowDialog();
+            if (theFormMetaDataDefinition.settingsChanged)
+            {
+                setTitleText();
+            }
+        }
+
+        // context menu set number of images to scroll with page up/down
+        private void contextMenuStripScrollPage_Click(object sender, EventArgs e)
+        {
+            string number = GeneralUtilities.inputBox(LangCfg.Message.Q_numberScrollPageUpDown, pageUpDownScrollNumber.ToString());
+            try
+            {
+                if (!number.Equals(""))
+                {
+                    int ii = int.Parse(number);
+                    if (ii < 2)
+                        GeneralUtilities.message(LangCfg.Message.E_pageUpDownScrollNumberInvalid);
+                    else
+                        pageUpDownScrollNumber = ii;
+                }
+            }
+            catch
+            {
+                GeneralUtilities.message(LangCfg.Message.E_pageUpDownScrollNumberInvalid);
+            }
+        }
+
+        private void FormImageWindow_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F4 && e.Alt)
+            {
+                Close();
+            }
+            else
+            {
+                int index = MainMaskInterface.indexOfFile(displayedFileName);
+                int count = MainMaskInterface.getListViewFilesCount();
+                if (count > 0)
+                {
+                    if (e.KeyCode == Keys.Left)
+                    {
+                        if (index > 0)
+                        {
+                            newImage(ImageManager.getExtendedImage(index - 1));
+                        }
+                    }
+                    else if (e.KeyCode == Keys.Right || e.KeyCode == Keys.Space)
+                    {
+                        if (index < count - 1)
+                        {
+                            newImage(ImageManager.getExtendedImage(index + 1));
+                        }
+                    }
+                    else if (e.KeyCode == Keys.Home)
+                    {
+                        newImage(ImageManager.getExtendedImage(0));
+                    }
+                    else if (e.KeyCode == Keys.End)
+                    {
+                        newImage(ImageManager.getExtendedImage(count - 1));
+                    }
+                    else if (e.KeyCode == Keys.PageDown)
+                    {
+                        if (index > 0)
+                        {
+                            index = index - pageUpDownScrollNumber;
+                            if (index < 0) index = 0;
+                            newImage(ImageManager.getExtendedImage(index));
+                        }
+                    }
+                    else if (e.KeyCode == Keys.PageUp)
+                    {
+                        if (index < count - 1)
+                        {
+                            index = index + pageUpDownScrollNumber;
+                            if (index > count - 1) index = count - 1;
+                            newImage(ImageManager.getExtendedImage(index));
+                        }
+                    }
+                }
+            }
+            e.Handled = true;
+        }
+
+        private void pictureBox1_MouseClick(object sender, MouseEventArgs e)
+        {
+            int index = MainMaskInterface.indexOfFile(displayedFileName);
+            int count = MainMaskInterface.getListViewFilesCount();
+            if (count > 0)
+            {
+                if (e.X < pictureBox1.Width / 3 && index > 0)
+                {
+                    newImage(ImageManager.getExtendedImage(index - 1));
+                }
+                else if (e.X > pictureBox1.Width * 2 / 3 && index < count - 1)
+                {
+                    newImage(ImageManager.getExtendedImage(index + 1));
+                }
+            }
+        }
+
         private void ToolStripMenuItemPropertiesOff_Click(object sender, EventArgs e)
         {
             splitContainer1.Panel2Collapsed = true;
@@ -244,6 +371,7 @@ namespace QuickImageComment
             else
                 ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.FormImageWindowSplitter1DistanceHoriz, splitContainer1.SplitterDistance);
             ConfigDefinition.setCfgUserBool(ConfigDefinition.enumCfgUserBool.FormImageWindowSplitContainer1Panel2Collapsed, splitContainer1.Panel2Collapsed);
+            ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.pageUpDownScrollNumber, pageUpDownScrollNumber);
         }
 
         //*****************************************************************
