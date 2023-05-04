@@ -535,7 +535,7 @@ namespace QuickImageComment
             this.dynamicLabelValueOriginal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.dynamicLabelValueOriginal.Location = new System.Drawing.Point(74, 250);
             this.dynamicLabelValueOriginal.Name = "dynamicLabelValueOriginal";
-            this.dynamicLabelValueOriginal.Size = new System.Drawing.Size(156, 13);
+            this.dynamicLabelValueOriginal.Size = new System.Drawing.Size(156, 17);
             this.dynamicLabelValueOriginal.TabIndex = 10;
             this.dynamicLabelValueOriginal.Text = "ValueOriginal";
             // 
@@ -545,7 +545,7 @@ namespace QuickImageComment
             this.dynamicLabelValueInterpreted.BackColor = System.Drawing.SystemColors.Control;
             this.dynamicLabelValueInterpreted.Location = new System.Drawing.Point(299, 250);
             this.dynamicLabelValueInterpreted.Name = "dynamicLabelValueInterpreted";
-            this.dynamicLabelValueInterpreted.Size = new System.Drawing.Size(200, 13);
+            this.dynamicLabelValueInterpreted.Size = new System.Drawing.Size(200, 17);
             this.dynamicLabelValueInterpreted.TabIndex = 12;
             this.dynamicLabelValueInterpreted.Text = "ValueInterpreted";
             // 

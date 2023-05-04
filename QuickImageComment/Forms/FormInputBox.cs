@@ -23,6 +23,7 @@ namespace QuickImageComment
             textBox1.Text = defaultResponse;
 
             LangCfg.translateControlTexts(this);
+            textBox1.Select();
         }
 
         private void buttonOk_Click(object sender, EventArgs e)
