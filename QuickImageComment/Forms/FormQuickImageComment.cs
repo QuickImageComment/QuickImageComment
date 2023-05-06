@@ -113,7 +113,7 @@ namespace QuickImageComment
         private bool keyWordsUserChanged = false;
 
         // user changed values in data grid views for meta data
-        private SortedList<string,string> ChangedDataGridViewValues = new SortedList<string,string>();
+        private SortedList<string, string> ChangedDataGridViewValues = new SortedList<string, string>();
 
         // flag indicating if it is necessary to check, if data of last selected image were changed, 
         // before next image is displayed
@@ -606,7 +606,7 @@ namespace QuickImageComment
                 if (SplitContainerPanelControls[key] != null)
                 {
                     CustomizationInterface.fillOrUpdateZoomBasisData((Control)SplitContainerPanelControls[key], CustomizationInterface.getActualZoomFactor(this));
-                    
+
                     // check of full name of component: as they can be moved, they shall not start with the form's name
                     // instead name shall start with dollar sign (needed for proper sorting, see in Customizer.cs)
                     string fullNameOfComponent = FormCustomization.Customizer.getFullNameOfComponent((Control)SplitContainerPanelControls[key]);
@@ -1097,7 +1097,7 @@ namespace QuickImageComment
                 theUserControlKeyWords.checkedListBoxPredefKeyWords.BackColor = backColorInputUnchanged;
                 theUserControlKeyWords.textBoxFreeInputKeyWords.BackColor = backColorInputUnchanged;
                 keyWordsUserChanged = false;
-                
+
                 // get values from other selected images and compare
                 disableEventHandlersRecogniseUserInput();
                 lock (UserControlFiles.LockListViewFiles)
@@ -1253,7 +1253,7 @@ namespace QuickImageComment
         private void textBoxFreeInputKeyWords_TextChanged(object sender, EventArgs e)
         {
             keyWordsUserChanged = true;
-            theUserControlKeyWords.textBoxFreeInputKeyWords.BackColor= backColorInputValueChanged;
+            theUserControlKeyWords.textBoxFreeInputKeyWords.BackColor = backColorInputValueChanged;
             setControlsEnabledBasedOnDataChange(true);
         }
 
@@ -2822,7 +2822,7 @@ namespace QuickImageComment
                             }
                             catch (Exception ex)
                             {
-                                DialogResult dialogResult = GeneralUtilities.messageOkCancel(LangCfg.Message.E_cannotAssignFileDateTime, fileName, 
+                                DialogResult dialogResult = GeneralUtilities.messageOkCancel(LangCfg.Message.E_cannotAssignFileDateTime, fileName,
                                     tagToChangeFileDate, dateGenerated, ex.Message);
                                 if (dialogResult == DialogResult.Cancel)
                                 {
@@ -3669,37 +3669,66 @@ namespace QuickImageComment
 
             foreach (MetaDataDefinitionItem anMetaDataDefinitionItem in MetaDataDefinitions)
             {
-                ArrayList OverViewMetaDataArrayList = theExtendedImage.getMetaDataArrayListByDefinition(anMetaDataDefinitionItem);
-                foreach (string OverViewMetaDataString in OverViewMetaDataArrayList)
+                if (anMetaDataDefinitionItem.TypePrim.Equals("LangAlt"))
                 {
-                    row[0] = anMetaDataDefinitionItem.Name;
-                    row[1] = OverViewMetaDataString.Replace("\r\n", " | ");
-                    row[2] = anMetaDataDefinitionItem.KeyPrim;
-                    row[3] = anMetaDataDefinitionItem.KeySec;
-                    DataGridViewOverview.Rows.Add(row);
-
-                    bool displayedValueInEditableFormat = false;
-                    if (Exiv2TagDefinitions.ByteUCS2Tags.Contains(anMetaDataDefinitionItem.KeyPrim) ||
-                        anMetaDataDefinitionItem.TypePrim.Equals("Comment"))
+                    string value = theExtendedImage.getMetaDataValueByDefinitionAndLanguage(anMetaDataDefinitionItem, "x-default");
+                    if (!value.Equals(""))
                     {
-                        displayedValueInEditableFormat = anMetaDataDefinitionItem.FormatPrim == MetaDataItem.Format.Interpreted;
-                    }
-                    else
-                    {
-                        displayedValueInEditableFormat = row[1].Equals(theExtendedImage.getMetaDataValueByKey(anMetaDataDefinitionItem.KeyPrim, MetaDataItem.Format.Original));
-                    }
-
-                    // do not allow editing for certain types and tags, if several files are selected and if displayed format is not editable
-                    if (anMetaDataDefinitionItem.isEditableInDataGridView() && singleEdit && displayedValueInEditableFormat)
-                    {
-                        // store original value in tag to allow restore
-                        DataGridViewOverview.Rows[DataGridViewOverview.Rows.Count - 1].Cells[1].Tag =
-                            DataGridViewOverview.Rows[DataGridViewOverview.Rows.Count - 1].Cells[1].Value;
-                        DataGridViewOverview.Rows[DataGridViewOverview.Rows.Count - 1].Cells[1].Style.BackColor = Color.White;
-                    }
-                    else
-                    { 
+                        row[0] = anMetaDataDefinitionItem.Name;
+                        row[1] = value;
+                        row[2] = anMetaDataDefinitionItem.KeyPrim;
+                        row[3] = anMetaDataDefinitionItem.KeySec;
+                        DataGridViewOverview.Rows.Add(row);
                         DataGridViewOverview.Rows[DataGridViewOverview.Rows.Count - 1].Cells[1].ReadOnly = true;
+                    }
+                    foreach (string language in theExtendedImage.getXmpLangAltEntries())
+                    {
+                        value = theExtendedImage.getMetaDataValueByDefinitionAndLanguage(anMetaDataDefinitionItem, language);
+                        if (!value.Equals(""))
+                        {
+                            row[0] = anMetaDataDefinitionItem.Name + " " + language;
+                            row[1] = value;
+                            row[2] = anMetaDataDefinitionItem.KeyPrim;
+                            row[3] = anMetaDataDefinitionItem.KeySec;
+                            DataGridViewOverview.Rows.Add(row);
+                            DataGridViewOverview.Rows[DataGridViewOverview.Rows.Count - 1].Cells[1].ReadOnly = true;
+                        }
+                    }
+                }
+                else
+                {
+                    ArrayList OverViewMetaDataArrayList = theExtendedImage.getMetaDataArrayListByDefinition(anMetaDataDefinitionItem);
+                    foreach (string OverViewMetaDataString in OverViewMetaDataArrayList)
+                    {
+                        row[0] = anMetaDataDefinitionItem.Name;
+                        row[1] = OverViewMetaDataString.Replace("\r\n", " | ");
+                        row[2] = anMetaDataDefinitionItem.KeyPrim;
+                        row[3] = anMetaDataDefinitionItem.KeySec;
+                        DataGridViewOverview.Rows.Add(row);
+
+                        bool displayedValueInEditableFormat = false;
+                        if (Exiv2TagDefinitions.ByteUCS2Tags.Contains(anMetaDataDefinitionItem.KeyPrim) ||
+                            anMetaDataDefinitionItem.TypePrim.Equals("Comment"))
+                        {
+                            displayedValueInEditableFormat = anMetaDataDefinitionItem.FormatPrim == MetaDataItem.Format.Interpreted;
+                        }
+                        else
+                        {
+                            displayedValueInEditableFormat = row[1].Equals(theExtendedImage.getMetaDataValueByKey(anMetaDataDefinitionItem.KeyPrim, MetaDataItem.Format.Original));
+                        }
+
+                        // do not allow editing for certain types and tags, if several files are selected and if displayed format is not editable
+                        if (anMetaDataDefinitionItem.isEditableInDataGridView() && singleEdit && displayedValueInEditableFormat)
+                        {
+                            // store original value in tag to allow restore
+                            DataGridViewOverview.Rows[DataGridViewOverview.Rows.Count - 1].Cells[1].Tag =
+                                DataGridViewOverview.Rows[DataGridViewOverview.Rows.Count - 1].Cells[1].Value;
+                            DataGridViewOverview.Rows[DataGridViewOverview.Rows.Count - 1].Cells[1].Style.BackColor = Color.White;
+                        }
+                        else
+                        {
+                            DataGridViewOverview.Rows[DataGridViewOverview.Rows.Count - 1].Cells[1].ReadOnly = true;
+                        }
                     }
                 }
             }
@@ -5853,7 +5882,7 @@ namespace QuickImageComment
                         (string)changedFieldsForSave[key], ChangedDataGridViewValues[key]);
                     if (saveDialogResult == System.Windows.Forms.DialogResult.Yes)
                     {
-                        changedFieldsForSave[key]= ChangedDataGridViewValues[key];
+                        changedFieldsForSave[key] = ChangedDataGridViewValues[key];
                     }
                 }
                 else

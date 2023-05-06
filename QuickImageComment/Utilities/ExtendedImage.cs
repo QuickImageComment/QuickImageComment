@@ -1792,6 +1792,28 @@ namespace QuickImageComment
             return ReturnArrayList;
         }
 
+        // return a meta data value as String, selection via MetaDataDefinitionItem and language
+        // for for LangAlt only; returns empty string if property is not contained
+        public string getMetaDataValueByDefinitionAndLanguage(MetaDataDefinitionItem theMetaDataDefinitionItem, string language)
+        {
+            string KeyPrim;
+            string KeySec;
+            string ValueSec;
+            string ReturnValue;
+            KeyPrim = theMetaDataDefinitionItem.KeyPrim;
+            KeySec = theMetaDataDefinitionItem.KeySec;
+            ReturnValue = theMetaDataDefinitionItem.Prefix;
+            ReturnValue = ReturnValue + getMetaDataValueByKey(KeyPrim + "|" + language, theMetaDataDefinitionItem.FormatPrim);
+            ValueSec = getMetaDataValueByKey(KeySec + "|" + language, theMetaDataDefinitionItem.FormatSec);
+            if (!ValueSec.Equals(""))
+            {
+                ReturnValue = ReturnValue + theMetaDataDefinitionItem.Separator + ValueSec;
+            }
+            ReturnValue = ReturnValue + theMetaDataDefinitionItem.Postfix;
+
+            return ReturnValue;
+        }
+
         // return a meta data value as String, selection via key
         public string getMetaDataValueByKey(string Key, MetaDataItem.Format FormatSpecification)
         {
