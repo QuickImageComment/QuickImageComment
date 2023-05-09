@@ -413,7 +413,7 @@ namespace QuickImageComment
             theUserControlKeyWords.Dock = DockStyle.Fill;
             theUserControlKeyWords.textBoxFreeInputKeyWords.TextChanged += new EventHandler(textBoxFreeInputKeyWords_TextChanged);
             theUserControlKeyWords.textBoxFreeInputKeyWords.KeyDown += new KeyEventHandler(textBoxFreeInputKeyWords_KeyDown);
-            theUserControlKeyWords.checkedListBoxPredefKeyWords.KeyDown += new KeyEventHandler(checkedListBoxPredefKeyWords_KeyDown);
+            theUserControlKeyWords.treeViewPredefKeyWords.KeyDown += new KeyEventHandler(treeViewPredefKeyWords_KeyDown);
 
             // show the mask 
             Program.StartupPerformance.measure("FormQIC before Show");
@@ -1094,7 +1094,7 @@ namespace QuickImageComment
             if (theKeyEventArgs.KeyCode == Keys.Escape)
             {
                 theUserControlKeyWords.displayKeyWords(theExtendedImage.getIptcKeyWordsArrayList());
-                theUserControlKeyWords.checkedListBoxPredefKeyWords.BackColor = backColorInputUnchanged;
+                theUserControlKeyWords.treeViewPredefKeyWords.BackColor = backColorInputUnchanged;
                 theUserControlKeyWords.textBoxFreeInputKeyWords.BackColor = backColorInputUnchanged;
                 keyWordsUserChanged = false;
 
@@ -1119,12 +1119,12 @@ namespace QuickImageComment
         }
 
         // key event handler for checked list box key words
-        private void checkedListBoxPredefKeyWords_KeyDown(object sender, KeyEventArgs theKeyEventArgs)
+        private void treeViewPredefKeyWords_KeyDown(object sender, KeyEventArgs theKeyEventArgs)
         {
             if (theKeyEventArgs.KeyCode == Keys.Escape)
             {
                 theUserControlKeyWords.displayKeyWords(theExtendedImage.getIptcKeyWordsArrayList());
-                theUserControlKeyWords.checkedListBoxPredefKeyWords.BackColor = backColorInputUnchanged;
+                theUserControlKeyWords.treeViewPredefKeyWords.BackColor = backColorInputUnchanged;
                 theUserControlKeyWords.textBoxFreeInputKeyWords.BackColor = backColorInputUnchanged;
                 keyWordsUserChanged = false;
 
@@ -1242,10 +1242,10 @@ namespace QuickImageComment
         }
 
         // event handler triggered when item is checked or unchecked to recognise user changes
-        private void checkedListBoxPredefKeyWords_ItemCheck(object sender, ItemCheckEventArgs e)
+        private void treeViewPredefKeyWords_AfterCheck(object sender, TreeViewEventArgs e)
         {
             keyWordsUserChanged = true;
-            theUserControlKeyWords.checkedListBoxPredefKeyWords.BackColor = backColorInputValueChanged;
+            theUserControlKeyWords.treeViewPredefKeyWords.BackColor = backColorInputValueChanged;
             setControlsEnabledBasedOnDataChange(true);
         }
 
@@ -2384,7 +2384,7 @@ namespace QuickImageComment
             {
                 FormPredefinedKeyWords theFormPredefinedKeyWords = new FormPredefinedKeyWords();
                 theFormPredefinedKeyWords.ShowDialog();
-                theUserControlKeyWords.fillCheckedListBoxPredefKeyWords();
+                theUserControlKeyWords.fillTreeViewPredefKeyWords();
                 if (theExtendedImage != null)
                 {
                     disableEventHandlersRecogniseUserInput();
@@ -5043,7 +5043,7 @@ namespace QuickImageComment
             textBoxUserCommentUserChanged = false;
             textBoxUserComment.BackColor = backColorInputUnchanged;
             keyWordsUserChanged = false;
-            theUserControlKeyWords.checkedListBoxPredefKeyWords.BackColor = backColorInputUnchanged;
+            theUserControlKeyWords.treeViewPredefKeyWords.BackColor = backColorInputUnchanged;
             theUserControlKeyWords.textBoxFreeInputKeyWords.BackColor = backColorInputUnchanged;
             theUserControlChangeableFields.resetChangedChangeableFieldTags();
             foreach (Control anInputControl in theUserControlChangeableFields.ChangeableFieldInputControls.Values)
@@ -5078,7 +5078,7 @@ namespace QuickImageComment
             DataGridViewXmp.CellValueChanged += DataGridViewsMetaData_CellValueChanged;
 
             theUserControlKeyWords.textBoxFreeInputKeyWords.TextChanged += textBoxFreeInputKeyWords_TextChanged;
-            theUserControlKeyWords.checkedListBoxPredefKeyWords.ItemCheck += checkedListBoxPredefKeyWords_ItemCheck;
+            theUserControlKeyWords.treeViewPredefKeyWords.AfterCheck += treeViewPredefKeyWords_AfterCheck;
 
             foreach (Control anInputControl in theUserControlChangeableFields.ChangeableFieldInputControls.Values)
             {
@@ -5101,7 +5101,7 @@ namespace QuickImageComment
             DataGridViewXmp.CellValueChanged -= DataGridViewsMetaData_CellValueChanged;
 
             theUserControlKeyWords.textBoxFreeInputKeyWords.TextChanged -= textBoxFreeInputKeyWords_TextChanged;
-            theUserControlKeyWords.checkedListBoxPredefKeyWords.ItemCheck -= checkedListBoxPredefKeyWords_ItemCheck;
+            theUserControlKeyWords.treeViewPredefKeyWords.AfterCheck -= treeViewPredefKeyWords_AfterCheck;
 
             foreach (Control anInputControl in theUserControlChangeableFields.ChangeableFieldInputControls.Values)
             {

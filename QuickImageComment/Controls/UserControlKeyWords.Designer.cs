@@ -31,7 +31,7 @@
             this.splitContainer1212 = new System.Windows.Forms.SplitContainer();
             this.textBoxFreeInputKeyWords = new System.Windows.Forms.TextBox();
             this.labelInputKeyWords = new System.Windows.Forms.Label();
-            this.checkedListBoxPredefKeyWords = new System.Windows.Forms.CheckedListBox();
+            this.treeViewPredefKeyWords = new System.Windows.Forms.TreeView();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1212)).BeginInit();
             this.splitContainer1212.Panel1.SuspendLayout();
             this.splitContainer1212.Panel2.SuspendLayout();
@@ -56,7 +56,7 @@
             // splitContainer1212.Panel2
             // 
             this.splitContainer1212.Panel2.BackColor = System.Drawing.SystemColors.Control;
-            this.splitContainer1212.Panel2.Controls.Add(this.checkedListBoxPredefKeyWords);
+            this.splitContainer1212.Panel2.Controls.Add(this.treeViewPredefKeyWords);
             this.splitContainer1212.Panel2MinSize = 20;
             this.splitContainer1212.Size = new System.Drawing.Size(363, 507);
             this.splitContainer1212.SplitterDistance = 227;
@@ -82,16 +82,14 @@
             this.labelInputKeyWords.TabIndex = 0;
             this.labelInputKeyWords.Text = "IPTC Schlüsselworte";
             // 
-            // checkedListBoxPredefKeyWords
+            // treeViewPredefKeyWords
             // 
-            this.checkedListBoxPredefKeyWords.CheckOnClick = true;
-            this.checkedListBoxPredefKeyWords.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkedListBoxPredefKeyWords.FormattingEnabled = true;
-            this.checkedListBoxPredefKeyWords.IntegralHeight = false;
-            this.checkedListBoxPredefKeyWords.Location = new System.Drawing.Point(0, 0);
-            this.checkedListBoxPredefKeyWords.Name = "checkedListBoxPredefKeyWords";
-            this.checkedListBoxPredefKeyWords.Size = new System.Drawing.Size(363, 276);
-            this.checkedListBoxPredefKeyWords.TabIndex = 0;
+            this.treeViewPredefKeyWords.CheckBoxes = true;
+            this.treeViewPredefKeyWords.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeViewPredefKeyWords.Location = new System.Drawing.Point(0, 0);
+            this.treeViewPredefKeyWords.Name = "treeViewPredefKeyWords";
+            this.treeViewPredefKeyWords.Size = new System.Drawing.Size(363, 276);
+            this.treeViewPredefKeyWords.TabIndex = 1;
             // 
             // UserControlKeyWords
             // 
@@ -112,7 +110,7 @@
         #endregion
         internal System.Windows.Forms.TextBox textBoxFreeInputKeyWords;
         private System.Windows.Forms.Label labelInputKeyWords;
-        internal System.Windows.Forms.CheckedListBox checkedListBoxPredefKeyWords;
         internal System.Windows.Forms.SplitContainer splitContainer1212;
+        internal System.Windows.Forms.TreeView treeViewPredefKeyWords;
     }
 }

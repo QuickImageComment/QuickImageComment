@@ -257,6 +257,9 @@ namespace QuickImageComment
         private static SortedList<string, ArrayList> ChangeableFieldEntriesLists;
         private static SortedList<string, ArrayList> FindFilterEntriesLists;
         private static ArrayList PredefinedComments;
+        // before version 4.55, key words were stored without hierarchy, entries were trimmed
+        // to avoid conflicts when using 4.55 and previous versions, 4.55 writes key words with other prefix
+        private static ArrayList PredefinedKeyWordsWithoutHierarchy;
         private static ArrayList PredefinedKeyWords;
         private static ArrayList UserButtonDefinitions;
         private static ArrayList XmpLangAltNames;
@@ -336,6 +339,7 @@ namespace QuickImageComment
             ChangeableFieldEntriesLists = new SortedList<string, ArrayList>();
             FindFilterEntriesLists = new SortedList<string, ArrayList>();
             PredefinedComments = new ArrayList();
+            PredefinedKeyWordsWithoutHierarchy = new ArrayList();
             PredefinedKeyWords = new ArrayList();
             UserButtonDefinitions = new ArrayList();
             XmpLangAltNames = new ArrayList();
@@ -934,6 +938,11 @@ namespace QuickImageComment
                 translateNamesOfMetaDataDefinitionItem(MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForTileViewVideo]);
             }
 
+            if (PredefinedKeyWords.Count == 0)
+            {
+                // key words without hierarchy written with QIC < 4.55 may have been read
+                PredefinedKeyWords = PredefinedKeyWordsWithoutHierarchy;
+            }
             if (PredefinedKeyWords.Count == 0)
             {
                 PredefinedKeyWords.Add(LangCfg.translate("Familie", "ConfigDefinition-PredefinedKeyWords"));
@@ -2398,36 +2407,40 @@ namespace QuickImageComment
         }
 
         // set predefined key words, used from FormPredefinedKeyWords
-        public static void setPredefinedKeyWordsByText(string KeyWordsText)
+        public static string setPredefinedKeyWordsByTextReturnDuplicates(string KeyWordsText)
         {
             int lineNo = 0;
             int IndexEOL;
             string Line;
+            string LineLowerTrim;
+            string duplicates = "";
             string WorkText = KeyWordsText.Trim() + "\r\n";
 
-            ArrayList PredefinedKeyWordsLower = new ArrayList();
+            ArrayList PredefinedKeyWordsLowerTrim = new ArrayList();
 
             PredefinedKeyWords.Clear();
             IndexEOL = WorkText.IndexOf("\r\n");
             while (IndexEOL >= 0)
             {
                 lineNo++;
-                Line = WorkText.Substring(0, IndexEOL).Trim();
+                Line = WorkText.Substring(0, IndexEOL).TrimEnd();
+                LineLowerTrim = Line.ToLower().Trim();
                 if (Line.Length > 0)
                 {
-                    if (PredefinedKeyWordsLower.Contains(Line.ToLower()))
+                    if (PredefinedKeyWordsLowerTrim.Contains(LineLowerTrim))
                     {
-                        GeneralUtilities.message(LangCfg.Message.W_keyWordRepeated, Line);
+                        duplicates += "\n" + LineLowerTrim;
                     }
                     else
                     {
                         PredefinedKeyWords.Add(Line);
-                        PredefinedKeyWordsLower.Add(Line.ToLower());
+                        PredefinedKeyWordsLowerTrim.Add(LineLowerTrim);
                     }
                 }
                 WorkText = WorkText.Substring(IndexEOL + 2);
                 IndexEOL = WorkText.IndexOf("\r\n");
             }
+            return duplicates;
         }
 
         // user defined buttons
@@ -2642,6 +2655,10 @@ namespace QuickImageComment
                         FindFilterEntriesLists[Key].Add(secondPart.Substring(IndexColon + 1));
                     }
                     else if (firstPart.Equals("PredefinedKeyWord"))
+                    {
+                        PredefinedKeyWordsWithoutHierarchy.Add(secondPart);
+                    }
+                    else if (firstPart.Equals("PredefinedKeyWord2"))
                     {
                         PredefinedKeyWords.Add(secondPart);
                     }
@@ -3224,7 +3241,7 @@ namespace QuickImageComment
 
             foreach (string keyWord in PredefinedKeyWords)
             {
-                StreamOut.WriteLine("PredefinedKeyWord:" + keyWord);
+                StreamOut.WriteLine("PredefinedKeyWord2:" + keyWord);
             }
 
             foreach (UserButtonDefinition userButtonDefinition in UserButtonDefinitions)

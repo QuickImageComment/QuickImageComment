@@ -74,8 +74,15 @@ namespace QuickImageComment
         //*****************************************************************
         private void buttonOK_Click(object sender, System.EventArgs e)
         {
-            ConfigDefinition.setPredefinedKeyWordsByText(textBoxPredefinedKeyWords.Text);
-            Close();
+            string duplicates = ConfigDefinition.setPredefinedKeyWordsByTextReturnDuplicates(textBoxPredefinedKeyWords.Text);
+            if (duplicates.Equals(""))
+            {
+                Close();
+            }
+            else
+            {
+                GeneralUtilities.message(LangCfg.Message.E_keyWordRepeated, duplicates);
+            }
         }
 
         private void buttonAbort_Click(object sender, System.EventArgs e)

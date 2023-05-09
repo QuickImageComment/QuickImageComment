@@ -67,7 +67,7 @@ namespace QuickImageComment
             E_replacementStop,
             W_startPositionInvalid,
             W_lengthInvalid,
-            W_keyWordRepeated,
+            E_keyWordRepeated,
             W_saveSwitchNextImpossible,
             W_saveSwitchPrevImpossible,
             W_noFileSelected,

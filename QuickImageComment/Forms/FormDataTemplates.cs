@@ -100,7 +100,7 @@ namespace QuickImageComment
             // assign event handlers for key words
             theUserControlKeyWords.textBoxFreeInputKeyWords.TextChanged += new EventHandler(textBoxFreeInputKeyWords_TextChanged);
             theUserControlKeyWords.textBoxFreeInputKeyWords.KeyDown += new KeyEventHandler(textBoxFreeInputKeyWords_KeyDown);
-            theUserControlKeyWords.checkedListBoxPredefKeyWords.KeyDown += new KeyEventHandler(checkedListBoxPredefKeyWords_KeyDown);
+            theUserControlKeyWords.treeViewPredefKeyWords.KeyDown += new KeyEventHandler(treeViewPredefKeyWords_KeyDown);
 
             // set size and splitters
             this.MinimumSize = this.Size;
@@ -140,7 +140,7 @@ namespace QuickImageComment
             // enable event handlers
             dynamicComboBoxArtist.TextChanged += dynamicComboBoxArtist_TextChanged;
             dynamicComboBoxUserComment.TextChanged += dynamicComboBoxUserComment_TextChanged;
-            theUserControlKeyWords.checkedListBoxPredefKeyWords.ItemCheck += checkedListBoxPredefKeyWords_ItemCheck;
+            theUserControlKeyWords.treeViewPredefKeyWords.AfterCheck += treeViewPredefKeyWords_AfterCheck;
             foreach (Control anInputControl in theUserControlChangeableFields.ChangeableFieldInputControls.Values)
             {
                 anInputControl.TextChanged += inputControlChangeableField_TextChanged;
@@ -294,15 +294,8 @@ namespace QuickImageComment
                 }
 
                 // key words
-                theUserControlKeyWords.textBoxFreeInputKeyWords.Text =
-                    MainMaskInterface.getTheUserControlKeyWords().textBoxFreeInputKeyWords.Text;
-                bool itemChecked;
-                for (int ii = 0; ii < theUserControlKeyWords.checkedListBoxPredefKeyWords.Items.Count; ii++)
-                {
-                    itemChecked = MainMaskInterface.getTheUserControlKeyWords().checkedListBoxPredefKeyWords.GetItemChecked(ii);
-                    theUserControlKeyWords.checkedListBoxPredefKeyWords.SetItemChecked(ii, itemChecked);
-                }
-                InitialKeyWords = theUserControlKeyWords.getKeyWordsArrayList();
+                InitialKeyWords = MainMaskInterface.getTheUserControlKeyWords().getKeyWordsArrayList();
+                theUserControlKeyWords.displayKeyWords(InitialKeyWords);
 
                 clearFlagsIndicatingUserChangesAndDisableSave();
             }
@@ -354,10 +347,7 @@ namespace QuickImageComment
 
             // key words
             theUserControlKeyWords.textBoxFreeInputKeyWords.Text = "";
-            for (int ii = 0; ii < theUserControlKeyWords.checkedListBoxPredefKeyWords.Items.Count; ii++)
-            {
-                theUserControlKeyWords.checkedListBoxPredefKeyWords.SetItemChecked(ii, false);
-            }
+            theUserControlKeyWords.uncheckTreeViewPredefKeyWords();
             InitialKeyWords = theUserControlKeyWords.getKeyWordsArrayList();
 
             clearFlagsIndicatingUserChangesAndDisableSave();
@@ -489,13 +479,13 @@ namespace QuickImageComment
             }
         }
 
-        private void checkedListBoxPredefKeyWords_ItemCheck(object sender, ItemCheckEventArgs e)
+        private void treeViewPredefKeyWords_AfterCheck(object sender, TreeViewEventArgs e)
         {
             keyWordsUserChanged = true;
             setSaveButtonEnabled(true);
         }
 
-        private void checkedListBoxPredefKeyWords_KeyDown(object sender, KeyEventArgs theKeyEventArgs)
+        private void treeViewPredefKeyWords_KeyDown(object sender, KeyEventArgs theKeyEventArgs)
         {
             if (theKeyEventArgs.KeyCode == Keys.Escape)
             {

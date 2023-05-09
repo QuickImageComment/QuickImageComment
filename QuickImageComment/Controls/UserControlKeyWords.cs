@@ -16,53 +16,96 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace QuickImageComment
 {
     public partial class UserControlKeyWords : UserControl
     {
+        private ArrayList PredefinedKeyWordsTrimmed;
+
         public UserControlKeyWords()
         {
             InitializeComponent();
+
+            treeViewPredefKeyWords.Scrollable = true;
 
             // when anchor is set in the same way in designer, textbox is not scaled properly for higher dpi than 96
             this.textBoxFreeInputKeyWords.Anchor = (System.Windows.Forms.AnchorStyles.Bottom |
                 System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Top);
 
             // fill checked list box with key words
-            fillCheckedListBoxPredefKeyWords();
+            fillTreeViewPredefKeyWords();
         }
 
         // fill checked list box with key words
-        internal void fillCheckedListBoxPredefKeyWords()
+        internal void fillTreeViewPredefKeyWords()
         {
-            checkedListBoxPredefKeyWords.Items.Clear();
+            treeViewPredefKeyWords.Nodes.Clear();
+            int lastIndent = 0;
+            SortedList<int, TreeNode> ReferenceNodes = new SortedList<int, TreeNode> ();
+            PredefinedKeyWordsTrimmed = new ArrayList();
+
             foreach (string keyWord in ConfigDefinition.getPredefinedKeyWords())
             {
-                checkedListBoxPredefKeyWords.Items.Add(keyWord);
+                string keyWordTrim = keyWord.TrimStart();
+                PredefinedKeyWordsTrimmed.Add(keyWordTrim);
+
+                TreeNode newNode = new TreeNode (keyWordTrim);
+                int newIndent = keyWord.Length - keyWordTrim.Length;
+
+                if (newIndent < lastIndent)
+                {
+                    // remove references between newIndent and lastIndent
+                    for (int ii = newIndent; ii <= lastIndent; ii++)
+                    {
+                        if (ReferenceNodes.ContainsKey(ii)) ReferenceNodes.Remove(ii);
+                    }
+
+                    // find node with next lower indent
+                    int jj = newIndent - 1;
+                    while (!ReferenceNodes.ContainsKey(jj) && jj > 0) jj--;
+                    if (jj > 0)
+                        ReferenceNodes[jj].Nodes.Add(newNode);
+                    else
+                        treeViewPredefKeyWords.Nodes.Add(newNode);
+                }
+                else if (newIndent > lastIndent)
+                {
+                    ReferenceNodes[lastIndent].Nodes.Add(newNode);
+                }
+                else if (newIndent == 0)
+                {
+                    treeViewPredefKeyWords.Nodes.Add(newNode);
+                }
+                else // newIndent == lastIndent && newIndent > 0
+                {
+                    ReferenceNodes[newIndent].Parent.Nodes.Add(newNode);
+                }
+                lastIndent = newIndent;
+                if (ReferenceNodes.ContainsKey(newIndent))
+                    ReferenceNodes[newIndent] = newNode;
+                else
+                    ReferenceNodes.Add(newIndent, newNode);
             }
+            treeViewPredefKeyWords.ExpandAll();
         }
 
         // display key words in the respective controls
         internal void displayKeyWords(ArrayList KeyWords)
         {
             textBoxFreeInputKeyWords.Text = "";
-            foreach (int ii in checkedListBoxPredefKeyWords.CheckedIndices)
+            foreach (TreeNode treeNode in treeViewPredefKeyWords.Nodes)
             {
-                checkedListBoxPredefKeyWords.SetItemChecked(ii, false);
+                checkTreeNodesIfMatch(treeNode, KeyWords);
             }
 
             foreach (string keyWord in KeyWords)
             {
                 if (keyWord.Length > 0)
                 {
-                    int indexKeyWord = checkedListBoxPredefKeyWords.Items.IndexOf(keyWord);
-                    if (indexKeyWord > -1)
-                    {
-                        checkedListBoxPredefKeyWords.SetItemChecked(indexKeyWord, true);
-                    }
-                    else
+                    if (!PredefinedKeyWordsTrimmed.Contains(keyWord))
                     {
                         textBoxFreeInputKeyWords.Text = textBoxFreeInputKeyWords.Text + keyWord + "\r\n";
                     }
@@ -70,13 +113,44 @@ namespace QuickImageComment
             }
         }
 
-        // returns array list containing key words based on textBoxFreeInputKeyWords and checkedListBoxPredefKeyWords
+        // uncheck tree view predefined key words
+        internal void uncheckTreeViewPredefKeyWords()
+        {
+            foreach (TreeNode treeNode in treeViewPredefKeyWords.Nodes)
+            {
+               uncheckTreeNodes(treeNode);
+            }
+
+        }
+
+        // uncheck all tree nodes
+        private void uncheckTreeNodes(TreeNode treeNode)
+        {
+            treeNode.Checked = false;
+            foreach (TreeNode child in treeNode.Nodes)
+            {
+                uncheckTreeNodes(child);
+            }
+        }
+
+        // check tree nodes which match to key words
+        private void checkTreeNodesIfMatch(TreeNode treeNode, ArrayList KeyWords)
+        {
+            treeNode.Checked = KeyWords.Contains(treeNode.Text);
+            foreach (TreeNode child in treeNode.Nodes)
+            {
+                checkTreeNodesIfMatch(child, KeyWords);
+            }
+        }
+
+        // returns array list containing key words based on textBoxFreeInputKeyWords and treeViewPredefKeyWords
         internal ArrayList getKeyWordsArrayList()
         {
             ArrayList theKeywords = new ArrayList();
-            foreach (string keyWord in checkedListBoxPredefKeyWords.CheckedItems)
+
+            foreach (TreeNode treeNode in treeViewPredefKeyWords.Nodes)
             {
-                theKeywords.Add(keyWord);
+                getCheckedKeyWords(treeNode, theKeywords);
             }
             string[] KeyWords = textBoxFreeInputKeyWords.Text.Split(new string[] { "\r\n" }, StringSplitOptions.None);
             for (int jj = 0; jj < KeyWords.Length; jj++)
@@ -90,11 +164,20 @@ namespace QuickImageComment
             return theKeywords;
         }
 
+        private void getCheckedKeyWords(TreeNode treeNode, ArrayList theKeywords)
+        {
+            if (treeNode.Checked) theKeywords.Add(treeNode.Text);
+            foreach (TreeNode child in treeNode.Nodes)
+            {
+                getCheckedKeyWords(child, theKeywords);
+            }
+        }
+
         // set controls enabled or disabled
         internal void setInputControlsEnabled(bool enable)
         {
             textBoxFreeInputKeyWords.Enabled = enable;
-            checkedListBoxPredefKeyWords.Enabled = enable;
+            treeViewPredefKeyWords.Enabled = enable;
         }
     }
 }
