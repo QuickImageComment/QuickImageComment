@@ -90,6 +90,7 @@
             this.treeViewPredefKeyWords.Name = "treeViewPredefKeyWords";
             this.treeViewPredefKeyWords.Size = new System.Drawing.Size(363, 276);
             this.treeViewPredefKeyWords.TabIndex = 1;
+            this.treeViewPredefKeyWords.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.treeViewPredefKeyWords_AfterCheck);
             // 
             // UserControlKeyWords
             // 

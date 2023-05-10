@@ -54,7 +54,6 @@ namespace QuickImageComment
 
                 TreeNode newNode = new TreeNode (keyWordTrim);
                 int newIndent = keyWord.Length - keyWordTrim.Length;
-
                 if (newIndent < lastIndent)
                 {
                     // remove references between newIndent and lastIndent
@@ -66,7 +65,7 @@ namespace QuickImageComment
                     // find node with next lower indent
                     int jj = newIndent - 1;
                     while (!ReferenceNodes.ContainsKey(jj) && jj > 0) jj--;
-                    if (jj > 0)
+                    if (jj >= 0)
                         ReferenceNodes[jj].Nodes.Add(newNode);
                     else
                         treeViewPredefKeyWords.Nodes.Add(newNode);
@@ -178,6 +177,22 @@ namespace QuickImageComment
         {
             textBoxFreeInputKeyWords.Enabled = enable;
             treeViewPredefKeyWords.Enabled = enable;
+        }
+
+        // cascade check nodes up and down
+        private void treeViewPredefKeyWords_AfterCheck(object sender, TreeViewEventArgs e)
+        {
+            if (e.Node.Checked)
+            {
+                if (e.Node.Parent != null) e.Node.Parent.Checked = true;
+            }
+            else
+            {
+                foreach (TreeNode child in e.Node.Nodes)
+                {
+                    child.Checked = false;
+                }
+            }
         }
     }
 }
