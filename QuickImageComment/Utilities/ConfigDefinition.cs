@@ -139,7 +139,8 @@ namespace QuickImageComment
             FormImageWindowSplitContainer1OrientationVertical,
             FormImageWindowSplitContainer1Panel2Collapsed,
             SaveFindDataTable,
-            UseWebView2
+            UseWebView2,
+            HintUsingNotPredefKeyWord
         };
 
         public enum enumCfgUserInt
@@ -261,6 +262,7 @@ namespace QuickImageComment
         // to avoid conflicts when using 4.55 and previous versions, 4.55 writes key words with other prefix
         private static ArrayList PredefinedKeyWordsWithoutHierarchy;
         private static ArrayList PredefinedKeyWords;
+        private static ArrayList PredefinedKeyWordsTrimmed;
         private static ArrayList UserButtonDefinitions;
         private static ArrayList XmpLangAltNames;
         private static ArrayList FormSelectFolderLastFolders;
@@ -504,6 +506,7 @@ namespace QuickImageComment
             ConfigItems.Add(enumCfgUserBool.FormImageWindowSplitContainer1Panel2Collapsed.ToString(), false);
             ConfigItems.Add(enumCfgUserBool.SaveFindDataTable.ToString(), false);
             ConfigItems.Add(enumCfgUserBool.UseWebView2.ToString(), false);
+            ConfigItems.Add(enumCfgUserBool.HintUsingNotPredefKeyWord.ToString(), false);
 
             ConfigItems.Add(enumCfgUserString.LastCheckForNewVersion.ToString(), "not configured");
             ConfigItems.Add(enumCfgUserString.NextCheckForNewVersion.ToString(), "not configured");
@@ -2390,20 +2393,9 @@ namespace QuickImageComment
         {
             return PredefinedKeyWords;
         }
-        public static void setPredefinedKeyWords(ArrayList NewPredefinedKeyWords)
+        public static ArrayList getPredefinedKeyWordsTrimmed()
         {
-            PredefinedKeyWords = NewPredefinedKeyWords;
-        }
-
-        // get key words text for display in FormPredefinedKeyWords
-        public static string getPredefinedKeyWordsText()
-        {
-            string PredefinedKeyWordsText = "";
-            foreach (string keyWord in ConfigDefinition.getPredefinedKeyWords())
-            {
-                PredefinedKeyWordsText = PredefinedKeyWordsText + "\r\n" + keyWord;
-            }
-            return PredefinedKeyWordsText;
+            return PredefinedKeyWordsTrimmed;
         }
 
         // set predefined key words, used from FormPredefinedKeyWords
@@ -2440,6 +2432,7 @@ namespace QuickImageComment
                 WorkText = WorkText.Substring(IndexEOL + 2);
                 IndexEOL = WorkText.IndexOf("\r\n");
             }
+            fillPredefinedKeyWordsTrimmed();
             return duplicates;
         }
 
@@ -2502,6 +2495,8 @@ namespace QuickImageComment
                     lineNo++;
                 }
                 StreamIn.Close();
+
+                fillPredefinedKeyWordsTrimmed();
 #if !DEBUG
                 }
                 catch (Exception ex)
@@ -2946,6 +2941,16 @@ namespace QuickImageComment
             else
             {
                 return true;
+            }
+        }
+
+        // fill trimmed predefined key words
+        private static void fillPredefinedKeyWordsTrimmed()
+        {
+            PredefinedKeyWordsTrimmed = new ArrayList();
+            foreach (string keyWord in PredefinedKeyWords)
+            {
+                PredefinedKeyWordsTrimmed.Add(keyWord.Trim());
             }
         }
 

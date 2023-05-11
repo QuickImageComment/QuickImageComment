@@ -2390,6 +2390,8 @@ namespace QuickImageComment
                     disableEventHandlersRecogniseUserInput();
                     theUserControlKeyWords.displayKeyWords(theExtendedImage.getIptcKeyWordsArrayList());
                     enableEventHandlersRecogniseUserInput();
+                    // redisplay properties as status of hint for not predefined key words may have changed
+                    displayProperties();
                 }
             }
         }
@@ -3657,6 +3659,12 @@ namespace QuickImageComment
             bool singleEdit = theUserControlFiles.listViewFiles.SelectedItems.Count == 1;
 
             DataGridViewOverview.Rows.Clear();
+
+            // following method includes filling meta data warnings, which depend on settings
+            // so call it again before displaying properties as settings may have changed since reading file
+            // this is not relevant for changes in FormSettings, because then folder is read again for other reasons
+            // but it is necessary when HintUsingNotPredefKeyWord is changed in FormPredefinedKeyWords
+            theExtendedImage.setOldArtistAndCommentAndOtherInternalTags();
 
             if (theExtendedImage.getIsVideo())
             {

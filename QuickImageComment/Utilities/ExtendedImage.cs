@@ -239,6 +239,9 @@ namespace QuickImageComment
         // Array for complete content of text-File
         private ArrayList TxtEntries;
         // Array for warnings created during read of meta data
+        private ArrayList MetaDataWarningsRead;
+        // Array for warnings created during read of meta data and analyzing
+        // includes MetaDataWarningsRead plus warnings which depend on settings and are determined after read
         private ArrayList MetaDataWarnings;
         // separate message for display image error
         string DisplayImageErrorMessage = "";
@@ -440,7 +443,7 @@ namespace QuickImageComment
             XmpMetaDataLangItems = new SortedList();
             XmpMetaDataStructItems = new SortedList();
             XmpLangAltEntries = new ArrayList();
-            MetaDataWarnings = new ArrayList();
+            MetaDataWarningsRead = new ArrayList();
 
             // Initialise other meta data items with key
             // filling keys from InternalMetaDataDefinitions ensures that hard coded meta data
@@ -458,7 +461,7 @@ namespace QuickImageComment
 #if !PLATFORMTARGET_X64
             if (FileSize > 2048 * 1024)
             {
-                MetaDataWarnings.Add(new MetaDataWarningItem(LangCfg.translate("Video", "ExtendedImage"), LangCfg.getText(LangCfg.Others.fileSize32Bit)));
+                MetaDataWarningsRead.Add(new MetaDataWarningItem(LangCfg.translate("Video", "ExtendedImage"), LangCfg.getText(LangCfg.Others.fileSize32Bit)));
             }
             else
             {
@@ -477,7 +480,7 @@ namespace QuickImageComment
                         status = exiv2readImageByFileName(ImageFileName, iniPath, ref comment, ref IptcUTF8, ref errorText);
                         if (!errorText.Equals("") && !ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.HideExiv2Error))
                         {
-                            MetaDataWarnings.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error), errorText));
+                            MetaDataWarningsRead.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error), errorText));
                         }
 
                         // read Exif, Iptc and XMP only, if exiv2readImageByFileName did not return with exception
@@ -590,7 +593,7 @@ namespace QuickImageComment
             // get error text - if loop ended by error
             if (!errorText.Equals("") && !ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.HideExiv2Error))
             {
-                MetaDataWarnings.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error), errorText));
+                MetaDataWarningsRead.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error), errorText));
             }
 
             // get Exif Easy data
@@ -610,7 +613,7 @@ namespace QuickImageComment
             // get error text - if loop ended by error
             if (!errorText.Equals("") && !ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.HideExiv2Error))
             {
-                MetaDataWarnings.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error), errorText));
+                MetaDataWarningsRead.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error), errorText));
             }
 
             // get Iptc data
@@ -628,7 +631,7 @@ namespace QuickImageComment
             // get error text - if loop ended by error
             if (!errorText.Equals("") && !ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.HideExiv2Error))
             {
-                MetaDataWarnings.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error), errorText));
+                MetaDataWarningsRead.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error), errorText));
             }
 
             // get Xmp data
@@ -646,7 +649,7 @@ namespace QuickImageComment
             // get error text - if loop ended by error
             if (!errorText.Equals("") && !ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.HideExiv2Error))
             {
-                MetaDataWarnings.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error), errorText));
+                MetaDataWarningsRead.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error), errorText));
             }
         }
 
@@ -695,7 +698,7 @@ namespace QuickImageComment
                     // get error text - if loop ended by error
                     if (!errorText.Equals("") && !ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.HideExiv2Error))
                     {
-                        MetaDataWarnings.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error), errorText));
+                        MetaDataWarningsRead.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error), errorText));
                     }
                 }
                 else if (key.StartsWith("ExifEasy."))
@@ -720,7 +723,7 @@ namespace QuickImageComment
                     // get error text
                     if (!errorText.Equals("") && !ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.HideExiv2Error))
                     {
-                        MetaDataWarnings.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error), errorText));
+                        MetaDataWarningsRead.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error), errorText));
                     }
                 }
                 else if (key.StartsWith("Iptc."))
@@ -744,7 +747,7 @@ namespace QuickImageComment
                     // get error text - if loop ended by error
                     if (!errorText.Equals("") && !ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.HideExiv2Error))
                     {
-                        MetaDataWarnings.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error), errorText));
+                        MetaDataWarningsRead.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error), errorText));
                     }
                 }
                 else if (key.StartsWith("Xmp."))
@@ -792,7 +795,7 @@ namespace QuickImageComment
                 // get error text - if loop ended by error
                 if (!errorText.Equals("") && !ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.HideExiv2Error))
                 {
-                    MetaDataWarnings.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error), errorText));
+                    MetaDataWarningsRead.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error), errorText));
                 }
             }
         }
@@ -1201,8 +1204,10 @@ namespace QuickImageComment
         }
 
         // set the values for old artist and comment and other internal tags
-        private void setOldArtistAndCommentAndOtherInternalTags()
+        // includes tags, whose value depend on settings
+        internal void setOldArtistAndCommentAndOtherInternalTags()
         {
+            MetaDataWarnings = new ArrayList(MetaDataWarningsRead);
             artistDifferentEntries = false;
             commentDifferentEntries = false;
 
@@ -1218,6 +1223,20 @@ namespace QuickImageComment
 
             addReplaceOtherMetaDataKnownType("Image.ArtistCombinedFields", combinedFieldValues(ConfigDefinition.getAllTagNamesArtist(), null, null));
             addReplaceOtherMetaDataKnownType("Image.CommentCombinedFields", combinedFieldValues(ConfigDefinition.getAllTagNamesComment(), null, null));
+
+            if (ConfigDefinition.getCfgUserBool(ConfigDefinition.enumCfgUserBool.HintUsingNotPredefKeyWord))
+            {
+                ArrayList PredefinedKeyWordsTrimmed = ConfigDefinition.getPredefinedKeyWordsTrimmed();
+                foreach (string keyWord in getIptcKeyWordsArrayList())
+                {
+                    if (!PredefinedKeyWordsTrimmed.Contains(keyWord))
+                    {
+                        MetaDataWarnings.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.IptcKeyWords),
+                                                                     LangCfg.getText(LangCfg.Others.notPredefinedKeyWordsUsed)));
+                        break;
+                    }
+                }
+            }
 
             if (MetaDataWarnings.Count > 0)
             {
@@ -1678,7 +1697,7 @@ namespace QuickImageComment
                 string keyStringIndex = keyString + keyIndex.ToString();
                 while (MetaDataItems.ContainsKey(keyStringIndex))
                 {
-                    MetaDataWarnings.Add(new MetaDataWarningItem(keyString, LangCfg.getText(LangCfg.Others.multipleEntryIgnored) + ": " + value));
+                    MetaDataWarningsRead.Add(new MetaDataWarningItem(keyString, LangCfg.getText(LangCfg.Others.multipleEntryIgnored) + ": " + value));
                     theMetaDataItem = (MetaDataItem)MetaDataItems[keyStringIndex];
                     value = theMetaDataItem.getValueForDisplay(FormatSpecification);
                     keyIndex++;
@@ -1888,15 +1907,20 @@ namespace QuickImageComment
             if (!found)
             {
                 // search in all meta data
-                string Keyii;
-                int ii = 1;
 
-                ReturnArrayList.Add(getMetaDataValueByKey(Key, FormatSpecification));
-                while (metaDataItemsContainKey(GeneralUtilities.nameUniqueWithRunningNumber(Key, ii)))
+                string value = getMetaDataValueByKey(Key, FormatSpecification);
+                if (!value.Equals(""))
                 {
-                    Keyii = GeneralUtilities.nameUniqueWithRunningNumber(Key, ii);
-                    ReturnArrayList.Add(getMetaDataValueByKey(Keyii, FormatSpecification));
-                    ii = ii + 1;
+                    string Keyii;
+                    int ii = 1;
+
+                    ReturnArrayList.Add(value);
+                    while (metaDataItemsContainKey(GeneralUtilities.nameUniqueWithRunningNumber(Key, ii)))
+                    {
+                        Keyii = GeneralUtilities.nameUniqueWithRunningNumber(Key, ii);
+                        ReturnArrayList.Add(getMetaDataValueByKey(Keyii, FormatSpecification));
+                        ii = ii + 1;
+                    }
                 }
             }
             return ReturnArrayList;

@@ -49,6 +49,8 @@ namespace QuickImageComment
                 }
             }
             textBoxPredefinedKeyWords.Text = keyWordsText;
+            checkBoxHintUsingNotPredef.Checked = ConfigDefinition.getCfgUserBool(ConfigDefinition.enumCfgUserBool.HintUsingNotPredefKeyWord);
+
             CustomizationInterface.setFormToCustomizedValuesZoomInitial(this);
 
             LangCfg.translateControlTexts(this);
@@ -74,6 +76,7 @@ namespace QuickImageComment
         //*****************************************************************
         private void buttonOK_Click(object sender, System.EventArgs e)
         {
+            ConfigDefinition.setCfgUserBool(ConfigDefinition.enumCfgUserBool.HintUsingNotPredefKeyWord, checkBoxHintUsingNotPredef.Checked);
             string duplicates = ConfigDefinition.setPredefinedKeyWordsByTextReturnDuplicates(textBoxPredefinedKeyWords.Text);
             if (duplicates.Equals(""))
             {

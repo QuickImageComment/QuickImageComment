@@ -56,12 +56,14 @@ namespace QuickImageComment
             this.label1 = new System.Windows.Forms.Label();
             this.buttonCustomizeForm = new System.Windows.Forms.Button();
             this.buttonHelp = new System.Windows.Forms.Button();
+            this.checkBoxHintUsingNotPredef = new System.Windows.Forms.CheckBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // buttonOK
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonOK.Location = new System.Drawing.Point(112, 339);
+            this.buttonOK.Location = new System.Drawing.Point(112, 378);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(99, 26);
             this.buttonOK.TabIndex = 3;
@@ -72,7 +74,7 @@ namespace QuickImageComment
             // buttonAbort
             // 
             this.buttonAbort.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonAbort.Location = new System.Drawing.Point(216, 339);
+            this.buttonAbort.Location = new System.Drawing.Point(216, 378);
             this.buttonAbort.Name = "buttonAbort";
             this.buttonAbort.Size = new System.Drawing.Size(99, 26);
             this.buttonAbort.TabIndex = 4;
@@ -89,7 +91,7 @@ namespace QuickImageComment
             this.textBoxPredefinedKeyWords.Multiline = true;
             this.textBoxPredefinedKeyWords.Name = "textBoxPredefinedKeyWords";
             this.textBoxPredefinedKeyWords.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxPredefinedKeyWords.Size = new System.Drawing.Size(413, 306);
+            this.textBoxPredefinedKeyWords.Size = new System.Drawing.Size(413, 295);
             this.textBoxPredefinedKeyWords.TabIndex = 1;
             // 
             // label1
@@ -104,7 +106,7 @@ namespace QuickImageComment
             // buttonCustomizeForm
             // 
             this.buttonCustomizeForm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonCustomizeForm.Location = new System.Drawing.Point(7, 339);
+            this.buttonCustomizeForm.Location = new System.Drawing.Point(7, 378);
             this.buttonCustomizeForm.Name = "buttonCustomizeForm";
             this.buttonCustomizeForm.Size = new System.Drawing.Size(99, 26);
             this.buttonCustomizeForm.TabIndex = 2;
@@ -115,7 +117,7 @@ namespace QuickImageComment
             // buttonHelp
             // 
             this.buttonHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonHelp.Location = new System.Drawing.Point(321, 339);
+            this.buttonHelp.Location = new System.Drawing.Point(321, 378);
             this.buttonHelp.Name = "buttonHelp";
             this.buttonHelp.Size = new System.Drawing.Size(99, 26);
             this.buttonHelp.TabIndex = 5;
@@ -123,11 +125,35 @@ namespace QuickImageComment
             this.buttonHelp.UseVisualStyleBackColor = true;
             this.buttonHelp.Click += new System.EventHandler(this.buttonHelp_Click);
             // 
+            // checkBoxHintUsingNotPredef
+            // 
+            this.checkBoxHintUsingNotPredef.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.checkBoxHintUsingNotPredef.AutoSize = true;
+            this.checkBoxHintUsingNotPredef.Location = new System.Drawing.Point(7, 328);
+            this.checkBoxHintUsingNotPredef.Name = "checkBoxHintUsingNotPredef";
+            this.checkBoxHintUsingNotPredef.Size = new System.Drawing.Size(409, 17);
+            this.checkBoxHintUsingNotPredef.TabIndex = 6;
+            this.checkBoxHintUsingNotPredef.Text = "Hinweis im Reiter Übersicht, wenn Bild nicht vordefinierte Schlüsselworte enthält" +
+    "";
+            this.checkBoxHintUsingNotPredef.UseVisualStyleBackColor = true;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(24, 346);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(298, 26);
+            this.label2.TabIndex = 7;
+            this.label2.Text = "Wenn ausgewählt, können diese Bilder auch gesucht werden\r\n(Feld Image.MetaDataWar" +
+    "nings)";
+            // 
             // FormPredefinedKeyWords
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(432, 371);
+            this.ClientSize = new System.Drawing.Size(432, 410);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.checkBoxHintUsingNotPredef);
             this.Controls.Add(this.buttonHelp);
             this.Controls.Add(this.buttonCustomizeForm);
             this.Controls.Add(this.buttonAbort);
@@ -151,6 +177,7 @@ namespace QuickImageComment
     private System.Windows.Forms.Label label1;
     private System.Windows.Forms.Button buttonCustomizeForm;
     private System.Windows.Forms.Button buttonHelp;
-
-  }
+        private System.Windows.Forms.CheckBox checkBoxHintUsingNotPredef;
+        private System.Windows.Forms.Label label2;
+    }
 }

@@ -320,7 +320,9 @@ namespace QuickImageComment
             invalidMenuReference,
             imageReadError,
             selectProgram,
-            editExternalProgramFilter
+            editExternalProgramFilter,
+            IptcKeyWords,
+            notPredefinedKeyWordsUsed
         }
 
         // defined as variable

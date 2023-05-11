@@ -45,12 +45,11 @@ namespace QuickImageComment
             treeViewPredefKeyWords.Nodes.Clear();
             int lastIndent = 0;
             SortedList<int, TreeNode> ReferenceNodes = new SortedList<int, TreeNode> ();
-            PredefinedKeyWordsTrimmed = new ArrayList();
+            PredefinedKeyWordsTrimmed = ConfigDefinition.getPredefinedKeyWordsTrimmed();
 
             foreach (string keyWord in ConfigDefinition.getPredefinedKeyWords())
             {
                 string keyWordTrim = keyWord.TrimStart();
-                PredefinedKeyWordsTrimmed.Add(keyWordTrim);
 
                 TreeNode newNode = new TreeNode (keyWordTrim);
                 int newIndent = keyWord.Length - keyWordTrim.Length;
