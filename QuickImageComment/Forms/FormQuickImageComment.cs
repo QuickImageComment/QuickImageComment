@@ -1187,6 +1187,20 @@ namespace QuickImageComment
             setControlsEnabledBasedOnDataChange();
         }
 
+        // cell mouse enter event handler for DataGridViewOverview
+        private void DataGridViewOverview_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0 && e.ColumnIndex == 1 && DataGridViewOverview.Rows[e.RowIndex].Cells[1].Value != null)
+                    toolTip1.ShowAtOffset(DataGridViewOverview.Rows[e.RowIndex].Cells[1].Value.ToString(), this);
+        }
+
+        // cell mouse leave event handler for DataGridViewOverview
+        private void DataGridViewOverview_CellMouseLeave(object sender, DataGridViewCellEventArgs e)
+        {
+            toolTip1.Hide(this);
+        }
+
+
         // event handler triggered when text in text box is changed to recognise user changes
         private void dynamicComboBoxArtist_TextChanged(object sender, System.EventArgs theEventArgs)
         {

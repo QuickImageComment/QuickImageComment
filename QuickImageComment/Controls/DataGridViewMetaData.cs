@@ -352,7 +352,7 @@ namespace QuickImageCommentControls
                 this.Rows[rowIndex].Cells[5].Value = aMetaDataItem.getKey();
                 this.Rows[rowIndex].Cells[0].ToolTipText = "";
 
-                if (aMetaDataItem.isEditableInDataGridView() && 
+                if (aMetaDataItem.isEditableInDataGridView() &&
                     singleEdit)
                 {
                     // store original value in tag to allow restore
@@ -650,9 +650,12 @@ namespace QuickImageCommentControls
 
         private void DataGridViewMetaData_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == 0 && e.RowIndex >= 0)
+            if (e.RowIndex >= 0)
             {
-                toolTip.ShowAtOffset(Rows[e.RowIndex].Cells[0].ToolTipText, this);
+                if (e.ColumnIndex == 0)
+                    toolTip.ShowAtOffset(Rows[e.RowIndex].Cells[0].ToolTipText, this);
+                else if (e.ColumnIndex == 1 && Rows[e.RowIndex].Cells[1].Value != null)
+                    toolTip.ShowAtOffset(Rows[e.RowIndex].Cells[1].Value.ToString(), this);
             }
         }
 

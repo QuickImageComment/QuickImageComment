@@ -623,6 +623,8 @@ namespace QuickImageComment
             this.DataGridViewOverview.RowTemplate.Height = 18;
             this.DataGridViewOverview.Size = new System.Drawing.Size(271, 166);
             this.DataGridViewOverview.TabIndex = 0;
+            this.DataGridViewOverview.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridViewOverview_CellMouseEnter);
+            this.DataGridViewOverview.CellMouseLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridViewOverview_CellMouseLeave);
             this.DataGridViewOverview.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridViewsMetaData_CellValueChanged);
             this.DataGridViewOverview.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DataGridViewsMetaData_KeyDown);
             // 
