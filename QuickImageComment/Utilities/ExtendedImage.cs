@@ -1254,6 +1254,12 @@ namespace QuickImageComment
             {
                 addReplaceOtherMetaDataKnownType("Image.MetaDataWarnings", "");
             }
+
+            // adding a row here when initial fill of data table is running results in duplicate key errors
+            if (!FormFind.initialFillDataTableRunning())
+            {
+                FormFind.addOrUpdateRow(this);
+            }
         }
 
         // get first non-blank value from fields according setting

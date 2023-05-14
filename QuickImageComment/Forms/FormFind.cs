@@ -66,6 +66,10 @@ namespace QuickImageComment
         private bool filterDefinitionsComplete = false;
         private static ArrayList MetaDataDefinitionsToRead;
 
+        private static bool initialisationCompleted = false;
+        private static bool initDataTableRunning = false;
+        private static string exceptionLoadDataTable = "";
+
         // definitions used with background worker
         // used to show passed time when reading folder
         private DateTime startTime1;
@@ -108,7 +112,7 @@ namespace QuickImageComment
                 : base() { }
         }
 
-        public FormFind()
+        public FormFind(bool completeInitialisation)
         {
             InitializeComponent();
             dynamicLabelScanInformation.Visible = false;
@@ -132,6 +136,12 @@ namespace QuickImageComment
             {
                 loadDataTable();
             }
+
+            if (completeInitialisation) init();
+        }
+
+        private void init()
+        {
             dataGridView1.Visible = checkBoxShowDataTable.Checked;
             buttonAbort.Select();
             CustomizationInterface = MainMaskInterface.getCustomizationInterface();
@@ -168,11 +178,18 @@ namespace QuickImageComment
                 LangCfg.translateControlTexts(this);
                 return;
             }
+
+            if (!exceptionLoadDataTable.Equals(""))
+            {
+                GeneralUtilities.message(LangCfg.Message.W_findDataTableNotRead, exceptionLoadDataTable);
+            }
+            initialisationCompleted = true;
         }
 
         // set folder and controls enable/disable based on data table (empty or not), then show dialog
         public void setFolderDependingControlsAndShowDialog(string givenFolderName)
         {
+            if (!initialisationCompleted) init();
 #if APPCENTER
             if (Program.AppCenterUsable) Microsoft.AppCenter.Analytics.Analytics.TrackEvent(this.Name);
 #endif
@@ -935,6 +952,7 @@ namespace QuickImageComment
 
             startTime2 = DateTime.Now;
             exportedCount = 0;
+            initDataTableRunning = true;
 
             lock (LockDataTable)
             {
@@ -963,6 +981,7 @@ namespace QuickImageComment
                     }
                 }
             }
+            initDataTableRunning = false;
         }
 
         private void backgroundWorkerInit_ProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)
@@ -1396,6 +1415,13 @@ namespace QuickImageComment
             //!! mit lock, backgroundworker stoppen
             dataTable = null;
         }
+
+        // check if init fill of data table is running
+        public static bool initialFillDataTableRunning()
+        {
+            return initDataTableRunning;
+        }
+
         #endregion
 
         //*****************************************************************
@@ -1736,7 +1762,7 @@ namespace QuickImageComment
                 }
                 catch (Exception ex)
                 {
-                    GeneralUtilities.message(LangCfg.Message.W_findDataTableNotRead, ex.Message);
+                    exceptionLoadDataTable = ex.Message;
                 }
             }
         }

@@ -773,6 +773,13 @@ namespace QuickImageComment
                 FormChangesInVersion theFormChangesInVersion = new FormChangesInVersion();
                 theFormChangesInVersion.Show();
             }
+
+            // instantiate FormFind (no show) to load/update data table
+            if (ConfigDefinition.getCfgUserBool(ConfigDefinition.enumCfgUserBool.SaveFindDataTable))
+            {
+                formFind = new FormFind(false);
+            }
+
             //CustomizationInterface.checkFontSize(this, this.Font.Size);
         }
 
@@ -2416,7 +2423,7 @@ namespace QuickImageComment
             if (continueAfterCheckForChangesAndOptionalSaving(theUserControlFiles.listViewFiles.SelectedIndices))
             {
                 // if mask not yet created, create it; else use existing mask with all inputs from last usage
-                if (formFind == null) formFind = new FormFind();
+                if (formFind == null) formFind = new FormFind(false);
                 formFind.setFolderDependingControlsAndShowDialog(FolderName);
                 if (formFind.findExecuted)
                 {
@@ -6602,7 +6609,7 @@ namespace QuickImageComment
                 // FormErrorAppCenter not needed
                 new FormExportAllMetaData(theUserControlFiles.listViewFiles.SelectedIndices, FolderName);
                 new FormExportMetaData(FolderName);
-                FormFind formFind = new FormFind();
+                FormFind formFind = new FormFind(true);
                 formFind.createScreenShot(FolderName);
                 new FormFindReadErrors();
                 new FormImageDetails(dpiSettings, theExtendedImage);
@@ -6694,7 +6701,7 @@ namespace QuickImageComment
             LangCfg.getListOfControlsWithText(new FormErrorAppCenter(""), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormExportAllMetaData(theUserControlFiles.listViewFiles.SelectedIndices, FolderName), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormExportMetaData(FolderName), ControlTextList);
-            LangCfg.getListOfControlsWithText(new FormFind(), ControlTextList);
+            LangCfg.getListOfControlsWithText(new FormFind(true), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormFindReadErrors(), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormImageDetails(dpiSettings, theExtendedImage), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormImageGrid(), ControlTextList);
@@ -6758,7 +6765,7 @@ namespace QuickImageComment
             new FormErrorAppCenter("");
             new FormExportAllMetaData(theUserControlFiles.listViewFiles.SelectedIndices, FolderName);
             new FormExportMetaData(FolderName);
-            new FormFind();
+            new FormFind(true);
             new FormFindReadErrors();
             new FormFirstAppCenterSettings();
             new FormFirstUserSettings(true);
