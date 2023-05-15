@@ -308,7 +308,7 @@ namespace QuickImageComment
                     filterDefinition.dateTimePicker2.Tag = filterDefinition;
 
                     comboBoxOperator1.Items.AddRange(new object[] { "", "=", "<>", ">", ">=" });
-                    comboBoxOperator2.Items.AddRange(new object[] { "", "<", "<=" });
+                    comboBoxOperator2.Items.AddRange(new object[] { "", "<>", "<", "<=" });
                     comboBoxOperator1.SelectedIndexChanged += new System.EventHandler(this.dynamicComboBoxOperator1_SelectedIndexChanged);
                     comboBoxOperator2.SelectedIndexChanged += new System.EventHandler(this.dynamicComboBoxOperator2_SelectedIndexChanged);
                     dateTimePicker1.Enter += new System.EventHandler(this.dateTimePickerFind_Enter);
@@ -325,7 +325,7 @@ namespace QuickImageComment
 
                     comboBoxOperator1.Left = dynamicLabelFind.Left + maxLabelWidth;
                     comboBoxOperator1.Width = comboBoxOperatorTextWidth;
-                    comboBoxOperator2.Width = comboBoxOperatorNumericWidth;
+                    comboBoxOperator2.Width = comboBoxOperatorTextWidth;
                     setLeftWidthOfRightFilterControls(filterDefinition);
                 }
                 else
@@ -347,7 +347,7 @@ namespace QuickImageComment
 
                     if (metaDataDefinitionItem.FormatPrim == MetaDataItem.Format.Interpreted)
                     {
-                        // operator 1 with string operatores
+                        // operator with string operators
                         comboBoxOperator1.Items.AddRange(new object[] { "", "=", "<>", ">", ">=",
                         LangCfg.getText(LangCfg.Others.selectOpContains),
                         LangCfg.getText(LangCfg.Others.selectOpContainsNot),
@@ -355,13 +355,18 @@ namespace QuickImageComment
                         LangCfg.getText(LangCfg.Others.selectOpStartsNotWith),
                         LangCfg.getText(LangCfg.Others.selectOpEndsWith),
                         LangCfg.getText(LangCfg.Others.selectOpEndsNotWith)});
+                        comboBoxOperator2.Items.AddRange(new object[] { "", "<>", "<", "<=",
+                        LangCfg.getText(LangCfg.Others.selectOpContains),
+                        LangCfg.getText(LangCfg.Others.selectOpContainsNot),
+                        LangCfg.getText(LangCfg.Others.selectOpStartsNotWith),
+                        LangCfg.getText(LangCfg.Others.selectOpEndsNotWith)});
                     }
                     else
                     {
-                        // operator 1 with numeric operators only
+                        // operator with numeric operators only
                         comboBoxOperator1.Items.AddRange(new object[] { "", "=", "<>", ">", ">=" });
+                        comboBoxOperator2.Items.AddRange(new object[] { "", "<>", "<", "<=" });
                     }
-                    comboBoxOperator2.Items.AddRange(new object[] { "", "<", "<=" });
                     comboBoxOperator1.SelectedIndexChanged += new System.EventHandler(this.dynamicComboBoxOperator1_SelectedIndexChanged);
                     comboBoxOperator2.SelectedIndexChanged += new System.EventHandler(this.dynamicComboBoxOperator2_SelectedIndexChanged);
 
@@ -372,7 +377,7 @@ namespace QuickImageComment
 
                     comboBoxOperator1.Left = dynamicLabelFind.Left + maxLabelWidth;
                     comboBoxOperator1.Width = comboBoxOperatorTextWidth;
-                    comboBoxOperator2.Width = comboBoxOperatorNumericWidth;
+                    comboBoxOperator2.Width = comboBoxOperatorTextWidth;
                     setLeftWidthOfRightFilterControls(filterDefinition);
                 }
             }
@@ -690,100 +695,15 @@ namespace QuickImageComment
 
                             addAndSortFindFilterEntries(filterDefinition.comboBoxValue1);
 
-                            if (filterDefinition.comboBoxOperator1.Text.Equals(LangCfg.getText(LangCfg.Others.selectOpContains)))
-                            {
-                                query += " and " + filterDefinition.columnNameForQuery
-                                                 + " like '*" + filterDefinition.comboBoxValue1.Text + "*'";
-                            }
-                            else if (filterDefinition.comboBoxOperator1.Text.Equals(LangCfg.getText(LangCfg.Others.selectOpContainsNot)))
-                            {
-                                query += " and (not " + filterDefinition.columnNameForQuery
-                                                      + " like '*" + filterDefinition.comboBoxValue1.Text + "*'"
-                                                      + " or " + filterDefinition.columnNameForQuery + " is null)";
-                            }
-                            else if (filterDefinition.comboBoxOperator1.Text.Equals(LangCfg.getText(LangCfg.Others.selectOpStartsWith)))
-                            {
-                                query += " and " + filterDefinition.columnNameForQuery
-                                                 + " like '" + filterDefinition.comboBoxValue1.Text + "*'";
-                            }
-                            else if (filterDefinition.comboBoxOperator1.Text.Equals(LangCfg.getText(LangCfg.Others.selectOpStartsNotWith)))
-                            {
-                                query += " and (not " + filterDefinition.columnNameForQuery
-                                                      + " like '" + filterDefinition.comboBoxValue1.Text + "*'"
-                                                      + " or " + filterDefinition.columnNameForQuery + " is null)";
-                            }
-                            else if (filterDefinition.comboBoxOperator1.Text.Equals(LangCfg.getText(LangCfg.Others.selectOpEndsWith)))
-                            {
-                                query += " and " + filterDefinition.columnNameForQuery
-                                                 + " like '*" + filterDefinition.comboBoxValue1.Text + "'";
-                            }
-                            else if (filterDefinition.comboBoxOperator1.Text.Equals(LangCfg.getText(LangCfg.Others.selectOpEndsNotWith)))
-                            {
-                                query += " and (not " + filterDefinition.columnNameForQuery
-                                                      + " like '*" + filterDefinition.comboBoxValue1.Text + "'"
-                                                      + " or " + filterDefinition.columnNameForQuery + " is null)";
-                            }
-                            else
-                            {
-                                MetaDataDefinitionItem aMetaDataDefinitionItem = ((FilterDefinition)filterDefinition.comboBoxValue1.Tag).metaDataDefinitionItem;
-                                if (filterDefinition.comboBoxValue1.Text.Trim().Equals(""))
-                                {
-                                    if (filterDefinition.comboBoxOperator1.Text.Equals("="))
-                                        query += " and " + filterDefinition.columnNameForQuery + " is null";
-                                    else
-                                        query += " and " + filterDefinition.columnNameForQuery + " is not null";
-                                }
-                                else if (GeneralUtilities.isDateProperty(aMetaDataDefinitionItem.KeyPrim, aMetaDataDefinitionItem.TypePrim))
-                                {
-                                    if (filterDefinition.comboBoxOperator1.Text.Equals("="))
-                                    {
-                                        query += " and " + filterDefinition.columnNameForQuery + " >= "
-                                                         + getValueForSelectWithCheck(filterDefinition.comboBoxValue1, DateModifierForSelect.min);
-                                        query += " and " + filterDefinition.columnNameForQuery + " <= "
-                                                         + getValueForSelectWithCheck(filterDefinition.comboBoxValue1, DateModifierForSelect.max);
-                                    }
-                                    else if (filterDefinition.comboBoxOperator1.Text.Equals("<>"))
-                                    {
-                                        query += " and (" + filterDefinition.columnNameForQuery + " < "
-                                                          + getValueForSelectWithCheck(filterDefinition.comboBoxValue1, DateModifierForSelect.min)
-                                                          + " or " + filterDefinition.columnNameForQuery + " > "
-                                                          + getValueForSelectWithCheck(filterDefinition.comboBoxValue1, DateModifierForSelect.max)
-                                                          + " or " + filterDefinition.columnNameForQuery + " is null)";
-                                    }
-                                    else
-                                    {
-                                        DateModifierForSelect dateModifierForSelect = DateModifierForSelect.none;
-                                        if (filterDefinition.comboBoxOperator1.Text.Equals(">"))
-                                            dateModifierForSelect = DateModifierForSelect.max;
-                                        else if (filterDefinition.comboBoxOperator1.Text.Equals(">="))
-                                            dateModifierForSelect = DateModifierForSelect.min;
-                                        else
-                                            throw new Exception("Internal program error: select operator '" + filterDefinition.comboBoxOperator1.Text + "' not handled.");
-
-                                        query += " and " + filterDefinition.columnNameForQuery + " "
-                                                         + filterDefinition.comboBoxOperator1.Text + " "
-                                                         + getValueForSelectWithCheck(filterDefinition.comboBoxValue1, dateModifierForSelect);
-                                    }
-                                }
-                                else if (filterDefinition.comboBoxOperator1.Text.Equals("<>"))
-                                {
-                                    query += " and (" + filterDefinition.columnNameForQuery + " "
-                                                      + filterDefinition.comboBoxOperator1.Text + " "
-                                                      + getValueForSelectWithCheck(filterDefinition.comboBoxValue1, DateModifierForSelect.none)
-                                                      + " or " + filterDefinition.columnNameForQuery + " is null)";
-                                }
-                                else
-                                {
-                                    query += " and " + filterDefinition.columnNameForQuery + " "
-                                                     + filterDefinition.comboBoxOperator1.Text + " "
-                                                     + getValueForSelectWithCheck(filterDefinition.comboBoxValue1, DateModifierForSelect.none);
-                                }
-                            }
+                            addToQuery(filterDefinition.comboBoxOperator1, filterDefinition.comboBoxValue1,
+                                       filterDefinition.columnNameForQuery, ref query);
                         }
 
                         if (filterDefinition.comboBoxOperator2 != null && !filterDefinition.comboBoxOperator2.Text.Equals(""))
                         {
-                            if (filterDefinition.comboBoxValue2.Text.Trim().Equals(""))
+                            if (filterDefinition.comboBoxValue2.Text.Trim().Equals("") &&
+                                !filterDefinition.comboBoxOperator2.Text.Equals("=") &&
+                                !filterDefinition.comboBoxOperator2.Text.Equals("<>"))
                             {
                                 GeneralUtilities.message(LangCfg.Message.W_emptyFindValueNotAllowed2, filterDefinition.metaDataDefinitionItem.Name);
                                 throw new ExceptionFilterError();
@@ -791,17 +711,8 @@ namespace QuickImageComment
 
                             addAndSortFindFilterEntries(filterDefinition.comboBoxValue2);
 
-                            DateModifierForSelect dateModifierForSelect;
-                            if (filterDefinition.comboBoxOperator2.Text.Equals("<"))
-                                dateModifierForSelect = DateModifierForSelect.min;
-                            else if (filterDefinition.comboBoxOperator2.Text.Equals("<="))
-                                dateModifierForSelect = DateModifierForSelect.max;
-                            else
-                                throw new Exception("Internal program error: select operator '" + filterDefinition.comboBoxOperator2.Text + "' not handled.");
-
-                            query += " and " + filterDefinition.columnNameForQuery + " "
-                                             + filterDefinition.comboBoxOperator2.Text + " "
-                                             + getValueForSelectWithCheck(filterDefinition.comboBoxValue2, dateModifierForSelect);
+                            addToQuery(filterDefinition.comboBoxOperator2, filterDefinition.comboBoxValue2,
+                                       filterDefinition.columnNameForQuery, ref query);
                         }
                     }
                 }
@@ -892,6 +803,103 @@ namespace QuickImageComment
                 }
             }
             catch (ExceptionFilterError) { }
+        }
+
+        private void addToQuery(ComboBox comboBoxOperator, ComboBox comboBoxValue, string columnNameForQuery, ref string query)
+        {
+            if (comboBoxOperator.Text.Equals(LangCfg.getText(LangCfg.Others.selectOpContains)))
+            {
+                query += " and " + columnNameForQuery
+                                 + " like '*" + comboBoxValue.Text + "*'";
+            }
+            else if (comboBoxOperator.Text.Equals(LangCfg.getText(LangCfg.Others.selectOpContainsNot)))
+            {
+                query += " and (not " + columnNameForQuery
+                                      + " like '*" + comboBoxValue.Text + "*'"
+                                      + " or " + columnNameForQuery + " is null)";
+            }
+            else if (comboBoxOperator.Text.Equals(LangCfg.getText(LangCfg.Others.selectOpStartsWith)))
+            {
+                query += " and " + columnNameForQuery
+                                 + " like '" + comboBoxValue.Text + "*'";
+            }
+            else if (comboBoxOperator.Text.Equals(LangCfg.getText(LangCfg.Others.selectOpStartsNotWith)))
+            {
+                query += " and (not " + columnNameForQuery
+                                      + " like '" + comboBoxValue.Text + "*'"
+                                      + " or " + columnNameForQuery + " is null)";
+            }
+            else if (comboBoxOperator.Text.Equals(LangCfg.getText(LangCfg.Others.selectOpEndsWith)))
+            {
+                query += " and " + columnNameForQuery
+                                 + " like '*" + comboBoxValue.Text + "'";
+            }
+            else if (comboBoxOperator.Text.Equals(LangCfg.getText(LangCfg.Others.selectOpEndsNotWith)))
+            {
+                query += " and (not " + columnNameForQuery
+                                      + " like '*" + comboBoxValue.Text + "'"
+                                      + " or " + columnNameForQuery + " is null)";
+            }
+            else
+            {
+                MetaDataDefinitionItem aMetaDataDefinitionItem = ((FilterDefinition)comboBoxValue.Tag).metaDataDefinitionItem;
+                if (comboBoxValue.Text.Trim().Equals(""))
+                {
+                    if (comboBoxOperator.Text.Equals("="))
+                        query += " and " + columnNameForQuery + " is null";
+                    else
+                        query += " and " + columnNameForQuery + " is not null";
+                }
+                else if (GeneralUtilities.isDateProperty(aMetaDataDefinitionItem.KeyPrim, aMetaDataDefinitionItem.TypePrim))
+                {
+                    if (comboBoxOperator.Text.Equals("="))
+                    {
+                        query += " and " + columnNameForQuery + " >= "
+                                         + getValueForSelectWithCheck(comboBoxValue, DateModifierForSelect.min);
+                        query += " and " + columnNameForQuery + " <= "
+                                         + getValueForSelectWithCheck(comboBoxValue, DateModifierForSelect.max);
+                    }
+                    else if (comboBoxOperator.Text.Equals("<>"))
+                    {
+                        query += " and (" + columnNameForQuery + " < "
+                                          + getValueForSelectWithCheck(comboBoxValue, DateModifierForSelect.min)
+                                          + " or " + columnNameForQuery + " > "
+                                          + getValueForSelectWithCheck(comboBoxValue, DateModifierForSelect.max)
+                                          + " or " + columnNameForQuery + " is null)";
+                    }
+                    else
+                    {
+                        DateModifierForSelect dateModifierForSelect = DateModifierForSelect.none;
+                        if (comboBoxOperator.Text.Equals(">"))
+                            dateModifierForSelect = DateModifierForSelect.max;
+                        else if (comboBoxOperator.Text.Equals(">="))
+                            dateModifierForSelect = DateModifierForSelect.min;
+                        else if (comboBoxOperator.Text.Equals("<"))
+                            dateModifierForSelect = DateModifierForSelect.min;
+                        else if (comboBoxOperator.Text.Equals("<="))
+                            dateModifierForSelect = DateModifierForSelect.max;
+                        else
+                            throw new Exception("Internal program error: select operator '" + comboBoxOperator.Text + "' not handled.");
+
+                        query += " and " + columnNameForQuery + " "
+                                         + comboBoxOperator.Text + " "
+                                         + getValueForSelectWithCheck(comboBoxValue, dateModifierForSelect);
+                    }
+                }
+                else if (comboBoxOperator.Text.Equals("<>"))
+                {
+                    query += " and (" + columnNameForQuery + " "
+                                      + comboBoxOperator.Text + " "
+                                      + getValueForSelectWithCheck(comboBoxValue, DateModifierForSelect.none)
+                                      + " or " + columnNameForQuery + " is null)";
+                }
+                else
+                {
+                    query += " and " + columnNameForQuery + " "
+                                     + comboBoxOperator.Text + " "
+                                     + getValueForSelectWithCheck(comboBoxValue, DateModifierForSelect.none);
+                }
+            }
         }
 
         // button help
@@ -1250,7 +1258,7 @@ namespace QuickImageComment
                 fd.comboBoxValue2.Enabled = !fd.comboBoxOperator2.Text.Equals("");
                 if (fd.dateTimePicker2 != null) fd.dateTimePicker2.Enabled = !fd.comboBoxOperator2.Text.Equals("");
             }
-            else if (comboBox.Text == ">" || comboBox.Text == ">=")
+            else if (comboBox.Text != "=")
             {
                 fd.comboBoxValue1.Enabled = true;
                 if (fd.dateTimePicker1 != null) fd.dateTimePicker1.Enabled = true;
