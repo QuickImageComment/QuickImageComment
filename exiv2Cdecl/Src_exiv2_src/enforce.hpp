@@ -22,6 +22,7 @@
 
 #include "error.hpp"
 
+namespace Exiv2::Internal {
 /*!
  * @brief Ensure that condition is true, otherwise throw an exception of the
  * type exception_t
@@ -33,22 +34,20 @@
  * all overloads of enforce
  */
 template <typename exception_t, typename T>
-inline void enforce(bool condition, const T& arg1)
-{
-    if (!condition) {
-        throw exception_t(arg1);
-    }
+inline void enforce(bool condition, const T& arg1) {
+  if (!condition) {
+    throw exception_t(arg1);
+  }
 }
 
 /*!
  * @brief Ensure that condition is true, otherwise throw an Exiv2::Error with
  * the given error_code.
  */
-inline void enforce(bool condition, Exiv2::ErrorCode err_code)
-{
-    if (!condition) {
-        throw Exiv2::Error(err_code);
-    }
+inline void enforce(bool condition, Exiv2::ErrorCode err_code) {
+  if (!condition) {
+    throw Exiv2::Error(err_code);
+  }
 }
 
 /*!
@@ -56,11 +55,10 @@ inline void enforce(bool condition, Exiv2::ErrorCode err_code)
  * the given error_code & arg1.
  */
 template <typename T>
-inline void enforce(bool condition, Exiv2::ErrorCode err_code, const T& arg1)
-{
-    if (!condition) {
-        throw Exiv2::Error(err_code, arg1);
-    }
+inline void enforce(bool condition, Exiv2::ErrorCode err_code, const T& arg1) {
+  if (!condition) {
+    throw Exiv2::Error(err_code, arg1);
+  }
 }
 
 /*!
@@ -68,11 +66,10 @@ inline void enforce(bool condition, Exiv2::ErrorCode err_code, const T& arg1)
  * the given error_code, arg1 & arg2.
  */
 template <typename T, typename U>
-inline void enforce(bool condition, Exiv2::ErrorCode err_code, const T& arg1, const U& arg2)
-{
-    if (!condition) {
-        throw Exiv2::Error(err_code, arg1, arg2);
-    }
+inline void enforce(bool condition, Exiv2::ErrorCode err_code, const T& arg1, const U& arg2) {
+  if (!condition) {
+    throw Exiv2::Error(err_code, arg1, arg2);
+  }
 }
 
 /*!
@@ -80,9 +77,9 @@ inline void enforce(bool condition, Exiv2::ErrorCode err_code, const T& arg1, co
  * the given error_code, arg1, arg2 & arg3.
  */
 template <typename T, typename U, typename V>
-inline void enforce(bool condition, Exiv2::ErrorCode err_code, const T& arg1, const U& arg2, const V& arg3)
-{
-    if (!condition) {
-        throw Exiv2::Error(err_code, arg1, arg2, arg3);
-    }
+inline void enforce(bool condition, Exiv2::ErrorCode err_code, const T& arg1, const U& arg2, const V& arg3) {
+  if (!condition) {
+    throw Exiv2::Error(err_code, arg1, arg2, arg3);
+  }
 }
+}  // namespace Exiv2::Internal

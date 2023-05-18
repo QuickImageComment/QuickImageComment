@@ -1,27 +1,11 @@
-// ***************************************************************** -*- C++ -*-
-/*
- * Copyright (C) 2004-2021 Exiv2 authors
- * This program is part of the Exiv2 distribution.
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation; either version 2
- * of the License, or (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, 5th Floor, Boston, MA 02110-1301 USA.
- */
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #ifndef HELPER_FUNCTIONS_HPP
 #define HELPER_FUNCTIONS_HPP
 
 #include <string>
-
+#include "basicio.hpp"
+#include "types.hpp"
 /*!
   @brief Convert a (potentially not null terminated) array into a
   std::string.
@@ -39,4 +23,29 @@
  */
 std::string string_from_unterminated(const char* data, size_t data_length);
 
+namespace Exiv2 {
+
+static constexpr size_t BYTE = 0x1;
+static constexpr size_t WCHAR = 0x2;
+static constexpr size_t WORD = 0X2;
+static constexpr size_t DWORD = 0x4;
+static constexpr size_t QWORD = 0x8;
+static constexpr size_t GUID = 0x10;
+
+[[nodiscard]] uint64_t readQWORDTag(const Exiv2::BasicIo::UniquePtr& io);
+
+[[nodiscard]] uint32_t readDWORDTag(const Exiv2::BasicIo::UniquePtr& io);
+
+[[nodiscard]] uint16_t readWORDTag(const Exiv2::BasicIo::UniquePtr& io);
+
+[[nodiscard]] std::string readStringWcharTag(const Exiv2::BasicIo::UniquePtr& io, size_t length);
+
+[[nodiscard]] std::string readStringTag(const Exiv2::BasicIo::UniquePtr& io, size_t length = DWORD);
+
+/*!
+  @brief Calculates Aspect Ratio of a video
+ */
+[[nodiscard]] std::string getAspectRatio(uint64_t width, uint64_t height);
+
+}  // namespace Exiv2
 #endif  // HELPER_FUNCTIONS_HPP

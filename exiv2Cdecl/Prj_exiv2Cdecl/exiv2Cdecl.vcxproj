@@ -98,12 +98,13 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_WINDOWS;PSAPI_VERSION=1;NOMINMAX;WIN32_LEAN_AND_MEAN;exiv2lib_EXPORTS;BanAllEntityUsage=1;XML_STATIC;ZLIB_WINAPI;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Src_exiv2_src;..\Src_exiv2_src\exiv2;..\Src_exiv2_xmpsdk\include;..\Src_expat_lib;..\Src_zlib</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Src_exiv2_src;..\Src_exiv2_src\exiv2;..\Src_exiv2_xmpsdk\include;..\Src_expat_lib;..\Src_brotli;..\Src_inih;..\Src_inih\cpp;..\Src_zlib</AdditionalIncludeDirectories>
       <ConformanceMode>true</ConformanceMode>
       <UndefinePreprocessorDefinitions>_MSC_EXTENSIONS</UndefinePreprocessorDefinitions>
       <DisableSpecificWarnings>4996</DisableSpecificWarnings>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -128,12 +129,13 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_WINDOWS;PSAPI_VERSION=1;NOMINMAX;WIN32_LEAN_AND_MEAN;exiv2lib_EXPORTS;BanAllEntityUsage=1;XML_STATIC;ZLIB_WINAPI;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Src_exiv2_src;..\Src_exiv2_src\exiv2;..\Src_exiv2_xmpsdk\include;..\Src_expat_lib;..\Src_zlib</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Src_exiv2_src;..\Src_exiv2_src\exiv2;..\Src_exiv2_xmpsdk\include;..\Src_expat_lib;..\Src_brotli;..\Src_inih;..\Src_inih\cpp;..\Src_zlib</AdditionalIncludeDirectories>
       <UndefinePreprocessorDefinitions>_MSC_EXTENSIONS</UndefinePreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <DisableSpecificWarnings>4996</DisableSpecificWarnings>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -159,12 +161,13 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;PSAPI_VERSION=1;NOMINMAX;WIN32_LEAN_AND_MEAN;exiv2lib_EXPORTS;BanAllEntityUsage=1;XML_STATIC;ZLIB_WINAPI;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Src_exiv2_src;..\Src_exiv2_src\exiv2;..\Src_exiv2_xmpsdk\include;..\Src_expat_lib;..\Src_zlib</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Src_exiv2_src;..\Src_exiv2_src\exiv2;..\Src_exiv2_xmpsdk\include;..\Src_expat_lib;..\Src_brotli;..\Src_inih;..\Src_inih\cpp;..\Src_zlib</AdditionalIncludeDirectories>
       <ConformanceMode>true</ConformanceMode>
       <UndefinePreprocessorDefinitions>_MSC_EXTENSIONS</UndefinePreprocessorDefinitions>
       <DisableSpecificWarnings>4996</DisableSpecificWarnings>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -192,12 +195,13 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;PSAPI_VERSION=1;NOMINMAX;WIN32_LEAN_AND_MEAN;exiv2lib_EXPORTS;BanAllEntityUsage=1;XML_STATIC;ZLIB_WINAPI;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Src_exiv2_src;..\Src_exiv2_src\exiv2;..\Src_exiv2_xmpsdk\include;..\Src_expat_lib;..\Src_zlib</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Src_exiv2_src;..\Src_exiv2_src\exiv2;..\Src_exiv2_xmpsdk\include;..\Src_expat_lib;..\Src_brotli;..\Src_inih;..\Src_inih\cpp;..\Src_zlib</AdditionalIncludeDirectories>
       <UndefinePreprocessorDefinitions>_MSC_EXTENSIONS</UndefinePreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <DisableSpecificWarnings>4996</DisableSpecificWarnings>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -217,13 +221,17 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\Src_brotli\brotli\decode.h" />
+    <ClInclude Include="..\Src_brotli\brotli\encode.h" />
+    <ClInclude Include="..\Src_brotli\brotli\port.h" />
+    <ClInclude Include="..\Src_brotli\brotli\types.h" />
     <ClInclude Include="..\Src_exiv2_src\canonmn_int.hpp" />
     <ClInclude Include="..\Src_exiv2_src\casiomn_int.hpp" />
     <ClInclude Include="..\Src_exiv2_src\cr2header_int.hpp" />
     <ClInclude Include="..\Src_exiv2_src\crwimage_int.hpp" />
     <ClInclude Include="..\Src_exiv2_src\enforce.hpp" />
-    <ClInclude Include="..\Src_exiv2_src\exiv2app.hpp" />
     <ClInclude Include="..\Src_exiv2_src\exiv2lib_export.h" />
+    <ClInclude Include="..\Src_exiv2_src\exiv2\app_utils.hpp" />
     <ClInclude Include="..\Src_exiv2_src\exiv2\asfvideo.hpp" />
     <ClInclude Include="..\Src_exiv2_src\exiv2\basicio.hpp" />
     <ClInclude Include="..\Src_exiv2_src\exiv2\bmffimage.hpp" />
@@ -238,11 +246,13 @@
     <ClInclude Include="..\Src_exiv2_src\exiv2\error.hpp" />
     <ClInclude Include="..\Src_exiv2_src\exiv2\exif.hpp" />
     <ClInclude Include="..\Src_exiv2_src\exiv2\exiv2.hpp" />
+    <ClInclude Include="..\Src_exiv2_src\exiv2\exiv2app.hpp" />
     <ClInclude Include="..\Src_exiv2_src\exiv2\futils.hpp" />
+    <ClInclude Include="..\Src_exiv2_src\exiv2\getopt.hpp" />
     <ClInclude Include="..\Src_exiv2_src\exiv2\gifimage.hpp" />
     <ClInclude Include="..\Src_exiv2_src\exiv2\http.hpp" />
     <ClInclude Include="..\Src_exiv2_src\exiv2\image.hpp" />
-    <ClInclude Include="..\Src_exiv2_src\exiv2\ini.hpp" />
+    <ClInclude Include="..\Src_exiv2_src\exiv2\image_types.hpp" />
     <ClInclude Include="..\Src_exiv2_src\exiv2\iptc.hpp" />
     <ClInclude Include="..\Src_exiv2_src\exiv2\jp2image.hpp" />
     <ClInclude Include="..\Src_exiv2_src\exiv2\jpgimage.hpp" />
@@ -251,6 +261,7 @@
     <ClInclude Include="..\Src_exiv2_src\exiv2\mrwimage.hpp" />
     <ClInclude Include="..\Src_exiv2_src\exiv2\orfimage.hpp" />
     <ClInclude Include="..\Src_exiv2_src\exiv2\pgfimage.hpp" />
+    <ClInclude Include="..\Src_exiv2_src\exiv2\photoshop.hpp" />
     <ClInclude Include="..\Src_exiv2_src\exiv2\pngimage.hpp" />
     <ClInclude Include="..\Src_exiv2_src\exiv2\preview.hpp" />
     <ClInclude Include="..\Src_exiv2_src\exiv2\properties.hpp" />
@@ -259,14 +270,11 @@
     <ClInclude Include="..\Src_exiv2_src\exiv2\rafimage.hpp" />
     <ClInclude Include="..\Src_exiv2_src\exiv2\riffvideo.hpp" />
     <ClInclude Include="..\Src_exiv2_src\exiv2\rw2image.hpp" />
-    <ClInclude Include="..\Src_exiv2_src\exiv2\rwlock.hpp" />
     <ClInclude Include="..\Src_exiv2_src\exiv2\slice.hpp" />
-    <ClInclude Include="..\Src_exiv2_src\exiv2\ssh.hpp" />
     <ClInclude Include="..\Src_exiv2_src\exiv2\tags.hpp" />
     <ClInclude Include="..\Src_exiv2_src\exiv2\tgaimage.hpp" />
     <ClInclude Include="..\Src_exiv2_src\exiv2\tiffimage.hpp" />
     <ClInclude Include="..\Src_exiv2_src\exiv2\types.hpp" />
-    <ClInclude Include="..\Src_exiv2_src\exiv2\utilsvideo.hpp" />
     <ClInclude Include="..\Src_exiv2_src\exiv2\value.hpp" />
     <ClInclude Include="..\Src_exiv2_src\exiv2\version.hpp" />
     <ClInclude Include="..\Src_exiv2_src\exiv2\webpimage.hpp" />
@@ -275,10 +283,10 @@
     <ClInclude Include="..\Src_exiv2_src\exv_conf.h" />
     <ClInclude Include="..\Src_exiv2_src\fff.h" />
     <ClInclude Include="..\Src_exiv2_src\fujimn_int.hpp" />
-    <ClInclude Include="..\Src_exiv2_src\getopt.hpp" />
     <ClInclude Include="..\Src_exiv2_src\helper_functions.hpp" />
     <ClInclude Include="..\Src_exiv2_src\i18n.h" />
     <ClInclude Include="..\Src_exiv2_src\image_int.hpp" />
+    <ClInclude Include="..\Src_exiv2_src\jp2image_int.hpp" />
     <ClInclude Include="..\Src_exiv2_src\makernote_int.hpp" />
     <ClInclude Include="..\Src_exiv2_src\minoltamn_int.hpp" />
     <ClInclude Include="..\Src_exiv2_src\nikonmn_int.hpp" />
@@ -298,9 +306,7 @@
     <ClInclude Include="..\Src_exiv2_src\tifffwd_int.hpp" />
     <ClInclude Include="..\Src_exiv2_src\tiffimage_int.hpp" />
     <ClInclude Include="..\Src_exiv2_src\tiffvisitor_int.hpp" />
-    <ClInclude Include="..\Src_exiv2_src\timegm.h" />
     <ClInclude Include="..\Src_exiv2_src\tzfile.h" />
-    <ClInclude Include="..\Src_exiv2_src\unused.h" />
     <ClInclude Include="..\Src_exiv2_src\utils.hpp" />
     <ClInclude Include="..\Src_exiv2_xmpsdk\include\client-glue\WXMPFiles.hpp" />
     <ClInclude Include="..\Src_exiv2_xmpsdk\include\client-glue\WXMPIterator.hpp" />
@@ -338,6 +344,8 @@
     <ClInclude Include="..\Src_expat_lib\xmlrole.h" />
     <ClInclude Include="..\Src_expat_lib\xmltok.h" />
     <ClInclude Include="..\Src_expat_lib\xmltok_impl.h" />
+    <ClInclude Include="..\Src_inih\cpp\INIReader.h" />
+    <ClInclude Include="..\Src_inih\ini.h" />
     <ClInclude Include="..\Src_zlib\crc32.h" />
     <ClInclude Include="..\Src_zlib\deflate.h" />
     <ClInclude Include="..\Src_zlib\gzguts.h" />
@@ -352,6 +360,37 @@
     <ClInclude Include="makernote_int_add.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Src_brotli\common\constants.c" />
+    <ClCompile Include="..\Src_brotli\common\context.c" />
+    <ClCompile Include="..\Src_brotli\common\dictionary.c" />
+    <ClCompile Include="..\Src_brotli\common\platform.c" />
+    <ClCompile Include="..\Src_brotli\common\transform.c" />
+    <ClCompile Include="..\Src_brotli\dec\bit_reader.c" />
+    <ClCompile Include="..\Src_brotli\dec\decode.c" />
+    <ClCompile Include="..\Src_brotli\dec\huffman.c" />
+    <ClCompile Include="..\Src_brotli\dec\state.c" />
+    <ClCompile Include="..\Src_brotli\enc\backward_references.c" />
+    <ClCompile Include="..\Src_brotli\enc\backward_references_hq.c" />
+    <ClCompile Include="..\Src_brotli\enc\bit_cost.c" />
+    <ClCompile Include="..\Src_brotli\enc\block_splitter.c" />
+    <ClCompile Include="..\Src_brotli\enc\brotli_bit_stream.c" />
+    <ClCompile Include="..\Src_brotli\enc\cluster.c" />
+    <ClCompile Include="..\Src_brotli\enc\command.c" />
+    <ClCompile Include="..\Src_brotli\enc\compress_fragment.c" />
+    <ClCompile Include="..\Src_brotli\enc\compress_fragment_two_pass.c" />
+    <ClCompile Include="..\Src_brotli\enc\dictionary_hash.c" />
+    <ClCompile Include="..\Src_brotli\enc\encode.c" />
+    <ClCompile Include="..\Src_brotli\enc\encoder_dict.c" />
+    <ClCompile Include="..\Src_brotli\enc\entropy_encode.c" />
+    <ClCompile Include="..\Src_brotli\enc\fast_log.c" />
+    <ClCompile Include="..\Src_brotli\enc\histogram.c" />
+    <ClCompile Include="..\Src_brotli\enc\literal_cost.c" />
+    <ClCompile Include="..\Src_brotli\enc\memory.c" />
+    <ClCompile Include="..\Src_brotli\enc\metablock.c" />
+    <ClCompile Include="..\Src_brotli\enc\static_dict.c" />
+    <ClCompile Include="..\Src_brotli\enc\utf8_util.c" />
+    <ClCompile Include="..\Src_brotli\tools\brotli.c" />
+    <ClCompile Include="..\Src_exiv2_src\app_utils.cpp" />
     <ClCompile Include="..\Src_exiv2_src\asfvideo.cpp" />
     <ClCompile Include="..\Src_exiv2_src\basicio.cpp" />
     <ClCompile Include="..\Src_exiv2_src\bmffimage.cpp" />
@@ -376,9 +415,9 @@
     <ClCompile Include="..\Src_exiv2_src\http.cpp" />
     <ClCompile Include="..\Src_exiv2_src\image.cpp" />
     <ClCompile Include="..\Src_exiv2_src\image_int.cpp" />
-    <ClCompile Include="..\Src_exiv2_src\ini.cpp" />
     <ClCompile Include="..\Src_exiv2_src\iptc.cpp" />
     <ClCompile Include="..\Src_exiv2_src\jp2image.cpp" />
+    <ClCompile Include="..\Src_exiv2_src\jp2image_int.cpp" />
     <ClCompile Include="..\Src_exiv2_src\jpgimage.cpp" />
     <ClCompile Include="..\Src_exiv2_src\makernote_int.cpp" />
     <ClCompile Include="..\Src_exiv2_src\matroskavideo.cpp" />
@@ -392,6 +431,7 @@
     <ClCompile Include="..\Src_exiv2_src\panasonicmn_int.cpp" />
     <ClCompile Include="..\Src_exiv2_src\pentaxmn_int.cpp" />
     <ClCompile Include="..\Src_exiv2_src\pgfimage.cpp" />
+    <ClCompile Include="..\Src_exiv2_src\photoshop.cpp" />
     <ClCompile Include="..\Src_exiv2_src\pngchunk_int.cpp" />
     <ClCompile Include="..\Src_exiv2_src\pngimage.cpp" />
     <ClCompile Include="..\Src_exiv2_src\preview.cpp" />
@@ -405,7 +445,6 @@
     <ClCompile Include="..\Src_exiv2_src\samsungmn_int.cpp" />
     <ClCompile Include="..\Src_exiv2_src\sigmamn_int.cpp" />
     <ClCompile Include="..\Src_exiv2_src\sonymn_int.cpp" />
-    <ClCompile Include="..\Src_exiv2_src\ssh.cpp" />
     <ClCompile Include="..\Src_exiv2_src\tags.cpp" />
     <ClCompile Include="..\Src_exiv2_src\tags_int.cpp" />
     <ClCompile Include="..\Src_exiv2_src\tgaimage.cpp" />
@@ -415,7 +454,6 @@
     <ClCompile Include="..\Src_exiv2_src\tiffvisitor_int.cpp" />
     <ClCompile Include="..\Src_exiv2_src\types.cpp" />
     <ClCompile Include="..\Src_exiv2_src\utils.cpp" />
-    <ClCompile Include="..\Src_exiv2_src\utilsvideo.cpp" />
     <ClCompile Include="..\Src_exiv2_src\value.cpp" />
     <ClCompile Include="..\Src_exiv2_src\version.cpp" />
     <ClCompile Include="..\Src_exiv2_src\webpimage.cpp" />
@@ -442,6 +480,8 @@
     <ClCompile Include="..\Src_expat_lib\xmltok.c" />
     <ClCompile Include="..\Src_expat_lib\xmltok_impl.c" />
     <ClCompile Include="..\Src_expat_lib\xmltok_ns.c" />
+    <ClCompile Include="..\Src_inih\cpp\INIReader.cpp" />
+    <ClCompile Include="..\Src_inih\ini.c" />
     <ClCompile Include="..\Src_zlib\adler32.c" />
     <ClCompile Include="..\Src_zlib\compress.c" />
     <ClCompile Include="..\Src_zlib\crc32.c" />

@@ -24,10 +24,11 @@
 #include "makernote_int.hpp"
 #include "makernote_int_add.hpp"
 #include "properties.hpp"
+#include <wtypes.h>
 
 //#define TRACING 200
 
-#define VERSION "0.27.5.1"
+#define VERSION "0.28.0.0"
 
 // definitions for Exif Easy Access
 typedef Exiv2::ExifData::const_iterator(*EasyAccessFct)(const Exiv2::ExifData& ed);
@@ -39,8 +40,7 @@ struct EasyAccess {
 
 // definitions to read XMP tag list
 namespace Exiv2 {
-
-    extern const Exiv2::XmpNsInfo xmpNsInfo[];
+    extern const XmpNsInfo xmpNsInfo[];
     const Exiv2::XmpNsInfo* getXmpNsInfo()
     {
         return xmpNsInfo;
@@ -55,7 +55,7 @@ static const int exiv2WriteOptionXaBag = 2;
 static const int exiv2WriteOptionXsStruct = 3;
 
 // used to iterator through meta data
-static Exiv2::Image::AutoPtr image;
+static Exiv2::Image::UniquePtr image;
 static Exiv2::ExifData exifDataRead;
 static Exiv2::ExifData::const_iterator exifEndItem;
 static Exiv2::ExifData::const_iterator exifMetaDataItem;
@@ -129,7 +129,7 @@ extern "C" __declspec(dllexport) int __cdecl exiv2getExifTagDescriptions(LPSTR *
                 strcmp(groupList->groupName_, "NikonPreview") &&
                 strcmp(groupList->groupName_, "SamsungPreview"))
             {
-                Exiv2::Internal::IfdId ifdId = Exiv2::Internal::groupId(groupList->groupName_);
+                Exiv2::IfdId ifdId = Exiv2::Internal::groupId(groupList->groupName_);
                 const Exiv2::TagInfo* ti = Exiv2::Internal::tagList(ifdId);
                 if (ti != 0) {
                     for (int k = 0; ti[k].tag_ != 0xffff; ++k) {
@@ -152,7 +152,7 @@ extern "C" __declspec(dllexport) int __cdecl exiv2getExifTagDescriptions(LPSTR *
 // get Exif Easy description by index
 //-------------------------------------------------------------------------
 extern "C" __declspec(dllexport) int __cdecl exiv2getExifEasyTagDescription(int index, LPSTR * key, LPSTR * desc) {
-    if (index < EXV_COUNTOF(easyAccess)) {
+    if (index < std::size(easyAccess)) {
         *key = strdup(easyAccess[index].tagName);
         *desc = strdup(easyAccess[index].label_);
         return 0;
@@ -256,7 +256,7 @@ extern "C" __declspec(dllexport) int __cdecl exiv2readImageByFileName(LPSTR file
 
         return 0;
     }
-    catch (Exiv2::AnyError& e) {
+    catch (Exiv2::Error& e) {
         *errorText = strdup(e.what());
         return exiv2StatusException;
     }
@@ -303,7 +303,7 @@ extern "C" __declspec(dllexport) int __cdecl exiv2getExifDataItem(LPSTR * keyStr
         // get type name from tagInfo, because for some special tags (e.g. Exif.Photo.UserComment)
         // the original Exif type "Undefined" is overwritten with "Comment"
         // logic partially copied from Exifdatum::write in exif.cpp
-        const Exiv2::TagInfo* ti = Exiv2::Internal::tagInfo(*tag, static_cast<Exiv2::Internal::IfdId>(exifMetaDataItem->ifdId()));
+        const Exiv2::TagInfo* ti = Exiv2::Internal::tagInfo(*tag, exifMetaDataItem->ifdId());
         if (ti) {
             *typeName = strdup(Exiv2::TypeInfo::typeName(ti->typeId_));
         }
@@ -333,7 +333,7 @@ extern "C" __declspec(dllexport) int __cdecl exiv2getExifDataItem(LPSTR * keyStr
         {
             if (!strcmp(*typeName, "SByte"))
             {
-                long longValue = exifMetaDataItem->toLong(0);
+                long longValue = exifMetaDataItem->toInt64(0);
                 if (longValue > 127)
                 {
                     longValue = longValue - 256;
@@ -371,7 +371,7 @@ extern "C" __declspec(dllexport) int __cdecl exiv2getExifDataItem(LPSTR * keyStr
         *exifAvail = exifMetaDataItem != exifEndItem;
         return 0;
     }
-    catch (Exiv2::AnyError& e) {
+    catch (Exiv2::Error& e) {
         *errorText = strdup(e.what());
         *exifAvail = false;
         return exiv2StatusException;
@@ -387,7 +387,7 @@ extern "C" __declspec(dllexport) int __cdecl exiv2getExifEasyDataItem(int* index
     *errorText = strdup("");
     try {
         Exiv2::ExifData& exifData = image->exifData();
-        while (*index < EXV_COUNTOF(easyAccess)) {
+        while (*index < std::size(easyAccess)) {
             Exiv2::ExifData::const_iterator metaDataItem = easyAccess[*index].findFct_(exifData);
             if (metaDataItem != exifData.end()) {
                 *keyString = strdup(easyAccess[*index].tagName);
@@ -410,7 +410,7 @@ extern "C" __declspec(dllexport) int __cdecl exiv2getExifEasyDataItem(int* index
         // loop finished, no data found 
         return 1;
     }
-    catch (Exiv2::AnyError& e) {
+    catch (Exiv2::Error& e) {
         *errorText = strdup(e.what());
         return exiv2StatusException;
     }
@@ -471,7 +471,7 @@ extern "C" __declspec(dllexport) int __cdecl exiv2getIptcDataItem(LPSTR * keyStr
         *iptcAvail = iptcMetaDataItem != iptcEndItem;
         return 0;
     }
-    catch (Exiv2::AnyError& e) {
+    catch (Exiv2::Error& e) {
         *errorText = strdup(e.what());
         *iptcAvail = false;
         return exiv2StatusException;
@@ -590,7 +590,7 @@ extern "C" __declspec(dllexport) int __cdecl exiv2getXmpDataItem(LPSTR * keyStri
         *xmpAvail = xmpMetaDataItem != xmpEndItem;
         return 0;
     }
-    catch (Exiv2::AnyError& e) {
+    catch (Exiv2::Error& e) {
         *errorText = strdup(e.what());
         *xmpAvail = false;
         return exiv2StatusException;
@@ -679,7 +679,7 @@ extern "C" __declspec(dllexport) int __cdecl exiv2writeImage(LPSTR fileName, LPS
 
     * errorText = strdup("");
     try {
-        Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(fileName);
+        Exiv2::Image::UniquePtr image = Exiv2::ImageFactory::open(fileName);
         assert(image.get() != 0);
         image->readMetadata();
         Exiv2::ExifData& exifData = image->exifData();
@@ -756,13 +756,13 @@ extern "C" __declspec(dllexport) int __cdecl exiv2writeImage(LPSTR fileName, LPS
 #endif
                     if (!strncmp(writeTags[ii], "Exif.", 5)) {
                         Exiv2::ExifKey exifKey(writeTags[ii]);
-                        Exiv2::Value::AutoPtr value = Exiv2::Value::create(exifKey.defaultTypeId());
+                        Exiv2::Value::UniquePtr value = Exiv2::Value::create(exifKey.defaultTypeId());
                         value->read(writeValues[ii]);
                         exifData.add(exifKey, value.get());
                     }
                     else if (!strncmp(writeTags[ii], "Iptc.", 5)) {
                         Exiv2::IptcKey iptcKey(writeTags[ii]);
-                        Exiv2::Value::AutoPtr value = Exiv2::Value::create(Exiv2::IptcDataSets::dataSetType(iptcKey.tag(),
+                        Exiv2::Value::UniquePtr value = Exiv2::Value::create(Exiv2::IptcDataSets::dataSetType(iptcKey.tag(),
                             iptcKey.record()));
                         value->read(writeValues[ii]);
                         iptcData.add(iptcKey, value.get());
@@ -770,7 +770,7 @@ extern "C" __declspec(dllexport) int __cdecl exiv2writeImage(LPSTR fileName, LPS
                     else if (!strncmp(writeTags[ii], "Xmp.", 4)) {
                         Exiv2::XmpKey xmpKey(writeTags[ii]);
                         {
-                            Exiv2::Value::AutoPtr value = Exiv2::Value::create(Exiv2::XmpProperties::propertyType(xmpKey));
+                            Exiv2::Value::UniquePtr value = Exiv2::Value::create(Exiv2::XmpProperties::propertyType(xmpKey));
                             value->read(writeValues[ii]);
                             while (ii < writeMetaDatumCountAct - 1 && !strcmp(writeTags[ii], writeTags[ii + 1])) {
                                 // as long as it is the same tag
@@ -813,7 +813,7 @@ extern "C" __declspec(dllexport) int __cdecl exiv2writeImage(LPSTR fileName, LPS
                     if (tracingCount < TRACING) tracingLog[tracingCount++] = strdup(tracingTemp);
 #endif
                     Exiv2::XmpKey xmpKey(writeTags[ii]);
-                    Exiv2::Value::AutoPtr value = Exiv2::Value::create(Exiv2::XmpProperties::propertyType(xmpKey));
+                    Exiv2::Value::UniquePtr value = Exiv2::Value::create(Exiv2::XmpProperties::propertyType(xmpKey));
                     value->read(writeValues[ii]);
                     xmpData.add(xmpKey, value.get());
                 }
@@ -838,7 +838,7 @@ extern "C" __declspec(dllexport) int __cdecl exiv2writeImage(LPSTR fileName, LPS
 #endif
         return 0;
     }
-    catch (Exiv2::AnyError& e) {
+    catch (Exiv2::Error& e) {
         *errorText = strdup(e.what());
 #ifdef TRACING
         if (tracingCount < TRACING) tracingLog[tracingCount++] = strdup("exiv2writeImage finished with exception");
@@ -873,7 +873,7 @@ extern "C" __declspec(dllexport) bool __cdecl exiv2tagRepeatable(LPSTR tagName) 
             Exiv2::IptcKey iptcKey(tagName);
             return Exiv2::IptcDataSets::dataSetRepeatable(iptcKey.tag(), iptcKey.record());
         }
-        catch (Exiv2::AnyError&)
+        catch (Exiv2::Error&)
         {
             return false;
         }
@@ -891,7 +891,7 @@ extern "C" __declspec(dllexport) bool __cdecl exiv2tagRepeatable(LPSTR tagName) 
                 return false;
             }
         }
-        catch (Exiv2::AnyError&)
+        catch (Exiv2::Error&)
         {
             return false;
         }
@@ -907,21 +907,21 @@ extern "C" __declspec(dllexport) bool __cdecl exiv2tagRepeatable(LPSTR tagName) 
 extern "C" __declspec(dllexport) void __cdecl exiv2getInterpretedValue(LPSTR tagName, LPSTR valueString, LPSTR * interpretedValue) {
     if (!strncmp(tagName, "Exif.", 5)) {
         Exiv2::ExifKey key(tagName);
-        Exiv2::Value::AutoPtr value = Exiv2::Value::create(key.defaultTypeId());
+        Exiv2::Value::UniquePtr value = Exiv2::Value::create(key.defaultTypeId());
         value->read(valueString);
         Exiv2::Exifdatum datum = Exiv2::Exifdatum(key, value.get());
         *interpretedValue = strdup(datum.print().c_str());
     }
     else if (!strncmp(tagName, "Iptc.", 5)) {
         Exiv2::IptcKey key(tagName);
-        Exiv2::Value::AutoPtr value = Exiv2::Value::create(Exiv2::IptcDataSets::dataSetType(key.tag(), key.record()));
+        Exiv2::Value::UniquePtr value = Exiv2::Value::create(Exiv2::IptcDataSets::dataSetType(key.tag(), key.record()));
         value->read(valueString);
         Exiv2::Iptcdatum datum = Exiv2::Iptcdatum(key, value.get());
         *interpretedValue = strdup(datum.print().c_str());
     }
     else if (!strncmp(tagName, "Xmp.", 4)) {
         Exiv2::XmpKey key(tagName);
-        Exiv2::Value::AutoPtr value = Exiv2::Value::create(Exiv2::XmpProperties::propertyType(key));
+        Exiv2::Value::UniquePtr value = Exiv2::Value::create(Exiv2::XmpProperties::propertyType(key));
         value->read(valueString);
         Exiv2::Xmpdatum datum = Exiv2::Xmpdatum(key, value.get());
         *interpretedValue = strdup(datum.print().c_str());
@@ -940,21 +940,21 @@ extern "C" __declspec(dllexport) float __cdecl exiv2floatValue(LPSTR tagName, LP
     float returnvalue;
     if (!strncmp(tagName, "Exif.", 5)) {
         Exiv2::ExifKey key(tagName);
-        Exiv2::Value::AutoPtr value = Exiv2::Value::create(key.defaultTypeId());
+        Exiv2::Value::UniquePtr value = Exiv2::Value::create(key.defaultTypeId());
         value->read(valueString);
         Exiv2::Exifdatum datum = Exiv2::Exifdatum(key, value.get());
         returnvalue = datum.toFloat();
     }
     else if (!strncmp(tagName, "Iptc.", 5)) {
         Exiv2::IptcKey key(tagName);
-        Exiv2::Value::AutoPtr value = Exiv2::Value::create(Exiv2::IptcDataSets::dataSetType(key.tag(), key.record()));
+        Exiv2::Value::UniquePtr value = Exiv2::Value::create(Exiv2::IptcDataSets::dataSetType(key.tag(), key.record()));
         value->read(valueString);
         Exiv2::Iptcdatum datum = Exiv2::Iptcdatum(key, value.get());
         returnvalue = datum.toFloat();
     }
     else if (!strncmp(tagName, "Xmp.", 4)) {
         Exiv2::XmpKey key(tagName);
-        Exiv2::Value::AutoPtr value = Exiv2::Value::create(Exiv2::XmpProperties::propertyType(key));
+        Exiv2::Value::UniquePtr value = Exiv2::Value::create(Exiv2::XmpProperties::propertyType(key));
         value->read(valueString);
         Exiv2::Xmpdatum datum = Exiv2::Xmpdatum(key, value.get());
         returnvalue = datum.toFloat();

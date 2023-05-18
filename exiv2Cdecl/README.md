@@ -52,7 +52,7 @@ When installing new version of Python, ensure to include pip.
 
 ## Copy sources to exiv2Cdecl and update project files
 
-* To copy the sources and project files to exiv2Cdecl a batch file is available: __replace_exiv2_axpat_zlib_sources.bat__
+* To copy the sources and project files to exiv2Cdecl a batch file is available: __replace_exiv2_expat_zlib_sources.bat__
 
 * Check the following lines in this batch file and adjust them as needed:
 
@@ -62,7 +62,7 @@ When installing new version of Python, ensure to include pip.
        set Zlib=...
        rem end of settings
 
-* Execute __replace_exiv2_axpat_zlib_sources.bat__
+* Execute __replace_exiv2_expat_zlib_sources.bat__
 
 * Use git and check changes to see, which files are new or removed and update __Prj_exiv2Cdecl\exiv2Cdecl.vcxproj__ accordingly.
 
@@ -72,13 +72,14 @@ When installing new version of Python, ensure to include pip.
 
 ### exiv2Cdecl.cpp
 
-* exiv2getFirstXmpTagDescription:  
-Compare calls of method printProperties with definition of xmpNsInfo[] in properties.cpp.    
-All schema entries in xmpNsInfo[] shall be considered in printProperties.
-
 * Update version (#define VERSION ...)
 
 ----------------------------------------------------------------
+### properties.cpp
+
+* add extern to definition of xmpNsInfo:
+
+      extern constexpr XmpNsInfo xmpNsInfo[] = {
 
 ### makernote_int.cpp 
 

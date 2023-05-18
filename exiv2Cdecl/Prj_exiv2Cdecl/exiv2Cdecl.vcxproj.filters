@@ -1,744 +1,894 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="..\Src_exiv2_src\asfvideo.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_src\basicio.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_src\bmpimage.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_zlib\adler32.c">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_src\canonmn_int.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_src\casiomn_int.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_zlib\compress.c">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_src\convert.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_src\cr2header_int.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_src\cr2image.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_zlib\crc32.c">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_src\crwimage.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_src\crwimage_int.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_src\datasets.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_zlib\deflate.c">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_src\easyaccess.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_src\epsimage.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_src\error.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_src\exif.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_xmpsdk\src\ExpatAdapter.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_src\fujimn_int.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_src\futils.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_src\getopt.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_src\gifimage.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_zlib\gzclose.c">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_zlib\gzlib.c">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_zlib\gzread.c">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_zlib\gzwrite.c">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_src\helper_functions.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_src\http.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_src\image.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_zlib\infback.c">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_src\image_int.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_zlib\inffast.c">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_zlib\inflate.c">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_zlib\inftrees.c">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_src\ini.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_src\iptc.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_src\jp2image.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_src\jpgimage.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_src\makernote_int.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_src\matroskavideo.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_xmpsdk\src\MD5.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_src\metadatum.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_src\minoltamn_int.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_src\mrwimage.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_src\nikonmn_int.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_src\olympusmn_int.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_src\orfimage.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_src\orfimage_int.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_src\panasonicmn_int.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_xmpsdk\src\ParseRDF.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_src\pentaxmn_int.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_src\pgfimage.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_src\pngchunk_int.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_src\pngimage.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_src\preview.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_src\properties.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_src\psdimage.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_src\quicktimevideo.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_src\rafimage.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_src\rw2image.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_src\rw2image_int.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_src\riffvideo.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_src\samsungmn_int.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_src\sigmamn_int.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_src\sonymn_int.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_src\ssh.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_src\tags.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_src\tags_int.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_src\tgaimage.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_src\tiffcomposite_int.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_src\tiffimage.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_src\tiffimage_int.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_src\tiffvisitor_int.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_zlib\trees.c">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_src\types.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_zlib\uncompr.c">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_xmpsdk\src\UnicodeConversions.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_src\utils.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_src\utilsvideo.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_src\value.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_src\version.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_src\webpimage.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_xmpsdk\src\WXMPIterator.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_xmpsdk\src\WXMPMeta.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_xmpsdk\src\WXMPUtils.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_xmpsdk\src\XML_Node.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_expat_lib\xmlparse.c">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_expat_lib\xmlrole.c">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_expat_lib\xmltok.c">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_expat_lib\xmltok_impl.c">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_expat_lib\xmltok_ns.c">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_src\xmp.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_xmpsdk\src\XMPCore_Impl.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_xmpsdk\src\XMPIterator.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_xmpsdk\src\XMPMeta.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_xmpsdk\src\XMPMeta-GetSet.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_xmpsdk\src\XMPMeta-Parse.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_xmpsdk\src\XMPMeta-Serialize.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_src\xmpsidecar.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_xmpsdk\src\XMPUtils.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_exiv2_xmpsdk\src\XMPUtils-FileInfo.cpp">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src_zlib\zutil.c">
-      <Filter>SourceExt</Filter>
-    </ClCompile>
     <ClCompile Include="exiv2Cdecl.cpp" />
     <ClCompile Include="makernote_int_add.cpp" />
+    <ClCompile Include="..\Src_exiv2_src\tiffimage.cpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_src\tiffimage_int.cpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_src\tiffvisitor_int.cpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_src\types.cpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_src\utils.cpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_src\value.cpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_src\version.cpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_src\webpimage.cpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_src\xmp.cpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_src\xmpsidecar.cpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_src\app_utils.cpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_src\asfvideo.cpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_src\basicio.cpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClCompile>
     <ClCompile Include="..\Src_exiv2_src\bmffimage.cpp">
-      <Filter>SourceExt</Filter>
+      <Filter>Src_exiv2_src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_src\bmpimage.cpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_src\canonmn_int.cpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_src\casiomn_int.cpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_src\convert.cpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_src\cr2header_int.cpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_src\cr2image.cpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_src\crwimage.cpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_src\crwimage_int.cpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_src\datasets.cpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_src\easyaccess.cpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_src\epsimage.cpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_src\error.cpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_src\exif.cpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_src\fujimn_int.cpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_src\futils.cpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_src\getopt.cpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_src\gifimage.cpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_src\helper_functions.cpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_src\http.cpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_src\image.cpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_src\image_int.cpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_src\iptc.cpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_src\jp2image.cpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_src\jp2image_int.cpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_src\jpgimage.cpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_src\makernote_int.cpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_src\matroskavideo.cpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_src\metadatum.cpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_src\minoltamn_int.cpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_src\mrwimage.cpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_src\nikonmn_int.cpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_src\olympusmn_int.cpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_src\orfimage.cpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_src\orfimage_int.cpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_src\panasonicmn_int.cpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_src\pentaxmn_int.cpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_src\pgfimage.cpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_src\photoshop.cpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_src\pngchunk_int.cpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_src\pngimage.cpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_src\preview.cpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_src\properties.cpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_src\psdimage.cpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_src\quicktimevideo.cpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_src\rafimage.cpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_src\riffvideo.cpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_src\rw2image.cpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_src\rw2image_int.cpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_src\samsungmn_int.cpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_src\sigmamn_int.cpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_src\sonymn_int.cpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_src\tags.cpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_src\tags_int.cpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_src\tgaimage.cpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_src\tiffcomposite_int.cpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_xmpsdk\src\ParseRDF.cpp">
+      <Filter>Src_exiv2_xmpsdk\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_xmpsdk\src\UnicodeConversions.cpp">
+      <Filter>Src_exiv2_xmpsdk\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_xmpsdk\src\WXMPIterator.cpp">
+      <Filter>Src_exiv2_xmpsdk\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_xmpsdk\src\WXMPMeta.cpp">
+      <Filter>Src_exiv2_xmpsdk\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_xmpsdk\src\WXMPUtils.cpp">
+      <Filter>Src_exiv2_xmpsdk\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_xmpsdk\src\XML_Node.cpp">
+      <Filter>Src_exiv2_xmpsdk\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_xmpsdk\src\XMPCore_Impl.cpp">
+      <Filter>Src_exiv2_xmpsdk\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_xmpsdk\src\XMPIterator.cpp">
+      <Filter>Src_exiv2_xmpsdk\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_xmpsdk\src\XMPMeta.cpp">
+      <Filter>Src_exiv2_xmpsdk\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_xmpsdk\src\XMPMeta-GetSet.cpp">
+      <Filter>Src_exiv2_xmpsdk\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_xmpsdk\src\XMPMeta-Parse.cpp">
+      <Filter>Src_exiv2_xmpsdk\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_xmpsdk\src\XMPMeta-Serialize.cpp">
+      <Filter>Src_exiv2_xmpsdk\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_xmpsdk\src\XMPUtils.cpp">
+      <Filter>Src_exiv2_xmpsdk\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_xmpsdk\src\XMPUtils-FileInfo.cpp">
+      <Filter>Src_exiv2_xmpsdk\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_xmpsdk\src\ExpatAdapter.cpp">
+      <Filter>Src_exiv2_xmpsdk\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_exiv2_xmpsdk\src\MD5.cpp">
+      <Filter>Src_exiv2_xmpsdk\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_expat_lib\xmlparse.c">
+      <Filter>Src_expat_lib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_expat_lib\xmlrole.c">
+      <Filter>Src_expat_lib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_expat_lib\xmltok.c">
+      <Filter>Src_expat_lib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_expat_lib\xmltok_impl.c">
+      <Filter>Src_expat_lib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_expat_lib\xmltok_ns.c">
+      <Filter>Src_expat_lib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_zlib\adler32.c">
+      <Filter>Src_zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_zlib\compress.c">
+      <Filter>Src_zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_zlib\crc32.c">
+      <Filter>Src_zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_zlib\deflate.c">
+      <Filter>Src_zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_zlib\gzclose.c">
+      <Filter>Src_zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_zlib\gzlib.c">
+      <Filter>Src_zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_zlib\gzread.c">
+      <Filter>Src_zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_zlib\gzwrite.c">
+      <Filter>Src_zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_zlib\infback.c">
+      <Filter>Src_zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_zlib\inffast.c">
+      <Filter>Src_zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_zlib\inflate.c">
+      <Filter>Src_zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_zlib\inftrees.c">
+      <Filter>Src_zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_zlib\trees.c">
+      <Filter>Src_zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_zlib\uncompr.c">
+      <Filter>Src_zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_zlib\zutil.c">
+      <Filter>Src_zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_brotli\common\transform.c">
+      <Filter>Src_brotli\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_brotli\common\constants.c">
+      <Filter>Src_brotli\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_brotli\common\context.c">
+      <Filter>Src_brotli\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_brotli\common\dictionary.c">
+      <Filter>Src_brotli\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_brotli\common\platform.c">
+      <Filter>Src_brotli\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_brotli\dec\decode.c">
+      <Filter>Src_brotli\dec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_brotli\dec\huffman.c">
+      <Filter>Src_brotli\dec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_brotli\dec\state.c">
+      <Filter>Src_brotli\dec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_brotli\dec\bit_reader.c">
+      <Filter>Src_brotli\dec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_brotli\enc\backward_references_hq.c">
+      <Filter>Src_brotli\enc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_brotli\enc\bit_cost.c">
+      <Filter>Src_brotli\enc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_brotli\enc\block_splitter.c">
+      <Filter>Src_brotli\enc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_brotli\enc\brotli_bit_stream.c">
+      <Filter>Src_brotli\enc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_brotli\enc\cluster.c">
+      <Filter>Src_brotli\enc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_brotli\enc\command.c">
+      <Filter>Src_brotli\enc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_brotli\enc\compress_fragment.c">
+      <Filter>Src_brotli\enc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_brotli\enc\compress_fragment_two_pass.c">
+      <Filter>Src_brotli\enc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_brotli\enc\dictionary_hash.c">
+      <Filter>Src_brotli\enc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_brotli\enc\encode.c">
+      <Filter>Src_brotli\enc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_brotli\enc\encoder_dict.c">
+      <Filter>Src_brotli\enc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_brotli\enc\entropy_encode.c">
+      <Filter>Src_brotli\enc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_brotli\enc\fast_log.c">
+      <Filter>Src_brotli\enc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_brotli\enc\histogram.c">
+      <Filter>Src_brotli\enc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_brotli\enc\literal_cost.c">
+      <Filter>Src_brotli\enc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_brotli\enc\memory.c">
+      <Filter>Src_brotli\enc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_brotli\enc\metablock.c">
+      <Filter>Src_brotli\enc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_brotli\enc\static_dict.c">
+      <Filter>Src_brotli\enc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_brotli\enc\utf8_util.c">
+      <Filter>Src_brotli\enc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_brotli\enc\backward_references.c">
+      <Filter>Src_brotli\enc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_brotli\tools\brotli.c">
+      <Filter>Src_brotli\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_inih\cpp\INIReader.cpp">
+      <Filter>Src_inih\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src_inih\ini.c">
+      <Filter>Src_inih</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Src_expat_lib\ascii.h">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_expat_lib\asciitab.h">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\exiv2\asfvideo.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\exiv2\basicio.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\exiv2\bmpimage.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\canonmn_int.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\casiomn_int.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\exiv2\config.h">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\exiv2\convert.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\cr2header_int.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\exiv2\cr2image.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_zlib\crc32.h">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\exiv2\crwimage.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\crwimage_int.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\exiv2\datasets.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_zlib\deflate.h">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\exiv2\easyaccess.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\enforce.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\exiv2\epsimage.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\exiv2\error.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\exiv2\exif.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\exiv2\exiv2.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\exiv2app.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\exiv2lib_export.h">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_expat_lib\expat.h">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_expat_lib\expat_external.h">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_xmpsdk\src\ExpatAdapter.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\exv_conf.h">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\fff.h">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\fujimn_int.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\exiv2\futils.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\getopt.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\exiv2\gifimage.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_zlib\gzguts.h">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\helper_functions.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\exiv2\http.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\i18n.h">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_expat_lib\iasciitab.h">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\exiv2\image.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\image_int.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_zlib\inffast.h">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_zlib\inffixed.h">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_zlib\inflate.h">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_zlib\inftrees.h">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\exiv2\ini.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_expat_lib\internal.h">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\exiv2\iptc.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\exiv2\jp2image.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\exiv2\jpgimage.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_expat_lib\latin1tab.h">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\makernote_int.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\exiv2\matroskavideo.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_xmpsdk\include\MD5.h">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\exiv2\metadatum.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\minoltamn_int.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\exiv2\mrwimage.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_expat_lib\nametab.h">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\nikonmn_int.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\olympusmn_int.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\exiv2\orfimage.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\orfimage_int.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\panasonicmn_int.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\exiv2\pgfimage.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\pngchunk_int.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\pentaxmn_int.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\exiv2\pngimage.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\exiv2\preview.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\private.h">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\exiv2\properties.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\exiv2\psdimage.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\exiv2\quicktimevideo.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\exiv2\rafimage.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\exiv2\riffvideo.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\exiv2\rw2image.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\rw2image_int.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\exiv2\rwlock.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\safe_op.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\samsungmn_int.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\sigmamn_int.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_expat_lib\siphash.h">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\exiv2\slice.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\sonymn_int.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\exiv2\ssh.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\exiv2\tags.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\tags_int.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\exiv2\tgaimage.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\tiffcomposite_int.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\tifffwd_int.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\exiv2\tiffimage.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\tiffimage_int.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\tiffvisitor_int.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\timegm.h">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_zlib\trees.h">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_xmpsdk\include\TXMPIterator.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_xmpsdk\include\TXMPMeta.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_xmpsdk\include\TXMPUtils.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\exiv2\types.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\tzfile.h">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_xmpsdk\src\UnicodeConversions.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\unused.h">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_expat_lib\utf8tab.h">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\utils.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\exiv2\utilsvideo.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\exiv2\value.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\exiv2\version.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\exiv2\webpimage.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_expat_lib\winconfig.h">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_xmpsdk\include\client-glue\WXMP_Common.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_xmpsdk\include\client-glue\WXMPFiles.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_xmpsdk\include\client-glue\WXMPIterator.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_xmpsdk\include\client-glue\WXMPMeta.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_xmpsdk\include\client-glue\WXMPUtils.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_xmpsdk\src\XMLParserAdapter.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_expat_lib\xmlrole.h">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_expat_lib\xmltok.h">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_expat_lib\xmltok_impl.h">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_xmpsdk\src\XMP_BuildInfo.h">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_xmpsdk\include\XMP_Const.h">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_xmpsdk\include\XMP_Environment.h">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\exiv2\xmp_exiv2.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_xmpsdk\include\XMP_Version.h">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_xmpsdk\src\XMPCore_Impl.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_xmpsdk\src\XMPIterator.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_xmpsdk\src\XMPMeta.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_xmpsdk\include\XMPSDK.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_src\exiv2\xmpsidecar.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_exiv2_xmpsdk\src\XMPUtils.hpp">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_zlib\zlib.h">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src_zlib\zutil.h">
-      <Filter>IncludeExt</Filter>
-    </ClInclude>
     <ClInclude Include="makernote_int_add.hpp" />
     <ClInclude Include="..\Src_zlib\zconf.h" />
+    <ClInclude Include="..\Src_brotli\brotli\types.h">
+      <Filter>Src_brotli\brotli</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_brotli\brotli\decode.h">
+      <Filter>Src_brotli\brotli</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_brotli\brotli\encode.h">
+      <Filter>Src_brotli\brotli</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_brotli\brotli\port.h">
+      <Filter>Src_brotli\brotli</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\tiffcomposite_int.hpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\tifffwd_int.hpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\tiffimage_int.hpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\tiffvisitor_int.hpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\tzfile.h">
+      <Filter>Src_exiv2_src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\utils.hpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\canonmn_int.hpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\casiomn_int.hpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\cr2header_int.hpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\crwimage_int.hpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\enforce.hpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\exiv2lib_export.h">
+      <Filter>Src_exiv2_src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\exv_conf.h">
+      <Filter>Src_exiv2_src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\fff.h">
+      <Filter>Src_exiv2_src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\fujimn_int.hpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\helper_functions.hpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\i18n.h">
+      <Filter>Src_exiv2_src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\image_int.hpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\jp2image_int.hpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\makernote_int.hpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\minoltamn_int.hpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\nikonmn_int.hpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\olympusmn_int.hpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\orfimage_int.hpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\panasonicmn_int.hpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\pentaxmn_int.hpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\pngchunk_int.hpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\private.h">
+      <Filter>Src_exiv2_src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\rw2image_int.hpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\safe_op.hpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\samsungmn_int.hpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\sigmamn_int.hpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\sonymn_int.hpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\tags_int.hpp">
+      <Filter>Src_exiv2_src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\exiv2\pgfimage.hpp">
+      <Filter>Src_exiv2_src\exiv2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\exiv2\photoshop.hpp">
+      <Filter>Src_exiv2_src\exiv2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\exiv2\pngimage.hpp">
+      <Filter>Src_exiv2_src\exiv2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\exiv2\preview.hpp">
+      <Filter>Src_exiv2_src\exiv2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\exiv2\properties.hpp">
+      <Filter>Src_exiv2_src\exiv2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\exiv2\psdimage.hpp">
+      <Filter>Src_exiv2_src\exiv2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\exiv2\quicktimevideo.hpp">
+      <Filter>Src_exiv2_src\exiv2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\exiv2\rafimage.hpp">
+      <Filter>Src_exiv2_src\exiv2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\exiv2\riffvideo.hpp">
+      <Filter>Src_exiv2_src\exiv2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\exiv2\rw2image.hpp">
+      <Filter>Src_exiv2_src\exiv2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\exiv2\slice.hpp">
+      <Filter>Src_exiv2_src\exiv2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\exiv2\tags.hpp">
+      <Filter>Src_exiv2_src\exiv2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\exiv2\tgaimage.hpp">
+      <Filter>Src_exiv2_src\exiv2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\exiv2\tiffimage.hpp">
+      <Filter>Src_exiv2_src\exiv2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\exiv2\types.hpp">
+      <Filter>Src_exiv2_src\exiv2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\exiv2\value.hpp">
+      <Filter>Src_exiv2_src\exiv2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\exiv2\version.hpp">
+      <Filter>Src_exiv2_src\exiv2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\exiv2\webpimage.hpp">
+      <Filter>Src_exiv2_src\exiv2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\exiv2\xmp_exiv2.hpp">
+      <Filter>Src_exiv2_src\exiv2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\exiv2\xmpsidecar.hpp">
+      <Filter>Src_exiv2_src\exiv2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\exiv2\app_utils.hpp">
+      <Filter>Src_exiv2_src\exiv2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\exiv2\asfvideo.hpp">
+      <Filter>Src_exiv2_src\exiv2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\exiv2\basicio.hpp">
+      <Filter>Src_exiv2_src\exiv2</Filter>
+    </ClInclude>
     <ClInclude Include="..\Src_exiv2_src\exiv2\bmffimage.hpp">
-      <Filter>IncludeExt</Filter>
+      <Filter>Src_exiv2_src\exiv2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\exiv2\bmpimage.hpp">
+      <Filter>Src_exiv2_src\exiv2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\exiv2\config.h">
+      <Filter>Src_exiv2_src\exiv2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\exiv2\convert.hpp">
+      <Filter>Src_exiv2_src\exiv2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\exiv2\cr2image.hpp">
+      <Filter>Src_exiv2_src\exiv2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\exiv2\crwimage.hpp">
+      <Filter>Src_exiv2_src\exiv2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\exiv2\datasets.hpp">
+      <Filter>Src_exiv2_src\exiv2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\exiv2\easyaccess.hpp">
+      <Filter>Src_exiv2_src\exiv2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\exiv2\epsimage.hpp">
+      <Filter>Src_exiv2_src\exiv2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\exiv2\error.hpp">
+      <Filter>Src_exiv2_src\exiv2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\exiv2\exif.hpp">
+      <Filter>Src_exiv2_src\exiv2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\exiv2\exiv2.hpp">
+      <Filter>Src_exiv2_src\exiv2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\exiv2\exiv2app.hpp">
+      <Filter>Src_exiv2_src\exiv2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\exiv2\futils.hpp">
+      <Filter>Src_exiv2_src\exiv2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\exiv2\getopt.hpp">
+      <Filter>Src_exiv2_src\exiv2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\exiv2\gifimage.hpp">
+      <Filter>Src_exiv2_src\exiv2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\exiv2\http.hpp">
+      <Filter>Src_exiv2_src\exiv2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\exiv2\image.hpp">
+      <Filter>Src_exiv2_src\exiv2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\exiv2\image_types.hpp">
+      <Filter>Src_exiv2_src\exiv2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\exiv2\iptc.hpp">
+      <Filter>Src_exiv2_src\exiv2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\exiv2\jp2image.hpp">
+      <Filter>Src_exiv2_src\exiv2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\exiv2\jpgimage.hpp">
+      <Filter>Src_exiv2_src\exiv2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\exiv2\matroskavideo.hpp">
+      <Filter>Src_exiv2_src\exiv2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\exiv2\metadatum.hpp">
+      <Filter>Src_exiv2_src\exiv2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\exiv2\mrwimage.hpp">
+      <Filter>Src_exiv2_src\exiv2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_src\exiv2\orfimage.hpp">
+      <Filter>Src_exiv2_src\exiv2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_xmpsdk\include\XMPSDK.hpp">
+      <Filter>Src_exiv2_xmpsdk\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_xmpsdk\include\MD5.h">
+      <Filter>Src_exiv2_xmpsdk\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_xmpsdk\include\TXMPIterator.hpp">
+      <Filter>Src_exiv2_xmpsdk\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_xmpsdk\include\TXMPMeta.hpp">
+      <Filter>Src_exiv2_xmpsdk\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_xmpsdk\include\TXMPUtils.hpp">
+      <Filter>Src_exiv2_xmpsdk\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_xmpsdk\include\XMP_Const.h">
+      <Filter>Src_exiv2_xmpsdk\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_xmpsdk\include\XMP_Environment.h">
+      <Filter>Src_exiv2_xmpsdk\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_xmpsdk\include\XMP_Version.h">
+      <Filter>Src_exiv2_xmpsdk\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_xmpsdk\include\client-glue\WXMPFiles.hpp">
+      <Filter>Src_exiv2_xmpsdk\include\client-glue</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_xmpsdk\include\client-glue\WXMPIterator.hpp">
+      <Filter>Src_exiv2_xmpsdk\include\client-glue</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_xmpsdk\include\client-glue\WXMPMeta.hpp">
+      <Filter>Src_exiv2_xmpsdk\include\client-glue</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_xmpsdk\include\client-glue\WXMPUtils.hpp">
+      <Filter>Src_exiv2_xmpsdk\include\client-glue</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_xmpsdk\include\client-glue\WXMP_Common.hpp">
+      <Filter>Src_exiv2_xmpsdk\include\client-glue</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_xmpsdk\src\UnicodeConversions.hpp">
+      <Filter>Src_exiv2_xmpsdk\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_xmpsdk\src\XMLParserAdapter.hpp">
+      <Filter>Src_exiv2_xmpsdk\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_xmpsdk\src\XMP_BuildInfo.h">
+      <Filter>Src_exiv2_xmpsdk\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_xmpsdk\src\XMPCore_Impl.hpp">
+      <Filter>Src_exiv2_xmpsdk\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_xmpsdk\src\XMPIterator.hpp">
+      <Filter>Src_exiv2_xmpsdk\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_xmpsdk\src\XMPMeta.hpp">
+      <Filter>Src_exiv2_xmpsdk\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_xmpsdk\src\XMPUtils.hpp">
+      <Filter>Src_exiv2_xmpsdk\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_exiv2_xmpsdk\src\ExpatAdapter.hpp">
+      <Filter>Src_exiv2_xmpsdk\src</Filter>
     </ClInclude>
     <ClInclude Include="..\Src_expat_lib\expat_config.h">
-      <Filter>IncludeExt</Filter>
+      <Filter>Src_expat_lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_expat_lib\expat_external.h">
+      <Filter>Src_expat_lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_expat_lib\iasciitab.h">
+      <Filter>Src_expat_lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_expat_lib\internal.h">
+      <Filter>Src_expat_lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_expat_lib\latin1tab.h">
+      <Filter>Src_expat_lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_expat_lib\nametab.h">
+      <Filter>Src_expat_lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_expat_lib\siphash.h">
+      <Filter>Src_expat_lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_expat_lib\utf8tab.h">
+      <Filter>Src_expat_lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_expat_lib\winconfig.h">
+      <Filter>Src_expat_lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_expat_lib\xmlrole.h">
+      <Filter>Src_expat_lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_expat_lib\xmltok.h">
+      <Filter>Src_expat_lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_expat_lib\xmltok_impl.h">
+      <Filter>Src_expat_lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_expat_lib\ascii.h">
+      <Filter>Src_expat_lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_expat_lib\asciitab.h">
+      <Filter>Src_expat_lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_expat_lib\expat.h">
+      <Filter>Src_expat_lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_zlib\crc32.h">
+      <Filter>Src_zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_zlib\deflate.h">
+      <Filter>Src_zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_zlib\gzguts.h">
+      <Filter>Src_zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_zlib\inffast.h">
+      <Filter>Src_zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_zlib\inffixed.h">
+      <Filter>Src_zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_zlib\inflate.h">
+      <Filter>Src_zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_zlib\inftrees.h">
+      <Filter>Src_zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_zlib\trees.h">
+      <Filter>Src_zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_zlib\zlib.h">
+      <Filter>Src_zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_zlib\zutil.h">
+      <Filter>Src_zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_inih\cpp\INIReader.h">
+      <Filter>Src_inih\cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src_inih\ini.h">
+      <Filter>Src_inih</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Src_exiv2_xmpsdk\include\client-glue\TXMPIterator.incl_cpp">
-      <Filter>SourceExt</Filter>
-    </None>
-    <None Include="..\Src_exiv2_xmpsdk\include\client-glue\TXMPMeta.incl_cpp">
-      <Filter>SourceExt</Filter>
-    </None>
-    <None Include="..\Src_exiv2_xmpsdk\include\client-glue\TXMPUtils.incl_cpp">
-      <Filter>SourceExt</Filter>
-    </None>
-    <None Include="..\Src_exiv2_xmpsdk\src\UnicodeInlines.incl_cpp">
-      <Filter>SourceExt</Filter>
-    </None>
-    <None Include="..\Src_exiv2_xmpsdk\include\XMP.incl_cpp">
-      <Filter>SourceExt</Filter>
-    </None>
+    <Filter Include="Src_brotli">
+      <UniqueIdentifier>{4637f64f-0a93-4788-819e-a37f0f46465e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src_brotli\brotli">
+      <UniqueIdentifier>{0d109cbb-38de-49d8-bb35-8a28428180bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src_exiv2_src">
+      <UniqueIdentifier>{69af8ec9-8ac7-4852-acf8-88e087dac785}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src_exiv2_src\exiv2">
+      <UniqueIdentifier>{665063e9-e2de-425c-9a3b-1afc0b979cea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src_exiv2_xmpsdk">
+      <UniqueIdentifier>{add6d52d-f011-4094-a027-58e426ade993}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src_exiv2_xmpsdk\include">
+      <UniqueIdentifier>{eb931c9d-3e1a-4189-880d-4ddb2e3e5a69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src_exiv2_xmpsdk\include\client-glue">
+      <UniqueIdentifier>{af5d1ab9-c179-4bb4-bba8-47046967f27e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src_exiv2_xmpsdk\src">
+      <UniqueIdentifier>{dc5dda85-8be9-4728-94a5-8a40f820971e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src_expat_lib">
+      <UniqueIdentifier>{3b56a621-fb00-4354-b1c5-c549731c41f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src_inih">
+      <UniqueIdentifier>{d8ffbac7-d673-453f-a468-2e5a122ad37e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src_zlib">
+      <UniqueIdentifier>{35744d2a-e11e-41f2-b5e3-9348ea693522}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src_brotli\common">
+      <UniqueIdentifier>{67fc6821-8595-467c-9758-7f1a4cdfca31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src_brotli\dec">
+      <UniqueIdentifier>{384553b8-aaaa-498f-acd0-ce03a0af26fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src_brotli\enc">
+      <UniqueIdentifier>{54273a39-c847-4174-bfbf-d200212af2d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src_brotli\tools">
+      <UniqueIdentifier>{3ce122a5-83fc-4390-af4e-61528f89770b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src_inih\cpp">
+      <UniqueIdentifier>{b2c11fce-2521-459f-9845-eff968ee8114}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="SourceExt">
-      <UniqueIdentifier>{5fc8233d-cde1-4e60-9319-b514e6f6329f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="IncludeExt">
-      <UniqueIdentifier>{18254228-7118-4dc1-8d44-9d2a96c9cdd5}</UniqueIdentifier>
-    </Filter>
+    <None Include="..\Src_exiv2_xmpsdk\include\XMP.incl_cpp">
+      <Filter>Src_exiv2_xmpsdk\include</Filter>
+    </None>
+    <None Include="..\Src_exiv2_xmpsdk\include\client-glue\TXMPIterator.incl_cpp">
+      <Filter>Src_exiv2_xmpsdk\include\client-glue</Filter>
+    </None>
+    <None Include="..\Src_exiv2_xmpsdk\include\client-glue\TXMPMeta.incl_cpp">
+      <Filter>Src_exiv2_xmpsdk\include\client-glue</Filter>
+    </None>
+    <None Include="..\Src_exiv2_xmpsdk\include\client-glue\TXMPUtils.incl_cpp">
+      <Filter>Src_exiv2_xmpsdk\include\client-glue</Filter>
+    </None>
+    <None Include="..\Src_exiv2_xmpsdk\src\UnicodeInlines.incl_cpp">
+      <Filter>Src_exiv2_xmpsdk\src</Filter>
+    </None>
   </ItemGroup>
 </Project>
