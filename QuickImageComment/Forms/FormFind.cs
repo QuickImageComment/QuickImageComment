@@ -65,6 +65,7 @@ namespace QuickImageComment
         private static ArrayList filterDefinitions;
         private bool filterDefinitionsComplete = false;
         private static ArrayList MetaDataDefinitionsToRead;
+        private static FilterDefinition filterDefinitionKeyWords = null;
 
         private static bool initialisationCompleted = false;
         private static bool initDataTableRunning = false;
@@ -122,6 +123,7 @@ namespace QuickImageComment
             labelRemainingTime.Visible = false;
             dynamicLabelRemainingTime.Visible = false;
             buttonCancelRead.Visible = false;
+            dataGridView1.BringToFront();
 
             dataTableFileName = ConfigDefinition.getConfigString(ConfigDefinition.enumConfigString.FindDataTableFileName);
             if (!ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.FindShowDataTable))
@@ -130,6 +132,8 @@ namespace QuickImageComment
             }
 
             fillFilterDefinitionsAndKeyLists();
+
+            treeViewKeyWords.fillWithPredefKeyWords();
 
             checkBoxSaveFindDataTable.Checked = ConfigDefinition.getCfgUserBool(ConfigDefinition.enumCfgUserBool.SaveFindDataTable);
             if (checkBoxSaveFindDataTable.Checked)
@@ -150,7 +154,7 @@ namespace QuickImageComment
             // show map with last used coordinates for find
             theUserControlMap = new UserControlMap(true, new GeoDataItem(ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.LastGeoDataItemForFind)),
                 true, gpsFindRangeInMeter);
-            splitContainer1.Panel2.Controls.Add(theUserControlMap.panelMap);
+            splitContainer2.Panel1.Controls.Add(theUserControlMap.panelMap);
             theUserControlMap.panelMap.Dock = DockStyle.Fill;
 
             // disable ValueChanged-event to avoid setting radius in UserControlMap again
@@ -168,6 +172,7 @@ namespace QuickImageComment
             Height = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.FormFindHeight);
             Width = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.FormFindWidth);
             splitContainer1.SplitterDistance = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.FormFindSplitContainer1_Distance);
+            splitContainer2.SplitterDistance = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.FormFindSplitContainer2_Distance);
 
             fillFilterPanelWithControls();
             fillItemsFilterFields();
@@ -201,6 +206,7 @@ namespace QuickImageComment
                 FolderName = givenFolderName;
             }
             dynamicLabelFolder.Text = FolderName;
+            treeViewKeyWords.ExpandAll();
             setControlsDependingOnDataTable();
             this.ShowDialog();
         }
@@ -345,10 +351,30 @@ namespace QuickImageComment
                     filterDefinition.comboBoxOperator2.Tag = filterDefinition;
                     filterDefinition.comboBoxValue2.Tag = filterDefinition;
 
-                    if (metaDataDefinitionItem.FormatPrim == MetaDataItem.Format.Interpreted)
+                    if (ExtendedImage.exiv2tagRepeatable(metaDataDefinitionItem.KeyPrim) ||
+                        metaDataDefinitionItem.KeyPrim.Equals("Image.IPTC_KeyWordsString") ||
+                        metaDataDefinitionItem.KeyPrim.Equals("Image.IPTC_SuppCategoriesString") ||
+                        metaDataDefinitionItem.KeyPrim.Equals("Image.CommentCombinedFields") ||
+                        metaDataDefinitionItem.KeyPrim.Equals("Image.ArtistCombinedFields"))
+                    {
+                        // repeatable tags some operators make no sense:
+                        // comparison is done with concatenated values, where sequence is not defined
+                        comboBoxOperator1.Items.AddRange(new object[] { "", 
+                        LangCfg.getText(LangCfg.Others.selectOpEmpty),
+                        LangCfg.getText(LangCfg.Others.selectOpNotEmpty),
+                        LangCfg.getText(LangCfg.Others.selectOpContains),
+                        LangCfg.getText(LangCfg.Others.selectOpContainsNot)});
+                        comboBoxOperator2.Items.AddRange(new object[] { "", 
+                        LangCfg.getText(LangCfg.Others.selectOpContains),
+                        LangCfg.getText(LangCfg.Others.selectOpContainsNot)});
+
+                    }
+                    else if (metaDataDefinitionItem.FormatPrim == MetaDataItem.Format.Interpreted)
                     {
                         // operator with string operators
                         comboBoxOperator1.Items.AddRange(new object[] { "", "=", "<>", ">", ">=",
+                        LangCfg.getText(LangCfg.Others.selectOpEmpty),
+                        LangCfg.getText(LangCfg.Others.selectOpNotEmpty),
                         LangCfg.getText(LangCfg.Others.selectOpContains),
                         LangCfg.getText(LangCfg.Others.selectOpContainsNot),
                         LangCfg.getText(LangCfg.Others.selectOpStartsWith),
@@ -364,7 +390,9 @@ namespace QuickImageComment
                     else
                     {
                         // operator with numeric operators only
-                        comboBoxOperator1.Items.AddRange(new object[] { "", "=", "<>", ">", ">=" });
+                        comboBoxOperator1.Items.AddRange(new object[] { "", "=", "<>", ">", ">=",
+                        LangCfg.getText(LangCfg.Others.selectOpEmpty),
+                        LangCfg.getText(LangCfg.Others.selectOpNotEmpty) });
                         comboBoxOperator2.Items.AddRange(new object[] { "", "<>", "<", "<=" });
                     }
                     comboBoxOperator1.SelectedIndexChanged += new System.EventHandler(this.dynamicComboBoxOperator1_SelectedIndexChanged);
@@ -687,7 +715,9 @@ namespace QuickImageComment
                         {
                             if (filterDefinition.comboBoxValue1.Text.Trim().Equals("") &&
                                 !filterDefinition.comboBoxOperator1.Text.Equals("=") &&
-                                !filterDefinition.comboBoxOperator1.Text.Equals("<>"))
+                                !filterDefinition.comboBoxOperator1.Text.Equals("<>") &&
+                                !filterDefinition.comboBoxOperator1.Text.Equals(LangCfg.getText(LangCfg.Others.selectOpEmpty)) &&
+                                !filterDefinition.comboBoxOperator1.Text.Equals(LangCfg.getText(LangCfg.Others.selectOpNotEmpty)))
                             {
                                 GeneralUtilities.message(LangCfg.Message.W_emptyFindValueNotAllowed1, filterDefinition.metaDataDefinitionItem.Name);
                                 throw new ExceptionFilterError();
@@ -749,6 +779,17 @@ namespace QuickImageComment
                     }
                 }
 
+                // query for predefined IPTC key words
+                ArrayList theKeywords = new ArrayList();
+                treeViewKeyWords.getCheckedKeyWords(theKeywords);
+                foreach (string keyword in theKeywords)
+                {
+                    query += " and (" + filterDefinitionKeyWords.columnNameForQuery + " = '" + keyword + "' or "
+                                      + filterDefinitionKeyWords.columnNameForQuery + " like '" + keyword + " | *' or "
+                                      + filterDefinitionKeyWords.columnNameForQuery + " like '* | " + keyword + " | *' or "
+                                      + filterDefinitionKeyWords.columnNameForQuery + " like '* | " + keyword + "')";
+                }
+
                 if (query.Length < 5)
                 {
                     GeneralUtilities.message(LangCfg.Message.W_noFilterCriteria);
@@ -807,7 +848,15 @@ namespace QuickImageComment
 
         private void addToQuery(ComboBox comboBoxOperator, ComboBox comboBoxValue, string columnNameForQuery, ref string query)
         {
-            if (comboBoxOperator.Text.Equals(LangCfg.getText(LangCfg.Others.selectOpContains)))
+            if (comboBoxOperator.Text.Equals(LangCfg.getText(LangCfg.Others.selectOpEmpty)))
+            {
+                query += " and " + columnNameForQuery + " is null";
+            }
+            else if (comboBoxOperator.Text.Equals(LangCfg.getText(LangCfg.Others.selectOpNotEmpty)))
+            {
+                query += " and " + columnNameForQuery + " is not null";
+            }
+            else if (comboBoxOperator.Text.Equals(LangCfg.getText(LangCfg.Others.selectOpContains)))
             {
                 query += " and " + columnNameForQuery
                                  + " like '*" + comboBoxValue.Text + "*'";
@@ -1250,7 +1299,9 @@ namespace QuickImageComment
         {
             ComboBox comboBox = (ComboBox)sender;
             FilterDefinition fd = (FilterDefinition)comboBox.Tag;
-            if (comboBox.Text == "")
+            if (comboBox.Text == "" || 
+                comboBox.Text.Equals(LangCfg.getText(LangCfg.Others.selectOpEmpty)) ||
+                comboBox.Text.Equals(LangCfg.getText(LangCfg.Others.selectOpNotEmpty)))
             {
                 fd.comboBoxValue1.Enabled = false;
                 if (fd.dateTimePicker1 != null) fd.dateTimePicker1.Enabled = false;
@@ -1299,6 +1350,7 @@ namespace QuickImageComment
             ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.FormFindHeight, this.Height);
             ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.FormFindWidth, this.Width);
             ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.FormFindSplitContainer1_Distance, splitContainer1.SplitterDistance);
+            ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.FormFindSplitContainer2_Distance, splitContainer2.SplitterDistance);
             ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.GpsFindRangeInMeter, (int)(numericUpDownGpsRange.Value * 1000));
             if (lastGeoDataItemForFind != null)
             {
@@ -1337,7 +1389,7 @@ namespace QuickImageComment
         #endregion
 
         //*****************************************************************
-        #region public methods
+        #region public/internal methods
         //*****************************************************************
 
         // add or update a row with extended image
@@ -1430,6 +1482,11 @@ namespace QuickImageComment
             return initDataTableRunning;
         }
 
+        // fill tree view with predefine key words
+        internal void fillTreeViewWithPredefKeyWords()
+        {
+            treeViewKeyWords.fillWithPredefKeyWords();
+        }
         #endregion
 
         //*****************************************************************
@@ -1439,6 +1496,7 @@ namespace QuickImageComment
         {
             filterDefinitionsComplete = false;
             filterDefinitions = new ArrayList();
+            filterDefinitionKeyWords = null;
 
             // initialse filterDefinitions with MetaDataDefinitions visible in mask
             foreach (MetaDataDefinitionItem aMetaDataDefinitionItem in
@@ -1464,6 +1522,10 @@ namespace QuickImageComment
                 {
                     if (aMetaDataDefinitionItem.KeyPrim.Equals("Image.GPSsignedLatitude")) signedLatFound = true;
                     if (aMetaDataDefinitionItem.KeyPrim.Equals("Image.GPSsignedLongitude")) signedLonFound = true;
+                    if (aMetaDataDefinitionItem.KeyPrim.Equals("Image.IPTC_KeyWordsString")) 
+                        filterDefinitionKeyWords = (FilterDefinition)filterDefinitions[ii];
+                    if (aMetaDataDefinitionItem.KeyPrim.Equals("Iptc.Application2.Keywords"))
+                        filterDefinitionKeyWords = (FilterDefinition)filterDefinitions[ii];
                 }
             }
             if (!signedLatFound) filterDefinitions.Add(new FilterDefinition(
@@ -1477,6 +1539,10 @@ namespace QuickImageComment
                 MetaDataDefinitionsToStore.Add(((FilterDefinition)filterDefinitions[ii]).metaDataDefinitionItem);
             }
             MetaDataDefinitionsToRead = ConfigDefinition.getNeededKeysIncludingReferences(MetaDataDefinitionsToStore);
+
+            // show tree view with predefined key words only if a column for IPTC key words is configured
+            labelIptcKeyWords.Visible = filterDefinitionKeyWords != null;
+            splitContainer2.Panel2Collapsed = filterDefinitionKeyWords == null;
         }
 
         // add an entry to list of filter entries and sort list

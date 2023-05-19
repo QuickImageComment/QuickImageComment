@@ -31,7 +31,7 @@
             this.splitContainer1212 = new System.Windows.Forms.SplitContainer();
             this.textBoxFreeInputKeyWords = new System.Windows.Forms.TextBox();
             this.labelInputKeyWords = new System.Windows.Forms.Label();
-            this.treeViewPredefKeyWords = new System.Windows.Forms.TreeView();
+            this.treeViewPredefKeyWords = new QuickImageCommentControls.TreeViewKeyWords();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1212)).BeginInit();
             this.splitContainer1212.Panel1.SuspendLayout();
             this.splitContainer1212.Panel2.SuspendLayout();
@@ -84,7 +84,6 @@
             // 
             // treeViewPredefKeyWords
             // 
-            this.treeViewPredefKeyWords.CheckBoxes = true;
             this.treeViewPredefKeyWords.Dock = System.Windows.Forms.DockStyle.Fill;
             this.treeViewPredefKeyWords.Location = new System.Drawing.Point(0, 0);
             this.treeViewPredefKeyWords.Name = "treeViewPredefKeyWords";
@@ -112,6 +111,6 @@
         internal System.Windows.Forms.TextBox textBoxFreeInputKeyWords;
         private System.Windows.Forms.Label labelInputKeyWords;
         internal System.Windows.Forms.SplitContainer splitContainer1212;
-        internal System.Windows.Forms.TreeView treeViewPredefKeyWords;
+        internal QuickImageCommentControls.TreeViewKeyWords treeViewPredefKeyWords;
     }
 }

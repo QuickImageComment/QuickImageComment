@@ -82,15 +82,18 @@ namespace QuickImageComment
             this.labelRemainingTime = new System.Windows.Forms.Label();
             this.dynamicLabelRemainingTime = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.labelIptcKeyWords = new System.Windows.Forms.Label();
             this.checkBoxShowDataTable = new System.Windows.Forms.CheckBox();
             this.labelKm = new System.Windows.Forms.Label();
             this.numericUpDownGpsRange = new System.Windows.Forms.NumericUpDown();
             this.checkBoxFilterGPS = new System.Windows.Forms.CheckBox();
             this.panelFilterOuter = new System.Windows.Forms.Panel();
+            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.treeViewKeyWords = new QuickImageCommentControls.TreeViewKeyWords();
             this.backgroundWorkerInit = new System.ComponentModel.BackgroundWorker();
-            this.progressPanel1 = new QuickImageComment.ProgressPanel();
             this.checkBoxSaveFindDataTable = new System.Windows.Forms.CheckBox();
             this.backgroundWorkerUpdate = new System.ComponentModel.BackgroundWorker();
+            this.progressPanel1 = new QuickImageComment.ProgressPanel();
             this.panelFilterInner.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -99,6 +102,9 @@ namespace QuickImageComment
             this.splitContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownGpsRange)).BeginInit();
             this.panelFilterOuter.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
+            this.splitContainer2.Panel2.SuspendLayout();
+            this.splitContainer2.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonFind
@@ -372,6 +378,7 @@ namespace QuickImageComment
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.BackColor = System.Drawing.SystemColors.Control;
+            this.splitContainer1.Panel1.Controls.Add(this.labelIptcKeyWords);
             this.splitContainer1.Panel1.Controls.Add(this.checkBoxShowDataTable);
             this.splitContainer1.Panel1.Controls.Add(this.labelKm);
             this.splitContainer1.Panel1.Controls.Add(this.numericUpDownGpsRange);
@@ -380,16 +387,27 @@ namespace QuickImageComment
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
             this.splitContainer1.Panel2.Controls.Add(this.dataGridView1);
             this.splitContainer1.Size = new System.Drawing.Size(788, 263);
             this.splitContainer1.SplitterDistance = 130;
             this.splitContainer1.TabIndex = 23;
             // 
+            // labelIptcKeyWords
+            // 
+            this.labelIptcKeyWords.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelIptcKeyWords.Location = new System.Drawing.Point(614, 111);
+            this.labelIptcKeyWords.Name = "labelIptcKeyWords";
+            this.labelIptcKeyWords.Size = new System.Drawing.Size(169, 13);
+            this.labelIptcKeyWords.TabIndex = 25;
+            this.labelIptcKeyWords.Text = "Enthält IPTC Schlüsselworte:";
+            this.labelIptcKeyWords.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // checkBoxShowDataTable
             // 
             this.checkBoxShowDataTable.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBoxShowDataTable.AutoSize = true;
-            this.checkBoxShowDataTable.Location = new System.Drawing.Point(630, 109);
+            this.checkBoxShowDataTable.Location = new System.Drawing.Point(397, 109);
             this.checkBoxShowDataTable.Name = "checkBoxShowDataTable";
             this.checkBoxShowDataTable.Size = new System.Drawing.Size(133, 17);
             this.checkBoxShowDataTable.TabIndex = 5;
@@ -455,6 +473,30 @@ namespace QuickImageComment
             this.panelFilterOuter.Size = new System.Drawing.Size(786, 103);
             this.panelFilterOuter.TabIndex = 1;
             // 
+            // splitContainer2
+            // 
+            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer2.Name = "splitContainer2";
+            this.splitContainer2.Panel1MinSize = 200;
+            // 
+            // splitContainer2.Panel2
+            // 
+            this.splitContainer2.Panel2.Controls.Add(this.treeViewKeyWords);
+            this.splitContainer2.Panel2MinSize = 200;
+            this.splitContainer2.Size = new System.Drawing.Size(786, 127);
+            this.splitContainer2.SplitterDistance = 576;
+            this.splitContainer2.TabIndex = 11;
+            // 
+            // treeViewKeyWords
+            // 
+            this.treeViewKeyWords.CheckBoxes = true;
+            this.treeViewKeyWords.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeViewKeyWords.Location = new System.Drawing.Point(0, 0);
+            this.treeViewKeyWords.Name = "treeViewKeyWords";
+            this.treeViewKeyWords.Size = new System.Drawing.Size(206, 127);
+            this.treeViewKeyWords.TabIndex = 0;
+            // 
             // backgroundWorkerInit
             // 
             this.backgroundWorkerInit.WorkerReportsProgress = true;
@@ -462,16 +504,6 @@ namespace QuickImageComment
             this.backgroundWorkerInit.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorkerInit_DoWork);
             this.backgroundWorkerInit.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorkerInit_ProgressChanged);
             this.backgroundWorkerInit.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorkerInit_RunWorkerCompleted);
-            // 
-            // progressPanel1
-            // 
-            this.progressPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.progressPanel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.progressPanel1.Location = new System.Drawing.Point(9, 49);
-            this.progressPanel1.Name = "progressPanel1";
-            this.progressPanel1.Size = new System.Drawing.Size(787, 18);
-            this.progressPanel1.TabIndex = 13;
             // 
             // checkBoxSaveFindDataTable
             // 
@@ -489,6 +521,16 @@ namespace QuickImageComment
             this.backgroundWorkerUpdate.WorkerSupportsCancellation = true;
             this.backgroundWorkerUpdate.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorkerUpdate_DoWork);
             this.backgroundWorkerUpdate.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorkerUpdate_RunWorkerCompleted);
+            // 
+            // progressPanel1
+            // 
+            this.progressPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.progressPanel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.progressPanel1.Location = new System.Drawing.Point(9, 49);
+            this.progressPanel1.Name = "progressPanel1";
+            this.progressPanel1.Size = new System.Drawing.Size(787, 18);
+            this.progressPanel1.TabIndex = 13;
             // 
             // FormFind
             // 
@@ -536,6 +578,9 @@ namespace QuickImageComment
             this.splitContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownGpsRange)).EndInit();
             this.panelFilterOuter.ResumeLayout(false);
+            this.splitContainer2.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
+            this.splitContainer2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -575,5 +620,8 @@ namespace QuickImageComment
         private System.Windows.Forms.CheckBox checkBoxShowDataTable;
         private System.Windows.Forms.CheckBox checkBoxSaveFindDataTable;
         private System.ComponentModel.BackgroundWorker backgroundWorkerUpdate;
+        private System.Windows.Forms.SplitContainer splitContainer2;
+        private QuickImageCommentControls.TreeViewKeyWords treeViewKeyWords;
+        private System.Windows.Forms.Label labelIptcKeyWords;
     }
 }

@@ -2405,7 +2405,11 @@ namespace QuickImageComment
             {
                 FormPredefinedKeyWords theFormPredefinedKeyWords = new FormPredefinedKeyWords();
                 theFormPredefinedKeyWords.ShowDialog();
-                theUserControlKeyWords.fillTreeViewPredefKeyWords();
+                theUserControlKeyWords.treeViewPredefKeyWords.fillWithPredefKeyWords();
+                if (formFind !=  null)
+                {
+                    formFind.fillTreeViewWithPredefKeyWords();
+                }
                 if (theExtendedImage != null)
                 {
                     disableEventHandlersRecogniseUserInput();

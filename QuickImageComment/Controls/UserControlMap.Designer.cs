@@ -100,7 +100,7 @@
             // 
             // buttonDelete
             // 
-            this.buttonDelete.Location = new System.Drawing.Point(80, 26);
+            this.buttonDelete.Location = new System.Drawing.Point(89, 26);
             this.buttonDelete.Name = "buttonDelete";
             this.buttonDelete.Size = new System.Drawing.Size(56, 21);
             this.buttonDelete.TabIndex = 17;
@@ -112,7 +112,7 @@
             // 
             this.buttonRename.Location = new System.Drawing.Point(2, 26);
             this.buttonRename.Name = "buttonRename";
-            this.buttonRename.Size = new System.Drawing.Size(79, 21);
+            this.buttonRename.Size = new System.Drawing.Size(85, 21);
             this.buttonRename.TabIndex = 16;
             this.buttonRename.Text = "Umbenennen";
             this.buttonRename.UseVisualStyleBackColor = true;
@@ -131,9 +131,9 @@
             // buttonReset
             // 
             this.buttonReset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonReset.Location = new System.Drawing.Point(347, 2);
+            this.buttonReset.Location = new System.Drawing.Point(344, 2);
             this.buttonReset.Name = "buttonReset";
-            this.buttonReset.Size = new System.Drawing.Size(80, 23);
+            this.buttonReset.Size = new System.Drawing.Size(85, 23);
             this.buttonReset.TabIndex = 10;
             this.buttonReset.Text = "Zurücksetzen";
             this.buttonReset.UseVisualStyleBackColor = true;
@@ -142,7 +142,7 @@
             // buttonCenterMarker
             // 
             this.buttonCenterMarker.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonCenterMarker.Location = new System.Drawing.Point(261, 2);
+            this.buttonCenterMarker.Location = new System.Drawing.Point(259, 2);
             this.buttonCenterMarker.Name = "buttonCenterMarker";
             this.buttonCenterMarker.Size = new System.Drawing.Size(80, 23);
             this.buttonCenterMarker.TabIndex = 11;

@@ -295,6 +295,8 @@ namespace QuickImageComment
             infoForGroupFind,
             selectOpStartsWith,
             selectOpEndsWith,
+            selectOpEmpty,
+            selectOpNotEmpty,
             selectOpContains,
             selectOpStartsNotWith,
             selectOpEndsNotWith,

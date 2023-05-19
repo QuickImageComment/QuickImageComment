@@ -198,6 +198,7 @@ namespace QuickImageComment
             FormFindHeight,
             FormFindWidth,
             FormFindSplitContainer1_Distance,
+            FormFindSplitContainer2_Distance,
             GpsFindRangeInMeter,
             zoomFactorPerCentGeneral,
             zoomFactorPerCentToolbar,
@@ -551,6 +552,7 @@ namespace QuickImageComment
             ConfigItems.Add(enumCfgUserInt.FormFindHeight.ToString(), 0);
             ConfigItems.Add(enumCfgUserInt.FormFindWidth.ToString(), 0);
             ConfigItems.Add(enumCfgUserInt.FormFindSplitContainer1_Distance.ToString(), 100);
+            ConfigItems.Add(enumCfgUserInt.FormFindSplitContainer2_Distance.ToString(), 400);
             ConfigItems.Add(enumCfgUserInt.GpsFindRangeInMeter.ToString(), 1000);
             ConfigItems.Add(enumCfgUserInt.zoomFactorPerCentGeneral.ToString(), 100);
             ConfigItems.Add(enumCfgUserInt.zoomFactorPerCentToolbar.ToString(), -1);

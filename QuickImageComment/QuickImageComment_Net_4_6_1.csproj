@@ -124,6 +124,9 @@
     <Compile Include="Controls\ToolTipQIC.Designer.cs">
       <DependentUpon>ToolTipQIC.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\TreeViewKeyWords.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Forms\FormChangesInVersion.cs">
       <SubType>Form</SubType>
     </Compile>
