@@ -39,6 +39,7 @@ namespace QuickImageComment
         private const string dateTimePickerNamePrefix = "dateTimePicker_";
         private const string dataTableNameFind = "FindData";
         private const string dataTableNameMerge = "MergeData";
+        private const string queryExampleForScreenShot = "Image.CommentAccordingSettings is null";
 
         enum DateModifierForSelect
         {
@@ -87,7 +88,7 @@ namespace QuickImageComment
 
         private static object LockDataTable = new object();
 
-        private class FilterDefinition
+        internal class FilterDefinition
         {
             internal string displayName;
             internal string columnNameForQuery;
@@ -111,6 +112,12 @@ namespace QuickImageComment
         {
             public ExceptionFilterError()
                 : base() { }
+        }
+
+        internal class ExecuteQueryError : ApplicationException
+        {
+            public ExecuteQueryError(string message)
+                : base(message) { }
         }
 
         public FormFind(bool completeInitialisation)
@@ -154,7 +161,7 @@ namespace QuickImageComment
             // show map with last used coordinates for find
             theUserControlMap = new UserControlMap(true, new GeoDataItem(ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.LastGeoDataItemForFind)),
                 true, gpsFindRangeInMeter);
-            splitContainer2.Panel1.Controls.Add(theUserControlMap.panelMap);
+            panelMap.Controls.Add(theUserControlMap.panelMap);
             theUserControlMap.panelMap.Dock = DockStyle.Fill;
 
             // disable ValueChanged-event to avoid setting radius in UserControlMap again
@@ -181,6 +188,7 @@ namespace QuickImageComment
             if (GeneralUtilities.CloseAfterConstructing)
             {
                 LangCfg.translateControlTexts(this);
+                FormFindQuery theFormFindQuery = new FormFindQuery(filterDefinitions, queryExampleForScreenShot, this);
                 return;
             }
 
@@ -220,6 +228,7 @@ namespace QuickImageComment
             Show();
             Refresh();
             GeneralUtilities.saveScreenshot(this, this.Name, ConfigDefinition.getConfigInt(ConfigDefinition.enumConfigInt.DelayBeforeSavingScreenshotsMap));
+            FormFindQuery theFormFindQuery = new FormFindQuery(filterDefinitions, queryExampleForScreenShot, this);
             Close();
             return;
         }
@@ -359,12 +368,12 @@ namespace QuickImageComment
                     {
                         // repeatable tags some operators make no sense:
                         // comparison is done with concatenated values, where sequence is not defined
-                        comboBoxOperator1.Items.AddRange(new object[] { "", 
+                        comboBoxOperator1.Items.AddRange(new object[] { "",
                         LangCfg.getText(LangCfg.Others.selectOpEmpty),
                         LangCfg.getText(LangCfg.Others.selectOpNotEmpty),
                         LangCfg.getText(LangCfg.Others.selectOpContains),
                         LangCfg.getText(LangCfg.Others.selectOpContainsNot)});
-                        comboBoxOperator2.Items.AddRange(new object[] { "", 
+                        comboBoxOperator2.Items.AddRange(new object[] { "",
                         LangCfg.getText(LangCfg.Others.selectOpContains),
                         LangCfg.getText(LangCfg.Others.selectOpContainsNot)});
 
@@ -700,8 +709,28 @@ namespace QuickImageComment
             CustomizationInterface.showFormCustomization(this);
         }
 
+        // button edit query
+        private void buttonQuery_Click(object sender, EventArgs e)
+        {
+            string query = buildQueryWithoutGPS();
+            if (query != null)
+            {
+                FormFindQuery theFormFindQuery = new FormFindQuery(filterDefinitions, query, this);
+                theFormFindQuery.ShowDialog();
+            }
+        }
+
         // button to start find
         private void buttonFind_Click(object sender, System.EventArgs e)
+        {
+            string query = buildQueryWithoutGPS();
+            if (query != null)
+            {
+                addGpsToQueryAndexecute(query, null);
+            }
+        }
+
+        private string buildQueryWithoutGPS()
         {
             string query = "";
             // ExceptionConversionError is used to handle input errors
@@ -747,9 +776,38 @@ namespace QuickImageComment
                     }
                 }
 
+                // query for predefined IPTC key words
+                ArrayList theKeywords = new ArrayList();
+                treeViewKeyWords.getCheckedKeyWords(theKeywords);
+                foreach (string keyword in theKeywords)
+                {
+                    query += " and (" + filterDefinitionKeyWords.columnNameForQuery + " = '" + keyword + "' or "
+                                      + filterDefinitionKeyWords.columnNameForQuery + " like '" + keyword + " | *' or "
+                                      + filterDefinitionKeyWords.columnNameForQuery + " like '* | " + keyword + " | *' or "
+                                      + filterDefinitionKeyWords.columnNameForQuery + " like '* | " + keyword + "')";
+                }
+                if (query.Length > 5)
+                {
+                    // remove leading " and "
+                    query = query.Substring(5);
+                }
+                return query;
+            }
+            catch (ExceptionFilterError)
+            {
+                return null;
+            }
+        }
+
+        internal void addGpsToQueryAndexecute(string query, FormFindQuery formFindQuery)
+        {
+            double mapSignedLatitude = 0;
+            double mapSignedLongitude = 0;
+            string queryWithoutGPS = query;
+
+            try
+            {
                 bool withGps = false;
-                double mapSignedLatitude = 0;
-                double mapSignedLongitude = 0;
 
                 // query for locaton via map
                 if (checkBoxFilterGPS.Checked)
@@ -769,7 +827,8 @@ namespace QuickImageComment
                         double mapLongitudeMax = mapSignedLongitude + longitudeTolerance;
 
                         // filter with a square around the location on map; later query result will be filtered with linear distance
-                        query += " and Image.GPSsignedLatitude > " + mapLatitudeMin.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                        if (!query.Equals("")) query += " and ";
+                        query += "Image.GPSsignedLatitude > " + mapLatitudeMin.ToString(System.Globalization.CultureInfo.InvariantCulture);
                         query += " and Image.GPSsignedLatitude < " + mapLatitudeMax.ToString(System.Globalization.CultureInfo.InvariantCulture);
                         query += " and Image.GPSsignedLongitude > " + mapLongitudeMin.ToString(System.Globalization.CultureInfo.InvariantCulture);
                         query += " and Image.GPSsignedLongitude < " + mapLongitudeMax.ToString(System.Globalization.CultureInfo.InvariantCulture);
@@ -779,28 +838,36 @@ namespace QuickImageComment
                     }
                 }
 
-                // query for predefined IPTC key words
-                ArrayList theKeywords = new ArrayList();
-                treeViewKeyWords.getCheckedKeyWords(theKeywords);
-                foreach (string keyword in theKeywords)
-                {
-                    query += " and (" + filterDefinitionKeyWords.columnNameForQuery + " = '" + keyword + "' or "
-                                      + filterDefinitionKeyWords.columnNameForQuery + " like '" + keyword + " | *' or "
-                                      + filterDefinitionKeyWords.columnNameForQuery + " like '* | " + keyword + " | *' or "
-                                      + filterDefinitionKeyWords.columnNameForQuery + " like '* | " + keyword + "')";
-                }
-
-                if (query.Length < 5)
+                if (query.Equals(""))
                 {
                     GeneralUtilities.message(LangCfg.Message.W_noFilterCriteria);
                 }
                 else
                 {
-                    // remove leading " and "
-                    query = query.Substring(5);
-                    //GeneralUtilities.debugMessage(query);
+                    GeneralUtilities.debugMessage(query);
+                    DataRow[] selectResult;
+                    try
+                    {
+                        selectResult = dataTable.Select(query);
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new ExecuteQueryError(ex.Message);
+                    }
 
-                    DataRow[] selectResult = dataTable.Select(query);
+                    // add query in list of last queries
+                    if (!queryWithoutGPS.Equals(""))
+                    {
+                        ArrayList QueryEntries = ConfigDefinition.getQueryEntries();
+                        // remove existing entry
+                        if (QueryEntries.Contains(queryWithoutGPS)) 
+                        { 
+                            QueryEntries.Remove(queryWithoutGPS);
+                        }
+                        // add at begin of list
+                        QueryEntries.Insert(0, queryWithoutGPS);
+                    }
+
                     if (selectResult.Length == 0)
                     {
                         GeneralUtilities.message(LangCfg.Message.I_noFilesFoundForCriteria);
@@ -839,6 +906,7 @@ namespace QuickImageComment
 
                         findExecuted = true;
                         this.Cursor = Cursors.Default;
+                        if (formFindQuery != null) formFindQuery.Close();
                         Close();
                     }
                 }
@@ -1299,7 +1367,7 @@ namespace QuickImageComment
         {
             ComboBox comboBox = (ComboBox)sender;
             FilterDefinition fd = (FilterDefinition)comboBox.Tag;
-            if (comboBox.Text == "" || 
+            if (comboBox.Text == "" ||
                 comboBox.Text.Equals(LangCfg.getText(LangCfg.Others.selectOpEmpty)) ||
                 comboBox.Text.Equals(LangCfg.getText(LangCfg.Others.selectOpNotEmpty)))
             {
@@ -1487,6 +1555,18 @@ namespace QuickImageComment
         {
             treeViewKeyWords.fillWithPredefKeyWords();
         }
+        
+        // get recording location position
+        internal string getRecordingLocation()
+        {
+            return theUserControlMap.dynamicLabelCoordinates.Text;
+        }
+
+        // get location radius
+        internal string getLocationRadius()
+        {
+            return numericUpDownGpsRange.Value.ToString();
+        }
         #endregion
 
         //*****************************************************************
@@ -1522,7 +1602,7 @@ namespace QuickImageComment
                 {
                     if (aMetaDataDefinitionItem.KeyPrim.Equals("Image.GPSsignedLatitude")) signedLatFound = true;
                     if (aMetaDataDefinitionItem.KeyPrim.Equals("Image.GPSsignedLongitude")) signedLonFound = true;
-                    if (aMetaDataDefinitionItem.KeyPrim.Equals("Image.IPTC_KeyWordsString")) 
+                    if (aMetaDataDefinitionItem.KeyPrim.Equals("Image.IPTC_KeyWordsString"))
                         filterDefinitionKeyWords = (FilterDefinition)filterDefinitions[ii];
                     if (aMetaDataDefinitionItem.KeyPrim.Equals("Iptc.Application2.Keywords"))
                         filterDefinitionKeyWords = (FilterDefinition)filterDefinitions[ii];

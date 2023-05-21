@@ -225,7 +225,6 @@
         #endregion
         private System.Windows.Forms.Panel panelTop;
         public System.Windows.Forms.Panel panelMap;
-        private System.Windows.Forms.Label dynamicLabelCoordinates;
         private System.Windows.Forms.Label dynamicLabelZoom;
         private System.Windows.Forms.Label labelZoom;
         private System.Windows.Forms.Button buttonReset;
@@ -237,5 +236,6 @@
         private System.Windows.Forms.Button buttonRename;
         private System.Windows.Forms.Button buttonDelete;
         private System.Windows.Forms.CheckBox checkBoxWebView2;
+        internal System.Windows.Forms.Label dynamicLabelCoordinates;
     }
 }

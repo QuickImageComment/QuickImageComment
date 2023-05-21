@@ -194,7 +194,8 @@ namespace QuickImageComment
             Q_newValueFromDataGridEdit,
             E_cannotAssignFileDateTime,
             Q_numberScrollPageUpDown,
-            E_pageUpDownScrollNumberInvalid
+            E_pageUpDownScrollNumberInvalid,
+            E_executeQuery
         }
 
         public enum Others
@@ -324,7 +325,8 @@ namespace QuickImageComment
             selectProgram,
             editExternalProgramFilter,
             IptcKeyWords,
-            notPredefinedKeyWordsUsed
+            notPredefinedKeyWordsUsed,
+            queryMapInfo
         }
 
         // defined as variable

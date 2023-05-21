@@ -256,6 +256,7 @@ namespace QuickImageComment
         private static SortedList ConfigItems;
         private static ArrayList UserCommentEntries;
         private static ArrayList ArtistEntries;
+        private static ArrayList QueryEntries;
         private static SortedList<string, ArrayList> ChangeableFieldEntriesLists;
         private static SortedList<string, ArrayList> FindFilterEntriesLists;
         private static ArrayList PredefinedComments;
@@ -339,6 +340,7 @@ namespace QuickImageComment
 
             UserCommentEntries = new ArrayList();
             ArtistEntries = new ArrayList();
+            QueryEntries = new ArrayList();
             ChangeableFieldEntriesLists = new SortedList<string, ArrayList>();
             FindFilterEntriesLists = new SortedList<string, ArrayList>();
             PredefinedComments = new ArrayList();
@@ -2215,6 +2217,12 @@ namespace QuickImageComment
             return ArtistEntries;
         }
 
+        // query entries for FormFind
+        public static ArrayList getQueryEntries()
+        {
+            return QueryEntries;
+        }
+
         // changeable field entries
         public static SortedList<string, ArrayList> getChangeableFieldEntriesLists()
         {
@@ -2622,6 +2630,10 @@ namespace QuickImageComment
                     else if (firstPart.Equals("Artist"))
                     {
                         ArtistEntries.Add(secondPart);
+                    }
+                    else if (firstPart.Equals("Query"))
+                    {
+                        QueryEntries.Add(secondPart);
                     }
                     else if (firstPart.Equals("ChangeableField"))
                     {
@@ -3219,6 +3231,12 @@ namespace QuickImageComment
             for (int ii = 0; ii < getMaxArtists() && ii < ArtistEntries.Count; ii++)
             {
                 StreamOut.WriteLine("Artist:" + ArtistEntries[ii].ToString());
+            }
+
+            // copy only newest entries keeping maximum of queries
+            for (int ii = 0; ii < getMaxChangeableFieldEntries() && ii < QueryEntries.Count; ii++)
+            {
+                StreamOut.WriteLine("Query:" + QueryEntries[ii].ToString());
             }
 
             // copy only newest entries keeping maximum of entries per changeable field

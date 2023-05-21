@@ -151,6 +151,12 @@
     <Compile Include="Forms\FormErrorAppCenter.Designer.cs">
       <DependentUpon>FormErrorAppCenter.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FormFindQuery.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormFindQuery.designer.cs">
+      <DependentUpon>FormFindQuery.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FormInputBox.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -561,6 +567,9 @@
       <DependentUpon>FormExportMetaData.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormFindQuery.resx">
+      <DependentUpon>FormFindQuery.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormFindReadErrors.resx">
       <DependentUpon>FormFindReadErrors.cs</DependentUpon>
     </EmbeddedResource>
@@ -950,22 +959,22 @@
       <Version>3.0.0</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.AppCenter">
-      <Version>4.5.3</Version>
+      <Version>5.0.1</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.AppCenter.Analytics">
-      <Version>4.5.3</Version>
+      <Version>5.0.1</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.AppCenter.Crashes">
-      <Version>4.5.3</Version>
+      <Version>5.0.1</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Web.WebView2">
-      <Version>1.0.1466-prerelease</Version>
+      <Version>1.0.1829-prerelease</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools">
-      <Version>10.0.22000.196</Version>
+      <Version>10.0.25363-preview</Version>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
-      <Version>13.0.1</Version>
+      <Version>13.0.3</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
