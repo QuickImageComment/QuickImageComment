@@ -173,7 +173,7 @@ namespace QuickImageComment
                     else
                     {
                         Control anInputControl;
-                        if (ExtendedImage.exiv2tagRepeatable(aMetaDataDefinitionItem.KeyPrim))
+                        if (Exiv2TagDefinitions.isRepeatable(aMetaDataDefinitionItem.KeyPrim))
                         {
                             anInputControl = new TextBox();
                         }

@@ -568,7 +568,7 @@ namespace QuickImageComment
                     MetaDataDefinitionItem theMetaDataDefinitionItem =
                       (MetaDataDefinitionItem)MetaDataDefinitionsWork[listBoxMetaData.SelectedIndex];
                     theMetaDataDefinitionItem.TypePrim = theTagDefinition.type;
-                    if (ExtendedImage.exiv2tagRepeatable(textBoxMetaDatum1.Text))
+                    if (Exiv2TagDefinitions.isRepeatable(textBoxMetaDatum1.Text))
                     {
                         numericUpDownLinesForChange.Enabled = true;
                     }
@@ -1149,7 +1149,7 @@ namespace QuickImageComment
 
                 // input check configuration only for single-line-properties
                 // input check probably makes sense for some data types only, however user can use it for any type he likes
-                if (!ExtendedImage.exiv2tagRepeatable(textBoxMetaDatum1.Text))
+                if (!Exiv2TagDefinitions.isRepeatable(textBoxMetaDatum1.Text))
                 {
                     InputCheckConfig theInputCheckConfig = ConfigDefinition.getInputCheckConfig(textBoxMetaDatum1.Text);
                     if (theInputCheckConfig != null)
@@ -1180,7 +1180,7 @@ namespace QuickImageComment
                     buttonInputCheckEdit.Enabled = false;
                     buttonInputCheckDelete.Enabled = false;
                 }
-                if (ExtendedImage.exiv2tagRepeatable(textBoxMetaDatum1.Text))
+                if (Exiv2TagDefinitions.isRepeatable(textBoxMetaDatum1.Text))
                 {
                     numericUpDownLinesForChange.Enabled = true;
                 }

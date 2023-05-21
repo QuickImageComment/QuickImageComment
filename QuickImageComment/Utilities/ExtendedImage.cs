@@ -144,9 +144,6 @@ namespace QuickImageComment
         static extern int exiv2getLogString(int index, [MarshalAs(UnmanagedType.LPStr)] ref string logString);
 
         [DllImport(exiv2DllImport, CallingConvention = CallingConvention.Cdecl)]
-        public static extern bool exiv2tagRepeatable([MarshalAs(UnmanagedType.LPStr)] string tagName);
-
-        [DllImport(exiv2DllImport, CallingConvention = CallingConvention.Cdecl)]
         static extern void exiv2getInterpretedValue([MarshalAs(UnmanagedType.LPStr)] string tagName,
                                                     [MarshalAs(UnmanagedType.LPStr)] string valueString,
                                                     [MarshalAs(UnmanagedType.LPStr)] ref string intepretedValue);

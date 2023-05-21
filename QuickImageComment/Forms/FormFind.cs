@@ -360,7 +360,7 @@ namespace QuickImageComment
                     filterDefinition.comboBoxOperator2.Tag = filterDefinition;
                     filterDefinition.comboBoxValue2.Tag = filterDefinition;
 
-                    if (ExtendedImage.exiv2tagRepeatable(metaDataDefinitionItem.KeyPrim) ||
+                    if (Exiv2TagDefinitions.isRepeatable(metaDataDefinitionItem.KeyPrim) ||
                         metaDataDefinitionItem.KeyPrim.Equals("Image.IPTC_KeyWordsString") ||
                         metaDataDefinitionItem.KeyPrim.Equals("Image.IPTC_SuppCategoriesString") ||
                         metaDataDefinitionItem.KeyPrim.Equals("Image.CommentCombinedFields") ||

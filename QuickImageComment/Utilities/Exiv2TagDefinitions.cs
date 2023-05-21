@@ -36,6 +36,9 @@ namespace QuickImageComment
         [DllImport(exiv2DllImport, CallingConvention = CallingConvention.Cdecl)]
         static extern int exiv2getXmpTagDescriptions([MarshalAs(UnmanagedType.LPStr)] ref string retStr);
 
+        [DllImport(exiv2DllImport, CallingConvention = CallingConvention.Cdecl)]
+        public static extern bool exiv2tagRepeatable([MarshalAs(UnmanagedType.LPStr)] string tagName);
+
 
         public static ArrayList ChangeableTypes;
         public static ArrayList ChangeableWarningTags;
@@ -339,11 +342,24 @@ namespace QuickImageComment
         {
             return !Exiv2TagDefinitions.UnChangeableTypes.Contains(type) &&
                    !Exiv2TagDefinitions.ChangeableWarningTags.Contains(key) &&
-                   !ExtendedImage.exiv2tagRepeatable(key) &&
+                   !isRepeatable(key) &&
                    !type.Equals("LangAlt") &&
                    !type.Equals("Date") &&
                    !type.Equals("Time") &&
                    !GeneralUtilities.isDateProperty(key, type);
+        }
+
+        // return if tag is repeatable (several values)
+        public static bool isRepeatable(string key)
+        {
+            if (key.StartsWith("Image"))
+            {
+                return false;
+            }
+            else
+            {
+                return exiv2tagRepeatable(key);
+            }
         }
     }
 }

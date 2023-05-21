@@ -629,7 +629,7 @@ namespace QuickImageComment
         private void enableDefinitionControls(string MetaDataKey, string MetaDataType)
         {
             // sorting allowed for repeatable IPTC values, XmpSeq and XmpText
-            if (MetaDataKey.StartsWith("Iptc") && ExtendedImage.exiv2tagRepeatable(MetaDataKey) ||
+            if (MetaDataKey.StartsWith("Iptc") && Exiv2TagDefinitions.isRepeatable(MetaDataKey) ||
                 MetaDataType.Equals("XmpSeq") ||
                 MetaDataType.Equals("XmpText"))
             {
