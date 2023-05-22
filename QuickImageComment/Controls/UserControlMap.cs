@@ -489,6 +489,7 @@ namespace QuickImageComment
             {
                 configLastMapSource = "";
             }
+            dynamicComboBoxMapSource.Items.Clear();
             for (int ii = 0; ii < MapSources.Count; ii++)
             {
                 dynamicComboBoxMapSource.Items.Add(MapSources[ii].name);
