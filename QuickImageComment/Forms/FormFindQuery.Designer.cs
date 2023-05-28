@@ -125,7 +125,7 @@ namespace QuickImageComment
             this.buttonExecute.Name = "buttonExecute";
             this.buttonExecute.Size = new System.Drawing.Size(95, 22);
             this.buttonExecute.TabIndex = 9;
-            this.buttonExecute.Text = "Ausführen";
+            this.buttonExecute.Text = "Suche starten";
             this.buttonExecute.UseVisualStyleBackColor = true;
             this.buttonExecute.Click += new System.EventHandler(this.buttonExecute_Click);
             // 

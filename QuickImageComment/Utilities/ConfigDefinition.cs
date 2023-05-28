@@ -2633,7 +2633,7 @@ namespace QuickImageComment
                     }
                     else if (firstPart.Equals("Query"))
                     {
-                        QueryEntries.Add(secondPart);
+                        QueryEntries.Add(secondPart.Replace(GeneralUtilities.UniqueSeparator, "\n"));
                     }
                     else if (firstPart.Equals("ChangeableField"))
                     {
@@ -3236,7 +3236,7 @@ namespace QuickImageComment
             // copy only newest entries keeping maximum of queries
             for (int ii = 0; ii < getMaxChangeableFieldEntries() && ii < QueryEntries.Count; ii++)
             {
-                StreamOut.WriteLine("Query:" + QueryEntries[ii].ToString());
+                StreamOut.WriteLine("Query:" + QueryEntries[ii].ToString().Replace("\n", GeneralUtilities.UniqueSeparator));
             }
 
             // copy only newest entries keeping maximum of entries per changeable field

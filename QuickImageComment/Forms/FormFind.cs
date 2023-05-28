@@ -814,7 +814,6 @@ namespace QuickImageComment
                 {
                     if (!theUserControlMap.getSignedLatitudeString().Equals("") && !theUserControlMap.getSignedLongitudeString().Equals(""))
                     {
-                        // Logger.log("map: " + theUserControlMap.getSignedLatitudeString() + " " + theUserControlMap.getSignedLongitudeString());
                         withGps = true;
                         mapSignedLatitude = double.Parse(theUserControlMap.getSignedLatitudeString(), System.Globalization.CultureInfo.InvariantCulture);
                         mapSignedLongitude = double.Parse(theUserControlMap.getSignedLongitudeString(), System.Globalization.CultureInfo.InvariantCulture);
@@ -844,7 +843,7 @@ namespace QuickImageComment
                 }
                 else
                 {
-                    GeneralUtilities.debugMessage(query);
+                    //GeneralUtilities.debugMessage(query);
                     DataRow[] selectResult;
                     try
                     {
@@ -1772,7 +1771,7 @@ namespace QuickImageComment
                             dateTime = dateTime.AddDays(1).AddTicks(-1);
                         }
                     }
-                    return string.Format(System.Globalization.CultureInfo.InvariantCulture.DateTimeFormat, "#{0}#", dateTime);
+                    return dateTime.ToString("#yyyy-MM-dd HH:mm:ss#", System.Globalization.CultureInfo.InvariantCulture);
                 }
                 else if (aMetaDataDefinitionItem.FormatPrim == MetaDataItem.Format.Original &&
                          Exiv2TagDefinitions.FloatTypes.Contains(aMetaDataDefinitionItem.TypePrim))

@@ -259,8 +259,12 @@ namespace QuickImageComment
                 }
                 else
                 {
+#if NET4
+                    // .Net4 runs with a version of exiv2, which has duplicates
+                    TagDefinitionList.Add(key + "2", new TagDefinition(key, type, description));
+#else
                     GeneralUtilities.debugMessage("duplicate key in exiv2: " + key);
-                    //TagDefinitionList.Add(key + "2", new TagDefinition(key, type, description));
+#endif
                 }
             }
 
