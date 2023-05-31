@@ -295,29 +295,26 @@ namespace QuickImageComment
         // event handler when selection of group changes
         private void comboBoxGroup_SelectedIndexChanged(object sender, EventArgs e)
         {
-            bool otherGroup = false;
             if (dynamicComboBoxGroup.SelectedIndex == dynamicComboBoxGroup.Items.Count - 1)
             {
                 // last entry in comboBox: change grouping
+                ExtendedImage theExtendedImage = ImageManager.getExtendedImage(listViewFilesSelectedIndices[0]);
                 FormMetaDataDefinition theFormMetaDataDefinition =
-                  new FormMetaDataDefinition(null, ConfigDefinition.enumMetaDataGroup.MetaDataDefForShiftDate);
+                  new FormMetaDataDefinition(theExtendedImage, ConfigDefinition.enumMetaDataGroup.MetaDataDefForShiftDate);
                 theFormMetaDataDefinition.ShowDialog();
                 // no check for settingsChanged here:
                 // as it is not known, which group was selected before, a complete refresh will be done anyhow
                 listViewImages.Clear();
                 dynamicComboBoxGroup.Items.Clear();
                 getDataFromImagesForGrouping();
-                otherGroup = true;
             }
 
             listViewImages.Refresh();
             if (dynamicComboBoxGroup.SelectedIndex < 0 || dynamicComboBoxGroup.SelectedIndex >= GroupDateTimeOffsets.Count)
             {
-                throw new Exception("Selected index invalid:" + dynamicComboBoxGroup.SelectedIndex.ToString()
-                    + " count:" + GroupDateTimeOffsets.Count.ToString()
-                    + " >" + dynamicComboBoxGroup.Text
-                    + "< >" + LangCfg.getText(LangCfg.Others.otherGrouping)
-                    + "< otherGroup:" + otherGroup.ToString());
+                // dynamicComboBoxGroup.SelectedIndex happened to be -1
+                // set index to avoid exception
+                dynamicComboBoxGroup.SelectedIndex = 0;
             }
             setNumericUpDownsForSeconds((double)GroupDateTimeOffsets[dynamicComboBoxGroup.SelectedIndex]);
         }

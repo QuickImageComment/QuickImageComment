@@ -63,8 +63,9 @@ namespace QuickImageComment
         public FormMetaDataDefinition(ExtendedImage givenExtendedImage, ConfigDefinition.enumMetaDataGroup metaDataGroupIndex)
         {
             init(givenExtendedImage, metaDataGroupIndex);
-            // speciifc group given, do not allow changing
+            // specific group given, do not allow changing
             dynamicComboBoxMetaDataType.Enabled = false;
+            if (givenExtendedImage == null) checkBoxOnlyInImage.Enabled = false;
         }
 
         // to return selected field
