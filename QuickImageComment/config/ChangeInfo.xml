@@ -1,21 +1,33 @@
-﻿<Program_Version>4.54</Program_Version>
+﻿<Program_Version>4.55</Program_Version>
 <Program_Change_Info_German>
 Erweiterungen und Verbesserungen:
-Neue Maske "Skalierung": Die Vergrößerung aller Masken kann eingestellt werden; separate Skalierung für Symbolleiste und Miniaturansicht/Kacheln. Der Zoom-Faktor in Maske "Maske anpassen" kann weiterhin verwendet werden, um einzelne Masken zu skalieren. Maskenspezifische Zoom-Faktoren können in "Maske anpassen" deaktiviert werden, indem einmalig der Faktor auf den generellen Skalierungsfaktor gesetzt wird.
-Einige Eigenschaften können auch in den Reitern "Übersicht", "Exif" und "IPTC" geändert werden. Änderbare Werte werden mit weißem Hintergrund angezeigt, nicht-änderbare mit hellgrauem Hintergrund. Details in der Hilfe, Kapitel 3.6, Unterabschnitt "Eingabe in den Reitern für Eigenschaften".
-Veränderte Werte für Künstler, Kommentar und IPTC-Schlüsselworte sowie im konfigurierbaren Eingabebereich werden durch hellgelben Hintergrund kenntlich gemacht. Wird die Eingabe rückgängig gemacht, wird der Hintergrund wieder weiß. Anstatt hellgelb kann in der allgemeinen Konfigurationsdatei auch eine andere Farbe festgelegt werden.
+Neu in Maske "Bild in eigenem Fenster": Blättern der Bilder mit Tastatur oder Maus; Anzeige von Meta-Daten in Titelleiste (konfigurierbar).
+Maske "Vordefinierte IPTC Schlüsselworte": Durch Einrücken kann eine Hierarchie der Schlüsselworte definiert werden. Dadurch können im Baum des Bereiches "IPTC Schlüsselworte" Teile auf- und zugeklappt werden, was die Auswahl der Schlüsselworte erleichtert.
+Optional kann ein Hinweis angezeigt werden, wenn einem Bild ein nicht vordefiniertes Schlüsselwort zugewiesen wurde. Nach solchen Bildern kann auch gesucht werden. Damit soll eine konsistente Verschlagwortung erleichtert werden.
+Suche über Eigenschaften: Wenn die Option "Daten bei Beenden speichern" aktiviert ist, beginnt die Aktualisierung der Daten jetzt bei Start des Programmes, nicht erst beim ersten Öffnen der Suchmaske. Damit stehen die aktualisierten Daten früher zur Verfügung.
+Suche über Eigenschaften: Wenn IPTC-Schlüsselworte als Suchfeld definiert ist, wird rechts im unteren Bereich der Maske ein Baum mit den vordefinierten Schlüsselworten angezeigt. Schlüsselworte, nach denen gesucht werden soll, können hier angekreuzt werden.
+Suche über Eigenschaften: Einige Felder können mehrere Werte haben, z.B. IPTC-Schlüsselworte. Für die Suche werden diese Werte zu einer Zeichenkette zusammengefasst, wobei die Reihenfolge nicht definiert ist. Daher sind für diese Felder die Vergleichsoperatoren entfernt worden, bei denen die Reihenfolge der Einzelwerte wichtig ist.
+Suche über Eigenschaften: auch der zweite Operator kann nun "<>", "enthält", "enthält nicht", "beginnt nicht mit" oder "endet nicht mit" sein.
+Suche über Eigenschaften: In einer zusätzlichen Maske kann die Abfrage in einer SQL-ähnlichen Syntax bearbeitet werden. Damit sind komplexere Abfragen möglich. Außerdem kann eine zuvor ausgeführte Abfrage ausgewählt werden um sie zu anzupassen und erneut auszuführen.
+Nur für die .Net 4.6.1-Varianten: Neue Version 0.28.0 der Bibliothek exiv2 integriert: einige neue Tags und Objektivdaten; für ExifEasy werden weitere Exif-Eigenschaften berücksichtigt, sodass nun ExifEasy-Eigenschaften von einigen Bilder gefüllt sind, die in der vorherigen Version noch leer waren.
+Da exiv2 0.28.0 nicht mehr unter Windows XP lauffähig ist, wird die Variante für Windows XP weiterhin mit exiv2 0.27.5.1 ausgeliefert.
 
-Folgende Fehler wurden behoben:
-Beim zweiten Öffnen einer Untermaske wurde der Zoom-Faktor aus Maske "Maske anpassen" nicht berücksichtigt.
-Das Programm konnte bei "Dateidatum auf Aufnahmedatum setzen" abstürzen, wenn Aufnahmedatum außerhalb des zulässigen Bereiches für Dateidatum war.
+Folgender Fehler wurde behoben:
+Bei Wechsel von "einschl. Karten nur für Anzeige (* ...)" wurde die Auswahlliste falsch gefüllt, Auswahl am Ende der Liste führte zu Programmabsturz.
 </Program_Change_Info_German>
 <Program_Change_Info_English>
 Enhancements and improvements:
-New mask "Scaling": magnification of all masks can be adjusted; separate scaling for toolbar and thumbnail/tiles. The zoom factor in mask "Customize mask" can still be used to scale individual masks. Mask-specific zoom factors can be disabled in "Customize mask" by setting the factor once to the general scaling factor.
-Some properties can also be changed in the "Overview", "Exif" and "IPTC" tabs. Modifiable values are displayed with a white background, non-modifiable with a light gray background. Details in the Help, Chapter 3.6, subsection "Input in the tabs for properties".
-Changed entries for artist, comment and IPTC keywords as well as in the configurable input area are marked by a light-yellow background. If the entry is reset, the background becomes white again. Instead of light-yellow, another color can be specified in the general configuration file.
+New in mask "Image in own window": scrolling of images with keyboard or mouse; display of meta data in title bar (configurable).
+Mask "Predefined IPTC Keywords": By indenting, a hierarchy of keywords can be defined. This allows parts to be expanded and collapsed in the tree of the "IPTC Keywords" area, making it easier to select keywords.
+Optionally, a hint can be displayed if a non-predefined keyword has been assigned to an image. Such images can also be searched for. This is to facilitate consistent keywording.
+Search via properties: If the option "Save data on exit" is activated, the update of the data now starts when the program is started, not when the search mask is opened for the first time. This makes the updated data available earlier.
+Search via properties: If IPTC keywords is defined as a search field, a tree with the predefined keywords is displayed on the right in the lower area of the mask. Keywords to be searched for can be checked here.
+Search via properties: Some fields can have multiple values, e.g. IPTC keywords. For the search, these values are combined into a string, whereby the order is not defined. Therefore, the comparison operators have been removed for these fields, where the order of the single values is important.
+Search via properties: also, the second operator can now be "<>", "contains", "does not contain", "does not start with" or "does not end with".
+Search via properties: In an additional mask the query can be edited in a SQL-like syntax. This allows for more complex queries. In addition, a previously executed query can be selected to customize and re-execute it.
+Only for .Net 4.6.1 variants: New version 0.28.0 of library exiv2 integrated: some new tags and lens data; for ExifEasy more Exif properties are considered, so now ExifEasy properties of some images are filled, which were empty in the previous version.
+Since exiv2 0.28.0 is no longer executable under Windows XP, the variant for Windows XP continues to be shipped with exiv2 0.27.5.1.
 
-The following errors have been fixed:
-When opening a sub-mask for the second time, the zoom factor from mask "Customize mask" mask was not taken into account.
-The program could crash at "Set file date to date image generated" if recording date was out of the allowed range for file date.
+The following error has been fixed:
+When changing "incl. cards for display only (* ...)", the selection list was filled incorrectly, selection at the end of the list led to a program crash.
 </Program_Change_Info_English>
