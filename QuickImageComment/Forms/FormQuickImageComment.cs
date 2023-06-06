@@ -304,10 +304,6 @@ namespace QuickImageComment
             this.MinimumSize = this.Size;
 
             // adjust position according configuration
-            if (ConfigDefinition.getFormMainMaximized())
-            {
-                this.WindowState = FormWindowState.Maximized;
-            }
             this.Top = ConfigDefinition.getFormMainTop();
             this.Left = ConfigDefinition.getFormMainLeft();
             // if position set, use it
@@ -598,6 +594,12 @@ namespace QuickImageComment
               leadingControlNamePartsPrefixDollar);
 
             FlexibleMessageBox.FONT = this.Font;
+
+            // maximize form if configured (should not be done for scaling)
+            if (ConfigDefinition.getFormMainMaximized())
+            {
+                this.WindowState = FormWindowState.Maximized;
+            }
 
             foreach (LangCfg.PanelContent key in SplitContainerPanelControls.Keys)
             {
