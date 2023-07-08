@@ -45,9 +45,11 @@ namespace QuickImageComment
             "yyyy:MM:dd HH:mm",
             "yyyy:MM:dd",
             "",
+            "yyyy:MM:dd:HH:mm:ss",
             "yyyy-MM-ddTHH:mm:ss",
             "yyyy-MM-ddTHH:mm",
             "yyyy-MM-dd HH:mm:ss",
+            "yyyy-MM-dd HH:mm:ss UTC",
             "yyyy-MM-dd HH:mm",
             "yyyy-MM-dd"
         };
