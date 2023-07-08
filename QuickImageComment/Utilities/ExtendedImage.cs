@@ -466,53 +466,53 @@ namespace QuickImageComment
 #if !DEBUG
                 try
 #endif
+            {
+                string iniPath = ConfigDefinition.getIniPath();
+                string comment = "";
+                string errorText = "";
+
+                // lock because this method can be called in main thread or via updateCaches
+                lock (LockReadExiv2)
                 {
-                    string iniPath = ConfigDefinition.getIniPath();
-                    string comment = "";
-                    string errorText = "";
-
-                    // lock because this method can be called in main thread or via updateCaches
-                    lock (LockReadExiv2)
+                    status = exiv2readImageByFileName(ImageFileName, iniPath, ref comment, ref IptcUTF8, ref errorText);
+                    if (!errorText.Equals("") && !ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.HideExiv2Error))
                     {
-                        status = exiv2readImageByFileName(ImageFileName, iniPath, ref comment, ref IptcUTF8, ref errorText);
-                        if (!errorText.Equals("") && !ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.HideExiv2Error))
+                        MetaDataWarningsRead.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error), errorText));
+                    }
+
+                    // read Exif, Iptc and XMP only, if exiv2readImageByFileName did not return with exception
+                    if (status != exiv2StatusException)
+                    {
+                        // get image comment
+                        addReplaceOtherMetaDataKnownType("Image.Comment", comment);
+
+                        if (neededKeys == null)
                         {
-                            MetaDataWarningsRead.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error), errorText));
+                            // read all Exif, IPTC and XMP data
+                            readAllExifIptcXmp();
                         }
-
-                        // read Exif, Iptc and XMP only, if exiv2readImageByFileName did not return with exception
-                        if (status != exiv2StatusException)
+                        else
                         {
-                            // get image comment
-                            addReplaceOtherMetaDataKnownType("Image.Comment", comment);
-
-                            if (neededKeys == null)
-                            {
-                                // read all Exif, IPTC and XMP data
-                                readAllExifIptcXmp();
-                            }
-                            else
-                            {
-                                // read all Exif, IPTC and XMP data
-                                readExifIptcXmpForNeededKeys(neededKeys);
-                            }
+                            // read all Exif, IPTC and XMP data
+                            readExifIptcXmpForNeededKeys(neededKeys);
                         }
                     }
                 }
+            }
 #if !DEBUG
                 catch (Exception ex)
                 {
                     MetaDataWarnings.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error), ex.Message));
                 }
 #endif
-                ReadPerformance.measure("Meta data copied");
+            ReadPerformance.measure("Meta data copied");
 
-                XmpLangAltEntries.Sort();
-                readSpecialExifIptcInformation();
+            XmpLangAltEntries.Sort();
+            readSpecialExifIptcInformation();
 
 
-                // end of: 32-Bit version cannot read big videos; exiv2 returns exception, 
-                // so check here allowing language depending and better understandable error message
+            // end of: 32-Bit version cannot read big videos; exiv2 returns exception, 
+            // so check here allowing language depending and better understandable error message
 #if !PLATFORMTARGET_X64
             }
 #endif
@@ -849,8 +849,11 @@ namespace QuickImageComment
                     utf16Bytes[ii] = byte.Parse(utf16strings[ii]);
                 }
                 int bytecount = (int)size;
-                // last two bytes usually are null bytes; do not include them in string
-                if (utf16Bytes[size - 1] == 0 && utf16Bytes[size - 2] == 0) bytecount = (int)size - 2;
+                if (size >= 2)
+                {
+                    // last two bytes usually are null bytes; do not include them in string
+                    if (utf16Bytes[size - 1] == 0 && utf16Bytes[size - 2] == 0) bytecount = (int)size - 2;
+                }
                 string convertedString = Encoding.Unicode.GetString(utf16Bytes, 0, bytecount);
                 ExifMetaDataItems.Add(keyStringIndex, new MetaDataItem(keyString, tag, typeName, count, size, valueString, convertedString, valueFloat));
             }
@@ -1235,22 +1238,28 @@ namespace QuickImageComment
                 }
             }
 
+            string MessageText = "";
+            string MessageTextExiv2 = "";
+            string MessageTextNotExiv2 = "";
             if (MetaDataWarnings.Count > 0)
             {
-                string MessageText = "";
+                string exiv2Error = LangCfg.getText(LangCfg.Others.exiv2Error);
                 foreach (MetaDataWarningItem ExifWarning in MetaDataWarnings)
                 {
                     MessageText += " | " + ExifWarning.getName() + ": " + ExifWarning.getMessage();
+                    if (ExifWarning.getName().Equals(exiv2Error))
+                        MessageTextExiv2 += " | " + ExifWarning.getName() + ": " + ExifWarning.getMessage();
+                    else
+                        MessageTextNotExiv2 += " | " + ExifWarning.getName() + ": " + ExifWarning.getMessage();
                 }
                 // remove first separator string
                 MessageText = MessageText.Substring(3);
-
-                addReplaceOtherMetaDataKnownType("Image.MetaDataWarnings", MessageText);
+                if (MessageTextExiv2.Length > 0) MessageTextExiv2 = MessageTextExiv2.Substring(3);
+                if (MessageTextNotExiv2.Length > 0) MessageTextNotExiv2 = MessageTextNotExiv2.Substring(3);
             }
-            else
-            {
-                addReplaceOtherMetaDataKnownType("Image.MetaDataWarnings", "");
-            }
+            addReplaceOtherMetaDataKnownType("Image.MetaDataWarnings", MessageText);
+            addReplaceOtherMetaDataKnownType("Image.MetaDataWarningsExiv2", MessageTextExiv2);
+            addReplaceOtherMetaDataKnownType("Image.MetaDataWarningsNotExiv2", MessageTextNotExiv2);
 
             // adding a row here when initial fill of data table is running results in duplicate key errors
             if (!FormFind.initialFillDataTableRunning())

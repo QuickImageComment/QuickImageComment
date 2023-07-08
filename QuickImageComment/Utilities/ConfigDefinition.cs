@@ -625,6 +625,8 @@ namespace QuickImageComment
             // note: following tag may be filled incomplete during find - as then not everything is read
             // but as all artist and comment entries are read, it will include warnings related to artist and comment
             InternalMetaDataDefinitions.Add("Image.MetaDataWarnings", new TagDefinition("Image.MetaDataWarnings", "Readonly", "Warnings from reading meta data"));
+            InternalMetaDataDefinitions.Add("Image.MetaDataWarningsExiv2", new TagDefinition("Image.MetaDataWarningsExiv2", "Readonly", "Warnings from reading meta data - from Exiv2"));
+            InternalMetaDataDefinitions.Add("Image.MetaDataWarningsNotExiv2", new TagDefinition("Image.MetaDataWarningsNotExiv2", "Readonly", "Warnings from reading meta data - not from Exiv2"));
 
 
             // fill list of tags needed for special Exif or IPTC information

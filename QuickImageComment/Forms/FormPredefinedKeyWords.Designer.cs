@@ -145,7 +145,7 @@ namespace QuickImageComment
             this.label2.Size = new System.Drawing.Size(298, 26);
             this.label2.TabIndex = 7;
             this.label2.Text = "Wenn ausgewählt, können diese Bilder auch gesucht werden\r\n(Feld Image.MetaDataWar" +
-    "nings)";
+    "nings...)";
             // 
             // FormPredefinedKeyWords
             // 
