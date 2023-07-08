@@ -267,6 +267,7 @@ namespace QuickImageComment
             // in order to avoid a change of splitContainer12P1.SplitterDistance as side effect of changes, which in no way are 
             // related to this control, Anchor in Designer.cs is set to Top, but Bottom is needed for correct runtime behaviour
             dynamicLabelFileName.Anchor = (System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left);
+            dynamicLabelImageNumber.Anchor = (System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left);
 
             // listViewOtherMetaData is inherited from same class as listViewExif and listViewIptc
             // but some columns are only filled with standard values, so hide them
@@ -282,6 +283,7 @@ namespace QuickImageComment
             // checkedListBoxChangeableFieldsChange is initialized by fillCheckedListBoxChangeableFieldsChange
 
             this.dynamicLabelFileName.Text = "";
+            this.dynamicLabelImageNumber.Text = "";
 
             // hide panelFramePosition at start, looks strange when it is displayed without picture
             this.panelFramePosition.Visible = false;
@@ -622,6 +624,7 @@ namespace QuickImageComment
 
             //set top for label file name, needed if dpi is higher than 96
             dynamicLabelFileName.Top = splitContainer1211P1.Panel2.Height - dynamicLabelFileName.Height - 2;
+            dynamicLabelImageNumber.Top = splitContainer1211P1.Panel2.Height - dynamicLabelImageNumber.Height - 2;
 
             // adjust size according configuration
             this.Width = (int)(ConfigDefinition.getFormMainWidth() * dpiSettings / 96.0f);
@@ -2529,6 +2532,7 @@ namespace QuickImageComment
                     // following code needed to adjust some distances 
                     showHideControlsCentralInputArea();
                     dynamicLabelFileName.Top = splitContainer1211P1.Panel2.Height - dynamicLabelFileName.Height - 2;
+                    dynamicLabelImageNumber.Top = splitContainer1211P1.Panel2.Height - dynamicLabelImageNumber.Height - 2;
                     if (theUserControlMap != null && theUserControlMap.isInPanel)
                     {
                         theUserControlMap.adjustTopBottomAfterScaling(CustomizationInterface.getActualZoomFactor(this));
@@ -4802,6 +4806,7 @@ namespace QuickImageComment
             this.Cursor = Cursors.WaitCursor;
             pictureBox1.Visible = false;
             dynamicLabelFileName.Visible = false;
+            dynamicLabelImageNumber.Visible = false;
             dataGridViewSelectedFiles.Visible = false;
 
             // save AutoScrollPosition for next display of current image
@@ -4848,6 +4853,7 @@ namespace QuickImageComment
                 theExtendedImage = ImageManager.getExtendedImage(fileIndex, true);
                 GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceWorkAfterSelectionOfFile, theExtendedImage.getImageFileName(), 2);
                 dynamicLabelFileName.Text = theExtendedImage.getImageFileName();
+                dynamicLabelImageNumber.Text = "#" + (fileIndex + 1).ToString();
                 if (theExtendedImage.getNoAccess())
                     toolStripStatusLabelFileInfo.Text = LangCfg.getText(LangCfg.Others.fileNoAccess);
                 else if (theExtendedImage.getIsReadOnly())
@@ -5066,6 +5072,7 @@ namespace QuickImageComment
                 DateTime.Now.Subtract(StartTime).TotalMilliseconds.ToString("   0") + " ms");
             pictureBox1.Visible = true;
             dynamicLabelFileName.Visible = true;
+            dynamicLabelImageNumber.Visible = true;
             dataGridViewSelectedFiles.Visible = true;
             this.Cursor = Cursors.Default;
         }

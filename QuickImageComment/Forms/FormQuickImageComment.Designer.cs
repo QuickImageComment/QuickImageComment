@@ -45,8 +45,8 @@ namespace QuickImageComment
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormQuickImageComment));
             this.dynamicLabelArtist = new System.Windows.Forms.Label();
             this.textBoxUserComment = new System.Windows.Forms.TextBox();
@@ -260,6 +260,7 @@ namespace QuickImageComment
             this.toolStripButtonFind = new System.Windows.Forms.ToolStripButton();
             this.toolTip1 = new QuickImageComment.ToolTipQIC();
             this.theFolderTreeView = new QuickImageCommentControls.ShellTreeViewQIC();
+            this.dynamicLabelImageNumber = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer12)).BeginInit();
             this.splitContainer12.Panel1.SuspendLayout();
             this.splitContainer12.Panel2.SuspendLayout();
@@ -475,6 +476,7 @@ namespace QuickImageComment
             // 
             // splitContainer1211P1.Panel2
             // 
+            this.splitContainer1211P1.Panel2.Controls.Add(this.dynamicLabelImageNumber);
             this.splitContainer1211P1.Panel2.Controls.Add(this.dynamicLabelFileName);
             this.splitContainer1211P1.Panel2.Controls.Add(this.panelFramePosition);
             this.splitContainer1211P1.Panel2MinSize = 20;
@@ -617,9 +619,9 @@ namespace QuickImageComment
             this.DataGridViewOverview.Location = new System.Drawing.Point(3, 3);
             this.DataGridViewOverview.Name = "DataGridViewOverview";
             this.DataGridViewOverview.RowHeadersVisible = false;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            this.DataGridViewOverview.RowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            this.DataGridViewOverview.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.DataGridViewOverview.RowTemplate.Height = 18;
             this.DataGridViewOverview.Size = new System.Drawing.Size(271, 166);
             this.DataGridViewOverview.TabIndex = 0;
@@ -772,14 +774,14 @@ namespace QuickImageComment
             this.dataGridViewSelectedFiles.BackgroundColor = System.Drawing.SystemColors.Window;
             this.dataGridViewSelectedFiles.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewSelectedFiles.ContextMenuStrip = this.contextMenuStripMetaData;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewSelectedFiles.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewSelectedFiles.DefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridViewSelectedFiles.GridColor = System.Drawing.SystemColors.ScrollBar;
             this.dataGridViewSelectedFiles.Location = new System.Drawing.Point(256, 0);
             this.dataGridViewSelectedFiles.Name = "dataGridViewSelectedFiles";
@@ -2452,6 +2454,15 @@ namespace QuickImageComment
             this.theFolderTreeView.Size = new System.Drawing.Size(253, 147);
             this.theFolderTreeView.TabIndex = 0;
             // 
+            // dynamicLabelImageNumber
+            // 
+            this.dynamicLabelImageNumber.AutoSize = true;
+            this.dynamicLabelImageNumber.Location = new System.Drawing.Point(-1, 61);
+            this.dynamicLabelImageNumber.Name = "dynamicLabelImageNumber";
+            this.dynamicLabelImageNumber.Size = new System.Drawing.Size(15, 13);
+            this.dynamicLabelImageNumber.TabIndex = 5;
+            this.dynamicLabelImageNumber.Text = "#";
+            // 
             // FormQuickImageComment
             // 
             this.AllowDrop = true;
@@ -2753,5 +2764,6 @@ namespace QuickImageComment
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewOverviewColumValue;
         private System.Windows.Forms.DataGridViewTextBoxColumn KeyPrim;
         private System.Windows.Forms.DataGridViewTextBoxColumn KeySec;
+        internal System.Windows.Forms.Label dynamicLabelImageNumber;
     }
 }
