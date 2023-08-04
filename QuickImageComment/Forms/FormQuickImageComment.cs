@@ -1203,7 +1203,7 @@ namespace QuickImageComment
         private void DataGridViewOverview_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0 && e.ColumnIndex == 1 && DataGridViewOverview.Rows[e.RowIndex].Cells[1].Value != null)
-                    toolTip1.ShowAtOffset(DataGridViewOverview.Rows[e.RowIndex].Cells[1].Value.ToString(), this);
+                toolTip1.ShowAtOffset(DataGridViewOverview.Rows[e.RowIndex].Cells[1].Value.ToString(), this);
         }
 
         // cell mouse leave event handler for DataGridViewOverview
@@ -2411,7 +2411,7 @@ namespace QuickImageComment
                 FormPredefinedKeyWords theFormPredefinedKeyWords = new FormPredefinedKeyWords();
                 theFormPredefinedKeyWords.ShowDialog();
                 theUserControlKeyWords.treeViewPredefKeyWords.fillWithPredefKeyWords();
-                if (formFind !=  null)
+                if (formFind != null)
                 {
                     formFind.fillTreeViewWithPredefKeyWords();
                 }
@@ -3269,7 +3269,7 @@ namespace QuickImageComment
         }
 
         // change image view
-        private void changeImageView()
+        private void changeImageView(bool useLastScrollRefence = false)
         {
             int newHorizontal;
             int newVertical;
@@ -3283,21 +3283,24 @@ namespace QuickImageComment
                 {
                     oldWidth = pictureBox1.Width;
                     oldHeigth = pictureBox1.Height;
+                    // need to save AutoScrollPosition before changing pictureBox1
                     scrollX = -panelPictureBox.AutoScrollPosition.X;
                     scrollY = -panelPictureBox.AutoScrollPosition.Y;
-
-                    // if an auto scroll position was set before, use it
-                    if (theExtendedImage.getAutoScrollPosition().X < 0)
-                    {
-                        scrollX = -theExtendedImage.getAutoScrollPosition().X;
-                        scrollY = -theExtendedImage.getAutoScrollPosition().Y;
-                    }
 
                     this.pictureBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left;
                     this.pictureBox1.Height = pictureBox1.Image.Height * viewModeBase / viewMode;
                     this.pictureBox1.Width = pictureBox1.Image.Width * viewModeBase / viewMode;
 
-                    // adjust scrolls bar to keep picture centered            
+                    panelPictureBox.Refresh();
+
+                    // if an auto scroll position was set before, use it
+                    if (useLastScrollRefence)
+                    {
+                        scrollX = -theExtendedImage.getAutoScrollPosition().X;
+                        scrollY = -theExtendedImage.getAutoScrollPosition().Y;
+                    }
+
+                    // adjust scrolls bar to keep picture centered
                     factor = pictureBox1.Height / oldHeigth;
                     newVertical = (int)(factor * scrollY + (factor - 1) * this.panelPictureBox.Height / 2);
                     factor = pictureBox1.Width / oldWidth;
@@ -4803,17 +4806,24 @@ namespace QuickImageComment
             GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceWorkAfterSelectionOfFile, "index:" + fileIndex.ToString(), 2);
             disableEventHandlersRecogniseUserInput();
 
+            // save AutoScrollPosition for next display of current image
+            // needs to be done before hiding pictureBox
+            if (theExtendedImage != null)
+            {
+                // inverse calculation to calculation in changeImageView
+                double factorY = (double)pictureBox1.Height / panelPictureBox.Height;
+                double factorX = (double)pictureBox1.Width / panelPictureBox.Width;
+                double scrollY = (panelPictureBox.AutoScrollPosition.Y + (factorY - 1) * panelPictureBox.Height / 2) / factorY;
+                double scrollX = (panelPictureBox.AutoScrollPosition.X + (factorX - 1) * panelPictureBox.Width / 2) / factorX;
+                Point normalisedAutoScrollPosition = new Point((int)scrollX, (int)scrollY);
+                theExtendedImage.setAutoScrollPosition(normalisedAutoScrollPosition);
+            }
+
             this.Cursor = Cursors.WaitCursor;
             pictureBox1.Visible = false;
             dynamicLabelFileName.Visible = false;
             dynamicLabelImageNumber.Visible = false;
             dataGridViewSelectedFiles.Visible = false;
-
-            // save AutoScrollPosition for next display of current image
-            if (theExtendedImage != null)
-            {
-                theExtendedImage.setAutoScrollPosition(panelPictureBox.AutoScrollPosition);
-            }
 
             labelArtistDefault.Visible = false;
             DateTime StartTime = DateTime.Now;
@@ -4916,13 +4926,19 @@ namespace QuickImageComment
 
                 pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
 
+                this.pictureBox1.Anchor = AnchorStyles.Bottom | AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+                this.pictureBox1.Height = this.panelPictureBox.Height;
+                this.pictureBox1.Width = this.panelPictureBox.Width;
+
+                // pictureBox must be visible to change Autoscroll
+                pictureBox1.Visible = true;
                 if (zoomFactor > 0)
                 {
                     changeImageZoom();
                 }
                 else
                 {
-                    changeImageView();
+                    changeImageView(useLastScrollRefence: true);
                 }
 
                 foreach (string aLanguage in theExtendedImage.getXmpLangAltEntries())
@@ -5070,7 +5086,6 @@ namespace QuickImageComment
             GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceDisplayImage,
                 "finished" +
                 DateTime.Now.Subtract(StartTime).TotalMilliseconds.ToString("   0") + " ms");
-            pictureBox1.Visible = true;
             dynamicLabelFileName.Visible = true;
             dynamicLabelImageNumber.Visible = true;
             dataGridViewSelectedFiles.Visible = true;
