@@ -159,6 +159,7 @@ namespace QuickImageComment
             this.richTextBoxValue.Size = new System.Drawing.Size(824, 206);
             this.richTextBoxValue.TabIndex = 6;
             this.richTextBoxValue.Text = "";
+            this.richTextBoxValue.KeyDown += new System.Windows.Forms.KeyEventHandler(this.richTextBoxValue_KeyDown);
             // 
             // label2
             // 

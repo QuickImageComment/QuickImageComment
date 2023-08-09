@@ -102,6 +102,19 @@ namespace QuickImageComment
             }
         }
 
+        // undo/redo last user action
+        private void richTextBoxValue_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Z && (e.Control))
+            {
+                richTextBoxValue.Undo();
+            }
+            else if (e.KeyCode == Keys.Y && (e.Control))
+            {
+                richTextBoxValue.Redo();
+            }
+        }
+
         //-------------------------------------------------------------------------
         // buttons
         //-------------------------------------------------------------------------
