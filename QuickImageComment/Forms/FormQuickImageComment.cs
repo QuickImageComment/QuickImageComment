@@ -626,6 +626,8 @@ namespace QuickImageComment
             dynamicLabelFileName.Top = splitContainer1211P1.Panel2.Height - dynamicLabelFileName.Height - 2;
             dynamicLabelImageNumber.Top = splitContainer1211P1.Panel2.Height - dynamicLabelImageNumber.Height - 2;
 
+            adjustToolbarSize();
+
             // adjust size according configuration
             this.Width = (int)(ConfigDefinition.getFormMainWidth() * dpiSettings / 96.0f);
             this.Height = (int)(ConfigDefinition.getFormMainHeight() * dpiSettings / 96.0f);
@@ -651,8 +653,6 @@ namespace QuickImageComment
             // needs to be called after customization to adjust distances artist/comment
             showHideControlsCentralInputArea();
             //Program.StartupPerformance.measure("FormQIC showHideControlsCentralInputArea");
-
-            adjustToolbarSize();
 
             // now layout is set completely, load customization and apply customization (zoom was applied already before)
             if (!maskCustomizationFile.Equals("")) CustomizationInterface.loadCustomizationFile(maskCustomizationFile);
