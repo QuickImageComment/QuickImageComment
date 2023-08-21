@@ -207,6 +207,8 @@ namespace QuickImageComment
         private bool notFrameGrabber;
         private bool isReadOnly;
         private bool noAccess;
+        private bool imageNotModifiedGridLogged;
+        private bool imageNotModifiedTxtLogged;
 
         private ArrayList TileViewMetaDataItems;
         private ArrayList XmpLangAltEntries;
@@ -3733,145 +3735,169 @@ namespace QuickImageComment
             }
             else
             {
-                // Gammawert darf nicht = 0 sein (Bug in GDI+)
-                //If Gamma = 0 Then Gamma = CSng(Gamma + 1.0E-45)
-                AdjustedImage = new Bitmap(FullSizeImage.Width, FullSizeImage.Height, FullSizeImage.PixelFormat);
+                try
+                {
+                    // Gammawert darf nicht = 0 sein (Bug in GDI+)
+                    //If Gamma = 0 Then Gamma = CSng(Gamma + 1.0E-45)
+                    AdjustedImage = new Bitmap(FullSizeImage.Width, FullSizeImage.Height, FullSizeImage.PixelFormat);
 
-                Graphics OutputBitmapGraphics = Graphics.FromImage(AdjustedImage);
-                System.Drawing.Imaging.ImageAttributes theImageAttributes = new System.Drawing.Imaging.ImageAttributes();
+                    Graphics OutputBitmapGraphics = Graphics.FromImage(AdjustedImage);
+                    System.Drawing.Imaging.ImageAttributes theImageAttributes = new System.Drawing.Imaging.ImageAttributes();
 
-                // for correct representation
-                float Diff = (Brightness / 2) - (TxtContrast / 2);
+                    // for correct representation
+                    float Diff = (Brightness / 2) - (TxtContrast / 2);
 
-                // create ColorMatrix
-                float[][] colorMatrixElements = {
+                    // create ColorMatrix
+                    float[][] colorMatrixElements = {
                     new float[] {1 + TxtContrast, 0, 0, 0, 0},
                     new float[] {0, 1 + TxtContrast, 0, 0, 0},
                     new float[] {0, 0, 1 + TxtContrast, 0, 0},
                     new float[] {0, 0, 0, 1, 0},
                     new float[] {Brightness + Diff, Brightness + Diff, Brightness + Diff, 0, 1}};
 
-                System.Drawing.Imaging.ColorMatrix theColorMatrix = new System.Drawing.Imaging.ColorMatrix(colorMatrixElements);
+                    System.Drawing.Imaging.ColorMatrix theColorMatrix = new System.Drawing.Imaging.ColorMatrix(colorMatrixElements);
 
-                // ColorMatrix für das ImageAttribute-Objekt setzen
-                theImageAttributes.SetColorMatrix(theColorMatrix);
+                    // ColorMatrix für das ImageAttribute-Objekt setzen
+                    theImageAttributes.SetColorMatrix(theColorMatrix);
 
-                // Gamma für das ImageAttribute-Objekt setzen
-                theImageAttributes.SetGamma(TxtGamma);
+                    // Gamma für das ImageAttribute-Objekt setzen
+                    theImageAttributes.SetGamma(TxtGamma);
 
-                // InputImage in das Graphics-Objekt zeichnen
-                OutputBitmapGraphics.DrawImage(FullSizeImage, new Rectangle(0, 0,
-                    AdjustedImage.Width, AdjustedImage.Height), 0, 0,
-                    AdjustedImage.Width, AdjustedImage.Height,
-                    GraphicsUnit.Pixel, theImageAttributes);
+                    // InputImage in das Graphics-Objekt zeichnen
+                    OutputBitmapGraphics.DrawImage(FullSizeImage, new Rectangle(0, 0,
+                        AdjustedImage.Width, AdjustedImage.Height), 0, 0,
+                        AdjustedImage.Width, AdjustedImage.Height,
+                        GraphicsUnit.Pixel, theImageAttributes);
 
-                if (showGrid)
-                {
-                    // get grid position: first get it from Image
-                    int helpGridPosX = GridPosX;
-                    int helpGridPosY = GridPosY;
-
-                    for (int gridIdx = 0; gridIdx < ConfigDefinition.ImageGridsCount; gridIdx++)
+                    if (showGrid)
                     {
-                        ImageGrid theImageGrid = ConfigDefinition.getImageGrid(gridIdx);
-                        if (theImageGrid.active &&
-                            // check to avoid endless loops
-                            theImageGrid.width > 0 && theImageGrid.height > 0 && theImageGrid.size > 0 && theImageGrid.distance > 0)
-                        {
-                            // if grid position not set, take width and height from this grid (the first one to be used)
-                            if (helpGridPosX < 0)
-                            {
-                                helpGridPosX = theImageGrid.width - 1;
-                                setGridPosX(helpGridPosX);
-                            }
-                            if (helpGridPosY < 0)
-                            {
-                                helpGridPosY = theImageGrid.height - 1;
-                                setGridPosY(helpGridPosY);
-                            }
-                            // in case grid is moved far to the right or down, shift back to start grind in upper left corner,
-                            // but keeping the offset modulo grid widht and height
-                            helpGridPosX = helpGridPosX % theImageGrid.width;
-                            helpGridPosY = helpGridPosY % theImageGrid.height;
+                        // get grid position: first get it from Image
+                        int helpGridPosX = GridPosX;
+                        int helpGridPosY = GridPosY;
 
-                            // solid line or solid with scale
-                            if (theImageGrid.lineStyle == ImageGrid.enumLineStyle.solidLine ||
-                                theImageGrid.lineStyle == ImageGrid.enumLineStyle.withScale)
+                        for (int gridIdx = 0; gridIdx < ConfigDefinition.ImageGridsCount; gridIdx++)
+                        {
+                            ImageGrid theImageGrid = ConfigDefinition.getImageGrid(gridIdx);
+                            if (theImageGrid.active &&
+                                // check to avoid endless loops
+                                theImageGrid.width > 0 && theImageGrid.height > 0 && theImageGrid.size > 0 && theImageGrid.distance > 0)
                             {
-                                for (int ii = helpGridPosX; ii < AdjustedImage.Width; ii = ii + theImageGrid.width)
+                                // if grid position not set, take width and height from this grid (the first one to be used)
+                                if (helpGridPosX < 0)
                                 {
-                                    OutputBitmapGraphics.DrawLine(new System.Drawing.Pen(System.Drawing.Color.FromArgb(theImageGrid.RGB_value)),
-                                                                  new Point(ii, 0),
-                                                                  new Point(ii, AdjustedImage.Height));
+                                    helpGridPosX = theImageGrid.width - 1;
+                                    setGridPosX(helpGridPosX);
                                 }
-                                for (int ii = helpGridPosY; ii < AdjustedImage.Height; ii = ii + theImageGrid.height)
+                                if (helpGridPosY < 0)
                                 {
-                                    OutputBitmapGraphics.DrawLine(new System.Drawing.Pen(System.Drawing.Color.FromArgb(theImageGrid.RGB_value)), new Point(0, ii), new Point(AdjustedImage.Width, ii));
+                                    helpGridPosY = theImageGrid.height - 1;
+                                    setGridPosY(helpGridPosY);
                                 }
-                                // add scale lines
-                                if (theImageGrid.lineStyle == ImageGrid.enumLineStyle.withScale)
+                                // in case grid is moved far to the right or down, shift back to start grind in upper left corner,
+                                // but keeping the offset modulo grid widht and height
+                                helpGridPosX = helpGridPosX % theImageGrid.width;
+                                helpGridPosY = helpGridPosY % theImageGrid.height;
+
+                                // solid line or solid with scale
+                                if (theImageGrid.lineStyle == ImageGrid.enumLineStyle.solidLine ||
+                                    theImageGrid.lineStyle == ImageGrid.enumLineStyle.withScale)
                                 {
-                                    int offset = theImageGrid.size / 2;
-                                    int startX = helpGridPosX - (helpGridPosX / theImageGrid.distance * theImageGrid.distance);
-                                    if (startX == 0) startX = theImageGrid.distance;
-                                    int startY = helpGridPosY - (helpGridPosY / theImageGrid.distance * theImageGrid.distance);
-                                    if (startY == 0) startY = theImageGrid.distance;
                                     for (int ii = helpGridPosX; ii < AdjustedImage.Width; ii = ii + theImageGrid.width)
                                     {
-                                        for (int jj = startY; jj < AdjustedImage.Height; jj = jj + theImageGrid.distance)
+                                        OutputBitmapGraphics.DrawLine(new System.Drawing.Pen(System.Drawing.Color.FromArgb(theImageGrid.RGB_value)),
+                                                                      new Point(ii, 0),
+                                                                      new Point(ii, AdjustedImage.Height));
+                                    }
+                                    for (int ii = helpGridPosY; ii < AdjustedImage.Height; ii = ii + theImageGrid.height)
+                                    {
+                                        OutputBitmapGraphics.DrawLine(new System.Drawing.Pen(System.Drawing.Color.FromArgb(theImageGrid.RGB_value)), new Point(0, ii), new Point(AdjustedImage.Width, ii));
+                                    }
+                                    // add scale lines
+                                    if (theImageGrid.lineStyle == ImageGrid.enumLineStyle.withScale)
+                                    {
+                                        int offset = theImageGrid.size / 2;
+                                        int startX = helpGridPosX - (helpGridPosX / theImageGrid.distance * theImageGrid.distance);
+                                        if (startX == 0) startX = theImageGrid.distance;
+                                        int startY = helpGridPosY - (helpGridPosY / theImageGrid.distance * theImageGrid.distance);
+                                        if (startY == 0) startY = theImageGrid.distance;
+                                        for (int ii = helpGridPosX; ii < AdjustedImage.Width; ii = ii + theImageGrid.width)
                                         {
-                                            OutputBitmapGraphics.DrawLine(new System.Drawing.Pen(System.Drawing.Color.FromArgb(theImageGrid.RGB_value)), new Point(ii - offset, jj),
-                                                new Point(ii + offset, jj));
+                                            for (int jj = startY; jj < AdjustedImage.Height; jj = jj + theImageGrid.distance)
+                                            {
+                                                OutputBitmapGraphics.DrawLine(new System.Drawing.Pen(System.Drawing.Color.FromArgb(theImageGrid.RGB_value)), new Point(ii - offset, jj),
+                                                    new Point(ii + offset, jj));
+                                            }
+                                        }
+                                        for (int jj = helpGridPosY; jj < AdjustedImage.Height; jj = jj + theImageGrid.height)
+                                        {
+                                            for (int ii = startX; ii < AdjustedImage.Width; ii = ii + theImageGrid.distance)
+                                            {
+                                                OutputBitmapGraphics.DrawLine(new System.Drawing.Pen(System.Drawing.Color.FromArgb(theImageGrid.RGB_value)), new Point(ii, jj - offset),
+                                                    new Point(ii, jj + offset));
+                                            }
+                                        }
+                                    }
+                                }
+                                // dotted line
+                                else if (theImageGrid.lineStyle == ImageGrid.enumLineStyle.dottedLine)
+                                {
+                                    int offset = theImageGrid.size / 2;
+                                    for (int ii = helpGridPosX; ii < AdjustedImage.Width; ii = ii + theImageGrid.width)
+                                    {
+                                        for (int jj = 0; jj < AdjustedImage.Height; jj = jj + theImageGrid.size + theImageGrid.distance)
+                                        {
+                                            OutputBitmapGraphics.DrawLine(new System.Drawing.Pen(System.Drawing.Color.FromArgb(theImageGrid.RGB_value)), new Point(ii, jj - offset - 2),
+                                                new Point(ii, jj + offset));
                                         }
                                     }
                                     for (int jj = helpGridPosY; jj < AdjustedImage.Height; jj = jj + theImageGrid.height)
                                     {
-                                        for (int ii = startX; ii < AdjustedImage.Width; ii = ii + theImageGrid.distance)
+                                        for (int ii = 0; ii < AdjustedImage.Width; ii = ii + theImageGrid.size + theImageGrid.distance)
                                         {
+                                            OutputBitmapGraphics.DrawLine(new System.Drawing.Pen(System.Drawing.Color.FromArgb(theImageGrid.RGB_value)), new Point(ii - offset - 2, jj),
+                                                new Point(ii + offset, jj));
+                                        }
+                                    }
+                                }
+                                // graticule
+                                else if (theImageGrid.lineStyle == ImageGrid.enumLineStyle.graticule)
+                                {
+                                    int offset = theImageGrid.size / 2;
+                                    for (int ii = helpGridPosX; ii < AdjustedImage.Width; ii = ii + theImageGrid.width)
+                                    {
+                                        for (int jj = helpGridPosY; jj < AdjustedImage.Height; jj = jj + theImageGrid.height)
+                                        {
+                                            OutputBitmapGraphics.DrawLine(new System.Drawing.Pen(System.Drawing.Color.FromArgb(theImageGrid.RGB_value)), new Point(ii - offset, jj),
+                                                new Point(ii + offset, jj));
                                             OutputBitmapGraphics.DrawLine(new System.Drawing.Pen(System.Drawing.Color.FromArgb(theImageGrid.RGB_value)), new Point(ii, jj - offset),
                                                 new Point(ii, jj + offset));
                                         }
                                     }
                                 }
                             }
-                            // dotted line
-                            else if (theImageGrid.lineStyle == ImageGrid.enumLineStyle.dottedLine)
-                            {
-                                int offset = theImageGrid.size / 2;
-                                for (int ii = helpGridPosX; ii < AdjustedImage.Width; ii = ii + theImageGrid.width)
-                                {
-                                    for (int jj = 0; jj < AdjustedImage.Height; jj = jj + theImageGrid.size + theImageGrid.distance)
-                                    {
-                                        OutputBitmapGraphics.DrawLine(new System.Drawing.Pen(System.Drawing.Color.FromArgb(theImageGrid.RGB_value)), new Point(ii, jj - offset - 2),
-                                            new Point(ii, jj + offset));
-                                    }
-                                }
-                                for (int jj = helpGridPosY; jj < AdjustedImage.Height; jj = jj + theImageGrid.height)
-                                {
-                                    for (int ii = 0; ii < AdjustedImage.Width; ii = ii + theImageGrid.size + theImageGrid.distance)
-                                    {
-                                        OutputBitmapGraphics.DrawLine(new System.Drawing.Pen(System.Drawing.Color.FromArgb(theImageGrid.RGB_value)), new Point(ii - offset - 2, jj),
-                                            new Point(ii + offset, jj));
-                                    }
-                                }
-                            }
-                            // graticule
-                            else if (theImageGrid.lineStyle == ImageGrid.enumLineStyle.graticule)
-                            {
-                                int offset = theImageGrid.size / 2;
-                                for (int ii = helpGridPosX; ii < AdjustedImage.Width; ii = ii + theImageGrid.width)
-                                {
-                                    for (int jj = helpGridPosY; jj < AdjustedImage.Height; jj = jj + theImageGrid.height)
-                                    {
-                                        OutputBitmapGraphics.DrawLine(new System.Drawing.Pen(System.Drawing.Color.FromArgb(theImageGrid.RGB_value)), new Point(ii - offset, jj),
-                                            new Point(ii + offset, jj));
-                                        OutputBitmapGraphics.DrawLine(new System.Drawing.Pen(System.Drawing.Color.FromArgb(theImageGrid.RGB_value)), new Point(ii, jj - offset),
-                                            new Point(ii, jj + offset));
-                                    }
-                                }
-                            }
                         }
                     }
+                }
+                catch (Exception ex)
+                {
+                    if (showGrid)
+                    {
+                        if (!imageNotModifiedGridLogged)
+                        {
+                            GeneralUtilities.message(LangCfg.Message.W_imageNotModifiedGrid, ex.Message);
+                            imageNotModifiedGridLogged = true;
+                        }
+                    }
+                    else
+                    {
+                        if (!imageNotModifiedTxtLogged)
+                        {
+                            GeneralUtilities.message(LangCfg.Message.W_imageNotModifiedTxt, ex.Message);
+                            imageNotModifiedTxtLogged = true;
+                        }
+                    }
+                    // return not adjusted image
+                    AdjustedImage = FullSizeImage;
                 }
             }
             return AdjustedImage;

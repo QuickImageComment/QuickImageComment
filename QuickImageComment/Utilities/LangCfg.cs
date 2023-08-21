@@ -195,7 +195,9 @@ namespace QuickImageComment
             E_cannotAssignFileDateTime,
             Q_numberScrollPageUpDown,
             E_pageUpDownScrollNumberInvalid,
-            E_executeQuery
+            E_executeQuery,
+            W_imageNotModifiedGrid,
+            W_imageNotModifiedTxt
         }
 
         public enum Others

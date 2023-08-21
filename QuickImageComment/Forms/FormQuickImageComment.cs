@@ -4481,8 +4481,6 @@ namespace QuickImageComment
                                 // control is instantiated new, available zoom basis data may not fit, so remove them
                                 CustomizationInterface.removeZoomBasisData(theUserControlMap.panelMap);
                                 CustomizationInterface.zoomControlsUsingTargetZoomFactor(theUserControlMap.panelMap, this);
-                                //!! theUserControlMap.Height = aPanel.Height;
-                                //!! theUserControlMap.Width = aPanel.Width;
                             }
                         }
                         theUserControlMap.isInPanel = true;
