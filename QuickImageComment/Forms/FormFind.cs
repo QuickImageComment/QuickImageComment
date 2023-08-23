@@ -1219,7 +1219,12 @@ namespace QuickImageComment
                 row["ModifiedRead"] = ImageFilesInfo[ii].LastWriteTime;
                 dataTableMerge.Rows.Add(row);
             }
-
+            if (dataTable == null)
+            {
+                // dataTable can be set to null due to changes of fields in FormMetaDataDefinitions
+                doWorkEventArgs.Cancel = true;
+                return;
+            }
             dataTableMerge.Merge(dataTable);
 
             // file was deleted since last update of table
@@ -1227,6 +1232,12 @@ namespace QuickImageComment
             int count = 0;
             foreach (DataRow dataRow in selectResult)
             {
+                if (dataTable == null)
+                {
+                    // dataTable can be set to null due to changes of fields in FormMetaDataDefinitions
+                    doWorkEventArgs.Cancel = true;
+                    return;
+                }
                 dataTable.Rows.Find(dataRow["FileName"]).Delete();
                 count++;
             }
@@ -1236,6 +1247,12 @@ namespace QuickImageComment
             count = 0;
             foreach (DataRow dataRow in selectResult)
             {
+                if (dataTable == null)
+                {
+                    // dataTable can be set to null due to changes of fields in FormMetaDataDefinitions
+                    doWorkEventArgs.Cancel = true;
+                    return;
+                }
                 extendedImage = new ExtendedImage(new FileInfo((string)dataRow["FileName"]), MetaDataDefinitionsToRead);
                 addOrUpdateRow(extendedImage);
                 count++;

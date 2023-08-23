@@ -813,6 +813,32 @@ namespace QuickImageComment
                 }
                 foreach (ConfigDefinition.enumMetaDataGroup enumValue in Enum.GetValues(typeof(ConfigDefinition.enumMetaDataGroup)))
                 {
+                    if (enumValue == ConfigDefinition.enumMetaDataGroup.MetaDataDefForFind)
+                    {
+                        // check for changes: if there, datatable in FormFind needs to be set to null,
+                        // as loaded data do not fit to new meta data definitions
+                        ArrayList oldDefintions = ConfigDefinition.getMetaDataDefinitions(ConfigDefinition.enumMetaDataGroup.MetaDataDefForFind);
+                        if (MetaDataDefinitions[(int)enumValue].Count != oldDefintions.Count)
+                        {
+                            FormFind.setDataTableToNull();
+                        }
+                        else
+                        {
+                            // same count, compare old and new entries
+                            for (int ii = 0; ii < oldDefintions.Count; ii++)
+                            {
+                                MetaDataDefinitionItem oldItem = (MetaDataDefinitionItem)oldDefintions[ii];
+                                MetaDataDefinitionItem newItem = (MetaDataDefinitionItem)MetaDataDefinitions[(int)enumValue][ii];
+                                if (!oldItem.Name.Equals(newItem.Name) ||
+                                    !oldItem.KeyPrim.Equals(newItem.KeyPrim) ||
+                                    !oldItem.FormatPrim.Equals(newItem.FormatPrim))
+                                {
+                                    FormFind.setDataTableToNull();
+                                    break;
+                                }
+                            }
+                        }
+                    }
                     ConfigDefinition.setMetaDataDefinitions(enumValue, MetaDataDefinitions[(int)enumValue]);
                 }
 
