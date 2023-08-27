@@ -197,7 +197,8 @@ namespace QuickImageComment
             E_pageUpDownScrollNumberInvalid,
             E_executeQuery,
             W_imageNotModifiedGrid,
-            W_imageNotModifiedTxt
+            W_imageNotModifiedTxt,
+            W_MakernoteValueNotSaved
         }
 
         public enum Others

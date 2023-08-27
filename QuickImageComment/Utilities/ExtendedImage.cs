@@ -152,6 +152,9 @@ namespace QuickImageComment
         static extern float exiv2floatValue([MarshalAs(UnmanagedType.LPStr)] string tagName,
                                             [MarshalAs(UnmanagedType.LPStr)] string valueString);
 
+        [DllImport(exiv2DllImport, CallingConvention = CallingConvention.Cdecl)]
+        static extern int isExifMakernote([MarshalAs(UnmanagedType.LPStr)] string metaDataClass, [MarshalAs(UnmanagedType.LPStr)] string groupName);
+
         [DllImport("msvcrt.dll")]
         private static extern int memcmp(IntPtr b1, IntPtr b2, long count);
 
@@ -466,7 +469,7 @@ namespace QuickImageComment
             {
 #endif
 #if !DEBUG
-                try
+            try
 #endif
             {
                 string iniPath = ConfigDefinition.getIniPath();
@@ -502,10 +505,10 @@ namespace QuickImageComment
                 }
             }
 #if !DEBUG
-                catch (Exception ex)
-                {
-                    MetaDataWarnings.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error), ex.Message));
-                }
+            catch (Exception ex)
+            {
+                MetaDataWarnings.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error), ex.Message));
+            }
 #endif
             ReadPerformance.measure("Meta data copied");
 
@@ -2779,7 +2782,18 @@ namespace QuickImageComment
                         //else 
                         if (!achievedValue.Equals(targetValue))
                         {
-                            GeneralUtilities.message(LangCfg.Message.W_differentValueSaved, key, achievedValue, targetValue);
+                            string[] words = key.Split('.');
+                            if (achievedValue.Equals("") && isExifMakernote(words[0], words[1]) == 1)
+                            {
+                                // a non-blank value was given, but tag is not added
+                                // most likely tag is from a Makernote, which is not contained
+                                // then tags for it cannot be added
+                                GeneralUtilities.message(LangCfg.Message.W_MakernoteValueNotSaved, key, targetValue);
+                            }
+                            else
+                            {
+                                GeneralUtilities.message(LangCfg.Message.W_differentValueSaved, key, achievedValue, targetValue);
+                            }
                         }
                     }
                 }
