@@ -27,7 +27,7 @@
 
 //#define TRACING 200
 
-#define VERSION "0.27.5.1"
+#define VERSION "0.27.5.2"
 
 // definitions for Exif Easy Access
 typedef Exiv2::ExifData::const_iterator(*EasyAccessFct)(const Exiv2::ExifData& ed);
@@ -216,6 +216,27 @@ extern "C" __declspec(dllexport) int __cdecl exiv2getXmpTagDescriptions(LPSTR * 
 }
 
 //-------------------------------------------------------------------------
+// check if group is makernote
+//-------------------------------------------------------------------------
+extern "C" __declspec(dllexport) int __cdecl isExifMakernote(LPSTR metaDataClass, LPSTR groupName) {
+    if (!strcmp(metaDataClass, "Exif")) {
+        const Exiv2::GroupInfo* groupList = Exiv2::ExifTags::groupList();
+        if (groupList) {
+            std::string line;
+            while (groupList->tagList_) {
+                if (!strcmp(groupList->groupName_, groupName)) {
+                    if (!strcmp(groupList->ifdName_, "Makernote"))
+                        return 1;
+                    else
+                        return 0;
+                }
+                groupList++;
+            }
+        }
+    }
+    return 0;
+}
+
 // Read data from image using file name
 //-------------------------------------------------------------------------
 extern "C" __declspec(dllexport) int __cdecl exiv2readImageByFileName(LPSTR fileName, LPSTR givenIniPath,

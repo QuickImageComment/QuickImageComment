@@ -898,7 +898,10 @@ namespace Exiv2 {
         }
 
         // Used to initialize search variables such as skipCom.
-        static const size_t notfound = std::numeric_limits<size_t>::max();
+        // following line causes exception when running on Windows XP
+        //static const size_t notfound = std::numeric_limits<size_t>::max();
+        // so replaced by following initialisation:
+        static const size_t notfound = -1;
 
         const long seek = io_->tell();
         size_t count = 0;
