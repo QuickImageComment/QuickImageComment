@@ -1,33 +1,23 @@
-﻿<Program_Version>4.55</Program_Version>
+﻿<Program_Version>4.56</Program_Version>
 <Program_Change_Info_German>
 Erweiterungen und Verbesserungen:
-Neu in Maske "Bild in eigenem Fenster": Blättern der Bilder mit Tastatur oder Maus; Anzeige von Meta-Daten in Titelleiste (konfigurierbar).
-Maske "Vordefinierte IPTC Schlüsselworte": Durch Einrücken kann eine Hierarchie der Schlüsselworte definiert werden. Dadurch können im Baum des Bereiches "IPTC Schlüsselworte" Teile auf- und zugeklappt werden, was die Auswahl der Schlüsselworte erleichtert.
-Optional kann ein Hinweis angezeigt werden, wenn einem Bild ein nicht vordefiniertes Schlüsselwort zugewiesen wurde. Nach solchen Bildern kann auch gesucht werden. Damit soll eine konsistente Verschlagwortung erleichtert werden.
-Suche über Eigenschaften: Wenn die Option "Daten bei Beenden speichern" aktiviert ist, beginnt die Aktualisierung der Daten jetzt bei Start des Programmes, nicht erst beim ersten Öffnen der Suchmaske. Damit stehen die aktualisierten Daten früher zur Verfügung.
-Suche über Eigenschaften: Wenn IPTC-Schlüsselworte als Suchfeld definiert ist, wird rechts im unteren Bereich der Maske ein Baum mit den vordefinierten Schlüsselworten angezeigt. Schlüsselworte, nach denen gesucht werden soll, können hier angekreuzt werden.
-Suche über Eigenschaften: Einige Felder können mehrere Werte haben, z.B. IPTC-Schlüsselworte. Für die Suche werden diese Werte zu einer Zeichenkette zusammengefasst, wobei die Reihenfolge nicht definiert ist. Daher sind für diese Felder die Vergleichsoperatoren entfernt worden, bei denen die Reihenfolge der Einzelwerte wichtig ist.
-Suche über Eigenschaften: auch der zweite Operator kann nun "<>", "enthält", "enthält nicht", "beginnt nicht mit" oder "endet nicht mit" sein.
-Suche über Eigenschaften: In einer zusätzlichen Maske kann die Abfrage in einer SQL-ähnlichen Syntax bearbeitet werden. Damit sind komplexere Abfragen möglich. Außerdem kann eine zuvor ausgeführte Abfrage ausgewählt werden um sie zu anzupassen und erneut auszuführen.
-Nur für die .Net 4.6.1-Varianten: Neue Version 0.28.0 der Bibliothek exiv2 integriert: einige neue Tags und Objektivdaten; für ExifEasy werden weitere Exif-Eigenschaften berücksichtigt, sodass nun ExifEasy-Eigenschaften von einigen Bilder gefüllt sind, die in der vorherigen Version noch leer waren.
-Da exiv2 0.28.0 nicht mehr unter Windows XP lauffähig ist, wird die Variante für Windows XP weiterhin mit exiv2 0.27.5.1 ausgeliefert.
+Laufende Nummer des Bildes wird unter dem Bild links vom Dateinamen angezeigt.
+Neue interne Felder "Image (Bild).Meta-Daten Warnungen-Exiv2" und "Image (Bild).Meta-Daten Warnungen-nicht-Exiv2". Die Felder erlauben es nach Bildern mit entsprechenden Meldungen zu suchen – getrennt danach, ob die Meldung von Exiv2 oder nicht kommt. Da bei der Suche die Meta-Daten nicht vollständig gelesen werden, können die Warnungen unvollständig sein.
+Im Textfeld für die Abfrage in der Maske "Suche über Eigenschaften - Abfrage bearbeiten" können manuelle Änderungen mit Strg-Z rückgängig und mit Strg-Y wieder hergestellt werden. Es werden jeweils alle Änderungen seit dem Füllen des Textfeldes (bei Öffnen der Maske oder bei Betätigen von "Vorherige" oder "Nächste") rückgängig gemacht.
 
-Folgender Fehler wurde behoben:
-Bei Wechsel von "einschl. Karten nur für Anzeige (* ...)" wurde die Auswahlliste falsch gefüllt, Auswahl am Ende der Liste führte zu Programmabsturz.
+Folgende Fehler wurden behoben:
+Mit jedem Neustart wurde die Maske kleiner, wenn Skalierung für Symbolleiste auf einen anderen Wert als für die allgemeine Skalierung eingestellt war.
+Bei Änderung der Skalierung im Vollbildmodus konnte rechts und unten ein Teil der Maske abgeschnitten werden.
+Nur Variante für Windows XP: Absturz beim Speichern von Änderungen in JPEG-Dateien.
 </Program_Change_Info_German>
 <Program_Change_Info_English>
 Enhancements and improvements:
-New in mask "Image in own window": scrolling of images with keyboard or mouse; display of meta data in title bar (configurable).
-Mask "Predefined IPTC Keywords": By indenting, a hierarchy of keywords can be defined. This allows parts to be expanded and collapsed in the tree of the "IPTC Keywords" area, making it easier to select keywords.
-Optionally, a hint can be displayed if a non-predefined keyword has been assigned to an image. Such images can also be searched for. This is to facilitate consistent keywording.
-Search via properties: If the option "Save data on exit" is activated, the update of the data now starts when the program is started, not when the search mask is opened for the first time. This makes the updated data available earlier.
-Search via properties: If IPTC keywords is defined as a search field, a tree with the predefined keywords is displayed on the right in the lower area of the mask. Keywords to be searched for can be checked here.
-Search via properties: Some fields can have multiple values, e.g. IPTC keywords. For the search, these values are combined into a string, whereby the order is not defined. Therefore, the comparison operators have been removed for these fields, where the order of the single values is important.
-Search via properties: also, the second operator can now be "<>", "contains", "does not contain", "does not start with" or "does not end with".
-Search via properties: In an additional mask the query can be edited in a SQL-like syntax. This allows for more complex queries. In addition, a previously executed query can be selected to customize and re-execute it.
-Only for .Net 4.6.1 variants: New version 0.28.0 of library exiv2 integrated: some new tags and lens data; for ExifEasy more Exif properties are considered, so now ExifEasy properties of some images are filled, which were empty in the previous version.
-Since exiv2 0.28.0 is no longer executable under Windows XP, the variant for Windows XP continues to be shipped with exiv2 0.27.5.1.
+Sequence number of the image is displayed below the image to the left of the file name.
+New internal fields "Image.MetaDataWarningsExiv2" and "Image.MetaDataWarningsNotExiv2". The fields allow to search for images with corresponding messages - separated by whether the message comes from Exiv2 or not. Since the search does not read the meta-data completely, the warnings may be incomplete.
+In the text field for the query in the mask "Search via Properties - Edit query" manual changes can be undone with Ctrl-Z and restored with Ctrl-Y. In each case, all changes since the text field was filled (when the mask is opened or when "Previous" or "Next" is pressed) are undone.
 
-The following error has been fixed:
-When changing "incl. cards for display only (* ...)", the selection list was filled incorrectly, selection at the end of the list led to a program crash.
+The following errors have been fixed:
+With each restart, the mask became smaller if scaling for Toolbar was set to a different value than for general scaling.
+When changing the scaling in full screen mode, a part of the mask could be cut off on the right and bottom.
+Variant for Windows XP only: Crash when saving changes to JPEG files.
 </Program_Change_Info_English>

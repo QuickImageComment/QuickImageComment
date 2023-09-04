@@ -28,7 +28,7 @@
 
 //#define TRACING 200
 
-#define VERSION "0.28.0.0"
+#define VERSION "0.28.0.1"
 
 // definitions for Exif Easy Access
 typedef Exiv2::ExifData::const_iterator(*EasyAccessFct)(const Exiv2::ExifData& ed);

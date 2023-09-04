@@ -47,6 +47,7 @@ LibRaw | C++ project for library LibRaw (copied from https://github.com/LibRaw/L
 LibRawWrapper | C++ project for library LibRawWrapper (copied from https://github.com/hurlbertvisionlab/LibRawWrapper) with updates to use latest version of LibRaw
 QuickImageComment | C# project for the program 
 QuickImageCommentPackage | project to create MSIX package
+SimplePsd | Simple C# library for opening and displaying Adobe Photoshop images (copied from https://github.com/inkimagine/SimplePsd/tree/master)
 Translation | Base files for translation of GUI and tags
 UserManual | User manual as Word document and PDF, subfolder with images used
 
@@ -54,7 +55,7 @@ UserManual | User manual as Word document and PDF, subfolder with images used
 
 The program is built using Visual Studio 2022 with .Net 4.6.1 framework.
 
-There is also a solution to build a program with slightly reduced functionality running on Windows XP with .Net 4.0 framework. As exiv2 0.28 cannot be built to run on Windows XP (main reason seems to be that it requires C++17), exiv2 0.27.5.1 from QuickImageComment 4.54 is used. The limitations of this version:
+There is also a solution to build a program with slightly reduced functionality running on Windows XP with .Net 4.0 framework. As exiv2 0.28 cannot be built to run on Windows XP (main reason seems to be that it requires C++17), exiv2 0.27.5.x is used. To build that DLL, use the branch "exiv2-0.27.5-for-WinXP" and build using "exiv2Cdecl_WinXP.sln". The limitations of this version:
 * It does not include LibRaw for display of RAW images, so for display of RAW images a manufacturer's codec or the Microsoft Raw Image Extension is needed.
 * Google Maps or Bing Maps cannot be used for the map display in the program itself, only via "Map in Standard Browser".
 * It does not support using AppCenter.ms which allows sending error reports and anonymous usage data. Note: Using AppCenter.ms has to be enabled explicitely in the version for .Net 4.6.1, so using the version for Windows XP/.Net 4.0 is not necessary to avoid sending data via AppCenter.ms.
