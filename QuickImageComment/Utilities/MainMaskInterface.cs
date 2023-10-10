@@ -380,7 +380,7 @@ namespace QuickImageComment
                 if (theFormQuickImageComment.InvokeRequired)
                 {
                     redrawItemWithThumbnailCallback theCallback = new redrawItemWithThumbnailCallback(redrawItemWithThumbnail);
-                    theFormQuickImageComment.theUserControlFiles.listViewFiles.Invoke(theCallback, new object[] { fullFileName });
+                    theFormQuickImageComment.theUserControlFiles.listViewFiles.BeginInvoke(theCallback, new object[] { fullFileName });
                 }
                 else
                 {
