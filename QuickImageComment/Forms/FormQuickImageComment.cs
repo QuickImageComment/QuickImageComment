@@ -241,6 +241,7 @@ namespace QuickImageComment
 
             //Program.StartupPerformance.measure("FormQIC after imageDetails");
             Text += Program.VersionNumberOnlyWhenSuffixDefined;
+            Text += Program.TitleSuffix;
             //Program.StartupPerformance.measure("FormQIC set title");
 
             // needed to handle dpi higher than 96

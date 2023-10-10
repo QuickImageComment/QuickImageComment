@@ -59,6 +59,7 @@ namespace QuickImageComment
         internal static string VersionNumber;
         internal static string VersionNumberInformational;
         internal static string VersionNumberOnlyWhenSuffixDefined;
+        internal static string TitleSuffix = "";
         // is set to true if APPCENTER is defined and operating system is Windows 10
         internal static bool AppCenterUsable = false;
         internal static DateTime CompileTime;
@@ -171,6 +172,11 @@ namespace QuickImageComment
                     // user configuration file
                     UserConfigFile = args[ii].Substring(9);
                     UserConfigFileOnCmdLine = true;
+                }
+                else if (args[ii].StartsWith("/TitleSuffix:"))
+                {
+                    // Suffix for title in main form; add one space to separate it
+                    TitleSuffix = " " + args[ii].Substring(13);
                 }
                 else if (args[ii].StartsWith("/"))
                 {
