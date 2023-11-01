@@ -62,7 +62,6 @@ namespace QuickImageComment
             this.buttonHelp = new System.Windows.Forms.Button();
             this.panelFilterInner = new System.Windows.Forms.Panel();
             this.dynamicComboBoxOperator = new System.Windows.Forms.ComboBox();
-            this.dateTimePicker = new QuickImageComment.DateTimePickerQIC();
             this.dynamicComboBoxValue = new System.Windows.Forms.ComboBox();
             this.dynamicLabelFind = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
@@ -90,13 +89,14 @@ namespace QuickImageComment
             this.checkBoxFilterGPS = new System.Windows.Forms.CheckBox();
             this.numericUpDownGpsRange = new System.Windows.Forms.NumericUpDown();
             this.panelKeyWords = new System.Windows.Forms.Panel();
-            this.treeViewKeyWords = new QuickImageCommentControls.TreeViewKeyWords();
             this.labelIptcKeyWords = new System.Windows.Forms.Label();
             this.backgroundWorkerInit = new System.ComponentModel.BackgroundWorker();
             this.checkBoxSaveFindDataTable = new System.Windows.Forms.CheckBox();
             this.backgroundWorkerUpdate = new System.ComponentModel.BackgroundWorker();
-            this.progressPanel1 = new QuickImageComment.ProgressPanel();
             this.buttonQuery = new System.Windows.Forms.Button();
+            this.dateTimePicker = new QuickImageComment.DateTimePickerQIC();
+            this.treeViewKeyWords = new QuickImageCommentControls.TreeViewKeyWords();
+            this.progressPanel1 = new QuickImageComment.ProgressPanel();
             this.panelFilterInner.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -180,17 +180,6 @@ namespace QuickImageComment
             this.dynamicComboBoxOperator.Name = "dynamicComboBoxOperator";
             this.dynamicComboBoxOperator.Size = new System.Drawing.Size(192, 21);
             this.dynamicComboBoxOperator.TabIndex = 9;
-            // 
-            // dateTimePicker
-            // 
-            this.dateTimePicker.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.dateTimePicker.ButtonFillColor = System.Drawing.Color.White;
-            this.dateTimePicker.CustomFormat = "yyyy:MM:dd hh:mm:ss";
-            this.dateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker.Location = new System.Drawing.Point(671, 3);
-            this.dateTimePicker.Name = "dateTimePicker";
-            this.dateTimePicker.Size = new System.Drawing.Size(17, 21);
-            this.dateTimePicker.TabIndex = 8;
             // 
             // dynamicComboBoxValue
             // 
@@ -417,7 +406,6 @@ namespace QuickImageComment
             // splitContainer2.Panel1
             // 
             this.splitContainer2.Panel1.BackColor = System.Drawing.SystemColors.Control;
-            this.splitContainer2.Panel1.Controls.Add(this.checkBoxShowDataTable);
             this.splitContainer2.Panel1.Controls.Add(this.panelMap);
             this.splitContainer2.Panel1.Controls.Add(this.labelKm);
             this.splitContainer2.Panel1.Controls.Add(this.checkBoxFilterGPS);
@@ -438,7 +426,7 @@ namespace QuickImageComment
             // 
             this.checkBoxShowDataTable.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBoxShowDataTable.AutoSize = true;
-            this.checkBoxShowDataTable.Location = new System.Drawing.Point(509, 5);
+            this.checkBoxShowDataTable.Location = new System.Drawing.Point(548, 3);
             this.checkBoxShowDataTable.Name = "checkBoxShowDataTable";
             this.checkBoxShowDataTable.Size = new System.Drawing.Size(133, 17);
             this.checkBoxShowDataTable.TabIndex = 5;
@@ -459,7 +447,7 @@ namespace QuickImageComment
             // labelKm
             // 
             this.labelKm.AutoSize = true;
-            this.labelKm.Location = new System.Drawing.Point(276, 7);
+            this.labelKm.Location = new System.Drawing.Point(299, 7);
             this.labelKm.Name = "labelKm";
             this.labelKm.Size = new System.Drawing.Size(20, 13);
             this.labelKm.TabIndex = 4;
@@ -478,14 +466,14 @@ namespace QuickImageComment
             // numericUpDownGpsRange
             // 
             this.numericUpDownGpsRange.DecimalPlaces = 1;
-            this.numericUpDownGpsRange.Location = new System.Drawing.Point(193, 3);
+            this.numericUpDownGpsRange.Location = new System.Drawing.Point(228, 3);
             this.numericUpDownGpsRange.Maximum = new decimal(new int[] {
             99999,
             0,
             0,
             0});
             this.numericUpDownGpsRange.Name = "numericUpDownGpsRange";
-            this.numericUpDownGpsRange.Size = new System.Drawing.Size(76, 21);
+            this.numericUpDownGpsRange.Size = new System.Drawing.Size(64, 21);
             this.numericUpDownGpsRange.TabIndex = 3;
             this.numericUpDownGpsRange.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.numericUpDownGpsRange.ThousandsSeparator = true;
@@ -507,15 +495,6 @@ namespace QuickImageComment
             this.panelKeyWords.Name = "panelKeyWords";
             this.panelKeyWords.Size = new System.Drawing.Size(237, 101);
             this.panelKeyWords.TabIndex = 26;
-            // 
-            // treeViewKeyWords
-            // 
-            this.treeViewKeyWords.CheckBoxes = true;
-            this.treeViewKeyWords.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.treeViewKeyWords.Location = new System.Drawing.Point(0, 0);
-            this.treeViewKeyWords.Name = "treeViewKeyWords";
-            this.treeViewKeyWords.Size = new System.Drawing.Size(237, 101);
-            this.treeViewKeyWords.TabIndex = 0;
             // 
             // labelIptcKeyWords
             // 
@@ -552,16 +531,6 @@ namespace QuickImageComment
             this.backgroundWorkerUpdate.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorkerUpdate_DoWork);
             this.backgroundWorkerUpdate.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorkerUpdate_RunWorkerCompleted);
             // 
-            // progressPanel1
-            // 
-            this.progressPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.progressPanel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.progressPanel1.Location = new System.Drawing.Point(9, 49);
-            this.progressPanel1.Name = "progressPanel1";
-            this.progressPanel1.Size = new System.Drawing.Size(894, 18);
-            this.progressPanel1.TabIndex = 13;
-            // 
             // buttonQuery
             // 
             this.buttonQuery.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -573,11 +542,42 @@ namespace QuickImageComment
             this.buttonQuery.UseVisualStyleBackColor = true;
             this.buttonQuery.Click += new System.EventHandler(this.buttonQuery_Click);
             // 
+            // dateTimePicker
+            // 
+            this.dateTimePicker.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.dateTimePicker.ButtonFillColor = System.Drawing.Color.White;
+            this.dateTimePicker.CustomFormat = "yyyy:MM:dd hh:mm:ss";
+            this.dateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTimePicker.Location = new System.Drawing.Point(671, 3);
+            this.dateTimePicker.Name = "dateTimePicker";
+            this.dateTimePicker.Size = new System.Drawing.Size(17, 21);
+            this.dateTimePicker.TabIndex = 8;
+            // 
+            // treeViewKeyWords
+            // 
+            this.treeViewKeyWords.CheckBoxes = true;
+            this.treeViewKeyWords.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeViewKeyWords.Location = new System.Drawing.Point(0, 0);
+            this.treeViewKeyWords.Name = "treeViewKeyWords";
+            this.treeViewKeyWords.Size = new System.Drawing.Size(237, 101);
+            this.treeViewKeyWords.TabIndex = 0;
+            // 
+            // progressPanel1
+            // 
+            this.progressPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.progressPanel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.progressPanel1.Location = new System.Drawing.Point(9, 49);
+            this.progressPanel1.Name = "progressPanel1";
+            this.progressPanel1.Size = new System.Drawing.Size(894, 18);
+            this.progressPanel1.TabIndex = 13;
+            // 
             // FormFind
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(907, 368);
+            this.Controls.Add(this.checkBoxShowDataTable);
             this.Controls.Add(this.buttonQuery);
             this.Controls.Add(this.checkBoxSaveFindDataTable);
             this.Controls.Add(this.splitContainer1);
