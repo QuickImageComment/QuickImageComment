@@ -198,7 +198,8 @@ namespace QuickImageComment
             E_executeQuery,
             W_imageNotModifiedGrid,
             W_imageNotModifiedTxt,
-            W_MakernoteValueNotSaved
+            W_MakernoteValueNotSaved,
+            E_exportFileNoWriteAccess
         }
 
         public enum Others

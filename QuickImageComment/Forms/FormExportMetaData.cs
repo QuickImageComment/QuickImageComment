@@ -108,7 +108,8 @@ namespace QuickImageComment
 #if !DEBUG
                 catch (Exception ex)
                 {
-                    throw new Exception(LangCfg.getText(LangCfg.Others.errorWritingExportFile, ExportFile, ex.Message));
+                    GeneralUtilities.message(LangCfg.Message.E_exportFileNoWriteAccess, ex.Message);
+                    return;
                 }
 #endif
                 first = true;
