@@ -2091,6 +2091,9 @@ namespace QuickImageComment
                 }
                 ExportString = ExportString + getMetaDataValuesStringByDefinition(theMetaDataDefinitionItem);
             }
+            // replace CR and LF by blanks to avoid problems when importing with Excel
+            ExportString = ExportString.Replace("\r", " ");
+            ExportString = ExportString.Replace("\n", " ");
             return ExportString;
         }
 
