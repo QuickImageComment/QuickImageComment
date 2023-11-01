@@ -1906,6 +1906,7 @@ namespace QuickImageComment
                     // set focus an main mask - file list again (focus lost, probably due to display of message)
                     this.Activate();
                     theUserControlFiles.listViewFiles.Select();
+                    toolStripStatusLabelFiles.Text = LangCfg.translate("Bilder/Videos", this.Name) + ": " + theUserControlFiles.listViewFiles.Items.Count.ToString();
                 }
             }
         }
