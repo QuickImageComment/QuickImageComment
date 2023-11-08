@@ -173,7 +173,7 @@ constexpr ArrayCfg canonLeCfg = {
     {0, ttSignedLong, 1},
 };
 
-//! Canon Ambience Selction Info binary array - configuration
+//! Canon Ambience Selection Info binary array - configuration
 constexpr ArrayCfg canonAmCfg = {
     IfdId::canonAmId,  // Group for the elements
     invalidByteOrder,  // Use byte order from parent
@@ -185,7 +185,7 @@ constexpr ArrayCfg canonAmCfg = {
     {0, ttSignedLong, 1},
 };
 
-//! Canon MultiExposure Selction Info binary array - configuration
+//! Canon MultiExposure Selection Info binary array - configuration
 constexpr ArrayCfg canonMeCfg = {
     IfdId::canonMeId,  // Group for the elements
     invalidByteOrder,  // Use byte order from parent
@@ -768,9 +768,10 @@ constexpr ArrayDef nikonLdDef[] = {
 constexpr ArrayDef nikonLd4Def[] = {
     {0, ttUndefined, 4},       // Version
     {48, ttUnsignedShort, 1},  // LensID
-    {54, ttUnsignedShort, 1},  // MacAperture
+    {54, ttUnsignedShort, 1},  // MaxAperture
     {56, ttUnsignedShort, 1},  // FNumber
     {60, ttUnsignedShort, 1},  // FocalLength
+    {78, ttUnsignedShort, 1},  // FocusDistance
 };
 //! Nikon Lens Data configurations and definitions
 constexpr ArraySet nikonLdSet[] = {

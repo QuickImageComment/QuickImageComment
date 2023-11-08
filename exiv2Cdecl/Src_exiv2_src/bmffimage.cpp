@@ -110,7 +110,7 @@ static bool skipBox(uint32_t box) {
   // Allows boxHandler() to optimise the reading of files by identifying
   // box types that we're not interested in. Box types listed here must
   // not appear in the cases in switch (box_type) in boxHandler().
-  return box == TAG_mdat;  // mdat is where the main image lives and can be huge
+  return box == 0 || box == TAG_mdat;  // mdat is where the main image lives and can be huge
 }
 
 std::string BmffImage::mimeType() const {
@@ -212,7 +212,7 @@ void BmffImage::brotliUncompress(const byte* compressedBuf, size_t compressedBuf
       uncompressedLen *= 2;
       // DoS protection - can't be bigger than 128k
       if (uncompressedLen > 131072) {
-        if (++dos > 1)
+        if (++dos > 1 || total_out > 131072)
           break;
         uncompressedLen = 131072;
       }
@@ -265,7 +265,7 @@ uint64_t BmffImage::boxHandler(std::ostream& out /* = std::cout*/, Exiv2::PrintS
   if (bTrace) {
     bLF = true;
     out << Internal::indent(depth) << "Exiv2::BmffImage::boxHandler: " << toAscii(box_type)
-        << Internal::stringFormat(" %8ld->%" PRIu64 " ", address, box_length);
+        << Internal::stringFormat(" %8zd->%" PRIu64 " ", address, box_length);
   }
 
   if (box_length == 1) {
@@ -275,6 +275,11 @@ uint64_t BmffImage::boxHandler(std::ostream& out /* = std::cout*/, Exiv2::PrintS
     DataBuf data(8);
     io_->read(data.data(), data.size());
     box_length = data.read_uint64(0, endian_);
+  }
+
+  if (box_length == 0) {
+    // Zero length is also valid and indicates box extends to the end of file.
+    box_length = pbox_end - address;
   }
 
   // read data in box and restore file position
@@ -435,7 +440,7 @@ uint64_t BmffImage::boxHandler(std::ostream& out /* = std::cout*/, Exiv2::PrintS
           uint32_t ldata = data.read_uint32(skip + step - 4, endian_);
           if (bTrace) {
             out << Internal::indent(depth)
-                << Internal::stringFormat("%8ld | %8ld |   ID | %4u | %6u,%6u", address + skip, step, ID, offset, ldata)
+                << Internal::stringFormat("%8zd | %8zd |   ID | %4u | %6u,%6u", address + skip, step, ID, offset, ldata)
                 << std::endl;
           }
           // save data for post-processing in meta box

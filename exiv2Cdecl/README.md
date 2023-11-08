@@ -25,7 +25,7 @@ When installing new version of Python, ensure to include pip.
 * Check start_cmd_setting_path_and_DevCmdPromp.bat for needed updates (e.g. new version of Python)
 * edit CMakeLists.txt:
   * set EXIV2_ENABLE_VIDEO to ON
-  * set EXIV2_ENABLE_BMFF to OFF
+  * set EXIV2_ENABLE_BMFF to ON
 * Execute start_cmd_setting_path_and_DevCmdPrompt.bat
 * Enter following commands (copied from README.md resp. README-CONAN.md):  
 

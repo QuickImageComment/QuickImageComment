@@ -173,10 +173,10 @@ byte* Exiv2::DataBuf::data(size_t offset) {
 }
 
 const byte* Exiv2::DataBuf::c_data(size_t offset) const {
-  if (pData_.empty()) {
+  if (pData_.empty() || offset == pData_.size()) {
     return nullptr;
   }
-  if (offset >= pData_.size()) {
+  if (offset > pData_.size()) {
     throw std::out_of_range("Overflow in Exiv2::DataBuf::c_data");
   }
   return &pData_[offset];
@@ -622,7 +622,7 @@ Rational floatToRationalCast(float f) {
   } else {
     return {d > 0 ? 1 : -1, 0};
   }
-  const auto nom = static_cast<int32_t>(std::round(d * den));
+  const auto nom = static_cast<int32_t>(std::lround(d * den));
   const int32_t g = std::gcd(nom, den);
 
   return {nom / g, den / g};

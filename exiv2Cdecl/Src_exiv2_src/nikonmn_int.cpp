@@ -1625,8 +1625,8 @@ constexpr TagInfo Nikon3MakerNote::tagInfoLd4_[] = {
      printApertureLd4},
     {60, "FocalLength2", N_("Focal Length 2"), N_("Focal length 2"), IfdId::nikonLd4Id, SectionId::makerTags,
      unsignedShort, 1, printFocalLd4},
-    {79, "FocusDistance2", N_("Focus Distance 2"), N_("Focus distance 2"), IfdId::nikonLd4Id, SectionId::makerTags,
-     unsignedByte, 1, printFocusDistance},
+    {78, "FocusDistance2", N_("Focus Distance 2"), N_("Focus distance 2"), IfdId::nikonLd4Id, SectionId::makerTags,
+     unsignedShort, 1, printFocusDistanceLd4},
     // End of list marker
     {0xffff, "(UnknownNikonLd4Tag)", "(UnknownNikonLd4Tag)", N_("Unknown Nikon Lens Data 3 Tag"), IfdId::nikonLd4Id,
      SectionId::makerTags, unsignedByte, 1, printValue},
@@ -1637,8 +1637,8 @@ const TagInfo* Nikon3MakerNote::tagListLd4() {
 }
 
 std::ostream& Nikon3MakerNote::printIiIso(std::ostream& os, const Value& value, const ExifData*) {
-  double v = 100 * exp((value.toInt64() / 12.0 - 5) * log(2.0));
-  return os << static_cast<int>(v + 0.5);
+  auto v = std::lround(100.0 * std::exp((value.toInt64() / 12.0 - 5) * std::log(2.0)));
+  return os << v;
 }
 
 std::ostream& Nikon3MakerNote::print0x0002(std::ostream& os, const Value& value, const ExifData*) {
@@ -1767,7 +1767,7 @@ std::ostream& Nikon3MakerNote::print0x0088(std::ostream& os, const Value& value,
       // But when actually in "Single area, Center" this can mean
       // that focus was not found (try this in AF-C mode)
       // TODO: handle the meaningful case (interacts with other fields)
-      os << "N/A";
+      os << _("n/a");
       return os;
     }
 
@@ -2002,6 +2002,10 @@ std::ostream& Nikon3MakerNote::printLensId(std::ostream& os, const Value& value,
   // -g NikonLd3.MinFocalLength -g NikonLd3.MaxFocalLength
   // -g NikonLd3.MaxApertureAtMinFocal -g NikonLd3.MaxApertureAtMaxFocal
   // -g NikonLd3.MCUVersion -g Nikon3.LensType test.NEF
+  //
+  // Please consider, that sequence of output is sligthly different from sequence in
+  // data structure: LensType (ltype) is printed first, but has to be entered after
+  // MCUVersion (lfw).
   //
   //------------------------------------------------------------------------------
   // Nikkor lenses by their LensID
@@ -2715,6 +2719,9 @@ std::ostream& Nikon3MakerNote::printLensId(std::ostream& os, const Value& value,
       {0xA7, 0x49, 0x80, 0xA0, 0x24, 0x24, 0x4B, 0x06, 0x03, 0x00, 0x00, "Sigma", "", "APO 200-500mm F2.8 EX DG"},
       {0x48, 0x3C, 0x8E, 0xB0, 0x3C, 0x3C, 0x4B, 0x02, 0x03, 0x00, 0x00, "Sigma", "595555",
        "APO 300-800mm F5.6 EX DG HSM"},
+      {0xBF, 0x38, 0x56, 0xA6, 0x34, 0x40, 0x4B, 0x4E, 0x00, 0x00, 0x00, "Sigma", "",
+       "60-600mm F4.5-6.3 DG OS HSM | S"},
+      {0xC1, 0x48, 0x24, 0x37, 0x24, 0x24, 0x4B, 0x46, 0x00, 0x00, 0x00, "Sigma", "", "14-24mm F2.8 DG HSM | A"},
       //
       //------------------------------------------------------------------------------
       // Tamron lenses by focal length, first fixed then zoom lenses
@@ -3169,6 +3176,10 @@ std::ostream& Nikon3MakerNote::printFocusDistance(std::ostream& os, const Value&
     os.flags(f);
     return os;
   }
+  auto temp = value.toInt64();
+  if (temp == 0)
+    return os << _("n/a");
+
   double dist = 0.01 * pow(10.0, value.toInt64() / 40.0);
   std::ostringstream oss;
   oss.copyfmt(os);
@@ -3185,6 +3196,10 @@ std::ostream& Nikon3MakerNote::printAperture(std::ostream& os, const Value& valu
     os.flags(f);
     return os;
   }
+  auto temp = value.toInt64();
+  if (temp == 0)
+    return os << _("n/a");
+
   double aperture = pow(2.0, value.toInt64() / 24.0);
   std::ostringstream oss;
   oss.copyfmt(os);
@@ -3198,6 +3213,10 @@ std::ostream& Nikon3MakerNote::printFocal(std::ostream& os, const Value& value, 
   if (value.count() != 1 || value.typeId() != unsignedByte) {
     return os << "(" << value << ")";
   }
+  auto temp = value.toInt64();
+  if (temp == 0)
+    return os << _("n/a");
+
   double focal = 5.0 * pow(2.0, value.toInt64() / 24.0);
   std::ostringstream oss;
   oss.copyfmt(os);
@@ -3384,7 +3403,7 @@ std::ostream& Nikon3MakerNote::printExternalFlashData2(std::ostream& os, const V
 
 std::ostream& Nikon3MakerNote::printFlashMasterDataFl6(std::ostream& os, const Value& value, const ExifData* metadata) {
   std::ios::fmtflags f(os.flags());
-  if (value.count() != 1 || value.typeId() != unsignedByte) {
+  if (value.count() != 1 || value.typeId() != unsignedByte || !metadata) {
     os << "(" << value << ")";
     os.flags(f);
     return os;
@@ -3413,7 +3432,7 @@ std::ostream& Nikon3MakerNote::printFlashMasterDataFl6(std::ostream& os, const V
 
 std::ostream& Nikon3MakerNote::printFlashMasterDataFl7(std::ostream& os, const Value& value, const ExifData* metadata) {
   std::ios::fmtflags f(os.flags());
-  if (value.count() != 1 || value.typeId() != unsignedByte) {
+  if (value.count() != 1 || value.typeId() != unsignedByte || !metadata) {
     os << "(" << value << ")";
     os.flags(f);
     return os;
@@ -3480,7 +3499,7 @@ std::ostream& Nikon3MakerNote::printFlashGroupBCControlData(std::ostream& os, co
 
 std::ostream& Nikon3MakerNote::printFlashGroupADataFl6(std::ostream& os, const Value& value, const ExifData* metadata) {
   std::ios::fmtflags f(os.flags());
-  if (value.count() != 1 || value.typeId() != unsignedByte) {
+  if (value.count() != 1 || value.typeId() != unsignedByte || !metadata) {
     os << "(" << value << ")";
     os.flags(f);
     return os;
@@ -3509,7 +3528,7 @@ std::ostream& Nikon3MakerNote::printFlashGroupADataFl6(std::ostream& os, const V
 
 std::ostream& Nikon3MakerNote::printFlashGroupADataFl7(std::ostream& os, const Value& value, const ExifData* metadata) {
   std::ios::fmtflags f(os.flags());
-  if (value.count() != 1 || value.typeId() != unsignedByte) {
+  if (value.count() != 1 || value.typeId() != unsignedByte || !metadata) {
     os << "(" << value << ")";
     os.flags(f);
     return os;
@@ -3538,7 +3557,7 @@ std::ostream& Nikon3MakerNote::printFlashGroupADataFl7(std::ostream& os, const V
 
 std::ostream& Nikon3MakerNote::printFlashGroupBDataFl6(std::ostream& os, const Value& value, const ExifData* metadata) {
   std::ios::fmtflags f(os.flags());
-  if (value.count() != 1 || value.typeId() != unsignedByte) {
+  if (value.count() != 1 || value.typeId() != unsignedByte || !metadata) {
     os << "(" << value << ")";
     os.flags(f);
     return os;
@@ -3567,7 +3586,7 @@ std::ostream& Nikon3MakerNote::printFlashGroupBDataFl6(std::ostream& os, const V
 
 std::ostream& Nikon3MakerNote::printFlashGroupBDataFl7(std::ostream& os, const Value& value, const ExifData* metadata) {
   std::ios::fmtflags f(os.flags());
-  if (value.count() != 1 || value.typeId() != unsignedByte) {
+  if (value.count() != 1 || value.typeId() != unsignedByte || !metadata) {
     os << "(" << value << ")";
     os.flags(f);
     return os;
@@ -3596,7 +3615,7 @@ std::ostream& Nikon3MakerNote::printFlashGroupBDataFl7(std::ostream& os, const V
 
 std::ostream& Nikon3MakerNote::printFlashGroupCDataFl6(std::ostream& os, const Value& value, const ExifData* metadata) {
   std::ios::fmtflags f(os.flags());
-  if (value.count() != 1 || value.typeId() != unsignedByte) {
+  if (value.count() != 1 || value.typeId() != unsignedByte || !metadata) {
     os << "(" << value << ")";
     os.flags(f);
     return os;
@@ -3625,7 +3644,7 @@ std::ostream& Nikon3MakerNote::printFlashGroupCDataFl6(std::ostream& os, const V
 
 std::ostream& Nikon3MakerNote::printFlashGroupCDataFl7(std::ostream& os, const Value& value, const ExifData* metadata) {
   std::ios::fmtflags f(os.flags());
-  if (value.count() != 1 || value.typeId() != unsignedByte) {
+  if (value.count() != 1 || value.typeId() != unsignedByte || !metadata) {
     os << "(" << value << ")";
     os.flags(f);
     return os;
@@ -3745,16 +3764,16 @@ std::ostream& Nikon3MakerNote::printPictureControl(std::ostream& os, const Value
   oss.copyfmt(os);
   switch (pcval) {
     case 0:
-      os << "Normal";
+      os << _("Normal");
       break;
     case 127:
-      os << "n/a";
+      os << _("n/a");
       break;
     case -127:
-      os << "User";
+      os << _("User");
       break;
     case -128:
-      os << "Auto";
+      os << _("Auto");
       break;
     default:
       os << pcval;
@@ -3837,6 +3856,13 @@ std::ostream& Nikon3MakerNote::printLensId4ZMount(std::ostream& os, const Value&
       {38, "Nikon", "Nikkor Z 85mm f/1.2 S"},              // 28
       {39, "Nikon", "Nikkor Z 17-28mm f/2.8"},             // IB
       {40, "Nikon", "Nikkor Z 26mm f/2.8"},
+      {41, "Nikon", "Nikkor Z DX 12-28mm f/3.5-5.6 PZ VR"},
+      {42, "Nikon", "Nikkor Z 180-600mm f/5.6-6.3 VR"},
+      {43, "Nikon", "Nikkor Z DX 24mm f/1.7"},
+      {44, "Nikon", "Nikkor Z 70-180mm f/2.8"},
+      {45, "Nikon", "Nikkor Z 600mm f/6.3 VR S"},
+      {46, "Nikon", "Nikkor Z 135mm f/1.8 S Plena"},
+      {53251, "Sigma", "56mm F1.4 DC DN | C"},
   };
 
   auto lid = static_cast<uint16_t>(value.toInt64());
@@ -3850,6 +3876,9 @@ std::ostream& Nikon3MakerNote::printApertureLd4(std::ostream& os, const Value& v
   if (value.count() != 1 || value.typeId() != unsignedShort) {
     return os << "(" << value << ")";
   }
+  auto temp = value.toInt64();
+  if (temp == 0)
+    return os << _("n/a");
 
   double aperture = pow(2.0, value.toInt64() / 384.0 - 1.0);
   std::ostringstream oss;
@@ -3862,9 +3891,29 @@ std::ostream& Nikon3MakerNote::printFocalLd4(std::ostream& os, const Value& valu
   if (value.count() != 1 || value.typeId() != unsignedShort) {
     return os << "(" << value << ")";
   }
+  auto temp = value.toInt64();
+  if (temp == 0)
+    return os << _("n/a");
+
   std::ostringstream oss;
   oss.copyfmt(os);
   os << std::fixed << std::setprecision(1) << value.toInt64() << " mm";
+  os.copyfmt(oss);
+  return os;
+}
+
+std::ostream& Nikon3MakerNote::printFocusDistanceLd4(std::ostream& os, const Value& value, const ExifData*) {
+  if (value.count() != 1 || value.typeId() != unsignedShort) {
+    return os << "(" << value << ")";
+  }
+  auto temp = value.toInt64();
+  if (temp == 0)
+    return os << _("n/a");
+
+  double dist = 0.01 * pow(10.0, (value.toInt64() / 256.0) / 40.0);
+  std::ostringstream oss;
+  oss.copyfmt(os);
+  os << std::fixed << std::setprecision(2) << dist << " m";
   os.copyfmt(oss);
   return os;
 }

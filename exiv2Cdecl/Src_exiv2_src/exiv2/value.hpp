@@ -961,13 +961,13 @@ class EXIV2API DateValue : public Value {
   size_t count() const override;
   size_t size() const override;
   std::ostream& write(std::ostream& os) const override;
-  //! Return the value as a UNIX calender time converted to int64_t.
+  //! Return the value as a UNIX calendar time converted to int64_t.
   int64_t toInt64(size_t n = 0) const override;
-  //! Return the value as a UNIX calender time converted to uint32_t.
+  //! Return the value as a UNIX calendar time converted to uint32_t.
   uint32_t toUint32(size_t n = 0) const override;
-  //! Return the value as a UNIX calender time converted to float.
+  //! Return the value as a UNIX calendar time converted to float.
   float toFloat(size_t n = 0) const override;
-  //! Return the value as a UNIX calender time  converted to Rational.
+  //! Return the value as a UNIX calendar time converted to Rational.
   Rational toRational(size_t n = 0) const override;
   //@}
 
@@ -1220,7 +1220,7 @@ class ValueType : public Value {
     const auto v = value_.at(n);
     if (static_cast<decltype(v)>(std::numeric_limits<I>::min()) <= v &&
         v <= static_cast<decltype(v)>(std::numeric_limits<I>::max())) {
-      return static_cast<I>(std::round(v));
+      return static_cast<I>(std::lround(v));
     }
     return 0;
   }
@@ -1254,7 +1254,7 @@ class ValueType : public Value {
     } else if (std::is_signed<I>::value) {
 #endif
       // conversion is from unsigned to signed
-#if __cplusplus >= 201402L || _MSVC_LANG >= 201402L
+#if __cplusplus >= 201402L || (defined(_MSVC_LANG) && (_MSVC_LANG >= 201402L))
       const auto imax = static_cast<std::make_unsigned_t<I>>(std::numeric_limits<I>::max());
 #else
       const auto imax = static_cast<typename std::make_unsigned<I>::type>(std::numeric_limits<I>::max());
@@ -1269,7 +1269,7 @@ class ValueType : public Value {
         return 0;
       }
       // Inputs are not negative so convert them to unsigned.
-#if __cplusplus >= 201402L || _MSVC_LANG >= 201402L
+#if __cplusplus >= 201402L || (defined(_MSVC_LANG) && (_MSVC_LANG >= 201402L))
       const auto a_u = static_cast<std::make_unsigned_t<decltype(a)>>(a);
       const auto b_u = static_cast<std::make_unsigned_t<decltype(b)>>(b);
 #else

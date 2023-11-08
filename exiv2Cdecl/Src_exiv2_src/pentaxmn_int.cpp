@@ -165,6 +165,8 @@ constexpr TagDetails pentaxModel[] = {
     {0x13240, "K-1 Mark II"},
     {0x13254, "K-3 Mark III"},
     {0x13290, "WG-70"},
+    {0x1329a, "GR IIIx"},
+    {0x132d6, "K-3 Mark III Monochrome"},
 };
 
 //! Quality, tag 0x0008
@@ -663,6 +665,7 @@ constexpr TagDetails pentaxLensType[] = {
     {0x0402, "smc PENTAX-FA 80-320mm F4.5-5.6"},
     {0x0403, "smc PENTAX-FA 43mm F1.9 Limited"},
     {0x0406, "smc PENTAX-FA 35-80mm F4-5.6"},
+    {0x0407, "Irix 45mm F/1.4"},
     {0x0408, "Irix 150mm F/2.8 Macro"},
     {0x0409, "Irix 11mm F/4"},
     {0x040a, "Irix 15mm F/2.4"},
@@ -1231,25 +1234,22 @@ static std::ostream& resolveLensType(std::ostream& os, const Value& value, const
   return EXV_PRINT_COMBITAG_MULTI(pentaxLensType, 2, 1, 2)(os, value, metadata);
 }
 
-struct LensIdFct {
-  long id_;       //!< Lens id
-  PrintFct fct_;  //!< Pretty-print function
-  //! Comparison operator for find template
-  bool operator==(long id) const {
-    return id_ == id;
-  }
-};
-
-//! List of lens ids which require special treatment using resolveLensType
-constexpr LensIdFct lensIdFct[] = {
-    {0x0317, resolveLensType}, {0x0319, resolveLens0x319}, {0x031b, resolveLensType},  {0x031c, resolveLensType},
-    {0x031d, resolveLensType}, {0x031f, resolveLensType},  {0x0329, resolveLensType},  {0x032c, resolveLens0x32c},
-    {0x032e, resolveLensType}, {0x0334, resolveLensType},  {0x03ff, resolveLens0x3ff}, {0x041a, resolveLensType},
-    {0x042d, resolveLensType}, {0x08ff, resolveLens0x8ff},
-};
-
 //! A lens id and a pretty-print function for special treatment of the id.
 static std::ostream& printLensType(std::ostream& os, const Value& value, const ExifData* metadata) {
+  //! List of lens ids which require special treatment using resolveLensType
+  static constexpr struct LensIdFct {
+    uint32_t id_;   //!< Lens id
+    PrintFct fct_;  //!< Pretty-print function
+    //! Comparison operator for find template
+    bool operator==(uint32_t id) const {
+      return id_ == id;
+    }
+  } lensIdFct[] = {
+      {0x0317, resolveLensType}, {0x0319, resolveLens0x319}, {0x031b, resolveLensType},  {0x031c, resolveLensType},
+      {0x031d, resolveLensType}, {0x031f, resolveLensType},  {0x0329, resolveLensType},  {0x032c, resolveLens0x32c},
+      {0x032e, resolveLensType}, {0x0334, resolveLensType},  {0x03ff, resolveLens0x3ff}, {0x041a, resolveLensType},
+      {0x042d, resolveLensType}, {0x08ff, resolveLens0x8ff},
+  };
   // #1034
   const std::string undefined("undefined");
   const std::string section("pentax");

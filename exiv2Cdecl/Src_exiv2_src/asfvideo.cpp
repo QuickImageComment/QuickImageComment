@@ -20,7 +20,7 @@ namespace Exiv2 {
 /*!
   Look-up list for ASF Type Video Files
   Associates the GUID with its Name(i.e. Human Readable Form)
-  Tags have been diferentiated into Various Categories.
+  Tags have been differentiated into Various Categories.
   The categories have been listed above Groups
   see :
   - https://fr.wikipedia.org/wiki/Advanced_Systems_Format
@@ -55,6 +55,11 @@ AsfVideo::GUIDTag::GUIDTag(const uint8_t* bytes) {
   memcpy(&data2_, bytes + DWORD, WORD);
   memcpy(&data3_, bytes + DWORD + WORD, WORD);
   std::copy(bytes + QWORD, bytes + 2 * QWORD, data4_.begin());
+  if (isBigEndianPlatform()) {
+    data1_ = byteSwap(data1_, true);
+    data2_ = byteSwap(data2_, true);
+    data3_ = byteSwap(data3_, true);
+  }
 }
 
 std::string AsfVideo::GUIDTag::to_string() {
@@ -78,20 +83,13 @@ std::string AsfVideo::GUIDTag::to_string() {
 }
 
 bool AsfVideo::GUIDTag::operator<(const GUIDTag& other) const {
-  if (data1_ < other.data1_)
-    return true;
-  if (data1_ == other.data1_) {
-    if (data2_ < other.data2_)
-      return true;
-    if (data2_ == other.data2_) {
-      if (data3_ < other.data3_)
-        return true;
-      if (data3_ == other.data3_) {
-        return std::lexicographical_compare(data4_.begin(), data4_.end(), other.data4_.begin(), other.data4_.end());
-      }
-    }
-  }
-  return false;
+  if (data1_ != other.data1_)
+    return data1_ < other.data1_;
+  if (data2_ != other.data2_)
+    return data2_ < other.data2_;
+  if (data3_ != other.data3_)
+    return data3_ < other.data3_;
+  return std::lexicographical_compare(data4_.begin(), data4_.end(), other.data4_.begin(), other.data4_.end());
 }
 
 const AsfVideo::GUIDTag Header(0x75B22630, 0x668E, 0x11CF, {0xA6, 0xD9, 0x00, 0xAA, 0x00, 0x62, 0xCE, 0x6C});
