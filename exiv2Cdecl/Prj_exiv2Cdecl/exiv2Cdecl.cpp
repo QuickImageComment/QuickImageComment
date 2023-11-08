@@ -247,6 +247,9 @@ extern "C" __declspec(dllexport) int __cdecl exiv2readImageByFileName(LPSTR file
     xmpLangLoop = false;
     *errorText = strdup("");
     Exiv2::Internal::setIniPath(givenIniPath);
+#ifdef EXV_ENABLE_BMFF
+    Exiv2::enableBMFF();
+#endif
 
     try
     {
