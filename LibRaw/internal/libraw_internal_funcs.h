@@ -52,11 +52,15 @@ it under the terms of the one of two licenses as you choose:
 	static libraw_static_table_t Sony_SR2_wb_list1;
 /*  */
 	int	find_ifd_by_offset(int );
+	void 	libraw_swab(void *arr, size_t len);
 	ushort	sget2 (uchar *s);
 	ushort	sget2Rev(uchar *s);
 	libraw_area_t	get_CanonArea();
 	int	parseCR3(INT64 oAtomList, INT64 szAtomList, short &nesting, char *AtomNameStack, short& nTrack, short &TrackType);
-	void	selectCRXTrack(short maxTrack);
+	void 	selectCRXTrack();
+	void    parseCR3_Free();
+	int     parseCR3_CTMD(short trackNum);
+	int     selectCRXFrame(short trackNum, unsigned frameIndex);
 	void	setCanonBodyFeatures (unsigned long long id);
 	void	processCanonCameraInfo (unsigned long long id, uchar *CameraInfo, unsigned maxlen, unsigned type, unsigned dng_writer);
 	static float _CanonConvertAperture(ushort in);
@@ -169,6 +173,7 @@ it under the terms of the one of two licenses as you choose:
 	void        lossless_dng_load_raw();
 	void        deflate_dng_load_raw();
 	void        packed_dng_load_raw();
+    void        packed_tiled_dng_load_raw();
     void        uncompressed_fp_dng_load_raw();
 	void        lossy_dng_load_raw();
 //void        adobe_dng_load_raw_nc();
@@ -181,6 +186,7 @@ it under the terms of the one of two licenses as you choose:
 
 // Nikon (and Minolta Z2)
 	void        nikon_load_raw();
+    void        nikon_he_load_raw_placeholder();
 	void        nikon_read_curve();
 	void        nikon_load_striped_packed_raw();
 	void        nikon_load_padded_packed_raw();
@@ -221,6 +227,7 @@ it under the terms of the one of two licenses as you choose:
 	void        phase_one_load_raw();
 	unsigned    ph1_bits (int nbits);
 	void        phase_one_load_raw_c();
+    void		phase_one_load_raw_s();
 	void        hasselblad_load_raw();
 	void        leaf_hdr_load_raw();
 	void        sinar_4shot_load_raw();
@@ -262,7 +269,7 @@ it under the terms of the one of two licenses as you choose:
 	int         median4 (int *p);
 	void        fill_holes (int holes);
 	void        smal_v9_load_raw();
-	void        parse_riff();
+	void        parse_riff(int maxdepth);
 	void        parse_cine();
 	void        parse_smal (int offset, int fsize);
 	int         parse_jpeg (int offset);
@@ -316,7 +323,7 @@ it under the terms of the one of two licenses as you choose:
 	void        simple_coeff (int index);
 
 // Openp
-	char** malloc_omp_buffers(int buffer_count, size_t buffer_size, const char* where);
+	char** malloc_omp_buffers(int buffer_count, size_t buffer_size);
 	void free_omp_buffers(char** buffers, int buffer_count);
 
 
@@ -373,7 +380,7 @@ it under the terms of the one of two licenses as you choose:
 	void fuji_14bit_load_raw();
 	void parse_fuji_compressed_header();
 	void crxLoadRaw();
-	int  crxParseImageHeader(uchar *cmp1TagData, int nTrack);
+	int  crxParseImageHeader(uchar *cmp1TagData, int nTrack, int size);
 	void panasonicC6_load_raw();
 	void panasonicC7_load_raw();
 

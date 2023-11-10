@@ -304,7 +304,7 @@ namespace HurlbertVisionLab {
 				{
 					int len = sizeof(m_colordata->black_stat) / sizeof(m_colordata->black_stat[0]) / 2;
 					array<ChannelStatistic>^ black_stat = gcnew array<ChannelStatistic>(len);
-					for (size_t i = 0; i < len; i++)
+					for (int i = 0; i < len; i++)
 						black_stat[i] = ChannelStatistic((int)m_colordata->black_stat[i], (int)m_colordata->black_stat[len + i]);
 
 					return black_stat;

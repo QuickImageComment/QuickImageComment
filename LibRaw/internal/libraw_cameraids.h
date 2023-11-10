@@ -88,6 +88,8 @@ it under the terms of the one of two licenses as you choose:
 #define CanonID_EOS_90D           (0x80000000ULL + 0x437ULL)
 #define CanonID_EOS_R3            (0x80000000ULL + 0x450ULL)
 #define CanonID_EOS_R6            (0x80000000ULL + 0x453ULL)
+#define CanonID_EOS_R7            (0x80000000ULL + 0x464ULL)
+#define CanonID_EOS_R10           (0x80000000ULL + 0x465ULL)
 #define CanonID_EOS_M50_Mark_II   (0x80000000ULL + 0x468ULL)
 
 // CanonID_EOS_D2000C after Canon's TIFF2CR2 convertor:
@@ -157,6 +159,7 @@ it under the terms of the one of two licenses as you choose:
 #define OlyID_E_M5_Mark_III   OlyID_str2hex("S0089")
 #define OlyID_E_M1_Mark_III   OlyID_str2hex("S0092")
 #define OlyID_E_P7            OlyID_str2hex("S0093")
+#define OlyID_OM_1            OlyID_str2hex("S0095")
 #define OlyID_C_3030Z         OlyID_str2hex("SX351")
 #define OlyID_C_5050Z         OlyID_str2hex("SX558")
 #define OlyID_C_350Z          OlyID_str2hex("SX751")
@@ -313,4 +316,5 @@ it under the terms of the one of two licenses as you choose:
 #define SonyID_ILME_FX3         0x181ULL
 #define SonyID_ILCE_7RM3A       0x182ULL
 #define SonyID_ILCE_7RM4A       0x183ULL
+#define SonyID_ILCE_7M4         0x184ULL
 #endif

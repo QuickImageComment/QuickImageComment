@@ -178,7 +178,7 @@ int LibRaw::open_file(const char *fname)
 
 #if defined(WIN32) || defined(_WIN32)
 #ifndef LIBRAW_WIN32_UNICODEPATHS
-int LibRaw::open_file(const wchar_t *, INT64)
+int LibRaw::open_file(const wchar_t *)
 {
     return LIBRAW_NOT_IMPLEMENTED;
 }
@@ -305,7 +305,7 @@ int LibRaw::open_bayer(const unsigned char *buffer, unsigned datalen,
     load_raw = &LibRaw::eight_bit_load_raw;
     break;
   case 10:
-    if ((datalen) / S.raw_height * 3 >= S.raw_width * 4)
+    if ((datalen) / S.raw_height * 3u >= S.raw_width * 4u)
     {
       load_raw = &LibRaw::android_loose_load_raw;
       break;
@@ -479,6 +479,41 @@ int LibRaw::open_datastream(LibRaw_abstract_datastream *stream)
 
 	  identify();
 
+	  // Fuji layout files: either DNG or unpacked_load_raw should be used
+	  if (libraw_internal_data.internal_output_params.fuji_width || libraw_internal_data.unpacker_data.fuji_layout)
+	  {
+        if (!imgdata.idata.dng_version && load_raw != &LibRaw::unpacked_load_raw)
+          return LIBRAW_FILE_UNSUPPORTED;
+	  }
+
+	  // promote the old single thumbnail to the thumbs_list if not present already
+	  if (imgdata.thumbs_list.thumbcount < LIBRAW_THUMBNAIL_MAXCOUNT)
+	  {
+		  bool already = false;
+		  if(imgdata.thumbnail.tlength || libraw_internal_data.internal_data.toffset)
+			  for(int i = 0; i < imgdata.thumbs_list.thumbcount; i++)
+				  if (imgdata.thumbs_list.thumblist[i].toffset == libraw_internal_data.internal_data.toffset
+					  && imgdata.thumbs_list.thumblist[i].tlength == imgdata.thumbnail.tlength)
+				  {
+					  already = true;
+					  break;
+				  }
+		  if (!already)
+		  {
+			  int idx = imgdata.thumbs_list.thumbcount;
+			  imgdata.thumbs_list.thumblist[idx].toffset = libraw_internal_data.internal_data.toffset;
+			  imgdata.thumbs_list.thumblist[idx].tlength = imgdata.thumbnail.tlength;
+			  imgdata.thumbs_list.thumblist[idx].tflip = 0xffff;
+			  imgdata.thumbs_list.thumblist[idx].tformat = libraw_internal_data.unpacker_data.thumb_format;
+              imgdata.thumbs_list.thumblist[idx].tmisc = libraw_internal_data.unpacker_data.thumb_misc;
+			  // promote if set
+			  imgdata.thumbs_list.thumblist[idx].twidth = imgdata.thumbnail.twidth;
+              imgdata.thumbs_list.thumblist[idx].theight = imgdata.thumbnail.theight;
+			  imgdata.thumbs_list.thumbcount++;
+		  }
+	  }
+
+
 	  imgdata.lens.Lens[sizeof(imgdata.lens.Lens) - 1] = 0; // make sure lens is 0-terminated
 
 	  if (callbacks.post_identify_cb)
@@ -627,7 +662,7 @@ int LibRaw::open_datastream(LibRaw_abstract_datastream *stream)
 #undef isRIC
           if (imgdata.color.raw_bps < 14 && !imgdata.idata.dng_version && load_raw != &LibRaw::canon_sraw_load_raw)
           {
-              unsigned xmax = (1 << imgdata.color.raw_bps) - 1;
+              int xmax = (1 << imgdata.color.raw_bps) - 1;
               if (MN.canon.SpecularWhiteLevel > xmax) // Adjust 14-bit metadata to real bps
               {
                 int div = 1 << (14 - imgdata.color.raw_bps);
@@ -705,6 +740,12 @@ int LibRaw::open_datastream(LibRaw_abstract_datastream *stream)
 				  load_raw = &LibRaw::fuji_14bit_load_raw;
 			  else
 				  parse_fuji_compressed_header();
+		  }
+		  else if (!strcmp(imgdata.idata.normalized_model, "X-H2S") 
+			  && libraw_internal_data.internal_data.input->size() 
+			  < (libraw_internal_data.unpacker_data.data_size + libraw_internal_data.unpacker_data.data_offset))
+		  {
+            parse_fuji_compressed_header(); // try to use compressed header: X-H2S may record wrong data size
 		  }
 	  }
       // set raw_inset_crops[1] via raw_aspect
@@ -964,8 +1005,8 @@ int LibRaw::open_datastream(LibRaw_abstract_datastream *stream)
         !libraw_internal_data.unpacker_data.load_flags &&
         (!strncasecmp(imgdata.idata.model, "D810", 4) ||
          !strcasecmp(imgdata.idata.model, "D4S")) &&
-        libraw_internal_data.unpacker_data.data_size * 2 ==
-            imgdata.sizes.raw_height * imgdata.sizes.raw_width * 3)
+        libraw_internal_data.unpacker_data.data_size * 2u ==
+            imgdata.sizes.raw_height * imgdata.sizes.raw_width * 3u)
     {
       libraw_internal_data.unpacker_data.load_flags = 80;
     }
@@ -1160,7 +1201,6 @@ int LibRaw::open_datastream(LibRaw_abstract_datastream *stream)
       if (C.profile)
         free(C.profile);
       C.profile = malloc(C.profile_length);
-      merror(C.profile, "LibRaw::open_file()");
       ID.input->seek(ID.profile_offset, SEEK_SET);
       ID.input->read(C.profile, C.profile_length, 1);
     }
@@ -1175,7 +1215,7 @@ int LibRaw::open_datastream(LibRaw_abstract_datastream *stream)
   {
     EXCEPTION_HANDLER(err);
   }
-  catch (const std::exception& ee)
+  catch (const std::exception& )
   {
     EXCEPTION_HANDLER(LIBRAW_EXCEPTION_IO_CORRUPT);
   }

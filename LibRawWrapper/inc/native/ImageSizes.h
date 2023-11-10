@@ -150,6 +150,37 @@ namespace HurlbertVisionLab {
 					LibRawWrapper::Native::Flip get() { return (LibRawWrapper::Native::Flip)m_image_sizes->flip; }
 				}
 
+				/// <summary>
+				/// Gets the raw crop data.
+				/// [0] standard crop data parsed from camera metadata (DNG: DefaultCrop* tags, other formats: vendor specific tags); 
+				/// [1] crop data set by DNG DefaultUserCrop tag or set via raw aspect ratio tags (e.g. 16:9 aspect on Fujifilm cameras).
+				/// </summary>
+				/// <remarks>
+				/// There are no flags to check if RawInsetCrops[Nth] is filled; to see if it is filled check 
+				///    the values of:
+				///      Top/Left < 0xffff (0xffff => standard values if not initialized)
+				///      Top+Height <= RawHeight
+				///      Left+Width <= RawWidth
+				/// </remarks>
+				property array<Int32Rect^>^ RawInsetCrops
+				{
+					array<Int32Rect^>^ get()
+					{
+						int count = sizeof(m_image_sizes->raw_inset_crops) / sizeof(m_image_sizes->raw_inset_crops[0]);
+
+						array<Int32Rect^>^ arr = gcnew array<Int32Rect^>(count);
+
+						for (int i = 0; i < count; i++)
+							arr[i] = Int32Rect(
+								m_image_sizes->raw_inset_crops[0].cleft,
+								m_image_sizes->raw_inset_crops[0].ctop,
+								m_image_sizes->raw_inset_crops[0].cwidth,
+								m_image_sizes->raw_inset_crops[0].cheight);
+
+						return arr;
+					}
+				}
+
 			internal:
 				ImageSizes(libraw_image_sizes_t* image_sizes) : m_image_sizes(image_sizes) { }
 

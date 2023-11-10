@@ -10,6 +10,7 @@
 #include "ColorData.h"
 #include "OtherInformation.h"
 #include "Thumbnail.h"
+#include "ThumbnailItem.h"
 #include "RawData.h"
 #include "OutputParameters.h"
 #include "RawParameters.h"
@@ -60,7 +61,9 @@ namespace HurlbertVisionLab {
 				~LibRawProcessor() // desctructor for managed (implements IDisposable)
 				{
 					m_libraw->set_progress_handler(NULL, NULL);
-					m_progress_callback.Free();
+
+					if (m_progress_callback.IsAllocated)
+						m_progress_callback.Free();
 
 					this->!LibRawProcessor();
 				}
@@ -111,7 +114,7 @@ namespace HurlbertVisionLab {
 				}
 
 				/// <summary>
-				/// Reads (or unpacks) the image preview (thumbnail), placing the result into the <see href="Thumbnail.ThumbnailBuffer">Thumbnail.ThumbnailBuffer</see>.
+				/// Reads (or unpacks) the default (largest) image preview (thumbnail), placing the result into the <see href="Thumbnail.ThumbnailBuffer">Thumbnail.ThumbnailBuffer</see>.
 				/// </summary>
 				/// <remarks>
 				/// JPEG previews are placed into this buffer without any changes (with the header etc.). 
@@ -121,6 +124,19 @@ namespace HurlbertVisionLab {
 				void UnpackThumbnail()
 				{
 					ThrowOnError(m_libraw->unpack_thumb());
+				}
+
+				/// <summary>
+				/// Reads i-th thumbnail (thumbnails list is available in imgdata.thumbs_list structure).
+				/// </summary>
+				/// <remarks>
+				/// JPEG previews are placed into this buffer without any changes (with the header etc.). 
+				/// Other preview formats are placed into the buffer in the form of the unpacked bitmap image (three components, 8 bits per component).
+				/// The thumbnail format is written to the <see href="Thumbnail.ThumbnailFormat">Thumbnail.Format</see> field.
+				/// </remarks>
+				void UnpackThumbnail(int i)
+				{
+					ThrowOnError(m_libraw->unpack_thumb_ex(i));
 				}
 
 				/// <summary>
@@ -231,8 +247,8 @@ namespace HurlbertVisionLab {
 
 				/// <summary>
 				/// If LibRaw is compiled with Adobe DNG SDK support and you wish to use this support:
-				/// • you need to create own dng_host object
-				/// • and pass it to LibRaw object using this function.
+				/// ï¿½ you need to create own dng_host object
+				/// ï¿½ and pass it to LibRaw object using this function.
 				/// </summary>
 				/// <param name="dng_host">A pointer to the dng_host object.</param>
 				void SetDngHost(IntPtr dng_host)
@@ -364,11 +380,33 @@ namespace HurlbertVisionLab {
 				/// </summary>
 				/// <remarks>
 				/// All fields of this structure but thumbnail itself are filled when <see href="Open">Open()</see> is called. 
-				/// Thumbnail readed by <see href="UnpackThumbnail">UnpackThumbnail()</see> call.
+				/// Thumbnail read by <see href="UnpackThumbnail">UnpackThumbnail()</see> call.
 				/// </remarks>
 				property Thumbnail^ Thumbnail
 				{
 					LibRawWrapper::Native::Thumbnail^ get() { return m_thumbnail; }
+				}
+
+				/// <summary>
+				/// Gets the list of thumbnails available in the file.
+				/// </summary>
+				/// <remarks>
+				/// Fields of this structure except thumbnail itself are filled when <see href="Open">Open()</see> is called. 
+				/// Thumbnail can be read by <see href="UnpackThumbnail">UnpackThumbnail(int)</see> call.
+				/// </remarks>
+				property array<ThumbnailItem^>^ ThumbnailItems
+				{
+					array<LibRawWrapper::Native::ThumbnailItem^>^ get()
+					{
+						int count = m_libraw->imgdata.thumbs_list.thumbcount;
+
+						array<ThumbnailItem^>^ arr = gcnew array<ThumbnailItem^>(count);
+
+						for (size_t i = 0; i < count; i++)
+							arr[i] = gcnew ThumbnailItem(&m_libraw->imgdata.thumbs_list.thumblist[i]);
+
+						return arr;
+					}
 				}
 
 				/// <summary>
@@ -441,6 +479,20 @@ namespace HurlbertVisionLab {
 					default:
 						throw gcnew NotSupportedException();
 					}
+				}
+
+				/// <summary>
+				/// Promotes <see cref="ImageSizes.RawInsetCrops" /> values to <see cref="ImageSizes.Rect" />.
+				/// </summary>
+				/// <param name="mask">If bit 1 is set, prefer Sizes.RawInsetCrops[1]; if bit 0 is set, prefer Sizes.RawInsetCrops[0].</param>
+				/// <param name="maxcrop">Limits crop to not less than (original width/height)*maxcrop; if Sizes.RawInsetCrops[i] data results in tighter crop, than this item is ignored.</param>
+				/// <returns>index in Sizes.RawInsetCrops[] used increased by one, so 0: no changes made, 1: [0]th data used, 2: [1]th data used.</returns>
+				int AdjustToRawInsetCrop(unsigned int mask, [System::Runtime::InteropServices::OptionalAttribute] Nullable<float> maxcrop)
+				{
+					if (maxcrop.HasValue)
+						return m_libraw->adjust_to_raw_inset_crop(mask, maxcrop.Value);
+					else
+						return m_libraw->adjust_to_raw_inset_crop(mask);
 				}
 
 				// DCRAW LEGACY CALLS
@@ -578,7 +630,7 @@ namespace HurlbertVisionLab {
 						bool wasNull = m_progress_handler == nullptr;
 						m_progress_handler = static_cast<LibRawProgressEventHandler^>(Delegate::Combine(m_progress_handler, value));
 
-						if (m_progress_handler != nullptr & wasNull)
+						if (m_progress_handler != nullptr && wasNull)
 						{
 							ProgressCallback^ callbackDelegate = gcnew ProgressCallback(this, &LibRawProcessor::OnProgressCallback);
 							m_progress_callback = GCHandle::Alloc(callbackDelegate); // no need to pin, just keep alive
@@ -594,10 +646,12 @@ namespace HurlbertVisionLab {
 						bool wasNull = m_progress_handler == nullptr;
 						m_progress_handler = static_cast<LibRawProgressEventHandler^>(Delegate::Remove(m_progress_handler, value));
 
-						if (m_progress_handler == nullptr & !wasNull)
+						if (m_progress_handler == nullptr && !wasNull)
 						{
 							m_libraw->set_progress_handler(NULL, NULL);
-							m_progress_callback.Free();
+
+							if (m_progress_callback.IsAllocated)
+								m_progress_callback.Free();
 						}
 					}
 

@@ -180,6 +180,7 @@
     <ClInclude Include="inc\native\Thumbnail.h" />
     <ClInclude Include="inc\enums\Warnings.h" />
     <ClInclude Include="inc\native\LibRaw_managed_datastream.h" />
+    <ClInclude Include="inc\native\ThumbnailItem.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LibRaw\libraw.vcxproj">

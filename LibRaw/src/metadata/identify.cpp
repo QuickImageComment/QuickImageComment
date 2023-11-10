@@ -42,7 +42,8 @@ static const struct
     {LIBRAW_CAMERAMAKER_Nikon,          "Nikon"},
     {LIBRAW_CAMERAMAKER_Nokia,          "Nokia"},
     {LIBRAW_CAMERAMAKER_Olympus,        "Olympus"},
-    {LIBRAW_CAMERAMAKER_Ricoh,          "Ricoh"},
+    {LIBRAW_CAMERAMAKER_OmDigital,		"OM Digital"},
+    {LIBRAW_CAMERAMAKER_Ricoh,			"Ricoh"},
     {LIBRAW_CAMERAMAKER_Pentax,         "Pentax"},
     {LIBRAW_CAMERAMAKER_PhaseOne,       "Phase One"},
     {LIBRAW_CAMERAMAKER_PhaseOne,       "PhaseOne"},
@@ -236,6 +237,8 @@ void LibRaw::identify()
 	  { 6888, 4546, 146, 48, 0, 0 }, // 48 "EOS R"
 	  { 7128, 4732, 144, 72, 0, 0 }, // 49 "EOS M6 II", "EOS 90D"
 	  { 8896, 5920, 160, 64, 0, 0 }, // 50 "EOS 5DS", "EOS 5DS R"
+      { 6192, 4152, 160, 120, 0, 0}, // EOS R3
+	  { 6192, 4060, 168, 52, 24, 8, 16,48,32,0,} // EOS R10
   };
 
   static const libraw_custom_camera_t const_table[] = {
@@ -247,7 +250,8 @@ void LibRaw::identify()
 	  { 10134608, 2588, 1958, 0, 0, 0, 0, 9, 0x94, 0, 0, "AVT", "F-510C" },
 	  { 10134620, 2588, 1958, 0, 0, 0, 0, 9, 0x94, 0, 0, "AVT", "F-510C", 12 },
 	  { 16157136, 3272, 2469, 0, 0, 0, 0, 9, 0x94, 0, 0, "AVT", "F-810C" },
-	  { 15980544, 3264, 2448, 0, 0, 0, 0, 8, 0x61, 0, 1, "AgfaPhoto", "DC-833m" },
+      { 3995136, 1632, 1224, 0, 0, 0, 0, 8, 0x61, 0, 1, "AgfaPhoto", "DC-833m" },
+      { 15980544, 3264, 2448, 0, 0, 0, 0, 8, 0x61, 0, 1, "AgfaPhoto", "DC-833m" },
 	  { 9631728, 2532, 1902, 0, 0, 0, 0, 96, 0x61, 0, 0, "Alcatel", "5035D" },
 	  { 31850496, 4608, 3456, 0, 0, 0, 0, 0, 0x94, 0, 0, "GITUP", "GIT2 4:3" },
 	  { 23887872, 4608, 2592, 0, 0, 0, 0, 0, 0x94, 0, 0, "GITUP", "GIT2 16:9" },
@@ -434,6 +438,7 @@ void LibRaw::identify()
   CM_found = 0;
   memset(tiff_ifd, 0, sizeof tiff_ifd);
   libraw_internal_data.unpacker_data.crx_track_selected = -1;
+  libraw_internal_data.unpacker_data.crx_track_count = -1;
   libraw_internal_data.unpacker_data.CR3_CTMDtag = 0;
   imHassy.nIFD_CM[0] = imHassy.nIFD_CM[1] = -1;
   imKodak.ISOCalibrationGain = 1.0f;
@@ -442,13 +447,15 @@ void LibRaw::identify()
           imCommon.AmbientTemperature = imCommon.BatteryTemperature =
               imCommon.exifAmbientTemperature = -1000.0f;
 
+  libraw_internal_data.unpacker_data.ifd0_offset = -1LL;
+
   imgdata.color.ExifColorSpace = LIBRAW_COLORSPACE_Unknown;
   for (i = 0; i < LIBRAW_IFD_MAXCOUNT; i++)
   {
     tiff_ifd[i].dng_color[0].illuminant = tiff_ifd[i].dng_color[1].illuminant =
         0xffff;
-    for (int c = 0; c < 4; c++)
-      tiff_ifd[i].dng_levels.analogbalance[c] = 1.0f;
+    for (int q = 0; q < 4; q++)
+      tiff_ifd[i].dng_levels.analogbalance[q] = 1.0f;
   }
 
   memset(gpsdata, 0, sizeof gpsdata);
@@ -456,8 +463,8 @@ void LibRaw::identify()
   memset(white, 0, sizeof white);
   memset(mask, 0, sizeof mask);
   thumb_offset = thumb_length = thumb_width = thumb_height = 0;
-  load_raw = thumb_load_raw = 0;
-  write_thumb = &LibRaw::jpeg_thumb;
+  load_raw = 0;
+  thumb_format = LIBRAW_INTERNAL_THUMBNAIL_JPEG; // default to JPEG
   data_offset = meta_offset = meta_length = tiff_bps = tiff_compress = 0;
   kodak_cbpp = zero_after_ff = dng_version = load_flags = 0;
   timestamp = shot_order = tiff_samples = black = is_foveon = 0;
@@ -551,9 +558,10 @@ void LibRaw::identify()
     strncpy(model, head + 0x1c, 0x20);
     model[0x20] = 0;
     c = 11;
-    while (isdigit(imFuji.SerialSignature[c]) && (c>0))
+    while (imFuji.SerialSignature[c] > 0 && isdigit(imFuji.SerialSignature[c]) && (c>0))
       c--;
-    unique_id = (unsigned long long)atoi(imFuji.SerialSignature+c+1);
+	if(c < 11)
+		unique_id = (unsigned long long)atoi(imFuji.SerialSignature+c+1);
     memcpy(imFuji.RAFVersion, head + 0x3c, 4);
     imFuji.RAFVersion[4] = 0;
     fseek(ifp, 84, SEEK_SET);
@@ -578,7 +586,7 @@ void LibRaw::identify()
   else if (!memcmp(head, "RIFF", 4))
   {
     fseek(ifp, 0, SEEK_SET);
-    parse_riff();
+    parse_riff(100);
   }
   else if (!memcmp(head + 4, "ftypqt   ", 9))
   {
@@ -701,14 +709,15 @@ void LibRaw::identify()
     short nesting = -1;
     short nTrack = -1;
     short TrackType;
-    char AtomNameStack[128];
+    char AtomNameStack[129];
     strcpy(make, "Canon");
 
     szAtomList = ifp->size();
     err = parseCR3(0ULL, szAtomList, nesting, AtomNameStack, nTrack, TrackType);
+    libraw_internal_data.unpacker_data.crx_track_count = nTrack;
     if ((err == 0 || err == -14) &&
         nTrack >= 0) // no error, or too deep nesting
-      selectCRXTrack(nTrack);
+      selectCRXTrack();
   }
 
   if (dng_version)
@@ -946,7 +955,7 @@ void LibRaw::identify()
   remove_trailing_spaces(make, sizeof(make));
   remove_trailing_spaces(model, sizeof(model));
 
-  i = strbuflen(make); /* Remove make from model */
+  i = int(strbuflen(make)); /* Remove make from model */
   if (!strncasecmp(model, make, i) && model[i++] == ' ')
     memmove(model, model + i, 64 - i);
 
@@ -992,7 +1001,9 @@ void LibRaw::identify()
     case 8:
         if (tiff_sampleformat == 3 && tiff_bps > 8 && (tiff_bps % 8 == 0) && tiff_bps <= 32)
             load_raw = &LibRaw::deflate_dng_load_raw;
-      break;
+        else if((tiff_sampleformat == 0 || tiff_sampleformat == 1) && tiff_bps>=8 && tiff_bps <=16)
+          load_raw = &LibRaw::deflate_dng_load_raw;
+        break;
 #ifdef USE_GPRSDK
     case 9:
         load_raw = &LibRaw::vc5_dng_load_raw_placeholder;
@@ -1189,18 +1200,21 @@ dng_skip:
   if ((maker_index != LIBRAW_CAMERAMAKER_Unknown) && normalized_model[0])
     SetStandardIlluminants (maker_index, normalized_model);
 
-  // Clear erorneus fuji_width if not set through parse_fuji or for DNG
+  // Clear erroneous fuji_width if not set through parse_fuji or for DNG
   if (fuji_width && !dng_version &&
       !(imgdata.process_warnings & LIBRAW_WARN_PARSEFUJI_PROCESSED))
     fuji_width = 0;
 
   if (fuji_width)
   {
-    fuji_width = width >> !fuji_layout;
+    fuji_width = width >> int(!fuji_layout);
     filters = fuji_width & 1 ? 0x94949494 : 0x49494949;
     width = (height >> fuji_layout) + fuji_width;
     height = width - 1;
     pixel_aspect = 1;
+	// Prevent incorrect-sized fuji-rotated files
+	if (INT64(width)*INT64(height) > INT64(raw_width) * INT64(raw_height) * 8LL)
+		is_raw = 0;
   }
   else
   {
@@ -1235,6 +1249,7 @@ dng_skip:
        is_raw = 0;
    if (dng_version && (tiff_samples < 1 || tiff_samples > 4))
        is_raw = 0; // we do not handle DNGs with more than 4 values per pixel
+
 #ifdef LIBRAW_OLD_VIDEO_SUPPORT
 #ifdef NO_JASPER
   if (load_raw == &LibRaw::redcine_load_raw)
@@ -1287,6 +1302,7 @@ notraw:
   if (pana_bpp)
     imgdata.color.raw_bps = pana_bpp;
   else if ((load_raw == &LibRaw::phase_one_load_raw) ||
+		   (load_raw == &LibRaw::phase_one_load_raw_s) ||
            (load_raw == &LibRaw::phase_one_load_raw_c))
     imgdata.color.raw_bps = ph1.format;
   else
@@ -1606,9 +1622,9 @@ void LibRaw::identify_process_dng_fields()
 					ccount[FC(row, col)]++;
 					i += tiff_samples;
 				}
-			for (int c = 0; c < 4; c++)
-				if (ccount[c])
-					imgdata.color.dng_levels.dng_cblack[c] += csum[c] / ccount[c];
+			for (int q = 0; q < 4; q++)
+				if (ccount[q])
+					imgdata.color.dng_levels.dng_cblack[q] += csum[q] / ccount[q];
 			imgdata.color.dng_levels.dng_cblack[4] = imgdata.color.dng_levels.dng_cblack[5] = 0;
 			filters = ff;
 		}
@@ -1620,15 +1636,15 @@ void LibRaw::identify_process_dng_fields()
 			int i = 6;
 			for (unsigned row = 0; row < imgdata.color.dng_levels.dng_cblack[4]; row++)
 				for (unsigned col = 0; col < imgdata.color.dng_levels.dng_cblack[5]; col++)
-					for (unsigned c = 0; c < tiff_samples && c < 4; c++)
+					for (unsigned q = 0; q < tiff_samples && q < 4; q++)
 					{
-						csum[c] += imgdata.color.dng_levels.dng_cblack[i];
-						ccount[c]++;
+						csum[q] += imgdata.color.dng_levels.dng_cblack[i];
+						ccount[q]++;
 						i++;
 					}
-			for (int c = 0; c < 4; c++)
-				if (ccount[c])
-					imgdata.color.dng_levels.dng_cblack[c] += csum[c] / ccount[c];
+			for (int q = 0; q < 4; q++)
+				if (ccount[q])
+					imgdata.color.dng_levels.dng_cblack[q] += csum[q] / ccount[q];
 			imgdata.color.dng_levels.dng_cblack[4] = imgdata.color.dng_levels.dng_cblack[5] = 0;
 		}
 
@@ -1653,9 +1669,9 @@ void LibRaw::identify_process_dng_fields()
 					if (cblack[4] * cblack[5] > 0)
 					{
 						unsigned cnt = 0;
-						for (unsigned c = 0; c < 4096 && c < cblack[4] * cblack[5]; c++)
+						for (unsigned q = 0; q < 4096 && q < cblack[4] * cblack[5]; q++)
 						{
-							bl64 += cblack[c + 6];
+							bl64 += cblack[q + 6];
 							cnt++;
 						}
 						bl64 /= LIM(cnt, 1, 4096);
@@ -1841,6 +1857,7 @@ void LibRaw::identify_finetune_dcr(char head[64], int fsize, int flen)
 
 	if (makeIs(LIBRAW_CAMERAMAKER_Canon) 
         && ( !tiff_flip || unique_id == CanonID_EOS_40D)
+		&& !(imgdata.rawparams.options & LIBRAW_RAWOPTIONS_CANON_IGNORE_MAKERNOTES_ROTATION)
         && imCanon.MakernotesFlip)
 	{
 		tiff_flip = imCanon.MakernotesFlip;
@@ -2150,18 +2167,18 @@ void LibRaw::identify_finetune_dcr(char head[64], int fsize, int flen)
 		else if (fsize == 1581060) // hack Nikon 1mpix: E900
 		{
 			simple_coeff(3);
-			pre_mul[0] = 1.2085;
-			pre_mul[1] = 1.0943;
-			pre_mul[3] = 1.1103;
+			pre_mul[0] = 1.2085f;
+			pre_mul[1] = 1.0943f;
+			pre_mul[3] = 1.1103f;
 		}
 		else if ((fsize == 4771840) &&  // hack Nikon 3mpix: E880, E885, E990
 			strcmp(model, "E995")) // but not E995
 		{
 			filters = 0xb4b4b4b4;
 			simple_coeff(3);
-			pre_mul[0] = 1.196;
-			pre_mul[1] = 1.246;
-			pre_mul[2] = 1.018;
+			pre_mul[0] = 1.196f;
+			pre_mul[1] = 1.246f;
+			pre_mul[2] = 1.018f;
 		}
 		else if ((fsize == 4775936) && // hack Nikon 3mpix: E3100, E3200, E3500
 			(atoi(model + 1) < 3700)) // but not E3700;
@@ -2210,11 +2227,14 @@ void LibRaw::identify_finetune_dcr(char head[64], int fsize, int flen)
 			if (width == 4080) // Olympus E-PM1, E-PL3, E-P3;
 				width -= 24;
 
-			if (width == 10400) // Olympus PEN-F, E-M1-II, E-M1-III, E-M1X
+			if (width == 10400) // Olympus PEN-F, E-M1-II, E-M1-III, E-M1X, OM-1
 				width -= 12;
 
 			if (width == 8200) // E-M1-III in 50Mp mode, E-M1X
 				width -= 30;
+
+			if (width == 8180) // OM-1 in 50Mp
+              width -= 10;
 
 			if (width == 9280) { // Olympus E-M5 Mark II;
 				width -= 6;
@@ -2322,6 +2342,12 @@ void LibRaw::identify_finetune_dcr(char head[64], int fsize, int flen)
       case 4992:                // X-E2S, X-E2, X-T10, X-T1, X100S, X100T, X70
         left_margin = 4;
         break;
+      case 6336: // X-H2S
+		  top_margin = 6;
+		  left_margin = 0;
+		  width = 6264;
+		  height = 4176;
+		  break;
       case 6384:                // X-T3, X-T4, X100V, X-S10, X-T30, X-Pro3
         top_margin = 0;
         switch (FujiCropMode) {
@@ -2903,7 +2929,21 @@ void LibRaw::identify_finetune_dcr(char head[64], int fsize, int flen)
               width -= 28;
           }
         }
-		else if (!strcmp(model, "DSLR-A100")) {
+        else if (unique_id == SonyID_ILCE_7M4)
+        {
+          if (raw_width == 7168 && raw_height == 5120) // ILCE-1 FF@Compressed
+          {
+            width = 7028;
+            height = 4688;
+          }
+          else if (raw_width == 7040) // FF uncompressed/lossy
+          {
+            width -= 12;
+          }
+          /* FIXME: need APS-C samples, both losslesscompressed and uncompressed or lossy */
+        }
+
+        else if (!strcmp(model, "DSLR-A100")) {
 			if (width == 3880) {
 				height--;
 				width = ++raw_width;
@@ -2994,9 +3034,9 @@ void LibRaw::identify_finetune_dcr(char head[64], int fsize, int flen)
 				colors = 4;
 				filters = 0x8d8d8d8d;
 				simple_coeff(1);
-				pre_mul[1] = 1.179;
-				pre_mul[2] = 1.209;
-				pre_mul[3] = 1.036;
+				pre_mul[1] = 1.179f;
+				pre_mul[2] = 1.209f;
+				pre_mul[3] = 1.036f;
 				load_raw = &LibRaw::eight_bit_load_raw;
 			}
 			else if (!strcmp(model, "DC40")) {
@@ -3032,7 +3072,7 @@ void LibRaw::identify_finetune_dcr(char head[64], int fsize, int flen)
 				thumb_offset = 6144;
 				thumb_misc = 360;
 				iso_speed = 140;
-				write_thumb = &LibRaw::layer_thumb;
+				thumb_format = LIBRAW_INTERNAL_THUMBNAIL_LAYER;
 				black = 17;
 			}
 		}

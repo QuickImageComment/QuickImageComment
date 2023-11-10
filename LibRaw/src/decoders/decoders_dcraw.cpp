@@ -97,7 +97,6 @@ ushort *LibRaw::make_decoder_ref(const uchar **source)
   for (max = 16; max && !count[max]; max--)
     ;
   huff = (ushort *)calloc(1 + (1 << max), sizeof *huff);
-  merror(huff, "make_decoder()");
   huff[0] = max;
   for (h = len = 1; len <= max; len++)
     for (i = 0; i < count[len]; i++, ++*source)
@@ -349,7 +348,6 @@ int LibRaw::ljpeg_start(struct jhead *jh, int info_only)
     FORC(jh->sraw) jh->huff[1 + c] = jh->huff[0];
   }
   jh->row = (ushort *)calloc(jh->wide * jh->clrs, 16);
-  merror(jh->row, "ljpeg_start()");
   return zero_after_ff = 1;
 }
 
@@ -553,6 +551,10 @@ void LibRaw::lossless_jpeg_load_raw()
 
   if (jh.wide < 1 || jh.high < 1 || jh.clrs < 1 || jh.bits < 1)
     throw LIBRAW_EXCEPTION_IO_CORRUPT;
+
+  if(cr2_slice[0] && !cr2_slice[1])
+    throw LIBRAW_EXCEPTION_IO_CORRUPT;
+
   jwide = jh.wide * jh.clrs;
   jhigh = jh.high;
   if (jh.clrs == 4 && jwide >= raw_width * 2)
@@ -779,8 +781,8 @@ void LibRaw::ljpeg_idct(struct jhead *jh)
       coef -= (1 << len) - 1;
     ((float *)work)[zigzag[i]] = coef * jh->quant[i];
   }
-  FORC(8) work[0][0][c] *= M_SQRT1_2;
-  FORC(8) work[0][c][0] *= M_SQRT1_2;
+  FORC(8) work[0][0][c] *= float(M_SQRT1_2);
+  FORC(8) work[0][c][0] *= float(M_SQRT1_2);
   for (i = 0; i < 8; i++)
     for (j = 0; j < 8; j++)
       FORC(8) work[1][i][j] += work[0][i][c] * cs[(j * 2 + 1) * c];
@@ -1011,7 +1013,7 @@ void LibRaw::nokia_load_raw()
   if (raw_stride)
 	  dwide = raw_stride;
 #endif
-  std::vector<uchar> data(dwide * 2);
+  std::vector<uchar> data(dwide * 2 + 4);
   for (row = 0; row < raw_height; row++)
   {
       checkCancel();
@@ -1047,7 +1049,6 @@ void LibRaw::canon_rmf_load_raw()
   int row, col, bits, orow, ocol, c;
 
   int *words = (int *)malloc(sizeof(int) * (raw_width / 3 + 1));
-  merror(words, "canon_rmf_load_raw");
   for (row = 0; row < raw_height; row++)
   {
     checkCancel();
@@ -1459,7 +1460,6 @@ void LibRaw::sony_arw2_load_raw()
   int row, col, val, max, min, imax, imin, sh, bit, i;
 
   data = (uchar *)malloc(raw_width + 1);
-  merror(data, "sony_arw2_load_raw()");
   try
   {
     for (row = 0; row < height; row++)
@@ -1740,9 +1740,7 @@ void LibRaw::redcine_load_raw()
     throw LIBRAW_EXCEPTION_DECODE_JPEG2000;
   }
   jmat = jas_matrix_create(height / 2, width / 2);
-  merror(jmat, "redcine_load_raw()");
   img = (ushort *)calloc((height + 2), (width + 2) * 2);
-  merror(img, "redcine_load_raw()");
   bool fastexitflag = false;
   try
   {
