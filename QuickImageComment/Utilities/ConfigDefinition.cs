@@ -959,6 +959,7 @@ namespace QuickImageComment
                 PredefinedKeyWords.Add(LangCfg.translate("Tiere", "ConfigDefinition-PredefinedKeyWords"));
                 PredefinedKeyWords.Add(LangCfg.translate("Landschaft", "ConfigDefinition-PredefinedKeyWords"));
                 PredefinedKeyWords.Add(LangCfg.translate("Sonstiges", "ConfigDefinition-PredefinedKeyWords"));
+                fillPredefinedKeyWordsTrimmed();
             }
 
             // Check configuration for PredefinedCommentMouseDoubleClickAction
