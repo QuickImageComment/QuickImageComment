@@ -4582,7 +4582,12 @@ namespace QuickImageComment
         internal void refreshFolderTree()
         {
             // In principle is obsolete now, because folder tree is updated automatically by GongShell
+            // but sometimes the automatic update does not happen, reason for that unclear
+            // Additionally update by GongShell has problems if the same folder name exists several 
+            // times, especially: on Windows 11 Desktop appears several times in tree
+            this.Cursor = Cursors.WaitCursor;
             this.theFolderTreeView.RefreshContents();
+            this.Cursor = Cursors.Default;
         }
 
         // select folder and (optionally) file based on specification

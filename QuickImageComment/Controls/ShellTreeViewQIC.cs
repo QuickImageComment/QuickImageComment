@@ -240,7 +240,7 @@ namespace QuickImageCommentControls
 
                     while (e.MoveNext())
                     {
-                        TreeNode childNode = FindItem(e.Current, node);
+                        TreeNode childNode = FindItemInSubnodes(e.Current, node);
 
                         if (childNode != null)
                         {
@@ -406,6 +406,18 @@ namespace QuickImageCommentControls
                 {
                     TreeNode found = FindItem(item, node);
                     if (found != null) return found;
+                }
+            }
+            return null;
+        }
+
+        TreeNode FindItemInSubnodes(ShellItem item, TreeNode parent)
+        {
+            foreach (TreeNode node in parent.Nodes)
+            {
+                if ((ShellItem)node.Tag == item)
+                {
+                    return node;
                 }
             }
             return null;
