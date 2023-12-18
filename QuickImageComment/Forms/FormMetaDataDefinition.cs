@@ -453,6 +453,8 @@ namespace QuickImageComment
                     this.buttonUp.Enabled = listBoxMetaData.SelectedIndex > 0;
                     this.buttonDown.Enabled = (listBoxMetaData.SelectedIndex >= 0 &&
                                                listBoxMetaData.SelectedIndex < listBoxMetaData.Items.Count - 1);
+                    this.buttonBeginning.Enabled = this.buttonUp.Enabled;
+                    this.buttonEnd.Enabled = this.buttonDown.Enabled;
 
                     updateDisplayAfterDefinitionChange(theMetaDataDefinitionItem, false);
 
@@ -859,6 +861,24 @@ namespace QuickImageComment
             assignMetaData(textBoxMetaDatum2);
         }
 
+        // move to the beginning pressed
+        private void buttonBeginning_Click(object sender, EventArgs e)
+        {
+            // no check if entered meta definitions is ok when selected index is changed
+            noCheckEnteredMetaDefinitionIsOk = true;
+            while (listBoxMetaData.SelectedIndex > 0)
+            {
+                int index = listBoxMetaData.SelectedIndex;
+                MetaDataDefinitionItem MetaDataDefinitionItemForCopy = (MetaDataDefinitionItem)MetaDataDefinitionsWork[index];
+                MetaDataDefinitionsWork[index] = MetaDataDefinitionsWork[index - 1];
+                MetaDataDefinitionsWork[index - 1] = MetaDataDefinitionItemForCopy;
+                this.listBoxMetaData.SelectedIndex = index - 1;
+            }
+            fillListBoxMetaData();
+            this.listBoxMetaData.SelectedIndex = 0;
+            noCheckEnteredMetaDefinitionIsOk = false;
+        }
+
         // move up pressed
         private void buttonUp_Click(object sender, EventArgs e)
         {
@@ -874,6 +894,8 @@ namespace QuickImageComment
                 this.listBoxMetaData.SelectedIndex = index - 1;
             }
             noCheckEnteredMetaDefinitionIsOk = false;
+            // during change listBoxMetaData, button looses focus
+            ((Button)sender).Select();
         }
 
         // move down pressed
@@ -891,6 +913,27 @@ namespace QuickImageComment
                 fillListBoxMetaData();
                 this.listBoxMetaData.SelectedIndex = index + 1;
             }
+            noCheckEnteredMetaDefinitionIsOk = false;
+            // during change listBoxMetaData, button looses focus
+            ((Button)sender).Select();
+        }
+
+        // move to the end pressed
+        private void buttonEnd_Click(object sender, EventArgs e)
+        {
+            // no check if entered meta definitions is ok when selected index is changed
+            noCheckEnteredMetaDefinitionIsOk = true;
+            while (listBoxMetaData.SelectedIndex >= 0 &&
+                listBoxMetaData.SelectedIndex < listBoxMetaData.Items.Count - 1)
+            {
+                int index = listBoxMetaData.SelectedIndex;
+                MetaDataDefinitionItem MetaDataDefinitionItemForCopy = (MetaDataDefinitionItem)MetaDataDefinitionsWork[index];
+                MetaDataDefinitionsWork[index] = MetaDataDefinitionsWork[index + 1];
+                MetaDataDefinitionsWork[index + 1] = MetaDataDefinitionItemForCopy;
+                this.listBoxMetaData.SelectedIndex = index + 1;
+            }
+            fillListBoxMetaData();
+            listBoxMetaData.SelectedIndex = listBoxMetaData.Items.Count - 1;
             noCheckEnteredMetaDefinitionIsOk = false;
         }
 
@@ -1112,6 +1155,8 @@ namespace QuickImageComment
             }
             this.buttonUp.Enabled = false;
             this.buttonDown.Enabled = false;
+            this.buttonBeginning.Enabled = false;
+            this.buttonEnd.Enabled  = false;
         }
 
         // create a deep copy of meta data definitions
@@ -1157,6 +1202,8 @@ namespace QuickImageComment
 
             this.buttonUp.Enabled = false;
             this.buttonDown.Enabled = false;
+            this.buttonBeginning.Enabled = false;
+            this.buttonEnd.Enabled = false;
         }
 
         private void updateDisplayAfterDefinitionChange(MetaDataDefinitionItem theMetaDataDefinitionItem, bool enableChecks)

@@ -102,6 +102,8 @@ namespace QuickImageComment
             this.label17 = new System.Windows.Forms.Label();
             this.buttonInputCheckDelete = new System.Windows.Forms.Button();
             this.buttonInputCheckCreate = new System.Windows.Forms.Button();
+            this.buttonBeginning = new System.Windows.Forms.Button();
+            this.buttonEnd = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownVerticalDisplayOffset)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLinesForChange)).BeginInit();
             this.SuspendLayout();
@@ -187,7 +189,7 @@ namespace QuickImageComment
             // buttonUp
             // 
             this.buttonUp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonUp.Location = new System.Drawing.Point(297, 302);
+            this.buttonUp.Location = new System.Drawing.Point(297, 322);
             this.buttonUp.Name = "buttonUp";
             this.buttonUp.Size = new System.Drawing.Size(95, 22);
             this.buttonUp.TabIndex = 18;
@@ -198,7 +200,7 @@ namespace QuickImageComment
             // buttonDown
             // 
             this.buttonDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonDown.Location = new System.Drawing.Point(297, 327);
+            this.buttonDown.Location = new System.Drawing.Point(297, 344);
             this.buttonDown.Name = "buttonDown";
             this.buttonDown.Size = new System.Drawing.Size(95, 22);
             this.buttonDown.TabIndex = 19;
@@ -209,7 +211,7 @@ namespace QuickImageComment
             // buttonNew
             // 
             this.buttonNew.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonNew.Location = new System.Drawing.Point(297, 365);
+            this.buttonNew.Location = new System.Drawing.Point(297, 391);
             this.buttonNew.Name = "buttonNew";
             this.buttonNew.Size = new System.Drawing.Size(95, 22);
             this.buttonNew.TabIndex = 20;
@@ -421,7 +423,7 @@ namespace QuickImageComment
             // buttonCopy
             // 
             this.buttonCopy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonCopy.Location = new System.Drawing.Point(297, 391);
+            this.buttonCopy.Location = new System.Drawing.Point(297, 413);
             this.buttonCopy.Name = "buttonCopy";
             this.buttonCopy.Size = new System.Drawing.Size(95, 22);
             this.buttonCopy.TabIndex = 21;
@@ -432,7 +434,7 @@ namespace QuickImageComment
             // buttonDelete
             // 
             this.buttonDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonDelete.Location = new System.Drawing.Point(297, 417);
+            this.buttonDelete.Location = new System.Drawing.Point(297, 435);
             this.buttonDelete.Name = "buttonDelete";
             this.buttonDelete.Size = new System.Drawing.Size(95, 22);
             this.buttonDelete.TabIndex = 22;
@@ -727,11 +729,35 @@ namespace QuickImageComment
             this.buttonInputCheckCreate.UseVisualStyleBackColor = true;
             this.buttonInputCheckCreate.Click += new System.EventHandler(this.buttonInputCheckCreate_Click);
             // 
+            // buttonBeginning
+            // 
+            this.buttonBeginning.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonBeginning.Location = new System.Drawing.Point(297, 300);
+            this.buttonBeginning.Name = "buttonBeginning";
+            this.buttonBeginning.Size = new System.Drawing.Size(95, 22);
+            this.buttonBeginning.TabIndex = 56;
+            this.buttonBeginning.Text = "Anfang";
+            this.buttonBeginning.UseVisualStyleBackColor = true;
+            this.buttonBeginning.Click += new System.EventHandler(this.buttonBeginning_Click);
+            // 
+            // buttonEnd
+            // 
+            this.buttonEnd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonEnd.Location = new System.Drawing.Point(297, 366);
+            this.buttonEnd.Name = "buttonEnd";
+            this.buttonEnd.Size = new System.Drawing.Size(95, 22);
+            this.buttonEnd.TabIndex = 57;
+            this.buttonEnd.Text = "Ende";
+            this.buttonEnd.UseVisualStyleBackColor = true;
+            this.buttonEnd.Click += new System.EventHandler(this.buttonEnd_Click);
+            // 
             // FormMetaDataDefinition
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(837, 593);
+            this.Controls.Add(this.buttonEnd);
+            this.Controls.Add(this.buttonBeginning);
             this.Controls.Add(this.buttonInputCheckCreate);
             this.Controls.Add(this.buttonInputCheckDelete);
             this.Controls.Add(this.label17);
@@ -860,5 +886,7 @@ namespace QuickImageComment
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Button buttonInputCheckDelete;
         private System.Windows.Forms.Button buttonInputCheckCreate;
+        private System.Windows.Forms.Button buttonBeginning;
+        private System.Windows.Forms.Button buttonEnd;
     }
 }
