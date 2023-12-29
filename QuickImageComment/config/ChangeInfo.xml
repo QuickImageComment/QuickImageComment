@@ -1,23 +1,29 @@
-﻿<Program_Version>4.56</Program_Version>
+﻿<Program_Version>4.57</Program_Version>
 <Program_Change_Info_German>
 Erweiterungen und Verbesserungen:
-Laufende Nummer des Bildes wird unter dem Bild links vom Dateinamen angezeigt.
-Neue interne Felder "Image (Bild).Meta-Daten Warnungen-Exiv2" und "Image (Bild).Meta-Daten Warnungen-nicht-Exiv2". Die Felder erlauben es nach Bildern mit entsprechenden Meldungen zu suchen – getrennt danach, ob die Meldung von Exiv2 oder nicht kommt. Da bei der Suche die Meta-Daten nicht vollständig gelesen werden, können die Warnungen unvollständig sein.
-Im Textfeld für die Abfrage in der Maske "Suche über Eigenschaften - Abfrage bearbeiten" können manuelle Änderungen mit Strg-Z rückgängig und mit Strg-Y wieder hergestellt werden. Es werden jeweils alle Änderungen seit dem Füllen des Textfeldes (bei Öffnen der Maske oder bei Betätigen von "Vorherige" oder "Nächste") rückgängig gemacht.
+Für Anwender/Anwenderinnen, die über die Kommandozeile (bzw. angepasste Shortcuts) das Programm mit unterschiedlichen Konfigurationen starten: Mit dem Schalter "/TitleSuffix:" kann ein Text definiert werden, der zusätzlich im Maskentitel der Hauptmaske angezeigt wird.
+Export von ausgewählten Eigenschaften: Zeilenumbruch und Zeilenvorschub (CR/LF) in Metadaten werden durch Leerzeichen ersetzt, um Probleme beim Import in Excel zu vermeiden.
+Nur für die .Net 4.6.1-Varianten: Neue Version 0.28.1 der Bibliothek exiv2 integriert: kleinere Fehler wurden behoben.
+Nur für die .Net 4.6.1-Varianten: Neue Version 0.21.1 der Bibliothek LibRaw integriert: kleinerer Fehler beim Decoding von Bildern von einigen Panasonic-Kameras behoben.
+Metadaten von iPhone .heic-Dateien und JPEG-XL-Dateien (.jxl) werden angezeigt.
 
 Folgende Fehler wurden behoben:
-Mit jedem Neustart wurde die Maske kleiner, wenn Skalierung für Symbolleiste auf einen anderen Wert als für die allgemeine Skalierung eingestellt war.
-Bei Änderung der Skalierung im Vollbildmodus konnte rechts und unten ein Teil der Maske abgeschnitten werden.
-Nur Variante für Windows XP: Absturz beim Speichern von Änderungen in JPEG-Dateien.
+Gelegentlich konnte das Programm blockieren, wenn im angezeigten Ordner Dateien von anderen Programmen hinzugefügt, geändert oder gelöscht wurden.
+Wenn Dateien gelöscht wurden, wurde der Dateizähler unten links nicht aktualisiert.
+Wenn bei der ersten Benutzung des Programmes (d.h. noch keine Konfigurationsdatei gespeichert) ein Ordner geöffnet wurde, der Bilder mit IPTC-Schlüsselworten enthielt, stürzte das Programm ab.
+Verzeichnisbaum aktualisieren unter Windows 11 verursachte Absturz. Unter anderen Windows-Versionen war die Aktualisierung unvollständig, wenn es mehrere Ordner mit dem gleichen Namen gab.
 </Program_Change_Info_German>
 <Program_Change_Info_English>
 Enhancements and improvements:
-Sequence number of the image is displayed below the image to the left of the file name.
-New internal fields "Image.MetaDataWarningsExiv2" and "Image.MetaDataWarningsNotExiv2". The fields allow to search for images with corresponding messages - separated by whether the message comes from Exiv2 or not. Since the search does not read the meta-data completely, the warnings may be incomplete.
-In the text field for the query in the mask "Search via Properties - Edit query" manual changes can be undone with Ctrl-Z and restored with Ctrl-Y. In each case, all changes since the text field was filled (when the mask is opened or when "Previous" or "Next" is pressed) are undone.
+For users who start the program with different configurations via the command line (or adapted shortcuts): With the switch "/TitleSuffix:" a text can be defined, which is additionally displayed in the mask title of the main mask.
+Export of selected properties: Line breaks and line feeds (CR/LF) in metadata are replaced by spaces to avoid problems when importing into Excel.
+Only for the .Net 4.6.1 variants: New version 0.28.1 of the exiv2 library integrated: minor bugs have been fixed.
+Only for the .Net 4.6.1 variants: New version 0.21.1 of the library LibRaw integrated: minor bug fixed when decoding images from some Panasonic cameras.
+Metadata of iPhone .heic files and JPEG-XL files (.jxl) are displayed.
 
-The following errors have been fixed:
-With each restart, the mask became smaller if scaling for Toolbar was set to a different value than for general scaling.
-When changing the scaling in full screen mode, a part of the mask could be cut off on the right and bottom.
-Variant for Windows XP only: Crash when saving changes to JPEG files.
+The following bugs have been fixed:
+Occasionally the program could block if files in the displayed folder were added, changed or deleted by other programs.
+If files were deleted, the file counter at the bottom left was not updated.
+If a folder containing images with IPTC keywords was opened the first time the program was used (i.e. no configuration file saved yet), the program crashed.
+Refresh folder tree under Windows 11 caused a crash. Under other Windows versions, the update was incomplete if there were several folders with the same name
 </Program_Change_Info_English>
