@@ -29,7 +29,7 @@ namespace QuickImageComment
         private void buttonSendEmail_Click(object sender, EventArgs e)
         {
             sendToAppCenter = true;
-            System.Diagnostics.Process.Start("mailto:mail@quickimagecomment.de?subject=" + GeneralUtilities.getHtmlText(textBoxErrorMessage.Text)
+            System.Diagnostics.Process.Start("mailto:quickimagecomment@gmail.com?subject=" + GeneralUtilities.getHtmlText(textBoxErrorMessage.Text)
                 + "&body=" + GeneralUtilities.getHtmlText(LangCfg.getText(LangCfg.Others.errorMailTemplate)));
         }
 
