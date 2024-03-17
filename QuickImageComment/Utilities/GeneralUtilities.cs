@@ -30,7 +30,7 @@ namespace QuickImageComment
 {
     class GeneralUtilities
     {
-        private const string ChangeInfoFile = "http://www.quickimagecomment.de/phocadownload/ChangeInfo.xml";
+        private const string ChangeInfoFile = "https://raw.githubusercontent.com/QuickImageComment/QuickImageComment/main/QuickImageComment/config/ChangeInfo.xml";
 
 #if MICROSOFT_STORE
         internal const bool MicrosoftStore = true;
@@ -1275,19 +1275,21 @@ namespace QuickImageComment
         internal static string getChangeInfoFromcontent(string content)
         {
             int pStart, pEnd;
+            string changes = "";
 
             if (LangCfg.getLoadedLanguage().Equals("Deutsch"))
             {
                 pStart = content.IndexOf("<Program_Change_Info_German>") + 28;
                 pEnd = content.IndexOf("</Program_Change_Info_German>", pStart);
-                return content.Substring(pStart, pEnd - pStart);
+                changes = content.Substring(pStart, pEnd - pStart);
             }
             else
             {
                 pStart = content.IndexOf("<Program_Change_Info_English>") + 29;
                 pEnd = content.IndexOf("</Program_Change_Info_English>", pStart);
-                return content.Substring(pStart, pEnd - pStart);
+                changes = content.Substring(pStart, pEnd - pStart);
             }
+            return changes.Replace("\n", "\r\n");
         }
 
         // determine if Windows Vista or higher
