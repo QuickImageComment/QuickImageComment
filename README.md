@@ -4,7 +4,7 @@
 
 ![Screenshot of Quick Image Comment](UserManual/images/English-prg/FormQuickImageComment-00.png)  
 
-QuickImageComment displays EXIF, IPTC, and XMP properties of digital images (e.g., JPEG and TIFF as well as some RAW formats) and allows to edit them. These attributes are read from the EXIF, IPTC, and XMP properties of the image and are stored there. Especially editing of user comment and artist (author) is supported by using the last entered or predefined values. Metadata (XMP) in video files are displayed.
+QuickImageComment displays EXIF, IPTC, and XMP properties of digital images (e.g., JPEG and TIFF as well as some RAW formats) and allows to edit them. Especially editing of user comment and artist (author) is supported by using the last entered or predefined values. Metadata (XMP) in video files are displayed.
 
 ### Overview of features:
 * Display of all EXIF, IPTC and XMP properties of images, as well as some other file properties such as modification date.
@@ -25,13 +25,14 @@ QuickImageComment displays EXIF, IPTC, and XMP properties of digital images (e.g
 * Display recording location in a map using the GPS coordinates; change of coordinates by selecting a position on the map.
 
 Further processing of the images (e.g., adjusting the contrast and brightness) is not the purpose of this program.
-For reading and changing the EXIF, IPTC, and XMP properties the library exiv2 is used. On www.exiv2.org a description of this library can be found as well as extensive information and links to Exif, IPTC and XMP. The formats supported by exiv2 are documented here:
-* Images: http://dev.exiv2.org/projects/exiv2/wiki/Supported_image_formats
-* Videos: http://dev.exiv2.org/projects/exiv2/wiki/Supported_video_formats
+
+For reading and changing the EXIF, IPTC, and XMP properties the library exiv2 is used. On [www.exiv2.org](www.exiv2.org) a description of this library can be found as well as extensive information and links to Exif, IPTC and XMP. The formats supported by exiv2 are documented here:
+* Images: [http://dev.exiv2.org/projects/exiv2/wiki/Supported_image_formats](http://dev.exiv2.org/projects/exiv2/wiki/Supported_image_formats)
+* Videos: [http://dev.exiv2.org/projects/exiv2/wiki/Supported_video_formats](http://dev.exiv2.org/projects/exiv2/wiki/Supported_video_formats)
 
 For displaying RAW images, the LibRaw library is integrated. If the camera manufacturer's codec or the Microsoft Raw Image Extension (which supports various RAW formats) are installed, they are used and then display is usually faster. One can install both a specific codec and the Microsoft Extension. The specific codec is then used for the corresponding images. For all others first the Microsoft Extension is tried and as last option the integrated LibRaw library. For the display of the metadata no codec is needed.
 
-The program runs under Microsoft Windows 7, 8, 10 and 11 and is available as 32-bit and 64-bit variant. German or English can be selected as the language. There is also a version with sligthly reduced functionality available, which runs on Windows XP with .Net 4.0 framework.
+The program runs under Microsoft Windows 7, 8, 10 and 11 and is available as 32-bit and 64-bit variant. German or English can be selected as the language. There is also a variant with slightly reduced functionality available, which runs on Windows XP with .Net 4.0 framework.
 
 QuickImageComment is free software; you can use it under the terms of the GNU General Public License as published by the Free Software Foundation.
 
