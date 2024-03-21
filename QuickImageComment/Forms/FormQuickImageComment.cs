@@ -6435,7 +6435,12 @@ namespace QuickImageComment
                 OutputBitmapGraphics.DrawString(LangCfg.translate("Änderbare Eigenschaften frei wählbar", this.Name),
                     new Font("Verdana", 15, FontStyle.Bold), new SolidBrush(Color.Blue), new RectangleF(baseX, baseY, 180, 100));
 
-                GeneralUtilities.saveScreenshotBitmap(bmp, this.Name + index++.ToString("-00"));
+                // save image as QuickImageComment.png
+                // It is used only to be supplied to download portals via AppVisor.
+                // With 4.58 links in AppVisor refer to Github, but the link with old file name was too long,
+                // so name is changed. In order not to change content of other images, the index 01 is now skipped.
+                index++;
+                GeneralUtilities.saveScreenshotBitmap(bmp, "QuickImageComment");
 
                 // next screenshots
                 this.toolStripMenuItemLargeIcons_Click(null, null);
