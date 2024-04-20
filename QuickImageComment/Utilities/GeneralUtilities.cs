@@ -30,7 +30,7 @@ namespace QuickImageComment
 {
     class GeneralUtilities
     {
-        private const string ChangeInfoFile = "https://raw.githubusercontent.com/QuickImageComment/QuickImageComment/main/QuickImageComment/config/ChangeInfo.xml";
+        private const string ChangeInfoFile = "http://www.quickimagecomment.de/phocadownload/ChangeInfo.xml";
 
 #if MICROSOFT_STORE
         internal const bool MicrosoftStore = true;
