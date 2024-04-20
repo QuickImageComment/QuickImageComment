@@ -149,7 +149,14 @@ namespace QuickImageComment
 
         private void buttonDownload_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start("http://www.quickimagecomment.de/index.php/download");
+            if (LangCfg.getLoadedLanguage().Equals("Deutsch"))
+            {
+                System.Diagnostics.Process.Start("http://www.quickimagecomment.de/de/download");
+            }
+            else
+            {
+                System.Diagnostics.Process.Start("http://www.quickimagecomment.de/en/download");
+            }
         }
     }
 }

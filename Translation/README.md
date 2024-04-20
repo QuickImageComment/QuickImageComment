@@ -41,4 +41,4 @@ The sheet "Anleitung-Instructions" in that Excel file contains further explanati
 New languages can generally be supported without program changes, if appropriate language files are created. Program changes are only necessary if it is not possible to keep the translations short enough to fit into the available space.
 
 An explanation of how language files are created for other languages can be found here:  
-https://www.quickimagecomment.de/index.php/en/support-for-additional-languages
+https://quickimagecomment.de/en/support-for-additional-languages.html

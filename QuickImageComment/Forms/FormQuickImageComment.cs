@@ -3499,11 +3499,11 @@ namespace QuickImageComment
         {
             if (LangCfg.getLoadedLanguage().Equals("Deutsch"))
             {
-                System.Diagnostics.Process.Start("http://www.quickimagecomment.de/index.php/de/");
+                System.Diagnostics.Process.Start("http://www.quickimagecomment.de/de/uebersicht");
             }
             else
             {
-                System.Diagnostics.Process.Start("http://www.quickimagecomment.de/index.php/en/");
+                System.Diagnostics.Process.Start("http://www.quickimagecomment.de/en/overview");
             }
         }
 
@@ -3511,11 +3511,11 @@ namespace QuickImageComment
         {
             if (LangCfg.getLoadedLanguage().Equals("Deutsch"))
             {
-                System.Diagnostics.Process.Start("http://www.quickimagecomment.de/index.php/de/download");
+                System.Diagnostics.Process.Start("http://www.quickimagecomment.de/de/download");
             }
             else
             {
-                System.Diagnostics.Process.Start("http://www.quickimagecomment.de/index.php/en/download");
+                System.Diagnostics.Process.Start("http://www.quickimagecomment.de/en/download");
             }
         }
 
@@ -3523,11 +3523,11 @@ namespace QuickImageComment
         {
             if (LangCfg.getLoadedLanguage().Equals("Deutsch"))
             {
-                System.Diagnostics.Process.Start("https://www.quickimagecomment.de/index.php/de/aenderungshistorie");
+                System.Diagnostics.Process.Start("https://www.quickimagecomment.de/de/aenderungshistorie");
             }
             else
             {
-                System.Diagnostics.Process.Start("https://www.quickimagecomment.de/index.php/en/change-history");
+                System.Diagnostics.Process.Start("https://www.quickimagecomment.de/en/change-history");
             }
         }
 
