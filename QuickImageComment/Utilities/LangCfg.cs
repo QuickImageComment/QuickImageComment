@@ -330,7 +330,8 @@ namespace QuickImageComment
             editExternalProgramFilter,
             IptcKeyWords,
             notPredefinedKeyWordsUsed,
-            queryMapInfo
+            queryMapInfo,
+            infoDonate
         }
 
         // defined as variable

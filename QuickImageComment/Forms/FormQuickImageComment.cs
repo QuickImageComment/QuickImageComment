@@ -3554,6 +3554,13 @@ namespace QuickImageComment
         {
             GeneralUtilities.ShowHelp(this, "DataPrivacyPolicy");
         }
+
+        // donate via Paypal
+        private void toolStripMenuItemDonate_Click(object sender, EventArgs e)
+        {
+            FormDonate theFormDonate = new FormDonate();
+            theFormDonate.ShowDialog();
+        }
         #endregion
 
         //*****************************************************************
@@ -6798,6 +6805,7 @@ namespace QuickImageComment
             new FormCompare(theUserControlFiles.listViewFiles.SelectedIndices);
             new FormDataTemplates();
             new FormDateTimeChange(theUserControlFiles.listViewFiles.SelectedIndices);
+            new FormDonate();
             new FormEditExternal();
             new FormError("", "", "");
             new FormErrorAppCenter("");

@@ -109,7 +109,7 @@ namespace QuickImageComment
             this.Cursor = Cursors.Default;
         }
 
-        private void buttonClose_Click(object sender, EventArgs e)
+        private void buttonOK_Click(object sender, EventArgs e)
         {
             ConfigDefinition.setCfgUserBool(ConfigDefinition.enumCfgUserBool.CheckForNewVersionFlag, checkBoxCyclicCheck.Checked);
             ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.CheckForNewVersionPeriodInDays, (int)numericUpDownCycle.Value);
