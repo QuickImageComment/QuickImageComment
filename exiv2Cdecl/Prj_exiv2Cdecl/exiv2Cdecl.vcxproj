@@ -105,6 +105,7 @@
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <ExceptionHandling>Async</ExceptionHandling>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -136,6 +137,7 @@
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <ExceptionHandling>Async</ExceptionHandling>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -168,6 +170,7 @@
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <ExceptionHandling>Async</ExceptionHandling>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -202,6 +205,7 @@
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <ExceptionHandling>Async</ExceptionHandling>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

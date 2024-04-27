@@ -18,12 +18,17 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace QuickImageComment
 {
     class ImageManager
     {
+        const string exiv2DllImport = "exiv2Cdecl.dll";
+        [DllImport(exiv2DllImport, CallingConvention = CallingConvention.Cdecl)]
+        static extern int init_SE_Translator();
+
         // as following variables are also changed in threads, 
         // modifications are secured with lock of UserControlFiles.LockListViewFiles
         private static List<ListViewItem> listViewFilesItems;
@@ -457,6 +462,11 @@ namespace QuickImageComment
             string FilenameForExceptionMessage = "";
             GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceCaching, "Cache Extended Start " + cacheIndex.ToString());
             Performance CachePerformance = new Performance();
+
+            // initialise structured excepation tranlator
+            // to catch also exception like read access violation
+            init_SE_Translator();
+
 #if !DEBUG
             try
 #endif

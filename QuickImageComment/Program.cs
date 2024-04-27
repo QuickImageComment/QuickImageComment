@@ -18,9 +18,7 @@
 
 using System;
 using System.Reflection;
-#if DEBUG
 using System.Runtime.InteropServices; // for DllImport
-#endif
 using System.Threading;
 using System.Windows.Forms;
 using JR.Utils.GUI.Forms;
@@ -35,12 +33,9 @@ namespace QuickImageComment
     static partial class Program
     {
 
-#if DEBUG
-        // debug step into does not work for first Cdecl call, so add here a dummy call
         const string exiv2DllImport = "exiv2Cdecl.dll";
         [DllImport(exiv2DllImport, CallingConvention = CallingConvention.Cdecl)]
-        static extern int exiv2getVersion([MarshalAs(UnmanagedType.LPStr)] ref string exiv2Version);
-#endif
+        static extern int init_SE_Translator();
 
 #if APPCENTER
         // when using Microsoft AppCenter, enter here the Secure ID
@@ -86,11 +81,11 @@ namespace QuickImageComment
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-#if DEBUG
-            // debug step into does not work for first Cdecl call, so add here a dummy call
-            string exiv2Version = "";
-            exiv2getVersion(ref exiv2Version);
-#endif
+            // initialise structured excepation tranlator
+            // to catch also exception like read access violation
+            // note: debug step into does not work for first Cdecl call, which is this one
+            init_SE_Translator();
+
             StartupPerformance = new Performance();
 
 #if !DEBUG

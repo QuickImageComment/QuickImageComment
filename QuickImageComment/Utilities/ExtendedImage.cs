@@ -61,8 +61,8 @@ namespace QuickImageComment
         static extern void exiv2getExifDataIteratorAll(ref bool exifAvail);
 
         [DllImport(exiv2DllImport, CallingConvention = CallingConvention.Cdecl)]
-        static extern void exiv2getExifDataIteratorKey([MarshalAs(UnmanagedType.LPStr)] string keyString,
-                                                       ref bool exifAvail);
+        static extern int exiv2getExifDataIteratorKey([MarshalAs(UnmanagedType.LPStr)] string keyString,
+                                                       ref bool exifAvail, ref string errorText);
 
         [DllImport(exiv2DllImport, CallingConvention = CallingConvention.Cdecl)]
         static extern int exiv2getExifDataItem([MarshalAs(UnmanagedType.LPStr)] ref string keyString,
@@ -89,11 +89,11 @@ namespace QuickImageComment
                                                    [MarshalAs(UnmanagedType.LPStr)] ref string errorText);
 
         [DllImport(exiv2DllImport, CallingConvention = CallingConvention.Cdecl)]
-        static extern void exiv2getIptcDataIteratorAll(ref bool iptcAvail);
+        static extern int exiv2getIptcDataIteratorAll(ref bool iptcAvail, ref string errorText);
 
         [DllImport(exiv2DllImport, CallingConvention = CallingConvention.Cdecl)]
-        static extern void exiv2getIptcDataIteratorKey([MarshalAs(UnmanagedType.LPStr)] string keyString,
-                                                       ref bool iptcAvail);
+        static extern int exiv2getIptcDataIteratorKey([MarshalAs(UnmanagedType.LPStr)] string keyString,
+                                                       ref bool iptcAvail, ref string errorText);
 
         [DllImport(exiv2DllImport, CallingConvention = CallingConvention.Cdecl)]
         static extern int exiv2getIptcDataItem([MarshalAs(UnmanagedType.LPStr)] ref string keyString,
@@ -108,7 +108,7 @@ namespace QuickImageComment
                                                [MarshalAs(UnmanagedType.LPStr)] ref string errorText);
 
         [DllImport(exiv2DllImport, CallingConvention = CallingConvention.Cdecl)]
-        static extern void exiv2getXmpDataIteratorAll(ref bool xmpAvail);
+        static extern int exiv2getXmpDataIteratorAll(ref bool xmpAvail, ref string errorText);
 
         [DllImport(exiv2DllImport, CallingConvention = CallingConvention.Cdecl)]
         static extern void exiv2getXmpDataIteratorKey([MarshalAs(UnmanagedType.LPStr)] string keyString,
@@ -620,7 +620,7 @@ namespace QuickImageComment
 
             // get Iptc data
             errorText = "";
-            exiv2getIptcDataIteratorAll(ref iptcAvail);
+            exiv2getIptcDataIteratorAll(ref iptcAvail, ref errorText);
             while (iptcAvail)
             {
                 status = exiv2getIptcDataItem(ref keyString, ref tag, ref typeName, ref count, ref size, ref valueString,
@@ -638,7 +638,7 @@ namespace QuickImageComment
 
             // get Xmp data
             errorText = "";
-            exiv2getXmpDataIteratorAll(ref xmpAvail);
+            exiv2getXmpDataIteratorAll(ref xmpAvail, ref errorText);
             while (xmpAvail)
             {
                 status = exiv2getXmpDataItem(ref keyString, ref tag, ref typeName, ref language, ref count, ref size, ref valueString,
@@ -681,7 +681,7 @@ namespace QuickImageComment
                 {
                     // get Exif data
                     errorText = "";
-                    exiv2getExifDataIteratorKey(key, ref exifAvail);
+                    exiv2getExifDataIteratorKey(key, ref exifAvail, ref errorText);
                     while (exifAvail)
                     {
                         status = exiv2getExifDataItem(ref keyString, ref tag, ref typeName, ref count, ref size, ref valueString,
@@ -732,7 +732,7 @@ namespace QuickImageComment
                 {
                     // get Iptc data
                     errorText = "";
-                    exiv2getIptcDataIteratorKey(key, ref iptcAvail);
+                    exiv2getIptcDataIteratorKey(key, ref iptcAvail, ref errorText);
                     while (iptcAvail)
                     {
                         status = exiv2getIptcDataItem(ref keyString, ref tag, ref typeName, ref count, ref size, ref valueString,
@@ -784,7 +784,7 @@ namespace QuickImageComment
             {
                 // get all Xmp data - as reading by keys does not work as for Exif and IPTC
                 errorText = "";
-                exiv2getXmpDataIteratorAll(ref xmpAvail);
+                exiv2getXmpDataIteratorAll(ref xmpAvail, ref errorText);
                 while (xmpAvail)
                 {
                     status = exiv2getXmpDataItem(ref keyString, ref tag, ref typeName, ref language, ref count, ref size, ref valueString,
