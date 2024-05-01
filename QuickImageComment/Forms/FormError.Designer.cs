@@ -51,7 +51,7 @@ namespace QuickImageComment
             this.textBoxErrorDetails.Name = "textBoxErrorDetails";
             this.textBoxErrorDetails.ReadOnly = true;
             this.textBoxErrorDetails.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxErrorDetails.Size = new System.Drawing.Size(854, 208);
+            this.textBoxErrorDetails.Size = new System.Drawing.Size(854, 195);
             this.textBoxErrorDetails.TabIndex = 0;
             // 
             // buttonPrepareMail
@@ -72,7 +72,7 @@ namespace QuickImageComment
             this.buttonClose.Name = "buttonClose";
             this.buttonClose.Size = new System.Drawing.Size(150, 23);
             this.buttonClose.TabIndex = 4;
-            this.buttonClose.Text = "Beenden";
+            this.buttonClose.Text = "Schließen";
             this.buttonClose.UseVisualStyleBackColor = true;
             this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
             // 
@@ -92,9 +92,9 @@ namespace QuickImageComment
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(41, 6);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(219, 13);
+            this.label1.Size = new System.Drawing.Size(215, 13);
             this.label1.TabIndex = 6;
-            this.label1.Text = "Schwerwiegender Fehler in der Anwendung:";
+            this.label1.Text = "Schwerwiegender Fehler in der Anwendung";
             // 
             // labelDetails
             // 
@@ -111,10 +111,10 @@ namespace QuickImageComment
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxInstructions.BackColor = System.Drawing.SystemColors.Control;
             this.textBoxInstructions.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBoxInstructions.Location = new System.Drawing.Point(3, 292);
+            this.textBoxInstructions.Location = new System.Drawing.Point(3, 279);
             this.textBoxInstructions.Multiline = true;
             this.textBoxInstructions.Name = "textBoxInstructions";
-            this.textBoxInstructions.Size = new System.Drawing.Size(853, 60);
+            this.textBoxInstructions.Size = new System.Drawing.Size(853, 73);
             this.textBoxInstructions.TabIndex = 8;
             this.textBoxInstructions.Text = "Instructions";
             // 

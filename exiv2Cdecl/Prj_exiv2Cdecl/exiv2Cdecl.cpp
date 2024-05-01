@@ -35,6 +35,9 @@
 
 #define VERSION "0.28.2.0"
 
+// NOTE: must match definition in ConfigDefinition.cs
+const char* exiv2_exception_file = "\\QIC_exiv2_exception.txt";
+
 //-------------------------------------------------------------------------
 // basics: handling of fundamental exceptions
 // those, where control cannot be given back to C#, e.g. access violation
@@ -45,6 +48,7 @@
 static std::string imageFileName = "";
 
 // write fundamental exceptions to file 
+// NOTE: if changed, readExiv2ExceptionFile in ConfigDefinition.cs may need to be adopted
 static void writeFundamentalExceptionToFileAndTerminate(std::exception ex, const char* file, int line) {
     // no error handling here, because this function is called in case
     // of exceptions, where anyhow all is lost already
@@ -52,7 +56,7 @@ static void writeFundamentalExceptionToFileAndTerminate(std::exception ex, const
     // Get the path to the AppData folder
     char appDataPath[MAX_PATH];
     HRESULT result = SHGetFolderPath(NULL, CSIDL_APPDATA, NULL, SHGFP_TYPE_CURRENT, appDataPath);
-    std::string filePath = std::string(appDataPath) + "\\QIC_exiv2_exception.txt";
+    std::string filePath = std::string(appDataPath) + exiv2_exception_file;
 
     // Write to the file
     std::ofstream outFile(filePath);

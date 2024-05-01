@@ -675,6 +675,9 @@ namespace QuickImageComment
             }
             //Program.StartupPerformance.measure("FormQIC After set ShowHidden");
 
+            // read file with last fatal exiv2 exception and react on it
+            ConfigDefinition.readExiv2ExceptionFile();
+
             if (FolderName.StartsWith(@"\\"))
             {
                 // drill to network folder takes rather long, show information
@@ -4873,6 +4876,17 @@ namespace QuickImageComment
                     DateTime.Now.Subtract(StartTime).TotalMilliseconds.ToString("   0") + " ms");
 
                 theExtendedImage = ImageManager.getExtendedImage(fileIndex, true);
+                // check if images is listed as causing fatal exiv2 exception
+                if (ConfigDefinition.getImagesCausingExiv2Exception().Contains(theExtendedImage.getImageFileName()))
+                {
+                    DialogResult theDialogResult = GeneralUtilities.questionMessage(LangCfg.Message.Q_causedFatalExiv2Exception);
+                    if (theDialogResult == DialogResult.Yes)
+                    {
+                        ConfigDefinition.getImagesCausingExiv2Exception().Remove(theExtendedImage.getImageFileName());
+                        QuickImageComment.Performance performance = new Performance();
+                        theExtendedImage.readAllMetaDataAndSetRelatedTags(performance);
+                    }
+                }
                 GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceWorkAfterSelectionOfFile, theExtendedImage.getImageFileName(), 2);
                 dynamicLabelFileName.Text = theExtendedImage.getImageFileName();
                 dynamicLabelImageNumber.Text = "#" + (fileIndex + 1).ToString();

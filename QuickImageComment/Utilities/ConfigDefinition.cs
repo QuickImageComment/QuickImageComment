@@ -53,6 +53,9 @@ namespace QuickImageComment
         // when changing this list, ExtendedImage.addMetaDataFromBitMap needs to changes as well
         public static ArrayList TagsFromBitmap = new ArrayList { "File.ImageSize", "Image.CodecInfo", "Image.PixelFormat", "Image.DisplayImageErrorMessage" };
 
+        // NOTE: must match definition in exiv2Cdecl.cpp
+        private const string exiv2_exception_file = "\\QIC_exiv2_exception.txt";
+
         public enum enumConfigFlags
         {
             PerformanceStartup,
@@ -220,7 +223,8 @@ namespace QuickImageComment
             LastDataTemplate,
             CharsetExifPhotoUserComment,
             AppCenterUsage,
-            LastGeoDataItemForFind
+            LastGeoDataItemForFind,
+            LastImageCausingExiv2Exception
         };
 
         public enum enumMetaDataGroup
@@ -284,6 +288,7 @@ namespace QuickImageComment
         private static ArrayList GeoDataItemArrayList;
         private static ArrayList RawDecoderNotRotatingArrayList;
         private static ArrayList EditExternalDefinitionArrayList;
+        private static List<string> ImagesCausingExiv2Exception;
 
         internal static SortedList<string, DataTemplate> DataTemplates;
         internal static SortedList<string, string> MapUrls;
@@ -371,6 +376,7 @@ namespace QuickImageComment
             GeoDataItemArrayList = new ArrayList();
             RawDecoderNotRotatingArrayList = new ArrayList();
             EditExternalDefinitionArrayList = new ArrayList();
+            ImagesCausingExiv2Exception = new List<string>();
             OtherMetaDataDefinitions = new ArrayList();
             InternalMetaDataDefinitions = new SortedList();
             IgnoreLines = new ArrayList();
@@ -520,6 +526,7 @@ namespace QuickImageComment
             ConfigItems.Add(enumCfgUserString.CharsetExifPhotoUserComment.ToString(), "Unicode");
             ConfigItems.Add(enumCfgUserString.AppCenterUsage.ToString(), "");
             ConfigItems.Add(enumCfgUserString.LastGeoDataItemForFind.ToString(), "Greenwich|51.481|0|51.481N 0E|||||");
+            ConfigItems.Add(enumCfgUserString.LastImageCausingExiv2Exception.ToString(), "");
 
             ConfigItems.Add(enumCfgUserInt.CheckForNewVersionPeriodInDays.ToString(), 30);
             ConfigItems.Add(enumCfgUserInt.ImageDetailsFrameColor.ToString(), System.Drawing.Color.Red.ToArgb());
@@ -2260,6 +2267,12 @@ namespace QuickImageComment
             EditExternalDefinitionArrayList = new ArrayList(newEditExternalArrayList);
         }
 
+        // list of files causing fatal exiv2 exception
+        public static List<string> getImagesCausingExiv2Exception()
+        {
+            return ImagesCausingExiv2Exception;
+        }
+
         // get predefiend comment categories
         public static ArrayList getPredefinedCommentCategories()
         {
@@ -2697,6 +2710,10 @@ namespace QuickImageComment
                     else if (firstPart.Equals("EditExternal"))
                     {
                         EditExternalDefinitionArrayList.Add(new EditExternalDefinition(secondPart));
+                    }
+                    else if (firstPart.Equals("ImagesCausingExiv2Exception"))
+                    {
+                        ImagesCausingExiv2Exception.Add(secondPart);
                     }
                     else if (firstPart.StartsWith("#"))
                     {
@@ -3316,6 +3333,10 @@ namespace QuickImageComment
             {
                 StreamOut.WriteLine("EditExternal:" + editExternalDefinition);
             }
+            foreach (string fileName in ImagesCausingExiv2Exception)
+            {
+                StreamOut.WriteLine("ImagesCausingExiv2Exception:" + fileName);
+            }
 
             foreach (DataTemplate aDataTemplate in DataTemplates.Values)
             {
@@ -3673,6 +3694,81 @@ namespace QuickImageComment
             string AlternativeValue = secondPart.Substring(indexEqual + 1);
             AlternativeValues.Add(TagName + OriginalValue.Trim(), AlternativeValue.Trim());
         }
+
+        //*****************************************************************
+        // check file for fatal exiv2 exception and react on it
+        //*****************************************************************
+
+        // read file with last fatal exiv2 exception and react on it
+        public static void readExiv2ExceptionFile()
+        {
+            string line;
+            string exceptionFile = System.Environment.GetEnvironmentVariable("APPDATA") + exiv2_exception_file;
+            string imageFileName = "";
+            string exceptionInfo = "";
+#if !DEBUG
+            try
+            {
+#endif
+            if (System.IO.File.Exists(exceptionFile))
+            {
+                System.IO.StreamReader StreamIn = new System.IO.StreamReader(exceptionFile);
+                line = StreamIn.ReadLine();
+                // needs to be adopted if writeFundamentalExceptionToFileAndTerminate in exiv2Cdecl.cpp is changed
+                while (line != null)
+                {
+                    if (line.StartsWith("File:"))
+                    {
+                        imageFileName = line.Substring(5).Trim();
+                    }
+                    else
+                    {
+                        exceptionInfo += "\r\n" + line;
+                    }
+                    line = StreamIn.ReadLine();
+                }
+                StreamIn.Close();
+                if (!imageFileName.Equals(""))
+                {
+                    handleExiv2ExceptionImageFileName(imageFileName, exceptionInfo);
+                }
+            }
+#if !DEBUG
+            }
+            catch (Exception ex)
+            {
+                GeneralUtilities.fatalInitMessage("Fehler beim Lesen der Exception-Datei\n" + "Error reading exception file\n\n"
+                    + exceptionFile + "\n", ex);
+            }
+#endif
+        }
+        
+        // actions needed, when exiv2 exception file is filled
+        private static void handleExiv2ExceptionImageFileName(string imageFileName, string execeptionInfo)
+        {
+            string lastImageFileName = getCfgUserString(enumCfgUserString.LastImageCausingExiv2Exception);
+            // an image caused fatal exiv2 exception - and it is not same as last reported
+            if (lastImageFileName.Equals("") || !lastImageFileName.Equals(imageFileName))
+            {
+                // save name of file which caused last exiv2 exception 
+                setCfgUserString(enumCfgUserString.LastImageCausingExiv2Exception, imageFileName);
+
+                // inform user
+                string details = LangCfg.getTextForTextBox(LangCfg.Others.prgTerminatedWith, imageFileName);
+                details += "\r\n" + LangCfg.getText(LangCfg.Others.errorFileVersion) + " " + Program.VersionNumberInformational
+                    + " " + Program.CompileTime.ToString("dd.MM.yyyy");
+                details += execeptionInfo;
+
+                new FormError(LangCfg.getText(LangCfg.Others.duringLastUsage), details, "");
+            }
+
+            // add image to list of images causing fatal exiv2 exception
+            if (!ImagesCausingExiv2Exception.Contains(imageFileName))
+            {
+                ImagesCausingExiv2Exception.Add(imageFileName);
+            }
+        }
+
 
         //*****************************************************************
         // other methods

@@ -199,7 +199,8 @@ namespace QuickImageComment
             W_imageNotModifiedGrid,
             W_imageNotModifiedTxt,
             W_MakernoteValueNotSaved,
-            E_exportFileNoWriteAccess
+            E_exportFileNoWriteAccess,
+            Q_causedFatalExiv2Exception
         }
 
         public enum Others
@@ -331,7 +332,9 @@ namespace QuickImageComment
             IptcKeyWords,
             notPredefinedKeyWordsUsed,
             queryMapInfo,
-            infoDonate
+            infoDonate,
+            duringLastUsage,
+            prgTerminatedWith
         }
 
         // defined as variable
@@ -563,6 +566,11 @@ namespace QuickImageComment
         public static string getTextForTextBox(Others txtIndex)
         {
             return getText(txtIndex).Replace("\n", "\r\n");
+        }
+
+        public static string getTextForTextBox(Others txtIndex, string Parameter1)
+        {
+            return getText(txtIndex, Parameter1).Replace("\n", "\r\n");
         }
 
         public static string translate(string TextToTranslate, string Source)

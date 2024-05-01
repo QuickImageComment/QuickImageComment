@@ -476,30 +476,34 @@ namespace QuickImageComment
                 string comment = "";
                 string errorText = "";
 
-                // lock because this method can be called in main thread or via updateCaches
-                lock (LockReadExiv2)
+                // do not call exiv2 if image is known to cause fatal exceptions
+                if (!ConfigDefinition.getImagesCausingExiv2Exception().Contains(this.ImageFileName))
                 {
-                    status = exiv2readImageByFileName(ImageFileName, iniPath, ref comment, ref IptcUTF8, ref errorText);
-                    if (!errorText.Equals("") && !ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.HideExiv2Error))
+                    // lock because this method can be called in main thread or via updateCaches
+                    lock (LockReadExiv2)
                     {
-                        MetaDataWarningsRead.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error), errorText));
-                    }
-
-                    // read Exif, Iptc and XMP only, if exiv2readImageByFileName did not return with exception
-                    if (status != exiv2StatusException)
-                    {
-                        // get image comment
-                        addReplaceOtherMetaDataKnownType("Image.Comment", comment);
-
-                        if (neededKeys == null)
+                        status = exiv2readImageByFileName(ImageFileName, iniPath, ref comment, ref IptcUTF8, ref errorText);
+                        if (!errorText.Equals("") && !ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.HideExiv2Error))
                         {
-                            // read all Exif, IPTC and XMP data
-                            readAllExifIptcXmp();
+                            MetaDataWarningsRead.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error), errorText));
                         }
-                        else
+
+                        // read Exif, Iptc and XMP only, if exiv2readImageByFileName did not return with exception
+                        if (status != exiv2StatusException)
                         {
-                            // read all Exif, IPTC and XMP data
-                            readExifIptcXmpForNeededKeys(neededKeys);
+                            // get image comment
+                            addReplaceOtherMetaDataKnownType("Image.Comment", comment);
+
+                            if (neededKeys == null)
+                            {
+                                // read all Exif, IPTC and XMP data
+                                readAllExifIptcXmp();
+                            }
+                            else
+                            {
+                                // read all Exif, IPTC and XMP data
+                                readExifIptcXmpForNeededKeys(neededKeys);
+                            }
                         }
                     }
                 }
@@ -3284,18 +3288,24 @@ namespace QuickImageComment
             // but then old warnings from deviating text entries remain
             // deleting all warnings outside readMetaData would delete warnings, which
             // then are not added again in case only text file was written
-            readMetaData(SavePerformance, null, new System.IO.FileInfo(ImageFileName));
-            readTxtFile();
-            addMetaDataFromBitMap();
+            readAllMetaDataAndSetRelatedTags(SavePerformance);
 
-            SavePerformance.measure("Meta data read");
-            setOldArtistAndCommentAndOtherInternalTags();
-            fillTileViewMetaDataItems();
             // update data table for find
             // check if table exists and image is in scope is done in FormFind
             FormFind.addOrUpdateRow(this);
 
             return statusWrite;
+        }
+
+        internal void readAllMetaDataAndSetRelatedTags(Performance performance)
+        {
+            readMetaData(performance, null, new System.IO.FileInfo(ImageFileName));
+            readTxtFile();
+            addMetaDataFromBitMap();
+
+            performance.measure("Meta data read");
+            setOldArtistAndCommentAndOtherInternalTags();
+            fillTileViewMetaDataItems();
         }
 
         // check, if key of tag is in list of keys of fields still to be changed
@@ -3603,11 +3613,7 @@ namespace QuickImageComment
                     {
                         System.IO.File.Delete(ImageFileNameBak);
                     }
-                    readMetaData(SavePerformance, null, new System.IO.FileInfo(ImageFileName));
-                    readTxtFile();
-                    addMetaDataFromBitMap();
-                    setOldArtistAndCommentAndOtherInternalTags();
-                    fillTileViewMetaDataItems();
+                    readAllMetaDataAndSetRelatedTags(SavePerformance);
                     // update data table for find
                     // check if table exists and image is in scope is done in FormFind
                     FormFind.addOrUpdateRow(this);
