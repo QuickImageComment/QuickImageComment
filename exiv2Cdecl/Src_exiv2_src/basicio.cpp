@@ -36,6 +36,7 @@
 #include <curl/curl.h>
 #endif
 
+#ifdef EXV_ENABLE_FILESYSTEM
 #ifdef _WIN32
 using mode_t = unsigned short;
 #include <io.h>
@@ -49,19 +50,7 @@ namespace fs = std::filesystem;
 #include <experimental/filesystem>
 namespace fs = std::experimental::filesystem;
 #endif
-
-// *****************************************************************************
-// class member definitions
-namespace {
-/// @brief replace each substring of the subject that matches the given search string with the given replacement.
-void ReplaceStringInPlace(std::string& subject, std::string_view search, std::string_view replace) {
-  auto pos = subject.find(search);
-  while (pos != std::string::npos) {
-    subject.replace(pos, search.length(), replace);
-    pos += subject.find(search, pos + replace.length());
-  }
-}
-}  // namespace
+#endif
 
 namespace Exiv2 {
 void BasicIo::readOrThrow(byte* buf, size_t rcount, ErrorCode err) {
@@ -75,6 +64,7 @@ void BasicIo::seekOrThrow(int64_t offset, Position pos, ErrorCode err) {
   Internal::enforce(r == 0, err);
 }
 
+#ifdef EXV_ENABLE_FILESYSTEM
 //! Internal Pimpl structure of class FileIo.
 class FileIo::Impl {
  public:
@@ -167,10 +157,7 @@ int FileIo::Impl::switchMode(OpMode opMode) {
   if (offset == -1)
     return -1;
   // 'Manual' open("r+b") to avoid munmap()
-  if (fp_) {
-    std::fclose(fp_);
-    fp_ = nullptr;
-  }
+  std::fclose(fp_);
   openMode_ = "r+b";
   opMode_ = opSeek;
   fp_ = std::fopen(path_.c_str(), openMode_.c_str());
@@ -570,6 +557,7 @@ const std::string& FileIo::path() const noexcept {
 
 void FileIo::populateFakeData() {
 }
+#endif
 
 //! Internal Pimpl structure of class MemIo.
 class MemIo::Impl final {
@@ -918,7 +906,7 @@ void XPathIo::ReadDataUri(const std::string& path) {
   delete[] decodeData;
 }
 
-#else
+#elif defined(EXV_ENABLE_FILESYSTEM)
 XPathIo::XPathIo(const std::string& orgPath) : FileIo(XPathIo::writeDataToFile(orgPath)), tempFilePath_(path()) {
 }
 
@@ -933,6 +921,16 @@ void XPathIo::transfer(BasicIo& src) {
   if (isTemp_) {
     // replace temp path to gent path.
     auto currentPath = path();
+
+    // replace each substring of the subject that matches the given search string with the given replacement.
+    auto ReplaceStringInPlace = [](std::string& subject, std::string_view search, std::string_view replace) {
+      auto pos = subject.find(search);
+      while (pos != std::string::npos) {
+        subject.replace(pos, search.length(), replace);
+        pos += subject.find(search, pos + replace.length());
+      }
+    };
+
     ReplaceStringInPlace(currentPath, XPathIo::TEMP_FILE_EXT, XPathIo::GEN_FILE_EXT);
     setPath(currentPath);
 
@@ -1385,6 +1383,7 @@ void RemoteIo::populateFakeData() {
   }
 }
 
+#ifdef EXV_ENABLE_WEBREADY
 //! Internal Pimpl structure of class HttpIo.
 class HttpIo::HttpImpl : public Impl {
  public:
@@ -1524,6 +1523,7 @@ void HttpIo::HttpImpl::writeRemote(const byte* data, size_t size, size_t from, s
 HttpIo::HttpIo(const std::string& url, size_t blockSize) {
   p_ = std::make_unique<HttpImpl>(url, blockSize);
 }
+#endif
 
 #ifdef EXV_USE_CURL
 //! Internal Pimpl structure of class RemoteIo.
@@ -1726,7 +1726,7 @@ CurlIo::CurlIo(const std::string& url, size_t blockSize) {
 
 // *************************************************************************
 // free functions
-
+#ifdef EXV_ENABLE_FILESYSTEM
 DataBuf readFile(const std::string& path) {
   FileIo file(path);
   if (file.open("rb") != 0) {
@@ -1750,6 +1750,7 @@ size_t writeFile(const DataBuf& buf, const std::string& path) {
   }
   return file.write(buf.c_data(), buf.size());
 }
+#endif
 
 #ifdef EXV_USE_CURL
 size_t curlWriter(char* data, size_t size, size_t nmemb, std::string* writerData) {

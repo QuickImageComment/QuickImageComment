@@ -23,7 +23,6 @@
 #include <regex>
 #include <sstream>
 #include <string>
-
 // *****************************************************************************
 // class member definitions
 namespace Exiv2::Internal {
@@ -470,7 +469,7 @@ constexpr TagInfo CanonMakerNote::tagInfo_[] = {
     {0x0009, "OwnerName", N_("Owner Name"), N_("Owner Name"), IfdId::canonId, SectionId::makerTags, asciiString, -1,
      printValue},
     {0x000a, "0x000a", N_("0x000a"), N_("Unknown"), IfdId::canonId, SectionId::makerTags, unsignedLong, -1,
-     print0x000c},
+     print0x000a},
     {0x000c, "SerialNumber", N_("Serial Number"), N_("Camera serial number"), IfdId::canonId, SectionId::makerTags,
      unsignedLong, -1, print0x000c},
     {0x000d, "CameraInfo", N_("Camera Info"), N_("Camera info"), IfdId::canonId, SectionId::makerTags, unsignedShort,
@@ -2631,12 +2630,32 @@ std::ostream& CanonMakerNote::print0x0008(std::ostream& os, const Value& value, 
   return os << n.substr(0, n.length() - 4) << "-" << n.substr(n.length() - 4);
 }
 
-std::ostream& CanonMakerNote::print0x000c(std::ostream& os, const Value& value, const ExifData*) {
+std::ostream& CanonMakerNote::print0x000a(std::ostream& os, const Value& value, const ExifData*) {
   std::istringstream is(value.toString());
   uint32_t l = 0;
   is >> l;
   return os << std::setw(4) << std::setfill('0') << std::hex << ((l & 0xffff0000) >> 16) << std::setw(5)
             << std::setfill('0') << std::dec << (l & 0x0000ffff);
+}
+
+std::ostream& CanonMakerNote::print0x000c(std::ostream& os, const Value& value, const ExifData* exifData) {
+  std::istringstream is(value.toString());
+
+  if (!exifData) {
+    return os << value;
+  }
+
+  ExifKey key("Exif.Canon.ModelID");
+  auto pos = exifData->findKey(key);
+  // if model is EOS D30
+  if (pos != exifData->end() && pos->value().count() == 1 && pos->value().toInt64() == 0x01140000) {
+    uint32_t l = 0;
+    is >> l;
+    return os << std::setw(4) << std::setfill('0') << std::hex << ((l & 0xffff0000) >> 16) << std::setw(5)
+              << std::setfill('0') << std::dec << (l & 0x0000ffff);
+  } else {
+    return os << value;
+  }
 }
 
 std::ostream& CanonMakerNote::printCs0x0002(std::ostream& os, const Value& value, const ExifData*) {
@@ -2668,6 +2687,33 @@ std::ostream& printCsLensFFFF(std::ostream& os, const Value& value, const ExifDa
   }
 
   return EXV_PRINT_TAG(canonCsLensType)(os, value, metadata);
+}
+
+/**
+ * @brief convert string to float w/o considering locale
+ *
+ * Using std:stof to convert strings to float takes into account the locale
+ * and thus leads to wrong results when converting e.g. "5.6" with a DE locale
+ * which expects "," as decimal instead of ".". See GitHub issue #2746
+ *
+ * Use std::from_chars once that's properly supported by compilers.
+ *
+ * @param str string to convert
+ * @return float value of string
+ */
+float string_to_float(std::string const& str) {
+  float val{};
+  std::stringstream ss;
+  std::locale c_locale("C");
+  ss.imbue(c_locale);
+  ss << str;
+  ss >> val;
+
+  if (ss.fail()) {
+    throw Error(ErrorCode::kerErrorMessage, std::string("canonmn_int.cpp:string_to_float failed for: ") + str);
+  }
+
+  return val;
 }
 
 std::ostream& printCsLensTypeByMetadata(std::ostream& os, const Value& value, const ExifData* metadata) {
@@ -2733,13 +2779,13 @@ std::ostream& printCsLensTypeByMetadata(std::ostream& os, const Value& value, co
       throw Error(ErrorCode::kerErrorMessage, std::string("Lens regex didn't match for: ") + std::string(label));
     }
 
-    auto tc = base_match[5].length() > 0 ? std::stof(base_match[5].str()) : 1.f;
+    auto tc = base_match[5].length() > 0 ? string_to_float(base_match[5].str()) : 1.f;
 
-    auto flMax = static_cast<int>(std::stof(base_match[2].str()) * tc);
-    int flMin = base_match[1].length() > 0 ? static_cast<int>(std::stof(base_match[1].str()) * tc) : flMax;
+    auto flMax = static_cast<int>(string_to_float(base_match[2].str()) * tc);
+    int flMin = base_match[1].length() > 0 ? static_cast<int>(string_to_float(base_match[1].str()) * tc) : flMax;
 
-    auto aperMaxTele = std::stof(base_match[4].str()) * tc;
-    auto aperMaxShort = base_match[3].length() > 0 ? std::stof(base_match[3].str()) * tc : aperMaxTele;
+    auto aperMaxTele = string_to_float(base_match[4].str()) * tc;
+    auto aperMaxShort = base_match[3].length() > 0 ? string_to_float(base_match[3].str()) * tc : aperMaxTele;
 
     if (flMin != exifFlMin || flMax != exifFlMax || exifAperMax < (aperMaxShort - .1 * tc) ||
         exifAperMax > (aperMaxTele + .1 * tc)) {

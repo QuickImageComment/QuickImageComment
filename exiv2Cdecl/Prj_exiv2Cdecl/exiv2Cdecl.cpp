@@ -33,7 +33,7 @@
 
 //#define TRACING 200
 
-#define VERSION "0.28.2.0"
+#define VERSION "0.28.3.0"
 
 // NOTE: must match definition in ConfigDefinition.cs
 const char* exiv2_exception_file = "\\QIC_exiv2_exception.txt";
