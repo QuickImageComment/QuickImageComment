@@ -564,6 +564,10 @@ namespace QuickImageCommentControls
                 zoomFactorPercent = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.zoomFactorPerCentGeneral);
             }
             ThumbNailSize = ConfigDefinition.getConfigInt(ConfigDefinition.enumConfigInt.ThumbNailSize) * zoomFactorPercent / 100;
+
+            // Thumnail size is limited to 256
+            if (ThumbNailSize > 256) ThumbNailSize = 256;
+
             short sizeX = (short)(ThumbNailSize + ConfigDefinition.getConfigInt(ConfigDefinition.enumConfigInt.LargeIconHorizontalSpace));
             short sizeY = (short)(ThumbNailSize + ConfigDefinition.getConfigInt(ConfigDefinition.enumConfigInt.LargeIconVerticalSpace));
             ListViewItem_SetSpacing(this, sizeX, sizeY);
