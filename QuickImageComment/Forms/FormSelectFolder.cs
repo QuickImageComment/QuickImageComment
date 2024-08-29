@@ -14,10 +14,31 @@ namespace QuickImageComment
             newSelectedFolder = FolderName;
             //GongSolutions.Shell.ShellItem ShellItemSelectedFolder = new GongSolutions.Shell.ShellItem(FolderName);
             theFolderTreeView.SelectedFolder = new GongSolutions.Shell.ShellItem(FolderName);
-            dynamicComboBoxLastFolders.Items.AddRange(ConfigDefinition.getFormSelectFolderLastFolders().ToArray());
+            listBoxLastFolders.Items.Clear();
+            listBoxLastFolders.Items.AddRange(ConfigDefinition.getFormSelectFolderLastFolders().ToArray());
+            listBoxLastFolders.TopIndex = 0;
+
             StartPosition = FormStartPosition.Manual;
             this.Top = Cursor.Position.Y - 20;
             this.Left = Cursor.Position.X - 40;
+
+            // use following line to keep theFormTagValueInput inside Desktop
+            int tempX = SystemInformation.WorkingArea.Width - Width;
+            // use following line to keep theFormTagValueInput inside Main Window (FormQuickImageComment)
+            //int tempX = this.PointToScreen(Point.Empty).X + this.Width - theFormTagValueInput.Width - borderWidth;
+            if (tempX < this.Left)
+            {
+                this.Left = tempX;
+            }
+            // use following line to keep theFormTagValueInput inside Desktop
+            int tempY = SystemInformation.WorkingArea.Height - Height;
+            // use following line to keep theFormTagValueInput inside Main Window (FormQuickImageComment)
+            //int tempY = this.PointToScreen(Point.Empty).Y + this.Height - theFormTagValueInput.Height - titleBorderHeight;
+            if (tempY < this.Top)
+            {
+                this.Top = tempY;
+            }
+
             LangCfg.translateControlTexts(this);
         }
 
@@ -28,14 +49,20 @@ namespace QuickImageComment
 
         private void buttonOk_Click(object sender, EventArgs e)
         {
-            if (dynamicComboBoxLastFolders.Text.Equals(""))
+            if (listBoxLastFolders.SelectedIndex == -1)
                 newSelectedFolder = theFolderTreeView.SelectedFolder.FileSystemPath;
             else
-                newSelectedFolder = dynamicComboBoxLastFolders.Text;
+                newSelectedFolder = listBoxLastFolders.SelectedItem.ToString();
+
+            closeWithSelectedFolder();
+        }
+
+        private void closeWithSelectedFolder()
+        {
             // remove existing entry
             ConfigDefinition.getFormSelectFolderLastFolders().Remove(newSelectedFolder);
             // add at begin of list (if folder exists)
-            if (Directory.Exists(newSelectedFolder)) 
+            if (Directory.Exists(newSelectedFolder))
                 ConfigDefinition.getFormSelectFolderLastFolders().Insert(0, newSelectedFolder);
 
             Close();
@@ -46,9 +73,25 @@ namespace QuickImageComment
             Close();
         }
 
-        private void theFolderTreeView_SelectionChanged(object sender, EventArgs e)
+        private void theFolderTreeView_Enter(object sender, EventArgs e)
         {
-            dynamicComboBoxLastFolders.Text = "";
+            listBoxLastFolders.SelectedIndex = -1;
+
+        }
+
+        private void listBoxLastFolders_DoubleClick(object sender, EventArgs e)
+        {
+            newSelectedFolder = listBoxLastFolders.SelectedItem.ToString();
+            closeWithSelectedFolder();
+        }
+
+        private void listBoxLastFolders_KeyDown(object sender, KeyEventArgs theKeyEventArgs)
+        {
+            if (theKeyEventArgs.KeyCode == Keys.Return)
+            {
+                newSelectedFolder = listBoxLastFolders.SelectedItem.ToString();
+                closeWithSelectedFolder();
+            }
         }
     }
 }
