@@ -262,6 +262,8 @@ namespace QuickImageComment
             this.toolStripButtonFind = new System.Windows.Forms.ToolStripButton();
             this.toolTip1 = new QuickImageComment.ToolTipQIC();
             this.theFolderTreeView = new QuickImageCommentControls.ShellTreeViewQIC();
+            this.toolStripMenuItemCopyTo = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemMoveTo = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer12)).BeginInit();
             this.splitContainer12.Panel1.SuspendLayout();
             this.splitContainer12.Panel2.SuspendLayout();
@@ -1309,7 +1311,9 @@ namespace QuickImageComment
             this.toolStripMenuItemLast,
             this.toolStripSeparator1,
             this.toolStripMenuItemReset,
-            this.toolStripMenuItemDelete});
+            this.toolStripMenuItemDelete,
+            this.toolStripMenuItemCopyTo,
+            this.toolStripMenuItemMoveTo});
             this.toolStripMenuItemImage.Name = "toolStripMenuItemImage";
             this.toolStripMenuItemImage.Size = new System.Drawing.Size(35, 20);
             this.toolStripMenuItemImage.Text = "&Bild";
@@ -1318,14 +1322,14 @@ namespace QuickImageComment
             // 
             this.toolStripMenuItemSave.Name = "toolStripMenuItemSave";
             this.toolStripMenuItemSave.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.toolStripMenuItemSave.Size = new System.Drawing.Size(159, 22);
+            this.toolStripMenuItemSave.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItemSave.Text = "&Speichern";
             this.toolStripMenuItemSave.Click += new System.EventHandler(this.toolStripMenuItemSave_Click);
             // 
             // toolStripMenuItemFirst
             // 
             this.toolStripMenuItemFirst.Name = "toolStripMenuItemFirst";
-            this.toolStripMenuItemFirst.Size = new System.Drawing.Size(159, 22);
+            this.toolStripMenuItemFirst.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItemFirst.Text = "&Erstes";
             this.toolStripMenuItemFirst.Click += new System.EventHandler(this.toolStripMenuItemFirst_Click);
             // 
@@ -1333,7 +1337,7 @@ namespace QuickImageComment
             // 
             this.toolStripMenuItemPrevious.Name = "toolStripMenuItemPrevious";
             this.toolStripMenuItemPrevious.ShortcutKeys = System.Windows.Forms.Keys.F11;
-            this.toolStripMenuItemPrevious.Size = new System.Drawing.Size(159, 22);
+            this.toolStripMenuItemPrevious.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItemPrevious.Text = "&Vorheriges";
             this.toolStripMenuItemPrevious.Click += new System.EventHandler(this.toolStripMenuItemPrevious_Click);
             // 
@@ -1341,26 +1345,26 @@ namespace QuickImageComment
             // 
             this.toolStripMenuItemNext.Name = "toolStripMenuItemNext";
             this.toolStripMenuItemNext.ShortcutKeys = System.Windows.Forms.Keys.F12;
-            this.toolStripMenuItemNext.Size = new System.Drawing.Size(159, 22);
+            this.toolStripMenuItemNext.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItemNext.Text = "&Nächstes";
             this.toolStripMenuItemNext.Click += new System.EventHandler(this.toolStripMenuItemNext_Click);
             // 
             // toolStripMenuItemLast
             // 
             this.toolStripMenuItemLast.Name = "toolStripMenuItemLast";
-            this.toolStripMenuItemLast.Size = new System.Drawing.Size(159, 22);
+            this.toolStripMenuItemLast.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItemLast.Text = "Le&tztes";
             this.toolStripMenuItemLast.Click += new System.EventHandler(this.toolStripMenuItemLast_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(156, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
             // 
             // toolStripMenuItemReset
             // 
             this.toolStripMenuItemReset.Name = "toolStripMenuItemReset";
-            this.toolStripMenuItemReset.Size = new System.Drawing.Size(159, 22);
+            this.toolStripMenuItemReset.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItemReset.Text = "&Zurücksetzen";
             this.toolStripMenuItemReset.ToolTipText = "Zurücksetzen der Eingaben seit dem letzten Speichern";
             this.toolStripMenuItemReset.Click += new System.EventHandler(this.toolStripMenuItemReset_Click);
@@ -1369,7 +1373,7 @@ namespace QuickImageComment
             // 
             this.toolStripMenuItemDelete.Name = "toolStripMenuItemDelete";
             this.toolStripMenuItemDelete.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.L)));
-            this.toolStripMenuItemDelete.Size = new System.Drawing.Size(159, 22);
+            this.toolStripMenuItemDelete.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItemDelete.Text = "&Löschen";
             this.toolStripMenuItemDelete.Click += new System.EventHandler(this.toolStripMenuItemDelete_Click);
             // 
@@ -2472,6 +2476,20 @@ namespace QuickImageComment
             this.theFolderTreeView.Size = new System.Drawing.Size(253, 147);
             this.theFolderTreeView.TabIndex = 0;
             // 
+            // toolStripMenuItemCopyTo
+            // 
+            this.toolStripMenuItemCopyTo.Name = "toolStripMenuItemCopyTo";
+            this.toolStripMenuItemCopyTo.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItemCopyTo.Text = "Kopieren nach ...";
+            this.toolStripMenuItemCopyTo.Click += new System.EventHandler(this.toolStripMenuItemCopyTo_Click);
+            // 
+            // toolStripMenuItemMoveTo
+            // 
+            this.toolStripMenuItemMoveTo.Name = "toolStripMenuItemMoveTo";
+            this.toolStripMenuItemMoveTo.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItemMoveTo.Text = "Verschieben nach ...";
+            this.toolStripMenuItemMoveTo.Click += new System.EventHandler(this.toolStripMenuItemMoveTo_Click);
+            // 
             // FormQuickImageComment
             // 
             this.AllowDrop = true;
@@ -2775,5 +2793,7 @@ namespace QuickImageComment
         private System.Windows.Forms.DataGridViewTextBoxColumn KeySec;
         internal System.Windows.Forms.Label dynamicLabelImageNumber;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemDonate;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemCopyTo;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemMoveTo;
     }
 }

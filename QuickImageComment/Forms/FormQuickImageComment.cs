@@ -17,14 +17,19 @@
 #define USESTARTUPTHREAD
 
 using JR.Utils.GUI.Forms;
+using Microsoft.VisualBasic.FileIO;
 using QuickImageCommentControls;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
+using System.Windows.Media;
+using Color = System.Drawing.Color;
+using Pen = System.Drawing.Pen;
 
 namespace QuickImageComment
 {
@@ -34,6 +39,9 @@ namespace QuickImageComment
         enum enumComboBoxCommentChange { nothing, overwrite, insert, append };
         // enums for entries in comboBoxKeyWordChange; must fit to definition of comboBox!
         enum enumComboBoxKeyWordChange { nothing, overwrite, add };
+
+        // enums for modes of manageSelectedFiles
+        enum manageSelectedFilesModes { delete, copy, move }
 
         // as controls can be moved between different panels, the leading part of control's full name
         // shall be ignored, when adding them in zoom basis data collection
@@ -94,8 +102,8 @@ namespace QuickImageComment
         // public to be displayed in FormMetaDataDefinition and ListViewfiles; stored here together with other constants
         public const int maxDrawItemsThumbnail = 7;
 
-        // maximum number of files listed in delete-files-message-box
-        private const int maxListedFiledToDelete = 10;
+        // maximum number of files listed in manage-files-message-box
+        private const int maxListedFiledToManage = 10;
 
         // Scale to save splitter ratio as int with sufficient accuracy 
         // to avoid moving the splitter just due to rounding
@@ -1795,9 +1803,39 @@ namespace QuickImageComment
         // delete image file and associated files
         private void toolStripMenuItemDelete_Click(object sender, EventArgs e)
         {
+            manageSelectedFiles(manageSelectedFilesModes.delete, "");
+        }
+
+        // copy image file and associated files to other folder
+        private void toolStripMenuItemCopyTo_Click(object sender, EventArgs e)
+        {
+            FormSelectFolder formSelectFolder = new FormSelectFolder(FolderName);
+            formSelectFolder.ShowDialog();
+            string newFolderName = formSelectFolder.getSelectedFolder();
+            if (!newFolderName.Equals(""))
+            {
+                manageSelectedFiles(manageSelectedFilesModes.copy, newFolderName);
+            }
+        }
+
+        // move image file and associated files to other folder
+        private void toolStripMenuItemMoveTo_Click(object sender, EventArgs e)
+        {
+            FormSelectFolder formSelectFolder = new FormSelectFolder(FolderName);
+            formSelectFolder.ShowDialog();
+            string newFolderName = formSelectFolder.getSelectedFolder();
+            if (!newFolderName.Equals(""))
+            {
+                manageSelectedFiles(manageSelectedFilesModes.move, newFolderName);
+            }
+        }
+
+        // manage selected files: delete / copy / move
+        private void manageSelectedFiles(manageSelectedFilesModes mode, string targetFolder)
+        {
             lock (UserControlFiles.LockListViewFiles)
             {
-                int indexToDelete = -1;
+                int indexToManage = -1;
                 int nextSelectedIndex = theUserControlFiles.listViewFiles.Items.Count;
 
                 if (theUserControlFiles.listViewFiles.SelectedIndices.Count == 0)
@@ -1806,104 +1844,180 @@ namespace QuickImageComment
                 }
                 else
                 {
-                    string[] filesToBeDeleted = new string[theUserControlFiles.listViewFiles.SelectedIndices.Count];
+                    string[] filesToBeManaged = new string[theUserControlFiles.listViewFiles.SelectedIndices.Count];
                     string fileList = "";
+                    string targetFileName = "";
 
                     for (int ii = 0; ii < theUserControlFiles.listViewFiles.SelectedIndices.Count; ii++)
                     {
-                        indexToDelete = theUserControlFiles.listViewFiles.SelectedIndices[ii];
-                        if (nextSelectedIndex > indexToDelete) nextSelectedIndex = indexToDelete;
+                        indexToManage = theUserControlFiles.listViewFiles.SelectedIndices[ii];
+                        if (nextSelectedIndex > indexToManage) nextSelectedIndex = indexToManage;
 
-                        ExtendedImage ExtendedImageToDelete = ImageManager.getExtendedImage(indexToDelete);
-                        filesToBeDeleted[ii] = ExtendedImageToDelete.getImageFileName();
-                        if (ii < maxListedFiledToDelete)
+                        ExtendedImage ExtendedImageToManage = ImageManager.getExtendedImage(indexToManage);
+                        filesToBeManaged[ii] = ExtendedImageToManage.getImageFileName();
+                        if (ii < maxListedFiledToManage)
                         {
-                            fileList = fileList + "\n" + ExtendedImageToDelete.getImageFileName();
+                            fileList = fileList + "\n" + ExtendedImageToManage.getImageFileName();
                         }
-                        else if (ii == maxListedFiledToDelete)
+                        else if (ii == maxListedFiledToManage)
                         {
                             fileList = fileList + "\n...";
                         }
                     }
 
+                    // relevant for mode == delete only, copy and move are done without user confirmation
                     // if only one file is to be deleted, use standard message box from FileSystem.DeleteFile,
                     // because this box displays file details
-                    // if several files are to be deleted first ask, with customized message box
+                    // if several files are to be deleted, first ask with customized message box
                     DialogResult theDialogResult = DialogResult.Yes;
-                    Microsoft.VisualBasic.FileIO.UIOption theUIOption;
-
-                    if (theUserControlFiles.listViewFiles.SelectedIndices.Count > 1)
+                    Microsoft.VisualBasic.FileIO.UIOption theUIOption = UIOption.AllDialogs;
+                    if (mode == manageSelectedFilesModes.delete)
                     {
-                        theDialogResult = GeneralUtilities.questionMessage(LangCfg.Message.Q_delete_files,
-                            theUserControlFiles.listViewFiles.SelectedIndices.Count.ToString(), fileList);
-                        theUIOption = Microsoft.VisualBasic.FileIO.UIOption.OnlyErrorDialogs;
-                    }
-                    else
-                    {
-                        theUIOption = Microsoft.VisualBasic.FileIO.UIOption.AllDialogs;
+                        if (theUserControlFiles.listViewFiles.SelectedIndices.Count > 1)
+                        {
+                            theDialogResult = GeneralUtilities.questionMessage(LangCfg.Message.Q_delete_files,
+                                theUserControlFiles.listViewFiles.SelectedIndices.Count.ToString(), fileList);
+                            theUIOption = Microsoft.VisualBasic.FileIO.UIOption.OnlyErrorDialogs;
+                        }
                     }
 
                     if (theDialogResult == DialogResult.Yes)
                     {
-                        for (int ii = theUserControlFiles.listViewFiles.SelectedIndices.Count - 1; ii >= 0; ii--)
+                        for (int ii = 0; ii < filesToBeManaged.Count(); ii++)
                         {
-                            //checkForChangeNecessary = false;
-                            // use methods from VisualBasic to send deleted files to recycle bin
+                            // use methods from VisualBasic to manage files
 #if !DEBUG
                             try
 #endif
                             {
-                                ShellTreeViewQIC.addShellListenerIgnoreDelete(filesToBeDeleted[ii]);
-                                Microsoft.VisualBasic.FileIO.FileSystem.DeleteFile(filesToBeDeleted[ii],
-                                  theUIOption, Microsoft.VisualBasic.FileIO.RecycleOption.SendToRecycleBin);
-                                // update data table for find
-                                FormFind.deleteRow(filesToBeDeleted[ii]);
+                                if (mode == manageSelectedFilesModes.delete)
+                                {
+                                    ShellTreeViewQIC.addShellListenerIgnoreDelete(filesToBeManaged[ii]);
+                                    try
+                                    {
+                                        Microsoft.VisualBasic.FileIO.FileSystem.DeleteFile(filesToBeManaged[ii],
+                                            theUIOption, Microsoft.VisualBasic.FileIO.RecycleOption.SendToRecycleBin);
+                                        // update data table for find
+                                        FormFind.deleteRow(filesToBeManaged[ii]);
+                                    }
+                                    catch (OperationCanceledException)
+                                    {
+                                        // can only happen if just one file is selected
+                                        // then nothing was done so far
+                                        return;
+                                    }
+                                }
+                                else
+                                {
+                                    targetFileName = GeneralUtilities.fileNameNewFolder(filesToBeManaged[ii], targetFolder);
+                                    theDialogResult = DialogResult.Yes;
+                                    if (File.Exists(targetFileName))
+                                    {
+                                        if (ii < filesToBeManaged.Count() -1)
+                                        {
+                                            // not the last file to manage, offer cancel all left files
+                                            theDialogResult = GeneralUtilities.questionMessageYesNoCancel(LangCfg.Message.Q_replaceFileInDestinationCancel,
+                                                GeneralUtilities.getBasicFileInformation(targetFileName),
+                                                GeneralUtilities.getBasicFileInformation(filesToBeManaged[ii]));
+                                        }
+                                        else
+                                        {
+                                            theDialogResult = GeneralUtilities.questionMessage(LangCfg.Message.Q_replaceFileInDestination,
+                                                GeneralUtilities.getBasicFileInformation(targetFileName),
+                                                GeneralUtilities.getBasicFileInformation(filesToBeManaged[ii]));
+                                        }
+                                    }
+                                    if (theDialogResult == DialogResult.Yes)
+                                    {
+                                        if (mode == manageSelectedFilesModes.copy)
+                                        {
+                                            // hint: catching OperationCanceledException does not work with CopyFile 
+                                            FileSystem.CopyFile(filesToBeManaged[ii],
+                                                GeneralUtilities.fileNameNewFolder(filesToBeManaged[ii], targetFolder),
+                                                true);
+                                        }
+                                        else // mode == manageSelectedFilesModes.move
+                                        {
+                                            ShellTreeViewQIC.addShellListenerIgnoreDelete(filesToBeManaged[ii]);
+                                            Microsoft.VisualBasic.FileIO.FileSystem.MoveFile(filesToBeManaged[ii],
+                                                GeneralUtilities.fileNameNewFolder(filesToBeManaged[ii], targetFolder),
+                                                true);
+                                            // update data table for find
+                                            FormFind.deleteRow(filesToBeManaged[ii]);
+                                        }
+                                    }
+                                    else if (theDialogResult == DialogResult.No)
+                                    {
+                                        // continue with next selected file
+                                        continue;
+                                    }
+                                    else if (theDialogResult == DialogResult.Cancel)
+                                    {
+                                        // leave the loop iterating selected files
+                                        break;
+                                    }
+                                }
+
+                                // manage additional files
+                                foreach (string Extension in ConfigDefinition.getAdditionalFileExtensionsList())
+                                {
+                                    if (File.Exists(GeneralUtilities.additionalFileName(filesToBeManaged[ii], Extension)))
+                                    {
+                                        string additionalFile = GeneralUtilities.additionalFileName(filesToBeManaged[ii], Extension);
+                                        switch (mode)
+                                        {
+                                            case manageSelectedFilesModes.delete:
+                                                Microsoft.VisualBasic.FileIO.FileSystem.DeleteFile(additionalFile,
+                                                Microsoft.VisualBasic.FileIO.UIOption.OnlyErrorDialogs, Microsoft.VisualBasic.FileIO.RecycleOption.SendToRecycleBin);
+                                                break;
+                                            case manageSelectedFilesModes.copy:
+                                                Microsoft.VisualBasic.FileIO.FileSystem.CopyFile(additionalFile,
+                                                    GeneralUtilities.fileNameNewFolder(additionalFile, targetFolder),
+                                                    true);
+                                                break;
+                                            case manageSelectedFilesModes.move:
+                                                ShellTreeViewQIC.addShellListenerIgnoreDelete(additionalFile);
+                                                Microsoft.VisualBasic.FileIO.FileSystem.MoveFile(additionalFile,
+                                                    GeneralUtilities.fileNameNewFolder(additionalFile, targetFolder),
+                                                    true);
+                                                break;
+                                        }
+                                    }
+                                }
                             }
 #if !DEBUG
                             catch (Exception ex)
                             {
-                                if (ex is OperationCanceledException)
-                                {
-                                    return;
-                                }
-                                else
-                                {
-                                    GeneralUtilities.message(LangCfg.Message.E_delete, ex.ToString());
-                                }
+                                GeneralUtilities.message(LangCfg.Message.E_fileManagement, ex.ToString());
                             }
 #endif
-                            // delete additional files
-                            foreach (string Extension in ConfigDefinition.getAdditionalFileExtensionsList())
+                            if (mode == manageSelectedFilesModes.delete ||
+                                mode == manageSelectedFilesModes.move)
                             {
-                                if (File.Exists(GeneralUtilities.additionalFileName(filesToBeDeleted[ii], Extension)))
-                                {
-                                    Microsoft.VisualBasic.FileIO.FileSystem.DeleteFile(GeneralUtilities.additionalFileName(filesToBeDeleted[ii], Extension),
-                                      Microsoft.VisualBasic.FileIO.UIOption.OnlyErrorDialogs, Microsoft.VisualBasic.FileIO.RecycleOption.SendToRecycleBin);
-                                }
-                            }
-                            // following action may be executed already via the event from ShellItemChangeEventHandler
-                            // so check the index and do it here, if event did fail
-                            if (ii < theUserControlFiles.listViewFiles.SelectedIndices.Count)
-                            {
+                                int index = theUserControlFiles.listViewFiles.getIndexOf(filesToBeManaged[ii]);
                                 // delete entry in lists in Image Manager
-                                ImageManager.deleteExtendedImage(theUserControlFiles.listViewFiles.SelectedIndices[ii]);
+                                ImageManager.deleteExtendedImage(index);
                                 // remove item in listView
-                                theUserControlFiles.listViewFiles.Items.RemoveAt(theUserControlFiles.listViewFiles.SelectedIndices[ii]);
+                                theUserControlFiles.listViewFiles.Items.RemoveAt(index);
                             }
                         }
 
-                        // clear list of thumbnails, will be created new with new assignments
-                        theUserControlFiles.listViewFiles.clearThumbnails();
+                        if (mode == manageSelectedFilesModes.delete ||
+                            mode == manageSelectedFilesModes.move)
+                        {
+                            // clear list of thumbnails, will be created new with new assignments
+                            theUserControlFiles.listViewFiles.clearThumbnails();
 
-                        // display next image
-                        if (nextSelectedIndex >= theUserControlFiles.listViewFiles.Items.Count)
-                        {
-                            nextSelectedIndex = theUserControlFiles.listViewFiles.Items.Count - 1;
-                        }
-                        if (nextSelectedIndex >= 0)
-                        {
-                            theUserControlFiles.listViewFiles.SelectedIndices.Add(nextSelectedIndex);
-                            theUserControlFiles.listViewFiles.EnsureVisible(nextSelectedIndex);
+                            // display next image
+                            if (nextSelectedIndex >= theUserControlFiles.listViewFiles.Items.Count)
+                            {
+                                nextSelectedIndex = theUserControlFiles.listViewFiles.Items.Count - 1;
+                            }
+                            if (nextSelectedIndex >= 0)
+                            {
+                                theUserControlFiles.listViewFiles.SelectedIndices.Add(nextSelectedIndex);
+                                theUserControlFiles.listViewFiles.EnsureVisible(nextSelectedIndex);
+                            }
                         }
                     }
                     // set focus an main mask - file list again (focus lost, probably due to display of message)

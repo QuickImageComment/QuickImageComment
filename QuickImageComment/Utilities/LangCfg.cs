@@ -103,7 +103,7 @@ namespace QuickImageComment
             E_readUserConfigFile,
             E_invalidConfigValue,
             E_loadErrorCustomization,
-            E_delete,
+            E_fileManagement,
             E_readFolder,
             E_TagForGenericList,
             W_outOfMemory,
@@ -200,7 +200,9 @@ namespace QuickImageComment
             W_imageNotModifiedTxt,
             W_MakernoteValueNotSaved,
             E_exportFileNoWriteAccess,
-            Q_causedFatalExiv2Exception
+            Q_causedFatalExiv2Exception,
+            Q_replaceFileInDestination,
+            Q_replaceFileInDestinationCancel
         }
 
         public enum Others
@@ -334,7 +336,9 @@ namespace QuickImageComment
             queryMapInfo,
             infoDonate,
             duringLastUsage,
-            prgTerminatedWith
+            prgTerminatedWith,
+            fileSize,
+            fileLastModified
         }
 
         // defined as variable

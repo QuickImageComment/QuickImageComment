@@ -391,6 +391,25 @@ namespace QuickImageComment
             return ImageFileName.Substring(0, ImageFileName.Length - originalExtension.Length) + additionalExtension;
         }
 
+        // return file name with new folder
+        public static string fileNameNewFolder(string fileName, string newFolder)
+        {
+            return newFolder + "\\" + System.IO.Path.GetFileName(fileName);
+        }
+
+        // basic file information 
+        public static string getBasicFileInformation(string fileName)
+        {
+            System.IO.FileInfo theFileInfo = new System.IO.FileInfo(fileName);
+
+            double FileSize = theFileInfo.Length;
+            FileSize = FileSize / 1024;
+            return fileName + "\n"
+                + LangCfg.getText(LangCfg.Others.fileSize) + " " + FileSize.ToString("#,### KB") + "\n"
+                + LangCfg.getText(LangCfg.Others.fileLastModified) + " " + theFileInfo.LastWriteTime.ToString();
+        }
+
+
         // return rotation index from rotation string in text-file
         // rotation index as defined in Exif-specification
         public static ushort rotationIndexFromTxtFileString(string RotationString)
