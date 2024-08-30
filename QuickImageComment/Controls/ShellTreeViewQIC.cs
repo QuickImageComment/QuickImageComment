@@ -18,6 +18,10 @@
 //
 // adapted for QuickImageComment
 // Norbert Wagner 2020
+
+// enable to log listener events
+//#define LOGLISTENEREVENTS
+
 using GongSolutions.Shell;
 using GongSolutions.Shell.Interop;
 using Microsoft.Win32;
@@ -466,7 +470,9 @@ namespace QuickImageCommentControls
 
             if (!FormQuickImageComment.closing && !parsingName.StartsWith("::"))
             {
-                //Logger.log("ItemCreated Start " + e.Item.ParsingName);
+#if LOGLISTENEREVENTS
+                Logger.log("ItemCreated Start " + e.Item.ParsingName);
+#endif
                 if (e.Item.IsFileSystem && !e.Item.IsFolder)
                 {
                     // start in separate thread so that lock is working
@@ -496,7 +502,9 @@ namespace QuickImageCommentControls
 
             if (!FormQuickImageComment.closing && !parsingName.StartsWith("::"))
             {
-                //Logger.log("ItemDeleted Start " + e.Item.ParsingName);
+#if LOGLISTENEREVENTS
+                Logger.log("ItemDeleted Start " + e.Item.ParsingName);
+#endif
                 if (ShellListenerIgnoreDelete.Contains(e.Item.FileSystemPath))
                 {
                     ShellListenerIgnoreDelete.Remove(e.Item.FileSystemPath);
@@ -533,7 +541,9 @@ namespace QuickImageCommentControls
 
             if (!FormQuickImageComment.closing && !parsingName.StartsWith("::"))
             {
-                //Logger.log("ItemRenamed Start " + e.OldItem.ParsingName);
+#if LOGLISTENEREVENTS
+                Logger.log("ItemRenamed Start " + e.OldItem.ParsingName);
+#endif
                 string key = e.OldItem.FileSystemPath + "*" + e.NewItem.FileSystemPath;
                 if (ShellListenerIgnoreRename.Contains(key))
                 {
@@ -571,7 +581,9 @@ namespace QuickImageCommentControls
 
             if (!FormQuickImageComment.closing && !parsingName.StartsWith("::"))
             {
-                //Logger.log("ItemUpdated Start " + e.Item.ParsingName);
+#if LOGLISTENEREVENTS
+                Logger.log("ItemUpdated Start " + e.Item.ParsingName);
+#endif
                 // here no check for external/internal like for delete or rename
                 // check is done in UserControlFiles.createOrUpdateItemListViewFiles using last write time
                 if (e.Item.IsFileSystem && !e.Item.IsFolder)
@@ -599,7 +611,9 @@ namespace QuickImageCommentControls
             {
                 if (!FormQuickImageComment.closing && e.Item.Parent != null && !e.Item.ParsingName.StartsWith("::"))
                 {
-                    //Logger.log("FolderContentChanged Start " + e.Item.ParsingName);
+#if LOGLISTENEREVENTS
+                    Logger.log("FolderContentChanged Start " + e.Item.ParsingName);
+#endif
                     TreeNode parent = FindItem(e.Item.Parent, m_TreeView.Nodes[0]);
                     if (parent != null) RefreshItem(parent);
                 }
@@ -616,7 +630,9 @@ namespace QuickImageCommentControls
             {
                 if (!FormQuickImageComment.closing && e.OldItem.Parent != null && !e.OldItem.ParsingName.StartsWith("::"))
                 {
-                    //Logger.log("FolderRenamed Start " + e.OldItem.ParsingName);
+#if LOGLISTENEREVENTS
+                    Logger.log("FolderRenamed Start " + e.OldItem.ParsingName);
+#endif
                     TreeNode node = FindItem(e.OldItem.Parent, m_TreeView.Nodes[0]);
                     if (node != null) RefreshItem(node);
                 }
@@ -632,7 +648,9 @@ namespace QuickImageCommentControls
             {
                 if (!FormQuickImageComment.closing && e.Item.Parent != null && !e.Item.ParsingName.StartsWith("::"))
                 {
-                    //Logger.log("FolderUpdated Start " + e.Item.ParsingName);
+#if LOGLISTENEREVENTS
+                    Logger.log("FolderUpdated Start " + e.Item.ParsingName);
+#endif
                     TreeNode parent = FindItem(e.Item.Parent, m_TreeView.Nodes[0]);
                     if (parent != null) RefreshItem(parent);
                 }
