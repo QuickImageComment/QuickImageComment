@@ -330,6 +330,19 @@ namespace QuickImageComment
             enableDisableControlsBasedOnSelection();
         }
 
+        // open mask to select from open applications
+        private void buttonSelectApplication_Click(object sender, EventArgs e)
+        {
+            FormSelectApplication formSelectApplication = new FormSelectApplication();
+            formSelectApplication.ShowDialog();
+            string selectedPath = formSelectApplication.getSelectedApplicationProgramPath();
+            if (!selectedPath.Equals(""))
+            {
+                textBoxProgramPath.Text = selectedPath;
+                textBoxWindowsTitle.Text = formSelectApplication.getSelectedApplicationWindowTitle();
+            }
+        }
+
         // browse for program path
         private void buttonBrowse_Click(object sender, EventArgs e)
         {
@@ -400,6 +413,7 @@ namespace QuickImageComment
         private void enableDisableControlsBasedOnType()
         {
             // controls for choice program
+            buttonSelectApplication.Enabled = radioButtonProgram.Checked;
             labelProgramPath.Enabled = radioButtonProgram.Checked;
             textBoxProgramPath.Enabled = radioButtonProgram.Checked;
             buttonBrowse.Enabled = radioButtonProgram.Checked;

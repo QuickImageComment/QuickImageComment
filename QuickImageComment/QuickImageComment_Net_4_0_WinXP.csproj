@@ -165,6 +165,10 @@
     <Compile Include="Forms\FormScale.Designer.cs">
       <DependentUpon>FormScale.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FormSelectApplication.cs" />
+    <Compile Include="Forms\FormSelectApplication.Designer.cs">
+      <DependentUpon>FormSelectApplication.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FormUserButtons.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -633,6 +637,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormScale.resx">
       <DependentUpon>FormScale.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormSelectApplication.resx">
+      <DependentUpon>FormSelectApplication.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormSelectFolder.resx">
       <DependentUpon>FormSelectFolder.cs</DependentUpon>
