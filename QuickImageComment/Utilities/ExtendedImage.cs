@@ -23,7 +23,9 @@ using CSJ2K.Util;
 using System;
 using System.Collections;
 using System.Drawing;
+using System.IO;
 using System.Runtime.InteropServices; // for DllImport
+using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -469,59 +471,59 @@ namespace QuickImageComment
             {
 #endif
 #if !DEBUG
-            try
+                try
 #endif
-            {
-                string iniPath = ConfigDefinition.getIniPath();
-                string comment = "";
-                string errorText = "";
-
-                // do not call exiv2 if image is known to cause fatal exceptions
-                if (!ConfigDefinition.getImagesCausingExiv2Exception().Contains(this.ImageFileName))
                 {
-                    // lock because this method can be called in main thread or via updateCaches
-                    lock (LockReadExiv2)
+                    string iniPath = ConfigDefinition.getIniPath();
+                    string comment = "";
+                    string errorText = "";
+
+                    // do not call exiv2 if image is known to cause fatal exceptions
+                    if (!ConfigDefinition.getImagesCausingExiv2Exception().Contains(this.ImageFileName))
                     {
-                        status = exiv2readImageByFileName(ImageFileName, iniPath, ref comment, ref IptcUTF8, ref errorText);
-                        if (!errorText.Equals("") && !ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.HideExiv2Error))
+                        // lock because this method can be called in main thread or via updateCaches
+                        lock (LockReadExiv2)
                         {
-                            MetaDataWarningsRead.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error), errorText));
-                        }
-
-                        // read Exif, Iptc and XMP only, if exiv2readImageByFileName did not return with exception
-                        if (status != exiv2StatusException)
-                        {
-                            // get image comment
-                            addReplaceOtherMetaDataKnownType("Image.Comment", comment);
-
-                            if (neededKeys == null)
+                            status = exiv2readImageByFileName(ImageFileName, iniPath, ref comment, ref IptcUTF8, ref errorText);
+                            if (!errorText.Equals("") && !ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.HideExiv2Error))
                             {
-                                // read all Exif, IPTC and XMP data
-                                readAllExifIptcXmp();
+                                MetaDataWarningsRead.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error), errorText));
                             }
-                            else
+
+                            // read Exif, Iptc and XMP only, if exiv2readImageByFileName did not return with exception
+                            if (status != exiv2StatusException)
                             {
-                                // read all Exif, IPTC and XMP data
-                                readExifIptcXmpForNeededKeys(neededKeys);
+                                // get image comment
+                                addReplaceOtherMetaDataKnownType("Image.Comment", comment);
+
+                                if (neededKeys == null)
+                                {
+                                    // read all Exif, IPTC and XMP data
+                                    readAllExifIptcXmp();
+                                }
+                                else
+                                {
+                                    // read all Exif, IPTC and XMP data
+                                    readExifIptcXmpForNeededKeys(neededKeys);
+                                }
                             }
                         }
                     }
                 }
-            }
 #if !DEBUG
-            catch (Exception ex)
-            {
-                MetaDataWarnings.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error), ex.Message));
-            }
+                catch (Exception ex)
+                {
+                    MetaDataWarnings.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error), ex.Message));
+                }
 #endif
-            ReadPerformance.measure("Meta data copied");
+                ReadPerformance.measure("Meta data copied");
 
-            XmpLangAltEntries.Sort();
-            readSpecialExifIptcInformation();
+                XmpLangAltEntries.Sort();
+                readSpecialExifIptcInformation();
 
 
-            // end of: 32-Bit version cannot read big videos; exiv2 returns exception, 
-            // so check here allowing language depending and better understandable error message
+                // end of: 32-Bit version cannot read big videos; exiv2 returns exception, 
+                // so check here allowing language depending and better understandable error message
 #if !PLATFORMTARGET_X64
             }
 #endif
@@ -2401,13 +2403,13 @@ namespace QuickImageComment
             try
             {
 #endif
-                exceptionMessagePrefix = "BitmapDecoder: ";
-                // BitmapCacheOption.OnLoad is necessary to avoid exception when reading e.g.Samsung S21 ultra DNG files
-                BitmapDecoder bmpDec = BitmapDecoder.Create(theMemoryStream, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.OnLoad);
-                codecInfo = bmpDec.CodecInfo.FriendlyName + " " + bmpDec.CodecInfo.Version + " ";
-                BitmapSource theBitmapSource = bmpDec.Frames[0];
-                // get bitmap using encoder
-                bmf = BitmapFrame.Create(theBitmapSource, null, null, null);
+            exceptionMessagePrefix = "BitmapDecoder: ";
+            // BitmapCacheOption.OnLoad is necessary to avoid exception when reading e.g.Samsung S21 ultra DNG files
+            BitmapDecoder bmpDec = BitmapDecoder.Create(theMemoryStream, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.OnLoad);
+            codecInfo = bmpDec.CodecInfo.FriendlyName + " " + bmpDec.CodecInfo.Version + " ";
+            BitmapSource theBitmapSource = bmpDec.Frames[0];
+            // get bitmap using encoder
+            bmf = BitmapFrame.Create(theBitmapSource, null, null, null);
 #if LIBRAW
             }
 #pragma warning disable CS0168
@@ -2581,6 +2583,7 @@ namespace QuickImageComment
             bool saveRequired = false;
             string ImageFileNameBak;
             string ChangedKeys = "";
+            FileInfo fileInfoForUpdate = null;
             // removed as check using OldValues is removed - see below
             // SortedList OldValues = new SortedList();
             SortedList changedFieldsForSaveChecked = new SortedList();
@@ -2677,9 +2680,24 @@ namespace QuickImageComment
                     saveRequired = saveDialogResult == System.Windows.Forms.DialogResult.Yes;
                 }
             }
+
             // if saving is required
             if (saveRequired)
             {
+                // check if file was changed externally since reading it
+                System.IO.FileInfo theFileInfo = new System.IO.FileInfo(ImageFileName);
+                if (!theFileInfo.LastWriteTime.ToString().Equals(ImageManager.lastModifiedFromCachedImage(ImageFileName)))
+                {
+                    // modfied date is different
+                    System.Windows.Forms.DialogResult saveDialogResult;
+                    saveDialogResult = GeneralUtilities.questionMessage(LangCfg.Message.Q_fileChangedOverwrite, ImageFileName);
+                    if (saveDialogResult == System.Windows.Forms.DialogResult.No)
+                    {
+                        return 0;
+                    }
+                    fileInfoForUpdate = theFileInfo;
+                }
+
                 if (displaySaving)
                 {
                     MainMaskInterface.setToolStripStatusLabelInfo(LangCfg.getText(LangCfg.Others.save));
@@ -2721,6 +2739,12 @@ namespace QuickImageComment
                     }
 
                     statusWrite = writeMetaData(TxtChangedFieldsForRun, ImageChangedFieldsForRun, SavePerformance);
+
+                    // if file was modfied externally before saving, reload to get also image changes
+                    if (fileInfoForUpdate != null)
+                    {
+                        ImageManager.updateListViewItemAndImage(fileInfoForUpdate);
+                    }
 
                     if (ConfigDefinition.getKeepImageBakFile() == false)
                     {

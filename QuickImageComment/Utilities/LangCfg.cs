@@ -202,7 +202,8 @@ namespace QuickImageComment
             E_exportFileNoWriteAccess,
             Q_causedFatalExiv2Exception,
             Q_replaceFileInDestination,
-            Q_replaceFileInDestinationCancel
+            Q_replaceFileInDestinationCancel,
+            Q_fileChangedOverwrite
         }
 
         public enum Others
