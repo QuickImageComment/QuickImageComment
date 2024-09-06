@@ -6231,7 +6231,7 @@ namespace QuickImageComment
             }
             foreach (string key in ChangedDataGridViewValues.Keys)
             {
-                MessageText = MessageText + key;
+                MessageText = MessageText + "\n   " + key;
             }
             return MessageText;
         }
