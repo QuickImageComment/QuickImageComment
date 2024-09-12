@@ -15,6 +15,8 @@
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 using QuickImageComment;
+using System.Collections;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace QuickImageCommentControls
@@ -42,9 +44,12 @@ namespace QuickImageCommentControls
         private int userSetColumnWidth_1;
         private ToolTipQIC toolTip;
 
-        public DataGridViewMetaData(string name, ToolTipQIC toolTip)
+        private SortedList<string, string> ChangedDataGridViewValues;
+
+        public DataGridViewMetaData(string name, ToolTipQIC toolTip, SortedList<string, string> ChangedDataGridViewValues)
         {
             this.toolTip = toolTip;
+            this.ChangedDataGridViewValues = ChangedDataGridViewValues;
             this.AllowUserToAddRows = false;
             this.AllowUserToDeleteRows = false;
             this.AllowUserToResizeRows = false;
@@ -201,7 +206,7 @@ namespace QuickImageCommentControls
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataGridViewMetaData_KeyDown);
             this.ColumnWidthChanged += new System.Windows.Forms.DataGridViewColumnEventHandler(this.dataGridViewMetaData_ColumnWidthChanged);
 
-            this.ColumnCount = 6;
+            this.ColumnCount = 7;
             this.Columns[0].HeaderText = "Tag-Name";
             this.Columns[0].ReadOnly = true;
             // width set automatically after filling
@@ -222,9 +227,11 @@ namespace QuickImageCommentControls
             this.Columns[4].ValueType = typeof(long);
             this.Columns[4].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             this.Columns[4].ReadOnly = true;
-            // nothing to set for [5], which holds the tag name, used to add a tag to changeable area via context menu
-            // as column is used internally only, hide it
+            // nothing to set for [5] and [6], which hold the tag names, used to add a tag to 
+            // changeable area via context menu; [6] only in DataGridViewOverview
+            // as columns are used internally only, hide them
             this.Columns[5].Visible = false;
+            this.Columns[6].Visible = false;
 
             userSetColumnWidth_1 = 300;
         }
@@ -494,6 +501,85 @@ namespace QuickImageCommentControls
             this.Refresh();
         }
 
+        internal void fillDataOverview(ArrayList MetaDataDefinitions, ExtendedImage theExtendedImage, bool singleEdit)
+        {
+            string[] row = new string[7];
+
+            foreach (MetaDataDefinitionItem anMetaDataDefinitionItem in MetaDataDefinitions)
+            {
+                if (anMetaDataDefinitionItem.TypePrim.Equals("LangAlt"))
+                {
+                    string value = theExtendedImage.getMetaDataValueByDefinitionAndLanguage(anMetaDataDefinitionItem, "x-default");
+                    if (!value.Equals(""))
+                    {
+                        row[0] = anMetaDataDefinitionItem.Name;
+                        row[1] = value;
+                        row[2] = "";
+                        row[3] = "";
+                        row[4] = "";
+                        row[5] = anMetaDataDefinitionItem.KeyPrim;
+                        row[6] = anMetaDataDefinitionItem.KeySec;
+                        Rows.Add(row);
+                        Rows[Rows.Count - 1].Cells[1].ReadOnly = true;
+                    }
+                    foreach (string language in theExtendedImage.getXmpLangAltEntries())
+                    {
+                        value = theExtendedImage.getMetaDataValueByDefinitionAndLanguage(anMetaDataDefinitionItem, language);
+                        if (!value.Equals(""))
+                        {
+                            row[0] = anMetaDataDefinitionItem.Name + " " + language;
+                            row[1] = value;
+                            row[2] = "";
+                            row[3] = "";
+                            row[4] = "";
+                            row[5] = anMetaDataDefinitionItem.KeyPrim;
+                            row[6] = anMetaDataDefinitionItem.KeySec;
+                            Rows.Add(row);
+                            Rows[Rows.Count - 1].Cells[1].ReadOnly = true;
+                        }
+                    }
+                }
+                else
+                {
+                    ArrayList OverViewMetaDataArrayList = theExtendedImage.getMetaDataArrayListByDefinition(anMetaDataDefinitionItem);
+                    foreach (string OverViewMetaDataString in OverViewMetaDataArrayList)
+                    {
+                        row[0] = anMetaDataDefinitionItem.Name;
+                        row[1] = OverViewMetaDataString.Replace("\r\n", " | ");
+                        row[2] = "";
+                        row[3] = "";
+                        row[4] = "";
+                        row[5] = anMetaDataDefinitionItem.KeyPrim;
+                        row[6] = anMetaDataDefinitionItem.KeySec;
+                        Rows.Add(row);
+
+                        bool displayedValueInEditableFormat = false;
+                        if (Exiv2TagDefinitions.ByteUCS2Tags.Contains(anMetaDataDefinitionItem.KeyPrim) ||
+                            anMetaDataDefinitionItem.TypePrim.Equals("Comment"))
+                        {
+                            displayedValueInEditableFormat = anMetaDataDefinitionItem.FormatPrim == MetaDataItem.Format.Interpreted;
+                        }
+                        else
+                        {
+                            displayedValueInEditableFormat = row[1].Equals(theExtendedImage.getMetaDataValueByKey(anMetaDataDefinitionItem.KeyPrim, MetaDataItem.Format.Original));
+                        }
+
+                        // do not allow editing for certain types and tags, if several files are selected and if displayed format is not editable
+                        if (anMetaDataDefinitionItem.isEditableInDataGridView() && singleEdit && displayedValueInEditableFormat)
+                        {
+                            // store original value in tag to allow restore
+                            Rows[Rows.Count - 1].Cells[1].Tag = Rows[Rows.Count - 1].Cells[1].Value;
+                            Rows[Rows.Count - 1].Cells[1].Style.BackColor = System.Drawing.Color.White;
+                        }
+                        else
+                        {
+                            Rows[Rows.Count - 1].Cells[1].ReadOnly = true;
+                        }
+                    }
+                }
+            }
+        }
+
         private void toolStripMenuItemPlain_Click(object sender, System.EventArgs e)
         {
             ConfigDefinition.setDataGridViewDisplayHeader(this, false);
@@ -555,7 +641,7 @@ namespace QuickImageCommentControls
             GeneralUtilities.addFieldToListOfFieldsForMultiEditTable(collectSelectedFields());
         }
 
-        private System.Collections.ArrayList collectSelectedFields()
+        internal System.Collections.ArrayList collectSelectedFields()
         {
             System.Collections.ArrayList TagsToAdd = new System.Collections.ArrayList();
 
@@ -567,7 +653,18 @@ namespace QuickImageCommentControls
                     // in case of LangAlt, key contains also language specification; remove it
                     string[] words = key.Split(' ');
                     key = words[0];
-                    if (!TagsToAdd.Contains(key))
+                    if (!TagsToAdd.Contains(key) && !key.Equals(""))
+                    {
+                        TagsToAdd.Add(key);
+                    }
+                }
+                key = (string)Rows[SelectedCells[jj].RowIndex].Cells[6].Value;
+                if (key != null)
+                {
+                    // in case of LangAlt, key contains also language specification; remove it
+                    string[] words = key.Split(' ');
+                    key = words[0];
+                    if (!TagsToAdd.Contains(key) && key != null && !key.Equals(""))
                     {
                         TagsToAdd.Add(key);
                     }
@@ -662,6 +759,72 @@ namespace QuickImageCommentControls
         private void DataGridViewMetaData_CellMouseLeave(object sender, DataGridViewCellEventArgs e)
         {
             toolTip.Hide(this);
+        }
+
+        internal void dataGridViewsMetaData_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0 && e.ColumnIndex == 1)
+            {
+                string newValue = (string)Rows[e.RowIndex].Cells[1].Value;
+                string key = (string)Rows[e.RowIndex].Cells[5].Value;
+
+                if (key != null)
+                {
+                    if (ChangedDataGridViewValues.ContainsKey(key))
+                    {
+                        ChangedDataGridViewValues[key] = newValue;
+                    }
+                    else
+                    {
+                        ChangedDataGridViewValues.Add(key, newValue);
+                    }
+                    Rows[e.RowIndex].Cells[1].Style.BackColor = MainMaskInterface.getBackColorValueChanged();
+
+                    MainMaskInterface.setControlsEnabledBasedOnDataChange();
+                }
+            }
+        }
+
+        // 
+
+        // Whenever a cell is in edit mode, its hosted control is receiving the KeyDown event instead of the
+        // parent DataGridView that contains it. 
+        // Following solution is based on
+        // https://stackoverflow.com/questions/4284370/datagridview-keydown-event-not-working-in-c-sharp
+        protected override bool ProcessCmdKey(ref System.Windows.Forms.Message msg, System.Windows.Forms.Keys keyData)
+        {
+            if (keyData == Keys.Escape)
+            {
+                {
+                    for (int jj = 0; jj < SelectedCells.Count; jj++)
+                    {
+                        // only for column 1 (value) and if it was editable: then it has a tag
+                        if (SelectedCells[jj].ColumnIndex == 1 &&
+                            SelectedCells[jj].Tag != null)
+                        {
+                            string key = (string)Rows[SelectedCells[jj].RowIndex].Cells[5].Value;
+
+                            if (ChangedDataGridViewValues.ContainsKey(key))
+                            {
+                                ChangedDataGridViewValues.Remove(key);
+                            }
+                            // original value is stored in tag of cell; disable event handler for change before, enable after
+                            CellValueChanged -= dataGridViewsMetaData_CellValueChanged;
+                            Rows[SelectedCells[jj].RowIndex].Cells[1].Value =
+                                Rows[SelectedCells[jj].RowIndex].Cells[1].Tag;
+                            Rows[SelectedCells[jj].RowIndex].Cells[1].Style.BackColor = MainMaskInterface.getBackColorInputUnchanged();
+                            CellValueChanged += dataGridViewsMetaData_CellValueChanged;
+                        }
+                    }
+                }
+                this.RefreshEdit();
+                MainMaskInterface.setControlsEnabledBasedOnDataChange();
+                return true;
+            }
+            else
+            {
+                return base.ProcessCmdKey(ref msg, keyData);
+            }
         }
     }
 }

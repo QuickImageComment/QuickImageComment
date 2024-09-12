@@ -68,9 +68,6 @@ namespace QuickImageComment
             this.tabControlProperties = new System.Windows.Forms.TabControl();
             this.tabPageOverview = new System.Windows.Forms.TabPage();
             this.panelWarningMetaData = new System.Windows.Forms.Panel();
-            this.DataGridViewOverview = new System.Windows.Forms.DataGridView();
-            this.dataGridViewOverviewColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewOverviewColumValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.KeyPrim = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.KeySec = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextMenuStripOverview = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -291,7 +288,6 @@ namespace QuickImageComment
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFramePosition)).BeginInit();
             this.tabControlProperties.SuspendLayout();
             this.tabPageOverview.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DataGridViewOverview)).BeginInit();
             this.contextMenuStripOverview.SuspendLayout();
             this.tabPageMulti.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSelectedFiles)).BeginInit();
@@ -589,7 +585,6 @@ namespace QuickImageComment
             // 
             this.tabPageOverview.BackColor = System.Drawing.SystemColors.ControlLight;
             this.tabPageOverview.Controls.Add(this.panelWarningMetaData);
-            this.tabPageOverview.Controls.Add(this.DataGridViewOverview);
             this.tabPageOverview.Location = new System.Drawing.Point(4, 22);
             this.tabPageOverview.Margin = new System.Windows.Forms.Padding(0);
             this.tabPageOverview.Name = "tabPageOverview";
@@ -608,50 +603,6 @@ namespace QuickImageComment
             this.panelWarningMetaData.Name = "panelWarningMetaData";
             this.panelWarningMetaData.Size = new System.Drawing.Size(6, 166);
             this.panelWarningMetaData.TabIndex = 1;
-            // 
-            // DataGridViewOverview
-            // 
-            this.DataGridViewOverview.AllowUserToAddRows = false;
-            this.DataGridViewOverview.AllowUserToDeleteRows = false;
-            this.DataGridViewOverview.AllowUserToResizeRows = false;
-            this.DataGridViewOverview.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.DataGridViewOverview.BackgroundColor = System.Drawing.SystemColors.Window;
-            this.DataGridViewOverview.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DataGridViewOverview.ColumnHeadersVisible = false;
-            this.DataGridViewOverview.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewOverviewColumnName,
-            this.dataGridViewOverviewColumValue,
-            this.KeyPrim,
-            this.KeySec});
-            this.DataGridViewOverview.ContextMenuStrip = this.contextMenuStripOverview;
-            this.DataGridViewOverview.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-            this.DataGridViewOverview.GridColor = System.Drawing.SystemColors.ScrollBar;
-            this.DataGridViewOverview.Location = new System.Drawing.Point(3, 3);
-            this.DataGridViewOverview.Name = "DataGridViewOverview";
-            this.DataGridViewOverview.RowHeadersVisible = false;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            this.DataGridViewOverview.RowsDefaultCellStyle = dataGridViewCellStyle3;
-            this.DataGridViewOverview.RowTemplate.Height = 18;
-            this.DataGridViewOverview.Size = new System.Drawing.Size(271, 166);
-            this.DataGridViewOverview.TabIndex = 0;
-            this.DataGridViewOverview.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridViewOverview_CellMouseEnter);
-            this.DataGridViewOverview.CellMouseLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridViewOverview_CellMouseLeave);
-            this.DataGridViewOverview.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridViewsMetaData_CellValueChanged);
-            this.DataGridViewOverview.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DataGridViewsMetaData_KeyDown);
-            // 
-            // dataGridViewOverviewColumnName
-            // 
-            this.dataGridViewOverviewColumnName.HeaderText = "Name";
-            this.dataGridViewOverviewColumnName.Name = "dataGridViewOverviewColumnName";
-            this.dataGridViewOverviewColumnName.ReadOnly = true;
-            // 
-            // dataGridViewOverviewColumValue
-            // 
-            this.dataGridViewOverviewColumValue.HeaderText = "Value";
-            this.dataGridViewOverviewColumValue.Name = "dataGridViewOverviewColumValue";
             // 
             // KeyPrim
             // 
@@ -2541,7 +2492,6 @@ namespace QuickImageComment
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFramePosition)).EndInit();
             this.tabControlProperties.ResumeLayout(false);
             this.tabPageOverview.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.DataGridViewOverview)).EndInit();
             this.contextMenuStripOverview.ResumeLayout(false);
             this.tabPageMulti.ResumeLayout(false);
             this.tabPageMulti.PerformLayout();
@@ -2623,7 +2573,7 @@ namespace QuickImageComment
         private System.Windows.Forms.TabPage tabPageIptc;
         private QuickImageCommentControls.DataGridViewMetaData DataGridViewIptc;
         private QuickImageCommentControls.DataGridViewMetaData DataGridViewExif;
-        private System.Windows.Forms.DataGridView DataGridViewOverview;
+        private QuickImageCommentControls.DataGridViewMetaData DataGridViewOverview;
         private System.Windows.Forms.ColumnHeader columnHeaderOverviewName;
         private System.Windows.Forms.ColumnHeader columnHeaderOverviewValue;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemExtras;
@@ -2787,8 +2737,6 @@ namespace QuickImageComment
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemSelectFolder;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemScale;
         private ToolTipQIC toolTip1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewOverviewColumnName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewOverviewColumValue;
         private System.Windows.Forms.DataGridViewTextBoxColumn KeyPrim;
         private System.Windows.Forms.DataGridViewTextBoxColumn KeySec;
         internal System.Windows.Forms.Label dynamicLabelImageNumber;

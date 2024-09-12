@@ -27,7 +27,6 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
-using System.Windows.Media;
 using Color = System.Drawing.Color;
 using Pen = System.Drawing.Pen;
 
@@ -75,8 +74,8 @@ namespace QuickImageComment
         private static FormFind formFind;
 
         // colors
-        private Color backColorInputUnchanged;
-        private Color backColorInputValueChanged;
+        internal Color backColorInputUnchanged;
+        internal Color backColorInputValueChanged;
         // background color for non-default selections in multi edit tab
         private Color backColorMultiEditNonDefault;
 
@@ -214,16 +213,27 @@ namespace QuickImageComment
             // data grids for meta data
             // controls added here, so that all settings can be defined in constructor of DataGridViewMetaData
             // when controls are added in Designer.cs then each time the mask is changed, new columns are added by Visual Studio Designer
-            this.DataGridViewExif = new QuickImageCommentControls.DataGridViewMetaData("DataGridViewExif", toolTip1);
-            this.DataGridViewExif.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DataGridViewsMetaData_KeyDown);
+            this.DataGridViewOverview = new QuickImageCommentControls.DataGridViewMetaData("DataGridViewOverview", 
+                toolTip1, ChangedDataGridViewValues);
+            this.tabPageOverview.Controls.Add(this.DataGridViewOverview);
+            // as DataGridViewMetaData sets column headers, which is not wanted for overview ...
+            this.DataGridViewOverview.ColumnHeadersVisible = false;
+            // hide columns not used in overview (5 and 6 are hidden in DataGridViewOverview)
+            this.DataGridViewOverview.Columns[2].Visible = false;
+            this.DataGridViewOverview.Columns[3].Visible = false;
+            this.DataGridViewOverview.Columns[4].Visible = false;
+            // use specific context menu
+            this.DataGridViewOverview.ContextMenuStrip = contextMenuStripOverview;
+            this.DataGridViewExif = new QuickImageCommentControls.DataGridViewMetaData("DataGridViewExif", 
+                toolTip1, ChangedDataGridViewValues);
             this.tabPageExif.Controls.Add(this.DataGridViewExif);
-            this.DataGridViewIptc = new QuickImageCommentControls.DataGridViewMetaData("DataGridViewIptc", toolTip1);
-            this.DataGridViewIptc.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DataGridViewsMetaData_KeyDown);
+            this.DataGridViewIptc = new QuickImageCommentControls.DataGridViewMetaData("DataGridViewIptc", 
+                toolTip1, ChangedDataGridViewValues);
             this.tabPageIptc.Controls.Add(this.DataGridViewIptc);
-            this.DataGridViewXmp = new QuickImageCommentControls.DataGridViewMetaData("DataGridViewXmp", toolTip1);
-            this.DataGridViewXmp.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DataGridViewsMetaData_KeyDown);
+            this.DataGridViewXmp = new QuickImageCommentControls.DataGridViewMetaData("DataGridViewXmp", 
+                toolTip1, ChangedDataGridViewValues);
             this.tabPageXmp.Controls.Add(this.DataGridViewXmp);
-            this.DataGridViewOtherMetaData = new QuickImageCommentControls.DataGridViewMetaData("DataGridViewOtherMetaData", toolTip1);
+            this.DataGridViewOtherMetaData = new QuickImageCommentControls.DataGridViewMetaData("DataGridViewOtherMetaData", toolTip1, ChangedDataGridViewValues);
             this.tabPageOther.Controls.Add(this.DataGridViewOtherMetaData);
 
             readFolderPerfomance = new Performance();
@@ -1172,59 +1182,6 @@ namespace QuickImageComment
             }
         }
 
-        // key event handler for data grid view Overview
-
-        private void DataGridViewsMetaData_KeyDown(object sender, KeyEventArgs theKeyEventArgs)
-        {
-            DataGridView dataGridView = (DataGridView)sender;
-            if (theKeyEventArgs.KeyCode == Keys.Escape)
-            {
-                for (int jj = 0; jj < dataGridView.SelectedCells.Count; jj++)
-                {
-                    // only for column 1 (value) and if it was editable: then it has a tag
-                    if (dataGridView.SelectedCells[jj].ColumnIndex == 1 &&
-                        dataGridView.SelectedCells[jj].Tag != null)
-                    {
-                        string key;
-                        // DataGridViewOverview has 4 columns, key in column[2]
-                        // other dataGridViews have 6 columns, key in column[5]
-                        if (dataGridView.ColumnCount > 5)
-                            key = (string)dataGridView.Rows[dataGridView.SelectedCells[jj].RowIndex].Cells[5].Value;
-                        else
-                            key = (string)dataGridView.Rows[dataGridView.SelectedCells[jj].RowIndex].Cells[2].Value;
-
-                        if (ChangedDataGridViewValues.ContainsKey(key))
-                        {
-                            ChangedDataGridViewValues.Remove(key);
-                        }
-                        // original value is stored in tag of cell; disable event handler for change before, enable after
-                        dataGridView.CellValueChanged -= DataGridViewsMetaData_CellValueChanged;
-                        dataGridView.Rows[dataGridView.SelectedCells[jj].RowIndex].Cells[1].Value =
-                            dataGridView.Rows[dataGridView.SelectedCells[jj].RowIndex].Cells[1].Tag;
-                        dataGridView.CellValueChanged += DataGridViewsMetaData_CellValueChanged;
-
-                        dataGridView.Rows[dataGridView.SelectedCells[jj].RowIndex].Cells[1].Style.BackColor = backColorInputUnchanged;
-                    }
-                }
-            }
-
-            setControlsEnabledBasedOnDataChange();
-        }
-
-        // cell mouse enter event handler for DataGridViewOverview
-        private void DataGridViewOverview_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex >= 0 && e.ColumnIndex == 1 && DataGridViewOverview.Rows[e.RowIndex].Cells[1].Value != null)
-                toolTip1.ShowAtOffset(DataGridViewOverview.Rows[e.RowIndex].Cells[1].Value.ToString(), this);
-        }
-
-        // cell mouse leave event handler for DataGridViewOverview
-        private void DataGridViewOverview_CellMouseLeave(object sender, DataGridViewCellEventArgs e)
-        {
-            toolTip1.Hide(this);
-        }
-
-
         // event handler triggered when text in text box is changed to recognise user changes
         private void dynamicComboBoxArtist_TextChanged(object sender, System.EventArgs theEventArgs)
         {
@@ -2062,6 +2019,7 @@ namespace QuickImageComment
                 displayProperties();
                 fillChangeableFieldValues(theExtendedImage, false);
                 fillListBoxLastUserComments("");
+                clearChangedDataGridViewValues();
                 if (theUserControlMap != null)
                 {
                     theUserControlMap.buttonReset_Click(sender, e);
@@ -3087,49 +3045,17 @@ namespace QuickImageComment
         // context menu add fields to changeable fields
         private void toolStripMenuItemAddFromOverviewToChangeable_Click(object sender, EventArgs e)
         {
-            GeneralUtilities.addFieldToListOfChangeableFields(collectSelectedFields());
+            GeneralUtilities.addFieldToListOfChangeableFields(this.DataGridViewOverview.collectSelectedFields());
         }
         // context menu add fields to fields for find
         private void toolStripMenuItemAddToFind_Click(object sender, EventArgs e)
         {
-            GeneralUtilities.addFieldToListOfFieldsForFind(collectSelectedFields());
+            GeneralUtilities.addFieldToListOfFieldsForFind(this.DataGridViewOverview.collectSelectedFields());
         }
         // context menu add fields to fields in multi-edit-tab
         private void toolStripMenuItemAddToMultiEditTab_Click(object sender, EventArgs e)
         {
-            GeneralUtilities.addFieldToListOfFieldsForMultiEditTable(collectSelectedFields());
-        }
-
-        private System.Collections.ArrayList collectSelectedFields()
-        {
-            System.Collections.ArrayList TagsToAdd = new System.Collections.ArrayList();
-
-            for (int jj = 0; jj < DataGridViewOverview.SelectedCells.Count; jj++)
-            {
-                string key = (string)DataGridViewOverview.Rows[DataGridViewOverview.SelectedCells[jj].RowIndex].Cells[2].Value;
-                if (key != null)
-                {
-                    // in case of LangAlt, key contains also language specification; remove it
-                    string[] words = key.Split(' ');
-                    key = words[0];
-                    if (!TagsToAdd.Contains(key) && !key.Equals(""))
-                    {
-                        TagsToAdd.Add(key);
-                    }
-                }
-                key = (string)DataGridViewOverview.Rows[DataGridViewOverview.SelectedCells[jj].RowIndex].Cells[3].Value;
-                if (key != null)
-                {
-                    // in case of LangAlt, key contains also language specification; remove it
-                    string[] words = key.Split(' ');
-                    key = words[0];
-                    if (!TagsToAdd.Contains(key) && key != null && !key.Equals(""))
-                    {
-                        TagsToAdd.Add(key);
-                    }
-                }
-            }
-            return TagsToAdd;
+            GeneralUtilities.addFieldToListOfFieldsForMultiEditTable(this.DataGridViewOverview.collectSelectedFields());
         }
 
         // end program
@@ -3814,7 +3740,7 @@ namespace QuickImageComment
         // fill list box to display properties of image
         private void displayProperties()
         {
-            string[] row = new string[4];
+            string[] row = new string[2];
             ArrayList MetaDataDefinitions;
             bool singleEdit = theUserControlFiles.listViewFiles.SelectedItems.Count == 1;
 
@@ -3835,71 +3761,7 @@ namespace QuickImageComment
                 MetaDataDefinitions = ConfigDefinition.getMetaDataDefinitions(ConfigDefinition.enumMetaDataGroup.MetaDataDefForDisplay);
             }
 
-            foreach (MetaDataDefinitionItem anMetaDataDefinitionItem in MetaDataDefinitions)
-            {
-                if (anMetaDataDefinitionItem.TypePrim.Equals("LangAlt"))
-                {
-                    string value = theExtendedImage.getMetaDataValueByDefinitionAndLanguage(anMetaDataDefinitionItem, "x-default");
-                    if (!value.Equals(""))
-                    {
-                        row[0] = anMetaDataDefinitionItem.Name;
-                        row[1] = value;
-                        row[2] = anMetaDataDefinitionItem.KeyPrim;
-                        row[3] = anMetaDataDefinitionItem.KeySec;
-                        DataGridViewOverview.Rows.Add(row);
-                        DataGridViewOverview.Rows[DataGridViewOverview.Rows.Count - 1].Cells[1].ReadOnly = true;
-                    }
-                    foreach (string language in theExtendedImage.getXmpLangAltEntries())
-                    {
-                        value = theExtendedImage.getMetaDataValueByDefinitionAndLanguage(anMetaDataDefinitionItem, language);
-                        if (!value.Equals(""))
-                        {
-                            row[0] = anMetaDataDefinitionItem.Name + " " + language;
-                            row[1] = value;
-                            row[2] = anMetaDataDefinitionItem.KeyPrim;
-                            row[3] = anMetaDataDefinitionItem.KeySec;
-                            DataGridViewOverview.Rows.Add(row);
-                            DataGridViewOverview.Rows[DataGridViewOverview.Rows.Count - 1].Cells[1].ReadOnly = true;
-                        }
-                    }
-                }
-                else
-                {
-                    ArrayList OverViewMetaDataArrayList = theExtendedImage.getMetaDataArrayListByDefinition(anMetaDataDefinitionItem);
-                    foreach (string OverViewMetaDataString in OverViewMetaDataArrayList)
-                    {
-                        row[0] = anMetaDataDefinitionItem.Name;
-                        row[1] = OverViewMetaDataString.Replace("\r\n", " | ");
-                        row[2] = anMetaDataDefinitionItem.KeyPrim;
-                        row[3] = anMetaDataDefinitionItem.KeySec;
-                        DataGridViewOverview.Rows.Add(row);
-
-                        bool displayedValueInEditableFormat = false;
-                        if (Exiv2TagDefinitions.ByteUCS2Tags.Contains(anMetaDataDefinitionItem.KeyPrim) ||
-                            anMetaDataDefinitionItem.TypePrim.Equals("Comment"))
-                        {
-                            displayedValueInEditableFormat = anMetaDataDefinitionItem.FormatPrim == MetaDataItem.Format.Interpreted;
-                        }
-                        else
-                        {
-                            displayedValueInEditableFormat = row[1].Equals(theExtendedImage.getMetaDataValueByKey(anMetaDataDefinitionItem.KeyPrim, MetaDataItem.Format.Original));
-                        }
-
-                        // do not allow editing for certain types and tags, if several files are selected and if displayed format is not editable
-                        if (anMetaDataDefinitionItem.isEditableInDataGridView() && singleEdit && displayedValueInEditableFormat)
-                        {
-                            // store original value in tag to allow restore
-                            DataGridViewOverview.Rows[DataGridViewOverview.Rows.Count - 1].Cells[1].Tag =
-                                DataGridViewOverview.Rows[DataGridViewOverview.Rows.Count - 1].Cells[1].Value;
-                            DataGridViewOverview.Rows[DataGridViewOverview.Rows.Count - 1].Cells[1].Style.BackColor = Color.White;
-                        }
-                        else
-                        {
-                            DataGridViewOverview.Rows[DataGridViewOverview.Rows.Count - 1].Cells[1].ReadOnly = true;
-                        }
-                    }
-                }
-            }
+            DataGridViewOverview.fillDataOverview(MetaDataDefinitions, theExtendedImage, singleEdit);
 
             // and one empty line
             DataGridViewOverview.Rows.Add(new string[] { "", "" });
@@ -3911,8 +3773,6 @@ namespace QuickImageComment
             {
                 row[0] = LangCfg.getText(LangCfg.Others.displayErrorMessage);
                 row[1] = theExtendedImage.getDisplayImageErrorMessage();
-                row[2] = "";
-                row[3] = "";
                 DataGridViewOverview.Rows.Add(row);
                 MessageText = MessageText + "\n" + LangCfg.getText(LangCfg.Others.displayErrorMessage)
                     + ": " + theExtendedImage.getDisplayImageErrorMessage();
@@ -3925,8 +3785,6 @@ namespace QuickImageComment
                 {
                     row[0] = ExifWarning.getName();
                     row[1] = ExifWarning.getMessage();
-                    row[2] = "";
-                    row[3] = "";
                     DataGridViewOverview.Rows.Add(row);
                     MessageText = MessageText + "\n" + ExifWarning.getName() + ": " + ExifWarning.getMessage();
                 }
@@ -3955,8 +3813,6 @@ namespace QuickImageComment
                 {
                     row[0] = "Performance";
                     row[1] = Measurement;
-                    row[2] = "";
-                    row[3] = "";
                     DataGridViewOverview.Rows.Add(row);
                 }
             }
@@ -5269,10 +5125,10 @@ namespace QuickImageComment
 
             textBoxUserComment.TextChanged += textBoxUserComment_TextChanged;
             dynamicComboBoxArtist.TextChanged += dynamicComboBoxArtist_TextChanged;
-            DataGridViewOverview.CellValueChanged += DataGridViewsMetaData_CellValueChanged;
-            DataGridViewExif.CellValueChanged += DataGridViewsMetaData_CellValueChanged;
-            DataGridViewIptc.CellValueChanged += DataGridViewsMetaData_CellValueChanged;
-            DataGridViewXmp.CellValueChanged += DataGridViewsMetaData_CellValueChanged;
+            DataGridViewOverview.CellValueChanged += DataGridViewOverview.dataGridViewsMetaData_CellValueChanged;
+            DataGridViewExif.CellValueChanged += DataGridViewExif.dataGridViewsMetaData_CellValueChanged;
+            DataGridViewIptc.CellValueChanged += DataGridViewIptc.dataGridViewsMetaData_CellValueChanged;
+            DataGridViewXmp.CellValueChanged += DataGridViewXmp.dataGridViewsMetaData_CellValueChanged;
 
             theUserControlKeyWords.textBoxFreeInputKeyWords.TextChanged += textBoxFreeInputKeyWords_TextChanged;
             theUserControlKeyWords.treeViewPredefKeyWords.AfterCheck += treeViewPredefKeyWords_AfterCheck;
@@ -5292,10 +5148,10 @@ namespace QuickImageComment
         {
             textBoxUserComment.TextChanged -= textBoxUserComment_TextChanged;
             dynamicComboBoxArtist.TextChanged -= dynamicComboBoxArtist_TextChanged;
-            DataGridViewOverview.CellValueChanged -= DataGridViewsMetaData_CellValueChanged;
-            DataGridViewExif.CellValueChanged -= DataGridViewsMetaData_CellValueChanged;
-            DataGridViewIptc.CellValueChanged -= DataGridViewsMetaData_CellValueChanged;
-            DataGridViewXmp.CellValueChanged -= DataGridViewsMetaData_CellValueChanged;
+            DataGridViewOverview.CellValueChanged -= DataGridViewOverview.dataGridViewsMetaData_CellValueChanged;
+            DataGridViewExif.CellValueChanged -= DataGridViewExif.dataGridViewsMetaData_CellValueChanged;
+            DataGridViewIptc.CellValueChanged -= DataGridViewIptc.dataGridViewsMetaData_CellValueChanged;
+            DataGridViewXmp.CellValueChanged -= DataGridViewXmp.dataGridViewsMetaData_CellValueChanged;
 
             theUserControlKeyWords.textBoxFreeInputKeyWords.TextChanged -= textBoxFreeInputKeyWords_TextChanged;
             theUserControlKeyWords.treeViewPredefKeyWords.AfterCheck -= treeViewPredefKeyWords_AfterCheck;

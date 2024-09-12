@@ -245,6 +245,30 @@ namespace QuickImageComment
             }
         }
 
+        public static System.Drawing.Color getBackColorValueChanged()
+        {
+            if (theFormQuickImageComment != null)
+            {
+                return theFormQuickImageComment.backColorInputValueChanged;
+            }
+            else
+            {
+                return System.Drawing.Color.Gold;
+            }
+        }
+
+        public static System.Drawing.Color getBackColorInputUnchanged()
+        {
+            if (theFormQuickImageComment != null)
+            {
+                return theFormQuickImageComment.backColorInputUnchanged;
+            }
+            else
+            {
+                return System.Drawing.Color.White;
+            }
+        }
+
         public static void setControlsEnabledBasedOnDataChange()
         {
             // if main mask is not already closing

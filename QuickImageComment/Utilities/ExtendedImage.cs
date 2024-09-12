@@ -25,7 +25,6 @@ using System.Collections;
 using System.Drawing;
 using System.IO;
 using System.Runtime.InteropServices; // for DllImport
-using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
