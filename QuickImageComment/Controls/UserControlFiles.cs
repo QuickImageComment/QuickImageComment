@@ -578,42 +578,40 @@ namespace QuickImageComment
                         {
                             // this is not information about a file change done by this program
                             string MessageText = theFormQuickImageComment.getChangedFields();
-                            if (MessageText.Equals("") || !listViewFiles.SelectedIndices.Contains(ii))
+
+                            ListViewItem listViewItem = ImageManager.updateListViewItemAndImage(theFileInfo);
+                            ExtendedImage extendedImage = ImageManager.getExtendedImage(ii, true);
+
+                            for (int kk = 0; kk < listViewItem.SubItems.Count; kk++)
                             {
-                                ListViewItem listViewItem = ImageManager.updateListViewItemAndImage(theFileInfo);
-                                ExtendedImage extendedImage = ImageManager.getExtendedImage(ii, true);
+                                listViewFiles.Items[ii].SubItems[kk] = listViewItem.SubItems[kk];
+                            }
+                            if (listViewFiles.SelectedIndices.Count > 1 && listViewFiles.SelectedIndices.Contains(ii))
+                            {
+                                theFormQuickImageComment.disableEventHandlersRecogniseUserInput();
+                                theFormQuickImageComment.updateAllChangeableDataForMultipleSelection(extendedImage);
+                                theFormQuickImageComment.enableEventHandlersRecogniseUserInput();
+                            }
+                            if (isDisplayed(ii))
+                            {
+                                theFormQuickImageComment.displayImage(ii);
+                            }
+                            // clear thumbnail to get it recreated during redraw item
+                            listViewFiles.clearThumbnailForFile(fullFileName);
+                            listViewFiles.Refresh();
+                            // refresh data in multi-edit-tab
+                            theFormQuickImageComment.refreshdataGridViewSelectedFiles();
 
-                                for (int kk = 0; kk < listViewItem.SubItems.Count; kk++)
-                                {
-                                    listViewFiles.Items[ii].SubItems[kk] = listViewItem.SubItems[kk];
-                                }
-                                if (listViewFiles.SelectedIndices.Count > 1 && listViewFiles.SelectedIndices.Contains(ii))
-                                {
-                                    theFormQuickImageComment.disableEventHandlersRecogniseUserInput();
-                                    theFormQuickImageComment.updateAllChangeableDataForMultipleSelection(extendedImage);
-                                    theFormQuickImageComment.enableEventHandlersRecogniseUserInput();
-                                }
-                                if (isDisplayed(ii))
-                                {
-                                    theFormQuickImageComment.displayImage(ii);
-                                }
-                                // clear thumbnail to get it recreated during redraw item
-                                listViewFiles.clearThumbnailForFile(fullFileName);
-                                listViewFiles.Refresh();
-                                // refresh data in multi-edit-tab
-                                theFormQuickImageComment.refreshdataGridViewSelectedFiles();
-
-                                // update image and detail window
-                                FormImageDetails formImageDetails = FormImageDetails.getWindowForImage(extendedImage);
-                                if (formImageDetails != null)
-                                {
-                                    formImageDetails.newImage(extendedImage);
-                                }
-                                FormImageWindow formImageWindow = FormImageWindow.getWindowForImage(extendedImage);
-                                if (formImageWindow != null)
-                                {
-                                    formImageWindow.newImage(extendedImage);
-                                }
+                            // update image and detail window
+                            FormImageDetails formImageDetails = FormImageDetails.getWindowForImage(extendedImage);
+                            if (formImageDetails != null)
+                            {
+                                formImageDetails.newImage(extendedImage);
+                            }
+                            FormImageWindow formImageWindow = FormImageWindow.getWindowForImage(extendedImage);
+                            if (formImageWindow != null)
+                            {
+                                formImageWindow.newImage(extendedImage);
                             }
                         }
                         else

@@ -365,6 +365,13 @@ namespace QuickImageCommentControls
                     // store original value in tag to allow restore
                     this.Rows[rowIndex].Cells[1].Tag = this.Rows[rowIndex].Cells[1].Value;
                     this.Rows[rowIndex].Cells[1].Style.BackColor = System.Drawing.Color.White;
+
+                    // check if a changed value was entered, but not yet stored before refresh
+                    if (ChangedDataGridViewValues.ContainsKey(aMetaDataItem.getKey()))
+                    {
+                        this.Rows[rowIndex].Cells[1].Value = ChangedDataGridViewValues[aMetaDataItem.getKey()];
+                        this.Rows[rowIndex].Cells[1].Style.BackColor = MainMaskInterface.getBackColorValueChanged();
+                    }
                 }
                 else
                 {
@@ -570,6 +577,13 @@ namespace QuickImageCommentControls
                             // store original value in tag to allow restore
                             Rows[Rows.Count - 1].Cells[1].Tag = Rows[Rows.Count - 1].Cells[1].Value;
                             Rows[Rows.Count - 1].Cells[1].Style.BackColor = System.Drawing.Color.White;
+
+                            // check if a changed value was entered, but not yet stored before refresh
+                            if (ChangedDataGridViewValues.ContainsKey(anMetaDataDefinitionItem.KeyPrim))
+                            {
+                                this.Rows[Rows.Count - 1].Cells[1].Value = ChangedDataGridViewValues[anMetaDataDefinitionItem.KeyPrim];
+                                this.Rows[Rows.Count - 1].Cells[1].Style.BackColor = MainMaskInterface.getBackColorValueChanged();
+                            }
                         }
                         else
                         {
@@ -814,10 +828,15 @@ namespace QuickImageCommentControls
                                 Rows[SelectedCells[jj].RowIndex].Cells[1].Tag;
                             Rows[SelectedCells[jj].RowIndex].Cells[1].Style.BackColor = MainMaskInterface.getBackColorInputUnchanged();
                             CellValueChanged += dataGridViewsMetaData_CellValueChanged;
+                            // leave cell and reenter to force color change be visible
+                            // as entering a cell may change scroll offset, restore it
+                            int scrollOffset = HorizontalScrollingOffset;
+                            CurrentCell = Rows[SelectedCells[jj].RowIndex].Cells[0];
+                            CurrentCell = Rows[SelectedCells[jj].RowIndex].Cells[1];
+                            HorizontalScrollingOffset = scrollOffset;
                         }
                     }
                 }
-                this.RefreshEdit();
                 MainMaskInterface.setControlsEnabledBasedOnDataChange();
                 return true;
             }
