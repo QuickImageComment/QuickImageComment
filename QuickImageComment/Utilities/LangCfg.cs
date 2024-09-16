@@ -203,7 +203,8 @@ namespace QuickImageComment
             Q_causedFatalExiv2Exception,
             Q_replaceFileInDestination,
             Q_replaceFileInDestinationCancel,
-            Q_fileChangedOverwrite
+            Q_fileChangedOverwrite,
+            Q_dataGridChangesNotSavedContinue
         }
 
         public enum Others

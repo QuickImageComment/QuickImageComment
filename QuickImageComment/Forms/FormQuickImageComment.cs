@@ -6136,6 +6136,50 @@ namespace QuickImageComment
             }
         }
 
+        // determine if data grid fields were changed and if so, ask to save yes/no or cancel
+        // returns true if flow can continue with next action
+        // false is returned in case user wanted to save, but save failed
+        internal bool continueAfterCheckForDataGridChangesAndOptionalSaving(IList selectedIndicesToStore)
+        {
+            lock (UserControlFiles.LockListViewFiles)
+            {
+                if (selectedIndicesToStore.Count > 0)
+                {
+                    string MessageText = getChangedFields();
+                    if (ChangedDataGridViewValues.Count == 0)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        System.Windows.Forms.DialogResult saveDialogResult;
+                        saveDialogResult = GeneralUtilities.questionMessageYesNoCancel(LangCfg.Message.Q_dataGridChangesNotSavedContinue, MessageText);
+                        if (saveDialogResult == System.Windows.Forms.DialogResult.Yes)
+                        {
+                            // try to save and continue if saving was succesful
+                            return saveAndStoreInLastList(selectedIndicesToStore);
+                        }
+                        else if (saveDialogResult == System.Windows.Forms.DialogResult.No)
+                        {
+                            // continue without saving; reset data as sometimes data are not refreshed by following action
+                            toolStripMenuItemReset_Click(null, null);
+                            return true;
+                        }
+                        else
+                        {
+                            // cancel selected, do not continue
+                            return false;
+                        }
+                    }
+                }
+                else
+                {
+                    // no files selected, continue without check
+                    return true;
+                }
+            }
+        }
+
         // actions to be performed after meta data definitions have changed
         public void afterMetaDataDefinitionChange()
         {

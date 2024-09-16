@@ -445,38 +445,58 @@ namespace QuickImageComment
                     }
                     else if (newIndexCount > oldIndexCount)
                     {
-#if APPCENTER
-                        bool newIndexFound = false;
-#endif
-                        // more files selected than before, get the latest selected
-                        for (int inew = 0; inew < newIndexCount; inew++)
+                        if (theFormQuickImageComment.continueAfterCheckForDataGridChangesAndOptionalSaving(listViewFiles.getSelectedIndicesOld()))
                         {
-                            if (!listViewFiles.selectedFilesOld.Contains(selectedFilesNew[inew]))
+#if APPCENTER
+                            bool newIndexFound = false;
+#endif
+                            // more files selected than before, get the latest selected
+                            for (int inew = 0; inew < newIndexCount; inew++)
                             {
-                                // if multiple images are selected, update values in changeable fields area 
-                                // needs to be done always, even if the image is not displayed
-                                // otherwise values are not blanked in case an image inbetween has a different value
-                                int fileIndex = listViewFiles.SelectedIndices[inew];
-                                //Logger.log("new selected " + fileIndex.ToString() + " " + selectedFilesNew[inew]);
-                                theFormQuickImageComment.disableEventHandlersRecogniseUserInput();
-                                theFormQuickImageComment.updateAllChangeableDataForMultipleSelection(ImageManager.getExtendedImage(fileIndex, false));
-                                theFormQuickImageComment.enableEventHandlersRecogniseUserInput();
-                                // set newDisplayIndex to have one image to display in case it cannot be set later based on FocusedItem,
-                                // e.g. because previously focused item does not fit new filter
-                                newDisplayIndex = fileIndex;
+                                if (!listViewFiles.selectedFilesOld.Contains(selectedFilesNew[inew]))
+                                {
+                                    // if multiple images are selected, update values in changeable fields area 
+                                    // needs to be done always, even if the image is not displayed
+                                    // otherwise values are not blanked in case an image inbetween has a different value
+                                    int fileIndex = listViewFiles.SelectedIndices[inew];
+                                    //Logger.log("new selected " + fileIndex.ToString() + " " + selectedFilesNew[inew]);
+                                    theFormQuickImageComment.disableEventHandlersRecogniseUserInput();
+                                    theFormQuickImageComment.updateAllChangeableDataForMultipleSelection(ImageManager.getExtendedImage(fileIndex, false));
+                                    theFormQuickImageComment.enableEventHandlersRecogniseUserInput();
+                                    // set newDisplayIndex to have one image to display in case it cannot be set later based on FocusedItem,
+                                    // e.g. because previously focused item does not fit new filter
+                                    newDisplayIndex = fileIndex;
 #if APPCENTER
-                                newIndexFound = true;
+                                    newIndexFound = true;
 #endif
+                                }
                             }
-                        }
-                        if (listViewFiles.FocusedItem != null)
-                        {
-                            newDisplayIndex = listViewFiles.FocusedItem.Index;
-                        }
+                            if (listViewFiles.FocusedItem != null)
+                            {
+                                newDisplayIndex = listViewFiles.FocusedItem.Index;
+                            }
 #if APPCENTER
-                        if (Program.AppCenterUsable && !newIndexFound)
-                            Microsoft.AppCenter.Analytics.Analytics.TrackEvent("workAfterSelectedIndexChanged newIndexCount > oldIndexCount new Index not found");
+                            if (Program.AppCenterUsable && !newIndexFound)
+                                Microsoft.AppCenter.Analytics.Analytics.TrackEvent("workAfterSelectedIndexChanged newIndexCount > oldIndexCount new Index not found");
 #endif
+                        }
+                        else
+                        {
+                            GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceWorkAfterSelectionOfFile,
+    "restore last selection", 0);
+
+                            // resetImageSelection has to be started in thread.
+                            // if it is started directly an additional event fires listViewFiles_SelectedIndexChanged
+                            // and the old selection is not restored correct; no idea, where this trigger comes from,
+                            // but the thread helps
+                            Thread resetImageSelectionThread = new Thread(resetImageSelection);
+                            resetImageSelectionThread.Name = "resetImageSelection";
+                            resetImageSelectionThread.Priority = ThreadPriority.Normal;
+                            resetImageSelectionThread.IsBackground = true;
+                            resetImageSelectionThread.Start();
+
+                            return;
+                        }
                     }
                     else if (newIndexCount == oldIndexCount)
                     {
