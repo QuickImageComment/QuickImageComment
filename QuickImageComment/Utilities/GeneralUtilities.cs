@@ -22,6 +22,7 @@ using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -1579,6 +1580,29 @@ namespace QuickImageComment
             else
             {
                 return MetaDataItem.Format.Interpreted;
+            }
+        }
+
+        // get bitmap from path
+        internal static Bitmap getBitMapFromPath(string path)
+        {
+            // try path specification - assuming it is an image file
+            try
+            {
+                return new Bitmap(path);
+            }
+            catch
+            {
+                try
+                {
+                    // try extracting icon from executable
+                    Icon icon = Icon.ExtractAssociatedIcon(path);
+                    return icon.ToBitmap();
+                }
+                catch
+                {
+                    return null;
+                }
             }
         }
     }

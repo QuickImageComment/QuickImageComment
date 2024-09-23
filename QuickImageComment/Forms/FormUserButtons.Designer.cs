@@ -39,10 +39,6 @@ namespace QuickImageComment
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.dataGridViewButtons = new System.Windows.Forms.DataGridView();
-            this.Dynamic_ColumnIcon = new System.Windows.Forms.DataGridViewImageColumn();
-            this.Dynamic_ColumnText = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Dynamic_ColumnTag = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Dynamic_ColumnIconPath = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.buttonAdd = new System.Windows.Forms.Button();
             this.buttonRemove = new System.Windows.Forms.Button();
             this.buttonUp = new System.Windows.Forms.Button();
@@ -50,7 +46,19 @@ namespace QuickImageComment
             this.textBoxInfo = new System.Windows.Forms.TextBox();
             this.listViewIcons = new System.Windows.Forms.ListView();
             this.buttonAssign = new System.Windows.Forms.Button();
+            this.pictureBoxProgramPath = new System.Windows.Forms.PictureBox();
+            this.radioButtonProgrammPath = new System.Windows.Forms.RadioButton();
+            this.radioButtonImagePath = new System.Windows.Forms.RadioButton();
+            this.pictureBoxImagePath = new System.Windows.Forms.PictureBox();
+            this.buttonBrowse = new System.Windows.Forms.Button();
+            this.textBoxImagePath = new System.Windows.Forms.TextBox();
+            this.Dynamic_ColumnIcon = new System.Windows.Forms.DataGridViewImageColumn();
+            this.Dynamic_ColumnText = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Dynamic_ColumnTag = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Dynamic_ColumnIconPath = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewButtons)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProgramPath)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxImagePath)).BeginInit();
             this.SuspendLayout();
             // 
             // treeViewComponents
@@ -77,7 +85,7 @@ namespace QuickImageComment
             // buttonHelp
             // 
             this.buttonHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonHelp.Location = new System.Drawing.Point(776, 423);
+            this.buttonHelp.Location = new System.Drawing.Point(847, 423);
             this.buttonHelp.Name = "buttonHelp";
             this.buttonHelp.Size = new System.Drawing.Size(100, 22);
             this.buttonHelp.TabIndex = 16;
@@ -157,32 +165,6 @@ namespace QuickImageComment
             this.dataGridViewButtons.TabIndex = 4;
             this.dataGridViewButtons.SelectionChanged += new System.EventHandler(this.dataGridViewButtons_SelectionChanged);
             // 
-            // Dynamic_ColumnIcon
-            // 
-            this.Dynamic_ColumnIcon.HeaderText = "Icon";
-            this.Dynamic_ColumnIcon.Name = "Dynamic_ColumnIcon";
-            this.Dynamic_ColumnIcon.Width = 5;
-            // 
-            // Dynamic_ColumnText
-            // 
-            this.Dynamic_ColumnText.HeaderText = "Text";
-            this.Dynamic_ColumnText.Name = "Dynamic_ColumnText";
-            this.Dynamic_ColumnText.Width = 5;
-            // 
-            // Dynamic_ColumnTag
-            // 
-            this.Dynamic_ColumnTag.HeaderText = "Tag";
-            this.Dynamic_ColumnTag.Name = "Dynamic_ColumnTag";
-            this.Dynamic_ColumnTag.Visible = false;
-            this.Dynamic_ColumnTag.Width = 5;
-            // 
-            // Dynamic_ColumnIconPath
-            // 
-            this.Dynamic_ColumnIconPath.HeaderText = "IconPath";
-            this.Dynamic_ColumnIconPath.Name = "Dynamic_ColumnIconPath";
-            this.Dynamic_ColumnIconPath.Visible = false;
-            this.Dynamic_ColumnIconPath.Width = 5;
-            // 
             // buttonAdd
             // 
             this.buttonAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -239,7 +221,7 @@ namespace QuickImageComment
             this.textBoxInfo.Name = "textBoxInfo";
             this.textBoxInfo.ReadOnly = true;
             this.textBoxInfo.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBoxInfo.Size = new System.Drawing.Size(873, 30);
+            this.textBoxInfo.Size = new System.Drawing.Size(944, 30);
             this.textBoxInfo.TabIndex = 12;
             // 
             // listViewIcons
@@ -249,16 +231,17 @@ namespace QuickImageComment
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listViewIcons.HideSelection = false;
             this.listViewIcons.Location = new System.Drawing.Point(620, 26);
-            this.listViewIcons.MinimumSize = new System.Drawing.Size(177, 329);
+            this.listViewIcons.MinimumSize = new System.Drawing.Size(177, 250);
             this.listViewIcons.MultiSelect = false;
             this.listViewIcons.Name = "listViewIcons";
             this.listViewIcons.OwnerDraw = true;
-            this.listViewIcons.Size = new System.Drawing.Size(256, 329);
+            this.listViewIcons.Size = new System.Drawing.Size(327, 250);
             this.listViewIcons.TabIndex = 5;
             this.listViewIcons.TileSize = new System.Drawing.Size(50, 50);
             this.listViewIcons.UseCompatibleStateImageBehavior = false;
             this.listViewIcons.View = System.Windows.Forms.View.Tile;
             this.listViewIcons.DrawItem += new System.Windows.Forms.DrawListViewItemEventHandler(this.listViewIcons_DrawItem);
+            this.listViewIcons.SelectedIndexChanged += new System.EventHandler(this.listViewIcons_SelectedIndexChanged);
             this.listViewIcons.DoubleClick += new System.EventHandler(this.listViewIcons_DoubleClick);
             // 
             // buttonAssign
@@ -272,11 +255,107 @@ namespace QuickImageComment
             this.buttonAssign.UseVisualStyleBackColor = true;
             this.buttonAssign.Click += new System.EventHandler(this.buttonAssign_Click);
             // 
+            // pictureBoxProgramPath
+            // 
+            this.pictureBoxProgramPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBoxProgramPath.Location = new System.Drawing.Point(915, 315);
+            this.pictureBoxProgramPath.Name = "pictureBoxProgramPath";
+            this.pictureBoxProgramPath.Size = new System.Drawing.Size(32, 32);
+            this.pictureBoxProgramPath.TabIndex = 17;
+            this.pictureBoxProgramPath.TabStop = false;
+            // 
+            // radioButtonProgrammPath
+            // 
+            this.radioButtonProgrammPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.radioButtonProgrammPath.AutoSize = true;
+            this.radioButtonProgrammPath.Location = new System.Drawing.Point(620, 323);
+            this.radioButtonProgrammPath.Name = "radioButtonProgrammPath";
+            this.radioButtonProgrammPath.Size = new System.Drawing.Size(238, 17);
+            this.radioButtonProgrammPath.TabIndex = 18;
+            this.radioButtonProgrammPath.TabStop = true;
+            this.radioButtonProgrammPath.Text = "Bearbeiten-extern: Icon aus Programm-Pfad";
+            this.radioButtonProgrammPath.UseVisualStyleBackColor = true;
+            this.radioButtonProgrammPath.CheckedChanged += new System.EventHandler(this.radioButtonPath_CheckedChanged);
+            // 
+            // radioButtonImagePath
+            // 
+            this.radioButtonImagePath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.radioButtonImagePath.AutoSize = true;
+            this.radioButtonImagePath.Location = new System.Drawing.Point(620, 288);
+            this.radioButtonImagePath.Name = "radioButtonImagePath";
+            this.radioButtonImagePath.Size = new System.Drawing.Size(14, 13);
+            this.radioButtonImagePath.TabIndex = 19;
+            this.radioButtonImagePath.TabStop = true;
+            this.radioButtonImagePath.UseVisualStyleBackColor = true;
+            this.radioButtonImagePath.CheckedChanged += new System.EventHandler(this.radioButtonPath_CheckedChanged);
+            // 
+            // pictureBoxImagePath
+            // 
+            this.pictureBoxImagePath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBoxImagePath.Location = new System.Drawing.Point(915, 278);
+            this.pictureBoxImagePath.Name = "pictureBoxImagePath";
+            this.pictureBoxImagePath.Size = new System.Drawing.Size(32, 32);
+            this.pictureBoxImagePath.TabIndex = 20;
+            this.pictureBoxImagePath.TabStop = false;
+            // 
+            // buttonBrowse
+            // 
+            this.buttonBrowse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonBrowse.Image = ((System.Drawing.Image)(resources.GetObject("buttonBrowse.Image")));
+            this.buttonBrowse.Location = new System.Drawing.Point(881, 282);
+            this.buttonBrowse.Name = "buttonBrowse";
+            this.buttonBrowse.Size = new System.Drawing.Size(30, 24);
+            this.buttonBrowse.TabIndex = 21;
+            this.buttonBrowse.UseVisualStyleBackColor = true;
+            this.buttonBrowse.Click += new System.EventHandler(this.buttonBrowse_Click);
+            // 
+            // textBoxImagePath
+            // 
+            this.textBoxImagePath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxImagePath.Location = new System.Drawing.Point(638, 284);
+            this.textBoxImagePath.Name = "textBoxImagePath";
+            this.textBoxImagePath.Size = new System.Drawing.Size(239, 21);
+            this.textBoxImagePath.TabIndex = 22;
+            this.textBoxImagePath.TextChanged += new System.EventHandler(this.textBoxImagePath_TextChanged);
+            // 
+            // Dynamic_ColumnIcon
+            // 
+            this.Dynamic_ColumnIcon.HeaderText = "Icon";
+            this.Dynamic_ColumnIcon.Name = "Dynamic_ColumnIcon";
+            this.Dynamic_ColumnIcon.Width = 5;
+            // 
+            // Dynamic_ColumnText
+            // 
+            this.Dynamic_ColumnText.HeaderText = "Text";
+            this.Dynamic_ColumnText.Name = "Dynamic_ColumnText";
+            this.Dynamic_ColumnText.Width = 5;
+            // 
+            // Dynamic_ColumnTag
+            // 
+            this.Dynamic_ColumnTag.HeaderText = "Tag";
+            this.Dynamic_ColumnTag.Name = "Dynamic_ColumnTag";
+            this.Dynamic_ColumnTag.Visible = false;
+            this.Dynamic_ColumnTag.Width = 5;
+            // 
+            // Dynamic_ColumnIconPath
+            // 
+            this.Dynamic_ColumnIconPath.HeaderText = "IconPath";
+            this.Dynamic_ColumnIconPath.Name = "Dynamic_ColumnIconPath";
+            this.Dynamic_ColumnIconPath.Visible = false;
+            this.Dynamic_ColumnIconPath.Width = 5;
+            // 
             // FormUserButtons
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(881, 450);
+            this.ClientSize = new System.Drawing.Size(952, 450);
+            this.Controls.Add(this.textBoxImagePath);
+            this.Controls.Add(this.buttonBrowse);
+            this.Controls.Add(this.pictureBoxImagePath);
+            this.Controls.Add(this.radioButtonImagePath);
+            this.Controls.Add(this.radioButtonProgrammPath);
+            this.Controls.Add(this.pictureBoxProgramPath);
             this.Controls.Add(this.buttonAssign);
             this.Controls.Add(this.listViewIcons);
             this.Controls.Add(this.textBoxInfo);
@@ -298,6 +377,8 @@ namespace QuickImageComment
             this.Name = "FormUserButtons";
             this.Text = "Benutzerdefinierte Schaltflächen";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewButtons)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProgramPath)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxImagePath)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -321,6 +402,12 @@ namespace QuickImageComment
         private System.Windows.Forms.TextBox textBoxInfo;
         private System.Windows.Forms.ListView listViewIcons;
         private System.Windows.Forms.Button buttonAssign;
+        private System.Windows.Forms.PictureBox pictureBoxProgramPath;
+        private System.Windows.Forms.RadioButton radioButtonProgrammPath;
+        private System.Windows.Forms.RadioButton radioButtonImagePath;
+        private System.Windows.Forms.PictureBox pictureBoxImagePath;
+        private System.Windows.Forms.Button buttonBrowse;
+        private System.Windows.Forms.TextBox textBoxImagePath;
         private System.Windows.Forms.DataGridViewImageColumn Dynamic_ColumnIcon;
         private System.Windows.Forms.DataGridViewTextBoxColumn Dynamic_ColumnText;
         private System.Windows.Forms.DataGridViewTextBoxColumn Dynamic_ColumnTag;

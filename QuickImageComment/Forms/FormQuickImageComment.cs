@@ -213,7 +213,7 @@ namespace QuickImageComment
             // data grids for meta data
             // controls added here, so that all settings can be defined in constructor of DataGridViewMetaData
             // when controls are added in Designer.cs then each time the mask is changed, new columns are added by Visual Studio Designer
-            this.DataGridViewOverview = new QuickImageCommentControls.DataGridViewMetaData("DataGridViewOverview", 
+            this.DataGridViewOverview = new QuickImageCommentControls.DataGridViewMetaData("DataGridViewOverview",
                 toolTip1, ChangedDataGridViewValues);
             this.tabPageOverview.Controls.Add(this.DataGridViewOverview);
             // as DataGridViewMetaData sets column headers, which is not wanted for overview ...
@@ -224,13 +224,13 @@ namespace QuickImageComment
             this.DataGridViewOverview.Columns[4].Visible = false;
             // use specific context menu
             this.DataGridViewOverview.ContextMenuStrip = contextMenuStripOverview;
-            this.DataGridViewExif = new QuickImageCommentControls.DataGridViewMetaData("DataGridViewExif", 
+            this.DataGridViewExif = new QuickImageCommentControls.DataGridViewMetaData("DataGridViewExif",
                 toolTip1, ChangedDataGridViewValues);
             this.tabPageExif.Controls.Add(this.DataGridViewExif);
-            this.DataGridViewIptc = new QuickImageCommentControls.DataGridViewMetaData("DataGridViewIptc", 
+            this.DataGridViewIptc = new QuickImageCommentControls.DataGridViewMetaData("DataGridViewIptc",
                 toolTip1, ChangedDataGridViewValues);
             this.tabPageIptc.Controls.Add(this.DataGridViewIptc);
-            this.DataGridViewXmp = new QuickImageCommentControls.DataGridViewMetaData("DataGridViewXmp", 
+            this.DataGridViewXmp = new QuickImageCommentControls.DataGridViewMetaData("DataGridViewXmp",
                 toolTip1, ChangedDataGridViewValues);
             this.tabPageXmp.Controls.Add(this.DataGridViewXmp);
             this.DataGridViewOtherMetaData = new QuickImageCommentControls.DataGridViewMetaData("DataGridViewOtherMetaData", toolTip1, ChangedDataGridViewValues);
@@ -520,7 +520,7 @@ namespace QuickImageComment
             }
 
             // add user defined buttons
-            addUserDefinedButtions();
+            addUserDefinedButtons();
 
             // initialize status strip
             this.toolStripStatusLabelThread.Text = "";
@@ -1870,7 +1870,7 @@ namespace QuickImageComment
                                     theDialogResult = DialogResult.Yes;
                                     if (File.Exists(targetFileName))
                                     {
-                                        if (ii < filesToBeManaged.Count() -1)
+                                        if (ii < filesToBeManaged.Count() - 1)
                                         {
                                             // not the last file to manage, offer cancel all left files
                                             theDialogResult = GeneralUtilities.questionMessageYesNoCancel(LangCfg.Message.Q_replaceFileInDestinationCancel,
@@ -2262,8 +2262,10 @@ namespace QuickImageComment
         }
 
         // add user defined buttons
-        internal void addUserDefinedButtions()
+        internal void addUserDefinedButtons()
         {
+            string iconPath;
+
             // symbols usually are in toolStrip1, but can be moved to MenuStrip1
             ToolStrip toolStrip = toolStrip1;
             if (ConfigDefinition.getToolstripStyle().Equals("inMenu"))
@@ -2290,7 +2292,24 @@ namespace QuickImageComment
                 ToolStripButton toolStripButton = new ToolStripButton();
                 toolStripButton.Name = "dynamicUserDefinedButton" + jj.ToString();
                 toolStripButton.Size = new System.Drawing.Size(36, 36);
+                // icon specification can be an internal resource, a path specification
+                // or a flag indicating, that associated program path shall be used
+                // first try internal resource
                 Bitmap bitmap = (Bitmap)Properties.Resources.ResourceManager.GetObject(userButtonDefinition.iconSpec);
+                if (bitmap == null)
+                {
+                    if (userButtonDefinition.iconSpec == "*prgPath*")
+                    {
+                        // flag indicating that associated program path shall be used
+                        iconPath = ConfigDefinition.getProgramPathFromEditExternalDefinition(userButtonDefinition.text);
+                    }
+                    else
+                    {
+                        // assume, that a path for an image or executable is given
+                        iconPath = userButtonDefinition.iconSpec;
+                    }
+                    bitmap = GeneralUtilities.getBitMapFromPath(iconPath);
+                }
                 if (bitmap == null)
                 {
                     toolStripButton.Text = jj.ToString();
@@ -2681,7 +2700,7 @@ namespace QuickImageComment
             formUserButtons.ShowDialog();
             if (formUserButtons.settingsChanged)
             {
-                addUserDefinedButtions();
+                addUserDefinedButtons();
             }
         }
 
@@ -3130,7 +3149,7 @@ namespace QuickImageComment
         // generic event handler for user defined buttons
         private void userDefinedButton_Click(object sender, EventArgs e)
         {
-            ToolStripDropDownItem toolstripdropdownitem = getToolStriptem((string)((ToolStripButton)sender).Tag);
+            ToolStripDropDownItem toolstripdropdownitem = getToolStripItem((string)((ToolStripButton)sender).Tag);
             if (toolstripdropdownitem == null)
             {
                 GeneralUtilities.message(LangCfg.Message.W_menuEntryMissing);
@@ -6362,7 +6381,7 @@ namespace QuickImageComment
         }
 
         // get tool strip menu item by name
-        private ToolStripDropDownItem getToolStriptem(string itemName)
+        private ToolStripDropDownItem getToolStripItem(string itemName)
         {
             ToolStripDropDownItem toolStripItem = null;
             foreach (System.ComponentModel.Component aMenuItem in MenuStrip1.Items)

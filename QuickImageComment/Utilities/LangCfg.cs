@@ -340,7 +340,9 @@ namespace QuickImageComment
             duringLastUsage,
             prgTerminatedWith,
             fileSize,
-            fileLastModified
+            fileLastModified,
+            filterTextAllFiles,
+            filterTextIcoFiles
         }
 
         // defined as variable

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Windows.Forms;
 
 namespace QuickImageComment
@@ -126,12 +127,57 @@ namespace QuickImageComment
                 if (!textBoxInfo.Text.Equals("")) textBoxInfo.Text += Environment.NewLine;
                 textBoxInfo.Text += LangCfg.getText(LangCfg.Others.invalidMenuReference, userButtonDefinition.text);
             }
-            dataGridViewButtons.Rows[dataGridViewButtons.Rows.Count - 1].Cells[0].Value = Properties.Resources.ResourceManager.GetObject(userButtonDefinition.iconSpec);
+            string iconPath;
+            Bitmap bitmap = (Bitmap)Properties.Resources.ResourceManager.GetObject(userButtonDefinition.iconSpec);
+            if (bitmap == null)
+            {
+                if (userButtonDefinition.iconSpec == "*prgPath*")
+                {
+                    // flag indicating that associated program path shall be used
+                    iconPath = ConfigDefinition.getProgramPathFromEditExternalDefinition(userButtonDefinition.text);
+                }
+                else
+                {
+                    // assume, that a path for an image or executable is given
+                    iconPath = userButtonDefinition.iconSpec;
+                }
+                bitmap = GeneralUtilities.getBitMapFromPath(iconPath);
+            }
+            dataGridViewButtons.Rows[dataGridViewButtons.Rows.Count - 1].Cells[0].Value = bitmap;
         }
 
         //*****************************************************************
         // Buttons
         //*****************************************************************
+        private void buttonBrowse_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog OpenFileDialogCustomizationSettings = new OpenFileDialog();
+
+            ImageCodecInfo[] codecs = ImageCodecInfo.GetImageEncoders();
+            string sep = string.Empty;
+            OpenFileDialogCustomizationSettings.Filter = String.Format("{0}{1}{2} ({3})|{3}",
+                OpenFileDialogCustomizationSettings.Filter, sep, LangCfg.getText(LangCfg.Others.filterTextIcoFiles), "*.ICO");
+            sep = "|";
+            foreach (var c in codecs)
+            {
+                string codecName = c.CodecName.Substring(8).Replace("Codec", "Files").Trim();
+                OpenFileDialogCustomizationSettings.Filter = String.Format("{0}{1}{2} ({3})|{3}",
+                    OpenFileDialogCustomizationSettings.Filter, sep, codecName, c.FilenameExtension);
+            }
+            OpenFileDialogCustomizationSettings.Filter = String.Format("{0}{1}{2} ({3})|{3}",
+                OpenFileDialogCustomizationSettings.Filter, sep, LangCfg.getText(LangCfg.Others.filterTextAllFiles), "*.*");
+
+            //            OpenFileDialogCustomizationSettings.Filter = LangCfg.getText(LangCfg.Others.filterTextAllFiles);
+            OpenFileDialogCustomizationSettings.InitialDirectory = textBoxImagePath.Text;
+            OpenFileDialogCustomizationSettings.Title = LangCfg.getText(LangCfg.Others.selectProgram);
+            OpenFileDialogCustomizationSettings.CheckFileExists = true;
+            OpenFileDialogCustomizationSettings.CheckPathExists = true;
+            if (OpenFileDialogCustomizationSettings.ShowDialog() == DialogResult.OK)
+            {
+                textBoxImagePath.Text = OpenFileDialogCustomizationSettings.FileName;
+            }
+        }
+
         private void buttonCustomizeForm_Click(object sender, EventArgs e)
         {
             CustomizationInterface.showFormCustomization(this);
@@ -232,10 +278,24 @@ namespace QuickImageComment
 
         private void buttonAssign_Click(object sender, EventArgs e)
         {
-            if (listViewIcons.SelectedItems.Count > 0 && dataGridViewButtons.SelectedCells.Count > 0)
+            if (dataGridViewButtons.SelectedCells.Count > 0)
             {
-                dataGridViewButtons.SelectedCells[0].OwningRow.Cells[3].Value = listViewIcons.SelectedItems[0].Text;
-                dataGridViewButtons.SelectedCells[0].OwningRow.Cells[0].Value = Properties.Resources.ResourceManager.GetObject(listViewIcons.SelectedItems[0].Text);
+                DataGridViewRow selectedRow = dataGridViewButtons.SelectedCells[0].OwningRow;
+                if (listViewIcons.SelectedItems.Count > 0)
+                {
+                    selectedRow.Cells[3].Value = listViewIcons.SelectedItems[0].Text;
+                    selectedRow.Cells[0].Value = Properties.Resources.ResourceManager.GetObject(listViewIcons.SelectedItems[0].Text);
+                }
+                else if (radioButtonProgrammPath.Checked)
+                {
+                    selectedRow.Cells[3].Value = "*prgPath*";
+                    selectedRow.Cells[0].Value = pictureBoxProgramPath.Image;
+                }
+                else if (radioButtonImagePath.Checked)
+                {
+                    selectedRow.Cells[3].Value = textBoxImagePath.Text;
+                    selectedRow.Cells[0].Value = pictureBoxImagePath.Image;
+                }
             }
         }
 
@@ -244,13 +304,62 @@ namespace QuickImageComment
         //*****************************************************************
         private void dataGridViewButtons_SelectionChanged(object sender, EventArgs e)
         {
+            if (listViewIcons.SelectedItems.Count > 0) listViewIcons.SelectedItems[0].Selected = false;
+            radioButtonProgrammPath.Checked = false;
+            radioButtonProgrammPath.Enabled = false;
+            radioButtonImagePath.Checked = false;
+            pictureBoxProgramPath.Image = null;
+
             if (dataGridViewButtons.SelectedCells.Count > 0)
             {
+                DataGridViewRow selectedRow = dataGridViewButtons.SelectedCells[0].OwningRow;
                 // get index of the row for the selected cell
                 int rowIndex = dataGridViewButtons.SelectedCells[0].OwningRow.Index;
                 buttonUp.Enabled = rowIndex > 0;
                 buttonDown.Enabled = rowIndex < dataGridViewButtons.Rows.Count - 1;
+
+                string programPath = ConfigDefinition.getProgramPathFromEditExternalDefinition((string)dataGridViewButtons.SelectedCells[0].OwningRow.Cells[1].Value);
+                if (!programPath.Equals(""))
+                {
+                    pictureBoxProgramPath.Image = GeneralUtilities.getBitMapFromPath(programPath);
+                    radioButtonProgrammPath.Enabled = true;
+                }
+                if (System.IO.File.Exists((string)selectedRow.Cells[3].Value))
+                {
+                    textBoxImagePath.Text = (string)selectedRow.Cells[3].Value;
+                    pictureBoxImagePath.Image = GeneralUtilities.getBitMapFromPath(textBoxImagePath.Text);
+                    radioButtonImagePath.Enabled = true;
+                }
             }
+        }
+
+        private void textBoxImagePath_TextChanged(object sender, EventArgs e)
+        {
+            if (textBoxImagePath.Text.Equals(""))
+            {
+                pictureBoxImagePath.Image = null;
+                radioButtonImagePath.Enabled = false;
+            }
+            else
+            {
+                pictureBoxImagePath.Image = GeneralUtilities.getBitMapFromPath(textBoxImagePath.Text);
+                radioButtonImagePath.Enabled = true;
+            }
+        }
+
+        private void listViewIcons_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listViewIcons.SelectedItems.Count > 0)
+            {
+                radioButtonProgrammPath.Checked = false;
+                radioButtonImagePath.Checked = false;
+            }
+        }
+
+        private void radioButtonPath_CheckedChanged(object sender, EventArgs e)
+        {
+            if (((RadioButton)sender).Checked && listViewIcons.SelectedItems.Count > 0) 
+                listViewIcons.SelectedItems[0].Selected = false;
         }
 
         private void listViewIcons_DrawItem(object sender, DrawListViewItemEventArgs e)

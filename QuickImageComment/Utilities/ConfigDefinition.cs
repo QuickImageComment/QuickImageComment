@@ -2267,6 +2267,21 @@ namespace QuickImageComment
             EditExternalDefinitionArrayList = new ArrayList(newEditExternalArrayList);
         }
 
+        // get program path from external definition for a tooltip text (user defined button)
+        public static string getProgramPathFromEditExternalDefinition(string tooltipText)
+        {
+            foreach (EditExternalDefinition editExternalDefinition in ConfigDefinition.getEditExternalDefinitionArrayList())
+            {
+                // tooltip text starts with "Bearbeiten-extern" or its translation
+                // as new languages may be added, no complete comparison is made here
+                if (tooltipText.EndsWith(" - " + editExternalDefinition.Name))
+                {
+                    return editExternalDefinition.programPath;
+                }
+            }
+            return "";
+        }
+
         // list of files causing fatal exiv2 exception
         public static List<string> getImagesCausingExiv2Exception()
         {
