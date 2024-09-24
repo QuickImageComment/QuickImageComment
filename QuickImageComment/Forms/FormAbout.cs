@@ -54,7 +54,7 @@ namespace QuickImageComment
                 return;
             }
 
-            textBoxQuickImageCommentVersion.Text += Program.VersionNumberInformational;
+            textBoxQuickImageCommentVersion.Text += " " + Program.VersionNumberInformational;
             dynamicLabelQuickImageCommentCreated.Text = Program.CompileTime.ToString("yyyy-MM-dd HH:mm");
 
             AssemblyCopyrightAttribute theCopyright = System.Reflection.AssemblyCopyrightAttribute.GetCustomAttribute(ExecAssembly, typeof(System.Reflection.AssemblyCopyrightAttribute))
@@ -62,7 +62,7 @@ namespace QuickImageComment
             fixedLabelQuickImageCommentCopyRight.Text = theCopyright.Copyright;
             string exiv2Version = "";
             exiv2getVersion(ref exiv2Version);
-            textBoxExiv2CdeclVersion.Text += exiv2Version;
+            textBoxExiv2CdeclVersion.Text += " " + exiv2Version;
 
             // if flag set, create screenshot and return
             if (GeneralUtilities.CreateScreenshots)
