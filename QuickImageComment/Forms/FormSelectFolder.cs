@@ -7,6 +7,14 @@ namespace QuickImageComment
     public partial class FormSelectFolder : Form
     {
         private string newSelectedFolder;
+
+        // constructor with setting title
+        public FormSelectFolder(string FolderName, string title) : this(FolderName)
+        {
+            Text = title;
+        }
+
+        // standard constructor
         public FormSelectFolder(string FolderName)
         {
             InitializeComponent();
@@ -70,6 +78,7 @@ namespace QuickImageComment
 
         private void buttonCancel_Click(object sender, EventArgs e)
         {
+            newSelectedFolder = "";
             Close();
         }
 

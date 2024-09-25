@@ -651,20 +651,23 @@ namespace QuickImageComment
             FormSelectFolder formSelectFolder = new FormSelectFolder(FolderName);
             formSelectFolder.ShowDialog();
             string newFolderName = formSelectFolder.getSelectedFolder();
-            if (!newFolderName.Equals(FolderName))
+            if (!newFolderName.Equals(""))
             {
-                // folder changed
-                if (Directory.Exists(newFolderName))
+                if (!newFolderName.Equals(FolderName))
                 {
                     // folder changed
-                    FolderName = formSelectFolder.getSelectedFolder();
-                    dynamicLabelFolder.Text = FolderName;
-                    dataTable = null;
-                    setControlsDependingOnDataTable();
-                }
-                else
-                {
-                    GeneralUtilities.message(LangCfg.Message.E_folderNotExist, newFolderName);
+                    if (Directory.Exists(newFolderName))
+                    {
+                        // folder changed
+                        FolderName = formSelectFolder.getSelectedFolder();
+                        dynamicLabelFolder.Text = FolderName;
+                        dataTable = null;
+                        setControlsDependingOnDataTable();
+                    }
+                    else
+                    {
+                        GeneralUtilities.message(LangCfg.Message.E_folderNotExist, newFolderName);
+                    }
                 }
             }
         }

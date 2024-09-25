@@ -1766,7 +1766,8 @@ namespace QuickImageComment
         // copy image file and associated files to other folder
         private void toolStripMenuItemCopyTo_Click(object sender, EventArgs e)
         {
-            FormSelectFolder formSelectFolder = new FormSelectFolder(FolderName);
+            FormSelectFolder formSelectFolder = new FormSelectFolder(FolderName, 
+                ((ToolStripMenuItem)sender).Text);
             formSelectFolder.ShowDialog();
             string newFolderName = formSelectFolder.getSelectedFolder();
             if (!newFolderName.Equals(""))
@@ -1778,7 +1779,8 @@ namespace QuickImageComment
         // move image file and associated files to other folder
         private void toolStripMenuItemMoveTo_Click(object sender, EventArgs e)
         {
-            FormSelectFolder formSelectFolder = new FormSelectFolder(FolderName);
+            FormSelectFolder formSelectFolder = new FormSelectFolder(FolderName,
+                ((ToolStripMenuItem)sender).Text);
             formSelectFolder.ShowDialog();
             string newFolderName = formSelectFolder.getSelectedFolder();
             if (!newFolderName.Equals(""))
@@ -3005,18 +3007,21 @@ namespace QuickImageComment
             FormSelectFolder formSelectFolder = new FormSelectFolder(FolderName);
             formSelectFolder.ShowDialog();
             string newFolderName = formSelectFolder.getSelectedFolder();
-            if (!newFolderName.Equals(FolderName))
+            if (!newFolderName.Equals(""))
             {
-                // folder changed
-                if (Directory.Exists(newFolderName))
+                if (!newFolderName.Equals(FolderName))
                 {
-                    FolderName = newFolderName;
-                    theFolderTreeView.SelectedFolder = new GongSolutions.Shell.ShellItem(FolderName);
-                    readFolderAndDisplayImage(false);
-                }
-                else
-                {
-                    GeneralUtilities.message(LangCfg.Message.E_folderNotExist, newFolderName);
+                    // folder changed
+                    if (Directory.Exists(newFolderName))
+                    {
+                        FolderName = newFolderName;
+                        theFolderTreeView.SelectedFolder = new GongSolutions.Shell.ShellItem(FolderName);
+                        readFolderAndDisplayImage(false);
+                    }
+                    else
+                    {
+                        GeneralUtilities.message(LangCfg.Message.E_folderNotExist, newFolderName);
+                    }
                 }
             }
         }

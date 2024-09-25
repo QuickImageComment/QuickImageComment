@@ -155,16 +155,16 @@ namespace QuickImageComment
 
             ImageCodecInfo[] codecs = ImageCodecInfo.GetImageEncoders();
             string sep = string.Empty;
-            OpenFileDialogCustomizationSettings.Filter = String.Format("{0}{1}{2} ({3})|{3}",
+            OpenFileDialogCustomizationSettings.Filter = string.Format("{0}{1}{2} ({3})|{3}",
                 OpenFileDialogCustomizationSettings.Filter, sep, LangCfg.getText(LangCfg.Others.filterTextIcoFiles), "*.ICO");
             sep = "|";
             foreach (var c in codecs)
             {
                 string codecName = c.CodecName.Substring(8).Replace("Codec", "Files").Trim();
-                OpenFileDialogCustomizationSettings.Filter = String.Format("{0}{1}{2} ({3})|{3}",
+                OpenFileDialogCustomizationSettings.Filter = string.Format("{0}{1}{2} ({3})|{3}",
                     OpenFileDialogCustomizationSettings.Filter, sep, codecName, c.FilenameExtension);
             }
-            OpenFileDialogCustomizationSettings.Filter = String.Format("{0}{1}{2} ({3})|{3}",
+            OpenFileDialogCustomizationSettings.Filter = string.Format("{0}{1}{2} ({3})|{3}",
                 OpenFileDialogCustomizationSettings.Filter, sep, LangCfg.getText(LangCfg.Others.filterTextAllFiles), "*.*");
 
             //            OpenFileDialogCustomizationSettings.Filter = LangCfg.getText(LangCfg.Others.filterTextAllFiles);
