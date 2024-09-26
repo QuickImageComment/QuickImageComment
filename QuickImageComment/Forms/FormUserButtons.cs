@@ -66,6 +66,7 @@ namespace QuickImageComment
             // if flag set, create screenshot and return
             if (GeneralUtilities.CreateScreenshots)
             {
+                addRowForUserButtonDefinition(new UserButtonDefinition(LangCfg.translate("Bearbeiten-extern" + " - PhotoLine", "FormUserButton-Source"), "dynamicEditExternalDefinition PhotoLine", "*prgPath*"));
                 addRowForUserButtonDefinition(new UserButtonDefinition(LangCfg.translate("Meta-Daten entfernen", "FormUserButton-Source"), "ToolStripMenuItemRemoveMetaData", "Eraser"));
                 addRowForUserButtonDefinition(new UserButtonDefinition(LangCfg.translate("Bild mit Raster", "FormUserButton - Source"), "toolStripMenuItemImageWithGrid", "Grid"));
                 Show();

@@ -1,17 +1,23 @@
-﻿<Program_Version>4.59</Program_Version>
+﻿<Program_Version>4.60</Program_Version>
 <Program_Change_Info_German>
 Erweiterungen und Verbesserungen:
-Verbesserte Fehlererkennung
-Nur für die .Net 4.6.1-Varianten: Neue Version 0.28.3 der Bibliothek exiv2 integriert: kleinere Fehler wurden behoben.
+Bilder können in einen anderen Ordner kopiert oder verschoben werden.
+Maske "Konfiguration Bearbeiten-extern": Programm-Pfad und Fenstertitel können von geöffneten Programmen übernommen werden, d.h. diese Daten müssen nicht manuell eingegeben werden.
+Vor dem Speichern wird geprüft, ob die Datei seit dem Lesen außerhalb des Programmes verändert wurde.
+Wenn ein Bild außerhalb des Programmes verändert wird, wird jetzt das angezeigte Bild auch dann aktualisiert, wenn nicht gespeicherte Änderungen vorliegen. Die vorgenommenen Änderungen werden nicht überschrieben, auch wenn die entsprechenden Felder außerhalb verändert wurden.
+Maske "Benutzerdefinierte Schaltflächen": Icons von einer Datei können zugewiesen werden. Handelt es sich bei dem Menüpunkt um einen Eintrag aus "Bearbeiten-Extern" mit der Konfiguration "Programm", kann das dem Programm zugeordnete Icon zugewiesen werden.
 
 Folgender Fehler wurde behoben:
-Das Programm stürzte ab, wenn die Größe der Vorschaubilder größer als 256x256 konfiguriert wurde.
+Bei Eingabe in den Reitern für Eigenschaften: Mit der Escape-Taste wurde nicht der Wert wiederhergestellt, der eingelesen wurde sondern der Wert, den die Zelle hatte, als sie zuletzt verlassen wurde, also ggfs. eine vorherige Eingabe war. 
 </Program_Change_Info_German>
 <Program_Change_Info_English>
 Enhancements and improvements:
-Improved error detection
-Only for the .Net 4.6.1 variants: New version 0.28.3 of the exiv2 library integrated: minor bugs fixed.
+Images can be copied or moved to another folder.
+Mask "Configuration Edit-external": Program path and window title can be taken from open programs, i.e. this data does not have to be entered manually.
+Before saving, it is checked, whether the file has been changed outside the program since it was read.
+If an image is changed outside the program, the displayed image is now updated even if there are unsaved changes. The changes made are not overwritten, even if the corresponding fields have been changed outside the program.
+Mask "User defined buttons": icons from a file can assigned. If the menu item is an entry from "Edit-External" with "Program" configuration, the icon assigned to the program can be assigned.
 
 The following error has been fixed:
-The program crashed if the size of the preview images was configured larger than 256x256
+During input in the tabs for properties: The escape key did not restore the value that was read in, but the value that the cell had when it was last exited, i.e. possibly a previous entry.
 </Program_Change_Info_English>

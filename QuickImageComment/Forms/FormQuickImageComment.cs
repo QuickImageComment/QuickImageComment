@@ -6885,6 +6885,7 @@ namespace QuickImageComment
             new FormRemoveMetaData(theUserControlFiles.listViewFiles.SelectedIndices);
             new FormRename(theUserControlFiles.listViewFiles.SelectedIndices);
             new FormScale();
+            new FormSelectApplication();
             new FormSelectFolder("C:\\");
             new FormSelectLanguage(ConfigDefinition.getConfigPath());
             new FormSettings();
