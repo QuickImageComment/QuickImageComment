@@ -1200,42 +1200,6 @@ namespace QuickImageComment
             setControlsEnabledBasedOnDataChange(true);
         }
 
-        // event handler triggered when text in data grid view Overview is changed
-        private void DataGridViewsMetaData_CellValueChanged(object sender, DataGridViewCellEventArgs e)
-        {
-            DataGridView dataGridView = (DataGridView)sender;
-            if (e.RowIndex >= 0 && e.ColumnIndex == 1)
-            {
-                string newValue = (string)dataGridView.Rows[e.RowIndex].Cells[1].Value;
-                string key;
-                // DataGridViewOverview has 4 columns, key in column[2]
-                // other dataGridViews have 6 columns, key in column[5]
-                if (dataGridView.ColumnCount > 5)
-                {
-                    key = (string)dataGridView.Rows[e.RowIndex].Cells[5].Value;
-                }
-                else
-                {
-                    key = (string)dataGridView.Rows[e.RowIndex].Cells[2].Value;
-                }
-
-                if (key != null)
-                {
-                    if (ChangedDataGridViewValues.ContainsKey(key))
-                    {
-                        ChangedDataGridViewValues[key] = newValue;
-                    }
-                    else
-                    {
-                        ChangedDataGridViewValues.Add(key, newValue);
-                    }
-                    dataGridView.Rows[e.RowIndex].Cells[1].Style.BackColor = backColorInputValueChanged;
-
-                    setControlsEnabledBasedOnDataChange();
-                }
-            }
-        }
-
         // event handler triggered when item is checked or unchecked to recognise user changes
         private void treeViewPredefKeyWords_AfterCheck(object sender, TreeViewEventArgs e)
         {
@@ -6443,15 +6407,16 @@ namespace QuickImageComment
 
                 // stop thread to get memory
                 cancellationTokenSourceCyclicDisplayMemory.Cancel();
-                // instead set fix memory so that screen shots do not differ just because of memory
-                this.toolStripStatusLabelMemory.Text = LangCfg.textOthersMainMemory + ": " + "50" + " MB   " +
-                                                       LangCfg.textOthersFree + ": " + "3000" + " MB";
 
                 GeneralUtilities.CreateScreenshots = true;
 
                 GeneralUtilities.debugMessage("After pressing \"OK\", move cursor outside the area, where screen shots are taken.\"" +
                     "Program will wait a few second, before it continues.");
                 System.Threading.Thread.Sleep(2000);
+
+                // now set fix memory so that screen shots do not differ just because of memory
+                this.toolStripStatusLabelMemory.Text = LangCfg.textOthersMainMemory + ": " + "50" + " MB   " +
+                                                       LangCfg.textOthersFree + ": " + "3000" + " MB";
 
                 ConfigDefinition.loadViewConfiguration("Standard");
                 adjustViewAfterFormView();
@@ -6723,6 +6688,8 @@ namespace QuickImageComment
                 new FormRemoveMetaData(theUserControlFiles.listViewFiles.SelectedIndices);
                 new FormRename(theUserControlFiles.listViewFiles.SelectedIndices);
                 new FormScale();
+                // exclude FormSelectApplication: not interisting for screen shot 
+                // exclude FormSelectFolder: not interisting for screen shot 
                 new FormSelectLanguage(ConfigDefinition.getConfigPath());
                 new FormSettings();
                 // exclude FormSelectUserConfigStorage: not interisting for screen shot 
@@ -6821,6 +6788,9 @@ namespace QuickImageComment
             LangCfg.getListOfControlsWithText(new FormFirstAppCenterSettings(), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormFirstUserSettings(true), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormScale(), ControlTextList);
+            LangCfg.getListOfControlsWithText(new FormSelectApplication(), ControlTextList);
+            LangCfg.getListOfControlsWithText(new FormSelectFolder("C:\\"), ControlTextList);
+            LangCfg.getListOfControlsWithText(new FormSelectLanguage(ConfigDefinition.getConfigPath()), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormSettings(), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormTagValueInput("", textBoxUserComment, FormTagValueInput.type.configurable), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormUserButtons(this.MenuStrip1), ControlTextList);
