@@ -54,9 +54,9 @@ namespace QuickImageComment
         internal void init(FormQuickImageComment formQuickImageComment)
         {
             theFormQuickImageComment = formQuickImageComment;
-            delayAfterSelectedIndexChangedThread = new Thread(delayAfterSelectedIndexChanged);
 
             listViewFiles.init();
+            workAfterSelectedIndexChanged();
             setColumnToSortAndCheckMenu("Name");
             contextMenuStripMenuItemSortAsc.Checked = listViewFiles.sortAscending;
             theFormQuickImageComment.toolStripMenuItemSortSortAsc.Checked = listViewFiles.sortAscending;
@@ -270,7 +270,8 @@ namespace QuickImageComment
                 GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceWorkAfterSelectionOfFile, traceString, 0);
             }
 
-            if (ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.ThreadAfterSelectionOfFile))
+            if (ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.ThreadAfterSelectionOfFile) &&
+                delayAfterSelectedIndexChangedThread != null)
             {
                 if ((delayAfterSelectedIndexChangedThread.ThreadState & ThreadState.Background) != ThreadState.Background &&
                     (delayAfterSelectedIndexChangedThread.ThreadState & ThreadState.WaitSleepJoin) != ThreadState.WaitSleepJoin)
