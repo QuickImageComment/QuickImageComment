@@ -780,6 +780,7 @@ namespace QuickImageCommentControls
             if (e.RowIndex >= 0 && e.ColumnIndex == 1)
             {
                 string newValue = (string)Rows[e.RowIndex].Cells[1].Value;
+                if (newValue == null) newValue = "";
                 string key = (string)Rows[e.RowIndex].Cells[5].Value;
 
                 if (key != null)
