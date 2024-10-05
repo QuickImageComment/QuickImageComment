@@ -965,7 +965,7 @@ namespace QuickImageComment
             contextMenuStripMenuItemList.Checked = listViewFiles.View.Equals(View.List);
             contextMenuStripMenuItemTile.Checked = listViewFiles.View.Equals(View.Tile);
             listViewFiles.EndUpdate();
-            if (listViewFiles.SelectedIndices.Count > 0)
+            if (displayedIndex() >= 0)
             {
                 listViewFiles.EnsureVisible(displayedIndex());
             }
