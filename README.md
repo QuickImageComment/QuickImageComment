@@ -27,8 +27,8 @@ QuickImageComment displays EXIF, IPTC, and XMP properties of digital images (e.g
 Further processing of the images (e.g., adjusting the contrast and brightness) is not the purpose of this program.
 
 For reading and changing the EXIF, IPTC, and XMP properties the library exiv2 is used. On [www.exiv2.org](www.exiv2.org) a description of this library can be found as well as extensive information and links to Exif, IPTC and XMP. The formats supported by exiv2 are documented here:
-* Images: [http://dev.exiv2.org/projects/exiv2/wiki/Supported_image_formats](http://dev.exiv2.org/projects/exiv2/wiki/Supported_image_formats)
-* Videos: [http://dev.exiv2.org/projects/exiv2/wiki/Supported_video_formats](http://dev.exiv2.org/projects/exiv2/wiki/Supported_video_formats)
+
+https://github.com/Exiv2/exiv2/blob/main/exiv2.md#file_types
 
 For displaying RAW images, the LibRaw library is integrated. If the camera manufacturer's codec or the Microsoft Raw Image Extension (which supports various RAW formats) are installed, they are used and then display is usually faster. One can install both a specific codec and the Microsoft Extension. The specific codec is then used for the corresponding images. For all others first the Microsoft Extension is tried and as last option the integrated LibRaw library. For the display of the metadata no codec is needed.
 
@@ -65,7 +65,6 @@ The AppCenter secure Id is not included in the sources (to keep it secret). So w
 
 The projects use NuGet packages. NuGet is configured with:    
 Default package management format: PackageReference
-
 
 
 Depending on the changes made, following steps may be needed:
