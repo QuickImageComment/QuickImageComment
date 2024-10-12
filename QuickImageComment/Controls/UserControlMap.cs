@@ -147,6 +147,9 @@ namespace QuickImageComment
         GeoDataItem initGeoDataItem;
         bool initChangeLocationAllowed;
 
+        // flag used to wait until CoreWebView2 is initialized
+        private bool webView2Initialised;
+
         internal UserControlMap(bool locationChangeNeeded, GeoDataItem geoDataItem, bool givenChangeLocationAllowed, int radiusInMeter)
         {
             InitializeComponent();
@@ -183,8 +186,19 @@ namespace QuickImageComment
             }
             else
             {
+                webView2Initialised = false;
                 initWebView2();
                 // initOtherControls is done in event WebView_CoreWebView2InitializationCompleted
+
+                // Wait for the CoreWebView2 to be initialized
+                // using this ugly approach as all "nice" approaches did not work
+                for (int ii = 0; ii < 300; ii++)
+                {
+                    System.Threading.Thread.Sleep(100);
+                    // to avoid "not responding"
+                    System.Windows.Forms.Application.DoEvents();
+                    if (webView2Initialised) break;
+                }
             }
 #else
             initWebBrowser();
@@ -241,6 +255,7 @@ namespace QuickImageComment
                     initCommonControls();
                 }
             }
+            webView2Initialised = true;
         }
 
         // event initialization of WebView2 completed
@@ -355,7 +370,7 @@ namespace QuickImageComment
             checkBoxWebView2.Checked = useWebView2;
             this.checkBoxWebView2.CheckedChanged += new System.EventHandler(this.checkBoxWebView2_CheckedChanged);
 #if APPCENTER
-            if (Program.AppCenterUsable) Microsoft.AppCenter.Analytics.Analytics.TrackEvent("Map initialised with useWebView2="+useWebView2.ToString());
+            if (Program.AppCenterUsable) Microsoft.AppCenter.Analytics.Analytics.TrackEvent("Map initialised with useWebView2=" + useWebView2.ToString());
 #endif
 #endif
             LangCfg.translateControlTexts(this);
@@ -808,10 +823,11 @@ namespace QuickImageComment
         private void checkBoxWebView2_CheckedChanged(object sender, EventArgs e)
         {
             initGeoDataItem = startGeoDataItem;
-            initChangeLocationAllowed = changeLocationAllowed;comboBoxSearchList = null;
-            if (checkBoxWebView2.Checked) 
+            initChangeLocationAllowed = changeLocationAllowed; 
+            comboBoxSearchList = null;
+            if (checkBoxWebView2.Checked)
             {
-                if(webBrowser1 != null) webBrowser1.Dispose();
+                if (webBrowser1 != null) webBrowser1.Dispose();
                 initWebView2();
             }
             else
@@ -1431,7 +1447,7 @@ namespace QuickImageComment
                             webBrowser1.Document.InvokeScript(method, arguments);
                         }
                     }
-                    catch { } 
+                    catch { }
                 }
             }
         }
