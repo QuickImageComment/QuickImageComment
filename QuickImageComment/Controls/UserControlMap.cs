@@ -550,6 +550,9 @@ namespace QuickImageComment
                     case "setMarkerStatus":
                         setMarkerStatus(value == "true");
                         break;
+                    case "setMarkerStatusUser":
+                        setMarkerStatusUser(value == "true");
+                        break;
                     case "htmlDebug":
                         htmlDebug(value);
                         break;
@@ -1504,10 +1507,19 @@ namespace QuickImageComment
         }
 
         // method called from webbrowser when marker status changed
+        public void setMarkerStatusUser(bool enabled)
+        {
+            setMarkerStatus(enabled);
+
+            // this status change is a data change by user
+            if (startWithMarker != enabled) GpsDataChanged = true;
+            if (GpsDataChanged) buttonReset.Enabled = true;
+            MainMaskInterface.setControlsEnabledBasedOnDataChange();
+        }
+
         public void setMarkerStatus(bool enabled)
         {
-            // theoretically marker can be set to center, but as it is a manual action, it is nearly impossible
-            // so enable center button without check (like in setLatitudeLongitudeMapCenter)
+            // enable center button if marker is enabled
             buttonCenterMarker.Enabled = enabled;
             if (!enabled)
             {
@@ -1516,10 +1528,6 @@ namespace QuickImageComment
                 clearSearchEntry();
                 markerGeoDataItem = null;
             }
-            // a status change is a data change by user
-            if (startWithMarker != enabled) GpsDataChanged = true;
-            if (GpsDataChanged) buttonReset.Enabled = true;
-            MainMaskInterface.setControlsEnabledBasedOnDataChange();
         }
 
         // called from leaflet.html for test of values in html

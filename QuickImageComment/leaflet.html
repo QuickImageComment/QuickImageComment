@@ -170,6 +170,15 @@
                 window.external.setMarkerStatus(value);
             }
         }
+        // function call Windows to set marker status
+        function win_setMarkerStatusUser(value) {
+            if (window.chrome != null) {
+                window.chrome.webview.postMessage("setMarkerStatusUser:" + value);
+            }
+            else {
+                window.external.setMarkerStatusUser(value);
+            }
+        }
         // function call Windows to set zoom
         function win_setZoom(value) {
             if (window.chrome != null) {
@@ -264,12 +273,12 @@
             if (changeLocationAllowed) {
                 if (withMarker) {
                     removeMarkerFromMap();
-                    win_setMarkerStatus(withMarker);
+                    win_setMarkerStatusUser(withMarker);
                 } else {
                     var coords = e.latlng;
                     win_setLatitudeLongitudeMarker(coords.lat + "#" + coords.lng);
                     createMarker(coords.lat, coords.lng);
-                    win_setMarkerStatus(withMarker);
+                    win_setMarkerStatusUser(withMarker);
                 }
             }
         });
