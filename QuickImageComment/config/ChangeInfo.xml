@@ -1,13 +1,11 @@
-﻿<Program_Version>4.61</Program_Version>
+﻿<Program_Version>4.62</Program_Version>
 <Program_Change_Info_German>
 Folgende Fehler wurden behoben:
-Das Programm stürzte ab, wenn versucht wurde, einen leeren Wert in den Reitern für Eigenschaften zu speichern. 
-Das Programm konnte beim Start mit "Invoke oder BeginInvoke kann nicht auf einem Steuerelement aufgerufen werden, bis die Fensterverknüpfung erstellt ist." abstürzen. 
-In seltenen Fällen konnte das Programm beim Wechsel der Ansicht der Dateiliste abstürzen.
+Wenn das Programm mit Kartenansicht gestartet wurde und WebView2 aktiviert war, stürzte es ab.
+Wenn Kartenansicht mit WebView2 aktiv war, wurde beim Bildwechsel angezeigt, dass der Aufnahmeort geändert wurde, obwohl das nicht der Fall war.
 </Program_Change_Info_German>
 <Program_Change_Info_English>
 The following errors have been fixed:
-The program crashed when trying to save an empty value in the tabs for properties.
-The program could crash during start with "Invoke or BeginInvoke cannot be called on a control until the window link is created."
-In seldom cases the program could crash when changing the view of file list.
+If the program was started with map view and WebView2 was activated, it crashed. 
+If map view with WebView2 was active, a message occured, that the recording location had been changed when selecting another image, although this was not the case.
 </Program_Change_Info_English>
