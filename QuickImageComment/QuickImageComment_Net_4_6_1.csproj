@@ -989,7 +989,7 @@
       <Version>1.0.1829-prerelease</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools">
-      <Version>10.0.22621.756</Version>
+      <Version>10.0.26100.1742</Version>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>13.0.3</Version>

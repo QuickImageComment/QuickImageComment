@@ -890,5 +890,6 @@
     <None Include="..\Src_exiv2_xmpsdk\src\UnicodeInlines.incl_cpp">
       <Filter>Src_exiv2_xmpsdk\src</Filter>
     </None>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>
