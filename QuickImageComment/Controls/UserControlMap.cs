@@ -57,9 +57,11 @@ namespace QuickImageComment
         private bool useWebView2;
         private bool coreWebView2Initialised = false;
         private Microsoft.Web.WebView2.WinForms.WebView2 webView2;
-        // maxCycleCountCoreWebView2Initialised is used to avoid endless loop
-        private const int maxCycleCountCoreWebView2Initialised = 1000000;
         private string userAgentWebView2Default = "";
+        // flag used to wait until CoreWebView2 is initialized
+        private bool webView2Initialised;
+        // maxSecondsCoreWebView2Initialised is used to avoid endless loop
+        private const int maxSecondsCoreWebView2Initialised = 30;
 #endif
         private System.Windows.Forms.WebBrowser webBrowser1;
         // is either webView2 or webBrowser1 and used for generic actions like setting visibilty:
@@ -147,9 +149,6 @@ namespace QuickImageComment
         GeoDataItem initGeoDataItem;
         bool initChangeLocationAllowed;
 
-        // flag used to wait until CoreWebView2 is initialized
-        private bool webView2Initialised;
-
         internal UserControlMap(bool locationChangeNeeded, GeoDataItem geoDataItem, bool givenChangeLocationAllowed, int radiusInMeter)
         {
             InitializeComponent();
@@ -192,9 +191,10 @@ namespace QuickImageComment
 
                 // Wait for the CoreWebView2 to be initialized
                 // using this ugly approach as all "nice" approaches did not work
-                for (int ii = 0; ii < 300; ii++)
+                const int sleepCycle = 100; // milli seconds
+                for (int ii = 0; ii < maxSecondsCoreWebView2Initialised * 1000 / sleepCycle; ii++)
                 {
-                    System.Threading.Thread.Sleep(100);
+                    System.Threading.Thread.Sleep(sleepCycle);
                     // to avoid "not responding"
                     System.Windows.Forms.Application.DoEvents();
                     if (webView2Initialised) break;
@@ -826,7 +826,7 @@ namespace QuickImageComment
         private void checkBoxWebView2_CheckedChanged(object sender, EventArgs e)
         {
             initGeoDataItem = startGeoDataItem;
-            initChangeLocationAllowed = changeLocationAllowed; 
+            initChangeLocationAllowed = changeLocationAllowed;
             comboBoxSearchList = null;
             if (checkBoxWebView2.Checked)
             {
