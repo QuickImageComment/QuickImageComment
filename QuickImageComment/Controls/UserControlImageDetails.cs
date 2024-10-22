@@ -93,20 +93,20 @@ namespace QuickImageComment
             int ii = 0;
             comboBoxZoom.Items.Add("variabel");
             ZoomFactors[ii++] = 0f;
-            comboBoxZoom.Items.Add("4:1");
+            comboBoxZoom.Items.Add("1:4");
             ZoomFactors[ii++] = 0.25f;
-            comboBoxZoom.Items.Add("2:1");
+            comboBoxZoom.Items.Add("1:2");
             ZoomFactors[ii++] = 0.5f;
             comboBoxZoom.Items.Add("1:1");
             ZoomFactors[ii++] = 1.0f;
             comboBoxZoom.SelectedIndex = ii - 1; // to set to this entry
-            comboBoxZoom.Items.Add("1:2");
+            comboBoxZoom.Items.Add("2:1");
             ZoomFactors[ii++] = 2.0f;
-            comboBoxZoom.Items.Add("1:3 Raster");
+            comboBoxZoom.Items.Add("3:1 Raster");
             ZoomFactors[ii++] = 3.0f;
-            comboBoxZoom.Items.Add("1:4");
+            comboBoxZoom.Items.Add("4:1");
             ZoomFactors[ii++] = 4.0f;
-            comboBoxZoom.Items.Add("1:5 Raster");
+            comboBoxZoom.Items.Add("5:1 Raster");
             ZoomFactors[ii++] = 5.0f;
 
             comboBoxGraphicDisplay.Items.AddRange(GraphicModesStrings);
