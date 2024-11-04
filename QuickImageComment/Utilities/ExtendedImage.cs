@@ -4088,6 +4088,25 @@ namespace QuickImageComment
                     longitudeSigned = "-" + longitudeSigned;
                 }
                 theGeoDataItem = new GeoDataItem(latitudeSigned, longitudeSigned);
+
+                // direction and angle of view
+                theGeoDataItem.directionOfView = getMetaDataValueByKey("Exif.GPSInfo.GPSImgDirection", MetaDataItem.Format.Decimal0);
+                string focalLengthString = getMetaDataValueByKey("Exif.Photo.FocalLengthIn35mmFilm", MetaDataItem.Format.Original);
+                string orientation = getMetaDataValueByKey("Exif.Image.Orientation", MetaDataItem.Format.Original);
+                if (!focalLengthString.Equals(""))
+                {
+                    int focalLength = Int32.Parse(focalLengthString);
+                    float horizontalLength = 36;
+                    if (!orientation.Equals(""))
+                    {
+                        // orientation values 1 to 4 indicate landscape, 5 to 8 indicate portrait
+                        if (Int32.Parse(orientation) > 4)
+                        {
+                            horizontalLength = 24;
+                        }
+                    }
+                    theGeoDataItem.angleOfView = ((Math.Atan(horizontalLength / 2 / focalLength) / Math.PI * 180) * 2).ToString("0");
+                }
             }
             catch (Exception)
             {

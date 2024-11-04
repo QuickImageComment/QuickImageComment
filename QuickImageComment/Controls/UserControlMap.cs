@@ -629,7 +629,7 @@ namespace QuickImageComment
                     // when using configurable Map URLs, changig location is not possible
                     // showing last location when no location is given makes no sense (cannot be used as start for setting location) and would 
                     // require to change URL in a way that user knows "no location", e.g. do not show a marker as it is done with leaflet
-                    openUrl("about:blank");
+                    openUrl("about:blank", "");
                 }
                 else
                 {
@@ -667,22 +667,30 @@ namespace QuickImageComment
                 }
                 if (!newUrl.Equals(lastUrl))
                 {
-                    openUrl(newUrl);
+                    openUrl(newUrl, "");
                 }
             }
             else
             {
                 // method may be called without getting new URL, then avoid navigation
                 string urlParams = createUrlParams();
-                string additionalMarkerParams = "";
+                string additionalParams = "";
                 string newUrl = @"file:///" + Program.getProgramPath() + @"\leaflet.html" + urlParams;
                 if (!newUrl.Equals(lastUrl))
                 {
                     if (markerGeoDataItem != null)
                     {
-                        additionalMarkerParams = "?mlat=" + markerGeoDataItem.lat + "?mlon=" + markerGeoDataItem.lon;
+                        additionalParams = "?mlat=" + markerGeoDataItem.lat + "?mlon=" + markerGeoDataItem.lon;
+                        if (!markerGeoDataItem.directionOfView.Equals(""))
+                        {
+                            additionalParams += "?direction=" + markerGeoDataItem.directionOfView;
+                            if (!markerGeoDataItem.angleOfView.Equals(""))
+                            {
+                                additionalParams += "?angle=" + markerGeoDataItem.angleOfView;
+                            }
+                        }
                     }
-                    openUrl(newUrl + additionalMarkerParams);
+                    openUrl(newUrl, additionalParams);
 
                     GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceWorkAfterSelectionOfFile,
                         "new URL; startWithMarker=" + startWithMarker.ToString() + " " + centerLatitude + " " + centerLongitude, 3);
@@ -693,6 +701,11 @@ namespace QuickImageComment
                     {
                         // same center location, show marker again
                         invokeLeafletMethod("showMarker", new string[] { markerGeoDataItem.lat, markerGeoDataItem.lon, changeLocationAllowed.ToString() });
+                        if (!markerGeoDataItem.directionOfView.Equals(""))
+                        {
+                            invokeLeafletMethod("drawCircleSegment", new string[] { markerGeoDataItem.lat, markerGeoDataItem.lon, 
+                                markerGeoDataItem.directionOfView, markerGeoDataItem.angleOfView });
+                        }
                         GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceWorkAfterSelectionOfFile,
                             "show Marker; startWithMarker=" + startWithMarker.ToString() + " " + centerLatitude + " " + centerLongitude, 3);
                     }
@@ -1346,7 +1359,7 @@ namespace QuickImageComment
 #endif
 
         // open URL
-        private void openUrl(string url)
+        private void openUrl(string url, string additionaParams)
         {
             browserControlNavigating = true;
 #if WEBVIEW2
@@ -1359,13 +1372,13 @@ namespace QuickImageComment
                     else
                         webView2.CoreWebView2.Settings.UserAgent = userAgentQIC;
 
-                    webView2.CoreWebView2.Navigate(url);
+                    webView2.CoreWebView2.Navigate(url + additionaParams);
                 }
             }
             else
 #endif
             {
-                webBrowser1.Navigate(url, "", null, "User-Agent: " + userAgentQIC);
+                webBrowser1.Navigate(url + additionaParams, "", null, "User-Agent: " + userAgentQIC);
             }
             lastUrl = url;
         }

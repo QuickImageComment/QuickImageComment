@@ -32,6 +32,7 @@
         var changeLocationAllowed = false;
         var marker;
         var circle;
+        var circleSegment;
         var radius = 0;
         var map;
 
@@ -87,6 +88,9 @@
                 if (circle != null) {
                     map.removeControl(circle);
                 }
+                if (circleSegment != null) {
+                    map.removeControl(circleSegment);
+                }
                 withMarker = false;
             }
         }
@@ -123,6 +127,18 @@
                 circle = L.circle(L.latLng(lat, lng), radius);
                 map.addControl(circle);
             }
+        }
+
+        // function to draw circle segment around marker
+        function drawCircleSegment(lat, lng, direction, angle) {
+            circleSegment = L.circleSegmentMarker([lat, lng], {
+                radius: 90,
+                direction: direction,
+                angle: angle,
+                color: '#00ffff',
+                opacity: 0.5
+            });
+            map.addControl(circleSegment);
         }
 
         // function to replace special html codes to characters
@@ -265,6 +281,10 @@
         if (params.mlat != null) {
             createMarker(params.mlat, params.mlon);
             // no info about marker back to C# as with bad timing it may set the flag GpsDataChanged
+
+            if (params.direction != null) {
+                drawCircleSegment(params.mlat, params.mlon, params.direction, params.angle);
+            }
         }
 
         // react on click in map to add marker

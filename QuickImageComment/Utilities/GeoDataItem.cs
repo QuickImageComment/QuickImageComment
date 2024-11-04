@@ -38,6 +38,9 @@ namespace QuickImageComment
         public string lonRef = "";
         public string displayString = "";
 
+        public string directionOfView = "";
+        public string angleOfView = "0";
+
         // constructor used in ConfigDefinitions to load configuration
         public GeoDataItem(string GeoDataConfigurationString)
         {

@@ -6286,7 +6286,8 @@ namespace QuickImageComment
                         for (int ii = 1; ii < theUserControlFiles.listViewFiles.SelectedItems.Count; ii++)
                         {
                             anExtendedImage = ImageManager.getExtendedImage(theUserControlFiles.listViewFiles.SelectedIndices[ii], false);
-                            if (anExtendedImage.getRecordingLocation() == null)
+                            GeoDataItem checkGeoDataItem = anExtendedImage.getRecordingLocation();
+                            if (checkGeoDataItem == null)
                             {
                                 GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceWorkAfterSelectionOfFile,
                                     anExtendedImage.getImageFileName() + " no recording location");
@@ -6296,11 +6297,20 @@ namespace QuickImageComment
                             else
                             {
                                 GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceWorkAfterSelectionOfFile,
-                                    anExtendedImage.getImageFileName() + " " + anExtendedImage.getRecordingLocation().displayString);
-                                if (!commonGeoDataItem.sameLocation(anExtendedImage.getRecordingLocation()))
+                                    anExtendedImage.getImageFileName() + " " + checkGeoDataItem.displayString);
+                                if (!commonGeoDataItem.sameLocation(checkGeoDataItem))
                                 {
                                     commonGeoDataItem = null;
                                     break;
+                                }
+                                // compare direction and angle
+                                if (!commonGeoDataItem.directionOfView.Equals(checkGeoDataItem.directionOfView))
+                                {
+                                    commonGeoDataItem.directionOfView = "";
+                                }
+                                if (!commonGeoDataItem.angleOfView.Equals(checkGeoDataItem.angleOfView))
+                                {
+                                    commonGeoDataItem.angleOfView = "0";
                                 }
                             }
                         }

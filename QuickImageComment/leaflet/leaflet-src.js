@@ -280,6 +280,17 @@
         cancelAnimFrame: cancelAnimFrame
     });
 
+    // added for QuickImageComment:
+    // directionPoint added for circle segment marker
+    // create point with distance 'r' and in direction of 'angle' in degrees
+    // angle=0 is north, angle=90 is east
+    function directionPoint(p, angle, r) {
+        var angleAdjusted = (angle - 90) * Math.PI / 180;
+
+        return p.add(
+            L.point(Math.cos(angleAdjusted), Math.sin(angleAdjusted)).multiplyBy(r));
+    }
+
     // @class Class
     // @aka L.Class
 
@@ -6406,25 +6417,25 @@
 
     /*
      * @class Projection
-    
+	
      * An object with methods for projecting geographical coordinates of the world onto
      * a flat surface (and back). See [Map projection](http://en.wikipedia.org/wiki/Map_projection).
-    
+	
      * @property bounds: Bounds
      * The bounds (specified in CRS units) where the projection is valid
-    
+	
      * @method project(latlng: LatLng): Point
      * Projects geographical coordinates into a 2D point.
      * Only accepts actual `L.LatLng` instances, not arrays.
-    
+	
      * @method unproject(point: Point): LatLng
      * The inverse of `project`. Projects a 2D point into a geographical location.
      * Only accepts actual `L.Point` instances, not arrays.
-    
+	
      * Note that the projection instances do not inherit from Leafet's `Class` object,
      * and can't be instantiated. Also, new classes can't inherit from them,
      * and methods can't be added to them with the `include` function.
-    
+	
      */
 
 
@@ -8023,6 +8034,141 @@
         return new CircleMarker(latlng, options);
     }
 
+    // added for QuickImageComment:
+    //******************************** */
+    /*
+ * @class CircleSegmentMarker
+ * @aka L.CircleSegmentMarker
+ * @inherits Path
+ *
+ * A circle segment of a fixed size with radius specified in pixels. Extends `Path`.
+ * Based on CircleMarker with modfications to draw 
+ */
+
+    var CircleSegmentMarker = Path.extend({
+
+        // @section
+        // @aka CircleSegmentMarker options
+        options: {
+            fill: true,
+
+            // @option radius: Number = 10
+            // Radius of the circle marker, in pixels
+            radius: 10
+        },
+
+        initialize: function (latlng, options) {
+            setOptions(this, options);
+            this._latlng = toLatLng(latlng);
+            this._radius = this.options.radius;
+        },
+
+        // @method setLatLng(latLng: LatLng): this
+        // Sets the position of a circle marker to a new location.
+        setLatLng: function (latlng) {
+            var oldLatLng = this._latlng;
+            this._latlng = toLatLng(latlng);
+            this.redraw();
+
+            // @event move: Event
+            // Fired when the marker is moved via [`setLatLng`](#circleSegmentMarker-setlatlng). Old and new coordinates are included in event arguments as `oldLatLng`, `latlng`.
+            return this.fire('move', { oldLatLng: oldLatLng, latlng: this._latlng });
+        },
+
+        // @method getLatLng(): LatLng
+        // Returns the current geographical position of the circle marker
+        getLatLng: function () {
+            return this._latlng;
+        },
+
+        // @method setRadius(radius: Number): this
+        // Sets the radius of a circle marker. Units are in pixels.
+        setRadius: function (radius) {
+            this.options.radius = this._radius = radius;
+            return this.redraw();
+        },
+
+        // @method getRadius(): Number
+        // Returns the current radius of the circle
+        getRadius: function () {
+            return this._radius;
+        },
+
+        // @method setDirection(direction: Number): this
+        // Sets the direction of a circle segment marker. Units are in degrees.
+        setDirection: function (direction) {
+            this.options.direction = this._direction = direction;
+            return this.redraw();
+        },
+
+        // @method getdirection(): Number
+        // Returns the current direction of the circle segment
+        getDirection: function () {
+            return this._direction;
+        },
+
+        // @method setAngle(angle: Number): this
+        // Sets the angle of a circle segment marker. Units are in degrees.
+        setAngle: function (angle) {
+            this.options.angle = this._angle = angle;
+            return this.redraw();
+        },
+
+        // @method getAngle(): Number
+        // Returns the current angle of the circle segment
+        getAngle: function () {
+            return this._angle;
+        },
+
+        setStyle: function (options) {
+            var radius = options && options.radius || this._radius;
+            Path.prototype.setStyle.call(this, options);
+            this.setRadius(radius);
+            return this;
+        },
+
+        _project: function () {
+            this._point = this._map.latLngToLayerPoint(this._latlng);
+            this._updateBounds();
+        },
+
+        _updateBounds: function () {
+            var r = this._radius,
+                r2 = this._radiusY || r,
+                w = this._clickTolerance(),
+                p = [r + w, r2 + w];
+            this._pxBounds = new Bounds(this._point.subtract(p), this._point.add(p));
+        },
+
+        _update: function () {
+            if (this._map) {
+                this._updatePath();
+            }
+        },
+
+        _updatePath: function () {
+            this._renderer._updateCircleSegment(this);
+        },
+
+        _empty: function () {
+            return this._radius && !this._renderer._bounds.intersects(this._pxBounds);
+        },
+
+        // Needed by the `Canvas` renderer for interactivity
+        _containsPoint: function (p) {
+            return p.distanceTo(this._point) <= this._radius + this._clickTolerance();
+        }
+    });
+
+
+    // @factory L.circleSegmentMarker(latlng: LatLng, options?: CircleSegmentMarker options)
+    // Instantiates a circle marker object given a geographical point, and an optional options object.
+    function circleSegmentMarker(latlng, options) {
+        return new CircleSegmentMarker(latlng, options);
+    }
+
+
+    // ******************************* 
     /*
      * @class Circle
      * @aka L.Circle
@@ -12710,6 +12856,25 @@
                 'AL ' + p.x + ',' + p.y + ' ' + r + ',' + r2 + ' 0,' + (65535 * 360));
         },
 
+        // added for QuickImageComment - Webbrowser
+        _updateCircleSegment: function (layer) {
+            var p = layer._point.round(),
+                r = Math.round(layer._radius),
+                angleEdge = parseInt(layer.options.direction) + parseInt(layer.options.angle) / 2,
+                Pedge = directionPoint(p, angleEdge, r),
+                Pcenter = directionPoint(p, parseInt(layer.options.direction), r),
+                angleStart = 90 - Math.round(angleEdge);
+
+            this._setPath(layer, layer._empty() ? 'M0 0' :
+                'M' + p.x + ',' + p.y +
+                'L' + Math.round(Pcenter.x) + ',' + Math.round(Pcenter.y) +
+                'M' + p.x + ',' + p.y +
+                'L' + Math.round(Pedge.x) + ',' + Math.round(Pedge.y) +
+                'M' + p.x + ',' + p.y +
+                'AE' + p.x + ',' + p.y + ' ' + r + ',' + r + ' ' + (65535 * angleStart) + ',' + (65535 * Math.round(layer.options.angle)) +
+                'L' + p.x + ',' + p.y);
+        },
+
         _setPath: function (layer, path) {
             layer._path.v = path;
         },
@@ -12908,6 +13073,30 @@
                 arc + (-r * 2) + ',0 ';
 
             this._setPath(layer, d);
+        },
+
+        // added for QuickImageComment - WebView2
+        _updateCircleSegment: function (layer) {
+            var p = layer._point,
+                r = Math.max(Math.round(layer._radius), 1),
+                a0 = parseInt(layer.options.direction),
+                a1 = parseInt(layer.options.direction) - parseInt(layer.options.angle) / 2,
+                a2 = parseInt(layer.options.direction) + parseInt(layer.options.angle) / 2,
+                p0 = directionPoint(p, a0, r),
+                p1 = directionPoint(p, a1, r),
+                p2 = directionPoint(p, a2, r);
+
+            var largeArc = (parseInt(layer.options.angle) >= 180) ? '1' : '0';
+
+            this._setPath(layer, layer._empty() ? 'M0 0' :
+                'M' + p.x + ',' + p.y +
+                // line in view direction
+                'L' + p0.x + ',' + p0.y +
+                'M' + p.x + ',' + p.y +
+                // line to first start point
+                'L' + p1.x + ',' + p1.y +
+                'A' + r + ',' + r + ',0,' + largeArc + ',1,' + p2.x + ',' + p2.y +
+                ' z');
         },
 
         _setPath: function (layer, path) {
@@ -14067,6 +14256,9 @@
     exports.rectangle = rectangle;
     exports.Map = Map;
     exports.map = createMap;
+    // added for QuickImageComment:
+    exports.CircleSegmentMarker = CircleSegmentMarker;
+    exports.circleSegmentMarker = circleSegmentMarker;
 
     var oldL = window.L;
     exports.noConflict = function () {
