@@ -43,6 +43,11 @@ namespace QuickImageComment
         // list of comboBoxes for search in different instances of this user control - used to keep list of entries synced
         private static List<ComboBox> comboBoxSearchList;
 
+        private static string CircleColor;
+        private static string CircleOpacity;
+        private static string CircleFillOpacity;
+        private static string CircleSegmentRadius;
+
         private GeoDataItem startGeoDataItem;
         private GeoDataItem markerGeoDataItem;
 
@@ -159,6 +164,8 @@ namespace QuickImageComment
             initGeoDataItem = geoDataItem;
             initChangeLocationAllowed = givenChangeLocationAllowed;
             checkBoxWebView2.Visible = false;
+
+            loadConfiguration();
 #if WEBVIEW2
             string webView2Version = "";
 
@@ -376,6 +383,16 @@ namespace QuickImageComment
             LangCfg.translateControlTexts(this);
         }
 
+        private void loadConfiguration()
+        {
+            CircleColor = ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.MapCircleColor);
+            CircleOpacity = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.MapCircleOpacity).ToString("000");
+            CircleOpacity = CircleOpacity.Substring(0, 1) + "." + CircleOpacity.Substring(1);
+            CircleFillOpacity = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.MapCircleFillOpacity).ToString("000");
+            CircleFillOpacity = CircleFillOpacity.Substring(0, 1) + "." + CircleFillOpacity.Substring(1);
+            CircleSegmentRadius = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.MapCircleSegmentRadius).ToString();
+        }
+
         private void fillMapSourcesAndSelectLastUsed()
         {
             // configure map sources
@@ -586,7 +603,7 @@ namespace QuickImageComment
         internal void setCircleRadius(int radiusInMeter)
         {
             circleRadiusInMeter = radiusInMeter;
-            invokeLeafletMethod("setRadius", new string[] { radiusInMeter.ToString() });
+            invokeLeafletMethod("setCircleRadius", new string[] { radiusInMeter.ToString() });
         }
 
         // show recording location for new image
@@ -659,6 +676,9 @@ namespace QuickImageComment
         {
             if (selectedMapSource.isconfiguredMapURL)
             {
+                // Settings can be applied only with leaflet
+                buttonSettings.Visible = false;
+
                 string newUrl = "about:blank";
                 if (markerGeoDataItem != null)
                 {
@@ -672,6 +692,9 @@ namespace QuickImageComment
             }
             else
             {
+                // Settings can be applied only with leaflet
+                buttonSettings.Visible = true;
+
                 // method may be called without getting new URL, then avoid navigation
                 string urlParams = createUrlParams();
                 string additionalParams = "";
@@ -681,6 +704,12 @@ namespace QuickImageComment
                     if (markerGeoDataItem != null)
                     {
                         additionalParams = "?mlat=" + markerGeoDataItem.lat + "?mlon=" + markerGeoDataItem.lon;
+                        // colors are given in hex without any prefix
+                        additionalParams += "?circleColor=" + CircleColor;
+                        additionalParams += "?circleOpacity=" + CircleOpacity;
+                        additionalParams += "?circleFillOpacity=" + CircleFillOpacity;
+                        additionalParams += "?circleSegmentRadius=" + CircleSegmentRadius;
+
                         if (!markerGeoDataItem.directionOfView.Equals(""))
                         {
                             additionalParams += "?direction=" + markerGeoDataItem.directionOfView;
@@ -703,8 +732,7 @@ namespace QuickImageComment
                         invokeLeafletMethod("showMarker", new string[] { markerGeoDataItem.lat, markerGeoDataItem.lon, changeLocationAllowed.ToString() });
                         if (!markerGeoDataItem.directionOfView.Equals(""))
                         {
-                            invokeLeafletMethod("drawCircleSegment", new string[] { markerGeoDataItem.lat, markerGeoDataItem.lon, 
-                                markerGeoDataItem.directionOfView, markerGeoDataItem.angleOfView });
+                            invokeLeafletMethod("drawCircleSegment", new string[] { markerGeoDataItem.directionOfView, markerGeoDataItem.angleOfView });
                         }
                         GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceWorkAfterSelectionOfFile,
                             "show Marker; startWithMarker=" + startWithMarker.ToString() + " " + centerLatitude + " " + centerLongitude, 3);
@@ -832,6 +860,18 @@ namespace QuickImageComment
             }
         }
 
+        // button to open mask settings
+        private void buttonSettings_Click(object sender, EventArgs e)
+        {
+            FormMapSettings theFormMapSettings = new FormMapSettings(this);
+            theFormMapSettings.ShowDialog();
+
+            // if FormMapSettings is terminated with "Close", values in ConfigDefinitions are unchanged
+            // so load in any case - if settings are changed or to restore saved values
+            loadConfiguration();
+            invokeLeafletMethod("applySettings", new string[] { CircleColor, CircleOpacity,
+                CircleFillOpacity, CircleSegmentRadius });
+        }
 
 #if WEBVIEW2
         // only needed when built with WebView2
@@ -841,6 +881,7 @@ namespace QuickImageComment
             initGeoDataItem = startGeoDataItem;
             initChangeLocationAllowed = changeLocationAllowed;
             comboBoxSearchList = null;
+            lastUrl = "";
             if (checkBoxWebView2.Checked)
             {
                 if (webBrowser1 != null) webBrowser1.Dispose();
@@ -1541,6 +1582,19 @@ namespace QuickImageComment
                 clearSearchEntry();
                 markerGeoDataItem = null;
             }
+        }
+
+        // called from FormMapSettings to apply changes
+        internal void applyMapSettings(string givenCircleColor, string givenCircleOpacity, 
+            string givenCircleFillOpacity, string givenCircleSegmentRadius)
+        {
+            CircleColor = givenCircleColor;
+            CircleOpacity = givenCircleOpacity;
+            CircleFillOpacity = givenCircleFillOpacity;
+            CircleSegmentRadius = givenCircleSegmentRadius;
+
+            invokeLeafletMethod("applySettings", new string[] { CircleColor, CircleOpacity,
+                CircleFillOpacity, CircleSegmentRadius });
         }
 
         // called from leaflet.html for test of values in html

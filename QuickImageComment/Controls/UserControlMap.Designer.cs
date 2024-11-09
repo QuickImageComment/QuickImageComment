@@ -42,8 +42,10 @@
             this.dynamicComboBoxSearch = new System.Windows.Forms.ComboBox();
             this.dynamicLabelCoordinates = new System.Windows.Forms.Label();
             this.panelTop = new System.Windows.Forms.Panel();
+            this.buttonSettings = new System.Windows.Forms.Button();
             this.panelMap.SuspendLayout();
             this.panelBottom.SuspendLayout();
+            this.panelTop.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelMap
@@ -202,10 +204,24 @@
             this.panelTop.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelTop.Controls.Add(this.buttonSettings);
             this.panelTop.Location = new System.Drawing.Point(0, 0);
             this.panelTop.Name = "panelTop";
             this.panelTop.Size = new System.Drawing.Size(674, 358);
             this.panelTop.TabIndex = 0;
+            // 
+            // buttonSettings
+            // 
+            this.buttonSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonSettings.BackgroundImage = global::QuickImageComment.Properties.Resources.Settings;
+            this.buttonSettings.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.buttonSettings.Location = new System.Drawing.Point(642, 0);
+            this.buttonSettings.Name = "buttonSettings";
+            this.buttonSettings.Size = new System.Drawing.Size(32, 32);
+            this.buttonSettings.TabIndex = 20;
+            this.buttonSettings.TabStop = false;
+            this.buttonSettings.UseVisualStyleBackColor = true;
+            this.buttonSettings.Click += new System.EventHandler(this.buttonSettings_Click);
             // 
             // UserControlMap
             // 
@@ -218,6 +234,7 @@
             this.panelMap.ResumeLayout(false);
             this.panelBottom.ResumeLayout(false);
             this.panelBottom.PerformLayout();
+            this.panelTop.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -237,5 +254,6 @@
         private System.Windows.Forms.Button buttonDelete;
         private System.Windows.Forms.CheckBox checkBoxWebView2;
         internal System.Windows.Forms.Label dynamicLabelCoordinates;
+        private System.Windows.Forms.Button buttonSettings;
     }
 }

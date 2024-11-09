@@ -33,8 +33,26 @@
         var marker;
         var circle;
         var circleSegment;
-        var radius = 0;
+        var circleColor;
+        var circleRadius = 0;
+        var circleSegmentRadius = 0;
+        var circleOpacity;
+        var circleFillOpacity;
         var map;
+
+        // apply settings for map
+        function applySettings(CircleColor, CircleOpacity, CircleFillOpacity, CircleSegmentRadius) {
+            // as # cannot be passed as part of argument, it is added here
+            circleColor = '#' + CircleColor;
+            circleOpacity = CircleOpacity;
+            circleFillOpacity = CircleFillOpacity;
+            circleSegmentRadius = CircleSegmentRadius;
+
+            drawCircle();
+            if (params.direction != null) {
+                drawCircleSegment(params.direction, params.angle);
+            }
+        }
 
         // create a marker for position
         function createMarker(lat, lng) {
@@ -44,6 +62,9 @@
             map.addControl(marker);
             marker.on('dragend', function (e) {
                 drawCircle();
+                if (params.direction != null) {
+                    drawCircleSegment(params.direction, params.angle);
+                }
                 var coords = e.target.getLatLng();
                 var lat = coords.lat;
                 var lng = coords.lng;
@@ -54,8 +75,8 @@
         }
 
         // function to set radius for circle (called from outside)
-        function setRadius(radiusInMeter) {
-            radius = parseInt(radiusInMeter);
+        function setCircleRadius(radiusInMeter) {
+            circleRadius = parseInt(radiusInMeter);
             if (withMarker) {
                 drawCircle();
             }
@@ -120,23 +141,36 @@
             if (circle != null) {
                 map.removeControl(circle);
             }
-            if (radius > 0 && withMarker) {
+            if (circleRadius > 0 && withMarker) {
                 var coords = marker.getLatLng();
                 var lat = coords.lat;
                 var lng = coords.lng;
-                circle = L.circle(L.latLng(lat, lng), radius);
+                circle = L.circle(L.latLng(lat, lng), {
+                    radius: circleRadius,
+                    color: circleColor,
+                    opacity: circleOpacity,
+                    fillOpacity: circleFillOpacity
+                });
                 map.addControl(circle);
             }
         }
 
         // function to draw circle segment around marker
-        function drawCircleSegment(lat, lng, direction, angle) {
+        function drawCircleSegment(direction, angle) {
+            if (circleSegment != null) {
+                map.removeControl(circleSegment);
+            }
+            var coords = marker.getLatLng();
+            var lat = coords.lat;
+            var lng = coords.lng;
+
             circleSegment = L.circleSegmentMarker([lat, lng], {
-                radius: 90,
                 direction: direction,
                 angle: angle,
-                color: '#00ffff',
-                opacity: 0.5
+                radius: circleSegmentRadius,
+                color: circleColor,
+                opacity: circleOpacity,
+                fillOpacity: circleFillOpacity
             });
             map.addControl(circleSegment);
         }
@@ -271,11 +305,28 @@
         }
 
         if (params.radiusInMeter != null) {
-            radius = parseInt(params.radiusInMeter);
+            circleRadius = parseInt(params.radiusInMeter);
         }
 
         if (params.changeLocationAllowed != null) {
             changeLocationAllowed = params.changeLocationAllowed == "True";
+        }
+
+        // as # cannot be passed as part of argument, it is added here
+        if (params.circleColor != null) {
+            circleColor = '#' + params.circleColor;
+        }
+
+        if (params.circleOpacity != null) {
+            circleOpacity = params.circleOpacity;
+        }
+
+        if (params.circleFillOpacity != null) {
+            circleFillOpacity = params.circleFillOpacity;
+        }
+
+        if (params.circleSegmentRadius != null) {
+            circleSegmentRadius = params.circleSegmentRadius;
         }
 
         if (params.mlat != null) {
@@ -283,7 +334,7 @@
             // no info about marker back to C# as with bad timing it may set the flag GpsDataChanged
 
             if (params.direction != null) {
-                drawCircleSegment(params.mlat, params.mlon, params.direction, params.angle);
+                drawCircleSegment(params.direction, params.angle);
             }
         }
 

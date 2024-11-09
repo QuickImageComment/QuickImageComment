@@ -206,7 +206,10 @@ namespace QuickImageComment
             zoomFactorPerCentGeneral,
             zoomFactorPerCentToolbar,
             zoomFactorPerCentThumbnail,
-            pageUpDownScrollNumber
+            pageUpDownScrollNumber,
+            MapCircleOpacity,
+            MapCircleFillOpacity,
+            MapCircleSegmentRadius
         };
 
         public enum enumCfgUserString
@@ -224,7 +227,8 @@ namespace QuickImageComment
             CharsetExifPhotoUserComment,
             AppCenterUsage,
             LastGeoDataItemForFind,
-            LastImageCausingExiv2Exception
+            LastImageCausingExiv2Exception,
+            MapCircleColor
         };
 
         public enum enumMetaDataGroup
@@ -527,6 +531,7 @@ namespace QuickImageComment
             ConfigItems.Add(enumCfgUserString.AppCenterUsage.ToString(), "");
             ConfigItems.Add(enumCfgUserString.LastGeoDataItemForFind.ToString(), "Greenwich|51.481|0|51.481N 0E|||||");
             ConfigItems.Add(enumCfgUserString.LastImageCausingExiv2Exception.ToString(), "");
+            ConfigItems.Add(enumCfgUserString.MapCircleColor.ToString(), "3388ff");
 
             ConfigItems.Add(enumCfgUserInt.CheckForNewVersionPeriodInDays.ToString(), 30);
             ConfigItems.Add(enumCfgUserInt.ImageDetailsFrameColor.ToString(), System.Drawing.Color.Red.ToArgb());
@@ -567,6 +572,9 @@ namespace QuickImageComment
             ConfigItems.Add(enumCfgUserInt.zoomFactorPerCentToolbar.ToString(), -1);
             ConfigItems.Add(enumCfgUserInt.zoomFactorPerCentThumbnail.ToString(), -1);
             ConfigItems.Add(enumCfgUserInt.pageUpDownScrollNumber.ToString(), 5);
+            ConfigItems.Add(enumCfgUserInt.MapCircleOpacity.ToString(), 100);
+            ConfigItems.Add(enumCfgUserInt.MapCircleFillOpacity.ToString(), 20);
+            ConfigItems.Add(enumCfgUserInt.MapCircleSegmentRadius.ToString(), 60);
 
             // the following are not contained in standard general configuration file and are optional
             // so they are not defined via enum

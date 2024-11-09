@@ -83,13 +83,13 @@ namespace QuickImageComment
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panelFilterOuter = new System.Windows.Forms.Panel();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.checkBoxShowDataTable = new System.Windows.Forms.CheckBox();
             this.panelMap = new System.Windows.Forms.Panel();
             this.labelKm = new System.Windows.Forms.Label();
             this.checkBoxFilterGPS = new System.Windows.Forms.CheckBox();
             this.numericUpDownGpsRange = new System.Windows.Forms.NumericUpDown();
             this.panelKeyWords = new System.Windows.Forms.Panel();
             this.labelIptcKeyWords = new System.Windows.Forms.Label();
+            this.checkBoxShowDataTable = new System.Windows.Forms.CheckBox();
             this.backgroundWorkerInit = new System.ComponentModel.BackgroundWorker();
             this.checkBoxSaveFindDataTable = new System.Windows.Forms.CheckBox();
             this.backgroundWorkerUpdate = new System.ComponentModel.BackgroundWorker();
@@ -422,18 +422,6 @@ namespace QuickImageComment
             this.splitContainer2.SplitterDistance = 654;
             this.splitContainer2.TabIndex = 11;
             // 
-            // checkBoxShowDataTable
-            // 
-            this.checkBoxShowDataTable.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkBoxShowDataTable.AutoSize = true;
-            this.checkBoxShowDataTable.Location = new System.Drawing.Point(548, 3);
-            this.checkBoxShowDataTable.Name = "checkBoxShowDataTable";
-            this.checkBoxShowDataTable.Size = new System.Drawing.Size(133, 17);
-            this.checkBoxShowDataTable.TabIndex = 5;
-            this.checkBoxShowDataTable.Text = "Datentabelle anzeigen";
-            this.checkBoxShowDataTable.UseVisualStyleBackColor = true;
-            this.checkBoxShowDataTable.CheckedChanged += new System.EventHandler(this.checkBoxShowDataTable_CheckedChanged);
-            // 
             // panelMap
             // 
             this.panelMap.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -441,7 +429,7 @@ namespace QuickImageComment
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelMap.Location = new System.Drawing.Point(0, 28);
             this.panelMap.Name = "panelMap";
-            this.panelMap.Size = new System.Drawing.Size(659, 99);
+            this.panelMap.Size = new System.Drawing.Size(656, 99);
             this.panelMap.TabIndex = 0;
             // 
             // labelKm
@@ -505,6 +493,18 @@ namespace QuickImageComment
             this.labelIptcKeyWords.TabIndex = 25;
             this.labelIptcKeyWords.Text = "Enthält IPTC Schlüsselworte:";
             this.labelIptcKeyWords.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // checkBoxShowDataTable
+            // 
+            this.checkBoxShowDataTable.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkBoxShowDataTable.AutoSize = true;
+            this.checkBoxShowDataTable.Location = new System.Drawing.Point(548, 3);
+            this.checkBoxShowDataTable.Name = "checkBoxShowDataTable";
+            this.checkBoxShowDataTable.Size = new System.Drawing.Size(133, 17);
+            this.checkBoxShowDataTable.TabIndex = 5;
+            this.checkBoxShowDataTable.Text = "Datentabelle anzeigen";
+            this.checkBoxShowDataTable.UseVisualStyleBackColor = true;
+            this.checkBoxShowDataTable.CheckedChanged += new System.EventHandler(this.checkBoxShowDataTable_CheckedChanged);
             // 
             // backgroundWorkerInit
             // 
