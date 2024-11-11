@@ -7947,7 +7947,12 @@
 
             // @option radius: Number = 10
             // Radius of the circle marker, in pixels
-            radius: 10
+            radius: 10,
+
+            // Option inherited from "Interactive layer" abstract class
+            // false to avoid that mouse pointer changes layout when hovering over this marker
+            // note: relevant with WebView2 only
+            interactive: false
         },
 
         initialize: function (latlng, options) {
@@ -8054,7 +8059,12 @@
 
             // @option radius: Number = 10
             // Radius of the circle marker, in pixels
-            radius: 10
+            radius: 10,
+
+            // Option inherited from "Interactive layer" abstract class
+            // false to avoid that mouse pointer changes layout when hovering over this marker
+            // note: relevant with WebView2 only
+            interactive: false
         },
 
         initialize: function (latlng, options) {

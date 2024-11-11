@@ -38,6 +38,8 @@
         var circleSegmentRadius = 0;
         var circleOpacity;
         var circleFillOpacity;
+        var direction = "";
+        var angle = "";
         var map;
 
         // apply settings for map
@@ -49,8 +51,8 @@
             circleSegmentRadius = CircleSegmentRadius;
 
             drawCircle();
-            if (params.direction != null) {
-                drawCircleSegment(params.direction, params.angle);
+            if (direction != "") {
+                drawCircleSegment(direction, angle);
             }
         }
 
@@ -62,8 +64,8 @@
             map.addControl(marker);
             marker.on('dragend', function (e) {
                 drawCircle();
-                if (params.direction != null) {
-                    drawCircleSegment(params.direction, params.angle);
+                if (direction != "") {
+                    drawCircleSegment(direction, angle);
                 }
                 var coords = e.target.getLatLng();
                 var lat = coords.lat;
@@ -156,10 +158,12 @@
         }
 
         // function to draw circle segment around marker
-        function drawCircleSegment(direction, angle) {
+        function drawCircleSegment(Direction, Angle) {
             if (circleSegment != null) {
                 map.removeControl(circleSegment);
             }
+            direction = Direction;
+            angle = Angle;
             var coords = marker.getLatLng();
             var lat = coords.lat;
             var lng = coords.lng;

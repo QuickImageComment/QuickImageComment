@@ -35,10 +35,7 @@ namespace QuickImageComment
 
             StartPosition = FormStartPosition.CenterParent;
 
-            textBoxColor.Text = ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.MapCircleColor);
-            numericUpDownOpacity.Value = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.MapCircleOpacity);
-            numericUpDownFillOpacity.Value = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.MapCircleFillOpacity);
-            numericUpDownCircleSegmentRadius.Value = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.MapCircleSegmentRadius);
+            loadConfiguration();
 
             LangCfg.translateControlTexts(this);
 
@@ -59,15 +56,29 @@ namespace QuickImageComment
             }
         }
 
+        private void loadConfiguration()
+        {
+            textBoxColor.Text = ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.MapCircleColor);
+            numericUpDownOpacity.Value = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.MapCircleOpacity);
+            numericUpDownFillOpacity.Value = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.MapCircleFillOpacity);
+            numericUpDownCircleSegmentRadius.Value = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.MapCircleSegmentRadius);
+        }
+
         private void applyChanges(object sender, EventArgs e)
         {
-            string opacity = numericUpDownOpacity.Value.ToString("000");
-            opacity = opacity.Substring(0, 1) + "." + opacity.Substring(1);
-            string fillOpacity = numericUpDownFillOpacity.Value.ToString("000");
-            fillOpacity = fillOpacity.Substring(0, 1) + "." + fillOpacity.Substring(1);
+            foreach (UserControlMap userControlMap in UserControlMap.UserControlMapList)
+            {
+                if (userControlMap != null)
+                {
+                    string opacity = numericUpDownOpacity.Value.ToString("000");
+                    opacity = opacity.Substring(0, 1) + "." + opacity.Substring(1);
+                    string fillOpacity = numericUpDownFillOpacity.Value.ToString("000");
+                    fillOpacity = fillOpacity.Substring(0, 1) + "." + fillOpacity.Substring(1);
 
-            theUserControlMap.applyMapSettings(textBoxColor.Text, opacity, fillOpacity,
-                numericUpDownCircleSegmentRadius.Value.ToString());
+                    userControlMap.applyMapSettings(textBoxColor.Text, opacity, fillOpacity,
+                        numericUpDownCircleSegmentRadius.Value.ToString());
+                }
+            }
         }
 
         private void textBoxColor_TextChanged(object sender, EventArgs e)
@@ -83,11 +94,16 @@ namespace QuickImageComment
             ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.MapCircleOpacity, (int)numericUpDownOpacity.Value);
             ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.MapCircleFillOpacity, (int)numericUpDownFillOpacity.Value);
             ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.MapCircleSegmentRadius, (int)numericUpDownCircleSegmentRadius.Value);
+            // as changes are applied directly, calling applyChanges should not be needed - but to be on the safe side ...
+            applyChanges(sender, EventArgs.Empty);
             Close();
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)
         {
+            // restore configuration values
+            loadConfiguration();
+            applyChanges(sender, EventArgs.Empty);
             Close();
         }
         private void buttonColorDialog_Click(object sender, EventArgs e)

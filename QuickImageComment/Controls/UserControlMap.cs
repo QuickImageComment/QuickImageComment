@@ -72,6 +72,9 @@ namespace QuickImageComment
         // is either webView2 or webBrowser1 and used for generic actions like setting visibilty:
         private Control browserControl;
 
+        // list of all UserControlMap to apply settings together
+        internal static List<UserControlMap> UserControlMapList = new System.Collections.Generic.List<UserControlMap>();
+
         internal class MapSource : IComparable<MapSource>
         {
             public string name;
@@ -157,6 +160,8 @@ namespace QuickImageComment
         internal UserControlMap(bool locationChangeNeeded, GeoDataItem geoDataItem, bool givenChangeLocationAllowed, int radiusInMeter)
         {
             InitializeComponent();
+            UserControlMapList.Add(this);
+
             panelBottomHeightInitial = panelBottom.Height;
 
             circleRadiusInMeter = radiusInMeter;
@@ -864,13 +869,9 @@ namespace QuickImageComment
         private void buttonSettings_Click(object sender, EventArgs e)
         {
             FormMapSettings theFormMapSettings = new FormMapSettings(this);
+            // FormMapSettings uses UserControlMap.applyMapSettings to apply changed settings
+            // to all instances of UserControlMap; so no further action needed after ShowDialog
             theFormMapSettings.ShowDialog();
-
-            // if FormMapSettings is terminated with "Close", values in ConfigDefinitions are unchanged
-            // so load in any case - if settings are changed or to restore saved values
-            loadConfiguration();
-            invokeLeafletMethod("applySettings", new string[] { CircleColor, CircleOpacity,
-                CircleFillOpacity, CircleSegmentRadius });
         }
 
 #if WEBVIEW2
@@ -1585,7 +1586,7 @@ namespace QuickImageComment
         }
 
         // called from FormMapSettings to apply changes
-        internal void applyMapSettings(string givenCircleColor, string givenCircleOpacity, 
+        internal void applyMapSettings(string givenCircleColor, string givenCircleOpacity,
             string givenCircleFillOpacity, string givenCircleSegmentRadius)
         {
             CircleColor = givenCircleColor;
