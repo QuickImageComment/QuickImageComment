@@ -112,6 +112,10 @@ namespace QuickImageComment
                         NodeTagList.Add(AddedNode.Tag);
                     }
                 }
+                else
+                {
+                    NodeTagList.Add(AddedNode.Tag);
+                }
 
                 foreach (System.ComponentModel.Component aMenuItem in ((ToolStripDropDownItem)parentMenuItem).DropDownItems)
                 {
