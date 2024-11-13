@@ -167,6 +167,10 @@
             var coords = marker.getLatLng();
             var lat = coords.lat;
             var lng = coords.lng;
+            // standard weight of Path
+            var weight = 3;
+            // use higher weight if no angle given and thus only a line is shown
+            if (angle == 0) weight = 6;
 
             circleSegment = L.circleSegmentMarker([lat, lng], {
                 direction: direction,
@@ -174,7 +178,8 @@
                 radius: circleSegmentRadius,
                 color: circleColor,
                 opacity: circleOpacity,
-                fillOpacity: circleFillOpacity
+                fillOpacity: circleFillOpacity,
+                weight: weight
             });
             map.addControl(circleSegment);
         }
