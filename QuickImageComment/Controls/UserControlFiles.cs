@@ -54,9 +54,9 @@ namespace QuickImageComment
         internal void init(FormQuickImageComment formQuickImageComment)
         {
             theFormQuickImageComment = formQuickImageComment;
+            delayAfterSelectedIndexChangedThread = new Thread(delayAfterSelectedIndexChanged);
 
             listViewFiles.init();
-            workAfterSelectedIndexChanged();
             setColumnToSortAndCheckMenu("Name");
             contextMenuStripMenuItemSortAsc.Checked = listViewFiles.sortAscending;
             theFormQuickImageComment.toolStripMenuItemSortSortAsc.Checked = listViewFiles.sortAscending;
@@ -270,8 +270,12 @@ namespace QuickImageComment
                 GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceWorkAfterSelectionOfFile, traceString, 0);
             }
 
+            // during starting call workAfterSelectedIndexChanged direct to avoid risk of 
+            // "Invoke or BeginInvoke cannot be called on a control until the window link is created."
+            // Problem with multiple selection as described at delayAfterSelectedIndexChanged, which resulted in
+            // the need to use delay and thread, will not occur as only one file will be selected during starting 
             if (ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.ThreadAfterSelectionOfFile) &&
-                delayAfterSelectedIndexChangedThread != null)
+                !theFormQuickImageComment.starting)
             {
                 if ((delayAfterSelectedIndexChangedThread.ThreadState & ThreadState.Background) != ThreadState.Background &&
                     (delayAfterSelectedIndexChangedThread.ThreadState & ThreadState.WaitSleepJoin) != ThreadState.WaitSleepJoin)
@@ -338,10 +342,10 @@ namespace QuickImageComment
         private void startWorkAfterSelectedIndexChanged()
         {
             GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceWorkAfterSelectionOfFile, "start", 0);
-            workAfterSelectedIndexChangedCallback theCallback =
-                new workAfterSelectedIndexChangedCallback(workAfterSelectedIndexChanged);
             if (!FormQuickImageComment.closing)
             {
+                workAfterSelectedIndexChangedCallback theCallback =
+                new workAfterSelectedIndexChangedCallback(workAfterSelectedIndexChanged);
                 this.BeginInvoke(theCallback);
             }
             GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceWorkAfterSelectionOfFile, "finish", 0);

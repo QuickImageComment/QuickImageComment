@@ -92,7 +92,7 @@ namespace QuickImageComment
         GongSolutions.Shell.ShellItem ShellItemStartupSelectedFolder;
 
         // to avoid some actions triggered by events during starting, especially display image
-        private bool starting = true;
+        internal bool starting = true;
 
         // cycle time in milliseconds for display of memory
         private const int displayMemoryCycleTime = 1000;
@@ -204,7 +204,7 @@ namespace QuickImageComment
             else
                 FolderName = DisplayFolder;
 
-            // create and int user control for files
+            // create and init user control for files
             theUserControlFiles = new UserControlFiles();
             theUserControlFiles.Dock = DockStyle.Fill;
             theUserControlFiles.init(this);
