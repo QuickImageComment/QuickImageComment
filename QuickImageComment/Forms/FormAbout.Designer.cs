@@ -184,7 +184,7 @@ namespace QuickImageComment
             this.fixedLinkLabelMail.AutoSize = true;
             this.fixedLinkLabelMail.Location = new System.Drawing.Point(295, 51);
             this.fixedLinkLabelMail.Name = "fixedLinkLabelMail";
-            this.fixedLinkLabelMail.Size = new System.Drawing.Size(146, 13);
+            this.fixedLinkLabelMail.Size = new System.Drawing.Size(159, 13);
             this.fixedLinkLabelMail.TabIndex = 21;
             this.fixedLinkLabelMail.TabStop = true;
             this.fixedLinkLabelMail.Text = "quickimagecomment@gmail.com";

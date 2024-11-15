@@ -75,7 +75,7 @@
             // 
             // numericUpDownFillOpacity
             // 
-            this.numericUpDownFillOpacity.Location = new System.Drawing.Point(180, 118);
+            this.numericUpDownFillOpacity.Location = new System.Drawing.Point(198, 118);
             this.numericUpDownFillOpacity.Name = "numericUpDownFillOpacity";
             this.numericUpDownFillOpacity.Size = new System.Drawing.Size(61, 21);
             this.numericUpDownFillOpacity.TabIndex = 3;
@@ -93,7 +93,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(247, 122);
+            this.label2.Location = new System.Drawing.Point(265, 122);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(18, 13);
             this.label2.TabIndex = 5;
@@ -102,7 +102,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(247, 95);
+            this.label3.Location = new System.Drawing.Point(265, 95);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(18, 13);
             this.label3.TabIndex = 8;
@@ -119,7 +119,7 @@
             // 
             // numericUpDownOpacity
             // 
-            this.numericUpDownOpacity.Location = new System.Drawing.Point(180, 91);
+            this.numericUpDownOpacity.Location = new System.Drawing.Point(198, 91);
             this.numericUpDownOpacity.Name = "numericUpDownOpacity";
             this.numericUpDownOpacity.Size = new System.Drawing.Size(61, 21);
             this.numericUpDownOpacity.TabIndex = 6;
@@ -128,7 +128,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(247, 149);
+            this.label5.Location = new System.Drawing.Point(265, 149);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(29, 13);
             this.label5.TabIndex = 11;
@@ -145,7 +145,7 @@
             // 
             // numericUpDownCircleSegmentRadius
             // 
-            this.numericUpDownCircleSegmentRadius.Location = new System.Drawing.Point(180, 145);
+            this.numericUpDownCircleSegmentRadius.Location = new System.Drawing.Point(198, 145);
             this.numericUpDownCircleSegmentRadius.Maximum = new decimal(new int[] {
             200,
             0,
@@ -177,7 +177,7 @@
             // 
             // textBoxColor
             // 
-            this.textBoxColor.Location = new System.Drawing.Point(180, 46);
+            this.textBoxColor.Location = new System.Drawing.Point(198, 46);
             this.textBoxColor.Name = "textBoxColor";
             this.textBoxColor.Size = new System.Drawing.Size(61, 21);
             this.textBoxColor.TabIndex = 14;
@@ -186,7 +186,7 @@
             // labelColor
             // 
             this.labelColor.BackColor = System.Drawing.Color.Cyan;
-            this.labelColor.Location = new System.Drawing.Point(247, 45);
+            this.labelColor.Location = new System.Drawing.Point(265, 45);
             this.labelColor.Name = "labelColor";
             this.labelColor.Size = new System.Drawing.Size(45, 23);
             this.labelColor.TabIndex = 15;
