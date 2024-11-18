@@ -132,7 +132,33 @@ namespace QuickImageComment
             buttonCancelRead.Visible = false;
             dataGridView1.BringToFront();
 
-            dataTableFileName = ConfigDefinition.getConfigString(ConfigDefinition.enumConfigString.FindDataTableFileName);
+            // get file name for stored data table
+            // specification may be without folder, then it is in ini path
+            FileInfo fileInfo = null;
+            dataTableFileName = ConfigDefinition.getIniPath() + 
+                ConfigDefinition.getConfigString(ConfigDefinition.enumConfigString.FindDataTableFileName);
+            try
+            {
+                fileInfo = new FileInfo(dataTableFileName);
+            }
+            catch 
+            {
+                // file name is not valid, try without preceeding ini path
+                dataTableFileName = ConfigDefinition.getConfigString(ConfigDefinition.enumConfigString.FindDataTableFileName);
+                try
+                {
+                    fileInfo = new FileInfo(dataTableFileName);
+                }
+                catch (Exception ex)
+                {
+                    GeneralUtilities.message(LangCfg.Message.E_dataTableFileNameInvalid, dataTableFileName, ex.Message);
+                }
+            }
+
+            if (fileInfo != null && !fileInfo.Directory.Exists) {
+                GeneralUtilities.message(LangCfg.Message.E_dataTableFolderNotExists, fileInfo.Directory.FullName);
+            }
+
             if (!ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.FindShowDataTable))
             {
                 checkBoxShowDataTable.Visible = false;
@@ -1884,16 +1910,21 @@ namespace QuickImageComment
             {
                 if (dataTable != null && dataTable.Rows.Count > 0)
                 {
-                    string fileName = ConfigDefinition.getIniPath() + dataTableFileName;
-                    dataTable.WriteXml(fileName, System.Data.XmlWriteMode.WriteSchema);
+                    try
+                    {
+                        dataTable.WriteXml(dataTableFileName, System.Data.XmlWriteMode.WriteSchema);
+                    }
+                    catch (Exception ex)
+                    {
+                        GeneralUtilities.message(LangCfg.Message.E_writingDataTable, dataTableFileName, ex.Message);
+                    }
                 }
             }
         }
 
         private void loadDataTable()
         {
-            string fileName = ConfigDefinition.getIniPath() + dataTableFileName;
-            if (System.IO.File.Exists(fileName))
+            if (System.IO.File.Exists(dataTableFileName))
             {
                 createDataTable();
 
@@ -1901,7 +1932,7 @@ namespace QuickImageComment
                 {
                     // create table using schema in XML file and compare columns
                     DataTable checkTable = new DataTable(dataTableNameFind);
-                    checkTable.ReadXmlSchema(fileName);
+                    checkTable.ReadXmlSchema(dataTableFileName);
 
                     if (checkTable.Columns.Count != dataTable.Columns.Count)
                     {
@@ -1916,7 +1947,7 @@ namespace QuickImageComment
                         }
                     }
                     // columns are identical, load data
-                    dataTable.ReadXml(fileName);
+                    dataTable.ReadXml(dataTableFileName);
                     // copy folder name from table schema read from XML file
                     dataTable.ExtendedProperties["Folder"] = checkTable.ExtendedProperties["Folder"];
                     FolderName = (string)dataTable.ExtendedProperties["Folder"];
