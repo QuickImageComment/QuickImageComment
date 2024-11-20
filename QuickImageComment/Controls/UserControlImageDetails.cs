@@ -1173,14 +1173,6 @@ namespace QuickImageComment
         // return the size of image displayed in image details
         public Size getImageDetailsSize(Image givenImage)
         {
-            int DpiX = 0;
-            int DpiY = 0;
-            using (Graphics g = pictureBoxImage.CreateGraphics())
-            {
-                DpiX = (int)g.DpiX;
-                DpiY = (int)g.DpiY;
-            }
-
             float width = pictureBoxImage.Size.Width / zoomFactor;
             float height = pictureBoxImage.Size.Height / zoomFactor;
             return new Size((int)width, (int)height);
