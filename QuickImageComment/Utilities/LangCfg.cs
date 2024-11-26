@@ -204,7 +204,10 @@ namespace QuickImageComment
             Q_replaceFileInDestination,
             Q_replaceFileInDestinationCancel,
             Q_fileChangedOverwrite,
-            Q_dataGridChangesNotSavedContinue
+            Q_dataGridChangesNotSavedContinue,
+            E_dataTableFileNameInvalid,
+            E_dataTableFolderNotExists,
+            E_writingDataTable
         }
 
         public enum Others

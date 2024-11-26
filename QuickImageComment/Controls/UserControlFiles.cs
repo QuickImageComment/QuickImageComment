@@ -254,6 +254,50 @@ namespace QuickImageComment
             {
                 theFormQuickImageComment.toolStripMenuItemSelectAll_Click(sender, SysEventArgs);
             }
+            else
+            {
+                var currentItem = listViewFiles.FocusedItem;
+                if (currentItem != null)
+                {
+                    int currentIndex = currentItem.Index;
+                    int nextIndex = -1;
+
+                    // overwrite handling of cursor keys depending on layout and direction
+                    if (listViewFiles.View == View.LargeIcon &&
+                        (theKeyEventArgs.KeyCode == Keys.Right ||
+                         theKeyEventArgs.KeyCode == Keys.Left))
+                    {
+                        if (theKeyEventArgs.KeyCode == Keys.Right)
+                        {
+                            nextIndex = currentIndex < listViewFiles.Items.Count - 1 ? currentIndex + 1 : currentIndex;
+                        }
+                        else if (theKeyEventArgs.KeyCode == Keys.Left)
+                        {
+                            nextIndex = currentIndex > 0 ? currentIndex - 1 : currentIndex;
+                        }
+                    }
+                    else if (listViewFiles.View == View.List &&
+                             (theKeyEventArgs.KeyCode == Keys.Down ||
+                              theKeyEventArgs.KeyCode == Keys.Up))
+                    {
+                        if (theKeyEventArgs.KeyCode == Keys.Down)
+                        {
+                            nextIndex = currentIndex < listViewFiles.Items.Count - 1 ? currentIndex + 1 : currentIndex;
+                        }
+                        else if (theKeyEventArgs.KeyCode == Keys.Up)
+                        {
+                            nextIndex = currentIndex > 0 ? currentIndex - 1 : currentIndex;
+                        }
+                    }
+                    if (nextIndex >= 0)
+                    {
+                        if (!theKeyEventArgs.Shift) listViewFiles.SelectedItems.Clear();
+                        listViewFiles.Items[nextIndex].Focused = true;
+                        listViewFiles.Items[nextIndex].Selected = true;
+                        theKeyEventArgs.SuppressKeyPress = true;
+                    }
+                }
+            }
         }
 
         // event handler triggered when selection of files is changed
