@@ -45,7 +45,6 @@ namespace QuickImageComment
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormQuickImageComment));
             this.dynamicLabelArtist = new System.Windows.Forms.Label();
@@ -68,13 +67,6 @@ namespace QuickImageComment
             this.tabControlProperties = new System.Windows.Forms.TabControl();
             this.tabPageOverview = new System.Windows.Forms.TabPage();
             this.panelWarningMetaData = new System.Windows.Forms.Panel();
-            this.KeyPrim = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.KeySec = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.contextMenuStripOverview = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.toolStripMenuItemAddToChangeable = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItemAddToFind = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItemAddToMultiEditTab = new System.Windows.Forms.ToolStripMenuItem();
-            this.contextMenuStripMetaDataMenuItemAdjustOverview = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPageExif = new System.Windows.Forms.TabPage();
             this.tabPageIptc = new System.Windows.Forms.TabPage();
             this.tabPageXmp = new System.Windows.Forms.TabPage();
@@ -101,6 +93,13 @@ namespace QuickImageComment
             this.tabPagePredefComments = new System.Windows.Forms.TabPage();
             this.dynamicComboBoxPredefinedComments = new System.Windows.Forms.ComboBox();
             this.listBoxPredefinedComments = new QuickImageCommentControls.ListBoxComments();
+            this.KeyPrim = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.KeySec = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.contextMenuStripOverview = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolStripMenuItemAddToChangeable = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemAddToFind = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemAddToMultiEditTab = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuStripMetaDataMenuItemAdjustOverview = new System.Windows.Forms.ToolStripMenuItem();
             this.columnHeaderOverviewName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderOverviewValue = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
@@ -139,6 +138,8 @@ namespace QuickImageComment
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItemReset = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemDelete = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemCopyTo = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemMoveTo = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemView = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemViewAdjust = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemToolStrip = new System.Windows.Forms.ToolStripMenuItem();
@@ -259,8 +260,6 @@ namespace QuickImageComment
             this.toolStripButtonFind = new System.Windows.Forms.ToolStripButton();
             this.toolTip1 = new QuickImageComment.ToolTipQIC();
             this.theFolderTreeView = new QuickImageCommentControls.ShellTreeViewQIC();
-            this.toolStripMenuItemCopyTo = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItemMoveTo = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer12)).BeginInit();
             this.splitContainer12.Panel1.SuspendLayout();
             this.splitContainer12.Panel2.SuspendLayout();
@@ -288,7 +287,6 @@ namespace QuickImageComment
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFramePosition)).BeginInit();
             this.tabControlProperties.SuspendLayout();
             this.tabPageOverview.SuspendLayout();
-            this.contextMenuStripOverview.SuspendLayout();
             this.tabPageMulti.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSelectedFiles)).BeginInit();
             this.contextMenuStripMetaData.SuspendLayout();
@@ -300,6 +298,7 @@ namespace QuickImageComment
             this.tabControlLastPredefComments.SuspendLayout();
             this.tabPageLastComments.SuspendLayout();
             this.tabPagePredefComments.SuspendLayout();
+            this.contextMenuStripOverview.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -603,56 +602,6 @@ namespace QuickImageComment
             this.panelWarningMetaData.Name = "panelWarningMetaData";
             this.panelWarningMetaData.Size = new System.Drawing.Size(6, 166);
             this.panelWarningMetaData.TabIndex = 1;
-            // 
-            // KeyPrim
-            // 
-            this.KeyPrim.HeaderText = "";
-            this.KeyPrim.Name = "KeyPrim";
-            this.KeyPrim.Visible = false;
-            // 
-            // KeySec
-            // 
-            this.KeySec.HeaderText = "";
-            this.KeySec.Name = "KeySec";
-            this.KeySec.Visible = false;
-            // 
-            // contextMenuStripOverview
-            // 
-            this.contextMenuStripOverview.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItemAddToChangeable,
-            this.toolStripMenuItemAddToFind,
-            this.toolStripMenuItemAddToMultiEditTab,
-            this.contextMenuStripMetaDataMenuItemAdjustOverview});
-            this.contextMenuStripOverview.Name = "contextMenuStripOverview";
-            this.contextMenuStripOverview.Size = new System.Drawing.Size(443, 92);
-            // 
-            // toolStripMenuItemAddToChangeable
-            // 
-            this.toolStripMenuItemAddToChangeable.Name = "toolStripMenuItemAddToChangeable";
-            this.toolStripMenuItemAddToChangeable.Size = new System.Drawing.Size(442, 22);
-            this.toolStripMenuItemAddToChangeable.Text = "Markierte Felder zu änderbaren Feldern hinzufügen";
-            this.toolStripMenuItemAddToChangeable.Click += new System.EventHandler(this.toolStripMenuItemAddFromOverviewToChangeable_Click);
-            // 
-            // toolStripMenuItemAddToFind
-            // 
-            this.toolStripMenuItemAddToFind.Name = "toolStripMenuItemAddToFind";
-            this.toolStripMenuItemAddToFind.Size = new System.Drawing.Size(442, 22);
-            this.toolStripMenuItemAddToFind.Text = "Markierte Felder zu Feldern für Suche hinzufügen";
-            this.toolStripMenuItemAddToFind.Click += new System.EventHandler(this.toolStripMenuItemAddToFind_Click);
-            // 
-            // toolStripMenuItemAddToMultiEditTab
-            // 
-            this.toolStripMenuItemAddToMultiEditTab.Name = "toolStripMenuItemAddToMultiEditTab";
-            this.toolStripMenuItemAddToMultiEditTab.Size = new System.Drawing.Size(442, 22);
-            this.toolStripMenuItemAddToMultiEditTab.Text = "Markierte Felder zu Tabelle in \"Mehrfach-Bildbearbeitung\" hinzufügen";
-            this.toolStripMenuItemAddToMultiEditTab.Click += new System.EventHandler(this.toolStripMenuItemAddToMultiEditTab_Click);
-            // 
-            // contextMenuStripMetaDataMenuItemAdjustOverview
-            // 
-            this.contextMenuStripMetaDataMenuItemAdjustOverview.Name = "contextMenuStripMetaDataMenuItemAdjustOverview";
-            this.contextMenuStripMetaDataMenuItemAdjustOverview.Size = new System.Drawing.Size(442, 22);
-            this.contextMenuStripMetaDataMenuItemAdjustOverview.Text = "Felder anpassen";
-            this.contextMenuStripMetaDataMenuItemAdjustOverview.Click += new System.EventHandler(this.contextMenuStripMetaDataMenuItemAdjust_Click);
             // 
             // tabPageExif
             // 
@@ -985,6 +934,56 @@ namespace QuickImageComment
             this.listBoxPredefinedComments.Size = new System.Drawing.Size(311, 135);
             this.listBoxPredefinedComments.Sorted = true;
             this.listBoxPredefinedComments.TabIndex = 2;
+            // 
+            // KeyPrim
+            // 
+            this.KeyPrim.HeaderText = "";
+            this.KeyPrim.Name = "KeyPrim";
+            this.KeyPrim.Visible = false;
+            // 
+            // KeySec
+            // 
+            this.KeySec.HeaderText = "";
+            this.KeySec.Name = "KeySec";
+            this.KeySec.Visible = false;
+            // 
+            // contextMenuStripOverview
+            // 
+            this.contextMenuStripOverview.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItemAddToChangeable,
+            this.toolStripMenuItemAddToFind,
+            this.toolStripMenuItemAddToMultiEditTab,
+            this.contextMenuStripMetaDataMenuItemAdjustOverview});
+            this.contextMenuStripOverview.Name = "contextMenuStripOverview";
+            this.contextMenuStripOverview.Size = new System.Drawing.Size(443, 92);
+            // 
+            // toolStripMenuItemAddToChangeable
+            // 
+            this.toolStripMenuItemAddToChangeable.Name = "toolStripMenuItemAddToChangeable";
+            this.toolStripMenuItemAddToChangeable.Size = new System.Drawing.Size(442, 22);
+            this.toolStripMenuItemAddToChangeable.Text = "Markierte Felder zu änderbaren Feldern hinzufügen";
+            this.toolStripMenuItemAddToChangeable.Click += new System.EventHandler(this.toolStripMenuItemAddFromOverviewToChangeable_Click);
+            // 
+            // toolStripMenuItemAddToFind
+            // 
+            this.toolStripMenuItemAddToFind.Name = "toolStripMenuItemAddToFind";
+            this.toolStripMenuItemAddToFind.Size = new System.Drawing.Size(442, 22);
+            this.toolStripMenuItemAddToFind.Text = "Markierte Felder zu Feldern für Suche hinzufügen";
+            this.toolStripMenuItemAddToFind.Click += new System.EventHandler(this.toolStripMenuItemAddToFind_Click);
+            // 
+            // toolStripMenuItemAddToMultiEditTab
+            // 
+            this.toolStripMenuItemAddToMultiEditTab.Name = "toolStripMenuItemAddToMultiEditTab";
+            this.toolStripMenuItemAddToMultiEditTab.Size = new System.Drawing.Size(442, 22);
+            this.toolStripMenuItemAddToMultiEditTab.Text = "Markierte Felder zu Tabelle in \"Mehrfach-Bildbearbeitung\" hinzufügen";
+            this.toolStripMenuItemAddToMultiEditTab.Click += new System.EventHandler(this.toolStripMenuItemAddToMultiEditTab_Click);
+            // 
+            // contextMenuStripMetaDataMenuItemAdjustOverview
+            // 
+            this.contextMenuStripMetaDataMenuItemAdjustOverview.Name = "contextMenuStripMetaDataMenuItemAdjustOverview";
+            this.contextMenuStripMetaDataMenuItemAdjustOverview.Size = new System.Drawing.Size(442, 22);
+            this.contextMenuStripMetaDataMenuItemAdjustOverview.Text = "Felder anpassen";
+            this.contextMenuStripMetaDataMenuItemAdjustOverview.Click += new System.EventHandler(this.contextMenuStripMetaDataMenuItemAdjust_Click);
             // 
             // columnHeaderOverviewName
             // 
@@ -1327,6 +1326,20 @@ namespace QuickImageComment
             this.toolStripMenuItemDelete.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItemDelete.Text = "&Löschen";
             this.toolStripMenuItemDelete.Click += new System.EventHandler(this.toolStripMenuItemDelete_Click);
+            // 
+            // toolStripMenuItemCopyTo
+            // 
+            this.toolStripMenuItemCopyTo.Name = "toolStripMenuItemCopyTo";
+            this.toolStripMenuItemCopyTo.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItemCopyTo.Text = "&Kopieren nach ...";
+            this.toolStripMenuItemCopyTo.Click += new System.EventHandler(this.toolStripMenuItemCopyTo_Click);
+            // 
+            // toolStripMenuItemMoveTo
+            // 
+            this.toolStripMenuItemMoveTo.Name = "toolStripMenuItemMoveTo";
+            this.toolStripMenuItemMoveTo.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItemMoveTo.Text = "Ve&rschieben nach ...";
+            this.toolStripMenuItemMoveTo.Click += new System.EventHandler(this.toolStripMenuItemMoveTo_Click);
             // 
             // toolStripMenuItemView
             // 
@@ -2427,20 +2440,6 @@ namespace QuickImageComment
             this.theFolderTreeView.Size = new System.Drawing.Size(253, 147);
             this.theFolderTreeView.TabIndex = 0;
             // 
-            // toolStripMenuItemCopyTo
-            // 
-            this.toolStripMenuItemCopyTo.Name = "toolStripMenuItemCopyTo";
-            this.toolStripMenuItemCopyTo.Size = new System.Drawing.Size(180, 22);
-            this.toolStripMenuItemCopyTo.Text = "Kopieren nach ...";
-            this.toolStripMenuItemCopyTo.Click += new System.EventHandler(this.toolStripMenuItemCopyTo_Click);
-            // 
-            // toolStripMenuItemMoveTo
-            // 
-            this.toolStripMenuItemMoveTo.Name = "toolStripMenuItemMoveTo";
-            this.toolStripMenuItemMoveTo.Size = new System.Drawing.Size(180, 22);
-            this.toolStripMenuItemMoveTo.Text = "Verschieben nach ...";
-            this.toolStripMenuItemMoveTo.Click += new System.EventHandler(this.toolStripMenuItemMoveTo_Click);
-            // 
             // FormQuickImageComment
             // 
             this.AllowDrop = true;
@@ -2492,7 +2491,6 @@ namespace QuickImageComment
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFramePosition)).EndInit();
             this.tabControlProperties.ResumeLayout(false);
             this.tabPageOverview.ResumeLayout(false);
-            this.contextMenuStripOverview.ResumeLayout(false);
             this.tabPageMulti.ResumeLayout(false);
             this.tabPageMulti.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSelectedFiles)).EndInit();
@@ -2508,6 +2506,7 @@ namespace QuickImageComment
             this.tabPageLastComments.ResumeLayout(false);
             this.tabPageLastComments.PerformLayout();
             this.tabPagePredefComments.ResumeLayout(false);
+            this.contextMenuStripOverview.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();

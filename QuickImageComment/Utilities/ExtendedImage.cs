@@ -4095,12 +4095,12 @@ namespace QuickImageComment
                 string orientation = getMetaDataValueByKey("Exif.Image.Orientation", MetaDataItem.Format.Original);
                 if (!focalLengthString.Equals(""))
                 {
-                    int focalLength = Int32.Parse(focalLengthString);
+                    int focalLength = int.Parse(focalLengthString);
                     float horizontalLength = 36;
                     if (!orientation.Equals(""))
                     {
                         // orientation values 1 to 4 indicate landscape, 5 to 8 indicate portrait
-                        if (Int32.Parse(orientation) > 4)
+                        if (int.Parse(orientation) > 4)
                         {
                             horizontalLength = 24;
                         }
