@@ -6690,6 +6690,7 @@ namespace QuickImageComment
                 // FormInputBox not needed
                 new FormInputCheckConfiguration("Iptc.Application2.Category");
                 new FormMap();
+                new FormMapSettings(theUserControlMap);
                 new FormMetaDataDefinition(theExtendedImage);
                 //new FormMultiSave(0);
                 new FormPlaceholder("Exif.Image.Copyright", "Copyright {{#Exif.Photo.DateTimeOriginal;;4}} {{Exif.Image.Artist}}");
@@ -6784,6 +6785,7 @@ namespace QuickImageComment
             LangCfg.getListOfControlsWithText(new FormInputBox("prompt", "defaultResponse"), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormInputCheckConfiguration("Exif.Image.Orientation"), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormMap(), ControlTextList);
+            LangCfg.getListOfControlsWithText(new FormMapSettings(theUserControlMap), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormMetaDataDefinition(theExtendedImage), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormMultiSave(0), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormPlaceholder("", ""), ControlTextList);
@@ -6855,6 +6857,7 @@ namespace QuickImageComment
             new FormInputCheckConfiguration("Exif.Image.Orientation");
             new FormLogger();
             new FormMap();
+            new FormMapSettings(theUserControlMap);
             new FormMetaDataDefinition(theExtendedImage);
             new FormMultiSave(0);
             new FormPlaceholder("", "");

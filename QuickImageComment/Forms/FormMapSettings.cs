@@ -39,12 +39,6 @@ namespace QuickImageComment
 
             LangCfg.translateControlTexts(this);
 
-            // if flag set, return (is sufficient to create control texts list)
-            if (GeneralUtilities.CloseAfterConstructing)
-            {
-                return;
-            }
-
             // if flag set, create screenshot and return
             if (GeneralUtilities.CreateScreenshots)
             {
@@ -54,6 +48,12 @@ namespace QuickImageComment
                 Close();
                 return;
             }
+            // if flag set, return (is sufficient to create control texts list)
+            else if (GeneralUtilities.CloseAfterConstructing)
+            {
+                return;
+            }
+
         }
 
         private void loadConfiguration()
