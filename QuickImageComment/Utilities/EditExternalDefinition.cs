@@ -16,11 +16,15 @@
 
 using System;
 using System.Collections;
+using System.Runtime.InteropServices;
 
 namespace QuickImageComment
 {
     internal class EditExternalDefinition
     {
+        [DllImport("user32.dll")]
+        static extern bool SetForegroundWindow(IntPtr hWnd);
+
         internal enum CommandType
         {
             BatchCommand,
@@ -169,7 +173,6 @@ namespace QuickImageComment
         {
             string[] placeholders = { "%f", "%~f", "%~df", "%~pf", "%~nf", "%~xf", "%~nxf" };
 
-            MainMaskInterface.setMainMaskCursor(System.Windows.Forms.Cursors.WaitCursor);
             ArrayList FileNames = MainMaskInterface.getSelectedFileNames();
             if (FileNames.Count == 0)
             {
@@ -214,6 +217,11 @@ namespace QuickImageComment
                                 startProcessProgram(fileNamesString + " " + commandOrOptions);
                         }
                     }
+                    handle = DropFileOnProcess.getWindowHandle(programPath, windowTitle);
+                    if (handle != IntPtr.Zero)
+                    {
+                        SetForegroundWindow(handle);
+                    }
                 }
             }
             else if (commandType == CommandType.BatchCommand)
@@ -254,7 +262,6 @@ namespace QuickImageComment
             {
                 throw new Exception("Internal error: command type \"" + commandType.ToString() + "\" not considered");
             }
-            MainMaskInterface.setMainMaskCursor(System.Windows.Forms.Cursors.Default);
         }
 
         private string arrayListToString(ArrayList FileNames, string placeholder)
