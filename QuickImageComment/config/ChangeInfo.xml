@@ -1,11 +1,21 @@
-﻿<Program_Version>4.62</Program_Version>
+﻿<Program_Version>4.63</Program_Version>
 <Program_Change_Info_German>
+Erweiterungen und Verbesserungen:
+Anzeige von Aufnahmerichtung und -winkel in Karte.
+Neue Version 0.21.3 der Bibliothek LibRaw integriert, die 4-Komponenten JPEG-komprimierte DNG-Dateien unterstützt.
+Im Parameter FindDataTableFileName (Dateiname zum Speichern der für die Suche gelesenen Daten) kann auch ein absoluter Pfad angegeben werden. Bisher konnte die Datei nur im Speicherort für Benutzer-Einstellungen abgelegt werden.
+In Ansicht "Liste" bzw. Miniaturansicht wird mit Cursor unten/oben bzw. rechts/links über die Grenze der Zeile bzw. Spalte weiternavigiert.
+
 Folgende Fehler wurden behoben:
-Wenn das Programm mit Kartenansicht gestartet wurde und WebView2 aktiviert war, stürzte es ab.
-Wenn Kartenansicht mit WebView2 aktiv war, wurde beim Bildwechsel angezeigt, dass der Aufnahmeort geändert wurde, obwohl das nicht der Fall war.
+Das Anlegen von benutzerdefinierten Schaltflächen war abhängig von den Konfigurationseinstellungen häufig nicht möglich.
 </Program_Change_Info_German>
 <Program_Change_Info_English>
+Enhancements and improvements:
+Display of direction and angle of view in map.
+New version 0.21.3 of library LibRaw integrated, which supports for 4-component JPEG-compressed DNG files.
+An absolute path can also be specified in the FindDataTableFileName parameter (file name for saving the data read for the search). Previously, the file could only be saved in the storage location for user settings.
+In the list resp. thumbnail view, the cursor down/up resp. right/left is used to navigate across the border of the row or column.
+	
 The following errors have been fixed:
-If the program was started with map view and WebView2 was activated, it crashed. 
-If map view with WebView2 was active, a message occured, that the recording location had been changed when selecting another image, although this was not the case.
+Creating user-defined buttons was often not possible depending on the configuration settings.
 </Program_Change_Info_English>

@@ -10,7 +10,7 @@ FormCustomization | Allows to customize masks. Sources in this folder are writte
 Forms | Classes for forms 
 GongShell | Used to show folder tree. Additionally folder tree and file list are updated, if folders or files are added, modified or deleted outside QuickImageComment (i.e. GongShell provdes a ShellListener). Copied from https://sourceforge.net/projects/gong-shell/, version 0.6, revision 93. QuickImageComment uses a customized copy of ShellTreeView.cs, which required some minor changes in the other classes.
 JR.Utils.GUI.Forms | flexible replacement for the .NET MessageBox, copied from https://github.com/ambiesoft/FlexibleMessageBox
-leaflet | Used to display a map with recording location of image. Copied from https://leafletjs.com/.
+leaflet | Used to display a map with recording location of image. Copied from https://leafletjs.com/. More details in [README](leaflet/README.md)).
 Properties | Property files of project
 Resources | Resource files (icons) of project
 Utilities | Classes for utilities

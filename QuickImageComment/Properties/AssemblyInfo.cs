@@ -43,9 +43,9 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("4.62.*")]
-[assembly: AssemblyInformationalVersion("4.62" + AssemblyInfo.VersionSuffix + AssemblyInfo.Platform + AssemblyInfo.Framework)]
-[assembly: AssemblyFileVersion("4.62.0.0")]
+[assembly: AssemblyVersion("4.63.*")]
+[assembly: AssemblyInformationalVersion("4.63" + AssemblyInfo.VersionSuffix + AssemblyInfo.Platform + AssemblyInfo.Framework)]
+[assembly: AssemblyFileVersion("4.63.0.0")]
 
 class AssemblyInfo
 {
@@ -57,7 +57,7 @@ class AssemblyInfo
     // Version to Check is the last published version
     // for beta versions it is one before AssemblyVersion
     // for released versions it is same as AssemblyVersion
-    public const string VersionToCheck = "4.62";
+    public const string VersionToCheck = "4.63";
 
 #if PLATFORMTARGET_X64
     public const string Platform = " - 64 Bit";
