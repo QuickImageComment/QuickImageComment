@@ -64,6 +64,8 @@ namespace QuickImageComment
             exiv2getVersion(ref exiv2Version);
             textBoxExiv2CdeclVersion.Text += " " + exiv2Version;
 
+            dynamicLabelTranslationAcknowledgment.Text = LangCfg.getText(LangCfg.Others._translationAcknowledgment);
+
             // if flag set, create screenshot and return
             if (GeneralUtilities.CreateScreenshots)
             {

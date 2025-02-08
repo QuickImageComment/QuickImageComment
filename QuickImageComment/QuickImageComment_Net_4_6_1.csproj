@@ -743,6 +743,9 @@
     <None Include="config\QIC_Language_English.cfg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="config\QIC_Language_Français.cfg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="config\QIC_TagLookup_Deutsch.cfg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

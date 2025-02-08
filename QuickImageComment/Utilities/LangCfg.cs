@@ -345,7 +345,8 @@ namespace QuickImageComment
             fileSize,
             fileLastModified,
             filterTextAllFiles,
-            filterTextIcoFiles
+            filterTextIcoFiles,
+            _translationAcknowledgment
         }
 
         // defined as variable
