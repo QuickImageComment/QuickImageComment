@@ -32,8 +32,8 @@ https://github.com/Exiv2/exiv2/blob/main/exiv2.md#file_types
 
 For displaying RAW images, the LibRaw library is integrated. If the camera manufacturer's codec or the Microsoft Raw Image Extension (which supports various RAW formats) are installed, they are used and then display is usually faster. One can install both a specific codec and the Microsoft Extension. The specific codec is then used for the corresponding images. For all others first the Microsoft Extension is tried and as last option the integrated LibRaw library. For the display of the metadata no codec is needed.
 
-The program runs under Microsoft Windows 7, 8, 10 and 11 and is available as 32-bit and 64-bit variant. German or English can be selected as the language. Other languages can easily be added if a corresponding language file is created. Further information can be found here: 
-https://www.quickimagecomment.de/index.php/en/support-for-additional-languages
+The program runs under Microsoft Windows 7, 8, 10 and 11 and is available as 32-bit and 64-bit variant. German or English can be selected as the language. Other languages can easily be added if a corresponding language file is created. Further information can be found here:
+https://quickimagecomment.de/en/support-for-additional-languages.html 
 
 There is also a variant with slightly reduced functionality available, which runs on Windows XP with .Net 4.0 framework.
 
