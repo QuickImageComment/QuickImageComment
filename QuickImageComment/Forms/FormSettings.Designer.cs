@@ -119,8 +119,6 @@ namespace QuickImageComment
             this.labelFramePosition = new System.Windows.Forms.Label();
             this.Panel5 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.linkLabelAppCenter = new System.Windows.Forms.LinkLabel();
-            this.checkBoxAppCenter = new System.Windows.Forms.CheckBox();
             this.comboBoxCharsetUserComment = new System.Windows.Forms.ComboBox();
             this.checkBoxIptcUTF8 = new System.Windows.Forms.CheckBox();
             this.checkBoxExifUTF8 = new System.Windows.Forms.CheckBox();
@@ -880,8 +878,6 @@ namespace QuickImageComment
             // panel3
             // 
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel3.Controls.Add(this.linkLabelAppCenter);
-            this.panel3.Controls.Add(this.checkBoxAppCenter);
             this.panel3.Controls.Add(this.comboBoxCharsetUserComment);
             this.panel3.Controls.Add(this.checkBoxIptcUTF8);
             this.panel3.Controls.Add(this.checkBoxExifUTF8);
@@ -890,27 +886,6 @@ namespace QuickImageComment
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(788, 65);
             this.panel3.TabIndex = 36;
-            // 
-            // linkLabelAppCenter
-            // 
-            this.linkLabelAppCenter.AutoSize = true;
-            this.linkLabelAppCenter.Location = new System.Drawing.Point(406, 22);
-            this.linkLabelAppCenter.Name = "linkLabelAppCenter";
-            this.linkLabelAppCenter.Size = new System.Drawing.Size(278, 13);
-            this.linkLabelAppCenter.TabIndex = 41;
-            this.linkLabelAppCenter.TabStop = true;
-            this.linkLabelAppCenter.Text = "Detaillierte Beschreibung hierzu mit Liste erfasster Daten";
-            this.linkLabelAppCenter.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelAppCenter_LinkClicked);
-            // 
-            // checkBoxAppCenter
-            // 
-            this.checkBoxAppCenter.AutoSize = true;
-            this.checkBoxAppCenter.Location = new System.Drawing.Point(389, 6);
-            this.checkBoxAppCenter.Name = "checkBoxAppCenter";
-            this.checkBoxAppCenter.Size = new System.Drawing.Size(311, 17);
-            this.checkBoxAppCenter.TabIndex = 40;
-            this.checkBoxAppCenter.Text = "Senden von Fehlerberichten und anonymen Nutzungsdaten";
-            this.checkBoxAppCenter.UseVisualStyleBackColor = true;
             // 
             // comboBoxCharsetUserComment
             // 
@@ -1082,7 +1057,5 @@ namespace QuickImageComment
         private System.Windows.Forms.CheckBox checkBoxIptcUTF8;
         private System.Windows.Forms.CheckBox checkBoxExifUTF8;
         private System.Windows.Forms.Label labelCharSet;
-        private System.Windows.Forms.CheckBox checkBoxAppCenter;
-        private System.Windows.Forms.LinkLabel linkLabelAppCenter;
     }
 }

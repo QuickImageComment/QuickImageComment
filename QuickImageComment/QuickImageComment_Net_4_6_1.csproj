@@ -38,7 +38,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>..\bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;NET461;APPCENTER;WEBVIEW2;LIBRAW</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;NET461;WEBVIEW2;LIBRAW</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -50,7 +50,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>..\bin\Release\</OutputPath>
-    <DefineConstants>TRACE;NET461;APPCENTER;WEBVIEW2;LIBRAW</DefineConstants>
+    <DefineConstants>TRACE;NET461;WEBVIEW2;LIBRAW</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -63,7 +63,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>..\bin\DebugX64\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;NET461;PLATFORMTARGET_X64;APPCENTER;WEBVIEW2;LIBRAW</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;NET461;PLATFORMTARGET_X64;WEBVIEW2;LIBRAW</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -77,7 +77,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>..\bin\ReleaseX64\</OutputPath>
-    <DefineConstants>TRACE;NET461;PLATFORMTARGET_X64;APPCENTER;WEBVIEW2;LIBRAW</DefineConstants>
+    <DefineConstants>TRACE;NET461;PLATFORMTARGET_X64;WEBVIEW2;LIBRAW</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -111,7 +111,6 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AppCenterSecureID.cs" />
     <Compile Include="Controls\CheckedListBoxItemBackcolor.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -150,12 +149,6 @@
     </Compile>
     <Compile Include="Forms\FormError.Designer.cs">
       <DependentUpon>FormError.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\FormErrorAppCenter.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\FormErrorAppCenter.Designer.cs">
-      <DependentUpon>FormErrorAppCenter.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\FormFindQuery.cs">
       <SubType>Form</SubType>
@@ -258,12 +251,6 @@
     </Compile>
     <Compile Include="Forms\FormFindReadErrors.designer.cs">
       <DependentUpon>FormFindReadErrors.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\FormFirstAppCenterSettings.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\FormFirstAppCenterSettings.Designer.cs">
-      <DependentUpon>FormFirstAppCenterSettings.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\FormImageDetails.cs">
       <SubType>Form</SubType>
@@ -578,9 +565,6 @@
     <EmbeddedResource Include="Forms\FormError.resx">
       <DependentUpon>FormError.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FormErrorAppCenter.resx">
-      <DependentUpon>FormErrorAppCenter.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormExportAllMetaData.resx">
       <DependentUpon>FormExportAllMetaData.cs</DependentUpon>
     </EmbeddedResource>
@@ -593,9 +577,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormFindReadErrors.resx">
       <DependentUpon>FormFindReadErrors.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FormFirstAppCenterSettings.resx">
-      <DependentUpon>FormFirstAppCenterSettings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormImageDetails.resx">
       <DependentUpon>FormImageDetails.cs</DependentUpon>
@@ -987,15 +968,6 @@
   <ItemGroup>
     <PackageReference Include="CSJ2K">
       <Version>3.0.0</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.AppCenter">
-      <Version>4.5.3</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.AppCenter.Analytics">
-      <Version>4.5.3</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.AppCenter.Crashes">
-      <Version>4.5.3</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Web.WebView2">
       <Version>1.0.1829-prerelease</Version>

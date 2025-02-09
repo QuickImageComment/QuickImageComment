@@ -16,17 +16,12 @@
 
 #define USESTARTUPTHREAD
 
+using JR.Utils.GUI.Forms;
 using System;
 using System.Reflection;
 using System.Runtime.InteropServices; // for DllImport
 using System.Threading;
 using System.Windows.Forms;
-using JR.Utils.GUI.Forms;
-#if APPCENTER
-using Microsoft.AppCenter;
-using Microsoft.AppCenter.Analytics;
-using Microsoft.AppCenter.Crashes;
-#endif
 
 namespace QuickImageComment
 {
@@ -36,11 +31,6 @@ namespace QuickImageComment
         const string exiv2DllImport = "exiv2Cdecl.dll";
         [DllImport(exiv2DllImport, CallingConvention = CallingConvention.Cdecl)]
         static extern int init_SE_Translator();
-
-#if APPCENTER
-        // when using Microsoft AppCenter, enter here the Secure ID
-        // internal const String AppCenterSecureID = "";
-#endif
 
         public static Performance StartupPerformance;
         private static FormQuickImageComment theFormQuickImageComment;
@@ -55,8 +45,6 @@ namespace QuickImageComment
         internal static string VersionNumberInformational;
         internal static string VersionNumberOnlyWhenSuffixDefined;
         internal static string TitleSuffix = "";
-        // is set to true if APPCENTER is defined and operating system is Windows 10
-        internal static bool AppCenterUsable = false;
         internal static DateTime CompileTime;
         // flag is used in exception handling to decide if only a message box can be displayed or handling is based on configuration
         private static bool initialzationCompleted = false;

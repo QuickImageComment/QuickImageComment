@@ -6678,7 +6678,6 @@ namespace QuickImageComment
                 new FormDateTimeChange(theUserControlFiles.listViewFiles.SelectedIndices);
                 new FormEditExternal();
                 // FormError not needed
-                // FormErrorAppCenter not needed
                 new FormExportAllMetaData(theUserControlFiles.listViewFiles.SelectedIndices, FolderName);
                 new FormExportMetaData(FolderName);
                 FormFind formFind = new FormFind(true);
@@ -6773,7 +6772,6 @@ namespace QuickImageComment
             LangCfg.getListOfControlsWithText(new FormDateTimeChange(theUserControlFiles.listViewFiles.SelectedIndices), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormEditExternal(), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormError("", "", ""), ControlTextList);
-            LangCfg.getListOfControlsWithText(new FormErrorAppCenter(""), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormExportAllMetaData(theUserControlFiles.listViewFiles.SelectedIndices, FolderName), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormExportMetaData(FolderName), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormFind(true), ControlTextList);
@@ -6797,7 +6795,6 @@ namespace QuickImageComment
             LangCfg.getListOfControlsWithText(new FormRemoveMetaData(theUserControlFiles.listViewFiles.SelectedIndices), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormRename(theUserControlFiles.listViewFiles.SelectedIndices), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormSelectLanguage(ConfigDefinition.getConfigPath()), ControlTextList);
-            LangCfg.getListOfControlsWithText(new FormFirstAppCenterSettings(), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormFirstUserSettings(true), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormScale(), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormSelectApplication(), ControlTextList);
@@ -6842,12 +6839,10 @@ namespace QuickImageComment
             new FormDonate();
             new FormEditExternal();
             new FormError("", "", "");
-            new FormErrorAppCenter("");
             new FormExportAllMetaData(theUserControlFiles.listViewFiles.SelectedIndices, FolderName);
             new FormExportMetaData(FolderName);
             new FormFind(true);
             new FormFindReadErrors();
-            new FormFirstAppCenterSettings();
             new FormFirstUserSettings(true);
             new FormImageDetails(dpiSettings, theExtendedImage);
             new FormImageGrid();

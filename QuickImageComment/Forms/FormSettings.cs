@@ -107,17 +107,6 @@ namespace QuickImageComment
             checkBoxExifUTF8.Checked = ConfigDefinition.getCfgUserBool(ConfigDefinition.enumCfgUserBool.WriteExifUtf8);
             checkBoxIptcUTF8.Checked = ConfigDefinition.getCfgUserBool(ConfigDefinition.enumCfgUserBool.WriteIptcUtf8);
 
-            // AppCenterUsage is defined as string configuration parameter to allow more options in the future
-            // set checkBoxAppCenter even if APPCENTERSECRET is not defined to ensure, that existing configuration
-            // is not lost when saving settings
-            string AppCenterUsage = ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.AppCenterUsage);
-            checkBoxAppCenter.Checked = AppCenterUsage.ToLower().Equals("y");
-            if (!Program.AppCenterUsable)
-            {
-                checkBoxAppCenter.Visible = false;
-                linkLabelAppCenter.Visible = false;
-            }
-
             CustomizationInterface.setFormToCustomizedValuesZoomInitial(this);
 
             // call the text changed event as it is not called during the update above
@@ -218,10 +207,6 @@ namespace QuickImageComment
             ConfigDefinition.setCfgUserString(ConfigDefinition.enumCfgUserString.CharsetExifPhotoUserComment, comboBoxCharsetUserComment.Text);
             ConfigDefinition.setCfgUserBool(ConfigDefinition.enumCfgUserBool.WriteExifUtf8, checkBoxExifUTF8.Checked);
             ConfigDefinition.setCfgUserBool(ConfigDefinition.enumCfgUserBool.WriteIptcUtf8, checkBoxIptcUTF8.Checked);
-            if (checkBoxAppCenter.Checked)
-                ConfigDefinition.setCfgUserString(ConfigDefinition.enumCfgUserString.AppCenterUsage, "y");
-            else
-                ConfigDefinition.setCfgUserString(ConfigDefinition.enumCfgUserString.AppCenterUsage, "n");
 
             settingsChanged = true;
             Close();
@@ -236,11 +221,6 @@ namespace QuickImageComment
         private void buttonHelp_Click(object sender, EventArgs e)
         {
             GeneralUtilities.ShowHelp(this, "FormSettings");
-        }
-
-        private void linkLabelAppCenter_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            GeneralUtilities.ShowHelp(this, "AppCenter");
         }
 
         private void checkBoxSaveTags_CheckedChanged(object sender, EventArgs e)

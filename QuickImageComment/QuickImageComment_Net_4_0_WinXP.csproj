@@ -143,12 +143,6 @@
     <Compile Include="Forms\FormError.Designer.cs">
       <DependentUpon>FormError.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\FormErrorAppCenter.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\FormErrorAppCenter.Designer.cs">
-      <DependentUpon>FormErrorAppCenter.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\FormFindQuery.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -250,12 +244,6 @@
     </Compile>
     <Compile Include="Forms\FormFindReadErrors.designer.cs">
       <DependentUpon>FormFindReadErrors.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\FormFirstAppCenterSettings.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\FormFirstAppCenterSettings.Designer.cs">
-      <DependentUpon>FormFirstAppCenterSettings.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\FormImageDetails.cs">
       <SubType>Form</SubType>
@@ -564,9 +552,6 @@
     <EmbeddedResource Include="Forms\FormError.resx">
       <DependentUpon>FormError.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FormErrorAppCenter.resx">
-      <DependentUpon>FormErrorAppCenter.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormExportAllMetaData.resx">
       <DependentUpon>FormExportAllMetaData.cs</DependentUpon>
     </EmbeddedResource>
@@ -579,9 +564,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormFindReadErrors.resx">
       <DependentUpon>FormFindReadErrors.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FormFirstAppCenterSettings.resx">
-      <DependentUpon>FormFirstAppCenterSettings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormImageDetails.resx">
       <DependentUpon>FormImageDetails.cs</DependentUpon>
