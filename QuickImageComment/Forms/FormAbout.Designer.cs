@@ -68,7 +68,7 @@ namespace QuickImageComment
             // buttonClose
             // 
             this.buttonClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonClose.Location = new System.Drawing.Point(400, 599);
+            this.buttonClose.Location = new System.Drawing.Point(400, 631);
             this.buttonClose.Name = "buttonClose";
             this.buttonClose.Size = new System.Drawing.Size(239, 25);
             this.buttonClose.TabIndex = 12;
@@ -82,12 +82,12 @@ namespace QuickImageComment
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxOtherSources.BackColor = System.Drawing.SystemColors.Control;
-            this.textBoxOtherSources.Location = new System.Drawing.Point(12, 238);
+            this.textBoxOtherSources.Location = new System.Drawing.Point(12, 258);
             this.textBoxOtherSources.Multiline = true;
             this.textBoxOtherSources.Name = "textBoxOtherSources";
             this.textBoxOtherSources.ReadOnly = true;
             this.textBoxOtherSources.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBoxOtherSources.Size = new System.Drawing.Size(627, 347);
+            this.textBoxOtherSources.Size = new System.Drawing.Size(627, 359);
             this.textBoxOtherSources.TabIndex = 11;
             this.textBoxOtherSources.Text = resources.GetString("textBoxOtherSources.Text");
             // 
@@ -121,7 +121,7 @@ namespace QuickImageComment
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(9, 222);
+            this.label5.Location = new System.Drawing.Point(9, 236);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(218, 13);
             this.label5.TabIndex = 10;
@@ -134,7 +134,7 @@ namespace QuickImageComment
             this.textBoxLicenceGerman.Location = new System.Drawing.Point(12, 120);
             this.textBoxLicenceGerman.Multiline = true;
             this.textBoxLicenceGerman.Name = "textBoxLicenceGerman";
-            this.textBoxLicenceGerman.Size = new System.Drawing.Size(625, 92);
+            this.textBoxLicenceGerman.Size = new System.Drawing.Size(625, 113);
             this.textBoxLicenceGerman.TabIndex = 8;
             this.textBoxLicenceGerman.Text = resources.GetString("textBoxLicenceGerman.Text");
             // 
@@ -152,7 +152,7 @@ namespace QuickImageComment
             // buttonLicenses
             // 
             this.buttonLicenses.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonLicenses.Location = new System.Drawing.Point(12, 599);
+            this.buttonLicenses.Location = new System.Drawing.Point(12, 631);
             this.buttonLicenses.Name = "buttonLicenses";
             this.buttonLicenses.Size = new System.Drawing.Size(239, 25);
             this.buttonLicenses.TabIndex = 14;
@@ -176,7 +176,7 @@ namespace QuickImageComment
             this.textBoxLicenceEnglish.Location = new System.Drawing.Point(12, 120);
             this.textBoxLicenceEnglish.Multiline = true;
             this.textBoxLicenceEnglish.Name = "textBoxLicenceEnglish";
-            this.textBoxLicenceEnglish.Size = new System.Drawing.Size(625, 92);
+            this.textBoxLicenceEnglish.Size = new System.Drawing.Size(625, 113);
             this.textBoxLicenceEnglish.TabIndex = 18;
             this.textBoxLicenceEnglish.Text = resources.GetString("textBoxLicenceEnglish.Text");
             // 
@@ -255,7 +255,7 @@ namespace QuickImageComment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(651, 628);
+            this.ClientSize = new System.Drawing.Size(651, 660);
             this.Controls.Add(this.dynamicLabelTranslationAcknowledgment);
             this.Controls.Add(this.labelGitHub);
             this.Controls.Add(this.fixedLinkLabelGitHub);

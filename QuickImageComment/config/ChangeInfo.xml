@@ -1,21 +1,13 @@
-﻿<Program_Version>4.63</Program_Version>
+﻿<Program_Version>4.64</Program_Version>
 <Program_Change_Info_German>
-Erweiterungen und Verbesserungen:
-Anzeige von Aufnahmerichtung und -winkel in Karte.
-Neue Version 0.21.3 der Bibliothek LibRaw integriert, die 4-Komponenten JPEG-komprimierte DNG-Dateien unterstützt.
-Im Parameter FindDataTableFileName (Dateiname zum Speichern der für die Suche gelesenen Daten) kann auch ein absoluter Pfad angegeben werden. Bisher konnte die Datei nur im Speicherort für Benutzer-Einstellungen abgelegt werden.
-In Ansicht "Liste" bzw. Miniaturansicht wird mit Cursor unten/oben bzw. rechts/links über die Grenze der Zeile bzw. Spalte weiternavigiert.
+Neu: Sprachdatei für Französisch. Dank an Régis für Erstellung der Übersetzung.
+Hinweis an dieser Stelle: Neue Sprachen können grundsätzlich ohne Programmänderungen ergänzt werden, wenn eine entsprechende Sprachdatei erzeugt wird. Unterstützung dafür ist sehr willkommen. Weitere Hinweise unter www.quickimagecomment.de.
 
-Folgende Fehler wurden behoben:
-Das Anlegen von benutzerdefinierten Schaltflächen war abhängig von den Konfigurationseinstellungen häufig nicht möglich.
+Die Übermittlung von Fehlerberichten und elementarer anonymer Nutzungsdaten mit Hilfe des Microsoft AppCenters wurde entfernt, weil AppCenter am 31. März 2025 von Microsoft eingestellt wird.
 </Program_Change_Info_German>
 <Program_Change_Info_English>
-Enhancements and improvements:
-Display of direction and angle of view in map.
-New version 0.21.3 of library LibRaw integrated, which supports for 4-component JPEG-compressed DNG files.
-An absolute path can also be specified in the FindDataTableFileName parameter (file name for saving the data read for the search). Previously, the file could only be saved in the storage location for user settings.
-In the list resp. thumbnail view, the cursor down/up resp. right/left is used to navigate across the border of the row or column.
-	
-The following errors have been fixed:
-Creating user-defined buttons was often not possible depending on the configuration settings.
+New: Language file for French. Thanks to Régis for creating the translation.
+Note at this point: New languages can generally be added without program changes if a corresponding language file is created. Support for this is very welcome. Further information can be found at www.quickimagecomment.de.
+
+The transmission of error reports and elementary anonymous usage data with the help of Microsoft AppCenter has been removed because AppCenter will be discontinued by Microsoft on March 31, 2025.
 </Program_Change_Info_English>
