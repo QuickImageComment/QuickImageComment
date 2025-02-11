@@ -38,7 +38,7 @@ namespace QuickImageComment
         // define extensions instead of using Filter for GetFiles
         // is anyhow required because Directory.GetFilter does not filter exact when extension is 3 characters
         // extension from exiv2 documentation
-        public const string GetImageExtensions = ".arw .avif .bmp .cr2 .cr3 .crw .dng .eps .exv .gif .heic .heif .jp2 .jpg .jpeg .jxl .mrw .nef .orf .pef .pgf .png .psd .raf .rw2 .sr2 .srw .tga .tif .tiff .webp .xmp"
+        public const string GetImageExtensions = ".arw .avif .bmp .cr2 .cr3 .crw .dcp .dng .eps .exv .gif .heic .heif .jp2 .jpg .jpeg .jxl .mrw .nef .orf .pef .pgf .png .psd .raf .rw2 .sr2 .srw .tga .tif .tiff .webp .xmp"
             // extensions added by experience
             + " .3fr .dcr .erf .kdc .mdc .mef .nrw .raw .srf";
         // extensions of files which can be read using System.Drawing.Image (which is fast)

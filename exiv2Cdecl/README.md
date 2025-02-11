@@ -34,13 +34,15 @@ When installing new version of Python, ensure to include pip.
        $ conan profile list  
    Note: should show msvc2019Release64, if not copy it from exiv2\cmake\msvc_conan_profiles to %USERPROFILE%\.conan\profiles
 
-   When using Visual Studio 2022, create msvc2022Release64 by changing compiler.version to 17.
+   When using Visual Studio 2019:
 
        $ conan install .. --profile msvc2019Release64 --build=expat --build=zlib --build=gtest
-       or
-       $ conan install .. --profile msvc2022Release64 --build=expat --build=zlib --build=gtest
        $ cmake         .. -G "Visual Studio 16 2019" -A x64
-       or
+       $ cmake --build .  --config Release
+
+   When using Visual Studio 2022, create msvc2022Release64 (if not yet exists) by changing compiler.version to 17.
+
+       $ conan install .. --profile msvc2022Release64 --build=expat --build=zlib --build=gtest
        $ cmake         .. -G "Visual Studio 17 2022" -A x64
        $ cmake --build .  --config Release
 

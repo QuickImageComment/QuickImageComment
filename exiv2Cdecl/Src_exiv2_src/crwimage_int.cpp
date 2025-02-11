@@ -542,35 +542,39 @@ CiffComponent* CiffDirectory::doAdd(CrwDirs& crwDirs, uint16_t crwTagId) {
         if not found, create it
         set value
   */
+  CiffComponent* cc = nullptr;
   if (!crwDirs.empty()) {
     auto dir = crwDirs.top();
     crwDirs.pop();
     // Find the directory
-    auto it = std::find_if(components_.begin(), components_.end(), [=](const auto& c) { return c->tag() == dir.dir; });
-    if (it != components_.end())
-      cc_ = *it;
-    if (!cc_) {
+    for (const auto& c : components_)
+      if (c->tag() == dir.dir) {
+        cc = c;
+        break;
+      }
+    if (!cc) {
       // Directory doesn't exist yet, add it
       m_ = std::make_unique<CiffDirectory>(dir.dir, dir.parent);
-      cc_ = m_.get();
+      cc = m_.get();
       add(std::move(m_));
     }
     // Recursive call to next lower level directory
-    cc_ = cc_->add(crwDirs, crwTagId);
-  } else {
-    // Find the tag
-    auto it =
-        std::find_if(components_.begin(), components_.end(), [=](const auto& c) { return c->tagId() == crwTagId; });
-    if (it != components_.end())
-      cc_ = *it;
-    if (!cc_) {
-      // Tag doesn't exist yet, add it
-      m_ = std::make_unique<CiffEntry>(crwTagId, tag());
-      cc_ = m_.get();
-      add(std::move(m_));
-    }
+    return cc->add(crwDirs, crwTagId);
   }
-  return cc_;
+
+  // Find the tag
+  for (const auto& c : components_)
+    if (c->tagId() == crwTagId) {
+      cc = c;
+      break;
+    }
+  if (!cc) {
+    // Tag doesn't exist yet, add it
+    m_ = std::make_unique<CiffEntry>(crwTagId, tag());
+    cc = m_.get();
+    add(std::move(m_));
+  }
+  return cc;
 }  // CiffDirectory::doAdd
 
 void CiffHeader::remove(uint16_t crwTagId, uint16_t crwDir) const {

@@ -29,6 +29,8 @@
 
 enum {
   TAG_ftyp = 0x66747970U,  ///< "ftyp" File type box */
+  TAG_avci = 0x61766369U,  ///< "avci" AVC */
+  TAG_avcs = 0x61766373U,  ///< "avcs" AVC */
   TAG_avif = 0x61766966U,  ///< "avif" AVIF */
   TAG_avio = 0x6176696fU,  ///< "avio" AVIF */
   TAG_avis = 0x61766973U,  ///< "avis" AVIF */
@@ -37,6 +39,8 @@ enum {
   TAG_heim = 0x6865696dU,  ///< "heim" HEIC */
   TAG_heis = 0x68656973U,  ///< "heis" HEIC */
   TAG_heix = 0x68656978U,  ///< "heix" HEIC */
+  TAG_j2is = 0x6a326973U,  ///< "j2is" HEJ2K */
+  TAG_j2ki = 0x6a326b69U,  ///< "j2ki" HEJ2K */
   TAG_mif1 = 0x6d696631U,  ///< "mif1" HEIF */
   TAG_crx = 0x63727820U,   ///< "crx " Canon CR3 */
   TAG_jxl = 0x6a786c20U,   ///< "jxl " JPEG XL file type */
@@ -85,16 +89,14 @@ BmffImage::BmffImage(BasicIo::UniquePtr io, bool /* create */, size_t max_box_de
 
 std::string BmffImage::toAscii(uint32_t n) {
   const auto p = reinterpret_cast<const char*>(&n);
-  std::string result(4, '.');
-  std::transform(p, p + 4, result.begin(), [](char c) {
-    if (32 <= c && c < 127)
-      return c;  // only allow 7-bit printable ascii
-    if (c == 0)
-      return '_';  // show 0 as _
-    return '.';    // others .
-  });
+  std::string result(p, p + 4);
   if (!isBigEndianPlatform())
     std::reverse(result.begin(), result.end());
+  // show 0 as _
+  std::replace(result.begin(), result.end(), '\0', '_');
+  // show non 7-bit printable ascii as .
+  auto f = [](char c) { return c < 32 || c > 126; };
+  std::replace_if(result.begin(), result.end(), f, '.');
   return result;
 }
 
@@ -116,6 +118,10 @@ static bool skipBox(uint32_t box) {
 
 std::string BmffImage::mimeType() const {
   switch (fileType_) {
+    case TAG_avci:
+      return "image/avci";
+    case TAG_avcs:
+      return "image/avcs";
     case TAG_avif:
     case TAG_avio:
     case TAG_avis:
@@ -128,6 +134,10 @@ std::string BmffImage::mimeType() const {
     case TAG_heif:
     case TAG_mif1:
       return "image/heif";
+    case TAG_j2is:
+      return "image/j2is";
+    case TAG_j2ki:
+      return "image/hej2k";
     case TAG_crx:
       return "image/x-canon-cr3";
     case TAG_jxl:
