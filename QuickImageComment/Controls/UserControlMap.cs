@@ -1322,9 +1322,9 @@ namespace QuickImageComment
                 else
                 {
                     // get Geo data item from nominatim OpenStretMap
-                    string url = "http://nominatim.openstreetmap.org/search/"
+                    string url = "https://nominatim.openstreetmap.org/search?q="
                         + queryParameterNormalized
-                        + "?format=json&limit=1&addressdetails=1";
+                        + "&format=json&limit=1&addressdetails=1";
 #if NET4
                     ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
 #endif
