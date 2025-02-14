@@ -722,39 +722,36 @@ namespace QuickImageComment
         {
             for (int ii = 0; ii < count; ii++)
             {
-                if (File.Exists(input[ii]))
+                if (Directory.Exists(input[ii]))
                 {
-                    if ((System.IO.File.GetAttributes(input[ii]) & System.IO.FileAttributes.Directory) == System.IO.FileAttributes.Directory)
+                    // given argument is folder
+                    DisplayFolder = input[ii];
+                }
+                else if (File.Exists(input[ii]))
+                {
+                    // given argument is file
+                    if (DisplayFiles.Count == 0)
                     {
-                        // given argument is folder
-                        DisplayFolder = input[ii];
+                        // first file, take his folder
+                        DisplayFolder = System.IO.Path.GetDirectoryName(input[ii]);
                     }
                     else
                     {
-                        // given argument is file
-                        if (DisplayFiles.Count == 0)
+                        // second or more files, get common root folder
+                        while (!DisplayFolder.Equals("") && !input[ii].StartsWith(DisplayFolder + "\\"))
                         {
-                            // first file, take his folder
-                            DisplayFolder = System.IO.Path.GetDirectoryName(input[ii]);
-                        }
-                        else
-                        {
-                            // second or more files, get common root folder
-                            while (!DisplayFolder.Equals("") && !input[ii].StartsWith(DisplayFolder + "\\"))
+                            int pos = DisplayFolder.LastIndexOf('\\');
+                            if (pos > 0)
                             {
-                                int pos = DisplayFolder.LastIndexOf('\\');
-                                if (pos > 0)
-                                {
-                                    DisplayFolder = DisplayFolder.Substring(0, pos);
-                                }
-                                else
-                                {
-                                    DisplayFolder = "";
-                                }
+                                DisplayFolder = DisplayFolder.Substring(0, pos);
+                            }
+                            else
+                            {
+                                DisplayFolder = "";
                             }
                         }
-                        DisplayFiles.Add(input[ii]);
                     }
+                    DisplayFiles.Add(input[ii]);
                 }
                 else
                 {
