@@ -725,7 +725,7 @@ namespace QuickImageComment
                 if (Directory.Exists(input[ii]))
                 {
                     // given argument is folder
-                    DisplayFolder = input[ii];
+                    DisplayFolder = System.IO.Path.GetFullPath(input[ii]);
                 }
                 else if (File.Exists(input[ii]))
                 {
@@ -733,7 +733,7 @@ namespace QuickImageComment
                     if (DisplayFiles.Count == 0)
                     {
                         // first file, take his folder
-                        DisplayFolder = System.IO.Path.GetDirectoryName(input[ii]);
+                        DisplayFolder = System.IO.Path.GetFullPath(input[ii]);
                     }
                     else
                     {
