@@ -1,13 +1,21 @@
-﻿<Program_Version>4.64</Program_Version>
+﻿<Program_Version>4.65</Program_Version>
 <Program_Change_Info_German>
-Neu: Sprachdatei für Französisch. Dank an Régis für Erstellung der Übersetzung.
-Hinweis an dieser Stelle: Neue Sprachen können grundsätzlich ohne Programmänderungen ergänzt werden, wenn eine entsprechende Sprachdatei erzeugt wird. Unterstützung dafür ist sehr willkommen. Weitere Hinweise unter www.quickimagecomment.de.
+Erweiterungen und Verbesserungen:
 
-Die Übermittlung von Fehlerberichten und elementarer anonymer Nutzungsdaten mit Hilfe des Microsoft AppCenters wurde entfernt, weil AppCenter am 31. März 2025 von Microsoft eingestellt wird.
+Nur für die .Net 4.6.1-Varianten: Neue Version 0.28.4 der Bibliothek exiv2 integriert: Erkennung von mehr Objektiven, kleinere Fehler behoben.
+
+Folgende Fehler wurden behoben:
+
+Die Suche nach einem Ort (z.B. Paris) in der Kartenansicht funktionierte nicht mehr, weil die Syntax für die Abfrage geändert wurde.
+Die Angabe eines Verzeichnisses in der Kommandozeile führte immer zur Fehlermeldung "Verzeichnis/Datei nicht gefunden".
 </Program_Change_Info_German>
 <Program_Change_Info_English>
-New: Language file for French. Thanks to Régis for creating the translation.
-Note at this point: New languages can generally be added without program changes if a corresponding language file is created. Support for this is very welcome. Further information can be found at www.quickimagecomment.de.
+Enhancements and improvements:
 
-The transmission of error reports and elementary anonymous usage data with the help of Microsoft AppCenter has been removed because AppCenter will be discontinued by Microsoft on March 31, 2025.
+Only for the .Net 4.6.1 variants: New version 0.28.4 of the exiv2 library integrated: more lenses detected and minor bugs fixed.
+
+The following errorr have been fixed:
+
+The search for a location (e.g. Paris) in the map view no longer worked because the syntax for the query was changed.
+Providing a directory in command line always caused error message "directory/file not found".
 </Program_Change_Info_English>
