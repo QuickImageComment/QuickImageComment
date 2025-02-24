@@ -152,9 +152,9 @@ namespace QuickImageComment
             this.checkBoxKeepImageBakFile.AutoSize = true;
             this.checkBoxKeepImageBakFile.Location = new System.Drawing.Point(9, 2);
             this.checkBoxKeepImageBakFile.Name = "checkBoxKeepImageBakFile";
-            this.checkBoxKeepImageBakFile.Size = new System.Drawing.Size(172, 17);
+            this.checkBoxKeepImageBakFile.Size = new System.Drawing.Size(171, 17);
             this.checkBoxKeepImageBakFile.TabIndex = 0;
-            this.checkBoxKeepImageBakFile.Text = "Backup der Bild-Datei behalten";
+            this.checkBoxKeepImageBakFile.Text = "Backup der Bild-Datei erstellen";
             this.checkBoxKeepImageBakFile.UseVisualStyleBackColor = true;
             // 
             // checkBoxSaveWithReturn
