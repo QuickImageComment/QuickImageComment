@@ -43,9 +43,14 @@
             this.dynamicLabelCoordinates = new System.Windows.Forms.Label();
             this.panelTop = new System.Windows.Forms.Panel();
             this.buttonSettings = new System.Windows.Forms.Button();
+            this.splitContainerMapControls = new System.Windows.Forms.SplitContainer();
             this.panelMap.SuspendLayout();
             this.panelBottom.SuspendLayout();
             this.panelTop.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerMapControls)).BeginInit();
+            this.splitContainerMapControls.Panel1.SuspendLayout();
+            this.splitContainerMapControls.Panel2.SuspendLayout();
+            this.splitContainerMapControls.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelMap
@@ -64,17 +69,7 @@
             // 
             this.panelBottom.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelBottom.Controls.Add(this.checkBoxWebView2);
-            this.panelBottom.Controls.Add(this.dynamicComboBoxMapSource);
-            this.panelBottom.Controls.Add(this.buttonDelete);
-            this.panelBottom.Controls.Add(this.buttonRename);
-            this.panelBottom.Controls.Add(this.labelZoom);
-            this.panelBottom.Controls.Add(this.buttonReset);
-            this.panelBottom.Controls.Add(this.buttonCenterMarker);
-            this.panelBottom.Controls.Add(this.buttonSearch);
-            this.panelBottom.Controls.Add(this.dynamicLabelZoom);
-            this.panelBottom.Controls.Add(this.dynamicComboBoxSearch);
-            this.panelBottom.Controls.Add(this.dynamicLabelCoordinates);
+            this.panelBottom.Controls.Add(this.splitContainerMapControls);
             this.panelBottom.Location = new System.Drawing.Point(0, 360);
             this.panelBottom.Name = "panelBottom";
             this.panelBottom.Size = new System.Drawing.Size(674, 50);
@@ -82,21 +77,23 @@
             // 
             // checkBoxWebView2
             // 
-            this.checkBoxWebView2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkBoxWebView2.Location = new System.Drawing.Point(433, 27);
+            this.checkBoxWebView2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkBoxWebView2.Location = new System.Drawing.Point(3, 28);
             this.checkBoxWebView2.Name = "checkBoxWebView2";
-            this.checkBoxWebView2.Size = new System.Drawing.Size(224, 19);
+            this.checkBoxWebView2.Size = new System.Drawing.Size(222, 19);
             this.checkBoxWebView2.TabIndex = 19;
             this.checkBoxWebView2.Text = "einschl. Karten nur für Anzeige (* ...)";
             this.checkBoxWebView2.UseVisualStyleBackColor = true;
             // 
             // dynamicComboBoxMapSource
             // 
-            this.dynamicComboBoxMapSource.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.dynamicComboBoxMapSource.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dynamicComboBoxMapSource.FormattingEnabled = true;
-            this.dynamicComboBoxMapSource.Location = new System.Drawing.Point(433, 3);
+            this.dynamicComboBoxMapSource.Location = new System.Drawing.Point(3, 4);
             this.dynamicComboBoxMapSource.Name = "dynamicComboBoxMapSource";
-            this.dynamicComboBoxMapSource.Size = new System.Drawing.Size(236, 21);
+            this.dynamicComboBoxMapSource.Size = new System.Drawing.Size(234, 21);
             this.dynamicComboBoxMapSource.TabIndex = 15;
             this.dynamicComboBoxMapSource.SelectedIndexChanged += new System.EventHandler(this.dynamicComboBoxMapSource_SelectedIndexChanged);
             // 
@@ -223,6 +220,35 @@
             this.buttonSettings.UseVisualStyleBackColor = true;
             this.buttonSettings.Click += new System.EventHandler(this.buttonSettings_Click);
             // 
+            // splitContainerMapControls
+            // 
+            this.splitContainerMapControls.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.splitContainerMapControls.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainerMapControls.Location = new System.Drawing.Point(0, 0);
+            this.splitContainerMapControls.Name = "splitContainerMapControls";
+            // 
+            // splitContainerMapControls.Panel1
+            // 
+            this.splitContainerMapControls.Panel1.BackColor = System.Drawing.SystemColors.Control;
+            this.splitContainerMapControls.Panel1.Controls.Add(this.dynamicComboBoxSearch);
+            this.splitContainerMapControls.Panel1.Controls.Add(this.buttonCenterMarker);
+            this.splitContainerMapControls.Panel1.Controls.Add(this.buttonDelete);
+            this.splitContainerMapControls.Panel1.Controls.Add(this.buttonReset);
+            this.splitContainerMapControls.Panel1.Controls.Add(this.dynamicLabelCoordinates);
+            this.splitContainerMapControls.Panel1.Controls.Add(this.buttonSearch);
+            this.splitContainerMapControls.Panel1.Controls.Add(this.buttonRename);
+            this.splitContainerMapControls.Panel1.Controls.Add(this.labelZoom);
+            this.splitContainerMapControls.Panel1.Controls.Add(this.dynamicLabelZoom);
+            // 
+            // splitContainerMapControls.Panel2
+            // 
+            this.splitContainerMapControls.Panel2.BackColor = System.Drawing.SystemColors.Control;
+            this.splitContainerMapControls.Panel2.Controls.Add(this.checkBoxWebView2);
+            this.splitContainerMapControls.Panel2.Controls.Add(this.dynamicComboBoxMapSource);
+            this.splitContainerMapControls.Size = new System.Drawing.Size(674, 50);
+            this.splitContainerMapControls.SplitterDistance = 430;
+            this.splitContainerMapControls.TabIndex = 0;
+            // 
             // UserControlMap
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -233,8 +259,12 @@
             this.Size = new System.Drawing.Size(674, 410);
             this.panelMap.ResumeLayout(false);
             this.panelBottom.ResumeLayout(false);
-            this.panelBottom.PerformLayout();
             this.panelTop.ResumeLayout(false);
+            this.splitContainerMapControls.Panel1.ResumeLayout(false);
+            this.splitContainerMapControls.Panel1.PerformLayout();
+            this.splitContainerMapControls.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerMapControls)).EndInit();
+            this.splitContainerMapControls.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -255,5 +285,6 @@
         private System.Windows.Forms.CheckBox checkBoxWebView2;
         internal System.Windows.Forms.Label dynamicLabelCoordinates;
         private System.Windows.Forms.Button buttonSettings;
+        private System.Windows.Forms.SplitContainer splitContainerMapControls;
     }
 }
