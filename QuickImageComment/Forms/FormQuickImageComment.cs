@@ -682,6 +682,10 @@ namespace QuickImageComment
             LangCfg.translateControlTexts(this);
             //Program.StartupPerformance.measure("FormQIC after translate controls");
 
+            // configure delete button recycle bin or delete permanantly
+            // after translation to avoid that english text is tried to be translated again
+            configureDeleteButton();
+
             // configuration of folder tree view
             if (ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.ShowHiddenFiles))
             {
@@ -1736,7 +1740,8 @@ namespace QuickImageComment
         // button delete image file and associated files
         private void toolStripButtonDelete_Click(object sender, EventArgs e)
         {
-            if (Control.ModifierKeys == Keys.Shift)
+            if (Control.ModifierKeys == Keys.Shift ||
+                ConfigDefinition.getCfgUserBool(ConfigDefinition.enumCfgUserBool.ButtonDeletesPermanently))
             {
                 manageSelectedFiles(manageSelectedFilesModes.permanentDelete, "");
             }
@@ -2479,6 +2484,7 @@ namespace QuickImageComment
                     listBoxPredefinedComments.set_MouseDoubleClickAction(ConfigDefinition.getPredefinedCommentMouseDoubleClickAction());
                     setNavigationTabSplitBars(ConfigDefinition.getNavigationTabSplitBars());
                     setArtistCommentLabel();
+                    configureDeleteButton();
                     fillAndConfigureChangeableFieldPanel();
                     fillCheckedListBoxChangeableFieldsChange();
                     // try to reload Customization to get settings from dynamic controls again
@@ -3900,6 +3906,21 @@ namespace QuickImageComment
             }
             // set column width; +5 just to get a better separation between columns
             listBoxPredefinedComments.ColumnWidth = maxEntryLength + 5;
+        }
+
+        // configure delete button (show recycle bin or permanently delete)
+        private void configureDeleteButton()
+        {
+            if (ConfigDefinition.getCfgUserBool(ConfigDefinition.enumCfgUserBool.ButtonDeletesPermanently))
+            {
+                toolStripButtonDelete.BackColor = Color.Red;
+                toolStripButtonDelete.ToolTipText = LangCfg.getText(LangCfg.Others.toolTipDeleteButtonPermanently);
+            }
+            else
+            {
+                toolStripButtonDelete.BackColor = Color.White;
+                toolStripButtonDelete.ToolTipText = LangCfg.getText(LangCfg.Others.toolTipDeleteButtonRecycleBin);
+            }
         }
 
         // set labels for artist and comment based on save settings

@@ -57,6 +57,7 @@ namespace QuickImageComment
 
             // Specific constructor code
             checkBoxKeepImageBakFile.Checked = ConfigDefinition.getKeepImageBakFile();
+            checkBoxButtonDeletesPermanent.Checked = ConfigDefinition.getCfgUserBool(ConfigDefinition.enumCfgUserBool.ButtonDeletesPermanently);
             checkBoxSaveWithReturn.Checked = ConfigDefinition.getSaveWithReturn();
             checkBoxLastCommentsWithCursor.Checked = ConfigDefinition.getLastCommentsWithCursor();
             checkBoxMetaDataWarningsChangeAppearance.Checked = ConfigDefinition.getMetaDataWarningChangeAppearance();
@@ -157,6 +158,7 @@ namespace QuickImageComment
         private void buttonOK_Click(object sender, System.EventArgs e)
         {
             ConfigDefinition.setKeepImageBakFile(checkBoxKeepImageBakFile.Checked);
+            ConfigDefinition.setCfgUserBool(ConfigDefinition.enumCfgUserBool.ButtonDeletesPermanently, checkBoxButtonDeletesPermanent.Checked);
             ConfigDefinition.setSaveWithReturn(checkBoxSaveWithReturn.Checked);
             ConfigDefinition.setLastCommentsWithCursor(checkBoxLastCommentsWithCursor.Checked);
             ConfigDefinition.setMetaDataWarningChangeAppearance(checkBoxMetaDataWarningsChangeAppearance.Checked);

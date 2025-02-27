@@ -143,7 +143,8 @@ namespace QuickImageComment
             FormImageWindowSplitContainer1Panel2Collapsed,
             SaveFindDataTable,
             UseWebView2,
-            HintUsingNotPredefKeyWord
+            HintUsingNotPredefKeyWord,
+            ButtonDeletesPermanently
         };
 
         public enum enumCfgUserInt
@@ -520,6 +521,7 @@ namespace QuickImageComment
             ConfigItems.Add(enumCfgUserBool.SaveFindDataTable.ToString(), false);
             ConfigItems.Add(enumCfgUserBool.UseWebView2.ToString(), false);
             ConfigItems.Add(enumCfgUserBool.HintUsingNotPredefKeyWord.ToString(), false);
+            ConfigItems.Add(enumCfgUserBool.ButtonDeletesPermanently.ToString(), false);
 
             ConfigItems.Add(enumCfgUserString.LastCheckForNewVersion.ToString(), "not configured");
             ConfigItems.Add(enumCfgUserString.NextCheckForNewVersion.ToString(), "not configured");

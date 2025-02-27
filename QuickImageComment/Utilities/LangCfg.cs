@@ -345,7 +345,9 @@ namespace QuickImageComment
             fileLastModified,
             filterTextAllFiles,
             filterTextIcoFiles,
-            _translationAcknowledgment
+            _translationAcknowledgment,
+            toolTipDeleteButtonRecycleBin,
+            toolTipDeleteButtonPermanently
         }
 
         // defined as variable

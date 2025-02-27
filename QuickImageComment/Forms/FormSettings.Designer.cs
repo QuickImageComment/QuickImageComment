@@ -123,6 +123,7 @@ namespace QuickImageComment
             this.checkBoxIptcUTF8 = new System.Windows.Forms.CheckBox();
             this.checkBoxExifUTF8 = new System.Windows.Forms.CheckBox();
             this.labelCharSet = new System.Windows.Forms.Label();
+            this.checkBoxButtonDeletesPermanent = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxLastComments)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFullSizeImageCacheMaxSize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaximumMemoryForCaching)).BeginInit();
@@ -139,7 +140,7 @@ namespace QuickImageComment
             // buttonOK
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonOK.Location = new System.Drawing.Point(276, 541);
+            this.buttonOK.Location = new System.Drawing.Point(276, 577);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(99, 26);
             this.buttonOK.TabIndex = 33;
@@ -160,7 +161,7 @@ namespace QuickImageComment
             // checkBoxSaveWithReturn
             // 
             this.checkBoxSaveWithReturn.AutoSize = true;
-            this.checkBoxSaveWithReturn.Location = new System.Drawing.Point(9, 19);
+            this.checkBoxSaveWithReturn.Location = new System.Drawing.Point(9, 36);
             this.checkBoxSaveWithReturn.Name = "checkBoxSaveWithReturn";
             this.checkBoxSaveWithReturn.Size = new System.Drawing.Size(356, 17);
             this.checkBoxSaveWithReturn.TabIndex = 1;
@@ -170,7 +171,7 @@ namespace QuickImageComment
             // checkBoxLastCommentsWithCursor
             // 
             this.checkBoxLastCommentsWithCursor.AutoSize = true;
-            this.checkBoxLastCommentsWithCursor.Location = new System.Drawing.Point(9, 36);
+            this.checkBoxLastCommentsWithCursor.Location = new System.Drawing.Point(9, 53);
             this.checkBoxLastCommentsWithCursor.Name = "checkBoxLastCommentsWithCursor";
             this.checkBoxLastCommentsWithCursor.Size = new System.Drawing.Size(432, 17);
             this.checkBoxLastCommentsWithCursor.TabIndex = 2;
@@ -182,7 +183,7 @@ namespace QuickImageComment
             // 
             this.checkBoxMetaDataWarningsChangeAppearance.AllowDrop = true;
             this.checkBoxMetaDataWarningsChangeAppearance.AutoSize = true;
-            this.checkBoxMetaDataWarningsChangeAppearance.Location = new System.Drawing.Point(9, 53);
+            this.checkBoxMetaDataWarningsChangeAppearance.Location = new System.Drawing.Point(9, 70);
             this.checkBoxMetaDataWarningsChangeAppearance.Name = "checkBoxMetaDataWarningsChangeAppearance";
             this.checkBoxMetaDataWarningsChangeAppearance.Size = new System.Drawing.Size(379, 17);
             this.checkBoxMetaDataWarningsChangeAppearance.TabIndex = 3;
@@ -192,7 +193,7 @@ namespace QuickImageComment
             // checkBoxMetaDataWarningsMessageBox
             // 
             this.checkBoxMetaDataWarningsMessageBox.AutoSize = true;
-            this.checkBoxMetaDataWarningsMessageBox.Location = new System.Drawing.Point(9, 70);
+            this.checkBoxMetaDataWarningsMessageBox.Location = new System.Drawing.Point(9, 87);
             this.checkBoxMetaDataWarningsMessageBox.Name = "checkBoxMetaDataWarningsMessageBox";
             this.checkBoxMetaDataWarningsMessageBox.Size = new System.Drawing.Size(366, 17);
             this.checkBoxMetaDataWarningsMessageBox.TabIndex = 4;
@@ -213,7 +214,7 @@ namespace QuickImageComment
             // 
             // numericUpDownMaxLastComments
             // 
-            this.numericUpDownMaxLastComments.Location = new System.Drawing.Point(389, 125);
+            this.numericUpDownMaxLastComments.Location = new System.Drawing.Point(389, 144);
             this.numericUpDownMaxLastComments.Maximum = new decimal(new int[] {
             32000,
             0,
@@ -226,7 +227,7 @@ namespace QuickImageComment
             // labelMaxLastComments
             // 
             this.labelMaxLastComments.AutoSize = true;
-            this.labelMaxLastComments.Location = new System.Drawing.Point(7, 129);
+            this.labelMaxLastComments.Location = new System.Drawing.Point(7, 148);
             this.labelMaxLastComments.Name = "labelMaxLastComments";
             this.labelMaxLastComments.Size = new System.Drawing.Size(344, 13);
             this.labelMaxLastComments.TabIndex = 8;
@@ -235,7 +236,7 @@ namespace QuickImageComment
             // labelReactionListBoxCommentDoubleClick
             // 
             this.labelReactionListBoxCommentDoubleClick.AutoSize = true;
-            this.labelReactionListBoxCommentDoubleClick.Location = new System.Drawing.Point(7, 198);
+            this.labelReactionListBoxCommentDoubleClick.Location = new System.Drawing.Point(7, 217);
             this.labelReactionListBoxCommentDoubleClick.Name = "labelReactionListBoxCommentDoubleClick";
             this.labelReactionListBoxCommentDoubleClick.Size = new System.Drawing.Size(306, 13);
             this.labelReactionListBoxCommentDoubleClick.TabIndex = 14;
@@ -245,7 +246,7 @@ namespace QuickImageComment
             // 
             this.comboBoxPredefinedCommentsMouseDoubleClickAction.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxPredefinedCommentsMouseDoubleClickAction.FormattingEnabled = true;
-            this.comboBoxPredefinedCommentsMouseDoubleClickAction.Location = new System.Drawing.Point(389, 194);
+            this.comboBoxPredefinedCommentsMouseDoubleClickAction.Location = new System.Drawing.Point(389, 213);
             this.comboBoxPredefinedCommentsMouseDoubleClickAction.Name = "comboBoxPredefinedCommentsMouseDoubleClickAction";
             this.comboBoxPredefinedCommentsMouseDoubleClickAction.Size = new System.Drawing.Size(152, 21);
             this.comboBoxPredefinedCommentsMouseDoubleClickAction.TabIndex = 15;
@@ -253,7 +254,7 @@ namespace QuickImageComment
             // labelUserCommentInsertCheckCharacters
             // 
             this.labelUserCommentInsertCheckCharacters.AutoSize = true;
-            this.labelUserCommentInsertCheckCharacters.Location = new System.Drawing.Point(7, 222);
+            this.labelUserCommentInsertCheckCharacters.Location = new System.Drawing.Point(7, 241);
             this.labelUserCommentInsertCheckCharacters.Name = "labelUserCommentInsertCheckCharacters";
             this.labelUserCommentInsertCheckCharacters.Size = new System.Drawing.Size(348, 13);
             this.labelUserCommentInsertCheckCharacters.TabIndex = 16;
@@ -262,7 +263,7 @@ namespace QuickImageComment
             // labelUserCommentAppendCheckCharacters
             // 
             this.labelUserCommentAppendCheckCharacters.AutoSize = true;
-            this.labelUserCommentAppendCheckCharacters.Location = new System.Drawing.Point(7, 244);
+            this.labelUserCommentAppendCheckCharacters.Location = new System.Drawing.Point(7, 263);
             this.labelUserCommentAppendCheckCharacters.Name = "labelUserCommentAppendCheckCharacters";
             this.labelUserCommentAppendCheckCharacters.Size = new System.Drawing.Size(363, 13);
             this.labelUserCommentAppendCheckCharacters.TabIndex = 19;
@@ -273,7 +274,7 @@ namespace QuickImageComment
             this.richTextBoxUserCommentInsertCheckCharacters.BackColor = System.Drawing.SystemColors.Window;
             this.richTextBoxUserCommentInsertCheckCharacters.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.richTextBoxUserCommentInsertCheckCharacters.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBoxUserCommentInsertCheckCharacters.Location = new System.Drawing.Point(389, 218);
+            this.richTextBoxUserCommentInsertCheckCharacters.Location = new System.Drawing.Point(389, 237);
             this.richTextBoxUserCommentInsertCheckCharacters.Name = "richTextBoxUserCommentInsertCheckCharacters";
             this.richTextBoxUserCommentInsertCheckCharacters.Size = new System.Drawing.Size(148, 20);
             this.richTextBoxUserCommentInsertCheckCharacters.TabIndex = 17;
@@ -283,7 +284,7 @@ namespace QuickImageComment
             // richTextBoxUserCommentAppendCheckCharacters
             // 
             this.richTextBoxUserCommentAppendCheckCharacters.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBoxUserCommentAppendCheckCharacters.Location = new System.Drawing.Point(389, 240);
+            this.richTextBoxUserCommentAppendCheckCharacters.Location = new System.Drawing.Point(389, 259);
             this.richTextBoxUserCommentAppendCheckCharacters.Name = "richTextBoxUserCommentAppendCheckCharacters";
             this.richTextBoxUserCommentAppendCheckCharacters.Size = new System.Drawing.Size(148, 20);
             this.richTextBoxUserCommentAppendCheckCharacters.TabIndex = 20;
@@ -293,7 +294,7 @@ namespace QuickImageComment
             // checkBoxUseDefaultArtist
             // 
             this.checkBoxUseDefaultArtist.AutoSize = true;
-            this.checkBoxUseDefaultArtist.Location = new System.Drawing.Point(9, 104);
+            this.checkBoxUseDefaultArtist.Location = new System.Drawing.Point(9, 121);
             this.checkBoxUseDefaultArtist.Name = "checkBoxUseDefaultArtist";
             this.checkBoxUseDefaultArtist.Size = new System.Drawing.Size(338, 17);
             this.checkBoxUseDefaultArtist.TabIndex = 6;
@@ -302,7 +303,7 @@ namespace QuickImageComment
             // 
             // textBoxDefaultArtist
             // 
-            this.textBoxDefaultArtist.Location = new System.Drawing.Point(389, 102);
+            this.textBoxDefaultArtist.Location = new System.Drawing.Point(389, 119);
             this.textBoxDefaultArtist.Name = "textBoxDefaultArtist";
             this.textBoxDefaultArtist.Size = new System.Drawing.Size(152, 21);
             this.textBoxDefaultArtist.TabIndex = 7;
@@ -310,7 +311,7 @@ namespace QuickImageComment
             // checkBoxNavigationTabSplitbars
             // 
             this.checkBoxNavigationTabSplitbars.AutoSize = true;
-            this.checkBoxNavigationTabSplitbars.Location = new System.Drawing.Point(9, 87);
+            this.checkBoxNavigationTabSplitbars.Location = new System.Drawing.Point(9, 104);
             this.checkBoxNavigationTabSplitbars.Name = "checkBoxNavigationTabSplitbars";
             this.checkBoxNavigationTabSplitbars.Size = new System.Drawing.Size(196, 17);
             this.checkBoxNavigationTabSplitbars.TabIndex = 5;
@@ -407,7 +408,7 @@ namespace QuickImageComment
             // buttonCustomizeForm
             // 
             this.buttonCustomizeForm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonCustomizeForm.Location = new System.Drawing.Point(4, 541);
+            this.buttonCustomizeForm.Location = new System.Drawing.Point(4, 577);
             this.buttonCustomizeForm.Name = "buttonCustomizeForm";
             this.buttonCustomizeForm.Size = new System.Drawing.Size(99, 26);
             this.buttonCustomizeForm.TabIndex = 32;
@@ -418,7 +419,7 @@ namespace QuickImageComment
             // buttonCancel
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonCancel.Location = new System.Drawing.Point(380, 541);
+            this.buttonCancel.Location = new System.Drawing.Point(380, 577);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(99, 26);
             this.buttonCancel.TabIndex = 34;
@@ -428,7 +429,7 @@ namespace QuickImageComment
             // 
             // labelAdditionalExtensions
             // 
-            this.labelAdditionalExtensions.Location = new System.Drawing.Point(7, 277);
+            this.labelAdditionalExtensions.Location = new System.Drawing.Point(7, 296);
             this.labelAdditionalExtensions.Name = "labelAdditionalExtensions";
             this.labelAdditionalExtensions.Size = new System.Drawing.Size(319, 27);
             this.labelAdditionalExtensions.TabIndex = 22;
@@ -438,7 +439,7 @@ namespace QuickImageComment
             // TextBoxAdditionalExtensions
             // 
             this.TextBoxAdditionalExtensions.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextBoxAdditionalExtensions.Location = new System.Drawing.Point(389, 284);
+            this.TextBoxAdditionalExtensions.Location = new System.Drawing.Point(389, 303);
             this.TextBoxAdditionalExtensions.Name = "TextBoxAdditionalExtensions";
             this.TextBoxAdditionalExtensions.Size = new System.Drawing.Size(148, 18);
             this.TextBoxAdditionalExtensions.TabIndex = 24;
@@ -446,7 +447,7 @@ namespace QuickImageComment
             // buttonHelp
             // 
             this.buttonHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonHelp.Location = new System.Drawing.Point(649, 541);
+            this.buttonHelp.Location = new System.Drawing.Point(649, 577);
             this.buttonHelp.Name = "buttonHelp";
             this.buttonHelp.Size = new System.Drawing.Size(99, 26);
             this.buttonHelp.TabIndex = 35;
@@ -457,7 +458,7 @@ namespace QuickImageComment
             // fixedLabel4
             // 
             this.fixedLabel4.AutoSize = true;
-            this.fixedLabel4.Location = new System.Drawing.Point(535, 219);
+            this.fixedLabel4.Location = new System.Drawing.Point(535, 238);
             this.fixedLabel4.Name = "fixedLabel4";
             this.fixedLabel4.Size = new System.Drawing.Size(13, 13);
             this.fixedLabel4.TabIndex = 18;
@@ -466,7 +467,7 @@ namespace QuickImageComment
             // fixedLabel5
             // 
             this.fixedLabel5.AutoSize = true;
-            this.fixedLabel5.Location = new System.Drawing.Point(535, 241);
+            this.fixedLabel5.Location = new System.Drawing.Point(535, 260);
             this.fixedLabel5.Name = "fixedLabel5";
             this.fixedLabel5.Size = new System.Drawing.Size(13, 13);
             this.fixedLabel5.TabIndex = 21;
@@ -475,7 +476,7 @@ namespace QuickImageComment
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(7, 261);
+            this.label7.Location = new System.Drawing.Point(7, 280);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(294, 13);
             this.label7.TabIndex = 26;
@@ -527,7 +528,7 @@ namespace QuickImageComment
             this.Panel1.Controls.Add(this.numericUpDownFullSizeImageCacheMaxSize);
             this.Panel1.Controls.Add(this.numericUpDownMaximumMemoryForCaching);
             this.Panel1.Controls.Add(this.labelMaximumMemoryForCaching);
-            this.Panel1.Location = new System.Drawing.Point(-4, 307);
+            this.Panel1.Location = new System.Drawing.Point(-4, 330);
             this.Panel1.Name = "Panel1";
             this.Panel1.Size = new System.Drawing.Size(561, 100);
             this.Panel1.TabIndex = 27;
@@ -643,7 +644,7 @@ namespace QuickImageComment
             // labelMaxArtists
             // 
             this.labelMaxArtists.AutoSize = true;
-            this.labelMaxArtists.Location = new System.Drawing.Point(7, 152);
+            this.labelMaxArtists.Location = new System.Drawing.Point(7, 171);
             this.labelMaxArtists.Name = "labelMaxArtists";
             this.labelMaxArtists.Size = new System.Drawing.Size(332, 13);
             this.labelMaxArtists.TabIndex = 10;
@@ -651,7 +652,7 @@ namespace QuickImageComment
             // 
             // numericUpDownMaxArtists
             // 
-            this.numericUpDownMaxArtists.Location = new System.Drawing.Point(389, 148);
+            this.numericUpDownMaxArtists.Location = new System.Drawing.Point(389, 167);
             this.numericUpDownMaxArtists.Maximum = new decimal(new int[] {
             32000,
             0,
@@ -735,7 +736,7 @@ namespace QuickImageComment
             this.Panel2.Controls.Add(this.label1);
             this.Panel2.Location = new System.Drawing.Point(550, -2);
             this.Panel2.Name = "Panel2";
-            this.Panel2.Size = new System.Drawing.Size(234, 408);
+            this.Panel2.Size = new System.Drawing.Size(234, 432);
             this.Panel2.TabIndex = 28;
             // 
             // fixedCheckBoxSaveCommentInExifImageXPTitle
@@ -777,7 +778,7 @@ namespace QuickImageComment
             // label1MaxChangeableFieldEntries
             // 
             this.label1MaxChangeableFieldEntries.AutoSize = true;
-            this.label1MaxChangeableFieldEntries.Location = new System.Drawing.Point(7, 175);
+            this.label1MaxChangeableFieldEntries.Location = new System.Drawing.Point(7, 194);
             this.label1MaxChangeableFieldEntries.Name = "label1MaxChangeableFieldEntries";
             this.label1MaxChangeableFieldEntries.Size = new System.Drawing.Size(372, 13);
             this.label1MaxChangeableFieldEntries.TabIndex = 12;
@@ -785,7 +786,7 @@ namespace QuickImageComment
             // 
             // numericUpDownMaxChangeableFieldEntries
             // 
-            this.numericUpDownMaxChangeableFieldEntries.Location = new System.Drawing.Point(389, 171);
+            this.numericUpDownMaxChangeableFieldEntries.Location = new System.Drawing.Point(389, 190);
             this.numericUpDownMaxChangeableFieldEntries.Maximum = new decimal(new int[] {
             32000,
             0,
@@ -870,7 +871,7 @@ namespace QuickImageComment
             this.Panel5.Controls.Add(this.TextBoxVideoExtensionsProperties);
             this.Panel5.Controls.Add(this.labelVideoProperties);
             this.Panel5.Controls.Add(this.label10);
-            this.Panel5.Location = new System.Drawing.Point(-4, 393);
+            this.Panel5.Location = new System.Drawing.Point(-4, 429);
             this.Panel5.Name = "Panel5";
             this.Panel5.Size = new System.Drawing.Size(777, 83);
             this.Panel5.TabIndex = 31;
@@ -882,7 +883,7 @@ namespace QuickImageComment
             this.panel3.Controls.Add(this.checkBoxIptcUTF8);
             this.panel3.Controls.Add(this.checkBoxExifUTF8);
             this.panel3.Controls.Add(this.labelCharSet);
-            this.panel3.Location = new System.Drawing.Point(-4, 473);
+            this.panel3.Location = new System.Drawing.Point(-4, 510);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(788, 65);
             this.panel3.TabIndex = 36;
@@ -928,12 +929,23 @@ namespace QuickImageComment
             this.labelCharSet.TabIndex = 9;
             this.labelCharSet.Text = "charset für Exif.Photo.UserComment";
             // 
+            // checkBoxButtonDeletesPermanent
+            // 
+            this.checkBoxButtonDeletesPermanent.AutoSize = true;
+            this.checkBoxButtonDeletesPermanent.Location = new System.Drawing.Point(9, 19);
+            this.checkBoxButtonDeletesPermanent.Name = "checkBoxButtonDeletesPermanent";
+            this.checkBoxButtonDeletesPermanent.Size = new System.Drawing.Size(343, 17);
+            this.checkBoxButtonDeletesPermanent.TabIndex = 37;
+            this.checkBoxButtonDeletesPermanent.Text = "Mit Schaltfläche \"Löschen\" werden Dateien unwiderruflich gelöscht";
+            this.checkBoxButtonDeletesPermanent.UseVisualStyleBackColor = true;
+            // 
             // FormSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.ClientSize = new System.Drawing.Size(771, 571);
+            this.ClientSize = new System.Drawing.Size(771, 607);
+            this.Controls.Add(this.checkBoxButtonDeletesPermanent);
             this.Controls.Add(this.Panel5);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.Panel2);
@@ -1057,5 +1069,6 @@ namespace QuickImageComment
         private System.Windows.Forms.CheckBox checkBoxIptcUTF8;
         private System.Windows.Forms.CheckBox checkBoxExifUTF8;
         private System.Windows.Forms.Label labelCharSet;
+        private System.Windows.Forms.CheckBox checkBoxButtonDeletesPermanent;
     }
 }
