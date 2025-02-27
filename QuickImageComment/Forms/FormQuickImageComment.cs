@@ -40,7 +40,7 @@ namespace QuickImageComment
         enum enumComboBoxKeyWordChange { nothing, overwrite, add };
 
         // enums for modes of manageSelectedFiles
-        enum manageSelectedFilesModes { delete, copy, move }
+        enum manageSelectedFilesModes { delete, copy, move, permanentDelete }
 
         // as controls can be moved between different panels, the leading part of control's full name
         // shall be ignored, when adding them in zoom basis data collection
@@ -1727,6 +1727,25 @@ namespace QuickImageComment
             manageSelectedFiles(manageSelectedFilesModes.delete, "");
         }
 
+        // permanently delete image file and associated files
+        private void toolStripMenuItemPermanentDelete_Click(object sender, EventArgs e)
+        {
+            manageSelectedFiles(manageSelectedFilesModes.permanentDelete, "");
+        }
+
+        // button delete image file and associated files
+        private void toolStripButtonDelete_Click(object sender, EventArgs e)
+        {
+            if (Control.ModifierKeys == Keys.Shift)
+            {
+                manageSelectedFiles(manageSelectedFilesModes.permanentDelete, "");
+            }
+            else
+            {
+                manageSelectedFiles(manageSelectedFilesModes.delete, "");
+            }
+        }
+
         // copy image file and associated files to other folder
         private void toolStripMenuItemCopyTo_Click(object sender, EventArgs e)
         {
@@ -1788,17 +1807,24 @@ namespace QuickImageComment
                         }
                     }
 
-                    // relevant for mode == delete only, copy and move are done without user confirmation
+                    // relevant for mode == delete and mode == permanentDelete only
+                    // copy and move are done without user confirmation
                     // if only one file is to be deleted, use standard message box from FileSystem.DeleteFile,
                     // because this box displays file details
                     // if several files are to be deleted, first ask with customized message box
                     DialogResult theDialogResult = DialogResult.Yes;
                     Microsoft.VisualBasic.FileIO.UIOption theUIOption = UIOption.AllDialogs;
-                    if (mode == manageSelectedFilesModes.delete)
+                    if (theUserControlFiles.listViewFiles.SelectedIndices.Count > 1)
                     {
-                        if (theUserControlFiles.listViewFiles.SelectedIndices.Count > 1)
+                        if (mode == manageSelectedFilesModes.delete)
                         {
                             theDialogResult = GeneralUtilities.questionMessage(LangCfg.Message.Q_delete_files,
+                                theUserControlFiles.listViewFiles.SelectedIndices.Count.ToString(), fileList);
+                            theUIOption = Microsoft.VisualBasic.FileIO.UIOption.OnlyErrorDialogs;
+                        }
+                        else if (mode == manageSelectedFilesModes.permanentDelete)
+                        {
+                            theDialogResult = GeneralUtilities.questionMessage(LangCfg.Message.X_permanentDelete_files,
                                 theUserControlFiles.listViewFiles.SelectedIndices.Count.ToString(), fileList);
                             theUIOption = Microsoft.VisualBasic.FileIO.UIOption.OnlyErrorDialogs;
                         }
@@ -1813,13 +1839,22 @@ namespace QuickImageComment
                             try
 #endif
                             {
-                                if (mode == manageSelectedFilesModes.delete)
+                                if (mode == manageSelectedFilesModes.delete ||
+                                    mode == manageSelectedFilesModes.permanentDelete)
                                 {
                                     ShellTreeViewQIC.addShellListenerIgnoreDelete(filesToBeManaged[ii]);
                                     try
                                     {
-                                        Microsoft.VisualBasic.FileIO.FileSystem.DeleteFile(filesToBeManaged[ii],
-                                            theUIOption, Microsoft.VisualBasic.FileIO.RecycleOption.SendToRecycleBin);
+                                        if (mode == manageSelectedFilesModes.permanentDelete)
+                                        {
+                                            Microsoft.VisualBasic.FileIO.FileSystem.DeleteFile(filesToBeManaged[ii],
+                                                theUIOption, Microsoft.VisualBasic.FileIO.RecycleOption.DeletePermanently);
+                                        }
+                                        else
+                                        {
+                                            Microsoft.VisualBasic.FileIO.FileSystem.DeleteFile(filesToBeManaged[ii],
+                                                theUIOption, Microsoft.VisualBasic.FileIO.RecycleOption.SendToRecycleBin);
+                                        }
                                         // update data table for find
                                         FormFind.deleteRow(filesToBeManaged[ii]);
                                     }
@@ -1893,6 +1928,10 @@ namespace QuickImageComment
                                                 Microsoft.VisualBasic.FileIO.FileSystem.DeleteFile(additionalFile,
                                                 Microsoft.VisualBasic.FileIO.UIOption.OnlyErrorDialogs, Microsoft.VisualBasic.FileIO.RecycleOption.SendToRecycleBin);
                                                 break;
+                                            case manageSelectedFilesModes.permanentDelete:
+                                                Microsoft.VisualBasic.FileIO.FileSystem.DeleteFile(additionalFile,
+                                                Microsoft.VisualBasic.FileIO.UIOption.OnlyErrorDialogs, Microsoft.VisualBasic.FileIO.RecycleOption.DeletePermanently);
+                                                break;
                                             case manageSelectedFilesModes.copy:
                                                 Microsoft.VisualBasic.FileIO.FileSystem.CopyFile(additionalFile,
                                                     GeneralUtilities.fileNameNewFolder(additionalFile, targetFolder),
@@ -1915,6 +1954,7 @@ namespace QuickImageComment
                             }
 #endif
                             if (mode == manageSelectedFilesModes.delete ||
+                                mode == manageSelectedFilesModes.permanentDelete ||
                                 mode == manageSelectedFilesModes.move)
                             {
                                 int index = theUserControlFiles.listViewFiles.getIndexOf(filesToBeManaged[ii]);
@@ -4120,6 +4160,7 @@ namespace QuickImageComment
 
             toolStripMenuItemDateTimeChange.Enabled = enableEditable;
             toolStripMenuItemDelete.Enabled = enableRenameDelete;
+            toolStripMenuItemPermanentDelete.Enabled = enableRenameDelete;
             toolStripMenuItemImage.Enabled = enable;
             ToolStripMenuItemRemoveMetaData.Enabled = enableEditable;
             toolStripMenuItemRename.Enabled = enableRenameDelete;

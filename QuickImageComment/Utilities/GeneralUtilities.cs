@@ -128,6 +128,8 @@ namespace QuickImageComment
                     return MessageBoxIcon.Information;
                 case "W":
                     return MessageBoxIcon.Warning;
+                case "X":
+                    return MessageBoxIcon.Exclamation;
                 default:
                     return MessageBoxIcon.None;
             }
@@ -202,15 +204,15 @@ namespace QuickImageComment
         }
         public static DialogResult questionMessage(LangCfg.Message messageId)
         {
-            return FlexibleMessageBox.Show(LangCfg.getText(messageId), "QuickImageComment", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            return FlexibleMessageBox.Show(LangCfg.getText(messageId), "QuickImageComment", MessageBoxButtons.YesNo, getMessageBoxIconFromMessageId(messageId));
         }
         public static DialogResult questionMessage(LangCfg.Message messageId, string Parameter1)
         {
-            return FlexibleMessageBox.Show(LangCfg.getText(messageId, Parameter1), "QuickImageComment", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            return FlexibleMessageBox.Show(LangCfg.getText(messageId, Parameter1), "QuickImageComment", MessageBoxButtons.YesNo, getMessageBoxIconFromMessageId(messageId));
         }
         public static DialogResult questionMessage(LangCfg.Message messageId, string Parameter1, string Parameter2)
         {
-            return FlexibleMessageBox.Show(LangCfg.getText(messageId, Parameter1, Parameter2), "QuickImageComment", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            return FlexibleMessageBox.Show(LangCfg.getText(messageId, Parameter1, Parameter2), "QuickImageComment", MessageBoxButtons.YesNo, getMessageBoxIconFromMessageId(messageId));
         }
         public static DialogResult questionMessage(LangCfg.Message messageId, string Parameter1, string Parameter2, string Parameter3)
         {
@@ -219,15 +221,15 @@ namespace QuickImageComment
 
         public static DialogResult questionMessageYesNoCancel(LangCfg.Message messageId)
         {
-            return FlexibleMessageBox.Show(LangCfg.getText(messageId), "QuickImageComment", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+            return FlexibleMessageBox.Show(LangCfg.getText(messageId), "QuickImageComment", MessageBoxButtons.YesNoCancel, getMessageBoxIconFromMessageId(messageId));
         }
         public static DialogResult questionMessageYesNoCancel(LangCfg.Message messageId, string Parameter1)
         {
-            return FlexibleMessageBox.Show(LangCfg.getText(messageId, Parameter1), "QuickImageComment", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+            return FlexibleMessageBox.Show(LangCfg.getText(messageId, Parameter1), "QuickImageComment", MessageBoxButtons.YesNoCancel, getMessageBoxIconFromMessageId(messageId));
         }
         public static DialogResult questionMessageYesNoCancel(LangCfg.Message messageId, string Parameter1, string Parameter2)
         {
-            return FlexibleMessageBox.Show(LangCfg.getText(messageId, Parameter1, Parameter2), "QuickImageComment", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+            return FlexibleMessageBox.Show(LangCfg.getText(messageId, Parameter1, Parameter2), "QuickImageComment", MessageBoxButtons.YesNoCancel, getMessageBoxIconFromMessageId(messageId));
         }
 
         // open Visual Basic input box for simple entries

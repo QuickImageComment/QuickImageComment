@@ -207,7 +207,8 @@ namespace QuickImageComment
             Q_dataGridChangesNotSavedContinue,
             E_dataTableFileNameInvalid,
             E_dataTableFolderNotExists,
-            E_writingDataTable
+            E_writingDataTable,
+            X_permanentDelete_files
         }
 
         public enum Others
