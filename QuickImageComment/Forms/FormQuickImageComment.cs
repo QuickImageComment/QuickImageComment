@@ -224,6 +224,12 @@ namespace QuickImageComment
             this.DataGridViewOverview.Columns[4].Visible = false;
             // use specific context menu
             this.DataGridViewOverview.ContextMenuStrip = contextMenuStripOverview;
+            this.DataGridViewOverview.ContextMenuStrip.Items.Insert(0, DataGridViewOverview.toolStripMenuItemAddToChangeable);
+            this.DataGridViewOverview.ContextMenuStrip.Items.Insert(1, DataGridViewOverview.toolStripMenuItemAddToFind);
+            this.DataGridViewOverview.ContextMenuStrip.Items.Insert(2, DataGridViewOverview.toolStripMenuItemAddToMultiEditTable);
+            this.DataGridViewOverview.ContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+                DataGridViewOverview.toolStripSeparator2,
+                DataGridViewOverview.toolStripMenuItemCopy});
             this.DataGridViewExif = new QuickImageCommentControls.DataGridViewMetaData("DataGridViewExif",
                 toolTip1, ChangedDataGridViewValues);
             this.tabPageExif.Controls.Add(this.DataGridViewExif);

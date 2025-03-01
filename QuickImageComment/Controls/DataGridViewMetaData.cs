@@ -32,11 +32,14 @@ namespace QuickImageCommentControls
         private ToolStripMenuItem toolStripMenuItemPlainEnglish;
         private ToolStripMenuItem toolStripMenuItemSuffixFirstEnglish;
         private ToolStripMenuItem toolStripMenuItemWithHeaderEnglish;
-        private ToolStripMenuItem toolStripMenuItemAddToChangeable;
-        private ToolStripMenuItem toolStripMenuItemAddToOverview;
-        private ToolStripMenuItem toolStripMenuItemAddToMultiEditTable;
-        private ToolStripMenuItem toolStripMenuItemAddToFind;
         private ToolStripSeparator toolStripSeparator1;
+        // some internal as used in FormQuickImageComment to define context menu for Overview
+        internal ToolStripMenuItem toolStripMenuItemAddToChangeable;
+        private ToolStripMenuItem toolStripMenuItemAddToOverview;
+        internal ToolStripMenuItem toolStripMenuItemAddToMultiEditTable;
+        internal ToolStripMenuItem toolStripMenuItemAddToFind;
+        internal ToolStripSeparator toolStripSeparator2;
+        internal ToolStripMenuItem toolStripMenuItemCopy;
         private System.Collections.ArrayList HeadersNonVisibleRows = new System.Collections.ArrayList();
         string Prefix;
         System.Collections.SortedList MetaDataItems = new System.Collections.SortedList();
@@ -76,11 +79,13 @@ namespace QuickImageCommentControls
             this.toolStripMenuItemPlainEnglish = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemSuffixFirstEnglish = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemWithHeaderEnglish = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItemAddToChangeable = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemAddToOverview = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemAddToFind = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemAddToMultiEditTable = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripMenuItemCopy = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuStripDataGridViewMetaData.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItemWithHeader,
             this.toolStripMenuItemPlain,
@@ -92,7 +97,10 @@ namespace QuickImageCommentControls
             this.toolStripMenuItemAddToChangeable,
             this.toolStripMenuItemAddToOverview,
             this.toolStripMenuItemAddToFind,
-            this.toolStripMenuItemAddToMultiEditTable});
+            this.toolStripMenuItemAddToMultiEditTable,
+            this.toolStripSeparator2,
+            this.toolStripMenuItemCopy});
+
             this.ContextMenuStripDataGridViewMetaData.Name = "ContextMenuStripDataGridViewMetaData";
             this.ContextMenuStripDataGridViewMetaData.ShowCheckMargin = true;
             this.ContextMenuStripDataGridViewMetaData.ShowImageMargin = false;
@@ -115,6 +123,7 @@ namespace QuickImageCommentControls
             // VirtualMode=true, which runs into exception in refreshData.
             this.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridViewMetaData_CellMouseEnter);
             this.CellMouseLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridViewMetaData_CellMouseLeave);
+            this.SelectionChanged += DataGridViewMetaData_SelectionChanged;
 
             // 
             // toolStripMenuItemPlain
@@ -202,6 +211,15 @@ namespace QuickImageCommentControls
             this.toolStripMenuItemAddToMultiEditTable.Text = "Markierte Felder zu Tabelle in \"Mehrfach-Bildbearbeitung\" hinzufügen";
             this.toolStripMenuItemAddToMultiEditTable.Click += new System.EventHandler(this.toolStripMenuItemAddToMultiEditTable_Click);
 
+            // 
+            // toolStripMenuItemCopy
+            // 
+            this.toolStripMenuItemCopy.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripMenuItemCopy.Name = "toolStripMenuItemCopy";
+            this.toolStripMenuItemCopy.Size = new System.Drawing.Size(258, 22);
+            this.toolStripMenuItemCopy.Text = "Kopieren (Inhalt der markierten Zelle)";
+            this.toolStripMenuItemCopy.Click += new System.EventHandler(this.toolStripMenuItemCopy_Click);
+
             this.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewMetaData_CellClick);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataGridViewMetaData_KeyDown);
             this.ColumnWidthChanged += new System.Windows.Forms.DataGridViewColumnEventHandler(this.dataGridViewMetaData_ColumnWidthChanged);
@@ -234,6 +252,13 @@ namespace QuickImageCommentControls
             this.Columns[6].Visible = false;
 
             userSetColumnWidth_1 = 300;
+        }
+
+        private void DataGridViewMetaData_SelectionChanged(object sender, System.EventArgs e)
+        {
+            bool visible = SelectedCells.Count == 1;
+            toolStripMenuItemCopy.Visible = visible;
+            toolStripSeparator2.Visible = visible;
         }
 
         public void fillData(string givenPrefix, System.Collections.SortedList givenMetaDataItems)
@@ -653,6 +678,11 @@ namespace QuickImageCommentControls
         private void toolStripMenuItemAddToMultiEditTable_Click(object sender, System.EventArgs e)
         {
             GeneralUtilities.addFieldToListOfFieldsForMultiEditTable(collectSelectedFields());
+        }
+        // copy to clipboard - menu item is visible only, if exactly one cell is selected
+        private void toolStripMenuItemCopy_Click(object sender, System.EventArgs e)
+        {
+            Clipboard.SetText((string)SelectedCells[0].Value);
         }
 
         internal System.Collections.ArrayList collectSelectedFields()

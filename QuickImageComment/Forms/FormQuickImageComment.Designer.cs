@@ -96,9 +96,6 @@ namespace QuickImageComment
             this.KeyPrim = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.KeySec = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextMenuStripOverview = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.toolStripMenuItemAddToChangeable = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItemAddToFind = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItemAddToMultiEditTab = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripMetaDataMenuItemAdjustOverview = new System.Windows.Forms.ToolStripMenuItem();
             this.columnHeaderOverviewName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderOverviewValue = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -952,33 +949,9 @@ namespace QuickImageComment
             // contextMenuStripOverview
             // 
             this.contextMenuStripOverview.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItemAddToChangeable,
-            this.toolStripMenuItemAddToFind,
-            this.toolStripMenuItemAddToMultiEditTab,
             this.contextMenuStripMetaDataMenuItemAdjustOverview});
             this.contextMenuStripOverview.Name = "contextMenuStripOverview";
             this.contextMenuStripOverview.Size = new System.Drawing.Size(444, 92);
-            // 
-            // toolStripMenuItemAddToChangeable
-            // 
-            this.toolStripMenuItemAddToChangeable.Name = "toolStripMenuItemAddToChangeable";
-            this.toolStripMenuItemAddToChangeable.Size = new System.Drawing.Size(443, 22);
-            this.toolStripMenuItemAddToChangeable.Text = "Markierte Felder zu änderbaren Feldern hinzufügen";
-            this.toolStripMenuItemAddToChangeable.Click += new System.EventHandler(this.toolStripMenuItemAddFromOverviewToChangeable_Click);
-            // 
-            // toolStripMenuItemAddToFind
-            // 
-            this.toolStripMenuItemAddToFind.Name = "toolStripMenuItemAddToFind";
-            this.toolStripMenuItemAddToFind.Size = new System.Drawing.Size(443, 22);
-            this.toolStripMenuItemAddToFind.Text = "Markierte Felder zu Feldern für Suche hinzufügen";
-            this.toolStripMenuItemAddToFind.Click += new System.EventHandler(this.toolStripMenuItemAddToFind_Click);
-            // 
-            // toolStripMenuItemAddToMultiEditTab
-            // 
-            this.toolStripMenuItemAddToMultiEditTab.Name = "toolStripMenuItemAddToMultiEditTab";
-            this.toolStripMenuItemAddToMultiEditTab.Size = new System.Drawing.Size(443, 22);
-            this.toolStripMenuItemAddToMultiEditTab.Text = "Markierte Felder zu Tabelle in \"Mehrfach-Bildbearbeitung\" hinzufügen";
-            this.toolStripMenuItemAddToMultiEditTab.Click += new System.EventHandler(this.toolStripMenuItemAddToMultiEditTab_Click);
             // 
             // contextMenuStripMetaDataMenuItemAdjustOverview
             // 
@@ -2718,7 +2691,6 @@ namespace QuickImageComment
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator12;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemSetFileDateToDateGenerated;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripOverview;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemAddToChangeable;
         private System.Windows.Forms.ToolStripMenuItem contextMenuStripMetaDataMenuItemAdjustOverview;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemDataTemplates;
         internal System.Windows.Forms.TextBox textBoxUserComment;
@@ -2729,7 +2701,6 @@ namespace QuickImageComment
         private System.Windows.Forms.ToolStripButton toolStripButtonFind;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemFind;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator14;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemAddToFind;
         internal System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelFiles;
         internal System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelFileInfo;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemGitHub;
@@ -2747,7 +2718,6 @@ namespace QuickImageComment
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemTutorials;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator17;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemRotateAfterRawDecoder;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemAddToMultiEditTab;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemEditExtern;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemEditExternalAdministration;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparatorEditExternal;
