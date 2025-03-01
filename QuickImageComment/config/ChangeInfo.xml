@@ -1,21 +1,25 @@
-﻿<Program_Version>4.65</Program_Version>
+﻿<Program_Version>4.66</Program_Version>
 <Program_Change_Info_German>
-Erweiterungen und Verbesserungen:
+	Erweiterungen und Verbesserungen:
 
-Nur für die .Net 4.6.1-Varianten: Neue Version 0.28.4 der Bibliothek exiv2 integriert: Erkennung von mehr Objektiven, kleinere Fehler behoben.
+	Trennlinie erlaubt Anpassung der Breite der Auswahlliste für Karten-Quelle und Ankreuzfeld darunter. Dadurch kann mehr Platz für die Felder links geschaffen werden, die öfter verwendet werden.
+	Neuer Menüeintrag unter "Bild" zum unwiderruflichen Löschen.
+	Mit gedrückter Umschalttaste wird mit der Löschtaste unwiderruflich gelöscht.
+	In der Maske "Einstellungen" kann konfiguriert werden, dass mit der Löschtaste auch ohne Umschalttaste unwiderruflich gelöscht wird.
+	In den Reitern Übersicht/Exif/IPTC/XMP/Sonstige ist das Kontextmenü um "Kopieren" erweitert.
 
-Folgende Fehler wurden behoben:
-
-Die Suche nach einem Ort (z.B. Paris) in der Kartenansicht funktionierte nicht mehr, weil die Syntax für die Abfrage geändert wurde.
-Die Angabe eines Verzeichnisses in der Kommandozeile führte immer zur Fehlermeldung "Verzeichnis/Datei nicht gefunden".
+	Folgender Fehler wurde behoben:
+	Im Reiter "Sonstige" konnten Änderungen für "Image (Bild).Kommentar" nicht gespeichert werden.
 </Program_Change_Info_German>
 <Program_Change_Info_English>
-Enhancements and improvements:
+	Enhancements and improvements:
 
-Only for the .Net 4.6.1 variants: New version 0.28.4 of the exiv2 library integrated: more lenses detected and minor bugs fixed.
+	Deviding line allows adjustment of the width of the selection list for map source and checkbox below. This allows more space to be created for the fields on the left that are used more frequently.
+	New menu item under "Image" for deletion permanently.
+	When holding "Shift", pressing the delete-button will delete permanantly.
+	In mask "Settings" it can be configured, that the delete button to delete permanently even without the shift key.
+	In the tabs Overview/Exif/IPTC/XMP/Other, the context menu has been expanded to include "Copy".
 
-The following errorr have been fixed:
-
-The search for a location (e.g. Paris) in the map view no longer worked because the syntax for the query was changed.
-Providing a directory in command line always caused error message "directory/file not found".
+	The following error has been fixed:
+	In tab "Other" changes for "Image.Comment" could not be saved.
 </Program_Change_Info_English>
