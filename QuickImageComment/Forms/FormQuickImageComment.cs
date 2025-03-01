@@ -5179,6 +5179,7 @@ namespace QuickImageComment
             DataGridViewExif.CellValueChanged += DataGridViewExif.dataGridViewsMetaData_CellValueChanged;
             DataGridViewIptc.CellValueChanged += DataGridViewIptc.dataGridViewsMetaData_CellValueChanged;
             DataGridViewXmp.CellValueChanged += DataGridViewXmp.dataGridViewsMetaData_CellValueChanged;
+            DataGridViewOtherMetaData.CellValueChanged += DataGridViewOtherMetaData.dataGridViewsMetaData_CellValueChanged;
 
             theUserControlKeyWords.textBoxFreeInputKeyWords.TextChanged += textBoxFreeInputKeyWords_TextChanged;
             theUserControlKeyWords.treeViewPredefKeyWords.AfterCheck += treeViewPredefKeyWords_AfterCheck;
@@ -5202,6 +5203,7 @@ namespace QuickImageComment
             DataGridViewExif.CellValueChanged -= DataGridViewExif.dataGridViewsMetaData_CellValueChanged;
             DataGridViewIptc.CellValueChanged -= DataGridViewIptc.dataGridViewsMetaData_CellValueChanged;
             DataGridViewXmp.CellValueChanged -= DataGridViewXmp.dataGridViewsMetaData_CellValueChanged;
+            DataGridViewOtherMetaData.CellValueChanged -= DataGridViewOtherMetaData.dataGridViewsMetaData_CellValueChanged;
 
             theUserControlKeyWords.textBoxFreeInputKeyWords.TextChanged -= textBoxFreeInputKeyWords_TextChanged;
             theUserControlKeyWords.treeViewPredefKeyWords.AfterCheck -= treeViewPredefKeyWords_AfterCheck;
@@ -5457,6 +5459,7 @@ namespace QuickImageComment
             DataGridViewExif.EndEdit();
             DataGridViewIptc.EndEdit();
             DataGridViewXmp.EndEdit();
+            DataGridViewOtherMetaData.EndEdit();
 
             if (ImageSaved)
             {
