@@ -1435,7 +1435,7 @@ namespace QuickImageComment
                             string type = Exiv2TagDefinitions.getTagType(key);
                             theMetaDataDefinitionItem = new MetaDataDefinitionItem(key, key, getFormatForTagFind(key, type));
                             MetaDataDefinitionsWork.Add(theMetaDataDefinitionItem);
-                            FormFind.setDataTableToNull();
+                            FormFind.updateAfterMetaDataChange();
                         }
                     }
                 }

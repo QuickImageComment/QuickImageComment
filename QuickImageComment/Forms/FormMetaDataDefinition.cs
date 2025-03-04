@@ -815,6 +815,7 @@ namespace QuickImageComment
                 }
                 foreach (ConfigDefinition.enumMetaDataGroup enumValue in Enum.GetValues(typeof(ConfigDefinition.enumMetaDataGroup)))
                 {
+                    bool metaDataListChanged = false;
                     if (enumValue == ConfigDefinition.enumMetaDataGroup.MetaDataDefForFind)
                     {
                         // check for changes: if there, datatable in FormFind needs to be set to null,
@@ -822,7 +823,7 @@ namespace QuickImageComment
                         ArrayList oldDefintions = ConfigDefinition.getMetaDataDefinitions(ConfigDefinition.enumMetaDataGroup.MetaDataDefForFind);
                         if (MetaDataDefinitions[(int)enumValue].Count != oldDefintions.Count)
                         {
-                            FormFind.setDataTableToNull();
+                            metaDataListChanged = true;
                         }
                         else
                         {
@@ -835,13 +836,14 @@ namespace QuickImageComment
                                     !oldItem.KeyPrim.Equals(newItem.KeyPrim) ||
                                     !oldItem.FormatPrim.Equals(newItem.FormatPrim))
                                 {
-                                    FormFind.setDataTableToNull();
+                                    metaDataListChanged = true;
                                     break;
                                 }
                             }
                         }
                     }
                     ConfigDefinition.setMetaDataDefinitions(enumValue, MetaDataDefinitions[(int)enumValue]);
+                    if (metaDataListChanged) FormFind.updateAfterMetaDataChange();
                 }
 
                 settingsChanged = true;

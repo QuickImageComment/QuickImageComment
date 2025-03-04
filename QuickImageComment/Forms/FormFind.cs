@@ -60,6 +60,7 @@ namespace QuickImageComment
 
         public bool findExecuted = false;
 
+        private static FormFind thisFormFind;
         internal List<string> FilterFieldTags = new List<string>();
         // contains information to filter, including GPS latitude and longitude 
         // for searching recording location
@@ -122,6 +123,7 @@ namespace QuickImageComment
 
         public FormFind(bool completeInitialisation)
         {
+            thisFormFind = this;
             InitializeComponent();
             dynamicLabelScanInformation.Visible = false;
             progressPanel1.Visible = false;
@@ -1583,10 +1585,19 @@ namespace QuickImageComment
         }
 
         // set data table to null (used when fields are added for find in main mask)
-        public static void setDataTableToNull()
+        internal static void updateAfterMetaDataChange()
         {
-            //!! mit lock, backgroundworker stoppen
-            dataTable = null;
+            if (thisFormFind != null)
+            {
+                thisFormFind.fillFilterDefinitionsAndKeyLists();
+                thisFormFind.fillFilterPanelWithControls();
+                thisFormFind.fillItemsFilterFields();
+                //!! mit lock, backgroundworker stoppen
+                {
+                    dataTable = null;
+                    thisFormFind.setControlsDependingOnDataTable();
+                }
+            }
         }
 
         // check if init fill of data table is running
