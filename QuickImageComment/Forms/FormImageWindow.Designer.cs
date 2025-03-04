@@ -51,6 +51,7 @@ namespace QuickImageComment
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.contextMenuStripMetaDataMenuItemAdjust = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuStripMetaDataMenuTitleAdjust = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripMetaDataMenuItemProperties = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItemPropertiesOff = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItemPropertiesBottom = new System.Windows.Forms.ToolStripMenuItem();
@@ -59,7 +60,6 @@ namespace QuickImageComment
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.dataGridViewOverviewColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewOverviewColumValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.contextMenuStripMetaDataMenuTitleAdjust = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -109,7 +109,7 @@ namespace QuickImageComment
             this.contextMenuStripMetaDataMenuItemProperties,
             this.contextMenuStripScrollPage});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(278, 114);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(278, 92);
             // 
             // contextMenuStripMetaDataMenuItemAdjust
             // 
@@ -117,6 +117,13 @@ namespace QuickImageComment
             this.contextMenuStripMetaDataMenuItemAdjust.Size = new System.Drawing.Size(277, 22);
             this.contextMenuStripMetaDataMenuItemAdjust.Text = "Felder anpassen";
             this.contextMenuStripMetaDataMenuItemAdjust.Click += new System.EventHandler(this.contextMenuStripMetaDataMenuItemAdjust_Click);
+            // 
+            // contextMenuStripMetaDataMenuTitleAdjust
+            // 
+            this.contextMenuStripMetaDataMenuTitleAdjust.Name = "contextMenuStripMetaDataMenuTitleAdjust";
+            this.contextMenuStripMetaDataMenuTitleAdjust.Size = new System.Drawing.Size(277, 22);
+            this.contextMenuStripMetaDataMenuTitleAdjust.Text = "Kopfzeile anpassen";
+            this.contextMenuStripMetaDataMenuTitleAdjust.Click += new System.EventHandler(this.contextMenuStripMetaDataMenuTitleAdjust_Click);
             // 
             // contextMenuStripMetaDataMenuItemProperties
             // 
@@ -131,21 +138,21 @@ namespace QuickImageComment
             // ToolStripMenuItemPropertiesOff
             // 
             this.ToolStripMenuItemPropertiesOff.Name = "ToolStripMenuItemPropertiesOff";
-            this.ToolStripMenuItemPropertiesOff.Size = new System.Drawing.Size(180, 22);
+            this.ToolStripMenuItemPropertiesOff.Size = new System.Drawing.Size(109, 22);
             this.ToolStripMenuItemPropertiesOff.Text = "Aus";
             this.ToolStripMenuItemPropertiesOff.Click += new System.EventHandler(this.ToolStripMenuItemPropertiesOff_Click);
             // 
             // ToolStripMenuItemPropertiesBottom
             // 
             this.ToolStripMenuItemPropertiesBottom.Name = "ToolStripMenuItemPropertiesBottom";
-            this.ToolStripMenuItemPropertiesBottom.Size = new System.Drawing.Size(180, 22);
+            this.ToolStripMenuItemPropertiesBottom.Size = new System.Drawing.Size(109, 22);
             this.ToolStripMenuItemPropertiesBottom.Text = "Unten";
             this.ToolStripMenuItemPropertiesBottom.Click += new System.EventHandler(this.ToolStripMenuItemPropertiesBottom_Click);
             // 
             // ToolStripMenuItemPropertiesRight
             // 
             this.ToolStripMenuItemPropertiesRight.Name = "ToolStripMenuItemPropertiesRight";
-            this.ToolStripMenuItemPropertiesRight.Size = new System.Drawing.Size(180, 22);
+            this.ToolStripMenuItemPropertiesRight.Size = new System.Drawing.Size(109, 22);
             this.ToolStripMenuItemPropertiesRight.Text = "Rechts";
             this.ToolStripMenuItemPropertiesRight.Click += new System.EventHandler(this.ToolStripMenuItemPropertiesRight_Click);
             // 
@@ -189,16 +196,9 @@ namespace QuickImageComment
             // 
             // dataGridViewOverviewColumValue
             // 
-            this.dataGridViewOverviewColumValue.HeaderText = "Value";
+            this.dataGridViewOverviewColumValue.HeaderText = "Wert";
             this.dataGridViewOverviewColumValue.Name = "dataGridViewOverviewColumValue";
             this.dataGridViewOverviewColumValue.ReadOnly = true;
-            // 
-            // contextMenuStripMetaDataMenuTitleAdjust
-            // 
-            this.contextMenuStripMetaDataMenuTitleAdjust.Name = "contextMenuStripMetaDataMenuTitleAdjust";
-            this.contextMenuStripMetaDataMenuTitleAdjust.Size = new System.Drawing.Size(277, 22);
-            this.contextMenuStripMetaDataMenuTitleAdjust.Text = "Kopfzeile anpassen";
-            this.contextMenuStripMetaDataMenuTitleAdjust.Click += new System.EventHandler(this.contextMenuStripMetaDataMenuTitleAdjust_Click);
             // 
             // FormImageWindow
             // 
@@ -228,8 +228,6 @@ namespace QuickImageComment
     private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewOverviewColumnName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewOverviewColumValue;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem contextMenuStripMetaDataMenuItemAdjust;
         private System.Windows.Forms.ToolStripMenuItem contextMenuStripMetaDataMenuItemProperties;
@@ -238,5 +236,7 @@ namespace QuickImageComment
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemPropertiesRight;
         private System.Windows.Forms.ToolStripMenuItem contextMenuStripScrollPage;
         private System.Windows.Forms.ToolStripMenuItem contextMenuStripMetaDataMenuTitleAdjust;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewOverviewColumnName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewOverviewColumValue;
     }
 }
