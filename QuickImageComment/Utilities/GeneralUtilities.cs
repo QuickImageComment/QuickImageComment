@@ -493,6 +493,8 @@ namespace QuickImageComment
                 }
                 temp0[kk] = uint.Parse(RationalParts[0]);
                 temp1[kk] = uint.Parse(RationalParts[1]);
+                // throw exception here as it is not thrown later when deviding by temp1[kk]
+                if (temp1[kk] == 0) throw new DivideByZeroException();
             }
             double degree = temp0[0] + (double)temp0[1] / temp1[1] / 60 + (double)temp0[2] / temp1[2] / 3600;
             return degree;
