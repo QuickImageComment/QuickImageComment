@@ -872,6 +872,52 @@ namespace FormCustomization
             }
         }
 
+        // zoom tool strip: keep font size (used for tool tip text), no children need to be zoomed
+        internal void zoomToolStrip(Control ParentControl, float zoomFactor)
+        {
+            string ParentControlFullName = getFullNameOfComponent(ParentControl);
+
+            // get the zoom basis data
+            ZoomBasisData theZoomBasisData = (ZoomBasisData)ZoomBasisDataTable[ParentControlFullName];
+
+            if (theZoomBasisData != null)
+            {
+                // in order to take effect, this needs to be done before changing size (at least when it is first time)
+                if (ParentControl is ToolStrip)
+                {
+                    ((ToolStrip)ParentControl).ImageScalingSize = new Size((int)(theZoomBasisData.ImageScalingSize.Width * zoomFactor),
+                                                                           (int)(theZoomBasisData.ImageScalingSize.Height * zoomFactor));
+                }
+
+                // deactivate AutoSize to ensure that control changes size
+                ParentControl.AutoSize = false;
+
+                if (theZoomBasisData.noGapRight && ParentControl.Parent != null)
+                    ParentControl.Width = ParentControl.Parent.Width - ParentControl.Right;
+                else
+                    ParentControl.Width = (int)(theZoomBasisData.Width * zoomFactor);
+                if (theZoomBasisData.noGapBottom && ParentControl.Parent != null)
+                    ParentControl.Height = ParentControl.Parent.Height - ParentControl.Top;
+                else
+                    ParentControl.Height = (int)(theZoomBasisData.Height * zoomFactor);
+
+
+                // set new minimum size considering zoom factor
+                int minWidth = 0;
+                int minHeight = 0;
+                if (ParentControl is Form)
+                {
+                    minWidth = (int)((theZoomBasisData.minWidth - zoomOffsetWidth) * zoomFactor + zoomOffsetWidth);
+                    minHeight = (int)((theZoomBasisData.minHeight - zoomOffsetHeight) * zoomFactor + zoomOffsetHeight);
+                }
+                else
+                {
+                    minWidth = (int)(theZoomBasisData.minWidth * zoomFactor);
+                    minHeight = (int)(theZoomBasisData.minHeight * zoomFactor);
+                }
+                if (minWidth > 0 && minHeight > 0) ParentControl.MinimumSize = new Size(minWidth, minHeight);
+            }
+        }
         #endregion
 
         //*****************************************************************
@@ -1966,7 +2012,7 @@ namespace FormCustomization
                 maxWidth = (int)(oldSize.Width * zoomFactor);
                 // start with font size proportional to zoom factor +1 as tolerance
                 // note that newFontSize is decremented at begin of loop
-                newFontSize = (int)(initialFontSize  * zoomFactor) + 2;
+                newFontSize = (int)(initialFontSize * zoomFactor) + 2;
                 do
                 {
                     newFontSize--;

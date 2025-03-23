@@ -1,15 +1,22 @@
-﻿using System.Drawing;
+﻿using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace QuickImageComment
 {
     public partial class ToolTipQIC : System.Windows.Forms.ToolTip
     {
+        private IDictionary<object, string> objectToolTips;
+
         public ToolTipQIC()
         {
             InitializeComponent();
+            objectToolTips = new Dictionary<object, string>();
         }
 
+        //*****************************************************************
+        // generic logic
+        //*****************************************************************
         private void toolTipQIC_Draw(object sender, DrawToolTipEventArgs e)
         {
             // Draw the custom background.
@@ -43,8 +50,63 @@ namespace QuickImageComment
         internal void ShowAtOffset(string text, IWin32Window window)
         {
             Control control = (Control)window;
-            Point offsetPoint = new Point(control.PointToClient(Cursor.Position).X + 10, control.PointToClient(Cursor.Position).Y+10);
+            Point offsetPoint = new Point(control.PointToClient(Cursor.Position).X + 10, control.PointToClient(Cursor.Position).Y + 10);
             base.Show(text, window, offsetPoint);
+        }
+
+        //*****************************************************************
+        // specific logic for MenuStrio
+        //*****************************************************************
+        internal void configureToolTipForMenuStrip(MenuStrip menuStrip, IWin32Window window)
+        {
+            foreach (ToolStripItem item in menuStrip.Items)
+            {
+                configureToolTipForMenuItem(item, window);
+            }
+
+        }
+
+        private void configureToolTipForMenuItem(ToolStripItem item, IWin32Window window)
+        {
+            if (item != null && item.ToolTipText != null && !item.ToolTipText.Equals(""))
+            {
+                objectToolTips.Add(item, item.ToolTipText);
+                // Suppress default tooltips
+                item.ToolTipText = "";
+
+                // add event handlers for showing and hiding tool tip
+                item.MouseHover += (s, args) =>
+                {
+                    var toolStripItem = s as ToolStripItem;
+                    if (toolStripItem != null)
+                    {
+                        ShowForObject(item, window);
+                    }
+                };
+                item.MouseLeave += (s, e) =>
+                {
+                    var toolStripItem = s as ToolStripItem;
+                    if (toolStripItem != null)
+                    {
+                        Hide(window);
+                    }
+                };
+            }
+
+            // recursively configure sub items 
+            if (item is ToolStripMenuItem menuItem && menuItem.DropDownItems.Count > 0)
+            {
+                foreach (ToolStripItem subItem in menuItem.DropDownItems)
+                {
+                    configureToolTipForMenuItem(subItem, window);
+                }
+            }
+        }
+
+        internal void ShowForObject(object sender, IWin32Window window)
+        {
+            string toolTipText = LangCfg.translate(objectToolTips[sender], sender.ToString());
+            ShowAtOffset(toolTipText, window);
         }
     }
 }

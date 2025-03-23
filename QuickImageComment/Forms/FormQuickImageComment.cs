@@ -187,6 +187,9 @@ namespace QuickImageComment
 
             // Required for Windows Form Designer support
             InitializeComponent();
+
+            toolTip1.configureToolTipForMenuStrip(MenuStrip1, this);
+
             // for Microsoft Store, promotion of download has to be disabled
             ToolStripMenuItemWebPageDownload.Visible = !GeneralUtilities.MicrosoftStore;
             // Microsoft Store updates automatically
@@ -1548,6 +1551,19 @@ namespace QuickImageComment
             }
         }
 
+        // event handler to use own ToolTip class
+        private void ToolStrip_ItemAdded(object sender, ToolStripItemEventArgs e)
+        {
+            e.Item.MouseHover += (s, args) =>
+            {
+                var toolStripItem = s as ToolStripItem;
+                if (toolStripItem != null)
+                {
+                    toolTip1.Show(toolStripItem.ToolTipText, this, PointToClient(Cursor.Position));
+                }
+            };
+        }
+
         #endregion
 
         //*****************************************************************
@@ -2680,10 +2696,10 @@ namespace QuickImageComment
                 int toolStrip1HeightOld = this.toolStrip1.Height;
                 if (zoomFactorToolbar > 0)
                     // use separate zoom factor
-                    CustomizationInterface.zoomControls(this.toolStrip1, zoomFactorToolbar);
+                    CustomizationInterface.zoomToolStrip(this.toolStrip1, zoomFactorToolbar);
                 else
                     // no separate zoom factor, use general
-                    CustomizationInterface.zoomControls(this.toolStrip1, CustomizationInterface.getActualZoomFactor(this));
+                    CustomizationInterface.zoomToolStrip(this.toolStrip1, CustomizationInterface.getActualZoomFactor(this));
 
                 this.toolStrip1.Top = this.MenuStrip1.Top + this.MenuStrip1.Height;
                 this.splitContainer1.Top = this.toolStrip1.Top + this.toolStrip1.Height + 1;
@@ -2752,6 +2768,7 @@ namespace QuickImageComment
             Exiv2TagDefinitions.fillTagDefinitionListTranslations();
             LangCfg.translateControlTexts(this);
             setArtistCommentLabel();
+            configureDeleteButton();
             if (theExtendedImage != null)
             {
                 displayProperties();
@@ -3925,7 +3942,7 @@ namespace QuickImageComment
             else
             {
                 toolStripButtonDelete.BackColor = Color.White;
-                toolStripButtonDelete.ToolTipText = LangCfg.getText(LangCfg.Others.toolTipDeleteButtonRecycleBin);
+                toolStripButtonDelete.ToolTipText = LangCfg.getText(LangCfg.Others.toolTipDeleteButtonUnknown);
             }
         }
 

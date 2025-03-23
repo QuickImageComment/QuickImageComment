@@ -951,12 +951,12 @@ namespace QuickImageComment
             this.contextMenuStripOverview.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.contextMenuStripMetaDataMenuItemAdjustOverview});
             this.contextMenuStripOverview.Name = "contextMenuStripOverview";
-            this.contextMenuStripOverview.Size = new System.Drawing.Size(444, 92);
+            this.contextMenuStripOverview.Size = new System.Drawing.Size(159, 26);
             // 
             // contextMenuStripMetaDataMenuItemAdjustOverview
             // 
             this.contextMenuStripMetaDataMenuItemAdjustOverview.Name = "contextMenuStripMetaDataMenuItemAdjustOverview";
-            this.contextMenuStripMetaDataMenuItemAdjustOverview.Size = new System.Drawing.Size(443, 22);
+            this.contextMenuStripMetaDataMenuItemAdjustOverview.Size = new System.Drawing.Size(158, 22);
             this.contextMenuStripMetaDataMenuItemAdjustOverview.Text = "Felder anpassen";
             this.contextMenuStripMetaDataMenuItemAdjustOverview.Click += new System.EventHandler(this.contextMenuStripMetaDataMenuItemAdjust_Click);
             // 
@@ -1302,6 +1302,8 @@ namespace QuickImageComment
             this.toolStripMenuItemDelete.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.L)));
             this.toolStripMenuItemDelete.Size = new System.Drawing.Size(251, 22);
             this.toolStripMenuItemDelete.Text = "&Löschen";
+            this.toolStripMenuItemDelete.ToolTipText = "Bild/Video löschen; abhängig von den Einstellungen des Papierkorbs wird in den Pa" +
+    "pierkorb verschoben oder unwiderruflich gelöscht";
             this.toolStripMenuItemDelete.Click += new System.EventHandler(this.toolStripMenuItemDelete_Click);
             // 
             // toolStripMenuItemCopyTo
@@ -2089,6 +2091,7 @@ namespace QuickImageComment
             this.toolStrip1.Size = new System.Drawing.Size(887, 39);
             this.toolStrip1.TabIndex = 2;
             this.toolStrip1.Text = "toolStrip1";
+            this.toolStrip1.ItemAdded += new System.Windows.Forms.ToolStripItemEventHandler(this.ToolStrip_ItemAdded);
             // 
             // toolStripButtonRefresh
             // 

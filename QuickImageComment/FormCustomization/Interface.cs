@@ -132,6 +132,12 @@ namespace FormCustomization
             theCustomizer.zoomControls(ParentControl, zoomFactor);
         }
 
+        // zoom tool strip (limited zooming)
+        internal void zoomToolStrip(Control ParentControl, float zoomFactor)
+        {
+            theCustomizer.zoomToolStrip(ParentControl, zoomFactor);
+        }
+
         // load the settings from file
         public void loadCustomizationFile(string CustomizationFile)
         {
