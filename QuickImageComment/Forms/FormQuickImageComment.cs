@@ -392,6 +392,14 @@ namespace QuickImageComment
                 this.ToolStripMenuItemLanguage.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
                      new ToolStripMenuItem(language, null, ToolStripMenuItemLanguageX_Click, "LANGUAGE " + language)});
             }
+            foreach (ToolStripMenuItem menuItem in ToolStripMenuItemLanguage.DropDownItems)
+            {
+                if (menuItem.Text.Equals(LangCfg.getLoadedLanguage()))
+                {
+                    menuItem.Checked = true;
+                }
+            }
+
             //Program.StartupPerformance.measure("FormQIC languages in menu");
 
             // add configured map-URLs in menu
@@ -2787,6 +2795,12 @@ namespace QuickImageComment
                 toolStripMenuItemCheckTranslationComplete.Enabled = true;
                 toolStripMenuItemCreateControlTextList.Enabled = false;
             }
+
+            foreach (ToolStripMenuItem toolStripMenuItem in ToolStripMenuItemLanguage.DropDownItems)
+            {
+                toolStripMenuItem.Checked = false;
+            }
+            ((ToolStripMenuItem)sender).Checked = true;
 
             this.Refresh();
         }
