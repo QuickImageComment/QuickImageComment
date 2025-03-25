@@ -413,6 +413,8 @@ namespace QuickImageComment
             listViewIcons.Items.Add(new ListViewItem("Create"));
             listViewIcons.Items.Add(new ListViewItem("Critical_details"));
             listViewIcons.Items.Add(new ListViewItem("Danger"));
+            listViewIcons.Items.Add(new ListViewItem("Delete"));
+            listViewIcons.Items.Add(new ListViewItem("Delete2"));
             listViewIcons.Items.Add(new ListViewItem("Diagram"));
             listViewIcons.Items.Add(new ListViewItem("Down"));
             listViewIcons.Items.Add(new ListViewItem("Edit_page"));
