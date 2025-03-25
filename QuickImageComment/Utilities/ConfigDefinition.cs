@@ -175,6 +175,9 @@ namespace QuickImageComment
             SplitterImageDetails11DistanceWindow,
             SplitterImageDetails111Distance,
             SplitterImageDetails111DistanceWindow,
+            SplitterMap1DistanceFormQIC,
+            SplitterMap1DistanceFormMap,
+            SplitterMap1DistanceFormFind,
             splitContainer1_DistanceRatio,
             splitContainer11_DistanceRatio,
             splitContainer1211_DistanceRatio,
@@ -432,6 +435,9 @@ namespace QuickImageComment
             ConfigItems.Add("SplitterImageDetails11DistanceWindow", 0);
             ConfigItems.Add("SplitterImageDetails111Distance", 0);
             ConfigItems.Add("SplitterImageDetails111DistanceWindow", 0);
+            ConfigItems.Add("SplitterMap1DistanceFormQIC", 0);
+            ConfigItems.Add("SplitterMap1DistanceFormMap", 0);
+            ConfigItems.Add("SplitterMap1DistanceFormFind", 0);
             ConfigItems.Add("ListViewFilesColumnWidth0", "130");
             ConfigItems.Add("ListViewFilesColumnWidth1", "50");
             ConfigItems.Add("ListViewFilesColumnWidth2", "90");

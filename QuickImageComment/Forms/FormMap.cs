@@ -32,7 +32,8 @@ namespace QuickImageComment
 #endif
             CustomizationInterface = MainMaskInterface.getCustomizationInterface();
             bool changeLocationAllowed = MainMaskInterface.getTheExtendedImage() != null && MainMaskInterface.getTheExtendedImage().changePossible();
-            theUserControlMap = new UserControlMap(false, MainMaskInterface.commonRecordingLocation(), changeLocationAllowed, 0);
+            theUserControlMap = new UserControlMap(false, MainMaskInterface.commonRecordingLocation(), changeLocationAllowed, 
+                0, ConfigDefinition.enumCfgUserInt.SplitterMap1DistanceFormMap);
             MainMaskInterface.setUserControlMap(theUserControlMap);
             theUserControlMap.isInOwnWindow = true;
             panel1.Controls.Add(theUserControlMap.panelMap);
@@ -50,6 +51,7 @@ namespace QuickImageComment
                 this.Width = newWidth;
             }
             theUserControlMap.panelMap.Dock = DockStyle.Fill;
+            theUserControlMap.adjustSplitterDistance();
 
             buttonClose.Select();
             LangCfg.translateControlTexts(this);

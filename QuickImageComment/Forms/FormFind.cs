@@ -188,7 +188,7 @@ namespace QuickImageComment
 
             // show map with last used coordinates for find
             theUserControlMap = new UserControlMap(true, new GeoDataItem(ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.LastGeoDataItemForFind)),
-                true, gpsFindRangeInMeter);
+                true, gpsFindRangeInMeter, ConfigDefinition.enumCfgUserInt.SplitterMap1DistanceFormFind);
             panelMap.Controls.Add(theUserControlMap.panelMap);
             theUserControlMap.panelMap.Dock = DockStyle.Fill;
 
@@ -208,6 +208,7 @@ namespace QuickImageComment
             Width = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.FormFindWidth);
             splitContainer1.SplitterDistance = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.FormFindSplitContainer1_Distance);
             splitContainer2.SplitterDistance = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.FormFindSplitContainer2_Distance);
+            theUserControlMap.adjustSplitterDistance();
 
             fillFilterPanelWithControls();
             fillItemsFilterFields();

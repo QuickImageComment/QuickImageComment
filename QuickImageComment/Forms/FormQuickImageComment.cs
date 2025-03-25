@@ -4538,12 +4538,14 @@ namespace QuickImageComment
                         {
                             if (starting)
                             {
-                                theUserControlMap = new UserControlMap(false, null, false, 0);
+                                theUserControlMap = new UserControlMap(false, null, false, 0,
+                                    ConfigDefinition.enumCfgUserInt.SplitterMap1DistanceFormQIC);
                             }
                             else
                             {
                                 bool changeIsPossible = theExtendedImage != null && theExtendedImage.changePossible();
-                                theUserControlMap = new UserControlMap(false, commonRecordingLocation(), changeIsPossible, 0);
+                                theUserControlMap = new UserControlMap(false, commonRecordingLocation(), changeIsPossible, 0, 
+                                    ConfigDefinition.enumCfgUserInt.SplitterMap1DistanceFormQIC);
                             }
                             if (CustomizationInterface != null)
                             {
@@ -4571,6 +4573,7 @@ namespace QuickImageComment
                         if (ContentEnum == LangCfg.PanelContent.Map && panelIsVisible(aPanel))
                         {
                             theUserControlMap.adjustTopBottomAfterScaling(CustomizationInterface.getActualZoomFactor(this));
+                            theUserControlMap.adjustSplitterDistance();
                         }
                         // refill changeable fields to ensure proper gaps between controls and right alignment
                         if (ContentEnum == LangCfg.PanelContent.Configurable && panelIsVisible(aPanel))

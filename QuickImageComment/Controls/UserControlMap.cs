@@ -156,8 +156,10 @@ namespace QuickImageComment
         bool initLocationChangeNeeded;
         GeoDataItem initGeoDataItem;
         bool initChangeLocationAllowed;
+        ConfigDefinition.enumCfgUserInt splitterDistanceEnum;
 
-        internal UserControlMap(bool locationChangeNeeded, GeoDataItem geoDataItem, bool givenChangeLocationAllowed, int radiusInMeter)
+        internal UserControlMap(bool locationChangeNeeded, GeoDataItem geoDataItem, bool givenChangeLocationAllowed,
+            int radiusInMeter, ConfigDefinition.enumCfgUserInt givenSplitterDistanceEnum)
         {
             InitializeComponent();
             UserControlMapList.Add(this);
@@ -168,6 +170,7 @@ namespace QuickImageComment
             initLocationChangeNeeded = locationChangeNeeded;
             initGeoDataItem = geoDataItem;
             initChangeLocationAllowed = givenChangeLocationAllowed;
+            splitterDistanceEnum = givenSplitterDistanceEnum;
             checkBoxWebView2.Visible = false;
 
             loadConfiguration();
@@ -396,6 +399,16 @@ namespace QuickImageComment
             CircleFillOpacity = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.MapCircleFillOpacity).ToString("000");
             CircleFillOpacity = CircleFillOpacity.Substring(0, 1) + "." + CircleFillOpacity.Substring(1);
             CircleSegmentRadius = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.MapCircleSegmentRadius).ToString();
+        }
+
+        internal void adjustSplitterDistance()
+        {
+            int splitterDistance;
+            splitterDistance = ConfigDefinition.getCfgUserInt(splitterDistanceEnum);
+            if (splitterDistance != 0)
+            {
+                splitContainerMapControls.SplitterDistance = splitterDistance;
+            }
         }
 
         private void fillMapSourcesAndSelectLastUsed()
@@ -1067,6 +1080,8 @@ namespace QuickImageComment
         // set values in ConfigDefinition
         public void saveConfigDefinitions()
         {
+            ConfigDefinition.setCfgUserInt(splitterDistanceEnum, splitContainerMapControls.SplitterDistance);
+
             ConfigDefinition.setCfgUserString(ConfigDefinition.enumCfgUserString.MapZoom, dynamicLabelZoom.Text);
             ConfigDefinition.setCfgUserString(ConfigDefinition.enumCfgUserString.LastLatitude, centerLatitude);
             ConfigDefinition.setCfgUserString(ConfigDefinition.enumCfgUserString.LastLongitude, centerLongitude);
