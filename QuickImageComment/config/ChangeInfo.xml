@@ -1,25 +1,27 @@
 ﻿<Program_Version>4.66</Program_Version>
 <Program_Change_Info_German>
-	Erweiterungen und Verbesserungen:
+Erweiterungen und Verbesserungen:
 
-	Trennlinie erlaubt Anpassung der Breite der Auswahlliste für Karten-Quelle und Ankreuzfeld darunter. Dadurch kann mehr Platz für die Felder links geschaffen werden, die öfter verwendet werden.
-	Neuer Menüeintrag unter "Bild" zum unwiderruflichen Löschen.
-	Mit gedrückter Umschalttaste wird mit der Löschtaste unwiderruflich gelöscht.
-	In der Maske "Einstellungen" kann konfiguriert werden, dass mit der Löschtaste auch ohne Umschalttaste unwiderruflich gelöscht wird.
-	In den Reitern Übersicht/Exif/IPTC/XMP/Sonstige ist das Kontextmenü um "Kopieren" erweitert.
+Trennlinie erlaubt Anpassung der Breite der Auswahlliste für Karten-Quelle und Ankreuzfeld darunter. Dadurch kann mehr Platz für die Felder links geschaffen werden, die öfter verwendet werden.
+Neuer Menüeintrag unter "Bild" zum unwiderruflichen Löschen.
+Mit gedrückter Umschalttaste wird mit der Löschtaste unwiderruflich gelöscht.
+In der Maske "Einstellungen" kann konfiguriert werden, dass mit der Löschtaste auch ohne Umschalttaste unwiderruflich gelöscht wird.
+In den Reitern Übersicht/Exif/IPTC/XMP/Sonstige ist das Kontextmenü um "Kopieren" erweitert.
 
-	Folgender Fehler wurde behoben:
-	Im Reiter "Sonstige" konnten Änderungen für "Image (Bild).Kommentar" nicht gespeichert werden.
+Folgende Fehler wurden behoben:
+Im Reiter "Sonstige" konnten Änderungen für "Image (Bild).Kommentar" nicht gespeichert werden.
+Der Längengrad von Orten auf oder westlich von 100°W wurde nicht im Koordinatenfeld unter der Karte angezeigt.
 </Program_Change_Info_German>
 <Program_Change_Info_English>
-	Enhancements and improvements:
+Enhancements and improvements:
 
-	Deviding line allows adjustment of the width of the selection list for map source and checkbox below. This allows more space to be created for the fields on the left that are used more frequently.
-	New menu item under "Image" for deletion permanently.
-	When holding "Shift", pressing the delete-button will delete permanantly.
-	In mask "Settings" it can be configured, that the delete button to delete permanently even without the shift key.
-	In the tabs Overview/Exif/IPTC/XMP/Other, the context menu has been expanded to include "Copy".
+Deviding line allows adjustment of the width of the selection list for map source and checkbox below. This allows more space to be created for the fields on the left that are used more frequently.
+New menu item under "Image" for deletion permanently.
+When holding "Shift", pressing the delete-button will delete permanantly.
+In mask "Settings" it can be configured, that the delete button to delete permanently even without the shift key.
+In the tabs Overview/Exif/IPTC/XMP/Other, the context menu has been expanded to include "Copy".
 
-	The following error has been fixed:
-	In tab "Other" changes for "Image.Comment" could not be saved.
+The following error has been fixed:
+In tab "Other" changes for "Image.Comment" could not be saved.
+The longitude of locations at or west of 100°W was not shown in coordinates field below the map.
 </Program_Change_Info_English>

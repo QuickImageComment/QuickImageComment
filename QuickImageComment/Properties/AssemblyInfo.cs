@@ -52,12 +52,12 @@ class AssemblyInfo
 #if DEBUG
     public const string VersionSuffix = "-DBG";
 #else
-    public const string VersionSuffix = "-Beta-1";
+    public const string VersionSuffix = "";
 #endif
     // Version to Check is the last published version
     // for beta versions it is one before AssemblyVersion
     // for released versions it is same as AssemblyVersion
-    public const string VersionToCheck = "4.65";
+    public const string VersionToCheck = "4.66";
 
 #if PLATFORMTARGET_X64
     public const string Platform = " - 64 Bit";

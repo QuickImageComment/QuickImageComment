@@ -803,6 +803,7 @@
     <Content Include="Resources\Critical details.bmp" />
     <Content Include="Resources\Danger.bmp" />
     <Content Include="Resources\Delete.bmp" />
+    <Content Include="Resources\Delete2.bmp" />
     <Content Include="Resources\Diagram.bmp" />
     <Content Include="Resources\Down.bmp" />
     <Content Include="Resources\Edit page.bmp" />
