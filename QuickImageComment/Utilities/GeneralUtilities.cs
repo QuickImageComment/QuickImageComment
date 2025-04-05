@@ -1489,7 +1489,7 @@ namespace QuickImageComment
                         }
                         if (!inList)
                         {
-                            MetaDataDefinitionItem theMetaDataDefinitionItem = new MetaDataDefinitionItem(key, key, MetaDataItem.Format.Original);
+                            MetaDataDefinitionItem theMetaDataDefinitionItem = new MetaDataDefinitionItem(key, key, MetaDataItem.Format.Interpreted);
                             MetaDataDefinitionsWork.Add(theMetaDataDefinitionItem);
                             MainMaskInterface.afterMetaDataDefinitionChange();
                         }
