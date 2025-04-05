@@ -287,6 +287,7 @@ namespace QuickImageCommentControls
             this.RowCount = MetaDataItems.GetKeyList().Count;
             int rowIndex = 0;
             bool singleEdit = MainMaskInterface.getListViewFilesSelectedCount() == 1;
+            bool isEditable;
 
             System.Collections.SortedList KeyList = new System.Collections.SortedList();
             foreach (string key in MetaDataItems.GetKeyList())
@@ -377,15 +378,24 @@ namespace QuickImageCommentControls
                 {
                     this.Rows[rowIndex].Cells[0].Value += " " + aMetaDataItem.getLanguage();
                 }
-                this.Rows[rowIndex].Cells[1].Value = aMetaDataItem.getValueForDisplay(MetaDataItem.Format.ForGenericList).Replace("\r\n", " | ");
+                if (Exiv2TagDefinitions.ByteUCS2Tags.Contains(aMetaDataItem.getKey()))
+                {
+                    // show as interpreted to allow direct editing
+                    this.Rows[rowIndex].Cells[1].Value = aMetaDataItem.getValueForDisplay(MetaDataItem.Format.Interpreted);
+                    isEditable = true;
+                }
+                else
+                {
+                    this.Rows[rowIndex].Cells[1].Value = aMetaDataItem.getValueForDisplay(MetaDataItem.Format.ForGenericList).Replace("\r\n", " | ");
+                    isEditable = aMetaDataItem.isEditableInDataGridView();
+                }
                 this.Rows[rowIndex].Cells[2].Value = aMetaDataItem.getTag();
                 this.Rows[rowIndex].Cells[3].Value = aMetaDataItem.getTypeName();
                 this.Rows[rowIndex].Cells[4].Value = aMetaDataItem.getCount();
                 this.Rows[rowIndex].Cells[5].Value = aMetaDataItem.getKey();
                 this.Rows[rowIndex].Cells[0].ToolTipText = "";
 
-                if (aMetaDataItem.isEditableInDataGridView() &&
-                    singleEdit)
+                if (isEditable && singleEdit)
                 {
                     // store original value in tag to allow restore
                     this.Rows[rowIndex].Cells[1].Tag = this.Rows[rowIndex].Cells[1].Value;
