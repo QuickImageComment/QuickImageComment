@@ -347,7 +347,8 @@ namespace QuickImageComment
             filterTextIcoFiles,
             _translationAcknowledgment,
             toolTipDeleteButtonPermanently,
-            toolTipDeleteButtonUnknown
+            toolTipDeleteButtonUnknown,
+            imageOrientation
         }
 
         // defined as variable

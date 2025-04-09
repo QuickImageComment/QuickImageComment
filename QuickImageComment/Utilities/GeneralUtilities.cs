@@ -412,37 +412,6 @@ namespace QuickImageComment
                 + LangCfg.getText(LangCfg.Others.fileLastModified) + " " + theFileInfo.LastWriteTime.ToString();
         }
 
-
-        // return rotation index from rotation string in text-file
-        // rotation index as defined in Exif-specification
-        public static ushort rotationIndexFromTxtFileString(string RotationString)
-        {
-            System.Globalization.NumberFormatInfo TxtNumberFormat = new System.Globalization.NumberFormatInfo();
-            TxtNumberFormat.NumberDecimalSeparator = ".";
-
-            double Rotation = double.Parse(RotationString.Trim(), TxtNumberFormat) + 45.0;
-            if (Rotation > 360)
-            {
-                return 1;
-            }
-            else if (Rotation > 270)
-            {
-                return 8;
-            }
-            else if (Rotation > 180)
-            {
-                return 3;
-            }
-            else if (Rotation > 90)
-            {
-                return 6;
-            }
-            else
-            {
-                return 1;
-            }
-        }
-
         // check for date properties
         public static bool isDateProperty(string keyPrim, string typePrim)
         {

@@ -1421,9 +1421,21 @@ namespace QuickImageComment
         // event handler triggered when value of changeable field is changed
         private void inputControlChangeableField_TextChanged(object sender, EventArgs e)
         {
-            theUserControlChangeableFields.inputControlChangeableField_handleTextChanged(sender, e);
-            ((Control)sender).BackColor = backColorInputValueChanged;
-            setControlsEnabledBasedOnDataChange();
+            if (theExtendedImage != null)
+            {
+                theUserControlChangeableFields.inputControlChangeableField_handleTextChanged(sender, e);
+                ((Control)sender).BackColor = backColorInputValueChanged;
+                setControlsEnabledBasedOnDataChange();
+                if (sender == theUserControlChangeableFields.getInputControlOrientation())
+                {
+                    string[] SubValues = ((Control)sender).Text.Split(' ');
+                    if (SubValues.Length > 0)
+                    {
+                        int orientation = int.Parse(SubValues[0]);
+                        rotateImageToNewOrientation(orientation);
+                    }
+                }
+            }
         }
 
         // event handler triggered when value of date time picker is changed
@@ -1784,7 +1796,7 @@ namespace QuickImageComment
         // copy image file and associated files to other folder
         private void toolStripMenuItemCopyTo_Click(object sender, EventArgs e)
         {
-            FormSelectFolder formSelectFolder = new FormSelectFolder(FolderName, 
+            FormSelectFolder formSelectFolder = new FormSelectFolder(FolderName,
                 ((ToolStripMenuItem)sender).Text);
             formSelectFolder.ShowDialog();
             string newFolderName = formSelectFolder.getSelectedFolder();
@@ -3556,11 +3568,44 @@ namespace QuickImageComment
         // rotate image
         private void toolStripMenuItemRotateLeft_Click(object sender, EventArgs e)
         {
-            rotateImage(System.Drawing.RotateFlipType.Rotate270FlipNone);
+            int orientation = theExtendedImage.getAppliedOrientation();
+            int newOrientationIndex = ExtendedImage.orientationRotateRight.IndexOf(orientation);
+            if (theUserControlChangeableFields.getInputControlOrientation() == null)
+            {
+                rotateImageToNewOrientation(newOrientationIndex);
+                setControlsEnabledBasedOnDataChange();
+            }
+            else
+            {
+                // change orientation value, which triggers rotation of image
+                theUserControlChangeableFields.getInputControlOrientation().SelectedIndex = newOrientationIndex;
+            }
         }
         private void toolStripMenuItemRotateRight_Click(object sender, EventArgs e)
         {
-            rotateImage(System.Drawing.RotateFlipType.Rotate90FlipNone);
+            int orientation = theExtendedImage.getAppliedOrientation();
+            int newOrientationIndex = (int)ExtendedImage.orientationRotateRight[orientation];
+            if (theUserControlChangeableFields.getInputControlOrientation() == null)
+            {
+                rotateImageToNewOrientation(newOrientationIndex);
+                setControlsEnabledBasedOnDataChange();
+            }
+            else
+            {
+                // change orientation value, which triggers rotation of image
+                theUserControlChangeableFields.getInputControlOrientation().SelectedIndex = newOrientationIndex;
+            }
+        }
+        private void rotateImageToNewOrientation(int orientation)
+        {
+            theExtendedImage.rotateToApplyOrientation(orientation);
+            if (pictureBox1.Image != null)
+            {
+                pictureBox1.Image = theExtendedImage.createAndGetAdjustedImage(toolStripMenuItemImageWithGrid.Checked);
+                pictureBox1.Refresh();
+            }
+            theUserControlFiles.listViewFiles.Refresh();
+            FormImageWindow.showImageInLastWindow(pictureBox1.Image);
         }
 
         // configuration rotate by RAW Decoder
@@ -4418,27 +4463,6 @@ namespace QuickImageComment
             }
         }
 
-        // rotate the image, big and preview
-        private void rotateImage(System.Drawing.RotateFlipType theRotateFlipType)
-        {
-            if (pictureBox1.Image != null)
-            {
-                pictureBox1.Image.RotateFlip(theRotateFlipType);
-                pictureBox1.Refresh();
-            }
-            lock (UserControlFiles.LockListViewFiles)
-            {
-                if (theUserControlFiles.displayedIndex() >= 0)
-                {
-                    // rotate the thumbnail image for list view
-                    ExtendedImage ExtendedImageForThumbnail = ImageManager.getExtendedImage(theUserControlFiles.displayedIndex());
-                    Image theImage = ExtendedImageForThumbnail.getThumbNailBitmap();
-                    theImage.RotateFlip(theRotateFlipType);
-                    theUserControlFiles.listViewFiles.Refresh();
-                }
-            }
-            FormImageWindow.rotateImageInLastWindow(theRotateFlipType);
-        }
 
         // set panel content according settings
         private void setSplitContainerPanelsContent()
@@ -4544,7 +4568,7 @@ namespace QuickImageComment
                             else
                             {
                                 bool changeIsPossible = theExtendedImage != null && theExtendedImage.changePossible();
-                                theUserControlMap = new UserControlMap(false, commonRecordingLocation(), changeIsPossible, 0, 
+                                theUserControlMap = new UserControlMap(false, commonRecordingLocation(), changeIsPossible, 0,
                                     ConfigDefinition.enumCfgUserInt.SplitterMap1DistanceFormQIC);
                             }
                             if (CustomizationInterface != null)
@@ -4976,7 +5000,7 @@ namespace QuickImageComment
                 pictureBox1.Image = I2;
 #else
                 // configuration for RAW decoders requiring rotation may have changed
-                theExtendedImage.rotateIfRequired();
+                //!! theExtendedImage.rotateIfRequired();
                 pictureBox1.Image = theExtendedImage.createAndGetAdjustedImage(toolStripMenuItemImageWithGrid.Checked);
                 // Force Garbage Collection as creating adjusted image may use a lot of memory
                 GC.Collect();
@@ -6041,6 +6065,16 @@ namespace QuickImageComment
             // add entries in hash table containing entries for changeable fields
             addAndSortChangeableFields(changedFieldsForSave);
 
+            // save rotation via menu Zoom/rotate or buttons if not yet done via changeable fields
+            if (!changedFieldsForSave.ContainsKey("Exif.Image.Orientation"))
+            {
+                Logger.log("check applied orientation");
+                if (anExtendedImage.getAppliedOrientation() != anExtendedImage.getInitialOrientation())
+                {
+                    changedFieldsForSave.Add("Exif.Image.Orientation", anExtendedImage.getAppliedOrientation().ToString());
+                }
+            }
+
             return changedFieldsForSave;
         }
 
@@ -6181,6 +6215,13 @@ namespace QuickImageComment
             foreach (string key in ChangedDataGridViewValues.Keys)
             {
                 MessageText = MessageText + "\n   " + key;
+            }
+            if (theExtendedImage != null)
+            {
+                if (theExtendedImage.getAppliedOrientation() != theExtendedImage.getInitialOrientation())
+                {
+                    MessageText = MessageText + "\n   " + LangCfg.getText(LangCfg.Others.imageOrientation);
+                }
             }
             return MessageText;
         }

@@ -42,6 +42,8 @@ namespace QuickImageComment
         // used to simulate double click events for ComboBox 
         private static DateTime lastPreviousClick;
 
+        private ComboBox inputControlOrientation = null;
+
         public class ExceptionInputcheckNotInValidValues : ApplicationException
         {
             public ExceptionInputcheckNotInValidValues()
@@ -72,6 +74,7 @@ namespace QuickImageComment
         {
             this.Visible = false;
             Label LabelTemplate = dynamicLabelChangeableField;
+            inputControlOrientation = null;
 
             // scale the templates; this method is called after rest of mask is already scaled
             FormCustomization.Interface customziationInterface = MainMaskInterface.getCustomizationInterface();
@@ -190,6 +193,10 @@ namespace QuickImageComment
                         aLabel.Name = "dynamicLabel" + anInputControl.Name;
                         aLabel.Text = aMetaDataDefinitionItem.Name + " (" + aMetaDataDefinitionItem.TypePrim + ")";
                         configureDynamicChangeableFieldControls(aMetaDataDefinitionItem, anInputControl, aLabel, true, kk, ref lastTop, ref maxLabelWidth);
+                        if (aMetaDataDefinitionItem.KeyPrim.Equals("Exif.Image.Orientation"))
+                        {
+                            inputControlOrientation = (ComboBox)anInputControl;
+                        }
                         kk++;
                     }
                     index++;
@@ -887,6 +894,16 @@ namespace QuickImageComment
                 }
                 return false;
             }
+        }
+        #endregion
+
+        //*****************************************************************
+        #region Others
+        //*****************************************************************
+        // check entry in changeable field
+        internal ComboBox getInputControlOrientation()
+        {
+            return inputControlOrientation;
         }
         #endregion
     }

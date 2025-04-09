@@ -138,12 +138,12 @@ namespace QuickImageComment
             }
         }
 
-        internal static void rotateImageInLastWindow(System.Drawing.RotateFlipType theRotateFlipType)
+        internal static void showImageInLastWindow(System.Drawing.Image image)
         {
             FormImageWindow lastFormImageWindow = getLastWindow();
-            if (lastFormImageWindow != null && lastFormImageWindow.pictureBox1.Image != null)
+            if (lastFormImageWindow != null)
             {
-                lastFormImageWindow.pictureBox1.Image.RotateFlip(theRotateFlipType);
+                lastFormImageWindow.pictureBox1.Image = image;
                 lastFormImageWindow.pictureBox1.Refresh();
             }
         }

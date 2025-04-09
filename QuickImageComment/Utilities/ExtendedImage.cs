@@ -189,6 +189,9 @@ namespace QuickImageComment
             { "left, bottom",  8 }
         };
 
+        // 
+        internal static readonly ArrayList orientationRotateRight = new ArrayList { 0, 6, 7, 8, 5, 2, 3, 4, 1 };
+
         // to identify "dummy" bitmaps created with text as real image cannot be loaded
         private const string createdWithText = "createdWithText";
 
@@ -219,8 +222,9 @@ namespace QuickImageComment
 
         // AppliedOrientation indicates how image is rotated 
         private int AppliedOrientation = 0;
-        private int ExifOrientation = 1;
-        private int TxtOrientation = 0;
+        // Required Orientation indicates which orientation is required based on meta data
+        private int RequiredOrientation = 0;
+        private int InitialOrientation = 1;
         private float TxtGamma = (float)1.0;
         private float TxtContrast = 0;
         private string OldArtist = "";
@@ -470,59 +474,59 @@ namespace QuickImageComment
             {
 #endif
 #if !DEBUG
-                try
+            try
 #endif
+            {
+                string iniPath = ConfigDefinition.getIniPath();
+                string comment = "";
+                string errorText = "";
+
+                // do not call exiv2 if image is known to cause fatal exceptions
+                if (!ConfigDefinition.getImagesCausingExiv2Exception().Contains(this.ImageFileName))
                 {
-                    string iniPath = ConfigDefinition.getIniPath();
-                    string comment = "";
-                    string errorText = "";
-
-                    // do not call exiv2 if image is known to cause fatal exceptions
-                    if (!ConfigDefinition.getImagesCausingExiv2Exception().Contains(this.ImageFileName))
+                    // lock because this method can be called in main thread or via updateCaches
+                    lock (LockReadExiv2)
                     {
-                        // lock because this method can be called in main thread or via updateCaches
-                        lock (LockReadExiv2)
+                        status = exiv2readImageByFileName(ImageFileName, iniPath, ref comment, ref IptcUTF8, ref errorText);
+                        if (!errorText.Equals("") && !ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.HideExiv2Error))
                         {
-                            status = exiv2readImageByFileName(ImageFileName, iniPath, ref comment, ref IptcUTF8, ref errorText);
-                            if (!errorText.Equals("") && !ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.HideExiv2Error))
+                            MetaDataWarningsRead.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error), errorText));
+                        }
+
+                        // read Exif, Iptc and XMP only, if exiv2readImageByFileName did not return with exception
+                        if (status != exiv2StatusException)
+                        {
+                            // get image comment
+                            addReplaceOtherMetaDataKnownType("Image.Comment", comment);
+
+                            if (neededKeys == null)
                             {
-                                MetaDataWarningsRead.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error), errorText));
+                                // read all Exif, IPTC and XMP data
+                                readAllExifIptcXmp();
                             }
-
-                            // read Exif, Iptc and XMP only, if exiv2readImageByFileName did not return with exception
-                            if (status != exiv2StatusException)
+                            else
                             {
-                                // get image comment
-                                addReplaceOtherMetaDataKnownType("Image.Comment", comment);
-
-                                if (neededKeys == null)
-                                {
-                                    // read all Exif, IPTC and XMP data
-                                    readAllExifIptcXmp();
-                                }
-                                else
-                                {
-                                    // read all Exif, IPTC and XMP data
-                                    readExifIptcXmpForNeededKeys(neededKeys);
-                                }
+                                // read all Exif, IPTC and XMP data
+                                readExifIptcXmpForNeededKeys(neededKeys);
                             }
                         }
                     }
                 }
+            }
 #if !DEBUG
-                catch (Exception ex)
-                {
-                    MetaDataWarnings.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error), ex.Message));
-                }
+            catch (Exception ex)
+            {
+                MetaDataWarnings.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error), ex.Message));
+            }
 #endif
-                ReadPerformance.measure("Meta data copied");
+            ReadPerformance.measure("Meta data copied");
 
-                XmpLangAltEntries.Sort();
-                readSpecialExifIptcInformation();
+            XmpLangAltEntries.Sort();
+            readSpecialExifIptcInformation();
 
 
-                // end of: 32-Bit version cannot read big videos; exiv2 returns exception, 
-                // so check here allowing language depending and better understandable error message
+            // end of: 32-Bit version cannot read big videos; exiv2 returns exception, 
+            // so check here allowing language depending and better understandable error message
 #if !PLATFORMTARGET_X64
             }
 #endif
@@ -1098,41 +1102,6 @@ namespace QuickImageComment
             return tempString;
         }
 
-        // get required orientation based on Txt, Exif and Codec
-        private int requiredOrientation()
-        {
-            RawWithNonStandardOrientation = false;
-            RotateAfterRawDecode = false;
-            int Orientation = 1;
-
-            if (codecInfo.Equals(""))
-            {
-                // not RAW
-                Orientation = TxtOrientation;
-                if (Orientation == 0)
-                {
-                    Orientation = ExifOrientation;
-                }
-            }
-            else
-            {
-                // RAW
-                if (ConfigDefinition.getRawDecoderNotRotatingArrayList().Contains(codecInfo))
-                {
-                    // RAW decoder does not rotate according Exif Orientation
-                    // TxtOrientation not supported for RAW 
-                    Orientation = ExifOrientation;
-                }
-                else
-                {
-                    // Orientation remains at 1, because RAW decoder rotates if needed
-                }
-                RawWithNonStandardOrientation = ExifOrientation != 1;
-                RotateAfterRawDecode = Orientation != 1;
-            }
-            return Orientation;
-        }
-
         // rotate an image according orientation setting
         private void rotateAccordingOrientation(int Orientation, System.Drawing.Image theImage)
         {
@@ -1493,11 +1462,18 @@ namespace QuickImageComment
                 // do not rotate images created with text
                 if (TempImage.Tag == null || (string)TempImage.Tag != createdWithText)
                 {
-                    AppliedOrientation = requiredOrientation();
-                    rotateAccordingOrientation(AppliedOrientation, ThumbNailBitmap);
-                    ReadImagePerformance.measure("thumbnail created/rotated");
-                    rotateAccordingOrientation(AppliedOrientation, TempImage);
-                    ReadImagePerformance.measure("temp image rotated");
+                    RequiredOrientation = InitialOrientation;
+                    if (codecInfo.Equals("") ||
+                        ConfigDefinition.getRawDecoderNotRotatingArrayList().Contains(codecInfo))
+                    {
+                        // is not RAW or RAW decoder did not rotate
+                        // Applied orientation is set to InitialOrientation as RAW decoder has applied it
+                        rotateAccordingOrientation(RequiredOrientation, ThumbNailBitmap);
+                        ReadImagePerformance.measure("thumbnail created/rotated");
+                        rotateAccordingOrientation(RequiredOrientation, TempImage);
+                        ReadImagePerformance.measure("temp image rotated");
+                    }
+                    AppliedOrientation = InitialOrientation;
                 }
                 ReadImagePerformance.measure("readImage finish");
                 return TempImage;
@@ -1697,7 +1673,7 @@ namespace QuickImageComment
                 // Exif entry might be invalid
                 try
                 {
-                    ExifOrientation = OrientationDictionary[theMetaDataItem.getValueString()];
+                    InitialOrientation = OrientationDictionary[theMetaDataItem.getValueString()];
                 }
                 catch
                 {
@@ -2178,10 +2154,6 @@ namespace QuickImageComment
                 string keyword = line.Substring(0, pos);
                 string value = line.Substring(line.IndexOf("=") + 1);
                 addReplaceOtherMetaDataUnknownType("Txt." + keyword, value);
-                if (keyword.Equals(ConfigDefinition.getTxtKeyWordRotation()))
-                {
-                    TxtOrientation = GeneralUtilities.rotationIndexFromTxtFileString(value);
-                }
                 if (keyword.Equals(ConfigDefinition.getTxtKeyWordContrast()) &&
                      ConfigDefinition.getTxtScaleContrast() > 0)
                 {
@@ -2402,13 +2374,13 @@ namespace QuickImageComment
             try
             {
 #endif
-            exceptionMessagePrefix = "BitmapDecoder: ";
-            // BitmapCacheOption.OnLoad is necessary to avoid exception when reading e.g.Samsung S21 ultra DNG files
-            BitmapDecoder bmpDec = BitmapDecoder.Create(theMemoryStream, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.OnLoad);
-            codecInfo = bmpDec.CodecInfo.FriendlyName + " " + bmpDec.CodecInfo.Version + " ";
-            BitmapSource theBitmapSource = bmpDec.Frames[0];
-            // get bitmap using encoder
-            bmf = BitmapFrame.Create(theBitmapSource, null, null, null);
+                exceptionMessagePrefix = "BitmapDecoder: ";
+                // BitmapCacheOption.OnLoad is necessary to avoid exception when reading e.g.Samsung S21 ultra DNG files
+                BitmapDecoder bmpDec = BitmapDecoder.Create(theMemoryStream, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.OnLoad);
+                codecInfo = bmpDec.CodecInfo.FriendlyName + " " + bmpDec.CodecInfo.Version + " ";
+                BitmapSource theBitmapSource = bmpDec.Frames[0];
+                // get bitmap using encoder
+                bmf = BitmapFrame.Create(theBitmapSource, null, null, null);
 #if LIBRAW
             }
 #pragma warning disable CS0168
@@ -2835,6 +2807,7 @@ namespace QuickImageComment
                     MainMaskInterface.setToolStripStatusLabelInfo("");
                 }
 
+                RequiredOrientation = InitialOrientation;
                 rotateIfRequired();
 
                 SavePerformance.log(ConfigDefinition.enumConfigFlags.PerformanceExtendedImage_save);
@@ -2851,15 +2824,21 @@ namespace QuickImageComment
         // rotate image after changing orientation or configuration for RAW decoder requires rotation
         internal void rotateIfRequired()
         {
-            int newRequiredOrientation = requiredOrientation();
-            if (newRequiredOrientation != AppliedOrientation)
+            if (RequiredOrientation != AppliedOrientation)
             {
                 undoRotation(AppliedOrientation, FullSizeImage);
                 undoRotation(AppliedOrientation, ThumbNailBitmap);
-                AppliedOrientation = newRequiredOrientation;
-                rotateAccordingOrientation(AppliedOrientation, FullSizeImage);
-                rotateAccordingOrientation(AppliedOrientation, ThumbNailBitmap);
+                rotateAccordingOrientation(RequiredOrientation, FullSizeImage);
+                rotateAccordingOrientation(RequiredOrientation, ThumbNailBitmap);
+                AppliedOrientation = RequiredOrientation;
             }
+        }
+
+        // apply new Orientation
+        internal void rotateToApplyOrientation(int newRequiredOrientation)
+        {
+            RequiredOrientation = newRequiredOrientation;
+            rotateIfRequired();
         }
 
         // replace all tag placeholders in loop to allow several levels of replacement
@@ -4128,6 +4107,15 @@ namespace QuickImageComment
         public ArrayList getPerformanceMeasurements()
         {
             return PerformanceMeasurements;
+        }
+
+        internal int getAppliedOrientation()
+        {
+            return AppliedOrientation;
+        }
+        internal int getInitialOrientation()
+        {
+            return InitialOrientation;
         }
 
         public override string ToString()

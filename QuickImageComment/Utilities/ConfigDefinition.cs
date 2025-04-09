@@ -2027,12 +2027,6 @@ namespace QuickImageComment
             return (string)ConfigItems["_TxtKeyWordComment"] ?? "";
         }
 
-        // setting for keyword to read rotation in Text-Files
-        public static string getTxtKeyWordRotation()
-        {
-            return (string)ConfigItems["_TxtKeyWordRotation"] ?? "";
-        }
-
         // setting for keyword to read Contrast in Text-Files
         public static string getTxtKeyWordContrast()
         {
