@@ -779,6 +779,7 @@
     <Content Include="Resources\Delete2.bmp" />
     <Content Include="Resources\Diagram.bmp" />
     <Content Include="Resources\Down.bmp" />
+    <None Include="Resources\Earth.bmp" />
     <Content Include="Resources\Edit page.bmp" />
     <Content Include="Resources\Edit text.bmp" />
     <Content Include="Resources\Equipment.bmp" />

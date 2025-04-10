@@ -86,6 +86,7 @@ namespace QuickImageCommentControls
         private System.Windows.Forms.ImageList imageListIcon;
         private SortedList<string, Image> thumbNails = new SortedList<string, Image>();
         private ArrayList filesNeedingRedraw = new ArrayList();
+        private Bitmap earthBitmap;
 
         public ArrayList selectedFilesOld;
 
@@ -137,6 +138,8 @@ namespace QuickImageCommentControls
         public void init()
         {
             InitializeComponent();
+            earthBitmap = (Bitmap)QuickImageComment.Properties.Resources.ResourceManager.GetObject("Earth");
+
 
             delayAfterMouseWheelThread = new Thread(delayAfterMouseWheel);
 
@@ -355,6 +358,10 @@ namespace QuickImageCommentControls
                     // draw image (only if not scrolling) and text
                     {
                         e.Graphics.DrawImage(theThumbNail, new Point(e.Bounds.X + XOffset + thickLine, e.Bounds.Y + thickLine));
+                        if (ExtendedImageForThumbnail.getRecordingLocation() != null)
+                        {
+                            e.Graphics.DrawImage(earthBitmap, new Point(e.Bounds.X +5, e.Bounds.Y + 5));
+                        }
                     }
                     e.Graphics.DrawString(theListViewItem.Text, this.Font, theBrush,
                                         new Rectangle(e.Bounds.X + thickLine, e.Bounds.Y + ThumbNailSize + 2 * thickLine + 1,
@@ -414,6 +421,10 @@ namespace QuickImageCommentControls
                     {
                         // draw image and text
                         e.Graphics.DrawImage(theThumbNail, new Point(e.Bounds.X + tileLine, e.Bounds.Y + tileLine));
+                        if (ExtendedImageForThumbnail.getRecordingLocation() != null)
+                        {
+                            e.Graphics.DrawImage(earthBitmap, new Point(e.Bounds.X, e.Bounds.Y));
+                        }
                     }
 
                     // determine maximum number of items fitting in range given by thumbnail size
