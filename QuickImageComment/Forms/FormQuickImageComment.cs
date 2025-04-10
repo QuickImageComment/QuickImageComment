@@ -5000,7 +5000,7 @@ namespace QuickImageComment
                 pictureBox1.Image = I2;
 #else
                 // configuration for RAW decoders requiring rotation may have changed
-                //!! theExtendedImage.rotateIfRequired();
+                theExtendedImage.rotateIfRawDecoderRotationChanged();
                 pictureBox1.Image = theExtendedImage.createAndGetAdjustedImage(toolStripMenuItemImageWithGrid.Checked);
                 // Force Garbage Collection as creating adjusted image may use a lot of memory
                 GC.Collect();
@@ -5119,7 +5119,7 @@ namespace QuickImageComment
                 MapInExternalBrowser.newImage(commonRecordingLocation());
 
                 // indicate if it is a RAW with non-standard orientation
-                toolStripMenuItemRotateAfterRawDecoder.Enabled = theExtendedImage.getRawWithNonStandardOrientation();
+                toolStripMenuItemRotateAfterRawDecoder.Enabled = theExtendedImage.isRawWithNonStandardOrientation();
                 // indicate if rotated after RAW decoding
                 toolStripMenuItemRotateAfterRawDecoder.Checked = theExtendedImage.getRotateAfterRawDecode();
             }
@@ -6068,7 +6068,6 @@ namespace QuickImageComment
             // save rotation via menu Zoom/rotate or buttons if not yet done via changeable fields
             if (!changedFieldsForSave.ContainsKey("Exif.Image.Orientation"))
             {
-                Logger.log("check applied orientation");
                 if (anExtendedImage.getAppliedOrientation() != anExtendedImage.getInitialOrientation())
                 {
                     changedFieldsForSave.Add("Exif.Image.Orientation", anExtendedImage.getAppliedOrientation().ToString());

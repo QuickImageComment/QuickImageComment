@@ -240,7 +240,6 @@ namespace QuickImageComment
         private int ImageDetailsPosX;
         private int ImageDetailsPosY;
         private System.Drawing.Point AutoScrollPosition;
-        private bool RawWithNonStandardOrientation = false;
         private bool RotateAfterRawDecode = false;
 
         // Array for complete content of text-File
@@ -1472,6 +1471,11 @@ namespace QuickImageComment
                         ReadImagePerformance.measure("thumbnail created/rotated");
                         rotateAccordingOrientation(RequiredOrientation, TempImage);
                         ReadImagePerformance.measure("temp image rotated");
+                        RotateAfterRawDecode = true;
+                    }
+                    else
+                    {
+                        RotateAfterRawDecode = false;
                     }
                     AppliedOrientation = InitialOrientation;
                 }
@@ -2527,10 +2531,13 @@ namespace QuickImageComment
             return RotateAfterRawDecode;
         }
 
-        // get flag if it is RAW with non-standard orientation
-        internal bool getRawWithNonStandardOrientation()
+        // return if it is RAW with non-standard orientation
+        internal bool isRawWithNonStandardOrientation()
         {
-            return RawWithNonStandardOrientation;
+            if (!codecInfo.Equals("") && RequiredOrientation != 1)
+                return true;
+            else 
+                return false;
         }
 
         // get RAW decoder and manufacturer
@@ -2831,6 +2838,34 @@ namespace QuickImageComment
                 rotateAccordingOrientation(RequiredOrientation, FullSizeImage);
                 rotateAccordingOrientation(RequiredOrientation, ThumbNailBitmap);
                 AppliedOrientation = RequiredOrientation;
+            }
+        }
+
+        // rotate after changing configuration for RAW decoder requires rotation
+        internal void rotateIfRawDecoderRotationChanged()
+        {
+            if (!codecInfo.Equals(""))
+            {
+                bool newRotateAfterRawDecode = ConfigDefinition.getRawDecoderNotRotatingArrayList().Contains(codecInfo);
+                if (RotateAfterRawDecode != newRotateAfterRawDecode)
+                {
+                    // undo rotations after reading image
+                    undoRotation(AppliedOrientation, FullSizeImage);
+                    undoRotation(AppliedOrientation, ThumbNailBitmap);
+                    if (newRotateAfterRawDecode)
+                    {
+                        rotateAccordingOrientation(InitialOrientation, FullSizeImage);
+                        rotateAccordingOrientation(InitialOrientation, ThumbNailBitmap);
+                    }
+                    else
+                    {
+                        undoRotation(InitialOrientation, FullSizeImage);
+                        undoRotation(InitialOrientation, ThumbNailBitmap);
+                    }
+                    rotateAccordingOrientation(RequiredOrientation, FullSizeImage);
+                    rotateAccordingOrientation(RequiredOrientation, ThumbNailBitmap);
+                    RotateAfterRawDecode = newRotateAfterRawDecode;
+                }
             }
         }
 
