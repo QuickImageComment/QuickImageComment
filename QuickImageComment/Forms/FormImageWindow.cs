@@ -273,7 +273,7 @@ namespace QuickImageComment
                     {
                         newImage(ImageManager.getExtendedImage(count - 1));
                     }
-                    else if (e.KeyCode == Keys.PageDown)
+                    else if (e.KeyCode == Keys.PageUp)
                     {
                         if (index > 0)
                         {
@@ -282,7 +282,7 @@ namespace QuickImageComment
                             newImage(ImageManager.getExtendedImage(index));
                         }
                     }
-                    else if (e.KeyCode == Keys.PageUp)
+                    else if (e.KeyCode == Keys.PageDown)
                     {
                         if (index < count - 1)
                         {
