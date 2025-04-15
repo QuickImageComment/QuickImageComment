@@ -144,7 +144,8 @@ namespace QuickImageComment
             SaveFindDataTable,
             UseWebView2,
             HintUsingNotPredefKeyWord,
-            ButtonDeletesPermanently
+            ButtonDeletesPermanently,
+            slideShowHideSettingsAtStart
         };
 
         public enum enumCfgUserInt
@@ -213,7 +214,10 @@ namespace QuickImageComment
             pageUpDownScrollNumber,
             MapCircleOpacity,
             MapCircleFillOpacity,
-            MapCircleSegmentRadius
+            MapCircleSegmentRadius,
+            slideShowBackColor,
+            slideShowSubtitleForeColor,
+            slideShowDelay
         };
 
         public enum enumCfgUserString
@@ -232,7 +236,8 @@ namespace QuickImageComment
             AppCenterUsage,
             LastGeoDataItemForFind,
             LastImageCausingExiv2Exception,
-            MapCircleColor
+            MapCircleColor,
+            SlideshowSubtitleFont,
         };
 
         public enum enumMetaDataGroup
@@ -253,7 +258,8 @@ namespace QuickImageComment
             MetaDataDefForRemoveMetaDataExceptions,
             MetaDataDefForRemoveMetaDataList,
             MetaDataDefForMultiEditTable,
-            MetaDataDefForCompareExceptions
+            MetaDataDefForCompareExceptions,
+            MetaDataDefForSlideshow
         };
 
         private static string IniPath;
@@ -528,6 +534,7 @@ namespace QuickImageComment
             ConfigItems.Add(enumCfgUserBool.UseWebView2.ToString(), false);
             ConfigItems.Add(enumCfgUserBool.HintUsingNotPredefKeyWord.ToString(), false);
             ConfigItems.Add(enumCfgUserBool.ButtonDeletesPermanently.ToString(), false);
+            ConfigItems.Add(enumCfgUserBool.slideShowHideSettingsAtStart.ToString(), false);
 
             ConfigItems.Add(enumCfgUserString.LastCheckForNewVersion.ToString(), "not configured");
             ConfigItems.Add(enumCfgUserString.NextCheckForNewVersion.ToString(), "not configured");
@@ -540,6 +547,7 @@ namespace QuickImageComment
             ConfigItems.Add(enumCfgUserString.LastGeoDataItemForFind.ToString(), "Greenwich|51.481|0|51.481N 0E|||||");
             ConfigItems.Add(enumCfgUserString.LastImageCausingExiv2Exception.ToString(), "");
             ConfigItems.Add(enumCfgUserString.MapCircleColor.ToString(), "3388ff");
+            ConfigItems.Add(enumCfgUserString.SlideshowSubtitleFont.ToString(), "");
 
             ConfigItems.Add(enumCfgUserInt.CheckForNewVersionPeriodInDays.ToString(), 30);
             ConfigItems.Add(enumCfgUserInt.ImageDetailsFrameColor.ToString(), System.Drawing.Color.Red.ToArgb());
@@ -583,6 +591,9 @@ namespace QuickImageComment
             ConfigItems.Add(enumCfgUserInt.MapCircleOpacity.ToString(), 100);
             ConfigItems.Add(enumCfgUserInt.MapCircleFillOpacity.ToString(), 20);
             ConfigItems.Add(enumCfgUserInt.MapCircleSegmentRadius.ToString(), 60);
+            ConfigItems.Add(enumCfgUserInt.slideShowBackColor.ToString(), Color.Black.ToArgb());
+            ConfigItems.Add(enumCfgUserInt.slideShowSubtitleForeColor.ToString(), Color.White.ToArgb());
+            ConfigItems.Add(enumCfgUserInt.slideShowDelay.ToString(), 5);
 
             // the following are not contained in standard general configuration file and are optional
             // so they are not defined via enum
@@ -867,12 +878,20 @@ namespace QuickImageComment
                 translateNamesOfMetaDataDefinitionItem(MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForImageWindowVideo]);
             }
 
-            // if no entries for MetaDataDefinitionsImageWindowVideo found, define initial set
+            // if no entries for MetaDataDefinitionsImageWindowTitle found, define initial set
             if (MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForImageWindowTitle].Count == 0)
             {
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForImageWindowTitle].Add(new MetaDataDefinitionItem("Dateiname", "File.Name"));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForImageWindowTitle].Add(new MetaDataDefinitionItem("Kommentar", " ", "Image.CommentAccordingSettings"));
                 translateNamesOfMetaDataDefinitionItem(MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForImageWindowTitle]);
+            }
+
+            // if no entries for MetaDataDefinitionsForSlideshow found, define initial set
+            if (MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForSlideshow].Count == 0)
+            {
+                MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForSlideshow].Add(new MetaDataDefinitionItem("Dateiname", "File.Name"));
+                MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForSlideshow].Add(new MetaDataDefinitionItem("Kommentar", " ", "Image.CommentAccordingSettings"));
+                translateNamesOfMetaDataDefinitionItem(MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForSlideshow]);
             }
 
             // if no entries for MetaDataDefinitionsMultiEditTable found, define initial set

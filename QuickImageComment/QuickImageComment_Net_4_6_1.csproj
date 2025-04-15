@@ -150,11 +150,23 @@
     <Compile Include="Forms\FormError.Designer.cs">
       <DependentUpon>FormError.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FormSlideshowSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormSlideshowSettings.designer.cs">
+      <DependentUpon>FormSlideshowSettings.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FormFindQuery.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\FormFindQuery.designer.cs">
       <DependentUpon>FormFindQuery.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormSlideshow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormSlideshow.Designer.cs">
+      <DependentUpon>FormSlideshow.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\FormInputBox.cs">
       <SubType>Form</SubType>
@@ -572,6 +584,9 @@
       <DependentUpon>FormExportMetaData.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormSlideshowSettings.resx">
+      <DependentUpon>FormSlideshowSettings.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormFindQuery.resx">
       <DependentUpon>FormFindQuery.cs</DependentUpon>
     </EmbeddedResource>
@@ -583,6 +598,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormImageGrid.resx">
       <DependentUpon>FormImageGrid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormSlideshow.resx">
+      <DependentUpon>FormSlideshow.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormImageWindow.resx">
       <DependentUpon>FormImageWindow.cs</DependentUpon>

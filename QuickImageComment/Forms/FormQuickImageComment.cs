@@ -3565,6 +3565,12 @@ namespace QuickImageComment
             theFormImageGrid.ShowDialog();
         }
 
+        // show slide-show
+        private void toolStripMenuItemSlideshow_Click(object sender, EventArgs e)
+        {
+            new FormSlideshow(theExtendedImage);
+        }
+
         // rotate image
         private void toolStripMenuItemRotateLeft_Click(object sender, EventArgs e)
         {

@@ -161,6 +161,8 @@ namespace QuickImageComment
             this.toolStripMenuItemImageWithGrid = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemDefineImageGrids = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparatorViewConfigurations = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripMenuItemSlideshow = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator19 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItemZoomRotate = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemImageFit = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemImage4 = new System.Windows.Forms.ToolStripMenuItem();
@@ -1355,7 +1357,9 @@ namespace QuickImageComment
             this.toolStripMenuItemPanelPictureOnly,
             this.toolStripMenuItemImageWithGrid,
             this.toolStripMenuItemDefineImageGrids,
-            this.toolStripSeparatorViewConfigurations});
+            this.toolStripSeparatorViewConfigurations,
+            this.toolStripMenuItemSlideshow,
+            this.toolStripSeparator19});
             this.toolStripMenuItemView.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripMenuItemView.Name = "toolStripMenuItemView";
             this.toolStripMenuItemView.Size = new System.Drawing.Size(54, 20);
@@ -1505,6 +1509,18 @@ namespace QuickImageComment
             // 
             this.toolStripSeparatorViewConfigurations.Name = "toolStripSeparatorViewConfigurations";
             this.toolStripSeparatorViewConfigurations.Size = new System.Drawing.Size(216, 6);
+            // 
+            // toolStripMenuItemSlideshow
+            // 
+            this.toolStripMenuItemSlideshow.Name = "toolStripMenuItemSlideshow";
+            this.toolStripMenuItemSlideshow.Size = new System.Drawing.Size(219, 22);
+            this.toolStripMenuItemSlideshow.Text = "Slideshow";
+            this.toolStripMenuItemSlideshow.Click += new System.EventHandler(this.toolStripMenuItemSlideshow_Click);
+            // 
+            // toolStripSeparator19
+            // 
+            this.toolStripSeparator19.Name = "toolStripSeparator19";
+            this.toolStripSeparator19.Size = new System.Drawing.Size(216, 6);
             // 
             // toolStripMenuItemZoomRotate
             // 
@@ -2735,5 +2751,7 @@ namespace QuickImageComment
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemMoveTo;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator18;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemPermanentDelete;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator19;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemSlideshow;
     }
 }
