@@ -253,7 +253,6 @@ namespace QuickImageComment
                 formSlideshowSettings.ShowDialog();
                 if (formSlideshowSettings.settingsChanged)
                 {
-                    Logger.log("settingsChanged" , 1);
                     getConfiguration();
                     setSubtitle();
                 }
