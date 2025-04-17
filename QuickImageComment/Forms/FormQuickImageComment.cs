@@ -3151,8 +3151,15 @@ namespace QuickImageComment
         // change file view to details
         private void toolStripMenuItemDetails_Click(object sender, System.EventArgs e)
         {
-            theUserControlFiles.listViewFilesSetView(View.Details);
+            theUserControlFiles.listViewFilesSetViewDetails(ListViewFiles.enumViewDetailSubtype.Standard);
             ConfigDefinition.setListViewFilesView(theUserControlFiles.listViewFiles.View.ToString());
+        }
+
+        // change file view to details
+        private void toolStripMenuItemComment_Click(object sender, System.EventArgs e)
+        {
+            theUserControlFiles.listViewFilesSetViewDetails(ListViewFiles.enumViewDetailSubtype.Comment);
+            ConfigDefinition.setListViewFilesView(ListViewFiles.enumViewDetailSubtype.Comment.ToString());
         }
 
         // change file view to list
@@ -6853,6 +6860,7 @@ namespace QuickImageComment
                 // exclude FormSelectFolder: not interisting for screen shot 
                 new FormSelectLanguage(ConfigDefinition.getConfigPath());
                 new FormSettings();
+                new FormSlideshowSettings(new FormSlideshow(theExtendedImage));
                 // exclude FormSelectUserConfigStorage: not interisting for screen shot 
                 // FormTagValueInput needs main mask to be visible, screen shot taken above
                 new FormUserButtons(this.MenuStrip1);
@@ -6952,6 +6960,8 @@ namespace QuickImageComment
             LangCfg.getListOfControlsWithText(new FormSelectFolder("C:\\"), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormSelectLanguage(ConfigDefinition.getConfigPath()), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormSettings(), ControlTextList);
+            LangCfg.getListOfControlsWithText(new FormSlideshow(theExtendedImage), ControlTextList);
+            LangCfg.getListOfControlsWithText(new FormSlideshowSettings(new FormSlideshow(theExtendedImage)), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormTagValueInput("", textBoxUserComment, FormTagValueInput.type.configurable), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormUserButtons(this.MenuStrip1), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormView(SplitContainerPanelControls, DefaultSplitContainerPanelContents,
@@ -7018,6 +7028,8 @@ namespace QuickImageComment
             new FormSelectFolder("C:\\");
             new FormSelectLanguage(ConfigDefinition.getConfigPath());
             new FormSettings();
+            new FormSlideshow(theExtendedImage);
+            new FormSlideshowSettings(new FormSlideshow(theExtendedImage));
             new FormTagValueInput("", textBoxUserComment, FormTagValueInput.type.configurable);
             new FormUserButtons(this.MenuStrip1);
             new FormView(SplitContainerPanelControls, DefaultSplitContainerPanelContents,

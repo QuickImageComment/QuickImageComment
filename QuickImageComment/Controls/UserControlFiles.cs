@@ -20,6 +20,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
+using QuickImageCommentControls;
 
 namespace QuickImageComment
 {
@@ -61,7 +62,7 @@ namespace QuickImageComment
             contextMenuStripMenuItemSortAsc.Checked = listViewFiles.sortAscending;
             theFormQuickImageComment.toolStripMenuItemSortSortAsc.Checked = listViewFiles.sortAscending;
 
-            // adjust width of columns
+            // initialise width of columns
             // attention: in listViewFiles it works only in view "Details"
             this.listViewFiles.View = View.Details;
             // attention: adjustment of columns does not work after this.show
@@ -69,6 +70,7 @@ namespace QuickImageComment
             this.listViewFiles.Columns[1].Width = ConfigDefinition.getListViewFilesColumnWidth1();
             this.listViewFiles.Columns[2].Width = ConfigDefinition.getListViewFilesColumnWidth2();
             this.listViewFiles.Columns[3].Width = ConfigDefinition.getListViewFilesColumnWidth3();
+            this.listViewFiles.Columns[4].Width = ConfigDefinition.getListViewFilesColumnWidth4();
         }
 
         //*****************************************************************
@@ -87,8 +89,14 @@ namespace QuickImageComment
         // change file view to details
         private void contextMenuStripMenuItemDetails_Click(object sender, EventArgs e)
         {
-            listViewFilesSetView(View.Details);
+            listViewFilesSetViewDetails(ListViewFiles.enumViewDetailSubtype.Standard);
             ConfigDefinition.setListViewFilesView(listViewFiles.View.ToString());
+        }
+
+        private void contextMenuStripMenuItemComment_Click(object sender, EventArgs e)
+        {
+            listViewFilesSetViewDetails(ListViewFiles.enumViewDetailSubtype.Comment);
+            ConfigDefinition.setListViewFilesView(ListViewFiles.enumViewDetailSubtype.Comment.ToString());
         }
 
         // change file view to large icons
@@ -964,7 +972,11 @@ namespace QuickImageComment
         {
             if (ConfigDefinition.getListViewFilesView().Equals("Details"))
             {
-                listViewFilesSetView(View.Details);
+                listViewFilesSetViewDetails(ListViewFiles.enumViewDetailSubtype.Standard);
+            }
+            else if (ConfigDefinition.getListViewFilesView().Equals("Comment"))
+            {
+                listViewFilesSetViewDetails(ListViewFiles.enumViewDetailSubtype.Comment);
             }
             else if (ConfigDefinition.getListViewFilesView().Equals("LargeIcon"))
             {
@@ -980,10 +992,40 @@ namespace QuickImageComment
             }
         }
 
+        // change view to Detail
+        internal void listViewFilesSetViewDetails(ListViewFiles.enumViewDetailSubtype detailSubtype)
+        {
+            listViewFiles.viewDetailSubtype = detailSubtype;
+            listViewFilesSetView(View.Details);
+            this.listViewFiles.Columns[0].Width = ConfigDefinition.getListViewFilesColumnWidth0();
+            this.listViewFiles.Columns[1].Width = ConfigDefinition.getListViewFilesColumnWidth1();
+            this.listViewFiles.Columns[2].Width = ConfigDefinition.getListViewFilesColumnWidth2();
+            this.listViewFiles.Columns[3].Width = ConfigDefinition.getListViewFilesColumnWidth3();
+            this.listViewFiles.Columns[4].Width = ConfigDefinition.getListViewFilesColumnWidth4();
+
+            switch (detailSubtype)
+            {
+                case ListViewFiles.enumViewDetailSubtype.Standard:
+                    listViewFiles.Columns[ListViewFiles.columnComment].Width = 0;
+                    break;
+                case ListViewFiles.enumViewDetailSubtype.Comment:
+                    for (int ii = 1; ii < ListViewFiles.columnComment; ii++)
+                    {
+                        listViewFiles.Columns[ii].Width = 0;
+                    }
+                    break;
+                default:
+                    GeneralUtilities.debugMessage("View Detail sub type " + detailSubtype.ToString() + " not handled!");
+                    break;
+            }
+        }
+
         // change view
         internal void listViewFilesSetView(View newView)
         {
             listViewFiles.BeginUpdate();
+            // if view is Detail, save Comment widths in configuration
+            saveListViewFilesColumnWidthIfDetailView();
             listViewFiles.View = newView;
             // With Views "LargeIcon" and "Tile" enable own drawing
             if (listViewFiles.View == View.LargeIcon || listViewFiles.View == View.Tile)
@@ -1003,15 +1045,21 @@ namespace QuickImageComment
                 listViewFiles.AutoResizeColumns(ColumnHeaderAutoResizeStyle.None);
             }
 
-            theFormQuickImageComment.toolStripMenuItemDetails.Checked = listViewFiles.View.Equals(View.Details);
+            theFormQuickImageComment.toolStripMenuItemDetails.Checked = listViewFiles.View.Equals(View.Details) &&
+                listViewFiles.viewDetailSubtype == ListViewFiles.enumViewDetailSubtype.Standard;
             theFormQuickImageComment.toolStripMenuItemLargeIcons.Checked = listViewFiles.View.Equals(View.LargeIcon);
             theFormQuickImageComment.toolStripMenuItemList.Checked = listViewFiles.View.Equals(View.List);
             theFormQuickImageComment.toolStripMenuItemTile.Checked = listViewFiles.View.Equals(View.Tile);
+            theFormQuickImageComment.toolStripMenuItemComment.Checked = listViewFiles.View.Equals(View.Details) &&
+                listViewFiles.viewDetailSubtype == ListViewFiles.enumViewDetailSubtype.Comment;
 
-            contextMenuStripMenuItemDetails.Checked = listViewFiles.View.Equals(View.Details);
+            contextMenuStripMenuItemDetails.Checked = listViewFiles.View.Equals(View.Details) &&
+                listViewFiles.viewDetailSubtype == ListViewFiles.enumViewDetailSubtype.Standard;
             contextMenuStripMenuItemLargeIcons.Checked = listViewFiles.View.Equals(View.LargeIcon);
             contextMenuStripMenuItemList.Checked = listViewFiles.View.Equals(View.List);
             contextMenuStripMenuItemTile.Checked = listViewFiles.View.Equals(View.Tile);
+            contextMenuStripMenuItemComment.Checked = listViewFiles.View.Equals(View.Details) && 
+                listViewFiles.viewDetailSubtype == ListViewFiles.enumViewDetailSubtype.Comment;
             listViewFiles.EndUpdate();
             if (displayedIndex() >= 0)
             {
@@ -1024,13 +1072,21 @@ namespace QuickImageComment
         // save configuration
         internal void saveConfigDefinitions()
         {
-            // Set view in listViewFiles to details and store width of columns
-            listViewFiles.View = View.Details;
+            saveListViewFilesColumnWidthIfDetailView();
+        }
 
-            ConfigDefinition.setListViewFilesColumnWidth0(this.listViewFiles.Columns[0].Width);
-            ConfigDefinition.setListViewFilesColumnWidth1(this.listViewFiles.Columns[1].Width);
-            ConfigDefinition.setListViewFilesColumnWidth2(this.listViewFiles.Columns[2].Width);
-            ConfigDefinition.setListViewFilesColumnWidth3(this.listViewFiles.Columns[3].Width);
+        // save the Comment width of details view - if details view active
+        internal void saveListViewFilesColumnWidthIfDetailView()
+        {
+            if (listViewFiles.View == View.Details)
+            {
+                // some columns may be hidden due to details view selected and have width 0, do not store them
+                if (this.listViewFiles.Columns[0].Width > 0) ConfigDefinition.setListViewFilesColumnWidth0(this.listViewFiles.Columns[0].Width);
+                if (this.listViewFiles.Columns[1].Width > 0) ConfigDefinition.setListViewFilesColumnWidth1(this.listViewFiles.Columns[1].Width);
+                if (this.listViewFiles.Columns[2].Width > 0) ConfigDefinition.setListViewFilesColumnWidth2(this.listViewFiles.Columns[2].Width);
+                if (this.listViewFiles.Columns[3].Width > 0) ConfigDefinition.setListViewFilesColumnWidth3(this.listViewFiles.Columns[3].Width);
+                if (this.listViewFiles.Columns[4].Width > 0) ConfigDefinition.setListViewFilesColumnWidth4(this.listViewFiles.Columns[4].Width);
+            }
         }
     }
 }

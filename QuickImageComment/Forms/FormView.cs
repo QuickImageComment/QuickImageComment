@@ -18,6 +18,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using QuickImageCommentControls;
 
 namespace QuickImageComment
 {
@@ -469,6 +470,10 @@ namespace QuickImageComment
                 else if (radioButtonDetails.Checked)
                 {
                     ConfigDefinition.setListViewFilesView(View.Details.ToString());
+                }
+                else if (radioButtonComment.Checked)
+                {
+                    ConfigDefinition.setListViewFilesView(ListViewFiles.enumViewDetailSubtype.Comment.ToString());
                 }
 
                 // data grid view - Exif

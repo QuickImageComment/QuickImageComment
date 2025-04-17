@@ -35,11 +35,13 @@ namespace QuickImageComment
             this.columnHeaderSize = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderChanged = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderCreated = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderComment = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.contextMenuStripListViewFiles = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.contextMenuStripMenuItemLargeIcons = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripMenuItemTile = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripMenuItemList = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripMenuItemDetails = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuStripMenuItemComment = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.contextMenuStripMenuItemSortAsc = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripMenuItemSortName = new System.Windows.Forms.ToolStripMenuItem();
@@ -63,7 +65,8 @@ namespace QuickImageComment
             this.columnHeaderName,
             this.columnHeaderSize,
             this.columnHeaderChanged,
-            this.columnHeaderCreated});
+            this.columnHeaderCreated,
+            this.columnHeaderComment});
             this.listViewFiles.ContextMenuStrip = this.contextMenuStripListViewFiles;
             this.listViewFiles.FullRowSelect = true;
             this.listViewFiles.HideSelection = false;
@@ -101,6 +104,10 @@ namespace QuickImageComment
             this.columnHeaderCreated.Name = "columnHeaderCreated";
             this.columnHeaderCreated.Text = "Erstellt am";
             // 
+            // columnHeaderComment
+            // 
+            this.columnHeaderComment.Text = "Kommentar";
+            // 
             // contextMenuStripListViewFiles
             // 
             this.contextMenuStripListViewFiles.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -108,6 +115,7 @@ namespace QuickImageComment
             this.contextMenuStripMenuItemTile,
             this.contextMenuStripMenuItemList,
             this.contextMenuStripMenuItemDetails,
+            this.contextMenuStripMenuItemComment,
             this.toolStripSeparator1,
             this.contextMenuStripMenuItemSortAsc,
             this.contextMenuStripMenuItemSortName,
@@ -119,7 +127,7 @@ namespace QuickImageComment
             this.contextMenuStripListViewFiles.Name = "contextMenuStripListViewFiles";
             this.contextMenuStripListViewFiles.ShowCheckMargin = true;
             this.contextMenuStripListViewFiles.ShowImageMargin = false;
-            this.contextMenuStripListViewFiles.Size = new System.Drawing.Size(203, 258);
+            this.contextMenuStripListViewFiles.Size = new System.Drawing.Size(203, 280);
             // 
             // contextMenuStripMenuItemLargeIcons
             // 
@@ -148,6 +156,13 @@ namespace QuickImageComment
             this.contextMenuStripMenuItemDetails.Size = new System.Drawing.Size(202, 22);
             this.contextMenuStripMenuItemDetails.Text = "Details";
             this.contextMenuStripMenuItemDetails.Click += new System.EventHandler(this.contextMenuStripMenuItemDetails_Click);
+            // 
+            // contextMenuStripMenuItemComment
+            // 
+            this.contextMenuStripMenuItemComment.Name = "contextMenuStripMenuItemComment";
+            this.contextMenuStripMenuItemComment.Size = new System.Drawing.Size(202, 22);
+            this.contextMenuStripMenuItemComment.Text = "Kommentar";
+            this.contextMenuStripMenuItemComment.Click += new System.EventHandler(this.contextMenuStripMenuItemComment_Click);
             // 
             // toolStripSeparator1
             // 
@@ -271,5 +286,7 @@ namespace QuickImageComment
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem contextMenuStripMenuItemSortAsc;
         private System.Windows.Forms.ToolStripMenuItem contextMenuStripMenuItemSortSize;
+        private System.Windows.Forms.ColumnHeader columnHeaderComment;
+        private System.Windows.Forms.ToolStripMenuItem contextMenuStripMenuItemComment;
     }
 }

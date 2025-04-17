@@ -107,6 +107,7 @@
             this.buttonSaveAs = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.buttonMap = new System.Windows.Forms.Button();
+            this.radioButtonComment = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -390,13 +391,14 @@
             // 
             // groupBoxFiles
             // 
+            this.groupBoxFiles.Controls.Add(this.radioButtonComment);
             this.groupBoxFiles.Controls.Add(this.radioButtonTile);
             this.groupBoxFiles.Controls.Add(this.radioButtonDetails);
             this.groupBoxFiles.Controls.Add(this.radioButtonList);
             this.groupBoxFiles.Controls.Add(this.radioButtonLargeIcons);
             this.groupBoxFiles.Location = new System.Drawing.Point(166, 12);
             this.groupBoxFiles.Name = "groupBoxFiles";
-            this.groupBoxFiles.Size = new System.Drawing.Size(157, 113);
+            this.groupBoxFiles.Size = new System.Drawing.Size(157, 142);
             this.groupBoxFiles.TabIndex = 1;
             this.groupBoxFiles.TabStop = false;
             this.groupBoxFiles.Text = "Datei-Ansicht";
@@ -1070,6 +1072,18 @@
             this.buttonMap.UseVisualStyleBackColor = true;
             this.buttonMap.Click += new System.EventHandler(this.buttonMap_Click);
             // 
+            // radioButtonComment
+            // 
+            this.radioButtonComment.AutoSize = true;
+            this.radioButtonComment.Location = new System.Drawing.Point(6, 107);
+            this.radioButtonComment.Name = "radioButtonComment";
+            this.radioButtonComment.Size = new System.Drawing.Size(79, 17);
+            this.radioButtonComment.TabIndex = 4;
+            this.radioButtonComment.TabStop = true;
+            this.radioButtonComment.Text = "Kommentar";
+            this.radioButtonComment.UseVisualStyleBackColor = true;
+            this.radioButtonComment.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
+            // 
             // FormView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1230,5 +1244,6 @@
         private System.Windows.Forms.Button buttonSaveAs;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button buttonMap;
+        private System.Windows.Forms.RadioButton radioButtonComment;
     }
 }

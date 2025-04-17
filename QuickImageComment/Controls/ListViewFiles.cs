@@ -31,6 +31,16 @@ namespace QuickImageCommentControls
         const int thickLine = 3;
         const int tileLine = 2;
 
+        public const int columnModified = 2;
+        public const int columnComment = 4;
+
+        public enum enumViewDetailSubtype
+        {
+            Null, Standard, Comment
+        };
+
+        internal enumViewDetailSubtype viewDetailSubtype;
+
         // definitions for setSortIcon
         // based on: https://www.codeproject.com/tips/734463/sort-listview-columns-and-set-sort-arrow-icon-on-c
         // licensed under The Code Project Open License (CPOL)
@@ -261,7 +271,7 @@ namespace QuickImageCommentControls
         public void adjustTileViewWidth()
         {
             // it happened, that this method was called, when Width was zero
-            if (this.View == View.Tile && this.Width > 0) 
+            if (this.View == View.Tile && this.Width > 0)
             {
                 // reason for the need to substract 13 pixels unclear, determined by trying
                 // 13 is required in scaled remote desktop, else 11 would be enough
@@ -360,7 +370,7 @@ namespace QuickImageCommentControls
                         e.Graphics.DrawImage(theThumbNail, new Point(e.Bounds.X + XOffset + thickLine, e.Bounds.Y + thickLine));
                         if (ExtendedImageForThumbnail.getRecordingLocation() != null)
                         {
-                            e.Graphics.DrawImage(earthBitmap, new Point(e.Bounds.X +5, e.Bounds.Y + 5));
+                            e.Graphics.DrawImage(earthBitmap, new Point(e.Bounds.X + 5, e.Bounds.Y + 5));
                         }
                     }
                     e.Graphics.DrawString(theListViewItem.Text, this.Font, theBrush,
@@ -442,21 +452,30 @@ namespace QuickImageCommentControls
         // redraw fresh thumbnails
         internal void redrawItemWithThumbnail(string fullFileName)
         {
-            if (!FormQuickImageComment.closing && (View == View.Tile || View == View.LargeIcon) && filesNeedingRedraw.Contains(fullFileName))
+            int ii = getIndexOf(fullFileName);
+            if (ii >= 0)
             {
-                filesNeedingRedraw.Remove(fullFileName);
-                // no lock: can cause freeze when there are many updates outside QuickImageComment
-                // very low risk here to get wrong information here due to parallel updates
-                // and it is about updating thumbnails only
-                // lock (UserControlFiles.LockListViewFiles)
+                if (!FormQuickImageComment.closing && (View == View.Tile || View == View.LargeIcon) && filesNeedingRedraw.Contains(fullFileName))
                 {
-                    int ii = getIndexOf(fullFileName);
-                    if (ii >= 0)
+                    filesNeedingRedraw.Remove(fullFileName);
+                    // no lock: can cause freeze when there are many updates outside QuickImageComment
+                    // very low risk here to get wrong information here due to parallel updates
+                    // and it is about updating thumbnails only
+                    // lock (UserControlFiles.LockListViewFiles)
                     {
                         // clear thumbnails to force redraw
                         clearThumbnails();
                         Refresh();
                     }
+                }
+                else if (!FormQuickImageComment.closing && (View == View.Details))
+                {
+                    ExtendedImage extendedImage = ImageManager.getExtendedImageFromCache(ii);
+                    Items[ii].SubItems[columnModified].Text = extendedImage.getMetaDataValueByKey("File.Modified", MetaDataItem.Format.Original);
+                    Items[ii].SubItems[columnComment].Text = extendedImage.getMetaDataValueByKey("Image.CommentAccordingSettings", MetaDataItem.Format.Interpreted);
+                    this.Invalidate();
+                    Refresh();
+                    Update();
                 }
             }
         }
