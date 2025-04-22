@@ -20,12 +20,14 @@
 
 using CSJ2K;
 using CSJ2K.Util;
+using GongSolutions.Shell.Interop;
 using System;
 using System.Collections;
 using System.Drawing;
 using System.IO;
 using System.Runtime.InteropServices; // for DllImport
 using System.Text;
+using System.Windows.Forms;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 //using DexterLib; // ImageExtractor
@@ -334,6 +336,7 @@ namespace QuickImageComment
 
             setOldArtistAndCommentAndOtherInternalTags();
             fillTileViewMetaDataItems();
+            updateListViewItem(fileInfo);
             ConstructorPerformance.measure("Meta data compared, tile view filled");
 
             foreach (string Measurement in ConstructorPerformance.getMeasurements(ConfigDefinition.enumConfigFlags.PerformanceExtendedImage_Constructor))
@@ -407,6 +410,7 @@ namespace QuickImageComment
                 addReplaceOtherMetaDataKnownType("File.Size", FileSize.ToString("#,### KB"));
                 addReplaceOtherMetaDataKnownType("File.Modified", theFileInfo.LastWriteTime.ToString());
                 addReplaceOtherMetaDataKnownType("File.Created", theFileInfo.CreationTime.ToString());
+                updateListViewItem(theFileInfo);
             }
             else
             {
@@ -1371,6 +1375,22 @@ namespace QuickImageComment
             }
         }
 
+        // update the associated list view item
+        internal void updateListViewItem(FileInfo fileInfo)
+        {
+            ListViewItem listViewItemNew = ImageManager.newListViewFilesItem(fileInfo);
+
+            //ExtendedImage extendedImage = (ExtendedImage)HashtableExtendedImages[theFileInfo.FullName];
+            listViewItemNew.SubItems[QuickImageCommentControls.ListViewFiles.columnComment].Text =
+                getMetaDataValueByKey("Image.CommentAccordingSettings", MetaDataItem.Format.Interpreted);
+
+            ListViewItem listViewItemOld = MainMaskInterface.listViewItemOfFile(ImageFileName);
+            for (int kk = 0; kk < listViewItemNew.SubItems.Count; kk++)
+            {
+                listViewItemOld.SubItems[kk] = listViewItemNew.SubItems[kk];
+            }
+            MainMaskInterface.refreshListViewFiles();
+        }
 
         //*****************************************************************
         // Read image - to be used for display of full size image
@@ -3336,13 +3356,15 @@ namespace QuickImageComment
 
         internal void readAllMetaDataAndSetRelatedTags(Performance performance)
         {
-            readMetaData(performance, null, new System.IO.FileInfo(ImageFileName));
+            FileInfo fileInfo = new FileInfo(ImageFileName);
+            readMetaData(performance, null, fileInfo);
             readTxtFile();
             addMetaDataFromBitMap();
 
             performance.measure("Meta data read");
             setOldArtistAndCommentAndOtherInternalTags();
             fillTileViewMetaDataItems();
+            updateListViewItem(fileInfo);
         }
 
         // check, if key of tag is in list of keys of fields still to be changed

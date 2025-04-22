@@ -14,6 +14,7 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
+using QuickImageCommentControls;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -174,14 +175,11 @@ namespace QuickImageComment
         }
 
         // update list view item and image when update of file is detected
-        public static ListViewItem updateListViewItemAndImage(FileInfo theFileInfo)
+        public static void updateListViewItemAndImage(FileInfo theFileInfo)
         {
-            ListViewItem listViewItem = newListViewFilesItem(theFileInfo);
             // clear extended image to force reading it again
             if (HashtableExtendedImages.ContainsKey(theFileInfo.FullName)) HashtableExtendedImages.Remove(theFileInfo.FullName);
             storeExtendedImage(theFileInfo.Name, theFileInfo.FullName, true, true);
-
-            return listViewItem;
         }
 
         // start thread to update caches (list of files is filled)

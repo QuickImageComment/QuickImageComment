@@ -413,6 +413,12 @@ namespace QuickImageComment
             }
         }
 
+        internal static void refreshListViewFiles()
+        {
+            theFormQuickImageComment.theUserControlFiles.listViewFiles.Invalidate();
+            theFormQuickImageComment.theUserControlFiles.listViewFiles.Update();
+        }
+
         internal static string getFileName(int index)
         {
             // if main mask is not already closing
@@ -477,6 +483,21 @@ namespace QuickImageComment
             else
             {
                 return -1;
+            }
+        }
+
+        // get index of file name
+        internal static ListViewItem listViewItemOfFile(string fullFileName)
+        {
+            // if main mask is not already closing
+            if (!FormQuickImageComment.closing)
+            {
+                int ii = theFormQuickImageComment.theUserControlFiles.listViewFiles.getIndexOf(fullFileName);
+                return theFormQuickImageComment.theUserControlFiles.listViewFiles.Items[ii];
+            }
+            else
+            {
+                return null;
             }
         }
 

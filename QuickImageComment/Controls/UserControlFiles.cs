@@ -656,13 +656,9 @@ namespace QuickImageComment
                             // this is not information about a file change done by this program
                             string MessageText = theFormQuickImageComment.getChangedFields();
 
-                            ListViewItem listViewItem = ImageManager.updateListViewItemAndImage(theFileInfo);
                             ExtendedImage extendedImage = ImageManager.getExtendedImage(ii, true);
+                            ImageManager.updateListViewItemAndImage(theFileInfo);
 
-                            for (int kk = 0; kk < listViewItem.SubItems.Count; kk++)
-                            {
-                                listViewFiles.Items[ii].SubItems[kk] = listViewItem.SubItems[kk];
-                            }
                             if (listViewFiles.SelectedIndices.Count > 1 && listViewFiles.SelectedIndices.Contains(ii))
                             {
                                 theFormQuickImageComment.disableEventHandlersRecogniseUserInput();

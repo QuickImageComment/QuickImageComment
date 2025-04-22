@@ -468,15 +468,6 @@ namespace QuickImageCommentControls
                         Refresh();
                     }
                 }
-                else if (!FormQuickImageComment.closing && (View == View.Details))
-                {
-                    ExtendedImage extendedImage = ImageManager.getExtendedImageFromCache(ii);
-                    Items[ii].SubItems[columnModified].Text = extendedImage.getMetaDataValueByKey("File.Modified", MetaDataItem.Format.Original);
-                    Items[ii].SubItems[columnComment].Text = extendedImage.getMetaDataValueByKey("Image.CommentAccordingSettings", MetaDataItem.Format.Interpreted);
-                    this.Invalidate();
-                    Refresh();
-                    Update();
-                }
             }
         }
 

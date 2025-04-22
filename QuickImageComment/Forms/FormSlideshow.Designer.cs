@@ -86,7 +86,7 @@ namespace QuickImageComment
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.Name = "FormSlideshow";
-            this.Text = "SlideShow";
+            this.Text = "Slideshow";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FormSlideShow_KeyDown);
             this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.FormSlideshow_MouseClick);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
