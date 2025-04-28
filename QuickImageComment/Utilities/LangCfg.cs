@@ -208,7 +208,17 @@ namespace QuickImageComment
             E_dataTableFileNameInvalid,
             E_dataTableFolderNotExists,
             E_writingDataTable,
-            X_permanentDelete_files
+            X_permanentDelete_files,
+            I_changeGPSviaMap,
+            Q_changeGPSviaMapOrAdd,
+            Q_addRefKey,
+            Q_addRefKeyPartially,
+            Q_ExifEasyAddRefKey,
+            E_RefKeyNotChangeable,
+            I_changeCommentArtistAccSettings,
+            I_changeArtistCombined,
+            I_changeCommentCombined,
+            I_IptcKeyWordsString
         }
 
         public enum Others

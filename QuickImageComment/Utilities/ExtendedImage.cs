@@ -2126,6 +2126,12 @@ namespace QuickImageComment
             }
         }
 
+        // get other meta data item by key
+        internal MetaDataItem getOtherMetaDataItemByKey(string key)
+        {
+            return (MetaDataItem)OtherMetaDataItems[key];
+        }
+
         // Adds or replaces other meta data with known type
         private void addReplaceOtherMetaDataKnownType(string key, string value)
         {

@@ -1152,6 +1152,11 @@ namespace QuickImageComment
             return InternalMetaDataDefinitions;
         }
 
+        public static ArrayList getTagDependencies()
+        {
+            return TagDependencies;
+        }
+
         public static string getLastFolder()
         {
             return (string)ConfigItems["LastFolder"];
@@ -2111,7 +2116,7 @@ namespace QuickImageComment
                 if (!neededKeys.Contains(aMetaDataDefinitionItem.KeyPrim)) neededKeys.Add(aMetaDataDefinitionItem.KeyPrim);
                 if (!aMetaDataDefinitionItem.KeySec.Equals("") && !neededKeys.Contains(aMetaDataDefinitionItem.KeySec)) neededKeys.Add(aMetaDataDefinitionItem.KeySec);
             }
-            // TagsForSpecialInfo contains the tags needed to fill the tag listed as first in the array
+            // TagDependencies contains the tags needed to fill the tag listed as first in the array
             foreach (string[] tagNames in TagDependencies)
             {
                 if (neededKeys.Contains(tagNames[0]))

@@ -79,6 +79,21 @@ namespace QuickImageComment
             "yyyy"
         };
 
+        // fields Exif.GPS... for question: better change in map, add anyhow
+        private static ArrayList ExifGPSFields = new ArrayList {
+            "Exif.GPSInfo.GPSLatitude",
+            "Exif.GPSInfo.GPSLatitudeRef",
+            "Exif.GPSInfo.GPSLongitude",
+            "Exif.GPSInfo.GPSLongitudeRef"};
+
+        // fields Image.GPS... for information message: change in map
+        private static ArrayList ImageGPSFields = new ArrayList {
+            "Image.GPSLatitudeDecimal",
+            "Image.GPSLongitudeDecimal",
+            "Image.GPSPosition",
+            "Image.GPSsignedLatitude",
+            "Image.GPSsignedLongitude"};
+
         // to control creating screenshots and control text list
         // when flag is set, inside constructor of mask special actions to create screenshots are done and mask is closed
         public static bool CreateScreenshots = false;
@@ -1292,6 +1307,7 @@ namespace QuickImageComment
         public static void addFieldToListOfChangeableFields(System.Collections.ArrayList TagsToAdd)
         {
             System.Collections.ArrayList MetaDataDefinitionsWork = ConfigDefinition.getMetaDataDefinitions(ConfigDefinition.enumMetaDataGroup.MetaDataDefForChange);
+            ArrayList CheckedTagsToAdd = new ArrayList();
 
             if (TagsToAdd.Count == 0)
             {
@@ -1307,51 +1323,148 @@ namespace QuickImageComment
 
                 if (GeneralUtilities.questionMessage(LangCfg.Message.Q_addFollowingPropertiesChangeable, message) == DialogResult.Yes)
                 {
+                    // create sorted list with tag dependencies
+                    SortedList tagDependencies = new SortedList();
+                    // TagDependencies contains the tags needed to fill the tag listed as first in the array
+                    foreach (string[] tagNames in ConfigDefinition.getTagDependencies())
+                    {
+                        tagDependencies.Add(tagNames[0], tagNames);
+                    }
+
                     // consider that changes here may be usefull in input check in FormMetaDataDefinition as well
                     foreach (string key in TagsToAdd)
                     {
+                        // check comment/artist according settings
+                        if (key.Equals("Image.CommentAccordingSettings") || key.Equals("Image.ArtistAccordingSettings"))
+                        {
+                            GeneralUtilities.message(LangCfg.Message.I_changeCommentArtistAccSettings, key);
+                            continue;
+                        }
+                        // check artist combined fields
+                        else if (key.Equals("Image.ArtistCombinedFields"))
+                        {
+                            GeneralUtilities.message(LangCfg.Message.I_changeArtistCombined, key);
+                            continue;
+                        }
+                        // check comment combined fields
+                        else if (key.Equals("Image.CommentCombinedFields"))
+                        {
+                            GeneralUtilities.message(LangCfg.Message.I_changeCommentCombined, key);
+                            continue;
+                        }
+                        // check IPTC key words string
+                        else if (key.Equals("Image.IPTC_KeyWordsString"))
+                        {
+                            GeneralUtilities.message(LangCfg.Message.I_IptcKeyWordsString, key);
+                            continue;
+                        }
+                        // check if tag is part of Image GPS fields
+                        else if (ImageGPSFields.Contains(key))
+                        {
+                            GeneralUtilities.message(LangCfg.Message.I_changeGPSviaMap, key);
+                            continue;
+                        }
+                        // check if tag is part of Exif GPS fields
+                        else if (ExifGPSFields.Contains(key))
+                        {
+                            if (GeneralUtilities.questionMessage(LangCfg.Message.Q_changeGPSviaMapOrAdd, key) == DialogResult.No)
+                            {
+                                continue;
+                            }
+                        }
+                        // check for ExifEasy
+                        else if (key.StartsWith("ExifEasy."))
+                        {
+                            MetaDataItem metaDataItem = MainMaskInterface.getTheExtendedImage().getOtherMetaDataItemByKey(key);
+                            if (GeneralUtilities.questionMessage(LangCfg.Message.Q_ExifEasyAddRefKey, key, metaDataItem.getTypeName()) == DialogResult.Yes)
+                            {
+                                CheckedTagsToAdd.Add(metaDataItem.getTypeName());
+                            }
+                            continue;
+                        }
+                        else if (tagDependencies.ContainsKey(key))
+                        {
+                            string[] tagNames = (string[])tagDependencies[key];
+                            string refKeys = "";
+                            string refKeysChangeable = "";
+                            for (int ii = 1; ii < tagNames.Length; ii++)
+                            {
+                                refKeys += tagNames[ii] + "\n";
+                                if (!Exiv2TagDefinitions.UnchangeableTags.Contains(tagNames[ii]))
+                                {
+                                    refKeysChangeable += tagNames[ii] + "\n";
+                                }
+                            }
+                            if (refKeysChangeable == "")
+                            {
+                                GeneralUtilities.message(LangCfg.Message.E_RefKeyNotChangeable, key, refKeys);
+                            }
+                            else
+                            {
+                                DialogResult answer = DialogResult.No;
+                                if (refKeys.Equals(refKeysChangeable))
+                                    answer = GeneralUtilities.questionMessage(LangCfg.Message.Q_addRefKey, key, refKeys);
+                                else
+                                    answer = GeneralUtilities.questionMessage(LangCfg.Message.Q_addRefKeyPartially, key, refKeys, refKeysChangeable);
+                                if (answer == DialogResult.Yes)
+                                {
+                                    for (int ii = 1; ii < tagNames.Length; ii++)
+                                    {
+                                        if (!Exiv2TagDefinitions.UnchangeableTags.Contains(tagNames[ii]))
+                                            CheckedTagsToAdd.Add(tagNames[ii]);
+                                    }
+                                }
+                            }
+                            continue;
+                        }
                         // check if tag is changeable
-                        if (Exiv2TagDefinitions.UnchangeableTags.Contains(key))
+                        else if (Exiv2TagDefinitions.UnchangeableTags.Contains(key))
                         {
                             GeneralUtilities.message(LangCfg.Message.E_tagValueNotChangeable, key);
+                            continue;
                         }
                         // check if tag is used for artist and comment input fields
                         else if (ConfigDefinition.getTagNamesComment().Contains(key) ||
                             ConfigDefinition.getTagNamesArtist().Contains(key))
                         {
                             GeneralUtilities.message(LangCfg.Message.E_metaDataNotEnteredSettings, key);
+                            continue;
                         }
-                        else
-                        {
-                            // check for tags which should normally not be changed; exceptions those with defined input check
-                            if (Exiv2TagDefinitions.ChangeableWarningTags.Contains(key) && ConfigDefinition.getInputCheckConfig(key) == null)
-                            {
-                                if (GeneralUtilities.questionMessage(LangCfg.Message.Q_changeDataOfThisTypeNotUseful, key) == DialogResult.No)
-                                {
-                                    continue;
-                                }
-                            }
+                        // key passed initial checks to be added
+                        CheckedTagsToAdd.Add(key);
+                    }
 
-                            // check if tag is already entered in changeable fields
-                            bool inList = false;
-                            int ii = 1;
-                            foreach (MetaDataDefinitionItem aMetaDataDefinitionItem in MetaDataDefinitionsWork)
+                    // now add the tags
+                    foreach (string key in CheckedTagsToAdd)
+                    {
+                        // check for tags which should normally not be changed; exceptions those with defined input check
+                        if (Exiv2TagDefinitions.ChangeableWarningTags.Contains(key) && ConfigDefinition.getInputCheckConfig(key) == null)
+                        {
+                            if (GeneralUtilities.questionMessage(LangCfg.Message.Q_changeDataOfThisTypeNotUseful, key) == DialogResult.No)
                             {
-                                if (key.Equals(aMetaDataDefinitionItem.KeyPrim))
-                                {
-                                    GeneralUtilities.message(LangCfg.Message.E_tagAlreadyEntered, aMetaDataDefinitionItem.Name, ii.ToString());
-                                    inList = true;
-                                    break;
-                                }
-                                ii++;
+                                continue;
                             }
-                            if (!inList)
+                        }
+
+                        // check if tag is already entered in changeable fields
+                        bool inList = false;
+                        int ii = 1;
+                        foreach (MetaDataDefinitionItem aMetaDataDefinitionItem in MetaDataDefinitionsWork)
+                        {
+                            if (key.Equals(aMetaDataDefinitionItem.KeyPrim))
                             {
-                                MetaDataDefinitionItem theMetaDataDefinitionItem;
-                                theMetaDataDefinitionItem = new MetaDataDefinitionItem(key, key, getFormatForTagChange(key));
-                                MetaDataDefinitionsWork.Add(theMetaDataDefinitionItem);
-                                MainMaskInterface.afterMetaDataDefinitionChange();
+                                GeneralUtilities.message(LangCfg.Message.E_tagAlreadyEntered, aMetaDataDefinitionItem.Name, ii.ToString());
+                                inList = true;
+                                break;
                             }
+                            ii++;
+                        }
+                        if (!inList)
+                        {
+                            MetaDataDefinitionItem theMetaDataDefinitionItem;
+                            theMetaDataDefinitionItem = new MetaDataDefinitionItem(key, key, getFormatForTagChange(key));
+                            MetaDataDefinitionsWork.Add(theMetaDataDefinitionItem);
+                            MainMaskInterface.afterMetaDataDefinitionChange();
                         }
                     }
                 }
