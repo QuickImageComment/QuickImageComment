@@ -20,7 +20,6 @@
 
 using CSJ2K;
 using CSJ2K.Util;
-using GongSolutions.Shell.Interop;
 using System;
 using System.Collections;
 using System.Drawing;
@@ -1384,12 +1383,20 @@ namespace QuickImageComment
             listViewItemNew.SubItems[QuickImageCommentControls.ListViewFiles.columnComment].Text =
                 getMetaDataValueByKey("Image.CommentAccordingSettings", MetaDataItem.Format.Interpreted);
 
-            ListViewItem listViewItemOld = MainMaskInterface.listViewItemOfFile(ImageFileName);
-            for (int kk = 0; kk < listViewItemNew.SubItems.Count; kk++)
+            // it may happen that the listViewItem to be updated is lost during this action,
+            // because user is just changing the folder
+            lock (QuickImageComment.UserControlFiles.LockListViewFiles)
             {
-                listViewItemOld.SubItems[kk] = listViewItemNew.SubItems[kk];
+                ListViewItem listViewItemOld = MainMaskInterface.listViewItemOfFile(ImageFileName);
+                if (listViewItemOld != null)
+                {
+                    for (int kk = 0; kk < listViewItemNew.SubItems.Count; kk++)
+                    {
+                        listViewItemOld.SubItems[kk].Text = listViewItemNew.SubItems[kk].Text;
+                    }
+                }
+                MainMaskInterface.refreshListViewFiles();
             }
-            MainMaskInterface.refreshListViewFiles();
         }
 
         //*****************************************************************

@@ -415,9 +415,9 @@ namespace QuickImageComment
 
         internal static void refreshListViewFiles()
         {
-            theFormQuickImageComment.theUserControlFiles.listViewFiles.Invalidate();
-            theFormQuickImageComment.theUserControlFiles.listViewFiles.Update();
-        }
+                    theFormQuickImageComment.theUserControlFiles.listViewFiles.Invalidate();
+                    theFormQuickImageComment.theUserControlFiles.listViewFiles.Update();
+                }
 
         internal static string getFileName(int index)
         {
@@ -493,6 +493,10 @@ namespace QuickImageComment
             if (!FormQuickImageComment.closing)
             {
                 int ii = theFormQuickImageComment.theUserControlFiles.listViewFiles.getIndexOf(fullFileName);
+                if (ii < 0)
+                {
+                    return null;
+                }
                 return theFormQuickImageComment.theUserControlFiles.listViewFiles.Items[ii];
             }
             else
