@@ -121,8 +121,11 @@ namespace QuickImageCommentControls
                     // column 1 is file size
                     string[] textx = ((ListViewItem)x).SubItems[listViewFiles.columnToSort].Text.Split(' ');
                     string[] texty = ((ListViewItem)y).SubItems[listViewFiles.columnToSort].Text.Split(' ');
-                    double sizex = double.Parse(textx[0]);
-                    double sizey = double.Parse(texty[0]);
+
+                    double sizex = 0;
+                    if (!textx[0].Trim().Equals("")) sizex = double.Parse(textx[0]);
+                    double sizey = 0;
+                    if (!texty[0].Trim().Equals("")) sizey = double.Parse(texty[0]);
                     result = sizex.CompareTo(sizey);
                 }
                 else if (listViewFiles.columnToSort == 2 || listViewFiles.columnToSort == 3)

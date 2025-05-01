@@ -79,6 +79,7 @@ namespace QuickImageComment
             this.comboBoxKeyWordsChange = new System.Windows.Forms.ComboBox();
             this.comboBoxCommentChange = new System.Windows.Forms.ComboBox();
             this.checkBoxArtistChange = new System.Windows.Forms.CheckBox();
+            this.checkedListBoxChangeableFieldsChange = new QuickImageCommentControls.CheckedListBoxItemBackcolor();
             this.panelUsercomment = new System.Windows.Forms.Panel();
             this.dynamicLabelUserComment = new System.Windows.Forms.Label();
             this.panelArtist = new System.Windows.Forms.Panel();
@@ -87,9 +88,11 @@ namespace QuickImageComment
             this.splitContainer122 = new System.Windows.Forms.SplitContainer();
             this.tabControlLastPredefComments = new System.Windows.Forms.TabControl();
             this.tabPageLastComments = new System.Windows.Forms.TabPage();
+            this.listBoxLastUserComments = new QuickImageCommentControls.ListBoxComments();
             this.textBoxLastCommentsFilter = new System.Windows.Forms.TextBox();
             this.tabPagePredefComments = new System.Windows.Forms.TabPage();
             this.dynamicComboBoxPredefinedComments = new System.Windows.Forms.ComboBox();
+            this.listBoxPredefinedComments = new QuickImageCommentControls.ListBoxComments();
             this.KeyPrim = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.KeySec = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextMenuStripOverview = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -147,6 +150,7 @@ namespace QuickImageComment
             this.toolStripMenuItemTile = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemList = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemDetails = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemComment = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItemSortSortAsc = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemSortName = new System.Windows.Forms.ToolStripMenuItem();
@@ -262,6 +266,7 @@ namespace QuickImageComment
             this.listBoxPredefinedComments = new QuickImageCommentControls.ListBoxComments();
             this.toolTip1 = new QuickImageComment.ToolTipQIC();
             this.theFolderTreeView = new QuickImageCommentControls.ShellTreeViewQIC();
+            this.toolStripMenuItemSortComment = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer12)).BeginInit();
             this.splitContainer12.Panel1.SuspendLayout();
             this.splitContainer12.Panel2.SuspendLayout();
@@ -762,6 +767,20 @@ namespace QuickImageComment
             this.checkBoxArtistChange.UseVisualStyleBackColor = true;
             this.checkBoxArtistChange.CheckedChanged += new System.EventHandler(this.checkBoxArtistChange_CheckedChanged);
             // 
+            // checkedListBoxChangeableFieldsChange
+            // 
+            this.checkedListBoxChangeableFieldsChange.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.checkedListBoxChangeableFieldsChange.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.checkedListBoxChangeableFieldsChange.CheckedColor = System.Drawing.Color.LightGreen;
+            this.checkedListBoxChangeableFieldsChange.CheckOnClick = true;
+            this.checkedListBoxChangeableFieldsChange.FormattingEnabled = true;
+            this.checkedListBoxChangeableFieldsChange.IntegralHeight = false;
+            this.checkedListBoxChangeableFieldsChange.Location = new System.Drawing.Point(1, 101);
+            this.checkedListBoxChangeableFieldsChange.Name = "checkedListBoxChangeableFieldsChange";
+            this.checkedListBoxChangeableFieldsChange.Size = new System.Drawing.Size(250, 87);
+            this.checkedListBoxChangeableFieldsChange.TabIndex = 3;
+            // 
             // panelUsercomment
             // 
             this.panelUsercomment.Controls.Add(this.textBoxUserComment);
@@ -864,6 +883,17 @@ namespace QuickImageComment
             this.tabPageLastComments.Text = "Letzte Kommentare";
             this.tabPageLastComments.UseVisualStyleBackColor = true;
             // 
+            // listBoxLastUserComments
+            // 
+            this.listBoxLastUserComments.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listBoxLastUserComments.IntegralHeight = false;
+            this.listBoxLastUserComments.Location = new System.Drawing.Point(1, 28);
+            this.listBoxLastUserComments.Name = "listBoxLastUserComments";
+            this.listBoxLastUserComments.Size = new System.Drawing.Size(311, 135);
+            this.listBoxLastUserComments.TabIndex = 2;
+            // 
             // textBoxLastCommentsFilter
             // 
             this.textBoxLastCommentsFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -898,6 +928,19 @@ namespace QuickImageComment
             this.dynamicComboBoxPredefinedComments.Size = new System.Drawing.Size(309, 21);
             this.dynamicComboBoxPredefinedComments.TabIndex = 1;
             this.dynamicComboBoxPredefinedComments.SelectedIndexChanged += new System.EventHandler(this.comboBoxPredefinedComments_SelectedIndexChanged);
+            // 
+            // listBoxPredefinedComments
+            // 
+            this.listBoxPredefinedComments.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listBoxPredefinedComments.ColumnWidth = 30;
+            this.listBoxPredefinedComments.IntegralHeight = false;
+            this.listBoxPredefinedComments.Location = new System.Drawing.Point(1, 28);
+            this.listBoxPredefinedComments.Name = "listBoxPredefinedComments";
+            this.listBoxPredefinedComments.Size = new System.Drawing.Size(311, 135);
+            this.listBoxPredefinedComments.Sorted = true;
+            this.listBoxPredefinedComments.TabIndex = 2;
             // 
             // KeyPrim
             // 
@@ -1317,6 +1360,7 @@ namespace QuickImageComment
             this.toolStripMenuItemSortSize,
             this.toolStripMenuItemSortChanged,
             this.toolStripMenuItemSortCreated,
+            this.toolStripMenuItemSortComment,
             this.toolStripSeparator15,
             this.toolStripMenuItemPanelPictureOnly,
             this.toolStripMenuItemImageWithGrid,
@@ -1401,6 +1445,13 @@ namespace QuickImageComment
             this.toolStripMenuItemDetails.Size = new System.Drawing.Size(219, 22);
             this.toolStripMenuItemDetails.Text = "Dateien - Details";
             this.toolStripMenuItemDetails.Click += new System.EventHandler(this.toolStripMenuItemDetails_Click);
+            // 
+            // toolStripMenuItemComment
+            // 
+            this.toolStripMenuItemComment.Name = "toolStripMenuItemComment";
+            this.toolStripMenuItemComment.Size = new System.Drawing.Size(219, 22);
+            this.toolStripMenuItemComment.Text = "Dateien - Kommentar";
+            this.toolStripMenuItemComment.Click += new System.EventHandler(this.toolStripMenuItemComment_Click);
             // 
             // toolStripSeparator4
             // 
@@ -2459,6 +2510,13 @@ namespace QuickImageComment
             this.theFolderTreeView.Size = new System.Drawing.Size(253, 147);
             this.theFolderTreeView.TabIndex = 0;
             // 
+            // toolStripMenuItemSortComment
+            // 
+            this.toolStripMenuItemSortComment.Name = "toolStripMenuItemSortComment";
+            this.toolStripMenuItemSortComment.Size = new System.Drawing.Size(219, 22);
+            this.toolStripMenuItemSortComment.Text = "... nach Kommentar";
+            this.toolStripMenuItemSortComment.Click += new System.EventHandler(this.toolStripMenuItemSortColumn_Click);
+            // 
             // FormQuickImageComment
             // 
             this.AllowDrop = true;
@@ -2763,5 +2821,6 @@ namespace QuickImageComment
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator19;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemSlideshow;
         internal System.Windows.Forms.ToolStripMenuItem toolStripMenuItemComment;
+        internal System.Windows.Forms.ToolStripMenuItem toolStripMenuItemSortComment;
     }
 }

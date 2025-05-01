@@ -14,13 +14,13 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
+using QuickImageCommentControls;
 using System;
 using System.Collections;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
-using QuickImageCommentControls;
 
 namespace QuickImageComment
 {
@@ -176,11 +176,13 @@ namespace QuickImageComment
             contextMenuStripMenuItemSortChanged.Checked = columnName.Equals("Changed");
             contextMenuStripMenuItemSortName.Checked = columnName.Equals("Name");
             contextMenuStripMenuItemSortSize.Checked = columnName.Equals("Size");
+            contextMenuStripMenuItemSortComment.Checked = columnName.Equals("Comment");
 
             theFormQuickImageComment.toolStripMenuItemSortCreated.Checked = columnName.Equals("Created");
             theFormQuickImageComment.toolStripMenuItemSortChanged.Checked = columnName.Equals("Changed");
             theFormQuickImageComment.toolStripMenuItemSortName.Checked = columnName.Equals("Name");
             theFormQuickImageComment.toolStripMenuItemSortSize.Checked = columnName.Equals("Size");
+            theFormQuickImageComment.toolStripMenuItemSortComment.Checked = columnName.Equals("Comment");
 
             // to enable/disable buttons first, previous, next last
             if (theFormQuickImageComment.theExtendedImage != null && listViewFiles.SelectedIndices.Count == 1)
