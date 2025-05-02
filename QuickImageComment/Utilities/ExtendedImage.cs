@@ -221,11 +221,12 @@ namespace QuickImageComment
         private ArrayList TileViewMetaDataItems;
         private ArrayList XmpLangAltEntries;
 
-        // AppliedOrientation indicates how image is rotated 
-        private int AppliedOrientation = 0;
         // Required Orientation indicates which orientation is required based on meta data
         private int RequiredOrientation = 0;
         private int InitialOrientation = 1;
+        // AppliedOrientation indicates how image is rotated 
+        // preset with same value as InitialOrientation for check of changes
+        private int AppliedOrientation = 1;
         private float TxtGamma = (float)1.0;
         private float TxtContrast = 0;
         private string OldArtist = "";
@@ -1504,6 +1505,7 @@ namespace QuickImageComment
                     {
                         RotateAfterRawDecode = false;
                     }
+                    Logger.log(ImageFileName + " appl=initial=" + InitialOrientation.ToString(),3);
                     AppliedOrientation = InitialOrientation;
                 }
                 ReadImagePerformance.measure("readImage finish");
@@ -2864,6 +2866,7 @@ namespace QuickImageComment
         // rotate image after changing orientation or configuration for RAW decoder requires rotation
         internal void rotateIfRequired()
         {
+            Logger.log(ImageFileName + " rotate to " + RequiredOrientation.ToString());
             if (RequiredOrientation != AppliedOrientation)
             {
                 undoRotation(AppliedOrientation, FullSizeImage);
