@@ -167,7 +167,7 @@ namespace QuickImageComment
                 listViewItem.SubItems.Add("");
             }
             // add empty sub item for Comment
-            listViewItem.SubItems.Add("");
+            listViewItem.SubItems.Add("---???---");
 
 
             return listViewItem;

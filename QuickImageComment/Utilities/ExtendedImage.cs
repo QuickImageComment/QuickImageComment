@@ -1505,7 +1505,6 @@ namespace QuickImageComment
                     {
                         RotateAfterRawDecode = false;
                     }
-                    Logger.log(ImageFileName + " appl=initial=" + InitialOrientation.ToString(),3);
                     AppliedOrientation = InitialOrientation;
                 }
                 ReadImagePerformance.measure("readImage finish");
