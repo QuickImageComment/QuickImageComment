@@ -1074,6 +1074,8 @@ namespace QuickImageComment
                 setControlsDependingOnDataTable();
                 enableDisableControlsForReadFolder(false);
                 buttonCancelRead.Visible = true;
+                // cancel is enabled when directory is read and data table is created
+                buttonCancelRead.Enabled = false;
                 labelPassedTime.Visible = true;
                 dynamicLabelPassedTime.Visible = true;
                 OldCursor = this.Cursor;
@@ -1114,6 +1116,7 @@ namespace QuickImageComment
             {
                 createDataTable();
                 // throw (new Exception("ExceptionTest in BackgroundWorker"));
+                buttonCancelRead.Enabled = true;
 
                 for (int ii = 0; ii < ImageFilesInfo.Length; ii++)
                 {
