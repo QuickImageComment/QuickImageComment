@@ -62,14 +62,23 @@ namespace QuickImageComment
             this.label6 = new System.Windows.Forms.Label();
             this.checkBoxHideAtStart = new System.Windows.Forms.CheckBox();
             this.label7 = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.radioButtonSubTitleDependingOnSize = new System.Windows.Forms.RadioButton();
+            this.radioButtonSubTitleBelowImage = new System.Windows.Forms.RadioButton();
+            this.radioButtonSubtitleNone = new System.Windows.Forms.RadioButton();
+            this.label8 = new System.Windows.Forms.Label();
+            this.numericUpDownOpacity = new System.Windows.Forms.NumericUpDown();
+            this.label9 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDelay)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPageScrollNumber)).BeginInit();
+            this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownOpacity)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonAbort
             // 
             this.buttonAbort.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonAbort.Location = new System.Drawing.Point(267, 231);
+            this.buttonAbort.Location = new System.Drawing.Point(267, 350);
             this.buttonAbort.Name = "buttonAbort";
             this.buttonAbort.Size = new System.Drawing.Size(95, 22);
             this.buttonAbort.TabIndex = 10;
@@ -80,7 +89,7 @@ namespace QuickImageComment
             // buttonOk
             // 
             this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonOk.Location = new System.Drawing.Point(154, 231);
+            this.buttonOk.Location = new System.Drawing.Point(154, 350);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(95, 22);
             this.buttonOk.TabIndex = 9;
@@ -91,7 +100,7 @@ namespace QuickImageComment
             // buttonHelp
             // 
             this.buttonHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonHelp.Location = new System.Drawing.Point(416, 231);
+            this.buttonHelp.Location = new System.Drawing.Point(416, 350);
             this.buttonHelp.Name = "buttonHelp";
             this.buttonHelp.Size = new System.Drawing.Size(95, 22);
             this.buttonHelp.TabIndex = 11;
@@ -148,7 +157,7 @@ namespace QuickImageComment
             this.buttonBackgroundColor.Size = new System.Drawing.Size(156, 25);
             this.buttonBackgroundColor.TabIndex = 17;
             this.buttonBackgroundColor.UseVisualStyleBackColor = false;
-            this.buttonBackgroundColor.Click += new System.EventHandler(this.buttonColor_Click);
+            this.buttonBackgroundColor.Click += new System.EventHandler(this.buttonBackgroundColor_Click);
             // 
             // label4
             // 
@@ -177,7 +186,7 @@ namespace QuickImageComment
             this.buttonForeGroundColor.Size = new System.Drawing.Size(156, 25);
             this.buttonForeGroundColor.TabIndex = 20;
             this.buttonForeGroundColor.UseVisualStyleBackColor = false;
-            this.buttonForeGroundColor.Click += new System.EventHandler(this.buttonColor_Click);
+            this.buttonForeGroundColor.Click += new System.EventHandler(this.buttonForeGroundColor_Click);
             // 
             // buttonAdjustFields
             // 
@@ -210,8 +219,9 @@ namespace QuickImageComment
             // 
             // checkBoxHideAtStart
             // 
+            this.checkBoxHideAtStart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.checkBoxHideAtStart.AutoSize = true;
-            this.checkBoxHideAtStart.Location = new System.Drawing.Point(6, 180);
+            this.checkBoxHideAtStart.Location = new System.Drawing.Point(6, 299);
             this.checkBoxHideAtStart.Name = "checkBoxHideAtStart";
             this.checkBoxHideAtStart.Size = new System.Drawing.Size(268, 17);
             this.checkBoxHideAtStart.TabIndex = 24;
@@ -220,18 +230,96 @@ namespace QuickImageComment
             // 
             // label7
             // 
+            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(24, 200);
+            this.label7.Location = new System.Drawing.Point(24, 319);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(379, 13);
             this.label7.TabIndex = 25;
             this.label7.Text = "Maske kann mit rechter Maustaste in der Slideshow wieder angezeigt werden.";
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.radioButtonSubTitleDependingOnSize);
+            this.groupBox1.Controls.Add(this.radioButtonSubTitleBelowImage);
+            this.groupBox1.Controls.Add(this.radioButtonSubtitleNone);
+            this.groupBox1.Location = new System.Drawing.Point(-1, 169);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(523, 85);
+            this.groupBox1.TabIndex = 26;
+            this.groupBox1.TabStop = false;
+            // 
+            // radioButtonSubTitleDependingOnSize
+            // 
+            this.radioButtonSubTitleDependingOnSize.AutoSize = true;
+            this.radioButtonSubTitleDependingOnSize.Location = new System.Drawing.Point(7, 55);
+            this.radioButtonSubTitleDependingOnSize.Name = "radioButtonSubTitleDependingOnSize";
+            this.radioButtonSubTitleDependingOnSize.Size = new System.Drawing.Size(363, 17);
+            this.radioButtonSubTitleDependingOnSize.TabIndex = 2;
+            this.radioButtonSubTitleDependingOnSize.TabStop = true;
+            this.radioButtonSubTitleDependingOnSize.Text = "Wenn Bild Höhe ausfüllt, Untertitel transparent im Bild, sonst unter Bild";
+            this.radioButtonSubTitleDependingOnSize.UseVisualStyleBackColor = true;
+            this.radioButtonSubTitleDependingOnSize.CheckedChanged += new System.EventHandler(this.radioButtonSubtitle_CheckedChanged);
+            // 
+            // radioButtonSubTitleBelowImage
+            // 
+            this.radioButtonSubTitleBelowImage.AutoSize = true;
+            this.radioButtonSubTitleBelowImage.Location = new System.Drawing.Point(7, 32);
+            this.radioButtonSubTitleBelowImage.Name = "radioButtonSubTitleBelowImage";
+            this.radioButtonSubTitleBelowImage.Size = new System.Drawing.Size(218, 17);
+            this.radioButtonSubTitleBelowImage.TabIndex = 1;
+            this.radioButtonSubTitleBelowImage.TabStop = true;
+            this.radioButtonSubTitleBelowImage.Text = "Untertitel immer unter dem Bild anzeigen";
+            this.radioButtonSubTitleBelowImage.UseVisualStyleBackColor = true;
+            this.radioButtonSubTitleBelowImage.CheckedChanged += new System.EventHandler(this.radioButtonSubtitle_CheckedChanged);
+            // 
+            // radioButtonSubtitleNone
+            // 
+            this.radioButtonSubtitleNone.AutoSize = true;
+            this.radioButtonSubtitleNone.Location = new System.Drawing.Point(7, 9);
+            this.radioButtonSubtitleNone.Name = "radioButtonSubtitleNone";
+            this.radioButtonSubtitleNone.Size = new System.Drawing.Size(142, 17);
+            this.radioButtonSubtitleNone.TabIndex = 0;
+            this.radioButtonSubtitleNone.TabStop = true;
+            this.radioButtonSubtitleNone.Text = "Untertitel nicht anzeigen";
+            this.radioButtonSubtitleNone.UseVisualStyleBackColor = true;
+            this.radioButtonSubtitleNone.CheckedChanged += new System.EventHandler(this.radioButtonSubtitle_CheckedChanged);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(354, 257);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(18, 13);
+            this.label8.TabIndex = 29;
+            this.label8.Text = "%";
+            // 
+            // numericUpDownOpacity
+            // 
+            this.numericUpDownOpacity.Location = new System.Drawing.Point(291, 253);
+            this.numericUpDownOpacity.Name = "numericUpDownOpacity";
+            this.numericUpDownOpacity.Size = new System.Drawing.Size(57, 21);
+            this.numericUpDownOpacity.TabIndex = 28;
+            this.numericUpDownOpacity.ValueChanged += new System.EventHandler(this.numericUpDownOpacity_ValueChanged);
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(3, 257);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(260, 13);
+            this.label9.TabIndex = 27;
+            this.label9.Text = "Opazität des Hintergrundes wenn Untertitel über Bild";
+            // 
             // FormSlideshowSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(517, 258);
+            this.ClientSize = new System.Drawing.Size(517, 377);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.numericUpDownOpacity);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.checkBoxHideAtStart);
             this.Controls.Add(this.label6);
@@ -257,6 +345,9 @@ namespace QuickImageComment
             this.Text = "Suche über Eigenschaften - Abfrage bearbeiten";
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDelay)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPageScrollNumber)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownOpacity)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -280,5 +371,12 @@ namespace QuickImageComment
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.CheckBox checkBoxHideAtStart;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.RadioButton radioButtonSubtitleNone;
+        private System.Windows.Forms.RadioButton radioButtonSubTitleDependingOnSize;
+        private System.Windows.Forms.RadioButton radioButtonSubTitleBelowImage;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.NumericUpDown numericUpDownOpacity;
+        private System.Windows.Forms.Label label9;
     }
 }

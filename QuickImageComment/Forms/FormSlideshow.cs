@@ -23,17 +23,34 @@ namespace QuickImageComment
 {
     public partial class FormSlideshow : Form
     {
+        internal enum SubTitelDisplay
+        {
+            None,
+            BelowImage,
+            DependingOnSize
+        }
+
         private ExtendedImage theExtendedImage;
         private int pageUpDownScrollNumber = 5;
         private string displayedFileName = "";
+        private string subTitleText = "";
+        internal int subTitleOpacity = 127;
+        internal SubTitelDisplay subTitelDisplay = SubTitelDisplay.BelowImage;
+        private Size subTitleSize;
+        private bool subTitleInPictureBox = false;
         private bool showRunning = false;
-        private Timer timer = new Timer();
+        private readonly Timer timer = new Timer();
+        private readonly StringFormat drawStringFormat = new StringFormat();
 
         public FormSlideshow(ExtendedImage givenExtendedImage)
         {
             InitializeComponent();
             this.FormBorderStyle = FormBorderStyle.None;
             this.WindowState = FormWindowState.Maximized;
+
+            drawStringFormat.Alignment = StringAlignment.Center;
+            drawStringFormat.LineAlignment = StringAlignment.Near;
+            drawStringFormat.FormatFlags = StringFormatFlags.LineLimit;
 
             this.MouseClick += FormSlideshow_MouseClick;
             // Subscribe to the MouseClick event for all controls in the form
@@ -56,14 +73,15 @@ namespace QuickImageComment
             }
             else
             {
+                dynamicLabelSubTitle.Text = "";
                 Show();
                 // set minimum size to size, so label cannot get smaller
-                labelSubTitle.MinimumSize = labelSubTitle.Size;
+                dynamicLabelSubTitle.MinimumSize = dynamicLabelSubTitle.Size;
                 // set maximum width 
-                labelSubTitle.MaximumSize = new Size(labelSubTitle.MinimumSize.Width, 999);
-                labelSubTitle.AutoSize = true;
+                dynamicLabelSubTitle.MaximumSize = new Size(dynamicLabelSubTitle.MinimumSize.Width, 999);
+                dynamicLabelSubTitle.AutoSize = true;
                 // now height of label can be adjusted based on font, but width remains
-                this.labelSubTitle.SizeChanged += new System.EventHandler(this.labelSubTitle_SizeChanged);
+                this.dynamicLabelSubTitle.SizeChanged += new System.EventHandler(this.labelSubTitle_SizeChanged);
 
                 getConfiguration();
                 // the normal case
@@ -71,11 +89,11 @@ namespace QuickImageComment
                 {
                     FormSlideshowSettings formSlideshowSettings = new FormSlideshowSettings(this);
                     formSlideshowSettings.ShowDialog();
+                    getConfiguration();
                 }
 
                 timer.Tick += new System.EventHandler(Timer_Tick);
 
-                // show before newImage, because otherwise resize column included in newImage/setSubtitle does not work
                 showRunning = true;
                 newImage(givenExtendedImage);
             }
@@ -86,17 +104,23 @@ namespace QuickImageComment
             timer.Interval = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.slideShowDelay) * 1000;
             pageUpDownScrollNumber = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.pageUpDownScrollNumber);
             this.BackColor = Color.FromArgb(ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.slideShowBackColor));
-            labelSubTitle.ForeColor = Color.FromArgb(ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.slideShowSubtitleForeColor));
+            dynamicLabelSubTitle.ForeColor = Color.FromArgb(ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.slideShowSubtitleForeColor));
             string fontString = ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.SlideshowSubtitleFont);
             try
             {
                 FontConverter fontConverter = new FontConverter();
-                labelSubTitle.AutoSize = true;
-                labelSubTitle.Font = (Font)fontConverter.ConvertFromString(fontString);
+                dynamicLabelSubTitle.Font = (Font)fontConverter.ConvertFromString(fontString);
             }
             catch
             {
                 // nothing to do, keep font from designer
+            }
+            // opacity can be 0 - 255, user defines it as 0 - 100%
+            subTitleOpacity = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.slideShowSubtitleOpacity) * 255 / 100;
+            if (!Enum.TryParse(ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.SlideShowSubTitelDisplay), out subTitelDisplay))
+            {
+                // parse failed, use below image
+                subTitelDisplay = SubTitelDisplay.BelowImage;
             }
         }
 
@@ -105,13 +129,15 @@ namespace QuickImageComment
             if (givenExtendedImage == null)
             {
                 displayedFileName = "";
-                Text = "";
                 pictureBox1.Image = null;
             }
             else
             {
                 theExtendedImage = givenExtendedImage;
-                pictureBox1.Image = theExtendedImage.createAndGetAdjustedImage(MainMaskInterface.showGrid());
+                displayedFileName = theExtendedImage.getImageFileName();
+                Image image = theExtendedImage.createAndGetAdjustedImage(MainMaskInterface.showGrid());
+                pictureBox1.Image = image;
+                showSubtitleAndRefresh();
                 if (pictureBox1.Height < pictureBox1.Image.Height || pictureBox1.Width < pictureBox1.Image.Width)
                 {
                     pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
@@ -120,8 +146,6 @@ namespace QuickImageComment
                 {
                     pictureBox1.SizeMode = PictureBoxSizeMode.CenterImage;
                 }
-                displayedFileName = theExtendedImage.getImageFileName();
-                setSubtitle();
                 if (showRunning)
                 {
                     // stop old timer (in case new image was triggered by keyboard)
@@ -142,18 +166,48 @@ namespace QuickImageComment
             }
         }
 
-        private void setSubtitle()
+        internal void showSubtitleAndRefresh()
         {
-            labelSubTitle.Text = (MainMaskInterface.indexOfFile(displayedFileName) + 1).ToString() + "/"
-                  + MainMaskInterface.getListViewFilesCount().ToString() + ": ";
-            ArrayList MetaDataDefinitions = ConfigDefinition.getMetaDataDefinitions(ConfigDefinition.enumMetaDataGroup.MetaDataDefForSlideshow);
-            foreach (MetaDataDefinitionItem anMetaDataDefinitionItem in MetaDataDefinitions)
+            if (pictureBox1.Image != null)
             {
-                ArrayList OverViewMetaDataArrayList = theExtendedImage.getMetaDataArrayListByDefinition(anMetaDataDefinitionItem);
-                foreach (string OverViewMetaDataString in OverViewMetaDataArrayList)
+                if (subTitelDisplay == SubTitelDisplay.None)
                 {
-                    labelSubTitle.Text += OverViewMetaDataString.Replace("\r\n", " | ");
+                    dynamicLabelSubTitle.Visible = false;
+                    subTitleInPictureBox = false;
+                    // use total height for image
+                    pictureBox1.Height = this.Height;
                 }
+                else
+                {
+                    subTitleText = (MainMaskInterface.indexOfFile(displayedFileName) + 1).ToString() + "/"
+                          + MainMaskInterface.getListViewFilesCount().ToString() + ": ";
+                    ArrayList MetaDataDefinitions = ConfigDefinition.getMetaDataDefinitions(ConfigDefinition.enumMetaDataGroup.MetaDataDefForSlideshow);
+                    foreach (MetaDataDefinitionItem anMetaDataDefinitionItem in MetaDataDefinitions)
+                    {
+                        ArrayList OverViewMetaDataArrayList = theExtendedImage.getMetaDataArrayListByDefinition(anMetaDataDefinitionItem);
+                        foreach (string OverViewMetaDataString in OverViewMetaDataArrayList)
+                        {
+                            subTitleText += OverViewMetaDataString.Replace("\r\n", " | ");
+                        }
+                    }
+                    subTitleSize = TextRenderer.MeasureText(subTitleText, dynamicLabelSubTitle.Font, pictureBox1.Size, TextFormatFlags.WordBreak);
+                    if (pictureBox1.Image.Height >= this.Height && subTitelDisplay == SubTitelDisplay.DependingOnSize)
+                    {
+                        // sub title text will be drawn over image
+                        dynamicLabelSubTitle.Visible = false;
+                        subTitleInPictureBox = true;
+                        // use total height for image
+                        pictureBox1.Height = this.Height;
+                    }
+                    else
+                    {
+                        dynamicLabelSubTitle.Visible = true;
+                        subTitleInPictureBox = false;
+                        dynamicLabelSubTitle.Text = subTitleText;
+                        pictureBox1.Height = this.Height - subTitleSize.Height;
+                    }
+                }
+                this.Refresh();
             }
         }
 
@@ -208,7 +262,7 @@ namespace QuickImageComment
                     {
                         if (index > 0)
                         {
-                            index = index - pageUpDownScrollNumber;
+                            index -= pageUpDownScrollNumber;
                             if (index < 0) index = 0;
                             newImage(ImageManager.getExtendedImage(index));
                         }
@@ -217,7 +271,7 @@ namespace QuickImageComment
                     {
                         if (index < count - 1)
                         {
-                            index = index + pageUpDownScrollNumber;
+                            index += pageUpDownScrollNumber;
                             if (index > count - 1) index = count - 1;
                             newImage(ImageManager.getExtendedImage(index));
                         }
@@ -251,11 +305,12 @@ namespace QuickImageComment
                 }
                 FormSlideshowSettings formSlideshowSettings = new FormSlideshowSettings(this);
                 formSlideshowSettings.ShowDialog();
-                if (formSlideshowSettings.settingsChanged)
-                {
-                    getConfiguration();
-                    setSubtitle();
-                }
+
+                // always read configuration and refresh
+                // if FormSlideshowSettings was terminated with Cancel, this will restore previous settings
+                getConfiguration();
+                showSubtitleAndRefresh();
+
                 // continue refresh if it was running
                 if (showRunning)
                 {
@@ -266,8 +321,26 @@ namespace QuickImageComment
 
         private void labelSubTitle_SizeChanged(object sender, EventArgs e)
         {
-            labelSubTitle.Location = new Point(0, this.Height - labelSubTitle.Height);
-            pictureBox1.Height = labelSubTitle.Location.Y;
+            dynamicLabelSubTitle.Location = new Point(0, this.Height - dynamicLabelSubTitle.Height);
+        }
+
+        private void pictureBox1_Paint(object sender, PaintEventArgs e)
+        {
+            if (subTitleInPictureBox)
+            {
+                e.Graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
+
+                int x = (this.Width - subTitleSize.Width) / 2;
+                int y = this.Height - subTitleSize.Height;
+
+                Graphics g = e.Graphics;
+                Brush brush2 = new SolidBrush(Color.FromArgb(subTitleOpacity, this.BackColor));
+                Rectangle rect = new Rectangle(x, y, subTitleSize.Width, subTitleSize.Height);
+                g.FillRectangle(brush2, rect);
+
+                Brush brush = new SolidBrush(dynamicLabelSubTitle.ForeColor);
+                e.Graphics.DrawString(subTitleText, dynamicLabelSubTitle.Font, brush, rect, drawStringFormat);
+            }
         }
     }
 }

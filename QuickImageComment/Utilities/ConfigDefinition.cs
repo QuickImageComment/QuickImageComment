@@ -217,7 +217,8 @@ namespace QuickImageComment
             MapCircleSegmentRadius,
             slideShowBackColor,
             slideShowSubtitleForeColor,
-            slideShowDelay
+            slideShowDelay,
+            slideShowSubtitleOpacity
         };
 
         public enum enumCfgUserString
@@ -238,6 +239,7 @@ namespace QuickImageComment
             LastImageCausingExiv2Exception,
             MapCircleColor,
             SlideshowSubtitleFont,
+            SlideShowSubTitelDisplay
         };
 
         public enum enumMetaDataGroup
@@ -548,6 +550,7 @@ namespace QuickImageComment
             ConfigItems.Add(enumCfgUserString.LastImageCausingExiv2Exception.ToString(), "");
             ConfigItems.Add(enumCfgUserString.MapCircleColor.ToString(), "3388ff");
             ConfigItems.Add(enumCfgUserString.SlideshowSubtitleFont.ToString(), "");
+            ConfigItems.Add(enumCfgUserString.SlideShowSubTitelDisplay.ToString(), "");
 
             ConfigItems.Add(enumCfgUserInt.CheckForNewVersionPeriodInDays.ToString(), 30);
             ConfigItems.Add(enumCfgUserInt.ImageDetailsFrameColor.ToString(), System.Drawing.Color.Red.ToArgb());
@@ -594,6 +597,7 @@ namespace QuickImageComment
             ConfigItems.Add(enumCfgUserInt.slideShowBackColor.ToString(), Color.Black.ToArgb());
             ConfigItems.Add(enumCfgUserInt.slideShowSubtitleForeColor.ToString(), Color.White.ToArgb());
             ConfigItems.Add(enumCfgUserInt.slideShowDelay.ToString(), 5);
+            ConfigItems.Add(enumCfgUserInt.slideShowSubtitleOpacity.ToString(), 50);
 
             // the following are not contained in standard general configuration file and are optional
             // so they are not defined via enum

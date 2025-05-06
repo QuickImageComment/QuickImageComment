@@ -46,7 +46,7 @@ namespace QuickImageComment
     {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormSlideshow));
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.labelSubTitle = new System.Windows.Forms.Label();
+            this.dynamicLabelSubTitle = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -60,19 +60,20 @@ namespace QuickImageComment
             this.pictureBox1.Size = new System.Drawing.Size(384, 331);
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
+            this.pictureBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox1_Paint);
             // 
-            // labelSubTitle
+            // dynamicLabelSubTitle
             // 
-            this.labelSubTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.dynamicLabelSubTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelSubTitle.BackColor = System.Drawing.Color.Transparent;
-            this.labelSubTitle.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.labelSubTitle.Location = new System.Drawing.Point(0, 334);
-            this.labelSubTitle.Name = "labelSubTitle";
-            this.labelSubTitle.Size = new System.Drawing.Size(384, 27);
-            this.labelSubTitle.TabIndex = 2;
-            this.labelSubTitle.Text = "labelSubTitle";
-            this.labelSubTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.dynamicLabelSubTitle.BackColor = System.Drawing.Color.Transparent;
+            this.dynamicLabelSubTitle.ForeColor = System.Drawing.SystemColors.ControlLight;
+            this.dynamicLabelSubTitle.Location = new System.Drawing.Point(0, 334);
+            this.dynamicLabelSubTitle.Name = "dynamicLabelSubTitle";
+            this.dynamicLabelSubTitle.Size = new System.Drawing.Size(384, 27);
+            this.dynamicLabelSubTitle.TabIndex = 2;
+            this.dynamicLabelSubTitle.Text = "labelSubTitle";
+            this.dynamicLabelSubTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // FormSlideshow
             // 
@@ -80,7 +81,7 @@ namespace QuickImageComment
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(384, 361);
-            this.Controls.Add(this.labelSubTitle);
+            this.Controls.Add(this.dynamicLabelSubTitle);
             this.Controls.Add(this.pictureBox1);
             this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -95,7 +96,7 @@ namespace QuickImageComment
     }
 
     #endregion
+        internal System.Windows.Forms.Label dynamicLabelSubTitle;
         private System.Windows.Forms.PictureBox pictureBox1;
-        internal System.Windows.Forms.Label labelSubTitle;
     }
 }
