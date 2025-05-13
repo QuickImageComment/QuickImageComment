@@ -413,11 +413,14 @@ namespace QuickImageComment
             }
         }
 
-        internal static void refreshListViewFiles()
+        internal static void refreshListViewFilesDetailsView()
         {
-                    theFormQuickImageComment.theUserControlFiles.listViewFiles.Invalidate();
-                    theFormQuickImageComment.theUserControlFiles.listViewFiles.Update();
-                }
+            if (theFormQuickImageComment.theUserControlFiles.listViewFiles.View == View.Details)
+            {
+                theFormQuickImageComment.theUserControlFiles.listViewFiles.Invalidate();
+                theFormQuickImageComment.theUserControlFiles.listViewFiles.Update();
+            }
+        }
 
         internal static string getFileName(int index)
         {

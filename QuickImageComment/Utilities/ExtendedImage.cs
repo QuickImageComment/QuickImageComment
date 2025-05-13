@@ -1395,7 +1395,7 @@ namespace QuickImageComment
                         listViewItemOld.SubItems[kk].Text = listViewItemNew.SubItems[kk].Text;
                     }
                 }
-                MainMaskInterface.refreshListViewFiles();
+                MainMaskInterface.refreshListViewFilesDetailsView();
             }
         }
 
