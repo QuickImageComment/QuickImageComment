@@ -606,7 +606,9 @@ namespace QuickImageComment
                     // Scroll List to display selected item
                     if (newIndexCount > 0)
                     {
-                        listViewFiles.EnsureVisible(displayedIndex());
+                        int index = displayedIndex();
+                        // when user changed folder just after selecting image there might be no image displayed yet
+                        if (index >= 0) listViewFiles.EnsureVisible(index);
                     }
 
                     theFormQuickImageComment.refreshdataGridViewSelectedFiles();
