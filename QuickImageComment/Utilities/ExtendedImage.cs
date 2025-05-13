@@ -410,7 +410,6 @@ namespace QuickImageComment
                 addReplaceOtherMetaDataKnownType("File.Size", FileSize.ToString("#,### KB"));
                 addReplaceOtherMetaDataKnownType("File.Modified", theFileInfo.LastWriteTime.ToString());
                 addReplaceOtherMetaDataKnownType("File.Created", theFileInfo.CreationTime.ToString());
-                updateListViewItem(theFileInfo);
             }
             else
             {
@@ -2865,7 +2864,6 @@ namespace QuickImageComment
         // rotate image after changing orientation or configuration for RAW decoder requires rotation
         internal void rotateIfRequired()
         {
-            Logger.log(ImageFileName + " rotate to " + RequiredOrientation.ToString());
             if (RequiredOrientation != AppliedOrientation)
             {
                 undoRotation(AppliedOrientation, FullSizeImage);
