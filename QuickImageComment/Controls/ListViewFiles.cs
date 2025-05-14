@@ -455,21 +455,17 @@ namespace QuickImageCommentControls
         // redraw fresh thumbnails
         internal void redrawItemWithThumbnail(string fullFileName)
         {
-            int ii = getIndexOf(fullFileName);
-            if (ii >= 0)
+            if (!FormQuickImageComment.closing && (View == View.Tile || View == View.LargeIcon) && filesNeedingRedraw.Contains(fullFileName))
             {
-                if (!FormQuickImageComment.closing && (View == View.Tile || View == View.LargeIcon) && filesNeedingRedraw.Contains(fullFileName))
+                filesNeedingRedraw.Remove(fullFileName);
+                // no lock: can cause freeze when there are many updates outside QuickImageComment
+                // very low risk here to get wrong information here due to parallel updates
+                // and it is about updating thumbnails only
+                // lock (UserControlFiles.LockListViewFiles)
                 {
-                    filesNeedingRedraw.Remove(fullFileName);
-                    // no lock: can cause freeze when there are many updates outside QuickImageComment
-                    // very low risk here to get wrong information here due to parallel updates
-                    // and it is about updating thumbnails only
-                    // lock (UserControlFiles.LockListViewFiles)
-                    {
-                        // clear thumbnails to force redraw
-                        clearThumbnails();
-                        Refresh();
-                    }
+                    // clear thumbnails to force redraw
+                    clearThumbnails();
+                    Refresh();
                 }
             }
         }
