@@ -215,7 +215,7 @@ namespace QuickImageComment
             this.buttonNew.Name = "buttonNew";
             this.buttonNew.Size = new System.Drawing.Size(95, 22);
             this.buttonNew.TabIndex = 20;
-            this.buttonNew.Text = "Neu";
+            this.buttonNew.Text = "Hinzufügen";
             this.buttonNew.UseVisualStyleBackColor = true;
             this.buttonNew.Click += new System.EventHandler(this.buttonNew_Click);
             // 

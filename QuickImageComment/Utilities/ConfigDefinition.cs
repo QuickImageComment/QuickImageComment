@@ -893,8 +893,9 @@ namespace QuickImageComment
             // if no entries for MetaDataDefinitionsForSlideshow found, define initial set
             if (MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForSlideshow].Count == 0)
             {
-                MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForSlideshow].Add(new MetaDataDefinitionItem("Dateiname", "File.Name"));
-                MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForSlideshow].Add(new MetaDataDefinitionItem("Kommentar", " ", "Image.CommentAccordingSettings"));
+                MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForSlideshow].Add(new MetaDataDefinitionItem("Bildgröße", "File.ImageSize"));
+                MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForSlideshow].Add(new MetaDataDefinitionItem("Dateiname", "  ", "File.Name"));
+                MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForSlideshow].Add(new MetaDataDefinitionItem("Kommentar", "  ", "Image.CommentAccordingSettings"));
                 translateNamesOfMetaDataDefinitionItem(MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForSlideshow]);
             }
 
