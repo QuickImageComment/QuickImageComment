@@ -239,7 +239,8 @@ namespace QuickImageComment
             LastImageCausingExiv2Exception,
             MapCircleColor,
             SlideshowSubtitleFont,
-            SlideShowSubTitelDisplay
+            SlideShowSubTitelDisplay,
+            MapScaleUnit
         };
 
         public enum enumMetaDataGroup
@@ -263,6 +264,14 @@ namespace QuickImageComment
             MetaDataDefForCompareExceptions,
             MetaDataDefForSlideshow
         };
+
+        // for display of scale in map
+        public enum enumMapScaleUnit
+        {
+            none,
+            metric,
+            imperial
+        }
 
         private static string IniPath;
         private static string UserConfigFile;
@@ -551,6 +560,7 @@ namespace QuickImageComment
             ConfigItems.Add(enumCfgUserString.MapCircleColor.ToString(), "3388ff");
             ConfigItems.Add(enumCfgUserString.SlideshowSubtitleFont.ToString(), "");
             ConfigItems.Add(enumCfgUserString.SlideShowSubTitelDisplay.ToString(), "");
+            ConfigItems.Add(enumCfgUserString.MapScaleUnit.ToString(), enumMapScaleUnit.metric.ToString());
 
             ConfigItems.Add(enumCfgUserInt.CheckForNewVersionPeriodInDays.ToString(), 30);
             ConfigItems.Add(enumCfgUserInt.ImageDetailsFrameColor.ToString(), System.Drawing.Color.Red.ToArgb());

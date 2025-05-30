@@ -46,6 +46,10 @@
             this.textBoxColor = new System.Windows.Forms.TextBox();
             this.labelColor = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
+            this.radioButtonScaleImperial = new System.Windows.Forms.RadioButton();
+            this.radioButtonScaleMetric = new System.Windows.Forms.RadioButton();
+            this.label9 = new System.Windows.Forms.Label();
+            this.radioButtonScaleNone = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFillOpacity)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownOpacity)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCircleSegmentRadius)).BeginInit();
@@ -54,7 +58,7 @@
             // buttonOk
             // 
             this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonOk.Location = new System.Drawing.Point(63, 178);
+            this.buttonOk.Location = new System.Drawing.Point(63, 282);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(96, 23);
             this.buttonOk.TabIndex = 1;
@@ -65,7 +69,7 @@
             // buttonCancel
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonCancel.Location = new System.Drawing.Point(165, 178);
+            this.buttonCancel.Location = new System.Drawing.Point(165, 282);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(96, 23);
             this.buttonCancel.TabIndex = 2;
@@ -75,7 +79,7 @@
             // 
             // numericUpDownFillOpacity
             // 
-            this.numericUpDownFillOpacity.Location = new System.Drawing.Point(198, 118);
+            this.numericUpDownFillOpacity.Location = new System.Drawing.Point(198, 220);
             this.numericUpDownFillOpacity.Name = "numericUpDownFillOpacity";
             this.numericUpDownFillOpacity.Size = new System.Drawing.Size(61, 21);
             this.numericUpDownFillOpacity.TabIndex = 3;
@@ -84,7 +88,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 122);
+            this.label1.Location = new System.Drawing.Point(3, 224);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(102, 13);
             this.label1.TabIndex = 4;
@@ -93,7 +97,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(265, 122);
+            this.label2.Location = new System.Drawing.Point(265, 224);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(18, 13);
             this.label2.TabIndex = 5;
@@ -102,7 +106,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(265, 95);
+            this.label3.Location = new System.Drawing.Point(265, 197);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(18, 13);
             this.label3.TabIndex = 8;
@@ -111,7 +115,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(3, 95);
+            this.label4.Location = new System.Drawing.Point(3, 197);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(78, 13);
             this.label4.TabIndex = 7;
@@ -119,7 +123,7 @@
             // 
             // numericUpDownOpacity
             // 
-            this.numericUpDownOpacity.Location = new System.Drawing.Point(198, 91);
+            this.numericUpDownOpacity.Location = new System.Drawing.Point(198, 193);
             this.numericUpDownOpacity.Name = "numericUpDownOpacity";
             this.numericUpDownOpacity.Size = new System.Drawing.Size(61, 21);
             this.numericUpDownOpacity.TabIndex = 6;
@@ -128,7 +132,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(265, 149);
+            this.label5.Location = new System.Drawing.Point(265, 251);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(29, 13);
             this.label5.TabIndex = 11;
@@ -137,7 +141,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(3, 149);
+            this.label6.Location = new System.Drawing.Point(3, 251);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(171, 13);
             this.label6.TabIndex = 10;
@@ -145,7 +149,7 @@
             // 
             // numericUpDownCircleSegmentRadius
             // 
-            this.numericUpDownCircleSegmentRadius.Location = new System.Drawing.Point(198, 145);
+            this.numericUpDownCircleSegmentRadius.Location = new System.Drawing.Point(198, 247);
             this.numericUpDownCircleSegmentRadius.Maximum = new decimal(new int[] {
             200,
             0,
@@ -159,7 +163,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(6, 50);
+            this.label7.Location = new System.Drawing.Point(6, 152);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(35, 13);
             this.label7.TabIndex = 12;
@@ -167,7 +171,7 @@
             // 
             // buttonColorDialog
             // 
-            this.buttonColorDialog.Location = new System.Drawing.Point(85, 45);
+            this.buttonColorDialog.Location = new System.Drawing.Point(85, 147);
             this.buttonColorDialog.Name = "buttonColorDialog";
             this.buttonColorDialog.Size = new System.Drawing.Size(75, 23);
             this.buttonColorDialog.TabIndex = 13;
@@ -177,7 +181,7 @@
             // 
             // textBoxColor
             // 
-            this.textBoxColor.Location = new System.Drawing.Point(198, 46);
+            this.textBoxColor.Location = new System.Drawing.Point(198, 148);
             this.textBoxColor.Name = "textBoxColor";
             this.textBoxColor.Size = new System.Drawing.Size(61, 21);
             this.textBoxColor.TabIndex = 14;
@@ -186,25 +190,74 @@
             // labelColor
             // 
             this.labelColor.BackColor = System.Drawing.Color.Cyan;
-            this.labelColor.Location = new System.Drawing.Point(265, 45);
+            this.labelColor.Location = new System.Drawing.Point(265, 147);
             this.labelColor.Name = "labelColor";
             this.labelColor.Size = new System.Drawing.Size(45, 23);
             this.labelColor.TabIndex = 15;
             // 
             // label8
             // 
-            this.label8.Location = new System.Drawing.Point(6, 4);
+            this.label8.Location = new System.Drawing.Point(6, 106);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(303, 39);
             this.label8.TabIndex = 16;
             this.label8.Text = "Einstellungen für Anzeige des Suchkreises und für Aufnahmerichtung mit Aufnahmewi" +
     "nkel\r\n";
             // 
+            // radioButtonScaleImperial
+            // 
+            this.radioButtonScaleImperial.AutoSize = true;
+            this.radioButtonScaleImperial.Location = new System.Drawing.Point(198, 58);
+            this.radioButtonScaleImperial.Name = "radioButtonScaleImperial";
+            this.radioButtonScaleImperial.Size = new System.Drawing.Size(53, 17);
+            this.radioButtonScaleImperial.TabIndex = 17;
+            this.radioButtonScaleImperial.TabStop = true;
+            this.radioButtonScaleImperial.Text = "mi / ft";
+            this.radioButtonScaleImperial.UseVisualStyleBackColor = true;
+            this.radioButtonScaleImperial.CheckedChanged += new System.EventHandler(this.radioButtonScale_CheckedChanged);
+            // 
+            // radioButtonScaleMetric
+            // 
+            this.radioButtonScaleMetric.AutoSize = true;
+            this.radioButtonScaleMetric.Location = new System.Drawing.Point(198, 35);
+            this.radioButtonScaleMetric.Name = "radioButtonScaleMetric";
+            this.radioButtonScaleMetric.Size = new System.Drawing.Size(56, 17);
+            this.radioButtonScaleMetric.TabIndex = 18;
+            this.radioButtonScaleMetric.TabStop = true;
+            this.radioButtonScaleMetric.Text = "km / m";
+            this.radioButtonScaleMetric.UseVisualStyleBackColor = true;
+            this.radioButtonScaleMetric.CheckedChanged += new System.EventHandler(this.radioButtonScale_CheckedChanged);
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(6, 12);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(48, 13);
+            this.label9.TabIndex = 19;
+            this.label9.Text = "Maßstab";
+            // 
+            // radioButtonScaleNone
+            // 
+            this.radioButtonScaleNone.AutoSize = true;
+            this.radioButtonScaleNone.Location = new System.Drawing.Point(198, 12);
+            this.radioButtonScaleNone.Name = "radioButtonScaleNone";
+            this.radioButtonScaleNone.Size = new System.Drawing.Size(49, 17);
+            this.radioButtonScaleNone.TabIndex = 21;
+            this.radioButtonScaleNone.TabStop = true;
+            this.radioButtonScaleNone.Text = "ohne";
+            this.radioButtonScaleNone.UseVisualStyleBackColor = true;
+            this.radioButtonScaleNone.CheckedChanged += new System.EventHandler(this.radioButtonScale_CheckedChanged);
+            // 
             // FormMapSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(324, 204);
+            this.ClientSize = new System.Drawing.Size(324, 308);
+            this.Controls.Add(this.radioButtonScaleNone);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.radioButtonScaleMetric);
+            this.Controls.Add(this.radioButtonScaleImperial);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.labelColor);
             this.Controls.Add(this.textBoxColor);
@@ -254,5 +307,9 @@
         private System.Windows.Forms.TextBox textBoxColor;
         private System.Windows.Forms.Label labelColor;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.RadioButton radioButtonScaleImperial;
+        private System.Windows.Forms.RadioButton radioButtonScaleMetric;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.RadioButton radioButtonScaleNone;
     }
 }

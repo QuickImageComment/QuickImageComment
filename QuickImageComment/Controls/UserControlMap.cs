@@ -47,6 +47,7 @@ namespace QuickImageComment
         private static string CircleOpacity;
         private static string CircleFillOpacity;
         private static string CircleSegmentRadius;
+        private static string MapScaleUnit;
 
         private GeoDataItem startGeoDataItem;
         private GeoDataItem markerGeoDataItem;
@@ -399,6 +400,7 @@ namespace QuickImageComment
             CircleFillOpacity = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.MapCircleFillOpacity).ToString("000");
             CircleFillOpacity = CircleFillOpacity.Substring(0, 1) + "." + CircleFillOpacity.Substring(1);
             CircleSegmentRadius = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.MapCircleSegmentRadius).ToString();
+            MapScaleUnit = ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.MapScaleUnit);
         }
 
         internal void adjustSplitterDistance()
@@ -782,6 +784,10 @@ namespace QuickImageComment
                 "?attribution1=" + selectedMapSource.attribution1.Replace("\"", "%22").Replace(" ", "%20").Replace("=", "%3D") +
                 "?tileLayerUrlTemplate1=" + selectedMapSource.tileLayerUrlTemplate1.Replace("=", "%3D") +
                 "?maxZoom1=" + selectedMapSource.maxZoom1.ToString();
+            if (!MapScaleUnit.Equals(ConfigDefinition.enumMapScaleUnit.none.ToString()))
+            {
+                urlParams += "?" + MapScaleUnit + "=true";
+            }
             if (!selectedMapSource.subdomains1.Equals(""))
             {
                 urlParams += "?subdomains1=" + selectedMapSource.subdomains1;
@@ -1602,15 +1608,18 @@ namespace QuickImageComment
 
         // called from FormMapSettings to apply changes
         internal void applyMapSettings(string givenCircleColor, string givenCircleOpacity,
-            string givenCircleFillOpacity, string givenCircleSegmentRadius)
+            string givenCircleFillOpacity, string givenCircleSegmentRadius, string givenMapScaleUnit)
         {
             CircleColor = givenCircleColor;
             CircleOpacity = givenCircleOpacity;
             CircleFillOpacity = givenCircleFillOpacity;
             CircleSegmentRadius = givenCircleSegmentRadius;
+            MapScaleUnit = givenMapScaleUnit;
+            string scaleMetric = MapScaleUnit.Equals(ConfigDefinition.enumMapScaleUnit.metric.ToString()) ? "true" : "";
+            string scaleImperial = MapScaleUnit.Equals(ConfigDefinition.enumMapScaleUnit.imperial.ToString()) ? "true" : "";
 
             invokeLeafletMethod("applySettings", new string[] { CircleColor, CircleOpacity,
-                CircleFillOpacity, CircleSegmentRadius });
+                CircleFillOpacity, CircleSegmentRadius, scaleMetric, scaleImperial });
         }
 
         // called from leaflet.html for test of values in html

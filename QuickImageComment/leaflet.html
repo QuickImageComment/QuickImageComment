@@ -41,9 +41,10 @@
         var direction = "";
         var angle = "";
         var map;
+        var scale;
 
         // apply settings for map
-        function applySettings(CircleColor, CircleOpacity, CircleFillOpacity, CircleSegmentRadius) {
+        function applySettings(CircleColor, CircleOpacity, CircleFillOpacity, CircleSegmentRadius, scaleMetric, scaleImperial) {
             // as # cannot be passed as part of argument, it is added here
             circleColor = '#' + CircleColor;
             circleOpacity = CircleOpacity;
@@ -54,6 +55,16 @@
             if (direction != "") {
                 drawCircleSegment(direction, angle);
             }
+            map.removeControl(scale);
+            scale =
+                L.control.scale(
+                    {
+                        imperial: scaleImperial,
+                        metric: scaleMetric,
+                        maxWidth: 100
+                    }
+                );
+            scale.addTo(map);
         }
 
         // create a marker for position
@@ -272,13 +283,14 @@
 
         var tileLayerUrlTemplate1 = params.tileLayerUrlTemplate1.replace(/%7B/g, "{").replace(/%7D/g, "}").replace(
             /%3D/g, "=");
-        L.control.scale(
+        scale = L.control.scale(
             {
-                imperial: false,
-                metric: true,
+                imperial: params.imperial,
+                metric: params.metric,
                 maxWidth: 100
             }
-        ).addTo(map);
+        );
+        scale.addTo(map);
         if (params.subdomains1 != null) {
             L.tileLayer(
                 tileLayerUrlTemplate1, {
