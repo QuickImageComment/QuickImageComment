@@ -306,7 +306,14 @@ namespace QuickImageCommentControls
                     }
                     else
                     {
-                        KeyList.Add(LangCfg.getLookupValue("META_KEY", key), key);
+                        try
+                        {
+                            KeyList.Add(LangCfg.getLookupValue("META_KEY", key), key);
+                        }
+                        catch (System.Exception ex)
+                        {
+                            GeneralUtilities.debugMessage(ex.Message + ": key=" + key + "\r\nlookup=" + LangCfg.getLookupValue("META_KEY", key));
+                        }
                     }
                 }
             }
