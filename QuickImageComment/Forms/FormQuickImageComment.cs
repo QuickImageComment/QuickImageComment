@@ -4856,8 +4856,14 @@ namespace QuickImageComment
 #if !DEBUG
                 catch (Exception ex)
                 {
-                    GeneralUtilities.message(LangCfg.Message.E_readFolder, ex.ToString());
+                    // do not perform actions when already closing
+                    // might try to access objects already gone or listViewFiles is CLOSING
+                    if (!FormQuickImageComment.closing)
+                    {
+                        GeneralUtilities.message(LangCfg.Message.E_readFolder, ex.ToString());
+                    }
                 }
+
 #endif
                 toolStripStatusLabelInfo.Text = "";
                 statusStrip1.Refresh();
@@ -6429,6 +6435,12 @@ namespace QuickImageComment
         {
             lock (UserControlFiles.LockListViewFiles)
             {
+                // do not perform actions when already closing
+                // might try to access objects already gone or listViewFiles is CLOSING
+                if (FormQuickImageComment.closing)
+                {
+                    return null;
+                }
                 if (theUserControlFiles.listViewFiles.SelectedItems.Count == 0)
                 {
                     return null;

@@ -263,7 +263,12 @@ namespace QuickImageComment
 #if APPCENTER
             if (Program.AppCenterUsable) Microsoft.AppCenter.Analytics.Analytics.TrackEvent("Startup finished");
 #endif
-            Application.Run(theFormQuickImageComment);
+            // user may have started closing and then Application.Run may result in 
+            // Cannot access a disposed object. Object name: 'FormQuickImageComment'.
+            if (!FormQuickImageComment.closing)
+            {
+                Application.Run(theFormQuickImageComment);
+            }
 
             //sometimes when ending the program, errors occur as objects were no longer accessible
             //checking flag closing was not sufficient, so try this approach from
