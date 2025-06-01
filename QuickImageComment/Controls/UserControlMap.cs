@@ -1343,8 +1343,9 @@ namespace QuickImageComment
                 else
                 {
                     // get Geo data item from nominatim OpenStretMap
-                    string url = "https://nominatim.openstreetmap.org/search?q="
-                        + queryParameterNormalized
+                    string url = "https://nominatim.openstreetmap.org/search?";
+                    if (!queryParameterNormalized.Contains("=")) url += "q=";
+                    url += queryParameterNormalized
                         + "&format=json&limit=1&addressdetails=1";
 #if NET4
                     ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
@@ -1394,7 +1395,7 @@ namespace QuickImageComment
             keyNormalized = keyNormalized.Replace(',', ' ');
             keyNormalized = keyNormalized.Replace(';', ' ');
             keyNormalized = keyNormalized.Replace("  ", " ");
-            return keyNormalized.ToUpper();
+            return keyNormalized.ToLower();
         }
 
         // clear search field and disable buttons to handle selected entry
