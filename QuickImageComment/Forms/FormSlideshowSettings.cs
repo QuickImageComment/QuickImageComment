@@ -40,18 +40,7 @@ namespace QuickImageComment
 
             LangCfg.translateControlTexts(this);
 
-            numericUpDownDelay.Value = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.slideShowDelay);
-            numericUpDownPageScrollNumber.Value = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.pageUpDownScrollNumber);
-            buttonBackgroundColor.BackColor = Color.FromArgb(ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.slideShowBackColor));
-            buttonForeGroundColor.BackColor = Color.FromArgb(ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.slideShowSubtitleForeColor));
-            FontConverter fontConverter = new FontConverter();
-            buttonFontSubtitle.Text = fontConverter.ConvertToString(fontSubtitle);
-            numericUpDownOpacity.Value = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.slideShowSubtitleOpacity);
-            string slideShowSubTitelDisplay = ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.SlideShowSubTitelDisplay);
-            radioButtonSubtitleNone.Checked = slideShowSubTitelDisplay.Equals("None");
-            radioButtonSubTitleBelowImage.Checked = slideShowSubTitelDisplay.Equals("BelowImage");
-            radioButtonSubTitleDependingOnSize.Checked = slideShowSubTitelDisplay.Equals("DependingOnSize");
-            checkBoxHideAtStart.Checked = ConfigDefinition.getCfgUserBool(ConfigDefinition.enumCfgUserBool.slideShowHideSettingsAtStart);
+            loadConfiguration();
 
             // if flag set, create screenshot and return
             if (GeneralUtilities.CreateScreenshots)
@@ -69,6 +58,22 @@ namespace QuickImageComment
             }
         }
 
+        private void loadConfiguration()
+        {
+            numericUpDownDelay.Value = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.slideShowDelay);
+            numericUpDownPageScrollNumber.Value = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.pageUpDownScrollNumber);
+            buttonBackgroundColor.BackColor = Color.FromArgb(ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.slideShowBackColor));
+            buttonForeGroundColor.BackColor = Color.FromArgb(ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.slideShowSubtitleForeColor));
+            FontConverter fontConverter = new FontConverter();
+            buttonFontSubtitle.Text = fontConverter.ConvertToString(fontSubtitle);
+            numericUpDownOpacity.Value = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.slideShowSubtitleOpacity);
+            string slideShowSubTitelDisplay = ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.SlideShowSubTitelDisplay);
+            radioButtonSubtitleNone.Checked = slideShowSubTitelDisplay.Equals("None");
+            radioButtonSubTitleBelowImage.Checked = slideShowSubTitelDisplay.Equals("BelowImage");
+            radioButtonSubTitleDependingOnSize.Checked = slideShowSubTitelDisplay.Equals("DependingOnSize");
+            checkBoxHideAtStart.Checked = ConfigDefinition.getCfgUserBool(ConfigDefinition.enumCfgUserBool.slideShowHideSettingsAtStart);
+        }
+
         //-------------------------------------------------------------------------
         // buttons
         //-------------------------------------------------------------------------
@@ -76,6 +81,7 @@ namespace QuickImageComment
         private void buttonAbort_Click(object sender, EventArgs e)
         {
             this.Close();
+            formSlideshow.Close();
         }
 
         private void buttonOk_Click(object sender, EventArgs e)
@@ -100,6 +106,14 @@ namespace QuickImageComment
             ConfigDefinition.setCfgUserString(ConfigDefinition.enumCfgUserString.SlideShowSubTitelDisplay, subTitleDisplay);
 
             this.Close();
+        }
+
+        private void buttonRevertChanges_Click(object sender, EventArgs e)
+        {
+            formSlideshow.getConfiguration();
+            loadConfiguration();
+            fontSubtitle = this.formSlideshow.dynamicLabelSubTitle.Font;
+            formSlideshow.showSubtitleAndRefresh();
         }
 
         private void buttonHelp_Click(object sender, EventArgs e)

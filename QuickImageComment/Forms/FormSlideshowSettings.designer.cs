@@ -69,6 +69,7 @@ namespace QuickImageComment
             this.label8 = new System.Windows.Forms.Label();
             this.numericUpDownOpacity = new System.Windows.Forms.NumericUpDown();
             this.label9 = new System.Windows.Forms.Label();
+            this.buttonRevertChanges = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDelay)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPageScrollNumber)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -78,7 +79,7 @@ namespace QuickImageComment
             // buttonAbort
             // 
             this.buttonAbort.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonAbort.Location = new System.Drawing.Point(267, 350);
+            this.buttonAbort.Location = new System.Drawing.Point(259, 370);
             this.buttonAbort.Name = "buttonAbort";
             this.buttonAbort.Size = new System.Drawing.Size(95, 22);
             this.buttonAbort.TabIndex = 10;
@@ -89,7 +90,7 @@ namespace QuickImageComment
             // buttonOk
             // 
             this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonOk.Location = new System.Drawing.Point(154, 350);
+            this.buttonOk.Location = new System.Drawing.Point(159, 370);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(95, 22);
             this.buttonOk.TabIndex = 9;
@@ -100,7 +101,7 @@ namespace QuickImageComment
             // buttonHelp
             // 
             this.buttonHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonHelp.Location = new System.Drawing.Point(416, 350);
+            this.buttonHelp.Location = new System.Drawing.Point(412, 370);
             this.buttonHelp.Name = "buttonHelp";
             this.buttonHelp.Size = new System.Drawing.Size(95, 22);
             this.buttonHelp.TabIndex = 11;
@@ -221,7 +222,7 @@ namespace QuickImageComment
             // 
             this.checkBoxHideAtStart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.checkBoxHideAtStart.AutoSize = true;
-            this.checkBoxHideAtStart.Location = new System.Drawing.Point(6, 299);
+            this.checkBoxHideAtStart.Location = new System.Drawing.Point(6, 288);
             this.checkBoxHideAtStart.Name = "checkBoxHideAtStart";
             this.checkBoxHideAtStart.Size = new System.Drawing.Size(268, 17);
             this.checkBoxHideAtStart.TabIndex = 24;
@@ -232,7 +233,7 @@ namespace QuickImageComment
             // 
             this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(24, 319);
+            this.label7.Location = new System.Drawing.Point(24, 308);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(379, 13);
             this.label7.TabIndex = 25;
@@ -311,11 +312,23 @@ namespace QuickImageComment
             this.label9.TabIndex = 27;
             this.label9.Text = "Opazität des Hintergrundes wenn Untertitel über Bild";
             // 
+            // buttonRevertChanges
+            // 
+            this.buttonRevertChanges.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonRevertChanges.Location = new System.Drawing.Point(3, 370);
+            this.buttonRevertChanges.Name = "buttonRevertChanges";
+            this.buttonRevertChanges.Size = new System.Drawing.Size(142, 22);
+            this.buttonRevertChanges.TabIndex = 30;
+            this.buttonRevertChanges.Text = "Änderungen verwerfen";
+            this.buttonRevertChanges.UseVisualStyleBackColor = true;
+            this.buttonRevertChanges.Click += new System.EventHandler(this.buttonRevertChanges_Click);
+            // 
             // FormSlideshowSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(517, 377);
+            this.ClientSize = new System.Drawing.Size(513, 397);
+            this.Controls.Add(this.buttonRevertChanges);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.numericUpDownOpacity);
             this.Controls.Add(this.label9);
@@ -342,7 +355,7 @@ namespace QuickImageComment
             this.KeyPreview = true;
             this.Name = "FormSlideshowSettings";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Suche über Eigenschaften - Abfrage bearbeiten";
+            this.Text = "Einstellungen für Slideshow";
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDelay)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPageScrollNumber)).EndInit();
             this.groupBox1.ResumeLayout(false);
@@ -378,5 +391,6 @@ namespace QuickImageComment
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.NumericUpDown numericUpDownOpacity;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Button buttonRevertChanges;
     }
 }

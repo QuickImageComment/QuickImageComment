@@ -99,7 +99,7 @@ namespace QuickImageComment
             }
         }
 
-        private void getConfiguration()
+        internal void getConfiguration()
         {
             timer.Interval = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.slideShowDelay) * 1000;
             pageUpDownScrollNumber = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.pageUpDownScrollNumber);
