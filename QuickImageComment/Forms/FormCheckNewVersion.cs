@@ -71,7 +71,8 @@ namespace QuickImageComment
 
             if (!Version.Equals(""))
             {
-                textBoxResult.Text = LangCfg.getText(LangCfg.Others.newVersionAvailable, Version, Change);
+                string text = LangCfg.getText(LangCfg.Others.newVersionAvailable, Version, Change);
+                GeneralUtilities.fillRichTextBoxWithChanges(richTextBoxResult, text);
                 buttonDownload.Visible = !GeneralUtilities.MicrosoftStore;
             }
             fillLabelNextCheck();
@@ -97,12 +98,13 @@ namespace QuickImageComment
 
             if (GeneralUtilities.newVersionIsAvailable(ref Version, ref Change))
             {
-                textBoxResult.Text = LangCfg.getText(LangCfg.Others.newVersionAvailable, Version, Change);
+                string text = LangCfg.getText(LangCfg.Others.newVersionAvailable, Version, Change);
+                GeneralUtilities.fillRichTextBoxWithChanges(richTextBoxResult, text);
                 buttonDownload.Visible = !GeneralUtilities.MicrosoftStore;
             }
             else
             {
-                textBoxResult.Text = LangCfg.getText(LangCfg.Others.versionUp2Date);
+                richTextBoxResult.Text = LangCfg.getText(LangCfg.Others.versionUp2Date);
             }
             fillLabelNextCheck();
 

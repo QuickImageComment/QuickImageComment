@@ -60,12 +60,12 @@ namespace QuickImageComment
 
         private void fillChanges()
         {
-            System.Net.WebClient client = new System.Net.WebClient();
             System.IO.Stream stream = System.IO.File.OpenRead(ConfigDefinition.getConfigPath() + System.IO.Path.DirectorySeparatorChar + ChangeInfoFile);
             System.IO.StreamReader reader = new System.IO.StreamReader(stream, System.Text.Encoding.UTF8);
             string content = reader.ReadToEnd();
             reader.Close();
-            textBoxChanges.Text = GeneralUtilities.getChangeInfoFromcontent(content);
+            GeneralUtilities.fillRichTextBoxWithChanges(richTextBoxChanges, 
+                GeneralUtilities.getChangeInfoFromcontent(content));
         }
     }
 }

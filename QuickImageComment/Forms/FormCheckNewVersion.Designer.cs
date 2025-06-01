@@ -39,7 +39,7 @@
             this.dynamicLabelLastCheck = new System.Windows.Forms.Label();
             this.dynamicLabelNextCheck = new System.Windows.Forms.Label();
             this.buttonOk = new System.Windows.Forms.Button();
-            this.textBoxResult = new System.Windows.Forms.TextBox();
+            this.richTextBoxResult = new System.Windows.Forms.RichTextBox();
             this.buttonDownload = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCycle)).BeginInit();
             this.SuspendLayout();
@@ -151,19 +151,19 @@
             this.buttonOk.UseVisualStyleBackColor = true;
             this.buttonOk.Click += new System.EventHandler(this.buttonOK_Click);
             // 
-            // textBoxResult
+            // richTextBoxResult
             // 
-            this.textBoxResult.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.richTextBoxResult.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxResult.BackColor = System.Drawing.SystemColors.Control;
-            this.textBoxResult.Location = new System.Drawing.Point(8, 135);
-            this.textBoxResult.Multiline = true;
-            this.textBoxResult.Name = "textBoxResult";
-            this.textBoxResult.ReadOnly = true;
-            this.textBoxResult.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBoxResult.Size = new System.Drawing.Size(467, 149);
-            this.textBoxResult.TabIndex = 11;
+            this.richTextBoxResult.BackColor = System.Drawing.SystemColors.Control;
+            this.richTextBoxResult.BulletIndent = 10;
+            this.richTextBoxResult.Location = new System.Drawing.Point(8, 135);
+            this.richTextBoxResult.Name = "richTextBoxResult";
+            this.richTextBoxResult.ReadOnly = true;
+            this.richTextBoxResult.Size = new System.Drawing.Size(467, 149);
+            this.richTextBoxResult.TabIndex = 11;
+            this.richTextBoxResult.Text = "";
             // 
             // buttonDownload
             // 
@@ -183,7 +183,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(483, 345);
             this.Controls.Add(this.buttonDownload);
-            this.Controls.Add(this.textBoxResult);
+            this.Controls.Add(this.richTextBoxResult);
             this.Controls.Add(this.buttonOk);
             this.Controls.Add(this.dynamicLabelNextCheck);
             this.Controls.Add(this.dynamicLabelLastCheck);
@@ -219,7 +219,7 @@
         private System.Windows.Forms.Label dynamicLabelLastCheck;
         private System.Windows.Forms.Label dynamicLabelNextCheck;
         private System.Windows.Forms.Button buttonOk;
-        private System.Windows.Forms.TextBox textBoxResult;
+        private System.Windows.Forms.RichTextBox richTextBoxResult;
         private System.Windows.Forms.Button buttonDownload;
     }
 }

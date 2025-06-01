@@ -1294,7 +1294,31 @@ namespace QuickImageComment
                 pEnd = content.IndexOf("</Program_Change_Info_English>", pStart);
                 changes = content.Substring(pStart, pEnd - pStart);
             }
-            return changes.Replace("\n", "\r\n");
+            return changes.TrimStart();
+            //return changes.TrimStart().Replace("\r\n", "\n");
+        }
+
+        internal static void fillRichTextBoxWithChanges(RichTextBox richTextBox, string changes)
+        {
+            richTextBox.Clear();
+            // change all line endings to \n
+            changes = changes.Replace("\r\n", "\n");
+            changes = changes.Replace("\r", "\n");
+
+            string[] lines = changes.Split('\n');
+            for (int ii = 0; ii < lines.Length; ii++)
+            {
+                if (lines[ii].StartsWith("* ") || lines[ii].StartsWith("In"))
+                {
+                    richTextBox.SelectionBullet = true;
+                    richTextBox.SelectedText += lines[ii].Substring(2) + "\r";
+                }
+                else
+                {
+                    richTextBox.SelectionBullet = false;
+                    richTextBox.SelectedText += lines[ii] + "\r";
+                }
+            }
         }
 
         // determine if Windows Vista or higher

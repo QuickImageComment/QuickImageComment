@@ -30,7 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormChangesInVersion));
             this.buttonOk = new System.Windows.Forms.Button();
-            this.textBoxChanges = new System.Windows.Forms.TextBox();
+            this.richTextBoxChanges = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
             // 
             // buttonOk
@@ -45,26 +45,26 @@
             this.buttonOk.UseVisualStyleBackColor = true;
             this.buttonOk.Click += new System.EventHandler(this.buttonClose_Click);
             // 
-            // textBoxChanges
+            // richTextBoxChanges
             // 
-            this.textBoxChanges.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.richTextBoxChanges.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxChanges.BackColor = System.Drawing.SystemColors.Control;
-            this.textBoxChanges.Location = new System.Drawing.Point(8, 10);
-            this.textBoxChanges.Multiline = true;
-            this.textBoxChanges.Name = "textBoxChanges";
-            this.textBoxChanges.ReadOnly = true;
-            this.textBoxChanges.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBoxChanges.Size = new System.Drawing.Size(445, 227);
-            this.textBoxChanges.TabIndex = 11;
+            this.richTextBoxChanges.BackColor = System.Drawing.SystemColors.Control;
+            this.richTextBoxChanges.BulletIndent = 10;
+            this.richTextBoxChanges.Location = new System.Drawing.Point(8, 10);
+            this.richTextBoxChanges.Name = "richTextBoxChanges";
+            this.richTextBoxChanges.ReadOnly = true;
+            this.richTextBoxChanges.Size = new System.Drawing.Size(445, 227);
+            this.richTextBoxChanges.TabIndex = 11;
+            this.richTextBoxChanges.Text = "";
             // 
             // FormChangesInVersion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(461, 269);
-            this.Controls.Add(this.textBoxChanges);
+            this.Controls.Add(this.richTextBoxChanges);
             this.Controls.Add(this.buttonOk);
             this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -74,12 +74,11 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Änderungen in dieser Version";
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
         private System.Windows.Forms.Button buttonOk;
-        private System.Windows.Forms.TextBox textBoxChanges;
+        private System.Windows.Forms.RichTextBox richTextBoxChanges;
     }
 }
