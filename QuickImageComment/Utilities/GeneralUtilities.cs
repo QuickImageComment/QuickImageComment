@@ -1308,7 +1308,7 @@ namespace QuickImageComment
             string[] lines = changes.Split('\n');
             for (int ii = 0; ii < lines.Length; ii++)
             {
-                if (lines[ii].StartsWith("* ") || lines[ii].StartsWith("In"))
+                if (lines[ii].StartsWith("* "))
                 {
                     richTextBox.SelectionBullet = true;
                     richTextBox.SelectedText += lines[ii].Substring(2) + "\r";
