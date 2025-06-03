@@ -78,6 +78,26 @@ namespace QuickImageComment
             this.key = displayString;
         }
 
+        // constructor used in UserControlMap: 
+        // only latitude and longitude given, key is determined based on them
+        public GeoDataItem(
+            string key,
+            string lat,
+            string lon)
+        {
+            this.key = key;
+            this.lat = lat;
+            this.lon = lon;
+            this.display_name = "";
+            this.country = "";
+            this.country_code = "";
+            this.state = "";
+            this.city = "";
+            this.city_district = "";
+
+            convertSignedLatitudeLongitudeAndSetDisplayText();
+        }
+
         // constructor used in UserControlMap:
         // complete, e.g. with results in executeNominatimQuery
         public GeoDataItem(

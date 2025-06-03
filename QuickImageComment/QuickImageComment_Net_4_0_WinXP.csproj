@@ -149,6 +149,12 @@
     <Compile Include="Forms\FormFindQuery.Designer.cs">
       <DependentUpon>FormFindQuery.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FormGeoDataItemList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormGeoDataItemList.Designer.cs">
+      <DependentUpon>FormGeoDataItemList.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FormInputBox.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -576,6 +582,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormFindReadErrors.resx">
       <DependentUpon>FormFindReadErrors.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormGeoDataItemList.resx">
+      <DependentUpon>FormGeoDataItemList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormImageDetails.resx">
       <DependentUpon>FormImageDetails.cs</DependentUpon>

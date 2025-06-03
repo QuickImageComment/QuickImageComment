@@ -14,6 +14,7 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
+using QuickImageComment.Forms;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -1230,7 +1231,7 @@ namespace QuickImageComment
             else if (!result.Groups["lonref"].Value.Equals("E"))
                 return null;
 
-            return new GeoDataItem(coordinatesString.Trim(), lat, lon, "", "", "", "", "", "");
+            return new GeoDataItem(coordinatesString.Trim(), lat, lon);
         }
 
         // get GeoDataItem for coordinates given as string with deg/min/sec values
@@ -1283,7 +1284,7 @@ namespace QuickImageComment
                 return null;
 
             return new GeoDataItem(coordinatesString.Trim(), lat.ToString(System.Globalization.CultureInfo.InvariantCulture),
-                lon.ToString(System.Globalization.CultureInfo.InvariantCulture), "", "", "", "", "", "");
+                lon.ToString(System.Globalization.CultureInfo.InvariantCulture));
         }
 
         // parse int from coordinate group string
@@ -1332,7 +1333,7 @@ namespace QuickImageComment
         {
             string queryParameterNormalized = normalizeKeyString(queryParameter);
 
-            GeoDataItem newGeoDataItem;
+            GeoDataItem newGeoDataItem = null;
             try
             {
                 // key converted to upper case, but drop down in GUI shall keep case
@@ -1346,9 +1347,9 @@ namespace QuickImageComment
                     string url = "https://nominatim.openstreetmap.org/search?";
                     if (!queryParameterNormalized.Contains("=")) url += "q=";
                     url += queryParameterNormalized
-                        + "&format=json&limit=1&addressdetails=1";
+                        + "&format=json&limit=10&addressdetails=1";
 #if NET4
-                    ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
+                                        ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
 #endif
                     WebClient theWebClient = new WebClient();
                     theWebClient.Encoding = System.Text.Encoding.UTF8;
@@ -1363,21 +1364,35 @@ namespace QuickImageComment
                     // remove squared brackets at start and end to avoid parse error
 
                     jsonResponse = jsonResponse.Substring(1, jsonResponse.Length - 2);
+                    const string JsonObjectStart = "{\"place_id\"";
+                    string[] jsonResponseParts = jsonResponse.Split(new string[] { ","+JsonObjectStart }, StringSplitOptions.None);
                     Newtonsoft.Json.Linq.JObject JsonObject = new Newtonsoft.Json.Linq.JObject();
-                    JsonObject = Newtonsoft.Json.Linq.JObject.Parse(jsonResponse);
+                    if (jsonResponseParts.Length > 1)
+                    {
+                        // several locations found
+                        FormGeoDataItemList formGeoDataItemList = new FormGeoDataItemList(newGeoDataItem);
+                        for (int ii = 0; ii < jsonResponseParts.Length; ii++)
+                        {
+                            string response = jsonResponseParts[ii];
+                            // starting with second entry JSON object start was removed in splitting
+                            if (ii > 0) response = JsonObjectStart + response;
+                            JsonObject = Newtonsoft.Json.Linq.JObject.Parse(response);
+                            string key = queryParameter + " ~ " + JsonObject["display_name"];
+                            GeoDataItem geoDataItem = getGeoDataItemFromJsonObject(key, JsonObject);
+                            formGeoDataItemList.addGeoDataItem(geoDataItem);
+                        }
+                        formGeoDataItemList.ShowDialog();
+                        newGeoDataItem = formGeoDataItemList.returnGeoDataItem;
+                    }
+                    else
+                    {
+                        //  only one location found
+                        JsonObject = Newtonsoft.Json.Linq.JObject.Parse(jsonResponse);
 
-                    // key converted to upper case, but drop down in GUI shall keep case
-                    newGeoDataItem = new GeoDataItem(
-                        queryParameter,
-                        (string)JsonObject["lat"],
-                        (string)JsonObject["lon"],
-                        (string)JsonObject["display_name"],
-                        (string)JsonObject["country"],
-                        (string)JsonObject["country_code"],
-                        (string)JsonObject["state"],
-                        (string)JsonObject["city"],
-                        (string)JsonObject["city_district"]);
-                    GeoDataItemsHashTable.Add(newGeoDataItem.key, newGeoDataItem);
+                        // key converted to upper case, but drop down in GUI shall keep case
+                        newGeoDataItem = getGeoDataItemFromJsonObject(queryParameter, JsonObject);
+                        GeoDataItemsHashTable.Add(newGeoDataItem.key, newGeoDataItem);
+                    }
                 }
                 return newGeoDataItem;
             }
@@ -1386,6 +1401,22 @@ namespace QuickImageComment
                 GeneralUtilities.message(LangCfg.Message.E_nominationOSM, ex.Message);
                 return null;
             }
+        }
+
+        // return GeoDataItem created from JSON Object
+        private GeoDataItem getGeoDataItemFromJsonObject(string key, Newtonsoft.Json.Linq.JObject JsonObject)
+        {
+            GeoDataItem geoDataItem = new GeoDataItem(
+                key,
+                (string)JsonObject["lat"],
+                (string)JsonObject["lon"],
+                (string)JsonObject["display_name"],
+                (string)JsonObject["address"]["country"],
+                (string)JsonObject["address"]["country_code"],
+                (string)JsonObject["address"]["state"],
+                (string)JsonObject["address"]["city"],
+                (string)JsonObject["address"]["city_district"]);
+            return geoDataItem;
         }
 
         // normalize key string for search in hashtable
