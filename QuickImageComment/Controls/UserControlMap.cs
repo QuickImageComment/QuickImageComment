@@ -18,6 +18,7 @@ using QuickImageComment.Forms;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
@@ -52,6 +53,9 @@ namespace QuickImageComment
 
         private GeoDataItem startGeoDataItem;
         private GeoDataItem markerGeoDataItem;
+
+        // used to simulate double click events for ComboBox 
+        private static DateTime lastPreviousClick;
 
         // to avoid interrupting showing new map with a call of leaflet function
         // e.g. reset map directly followed by remove marker
@@ -919,10 +923,36 @@ namespace QuickImageComment
         }
 #endif
 
+        // click event handler for input controls of type comboBox
+        // used to simulate double click event, which does not work for ComboBox
+        private void dynamicComboBoxSearch_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (DateTime.Now < lastPreviousClick.AddMilliseconds(SystemInformation.DoubleClickTime))
+            {
+                openFormNominatimQueryInput(sender);
+            }
+            lastPreviousClick = DateTime.Now;
+        }
+
         // to react on return in comboBox for Search
         private void dynamicComboBoxSearch_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Return)
+            {
+                executeNominatimQueryAndUpdateMap();
+            }
+            else if (e.KeyCode == Keys.F10)
+            {
+                openFormNominatimQueryInput(sender);
+            }
+        }
+
+        // open mask to input structured Nominatim query
+        internal void openFormNominatimQueryInput(object sender)
+        {
+            FormNominatimQueryInput theFormNominatimQueryInput = new FormNominatimQueryInput((Control)sender);
+            theFormNominatimQueryInput.ShowDialog();
+            if (theFormNominatimQueryInput.DialogResult == DialogResult.OK)
             {
                 executeNominatimQueryAndUpdateMap();
             }

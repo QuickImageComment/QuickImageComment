@@ -198,6 +198,12 @@
     <Compile Include="Forms\FormMapSettings.Designer.cs">
       <DependentUpon>FormMapSettings.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FormNominatimQueryInput.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormNominatimQueryInput.Designer.cs">
+      <DependentUpon>FormNominatimQueryInput.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FormUserButtons.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -689,6 +695,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormMapSettings.resx">
       <DependentUpon>FormMapSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormNominatimQueryInput.resx">
+      <DependentUpon>FormNominatimQueryInput.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormTagValueInput.resx">
       <DependentUpon>FormTagValueInput.cs</DependentUpon>

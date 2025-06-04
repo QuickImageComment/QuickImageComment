@@ -218,7 +218,8 @@ namespace QuickImageComment
             I_changeCommentArtistAccSettings,
             I_changeArtistCombined,
             I_changeCommentCombined,
-            I_IptcKeyWordsString
+            I_IptcKeyWordsString,
+            W_nominatimInvalidParameter
         }
 
         public enum Others

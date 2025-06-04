@@ -287,7 +287,8 @@ namespace QuickImageComment
         private static ArrayList ArtistEntries;
         private static ArrayList QueryEntries;
         private static SortedList<string, ArrayList> ChangeableFieldEntriesLists;
-        private static SortedList<string, ArrayList> FindFilterEntriesLists;
+		private static SortedList<string, ArrayList> NominatimQueryEntriesLists;
+		private static SortedList<string, ArrayList> FindFilterEntriesLists;
         private static ArrayList PredefinedComments;
         // before version 4.55, key words were stored without hierarchy, entries were trimmed
         // to avoid conflicts when using 4.55 and previous versions, 4.55 writes key words with other prefix
@@ -372,7 +373,8 @@ namespace QuickImageComment
             ArtistEntries = new ArrayList();
             QueryEntries = new ArrayList();
             ChangeableFieldEntriesLists = new SortedList<string, ArrayList>();
-            FindFilterEntriesLists = new SortedList<string, ArrayList>();
+            NominatimQueryEntriesLists = new SortedList<string, ArrayList>();
+			FindFilterEntriesLists = new SortedList<string, ArrayList>();
             PredefinedComments = new ArrayList();
             PredefinedKeyWordsWithoutHierarchy = new ArrayList();
             PredefinedKeyWords = new ArrayList();
@@ -2288,8 +2290,14 @@ namespace QuickImageComment
             return ChangeableFieldEntriesLists;
         }
 
-        // find filter entries
-        public static SortedList<string, ArrayList> getFindFilterEntriesLists()
+		// Nominatim query entries
+		public static SortedList<string, ArrayList> getNominatimQueryEntriesLists()
+		{
+			return NominatimQueryEntriesLists;
+		}
+
+		// find filter entries
+		public static SortedList<string, ArrayList> getFindFilterEntriesLists()
         {
             return FindFilterEntriesLists;
         }
@@ -2714,8 +2722,22 @@ namespace QuickImageComment
                     else if (firstPart.Equals("Query"))
                     {
                         QueryEntries.Add(secondPart.Replace(GeneralUtilities.UniqueSeparator, "\n"));
-                    }
-                    else if (firstPart.Equals("ChangeableField"))
+					}
+					else if (firstPart.Equals("ChangeableField"))
+					{
+						IndexColon = secondPart.IndexOf(":");
+						if (IndexColon < 0)
+						{
+							throw new ExceptionDefinitionNotComplete(lineNo);
+						}
+						string Key = secondPart.Substring(0, IndexColon);
+						if (!ChangeableFieldEntriesLists.ContainsKey(Key))
+						{
+							ChangeableFieldEntriesLists.Add(Key, new ArrayList());
+						}
+						ChangeableFieldEntriesLists[Key].Add(secondPart.Substring(IndexColon + 1));
+					}
+					else if (firstPart.Equals("NominatimQueryEntry"))
                     {
                         IndexColon = secondPart.IndexOf(":");
                         if (IndexColon < 0)
@@ -2723,11 +2745,11 @@ namespace QuickImageComment
                             throw new ExceptionDefinitionNotComplete(lineNo);
                         }
                         string Key = secondPart.Substring(0, IndexColon);
-                        if (!ChangeableFieldEntriesLists.ContainsKey(Key))
+                        if (!NominatimQueryEntriesLists.ContainsKey(Key))
                         {
-                            ChangeableFieldEntriesLists.Add(Key, new ArrayList());
+                            NominatimQueryEntriesLists.Add(Key, new ArrayList());
                         }
-                        ChangeableFieldEntriesLists[Key].Add(secondPart.Substring(IndexColon + 1));
+                        NominatimQueryEntriesLists[Key].Add(secondPart.Substring(IndexColon + 1));
                     }
                     else if (firstPart.Equals("FindFilter"))
                     {
@@ -3333,8 +3355,18 @@ namespace QuickImageComment
                 }
             }
 
-            // copy only newest entries keeping maximum of entries per filter field
-            foreach (string aKey in FindFilterEntriesLists.Keys)
+			// copy only newest entries keeping maximum of entries per changeable field
+			foreach (string aKey in NominatimQueryEntriesLists.Keys)
+			{
+				ArrayList Entries = NominatimQueryEntriesLists[aKey];
+				for (int ii = 0; ii < getMaxChangeableFieldEntries() && ii < Entries.Count; ii++)
+				{
+					StreamOut.WriteLine("NominatimQueryEntry:" + aKey + ":" + Entries[ii].ToString());
+				}
+			}
+
+			// copy only newest entries keeping maximum of entries per filter field
+			foreach (string aKey in FindFilterEntriesLists.Keys)
             {
                 ArrayList Entries = FindFilterEntriesLists[aKey];
                 for (int ii = 0; ii < getMaxChangeableFieldEntries() && ii < Entries.Count; ii++)
