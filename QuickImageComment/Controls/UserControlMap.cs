@@ -312,6 +312,7 @@ namespace QuickImageComment
 
             this.panelTop.ResumeLayout(false);
             this.webBrowser1.Navigated += WebBrowser1_Navigated;
+            this.webBrowser1.DocumentCompleted += WebBrowser1_DocumentCompleted;
 
             webBrowser1.ObjectForScripting = this;
             webBrowser1.IsWebBrowserContextMenuEnabled = true;
@@ -567,6 +568,22 @@ namespace QuickImageComment
         private void WebBrowser1_Navigated(object sender, WebBrowserNavigatedEventArgs e)
         {
             browserControlNavigating = false;
+        }
+
+        private void WebBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
+        {
+            webBrowser1.Document.Click += Document_Click;
+        }
+
+        private void Document_Click(object sender, HtmlElementEventArgs e)
+        {
+            HtmlElement element = webBrowser1.Document.GetElementFromPoint(e.ClientMousePosition);
+            if (element != null && element.TagName == "A" && element.GetAttribute("href") != "")
+            {
+                string url = element.GetAttribute("href");
+                Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
+                e.ReturnValue = false; // Prevents opening in WebBrowser control
+            }
         }
 
 #if WEBVIEW2
@@ -1395,7 +1412,7 @@ namespace QuickImageComment
 
                     jsonResponse = jsonResponse.Substring(1, jsonResponse.Length - 2);
                     const string JsonObjectStart = "{\"place_id\"";
-                    string[] jsonResponseParts = jsonResponse.Split(new string[] { ","+JsonObjectStart }, StringSplitOptions.None);
+                    string[] jsonResponseParts = jsonResponse.Split(new string[] { "," + JsonObjectStart }, StringSplitOptions.None);
                     Newtonsoft.Json.Linq.JObject JsonObject = new Newtonsoft.Json.Linq.JObject();
                     if (jsonResponseParts.Length > 1)
                     {
