@@ -329,7 +329,7 @@ namespace QuickImageComment
             dynamicLabelCoordinates.Text = "";
             // change of location is enabled, if map source is not a configured map URL
             enableChangeLocation(!selectedMapSource.isconfiguredMapURL);
-            newLocation(initGeoDataItem, initChangeLocationAllowed);
+            newLocation(markerGeoDataItem, initChangeLocationAllowed);
 
             // display of zoom and location only if if map source is not a configured map URL
             dynamicLabelCoordinates.Visible = !selectedMapSource.isconfiguredMapURL;
