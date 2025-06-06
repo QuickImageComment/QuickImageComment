@@ -107,6 +107,9 @@
     <Compile Include="Controls\CheckedListBoxItemBackcolor.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controls\ComboBoxQIC.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\DateTimePickerQIC.cs">
       <SubType>Component</SubType>
     </Compile>

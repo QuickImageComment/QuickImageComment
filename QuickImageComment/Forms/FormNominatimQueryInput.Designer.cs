@@ -37,12 +37,12 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.comboBoxCity = new System.Windows.Forms.ComboBox();
-            this.comboBoxStreet = new System.Windows.Forms.ComboBox();
-            this.comboBoxCounty = new System.Windows.Forms.ComboBox();
-            this.comboBoxState = new System.Windows.Forms.ComboBox();
-            this.comboBoxCountry = new System.Windows.Forms.ComboBox();
-            this.comboBoxPostalcode = new System.Windows.Forms.ComboBox();
+            this.comboBoxPostalcode = new QuickImageCommentControls.ComboBoxQIC();
+            this.comboBoxCountry = new QuickImageCommentControls.ComboBoxQIC();
+            this.comboBoxState = new QuickImageCommentControls.ComboBoxQIC();
+            this.comboBoxCounty = new QuickImageCommentControls.ComboBoxQIC();
+            this.comboBoxStreet = new QuickImageCommentControls.ComboBoxQIC();
+            this.comboBoxCity = new QuickImageCommentControls.ComboBoxQIC();
             this.SuspendLayout();
             // 
             // buttonOk
@@ -121,49 +121,16 @@
             this.label6.TabIndex = 8;
             this.label6.Text = "Hausnummer und Straßenname";
             // 
-            // comboBoxCity
+            // comboBoxPostalcode
             // 
-            this.comboBoxCity.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.comboBoxPostalcode.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBoxCity.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.comboBoxCity.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.comboBoxCity.Location = new System.Drawing.Point(205, 5);
-            this.comboBoxCity.Name = "comboBoxCity";
-            this.comboBoxCity.Size = new System.Drawing.Size(235, 21);
-            this.comboBoxCity.TabIndex = 10;
-            // 
-            // comboBoxStreet
-            // 
-            this.comboBoxStreet.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBoxStreet.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.comboBoxStreet.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.comboBoxStreet.Location = new System.Drawing.Point(205, 30);
-            this.comboBoxStreet.Name = "comboBoxStreet";
-            this.comboBoxStreet.Size = new System.Drawing.Size(235, 21);
-            this.comboBoxStreet.TabIndex = 11;
-            // 
-            // comboBoxCounty
-            // 
-            this.comboBoxCounty.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBoxCounty.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.comboBoxCounty.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.comboBoxCounty.Location = new System.Drawing.Point(205, 55);
-            this.comboBoxCounty.Name = "comboBoxCounty";
-            this.comboBoxCounty.Size = new System.Drawing.Size(235, 21);
-            this.comboBoxCounty.TabIndex = 12;
-            // 
-            // comboBoxState
-            // 
-            this.comboBoxState.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBoxState.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.comboBoxState.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.comboBoxState.Location = new System.Drawing.Point(205, 80);
-            this.comboBoxState.Name = "comboBoxState";
-            this.comboBoxState.Size = new System.Drawing.Size(235, 21);
-            this.comboBoxState.TabIndex = 13;
+            this.comboBoxPostalcode.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.comboBoxPostalcode.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.comboBoxPostalcode.Location = new System.Drawing.Point(205, 130);
+            this.comboBoxPostalcode.Name = "comboBoxPostalcode";
+            this.comboBoxPostalcode.Size = new System.Drawing.Size(235, 21);
+            this.comboBoxPostalcode.TabIndex = 15;
             // 
             // comboBoxCountry
             // 
@@ -176,16 +143,49 @@
             this.comboBoxCountry.Size = new System.Drawing.Size(235, 21);
             this.comboBoxCountry.TabIndex = 14;
             // 
-            // comboBoxPostalcode
+            // comboBoxState
             // 
-            this.comboBoxPostalcode.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.comboBoxState.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBoxPostalcode.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.comboBoxPostalcode.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.comboBoxPostalcode.Location = new System.Drawing.Point(205, 130);
-            this.comboBoxPostalcode.Name = "comboBoxPostalcode";
-            this.comboBoxPostalcode.Size = new System.Drawing.Size(235, 21);
-            this.comboBoxPostalcode.TabIndex = 15;
+            this.comboBoxState.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.comboBoxState.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.comboBoxState.Location = new System.Drawing.Point(205, 80);
+            this.comboBoxState.Name = "comboBoxState";
+            this.comboBoxState.Size = new System.Drawing.Size(235, 21);
+            this.comboBoxState.TabIndex = 13;
+            // 
+            // comboBoxCounty
+            // 
+            this.comboBoxCounty.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxCounty.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.comboBoxCounty.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.comboBoxCounty.Location = new System.Drawing.Point(205, 55);
+            this.comboBoxCounty.Name = "comboBoxCounty";
+            this.comboBoxCounty.Size = new System.Drawing.Size(235, 21);
+            this.comboBoxCounty.TabIndex = 12;
+            // 
+            // comboBoxStreet
+            // 
+            this.comboBoxStreet.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxStreet.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.comboBoxStreet.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.comboBoxStreet.Location = new System.Drawing.Point(205, 30);
+            this.comboBoxStreet.Name = "comboBoxStreet";
+            this.comboBoxStreet.Size = new System.Drawing.Size(235, 21);
+            this.comboBoxStreet.TabIndex = 11;
+            // 
+            // comboBoxCity
+            // 
+            this.comboBoxCity.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxCity.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.comboBoxCity.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.comboBoxCity.Location = new System.Drawing.Point(205, 5);
+            this.comboBoxCity.Name = "comboBoxCity";
+            this.comboBoxCity.Size = new System.Drawing.Size(235, 21);
+            this.comboBoxCity.TabIndex = 10;
             // 
             // FormNominatimQueryInput
             // 
@@ -227,11 +227,11 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.ComboBox comboBoxCity;
-        private System.Windows.Forms.ComboBox comboBoxStreet;
-        private System.Windows.Forms.ComboBox comboBoxCounty;
-        private System.Windows.Forms.ComboBox comboBoxState;
-        private System.Windows.Forms.ComboBox comboBoxCountry;
-        private System.Windows.Forms.ComboBox comboBoxPostalcode;
+        private QuickImageCommentControls.ComboBoxQIC comboBoxCity;
+        private QuickImageCommentControls.ComboBoxQIC comboBoxStreet;
+        private QuickImageCommentControls.ComboBoxQIC comboBoxCounty;
+        private QuickImageCommentControls.ComboBoxQIC comboBoxState;
+        private QuickImageCommentControls.ComboBoxQIC comboBoxCountry;
+        private QuickImageCommentControls.ComboBoxQIC comboBoxPostalcode;
     }
 }

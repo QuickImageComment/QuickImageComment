@@ -31,7 +31,7 @@
             this.panelMap = new System.Windows.Forms.Panel();
             this.panelBottom = new System.Windows.Forms.Panel();
             this.splitContainerMapControls = new System.Windows.Forms.SplitContainer();
-            this.dynamicComboBoxSearch = new System.Windows.Forms.ComboBox();
+            this.dynamicComboBoxSearch = new QuickImageCommentControls.ComboBoxQIC();
             this.buttonCenterMarker = new System.Windows.Forms.Button();
             this.buttonDelete = new System.Windows.Forms.Button();
             this.buttonReset = new System.Windows.Forms.Button();
@@ -41,7 +41,7 @@
             this.labelZoom = new System.Windows.Forms.Label();
             this.dynamicLabelZoom = new System.Windows.Forms.Label();
             this.checkBoxWebView2 = new System.Windows.Forms.CheckBox();
-            this.dynamicComboBoxMapSource = new System.Windows.Forms.ComboBox();
+            this.dynamicComboBoxMapSource = new QuickImageCommentControls.ComboBoxQIC();
             this.panelTop = new System.Windows.Forms.Panel();
             this.buttonSettings = new System.Windows.Forms.Button();
             this.panelMap.SuspendLayout();
@@ -278,9 +278,9 @@
         private System.Windows.Forms.Button buttonReset;
         private System.Windows.Forms.Button buttonCenterMarker;
         private System.Windows.Forms.Button buttonSearch;
-        private System.Windows.Forms.ComboBox dynamicComboBoxSearch;
+        private QuickImageCommentControls.ComboBoxQIC dynamicComboBoxSearch;
         private System.Windows.Forms.Panel panelBottom;
-        private System.Windows.Forms.ComboBox dynamicComboBoxMapSource;
+        private QuickImageCommentControls.ComboBoxQIC dynamicComboBoxMapSource;
         private System.Windows.Forms.Button buttonRename;
         private System.Windows.Forms.Button buttonDelete;
         private System.Windows.Forms.CheckBox checkBoxWebView2;

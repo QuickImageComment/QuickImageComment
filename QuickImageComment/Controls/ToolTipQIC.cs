@@ -54,6 +54,13 @@ namespace QuickImageComment
             base.Show(text, window, offsetPoint);
         }
 
+        internal void ShowBelowControl(string text, IWin32Window window)
+        {
+            Control control = (Control)window;
+            Point offsetPoint = new Point(0, control.Height);
+            base.Show(text, window, offsetPoint);
+        }
+
         //*****************************************************************
         // specific logic for MenuStrio
         //*****************************************************************
