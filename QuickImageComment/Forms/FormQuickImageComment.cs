@@ -675,6 +675,7 @@ namespace QuickImageComment
             GeneralUtilities.setSplitterDistanceWithCheck(this.splitContainer12, ConfigDefinition.enumCfgUserInt.Splitter12Distance);
             GeneralUtilities.setSplitterDistanceWithCheck(this.splitContainer121, ConfigDefinition.enumCfgUserInt.Splitter121Distance);
             GeneralUtilities.setSplitterDistanceWithCheck(this.splitContainer1211, ConfigDefinition.enumCfgUserInt.Splitter1211Distance);
+            GeneralUtilities.setSplitterDistanceWithCheck(this.splitContainer1213, ConfigDefinition.enumCfgUserInt.Splitter1213Distance);
             GeneralUtilities.setSplitterDistanceWithCheck(this.splitContainer122, ConfigDefinition.enumCfgUserInt.Splitter122Distance);
 
             // adjust panels according configuration
@@ -1312,6 +1313,7 @@ namespace QuickImageComment
                 ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.Splitter12Distance, (int)(this.splitContainer12.SplitterDistance * 96.0f / dpiSettings));
                 ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.Splitter121Distance, (int)(this.splitContainer121.SplitterDistance * 96.0f / dpiSettings));
                 ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.Splitter1211Distance, (int)(this.splitContainer1211.SplitterDistance * 96.0f / dpiSettings));
+                ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.Splitter1213Distance, (int)(this.splitContainer1213.SplitterDistance * 96.0f / dpiSettings));
                 ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.Splitter1212Distance, (int)(theUserControlKeyWords.splitContainer1212.SplitterDistance * 96.0f / dpiSettings));
                 ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.Splitter122Distance, (int)(this.splitContainer122.SplitterDistance * 96.0f / dpiSettings));
                 ConfigDefinition.setShowImageWithGrid(this.toolStripMenuItemImageWithGrid.Checked);
@@ -2166,6 +2168,7 @@ namespace QuickImageComment
                 saveOldSplitterRatio(splitContainer121);
                 saveOldSplitterRatio(splitContainer1211);
                 saveOldSplitterRatio(theUserControlKeyWords.splitContainer1212);
+                saveOldSplitterRatio(splitContainer1213);
                 saveOldSplitterRatio(splitContainer122);
 
                 // hide the main splitContainer to avoid flickering during update
@@ -2231,6 +2234,7 @@ namespace QuickImageComment
                 adjustSplitterDistanceBasedOnRatio(splitContainer122);
                 adjustSplitterDistanceBasedOnRatio(splitContainer1211);
                 adjustSplitterDistanceBasedOnRatio(theUserControlKeyWords.splitContainer1212);
+                adjustSplitterDistanceBasedOnRatio(splitContainer1213);
 
                 // set panels
                 collapsePanelProperties(ConfigDefinition.getPanelPropertiesCollapsed());
@@ -2458,6 +2462,7 @@ namespace QuickImageComment
             // hint: SplitContainer in UserControlKeyWords called splitContainer1212 so that old logic to save 
             // splitter distance in configuration file still works without changing configuration definitions
             saveSingleSplitterDistanceRatioInConfiguration(theUserControlKeyWords.splitContainer1212);
+            saveSingleSplitterDistanceRatioInConfiguration(splitContainer1213);
         }
 
         // save single current splitter distance ratio in configuration
@@ -4179,6 +4184,7 @@ namespace QuickImageComment
             this.splitContainer121.TabStop = possible;
             this.splitContainer1211.TabStop = possible;
             theUserControlKeyWords.splitContainer1212.TabStop = possible;
+            this.splitContainer1213.TabStop = possible;
             this.splitContainer122.TabStop = possible;
         }
 

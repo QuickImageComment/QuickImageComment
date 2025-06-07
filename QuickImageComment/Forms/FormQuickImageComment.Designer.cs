@@ -157,6 +157,7 @@ namespace QuickImageComment
             this.toolStripMenuItemSortSize = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemSortChanged = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemSortCreated = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemSortComment = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator15 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItemPanelPictureOnly = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemImageWithGrid = new System.Windows.Forms.ToolStripMenuItem();
@@ -262,7 +263,7 @@ namespace QuickImageComment
             this.toolStripButtonFind = new System.Windows.Forms.ToolStripButton();
             this.toolTip1 = new QuickImageComment.ToolTipQIC();
             this.theFolderTreeView = new QuickImageCommentControls.ShellTreeViewQIC();
-            this.toolStripMenuItemSortComment = new System.Windows.Forms.ToolStripMenuItem();
+            this.splitContainer1213 = new System.Windows.Forms.SplitContainer();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer12)).BeginInit();
             this.splitContainer12.Panel1.SuspendLayout();
             this.splitContainer12.Panel2.SuspendLayout();
@@ -311,6 +312,10 @@ namespace QuickImageComment
             this.statusStrip1.SuspendLayout();
             this.MenuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1213)).BeginInit();
+            this.splitContainer1213.Panel1.SuspendLayout();
+            this.splitContainer1213.Panel2.SuspendLayout();
+            this.splitContainer1213.SuspendLayout();
             this.SuspendLayout();
             // 
             // dynamicLabelArtist
@@ -652,12 +657,7 @@ namespace QuickImageComment
             // tabPageMulti
             // 
             this.tabPageMulti.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.tabPageMulti.Controls.Add(this.checkBoxGpsDataChange);
-            this.tabPageMulti.Controls.Add(this.dataGridViewSelectedFiles);
-            this.tabPageMulti.Controls.Add(this.comboBoxKeyWordsChange);
-            this.tabPageMulti.Controls.Add(this.comboBoxCommentChange);
-            this.tabPageMulti.Controls.Add(this.checkBoxArtistChange);
-            this.tabPageMulti.Controls.Add(this.checkedListBoxChangeableFieldsChange);
+            this.tabPageMulti.Controls.Add(this.splitContainer1213);
             this.tabPageMulti.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabPageMulti.Location = new System.Drawing.Point(4, 25);
             this.tabPageMulti.Name = "tabPageMulti";
@@ -683,9 +683,6 @@ namespace QuickImageComment
             // 
             this.dataGridViewSelectedFiles.AllowUserToAddRows = false;
             this.dataGridViewSelectedFiles.AllowUserToDeleteRows = false;
-            this.dataGridViewSelectedFiles.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewSelectedFiles.BackgroundColor = System.Drawing.SystemColors.Window;
             this.dataGridViewSelectedFiles.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewSelectedFiles.ContextMenuStrip = this.contextMenuStripMetaData;
@@ -697,12 +694,13 @@ namespace QuickImageComment
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridViewSelectedFiles.DefaultCellStyle = dataGridViewCellStyle1;
+            this.dataGridViewSelectedFiles.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewSelectedFiles.GridColor = System.Drawing.SystemColors.ScrollBar;
-            this.dataGridViewSelectedFiles.Location = new System.Drawing.Point(256, 0);
+            this.dataGridViewSelectedFiles.Location = new System.Drawing.Point(0, 0);
             this.dataGridViewSelectedFiles.Name = "dataGridViewSelectedFiles";
             this.dataGridViewSelectedFiles.RowHeadersVisible = false;
             this.dataGridViewSelectedFiles.ShowEditingIcon = false;
-            this.dataGridViewSelectedFiles.Size = new System.Drawing.Size(248, 188);
+            this.dataGridViewSelectedFiles.Size = new System.Drawing.Size(245, 191);
             this.dataGridViewSelectedFiles.TabIndex = 4;
             this.dataGridViewSelectedFiles.SelectionChanged += new System.EventHandler(this.dataGridViewSelectedFiles_SelectionChanged);
             // 
@@ -722,6 +720,8 @@ namespace QuickImageComment
             // 
             // comboBoxKeyWordsChange
             // 
+            this.comboBoxKeyWordsChange.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxKeyWordsChange.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxKeyWordsChange.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.comboBoxKeyWordsChange.FormattingEnabled = true;
@@ -737,6 +737,8 @@ namespace QuickImageComment
             // 
             // comboBoxCommentChange
             // 
+            this.comboBoxCommentChange.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxCommentChange.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxCommentChange.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.comboBoxCommentChange.FormattingEnabled = true;
@@ -765,8 +767,9 @@ namespace QuickImageComment
             // 
             // checkedListBoxChangeableFieldsChange
             // 
-            this.checkedListBoxChangeableFieldsChange.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
+            this.checkedListBoxChangeableFieldsChange.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.checkedListBoxChangeableFieldsChange.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.checkedListBoxChangeableFieldsChange.CheckedColor = System.Drawing.Color.LightGreen;
             this.checkedListBoxChangeableFieldsChange.CheckOnClick = true;
@@ -774,7 +777,7 @@ namespace QuickImageComment
             this.checkedListBoxChangeableFieldsChange.IntegralHeight = false;
             this.checkedListBoxChangeableFieldsChange.Location = new System.Drawing.Point(1, 101);
             this.checkedListBoxChangeableFieldsChange.Name = "checkedListBoxChangeableFieldsChange";
-            this.checkedListBoxChangeableFieldsChange.Size = new System.Drawing.Size(250, 87);
+            this.checkedListBoxChangeableFieldsChange.Size = new System.Drawing.Size(252, 87);
             this.checkedListBoxChangeableFieldsChange.TabIndex = 3;
             // 
             // panelUsercomment
@@ -1488,6 +1491,13 @@ namespace QuickImageComment
             this.toolStripMenuItemSortCreated.Size = new System.Drawing.Size(219, 22);
             this.toolStripMenuItemSortCreated.Text = "... nach Erstellt am";
             this.toolStripMenuItemSortCreated.Click += new System.EventHandler(this.toolStripMenuItemSortColumn_Click);
+            // 
+            // toolStripMenuItemSortComment
+            // 
+            this.toolStripMenuItemSortComment.Name = "toolStripMenuItemSortComment";
+            this.toolStripMenuItemSortComment.Size = new System.Drawing.Size(219, 22);
+            this.toolStripMenuItemSortComment.Text = "... nach Kommentar";
+            this.toolStripMenuItemSortComment.Click += new System.EventHandler(this.toolStripMenuItemSortColumn_Click);
             // 
             // toolStripSeparator15
             // 
@@ -2461,12 +2471,28 @@ namespace QuickImageComment
             this.theFolderTreeView.Size = new System.Drawing.Size(253, 147);
             this.theFolderTreeView.TabIndex = 0;
             // 
-            // toolStripMenuItemSortComment
+            // splitContainer1213
             // 
-            this.toolStripMenuItemSortComment.Name = "toolStripMenuItemSortComment";
-            this.toolStripMenuItemSortComment.Size = new System.Drawing.Size(219, 22);
-            this.toolStripMenuItemSortComment.Text = "... nach Kommentar";
-            this.toolStripMenuItemSortComment.Click += new System.EventHandler(this.toolStripMenuItemSortColumn_Click);
+            this.splitContainer1213.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.splitContainer1213.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1213.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1213.Name = "splitContainer1213";
+            // 
+            // splitContainer1213.Panel1
+            // 
+            this.splitContainer1213.Panel1.BackColor = System.Drawing.SystemColors.Control;
+            this.splitContainer1213.Panel1.Controls.Add(this.checkedListBoxChangeableFieldsChange);
+            this.splitContainer1213.Panel1.Controls.Add(this.comboBoxCommentChange);
+            this.splitContainer1213.Panel1.Controls.Add(this.checkBoxArtistChange);
+            this.splitContainer1213.Panel1.Controls.Add(this.comboBoxKeyWordsChange);
+            this.splitContainer1213.Panel1.Controls.Add(this.checkBoxGpsDataChange);
+            // 
+            // splitContainer1213.Panel2
+            // 
+            this.splitContainer1213.Panel2.Controls.Add(this.dataGridViewSelectedFiles);
+            this.splitContainer1213.Size = new System.Drawing.Size(505, 191);
+            this.splitContainer1213.SplitterDistance = 256;
+            this.splitContainer1213.TabIndex = 6;
             // 
             // FormQuickImageComment
             // 
@@ -2520,7 +2546,6 @@ namespace QuickImageComment
             this.tabControlProperties.ResumeLayout(false);
             this.tabPageOverview.ResumeLayout(false);
             this.tabPageMulti.ResumeLayout(false);
-            this.tabPageMulti.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSelectedFiles)).EndInit();
             this.contextMenuStripMetaData.ResumeLayout(false);
             this.panelUsercomment.ResumeLayout(false);
@@ -2547,6 +2572,11 @@ namespace QuickImageComment
             this.MenuStrip1.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
+            this.splitContainer1213.Panel1.ResumeLayout(false);
+            this.splitContainer1213.Panel1.PerformLayout();
+            this.splitContainer1213.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1213)).EndInit();
+            this.splitContainer1213.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2773,5 +2803,6 @@ namespace QuickImageComment
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemSlideshow;
         internal System.Windows.Forms.ToolStripMenuItem toolStripMenuItemComment;
         internal System.Windows.Forms.ToolStripMenuItem toolStripMenuItemSortComment;
+        private System.Windows.Forms.SplitContainer splitContainer1213;
     }
 }

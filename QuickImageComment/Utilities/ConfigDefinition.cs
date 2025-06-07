@@ -166,6 +166,7 @@ namespace QuickImageComment
             Splitter11Distance,
             Splitter1211Distance,
             Splitter1212Distance,
+            Splitter1213Distance,
             Splitter121Distance,
             Splitter122Distance,
             Splitter12Distance,
@@ -183,18 +184,21 @@ namespace QuickImageComment
             splitContainer11_DistanceRatio,
             splitContainer1211_DistanceRatio,
             splitContainer1212_DistanceRatio,
+            splitContainer1213_DistanceRatio,
             splitContainer121_DistanceRatio,
             splitContainer122_DistanceRatio,
             splitContainer12_DistanceRatio,
             splitContainer11_DistanceRatioHorizontal,
             splitContainer1211_DistanceRatioHorizontal,
             splitContainer1212_DistanceRatioHorizontal,
+            splitContainer1213_DistanceRatioHorizontal,
             splitContainer121_DistanceRatioHorizontal,
             splitContainer122_DistanceRatioHorizontal,
             splitContainer12_DistanceRatioHorizontal,
             splitContainer11_DistanceRatioVertical,
             splitContainer1211_DistanceRatioVertical,
             splitContainer1212_DistanceRatioVertical,
+            splitContainer1213_DistanceRatioVertical,
             splitContainer121_DistanceRatioVertical,
             splitContainer122_DistanceRatioVertical,
             splitContainer12_DistanceRatioVertical,
@@ -447,6 +451,7 @@ namespace QuickImageComment
             ConfigItems.Add("Splitter121Distance", 0);
             ConfigItems.Add("Splitter1211Distance", 0);
             ConfigItems.Add("Splitter1212Distance", 0);
+            ConfigItems.Add("Splitter1213Distance", 0);
             ConfigItems.Add("Splitter122Distance", 0);
             ConfigItems.Add("SplitterImageDetails1Distance", 0);
             ConfigItems.Add("SplitterImageDetails1DistanceWindow", 0);
@@ -574,18 +579,21 @@ namespace QuickImageComment
             ConfigItems.Add(enumCfgUserInt.splitContainer11_DistanceRatio.ToString(), 0);
             ConfigItems.Add(enumCfgUserInt.splitContainer1211_DistanceRatio.ToString(), 0);
             ConfigItems.Add(enumCfgUserInt.splitContainer1212_DistanceRatio.ToString(), 0);
+            ConfigItems.Add(enumCfgUserInt.splitContainer1213_DistanceRatio.ToString(), 0);
             ConfigItems.Add(enumCfgUserInt.splitContainer121_DistanceRatio.ToString(), 0);
             ConfigItems.Add(enumCfgUserInt.splitContainer122_DistanceRatio.ToString(), 0);
             ConfigItems.Add(enumCfgUserInt.splitContainer12_DistanceRatio.ToString(), 0);
             ConfigItems.Add(enumCfgUserInt.splitContainer11_DistanceRatioHorizontal.ToString(), 0);
             ConfigItems.Add(enumCfgUserInt.splitContainer1211_DistanceRatioHorizontal.ToString(), 0);
             ConfigItems.Add(enumCfgUserInt.splitContainer1212_DistanceRatioHorizontal.ToString(), 0);
+            ConfigItems.Add(enumCfgUserInt.splitContainer1213_DistanceRatioHorizontal.ToString(), 0);
             ConfigItems.Add(enumCfgUserInt.splitContainer121_DistanceRatioHorizontal.ToString(), 0);
             ConfigItems.Add(enumCfgUserInt.splitContainer122_DistanceRatioHorizontal.ToString(), 0);
             ConfigItems.Add(enumCfgUserInt.splitContainer12_DistanceRatioHorizontal.ToString(), 0);
             ConfigItems.Add(enumCfgUserInt.splitContainer11_DistanceRatioVertical.ToString(), 0);
             ConfigItems.Add(enumCfgUserInt.splitContainer1211_DistanceRatioVertical.ToString(), 0);
             ConfigItems.Add(enumCfgUserInt.splitContainer1212_DistanceRatioVertical.ToString(), 0);
+            ConfigItems.Add(enumCfgUserInt.splitContainer1213_DistanceRatioVertical.ToString(), 0);
             ConfigItems.Add(enumCfgUserInt.splitContainer121_DistanceRatioVertical.ToString(), 0);
             ConfigItems.Add(enumCfgUserInt.splitContainer122_DistanceRatioVertical.ToString(), 0);
             ConfigItems.Add(enumCfgUserInt.splitContainer12_DistanceRatioVertical.ToString(), 0);
@@ -2936,6 +2944,7 @@ namespace QuickImageComment
                                 ConfigItems.Add(firstPart.Substring(0, ConfEnd + 1) + "splitContainer11_DistanceRatio", 0);
                                 ConfigItems.Add(firstPart.Substring(0, ConfEnd + 1) + "splitContainer1211_DistanceRatio", 0);
                                 ConfigItems.Add(firstPart.Substring(0, ConfEnd + 1) + "splitContainer1212_DistanceRatio", 0);
+                                ConfigItems.Add(firstPart.Substring(0, ConfEnd + 1) + "splitContainer1213_DistanceRatio", 0);
                                 ConfigItems.Add(firstPart.Substring(0, ConfEnd + 1) + "splitContainer121_DistanceRatio", 0);
                                 ConfigItems.Add(firstPart.Substring(0, ConfEnd + 1) + "splitContainer122_DistanceRatio", 0);
                                 ConfigItems.Add(firstPart.Substring(0, ConfEnd + 1) + "splitContainer12_DistanceRatio", 0);
@@ -2943,6 +2952,7 @@ namespace QuickImageComment
                                 ArrayListEnumCfgUserInt.Add(firstPart.Substring(0, ConfEnd + 1) + "splitContainer11_DistanceRatio");
                                 ArrayListEnumCfgUserInt.Add(firstPart.Substring(0, ConfEnd + 1) + "splitContainer1211_DistanceRatio");
                                 ArrayListEnumCfgUserInt.Add(firstPart.Substring(0, ConfEnd + 1) + "splitContainer1212_DistanceRatio");
+                                ArrayListEnumCfgUserInt.Add(firstPart.Substring(0, ConfEnd + 1) + "splitContainer1213_DistanceRatio");
                                 ArrayListEnumCfgUserInt.Add(firstPart.Substring(0, ConfEnd + 1) + "splitContainer121_DistanceRatio");
                                 ArrayListEnumCfgUserInt.Add(firstPart.Substring(0, ConfEnd + 1) + "splitContainer122_DistanceRatio");
                                 ArrayListEnumCfgUserInt.Add(firstPart.Substring(0, ConfEnd + 1) + "splitContainer12_DistanceRatio");
@@ -3150,6 +3160,7 @@ namespace QuickImageComment
             saveSingleItemViewConfiguration(ConfigurationName, "splitContainer11_DistanceRatio");
             saveSingleItemViewConfiguration(ConfigurationName, "splitContainer1211_DistanceRatio");
             saveSingleItemViewConfiguration(ConfigurationName, "splitContainer1212_DistanceRatio");
+            saveSingleItemViewConfiguration(ConfigurationName, "splitContainer1213_DistanceRatio");
             saveSingleItemViewConfiguration(ConfigurationName, "splitContainer121_DistanceRatio");
             saveSingleItemViewConfiguration(ConfigurationName, "splitContainer122_DistanceRatio");
             saveSingleItemViewConfiguration(ConfigurationName, "splitContainer12_DistanceRatio");
@@ -3205,6 +3216,7 @@ namespace QuickImageComment
             loadSingleItemViewConfiguration(ConfigurationName, "splitContainer11_DistanceRatio");
             loadSingleItemViewConfiguration(ConfigurationName, "splitContainer1211_DistanceRatio");
             loadSingleItemViewConfiguration(ConfigurationName, "splitContainer1212_DistanceRatio");
+            loadSingleItemViewConfiguration(ConfigurationName, "splitContainer1213_DistanceRatio");
             loadSingleItemViewConfiguration(ConfigurationName, "splitContainer121_DistanceRatio");
             loadSingleItemViewConfiguration(ConfigurationName, "splitContainer122_DistanceRatio");
             loadSingleItemViewConfiguration(ConfigurationName, "splitContainer12_DistanceRatio");
