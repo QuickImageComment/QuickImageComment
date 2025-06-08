@@ -49,7 +49,7 @@ namespace QuickImageComment
         private static string CircleOpacity;
         private static string CircleFillOpacity;
         private static string CircleSegmentRadius;
-        private static string MapScaleUnit;
+        private static string MapLengthUnit;
 
         private GeoDataItem startGeoDataItem;
         private GeoDataItem markerGeoDataItem;
@@ -159,19 +159,21 @@ namespace QuickImageComment
 
         private MapSource selectedMapSource;
         private List<MapSource> MapSources;
+        private FormFind formFind = null;
         bool initLocationChangeNeeded;
         GeoDataItem initGeoDataItem;
         bool initChangeLocationAllowed;
         ConfigDefinition.enumCfgUserInt splitterDistanceEnum;
 
         internal UserControlMap(bool locationChangeNeeded, GeoDataItem geoDataItem, bool givenChangeLocationAllowed,
-            int radiusInMeter, ConfigDefinition.enumCfgUserInt givenSplitterDistanceEnum)
+            int radiusInMeter, ConfigDefinition.enumCfgUserInt givenSplitterDistanceEnum, FormFind formFind)
         {
             InitializeComponent();
             UserControlMapList.Add(this);
 
             panelBottomHeightInitial = panelBottom.Height;
 
+            this.formFind = formFind;
             circleRadiusInMeter = radiusInMeter;
             initLocationChangeNeeded = locationChangeNeeded;
             initGeoDataItem = geoDataItem;
@@ -406,7 +408,7 @@ namespace QuickImageComment
             CircleFillOpacity = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.MapCircleFillOpacity).ToString("000");
             CircleFillOpacity = CircleFillOpacity.Substring(0, 1) + "." + CircleFillOpacity.Substring(1);
             CircleSegmentRadius = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.MapCircleSegmentRadius).ToString();
-            MapScaleUnit = ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.MapScaleUnit);
+            MapLengthUnit = ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.MapLengthUnit);
         }
 
         internal void adjustSplitterDistance()
@@ -806,9 +808,11 @@ namespace QuickImageComment
                 "?attribution1=" + selectedMapSource.attribution1.Replace("\"", "%22").Replace(" ", "%20").Replace("=", "%3D") +
                 "?tileLayerUrlTemplate1=" + selectedMapSource.tileLayerUrlTemplate1.Replace("=", "%3D") +
                 "?maxZoom1=" + selectedMapSource.maxZoom1.ToString();
-            if (!MapScaleUnit.Equals(ConfigDefinition.enumMapScaleUnit.none.ToString()))
+            if (ConfigDefinition.getCfgUserBool(ConfigDefinition.enumCfgUserBool.showScaleInMap))
             {
-                urlParams += "?" + MapScaleUnit + "=true";
+                string unitSystem = "metric";
+                if (MapLengthUnit.Equals(ConfigDefinition.enumMapLengthUnit.mi.ToString())) unitSystem = "imperial";
+                urlParams += "?" + unitSystem + "=true";
             }
             if (!selectedMapSource.subdomains1.Equals(""))
             {
@@ -1687,18 +1691,34 @@ namespace QuickImageComment
 
         // called from FormMapSettings to apply changes
         internal void applyMapSettings(string givenCircleColor, string givenCircleOpacity,
-            string givenCircleFillOpacity, string givenCircleSegmentRadius, string givenMapScaleUnit)
+            string givenCircleFillOpacity, string givenCircleSegmentRadius, 
+            string givenMapScaleUnit, bool givenShowScaleInMap)
         {
             CircleColor = givenCircleColor;
             CircleOpacity = givenCircleOpacity;
             CircleFillOpacity = givenCircleFillOpacity;
             CircleSegmentRadius = givenCircleSegmentRadius;
-            MapScaleUnit = givenMapScaleUnit;
-            string scaleMetric = MapScaleUnit.Equals(ConfigDefinition.enumMapScaleUnit.metric.ToString()) ? "true" : "";
-            string scaleImperial = MapScaleUnit.Equals(ConfigDefinition.enumMapScaleUnit.imperial.ToString()) ? "true" : "";
+            MapLengthUnit = givenMapScaleUnit;
+            if (formFind != null)
+            {
+                formFind.setMapLengthUnit(MapLengthUnit);
+            }
+            string scaleMetric = "";
+            string scaleImperial = "";
+            if (givenShowScaleInMap)
+            {
+                if (MapLengthUnit.Equals(ConfigDefinition.enumMapLengthUnit.km.ToString())) scaleMetric = "true";
+                if (MapLengthUnit.Equals(ConfigDefinition.enumMapLengthUnit.mi.ToString())) scaleImperial = "true";
+            }
 
             invokeLeafletMethod("applySettings", new string[] { CircleColor, CircleOpacity,
                 CircleFillOpacity, CircleSegmentRadius, scaleMetric, scaleImperial });
+        }
+
+        // return true if length unit is imperial, false if metric
+        internal bool isMapScaleUnitImperial()
+        {
+            return MapLengthUnit.Equals(ConfigDefinition.enumMapLengthUnit.mi.ToString());
         }
 
         // called from leaflet.html for test of values in html

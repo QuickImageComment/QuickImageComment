@@ -145,7 +145,8 @@ namespace QuickImageComment
             UseWebView2,
             HintUsingNotPredefKeyWord,
             ButtonDeletesPermanently,
-            slideShowHideSettingsAtStart
+            slideShowHideSettingsAtStart,
+            showScaleInMap
         };
 
         public enum enumCfgUserInt
@@ -244,7 +245,7 @@ namespace QuickImageComment
             MapCircleColor,
             SlideshowSubtitleFont,
             SlideShowSubTitelDisplay,
-            MapScaleUnit
+            MapLengthUnit
         };
 
         public enum enumMetaDataGroup
@@ -270,11 +271,10 @@ namespace QuickImageComment
         };
 
         // for display of scale in map
-        public enum enumMapScaleUnit
+        public enum enumMapLengthUnit
         {
-            none,
-            metric,
-            imperial
+            km,
+            mi
         }
 
         private static string IniPath;
@@ -553,6 +553,7 @@ namespace QuickImageComment
             ConfigItems.Add(enumCfgUserBool.HintUsingNotPredefKeyWord.ToString(), false);
             ConfigItems.Add(enumCfgUserBool.ButtonDeletesPermanently.ToString(), false);
             ConfigItems.Add(enumCfgUserBool.slideShowHideSettingsAtStart.ToString(), false);
+            ConfigItems.Add(enumCfgUserBool.showScaleInMap.ToString(), true);
 
             ConfigItems.Add(enumCfgUserString.LastCheckForNewVersion.ToString(), "not configured");
             ConfigItems.Add(enumCfgUserString.NextCheckForNewVersion.ToString(), "not configured");
@@ -567,7 +568,7 @@ namespace QuickImageComment
             ConfigItems.Add(enumCfgUserString.MapCircleColor.ToString(), "3388ff");
             ConfigItems.Add(enumCfgUserString.SlideshowSubtitleFont.ToString(), "");
             ConfigItems.Add(enumCfgUserString.SlideShowSubTitelDisplay.ToString(), "");
-            ConfigItems.Add(enumCfgUserString.MapScaleUnit.ToString(), enumMapScaleUnit.metric.ToString());
+            ConfigItems.Add(enumCfgUserString.MapLengthUnit.ToString(), enumMapLengthUnit.km.ToString());
 
             ConfigItems.Add(enumCfgUserInt.CheckForNewVersionPeriodInDays.ToString(), 30);
             ConfigItems.Add(enumCfgUserInt.ImageDetailsFrameColor.ToString(), System.Drawing.Color.Red.ToArgb());

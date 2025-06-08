@@ -62,6 +62,7 @@ namespace QuickImageComment
             this.buttonHelp = new System.Windows.Forms.Button();
             this.panelFilterInner = new System.Windows.Forms.Panel();
             this.dynamicComboBoxOperator = new System.Windows.Forms.ComboBox();
+            this.dateTimePicker = new QuickImageComment.DateTimePickerQIC();
             this.dynamicComboBoxValue = new System.Windows.Forms.ComboBox();
             this.dynamicLabelFind = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
@@ -84,18 +85,17 @@ namespace QuickImageComment
             this.panelFilterOuter = new System.Windows.Forms.Panel();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.panelMap = new System.Windows.Forms.Panel();
-            this.labelKm = new System.Windows.Forms.Label();
+            this.labelLengthUnit = new System.Windows.Forms.Label();
             this.checkBoxFilterGPS = new System.Windows.Forms.CheckBox();
             this.numericUpDownGpsRange = new System.Windows.Forms.NumericUpDown();
             this.panelKeyWords = new System.Windows.Forms.Panel();
+            this.treeViewKeyWords = new QuickImageCommentControls.TreeViewKeyWords();
             this.labelIptcKeyWords = new System.Windows.Forms.Label();
             this.checkBoxShowDataTable = new System.Windows.Forms.CheckBox();
             this.backgroundWorkerInit = new System.ComponentModel.BackgroundWorker();
             this.checkBoxSaveFindDataTable = new System.Windows.Forms.CheckBox();
             this.backgroundWorkerUpdate = new System.ComponentModel.BackgroundWorker();
             this.buttonQuery = new System.Windows.Forms.Button();
-            this.dateTimePicker = new QuickImageComment.DateTimePickerQIC();
-            this.treeViewKeyWords = new QuickImageCommentControls.TreeViewKeyWords();
             this.progressPanel1 = new QuickImageComment.ProgressPanel();
             this.panelFilterInner.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -180,6 +180,17 @@ namespace QuickImageComment
             this.dynamicComboBoxOperator.Name = "dynamicComboBoxOperator";
             this.dynamicComboBoxOperator.Size = new System.Drawing.Size(192, 21);
             this.dynamicComboBoxOperator.TabIndex = 9;
+            // 
+            // dateTimePicker
+            // 
+            this.dateTimePicker.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.dateTimePicker.ButtonFillColor = System.Drawing.Color.White;
+            this.dateTimePicker.CustomFormat = "yyyy:MM:dd hh:mm:ss";
+            this.dateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTimePicker.Location = new System.Drawing.Point(671, 3);
+            this.dateTimePicker.Name = "dateTimePicker";
+            this.dateTimePicker.Size = new System.Drawing.Size(17, 21);
+            this.dateTimePicker.TabIndex = 8;
             // 
             // dynamicComboBoxValue
             // 
@@ -407,7 +418,7 @@ namespace QuickImageComment
             // 
             this.splitContainer2.Panel1.BackColor = System.Drawing.SystemColors.Control;
             this.splitContainer2.Panel1.Controls.Add(this.panelMap);
-            this.splitContainer2.Panel1.Controls.Add(this.labelKm);
+            this.splitContainer2.Panel1.Controls.Add(this.labelLengthUnit);
             this.splitContainer2.Panel1.Controls.Add(this.checkBoxFilterGPS);
             this.splitContainer2.Panel1.Controls.Add(this.numericUpDownGpsRange);
             this.splitContainer2.Panel1MinSize = 200;
@@ -432,14 +443,14 @@ namespace QuickImageComment
             this.panelMap.Size = new System.Drawing.Size(656, 99);
             this.panelMap.TabIndex = 0;
             // 
-            // labelKm
+            // labelLengthUnit
             // 
-            this.labelKm.AutoSize = true;
-            this.labelKm.Location = new System.Drawing.Point(299, 7);
-            this.labelKm.Name = "labelKm";
-            this.labelKm.Size = new System.Drawing.Size(20, 13);
-            this.labelKm.TabIndex = 4;
-            this.labelKm.Text = "km";
+            this.labelLengthUnit.AutoSize = true;
+            this.labelLengthUnit.Location = new System.Drawing.Point(299, 7);
+            this.labelLengthUnit.Name = "labelLengthUnit";
+            this.labelLengthUnit.Size = new System.Drawing.Size(20, 13);
+            this.labelLengthUnit.TabIndex = 4;
+            this.labelLengthUnit.Text = "km";
             // 
             // checkBoxFilterGPS
             // 
@@ -483,6 +494,15 @@ namespace QuickImageComment
             this.panelKeyWords.Name = "panelKeyWords";
             this.panelKeyWords.Size = new System.Drawing.Size(237, 101);
             this.panelKeyWords.TabIndex = 26;
+            // 
+            // treeViewKeyWords
+            // 
+            this.treeViewKeyWords.CheckBoxes = true;
+            this.treeViewKeyWords.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeViewKeyWords.Location = new System.Drawing.Point(0, 0);
+            this.treeViewKeyWords.Name = "treeViewKeyWords";
+            this.treeViewKeyWords.Size = new System.Drawing.Size(237, 101);
+            this.treeViewKeyWords.TabIndex = 0;
             // 
             // labelIptcKeyWords
             // 
@@ -541,26 +561,6 @@ namespace QuickImageComment
             this.buttonQuery.Text = "Abfrage bearb.";
             this.buttonQuery.UseVisualStyleBackColor = true;
             this.buttonQuery.Click += new System.EventHandler(this.buttonQuery_Click);
-            // 
-            // dateTimePicker
-            // 
-            this.dateTimePicker.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.dateTimePicker.ButtonFillColor = System.Drawing.Color.White;
-            this.dateTimePicker.CustomFormat = "yyyy:MM:dd hh:mm:ss";
-            this.dateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker.Location = new System.Drawing.Point(671, 3);
-            this.dateTimePicker.Name = "dateTimePicker";
-            this.dateTimePicker.Size = new System.Drawing.Size(17, 21);
-            this.dateTimePicker.TabIndex = 8;
-            // 
-            // treeViewKeyWords
-            // 
-            this.treeViewKeyWords.CheckBoxes = true;
-            this.treeViewKeyWords.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.treeViewKeyWords.Location = new System.Drawing.Point(0, 0);
-            this.treeViewKeyWords.Name = "treeViewKeyWords";
-            this.treeViewKeyWords.Size = new System.Drawing.Size(237, 101);
-            this.treeViewKeyWords.TabIndex = 0;
             // 
             // progressPanel1
             // 
@@ -659,7 +659,7 @@ namespace QuickImageComment
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.Panel panelFilterOuter;
         private System.ComponentModel.BackgroundWorker backgroundWorkerInit;
-        private System.Windows.Forms.Label labelKm;
+        private System.Windows.Forms.Label labelLengthUnit;
         private System.Windows.Forms.NumericUpDown numericUpDownGpsRange;
         private System.Windows.Forms.CheckBox checkBoxShowDataTable;
         private System.Windows.Forms.CheckBox checkBoxSaveFindDataTable;

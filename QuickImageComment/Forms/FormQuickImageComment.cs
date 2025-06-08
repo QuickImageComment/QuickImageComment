@@ -4582,13 +4582,13 @@ namespace QuickImageComment
                             if (starting)
                             {
                                 theUserControlMap = new UserControlMap(false, null, false, 0,
-                                    ConfigDefinition.enumCfgUserInt.SplitterMap1DistanceFormQIC);
+                                    ConfigDefinition.enumCfgUserInt.SplitterMap1DistanceFormQIC, null);
                             }
                             else
                             {
                                 bool changeIsPossible = theExtendedImage != null && theExtendedImage.changePossible();
                                 theUserControlMap = new UserControlMap(false, commonRecordingLocation(), changeIsPossible, 0,
-                                    ConfigDefinition.enumCfgUserInt.SplitterMap1DistanceFormQIC);
+                                    ConfigDefinition.enumCfgUserInt.SplitterMap1DistanceFormQIC, null);
                             }
                             if (CustomizationInterface != null)
                             {

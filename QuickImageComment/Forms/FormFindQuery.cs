@@ -37,7 +37,7 @@ namespace QuickImageComment
 #endif
             CustomizationInterface = MainMaskInterface.getCustomizationInterface();
 
-            queryIndex = - 1;
+            queryIndex = -1;
             savedQuery = "";
             QueryEntries = ConfigDefinition.getQueryEntries();
             buttonNext.Enabled = false;
@@ -58,8 +58,9 @@ namespace QuickImageComment
             this.formFind = formFind;
             if (formFind.checkBoxFilterGPS.Checked)
             {
+                string unit = ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.MapLengthUnit);
                 labelMapInfo.Text = LangCfg.getText(LangCfg.Others.queryMapInfo,
-                    formFind.getRecordingLocation(), formFind.getLocationRadius());
+                    formFind.getRecordingLocation(), formFind.getLocationRadius(), unit);
             }
             else
             {
@@ -142,7 +143,7 @@ namespace QuickImageComment
                 queryIndex = 0;
                 richTextBoxValue.Text = (string)QueryEntries[queryIndex];
             }
-            else if (queryIndex < QueryEntries.Count -1)
+            else if (queryIndex < QueryEntries.Count - 1)
             {
                 queryIndex++;
                 richTextBoxValue.Text = (string)QueryEntries[queryIndex];

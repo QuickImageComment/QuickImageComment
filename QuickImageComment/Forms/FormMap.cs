@@ -33,7 +33,7 @@ namespace QuickImageComment
             CustomizationInterface = MainMaskInterface.getCustomizationInterface();
             bool changeLocationAllowed = MainMaskInterface.getTheExtendedImage() != null && MainMaskInterface.getTheExtendedImage().changePossible();
             theUserControlMap = new UserControlMap(false, MainMaskInterface.commonRecordingLocation(), changeLocationAllowed, 
-                0, ConfigDefinition.enumCfgUserInt.SplitterMap1DistanceFormMap);
+                0, ConfigDefinition.enumCfgUserInt.SplitterMap1DistanceFormMap, null);
             MainMaskInterface.setUserControlMap(theUserControlMap);
             theUserControlMap.isInOwnWindow = true;
             panel1.Controls.Add(theUserControlMap.panelMap);

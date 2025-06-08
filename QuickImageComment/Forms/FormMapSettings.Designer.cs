@@ -49,7 +49,7 @@
             this.radioButtonScaleImperial = new System.Windows.Forms.RadioButton();
             this.radioButtonScaleMetric = new System.Windows.Forms.RadioButton();
             this.label9 = new System.Windows.Forms.Label();
-            this.radioButtonScaleNone = new System.Windows.Forms.RadioButton();
+            this.checkBoxScale = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFillOpacity)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownOpacity)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCircleSegmentRadius)).BeginInit();
@@ -207,7 +207,7 @@
             // radioButtonScaleImperial
             // 
             this.radioButtonScaleImperial.AutoSize = true;
-            this.radioButtonScaleImperial.Location = new System.Drawing.Point(198, 58);
+            this.radioButtonScaleImperial.Location = new System.Drawing.Point(198, 10);
             this.radioButtonScaleImperial.Name = "radioButtonScaleImperial";
             this.radioButtonScaleImperial.Size = new System.Drawing.Size(53, 17);
             this.radioButtonScaleImperial.TabIndex = 17;
@@ -219,7 +219,7 @@
             // radioButtonScaleMetric
             // 
             this.radioButtonScaleMetric.AutoSize = true;
-            this.radioButtonScaleMetric.Location = new System.Drawing.Point(198, 35);
+            this.radioButtonScaleMetric.Location = new System.Drawing.Point(118, 10);
             this.radioButtonScaleMetric.Name = "radioButtonScaleMetric";
             this.radioButtonScaleMetric.Size = new System.Drawing.Size(56, 17);
             this.radioButtonScaleMetric.TabIndex = 18;
@@ -233,28 +233,27 @@
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(6, 12);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(48, 13);
+            this.label9.Size = new System.Drawing.Size(86, 13);
             this.label9.TabIndex = 19;
-            this.label9.Text = "Maßstab";
+            this.label9.Text = "Längeneinheiten";
             // 
-            // radioButtonScaleNone
+            // checkBoxScale
             // 
-            this.radioButtonScaleNone.AutoSize = true;
-            this.radioButtonScaleNone.Location = new System.Drawing.Point(198, 12);
-            this.radioButtonScaleNone.Name = "radioButtonScaleNone";
-            this.radioButtonScaleNone.Size = new System.Drawing.Size(49, 17);
-            this.radioButtonScaleNone.TabIndex = 21;
-            this.radioButtonScaleNone.TabStop = true;
-            this.radioButtonScaleNone.Text = "ohne";
-            this.radioButtonScaleNone.UseVisualStyleBackColor = true;
-            this.radioButtonScaleNone.CheckedChanged += new System.EventHandler(this.radioButtonScale_CheckedChanged);
+            this.checkBoxScale.AutoSize = true;
+            this.checkBoxScale.Location = new System.Drawing.Point(9, 39);
+            this.checkBoxScale.Name = "checkBoxScale";
+            this.checkBoxScale.Size = new System.Drawing.Size(162, 17);
+            this.checkBoxScale.TabIndex = 20;
+            this.checkBoxScale.Text = "Maßstab in Karte einblenden";
+            this.checkBoxScale.UseVisualStyleBackColor = true;
+            this.checkBoxScale.CheckedChanged += new System.EventHandler(this.checkBoxScale_CheckedChanged);
             // 
             // FormMapSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(324, 308);
-            this.Controls.Add(this.radioButtonScaleNone);
+            this.Controls.Add(this.checkBoxScale);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.radioButtonScaleMetric);
             this.Controls.Add(this.radioButtonScaleImperial);
@@ -310,6 +309,6 @@
         private System.Windows.Forms.RadioButton radioButtonScaleImperial;
         private System.Windows.Forms.RadioButton radioButtonScaleMetric;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.RadioButton radioButtonScaleNone;
+        private System.Windows.Forms.CheckBox checkBoxScale;
     }
 }

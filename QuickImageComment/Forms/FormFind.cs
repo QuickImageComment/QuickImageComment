@@ -30,7 +30,8 @@ namespace QuickImageComment
         private const int comboBoxOperatorTextWidth = 110;
         private const long minTimePassedForRemCalc = 5;
         private const int minTimeNewProgressInfo = 200; // ms
-        private const double earthCircumference = 40030.0; // km
+        private const double earthCircumference = 40030000.0; // m
+        private const double milesToKm = 1.60934;
 
 
         private const string dynamicLabelNamePrefix = "dynamicLabel_";
@@ -86,6 +87,7 @@ namespace QuickImageComment
         FormFindReadErrors formFindReadErrors;
         GeoDataItem lastGeoDataItemForFind;
         Cursor OldCursor;
+        int gpsFindRangeInMeter = 0;
 
         private static object LockDataTable = new object();
 
@@ -137,13 +139,13 @@ namespace QuickImageComment
             // get file name for stored data table
             // specification may be without folder, then it is in ini path
             FileInfo fileInfo = null;
-            dataTableFileName = ConfigDefinition.getIniPath() + 
+            dataTableFileName = ConfigDefinition.getIniPath() +
                 ConfigDefinition.getConfigString(ConfigDefinition.enumConfigString.FindDataTableFileName);
             try
             {
                 fileInfo = new FileInfo(dataTableFileName);
             }
-            catch 
+            catch
             {
                 // file name is not valid, try without preceeding ini path
                 dataTableFileName = ConfigDefinition.getConfigString(ConfigDefinition.enumConfigString.FindDataTableFileName);
@@ -157,7 +159,8 @@ namespace QuickImageComment
                 }
             }
 
-            if (fileInfo != null && !fileInfo.Directory.Exists) {
+            if (fileInfo != null && !fileInfo.Directory.Exists)
+            {
                 GeneralUtilities.message(LangCfg.Message.E_dataTableFolderNotExists, fileInfo.Directory.FullName);
             }
 
@@ -184,19 +187,19 @@ namespace QuickImageComment
             dataGridView1.Visible = checkBoxShowDataTable.Checked;
             buttonAbort.Select();
             CustomizationInterface = MainMaskInterface.getCustomizationInterface();
-            int gpsFindRangeInMeter = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.GpsFindRangeInMeter);
+            gpsFindRangeInMeter = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.GpsFindRangeInMeter);
+            labelLengthUnit.Text = ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.MapLengthUnit);
 
             // show map with last used coordinates for find
             theUserControlMap = new UserControlMap(true, new GeoDataItem(ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.LastGeoDataItemForFind)),
-                true, gpsFindRangeInMeter, ConfigDefinition.enumCfgUserInt.SplitterMap1DistanceFormFind);
+                true, gpsFindRangeInMeter, ConfigDefinition.enumCfgUserInt.SplitterMap1DistanceFormFind, this);
             panelMap.Controls.Add(theUserControlMap.panelMap);
             theUserControlMap.panelMap.Dock = DockStyle.Fill;
 
             // disable ValueChanged-event to avoid setting radius in UserControlMap again
             // radius is set via constructor, which ensures to have CoreWebView2 initialised, which is needed when using WebView2
             numericUpDownGpsRange.ValueChanged -= numericUpDownGpsRange_ValueChanged;
-            // value is stored in meter
-            numericUpDownGpsRange.Value = ((decimal)gpsFindRangeInMeter) / 1000;
+            setnumericUpDownGpsRangeFromGpsFindRangeInMeter();
             numericUpDownGpsRange.ValueChanged += numericUpDownGpsRange_ValueChanged;
 
             topDiffLabelToComboBox = dynamicComboBoxValue.Top - dynamicLabelFind.Top;
@@ -226,6 +229,19 @@ namespace QuickImageComment
                 GeneralUtilities.message(LangCfg.Message.W_findDataTableNotRead, exceptionLoadDataTable);
             }
             initialisationCompleted = true;
+        }
+
+        private void setnumericUpDownGpsRangeFromGpsFindRangeInMeter()
+        {
+            if (theUserControlMap.isMapScaleUnitImperial())
+            {
+                // apply conversion from miles to km
+                numericUpDownGpsRange.Value = ((decimal)gpsFindRangeInMeter) / 1000 / (decimal)milesToKm;
+            }
+            else
+            {
+                numericUpDownGpsRange.Value = ((decimal)gpsFindRangeInMeter) / 1000;
+            }
         }
 
         // set folder and controls enable/disable based on data table (empty or not), then show dialog
@@ -850,7 +866,7 @@ namespace QuickImageComment
                         mapSignedLatitude = double.Parse(theUserControlMap.getSignedLatitudeString(), System.Globalization.CultureInfo.InvariantCulture);
                         mapSignedLongitude = double.Parse(theUserControlMap.getSignedLongitudeString(), System.Globalization.CultureInfo.InvariantCulture);
                         // convert range value from km to degrees with some tolerance
-                        double latitudeTolerance = (double)numericUpDownGpsRange.Value / earthCircumference * 360.0 * 1.05;
+                        double latitudeTolerance = (double)gpsFindRangeInMeter / earthCircumference * 360.0 * 1.05;
                         double longitudeTolerance = latitudeTolerance / Math.Cos(radiansFromDegrees(mapSignedLatitude));
                         double mapLatitudeMin = mapSignedLatitude - latitudeTolerance;
                         double mapLatitudeMax = mapSignedLatitude + latitudeTolerance;
@@ -891,8 +907,8 @@ namespace QuickImageComment
                     {
                         ArrayList QueryEntries = ConfigDefinition.getQueryEntries();
                         // remove existing entry
-                        if (QueryEntries.Contains(queryWithoutGPS)) 
-                        { 
+                        if (QueryEntries.Contains(queryWithoutGPS))
+                        {
                             QueryEntries.Remove(queryWithoutGPS);
                         }
                         // add at begin of list
@@ -919,7 +935,7 @@ namespace QuickImageComment
                                     double imgLongitude = double.Parse(lonString);
                                     double distance = distanceBetweenCoordinates(mapSignedLatitude, mapSignedLongitude, imgLatitude, imgLongitude);
                                     //Logger.log((string)selectResult[ii]["FileName"] + " " + latString + " " + lonString + " distance " + distance.ToString());
-                                    if (distance < (double)numericUpDownGpsRange.Value)
+                                    if (distance < (double)gpsFindRangeInMeter)
                                     {
                                         SortedImageFiles.Add(selectResult[ii]["FileName"]);
                                     }
@@ -1470,7 +1486,7 @@ namespace QuickImageComment
             ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.FormFindWidth, this.Width);
             ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.FormFindSplitContainer1_Distance, splitContainer1.SplitterDistance);
             ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.FormFindSplitContainer2_Distance, splitContainer2.SplitterDistance);
-            ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.GpsFindRangeInMeter, (int)(numericUpDownGpsRange.Value * 1000));
+            ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.GpsFindRangeInMeter, gpsFindRangeInMeter);
             if (lastGeoDataItemForFind != null)
             {
                 ConfigDefinition.setCfgUserString(ConfigDefinition.enumCfgUserString.LastGeoDataItemForFind, lastGeoDataItemForFind.ToConfigString());
@@ -1488,7 +1504,15 @@ namespace QuickImageComment
 
         private void numericUpDownGpsRange_ValueChanged(object sender, EventArgs e)
         {
-            theUserControlMap.setCircleRadius((int)(numericUpDownGpsRange.Value * 1000));
+            if (theUserControlMap.isMapScaleUnitImperial())
+            {
+                gpsFindRangeInMeter = (int)(numericUpDownGpsRange.Value * 1000 * (decimal)milesToKm);
+            }
+            else
+            {
+                gpsFindRangeInMeter = (int)(numericUpDownGpsRange.Value * 1000);
+            }
+            theUserControlMap.setCircleRadius(gpsFindRangeInMeter);
         }
 
         private void panelFilterInner_Resize(object sender, EventArgs e)
@@ -1615,7 +1639,7 @@ namespace QuickImageComment
         {
             treeViewKeyWords.fillWithPredefKeyWords();
         }
-        
+
         // get recording location position
         internal string getRecordingLocation()
         {
@@ -1626,6 +1650,13 @@ namespace QuickImageComment
         internal string getLocationRadius()
         {
             return numericUpDownGpsRange.Value.ToString();
+        }
+
+        // set map length unit
+        internal void setMapLengthUnit(string mapLengthUnit)
+        {
+            labelLengthUnit.Text = mapLengthUnit;
+            setnumericUpDownGpsRangeFromGpsFindRangeInMeter();
         }
         #endregion
 
@@ -1894,7 +1925,7 @@ namespace QuickImageComment
             panelFilterInner.Enabled = enable;
             checkBoxFilterGPS.Enabled = enable;
             numericUpDownGpsRange.Enabled = enable;
-            labelKm.Enabled = enable;
+            labelLengthUnit.Enabled = enable;
         }
 
         private void showDataTableContent()
