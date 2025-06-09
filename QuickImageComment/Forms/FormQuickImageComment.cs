@@ -19,6 +19,7 @@
 using JR.Utils.GUI.Forms;
 using Microsoft.VisualBasic.FileIO;
 using QuickImageCommentControls;
+using QuickImageComment.Forms;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -6869,39 +6870,48 @@ namespace QuickImageComment
                 FormWindowState formWindowState = this.WindowState;
                 this.WindowState = FormWindowState.Minimized;
 
-                //new FormAbout();
+                // FormAbout not needed
+                // FormChangesInVersion not needed
                 new FormCheckNewVersion("", "");
                 new FormCompare(theUserControlFiles.listViewFiles.SelectedIndices);
                 new FormDataTemplates();
                 new FormDateTimeChange(theUserControlFiles.listViewFiles.SelectedIndices);
+                // FormDonate not needed
                 new FormEditExternal();
                 // FormError not needed
                 new FormExportAllMetaData(theUserControlFiles.listViewFiles.SelectedIndices, FolderName);
                 new FormExportMetaData(FolderName);
                 FormFind formFind = new FormFind(true);
                 formFind.createScreenShot(FolderName);
+                // FormFindQuery not needed
                 new FormFindReadErrors();
+                // FormFirstUserSettings not needed
+                // FormGeoDataItemList not needed
                 new FormImageDetails(dpiSettings, theExtendedImage);
                 new FormImageGrid();
                 new FormImageWindow(theExtendedImage);
                 // FormInputBox not needed
                 new FormInputCheckConfiguration("Iptc.Application2.Category");
+                // FormLogger not needed
                 new FormMap();
                 new FormMapSettings(theUserControlMap);
                 new FormMetaDataDefinition(theExtendedImage);
-                //new FormMultiSave(0);
+                // FormMultiSave not needed
+                // FormNominatimQueryInput not needed
                 new FormPlaceholder("Exif.Image.Copyright", "Copyright {{#Exif.Photo.DateTimeOriginal;;4}} {{Exif.Image.Artist}}");
                 new FormPredefinedComments();
                 new FormPredefinedKeyWords();
+                // FormPrevNext not needed
+                // FormQuickImageComment covered above
                 new FormRemoveMetaData(theUserControlFiles.listViewFiles.SelectedIndices);
                 new FormRename(theUserControlFiles.listViewFiles.SelectedIndices);
                 new FormScale();
-                // exclude FormSelectApplication: not interisting for screen shot 
-                // exclude FormSelectFolder: not interisting for screen shot 
+                // FormSelectApplication not needed
+                // FormSelectFolder not needed
                 new FormSelectLanguage(ConfigDefinition.getConfigPath());
                 new FormSettings();
-                new FormSlideshowSettings(new FormSlideshow(theExtendedImage));
-                // exclude FormSelectUserConfigStorage: not interisting for screen shot 
+                // FormSlideShow not needed
+                // new FormSlideshowSettings(new FormSlideshow(theExtendedImage));
                 // FormTagValueInput needs main mask to be visible, screen shot taken above
                 new FormUserButtons(this.MenuStrip1);
                 new FormView(SplitContainerPanelControls, DefaultSplitContainerPanelContents,
@@ -6965,36 +6975,42 @@ namespace QuickImageComment
 
             ArrayList ControlTextList = new ArrayList();
             LangCfg.getListOfControlsWithText(new FormAbout(), ControlTextList);
+            LangCfg.getListOfControlsWithText(new FormChangesInVersion(), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormCheckNewVersion("", ""), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormCompare(theUserControlFiles.listViewFiles.SelectedIndices), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormDataTemplates(), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormDateTimeChange(theUserControlFiles.listViewFiles.SelectedIndices), ControlTextList);
+            LangCfg.getListOfControlsWithText(new FormDonate(), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormEditExternal(), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormError("", "", ""), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormExportAllMetaData(theUserControlFiles.listViewFiles.SelectedIndices, FolderName), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormExportMetaData(FolderName), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormFind(true), ControlTextList);
+            LangCfg.getListOfControlsWithText(new FormFindQuery(new ArrayList(), "", new FormFind(true)), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormFindReadErrors(), ControlTextList);
+            LangCfg.getListOfControlsWithText(new FormFirstUserSettings(true), ControlTextList);
+            LangCfg.getListOfControlsWithText(new FormGeoDataItemList(null), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormImageDetails(dpiSettings, theExtendedImage), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormImageGrid(), ControlTextList);
-            // exclude FormImageWindow: nothing to translate
-            // input check for Exif.Image.Orientation is always available as created by program, so use this for check
+            LangCfg.getListOfControlsWithText(new FormImageWindow(theExtendedImage), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormInputBox("prompt", "defaultResponse"), ControlTextList);
+            // input check for Exif.Image.Orientation is always available as created by program, so use this for check
             LangCfg.getListOfControlsWithText(new FormInputCheckConfiguration("Exif.Image.Orientation"), ControlTextList);
+            LangCfg.getListOfControlsWithText(new FormLogger(), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormMap(), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormMapSettings(theUserControlMap), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormMetaDataDefinition(theExtendedImage), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormMultiSave(0), ControlTextList);
+            // just hand over an empty control 
+            LangCfg.getListOfControlsWithText(new FormNominatimQueryInput(new ComboBox()), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormPlaceholder("", ""), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormPredefinedComments(), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormPredefinedKeyWords(), ControlTextList);
-
+            // FormPrevNext not needed as it is base class for other forms
             // FormQuickImageComment is this
             LangCfg.getListOfControlsWithText(this, ControlTextList);
             LangCfg.getListOfControlsWithText(new FormRemoveMetaData(theUserControlFiles.listViewFiles.SelectedIndices), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormRename(theUserControlFiles.listViewFiles.SelectedIndices), ControlTextList);
-            LangCfg.getListOfControlsWithText(new FormSelectLanguage(ConfigDefinition.getConfigPath()), ControlTextList);
-            LangCfg.getListOfControlsWithText(new FormFirstUserSettings(true), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormScale(), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormSelectApplication(), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormSelectFolder("C:\\"), ControlTextList);
@@ -7043,8 +7059,10 @@ namespace QuickImageComment
             new FormExportAllMetaData(theUserControlFiles.listViewFiles.SelectedIndices, FolderName);
             new FormExportMetaData(FolderName);
             new FormFind(true);
+            new FormFindQuery(new ArrayList(), "", new FormFind(true));
             new FormFindReadErrors();
             new FormFirstUserSettings(true);
+            new FormGeoDataItemList(null);
             new FormImageDetails(dpiSettings, theExtendedImage);
             new FormImageGrid();
             new FormImageWindow(theExtendedImage);
@@ -7056,6 +7074,8 @@ namespace QuickImageComment
             new FormMapSettings(theUserControlMap);
             new FormMetaDataDefinition(theExtendedImage);
             new FormMultiSave(0);
+            // just hand over an empty control 
+            new FormNominatimQueryInput(new ComboBox());
             new FormPlaceholder("", "");
             new FormPredefinedComments();
             new FormPredefinedKeyWords();
