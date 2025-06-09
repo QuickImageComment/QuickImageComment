@@ -2434,7 +2434,18 @@ namespace QuickImageComment
         // adjust splitter distance according changed orientation
         private void adjustSplitterDistanceBasedOnRatio(SplitContainer aSplitContainer)
         {
-            ConfigDefinition.enumCfgUserInt theEnum = (ConfigDefinition.enumCfgUserInt)Enum.Parse(typeof(ConfigDefinition.enumCfgUserInt), aSplitContainer.Name + "_DistanceRatio");
+            // adding splitContainer1213_DistanceRatio caused problem when loading new configuration
+            // file in previous version as underscore is used to determien name of configuration
+            // so new distance ratios are named without underscore which requires the following logic:
+            ConfigDefinition.enumCfgUserInt theEnum;
+            try
+            {
+                theEnum = (ConfigDefinition.enumCfgUserInt)Enum.Parse(typeof(ConfigDefinition.enumCfgUserInt), aSplitContainer.Name + "_DistanceRatio");
+            }
+            catch
+            {
+                theEnum = (ConfigDefinition.enumCfgUserInt)Enum.Parse(typeof(ConfigDefinition.enumCfgUserInt), aSplitContainer.Name + "DistanceRatio");
+            }
             int SplitterRatio = ConfigDefinition.getCfgUserInt(theEnum);
 
             if (SplitterRatio > 0)
@@ -2468,7 +2479,18 @@ namespace QuickImageComment
         // save single current splitter distance ratio in configuration
         private void saveSingleSplitterDistanceRatioInConfiguration(SplitContainer aSplitContainer)
         {
-            ConfigDefinition.enumCfgUserInt theEnum = (ConfigDefinition.enumCfgUserInt)Enum.Parse(typeof(ConfigDefinition.enumCfgUserInt), aSplitContainer.Name + "_DistanceRatio");
+            // adding splitContainer1213_DistanceRatio caused problem when loading new configuration
+            // file in previous version as underscore is used to determien name of configuration
+            // so new distance ratios are named without underscore which requires the following logic:
+            ConfigDefinition.enumCfgUserInt theEnum;
+            try
+            {
+                theEnum = (ConfigDefinition.enumCfgUserInt)Enum.Parse(typeof(ConfigDefinition.enumCfgUserInt), aSplitContainer.Name + "_DistanceRatio");
+            }
+            catch
+            {
+                theEnum = (ConfigDefinition.enumCfgUserInt)Enum.Parse(typeof(ConfigDefinition.enumCfgUserInt), aSplitContainer.Name + "DistanceRatio");
+            }
             if (aSplitContainer.Orientation == Orientation.Vertical)
             {
                 ConfigDefinition.setCfgUserInt(theEnum, (aSplitContainer.SplitterDistance * SplitterRatioScale + aSplitContainer.Width / 2) / aSplitContainer.Width);
