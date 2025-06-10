@@ -117,4 +117,15 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="labelHideMap.Text" xml:space="preserve">
+    <value>Das Bild hat keine GPS-Daten.
+
+Hier klicken, um trotzdem die Karte anzuzeigen.
+
+
+Um die Karte immer anzuzeigen: 
+In den Eistellungen der Karte (Schaltfläche oben rechts)
+"Karte ausblenden wenn keine GPS Daten verfügbar"
+deaktivieren</value>
+  </data>
 </root>

@@ -50,6 +50,7 @@
             this.radioButtonScaleMetric = new System.Windows.Forms.RadioButton();
             this.label9 = new System.Windows.Forms.Label();
             this.checkBoxScale = new System.Windows.Forms.CheckBox();
+            this.checkBoxHideMapWhenNoGPS = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFillOpacity)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownOpacity)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCircleSegmentRadius)).BeginInit();
@@ -248,11 +249,22 @@
             this.checkBoxScale.UseVisualStyleBackColor = true;
             this.checkBoxScale.CheckedChanged += new System.EventHandler(this.checkBoxScale_CheckedChanged);
             // 
+            // checkBoxHideMapWhenNoGPS
+            // 
+            this.checkBoxHideMapWhenNoGPS.AutoSize = true;
+            this.checkBoxHideMapWhenNoGPS.Location = new System.Drawing.Point(9, 66);
+            this.checkBoxHideMapWhenNoGPS.Name = "checkBoxHideMapWhenNoGPS";
+            this.checkBoxHideMapWhenNoGPS.Size = new System.Drawing.Size(272, 17);
+            this.checkBoxHideMapWhenNoGPS.TabIndex = 21;
+            this.checkBoxHideMapWhenNoGPS.Text = "Karte ausblenden wenn keine GPS Daten verfügbar";
+            this.checkBoxHideMapWhenNoGPS.UseVisualStyleBackColor = true;
+            // 
             // FormMapSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(324, 308);
+            this.Controls.Add(this.checkBoxHideMapWhenNoGPS);
             this.Controls.Add(this.checkBoxScale);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.radioButtonScaleMetric);
@@ -310,5 +322,6 @@
         private System.Windows.Forms.RadioButton radioButtonScaleMetric;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.CheckBox checkBoxScale;
+        private System.Windows.Forms.CheckBox checkBoxHideMapWhenNoGPS;
     }
 }

@@ -73,6 +73,7 @@ namespace QuickImageComment
             numericUpDownCircleSegmentRadius.Value = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.MapCircleSegmentRadius);
             string lengthUnit = ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.MapLengthUnit);
             checkBoxScale.Checked = ConfigDefinition.getCfgUserBool(ConfigDefinition.enumCfgUserBool.showScaleInMap);
+            checkBoxHideMapWhenNoGPS.Checked = ConfigDefinition.getCfgUserBool(ConfigDefinition.enumCfgUserBool.hideMapWhenNoGPS);
             radioButtonScaleMetric.Checked = lengthUnit.Equals(ConfigDefinition.enumMapLengthUnit.km.ToString());
             radioButtonScaleImperial.Checked = lengthUnit.Equals(ConfigDefinition.enumMapLengthUnit.mi.ToString());
         }
@@ -124,6 +125,7 @@ namespace QuickImageComment
             ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.MapCircleSegmentRadius, (int)numericUpDownCircleSegmentRadius.Value);
 
             ConfigDefinition.setCfgUserBool(ConfigDefinition.enumCfgUserBool.showScaleInMap, checkBoxScale.Checked);
+            ConfigDefinition.setCfgUserBool(ConfigDefinition.enumCfgUserBool.hideMapWhenNoGPS, checkBoxHideMapWhenNoGPS.Checked);
             ConfigDefinition.setCfgUserString(ConfigDefinition.enumCfgUserString.MapLengthUnit, MapLengthUnit);
             // as changes are applied directly, calling applyChanges should not be needed - but to be on the safe side ...
             applyChanges(sender, EventArgs.Empty);

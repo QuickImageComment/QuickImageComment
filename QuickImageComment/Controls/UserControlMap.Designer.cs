@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UserControlMap));
             this.panelMap = new System.Windows.Forms.Panel();
             this.panelBottom = new System.Windows.Forms.Panel();
             this.splitContainerMapControls = new System.Windows.Forms.SplitContainer();
@@ -44,6 +45,7 @@
             this.dynamicComboBoxMapSource = new QuickImageCommentControls.ComboBoxQIC();
             this.panelTop = new System.Windows.Forms.Panel();
             this.buttonSettings = new System.Windows.Forms.Button();
+            this.labelHideMap = new System.Windows.Forms.Label();
             this.panelMap.SuspendLayout();
             this.panelBottom.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMapControls)).BeginInit();
@@ -232,6 +234,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelTop.Controls.Add(this.buttonSettings);
+            this.panelTop.Controls.Add(this.labelHideMap);
             this.panelTop.Location = new System.Drawing.Point(0, 0);
             this.panelTop.Name = "panelTop";
             this.panelTop.Size = new System.Drawing.Size(674, 358);
@@ -249,6 +252,17 @@
             this.buttonSettings.TabStop = false;
             this.buttonSettings.UseVisualStyleBackColor = true;
             this.buttonSettings.Click += new System.EventHandler(this.buttonSettings_Click);
+            // 
+            // labelHideMap
+            // 
+            this.labelHideMap.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelHideMap.Location = new System.Drawing.Point(0, 0);
+            this.labelHideMap.Name = "labelHideMap";
+            this.labelHideMap.Size = new System.Drawing.Size(674, 358);
+            this.labelHideMap.TabIndex = 23;
+            this.labelHideMap.Text = resources.GetString("labelHideMap.Text");
+            this.labelHideMap.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.labelHideMap.Click += new System.EventHandler(this.labelHideMap_Click);
             // 
             // UserControlMap
             // 
@@ -287,5 +301,6 @@
         internal System.Windows.Forms.Label dynamicLabelCoordinates;
         private System.Windows.Forms.Button buttonSettings;
         private System.Windows.Forms.SplitContainer splitContainerMapControls;
+        private System.Windows.Forms.Label labelHideMap;
     }
 }

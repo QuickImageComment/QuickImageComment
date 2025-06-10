@@ -146,7 +146,8 @@ namespace QuickImageComment
             HintUsingNotPredefKeyWord,
             ButtonDeletesPermanently,
             slideShowHideSettingsAtStart,
-            showScaleInMap
+            showScaleInMap,
+            hideMapWhenNoGPS
         };
 
         public enum enumCfgUserInt
@@ -552,6 +553,7 @@ namespace QuickImageComment
             ConfigItems.Add(enumCfgUserBool.ButtonDeletesPermanently.ToString(), false);
             ConfigItems.Add(enumCfgUserBool.slideShowHideSettingsAtStart.ToString(), false);
             ConfigItems.Add(enumCfgUserBool.showScaleInMap.ToString(), true);
+            ConfigItems.Add(enumCfgUserBool.hideMapWhenNoGPS.ToString(), false);
 
             ConfigItems.Add(enumCfgUserString.LastCheckForNewVersion.ToString(), "not configured");
             ConfigItems.Add(enumCfgUserString.NextCheckForNewVersion.ToString(), "not configured");

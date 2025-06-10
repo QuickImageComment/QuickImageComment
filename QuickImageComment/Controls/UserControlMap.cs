@@ -704,9 +704,20 @@ namespace QuickImageComment
                         navigateToNewUrl();
                     }
                 }
+                if (formFind != null)
+                {
+                    // control is part of FormFind, do not hide map
+                    labelHideMap.SendToBack();
+                }
+                else if (ConfigDefinition.getCfgUserBool(ConfigDefinition.enumCfgUserBool.hideMapWhenNoGPS))
+                {
+                    labelHideMap.BringToFront();
+                    buttonSettings.BringToFront();
+                }
             }
             else
             {
+                labelHideMap.SendToBack();
                 dynamicLabelCoordinates.Text = startGeoDataItem.displayString;
                 centerLongitude = startGeoDataItem.lon;
                 centerLatitude = startGeoDataItem.lat;
@@ -1007,6 +1018,13 @@ namespace QuickImageComment
             // user changed text, disable buttons to delete and rename
             buttonDelete.Enabled = false;
             buttonRename.Enabled = false;
+        }
+
+        // click on label to hide map
+        private void labelHideMap_Click(object sender, EventArgs e)
+        {
+            // show map again
+            labelHideMap.SendToBack();
         }
 
         //---------------------------------------------------------------------
@@ -1691,7 +1709,7 @@ namespace QuickImageComment
 
         // called from FormMapSettings to apply changes
         internal void applyMapSettings(string givenCircleColor, string givenCircleOpacity,
-            string givenCircleFillOpacity, string givenCircleSegmentRadius, 
+            string givenCircleFillOpacity, string givenCircleSegmentRadius,
             string givenMapScaleUnit, bool givenShowScaleInMap)
         {
             CircleColor = givenCircleColor;
@@ -1713,6 +1731,17 @@ namespace QuickImageComment
 
             invokeLeafletMethod("applySettings", new string[] { CircleColor, CircleOpacity,
                 CircleFillOpacity, CircleSegmentRadius, scaleMetric, scaleImperial });
+
+            if (ConfigDefinition.getCfgUserBool(ConfigDefinition.enumCfgUserBool.hideMapWhenNoGPS) &&
+                markerGeoDataItem == null)
+            {
+                labelHideMap.BringToFront();
+                buttonSettings.BringToFront();
+            }
+            else
+            {
+                labelHideMap.SendToBack();
+            }
         }
 
         // return true if length unit is imperial, false if metric
