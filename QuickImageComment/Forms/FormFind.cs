@@ -188,7 +188,7 @@ namespace QuickImageComment
             buttonAbort.Select();
             CustomizationInterface = MainMaskInterface.getCustomizationInterface();
             gpsFindRangeInMeter = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.GpsFindRangeInMeter);
-            labelLengthUnit.Text = ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.MapLengthUnit);
+            dynamicLabelLengthUnit.Text = ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.MapLengthUnit);
 
             // show map with last used coordinates for find
             theUserControlMap = new UserControlMap(true, new GeoDataItem(ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.LastGeoDataItemForFind)),
@@ -1655,7 +1655,7 @@ namespace QuickImageComment
         // set map length unit
         internal void setMapLengthUnit(string mapLengthUnit)
         {
-            labelLengthUnit.Text = mapLengthUnit;
+            dynamicLabelLengthUnit.Text = mapLengthUnit;
             setnumericUpDownGpsRangeFromGpsFindRangeInMeter();
         }
         #endregion
@@ -1925,7 +1925,7 @@ namespace QuickImageComment
             panelFilterInner.Enabled = enable;
             checkBoxFilterGPS.Enabled = enable;
             numericUpDownGpsRange.Enabled = enable;
-            labelLengthUnit.Enabled = enable;
+            dynamicLabelLengthUnit.Enabled = enable;
         }
 
         private void showDataTableContent()

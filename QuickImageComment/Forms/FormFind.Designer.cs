@@ -85,7 +85,7 @@ namespace QuickImageComment
             this.panelFilterOuter = new System.Windows.Forms.Panel();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.panelMap = new System.Windows.Forms.Panel();
-            this.labelLengthUnit = new System.Windows.Forms.Label();
+            this.dynamicLabelLengthUnit = new System.Windows.Forms.Label();
             this.checkBoxFilterGPS = new System.Windows.Forms.CheckBox();
             this.numericUpDownGpsRange = new System.Windows.Forms.NumericUpDown();
             this.panelKeyWords = new System.Windows.Forms.Panel();
@@ -418,7 +418,7 @@ namespace QuickImageComment
             // 
             this.splitContainer2.Panel1.BackColor = System.Drawing.SystemColors.Control;
             this.splitContainer2.Panel1.Controls.Add(this.panelMap);
-            this.splitContainer2.Panel1.Controls.Add(this.labelLengthUnit);
+            this.splitContainer2.Panel1.Controls.Add(this.dynamicLabelLengthUnit);
             this.splitContainer2.Panel1.Controls.Add(this.checkBoxFilterGPS);
             this.splitContainer2.Panel1.Controls.Add(this.numericUpDownGpsRange);
             this.splitContainer2.Panel1MinSize = 200;
@@ -443,14 +443,14 @@ namespace QuickImageComment
             this.panelMap.Size = new System.Drawing.Size(656, 99);
             this.panelMap.TabIndex = 0;
             // 
-            // labelLengthUnit
+            // dynamicLabelLengthUnit
             // 
-            this.labelLengthUnit.AutoSize = true;
-            this.labelLengthUnit.Location = new System.Drawing.Point(299, 7);
-            this.labelLengthUnit.Name = "labelLengthUnit";
-            this.labelLengthUnit.Size = new System.Drawing.Size(20, 13);
-            this.labelLengthUnit.TabIndex = 4;
-            this.labelLengthUnit.Text = "km";
+            this.dynamicLabelLengthUnit.AutoSize = true;
+            this.dynamicLabelLengthUnit.Location = new System.Drawing.Point(299, 7);
+            this.dynamicLabelLengthUnit.Name = "dynamicLabelLengthUnit";
+            this.dynamicLabelLengthUnit.Size = new System.Drawing.Size(20, 13);
+            this.dynamicLabelLengthUnit.TabIndex = 4;
+            this.dynamicLabelLengthUnit.Text = "km";
             // 
             // checkBoxFilterGPS
             // 
@@ -659,7 +659,7 @@ namespace QuickImageComment
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.Panel panelFilterOuter;
         private System.ComponentModel.BackgroundWorker backgroundWorkerInit;
-        private System.Windows.Forms.Label labelLengthUnit;
+        private System.Windows.Forms.Label dynamicLabelLengthUnit;
         private System.Windows.Forms.NumericUpDown numericUpDownGpsRange;
         private System.Windows.Forms.CheckBox checkBoxShowDataTable;
         private System.Windows.Forms.CheckBox checkBoxSaveFindDataTable;

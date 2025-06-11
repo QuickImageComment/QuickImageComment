@@ -3749,6 +3749,19 @@ namespace QuickImageComment
             GeneralUtilities.ShowHelp(this, "FormQuickImageComment");
         }
 
+        // show troubleshooting web page
+        private void toolStripMenuItemTroubleShooting_Click(object sender, EventArgs e)
+        {
+            if (LangCfg.getLoadedLanguage().Equals("Deutsch"))
+            {
+                System.Diagnostics.Process.Start("https://www.quickimagecomment.de/de/problembehandlung");
+            }
+            else
+            {
+                System.Diagnostics.Process.Start("https://www.quickimagecomment.de/en/troubleshooting");
+            }
+        }
+
         // show chapter data privacy in help
         private void toolStripMenuItemDataPrivacy_Click(object sender, EventArgs e)
         {
