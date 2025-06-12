@@ -161,7 +161,6 @@ namespace QuickImageComment
         private List<MapSource> MapSources;
         private FormFind formFind = null;
         bool initLocationChangeNeeded;
-        GeoDataItem initGeoDataItem;
         bool initChangeLocationAllowed;
         ConfigDefinition.enumCfgUserInt splitterDistanceEnum;
 
@@ -176,12 +175,17 @@ namespace QuickImageComment
             this.formFind = formFind;
             circleRadiusInMeter = radiusInMeter;
             initLocationChangeNeeded = locationChangeNeeded;
-            initGeoDataItem = geoDataItem;
+            markerGeoDataItem = geoDataItem;
             initChangeLocationAllowed = givenChangeLocationAllowed;
             splitterDistanceEnum = givenSplitterDistanceEnum;
             checkBoxWebView2.Visible = false;
 
             loadConfiguration();
+
+            dynamicLabelZoom.Text = ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.MapZoom);
+            centerLatitude = ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.LastLatitude);
+            centerLongitude = ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.LastLongitude);
+
 #if WEBVIEW2
             string webView2Version = "";
 
@@ -337,10 +341,6 @@ namespace QuickImageComment
             dynamicLabelCoordinates.Visible = !selectedMapSource.isconfiguredMapURL;
             dynamicLabelZoom.Visible = !selectedMapSource.isconfiguredMapURL;
             labelZoom.Visible = !selectedMapSource.isconfiguredMapURL;
-
-            dynamicLabelZoom.Text = ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.MapZoom);
-            centerLatitude = ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.LastLatitude);
-            centerLongitude = ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.LastLongitude);
 
             // check existance and content of list of comboBoxes for Search
             bool searchFilled = true;
@@ -935,7 +935,6 @@ namespace QuickImageComment
         // checkbox to select browser component for map display
         private void checkBoxWebView2_CheckedChanged(object sender, EventArgs e)
         {
-            initGeoDataItem = startGeoDataItem;
             initChangeLocationAllowed = changeLocationAllowed;
             comboBoxSearchList = null;
             lastUrl = "";
