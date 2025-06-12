@@ -52,7 +52,7 @@ class AssemblyInfo
 #if DEBUG
     public const string VersionSuffix = "-DBG";
 #else
-    public const string VersionSuffix = "-Beta-2";
+    public const string VersionSuffix = "-Beta-4";
 #endif
     // Version to Check is the last published version
     // for beta versions it is one before AssemblyVersion
