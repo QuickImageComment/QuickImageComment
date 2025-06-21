@@ -531,7 +531,7 @@ namespace QuickImageComment
             }
             catch (Exception ex)
             {
-                string ErrorMessage = LangCfg.getText(LangCfg.Others.severeCacheReadError, FilenameForExceptionMessage, "");
+                string ErrorMessage = LangCfg.getText(LangCfg.Others.severeFolderReadError, FilenameForExceptionMessage, "");
                 // using inner exception is ok here, because it will not be sent to AppCenter
                 // note: AppCenter will show only text of inner exception and then FilenameForExceptionMessage is lost
                 throw (new Exception(ErrorMessage, ex));

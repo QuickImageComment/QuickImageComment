@@ -256,7 +256,7 @@ namespace QuickImageComment
             errorFileVersion,
             free,
             reading,
-            severeCacheReadError,
+            severeFolderReadError,
             configFileQicCustomization,
             notConfigured,
             compareCheckArtist,

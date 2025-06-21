@@ -18,8 +18,8 @@
 
 using JR.Utils.GUI.Forms;
 using Microsoft.VisualBasic.FileIO;
-using QuickImageCommentControls;
 using QuickImageComment.Forms;
+using QuickImageCommentControls;
 using System;
 using System.Collections;
 using System.Collections.Generic;

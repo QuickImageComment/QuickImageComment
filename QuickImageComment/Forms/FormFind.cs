@@ -866,7 +866,7 @@ namespace QuickImageComment
                         mapSignedLatitude = double.Parse(theUserControlMap.getSignedLatitudeString(), System.Globalization.CultureInfo.InvariantCulture);
                         mapSignedLongitude = double.Parse(theUserControlMap.getSignedLongitudeString(), System.Globalization.CultureInfo.InvariantCulture);
                         // convert range value from km to degrees with some tolerance
-                        double latitudeTolerance = (double)gpsFindRangeInMeter / earthCircumference * 360.0 * 1.05;
+                        double latitudeTolerance = gpsFindRangeInMeter / earthCircumference * 360.0 * 1.05;
                         double longitudeTolerance = latitudeTolerance / Math.Cos(radiansFromDegrees(mapSignedLatitude));
                         double mapLatitudeMin = mapSignedLatitude - latitudeTolerance;
                         double mapLatitudeMax = mapSignedLatitude + latitudeTolerance;
@@ -935,7 +935,7 @@ namespace QuickImageComment
                                     double imgLongitude = double.Parse(lonString);
                                     double distance = distanceBetweenCoordinates(mapSignedLatitude, mapSignedLongitude, imgLatitude, imgLongitude);
                                     //Logger.log((string)selectResult[ii]["FileName"] + " " + latString + " " + lonString + " distance " + distance.ToString());
-                                    if (distance < (double)gpsFindRangeInMeter)
+                                    if (distance < gpsFindRangeInMeter)
                                     {
                                         SortedImageFiles.Add(selectResult[ii]["FileName"]);
                                     }
@@ -1114,6 +1114,7 @@ namespace QuickImageComment
         private void backgroundWorkerInit_DoWork(object sender, System.ComponentModel.DoWorkEventArgs doWorkEventArgs)
         {
             ExtendedImage extendedImage;
+            string FilenameForExceptionMessage = "";
             System.ComponentModel.BackgroundWorker worker = sender as System.ComponentModel.BackgroundWorker;
 
             // get all files including files in subfolders
@@ -1134,27 +1135,42 @@ namespace QuickImageComment
                 // throw (new Exception("ExceptionTest in BackgroundWorker"));
                 buttonCancelRead.Enabled = true;
 
-                for (int ii = 0; ii < ImageFilesInfo.Length; ii++)
+#if !DEBUG
+                try
+#endif
                 {
-                    exportedCount++;
-                    DataRow row = dataTable.NewRow();
-                    row["FileName"] = ImageFilesInfo[ii].FullName;
-                    extendedImage = new ExtendedImage(ImageFilesInfo[ii], MetaDataDefinitionsToRead);
-                    fillDataTableRow(row, extendedImage, formFindReadErrors);
-                    dataTable.Rows.Add(row);
+                    for (int ii = 0; ii < ImageFilesInfo.Length; ii++)
+                    {
+                        exportedCount++;
+                        DataRow row = dataTable.NewRow();
+                        row["FileName"] = ImageFilesInfo[ii].FullName;
+                        FilenameForExceptionMessage = ImageFilesInfo[ii].FullName;
+                        extendedImage = new ExtendedImage(ImageFilesInfo[ii], MetaDataDefinitionsToRead);
+                        fillDataTableRow(row, extendedImage, formFindReadErrors);
+                        dataTable.Rows.Add(row);
 
-                    if (worker.CancellationPending == true)
-                    {
-                        doWorkEventArgs.Cancel = true;
-                        break;
-                    }
-                    else
-                    {
-                        // ProgressPercentage is used as case indication for updating mask
-                        // progress is determined in backgroundWorkerInit_ProgressChanged using exportedCount
-                        worker.ReportProgress(1);
+                        if (worker.CancellationPending == true)
+                        {
+                            doWorkEventArgs.Cancel = true;
+                            break;
+                        }
+                        else
+                        {
+                            // ProgressPercentage is used as case indication for updating mask
+                            // progress is determined in backgroundWorkerInit_ProgressChanged using exportedCount
+                            worker.ReportProgress(1);
+                        }
                     }
                 }
+#if !DEBUG
+                catch (Exception ex)
+                {
+                    string ErrorMessage = LangCfg.getText(LangCfg.Others.severeFolderReadError, FilenameForExceptionMessage, "");
+                    // using inner exception is ok here, because it will not be sent to AppCenter
+                    // note: AppCenter will show only text of inner exception and then FilenameForExceptionMessage is lost
+                    throw (new Exception(ErrorMessage, ex));
+                }
+#endif
             }
             initDataTableRunning = false;
         }
@@ -1212,8 +1228,9 @@ namespace QuickImageComment
             }
             else if (e.Error != null)
             {
-                // escalate exception - only inner exception is relevant
-                throw (new Exception("", e.Error));
+                // escalate exception
+                // do not throw new exception as then the outer part of exception with file name is lost
+                Program.handleExceptionWithoutAppCenter(e.Error, "");
             }
             else
             {
@@ -1296,17 +1313,27 @@ namespace QuickImageComment
             // new file or file was updated since table was filled
             selectResult = dataTableMerge.Select("ModifiedRead > Modified or Modified is null");
             count = 0;
+            string fileName = "";
             foreach (DataRow dataRow in selectResult)
             {
-                if (dataTable == null)
+                try
                 {
-                    // dataTable can be set to null due to changes of fields in FormMetaDataDefinitions
-                    doWorkEventArgs.Cancel = true;
-                    return;
+                    if (dataTable == null)
+                    {
+                        // dataTable can be set to null due to changes of fields in FormMetaDataDefinitions
+                        doWorkEventArgs.Cancel = true;
+                        return;
+                    }
+                    fileName = (string)dataRow["FileName"];
+                    extendedImage = new ExtendedImage(new FileInfo(fileName), MetaDataDefinitionsToRead);
+                    addOrUpdateRow(extendedImage);
+                    count++;
                 }
-                extendedImage = new ExtendedImage(new FileInfo((string)dataRow["FileName"]), MetaDataDefinitionsToRead);
-                addOrUpdateRow(extendedImage);
-                count++;
+                catch (Exception ex)
+                {
+                    string ErrorMessage = LangCfg.getText(LangCfg.Others.severeFolderReadError, fileName, "");
+                    throw (new Exception(ErrorMessage, ex));
+                }
             }
         }
 
@@ -1319,8 +1346,9 @@ namespace QuickImageComment
             }
             else if (e.Error != null)
             {
-                // escalate exception - only inner exception is relevant
-                throw (new Exception("", e.Error));
+                // escalate exception
+                // do not throw new exception as then the outer part of exception with file name is lost
+                Program.handleExceptionWithoutAppCenter(e.Error, "");
             }
             else
             {
