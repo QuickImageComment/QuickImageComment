@@ -2,26 +2,44 @@
 <Program_Change_Info_German>
 Erweiterungen und Verbesserungen:
 
-Trennlinie erlaubt Anpassung der Breite der Auswahlliste für Karten-Quelle und Ankreuzfeld darunter. Dadurch kann mehr Platz für die Felder links geschaffen werden, die öfter verwendet werden.
-Neuer Menüeintrag unter "Bild" zum unwiderruflichen Löschen.
-Mit gedrückter Umschalttaste wird mit der Löschtaste unwiderruflich gelöscht.
-In der Maske "Einstellungen" kann konfiguriert werden, dass mit der Löschtaste auch ohne Umschalttaste unwiderruflich gelöscht wird.
-In den Reitern Übersicht/Exif/IPTC/XMP/Sonstige ist das Kontextmenü um "Kopieren" erweitert.
+* Wenn Felder auf den Reiter "Übersicht" über das Kontextmenü im Reiter Exif hinzugefügt werden, ist das Format jetzt Interpretiert statt Original. Auf diese Weise sind Exif.Image.XP... im Reiter "Übersicht" editierbar.
+* Wenn die Bildausrichtung über das Menü Zoomen/Drehen oder die Schaltflächen in der Symbolleiste geändert wird, wird dies beim Speichern des Bildes gespeichert.
+* Das Drehen des Bildes durch Ändern von Exif.Image.Orientation wird nun sofort auf das Bild angewendet.
+* Ein kleines Erdsymbol wird in den Miniaturansichten angezeigt, wenn das Bild GPS-Daten enthält.
+* Bilder können als Diashow angezeigt werden (Menü Ansicht/Diashow).
+* Neue Dateiansicht "Kommentar": zeigt den Dateinamen und den dem Bild zugeordneten Kommentar an.
+* Wenn Felder über das Kontextmenü zu änderbaren Feldern hinzugefügt werden, werden zusätzliche Informationen angezeigt. Beispiel: Beim Hinzufügen von Feldern für GPS-Daten wird als Alternative das Ändern der GPS-Daten über die Karte angeboten.
+* Für die Karte kann nun ausgewählt werden, ob der Maßstab in km oder mi angezeigt wird, entsprechend wird der Suchkreis in der Maske "Suche über Eigenschaften" in km oder mi definiert.
+* Kartenansicht: Bei der Suche nach einem Ort kann mittels einer zusätzlichen Maske über Parameter gesucht werden, z.B. in einem bestimmten Land.
+* Kartenansicht: Wenn die Suche nach einem Ort mehrere Ergebnisse liefert, werden diese in einer Tabelle angezeigt, aus der der passende Ort ausgewählt werden kann.
+* Neue Option in den Einstellungen für die Kartenansicht: Karte ausblenden, wenn das ausgewählte Bild keine GPS-Daten hat.
+* Neuer Menüeintrag "Hilfe / Problembehandlung": Verweist auf neue Seite von quickimagecomment.de, in der Probleme/Fragen und deren Lösung/Antwort zu finden sind.
+* Aktualisierung auf exiv2 0.28.5.
 
 Folgende Fehler wurden behoben:
-Im Reiter "Sonstige" konnten Änderungen für "Image (Bild).Kommentar" nicht gespeichert werden.
-Der Längengrad von Orten auf oder westlich von 100°W wurde nicht im Koordinatenfeld unter der Karte angezeigt.
+
+* Exif.Image.XP... war im Reiter Exif nicht editierbar
+* Program stürzte ab, wenn ein Tag vom Typ "LangAlt" ohne Spracheintrag vorhanden war.
 </Program_Change_Info_German>
 <Program_Change_Info_English>
 Enhancements and improvements:
 
-Deviding line allows adjustment of the width of the selection list for map source and checkbox below. This allows more space to be created for the fields on the left that are used more frequently.
-New menu item under "Image" for deletion permanently.
-When holding "Shift", pressing the delete-button will delete permanantly.
-In mask "Settings" it can be configured, that the delete button to delete permanently even without the shift key.
-In the tabs Overview/Exif/IPTC/XMP/Other, the context menu has been expanded to include "Copy".
+* When fields are added to tab "Overview" via context menu in Tab Exif, the format is now Interpreted instead of Original. In this way Exif.Image.XP... are editable in tab "Overview".
+* When image orientation is changed via menu Zoom/Rotate or buttons in tool bar, this will be stored when saving the image.
+* Rotating the image by changing Exif.Image.Orientation is immediately applied to the image now.
+* Show a small earth icon in views thumbnails/tiles if image has GPS data.
+* Images can be shown as slide show (menu View/Slideshow).
+* New file view "Comment": shows file name and comment assigned to image.
+* When fields are added to changeable fields via context menu, additional information is provided. Example: When adding fields for GPS data, as alternative changing GPS data via map is offered.
+* For the map, you can now select whether the scale is displayed in km or mi; the search circle in the "Search via properties" screen is defined accordingly in km or mi.
+* Map view: When searching for a location, an additional screen can be used to search via parameters, e.g. in a specific country.
+* Map view: If the search for a location returns several results, these are displayed in a table from which the appropriate location can be selected.
+* New option in the settings for the map view: Hide map if the selected image has no GPS data.
+* New menu item "Help / Troubleshooting": Links to new page of quickimagecomment.de, where problems/questions and their solutions/answers can be found.
+* Update to exiv2 0.28.5.
 
-The following error has been fixed:
-In tab "Other" changes for "Image.Comment" could not be saved.
-The longitude of locations at or west of 100°W was not shown in coordinates field below the map.
+The following errors have been fixed:
+
+* Exif.Image.XP... was not editable in Tab Exif
+* Program crashed if a tag of type "LangAlt" was present without a language entry.
 </Program_Change_Info_English>

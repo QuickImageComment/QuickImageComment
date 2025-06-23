@@ -23,6 +23,7 @@ QuickImageComment displays EXIF, IPTC, and XMP properties of digital images (e.g
 * All image properties of selected images/videos can be exported to text files (one file per image).
 * Display of image details with graphical and numerical representation of brightness and RGB values.
 * Display recording location in a map using the GPS coordinates; change of coordinates by selecting a position on the map.
+* Slideshow with configurable subtitles, composed of Exif, IPTC and XMP properties
 
 Further processing of the images (e.g., adjusting the contrast and brightness) is not the purpose of this program.
 
