@@ -88,8 +88,10 @@ namespace QuickImageComment
 #endif
 
 #if USESTARTUPTHREAD
-            Thread threadGetTags = new Thread(getTags);
-            threadGetTags.IsBackground = true;
+            Thread threadGetTags = new Thread(GetTags)
+            {
+                IsBackground = true
+            };
             threadGetTags.Start();
 #endif
 #if NET5
@@ -187,7 +189,7 @@ namespace QuickImageComment
             theFormQuickImageComment = new FormQuickImageComment();
 
 #if USESTARTUPTHREAD
-            getGeneralConfiguration();
+            GetGeneralConfiguration();
 
             //StartupPerformance.measure("Program before join getTags");
             threadGetTags.Join();
@@ -280,11 +282,11 @@ namespace QuickImageComment
         // Catch unhandled exceptions
         private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs UnhandledExcEvtArgs)
         {
-            handleException((Exception)UnhandledExcEvtArgs.ExceptionObject);
+            HandleException((Exception)UnhandledExcEvtArgs.ExceptionObject);
         }
 
         // finally handle the exception
-        internal static void handleException(Exception ex)
+        internal static void HandleException(Exception ex)
         {
             //System.Diagnostics.StackTrace stackTrace = new System.Diagnostics.StackTrace();
             //System.Diagnostics.StackFrame[] stackFrames = stackTrace.GetFrames();
@@ -352,12 +354,12 @@ namespace QuickImageComment
                 }
 #endif
                 // not yet handled 
-                handleExceptionWithoutAppCenter(ex, hints);
+                HandleExceptionWithoutAppCenter(ex, hints);
             }
         }
 
         // handle the exception without AppCenter - create error file and inform user
-        internal static void handleExceptionWithoutAppCenter(Exception ex, string hints)
+        internal static void HandleExceptionWithoutAppCenter(Exception ex, string hints)
         {
             string details = LangCfg.getText(LangCfg.Others.errorFileCreated) + " " + DateTime.Now.ToString();
             details += "\r\n" + hints + "\r\n";
@@ -394,7 +396,7 @@ namespace QuickImageComment
             Environment.Exit(Environment.ExitCode);
         }
 
-        private static void getTags()
+        private static void GetTags()
         {
             StartupPerformance.measure("Program *** getTags start");
             // throw (new Exception("ExceptionTest thread during startup"));
@@ -404,13 +406,13 @@ namespace QuickImageComment
             StartupPerformance.measure("Program *** getTags finish");
         }
 
-        private static void getGeneralConfiguration()
+        private static void GetGeneralConfiguration()
         {
             // fill configuration definition
             ConfigDefinition.readGeneralConfigFiles(GeneralConfigFileCommon, GeneralConfigFileUser);
         }
 
-        public static string getProgramPath()
+        public static string GetProgramPath()
         {
             return ProgramPath;
         }

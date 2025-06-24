@@ -1230,7 +1230,7 @@ namespace QuickImageComment
             {
                 // escalate exception
                 // do not throw new exception as then the outer part of exception with file name is lost
-                Program.handleExceptionWithoutAppCenter(e.Error, "");
+                Program.HandleExceptionWithoutAppCenter(e.Error, "");
             }
             else
             {
@@ -1348,7 +1348,7 @@ namespace QuickImageComment
             {
                 // escalate exception
                 // do not throw new exception as then the outer part of exception with file name is lost
-                Program.handleExceptionWithoutAppCenter(e.Error, "");
+                Program.HandleExceptionWithoutAppCenter(e.Error, "");
             }
             else
             {

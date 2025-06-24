@@ -6413,7 +6413,7 @@ namespace QuickImageComment
         // Catch the UI exceptions
         public static void Form1_UIThreadException(object sender, System.Threading.ThreadExceptionEventArgs ThreadExcEvtArgs)
         {
-            Program.handleException(ThreadExcEvtArgs.Exception);
+            Program.HandleException(ThreadExcEvtArgs.Exception);
         }
 
         // for show and refresh of grid by FormImageGrid

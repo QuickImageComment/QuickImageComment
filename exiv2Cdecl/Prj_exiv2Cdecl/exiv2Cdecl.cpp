@@ -26,14 +26,13 @@
 #include "properties.hpp"
 #include <wtypes.h>
 #include <fstream>
-#include <iostream>
 #include <windows.h>
 #include <shlobj.h> // For SHGetFolderPath
 #include <ShlObj_core.h>
 
 //#define TRACING 200
 
-#define VERSION "0.28.5.1"
+constexpr auto VERSION = "0.28.5.1";
 
 // NOTE: must match definition in ConfigDefinition.cs
 const char* exiv2_exception_file = "\\QIC_exiv2_exception.txt";
@@ -102,7 +101,7 @@ struct EasyAccess {
 // definitions to read XMP tag list
 namespace Exiv2 {
     extern const XmpNsInfo xmpNsInfo[];
-    const Exiv2::XmpNsInfo* getXmpNsInfo()
+    static const Exiv2::XmpNsInfo* getXmpNsInfo()
     {
         return xmpNsInfo;
     }
@@ -834,7 +833,7 @@ extern "C" __declspec(dllexport) void __cdecl exiv2addItemToBuffer(LPSTR tag, LP
 }
 
 // return UTF8 encoded string
-std::string utf8EncodedString(const std::string& str)
+static std::string utf8EncodedString(const std::string& str)
 {
     // convert to wide string
     int size_needed = MultiByteToWideChar(CP_ACP, 0, &str[0], (int)str.size(), NULL, 0);
