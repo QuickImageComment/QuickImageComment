@@ -47,7 +47,7 @@ namespace QuickImageComment
         // shall be ignored, when adding them in zoom basis data collection
         // sequence must be in a way, that no entry is contained in a following one (i.e. "abc" before "ab")
         // for sorting reasons the leading part is replaced by dollor sign
-        string[] leadingControlNamePartsToIgnore = new string[]
+        readonly string[] leadingControlNamePartsToIgnore = new string[]
         {
             "FormQuickImageComment.splitContainer1.1.splitContainer11.1.",
             "FormQuickImageComment.splitContainer1.1.splitContainer11.2.",
@@ -60,7 +60,7 @@ namespace QuickImageComment
         };
         // prefix dollar sign to control name of controls starting with ...
         // needed for sorting reasons (as above)
-        string[] leadingControlNamePartsPrefixDollar = new string[]
+        readonly string[] leadingControlNamePartsPrefixDollar = new string[]
         {
             "theFolderTreeView",
             "UserControlChangeableFields",
@@ -121,7 +121,7 @@ namespace QuickImageComment
         private bool keyWordsUserChanged = false;
 
         // user changed values in data grid views for meta data
-        private SortedList<string, string> ChangedDataGridViewValues = new SortedList<string, string>();
+        private readonly SortedList<string, string> ChangedDataGridViewValues = new SortedList<string, string>();
 
         // flag indicating if it is necessary to check, if data of last selected image were changed, 
         // before next image is displayed
@@ -209,8 +209,10 @@ namespace QuickImageComment
                 FolderName = DisplayFolder;
 
             // create and init user control for files
-            theUserControlFiles = new UserControlFiles();
-            theUserControlFiles.Dock = DockStyle.Fill;
+            theUserControlFiles = new UserControlFiles
+            {
+                Dock = DockStyle.Fill
+            };
             theUserControlFiles.init(this);
             //Program.StartupPerformance.measure("FormQIC after theUserControlFiles.init");
 
@@ -248,8 +250,10 @@ namespace QuickImageComment
 
             readFolderPerfomance = new Performance();
 #if USESTARTUPTHREAD
-            Thread StartupInitNewFolderThread = new Thread(StartupInitNewFolder);
-            StartupInitNewFolderThread.IsBackground = true;
+            Thread StartupInitNewFolderThread = new Thread(StartupInitNewFolder)
+            {
+                IsBackground = true
+            };
             StartupInitNewFolderThread.Start();
 #else
             StartupInitNewFolder();
@@ -404,8 +408,10 @@ namespace QuickImageComment
             //Program.StartupPerformance.measure("FormQIC languages in menu");
 
             // add configured map-URLs in menu
-            ToolStripMenuItem toolStripMenuItem = new ToolStripMenuItem("Aus", null, ToolStripMenuItemMapUrlX_Click, "MAPURL Aus");
-            toolStripMenuItem.Tag = "";
+            ToolStripMenuItem toolStripMenuItem = new ToolStripMenuItem("Aus", null, ToolStripMenuItemMapUrlX_Click, "MAPURL Aus")
+            {
+                Tag = ""
+            };
             ToolStripMenuItemMapUrl.DropDownItems.AddRange(new System.Windows.Forms.ToolStripMenuItem[] { toolStripMenuItem });
             //                 new ToolStripMenuItem("Aus", null, ToolStripMenuItemMapUrlX_Click, "")});
             // select this as default
@@ -413,8 +419,10 @@ namespace QuickImageComment
 
             foreach (string key in ConfigDefinition.MapUrls.Keys)
             {
-                toolStripMenuItem = new ToolStripMenuItem(key, null, ToolStripMenuItemMapUrlX_Click, "MAPURL " + key);
-                toolStripMenuItem.Tag = key;
+                toolStripMenuItem = new ToolStripMenuItem(key, null, ToolStripMenuItemMapUrlX_Click, "MAPURL " + key)
+                {
+                    Tag = key
+                };
                 ToolStripMenuItemMapUrl.DropDownItems.AddRange(new System.Windows.Forms.ToolStripMenuItem[] { toolStripMenuItem });
                 //                     new ToolStripMenuItem(key, null, ToolStripMenuItemMapUrlX_Click, key)});
                 if (ToolStripMenuItemMapUrl.DropDownItems.Count == ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.MapUrlSelected))
@@ -443,9 +451,11 @@ namespace QuickImageComment
             this.fillCheckedListBoxChangeableFieldsChange();
 
             // create and fill user control for IPTC key words
-            theUserControlKeyWords = new UserControlKeyWords();
-            // configure user control
-            theUserControlKeyWords.Dock = DockStyle.Fill;
+            theUserControlKeyWords = new UserControlKeyWords
+            {
+                // configure user control
+                Dock = DockStyle.Fill
+            };
             theUserControlKeyWords.textBoxFreeInputKeyWords.TextChanged += new EventHandler(textBoxFreeInputKeyWords_TextChanged);
             theUserControlKeyWords.textBoxFreeInputKeyWords.KeyDown += new KeyEventHandler(textBoxFreeInputKeyWords_KeyDown);
             theUserControlKeyWords.treeViewPredefKeyWords.KeyDown += new KeyEventHandler(treeViewPredefKeyWords_KeyDown);
@@ -489,16 +499,18 @@ namespace QuickImageComment
             //Program.StartupPerformance.measure("FormQIC after collapse panels");
 
             // fill list of Controls to be displayed in Panels
-            SplitContainerPanelControls = new SortedList();
-            SplitContainerPanelControls.Add(LangCfg.PanelContent.Folders, theFolderTreeView);
-            SplitContainerPanelControls.Add(LangCfg.PanelContent.Files, theUserControlFiles);
-            SplitContainerPanelControls.Add(LangCfg.PanelContent.CommentLists, tabControlLastPredefComments);
-            SplitContainerPanelControls.Add(LangCfg.PanelContent.Configurable, theUserControlChangeableFields);
-            SplitContainerPanelControls.Add(LangCfg.PanelContent.Properties, tabControlProperties);
-            SplitContainerPanelControls.Add(LangCfg.PanelContent.IptcKeywords, theUserControlKeyWords);
-            // add the panel, not the whole user control to assure resizing
-            SplitContainerPanelControls.Add(LangCfg.PanelContent.ImageDetails, null);
-            SplitContainerPanelControls.Add(LangCfg.PanelContent.Map, null);
+            SplitContainerPanelControls = new SortedList
+            {
+                { LangCfg.PanelContent.Folders, theFolderTreeView },
+                { LangCfg.PanelContent.Files, theUserControlFiles },
+                { LangCfg.PanelContent.CommentLists, tabControlLastPredefComments },
+                { LangCfg.PanelContent.Configurable, theUserControlChangeableFields },
+                { LangCfg.PanelContent.Properties, tabControlProperties },
+                { LangCfg.PanelContent.IptcKeywords, theUserControlKeyWords },
+                // add the panel, not the whole user control to assure resizing
+                { LangCfg.PanelContent.ImageDetails, null },
+                { LangCfg.PanelContent.Map, null }
+            };
             //Program.StartupPerformance.measure("FormQIC SplitContainerPanelControls filled");
 
             // adjust list view with selected files for multi-edit
@@ -686,7 +698,7 @@ namespace QuickImageComment
 
             // adjustment to be done after setting content of split container panels
             GeneralUtilities.setSplitterDistanceWithCheck(theUserControlKeyWords.splitContainer1212, ConfigDefinition.enumCfgUserInt.Splitter1212Distance);
-            if (theUserControlImageDetails != null) theUserControlImageDetails.adjustSplitterDistances();
+            theUserControlImageDetails?.adjustSplitterDistances();
 
             // needs to be called after customization to adjust distances artist/comment
             showHideControlsCentralInputArea();
@@ -805,10 +817,12 @@ namespace QuickImageComment
 
                 if (nextCheck < DateTime.Now)
                 {
-                    checkForNewVersionThread = new Thread(checkForNewVersion);
-                    checkForNewVersionThread.Name = "check for new version";
-                    checkForNewVersionThread.Priority = ThreadPriority.Normal;
-                    checkForNewVersionThread.IsBackground = true;
+                    checkForNewVersionThread = new Thread(checkForNewVersion)
+                    {
+                        Name = "check for new version",
+                        Priority = ThreadPriority.Normal,
+                        IsBackground = true
+                    };
                     checkForNewVersionThread.Start();
                 }
             }
@@ -1279,19 +1293,10 @@ namespace QuickImageComment
 
                 theUserControlFiles.saveConfigDefinitions();
 
-                if (theUserControlImageDetails != null)
-                {
-                    theUserControlImageDetails.saveConfigDefinitions();
-                }
-                if (theUserControlMap != null)
-                {
-                    theUserControlMap.saveConfigDefinitions();
-                }
+                theUserControlImageDetails?.saveConfigDefinitions();
+                theUserControlMap?.saveConfigDefinitions();
 
-                if (formFind != null)
-                {
-                    formFind.storeDataTable();
-                }
+                formFind?.storeDataTable();
 
                 FormImageDetails.closeAllWindows();
                 FormImageWindow.closeAllWindows();
@@ -1577,14 +1582,14 @@ namespace QuickImageComment
         // event handler to use own ToolTip class
         private void ToolStrip_ItemAdded(object sender, ToolStripItemEventArgs e)
         {
-            e.Item.MouseHover += (s, args) =>
+            void eventHandler(object s, EventArgs args)
             {
-                var toolStripItem = s as ToolStripItem;
-                if (toolStripItem != null)
+                if (s is ToolStripItem toolStripItem)
                 {
                     toolTip1.Show(toolStripItem.ToolTipText, this, PointToClient(Cursor.Position));
                 }
-            };
+            }
+            e.Item.MouseHover += eventHandler;
         }
 
         #endregion
@@ -1726,7 +1731,7 @@ namespace QuickImageComment
                         if (newFileIndex < theUserControlFiles.listViewFiles.Items.Count - 1)
                         {
                             // get newFileIndex since clearing selected indices will clear lastFileIndex
-                            newFileIndex = newFileIndex + 1;
+                            newFileIndex++;
                         }
                         // mark selected Image in listbox containing file names
                         // changing selected index in listBoxFiles forces display 
@@ -1853,7 +1858,7 @@ namespace QuickImageComment
                         }
                         else if (ii == maxListedFiledToManage)
                         {
-                            fileList = fileList + "\n...";
+                            fileList += "\n...";
                         }
                     }
 
@@ -2076,10 +2081,7 @@ namespace QuickImageComment
                 fillChangeableFieldValues(theExtendedImage, false);
                 fillListBoxLastUserComments("");
                 clearChangedDataGridViewValues();
-                if (theUserControlMap != null)
-                {
-                    theUserControlMap.buttonReset_Click(sender, e);
-                }
+                theUserControlMap?.buttonReset_Click(sender, e);
                 // if external browser is started or not is checked in showMap
                 MapInExternalBrowser.newImage(theExtendedImage.getRecordingLocation());
             }
@@ -2155,14 +2157,8 @@ namespace QuickImageComment
             {
                 // save configuration of user control before splitters change 
                 // if new configuration does not include user control, it will be disposed in setSplitContainerPanelsContent
-                if (theUserControlImageDetails != null)
-                {
-                    theUserControlImageDetails.saveConfigDefinitions();
-                }
-                if (theUserControlMap != null)
-                {
-                    theUserControlMap.saveConfigDefinitions();
-                }
+                theUserControlImageDetails?.saveConfigDefinitions();
+                theUserControlMap?.saveConfigDefinitions();
 
                 saveOldSplitterRatio(splitContainer11);
                 saveOldSplitterRatio(splitContainer12);
@@ -2312,8 +2308,10 @@ namespace QuickImageComment
             foreach (EditExternalDefinition editExternalDefinition in ConfigDefinition.getEditExternalDefinitionArrayList())
             {
                 ToolStripItem toolStripItem = new ToolStripMenuItem(editExternalDefinition.Name, null, toolStripMenuItemEditExternConfigurationX_Click,
-                     "dynamicEditExternalDefinition " + editExternalDefinition.Name);
-                toolStripItem.Tag = editExternalDefinition;
+                     "dynamicEditExternalDefinition " + editExternalDefinition.Name)
+                {
+                    Tag = editExternalDefinition
+                };
                 toolStripMenuItemEditExtern.DropDownItems.Insert(jj, toolStripItem);
                 jj++;
             }
@@ -2347,9 +2345,11 @@ namespace QuickImageComment
             int jj = 1;
             foreach (UserButtonDefinition userButtonDefinition in ConfigDefinition.getUserButtonDefinitions())
             {
-                ToolStripButton toolStripButton = new ToolStripButton();
-                toolStripButton.Name = "dynamicUserDefinedButton" + jj.ToString();
-                toolStripButton.Size = new System.Drawing.Size(36, 36);
+                ToolStripButton toolStripButton = new ToolStripButton
+                {
+                    Name = "dynamicUserDefinedButton" + jj.ToString(),
+                    Size = new System.Drawing.Size(36, 36)
+                };
                 // icon specification can be an internal resource, a path specification
                 // or a flag indicating, that associated program path shall be used
                 // first try internal resource
@@ -2589,10 +2589,7 @@ namespace QuickImageComment
                 FormPredefinedKeyWords theFormPredefinedKeyWords = new FormPredefinedKeyWords();
                 theFormPredefinedKeyWords.ShowDialog();
                 theUserControlKeyWords.treeViewPredefKeyWords.fillWithPredefKeyWords();
-                if (formFind != null)
-                {
-                    formFind.fillTreeViewWithPredefKeyWords();
-                }
+                formFind?.fillTreeViewWithPredefKeyWords();
                 if (theExtendedImage != null)
                 {
                     disableEventHandlersRecogniseUserInput();
@@ -2753,7 +2750,7 @@ namespace QuickImageComment
                 this.splitContainer1.Top = this.toolStrip1.Top + this.toolStrip1.Height + 1;
                 this.splitContainer1.Anchor -= AnchorStyles.Bottom;
                 this.Height -= toolStrip1HeightOld - this.toolStrip1.Height;
-                this.splitContainer1.Anchor = this.splitContainer1.Anchor | AnchorStyles.Bottom;
+                this.splitContainer1.Anchor |= AnchorStyles.Bottom;
                 zoomFactorToolbarLast = zoomFactorToolbar;
             }
         }
@@ -3379,12 +3376,12 @@ namespace QuickImageComment
                 if (this.pictureBox1.Height < panelPictureBox.Height)
                 {
                     this.pictureBox1.Height = panelPictureBox.Height;
-                    this.pictureBox1.Anchor = this.pictureBox1.Anchor | AnchorStyles.Bottom;
+                    this.pictureBox1.Anchor |= AnchorStyles.Bottom;
                 }
                 if (this.pictureBox1.Width < panelPictureBox.Width)
                 {
                     this.pictureBox1.Width = panelPictureBox.Width;
-                    this.pictureBox1.Anchor = this.pictureBox1.Anchor | AnchorStyles.Right;
+                    this.pictureBox1.Anchor |= AnchorStyles.Right;
                 }
 
                 // adjust scrolls bar to keep picture centered            
@@ -4269,7 +4266,7 @@ namespace QuickImageComment
                     else
                     {
                         // add to existing text
-                        this.toolStripStatusLabelThread.Text = this.toolStripStatusLabelThread.Text + text;
+                        this.toolStripStatusLabelThread.Text += text;
                     }
                     this.statusStrip1.Refresh();
                 }
@@ -4426,8 +4423,8 @@ namespace QuickImageComment
             // used to fill background of tab control, but sometimes does not look very fine
             Rectangle thePageRect = new Rectangle(((Control)sender).Location, ((Control)sender).Size);
             thePageRect.Y = thePageRect.Y;
-            thePageRect.Height = thePageRect.Height - 6;
-            thePageRect.Width = thePageRect.Width - 6;
+            thePageRect.Height -= 6;
+            thePageRect.Width -= 6;
             e.Graphics.FillRectangle(new SolidBrush(((Control)sender).Parent.BackColor), thePageRect);
 
             for (int ii = 0; ii < theTabControl.TabPages.Count; ii++)
@@ -4436,15 +4433,15 @@ namespace QuickImageComment
                 Rectangle theTabRect = theTabControl.GetTabRect(ii);
                 if (theTabControl.SelectedIndex == ii)
                 {
-                    theTabRect.Height = theTabRect.Height + 2;
+                    theTabRect.Height += 2;
                 }
                 else
                 {
-                    theTabRect.Width = theTabRect.Width - 1;
-                    theTabRect.Y = theTabRect.Y + 2;
+                    theTabRect.Width--;
+                    theTabRect.Y += 2;
                 }
                 e.Graphics.FillRectangle(new SolidBrush(theTabControl.TabPages[ii].BackColor), theTabRect);
-                theTabRect.X = theTabRect.X + 1;
+                theTabRect.X++;
                 e.Graphics.DrawString(theTabControl.TabPages[ii].Text, theTabControl.TabPages[ii].Font,
                   new SolidBrush(theTabControl.TabPages[ii].ForeColor), theTabRect);
             }
@@ -4609,10 +4606,7 @@ namespace QuickImageComment
                     }
                     else if (ContentEnum == LangCfg.PanelContent.Map && panelIsVisible(aPanel))
                     {
-                        if (theFormMap != null)
-                        {
-                            theFormMap.Close();
-                        }
+                        theFormMap?.Close();
                         if (theUserControlMap == null)
                         {
                             if (starting)
@@ -5187,10 +5181,7 @@ namespace QuickImageComment
             else
             {
                 GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceWorkAfterSelectionOfFile, "no image", 2);
-                if (theUserControlMap != null)
-                {
-                    theUserControlMap.newLocation(null, false);
-                }
+                theUserControlMap?.newLocation(null, false);
                 // if external browser is started or not is checked in showMap
                 MapInExternalBrowser.newImage(null);
             }
@@ -5695,15 +5686,15 @@ namespace QuickImageComment
             // compare changes with settings for multi-save
             if (comboBoxArtistUserChanged && !checkBoxArtistChange.Checked)
             {
-                MessageText = MessageText + LangCfg.getText(LangCfg.Others.compareCheckArtist);
+                MessageText += LangCfg.getText(LangCfg.Others.compareCheckArtist);
             }
             if (this.textBoxUserCommentUserChanged && comboBoxCommentChange.SelectedIndex == (int)enumComboBoxCommentChange.nothing)
             {
-                MessageText = MessageText + LangCfg.getText(LangCfg.Others.compareCheckComment);
+                MessageText += LangCfg.getText(LangCfg.Others.compareCheckComment);
             }
             if (this.keyWordsUserChanged && this.comboBoxKeyWordsChange.SelectedIndex == (int)enumComboBoxKeyWordChange.nothing)
             {
-                MessageText = MessageText + LangCfg.getText(LangCfg.Others.compareCheckIptcKeyWords);
+                MessageText += LangCfg.getText(LangCfg.Others.compareCheckIptcKeyWords);
             }
 
             foreach (Control anInputControl in theUserControlChangeableFields.ChangeableFieldInputControls.Values)
@@ -5939,10 +5930,7 @@ namespace QuickImageComment
                 }
 
                 FormImageWindow formImageWindow = FormImageWindow.getWindowForImage(anExtendedImage);
-                if (formImageWindow != null)
-                {
-                    formImageWindow.newImage(anExtendedImage);
-                }
+                formImageWindow?.newImage(anExtendedImage);
             }
 
             if (ReturnStatus == 0)
@@ -6000,10 +5988,7 @@ namespace QuickImageComment
                     }
                     theUserControlKeyWords.displayKeyWords(NewKeyWords);
                 }
-                if (theUserControlMap != null)
-                {
-                    theUserControlMap.newLocation(commonRecordingLocation(), theExtendedImage.changePossible());
-                }
+                theUserControlMap?.newLocation(commonRecordingLocation(), theExtendedImage.changePossible());
                 // if external browser is started or not is checked in showMap
                 MapInExternalBrowser.newImage(commonRecordingLocation());
 
@@ -6253,20 +6238,20 @@ namespace QuickImageComment
             string MessageText = "";
             if (comboBoxArtistUserChanged)
             {
-                MessageText = MessageText + LangCfg.getText(LangCfg.Others.compareCheckArtist);
+                MessageText += LangCfg.getText(LangCfg.Others.compareCheckArtist);
             }
             if (textBoxUserCommentUserChanged)
             {
-                MessageText = MessageText + LangCfg.getText(LangCfg.Others.compareCheckComment);
+                MessageText += LangCfg.getText(LangCfg.Others.compareCheckComment);
             }
             if (keyWordsUserChanged)
             {
-                MessageText = MessageText + LangCfg.getText(LangCfg.Others.compareCheckIptcKeyWords);
+                MessageText += LangCfg.getText(LangCfg.Others.compareCheckIptcKeyWords);
             }
             string userControlChangedFields = theUserControlChangeableFields.getChangedFields();
             if (!userControlChangedFields.Equals(""))
             {
-                MessageText = MessageText + theUserControlChangeableFields.getChangedFields();
+                MessageText += theUserControlChangeableFields.getChangedFields();
             }
             if (theUserControlMap != null && theUserControlMap.GpsDataChanged)
             {
@@ -6413,7 +6398,7 @@ namespace QuickImageComment
         // Catch the UI exceptions
         public static void Form1_UIThreadException(object sender, System.Threading.ThreadExceptionEventArgs ThreadExcEvtArgs)
         {
-            Program.HandleException(ThreadExcEvtArgs.Exception);
+            Program.handleException(ThreadExcEvtArgs.Exception);
         }
 
         // for show and refresh of grid by FormImageGrid
@@ -6438,10 +6423,7 @@ namespace QuickImageComment
                 ExtendedImage extendedImage = ImageManager.getExtendedImage(listViewItem.Index);
 
                 FormImageWindow formImageWindow = FormImageWindow.getWindowForImage(extendedImage);
-                if (formImageWindow != null)
-                {
-                    formImageWindow.newImage(extendedImage);
-                }
+                formImageWindow?.newImage(extendedImage);
             }
 
             // Force Garbage Collection as creating adjusted image may use a lot of memory
@@ -6588,15 +6570,15 @@ namespace QuickImageComment
         private ToolStripDropDownItem getToolStripItem(System.ComponentModel.Component parentMenuItem, string itemName)
         {
             ToolStripDropDownItem toolStripItem = null;
-            if (parentMenuItem is ToolStripDropDownItem)
+            if (parentMenuItem is ToolStripDropDownItem parentItem)
             {
-                if (((ToolStripDropDownItem)parentMenuItem).Name.Equals(itemName))
+                if (parentItem.Name.Equals(itemName))
                 {
-                    toolStripItem = (ToolStripDropDownItem)parentMenuItem;
+                    toolStripItem = parentItem;
                 }
                 else
                 {
-                    foreach (System.ComponentModel.Component aMenuItem in ((ToolStripDropDownItem)parentMenuItem).DropDownItems)
+                    foreach (System.ComponentModel.Component aMenuItem in parentItem.DropDownItems)
                     {
                         toolStripItem = getToolStripItem(aMenuItem, itemName);
                         if (toolStripItem != null)

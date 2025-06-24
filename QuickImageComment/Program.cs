@@ -189,7 +189,7 @@ namespace QuickImageComment
             theFormQuickImageComment = new FormQuickImageComment();
 
 #if USESTARTUPTHREAD
-            GetGeneralConfiguration();
+            getGeneralConfiguration();
 
             //StartupPerformance.measure("Program before join getTags");
             threadGetTags.Join();
@@ -282,11 +282,11 @@ namespace QuickImageComment
         // Catch unhandled exceptions
         private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs UnhandledExcEvtArgs)
         {
-            HandleException((Exception)UnhandledExcEvtArgs.ExceptionObject);
+            handleException((Exception)UnhandledExcEvtArgs.ExceptionObject);
         }
 
         // finally handle the exception
-        internal static void HandleException(Exception ex)
+        internal static void handleException(Exception ex)
         {
             //System.Diagnostics.StackTrace stackTrace = new System.Diagnostics.StackTrace();
             //System.Diagnostics.StackFrame[] stackFrames = stackTrace.GetFrames();
@@ -354,12 +354,12 @@ namespace QuickImageComment
                 }
 #endif
                 // not yet handled 
-                HandleExceptionWithoutAppCenter(ex, hints);
+                handleExceptionWithoutAppCenter(ex, hints);
             }
         }
 
         // handle the exception without AppCenter - create error file and inform user
-        internal static void HandleExceptionWithoutAppCenter(Exception ex, string hints)
+        internal static void handleExceptionWithoutAppCenter(Exception ex, string hints)
         {
             string details = LangCfg.getText(LangCfg.Others.errorFileCreated) + " " + DateTime.Now.ToString();
             details += "\r\n" + hints + "\r\n";
@@ -396,7 +396,7 @@ namespace QuickImageComment
             Environment.Exit(Environment.ExitCode);
         }
 
-        private static void GetTags()
+        private static void getTags()
         {
             StartupPerformance.measure("Program *** getTags start");
             // throw (new Exception("ExceptionTest thread during startup"));
@@ -406,13 +406,13 @@ namespace QuickImageComment
             StartupPerformance.measure("Program *** getTags finish");
         }
 
-        private static void GetGeneralConfiguration()
+        private static void getGeneralConfiguration()
         {
             // fill configuration definition
             ConfigDefinition.readGeneralConfigFiles(GeneralConfigFileCommon, GeneralConfigFileUser);
         }
 
-        public static string GetProgramPath()
+        public static string getProgramPath()
         {
             return ProgramPath;
         }

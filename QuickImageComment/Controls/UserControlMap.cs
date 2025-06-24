@@ -753,7 +753,7 @@ namespace QuickImageComment
                 // method may be called without getting new URL, then avoid navigation
                 string urlParams = createUrlParams();
                 string additionalParams = "";
-                string newUrl = @"file:///" + Program.GetProgramPath() + @"\leaflet.html" + urlParams;
+                string newUrl = @"file:///" + Program.getProgramPath() + @"\leaflet.html" + urlParams;
                 if (!newUrl.Equals(lastUrl))
                 {
                     if (markerGeoDataItem != null)
