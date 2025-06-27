@@ -256,7 +256,7 @@ namespace QuickImageComment
             errorFileVersion,
             free,
             reading,
-            severeFolderReadError,
+            readErrorAllImagesInFolder,
             configFileQicCustomization,
             notConfigured,
             compareCheckArtist,
@@ -359,7 +359,8 @@ namespace QuickImageComment
             _translationAcknowledgment,
             toolTipDeleteButtonPermanently,
             toolTipDeleteButtonUnknown,
-            imageOrientation
+            imageOrientation,
+            exceptionContinue
         }
 
         // defined as variable
@@ -619,7 +620,7 @@ namespace QuickImageComment
             {
                 if (endsWithColon)
                 {
-                    Translation = Translation + ":";
+                    Translation += ":";
                 }
                 return Translation;
             }
@@ -637,18 +638,15 @@ namespace QuickImageComment
                 }
                 if (endsWithColon)
                 {
-                    Translation = Translation + ":";
+                    Translation += ":";
                 }
                 return Translation;
             }
             else
             {
                 // not translated texts collected only in maintenance mode, so check existance of array list
-                if (NotTranslatedTexts != null)
-                {
-                    // tool tip text can have line breaks
-                    NotTranslatedTexts.Add(TextToTranslate.Replace("\r\n", "\\r\\n") + "\t" + Source);
-                }
+                // tool tip text can have line breaks
+                NotTranslatedTexts?.Add(TextToTranslate.Replace("\r\n", "\\r\\n") + "\t" + Source);
                 return TextToTranslate;
             }
         }
@@ -730,7 +728,7 @@ namespace QuickImageComment
                 line = StreamIn.ReadLine();
                 while (line != null)
                 {
-                    analyzeTranslationFileLine(TranslationFile, line, lineNo);
+                    analyzeTranslationFileLine(line, lineNo);
                     line = StreamIn.ReadLine();
                     lineNo++;
                 }
@@ -784,8 +782,7 @@ namespace QuickImageComment
         }
 
         // analyze one line in translation configuration file and add translation
-        private static void analyzeTranslationFileLine(
-          string TranslationFile, string line, int lineNo)
+        private static void analyzeTranslationFileLine(string line, int lineNo)
         {
             string firstChar;
             string firstPart;
@@ -982,53 +979,53 @@ namespace QuickImageComment
                 }
             }
 
-            if (ParentControl is ComboBox
+            if (ParentControl is ComboBox box
                 && !ParentControl.Name.StartsWith("dynamic")
                 // input control's names in configurable input area start like this ...
                 && !ParentControl.Name.StartsWith("System.Windows.Forms"))
             {
-                for (int ii = 0; ii < ((ComboBox)ParentControl).Items.Count; ii++)
+                for (int ii = 0; ii < box.Items.Count; ii++)
                 {
-                    string TextToTranslate = ((ComboBox)ParentControl).Items[ii].ToString().Trim();
+                    string TextToTranslate = box.Items[ii].ToString().Trim();
                     if (!TextToTranslate.Equals(""))
                     {
-                        ((ComboBox)ParentControl).Items[ii] = translate(TextToTranslate, Source);
+                        box.Items[ii] = translate(TextToTranslate, Source);
                     }
                 }
             }
-            else if (ParentControl is DataGridView)
+            else if (ParentControl is DataGridView view1)
             {
                 // do not translate headers of columns whose name start with "Dynamic_"
-                for (int ii = 0; ii < ((DataGridView)ParentControl).ColumnCount; ii++)
+                for (int ii = 0; ii < view1.ColumnCount; ii++)
                 {
-                    string TextToTranslate = ((DataGridView)ParentControl).Columns[ii].HeaderText.Trim();
-                    if (!TextToTranslate.Equals("") && !((DataGridView)ParentControl).Columns[ii].Name.StartsWith("Dynamic_"))
+                    string TextToTranslate = view1.Columns[ii].HeaderText.Trim();
+                    if (!TextToTranslate.Equals("") && !view1.Columns[ii].Name.StartsWith("Dynamic_"))
                     {
-                        ((DataGridView)ParentControl).Columns[ii].HeaderText = translate(TextToTranslate, Source);
+                        view1.Columns[ii].HeaderText = translate(TextToTranslate, Source);
                     }
                 }
                 // translate entries in rows of first column, if column name starts with "Static_"
                 // check ColumnCount to avoid crash during initialisation
-                if (((DataGridView)ParentControl).ColumnCount > 0 && ((DataGridView)ParentControl).Columns[0].Name.StartsWith("Static_"))
+                if (view1.ColumnCount > 0 && view1.Columns[0].Name.StartsWith("Static_"))
                 {
-                    for (int ii = 0; ii < ((DataGridView)ParentControl).RowCount; ii++)
+                    for (int ii = 0; ii < view1.RowCount; ii++)
                     {
-                        string TextToTranslate = (string)((DataGridView)ParentControl).Rows[ii].Cells[0].Value;
+                        string TextToTranslate = (string)view1.Rows[ii].Cells[0].Value;
                         if (TextToTranslate != null && !TextToTranslate.Equals(""))
                         {
-                            ((DataGridView)ParentControl).Rows[ii].Cells[0].Value = translate(TextToTranslate, Source);
+                            view1.Rows[ii].Cells[0].Value = translate(TextToTranslate, Source);
                         }
                     }
                 }
             }
-            else if (ParentControl is ListView)
+            else if (ParentControl is ListView view)
             {
-                for (int ii = 0; ii < ((ListView)ParentControl).Columns.Count; ii++)
+                for (int ii = 0; ii < view.Columns.Count; ii++)
                 {
-                    string TextToTranslate = ((ListView)ParentControl).Columns[ii].Text.Trim();
-                    if (!TextToTranslate.Equals("") && !((ListView)ParentControl).Columns[ii].Name.StartsWith("Dynamic_"))
+                    string TextToTranslate = view.Columns[ii].Text.Trim();
+                    if (!TextToTranslate.Equals("") && !view.Columns[ii].Name.StartsWith("Dynamic_"))
                     {
-                        ((ListView)ParentControl).Columns[ii].Text = translate(TextToTranslate, Source);
+                        view.Columns[ii].Text = translate(TextToTranslate, Source);
                     }
                 }
             }

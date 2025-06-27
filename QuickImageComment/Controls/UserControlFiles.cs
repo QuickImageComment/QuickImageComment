@@ -335,10 +335,12 @@ namespace QuickImageComment
                     (delayAfterSelectedIndexChangedThread.ThreadState & ThreadState.WaitSleepJoin) != ThreadState.WaitSleepJoin)
                 {
                     GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceWorkAfterSelectionOfFile, "create delayAfterSelectedIndexChangedThread", 0);
-                    delayAfterSelectedIndexChangedThread = new Thread(delayAfterSelectedIndexChanged);
-                    delayAfterSelectedIndexChangedThread.Name = "delay after selected indexes changed";
-                    delayAfterSelectedIndexChangedThread.Priority = ThreadPriority.Normal;
-                    delayAfterSelectedIndexChangedThread.IsBackground = true;
+                    delayAfterSelectedIndexChangedThread = new Thread(delayAfterSelectedIndexChanged)
+                    {
+                        Name = "delay after selected indexes changed",
+                        Priority = ThreadPriority.Normal,
+                        IsBackground = true
+                    };
                     delayAfterSelectedIndexChangedThread.Start();
                 }
             }
@@ -384,10 +386,12 @@ namespace QuickImageComment
             // In listViewFiles_SelectedIndexChanged status of delayAfterSelectedIndexChangedThread is checked.
             // If it is not running, workAfterSelectedIndexChanged may have started and a new 
             // delayAfterSelectedIndexChangedThread is created which then triggers again workAfterSelectedIndexChanged.
-            Thread startWorkAfterSelectedIndexChangedThread = new Thread(startWorkAfterSelectedIndexChanged);
-            startWorkAfterSelectedIndexChangedThread.Name = "startWorkAfterSelectedIndexChanged";
-            startWorkAfterSelectedIndexChangedThread.Priority = ThreadPriority.Normal;
-            startWorkAfterSelectedIndexChangedThread.IsBackground = true;
+            Thread startWorkAfterSelectedIndexChangedThread = new Thread(startWorkAfterSelectedIndexChanged)
+            {
+                Name = "startWorkAfterSelectedIndexChanged",
+                Priority = ThreadPriority.Normal,
+                IsBackground = true
+            };
             startWorkAfterSelectedIndexChangedThread.Start();
             GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceWorkAfterSelectionOfFile, "finish", 0);
             return;
@@ -428,7 +432,7 @@ namespace QuickImageComment
                     {
                         traceString = traceString + " " + index.ToString();
                     }
-                    traceString = traceString + "   New";
+                    traceString += "   New";
                     for (int ii = 0; ii < listViewFiles.SelectedIndices.Count; ii++)
                     {
                         traceString = traceString + " " + listViewFiles.SelectedIndices[ii].ToString();
@@ -488,10 +492,12 @@ namespace QuickImageComment
                                 // if it is started directly an additional event fires listViewFiles_SelectedIndexChanged
                                 // and the old selection is not restored correct; no idea, where this trigger comes from,
                                 // but the thread helps
-                                Thread resetImageSelectionThread = new Thread(resetImageSelection);
-                                resetImageSelectionThread.Name = "resetImageSelection";
-                                resetImageSelectionThread.Priority = ThreadPriority.Normal;
-                                resetImageSelectionThread.IsBackground = true;
+                                Thread resetImageSelectionThread = new Thread(resetImageSelection)
+                                {
+                                    Name = "resetImageSelection",
+                                    Priority = ThreadPriority.Normal,
+                                    IsBackground = true
+                                };
                                 resetImageSelectionThread.Start();
 
                                 return;
@@ -548,10 +554,12 @@ namespace QuickImageComment
                             // if it is started directly an additional event fires listViewFiles_SelectedIndexChanged
                             // and the old selection is not restored correct; no idea, where this trigger comes from,
                             // but the thread helps
-                            Thread resetImageSelectionThread = new Thread(resetImageSelection);
-                            resetImageSelectionThread.Name = "resetImageSelection";
-                            resetImageSelectionThread.Priority = ThreadPriority.Normal;
-                            resetImageSelectionThread.IsBackground = true;
+                            Thread resetImageSelectionThread = new Thread(resetImageSelection)
+                            {
+                                Name = "resetImageSelection",
+                                Priority = ThreadPriority.Normal,
+                                IsBackground = true
+                            };
                             resetImageSelectionThread.Start();
 
                             return;
@@ -681,15 +689,9 @@ namespace QuickImageComment
 
                             // update image and detail window
                             FormImageDetails formImageDetails = FormImageDetails.getWindowForImage(extendedImage);
-                            if (formImageDetails != null)
-                            {
-                                formImageDetails.newImage(extendedImage);
-                            }
+                            formImageDetails?.newImage(extendedImage);
                             FormImageWindow formImageWindow = FormImageWindow.getWindowForImage(extendedImage);
-                            if (formImageWindow != null)
-                            {
-                                formImageWindow.newImage(extendedImage);
-                            }
+                            formImageWindow?.newImage(extendedImage);
                         }
                         else
                         {
@@ -843,14 +845,8 @@ namespace QuickImageComment
                             // refresh data in multi-edit-tab
                             theFormQuickImageComment.refreshdataGridViewSelectedFiles();
 
-                            if (formImageDetails != null)
-                            {
-                                formImageDetails.newImage(ImageManager.getExtendedImage(listViewItem.Index, true));
-                            }
-                            if (formImageWindow != null)
-                            {
-                                formImageWindow.newImage(ImageManager.getExtendedImage(listViewItem.Index, true));
-                            }
+                            formImageDetails?.newImage(ImageManager.getExtendedImage(listViewItem.Index, true));
+                            formImageWindow?.newImage(ImageManager.getExtendedImage(listViewItem.Index, true));
 
                             if (wasDisplayed)
                             {

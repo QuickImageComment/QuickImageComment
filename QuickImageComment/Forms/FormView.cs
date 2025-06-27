@@ -24,18 +24,18 @@ namespace QuickImageComment
 {
     public partial class FormView : Form
     {
-        private FormCustomization.Interface CustomizationInterface;
+        private readonly FormCustomization.Interface CustomizationInterface;
         private SortedList PanelContents;
-        private SortedList PanelContentsEnums;
-        private SortedList DefaultPanelContents;
-        private SortedList PanelControls;
-        private SortedList<string, ComboBox> ConfigControlsComboBoxes;
-        private SortedList<string, CheckBox> ConfigControlsCheckBoxes;
-        DataGridView DataGridViewExif;
-        DataGridView DataGridViewIptc;
-        DataGridView DataGridViewXmp;
-        DataGridView DataGridViewOtherMetaData;
-        private int splitContainer12SplitterDistanceHorizontal;
+        private readonly SortedList PanelContentsEnums;
+        private readonly SortedList DefaultPanelContents;
+        private readonly SortedList PanelControls;
+        private readonly SortedList<string, ComboBox> ConfigControlsComboBoxes;
+        private readonly SortedList<string, CheckBox> ConfigControlsCheckBoxes;
+        readonly DataGridView DataGridViewExif;
+        readonly DataGridView DataGridViewIptc;
+        readonly DataGridView DataGridViewXmp;
+        readonly DataGridView DataGridViewOtherMetaData;
+        private readonly int splitContainer12SplitterDistanceHorizontal;
 
         private static bool allowSaveSettingsAndAdjustView = false;
         private static bool allowComboBoxPanelContent_TextChanged = true;
@@ -705,10 +705,12 @@ namespace QuickImageComment
 
         private void buttonReadOptimum_Click(object sender, EventArgs e)
         {
-            ArrayList ShowContent = new ArrayList();
-            ShowContent.Add(LangCfg.getText(LangCfg.PanelContent.Files));
-            ShowContent.Add(LangCfg.getText(LangCfg.PanelContent.Folders));
-            ShowContent.Add(LangCfg.getText(LangCfg.PanelContent.Properties));
+            ArrayList ShowContent = new ArrayList
+            {
+                LangCfg.getText(LangCfg.PanelContent.Files),
+                LangCfg.getText(LangCfg.PanelContent.Folders),
+                LangCfg.getText(LangCfg.PanelContent.Properties)
+            };
 
             allowSaveSettingsAndAdjustView = false;
             // set default
@@ -736,11 +738,13 @@ namespace QuickImageComment
 
         private void buttonImageDetails_Click(object sender, EventArgs e)
         {
-            ArrayList ShowContent = new ArrayList();
-            ShowContent.Add(LangCfg.getText(LangCfg.PanelContent.Files));
-            ShowContent.Add(LangCfg.getText(LangCfg.PanelContent.Folders));
-            ShowContent.Add(LangCfg.getText(LangCfg.PanelContent.Properties));
-            ShowContent.Add(LangCfg.getText(LangCfg.PanelContent.ImageDetails));
+            ArrayList ShowContent = new ArrayList
+            {
+                LangCfg.getText(LangCfg.PanelContent.Files),
+                LangCfg.getText(LangCfg.PanelContent.Folders),
+                LangCfg.getText(LangCfg.PanelContent.Properties),
+                LangCfg.getText(LangCfg.PanelContent.ImageDetails)
+            };
 
             allowSaveSettingsAndAdjustView = false;
             // set default
@@ -769,11 +773,13 @@ namespace QuickImageComment
 
         private void buttonMap_Click(object sender, EventArgs e)
         {
-            ArrayList ShowContent = new ArrayList();
-            ShowContent.Add(LangCfg.getText(LangCfg.PanelContent.Files));
-            ShowContent.Add(LangCfg.getText(LangCfg.PanelContent.Folders));
-            ShowContent.Add(LangCfg.getText(LangCfg.PanelContent.Properties));
-            ShowContent.Add(LangCfg.getText(LangCfg.PanelContent.Map));
+            ArrayList ShowContent = new ArrayList
+            {
+                LangCfg.getText(LangCfg.PanelContent.Files),
+                LangCfg.getText(LangCfg.PanelContent.Folders),
+                LangCfg.getText(LangCfg.PanelContent.Properties),
+                LangCfg.getText(LangCfg.PanelContent.Map)
+            };
 
             allowSaveSettingsAndAdjustView = false;
             // set default

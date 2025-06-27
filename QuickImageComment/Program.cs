@@ -18,6 +18,7 @@
 
 using JR.Utils.GUI.Forms;
 using System;
+using System.Collections;
 using System.Reflection;
 using System.Runtime.InteropServices; // for DllImport
 using System.Threading;
@@ -48,6 +49,8 @@ namespace QuickImageComment
         internal static DateTime CompileTime;
         // flag is used in exception handling to decide if only a message box can be displayed or handling is based on configuration
         private static bool initialzationCompleted = false;
+
+        private static readonly ArrayList ReportedExceptions = new ArrayList();
 #if APPCENTER
         // counter is needed as exceptions thrown from backgroundworker are somehow nested, so that handleException in combination
         // with AppCenter is entered several times. Only in first call message box is shown.
@@ -88,7 +91,7 @@ namespace QuickImageComment
 #endif
 
 #if USESTARTUPTHREAD
-            Thread threadGetTags = new Thread(GetTags)
+            Thread threadGetTags = new Thread(getTags)
             {
                 IsBackground = true
             };
@@ -229,9 +232,6 @@ namespace QuickImageComment
                 AppCenter.Start(AppCenterSecureID, typeof(Analytics), typeof(Crashes));
             }
 #endif
-            // flag is used in exception handling to decide if only a message box can be displayed or handling is based on configuration
-            initialzationCompleted = true;
-
             //try
             //{
             //    throw (new Exception("ExceptionTest after initialization completed3"));
@@ -265,6 +265,9 @@ namespace QuickImageComment
 #if APPCENTER
             if (Program.AppCenterUsable) Microsoft.AppCenter.Analytics.Analytics.TrackEvent("Startup finished");
 #endif
+            // flag is used in exception handling to decide if only a message box can be displayed or handling is based on configuration
+            initialzationCompleted = true;
+
             // user may have started closing and then Application.Run may result in 
             // Cannot access a disposed object. Object name: 'FormQuickImageComment'.
             if (!FormQuickImageComment.closing)
@@ -282,25 +285,36 @@ namespace QuickImageComment
         // Catch unhandled exceptions
         private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs UnhandledExcEvtArgs)
         {
-            handleException((Exception)UnhandledExcEvtArgs.ExceptionObject);
+            handleExceptionTerminate((Exception)UnhandledExcEvtArgs.ExceptionObject);
         }
 
         // finally handle the exception
-        internal static void handleException(Exception ex)
+        // create error file and inform user
+        // if continue after exception, store details so that user is not informed again for same exception
+        internal static void handleExceptionContinue(Exception ex)
         {
-            //System.Diagnostics.StackTrace stackTrace = new System.Diagnostics.StackTrace();
-            //System.Diagnostics.StackFrame[] stackFrames = stackTrace.GetFrames();
-            //string traceString = handleExceptionCallCount.ToString() + " " + stackFrames.Length.ToString();
-            //for (long ii = 1; ii < stackFrames.Length && ii < 10; ii++)
-            //{
-            //    traceString = traceString + "\n@" + stackFrames[ii].GetMethod().Name;
-            //}
-            //GeneralUtilities.debugMessage("handleException start " + traceString);
-
+            handleException(ex, false);
+        }
+        internal static void handleExceptionTerminate(Exception ex)
+        {
+            handleException(ex, true);
+        }
+        internal static void handleException(Exception ex, bool terminate)
+        {
             if (!initialzationCompleted)
             {
-                JR.Utils.GUI.Forms.FlexibleMessageBox.Show(ex.Message + "\r\n" + ex.StackTrace.ToString(),
-                    "QuickImageComment", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                string message = ex.Message;
+                if (ex.StackTrace != null) message += "\r\n" + ex.StackTrace.ToString();
+                Exception exInner = ex.InnerException;
+                while (exInner != null)
+                {
+                    message += "\r\n" + "\r\nInner exception:";
+                    message += "\r\n" + exInner.Message;
+                    message += "\r\n" + exInner.StackTrace.ToString();
+                    exInner = exInner.InnerException;
+                }
+                JR.Utils.GUI.Forms.FlexibleMessageBox.Show(message,
+                "QuickImageComment", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 Environment.Exit(Environment.ExitCode);
             }
             else
@@ -322,78 +336,62 @@ namespace QuickImageComment
                 }
 #pragma warning restore CS0162
 
-#if APPCENTER
-                // exceptions thrown from backgroundworker are somehow nested, so that handleException in combination
-                // with AppCenter is entered several times. Only in first call message box is shown.
-                if (handleExceptionCallCount > 9)
+                string details = LangCfg.getText(LangCfg.Others.errorFileCreated) + " " + DateTime.Now.ToString();
+                details += "\r\n" + hints + "\r\n";
+                details += "\r\n" + LangCfg.getText(LangCfg.Others.errorFileVersion) + " " + Program.VersionNumberInformational
+                    + " " + Program.CompileTime.ToString("dd.MM.yyyy");
+                details += "\r\n" + ex.Message;
+                if (ex.StackTrace != null)
                 {
-                    // too many calls, skip using AppCenter for reporting crash
-                    AppCenterUsable = false;
+                    details += "\r\n" + ex.StackTrace.ToString();
                 }
-                else if (handleExceptionCallCount > 0)
+                Exception exInner = ex;
+                while (exInner.InnerException != null)
                 {
-                    handleExceptionCallCount++;
-                    // escalate exception to AppCenter
-                    System.Runtime.ExceptionServices.ExceptionDispatchInfo.Capture(ex).Throw();
+                    exInner = exInner.InnerException;
+                    details += "\r\n" + "\r\nInner exception:";
+                    details += "\r\n" + exInner.Message;
+                    details += "\r\n" + exInner.StackTrace.ToString();
                 }
 
-                if (AppCenterUsable && ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.AppCenterUsage).Equals("y"))
+                string ErrorFile = ConfigDefinition.getIniPath() + "QIC" + Program.VersionNumberOnlyWhenSuffixDefined + "-Error.txt";
+
+                // write error file, display message and stop program
+                try
                 {
-                    handleExceptionCallCount++;
-                    new FormErrorAppCenter(ex.Message);
-                    if (FormErrorAppCenter.sendToAppCenter)
+                    System.IO.StreamWriter StreamOut = null;
+                    StreamOut = new System.IO.StreamWriter(ErrorFile, false, System.Text.Encoding.UTF8);
+                    StreamOut.WriteLine(details);
+                    StreamOut.Close();
+                }
+                catch
+                {
+                    // writing file failed
+                    ErrorFile = "";
+                }
+                if (terminate)
+                {
+                    new FormError(ex.Message, details, ErrorFile, true);
+                    Environment.Exit(Environment.ExitCode);
+                }
+                else
+                {
+                    string reportException = exInner.Message + exInner.StackTrace.ToString();
+                    Logger.log(reportException + "***");
+                    for (int ii = 0; ii < ReportedExceptions.Count; ii++)
                     {
-                        // escalate exception to AppCenter
-                        System.Runtime.ExceptionServices.ExceptionDispatchInfo.Capture(new Exception(hints, ex)).Throw();
+                        Logger.log((string)ReportedExceptions[ii]);
+                        if (reportException.Equals(ReportedExceptions[ii]))
+                        {
+                            // exception already reported, nothing to do
+                            return;
+                        }
                     }
-                    else
-                    {
-                        // user did not want to send error report, just exit the program
-                        Environment.Exit(Environment.ExitCode);
-                    }
+                    // exception was not yet reported
+                    ReportedExceptions.Add(reportException);
+                    new FormError(ex.Message, details, ErrorFile, false);
                 }
-#endif
-                // not yet handled 
-                handleExceptionWithoutAppCenter(ex, hints);
             }
-        }
-
-        // handle the exception without AppCenter - create error file and inform user
-        internal static void handleExceptionWithoutAppCenter(Exception ex, string hints)
-        {
-            string details = LangCfg.getText(LangCfg.Others.errorFileCreated) + " " + DateTime.Now.ToString();
-            details += "\r\n" + hints + "\r\n";
-            details += "\r\n" + LangCfg.getText(LangCfg.Others.errorFileVersion) + " " + Program.VersionNumberInformational
-                + " " + Program.CompileTime.ToString("dd.MM.yyyy");
-            details += "\r\n" + ex.Message;
-            details += "\r\n" + ex.StackTrace.ToString();
-
-            Exception exInner = ex.InnerException;
-            while (exInner != null)
-            {
-                details += "\r\n" + "\r\nInner exception:";
-                details += "\r\n" + exInner.Message;
-                details += "\r\n" + exInner.StackTrace.ToString();
-                exInner = exInner.InnerException;
-            }
-
-            string ErrorFile = ConfigDefinition.getIniPath() + "QIC" + Program.VersionNumberOnlyWhenSuffixDefined + "-Error.txt";
-
-            // write error file, display message and stop program
-            try
-            {
-                System.IO.StreamWriter StreamOut = null;
-                StreamOut = new System.IO.StreamWriter(ErrorFile, false, System.Text.Encoding.UTF8);
-                StreamOut.WriteLine(details);
-                StreamOut.Close();
-            }
-            catch
-            {
-                // writing file failed
-                ErrorFile = "";
-            }
-            new FormError(ex.Message, details, ErrorFile);
-            Environment.Exit(Environment.ExitCode);
         }
 
         private static void getTags()

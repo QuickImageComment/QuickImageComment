@@ -34,8 +34,8 @@ namespace QuickImageComment
         private static List<ListViewItem> listViewFilesItems;
         private static int cachethread = 0;
 
-        private static ArrayList ExtendedCache = new ArrayList();
-        private static object lockExtendedCache = new object();
+        private static readonly ArrayList ExtendedCache = new ArrayList();
+        private static readonly object lockExtendedCache = new object();
         internal static bool updateCachesRunning = false;
 
         private static System.Collections.Hashtable HashtableExtendedImages = new System.Collections.Hashtable();
@@ -56,14 +56,14 @@ namespace QuickImageComment
                 GeneralUtilities.addImageFilesFromFolderToListConsideringFileFilterSorted(newFolderName, ImageFiles);
             }
 
-            initWithImageFilesArrayList(newFolderName, ImageFiles, true);
+            initWithImageFilesArrayList(ImageFiles, true);
 
             GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceCaching, "New Folder: " + newFolderName);
 
             FormQuickImageComment.readFolderPerfomance.measure("ImageManager initNewFolder finish");
         }
 
-        public static void initWithImageFilesArrayList(string newFolderName, ArrayList ImageFiles, bool completeFolder)
+        public static void initWithImageFilesArrayList(ArrayList ImageFiles, bool completeFolder)
         {
             const int fileCounterStep = 50;
             int lastCounter = 0;
@@ -130,8 +130,10 @@ namespace QuickImageComment
         {
             // listViewItem.Text is file name
             // listViewItem.Name is file name with path 
-            ListViewItem listViewItem = new ListViewItem(theFileInfo.Name);
-            listViewItem.Name = theFileInfo.FullName;
+            ListViewItem listViewItem = new ListViewItem(theFileInfo.Name)
+            {
+                Name = theFileInfo.FullName
+            };
 
             // get file information; data are given from listViewItem.SubItems to ExtendedImage
             // This method is called via event, when a file is created. In some cases (e.g. when a file is saved
@@ -141,7 +143,7 @@ namespace QuickImageComment
             if (theFileInfo.Exists)
             {
                 double FileSize = theFileInfo.Length;
-                FileSize = FileSize / 1024;
+                FileSize /= 1024;
                 listViewItem.SubItems.Add(FileSize.ToString("#,### KB"));
                 try
                 {
@@ -206,7 +208,7 @@ namespace QuickImageComment
                                 // So react only in maintenance mode where usually AppCenter is not used
                                 // As it is a problem in an optional background task, not reacting always is fine
                                 // throwing an exception to get it handled does not work here, so call method directly
-                                Program.handleExceptionWithoutAppCenter(threadingTask.Exception.InnerException, "");
+                                Program.handleExceptionContinue(threadingTask.Exception.InnerException);
                             }
                         }
                     });
@@ -404,8 +406,10 @@ namespace QuickImageComment
                         offset++;
                     }
                     // get list of files to keep - fullsize
-                    ArrayList FullsizeCache = new ArrayList();
-                    FullsizeCache.Add(MainMaskInterface.getFullFileName(FileIndex));
+                    ArrayList FullsizeCache = new ArrayList
+                    {
+                        MainMaskInterface.getFullFileName(FileIndex)
+                    };
                     offset = 1;
                     while (FullsizeCache.Count < ConfigDefinition.getFullSizeImageCacheMaxSize())
                     {
@@ -467,15 +471,15 @@ namespace QuickImageComment
             // to catch also exception like read access violation
             init_SE_Translator();
 
-#if !DEBUG
-            try
-#endif
-            {
-                MainMaskInterface.setToolStripStatusLabelBufferingThread(true);
+            MainMaskInterface.setToolStripStatusLabelBufferingThread(true);
 
-                // add extended images around selected file
-                // do not perform actions when already closing - might try to access objects already gone
-                while (!FormQuickImageComment.closing)
+            // add extended images around selected file
+            // do not perform actions when already closing - might try to access objects already gone
+            while (!FormQuickImageComment.closing)
+            {
+#if !DEBUG
+                try
+#endif
                 {
                     // condition not set in while statement to have check, getting filename and removing entry in 
                     // one short code block inside a lock thus minimising the lock time
@@ -506,7 +510,7 @@ namespace QuickImageComment
                             CachePerformance.measure("storeExtendedImage" + fileName);
                             // throw (new Exception("ExceptionTest Thread created by Task.Factory"));
                         }
-                        catch (System.IO.FileNotFoundException) 
+                        catch (System.IO.FileNotFoundException)
                         {
                             // when file is not found, it probably was deleted since creating cache list
                         }
@@ -519,24 +523,33 @@ namespace QuickImageComment
                         break;
                     }
                 }
+#if !DEBUG
+                catch (System.OutOfMemoryException)
+                {
+                    GeneralUtilities.message(LangCfg.Message.W_outOfMemory);
+                    return 1;
+                }
+                catch (Exception ex)
+                {
+                    string ErrorMessage = LangCfg.getText(LangCfg.Others.readErrorAllImagesInFolder, FilenameForExceptionMessage, "");
+                    int idx = MainMaskInterface.indexOfFile(FilenameForExceptionMessage);
+                    if (idx >= 0)
+                    {
+                        ExtendedImage extendedImage = getExtendedImageFromCache(idx);
+                        // getExtendedImageFromCache always returns an ExtendedImage, it may be based on file name only
+                        extendedImage.addMetaDataWarningRead(LangCfg.getText(LangCfg.Others.imageReadError), ex.Message);
+                        if (!HashtableExtendedImages.ContainsKey(FilenameForExceptionMessage))
+                        {
+                            HashtableExtendedImages.Add(FilenameForExceptionMessage, extendedImage);
+                        }
+                    }
+                    Program.handleExceptionContinue(new Exception(ErrorMessage, ex));
+                }
+#endif
                 CachePerformance.measure("add extended images around selected File");
                 CachePerformance.log(ConfigDefinition.enumConfigFlags.PerformanceUpdateCaches);
                 MainMaskInterface.setToolStripStatusLabelBufferingThread(false);
             }
-#if !DEBUG
-            catch (System.OutOfMemoryException)
-            {
-                GeneralUtilities.message(LangCfg.Message.W_outOfMemory);
-                return 1;
-            }
-            catch (Exception ex)
-            {
-                string ErrorMessage = LangCfg.getText(LangCfg.Others.severeFolderReadError, FilenameForExceptionMessage, "");
-                // using inner exception is ok here, because it will not be sent to AppCenter
-                // note: AppCenter will show only text of inner exception and then FilenameForExceptionMessage is lost
-                throw (new Exception(ErrorMessage, ex));
-            }
-#endif
             GeneralUtilities.writeTraceFileEntry("Finish updateCaches");
             GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceCaching, "finish caching " + cacheIndex.ToString());
             return 0;

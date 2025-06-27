@@ -1,13 +1,24 @@
 ﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace QuickImageComment
 {
     public partial class FormError : Form
     {
-        public FormError(string errorMessage, string errorDetails, string errorFileName)
+        public FormError(string errorMessage, string errorDetails, string errorFileName, bool terminate)
         {
             InitializeComponent();
+            if (terminate)
+            {
+                pictureBoxSeverity.Image = SystemIcons.Error.ToBitmap();
+            }
+            else
+            {
+                pictureBoxSeverity.Image = SystemIcons.Exclamation.ToBitmap();
+                labelErrorHeader.Text = LangCfg.getText(LangCfg.Others.exceptionContinue);
+            }
+
             MainMaskInterface.getCustomizationInterface().setFormToCustomizedValuesZoomInitial(this);
 
             LangCfg.translateControlTexts(this);

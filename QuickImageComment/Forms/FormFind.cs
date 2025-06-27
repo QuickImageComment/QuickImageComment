@@ -57,7 +57,7 @@ namespace QuickImageComment
         private static DataTable dataTable;
         private static int topDiffLabelToComboBox;
         private static int topDiffLabelToDateTimePicker;
-        private string dataTableFileName;
+        private readonly string dataTableFileName;
 
         public bool findExecuted = false;
 
@@ -89,7 +89,7 @@ namespace QuickImageComment
         Cursor OldCursor;
         int gpsFindRangeInMeter = 0;
 
-        private static object LockDataTable = new object();
+        private static readonly object LockDataTable = new object();
 
         internal class FilterDefinition
         {
@@ -265,7 +265,7 @@ namespace QuickImageComment
         }
 
         // create screenshot and close
-        public void createScreenShot(string givenFolderName)
+        public void createScreenShot()
         {
             dynamicLabelFolder.Text = FolderName;
             LangCfg.translateControlTexts(this);
@@ -316,8 +316,10 @@ namespace QuickImageComment
                 {
                     MetaDataDefinitionItem aMetaDataDefinitionItem = fd.metaDataDefinitionItem;
 
-                    Label aLabel = new Label();
-                    aLabel.Name = dynamicLabelNamePrefix + aMetaDataDefinitionItem.KeyPrim;
+                    Label aLabel = new Label
+                    {
+                        Name = dynamicLabelNamePrefix + aMetaDataDefinitionItem.KeyPrim
+                    };
                     if (aMetaDataDefinitionItem.FormatPrim == MetaDataItem.Format.Interpreted &&
                         (Exiv2TagDefinitions.IntegerTypes.Contains(aMetaDataDefinitionItem.TypePrim) ||
                          Exiv2TagDefinitions.FloatTypes.Contains(aMetaDataDefinitionItem.TypePrim)))
@@ -949,11 +951,11 @@ namespace QuickImageComment
                         SortedImageFiles.Sort();
                         this.Cursor = Cursors.WaitCursor;
 
-                        ImageManager.initWithImageFilesArrayList(FolderName, SortedImageFiles, false);
+                        ImageManager.initWithImageFilesArrayList(SortedImageFiles, false);
 
                         findExecuted = true;
                         this.Cursor = Cursors.Default;
-                        if (formFindQuery != null) formFindQuery.Close();
+                        formFindQuery?.Close();
                         Close();
                     }
                 }
@@ -1165,7 +1167,7 @@ namespace QuickImageComment
 #if !DEBUG
                 catch (Exception ex)
                 {
-                    string ErrorMessage = LangCfg.getText(LangCfg.Others.severeFolderReadError, FilenameForExceptionMessage, "");
+                    string ErrorMessage = LangCfg.getText(LangCfg.Others.readErrorAllImagesInFolder, FilenameForExceptionMessage, "");
                     // using inner exception is ok here, because it will not be sent to AppCenter
                     // note: AppCenter will show only text of inner exception and then FilenameForExceptionMessage is lost
                     throw (new Exception(ErrorMessage, ex));
@@ -1230,7 +1232,7 @@ namespace QuickImageComment
             {
                 // escalate exception
                 // do not throw new exception as then the outer part of exception with file name is lost
-                Program.handleExceptionWithoutAppCenter(e.Error, "");
+                Program.handleExceptionContinue(e.Error);
             }
             else
             {
@@ -1331,7 +1333,7 @@ namespace QuickImageComment
                 }
                 catch (Exception ex)
                 {
-                    string ErrorMessage = LangCfg.getText(LangCfg.Others.severeFolderReadError, fileName, "");
+                    string ErrorMessage = LangCfg.getText(LangCfg.Others.readErrorAllImagesInFolder, fileName, "");
                     throw (new Exception(ErrorMessage, ex));
                 }
             }
@@ -1348,7 +1350,7 @@ namespace QuickImageComment
             {
                 // escalate exception
                 // do not throw new exception as then the outer part of exception with file name is lost
-                Program.handleExceptionWithoutAppCenter(e.Error, "");
+                Program.handleExceptionContinue(e.Error);
             }
             else
             {

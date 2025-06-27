@@ -464,7 +464,7 @@ namespace JR.Utils.GUI.Forms
 
             private MessageBoxDefaultButton defaultButton;
             private int visibleButtonsCount;
-            private TwoLetterISOLanguageID languageID = TwoLetterISOLanguageID.en;
+            private readonly TwoLetterISOLanguageID languageID = TwoLetterISOLanguageID.en;
 
             #endregion
 
@@ -874,12 +874,14 @@ namespace JR.Utils.GUI.Forms
             public static DialogResult Show(IWin32Window owner, string text, string caption, MessageBoxButtons buttons, MessageBoxIcon icon, MessageBoxDefaultButton defaultButton)
             {
                 //Create a new instance of the FlexibleMessageBox form
-                var flexibleMessageBoxForm = new FlexibleMessageBoxForm();
-                flexibleMessageBoxForm.ShowInTaskbar = false;
+                var flexibleMessageBoxForm = new FlexibleMessageBoxForm
+                {
+                    ShowInTaskbar = false,
 
-                //Bind the caption and the message text
-                flexibleMessageBoxForm.CaptionText = caption;
-                flexibleMessageBoxForm.MessageText = text;
+                    //Bind the caption and the message text
+                    CaptionText = caption,
+                    MessageText = text
+                };
 
 
                 flexibleMessageBoxForm.FlexibleMessageBoxFormBindingSource.DataSource = flexibleMessageBoxForm;

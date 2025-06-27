@@ -598,8 +598,7 @@ namespace QuickImageCommentControls
         // to allow disabling refreshing thumbnails during scrolling
         protected virtual void OnScroll(ScrollEventArgs e)
         {
-            ScrollEventHandler handler = this.Scroll;
-            if (handler != null) handler(this, e);
+            this.Scroll?.Invoke(this, e);
         }
         protected override void WndProc(ref Message m)
         {

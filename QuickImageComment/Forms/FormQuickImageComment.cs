@@ -776,7 +776,7 @@ namespace QuickImageComment
                 // files to display given via command line
                 // Use DisplayFolder which is the root of all files
                 // It will be blank in case files are from different drives, but this is ok for ImageManager and avoids crashes
-                ImageManager.initWithImageFilesArrayList(DisplayFolder, DisplayFiles, true);
+                ImageManager.initWithImageFilesArrayList(DisplayFiles, true);
             }
 
             // moved to here as during filling dataGridViews size of panels is important to adjust column widths
@@ -1367,7 +1367,7 @@ namespace QuickImageComment
 #if APPCENTER
                 if (Program.AppCenterUsable) Microsoft.AppCenter.Analytics.Analytics.TrackEvent("Closing finish");
 #endif
-                // throw new Exception("ExceptionTest after start closing3");
+                 // throw new Exception("ExceptionTest after start closing3");
 
             }
             else
@@ -4748,7 +4748,7 @@ namespace QuickImageComment
                     FolderName = DisplayFolder;
 
                 theFolderTreeView.SelectedFolder = new GongSolutions.Shell.ShellItem(FolderName);
-                ImageManager.initWithImageFilesArrayList(DisplayFolder, DisplayFiles, false);
+                ImageManager.initWithImageFilesArrayList(DisplayFiles, false);
                 theUserControlFiles.listViewFiles.clearThumbnails();
                 displayImageAfterReadFolder(false);
             }
@@ -6398,7 +6398,7 @@ namespace QuickImageComment
         // Catch the UI exceptions
         public static void Form1_UIThreadException(object sender, System.Threading.ThreadExceptionEventArgs ThreadExcEvtArgs)
         {
-            Program.handleException(ThreadExcEvtArgs.Exception);
+            Program.handleExceptionTerminate(ThreadExcEvtArgs.Exception);
         }
 
         // for show and refresh of grid by FormImageGrid
@@ -6877,7 +6877,7 @@ namespace QuickImageComment
                 new FormExportAllMetaData(theUserControlFiles.listViewFiles.SelectedIndices, FolderName);
                 new FormExportMetaData(FolderName);
                 FormFind formFind = new FormFind(true);
-                formFind.createScreenShot(FolderName);
+                formFind.createScreenShot();
                 // FormFindQuery not needed
                 new FormFindReadErrors();
                 // FormFirstUserSettings not needed
@@ -6977,7 +6977,7 @@ namespace QuickImageComment
             LangCfg.getListOfControlsWithText(new FormDateTimeChange(theUserControlFiles.listViewFiles.SelectedIndices), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormDonate(), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormEditExternal(), ControlTextList);
-            LangCfg.getListOfControlsWithText(new FormError("", "", ""), ControlTextList);
+            LangCfg.getListOfControlsWithText(new FormError("", "", "", true), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormExportAllMetaData(theUserControlFiles.listViewFiles.SelectedIndices, FolderName), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormExportMetaData(FolderName), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormFind(true), ControlTextList);
@@ -7050,7 +7050,7 @@ namespace QuickImageComment
             new FormDateTimeChange(theUserControlFiles.listViewFiles.SelectedIndices);
             new FormDonate();
             new FormEditExternal();
-            new FormError("", "", "");
+            new FormError("", "", "", true);
             new FormExportAllMetaData(theUserControlFiles.listViewFiles.SelectedIndices, FolderName);
             new FormExportMetaData(FolderName);
             new FormFind(true);

@@ -196,9 +196,9 @@ namespace QuickImageComment
         // to identify "dummy" bitmaps created with text as real image cannot be loaded
         private const string createdWithText = "createdWithText";
 
-        private static object LockReadExiv2 = new object();
+        private static readonly object LockReadExiv2 = new object();
 
-        private string ImageFileName;
+        private readonly string ImageFileName;
         private System.Drawing.Bitmap ThumbNailBitmap;
         private System.Drawing.Bitmap FullSizeImage;
 
@@ -210,9 +210,9 @@ namespace QuickImageComment
         private SortedList XmpMetaDataStructItems;
 
         private bool IptcUTF8;
-        private bool isVideo;
-        private bool displayFrame;
-        private bool notFrameGrabber;
+        private readonly bool isVideo;
+        private readonly bool displayFrame;
+        private readonly bool notFrameGrabber;
         private bool isReadOnly;
         private bool noAccess;
         private bool imageNotModifiedGridLogged;
@@ -231,7 +231,7 @@ namespace QuickImageComment
         private float TxtContrast = 0;
         private string OldArtist = "";
         private string OldUserComment = "";
-        private string imageSize = "";
+        private readonly string imageSize = "";
         private string codecInfo = "";
         private string pixelFormat = "";
         private bool artistDifferentEntries = false;
@@ -255,9 +255,9 @@ namespace QuickImageComment
         string DisplayImageErrorMessage = "";
 
         // for performance measurements
-        Performance ConstructorPerformance = new Performance();
+        readonly Performance ConstructorPerformance = new Performance();
         // array for display in property mask
-        private ArrayList PerformanceMeasurements = new ArrayList();
+        private readonly ArrayList PerformanceMeasurements = new ArrayList();
 
         private enum TagValueType
         {
@@ -394,6 +394,7 @@ namespace QuickImageComment
             XmpLangAltEntries = new ArrayList();
             OtherMetaDataItems = new SortedList();
             MetaDataWarnings = new ArrayList();
+            MetaDataWarningsRead = new ArrayList();
 
             this.ImageFileName = ImageFileName;
             addReplaceOtherMetaDataKnownType("File.DirectoryName", System.IO.Path.GetDirectoryName(ImageFileName));
@@ -406,7 +407,7 @@ namespace QuickImageComment
                 this.FullSizeImage = new Bitmap(1, 1); // just an empty image
                 System.IO.FileInfo theFileInfo = new System.IO.FileInfo(ImageFileName);
                 double FileSize = theFileInfo.Length;
-                FileSize = FileSize / 1024;
+                FileSize /= 1024;
                 addReplaceOtherMetaDataKnownType("File.Size", FileSize.ToString("#,### KB"));
                 addReplaceOtherMetaDataKnownType("File.Modified", theFileInfo.LastWriteTime.ToString());
                 addReplaceOtherMetaDataKnownType("File.Created", theFileInfo.CreationTime.ToString());
@@ -463,7 +464,7 @@ namespace QuickImageComment
 
             isReadOnly = fileInfo.Attributes.HasFlag(System.IO.FileAttributes.ReadOnly);
             double FileSize = fileInfo.Length;
-            FileSize = FileSize / 1024;
+            FileSize /= 1024;
 
             // 32-Bit version cannot read big videos; exiv2 returns exception, 
             // so check here allowing language depending and better understandable error message
@@ -518,7 +519,7 @@ namespace QuickImageComment
 #if !DEBUG
             catch (Exception ex)
             {
-                MetaDataWarnings.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error), ex.Message));
+                MetaDataWarningsRead.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error), ex.Message));
             }
 #endif
             ReadPerformance.measure("Meta data copied");
@@ -1761,13 +1762,13 @@ namespace QuickImageComment
             {
                 // language specific entries
                 ReturnValue = theMetaDataDefinitionItem.Prefix;
-                ReturnValue = ReturnValue + getMetaDataValueByKey(KeyPrim + "|x-default", theMetaDataDefinitionItem.FormatPrim);
+                ReturnValue += getMetaDataValueByKey(KeyPrim + "|x-default", theMetaDataDefinitionItem.FormatPrim);
                 ValueSec = getMetaDataValueByKey(KeySec + "|x-default", theMetaDataDefinitionItem.FormatSec);
                 if (!ValueSec.Equals(""))
                 {
                     ReturnValue = ReturnValue + theMetaDataDefinitionItem.Separator + ValueSec;
                 }
-                ReturnValue = ReturnValue + theMetaDataDefinitionItem.Postfix;
+                ReturnValue += theMetaDataDefinitionItem.Postfix;
                 ReturnArrayList.Add(ReturnValue);
 
                 foreach (string language in XmpLangAltEntries)
@@ -1780,7 +1781,7 @@ namespace QuickImageComment
                     }
                     else
                     {
-                        ReturnValue = ReturnValue + value;
+                        ReturnValue += value;
                     }
 
                     ValueSec = getMetaDataValueByKey(KeySec + "|" + language, theMetaDataDefinitionItem.FormatSec);
@@ -1795,7 +1796,7 @@ namespace QuickImageComment
                             ReturnValue = ReturnValue + theMetaDataDefinitionItem.Separator + ValueSec;
                         }
                     }
-                    ReturnValue = ReturnValue + theMetaDataDefinitionItem.Postfix;
+                    ReturnValue += theMetaDataDefinitionItem.Postfix;
                     ReturnArrayList.Add(ReturnValue);
                 }
             }
@@ -1805,13 +1806,13 @@ namespace QuickImageComment
                 do
                 {
                     ReturnValue = theMetaDataDefinitionItem.Prefix;
-                    ReturnValue = ReturnValue + getMetaDataValueByKey(KeyPrim, theMetaDataDefinitionItem.FormatPrim);
+                    ReturnValue += getMetaDataValueByKey(KeyPrim, theMetaDataDefinitionItem.FormatPrim);
                     ValueSec = getMetaDataValueByKey(KeySec, theMetaDataDefinitionItem.FormatSec);
                     if (!ValueSec.Equals(""))
                     {
                         ReturnValue = ReturnValue + theMetaDataDefinitionItem.Separator + ValueSec;
                     }
-                    ReturnValue = ReturnValue + theMetaDataDefinitionItem.Postfix;
+                    ReturnValue += theMetaDataDefinitionItem.Postfix;
                     ReturnArrayList.Add(ReturnValue);
 
                     // get next keys
@@ -1851,13 +1852,13 @@ namespace QuickImageComment
             KeyPrim = theMetaDataDefinitionItem.KeyPrim;
             KeySec = theMetaDataDefinitionItem.KeySec;
             ReturnValue = theMetaDataDefinitionItem.Prefix;
-            ReturnValue = ReturnValue + getMetaDataValueByKey(KeyPrim + "|" + language, theMetaDataDefinitionItem.FormatPrim);
+            ReturnValue += getMetaDataValueByKey(KeyPrim + "|" + language, theMetaDataDefinitionItem.FormatPrim);
             ValueSec = getMetaDataValueByKey(KeySec + "|" + language, theMetaDataDefinitionItem.FormatSec);
             if (!ValueSec.Equals(""))
             {
                 ReturnValue = ReturnValue + theMetaDataDefinitionItem.Separator + ValueSec;
             }
-            ReturnValue = ReturnValue + theMetaDataDefinitionItem.Postfix;
+            ReturnValue += theMetaDataDefinitionItem.Postfix;
 
             return ReturnValue;
         }
@@ -1948,7 +1949,7 @@ namespace QuickImageComment
                     {
                         Keyii = GeneralUtilities.nameUniqueWithRunningNumber(Key, ii);
                         ReturnArrayList.Add(getMetaDataValueByKey(Keyii, FormatSpecification));
-                        ii = ii + 1;
+                        ii++;
                     }
                 }
             }
@@ -2047,8 +2048,10 @@ namespace QuickImageComment
                     // String (unstructured properties)
                     else
                     {
-                        ReturnArrayList = new ArrayList();
-                        ReturnArrayList.Add((string)changedFields[thePlaceholderDefinition.keyMain]);
+                        ReturnArrayList = new ArrayList
+                        {
+                            (string)changedFields[thePlaceholderDefinition.keyMain]
+                        };
 
                     }
                     // handling of formatting
@@ -2099,9 +2102,9 @@ namespace QuickImageComment
                 }
                 else
                 {
-                    ExportString = ExportString + "\t";
+                    ExportString += "\t";
                 }
-                ExportString = ExportString + getMetaDataValuesStringByDefinition(theMetaDataDefinitionItem);
+                ExportString += getMetaDataValuesStringByDefinition(theMetaDataDefinitionItem);
             }
             // replace CR and LF by blanks to avoid problems when importing with Excel
             ExportString = ExportString.Replace("\r", " ");
@@ -2142,11 +2145,8 @@ namespace QuickImageComment
         // Adds or replaces other meta data with known type
         private void addReplaceOtherMetaDataKnownType(string key, string value)
         {
-            TagDefinition theTagDefinition = (TagDefinition)ConfigDefinition.getInternalMetaDataDefinitions()[key];
-            if (theTagDefinition == null)
-            {
-                throw new Exception(LangCfg.getText(LangCfg.Others.noEntryInternalMetaDataDefinitions, key));
-            }
+            TagDefinition theTagDefinition = (TagDefinition)ConfigDefinition.getInternalMetaDataDefinitions()[key]
+                ?? throw new Exception(LangCfg.getText(LangCfg.Others.noEntryInternalMetaDataDefinitions, key));
             if (OtherMetaDataItems.ContainsKey(key))
             {
                 OtherMetaDataItems[key] = new MetaDataItem(key, 0, theTagDefinition.type, 0, 0, value, value, 0);
@@ -2180,7 +2180,7 @@ namespace QuickImageComment
         //*****************************************************************
 
         // get selected attributes from line
-        private void handleTxtLine(string line, int lineNo)
+        private void handleTxtLine(string line)
         {
             // Add line in list of complete content
             TxtEntries.Add(line);
@@ -2223,7 +2223,7 @@ namespace QuickImageComment
                 line = StreamIn.ReadLine();
                 while (line != null)
                 {
-                    handleTxtLine(line, lineNo);
+                    handleTxtLine(line);
                     line = StreamIn.ReadLine();
                     lineNo++;
                 }
@@ -3083,8 +3083,10 @@ namespace QuickImageComment
             for (int kk = 0; kk < remainingKeysToHandle.Count; kk++)
             {
                 string key = (string)remainingKeysToHandle[kk];
-                ArrayList KeyArrayList = new ArrayList();
-                KeyArrayList.Add(key);
+                ArrayList KeyArrayList = new ArrayList
+                {
+                    key
+                };
 
                 if (changedFields[key].GetType().Equals(typeof(ArrayList)))
                 {
@@ -3284,7 +3286,7 @@ namespace QuickImageComment
                             {
                                 byteString = byteString + utf16Bytes[ii].ToString() + " ";
                             }
-                            byteString = byteString + "0 0";
+                            byteString += "0 0";
                             exiv2addItemToBuffer(key, byteString, exiv2WriteOptionDefault);
                         }
 
@@ -3526,7 +3528,7 @@ namespace QuickImageComment
                         else
                         {
                             // key could not be replaced, shift lastOpenPos to find next key begin
-                            lastOpenPos = lastOpenPos + 2;
+                            lastOpenPos += 2;
                             // set return status to true, so that it can be tried to be replaced in another cycle with this method
                             returnStatus = true;
                         }
@@ -3890,20 +3892,20 @@ namespace QuickImageComment
                                 }
                                 // in case grid is moved far to the right or down, shift back to start grind in upper left corner,
                                 // but keeping the offset modulo grid widht and height
-                                helpGridPosX = helpGridPosX % theImageGrid.width;
-                                helpGridPosY = helpGridPosY % theImageGrid.height;
+                                helpGridPosX %= theImageGrid.width;
+                                helpGridPosY %= theImageGrid.height;
 
                                 // solid line or solid with scale
                                 if (theImageGrid.lineStyle == ImageGrid.enumLineStyle.solidLine ||
                                     theImageGrid.lineStyle == ImageGrid.enumLineStyle.withScale)
                                 {
-                                    for (int ii = helpGridPosX; ii < AdjustedImage.Width; ii = ii + theImageGrid.width)
+                                    for (int ii = helpGridPosX; ii < AdjustedImage.Width; ii += theImageGrid.width)
                                     {
                                         OutputBitmapGraphics.DrawLine(new System.Drawing.Pen(System.Drawing.Color.FromArgb(theImageGrid.RGB_value)),
                                                                       new Point(ii, 0),
                                                                       new Point(ii, AdjustedImage.Height));
                                     }
-                                    for (int ii = helpGridPosY; ii < AdjustedImage.Height; ii = ii + theImageGrid.height)
+                                    for (int ii = helpGridPosY; ii < AdjustedImage.Height; ii += theImageGrid.height)
                                     {
                                         OutputBitmapGraphics.DrawLine(new System.Drawing.Pen(System.Drawing.Color.FromArgb(theImageGrid.RGB_value)), new Point(0, ii), new Point(AdjustedImage.Width, ii));
                                     }
@@ -3915,17 +3917,17 @@ namespace QuickImageComment
                                         if (startX == 0) startX = theImageGrid.distance;
                                         int startY = helpGridPosY - (helpGridPosY / theImageGrid.distance * theImageGrid.distance);
                                         if (startY == 0) startY = theImageGrid.distance;
-                                        for (int ii = helpGridPosX; ii < AdjustedImage.Width; ii = ii + theImageGrid.width)
+                                        for (int ii = helpGridPosX; ii < AdjustedImage.Width; ii += theImageGrid.width)
                                         {
-                                            for (int jj = startY; jj < AdjustedImage.Height; jj = jj + theImageGrid.distance)
+                                            for (int jj = startY; jj < AdjustedImage.Height; jj += theImageGrid.distance)
                                             {
                                                 OutputBitmapGraphics.DrawLine(new System.Drawing.Pen(System.Drawing.Color.FromArgb(theImageGrid.RGB_value)), new Point(ii - offset, jj),
                                                     new Point(ii + offset, jj));
                                             }
                                         }
-                                        for (int jj = helpGridPosY; jj < AdjustedImage.Height; jj = jj + theImageGrid.height)
+                                        for (int jj = helpGridPosY; jj < AdjustedImage.Height; jj += theImageGrid.height)
                                         {
-                                            for (int ii = startX; ii < AdjustedImage.Width; ii = ii + theImageGrid.distance)
+                                            for (int ii = startX; ii < AdjustedImage.Width; ii += theImageGrid.distance)
                                             {
                                                 OutputBitmapGraphics.DrawLine(new System.Drawing.Pen(System.Drawing.Color.FromArgb(theImageGrid.RGB_value)), new Point(ii, jj - offset),
                                                     new Point(ii, jj + offset));
@@ -3937,7 +3939,7 @@ namespace QuickImageComment
                                 else if (theImageGrid.lineStyle == ImageGrid.enumLineStyle.dottedLine)
                                 {
                                     int offset = theImageGrid.size / 2;
-                                    for (int ii = helpGridPosX; ii < AdjustedImage.Width; ii = ii + theImageGrid.width)
+                                    for (int ii = helpGridPosX; ii < AdjustedImage.Width; ii += theImageGrid.width)
                                     {
                                         for (int jj = 0; jj < AdjustedImage.Height; jj = jj + theImageGrid.size + theImageGrid.distance)
                                         {
@@ -3945,7 +3947,7 @@ namespace QuickImageComment
                                                 new Point(ii, jj + offset));
                                         }
                                     }
-                                    for (int jj = helpGridPosY; jj < AdjustedImage.Height; jj = jj + theImageGrid.height)
+                                    for (int jj = helpGridPosY; jj < AdjustedImage.Height; jj += theImageGrid.height)
                                     {
                                         for (int ii = 0; ii < AdjustedImage.Width; ii = ii + theImageGrid.size + theImageGrid.distance)
                                         {
@@ -3958,9 +3960,9 @@ namespace QuickImageComment
                                 else if (theImageGrid.lineStyle == ImageGrid.enumLineStyle.graticule)
                                 {
                                     int offset = theImageGrid.size / 2;
-                                    for (int ii = helpGridPosX; ii < AdjustedImage.Width; ii = ii + theImageGrid.width)
+                                    for (int ii = helpGridPosX; ii < AdjustedImage.Width; ii += theImageGrid.width)
                                     {
-                                        for (int jj = helpGridPosY; jj < AdjustedImage.Height; jj = jj + theImageGrid.height)
+                                        for (int jj = helpGridPosY; jj < AdjustedImage.Height; jj += theImageGrid.height)
                                         {
                                             OutputBitmapGraphics.DrawLine(new System.Drawing.Pen(System.Drawing.Color.FromArgb(theImageGrid.RGB_value)), new Point(ii - offset, jj),
                                                 new Point(ii + offset, jj));
@@ -4136,10 +4138,11 @@ namespace QuickImageComment
                 {
                     longitudeSigned = "-" + longitudeSigned;
                 }
-                theGeoDataItem = new GeoDataItem(latitudeSigned, longitudeSigned);
-
+                theGeoDataItem = new GeoDataItem(latitudeSigned, longitudeSigned)
+                {
                 // direction and angle of view
-                theGeoDataItem.directionOfView = getMetaDataValueByKey("Exif.GPSInfo.GPSImgDirection", MetaDataItem.Format.Decimal0);
+                    directionOfView = getMetaDataValueByKey("Exif.GPSInfo.GPSImgDirection", MetaDataItem.Format.Decimal0)
+                };
                 string focalLengthString = getMetaDataValueByKey("Exif.Photo.FocalLengthIn35mmFilm", MetaDataItem.Format.Original);
                 string orientation = getMetaDataValueByKey("Exif.Image.Orientation", MetaDataItem.Format.Original);
                 if (!focalLengthString.Equals(""))
@@ -4191,6 +4194,14 @@ namespace QuickImageComment
         public override string ToString()
         {
             return ImageFileName;
+        }
+
+        //*****************************************************************
+        // Others
+        //*****************************************************************
+        internal void addMetaDataWarningRead(string name,  string message)
+        {
+            MetaDataWarningsRead.Add(new MetaDataWarningItem(name, message));
         }
     }
 }

@@ -335,7 +335,7 @@ namespace QuickImageComment
         public static ArrayList FilesExtensionsArrayList;
 
         public const int ImageGridsCount = 6;
-        private static ImageGrid[] ImageGrids = new ImageGrid[ImageGridsCount];
+        private static readonly ImageGrid[] ImageGrids = new ImageGrid[ImageGridsCount];
 
         // definition for internal exceptions
         // without translation as they appear before language file is loaded
@@ -393,13 +393,15 @@ namespace QuickImageComment
             }
 
             ConfigItems = new SortedList();
-            SplitContainerPanelContents = new SortedList();
-            SplitContainerPanelContents.Add("splitContainer11.Panel1", LangCfg.PanelContent.Folders);
-            SplitContainerPanelContents.Add("splitContainer11.Panel2", LangCfg.PanelContent.Files);
-            SplitContainerPanelContents.Add("splitContainer121.Panel2", LangCfg.PanelContent.IptcKeywords);
-            SplitContainerPanelContents.Add("splitContainer1211.Panel2", LangCfg.PanelContent.Properties);
-            SplitContainerPanelContents.Add("splitContainer122.Panel1", LangCfg.PanelContent.CommentLists);
-            SplitContainerPanelContents.Add("splitContainer122.Panel2", LangCfg.PanelContent.Configurable);
+            SplitContainerPanelContents = new SortedList
+            {
+                { "splitContainer11.Panel1", LangCfg.PanelContent.Folders },
+                { "splitContainer11.Panel2", LangCfg.PanelContent.Files },
+                { "splitContainer121.Panel2", LangCfg.PanelContent.IptcKeywords },
+                { "splitContainer1211.Panel2", LangCfg.PanelContent.Properties },
+                { "splitContainer122.Panel1", LangCfg.PanelContent.CommentLists },
+                { "splitContainer122.Panel2", LangCfg.PanelContent.Configurable }
+            };
 
             AlternativeValues = new Hashtable();
             InputCheckConfigurations = new Hashtable();
@@ -2434,7 +2436,7 @@ namespace QuickImageComment
                     if (!category.Equals(""))
                     {
                         // first category, insert empty line
-                        PredefinedCommentText = PredefinedCommentText + "\r\n";
+                        PredefinedCommentText += "\r\n";
                     }
                     PredefinedCommentText = PredefinedCommentText + "#" + aPredefinedComment.Category + "\r\n";
                     category = aPredefinedComment.Category;
@@ -3086,18 +3088,20 @@ namespace QuickImageComment
         // convert old values for content of split containers panels to new ones
         private static void convertSplitContainerPanelContentValues()
         {
-            SortedList PanelContentValues = new SortedList();
-            PanelContentValues.Add("Dateien", LangCfg.PanelContent.Files);
-            PanelContentValues.Add("Ordner", LangCfg.PanelContent.Folders);
-            PanelContentValues.Add("Eigenschaften", LangCfg.PanelContent.Properties);
-            PanelContentValues.Add("Künstler (Autor)", LangCfg.PanelContent.Artist);
-            PanelContentValues.Add("Künstler und Kommentar", LangCfg.PanelContent.ArtistComment);
-            PanelContentValues.Add("Kommentarlisten", LangCfg.PanelContent.CommentLists);
-            PanelContentValues.Add("Kommentar", LangCfg.PanelContent.Comment);
-            PanelContentValues.Add("Konfigurierbarer Eingabebereich", LangCfg.PanelContent.Configurable);
-            PanelContentValues.Add("IPTC Schlüsselworte", LangCfg.PanelContent.IptcKeywords);
-            PanelContentValues.Add("Bild Details", LangCfg.PanelContent.ImageDetails);
-            PanelContentValues.Add("Karte", LangCfg.PanelContent.Map);
+            SortedList PanelContentValues = new SortedList
+            {
+                { "Dateien", LangCfg.PanelContent.Files },
+                { "Ordner", LangCfg.PanelContent.Folders },
+                { "Eigenschaften", LangCfg.PanelContent.Properties },
+                { "Künstler (Autor)", LangCfg.PanelContent.Artist },
+                { "Künstler und Kommentar", LangCfg.PanelContent.ArtistComment },
+                { "Kommentarlisten", LangCfg.PanelContent.CommentLists },
+                { "Kommentar", LangCfg.PanelContent.Comment },
+                { "Konfigurierbarer Eingabebereich", LangCfg.PanelContent.Configurable },
+                { "IPTC Schlüsselworte", LangCfg.PanelContent.IptcKeywords },
+                { "Bild Details", LangCfg.PanelContent.ImageDetails },
+                { "Karte", LangCfg.PanelContent.Map }
+            };
 
             for (int ii = 0; ii < SplitContainerPanelContents.Count; ii++)
             {
@@ -3549,7 +3553,7 @@ namespace QuickImageComment
 
                     if (firstPart.Equals("Value"))
                     {
-                        addAlternativeValue(GeneralConfigFile, lineNo, secondPart);
+                        addAlternativeValue(lineNo, secondPart);
                     }
                     else if (firstPart.Equals("Define"))
                     {
@@ -3572,7 +3576,7 @@ namespace QuickImageComment
                     }
                     else if (firstPart.Equals("Descri"))
                     {
-                        addDescriptionToMetaDataDefinition(GeneralConfigFile, lineNo, "Define." + secondPart);
+                        addDescriptionToMetaDataDefinition(lineNo, "Define." + secondPart);
                     }
                     // several items for initial description items in text-files
                     else if (firstPart.Equals("TxtInitialDescriptionItems"))
@@ -3718,8 +3722,7 @@ namespace QuickImageComment
                         {
                             if (ConfigItems["_" + firstPart] == null)
                             {
-                                int parseOutput;
-                                if (int.TryParse(secondPart, out parseOutput))
+                                if (int.TryParse(secondPart, out int parseOutput))
                                     // it is an integer
                                     ConfigItems["_" + firstPart] = parseOutput;
                                 else
@@ -3753,7 +3756,7 @@ namespace QuickImageComment
         }
 
         // add description to meta data definition
-        private static void addDescriptionToMetaDataDefinition(string GeneralConfigFile, int lineNo, string secondPart)
+        private static void addDescriptionToMetaDataDefinition(int lineNo, string secondPart)
         {
             int indexColon = secondPart.IndexOf(":");
             if (indexColon < 0)
@@ -3779,7 +3782,7 @@ namespace QuickImageComment
         }
 
         // add alternative value into list
-        private static void addAlternativeValue(string GeneralConfigFile, int lineNo, string secondPart)
+        private static void addAlternativeValue(int lineNo, string secondPart)
         {
             int indexColon = secondPart.IndexOf(":");
             if (indexColon < 0)
@@ -3866,7 +3869,7 @@ namespace QuickImageComment
                     + " " + Program.CompileTime.ToString("dd.MM.yyyy");
                 details += execeptionInfo;
 
-                new FormError(LangCfg.getText(LangCfg.Others.duringLastUsage), details, "");
+                new FormError(LangCfg.getText(LangCfg.Others.duringLastUsage), details, "", false);
             }
 
             // add image to list of images causing fatal exiv2 exception
