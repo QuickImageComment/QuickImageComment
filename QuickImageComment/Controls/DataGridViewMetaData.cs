@@ -786,7 +786,8 @@ namespace QuickImageCommentControls
                         HeadersNonVisibleRows.Add(CellValue.Substring(2));
                     }
                     this.Rows[CurrentRow.Index].Cells[0].Value = "+ " + CellValue.Substring(2);
-                    while (ii < this.RowCount && this.Rows[ii].DefaultCellStyle.BackColor != this.GridColor)
+                    // note: Font is only assigned to header rows
+                    while (ii < this.RowCount && this.Rows[ii].DefaultCellStyle.Font == null)
                     {
                         this.Rows[ii++].Visible = false;
                     }
@@ -798,7 +799,8 @@ namespace QuickImageCommentControls
                         HeadersNonVisibleRows.Remove(CellValue.Substring(2));
                     }
                     this.Rows[CurrentRow.Index].Cells[0].Value = "- " + CellValue.Substring(2);
-                    while (ii < this.RowCount && this.Rows[ii].DefaultCellStyle.BackColor != this.GridColor)
+                    // note: Font is only assigned to header rows
+                    while (ii < this.RowCount && this.Rows[ii].DefaultCellStyle.Font == null)
                     {
                         this.Rows[ii++].Visible = true;
                     }
