@@ -16,7 +16,7 @@ namespace QuickImageComment
             else
             {
                 pictureBoxSeverity.Image = SystemIcons.Exclamation.ToBitmap();
-                labelErrorHeader.Text = LangCfg.getText(LangCfg.Others.exceptionContinue);
+                dynamicLabelErrorHeader.Text = LangCfg.getText(LangCfg.Others.exceptionContinue);
             }
 
             MainMaskInterface.getCustomizationInterface().setFormToCustomizedValuesZoomInitial(this);

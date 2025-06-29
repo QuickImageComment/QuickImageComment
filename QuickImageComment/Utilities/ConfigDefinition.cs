@@ -3870,12 +3870,12 @@ namespace QuickImageComment
                 details += execeptionInfo;
 
                 new FormError(LangCfg.getText(LangCfg.Others.duringLastUsage), details, "", false);
-            }
 
-            // add image to list of images causing fatal exiv2 exception
-            if (!ImagesCausingExiv2Exception.Contains(imageFileName))
-            {
-                ImagesCausingExiv2Exception.Add(imageFileName);
+                // add image to list of images causing fatal exiv2 exception
+                if (!ImagesCausingExiv2Exception.Contains(imageFileName))
+                {
+                    ImagesCausingExiv2Exception.Add(imageFileName);
+                }
             }
         }
 

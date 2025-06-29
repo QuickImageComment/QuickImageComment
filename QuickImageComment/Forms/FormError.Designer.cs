@@ -34,7 +34,7 @@ namespace QuickImageComment
             this.buttonPrepareMail = new System.Windows.Forms.Button();
             this.buttonClose = new System.Windows.Forms.Button();
             this.textBoxErrorMessage = new System.Windows.Forms.TextBox();
-            this.labelErrorHeader = new System.Windows.Forms.Label();
+            this.dynamicLabelErrorHeader = new System.Windows.Forms.Label();
             this.labelDetails = new System.Windows.Forms.Label();
             this.textBoxInstructions = new System.Windows.Forms.TextBox();
             this.buttonGitHubIssue = new System.Windows.Forms.Button();
@@ -88,15 +88,15 @@ namespace QuickImageComment
             this.textBoxErrorMessage.Size = new System.Drawing.Size(816, 21);
             this.textBoxErrorMessage.TabIndex = 5;
             // 
-            // labelErrorHeader
+            // dynamicLabelErrorHeader
             // 
-            this.labelErrorHeader.AutoSize = true;
-            this.labelErrorHeader.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelErrorHeader.Location = new System.Drawing.Point(41, 6);
-            this.labelErrorHeader.Name = "labelErrorHeader";
-            this.labelErrorHeader.Size = new System.Drawing.Size(426, 13);
-            this.labelErrorHeader.TabIndex = 6;
-            this.labelErrorHeader.Text = "Schwerwiegender Fehler in der Anwendung - die Anwendung wird beendet.";
+            this.dynamicLabelErrorHeader.AutoSize = true;
+            this.dynamicLabelErrorHeader.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dynamicLabelErrorHeader.Location = new System.Drawing.Point(41, 6);
+            this.dynamicLabelErrorHeader.Name = "dynamicLabelErrorHeader";
+            this.dynamicLabelErrorHeader.Size = new System.Drawing.Size(426, 13);
+            this.dynamicLabelErrorHeader.TabIndex = 6;
+            this.dynamicLabelErrorHeader.Text = "Schwerwiegender Fehler in der Anwendung - die Anwendung wird beendet.";
             // 
             // labelDetails
             // 
@@ -148,7 +148,7 @@ namespace QuickImageComment
             this.Controls.Add(this.buttonGitHubIssue);
             this.Controls.Add(this.textBoxInstructions);
             this.Controls.Add(this.labelDetails);
-            this.Controls.Add(this.labelErrorHeader);
+            this.Controls.Add(this.dynamicLabelErrorHeader);
             this.Controls.Add(this.textBoxErrorMessage);
             this.Controls.Add(this.buttonClose);
             this.Controls.Add(this.buttonPrepareMail);
@@ -171,7 +171,7 @@ namespace QuickImageComment
         private System.Windows.Forms.Button buttonPrepareMail;
         private System.Windows.Forms.Button buttonClose;
         private System.Windows.Forms.TextBox textBoxErrorMessage;
-        private System.Windows.Forms.Label labelErrorHeader;
+        private System.Windows.Forms.Label dynamicLabelErrorHeader;
         private System.Windows.Forms.Label labelDetails;
         private System.Windows.Forms.TextBox textBoxInstructions;
         private System.Windows.Forms.Button buttonGitHubIssue;
