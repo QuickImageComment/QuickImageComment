@@ -210,14 +210,12 @@ namespace QuickImageComment
                     {
                         if (threadingTask.IsFaulted)
                         {
-                            if (ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.Maintenance))
-                            {
-                                // Exception handling of threads started via Task.Factory does not work with AppCenter
-                                // So react only in maintenance mode where usually AppCenter is not used
-                                // As it is a problem in an optional background task, not reacting always is fine
-                                // throwing an exception to get it handled does not work here, so call method directly
-                                Program.handleExceptionContinue(threadingTask.Exception.InnerException);
-                            }
+                            // throwing an exception to get it handled does not work here
+                            // so call method directly, which also allows to continue using the program
+                            // note that handleExceptionContinue does not open FormError for the same error again,
+                            // so it will not happen, that user has to close lots of error messages it the folder
+                            // has several images causing the same problem
+                            Program.handleExceptionContinue(threadingTask.Exception.InnerException);
                         }
                     });
                 }
