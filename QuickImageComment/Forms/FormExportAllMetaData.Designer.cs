@@ -48,14 +48,14 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(1, 7);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(64, 13);
+            this.label1.Size = new System.Drawing.Size(116, 13);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Export von:";
+            this.label1.Text = "Export/Import Ordner:";
             // 
             // labelSourceFolder
             // 
             this.labelSourceFolder.AutoSize = true;
-            this.labelSourceFolder.Location = new System.Drawing.Point(69, 7);
+            this.labelSourceFolder.Location = new System.Drawing.Point(124, 7);
             this.labelSourceFolder.Name = "labelSourceFolder";
             this.labelSourceFolder.Size = new System.Drawing.Size(37, 13);
             this.labelSourceFolder.TabIndex = 1;
@@ -110,7 +110,7 @@
             // labelChosenFolderRemaining
             // 
             this.labelChosenFolderRemaining.AutoSize = true;
-            this.labelChosenFolderRemaining.Location = new System.Drawing.Point(259, 29);
+            this.labelChosenFolderRemaining.Location = new System.Drawing.Point(251, 29);
             this.labelChosenFolderRemaining.Name = "labelChosenFolderRemaining";
             this.labelChosenFolderRemaining.Size = new System.Drawing.Size(94, 13);
             this.labelChosenFolderRemaining.TabIndex = 6;
@@ -119,7 +119,7 @@
             // fixedLabelChosenFolderRemainingTime
             // 
             this.fixedLabelChosenFolderRemainingTime.AutoSize = true;
-            this.fixedLabelChosenFolderRemainingTime.Location = new System.Drawing.Point(357, 29);
+            this.fixedLabelChosenFolderRemainingTime.Location = new System.Drawing.Point(349, 29);
             this.fixedLabelChosenFolderRemainingTime.Name = "fixedLabelChosenFolderRemainingTime";
             this.fixedLabelChosenFolderRemainingTime.Size = new System.Drawing.Size(12, 13);
             this.fixedLabelChosenFolderRemainingTime.TabIndex = 7;
@@ -174,7 +174,7 @@
             this.Name = "FormExportAllMetaData";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Export der Eigenschaften";
+            this.Text = "Export/Import Fortschritt";
             this.ResumeLayout(false);
             this.PerformLayout();
 

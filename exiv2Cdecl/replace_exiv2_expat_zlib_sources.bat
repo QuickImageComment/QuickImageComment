@@ -47,10 +47,8 @@ for %%x in (h h)                  do copy %Brotli%\src\c\include\brotli\*.%%x   
 for %%x in (c h)                  do copy %Brotli%\src\c\tools\*.%%x               Src_brotli\tools
 
 @echo delete sources not needed for lib (are needed for exiv2.exe)
-del Src_exiv2_src\actions.cpp
 del Src_exiv2_src\exiv2.cpp
 del Src_exiv2_src\wmain.cpp
-del Src_exiv2_src\exiv2\actions.hpp
 @echo .
 @echo copy project files
 copy %Brotli%\build\brotlienc-static.vcxproj                      Prj_exiv2_expat

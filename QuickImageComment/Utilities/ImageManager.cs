@@ -29,6 +29,14 @@ namespace QuickImageComment
         [DllImport(exiv2DllImport, CallingConvention = CallingConvention.Cdecl)]
         static extern int init_SE_Translator();
 
+        [DllImport(exiv2DllImport, CallingConvention = CallingConvention.Cdecl)]
+        static extern int exiv2Extract([MarshalAs(UnmanagedType.LPStr)] string imageFileName,
+                                       [MarshalAs(UnmanagedType.LPStr)] ref string errorText);
+
+        [DllImport(exiv2DllImport, CallingConvention = CallingConvention.Cdecl)]
+        static extern int exiv2Insert([MarshalAs(UnmanagedType.LPStr)] string imageFileName,
+                                      [MarshalAs(UnmanagedType.LPStr)] ref string errorText);
+
         // as following variables are also changed in threads, 
         // modifications are secured with lock of UserControlFiles.LockListViewFiles
         private static List<ListViewItem> listViewFilesItems;
@@ -553,6 +561,28 @@ namespace QuickImageComment
             GeneralUtilities.writeTraceFileEntry("Finish updateCaches");
             GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceCaching, "finish caching " + cacheIndex.ToString());
             return 0;
+        }
+
+        //-------------------------------------------------------------------------
+        // export and import with exiv2
+        //-------------------------------------------------------------------------
+
+        // export image as binary into .exv
+        public static int exportImageBinary(string fullFileName)
+        {
+            string errorText = "";
+            int status;
+            status = exiv2Extract(fullFileName, ref errorText);
+            return status;
+        }
+
+        // import into image as binary from .exv
+        public static int importImageBinary(string fullFileName)
+        {
+            string errorText = "";
+            int status;
+            status = exiv2Insert(fullFileName, ref errorText);
+            return status;
         }
     }
 }

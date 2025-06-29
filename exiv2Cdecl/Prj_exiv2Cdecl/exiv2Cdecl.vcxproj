@@ -236,6 +236,7 @@
     <ClInclude Include="..\Src_exiv2_src\crwimage_int.hpp" />
     <ClInclude Include="..\Src_exiv2_src\enforce.hpp" />
     <ClInclude Include="..\Src_exiv2_src\exiv2lib_export.h" />
+    <ClInclude Include="..\Src_exiv2_src\exiv2\actions.hpp" />
     <ClInclude Include="..\Src_exiv2_src\exiv2\app_utils.hpp" />
     <ClInclude Include="..\Src_exiv2_src\exiv2\asfvideo.hpp" />
     <ClInclude Include="..\Src_exiv2_src\exiv2\basicio.hpp" />
@@ -395,6 +396,7 @@
     <ClCompile Include="..\Src_brotli\enc\static_dict.c" />
     <ClCompile Include="..\Src_brotli\enc\utf8_util.c" />
     <ClCompile Include="..\Src_brotli\tools\brotli.c" />
+    <ClCompile Include="..\Src_exiv2_src\actions.cpp" />
     <ClCompile Include="..\Src_exiv2_src\app_utils.cpp" />
     <ClCompile Include="..\Src_exiv2_src\asfvideo.cpp" />
     <ClCompile Include="..\Src_exiv2_src\basicio.cpp" />

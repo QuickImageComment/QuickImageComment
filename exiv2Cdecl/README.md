@@ -76,6 +76,8 @@ When installing new version of Python, ensure to include pip.
 
 * Update version (#define VERSION ...)
 
+* check copied sources in block "Export/extract to .exv, import/insert from .exv"
+
 ----------------------------------------------------------------
 ### properties.cpp
 

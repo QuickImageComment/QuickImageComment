@@ -14,6 +14,7 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
+#include "actions.hpp"
 #include "image.hpp"
 #include "exif.hpp"
 #include "exiv2app.hpp"
@@ -24,15 +25,18 @@
 #include "makernote_int.hpp"
 #include "makernote_int_add.hpp"
 #include "properties.hpp"
+#include <fcntl.h>
 #include <wtypes.h>
 #include <fstream>
 #include <windows.h>
 #include <shlobj.h> // For SHGetFolderPath
 #include <ShlObj_core.h>
+#include <stdio.h>
+#include <io.h>
 
 //#define TRACING 200
 
-constexpr auto VERSION = "0.28.5.1";
+constexpr auto VERSION = "0.28.5.2";
 
 // NOTE: must match definition in ConfigDefinition.cs
 const char* exiv2_exception_file = "\\QIC_exiv2_exception.txt";
@@ -1180,9 +1184,200 @@ extern "C" __declspec(dllexport) float __cdecl exiv2floatValue(LPSTR tagName, LP
 }
 
 //-------------------------------------------------------------------------
+// Export/extract to .exv, import/insert from .exv
+// Some methods are copied from exiv2.cpp, which contains the main program
+// so exiv2.cpp cannot be added to this project without modifications.
+// As only a few methods are used, it is easier to copy them to here
+// instead of copy exiv2.cpp and modify the code when a new version is 
+// available.
+//-------------------------------------------------------------------------
+// copied from exiv2
+constexpr auto emptyYodAdjust_ = std::array{
+    Params::YodAdjust{false, "-Y", 0},
+    Params::YodAdjust{false, "-O", 0},
+    Params::YodAdjust{false, "-D", 0},
+};
+
+// copied from exiv2
+Params& Params::instance() {
+    static Params instance_;
+    return instance_;
+}
+
+// copied from exiv2
+Params::Params() :
+    optstring_(":hVvqfbuktTFa:Y:O:D:r:p:P:d:e:i:c:m:M:l:S:g:K:n:Q:"),
+    target_(ctExif | ctIptc | ctComment | ctXmp),
+    yodAdjust_(emptyYodAdjust_),
+    format_("%Y%m%d_%H%M%S") {
+}
+
+// copied from exiv2
+static size_t readFileToBuf(FILE* f, Exiv2::DataBuf& buf) {
+    const int buff_size = 4 * 1028;
+    std::vector<Exiv2::byte> bytes(buff_size);
+    size_t nBytes = 0;
+    bool more{ true };
+    std::array<char, buff_size> buff;
+    while (more) {
+        auto n = fread(buff.data(), 1, buff_size, f);
+        more = n > 0;
+        if (more) {
+            bytes.resize(nBytes + n);
+            std::copy_n(buff.begin(), n, bytes.begin() + nBytes);
+            nBytes += n;
+        }
+    }
+
+    if (nBytes) {
+        buf.alloc(nBytes);
+        std::copy(bytes.begin(), bytes.end(), buf.begin());
+    }
+    return nBytes;
+}
+
+// copied from exiv2.cpp
+void Params::getStdin(Exiv2::DataBuf& buf) {
+    // copy stdin to stdinBuf
+    if (stdinBuf.empty()) {
+#if defined(_WIN32)
+        DWORD fdwMode;
+        _setmode(fileno(stdin), O_BINARY);
+        Sleep(300);
+        if (!GetConsoleMode(GetStdHandle(STD_INPUT_HANDLE), &fdwMode)) {  // failed: stdin has bytes!
+#else
+        // http://stackoverflow.com/questions/34479795/make-c-not-wait-for-user-input/34479916#34479916
+        fd_set readfds;
+        FD_ZERO(&readfds);
+        FD_SET(STDIN_FILENO, &readfds);
+        timeval timeout = { 1, 0 };  // yes: set timeout seconds,microseconds
+
+        // if we have something in the pipe, read it
+        if (select(1, &readfds, nullptr, nullptr, &timeout)) {
+#endif
+#ifdef DEBUG
+            std::cerr << "stdin has data" << '\n';
+#endif
+            readFileToBuf(stdin, stdinBuf);
+        }
+#ifdef DEBUG
+        // this is only used to simulate reading from stdin when debugging
+        // to simulate exiv2 -pX foo.jpg                | exiv2 -iXX- bar.jpg
+        //             exiv2 -pX foo.jpg > ~/temp/stdin ; exiv2 -iXX- bar.jpg
+        if (stdinBuf.empty()) {
+            const char* path = "/Users/rmills/temp/stdin";
+            FILE* f = fopen(path, "rb");
+            if (f) {
+                readFileToBuf(f, stdinBuf);
+                fclose(f);
+                std::cerr << "read stdin from " << path << '\n';
+            }
+        }
+#endif
+#ifdef DEBUG
+        std::cerr << "getStdin stdinBuf.size_ = " << stdinBuf.size() << '\n';
+#endif
+    }
+
+    // copy stdinBuf to buf
+    if (!stdinBuf.empty()) {
+        buf.alloc(stdinBuf.size());
+        std::copy(stdinBuf.begin(), stdinBuf.end(), buf.begin());
+    }
+#ifdef DEBUG
+    std::cerr << "getStdin stdinBuf.size_ = " << stdinBuf.size() << '\n';
+#endif
+
+}  // Params::getStdin()
+
+// copied from exv2.cpp
+// needed to avoid link error, but is not called, so reduced to an empty frame
+int Params::option(int opt, const std::string & optArg, int optOpt) {
+    int rc = 0;
+    return rc;
+}
+
+// copied from exv2.cpp
+// needed to avoid link error, but is not called, so reduced to an empty frame
+int Params::nonoption(const std::string & argv) {
+    int rc = 0;
+    return rc;
+}
+
+// own method to extract meta data to .exv
+extern "C" __declspec(dllexport) int __cdecl exiv2Extract(LPSTR fileName, LPSTR * errorText)
+{
+    // set file name used fundamental exception handling 
+    imageFileName = fileName;
+
+    *errorText = strdup("");
+
+    try
+    {
+        std::string file = fileName;
+        auto target = static_cast<Params::CommonTarget>(0);
+        Params& params = Params::instance();
+        params.action_ = Action::extract;
+        Params::CommonTarget all = Params::ctExif | Params::ctIptc | Params::ctComment | Params::ctXmp;
+        params.target_ |= all;
+        params.force_ = true;
+        params.fileExistsPolicy_ = Params::FileExistsPolicy::overwritePolicy;
+
+        auto task = Action::TaskFactory::instance().create(static_cast<Action::TaskType>(params.action_));
+
+        task->setBinary(params.binary_);
+        int ret = task->run(file);
+        return 0;
+    }
+    catch (Exiv2::Error& e) {
+        *errorText = strdup(e.what());
+        return exiv2StatusException;
+    }
+    catch (std::exception ex) {
+        writeFundamentalExceptionToFileAndTerminate(ex, __FILE__, __LINE__);
+        // to avoid compiler warning "not all control paths return a value"
+        return 0;
+    }
+}
+
+// own method to insert meta data from .exv
+extern "C" __declspec(dllexport) int __cdecl exiv2Insert(LPSTR fileName, LPSTR * errorText)
+{
+    // set file name used fundamental exception handling 
+    imageFileName = fileName;
+
+    *errorText = strdup("");
+
+    try
+    {
+        std::string file = fileName;
+        auto target = static_cast<Params::CommonTarget>(0);
+        Params& params = Params::instance();
+        params.action_ = Action::insert;
+        Params::CommonTarget all = Params::ctExif | Params::ctIptc | Params::ctComment | Params::ctXmp;
+        params.target_ |= all;
+
+        auto task = Action::TaskFactory::instance().create(static_cast<Action::TaskType>(params.action_));
+
+        task->setBinary(params.binary_);
+        int ret = task->run(file);
+        return 0;
+    }
+    catch (Exiv2::Error& e) {
+        *errorText = strdup(e.what());
+        return exiv2StatusException;
+    }
+    catch (std::exception ex) {
+        writeFundamentalExceptionToFileAndTerminate(ex, __FILE__, __LINE__);
+        // to avoid compiler warning "not all control paths return a value"
+        return 0;
+    }
+}
+
+//-------------------------------------------------------------------------
 // get version
 //-------------------------------------------------------------------------
-extern "C" __declspec(dllexport) void __cdecl exiv2getVersion(LPSTR* version) {
+extern "C" __declspec(dllexport) void __cdecl exiv2getVersion(LPSTR * version) {
     char tempVersion[38];
     strcpy(tempVersion, VERSION);
 #ifdef _WIN64

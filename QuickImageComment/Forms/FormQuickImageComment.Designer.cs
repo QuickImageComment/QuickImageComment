@@ -227,6 +227,7 @@ namespace QuickImageComment
             this.toolStripMenuItemGitHub = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemTutorials = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemHelp2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemTroubleShooting = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemDataPrivacy = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemDonate = new System.Windows.Forms.ToolStripMenuItem();
             this.BottomToolStripPanel = new System.Windows.Forms.ToolStripPanel();
@@ -264,7 +265,9 @@ namespace QuickImageComment
             this.toolStripButtonFind = new System.Windows.Forms.ToolStripButton();
             this.toolTip1 = new QuickImageComment.ToolTipQIC();
             this.theFolderTreeView = new QuickImageCommentControls.ShellTreeViewQIC();
-            this.toolStripMenuItemTroubleShooting = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemBinaryExportAllProp = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemBinaryImportAllProp = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator20 = new System.Windows.Forms.ToolStripSeparator();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer12)).BeginInit();
             this.splitContainer12.Panel1.SuspendLayout();
             this.splitContainer12.Panel2.SuspendLayout();
@@ -1140,6 +1143,9 @@ namespace QuickImageComment
             this.toolStripSeparator5,
             this.toolStripMenuItemTextExportSelectedProp,
             this.toolStripMenuItemTextExportAllProp,
+            this.toolStripMenuItemBinaryExportAllProp,
+            this.toolStripMenuItemBinaryImportAllProp,
+            this.toolStripSeparator20,
             this.toolStripMenuItemSetFileDateToDateGenerated,
             this.toolStripMenuItemEnd});
             this.toolStripMenuItemFile.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -2064,6 +2070,13 @@ namespace QuickImageComment
             this.toolStripMenuItemHelp2.Text = "Hilfe";
             this.toolStripMenuItemHelp2.Click += new System.EventHandler(this.toolStripMenuItemHelp2_Click);
             // 
+            // toolStripMenuItemTroubleShooting
+            // 
+            this.toolStripMenuItemTroubleShooting.Name = "toolStripMenuItemTroubleShooting";
+            this.toolStripMenuItemTroubleShooting.Size = new System.Drawing.Size(229, 22);
+            this.toolStripMenuItemTroubleShooting.Text = "Problembehandlung";
+            this.toolStripMenuItemTroubleShooting.Click += new System.EventHandler(this.toolStripMenuItemTroubleShooting_Click);
+            // 
             // toolStripMenuItemDataPrivacy
             // 
             this.toolStripMenuItemDataPrivacy.Name = "toolStripMenuItemDataPrivacy";
@@ -2496,12 +2509,24 @@ namespace QuickImageComment
             this.theFolderTreeView.Size = new System.Drawing.Size(253, 147);
             this.theFolderTreeView.TabIndex = 0;
             // 
-            // toolStripMenuItemTroubleShooting
+            // toolStripMenuItemBinaryExportAllProp
             // 
-            this.toolStripMenuItemTroubleShooting.Name = "toolStripMenuItemTroubleShooting";
-            this.toolStripMenuItemTroubleShooting.Size = new System.Drawing.Size(229, 22);
-            this.toolStripMenuItemTroubleShooting.Text = "Problembehandlung";
-            this.toolStripMenuItemTroubleShooting.Click += new System.EventHandler(this.toolStripMenuItemTroubleShooting_Click);
+            this.toolStripMenuItemBinaryExportAllProp.Name = "toolStripMenuItemBinaryExportAllProp";
+            this.toolStripMenuItemBinaryExportAllProp.Size = new System.Drawing.Size(343, 22);
+            this.toolStripMenuItemBinaryExportAllProp.Text = "Binärer Export aller Eigenschaften der markierten Bilder";
+            this.toolStripMenuItemBinaryExportAllProp.Click += new System.EventHandler(this.toolStripMenuItemBinaryExportAllProp_Click);
+            // 
+            // toolStripMenuItemBinaryImportAllProp
+            // 
+            this.toolStripMenuItemBinaryImportAllProp.Name = "toolStripMenuItemBinaryImportAllProp";
+            this.toolStripMenuItemBinaryImportAllProp.Size = new System.Drawing.Size(343, 22);
+            this.toolStripMenuItemBinaryImportAllProp.Text = "Binärer Import aller Eigenschaften der markierten Bilder";
+            this.toolStripMenuItemBinaryImportAllProp.Click += new System.EventHandler(this.toolStripMenuItemBinaryImportAllProp_Click);
+            // 
+            // toolStripSeparator20
+            // 
+            this.toolStripSeparator20.Name = "toolStripSeparator20";
+            this.toolStripSeparator20.Size = new System.Drawing.Size(340, 6);
             // 
             // FormQuickImageComment
             // 
@@ -2814,5 +2839,8 @@ namespace QuickImageComment
         internal System.Windows.Forms.ToolStripMenuItem toolStripMenuItemSortComment;
         private System.Windows.Forms.SplitContainer splitContainer1213;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemTroubleShooting;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemBinaryExportAllProp;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemBinaryImportAllProp;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator20;
     }
 }

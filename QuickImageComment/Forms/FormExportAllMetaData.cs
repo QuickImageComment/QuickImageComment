@@ -25,20 +25,36 @@ namespace QuickImageComment
     {
         // definitions used with background worker
         // used to show passed time when exporting meta data
-        private DateTime startTime;
+        private readonly DateTime startTime;
         // used to reduce counts of refresh when reading folder
-        private DateTime lastCall = DateTime.Now;
+        private readonly DateTime lastCall = DateTime.Now;
         private int exportedCount;
-        private Cursor OldCursor;
+        private readonly Cursor OldCursor;
 
-        private int[] listViewFilesSelectedIndices;
-        private string ExportExtension = "";
+        private readonly int[] listViewFilesSelectedIndices;
+        private readonly string ExportExtension = "";
 
         private const long minTimePassedForRemCalc = 2;
 
-        public FormExportAllMetaData(ListView.SelectedIndexCollection SelectedIndices, string FolderName)
+        public enum enumExImPortMode
         {
+            TextExport,
+            BinaryExport,
+            BinaryImport
+        }
+
+        private readonly enumExImPortMode exImPortMode;
+        private readonly ArrayList FilesToExportName = new ArrayList();
+        private readonly ArrayList FilesToExportIdx = new ArrayList();
+        private readonly ArrayList FilesExportedName = new ArrayList();
+        private readonly ArrayList FilesExportedIdx = new ArrayList();
+        
+        public FormExportAllMetaData(ListView.SelectedIndexCollection SelectedIndices, string FolderName, enumExImPortMode exImPortMode)
+        {
+            string fullFileName;
+
             InitializeComponent();
+            this.exImPortMode = exImPortMode;
             MainMaskInterface.getCustomizationInterface().setFormToCustomizedValuesZoomInitial(this);
 #if APPCENTER
             if (Program.AppCenterUsable) Microsoft.AppCenter.Analytics.Analytics.TrackEvent(this.Name);
@@ -67,7 +83,14 @@ namespace QuickImageComment
             listViewFilesSelectedIndices = new int[SelectedIndices.Count];
             SelectedIndices.CopyTo(listViewFilesSelectedIndices, 0);
 
-            ExportExtension = GeneralUtilities.inputBox(LangCfg.Message.Q_filExtensionForExport, "txt");
+            if (exImPortMode == enumExImPortMode.TextExport)
+            {
+                ExportExtension = GeneralUtilities.inputBox(LangCfg.Message.Q_filExtensionForExport, "txt");
+            }
+            else
+            {
+                ExportExtension = ".exv";
+            }
             if (!ExportExtension.Equals(""))
             {
                 startTime = DateTime.Now;
@@ -92,6 +115,63 @@ namespace QuickImageComment
                 dynamicLabelChosenFolderCount.Text = listViewFilesSelectedIndices.Length.ToString();
                 this.Show();
 
+                // check which files are exported
+                // one reason to do it here and not in backgroundworker:
+                // calling questionMessageYesNoCancel in backgroundworker left message box sometimes hidden
+                for (int ii = 0; ii < listViewFilesSelectedIndices.Length; ii++)
+                {
+                    fullFileName = MainMaskInterface.getFullFileName(listViewFilesSelectedIndices[ii]);
+                    string exportFile = GeneralUtilities.additionalFileName(fullFileName, ExportExtension);
+                    if (File.Exists(exportFile))
+                    {
+                        FilesExportedName.Add(fullFileName);
+                        FilesExportedIdx.Add(listViewFilesSelectedIndices[ii]);
+                    }
+                    else
+                    {
+                        FilesToExportName.Add(fullFileName);
+                        FilesToExportIdx.Add(listViewFilesSelectedIndices[ii]);
+                    }
+                }
+
+                // export: some export files exist, ask user if they should be overwritten
+                if (exImPortMode != enumExImPortMode.BinaryImport && FilesExportedName.Count > 0)
+                {
+                    string fileNames = "";
+                    foreach (string file in FilesExportedName)
+                    {
+                        fileNames += "\r\n" + file;
+                    }
+                    DialogResult answer = GeneralUtilities.questionMessageYesNoCancel(LangCfg.Message.Q_overwriteExportFile, fileNames);
+                    if (answer == DialogResult.Cancel)
+                    {
+                        Close();
+                        return;
+                    }
+                    else if (answer == DialogResult.Yes)
+                    {
+                        // add already exported files to files to be exported
+                        FilesToExportName.AddRange(FilesExportedName);
+                        FilesToExportIdx.AddRange(FilesExportedIdx);
+                    }
+                }
+
+                // import: some export files do not exist, ask user to continue or cancel
+                if (exImPortMode == enumExImPortMode.BinaryImport && FilesToExportName.Count > 0)
+                {
+                    string fileNames = "";
+                    foreach (string file in FilesToExportName)
+                    {
+                        fileNames += "\r\n" + file;
+                    }
+                    DialogResult answer = GeneralUtilities.questionMessage(LangCfg.Message.Q_missingExvFiles, fileNames);
+                    if (answer == DialogResult.No)
+                    {
+                        Close();
+                        return;
+                    }
+                }
+
                 // Start the asynchronous operation.
                 backgroundWorker1.RunWorkerAsync();
             }
@@ -99,11 +179,33 @@ namespace QuickImageComment
 
         private void backgroundWorker1_DoWork(object sender, System.ComponentModel.DoWorkEventArgs doWorkEventArgs)
         {
+            string fullFileName;
+            int idx;
+
             System.ComponentModel.BackgroundWorker worker = sender as System.ComponentModel.BackgroundWorker;
 
             for (exportedCount = 0; exportedCount < listViewFilesSelectedIndices.Length; exportedCount++)
             {
-                exportPropertiesOfImage(listViewFilesSelectedIndices[exportedCount]);
+                idx = listViewFilesSelectedIndices[exportedCount];
+                fullFileName = MainMaskInterface.getFullFileName(idx);
+                switch (exImPortMode)
+                {
+                    case enumExImPortMode.TextExport:
+                        if (FilesToExportIdx.Contains(idx))
+                            exportPropertiesOfImage(idx);
+                        break;
+                    case enumExImPortMode.BinaryExport:
+                        if (FilesToExportName.Contains(fullFileName))
+                            ImageManager.exportImageBinary(fullFileName);
+                        break;
+                    case enumExImPortMode.BinaryImport:
+                        if (FilesExportedName.Contains(fullFileName))
+                            ImageManager.importImageBinary(fullFileName);
+                        break;
+                    default:
+                        GeneralUtilities.debugMessage("Export/Import mode " + exImPortMode.ToString() + " not handled!");
+                        return;
+                }
                 if (worker.CancellationPending == true)
                 {
                     doWorkEventArgs.Cancel = true;

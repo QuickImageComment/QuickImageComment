@@ -219,7 +219,9 @@ namespace QuickImageComment
             I_changeArtistCombined,
             I_changeCommentCombined,
             I_IptcKeyWordsString,
-            W_nominatimInvalidParameter
+            W_nominatimInvalidParameter,
+            Q_overwriteExportFile,
+            Q_missingExvFiles
         }
 
         public enum Others

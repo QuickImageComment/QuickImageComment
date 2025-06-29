@@ -1437,7 +1437,7 @@ namespace QuickImageComment
                 if (sender == theUserControlChangeableFields.getInputControlOrientation())
                 {
                     string[] SubValues = ((Control)sender).Text.Split(' ');
-                    if (SubValues.Length > 0)
+                    if (SubValues.Length > 0 && !SubValues[0].Trim().Equals(""))
                     {
                         int orientation = int.Parse(SubValues[0]);
                         rotateImageToNewOrientation(orientation);
@@ -2997,10 +2997,35 @@ namespace QuickImageComment
         private void toolStripMenuItemTextExportAllProp_Click(object sender, EventArgs e)
         {
             // lock although it could take longer until action is finished, because without lock 
-            // other files than selected might be exported if ShellListener is modifies the file list 
+            // other files than selected might be exported if ShellListener modifies the file list 
             lock (UserControlFiles.LockListViewFiles)
             {
-                FormExportAllMetaData theFormExportAllMetaData = new FormExportAllMetaData(theUserControlFiles.listViewFiles.SelectedIndices, FolderName);
+                FormExportAllMetaData theFormExportAllMetaData = new FormExportAllMetaData(theUserControlFiles.listViewFiles.SelectedIndices, 
+                    FolderName, FormExportAllMetaData.enumExImPortMode.TextExport);
+            }
+        }
+
+        // binary export of all properties of selected images
+        private void toolStripMenuItemBinaryExportAllProp_Click(object sender, EventArgs e)
+        {
+            // lock although it could take longer until action is finished, because without lock 
+            // other files than selected might be exported if ShellListener modifies the file list 
+            lock (UserControlFiles.LockListViewFiles)
+            {
+                FormExportAllMetaData theFormExportAllMetaData = new FormExportAllMetaData(theUserControlFiles.listViewFiles.SelectedIndices, 
+                    FolderName, FormExportAllMetaData.enumExImPortMode.BinaryExport);
+            }
+        }
+
+        // binary import of all properties of selected images
+        private void toolStripMenuItemBinaryImportAllProp_Click(object sender, EventArgs e)
+        {
+            // lock although it could take longer until action is finished, because without lock 
+            // other files than selected might be exported if ShellListener modifies the file list 
+            lock (UserControlFiles.LockListViewFiles)
+            {
+                FormExportAllMetaData theFormExportAllMetaData = new FormExportAllMetaData(theUserControlFiles.listViewFiles.SelectedIndices,
+                    FolderName, FormExportAllMetaData.enumExImPortMode.BinaryImport);
             }
         }
 
@@ -6874,7 +6899,7 @@ namespace QuickImageComment
                 // FormDonate not needed
                 new FormEditExternal();
                 // FormError not needed
-                new FormExportAllMetaData(theUserControlFiles.listViewFiles.SelectedIndices, FolderName);
+                new FormExportAllMetaData(theUserControlFiles.listViewFiles.SelectedIndices, FolderName, FormExportAllMetaData.enumExImPortMode.TextExport);
                 new FormExportMetaData(FolderName);
                 FormFind formFind = new FormFind(true);
                 formFind.createScreenShot();
@@ -6978,7 +7003,7 @@ namespace QuickImageComment
             LangCfg.getListOfControlsWithText(new FormDonate(), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormEditExternal(), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormError("", "", "", true), ControlTextList);
-            LangCfg.getListOfControlsWithText(new FormExportAllMetaData(theUserControlFiles.listViewFiles.SelectedIndices, FolderName), ControlTextList);
+            LangCfg.getListOfControlsWithText(new FormExportAllMetaData(theUserControlFiles.listViewFiles.SelectedIndices, FolderName, FormExportAllMetaData.enumExImPortMode.TextExport), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormExportMetaData(FolderName), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormFind(true), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormFindQuery(new ArrayList(), "", new FormFind(true)), ControlTextList);
@@ -7051,7 +7076,7 @@ namespace QuickImageComment
             new FormDonate();
             new FormEditExternal();
             new FormError("", "", "", true);
-            new FormExportAllMetaData(theUserControlFiles.listViewFiles.SelectedIndices, FolderName);
+            new FormExportAllMetaData(theUserControlFiles.listViewFiles.SelectedIndices, FolderName, FormExportAllMetaData.enumExImPortMode.TextExport);
             new FormExportMetaData(FolderName);
             new FormFind(true);
             new FormFindQuery(new ArrayList(), "", new FormFind(true));
