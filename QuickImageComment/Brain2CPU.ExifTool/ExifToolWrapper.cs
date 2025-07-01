@@ -168,7 +168,7 @@ namespace Brain2CPU.ExifTool
             _proc.StandardInput.AutoFlush = true;
 
             _waitHandle.Reset();
-            _proc.StandardInput.Write("-ver\n-execute0000\n");
+            _proc.StandardInput.Write("-ver\n-execute0\n");
             _waitHandle.WaitOne();
 
             Status = ExeStatus.Ready;
