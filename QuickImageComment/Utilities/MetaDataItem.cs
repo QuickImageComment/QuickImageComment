@@ -57,6 +57,7 @@ namespace QuickImageComment
                                                          "charset=\"undefined\" " };
 
         private string key;
+        private string ExifToolID;
         private long tag;
         private string typeName;
         private string language;
@@ -65,6 +66,25 @@ namespace QuickImageComment
         private string valueString;
         private string interpretedString;
         private float valueFloat;
+
+        public MetaDataItem(
+          string givenExifToolID,
+          string givenKey,
+          long givenTag,
+          string givenTypeName,
+          string givenInterpretedString)
+        {
+            ExifToolID = givenExifToolID;
+            key = givenKey;
+            tag = givenTag;
+            typeName = givenTypeName;
+            count = -1;
+            size = -1;
+            valueString = "";
+            interpretedString = givenInterpretedString;
+            valueFloat = -1.0F;
+            language = "";
+        }
 
         public MetaDataItem(
           string givenKey,
@@ -76,6 +96,7 @@ namespace QuickImageComment
           string givenInterpretedString,
           float givenValueFloat)
         {
+            ExifToolID = null;
             key = givenKey;
             tag = givenTag;
             typeName = givenTypeName;
@@ -98,6 +119,7 @@ namespace QuickImageComment
           float givenValueFloat,
           string givenLanguage)
         {
+            ExifToolID = null;
             key = givenKey;
             tag = givenTag;
             typeName = givenTypeName;
@@ -271,6 +293,12 @@ namespace QuickImageComment
                         if (typeName.Equals("LangAlt"))
                         {
                             return OriginalValue;
+                        }
+                        else if (ExifToolID != null)
+                        {
+                            // ExifTool can give either original or interpreted, not both together
+                            // decision is to use only interpreted, original is not filled
+                            return InterpretedValue;
                         }
                         else if (OriginalValue.Equals(InterpretedValue))
                         {

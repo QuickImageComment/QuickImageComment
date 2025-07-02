@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading;
-using System.Linq;
 
 namespace Brain2CPU.ExifTool
 {
@@ -33,19 +33,19 @@ namespace Brain2CPU.ExifTool
 
     public sealed class ExifToolWrapper : IDisposable
     {
-        public string ExifToolPath    { get; }
+        public string ExifToolPath { get; }
         public string ExifToolVersion { get; private set; }
 
-        private  const string ExeName         = "exiftool(-k).exe";
-        private  const string Arguments       = "-fast  -m -q -q -stay_open True -@ - -common_args -d \"%Y.%m.%d %H:%M:%S\" -c \"%d %d %.6f\" -t";   //-g for groups
-        private  const string ArgumentsFaster = "-fast2 -m -q -q -stay_open True -@ - -common_args -d \"%Y.%m.%d %H:%M:%S\" -c \"%d %d %.6f\" -t";
-        private  const string ExitMessage     = "-- press RETURN --";
-        internal const string SuccessMessage  = "1 image files updated";
+        private const string ExeName = "exiftool(-k).exe";
+        private const string Arguments = "-fast  -m -q -q -stay_open True -@ - -common_args -d \"%Y:%m:%d %H:%M:%S\" -c \"%d %d %.6f\" -t";
+        private const string ArgumentsFaster = "-fast2 -m -q -q -stay_open True -@ - -common_args -d \"%Y:%m:%d %H:%M:%S\" -c \"%d %d %.6f\" -t";
+        private const string ExitMessage = "-- press RETURN --";
+        internal const string SuccessMessage = "1 image files updated";
 
         //-fast2 also causes exiftool to avoid extracting any EXIF MakerNote information
 
         public double SecondsToWaitForError { get; set; } = 1;
-        public double SecondsToWaitForStop  { get; set; } = 5;
+        public double SecondsToWaitForStop { get; set; } = 5;
 
         public enum ExeStatus { Stopped, Starting, Ready, Stopping }
         public ExeStatus Status { get; private set; }
@@ -60,7 +60,7 @@ namespace Brain2CPU.ExifTool
 
         private int _cmdCnt = 0;
         private readonly StringBuilder _output = new StringBuilder();
-        private readonly StringBuilder _error  = new StringBuilder();
+        private readonly StringBuilder _error = new StringBuilder();
 
         private readonly ProcessStartInfo _psi;
         private Process _proc = null;
@@ -70,9 +70,9 @@ namespace Brain2CPU.ExifTool
 
         public ExifToolWrapper(string path = null, bool faster = false)
         {
-            if(string.IsNullOrEmpty(path))
+            if (string.IsNullOrEmpty(path))
             {
-                if(File.Exists(ExeName)) //in current directory
+                if (File.Exists(ExeName)) //in current directory
                     ExifToolPath = Path.GetFullPath(ExeName);
                 else
                 {
@@ -81,7 +81,7 @@ namespace Brain2CPU.ExifTool
                         string dir = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
                         ExifToolPath = Path.Combine(dir, ExeName);
                     }
-                    catch(Exception xcp)
+                    catch (Exception xcp)
                     {
                         Debug.WriteLine(xcp.ToString());
                         ExifToolPath = ExeName;
@@ -91,7 +91,7 @@ namespace Brain2CPU.ExifTool
             else
                 ExifToolPath = path;
 
-            if(!File.Exists(ExifToolPath))
+            if (!File.Exists(ExifToolPath))
                 throw new ExifToolException($"{ExeName} not found");
 
             _psi = new ProcessStartInfo
@@ -110,10 +110,10 @@ namespace Brain2CPU.ExifTool
 
         private void OutputDataReceived(object sender, DataReceivedEventArgs e)
         {
-            if(string.IsNullOrEmpty(e?.Data))
+            if (string.IsNullOrEmpty(e?.Data))
                 return;
 
-            if(Status == ExeStatus.Starting)
+            if (Status == ExeStatus.Starting)
             {
                 ExifToolVersion = e.Data;
                 _waitHandle.Set();
@@ -121,7 +121,7 @@ namespace Brain2CPU.ExifTool
                 return;
             }
 
-            if(string.Equals(e.Data, $"{{ready{_cmdCnt}}}", StringComparison.OrdinalIgnoreCase))
+            if (string.Equals(e.Data, $"{{ready{_cmdCnt}}}", StringComparison.OrdinalIgnoreCase))
             {
                 _waitHandle.Set();
 
@@ -134,10 +134,10 @@ namespace Brain2CPU.ExifTool
         //the error message has no 'ready' or other terminator so we must assume it has a single line (or it is received fast enough)
         private void ErrorDataReceived(object sender, DataReceivedEventArgs e)
         {
-            if(string.IsNullOrEmpty(e?.Data))
+            if (string.IsNullOrEmpty(e?.Data))
                 return;
 
-            if(string.Equals(e.Data, ExitMessage, StringComparison.OrdinalIgnoreCase))
+            if (string.Equals(e.Data, ExitMessage, StringComparison.OrdinalIgnoreCase))
             {
                 _proc?.StandardInput.WriteLine();
 
@@ -152,7 +152,7 @@ namespace Brain2CPU.ExifTool
         {
             _stopRequested = false;
 
-            if(Status != ExeStatus.Stopped)
+            if (Status != ExeStatus.Stopped)
                 throw new ExifToolException("Process is not stopped");
 
             Status = ExeStatus.Starting;
@@ -177,7 +177,7 @@ namespace Brain2CPU.ExifTool
         //detect if process was killed
         private void ProcExited(object sender, EventArgs e)
         {
-            if(_proc != null)
+            if (_proc != null)
             {
                 _proc.Dispose();
                 _proc = null;
@@ -187,7 +187,7 @@ namespace Brain2CPU.ExifTool
 
             _waitHandle.Set();
 
-            if(!_stopRequested && Resurrect)
+            if (!_stopRequested && Resurrect)
                 Start();
         }
 
@@ -195,7 +195,7 @@ namespace Brain2CPU.ExifTool
         {
             _stopRequested = true;
 
-            if(Status != ExeStatus.Ready)
+            if (Status != ExeStatus.Ready)
                 throw new ExifToolException("Process must be ready");
 
             Status = ExeStatus.Stopping;
@@ -203,9 +203,9 @@ namespace Brain2CPU.ExifTool
             _waitHandle.Reset();
             _proc.StandardInput.Write("-stay_open\nFalse\n");
             
-            if(!_waitHandle.WaitOne(TimeSpan.FromSeconds(SecondsToWaitForStop)))
+            if (!_waitHandle.WaitOne(TimeSpan.FromSeconds(SecondsToWaitForStop)))
             {
-                if(_proc != null)
+                if (_proc != null)
                 {
                     try
                     {
@@ -213,7 +213,7 @@ namespace Brain2CPU.ExifTool
                         _proc.WaitForExit((int)(1000 * SecondsToWaitForStop / 2));
                         _proc.Dispose();
                     }
-                    catch(Exception xcp)
+                    catch (Exception xcp)
                     {
                         Debug.WriteLine(xcp.ToString());
                     }
@@ -244,7 +244,7 @@ namespace Brain2CPU.ExifTool
             var argFile = Path.GetTempFileName();
             try
             {
-                using(var sw = new StreamWriter(argFile))
+                using (var sw = new StreamWriter(argFile))
                 {
                     sw.WriteLine(args.Length == 0 ? cmd : string.Format(cmd, args), _cmdCnt);
                 }
@@ -262,22 +262,22 @@ namespace Brain2CPU.ExifTool
         
         private ExifToolResponse SendCommand(CommunicationMethod method, string cmd, params object[] args)
         {
-            if(Status != ExeStatus.Ready)
+            if (Status != ExeStatus.Ready)
                 throw new ExifToolException("Process must be ready");
 
             ExifToolResponse resp;
-            lock(_lockObj)
+            lock (_lockObj)
             {
                 _waitHandle.Reset();
                 _waitForErrorHandle.Reset();
 
-                if(method == CommunicationMethod.ViaFile)
+                if (method == CommunicationMethod.ViaFile)
                     SendViaFile(cmd, args);
                 else
                     DirectSend(cmd, args);
 
                 //if no output then probably there is an error, so wait at most SecondsToWaitForError for the error message to arrive 
-                if(_output.Length == 0)
+                if (_output.Length == 0)
                 {
                     _waitForErrorHandle.WaitOne(TimeSpan.FromSeconds(SecondsToWaitForError));
                     resp = new ExifToolResponse(false, _error.ToString());
@@ -292,11 +292,11 @@ namespace Brain2CPU.ExifTool
                 _cmdCnt++;
             }
 
-            if(!resp.IsSuccess && method == CommunicationMethod.Auto)
+            if (!resp.IsSuccess && method == CommunicationMethod.Auto)
             {
                 string err = resp.Result.ToLowerInvariant();
 
-                if(err.Contains("file not found") || err.Contains("invalid filename encoding"))
+                if (err.Contains("file not found") || err.Contains("invalid filename encoding"))
                      return SendCommand(CommunicationMethod.ViaFile, cmd, args);
             }
 
@@ -304,20 +304,20 @@ namespace Brain2CPU.ExifTool
         }
 
         public ExifToolResponse SetExifInto(string path, string key, string val, bool overwriteOriginal = true) =>
-            SetExifInto(path, new Dictionary<string, string> {[key] = val}, overwriteOriginal);
+            SetExifInto(path, new Dictionary<string, string> { [key] = val }, overwriteOriginal);
 
         public ExifToolResponse SetExifInto(string path, Dictionary<string, string> data, bool overwriteOriginal = true)
         {
-            if(!File.Exists(path))
+            if (!File.Exists(path))
                 return new ExifToolResponse(false, $"'{path}' not found");
 
             var cmd = new StringBuilder();
-            foreach(KeyValuePair<string, string> kv in data)
+            foreach (KeyValuePair<string, string> kv in data)
             {
                 cmd.AppendFormat("-{0}={1}\n", kv.Key, kv.Value);
             }
             
-            if(overwriteOriginal)
+            if (overwriteOriginal)
                 cmd.Append("-overwrite_original\n");
             
             cmd.Append(path);
@@ -331,24 +331,24 @@ namespace Brain2CPU.ExifTool
         {
             var res = new Dictionary<string, string>();
 
-            if(!File.Exists(path))
+            if (!File.Exists(path))
                 return res;
 
             var tagsTable = tagsToKeep?.ToDictionary(x => x, x => 1);
             bool filter = tagsTable != null && tagsTable.Count > 0;
             var cmdRes = SendCommand(path);
-            if(!cmdRes)
+            if (!cmdRes)
                 return res;
 
-            foreach(string s in cmdRes.Result.Split(new [] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries))
+            foreach (string s in cmdRes.Result.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries))
             {
                 string[] kv = s.Split('\t');
                 Debug.Assert(kv.Length == 2, $"Can not parse line :'{s}'");
 
-                if(kv.Length != 2 || (!keepKeysWithEmptyValues && string.IsNullOrEmpty(kv[1])))
+                if (kv.Length != 2 || (!keepKeysWithEmptyValues && string.IsNullOrEmpty(kv[1])))
                     continue;
 
-                if(filter && !tagsTable.ContainsKey(kv[0]))
+                if (filter && !tagsTable.ContainsKey(kv[0]))
                     continue;
                     
                 res[kv[0]] = kv[1];
@@ -361,24 +361,24 @@ namespace Brain2CPU.ExifTool
         {
             var res = new List<string>();
 
-            if(!File.Exists(path))
+            if (!File.Exists(path))
                 return res;
 
             var tagsTable = tagsToKeep?.ToDictionary(x => x, x => 1);
             bool filter = tagsTable?.Count > 0;
             var cmdRes = SendCommand(path);
-            if(!cmdRes)
+            if (!cmdRes)
                 return res;
 
-            foreach(string s in cmdRes.Result.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries))
+            foreach (string s in cmdRes.Result.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries))
             {
                 string[] kv = s.Split('\t');
                 Debug.Assert(kv.Length == 2, $"Can not parse line :'{s}'");
 
-                if(kv.Length != 2 || (!keepKeysWithEmptyValues && string.IsNullOrEmpty(kv[1])))
+                if (kv.Length != 2 || (!keepKeysWithEmptyValues && string.IsNullOrEmpty(kv[1])))
                     continue;
 
-                if(filter && !tagsTable.ContainsKey(kv[0]))
+                if (filter && !tagsTable.ContainsKey(kv[0]))
                     continue;
 
                 res.Add($"{kv[0]}{separator}{kv[1]}");
@@ -387,9 +387,28 @@ namespace Brain2CPU.ExifTool
             return res;
         }
 
+        public string FetchExifToStringFrom(string path, string[] args, IEnumerable<string> tagsToKeep = null, bool keepKeysWithEmptyValues = true, string separator = ": ")
+        {
+            var res = new List<string>();
+
+            if (!File.Exists(path))
+                return "";
+
+            var tagsTable = tagsToKeep?.ToDictionary(x => x, x => 1);
+            bool filter = tagsTable?.Count > 0;
+            string cmd = "";
+            for (int ii = 0; ii < args.Length; ii++) cmd += args[ii] + "\n";
+            cmd += path;
+            var cmdRes = SendCommand(cmd);
+            if (!cmdRes)
+                return "";
+            else
+                return cmdRes.Result;
+        }
+
         public ExifToolResponse CloneExif(string source, string dest, bool backup = false)
         {
-            if(!File.Exists(source) || !File.Exists(dest))
+            if (!File.Exists(source) || !File.Exists(dest))
                 return new ExifToolResponse(false, $"'{source}' or '{dest}' not found");
 
             var cmdRes = SendCommand("{0}-tagsFromFile\n{1}\n{2}", backup ? "" : "-overwrite_original\n", source, dest);
@@ -399,7 +418,7 @@ namespace Brain2CPU.ExifTool
 
         public ExifToolResponse ClearExif(string path, bool backup = false)
         {
-            if(!File.Exists(path))
+            if (!File.Exists(path))
                 return new ExifToolResponse(false, $"'{path}' not found");
 
             var cmdRes = SendCommand("{0}-all=\n{1}", backup ? "" : "-overwrite_original\n", path);
@@ -409,14 +428,14 @@ namespace Brain2CPU.ExifTool
 
         public DateTime? GetCreationTime(string path)
         {
-            if(!File.Exists(path))
+            if (!File.Exists(path))
                 return null;
 
             var cmdRes = SendCommand("-DateTimeOriginal\n-s3\n{0}", path);
-            if(!cmdRes)
+            if (!cmdRes)
                 return null;
 
-            if(DateTime.TryParseExact(cmdRes.Result,
+            if (DateTime.TryParseExact(cmdRes.Result,
                 "yyyy.MM.dd HH:mm:ss",
                 CultureInfo.InvariantCulture,
                 DateTimeStyles.AllowWhiteSpaces,
@@ -428,14 +447,14 @@ namespace Brain2CPU.ExifTool
 
         public int GetOrientation(string path)
         {
-            if(!File.Exists(path))
+            if (!File.Exists(path))
                 return 1;
 
             var cmdRes = SendCommand("-Orientation\n-n\n-s3\n{0}", path);
-            if(!cmdRes)
+            if (!cmdRes)
                 return 1;
 
-            if(int.TryParse(cmdRes.Result.Trim('\t', '\r', '\n'), out int o))
+            if (int.TryParse(cmdRes.Result.Trim('\t', '\r', '\n'), out int o))
                 return o;
 
             return 1;
@@ -445,13 +464,13 @@ namespace Brain2CPU.ExifTool
 
         public ExifToolResponse SetOrientation(string path, int ori, bool overwriteOriginal = true)
         {
-            if(!File.Exists(path))
+            if (!File.Exists(path))
                 return new ExifToolResponse(false, $"'{path}' not found");
 
             var cmd = new StringBuilder();
             cmd.AppendFormat("-Orientation={0}\n-n\n-s3\n", ori);
 
-            if(overwriteOriginal)
+            if (overwriteOriginal)
                 cmd.Append("-overwrite_original\n");
 
             cmd.Append(path);
@@ -487,7 +506,7 @@ namespace Brain2CPU.ExifTool
 
         public static int OrientationPos2Deg(int pos)
         {
-            switch(pos)
+            switch (pos)
             {
                 case 8:
                     return 270;
@@ -502,7 +521,7 @@ namespace Brain2CPU.ExifTool
 
         public static int OrientationDeg2Pos(int deg)
         {
-            switch(deg)
+            switch (deg)
             {
                 case 270:
                     return 8;
@@ -517,7 +536,7 @@ namespace Brain2CPU.ExifTool
 
         public static int OrientationString2Deg(string pos)
         {
-            switch(pos)
+            switch (pos)
             {
                 case "Rotate 270 CW":
                     return 270;
@@ -532,7 +551,7 @@ namespace Brain2CPU.ExifTool
 
         public static string OrientationDeg2String(int deg)
         {
-            switch(deg)
+            switch (deg)
             {
                 case 270:
                     return "Rotate 270 CW";
@@ -552,12 +571,12 @@ namespace Brain2CPU.ExifTool
             int newOri = 1;
             int len = OrientationPositions.Length;
 
-            if(steps % len == 0)
+            if (steps % len == 0)
                 return crtOri;
 
-            for(int i = 0; i < len; i++)
+            for (int i = 0; i < len; i++)
             {
-                if(crtOri == OrientationPositions[i])
+                if (crtOri == OrientationPositions[i])
                 {
                     newOri = clockwise
                         ? OrientationPositions[(i + steps) % len]
@@ -578,7 +597,7 @@ namespace Brain2CPU.ExifTool
         {
             Debug.Assert(Status == ExeStatus.Ready || Status == ExeStatus.Stopped, "Invalid state");
 
-            if(_proc != null && Status == ExeStatus.Ready)
+            if (_proc != null && Status == ExeStatus.Ready)
                 Stop();
 
             _waitHandle.Dispose();

@@ -125,6 +125,9 @@ namespace QuickImageComment
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItemTextExportSelectedProp = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemTextExportAllProp = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemBinaryExportAllProp = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemBinaryImportAllProp = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator20 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItemSetFileDateToDateGenerated = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemEnd = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemImage = new System.Windows.Forms.ToolStripMenuItem();
@@ -265,9 +268,7 @@ namespace QuickImageComment
             this.toolStripButtonFind = new System.Windows.Forms.ToolStripButton();
             this.toolTip1 = new QuickImageComment.ToolTipQIC();
             this.theFolderTreeView = new QuickImageCommentControls.ShellTreeViewQIC();
-            this.toolStripMenuItemBinaryExportAllProp = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItemBinaryImportAllProp = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator20 = new System.Windows.Forms.ToolStripSeparator();
+            this.tabPageExifTool = new System.Windows.Forms.TabPage();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer12)).BeginInit();
             this.splitContainer12.Panel1.SuspendLayout();
             this.splitContainer12.Panel2.SuspendLayout();
@@ -583,6 +584,7 @@ namespace QuickImageComment
             this.tabControlProperties.Controls.Add(this.tabPageExif);
             this.tabControlProperties.Controls.Add(this.tabPageIptc);
             this.tabControlProperties.Controls.Add(this.tabPageXmp);
+            this.tabControlProperties.Controls.Add(this.tabPageExifTool);
             this.tabControlProperties.Controls.Add(this.tabPageOther);
             this.tabControlProperties.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControlProperties.Location = new System.Drawing.Point(0, 0);
@@ -1248,6 +1250,25 @@ namespace QuickImageComment
             this.toolStripMenuItemTextExportAllProp.Size = new System.Drawing.Size(343, 22);
             this.toolStripMenuItemTextExportAllProp.Text = "Export: Alle Eigenschaften der markierten Bilder";
             this.toolStripMenuItemTextExportAllProp.Click += new System.EventHandler(this.toolStripMenuItemTextExportAllProp_Click);
+            // 
+            // toolStripMenuItemBinaryExportAllProp
+            // 
+            this.toolStripMenuItemBinaryExportAllProp.Name = "toolStripMenuItemBinaryExportAllProp";
+            this.toolStripMenuItemBinaryExportAllProp.Size = new System.Drawing.Size(343, 22);
+            this.toolStripMenuItemBinaryExportAllProp.Text = "Binärer Export aller Eigenschaften der markierten Bilder";
+            this.toolStripMenuItemBinaryExportAllProp.Click += new System.EventHandler(this.toolStripMenuItemBinaryExportAllProp_Click);
+            // 
+            // toolStripMenuItemBinaryImportAllProp
+            // 
+            this.toolStripMenuItemBinaryImportAllProp.Name = "toolStripMenuItemBinaryImportAllProp";
+            this.toolStripMenuItemBinaryImportAllProp.Size = new System.Drawing.Size(343, 22);
+            this.toolStripMenuItemBinaryImportAllProp.Text = "Binärer Import aller Eigenschaften der markierten Bilder";
+            this.toolStripMenuItemBinaryImportAllProp.Click += new System.EventHandler(this.toolStripMenuItemBinaryImportAllProp_Click);
+            // 
+            // toolStripSeparator20
+            // 
+            this.toolStripSeparator20.Name = "toolStripSeparator20";
+            this.toolStripSeparator20.Size = new System.Drawing.Size(340, 6);
             // 
             // toolStripMenuItemSetFileDateToDateGenerated
             // 
@@ -2509,24 +2530,16 @@ namespace QuickImageComment
             this.theFolderTreeView.Size = new System.Drawing.Size(253, 147);
             this.theFolderTreeView.TabIndex = 0;
             // 
-            // toolStripMenuItemBinaryExportAllProp
+            // tabPageExifTool
             // 
-            this.toolStripMenuItemBinaryExportAllProp.Name = "toolStripMenuItemBinaryExportAllProp";
-            this.toolStripMenuItemBinaryExportAllProp.Size = new System.Drawing.Size(343, 22);
-            this.toolStripMenuItemBinaryExportAllProp.Text = "Binärer Export aller Eigenschaften der markierten Bilder";
-            this.toolStripMenuItemBinaryExportAllProp.Click += new System.EventHandler(this.toolStripMenuItemBinaryExportAllProp_Click);
-            // 
-            // toolStripMenuItemBinaryImportAllProp
-            // 
-            this.toolStripMenuItemBinaryImportAllProp.Name = "toolStripMenuItemBinaryImportAllProp";
-            this.toolStripMenuItemBinaryImportAllProp.Size = new System.Drawing.Size(343, 22);
-            this.toolStripMenuItemBinaryImportAllProp.Text = "Binärer Import aller Eigenschaften der markierten Bilder";
-            this.toolStripMenuItemBinaryImportAllProp.Click += new System.EventHandler(this.toolStripMenuItemBinaryImportAllProp_Click);
-            // 
-            // toolStripSeparator20
-            // 
-            this.toolStripSeparator20.Name = "toolStripSeparator20";
-            this.toolStripSeparator20.Size = new System.Drawing.Size(340, 6);
+            this.tabPageExifTool.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.tabPageExifTool.Location = new System.Drawing.Point(4, 22);
+            this.tabPageExifTool.Name = "tabPageExifTool";
+            this.tabPageExifTool.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageExifTool.Size = new System.Drawing.Size(269, 165);
+            this.tabPageExifTool.TabIndex = 5;
+            this.tabPageExifTool.Text = "ExifTool";
+            this.tabPageExifTool.UseVisualStyleBackColor = true;
             // 
             // FormQuickImageComment
             // 
@@ -2664,6 +2677,7 @@ namespace QuickImageComment
         private System.Windows.Forms.TabPage tabPageIptc;
         private QuickImageCommentControls.DataGridViewMetaData DataGridViewIptc;
         private QuickImageCommentControls.DataGridViewMetaData DataGridViewExif;
+        private QuickImageCommentControls.DataGridViewMetaData DataGridViewExifTool;
         private QuickImageCommentControls.DataGridViewMetaData DataGridViewOverview;
         private System.Windows.Forms.ColumnHeader columnHeaderOverviewName;
         private System.Windows.Forms.ColumnHeader columnHeaderOverviewValue;
@@ -2842,5 +2856,6 @@ namespace QuickImageComment
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemBinaryExportAllProp;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemBinaryImportAllProp;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator20;
+        private System.Windows.Forms.TabPage tabPageExifTool;
     }
 }

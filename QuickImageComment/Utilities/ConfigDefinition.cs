@@ -244,7 +244,8 @@ namespace QuickImageComment
             MapCircleColor,
             SlideshowSubtitleFont,
             SlideShowSubTitelDisplay,
-            MapLengthUnit
+            MapLengthUnit,
+            ExifToolPath
         };
 
         public enum enumMetaDataGroup
@@ -529,14 +530,17 @@ namespace QuickImageComment
             ConfigItems.Add("DataGridViewIptcDisplayHeader", "yes");
             ConfigItems.Add("DataGridViewOtherMetaDataDisplayHeader", "yes");
             ConfigItems.Add("DataGridViewXmpDisplayHeader", "yes");
+            ConfigItems.Add("DataGridViewExifToolDisplayHeader", "yes");
             ConfigItems.Add("DataGridViewExifDisplayEnglish", "no");
             ConfigItems.Add("DataGridViewIptcDisplayEnglish", "no");
             ConfigItems.Add("DataGridViewOtherMetaDataDisplayEnglish", "no");
             ConfigItems.Add("DataGridViewXmpDisplayEnglish", "no");
+            ConfigItems.Add("DataGridViewExifToolDisplayEnglish", "yes");
             ConfigItems.Add("DataGridViewExifDisplaySuffixFirst", "no");
             ConfigItems.Add("DataGridViewIptcDisplaySuffixFirst", "no");
             ConfigItems.Add("DataGridViewOtherMetaDataDisplaySuffixFirst", "no");
             ConfigItems.Add("DataGridViewXmpDisplaySuffixFirst", "no");
+            ConfigItems.Add("DataGridViewExifToolDisplaySuffixFirst", "no");
             ConfigItems.Add("ShowImageWithGrid", "no");
 
             ConfigItems.Add(enumCfgUserBool.CheckForNewVersionFlag.ToString(), false);
@@ -571,6 +575,7 @@ namespace QuickImageComment
             ConfigItems.Add(enumCfgUserString.SlideshowSubtitleFont.ToString(), "");
             ConfigItems.Add(enumCfgUserString.SlideShowSubTitelDisplay.ToString(), "");
             ConfigItems.Add(enumCfgUserString.MapLengthUnit.ToString(), enumMapLengthUnit.km.ToString());
+            ConfigItems.Add(enumCfgUserString.ExifToolPath.ToString(), "C:\\PROGRAM1\\exiftool-13.31_64\\exiftool(-k).exe");
 
             ConfigItems.Add(enumCfgUserInt.CheckForNewVersionPeriodInDays.ToString(), 30);
             ConfigItems.Add(enumCfgUserInt.ImageDetailsFrameColor.ToString(), System.Drawing.Color.Red.ToArgb());

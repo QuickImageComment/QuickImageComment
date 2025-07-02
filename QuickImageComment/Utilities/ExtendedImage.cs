@@ -18,6 +18,7 @@
 //#define LOG_DEVIATION_ORIGINAL_INTERPRETED
 //#define DEBUG_PRINT_READ_STRINGS_ENCODING
 
+using Brain2CPU.ExifTool;
 using CSJ2K;
 using CSJ2K.Util;
 using System;
@@ -162,6 +163,8 @@ namespace QuickImageComment
 
         public const int ReturnStatus_UserCommentChanged = 1;
 
+        private static Brain2CPU.ExifTool.ExifToolWrapper exifTool;
+
         public class ExceptionErrorReplacePlaceholder : ApplicationException
         {
             public static int status = 1001;
@@ -205,6 +208,7 @@ namespace QuickImageComment
         private SortedList ExifMetaDataItems;
         private SortedList IptcMetaDataItems;
         private SortedList XmpMetaDataItems;
+        private SortedList ExifToolMetaDataItems;
         private SortedList OtherMetaDataItems;
         private SortedList XmpMetaDataLangItems;
         private SortedList XmpMetaDataStructItems;
@@ -392,6 +396,7 @@ namespace QuickImageComment
             XmpMetaDataLangItems = new SortedList();
             XmpMetaDataStructItems = new SortedList();
             XmpLangAltEntries = new ArrayList();
+            ExifToolMetaDataItems = new SortedList();
             OtherMetaDataItems = new SortedList();
             MetaDataWarnings = new ArrayList();
             MetaDataWarningsRead = new ArrayList();
@@ -446,6 +451,9 @@ namespace QuickImageComment
         private void readMetaData(Performance ReadPerformance, ArrayList neededKeys, System.IO.FileInfo fileInfo)
         {
             int status = 0;
+            // used when adding ExifTool warning to MetaDataWarningsRead
+            string line = "";
+
             ReadPerformance.measure("readMetaData start");
             ExifMetaDataItems = new SortedList();
             IptcMetaDataItems = new SortedList();
@@ -453,6 +461,7 @@ namespace QuickImageComment
             XmpMetaDataLangItems = new SortedList();
             XmpMetaDataStructItems = new SortedList();
             XmpLangAltEntries = new ArrayList();
+            ExifToolMetaDataItems = new SortedList();
             MetaDataWarningsRead = new ArrayList();
 
             // Initialise other meta data items with key
@@ -478,8 +487,8 @@ namespace QuickImageComment
 #endif
 #if !DEBUG
             try
-#endif
             {
+#endif
                 string iniPath = ConfigDefinition.getIniPath();
                 string comment = "";
                 string errorText = "";
@@ -515,11 +524,76 @@ namespace QuickImageComment
                         }
                     }
                 }
-            }
 #if !DEBUG
+            }
             catch (Exception ex)
             {
                 MetaDataWarningsRead.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error), ex.Message));
+            }
+
+            try
+            {
+#endif
+                // reading with ExifTool outside the lock as ExitToolWrapper has its own lock
+                string output = exifTool.FetchExifToStringFrom(ImageFileName, new string[] { "-D", "-G1:7:6" });
+                string[] lines = output.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                string ID = "";
+                string key = "";
+                long tag = -1;
+                string format = "";
+                string value = "";
+                for (int ii = 0; ii < lines.Length; ii++)
+                {
+                    line = lines[ii].Trim();
+                    string[] values = line.Split(new char[] { '\t' });
+                    string[] LocIdFmt = values[0].Split(new char[] { ':' });
+                    if (LocIdFmt[0].Equals("ExifTool"))
+                    {
+                        // ignore line wiht version number
+                        if (!LocIdFmt[1].Equals("ID-ExifToolVersion"))
+                        {
+                            MetaDataWarningsRead.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exifToolError), values[2]));
+                        }
+                    }
+                    else
+                    {
+                        ID = LocIdFmt[1];
+
+                        if (LocIdFmt.Length > 2)
+                            format = LocIdFmt[2];
+                        else
+                            format = "";
+
+                        key = LocIdFmt[0] + "." + values[2];
+
+                        if (values[1].Equals("-"))
+                            tag = -1;
+                        else
+                        {
+                            try
+                            {
+                                tag = int.Parse(values[1]);
+                            }
+                            catch
+                            {
+                                tag = -1;
+                            }
+                        }
+
+                        if (values.Length > 3)
+                            value = values[3];
+                        else
+                            value = "";
+
+                        ExifToolMetaDataItems.Add(key, new MetaDataItem(ID, key, tag, format, value));
+                    }
+                }
+#if !DEBUG
+            }
+            catch (Exception ex)
+            {
+                MetaDataWarningsRead.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exifToolError),
+                    ex.Message + " @ " + line));
             }
 #endif
             ReadPerformance.measure("Meta data copied");
@@ -1892,6 +1966,10 @@ namespace QuickImageComment
             {
                 theMetaDataItem = (MetaDataItem)XmpMetaDataItems[Key];
             }
+            else if (ExifToolMetaDataItems.ContainsKey(Key))
+            {
+                theMetaDataItem = (MetaDataItem)ExifToolMetaDataItems[Key];
+            }
             if (theMetaDataItem != null)
             {
                 ReturnValue = theMetaDataItem.getValueForDisplay(FormatSpecification);
@@ -2165,7 +2243,8 @@ namespace QuickImageComment
                 OtherMetaDataItems.ContainsKey(Key) ||
                 XmpMetaDataLangItems.ContainsKey(Key) ||
                 XmpMetaDataStructItems.ContainsKey(Key) ||
-                XmpMetaDataItems.ContainsKey(Key))
+                XmpMetaDataItems.ContainsKey(Key) ||
+                ExifToolMetaDataItems.ContainsKey(Key))
             {
                 return true;
             }
@@ -2284,6 +2363,23 @@ namespace QuickImageComment
             return 0;
         }
 
+        //*****************************************************************
+        // ExifTool methods
+        //*****************************************************************
+        internal static void initExifTool(string ExifToolPath)
+        {
+            exifTool = new ExifToolWrapper(ExifToolPath);
+        }
+
+        internal static void startExifTool()
+        {
+            exifTool.Start();
+        }
+
+        internal static void stopExifTool()
+        {
+            exifTool.Stop();
+        }
         //*****************************************************************
         // methods for thumbnail and other image handling
         //*****************************************************************
@@ -2569,7 +2665,7 @@ namespace QuickImageComment
         {
             if (!codecInfo.Equals("") && RequiredOrientation != 1)
                 return true;
-            else 
+            else
                 return false;
         }
 
@@ -4020,6 +4116,11 @@ namespace QuickImageComment
             return XmpMetaDataItems;
         }
 
+        public SortedList getExifToolMetaDataItems()
+        {
+            return ExifToolMetaDataItems;
+        }
+
         public SortedList getAllMetaDataItems()
         {
             SortedList returnList = new SortedList();
@@ -4034,6 +4135,10 @@ namespace QuickImageComment
             foreach (string key in XmpMetaDataItems.Keys)
             {
                 returnList.Add(key, XmpMetaDataItems[key]);
+            }
+            foreach (string key in ExifToolMetaDataItems.Keys)
+            {
+                returnList.Add(key, ExifToolMetaDataItems[key]);
             }
             foreach (string key in OtherMetaDataItems.Keys)
             {
@@ -4140,7 +4245,7 @@ namespace QuickImageComment
                 }
                 theGeoDataItem = new GeoDataItem(latitudeSigned, longitudeSigned)
                 {
-                // direction and angle of view
+                    // direction and angle of view
                     directionOfView = getMetaDataValueByKey("Exif.GPSInfo.GPSImgDirection", MetaDataItem.Format.Decimal0)
                 };
                 string focalLengthString = getMetaDataValueByKey("Exif.Photo.FocalLengthIn35mmFilm", MetaDataItem.Format.Original);
@@ -4199,7 +4304,7 @@ namespace QuickImageComment
         //*****************************************************************
         // Others
         //*****************************************************************
-        internal void addMetaDataWarningRead(string name,  string message)
+        internal void addMetaDataWarningRead(string name, string message)
         {
             MetaDataWarningsRead.Add(new MetaDataWarningItem(name, message));
         }

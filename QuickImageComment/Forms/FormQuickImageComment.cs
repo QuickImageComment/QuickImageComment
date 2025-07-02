@@ -245,6 +245,11 @@ namespace QuickImageComment
             this.DataGridViewXmp = new QuickImageCommentControls.DataGridViewMetaData("DataGridViewXmp",
                 toolTip1, ChangedDataGridViewValues);
             this.tabPageXmp.Controls.Add(this.DataGridViewXmp);
+            this.DataGridViewExifTool = new QuickImageCommentControls.DataGridViewMetaData("DataGridViewExifTool",
+                toolTip1, ChangedDataGridViewValues);
+            // ExifTool does not provide size, so hide that column
+            this.DataGridViewExifTool.Columns[4].Visible = false;
+            this.tabPageExifTool.Controls.Add(this.DataGridViewExifTool);
             this.DataGridViewOtherMetaData = new QuickImageCommentControls.DataGridViewMetaData("DataGridViewOtherMetaData", toolTip1, ChangedDataGridViewValues);
             this.tabPageOther.Controls.Add(this.DataGridViewOtherMetaData);
 
@@ -288,6 +293,7 @@ namespace QuickImageComment
             DataGridViewExif.RowTemplate.Height = (int)(DataGridViewExif.RowTemplate.Height * dpiSettings / 96.0f);
             DataGridViewIptc.RowTemplate.Height = (int)(DataGridViewIptc.RowTemplate.Height * dpiSettings / 96.0f);
             DataGridViewXmp.RowTemplate.Height = (int)(DataGridViewXmp.RowTemplate.Height * dpiSettings / 96.0f);
+            DataGridViewExifTool.RowTemplate.Height = (int)(DataGridViewExifTool.RowTemplate.Height * dpiSettings / 96.0f);
             DataGridViewOtherMetaData.RowTemplate.Height = (int)(DataGridViewOtherMetaData.RowTemplate.Height * dpiSettings / 96.0f);
             toolStripStatusLabelFiles.Width = (int)(toolStripStatusLabelFiles.Width * dpiSettings / 96.0f);
             toolStripStatusLabelMemory.Width = (int)(toolStripStatusLabelMemory.Width * dpiSettings / 96.0f);
@@ -875,6 +881,9 @@ namespace QuickImageComment
         private void StartupInitNewFolder()
         {
             Program.StartupPerformance.measure("FormQIC *** StartupInitNewFolder start");
+            ExtendedImage.initExifTool(ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.ExifToolPath));
+            ExtendedImage.startExifTool();
+            Program.StartupPerformance.measure("FormQIC *** ExifTool started");
             ImageManager.initNewFolder(FolderName);
             ImageManager.initExtendedCacheList();
 
@@ -2257,6 +2266,7 @@ namespace QuickImageComment
                 DataGridViewExif.refreshData();
                 DataGridViewIptc.refreshData();
                 DataGridViewXmp.refreshData();
+                DataGridViewExifTool.refreshData();
                 DataGridViewOtherMetaData.refreshData();
                 enableEventHandlersRecogniseUserInput();
 
@@ -4019,6 +4029,7 @@ namespace QuickImageComment
             DataGridViewExif.fillData("Exif.", theExtendedImage.getExifMetaDataItems());
             DataGridViewIptc.fillData("Iptc.", theExtendedImage.getIptcMetaDataItems());
             DataGridViewXmp.fillData("Xmp.", theExtendedImage.getXmpMetaDataItems());
+            DataGridViewExifTool.fillData("ExifTool.", theExtendedImage.getExifToolMetaDataItems());
             DataGridViewOtherMetaData.fillData("", theExtendedImage.getOtherMetaDataItems());
         }
 
@@ -5026,6 +5037,7 @@ namespace QuickImageComment
             DataGridViewExif.Rows.Clear();
             DataGridViewIptc.Rows.Clear();
             DataGridViewXmp.Rows.Clear();
+            DataGridViewExifTool.Rows.Clear();
             DataGridViewOtherMetaData.Rows.Clear();
             panelWarningMetaData.Visible = false;
             toolStripStatusLabelFileInfo.Text = "";
@@ -5320,6 +5332,7 @@ namespace QuickImageComment
             DataGridViewExif.CellValueChanged += DataGridViewExif.dataGridViewsMetaData_CellValueChanged;
             DataGridViewIptc.CellValueChanged += DataGridViewIptc.dataGridViewsMetaData_CellValueChanged;
             DataGridViewXmp.CellValueChanged += DataGridViewXmp.dataGridViewsMetaData_CellValueChanged;
+            DataGridViewExifTool.CellValueChanged += DataGridViewExifTool.dataGridViewsMetaData_CellValueChanged;
             DataGridViewOtherMetaData.CellValueChanged += DataGridViewOtherMetaData.dataGridViewsMetaData_CellValueChanged;
 
             theUserControlKeyWords.textBoxFreeInputKeyWords.TextChanged += textBoxFreeInputKeyWords_TextChanged;
@@ -5344,6 +5357,7 @@ namespace QuickImageComment
             DataGridViewExif.CellValueChanged -= DataGridViewExif.dataGridViewsMetaData_CellValueChanged;
             DataGridViewIptc.CellValueChanged -= DataGridViewIptc.dataGridViewsMetaData_CellValueChanged;
             DataGridViewXmp.CellValueChanged -= DataGridViewXmp.dataGridViewsMetaData_CellValueChanged;
+            DataGridViewExifTool.CellValueChanged -= DataGridViewExifTool.dataGridViewsMetaData_CellValueChanged;
             DataGridViewOtherMetaData.CellValueChanged -= DataGridViewOtherMetaData.dataGridViewsMetaData_CellValueChanged;
 
             theUserControlKeyWords.textBoxFreeInputKeyWords.TextChanged -= textBoxFreeInputKeyWords_TextChanged;
@@ -5600,6 +5614,7 @@ namespace QuickImageComment
             DataGridViewExif.EndEdit();
             DataGridViewIptc.EndEdit();
             DataGridViewXmp.EndEdit();
+            DataGridViewExifTool.EndEdit();
             DataGridViewOtherMetaData.EndEdit();
 
             if (ImageSaved)

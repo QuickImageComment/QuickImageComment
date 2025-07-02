@@ -362,7 +362,8 @@ namespace QuickImageComment
             toolTipDeleteButtonPermanently,
             toolTipDeleteButtonUnknown,
             imageOrientation,
-            exceptionContinue
+            exceptionContinue,
+            exifToolError
         }
 
         // defined as variable
