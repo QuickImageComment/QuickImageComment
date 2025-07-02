@@ -56,7 +56,6 @@ namespace QuickImageComment
             string[] Words = SplitString.Split(new char[] { '|' });
 
             ReferenceKey = Words[0];
-            GeneralUtilities.checkTagKey(ReferenceKey);
 
             for (int ii = 1; ii < Words.Length - 1; ii = ii + 2)
             {

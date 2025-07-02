@@ -193,7 +193,6 @@ namespace QuickImageComment
                     FormatPrim = (MetaDataItem.Format)int.Parse(DefinitionString.Substring(startIndex, 2));
                     startIndex = startIndex + 3;
                     KeyPrim = DefinitionString.Substring(startIndex, endIndex - startIndex);
-                    GeneralUtilities.checkTagKey(KeyPrim);
                     startIndex = endIndex + 1;
                     endIndex = DefinitionString.IndexOf("<", startIndex);
                     if (endIndex > 0)
@@ -206,7 +205,6 @@ namespace QuickImageComment
                             FormatSec = (MetaDataItem.Format)int.Parse(DefinitionString.Substring(startIndex, 2));
                             startIndex = startIndex + 3;
                             KeySec = DefinitionString.Substring(startIndex, endIndex - startIndex);
-                            GeneralUtilities.checkTagKey(KeySec);
                             startIndex = endIndex + 1;
                             endIndex = DefinitionString.IndexOf("|", startIndex);
                             // DataType is not mandatory

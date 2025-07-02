@@ -443,24 +443,6 @@ namespace QuickImageComment
                  || keyPrim.Equals("Xmp.dcterms.modified"));
         }
 
-        // check validity of tag key
-        public static void checkTagKey(string Key)
-        {
-            if (!Key.Equals("") && !Key.StartsWith("Exif.") && !Key.StartsWith("Iptc.") && !Key.StartsWith("Xmp.") &&
-                !Key.StartsWith("Txt.") && !Key.StartsWith("ExifEasy.") && !ConfigDefinition.getInternalMetaDataDefinitions().ContainsKey(Key))
-            {
-                foreach (OtherMetaDataDefinition anOtherMetaDataDefinition in ConfigDefinition.getOtherMetaDataDefinitions())
-                {
-                    if (anOtherMetaDataDefinition.getKey().Equals(Key))
-                    {
-                        return;
-                    }
-                }
-                // do not translate here, as language configuration is not yet loaded
-                debugMessage("Error in user configuration file: key definition \"" + Key + "\" not known");
-            }
-        }
-
         // convert longitude/latitude from original exif format to degrees with decimals
         public static double getDegreesWithDecimals(string coordinateRationalArray)
         {
