@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
@@ -67,6 +68,8 @@ namespace Brain2CPU.ExifTool
 
         private readonly ManualResetEvent _waitHandle = new ManualResetEvent(true);
         private readonly ManualResetEvent _waitForErrorHandle = new ManualResetEvent(true);
+
+        private ArrayList Locations = new ArrayList();
 
         public ExifToolWrapper(string path = null, bool faster = false)
         {
@@ -202,7 +205,7 @@ namespace Brain2CPU.ExifTool
 
             _waitHandle.Reset();
             _proc.StandardInput.Write("-stay_open\nFalse\n");
-            
+
             if (!_waitHandle.WaitOne(TimeSpan.FromSeconds(SecondsToWaitForStop)))
             {
                 if (_proc != null)
@@ -237,7 +240,7 @@ namespace Brain2CPU.ExifTool
             _proc.StandardInput.Write("{0}\n-execute{1}\n", args.Length == 0 ? cmd : string.Format(cmd, args), _cmdCnt);
             _waitHandle.WaitOne();
         }
-        
+
         //http://u88.n24.queensu.ca/exiftool/forum/index.php?topic=8382.0
         private void SendViaFile(string cmd, params object[] args)
         {
@@ -259,7 +262,7 @@ namespace Brain2CPU.ExifTool
         }
 
         public ExifToolResponse SendCommand(string cmd, params object[] args) => SendCommand(Method, cmd, args);
-        
+
         private ExifToolResponse SendCommand(CommunicationMethod method, string cmd, params object[] args)
         {
             if (Status != ExeStatus.Ready)
@@ -297,7 +300,7 @@ namespace Brain2CPU.ExifTool
                 string err = resp.Result.ToLowerInvariant();
 
                 if (err.Contains("file not found") || err.Contains("invalid filename encoding"))
-                     return SendCommand(CommunicationMethod.ViaFile, cmd, args);
+                    return SendCommand(CommunicationMethod.ViaFile, cmd, args);
             }
 
             return resp;
@@ -316,10 +319,10 @@ namespace Brain2CPU.ExifTool
             {
                 cmd.AppendFormat("-{0}={1}\n", kv.Key, kv.Value);
             }
-            
+
             if (overwriteOriginal)
                 cmd.Append("-overwrite_original\n");
-            
+
             cmd.Append(path);
             var cmdRes = SendCommand(cmd.ToString());
 
@@ -350,7 +353,7 @@ namespace Brain2CPU.ExifTool
 
                 if (filter && !tagsTable.ContainsKey(kv[0]))
                     continue;
-                    
+
                 res[kv[0]] = kv[1];
             }
 
@@ -389,8 +392,6 @@ namespace Brain2CPU.ExifTool
 
         public string FetchExifToStringFrom(string path, string[] args, IEnumerable<string> tagsToKeep = null, bool keepKeysWithEmptyValues = true, string separator = ": ")
         {
-            var res = new List<string>();
-
             if (!File.Exists(path))
                 return "";
 
@@ -404,6 +405,66 @@ namespace Brain2CPU.ExifTool
                 return "";
             else
                 return cmdRes.Result;
+        }
+
+        public void FillLocationList()
+        {
+            string cmd = "-listg1";
+            var cmdRes = SendCommand(cmd);
+            if (cmdRes)
+            {
+                string[] lines = cmdRes.Result.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                {
+                    for (int ii = 1; ii < lines.Length; ii++)
+                    {
+                        foreach (string word in lines[ii].Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries))
+                        {
+                            Locations.Add(word);
+                        }
+                    }
+                }
+            }
+        }
+
+        public ArrayList getLocationList()
+        {
+            return Locations;
+        }
+
+        public string FetchTagListWithLocation()
+        {
+            string output = "";
+            string cmd = "";
+            ExifToolResponse cmdRes;
+            ArrayList tags = new ArrayList();
+
+            if (Locations.Count == 0)
+            {
+                throw new Exception("ExifTool Location list not yet filled");
+            }
+            foreach (string location in Locations)
+            {
+                cmd = "-list\r\n-" + location + ":All";
+                cmdRes = SendCommand(cmd);
+                if (cmdRes)
+                {
+                    string[] lines = cmdRes.Result.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                    {
+                        for (int ii = 1; ii < lines.Length; ii++)
+                        {
+                            foreach (string word in lines[ii].Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries))
+                            {
+                                tags.Add(location + ":" + word);
+                            }
+                        }
+                    }
+                }
+            }
+            for (int ii = 0; ii < tags.Count; ii++)
+            {
+                output += tags[ii] + "\r\n";
+            }
+            return output;
         }
 
         public ExifToolResponse CloneExif(string source, string dest, bool backup = false)
@@ -590,7 +651,7 @@ namespace Brain2CPU.ExifTool
         }
 
         #endregion
-        
+
         #region IDisposable Members
 
         public void Dispose()

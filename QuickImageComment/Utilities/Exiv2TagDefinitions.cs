@@ -53,7 +53,7 @@ namespace QuickImageComment
         private static SortedList<string, TagDefinition> TagDefinitionList;
         private static SortedList<string, int> ExifEasyTagIndexList;
         // language selected when filling TagDefinitionList
-        private static string TagDefinitionListLanguage = "";
+        private static readonly string TagDefinitionListLanguage = "";
 
 
         // return tag list
@@ -80,38 +80,42 @@ namespace QuickImageComment
             ChangeableWarningTags = new ArrayList();
 
             // set changeable types
-            ChangeableTypes = new ArrayList();
-            ChangeableTypes.Add("Ascii");
-            ChangeableTypes.Add("Byte");
-            ChangeableTypes.Add("Comment");
-            ChangeableTypes.Add("Date");        // IPTC 
-            ChangeableTypes.Add("Double");
-            ChangeableTypes.Add("Float");
-            ChangeableTypes.Add("Long");
-            ChangeableTypes.Add("SByte");
-            ChangeableTypes.Add("SLong");
-            ChangeableTypes.Add("Short");
-            ChangeableTypes.Add("SShort");
-            ChangeableTypes.Add("String");      // IPTC
-            ChangeableTypes.Add("Rational");
-            ChangeableTypes.Add("SRational");
-            ChangeableTypes.Add("Time");        // IPTC
-            ChangeableTypes.Add("XmpBag");
-            ChangeableTypes.Add("XmpSeq");
-            ChangeableTypes.Add("XmpText");
-            ChangeableTypes.Add("LangAlt");     // XMP
+            ChangeableTypes = new ArrayList
+            {
+                "Ascii",
+                "Byte",
+                "Comment",
+                "Date",        // IPTC 
+                "Double",
+                "Float",
+                "Long",
+                "SByte",
+                "SLong",
+                "Short",
+                "SShort",
+                "String",      // IPTC
+                "Rational",
+                "SRational",
+                "Time",        // IPTC
+                "XmpBag",
+                "XmpSeq",
+                "XmpText",
+                "LangAlt"     // XMP
+            };
 
-            ChangeableWarningTypes = new ArrayList();
-            ChangeableWarningTypes.Add("Byte");
-            ChangeableWarningTypes.Add("Double");
-            ChangeableWarningTypes.Add("Float");
-            ChangeableWarningTypes.Add("Long");
-            ChangeableWarningTypes.Add("SByte");
-            ChangeableWarningTypes.Add("SLong");
-            ChangeableWarningTypes.Add("Short");
-            ChangeableWarningTypes.Add("SShort");
-            ChangeableWarningTypes.Add("Rational");
-            ChangeableWarningTypes.Add("SRational");
+            ChangeableWarningTypes = new ArrayList
+            {
+                "Byte",
+                "Double",
+                "Float",
+                "Long",
+                "SByte",
+                "SLong",
+                "Short",
+                "SShort",
+                "Rational",
+                "SRational"
+            };
 
             UnChangeableTypes = new ArrayList();
             // Iptc.Envelope.CharacterSet is unchangeable; is set during writing to indicate 
@@ -119,31 +123,37 @@ namespace QuickImageComment
             UnchangeableTags.Add("Iptc.Envelope.CharacterSet");
             UnchangeableTags.Add("Exif.Image.ExifTag");
 
-            IntegerTypes = new ArrayList();
-            IntegerTypes.Add("Byte");
-            IntegerTypes.Add("Long");
-            IntegerTypes.Add("SByte");
-            IntegerTypes.Add("SLong");
-            IntegerTypes.Add("Short");
-            IntegerTypes.Add("SShort");
+            IntegerTypes = new ArrayList
+            {
+                "Byte",
+                "Long",
+                "SByte",
+                "SLong",
+                "Short",
+                "SShort"
+            };
 
-            FloatTypes = new ArrayList();
-            FloatTypes.Add("Double");
-            FloatTypes.Add("Float");
-            FloatTypes.Add("Rational");
-            FloatTypes.Add("SRational");
+            FloatTypes = new ArrayList
+            {
+                "Double",
+                "Float",
+                "Rational",
+                "SRational"
+            };
 
-            ByteUCS2Tags = new ArrayList();
-            ByteUCS2Tags.Add("Exif.Image.XPAuthor");
-            ByteUCS2Tags.Add("Exif.Image.XPComment");
-            ByteUCS2Tags.Add("Exif.Image.XPKeywords");
-            ByteUCS2Tags.Add("Exif.Image.XPSubject");
-            ByteUCS2Tags.Add("Exif.Image.XPTitle");
-            ByteUCS2Tags.Add("Exif.Thumbnail.XPAuthor");
-            ByteUCS2Tags.Add("Exif.Thumbnail.XPComment");
-            ByteUCS2Tags.Add("Exif.Thumbnail.XPKeywords");
-            ByteUCS2Tags.Add("Exif.Thumbnail.XPSubject");
-            ByteUCS2Tags.Add("Exif.Thumbnail.XPTitle");
+            ByteUCS2Tags = new ArrayList
+            {
+                "Exif.Image.XPAuthor",
+                "Exif.Image.XPComment",
+                "Exif.Image.XPKeywords",
+                "Exif.Image.XPSubject",
+                "Exif.Image.XPTitle",
+                "Exif.Thumbnail.XPAuthor",
+                "Exif.Thumbnail.XPComment",
+                "Exif.Thumbnail.XPKeywords",
+                "Exif.Thumbnail.XPSubject",
+                "Exif.Thumbnail.XPTitle"
+            };
 
             TagDefinitionList = new SortedList<string, TagDefinition>();
             ExifEasyTagIndexList = new SortedList<string, int>();

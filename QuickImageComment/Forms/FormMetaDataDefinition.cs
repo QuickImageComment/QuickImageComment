@@ -335,6 +335,16 @@ namespace QuickImageComment
                         listViewTags.Items.Add(theListViewItem);
                     }
                 }
+
+                foreach (MetaDataItemExifTool metaDataItemExifTool in theExtendedImage.getExifToolMetaDataItems().Values)
+                {
+                    theListViewItem = new ListViewItem(new string[] { metaDataItemExifTool.getKey(),
+                                                                      metaDataItemExifTool.getTypeName(),
+                                                                      "",
+                                                                      metaDataItemExifTool.getKey() });
+                    listViewTags.Items.Add(theListViewItem);
+                }
+
             }
             listViewTags.Sorting = SortOrder.Ascending;
             this.Cursor = Cursors.Default;
@@ -961,14 +971,23 @@ namespace QuickImageComment
                     Name = Name.Substring(posDot + 1);
                 }
             }
-            TagDefinition theTagDefinition = Exiv2TagDefinitions.getList()[MetaDataKey];
+            TagDefinition theTagDefinition;
+            if (Exiv2TagDefinitions.getList().ContainsKey(MetaDataKey))
+                theTagDefinition = Exiv2TagDefinitions.getList()[MetaDataKey];
+            else
+            {
+                string type = ((MetaDataItem)theExtendedImage.getExifToolMetaDataItems()[MetaDataKey]).getTypeName();
+                theTagDefinition = new TagDefinition(MetaDataKey, type, "");
+            }
 
             // no exception for selected index as entry is new
             if (selectionOfMetaDateOk(MetaDataKey, theTagDefinition.type, true, -1))
             {
                 // start with basic constructor and set name only
-                MetaDataDefinitionItem newMetaDataDefinitionItem = new MetaDataDefinitionItem();
-                newMetaDataDefinitionItem.Name = Name;
+                MetaDataDefinitionItem newMetaDataDefinitionItem = new MetaDataDefinitionItem
+                {
+                    Name = Name
+                };
 
                 MetaDataDefinitionsWork.Add(newMetaDataDefinitionItem);
                 fillListBoxMetaData();
@@ -1158,7 +1177,7 @@ namespace QuickImageComment
             this.buttonUp.Enabled = false;
             this.buttonDown.Enabled = false;
             this.buttonBeginning.Enabled = false;
-            this.buttonEnd.Enabled  = false;
+            this.buttonEnd.Enabled = false;
         }
 
         // create a deep copy of meta data definitions
@@ -1412,8 +1431,34 @@ namespace QuickImageComment
                 }
                 else
                 {
-                    GeneralUtilities.message(LangCfg.Message.E_unknownEntry, metaDatumText);
-                    return true;
+                    string[] parts = metaDatumText.Split(new char[] { '.' });
+                    if (ExtendedImage.exifTool.getLocationList().Contains(parts[0]))
+                    {
+                        // add/overwrite reference to location+ID for key if it is an ExifTool key
+                        ConfigDefinition.addOverwriteExifToolID(metaDatumText);
+
+                        bool found = false;
+                        for (int ii = 0; ii < listViewTags.Items.Count; ii++)
+                        {
+                            if (listViewTags.Items[ii].SubItems[3].Text.Equals(metaDatumText))
+                            {
+                                found = true;
+                                break;
+                            }
+                        }
+                        // it is a tag from ExifTool, which cannot be checked exactly
+                        // so just give a warning and continue
+                        if (!found)
+                        {
+                            GeneralUtilities.message(LangCfg.Message.W_unknownEntryExifTool, metaDatumText);
+                        }
+                        return false;
+                    }
+                    else
+                    {
+                        GeneralUtilities.message(LangCfg.Message.E_unknownEntry, metaDatumText);
+                        return true;
+                    }
                 }
             }
             else

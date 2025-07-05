@@ -271,6 +271,11 @@ namespace QuickImageCommentControls
             // constructor into FormQuickImageComment.Designer.cs and this causes an error
             // Warning	4	Column cannot be added because it is frozen and placed after an unfrozen column.
             this.Columns[0].Frozen = true;
+            if (Prefix.Equals("ExifTool."))
+            {
+                // ExifTool does not provide size, so hide that column
+                this.Columns[4].Visible = false;
+            }
 
             refreshData();
         }
@@ -290,13 +295,17 @@ namespace QuickImageCommentControls
             bool isEditable;
 
             System.Collections.SortedList KeyList = new System.Collections.SortedList();
-            foreach (string key in MetaDataItems.GetKeyList())
+            // no translation of keys from ExifTool (at least now)
+            if (Prefix.Equals("ExifTool.") || ConfigDefinition.getDataGridViewDisplayEnglish(this))
             {
-                if (ConfigDefinition.getDataGridViewDisplayEnglish(this))
+                foreach (string key in MetaDataItems.GetKeyList())
                 {
                     KeyList.Add(key, key);
                 }
-                else
+            }
+            else
+            {
+                foreach (string key in MetaDataItems.GetKeyList())
                 {
                     posUniqueSeparator = key.IndexOf(GeneralUtilities.UniqueSeparator);
                     if (posUniqueSeparator > 0)
@@ -713,7 +722,11 @@ namespace QuickImageCommentControls
                 {
                     // in case of LangAlt, key contains also language specification; remove it
                     string[] words = key.Split(' ');
-                    key = words[0];
+                    if (MainMaskInterface.getTheExtendedImage().getXmpLangAltEntries().Contains(words[words.Length - 1]))
+                    {
+                        key = words[0];
+                    }
+
                     if (!TagsToAdd.Contains(key) && !key.Equals(""))
                     {
                         TagsToAdd.Add(key);
@@ -736,18 +749,7 @@ namespace QuickImageCommentControls
 
         private void toolStripMenuItemAddToOverview_Click(object sender, System.EventArgs e)
         {
-            System.Collections.ArrayList TagsToMove = new System.Collections.ArrayList();
-
-            for (int jj = 0; jj < SelectedCells.Count; jj++)
-            {
-                string key = (string)Rows[SelectedCells[jj].RowIndex].Cells[5].Value;
-                if (!TagsToMove.Contains(key) && key != null)
-                {
-                    TagsToMove.Add(key);
-                }
-            }
-
-            GeneralUtilities.addFieldToOverview(TagsToMove);
+            GeneralUtilities.addFieldToOverview(collectSelectedFields());
         }
 
         private void dataGridViewMetaData_KeyDown(object sender, KeyEventArgs e)

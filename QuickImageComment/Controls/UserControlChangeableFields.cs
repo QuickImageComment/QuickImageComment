@@ -36,7 +36,7 @@ namespace QuickImageComment
 
         internal SortedList<string, Control> ChangeableFieldInputControls;
         internal List<string> ChangedChangeableFieldTags = new List<string>();
-        private Hashtable ChangeableFieldOldValues = new Hashtable();
+        private readonly Hashtable ChangeableFieldOldValues = new Hashtable();
         internal ArrayList UsedXmpLangAltEntries;
 
         // used to simulate double click events for ComboBox 
@@ -153,7 +153,7 @@ namespace QuickImageComment
                         aComboBox.Name = inputControlName(aComboBox);
                         aLabel.Name = "dynamicLabel" + aComboBox.Name;
                         aLabel.Text = aMetaDataDefinitionItem.Name + " [" + aMetaDataDefinitionItem.TypePrim + "]";
-                        configureDynamicChangeableFieldControls(aMetaDataDefinitionItem, aComboBox, aLabel, true, kk, ref lastTop, ref maxLabelWidth);
+                        configureDynamicChangeableFieldControls(aMetaDataDefinitionItem, aComboBox, aLabel, true, ref lastTop, ref maxLabelWidth);
                         kk++;
                         int langIdx = 0;
                         foreach (string language in UsedXmpLangAltEntries)
@@ -168,7 +168,7 @@ namespace QuickImageComment
                             aLabel.Name = "dynamicLabel" + aComboBox.Name;
                             aLabel.Text = language;
                             aLabel.Tag = "LANGUAGE";
-                            configureDynamicChangeableFieldControls(aMetaDataDefinitionItem, aComboBox, aLabel, false, kk, ref lastTop, ref maxLabelWidth);
+                            configureDynamicChangeableFieldControls(aMetaDataDefinitionItem, aComboBox, aLabel, false, ref lastTop, ref maxLabelWidth);
                             kk++;
                             langIdx++;
                         }
@@ -176,12 +176,18 @@ namespace QuickImageComment
                     else
                     {
                         Control anInputControl;
-                        if (Exiv2TagDefinitions.isRepeatable(aMetaDataDefinitionItem.KeyPrim))
+                        if ((aMetaDataDefinitionItem.KeyPrim.StartsWith("Exif.") ||
+                             aMetaDataDefinitionItem.KeyPrim.StartsWith("Iptc.") ||
+                             aMetaDataDefinitionItem.KeyPrim.StartsWith("Xmp."))
+                            && Exiv2TagDefinitions.isRepeatable(aMetaDataDefinitionItem.KeyPrim))
                         {
+                            // exiv2 tag and proven to be repeatable
                             anInputControl = new TextBox();
                         }
                         else
                         {
+                            // not repeatable exiv2 tag or ExifTool tag
+                            // ExifTool gives no information if repeatable or not
                             anInputControl = new ComboBox();
                         }
 
@@ -192,7 +198,7 @@ namespace QuickImageComment
                         anInputControl.Name = inputControlName(anInputControl);
                         aLabel.Name = "dynamicLabel" + anInputControl.Name;
                         aLabel.Text = aMetaDataDefinitionItem.Name + " (" + aMetaDataDefinitionItem.TypePrim + ")";
-                        configureDynamicChangeableFieldControls(aMetaDataDefinitionItem, anInputControl, aLabel, true, kk, ref lastTop, ref maxLabelWidth);
+                        configureDynamicChangeableFieldControls(aMetaDataDefinitionItem, anInputControl, aLabel, true, ref lastTop, ref maxLabelWidth);
                         if (aMetaDataDefinitionItem.KeyPrim.Equals("Exif.Image.Orientation"))
                         {
                             inputControlOrientation = (ComboBox)anInputControl;
@@ -258,7 +264,7 @@ namespace QuickImageComment
         // configure the dynamic controls
         private void configureDynamicChangeableFieldControls(
             MetaDataDefinitionItem aMetaDataDefinitionItem, Control anInputControl, Label aLabel, bool addDisplayOffset,
-            int kk, ref int lastTop, ref int maxLabelWidth)
+            ref int lastTop, ref int maxLabelWidth)
         {
             // to separate several fields for one tag by thin line only
             if (!addDisplayOffset) lastTop -= 1;
@@ -359,7 +365,7 @@ namespace QuickImageComment
             Name = theControl.GetType().ToString() + "_" + theChangeableFieldSpecification.KeyPrim;
             if (theChangeableFieldSpecification.langIdx >= 0)
             {
-                Name = Name + theChangeableFieldSpecification.langIdx.ToString("_00");
+                Name += theChangeableFieldSpecification.langIdx.ToString("_00");
             }
             return Name;
         }
@@ -886,9 +892,9 @@ namespace QuickImageComment
                     GeneralUtilities.message(LangCfg.Message.E_enteredValueWrongDataType, Spec.DisplayName, MetaType, ex.Message);
                 }
                 Control theRealActiveControl = this.ActiveControl;
-                while (theRealActiveControl is ContainerControl)
+                while (theRealActiveControl is ContainerControl control)
                 {
-                    ContainerControl activeContainer = (ContainerControl)theRealActiveControl;
+                    ContainerControl activeContainer = control;
                     if (activeContainer.ActiveControl == null) break;
                     theRealActiveControl = activeContainer.ActiveControl;
                 }

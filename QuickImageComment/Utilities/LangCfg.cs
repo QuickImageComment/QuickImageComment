@@ -221,7 +221,8 @@ namespace QuickImageComment
             I_IptcKeyWordsString,
             W_nominatimInvalidParameter,
             Q_overwriteExportFile,
-            Q_missingExvFiles
+            Q_missingExvFiles,
+            W_unknownEntryExifTool
         }
 
         public enum Others

@@ -247,8 +247,6 @@ namespace QuickImageComment
             this.tabPageXmp.Controls.Add(this.DataGridViewXmp);
             this.DataGridViewExifTool = new QuickImageCommentControls.DataGridViewMetaData("DataGridViewExifTool",
                 toolTip1, ChangedDataGridViewValues);
-            // ExifTool does not provide size, so hide that column
-            this.DataGridViewExifTool.Columns[4].Visible = false;
             this.tabPageExifTool.Controls.Add(this.DataGridViewExifTool);
             this.DataGridViewOtherMetaData = new QuickImageCommentControls.DataGridViewMetaData("DataGridViewOtherMetaData", toolTip1, ChangedDataGridViewValues);
             this.tabPageOther.Controls.Add(this.DataGridViewOtherMetaData);
@@ -883,6 +881,7 @@ namespace QuickImageComment
             Program.StartupPerformance.measure("FormQIC *** StartupInitNewFolder start");
             ExtendedImage.initExifTool(ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.ExifToolPath));
             ExtendedImage.startExifTool();
+            ExtendedImage.exifTool.FillLocationList();
             Program.StartupPerformance.measure("FormQIC *** ExifTool started");
             ImageManager.initNewFolder(FolderName);
             ImageManager.initExtendedCacheList();
@@ -7002,6 +7001,21 @@ namespace QuickImageComment
             GeneralUtilities.debugMessage(LookupReferenceValuesFile + " created.");
             StreamOut.Close();
         }
+
+        // create file with all tags (to compare with previous version, especially from exiv2)
+        private void toolStripMenuItemWriteTagListFileExifTool_Click(object sender, EventArgs e)
+        {
+            System.IO.StreamWriter StreamOut = null;
+            string LookupReferenceValuesFile = GeneralUtilities.getMaintenanceOutputFolder() + "TagListExifTool.txt";
+            StreamOut = new System.IO.StreamWriter(LookupReferenceValuesFile, false, System.Text.Encoding.UTF8);
+            StreamOut.WriteLine("; Tag-List ExifTool");
+            StreamOut.WriteLine("; --------------------------------------------------------------------------");
+
+            StreamOut.Write(ExtendedImage.exifTool.FetchTagListWithLocation());
+            GeneralUtilities.debugMessage(LookupReferenceValuesFile + " created.");
+            StreamOut.Close();
+        }
+
         // create file containing texts from all controls to be translated
         private void toolStripMenuItemCreateControlTextList_Click(object sender, EventArgs e)
         {

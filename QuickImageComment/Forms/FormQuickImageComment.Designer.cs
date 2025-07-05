@@ -70,6 +70,7 @@ namespace QuickImageComment
             this.tabPageExif = new System.Windows.Forms.TabPage();
             this.tabPageIptc = new System.Windows.Forms.TabPage();
             this.tabPageXmp = new System.Windows.Forms.TabPage();
+            this.tabPageExifTool = new System.Windows.Forms.TabPage();
             this.tabPageOther = new System.Windows.Forms.TabPage();
             this.tabPageMulti = new System.Windows.Forms.TabPage();
             this.splitContainer1213 = new System.Windows.Forms.SplitContainer();
@@ -268,7 +269,7 @@ namespace QuickImageComment
             this.toolStripButtonFind = new System.Windows.Forms.ToolStripButton();
             this.toolTip1 = new QuickImageComment.ToolTipQIC();
             this.theFolderTreeView = new QuickImageCommentControls.ShellTreeViewQIC();
-            this.tabPageExifTool = new System.Windows.Forms.TabPage();
+            this.toolStripMenuItemWriteTagListFileExifTool = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer12)).BeginInit();
             this.splitContainer12.Panel1.SuspendLayout();
             this.splitContainer12.Panel2.SuspendLayout();
@@ -648,6 +649,17 @@ namespace QuickImageComment
             this.tabPageXmp.Size = new System.Drawing.Size(269, 165);
             this.tabPageXmp.TabIndex = 4;
             this.tabPageXmp.Text = "XMP";
+            // 
+            // tabPageExifTool
+            // 
+            this.tabPageExifTool.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.tabPageExifTool.Location = new System.Drawing.Point(4, 22);
+            this.tabPageExifTool.Name = "tabPageExifTool";
+            this.tabPageExifTool.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageExifTool.Size = new System.Drawing.Size(269, 165);
+            this.tabPageExifTool.TabIndex = 5;
+            this.tabPageExifTool.Text = "ExifTool";
+            this.tabPageExifTool.UseVisualStyleBackColor = true;
             // 
             // tabPageOther
             // 
@@ -1920,6 +1932,7 @@ namespace QuickImageComment
             this.toolStripMenuItemCreateScreenshots,
             this.toolStripMenuItemWriteTagLookupReferenceFile,
             this.toolStripMenuItemWriteTagListFile,
+            this.toolStripMenuItemWriteTagListFileExifTool,
             this.toolStripMenuItemCreateControlTextList,
             this.toolStripMenuItemCheckTranslationComplete,
             this.toolStripMenuItemFormLogger});
@@ -2530,16 +2543,12 @@ namespace QuickImageComment
             this.theFolderTreeView.Size = new System.Drawing.Size(253, 147);
             this.theFolderTreeView.TabIndex = 0;
             // 
-            // tabPageExifTool
+            // toolStripMenuItemWriteTagListFileExifTool
             // 
-            this.tabPageExifTool.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.tabPageExifTool.Location = new System.Drawing.Point(4, 22);
-            this.tabPageExifTool.Name = "tabPageExifTool";
-            this.tabPageExifTool.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageExifTool.Size = new System.Drawing.Size(269, 165);
-            this.tabPageExifTool.TabIndex = 5;
-            this.tabPageExifTool.Text = "ExifTool";
-            this.tabPageExifTool.UseVisualStyleBackColor = true;
+            this.toolStripMenuItemWriteTagListFileExifTool.Name = "toolStripMenuItemWriteTagListFileExifTool";
+            this.toolStripMenuItemWriteTagListFileExifTool.Size = new System.Drawing.Size(247, 22);
+            this.toolStripMenuItemWriteTagListFileExifTool.Text = "Tag-Liste ExifTool erzeugen";
+            this.toolStripMenuItemWriteTagListFileExifTool.Click += new System.EventHandler(this.toolStripMenuItemWriteTagListFileExifTool_Click);
             // 
             // FormQuickImageComment
             // 
@@ -2857,5 +2866,6 @@ namespace QuickImageComment
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemBinaryImportAllProp;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator20;
         private System.Windows.Forms.TabPage tabPageExifTool;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemWriteTagListFileExifTool;
     }
 }

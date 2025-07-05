@@ -40,7 +40,7 @@ namespace QuickImageComment
 #endif
         // formats include formats which are tolerated and can be converted before saving
         // an empty format is included to separate allowed and tolerated formats
-        private static string[] dateFormatsExif =
+        private static readonly string[] dateFormatsExif =
         {
             "yyyy:MM:dd HH:mm:ss",
             "yyyy:MM:dd HH:mm",
@@ -54,13 +54,13 @@ namespace QuickImageComment
             "yyyy-MM-dd HH:mm",
             "yyyy-MM-dd"
         };
-        private static string[] dateFormatsIptc =
+        private static readonly string[] dateFormatsIptc =
         {
             "yyyy-MM-dd",
             "",
             "yyyy:MM:dd"
         };
-        private static string[] dateFormatsXmp =
+        private static readonly string[] dateFormatsXmp =
         {
             "yyyy-MM-ddTHH:mm:ssK",
             "yyyy-MM-ddTHH:mm:ss",
@@ -80,14 +80,14 @@ namespace QuickImageComment
         };
 
         // fields Exif.GPS... for question: better change in map, add anyhow
-        private static ArrayList ExifGPSFields = new ArrayList {
+        private static readonly ArrayList ExifGPSFields = new ArrayList {
             "Exif.GPSInfo.GPSLatitude",
             "Exif.GPSInfo.GPSLatitudeRef",
             "Exif.GPSInfo.GPSLongitude",
             "Exif.GPSInfo.GPSLongitudeRef"};
 
         // fields Image.GPS... for information message: change in map
-        private static ArrayList ImageGPSFields = new ArrayList {
+        private static readonly ArrayList ImageGPSFields = new ArrayList {
             "Image.GPSLatitudeDecimal",
             "Image.GPSLongitudeDecimal",
             "Image.GPSPosition",
@@ -421,7 +421,7 @@ namespace QuickImageComment
             System.IO.FileInfo theFileInfo = new System.IO.FileInfo(fileName);
 
             double FileSize = theFileInfo.Length;
-            FileSize = FileSize / 1024;
+            FileSize /= 1024;
             return fileName + "\n"
                 + LangCfg.getText(LangCfg.Others.fileSize) + " " + FileSize.ToString("#,### KB") + "\n"
                 + LangCfg.getText(LangCfg.Others.fileLastModified) + " " + theFileInfo.LastWriteTime.ToString();
@@ -887,10 +887,7 @@ namespace QuickImageComment
 
         public static void closeTraceFile()
         {
-            if (StreamTraceFile != null)
-            {
-                StreamTraceFile.Close();
-            }
+            StreamTraceFile?.Close();
         }
 
         // get name of calling methods
@@ -1436,6 +1433,7 @@ namespace QuickImageComment
                             GeneralUtilities.message(LangCfg.Message.E_metaDataNotEnteredSettings, key);
                             continue;
                         }
+                        //!! hier prüfen, ob es ExifTool ist und schreibbar
                         // key passed initial checks to be added
                         CheckedTagsToAdd.Add(key);
                     }
@@ -1470,6 +1468,9 @@ namespace QuickImageComment
                             MetaDataDefinitionItem theMetaDataDefinitionItem;
                             theMetaDataDefinitionItem = new MetaDataDefinitionItem(key, key, getFormatForTagChange(key));
                             MetaDataDefinitionsWork.Add(theMetaDataDefinitionItem);
+                            // add/overwrite reference to location+ID for key if it is an ExifTool key
+                            ConfigDefinition.addOverwriteExifToolID(key);
+
                             MainMaskInterface.afterMetaDataDefinitionChange();
                         }
                     }
@@ -1579,6 +1580,9 @@ namespace QuickImageComment
                         {
                             MetaDataDefinitionItem theMetaDataDefinitionItem = new MetaDataDefinitionItem(key, key, MetaDataItem.Format.Interpreted);
                             MetaDataDefinitionsWork.Add(theMetaDataDefinitionItem);
+                            // add/overwrite reference to location+ID for key if it is an ExifTool key
+                            ConfigDefinition.addOverwriteExifToolID(key);
+
                             MainMaskInterface.afterMetaDataDefinitionChange();
                         }
                     }

@@ -191,7 +191,7 @@ namespace QuickImageComment
                 if (endIndex > 0)
                 {
                     FormatPrim = (MetaDataItem.Format)int.Parse(DefinitionString.Substring(startIndex, 2));
-                    startIndex = startIndex + 3;
+                    startIndex += 3;
                     KeyPrim = DefinitionString.Substring(startIndex, endIndex - startIndex);
                     startIndex = endIndex + 1;
                     endIndex = DefinitionString.IndexOf("<", startIndex);
@@ -203,7 +203,7 @@ namespace QuickImageComment
                         if (endIndex > 0)
                         {
                             FormatSec = (MetaDataItem.Format)int.Parse(DefinitionString.Substring(startIndex, 2));
-                            startIndex = startIndex + 3;
+                            startIndex += 3;
                             KeySec = DefinitionString.Substring(startIndex, endIndex - startIndex);
                             startIndex = endIndex + 1;
                             endIndex = DefinitionString.IndexOf("|", startIndex);

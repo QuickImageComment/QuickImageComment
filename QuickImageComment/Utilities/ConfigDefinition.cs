@@ -291,8 +291,8 @@ namespace QuickImageComment
         private static ArrayList ArtistEntries;
         private static ArrayList QueryEntries;
         private static SortedList<string, ArrayList> ChangeableFieldEntriesLists;
-		private static SortedList<string, ArrayList> NominatimQueryEntriesLists;
-		private static SortedList<string, ArrayList> FindFilterEntriesLists;
+        private static SortedList<string, ArrayList> NominatimQueryEntriesLists;
+        private static SortedList<string, ArrayList> FindFilterEntriesLists;
         private static ArrayList PredefinedComments;
         // before version 4.55, key words were stored without hierarchy, entries were trimmed
         // to avoid conflicts when using 4.55 and previous versions, 4.55 writes key words with other prefix
@@ -319,6 +319,7 @@ namespace QuickImageComment
         private static ArrayList RawDecoderNotRotatingArrayList;
         private static ArrayList EditExternalDefinitionArrayList;
         private static List<string> ImagesCausingExiv2Exception;
+        internal static SortedList<string, string> ExifToolIDs;
 
         internal static SortedList<string, DataTemplate> DataTemplates;
         internal static SortedList<string, string> MapUrls;
@@ -378,7 +379,7 @@ namespace QuickImageComment
             QueryEntries = new ArrayList();
             ChangeableFieldEntriesLists = new SortedList<string, ArrayList>();
             NominatimQueryEntriesLists = new SortedList<string, ArrayList>();
-			FindFilterEntriesLists = new SortedList<string, ArrayList>();
+            FindFilterEntriesLists = new SortedList<string, ArrayList>();
             PredefinedComments = new ArrayList();
             PredefinedKeyWordsWithoutHierarchy = new ArrayList();
             PredefinedKeyWords = new ArrayList();
@@ -418,6 +419,7 @@ namespace QuickImageComment
             DataTemplates = new SortedList<string, DataTemplate>();
             MapUrls = new SortedList<string, string>();
             MapLeafletList = new SortedList<string, MapSource>();
+            ExifToolIDs = new SortedList<string, string>();
 
             for (int ii = 0; ii < ImageGridsCount; ii++)
             {
@@ -2304,14 +2306,14 @@ namespace QuickImageComment
             return ChangeableFieldEntriesLists;
         }
 
-		// Nominatim query entries
-		public static SortedList<string, ArrayList> getNominatimQueryEntriesLists()
-		{
-			return NominatimQueryEntriesLists;
-		}
+        // Nominatim query entries
+        public static SortedList<string, ArrayList> getNominatimQueryEntriesLists()
+        {
+            return NominatimQueryEntriesLists;
+        }
 
-		// find filter entries
-		public static SortedList<string, ArrayList> getFindFilterEntriesLists()
+        // find filter entries
+        public static SortedList<string, ArrayList> getFindFilterEntriesLists()
         {
             return FindFilterEntriesLists;
         }
@@ -2736,22 +2738,22 @@ namespace QuickImageComment
                     else if (firstPart.Equals("Query"))
                     {
                         QueryEntries.Add(secondPart.Replace(GeneralUtilities.UniqueSeparator, "\n"));
-					}
-					else if (firstPart.Equals("ChangeableField"))
-					{
-						IndexColon = secondPart.IndexOf(":");
-						if (IndexColon < 0)
-						{
-							throw new ExceptionDefinitionNotComplete(lineNo);
-						}
-						string Key = secondPart.Substring(0, IndexColon);
-						if (!ChangeableFieldEntriesLists.ContainsKey(Key))
-						{
-							ChangeableFieldEntriesLists.Add(Key, new ArrayList());
-						}
-						ChangeableFieldEntriesLists[Key].Add(secondPart.Substring(IndexColon + 1));
-					}
-					else if (firstPart.Equals("NominatimQueryEntry"))
+                    }
+                    else if (firstPart.Equals("ChangeableField"))
+                    {
+                        IndexColon = secondPart.IndexOf(":");
+                        if (IndexColon < 0)
+                        {
+                            throw new ExceptionDefinitionNotComplete(lineNo);
+                        }
+                        string Key = secondPart.Substring(0, IndexColon);
+                        if (!ChangeableFieldEntriesLists.ContainsKey(Key))
+                        {
+                            ChangeableFieldEntriesLists.Add(Key, new ArrayList());
+                        }
+                        ChangeableFieldEntriesLists[Key].Add(secondPart.Substring(IndexColon + 1));
+                    }
+                    else if (firstPart.Equals("NominatimQueryEntry"))
                     {
                         IndexColon = secondPart.IndexOf(":");
                         if (IndexColon < 0)
@@ -2814,6 +2816,18 @@ namespace QuickImageComment
                     else if (firstPart.Equals("ImagesCausingExiv2Exception"))
                     {
                         ImagesCausingExiv2Exception.Add(secondPart);
+                    }
+                    else if (firstPart.Equals("ExifToolIDs"))
+                    {
+                        int indexEqual = secondPart.IndexOf("=");
+                        string Key = secondPart.Substring(0, indexEqual);
+                        string ID = secondPart.Substring(indexEqual + 1);
+
+                        if (!ExifToolIDs.ContainsKey(Key))
+                        {
+                            // add with empty attribution and subdomain and a max zoom of 20
+                            ExifToolIDs.Add(Key, ID);
+                        }
                     }
                     else if (firstPart.StartsWith("#"))
                     {
@@ -3375,18 +3389,18 @@ namespace QuickImageComment
                 }
             }
 
-			// copy only newest entries keeping maximum of entries per changeable field
-			foreach (string aKey in NominatimQueryEntriesLists.Keys)
-			{
-				ArrayList Entries = NominatimQueryEntriesLists[aKey];
-				for (int ii = 0; ii < getMaxChangeableFieldEntries() && ii < Entries.Count; ii++)
-				{
-					StreamOut.WriteLine("NominatimQueryEntry:" + aKey + ":" + Entries[ii].ToString());
-				}
-			}
+            // copy only newest entries keeping maximum of entries per changeable field
+            foreach (string aKey in NominatimQueryEntriesLists.Keys)
+            {
+                ArrayList Entries = NominatimQueryEntriesLists[aKey];
+                for (int ii = 0; ii < getMaxChangeableFieldEntries() && ii < Entries.Count; ii++)
+                {
+                    StreamOut.WriteLine("NominatimQueryEntry:" + aKey + ":" + Entries[ii].ToString());
+                }
+            }
 
-			// copy only newest entries keeping maximum of entries per filter field
-			foreach (string aKey in FindFilterEntriesLists.Keys)
+            // copy only newest entries keeping maximum of entries per filter field
+            foreach (string aKey in FindFilterEntriesLists.Keys)
             {
                 ArrayList Entries = FindFilterEntriesLists[aKey];
                 for (int ii = 0; ii < getMaxChangeableFieldEntries() && ii < Entries.Count; ii++)
@@ -3457,6 +3471,11 @@ namespace QuickImageComment
             foreach (DataTemplate aDataTemplate in DataTemplates.Values)
             {
                 StreamOut.WriteLine(aDataTemplate.toString());
+            }
+
+            foreach (string aKey in ExifToolIDs.Keys)
+            {
+                StreamOut.WriteLine("ExifToolIDs:" + aKey + "=" + ExifToolIDs[aKey]);
             }
 
             if (IgnoreLines.Count > 0)
@@ -3857,7 +3876,7 @@ namespace QuickImageComment
             }
 #endif
         }
-        
+
         // actions needed, when exiv2 exception file is filled
         private static void handleExiv2ExceptionImageFileName(string imageFileName, string execeptionInfo)
         {
@@ -4059,6 +4078,33 @@ namespace QuickImageComment
             else
             {
                 ConfigItems["_" + enumConfigFlags.ThreadAfterSelectionOfFile.ToString()] = "no";
+            }
+        }
+
+        // add a reference for ExifTool ID to list
+        internal static void addOverwriteExifToolID(string key)
+        {
+            // for meta data from ExifTool, key consists of location and description, because
+            // location and ID are not unique:
+            // found an image with 12 entries "Nikon:ID-0" but different descriptions
+            // but in order to write data, combination of location and ID has to be used
+            // so fill a reference table 
+            ExtendedImage extendedImage = MainMaskInterface.getTheExtendedImage();
+            if (extendedImage != null)
+            {
+                if (extendedImage.getExifToolMetaDataItems().ContainsKey(key))
+                {
+                    MetaDataItemExifTool metaDataItemExifTool =
+                        (MetaDataItemExifTool)MainMaskInterface.getTheExtendedImage().getExifToolMetaDataItems()[key];
+                    if (metaDataItemExifTool != null)
+                    {
+                        string writeKey = metaDataItemExifTool.getWriteKey();
+                        if (ExifToolIDs.ContainsKey(key))
+                            ExifToolIDs[key] = writeKey;
+                        else
+                            ExifToolIDs.Add(key, writeKey);
+                    }
+                }
             }
         }
     }

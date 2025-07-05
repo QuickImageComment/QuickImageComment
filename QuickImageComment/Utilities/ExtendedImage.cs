@@ -163,7 +163,7 @@ namespace QuickImageComment
 
         public const int ReturnStatus_UserCommentChanged = 1;
 
-        private static Brain2CPU.ExifTool.ExifToolWrapper exifTool;
+        internal static Brain2CPU.ExifTool.ExifToolWrapper exifTool;
 
         public class ExceptionErrorReplacePlaceholder : ApplicationException
         {
@@ -539,6 +539,7 @@ namespace QuickImageComment
                 string[] lines = output.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
                 string ID = "";
                 string key = "";
+                string writeKey = "";
                 long tag = -1;
                 string format = "";
                 string value = "";
@@ -552,7 +553,7 @@ namespace QuickImageComment
                         // ignore line wiht version number
                         if (!LocIdFmt[1].Equals("ID-ExifToolVersion"))
                         {
-                            MetaDataWarningsRead.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exifToolError), values[2]));
+                            MetaDataWarningsRead.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exifToolError), values[3]));
                         }
                     }
                     else
@@ -564,7 +565,12 @@ namespace QuickImageComment
                         else
                             format = "";
 
+                        // use location and description as key, because location and ID are not unique
+                        // example: found an image with 12 entries "Nikon:ID-0" but different descriptions
                         key = LocIdFmt[0] + "." + values[2];
+
+                        // for writing ID is necessary; location as prefix to be more specific
+                        writeKey = LocIdFmt[0] + ":" + ID;
 
                         if (values[1].Equals("-"))
                             tag = -1;
@@ -585,7 +591,7 @@ namespace QuickImageComment
                         else
                             value = "";
 
-                        ExifToolMetaDataItems.Add(key, new MetaDataItem(ID, key, tag, format, value));
+                        ExifToolMetaDataItems.Add(key, new MetaDataItemExifTool(ID, key, writeKey, tag, format, value));
                     }
                 }
 #if !DEBUG

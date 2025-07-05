@@ -51,40 +51,20 @@ namespace QuickImageComment
             ForComparisonAfterSave
         }
 
-        private static string[] ExifCharsetSpecification = { "charset=\"ascii\" ",
+        private static readonly string[] ExifCharsetSpecification = { "charset=\"ascii\" ",
                                                          "charset=\"jis\" ",
                                                          "charset=\"unicode\" ",
                                                          "charset=\"undefined\" " };
 
-        private string key;
-        private string ExifToolID;
-        private long tag;
-        private string typeName;
-        private string language;
-        private long count;          //  number of components in the value
-        private long size;           // size of the value in bytes
-        private string valueString;
-        private string interpretedString;
-        private float valueFloat;
-
-        public MetaDataItem(
-          string givenExifToolID,
-          string givenKey,
-          long givenTag,
-          string givenTypeName,
-          string givenInterpretedString)
-        {
-            ExifToolID = givenExifToolID;
-            key = givenKey;
-            tag = givenTag;
-            typeName = givenTypeName;
-            count = -1;
-            size = -1;
-            valueString = "";
-            interpretedString = givenInterpretedString;
-            valueFloat = -1.0F;
-            language = "";
-        }
+        protected string key;
+        protected long tag;
+        protected string typeName;
+        protected string language;
+        protected long count;          //  number of components in the value
+        protected long size;           // size of the value in bytes
+        protected string valueString;
+        protected string interpretedString;
+        protected float valueFloat;
 
         public MetaDataItem(
           string givenKey,
@@ -96,7 +76,6 @@ namespace QuickImageComment
           string givenInterpretedString,
           float givenValueFloat)
         {
-            ExifToolID = null;
             key = givenKey;
             tag = givenTag;
             typeName = givenTypeName;
@@ -119,7 +98,6 @@ namespace QuickImageComment
           float givenValueFloat,
           string givenLanguage)
         {
-            ExifToolID = null;
             key = givenKey;
             tag = givenTag;
             typeName = givenTypeName;
@@ -168,7 +146,7 @@ namespace QuickImageComment
         }
 
         // gets value for display, depending on format specification
-        public string getValueForDisplay(Format FormatSpecification)
+        public virtual string getValueForDisplay(Format FormatSpecification)
         {
             string OriginalValue = valueString;
             string InterpretedValue = interpretedString;
@@ -294,12 +272,6 @@ namespace QuickImageComment
                         {
                             return OriginalValue;
                         }
-                        else if (ExifToolID != null)
-                        {
-                            // ExifTool can give either original or interpreted, not both together
-                            // decision is to use only interpreted, original is not filled
-                            return InterpretedValue;
-                        }
                         else if (OriginalValue.Equals(InterpretedValue))
                         {
                             return OriginalValue;
@@ -416,5 +388,53 @@ namespace QuickImageComment
                    Exiv2TagDefinitions.isEditableInDataGridView(typeName, key);
         }
 
+    }
+    //*****************************************************************
+    // derived class for meta data items filled with ExifTool
+    //*****************************************************************
+    public class MetaDataItemExifTool : MetaDataItem
+    {
+        private readonly string ExifToolID;
+        // key used to write meta data, consisting of location and ID
+        // problem: is not unique, found an image with 12 entries "Nikon:ID-0" but different descriptions
+        private readonly string writeKey;
+
+        public MetaDataItemExifTool(
+            string givenExifToolID,
+            string givenKey,
+            string givenWriteKey,
+            long givenTag,
+            string givenTypeName,
+            string givenInterpretedString)
+                : base(givenKey,
+            givenTag,
+            givenTypeName,
+            -1,
+            -1,
+            "",
+            givenInterpretedString,
+            -1.0F,
+            "")
+        {
+            ExifToolID = givenExifToolID;
+            writeKey = givenWriteKey;
+        }
+
+        public string getExifToolID()
+        {
+            return ExifToolID;
+        }
+
+        public string getWriteKey()
+        {
+            return writeKey;
+        }
+
+        // ExifTool can return either original or interpreted (translated) value, no both together
+        // decision is to use only interpreted value, so Format is not used here
+        public override string getValueForDisplay(Format FormatSpecification)
+        {
+            return interpretedString;
+        }
     }
 }
