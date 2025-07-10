@@ -54,14 +54,14 @@ namespace QuickImageComment
             }
 
         }
- 
+
         private void buttonOk_Click(object sender, EventArgs e)
         {
             this.Cursor = Cursors.WaitCursor;
             ConfigDefinition.setCfgUserString(ConfigDefinition.enumCfgUserString.ExifToolPath, textBoxProgramPath.Text);
             // stop and restart ExifTool
             Logger.log("stop ExifTool");
-            ExtendedImage.stopExifTool();
+            ExifToolWrapper.Stop();
             Logger.log("ExifTool stopped");
             if (textBoxProgramPath.Text.Length > 0) ExtendedImage.initExifTool(textBoxProgramPath.Text);
 
@@ -91,10 +91,10 @@ namespace QuickImageComment
 
         private void buttonStatusVersionCheck_Click(object sender, EventArgs e)
         {
-            if (ExtendedImage.exifTool != null)
+            if (ExifToolWrapper.isReady())
             {
-                dynamicLabelProcessStatus.Text = ExtendedImage.exifTool.Status.ToString();
-                ExifToolResponse cmdRes = ExtendedImage.exifTool.SendCommand("-ver");
+                dynamicLabelProcessStatus.Text = ExifToolWrapper.Status.ToString();
+                ExifToolResponse cmdRes = ExifToolWrapper.SendCommand("-ver");
                 dynamicLabelVersion.Text = cmdRes.Result.Trim();
             }
         }

@@ -22,7 +22,6 @@ using Brain2CPU.ExifTool;
 using CSJ2K;
 using CSJ2K.Util;
 using Newtonsoft.Json.Linq;
-using QuickImageComment.Forms;
 using System;
 
 
@@ -168,8 +167,6 @@ namespace QuickImageComment
         private static extern int memcmp(IntPtr b1, IntPtr b2, long count);
 
         public const int ReturnStatus_UserCommentChanged = 1;
-
-        internal static Brain2CPU.ExifTool.ExifToolWrapper exifTool;
 
         public class ExceptionErrorReplacePlaceholder : ApplicationException
         {
@@ -2312,31 +2309,17 @@ namespace QuickImageComment
         internal static void initExifTool(string ExifToolPath)
         {
             Logger.log("initExifTool " + ExifToolPath);
-            exifTool = new ExifToolWrapper(ExifToolPath);
+            ExifToolWrapper.init(ExifToolPath);
             Logger.log("new ExifToolWrapper");
-            exifTool.Start();
-            Logger.log("ExifTool started");
-            exifTool.FillLocationList();
-            Logger.log("FillLocationList finish");
-            exifTool.FillWritableTagList();
-            Logger.log("FillWritableTagList finish");
-            ExifToolResponse cmdRes = ExtendedImage.exifTool.SendCommand("-ver");
+            ExifToolResponse cmdRes = ExifToolWrapper.SendCommand("-ver");
             Logger.log("ExifTool started. Version: " + cmdRes.Result.Trim());
-        }
-
-        internal static void stopExifTool()
-        {
-            if (exifTool != null)
-            {
-                exifTool.Stop();
-            }
         }
 
         private void readExifToolMetaData()
         {
-            // if exifTool is null, it is not initialised
+            // if ExifToolWrapper is not ready, it is not properly initialised
             // most likely because path is not set by user, so display no warning or error
-            if (exifTool == null) return;
+            if (!ExifToolWrapper.isReady()) return;
 #if !DEBUG
             Newtonsoft.Json.Linq.JProperty exceptionJProperty = new JProperty("init loop");
             try
@@ -2344,7 +2327,7 @@ namespace QuickImageComment
 #endif
             // reading with ExifTool outside the lock as ExitToolWrapper has its own lock
             string language = ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.LanguageExifTool);
-            string jsonResponse = exifTool.FetchExifToStringFrom(ImageFileName, new string[]
+            string jsonResponse = ExifToolWrapper.FetchExifToStringFrom(ImageFileName, new string[]
                 { "-D", "-G:6:1", "-sep", " | ", "-j", "-l", "-lang", language, "-m" });
 
             if (jsonResponse.Length < 3)
@@ -2356,7 +2339,7 @@ namespace QuickImageComment
             // Iterate through the JSONArray
             for (int ii = 0; ii < jsonArray.Count; ii++)
             {
-                JToken jToken = (JToken)jsonArray[ii];
+                JToken jToken = jsonArray[ii];
                 foreach (Newtonsoft.Json.Linq.JProperty child in jToken.Children().Cast<JProperty>())
                 {
 #if !DEBUG
@@ -3367,7 +3350,7 @@ namespace QuickImageComment
 
                 if (ExifToolValues.Count > 0)
                 {
-                    ExifToolResponse cmdRes = exifTool.SetExifInto(ImageFileName, ExifToolValues);
+                    ExifToolResponse cmdRes = ExifToolWrapper.SetExifInto(ImageFileName, ExifToolValues);
                     if (!cmdRes)
                     {
                         GeneralUtilities.message(LangCfg.Message.E_ExifToolWriteError, cmdRes.Result);

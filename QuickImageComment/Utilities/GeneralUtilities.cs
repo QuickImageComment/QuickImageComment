@@ -17,6 +17,7 @@
 // for Microsoft Store, promotion of download has to be disabled
 //#define MICROSOFT_STORE
 
+using Brain2CPU.ExifTool;
 using JR.Utils.GUI.Forms;
 using System;
 using System.Collections;
@@ -1434,7 +1435,7 @@ namespace QuickImageComment
                             continue;
                         }
                         int colon = key.IndexOf(':');
-                        if (colon > 0 && !ExtendedImage.exifTool.getWritableTagList().Contains(key.Substring(colon + 1)))
+                        if (colon > 0 && !ExifToolWrapper.getWritableTagList().Contains(key.Substring(colon + 1)))
                         {
                             GeneralUtilities.message(LangCfg.Message.E_tagValueNotChangeable, key);
                             continue;

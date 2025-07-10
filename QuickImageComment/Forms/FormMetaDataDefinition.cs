@@ -14,6 +14,7 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
+using Brain2CPU.ExifTool;
 using System;
 using System.Collections;
 using System.Windows.Forms;
@@ -361,7 +362,7 @@ namespace QuickImageComment
             {
                 posDot1 = tagEntry.Text.IndexOf(".");
                 // no dot found: is tag from ExifTool where group is terminated by colon
-                if (posDot1 < 0) posDot1= tagEntry.Text.IndexOf(":");
+                if (posDot1 < 0) posDot1 = tagEntry.Text.IndexOf(":");
                 posDot2 = tagEntry.Text.IndexOf(".", posDot1 + 1);
                 if (posDot2 < 0)
                 {
@@ -1442,7 +1443,7 @@ namespace QuickImageComment
                 else
                 {
                     string[] parts = metaDatumText.Split(new char[] { ':' });
-                    if (ExtendedImage.exifTool.getLocationList().Contains(parts[0]))
+                    if (ExifToolWrapper.getLocationList().Contains(parts[0]))
                     {
                         // add/overwrite reference to location+ID for key if it is an ExifTool key
                         ConfigDefinition.addOverwriteExifToolID(metaDatumText);

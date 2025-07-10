@@ -29,7 +29,6 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
-using static CSJ2K.j2k.codestream.HeaderInfo;
 using Color = System.Drawing.Color;
 using Pen = System.Drawing.Pen;
 
@@ -2877,7 +2876,7 @@ namespace QuickImageComment
                 }
             }
 
-                this.Refresh();
+            this.Refresh();
         }
 
         // set language for ExifTool
@@ -6959,6 +6958,7 @@ namespace QuickImageComment
                 // FormDonate not needed
                 new FormEditExternal();
                 // FormError not needed
+                // FormExifToolSettings not needed
                 new FormExportAllMetaData(theUserControlFiles.listViewFiles.SelectedIndices, FolderName, FormExportAllMetaData.enumExImPortMode.TextExport);
                 new FormExportMetaData(FolderName);
                 FormFind formFind = new FormFind(true);
@@ -7051,24 +7051,27 @@ namespace QuickImageComment
         // create file with all tags (to compare with previous version, especially from exiv2)
         private void toolStripMenuItemWriteTagListFileExifTool_Click(object sender, EventArgs e)
         {
+            this.Cursor = Cursors.WaitCursor;
             System.IO.StreamWriter StreamOut = null;
             string LookupReferenceValuesFile = GeneralUtilities.getMaintenanceOutputFolder() + "TagListExifTool.txt";
             StreamOut = new System.IO.StreamWriter(LookupReferenceValuesFile, false, System.Text.Encoding.UTF8);
-            ExifToolResponse cmdRes = ExtendedImage.exifTool.SendCommand("-ver");
+            ExifToolResponse cmdRes = ExifToolWrapper.SendCommand("-ver");
             if (cmdRes)
             {
                 StreamOut.WriteLine("; Tag-List ExifTool " + cmdRes.Result.Trim());
                 StreamOut.WriteLine("; --------------------------------------------------------------------------");
-                ArrayList tags = ExtendedImage.exifTool.FetchTagListWithLocation("-list");
+                ArrayList tags = ExifToolWrapper.FetchTagListWithLocation("-list");
                 for (int ii = 0; ii < tags.Count; ii++)
                 {
                     StreamOut.WriteLine(tags[ii]);
                 }
+                this.Cursor = Cursors.Default;
                 GeneralUtilities.debugMessage(LookupReferenceValuesFile + " created.");
                 StreamOut.Close();
             }
             else
             {
+                this.Cursor = Cursors.Default;
                 GeneralUtilities.debugMessage("Error creating " + LookupReferenceValuesFile + " " + cmdRes.Result);
             }
         }
@@ -7089,6 +7092,7 @@ namespace QuickImageComment
             LangCfg.getListOfControlsWithText(new FormDonate(), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormEditExternal(), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormError("", "", "", true), ControlTextList);
+            LangCfg.getListOfControlsWithText(new FormExifToolSettings(), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormExportAllMetaData(theUserControlFiles.listViewFiles.SelectedIndices, FolderName, FormExportAllMetaData.enumExImPortMode.TextExport), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormExportMetaData(FolderName), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormFind(true), ControlTextList);
@@ -7162,6 +7166,7 @@ namespace QuickImageComment
             new FormDonate();
             new FormEditExternal();
             new FormError("", "", "", true);
+            new FormExifToolSettings();
             new FormExportAllMetaData(theUserControlFiles.listViewFiles.SelectedIndices, FolderName, FormExportAllMetaData.enumExImPortMode.TextExport);
             new FormExportMetaData(FolderName);
             new FormFind(true);
