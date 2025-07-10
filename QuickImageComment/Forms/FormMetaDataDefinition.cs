@@ -340,7 +340,7 @@ namespace QuickImageComment
                 {
                     theListViewItem = new ListViewItem(new string[] { metaDataItemExifTool.getKey(),
                                                                       metaDataItemExifTool.getTypeName(),
-                                                                      "",
+                                                                      metaDataItemExifTool.getShortDesc(),
                                                                       metaDataItemExifTool.getKey() });
                     listViewTags.Items.Add(theListViewItem);
                 }
@@ -360,6 +360,8 @@ namespace QuickImageComment
             foreach (ListViewItem tagEntry in listViewTags.Items)
             {
                 posDot1 = tagEntry.Text.IndexOf(".");
+                // no dot found: is tag from ExifTool where group is terminated by colon
+                if (posDot1 < 0) posDot1= tagEntry.Text.IndexOf(":");
                 posDot2 = tagEntry.Text.IndexOf(".", posDot1 + 1);
                 if (posDot2 < 0)
                 {
@@ -964,11 +966,19 @@ namespace QuickImageComment
             if (listViewTags.SelectedItems.Count > 0)
             {
                 MetaDataKey = listViewTags.SelectedItems[0].SubItems[3].Text;
-                Name = listViewTags.SelectedItems[0].SubItems[0].Text;
-                posDot = Name.LastIndexOf(".");
-                if (posDot > 0)
+                if (MetaDataKey.Contains(":"))
                 {
-                    Name = Name.Substring(posDot + 1);
+                    // key from ExifTool, (short) description used for name
+                    Name = listViewTags.SelectedItems[0].SubItems[2].Text;
+                }
+                else
+                {
+                    Name = listViewTags.SelectedItems[0].SubItems[0].Text;
+                    posDot = Name.LastIndexOf(".");
+                    if (posDot > 0)
+                    {
+                        Name = Name.Substring(posDot + 1);
+                    }
                 }
             }
             TagDefinition theTagDefinition;
@@ -1431,7 +1441,7 @@ namespace QuickImageComment
                 }
                 else
                 {
-                    string[] parts = metaDatumText.Split(new char[] { '.' });
+                    string[] parts = metaDatumText.Split(new char[] { ':' });
                     if (ExtendedImage.exifTool.getLocationList().Contains(parts[0]))
                     {
                         // add/overwrite reference to location+ID for key if it is an ExifTool key

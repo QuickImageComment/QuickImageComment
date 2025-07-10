@@ -1,4 +1,6 @@
-﻿using System;
+﻿using HurlbertVisionLab.LibRawWrapper.Native;
+using QuickImageComment;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -38,8 +40,8 @@ namespace Brain2CPU.ExifTool
         public string ExifToolVersion { get; private set; }
 
         private const string ExeName = "exiftool(-k).exe";
-        private const string Arguments = "-fast  -m -q -q -stay_open True -@ - -common_args -d \"%Y:%m:%d %H:%M:%S\" -c \"%d %d %.6f\" -t";
-        private const string ArgumentsFaster = "-fast2 -m -q -q -stay_open True -@ - -common_args -d \"%Y:%m:%d %H:%M:%S\" -c \"%d %d %.6f\" -t";
+        private const string Arguments = "-fast   -stay_open True -@ - -common_args -t -a";
+        private const string ArgumentsFaster = "-fast2 -m -q -q -stay_open True -@ - -common_args -t -a";
         private const string ExitMessage = "-- press RETURN --";
         internal const string SuccessMessage = "1 image files updated";
 
@@ -70,6 +72,7 @@ namespace Brain2CPU.ExifTool
         private readonly ManualResetEvent _waitForErrorHandle = new ManualResetEvent(true);
 
         private ArrayList Locations = new ArrayList();
+        private ArrayList WritableTags = new ArrayList();
 
         public ExifToolWrapper(string path = null, bool faster = false)
         {
@@ -105,7 +108,10 @@ namespace Brain2CPU.ExifTool
                 UseShellExecute = false,
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
-                RedirectStandardInput = true
+                RedirectStandardInput = true,
+
+                StandardOutputEncoding = System.Text.Encoding.UTF8,
+                StandardErrorEncoding = System.Text.Encoding.UTF8
             };
 
             Status = ExeStatus.Stopped;
@@ -196,6 +202,12 @@ namespace Brain2CPU.ExifTool
 
         public void Stop()
         {
+            if (Status == ExeStatus.Stopped)
+            {
+                // already stopped
+                return;
+            }
+
             _stopRequested = true;
 
             if (Status != ExeStatus.Ready)
@@ -431,9 +443,32 @@ namespace Brain2CPU.ExifTool
             return Locations;
         }
 
-        public string FetchTagListWithLocation()
+        public void FillWritableTagList()
         {
-            string output = "";
+            string cmd = "-listw";
+            var cmdRes = SendCommand(cmd);
+            if (cmdRes)
+            {
+                string[] lines = cmdRes.Result.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                {
+                    for (int ii = 1; ii < lines.Length; ii++)
+                    {
+                        foreach (string word in lines[ii].Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries))
+                        {
+                            WritableTags.Add(word);
+                        }
+                    }
+                }
+            }
+        }
+
+        public ArrayList getWritableTagList()
+        {
+            return WritableTags;
+        }
+
+        public ArrayList FetchTagListWithLocation(string listArg)
+        {
             string cmd = "";
             ExifToolResponse cmdRes;
             ArrayList tags = new ArrayList();
@@ -444,7 +479,7 @@ namespace Brain2CPU.ExifTool
             }
             foreach (string location in Locations)
             {
-                cmd = "-list\r\n-" + location + ":All";
+                cmd = listArg + "\r\n-" + location + ":All";
                 cmdRes = SendCommand(cmd);
                 if (cmdRes)
                 {
@@ -460,11 +495,12 @@ namespace Brain2CPU.ExifTool
                     }
                 }
             }
-            for (int ii = 0; ii < tags.Count; ii++)
-            {
-                output += tags[ii] + "\r\n";
-            }
-            return output;
+            return tags;
+        }
+
+        public void FillWritableTagListWithLocation()
+        {
+            WritableTags = FetchTagListWithLocation("-listw");
         }
 
         public ExifToolResponse CloneExif(string source, string dest, bool backup = false)

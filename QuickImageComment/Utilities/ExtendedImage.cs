@@ -21,10 +21,16 @@
 using Brain2CPU.ExifTool;
 using CSJ2K;
 using CSJ2K.Util;
+using Newtonsoft.Json.Linq;
+using QuickImageComment.Forms;
 using System;
+
+
 using System.Collections;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices; // for DllImport
 using System.Text;
 using System.Windows.Forms;
@@ -452,7 +458,6 @@ namespace QuickImageComment
         {
             int status = 0;
             // used when adding ExifTool warning to MetaDataWarningsRead
-            string line = "";
 
             ReadPerformance.measure("readMetaData start");
             ExifMetaDataItems = new SortedList();
@@ -489,120 +494,52 @@ namespace QuickImageComment
             try
             {
 #endif
-                string iniPath = ConfigDefinition.getIniPath();
-                string comment = "";
-                string errorText = "";
+            string iniPath = ConfigDefinition.getIniPath();
+            string comment = "";
+            string errorText = "";
 
-                // do not call exiv2 if image is known to cause fatal exceptions
-                if (!ConfigDefinition.getImagesCausingExiv2Exception().Contains(this.ImageFileName))
+            // do not call exiv2 if image is known to cause fatal exceptions
+            if (!ConfigDefinition.getImagesCausingExiv2Exception().Contains(this.ImageFileName))
+            {
+                // lock because this method can be called in main thread or via updateCaches
+                lock (LockReadExiv2)
                 {
-                    // lock because this method can be called in main thread or via updateCaches
-                    lock (LockReadExiv2)
+                    status = exiv2readImageByFileName(ImageFileName, iniPath, ref comment, ref IptcUTF8, ref errorText);
+                    if (!errorText.Equals("") && !ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.HideExiv2Error))
                     {
-                        status = exiv2readImageByFileName(ImageFileName, iniPath, ref comment, ref IptcUTF8, ref errorText);
-                        if (!errorText.Equals("") && !ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.HideExiv2Error))
+                        MetaDataWarningsRead.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error), errorText));
+                    }
+
+                    // read Exif, Iptc and XMP only, if exiv2readImageByFileName did not return with exception
+                    if (status != exiv2StatusException)
+                    {
+                        // get image comment
+                        addReplaceOtherMetaDataKnownType("Image.Comment", comment);
+
+                        if (neededKeys == null)
                         {
-                            MetaDataWarningsRead.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error), errorText));
+                            // read all Exif, IPTC and XMP data
+                            readAllExifIptcXmp();
                         }
-
-                        // read Exif, Iptc and XMP only, if exiv2readImageByFileName did not return with exception
-                        if (status != exiv2StatusException)
+                        else
                         {
-                            // get image comment
-                            addReplaceOtherMetaDataKnownType("Image.Comment", comment);
-
-                            if (neededKeys == null)
-                            {
-                                // read all Exif, IPTC and XMP data
-                                readAllExifIptcXmp();
-                            }
-                            else
-                            {
-                                // read all Exif, IPTC and XMP data
-                                readExifIptcXmpForNeededKeys(neededKeys);
-                            }
+                            // read all Exif, IPTC and XMP data
+                            readExifIptcXmpForNeededKeys(neededKeys);
                         }
                     }
                 }
+            }
 #if !DEBUG
             }
             catch (Exception ex)
             {
                 MetaDataWarningsRead.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error), ex.Message));
             }
-
-            try
-            {
 #endif
-                // reading with ExifTool outside the lock as ExitToolWrapper has its own lock
-                string output = exifTool.FetchExifToStringFrom(ImageFileName, new string[] { "-D", "-G1:7:6" });
-                string[] lines = output.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-                string ID = "";
-                string key = "";
-                string writeKey = "";
-                long tag = -1;
-                string format = "";
-                string value = "";
-                for (int ii = 0; ii < lines.Length; ii++)
-                {
-                    line = lines[ii].Trim();
-                    string[] values = line.Split(new char[] { '\t' });
-                    string[] LocIdFmt = values[0].Split(new char[] { ':' });
-                    if (LocIdFmt[0].Equals("ExifTool"))
-                    {
-                        // ignore line wiht version number
-                        if (!LocIdFmt[1].Equals("ID-ExifToolVersion"))
-                        {
-                            MetaDataWarningsRead.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exifToolError), values[3]));
-                        }
-                    }
-                    else
-                    {
-                        ID = LocIdFmt[1];
+            ReadPerformance.measure("Meta data exiv2 copied");
 
-                        if (LocIdFmt.Length > 2)
-                            format = LocIdFmt[2];
-                        else
-                            format = "";
-
-                        // use location and description as key, because location and ID are not unique
-                        // example: found an image with 12 entries "Nikon:ID-0" but different descriptions
-                        key = LocIdFmt[0] + "." + values[2];
-
-                        // for writing ID is necessary; location as prefix to be more specific
-                        writeKey = LocIdFmt[0] + ":" + ID;
-
-                        if (values[1].Equals("-"))
-                            tag = -1;
-                        else
-                        {
-                            try
-                            {
-                                tag = int.Parse(values[1]);
-                            }
-                            catch
-                            {
-                                tag = -1;
-                            }
-                        }
-
-                        if (values.Length > 3)
-                            value = values[3];
-                        else
-                            value = "";
-
-                        ExifToolMetaDataItems.Add(key, new MetaDataItemExifTool(ID, key, writeKey, tag, format, value));
-                    }
-                }
-#if !DEBUG
-            }
-            catch (Exception ex)
-            {
-                MetaDataWarningsRead.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exifToolError),
-                    ex.Message + " @ " + line));
-            }
-#endif
-            ReadPerformance.measure("Meta data copied");
+            readExifToolMetaData();
+            ReadPerformance.measure("ExifTool JSON");
 
             XmpLangAltEntries.Sort();
             readSpecialExifIptcInformation();
@@ -2374,18 +2311,124 @@ namespace QuickImageComment
         //*****************************************************************
         internal static void initExifTool(string ExifToolPath)
         {
+            Logger.log("initExifTool " + ExifToolPath);
             exifTool = new ExifToolWrapper(ExifToolPath);
-        }
-
-        internal static void startExifTool()
-        {
+            Logger.log("new ExifToolWrapper");
             exifTool.Start();
+            Logger.log("ExifTool started");
+            exifTool.FillLocationList();
+            Logger.log("FillLocationList finish");
+            exifTool.FillWritableTagList();
+            Logger.log("FillWritableTagList finish");
+            ExifToolResponse cmdRes = ExtendedImage.exifTool.SendCommand("-ver");
+            Logger.log("ExifTool started. Version: " + cmdRes.Result.Trim());
         }
 
         internal static void stopExifTool()
         {
-            exifTool.Stop();
+            if (exifTool != null)
+            {
+                exifTool.Stop();
+            }
         }
+
+        private void readExifToolMetaData()
+        {
+            // if exifTool is null, it is not initialised
+            // most likely because path is not set by user, so display no warning or error
+            if (exifTool == null) return;
+#if !DEBUG
+            Newtonsoft.Json.Linq.JProperty exceptionJProperty = new JProperty("init loop");
+            try
+            {
+#endif
+            // reading with ExifTool outside the lock as ExitToolWrapper has its own lock
+            string language = ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.LanguageExifTool);
+            string jsonResponse = exifTool.FetchExifToStringFrom(ImageFileName, new string[]
+                { "-D", "-G:6:1", "-sep", " | ", "-j", "-l", "-lang", language, "-m" });
+
+            if (jsonResponse.Length < 3)
+            {
+                // no content
+                return;
+            }
+            JArray jsonArray = JArray.Parse(jsonResponse);
+            // Iterate through the JSONArray
+            for (int ii = 0; ii < jsonArray.Count; ii++)
+            {
+                JToken jToken = (JToken)jsonArray[ii];
+                foreach (Newtonsoft.Json.Linq.JProperty child in jToken.Children().Cast<JProperty>())
+                {
+#if !DEBUG
+                        exceptionJProperty = child;
+#endif
+                    int colon = child.Name.IndexOf(':');
+
+                    string key = child.Name.Substring(colon + 1);
+                    string format = "";
+                    if (colon > 0) format = child.Name.Substring(0, colon);
+
+                    foreach (JToken property in child.Children<JToken>())
+                    {
+                        if (property.HasValues)
+                        {
+                            var jTokenProperties = property.Children().OfType<JProperty>();
+                            long tag = -1;
+                            string num = null;
+                            string value = "";
+                            string desc = "";
+                            foreach (JProperty prop in jTokenProperties)
+                            {
+                                if (prop.Name.Equals("id"))
+                                {
+                                    try
+                                    {
+                                        tag = long.Parse((string)prop.Value);
+                                    }
+                                    catch { }
+                                }
+                                else if (prop.Name.Equals("num"))
+                                    num = (string)prop.Value;
+                                else if (prop.Name.Equals("val"))
+                                    value = (string)prop.Value;
+                                else if (prop.Name.Equals("desc"))
+                                    desc = (string)prop.Value;
+                            }
+                            if (num == null) num = value;
+                            if (desc.Equals("")) desc = key;
+
+                            int keyIndex = 0;
+                            string keyStringIndex = key;
+                            while (ExifToolMetaDataItems.ContainsKey(keyStringIndex))
+                            {
+                                keyIndex++;
+                                keyStringIndex = GeneralUtilities.nameUniqueWithRunningNumber(key, keyIndex);
+                            }
+                            if (key.StartsWith("ExifTool:"))
+                            {
+                                if (!key.Equals("ExifTool:ExifToolVersion"))
+                                {
+                                    MetaDataWarningsRead.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exifToolError), desc + ": " + value));
+                                }
+                            }
+                            else
+                            {
+                                ExifToolMetaDataItems.Add(keyStringIndex, new MetaDataItemExifTool(key, desc, tag, format, num, value));
+                            }
+                        }
+                    }
+                }
+            }
+#if !DEBUG
+            }
+            catch (Exception ex)
+            {
+                MetaDataWarningsRead.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exifToolError),
+                    ex.Message + " @ " + exceptionJProperty.ToString()));
+            }
+#endif
+        }
+
         //*****************************************************************
         // methods for thumbnail and other image handling
         //*****************************************************************
@@ -3305,6 +3348,32 @@ namespace QuickImageComment
                 WriteTxtFile(TxtChangedFields);
             }
             SavePerformance.measure("text written");
+
+            if (ImageChangedFields.Count > 0)
+            {
+                Dictionary<string, string> ExifToolValues = new Dictionary<string, string>();
+                ArrayList keysToRemove = new ArrayList();
+                foreach (string key in ImageChangedFields.Keys)
+                {
+                    if (key.Contains(":"))
+                    {
+                        // is an ExifTool tag
+                        ExifToolValues.Add(key, (string)ImageChangedFields[key]);
+                        keysToRemove.Add(key);
+                    }
+                }
+                // remove ExifTool keys form ImageChangedFields
+                foreach (string key in keysToRemove) ImageChangedFields.Remove(key);
+
+                if (ExifToolValues.Count > 0)
+                {
+                    ExifToolResponse cmdRes = exifTool.SetExifInto(ImageFileName, ExifToolValues);
+                    if (!cmdRes)
+                    {
+                        GeneralUtilities.message(LangCfg.Message.E_ExifToolWriteError, cmdRes.Result);
+                    }
+                }
+            }
 
             if (ImageChangedFields.Count > 0)
             {

@@ -394,47 +394,31 @@ namespace QuickImageComment
     //*****************************************************************
     public class MetaDataItemExifTool : MetaDataItem
     {
-        private readonly string ExifToolID;
-        // key used to write meta data, consisting of location and ID
-        // problem: is not unique, found an image with 12 entries "Nikon:ID-0" but different descriptions
-        private readonly string writeKey;
+        private readonly string shortDesc;
 
         public MetaDataItemExifTool(
-            string givenExifToolID,
             string givenKey,
-            string givenWriteKey,
+            string givenShortDesc,
             long givenTag,
             string givenTypeName,
+          string givenValueString,
             string givenInterpretedString)
                 : base(givenKey,
             givenTag,
             givenTypeName,
             -1,
             -1,
-            "",
+            givenValueString,
             givenInterpretedString,
             -1.0F,
             "")
         {
-            ExifToolID = givenExifToolID;
-            writeKey = givenWriteKey;
+            shortDesc = givenShortDesc;
         }
 
-        public string getExifToolID()
+        public string getShortDesc()
         {
-            return ExifToolID;
-        }
-
-        public string getWriteKey()
-        {
-            return writeKey;
-        }
-
-        // ExifTool can return either original or interpreted (translated) value, no both together
-        // decision is to use only interpreted value, so Format is not used here
-        public override string getValueForDisplay(Format FormatSpecification)
-        {
-            return interpretedString;
+            return shortDesc;
         }
     }
 }

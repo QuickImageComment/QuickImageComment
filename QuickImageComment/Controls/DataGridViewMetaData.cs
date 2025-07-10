@@ -42,6 +42,7 @@ namespace QuickImageCommentControls
         internal ToolStripMenuItem toolStripMenuItemCopy;
         private System.Collections.ArrayList HeadersNonVisibleRows = new System.Collections.ArrayList();
         string Prefix;
+        private char groupSeparator;
         System.Collections.SortedList MetaDataItems = new System.Collections.SortedList();
 
         private int userSetColumnWidth_1;
@@ -275,6 +276,11 @@ namespace QuickImageCommentControls
             {
                 // ExifTool does not provide size, so hide that column
                 this.Columns[4].Visible = false;
+                groupSeparator = ':';
+            }
+            else
+            {
+                groupSeparator = '.';
             }
 
             refreshData();
@@ -296,7 +302,23 @@ namespace QuickImageCommentControls
 
             System.Collections.SortedList KeyList = new System.Collections.SortedList();
             // no translation of keys from ExifTool (at least now)
-            if (Prefix.Equals("ExifTool.") || ConfigDefinition.getDataGridViewDisplayEnglish(this))
+            if (Prefix.Equals("ExifTool."))
+            {
+                foreach (string key in MetaDataItems.GetKeyList())
+                {
+                    int colon = key.IndexOf(':');
+                    string displayKeyWoNumber = key.Substring(0, colon + 1) + ((MetaDataItemExifTool)MetaDataItems[key]).getShortDesc();
+                    string displayKey = displayKeyWoNumber;
+                    int ii = 0;
+                    while (KeyList.ContainsKey(displayKey))
+                    {
+                        displayKey = displayKeyWoNumber + GeneralUtilities.UniqueSeparator + ii.ToString();
+                        ii++;
+                    }
+                    KeyList.Add(displayKey, key);
+                }
+            }
+            else if (ConfigDefinition.getDataGridViewDisplayEnglish(this))
             {
                 foreach (string key in MetaDataItems.GetKeyList())
                 {
@@ -343,7 +365,7 @@ namespace QuickImageCommentControls
                 if (ConfigDefinition.getDataGridViewDisplayHeader(this))
                 {
                     string Header = "";
-                    posDot = keyWoPrefixWoUniqueNo.IndexOf('.');
+                    posDot = keyWoPrefixWoUniqueNo.IndexOf(groupSeparator);
                     if (posDot > 0)
                     {
                         Header = keyWoPrefixWoUniqueNo.Substring(0, posDot);
@@ -375,7 +397,7 @@ namespace QuickImageCommentControls
                 {
                     if (ConfigDefinition.getDataGridViewDisplaySuffixFirst(this))
                     {
-                        posDot = keyWoPrefixWoUniqueNo.IndexOf('.');
+                        posDot = keyWoPrefixWoUniqueNo.IndexOf(groupSeparator);
                         if (posDot > 0)
                         {
                             this.Rows[rowIndex].Cells[0].Value = keyWoPrefixWoUniqueNo.Substring(posDot + 1) + " - " + keyWoPrefixWoUniqueNo.Substring(0, posDot);

@@ -213,6 +213,7 @@ namespace QuickImageComment
             this.toolStripMenuItemCreateScreenshots = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemWriteTagLookupReferenceFile = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemWriteTagListFile = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemWriteTagListFileExifTool = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemCreateControlTextList = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemCheckTranslationComplete = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemFormLogger = new System.Windows.Forms.ToolStripMenuItem();
@@ -269,7 +270,7 @@ namespace QuickImageComment
             this.toolStripButtonFind = new System.Windows.Forms.ToolStripButton();
             this.toolTip1 = new QuickImageComment.ToolTipQIC();
             this.theFolderTreeView = new QuickImageCommentControls.ShellTreeViewQIC();
-            this.toolStripMenuItemWriteTagListFileExifTool = new System.Windows.Forms.ToolStripMenuItem();
+            this.ToolStripMenuItemLanguageExifTool = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer12)).BeginInit();
             this.splitContainer12.Panel1.SuspendLayout();
             this.splitContainer12.Panel2.SuspendLayout();
@@ -1786,6 +1787,7 @@ namespace QuickImageComment
             this.toolStripMenuItemUserButtons,
             this.toolStripSeparator16,
             this.ToolStripMenuItemLanguage,
+            this.ToolStripMenuItemLanguageExifTool,
             this.ToolStripMenuItemUserConfigStorage,
             this.toolStripMenuItemMaintenance});
             this.toolStripMenuItemExtras.Name = "toolStripMenuItemExtras";
@@ -1960,6 +1962,13 @@ namespace QuickImageComment
             this.toolStripMenuItemWriteTagListFile.Size = new System.Drawing.Size(247, 22);
             this.toolStripMenuItemWriteTagListFile.Text = "Tag-Liste erzeugen";
             this.toolStripMenuItemWriteTagListFile.Click += new System.EventHandler(this.toolStripMenuItemWriteTagListFile_Click);
+            // 
+            // toolStripMenuItemWriteTagListFileExifTool
+            // 
+            this.toolStripMenuItemWriteTagListFileExifTool.Name = "toolStripMenuItemWriteTagListFileExifTool";
+            this.toolStripMenuItemWriteTagListFileExifTool.Size = new System.Drawing.Size(247, 22);
+            this.toolStripMenuItemWriteTagListFileExifTool.Text = "Tag-Liste ExifTool erzeugen";
+            this.toolStripMenuItemWriteTagListFileExifTool.Click += new System.EventHandler(this.toolStripMenuItemWriteTagListFileExifTool_Click);
             // 
             // toolStripMenuItemCreateControlTextList
             // 
@@ -2543,12 +2552,11 @@ namespace QuickImageComment
             this.theFolderTreeView.Size = new System.Drawing.Size(253, 147);
             this.theFolderTreeView.TabIndex = 0;
             // 
-            // toolStripMenuItemWriteTagListFileExifTool
+            // ToolStripMenuItemLanguageExifTool
             // 
-            this.toolStripMenuItemWriteTagListFileExifTool.Name = "toolStripMenuItemWriteTagListFileExifTool";
-            this.toolStripMenuItemWriteTagListFileExifTool.Size = new System.Drawing.Size(247, 22);
-            this.toolStripMenuItemWriteTagListFileExifTool.Text = "Tag-Liste ExifTool erzeugen";
-            this.toolStripMenuItemWriteTagListFileExifTool.Click += new System.EventHandler(this.toolStripMenuItemWriteTagListFileExifTool_Click);
+            this.ToolStripMenuItemLanguageExifTool.Name = "ToolStripMenuItemLanguageExifTool";
+            this.ToolStripMenuItemLanguageExifTool.Size = new System.Drawing.Size(276, 22);
+            this.ToolStripMenuItemLanguageExifTool.Text = "Sprache für Exiftool";
             // 
             // FormQuickImageComment
             // 
@@ -2867,5 +2875,6 @@ namespace QuickImageComment
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator20;
         private System.Windows.Forms.TabPage tabPageExifTool;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemWriteTagListFileExifTool;
+        private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemLanguageExifTool;
     }
 }

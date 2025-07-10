@@ -53,6 +53,9 @@ namespace QuickImageComment
         // when changing this list, ExtendedImage.addMetaDataFromBitMap needs to changes as well
         public static ArrayList TagsFromBitmap = new ArrayList { "File.ImageSize", "Image.CodecInfo", "Image.PixelFormat", "Image.DisplayImageErrorMessage" };
 
+        // languages supported by ExifTool
+        public static ArrayList ExifToolLanguages = new ArrayList { "de", "en", "fr", "es" };
+
         // NOTE: must match definition in exiv2Cdecl.cpp
         private const string exiv2_exception_file = "\\QIC_exiv2_exception.txt";
 
@@ -230,6 +233,7 @@ namespace QuickImageComment
             LastCheckForNewVersion,
             NextCheckForNewVersion,
             Language,
+            LanguageExifTool,
             ImageDetailsGraphicDisplay,
             ViewConfiguration,
             MapZoom,
@@ -566,6 +570,7 @@ namespace QuickImageComment
             ConfigItems.Add(enumCfgUserString.LastCheckForNewVersion.ToString(), "not configured");
             ConfigItems.Add(enumCfgUserString.NextCheckForNewVersion.ToString(), "not configured");
             ConfigItems.Add(enumCfgUserString.Language.ToString(), "");
+            ConfigItems.Add(enumCfgUserString.LanguageExifTool.ToString(), "en");
             ConfigItems.Add(enumCfgUserString.ImageDetailsGraphicDisplay.ToString(), UserControlImageDetails.enumGraphicModes.both.ToString());
             ConfigItems.Add(enumCfgUserString.ViewConfiguration.ToString(), "");
             ConfigItems.Add(enumCfgUserString.LastDataTemplate.ToString(), "");
@@ -3623,6 +3628,14 @@ namespace QuickImageComment
                         }
                     }
 
+                    else if (firstPart.Equals("ExifToolLanguage"))
+                    {
+                        if (!ExifToolLanguages.Contains(secondPart))
+                        {
+                            ExifToolLanguages.Add(secondPart);
+                        }
+                    }
+
                     else if (firstPart.Equals("MapURL"))
                     {
                         int indexEqual = secondPart.IndexOf("=");
@@ -4082,30 +4095,36 @@ namespace QuickImageComment
         }
 
         // add a reference for ExifTool ID to list
+        //!! nicht mehr benötigt, verwenden um Datentyp zu speichern?
         internal static void addOverwriteExifToolID(string key)
         {
-            // for meta data from ExifTool, key consists of location and description, because
-            // location and ID are not unique:
-            // found an image with 12 entries "Nikon:ID-0" but different descriptions
-            // but in order to write data, combination of location and ID has to be used
-            // so fill a reference table 
-            ExtendedImage extendedImage = MainMaskInterface.getTheExtendedImage();
-            if (extendedImage != null)
-            {
-                if (extendedImage.getExifToolMetaDataItems().ContainsKey(key))
-                {
-                    MetaDataItemExifTool metaDataItemExifTool =
-                        (MetaDataItemExifTool)MainMaskInterface.getTheExtendedImage().getExifToolMetaDataItems()[key];
-                    if (metaDataItemExifTool != null)
-                    {
-                        string writeKey = metaDataItemExifTool.getWriteKey();
-                        if (ExifToolIDs.ContainsKey(key))
-                            ExifToolIDs[key] = writeKey;
-                        else
-                            ExifToolIDs.Add(key, writeKey);
-                    }
-                }
-            }
+            //// for meta data from ExifTool, key consists of location and description, because
+            //// location and ID are not unique:
+            //// found an image with 12 entries "Nikon:ID-0" but different descriptions
+            //// but in order to write data, combination of location and ID has to be used
+            //// so fill a reference table 
+            //ExtendedImage extendedImage = MainMaskInterface.getTheExtendedImage();
+            //if (extendedImage != null)
+            //{
+            //    if (extendedImage.getExifToolMetaDataItems().ContainsKey(key))
+            //    {
+            //        MetaDataItemExifTool metaDataItemExifTool =
+            //            (MetaDataItemExifTool)MainMaskInterface.getTheExtendedImage().getExifToolMetaDataItems()[key];
+            //        if (metaDataItemExifTool != null)
+            //        {
+            //            string writeKey = metaDataItemExifTool.getWriteKey();
+            //            if (ExifToolIDs.ContainsKey(key))
+            //                ExifToolIDs[key] = writeKey;
+            //            else
+            //                ExifToolIDs.Add(key, writeKey);
+            //        }
+            //    }
+            //}
+        }
+
+        internal static SortedList<string, string> getExifToolIDs()
+        {
+            return ExifToolIDs;
         }
     }
 }

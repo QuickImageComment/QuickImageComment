@@ -222,7 +222,8 @@ namespace QuickImageComment
             W_nominatimInvalidParameter,
             Q_overwriteExportFile,
             Q_missingExvFiles,
-            W_unknownEntryExifTool
+            W_unknownEntryExifTool,
+            E_ExifToolWriteError
         }
 
         public enum Others
@@ -364,7 +365,8 @@ namespace QuickImageComment
             toolTipDeleteButtonUnknown,
             imageOrientation,
             exceptionContinue,
-            exifToolError
+            exifToolError,
+            _ISOlanguageCode
         }
 
         // defined as variable
@@ -1121,7 +1123,8 @@ namespace QuickImageComment
                         ((ToolStripMenuItem)ParentMenuItem).ToolTipText = translate(TextToTranslate, "ToolStripMenuItem");
                     }
 
-                    if (!((ToolStripMenuItem)ParentMenuItem).Name.Equals("ToolStripMenuItemLanguage"))
+                    if (!((ToolStripMenuItem)ParentMenuItem).Name.Equals("ToolStripMenuItemLanguage") &&
+                        !((ToolStripMenuItem)ParentMenuItem).Name.Equals("ToolStripMenuItemLanguageExifTool"))
                     {
                         foreach (Component aMenuItem in ((ToolStripMenuItem)ParentMenuItem).DropDownItems)
                         {

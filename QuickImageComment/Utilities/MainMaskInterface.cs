@@ -562,6 +562,15 @@ namespace QuickImageComment
             }
         }
 
+        internal static void readFolderAndDisplayImage(bool restoreSelection)
+        {
+            // if main mask is not already closing
+            if (!FormQuickImageComment.closing)
+            {
+                theFormQuickImageComment.readFolderAndDisplayImage(true);
+            }
+        }
+
         internal static void setMainMaskCursor(Cursor cursor)
         {
             theFormQuickImageComment.Cursor = cursor;

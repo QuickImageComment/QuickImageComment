@@ -150,6 +150,12 @@ namespace QuickImageComment
         //*****************************************************************
         // Buttons
         //*****************************************************************
+        private void buttonExifToolSettings_Click(object sender, EventArgs e)
+        {
+            FormExifToolSettings theFormExifToolSettings = new FormExifToolSettings();
+            theFormExifToolSettings.ShowDialog();
+        }
+
         private void buttonCustomizeForm_Click(object sender, EventArgs e)
         {
             CustomizationInterface.showFormCustomization(this);

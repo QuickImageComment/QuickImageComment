@@ -16,6 +16,7 @@
 
 #define USESTARTUPTHREAD
 
+using Brain2CPU.ExifTool;
 using JR.Utils.GUI.Forms;
 using Microsoft.VisualBasic.FileIO;
 using QuickImageComment.Forms;
@@ -28,6 +29,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
+using static CSJ2K.j2k.codestream.HeaderInfo;
 using Color = System.Drawing.Color;
 using Pen = System.Drawing.Pen;
 
@@ -408,6 +410,21 @@ namespace QuickImageComment
                     menuItem.Checked = true;
                 }
             }
+
+            // add languages for ExifTool in menu
+            foreach (string language in ConfigDefinition.ExifToolLanguages)
+            {
+                this.ToolStripMenuItemLanguageExifTool.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+                     new ToolStripMenuItem(language, null, ToolStripMenuItemLanguageExifToolX_Click, "LANGUAGE " + language)});
+            }
+            foreach (ToolStripMenuItem menuItem in ToolStripMenuItemLanguageExifTool.DropDownItems)
+            {
+                if (menuItem.Text.Equals(LangCfg.getLoadedLanguage()))
+                {
+                    menuItem.Checked = true;
+                }
+            }
+
 
             //Program.StartupPerformance.measure("FormQIC languages in menu");
 
@@ -879,10 +896,11 @@ namespace QuickImageComment
         private void StartupInitNewFolder()
         {
             Program.StartupPerformance.measure("FormQIC *** StartupInitNewFolder start");
-            ExtendedImage.initExifTool(ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.ExifToolPath));
-            ExtendedImage.startExifTool();
-            ExtendedImage.exifTool.FillLocationList();
-            Program.StartupPerformance.measure("FormQIC *** ExifTool started");
+            string ExifToolPath = ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.ExifToolPath);
+            if (ExifToolPath.Length > 0)
+            {
+                ExtendedImage.initExifTool(ExifToolPath);
+            }
             ImageManager.initNewFolder(FolderName);
             ImageManager.initExtendedCacheList();
 
@@ -1375,7 +1393,7 @@ namespace QuickImageComment
 #if APPCENTER
                 if (Program.AppCenterUsable) Microsoft.AppCenter.Analytics.Analytics.TrackEvent("Closing finish");
 #endif
-                 // throw new Exception("ExceptionTest after start closing3");
+                // throw new Exception("ExceptionTest after start closing3");
 
             }
             else
@@ -2560,6 +2578,7 @@ namespace QuickImageComment
                 theFormSettings.ShowDialog();
                 if (theFormSettings.settingsChanged)
                 {
+                    this.Cursor = Cursors.WaitCursor;
                     listBoxPredefinedComments.set_MouseDoubleClickAction(ConfigDefinition.getPredefinedCommentMouseDoubleClickAction());
                     setNavigationTabSplitBars(ConfigDefinition.getNavigationTabSplitBars());
                     setArtistCommentLabel();
@@ -2577,6 +2596,7 @@ namespace QuickImageComment
                     {
                         readFolderAndDisplayImage(true);
                     }
+                    this.Cursor = Cursors.Default;
                 }
             }
         }
@@ -2848,6 +2868,32 @@ namespace QuickImageComment
             }
             ((ToolStripMenuItem)sender).Checked = true;
 
+            // change also language for ExifTool
+            foreach (ToolStripMenuItem toolStripMenuItem in ToolStripMenuItemLanguageExifTool.DropDownItems)
+            {
+                if (toolStripMenuItem.ToString().Equals(LangCfg.getText(LangCfg.Others._ISOlanguageCode)))
+                {
+                    ToolStripMenuItemLanguageExifToolX_Click(toolStripMenuItem, e);
+                }
+            }
+
+                this.Refresh();
+        }
+
+        // set language for ExifTool
+        private void ToolStripMenuItemLanguageExifToolX_Click(object sender, EventArgs e)
+        {
+            ConfigDefinition.setCfgUserString(ConfigDefinition.enumCfgUserString.LanguageExifTool, sender.ToString());
+            if (theExtendedImage != null)
+            {
+                toolStripMenuItemRefresh_Click(sender, e);
+            }
+            foreach (ToolStripMenuItem toolStripMenuItem in ToolStripMenuItemLanguageExifTool.DropDownItems)
+            {
+                toolStripMenuItem.Checked = false;
+            }
+            ((ToolStripMenuItem)sender).Checked = true;
+
             this.Refresh();
         }
 
@@ -3009,7 +3055,7 @@ namespace QuickImageComment
             // other files than selected might be exported if ShellListener modifies the file list 
             lock (UserControlFiles.LockListViewFiles)
             {
-                FormExportAllMetaData theFormExportAllMetaData = new FormExportAllMetaData(theUserControlFiles.listViewFiles.SelectedIndices, 
+                FormExportAllMetaData theFormExportAllMetaData = new FormExportAllMetaData(theUserControlFiles.listViewFiles.SelectedIndices,
                     FolderName, FormExportAllMetaData.enumExImPortMode.TextExport);
             }
         }
@@ -3021,7 +3067,7 @@ namespace QuickImageComment
             // other files than selected might be exported if ShellListener modifies the file list 
             lock (UserControlFiles.LockListViewFiles)
             {
-                FormExportAllMetaData theFormExportAllMetaData = new FormExportAllMetaData(theUserControlFiles.listViewFiles.SelectedIndices, 
+                FormExportAllMetaData theFormExportAllMetaData = new FormExportAllMetaData(theUserControlFiles.listViewFiles.SelectedIndices,
                     FolderName, FormExportAllMetaData.enumExImPortMode.BinaryExport);
             }
         }
@@ -7008,12 +7054,23 @@ namespace QuickImageComment
             System.IO.StreamWriter StreamOut = null;
             string LookupReferenceValuesFile = GeneralUtilities.getMaintenanceOutputFolder() + "TagListExifTool.txt";
             StreamOut = new System.IO.StreamWriter(LookupReferenceValuesFile, false, System.Text.Encoding.UTF8);
-            StreamOut.WriteLine("; Tag-List ExifTool");
-            StreamOut.WriteLine("; --------------------------------------------------------------------------");
-
-            StreamOut.Write(ExtendedImage.exifTool.FetchTagListWithLocation());
-            GeneralUtilities.debugMessage(LookupReferenceValuesFile + " created.");
-            StreamOut.Close();
+            ExifToolResponse cmdRes = ExtendedImage.exifTool.SendCommand("-ver");
+            if (cmdRes)
+            {
+                StreamOut.WriteLine("; Tag-List ExifTool " + cmdRes.Result.Trim());
+                StreamOut.WriteLine("; --------------------------------------------------------------------------");
+                ArrayList tags = ExtendedImage.exifTool.FetchTagListWithLocation("-list");
+                for (int ii = 0; ii < tags.Count; ii++)
+                {
+                    StreamOut.WriteLine(tags[ii]);
+                }
+                GeneralUtilities.debugMessage(LookupReferenceValuesFile + " created.");
+                StreamOut.Close();
+            }
+            else
+            {
+                GeneralUtilities.debugMessage("Error creating " + LookupReferenceValuesFile + " " + cmdRes.Result);
+            }
         }
 
         // create file containing texts from all controls to be translated

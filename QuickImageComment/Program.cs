@@ -377,10 +377,8 @@ namespace QuickImageComment
                 else
                 {
                     string reportException = exInner.Message + exInner.StackTrace.ToString();
-                    Logger.log(reportException + "***");
                     for (int ii = 0; ii < ReportedExceptions.Count; ii++)
                     {
-                        Logger.log((string)ReportedExceptions[ii]);
                         if (reportException.Equals(ReportedExceptions[ii]))
                         {
                             // exception already reported, nothing to do

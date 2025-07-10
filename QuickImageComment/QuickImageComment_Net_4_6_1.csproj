@@ -160,6 +160,12 @@
     <Compile Include="Forms\FormGeoDataItemList.Designer.cs">
       <DependentUpon>FormGeoDataItemList.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FormExifToolSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormExifToolSettings.Designer.cs">
+      <DependentUpon>FormExifToolSettings.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FormSlideshowSettings.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -602,6 +608,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormGeoDataItemList.resx">
       <DependentUpon>FormGeoDataItemList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormExifToolSettings.resx">
+      <DependentUpon>FormExifToolSettings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormSlideshowSettings.resx">
       <DependentUpon>FormSlideshowSettings.cs</DependentUpon>

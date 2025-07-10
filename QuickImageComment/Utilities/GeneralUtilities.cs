@@ -1433,7 +1433,12 @@ namespace QuickImageComment
                             GeneralUtilities.message(LangCfg.Message.E_metaDataNotEnteredSettings, key);
                             continue;
                         }
-                        //!! hier prüfen, ob es ExifTool ist und schreibbar
+                        int colon = key.IndexOf(':');
+                        if (colon > 0 && !ExtendedImage.exifTool.getWritableTagList().Contains(key.Substring(colon + 1)))
+                        {
+                            GeneralUtilities.message(LangCfg.Message.E_tagValueNotChangeable, key);
+                            continue;
+                        }
                         // key passed initial checks to be added
                         CheckedTagsToAdd.Add(key);
                     }

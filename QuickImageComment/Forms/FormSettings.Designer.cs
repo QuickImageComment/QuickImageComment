@@ -119,6 +119,7 @@ namespace QuickImageComment
             this.labelFramePosition = new System.Windows.Forms.Label();
             this.Panel5 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.buttonExifToolSettings = new System.Windows.Forms.Button();
             this.comboBoxCharsetUserComment = new System.Windows.Forms.ComboBox();
             this.checkBoxIptcUTF8 = new System.Windows.Forms.CheckBox();
             this.checkBoxExifUTF8 = new System.Windows.Forms.CheckBox();
@@ -879,6 +880,7 @@ namespace QuickImageComment
             // panel3
             // 
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel3.Controls.Add(this.buttonExifToolSettings);
             this.panel3.Controls.Add(this.comboBoxCharsetUserComment);
             this.panel3.Controls.Add(this.checkBoxIptcUTF8);
             this.panel3.Controls.Add(this.checkBoxExifUTF8);
@@ -887,6 +889,17 @@ namespace QuickImageComment
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(788, 65);
             this.panel3.TabIndex = 36;
+            // 
+            // buttonExifToolSettings
+            // 
+            this.buttonExifToolSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonExifToolSettings.Location = new System.Drawing.Point(561, 1);
+            this.buttonExifToolSettings.Name = "buttonExifToolSettings";
+            this.buttonExifToolSettings.Size = new System.Drawing.Size(199, 26);
+            this.buttonExifToolSettings.TabIndex = 38;
+            this.buttonExifToolSettings.Text = "Einstellungen ExifTool";
+            this.buttonExifToolSettings.UseVisualStyleBackColor = true;
+            this.buttonExifToolSettings.Click += new System.EventHandler(this.buttonExifToolSettings_Click);
             // 
             // comboBoxCharsetUserComment
             // 
@@ -1070,5 +1083,6 @@ namespace QuickImageComment
         private System.Windows.Forms.CheckBox checkBoxExifUTF8;
         private System.Windows.Forms.Label labelCharSet;
         private System.Windows.Forms.CheckBox checkBoxButtonDeletesPermanent;
+        private System.Windows.Forms.Button buttonExifToolSettings;
     }
 }
