@@ -223,7 +223,12 @@ namespace QuickImageComment
             Q_overwriteExportFile,
             Q_missingExvFiles,
             W_unknownEntryExifTool,
-            E_ExifToolWriteError
+            E_ExifToolWriteError,
+            E_ExifToolNotReadyForWritableCheck,
+            E_ExifToolNotReadyForWrite,
+            E_ExifToolNotReadyGeneral,
+            W_ExifToolNotReadyForTagCheck,
+            E_ErrorExifToolWrapper
         }
 
         public enum Others
@@ -366,7 +371,8 @@ namespace QuickImageComment
             imageOrientation,
             exceptionContinue,
             exifToolError,
-            _ISOlanguageCode
+            _ISOlanguageCode,
+            exifToolNotReady
         }
 
         // defined as variable

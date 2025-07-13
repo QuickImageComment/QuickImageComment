@@ -25,7 +25,7 @@ namespace QuickImageComment
         public FormExifToolSettings()
         {
             InitializeComponent();
-            dynamicLabelProcessStatus.Text = "";
+            dynamicLabelPath.Text = "";
             dynamicLabelVersion.Text = "";
             textBoxProgramPath.Text = ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.ExifToolPath);
 
@@ -37,6 +37,8 @@ namespace QuickImageComment
             StartPosition = FormStartPosition.CenterParent;
 
             LangCfg.translateControlTexts(this);
+
+            displayCurrentExifToolInformation();
 
             // if flag set, create screenshot and return
             if (GeneralUtilities.CreateScreenshots)
@@ -55,48 +57,93 @@ namespace QuickImageComment
 
         }
 
-        private void buttonOk_Click(object sender, EventArgs e)
+        private void displayCurrentExifToolInformation()
         {
-            this.Cursor = Cursors.WaitCursor;
-            ConfigDefinition.setCfgUserString(ConfigDefinition.enumCfgUserString.ExifToolPath, textBoxProgramPath.Text);
-            // stop and restart ExifTool
-            Logger.log("stop ExifTool");
-            ExifToolWrapper.Stop();
-            Logger.log("ExifTool stopped");
-            if (textBoxProgramPath.Text.Length > 0) ExtendedImage.initExifTool(textBoxProgramPath.Text);
-
-            MainMaskInterface.readFolderAndDisplayImage(true);
-            this.Cursor = Cursors.Default;
-            Close();
+            if (ExifToolWrapper.isReady())//D
+            {
+                dynamicLabelPath.Text = ExifToolWrapper.getPath();
+                ExifToolResponse cmdRes = ExifToolWrapper.SendCommand("-ver\r\n-v");
+                string[] cmdResParts = cmdRes.Result.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                if (cmdResParts.Length > 0) dynamicLabelVersion.Text = cmdResParts[0];
+            }
+            else
+            {
+                dynamicLabelPath.Text = LangCfg.getText(LangCfg.Others.exifToolNotReady);//DE
+                dynamicLabelVersion.Text = "";
+            }
         }
 
-        private void buttonCancel_Click(object sender, EventArgs e)
+        private void buttonStatusVersionCheck_Click(object sender, EventArgs e)
         {
-            Close();
+            displayCurrentExifToolInformation();
         }
 
         private void buttonBrowse_Click(object sender, EventArgs e)
         {
-            OpenFileDialog OpenFileDialogCustomizationSettings = new OpenFileDialog();
-            OpenFileDialogCustomizationSettings.Filter = LangCfg.getText(LangCfg.Others.editExternalProgramFilter);
-            OpenFileDialogCustomizationSettings.InitialDirectory = textBoxProgramPath.Text;
-            OpenFileDialogCustomizationSettings.Title = LangCfg.getText(LangCfg.Others.selectProgram);
-            OpenFileDialogCustomizationSettings.CheckFileExists = true;
-            OpenFileDialogCustomizationSettings.CheckPathExists = true;
+            OpenFileDialog OpenFileDialogCustomizationSettings = new OpenFileDialog
+            {
+                Filter = LangCfg.getText(LangCfg.Others.editExternalProgramFilter),
+                InitialDirectory = textBoxProgramPath.Text,
+                Title = LangCfg.getText(LangCfg.Others.selectProgram),
+                CheckFileExists = true,
+                CheckPathExists = true
+            };
             if (OpenFileDialogCustomizationSettings.ShowDialog() == DialogResult.OK)
             {
                 textBoxProgramPath.Text = OpenFileDialogCustomizationSettings.FileName;
             }
         }
 
-        private void buttonStatusVersionCheck_Click(object sender, EventArgs e)
+        private void buttonStop_Click(object sender, EventArgs e)
         {
-            if (ExifToolWrapper.isReady())
+            this.Cursor = Cursors.WaitCursor;
+            ExifToolWrapper.Stop();
+            displayCurrentExifToolInformation();
+            MainMaskInterface.readFolderAndDisplayImage(true);
+            this.Cursor = Cursors.Default;
+        }
+
+        private void buttonStart_Click(object sender, EventArgs e)
+        {
+            RestartExifTool();
+        }
+
+        private void RestartExifTool()
+        {
+            this.Cursor = Cursors.WaitCursor;
+            ConfigDefinition.setCfgUserString(ConfigDefinition.enumCfgUserString.ExifToolPath, textBoxProgramPath.Text);
+            // stop and restart ExifTool
+            ExifToolWrapper.Stop();
+            displayCurrentExifToolInformation();
+            if (textBoxProgramPath.Text.Length > 0)
             {
-                dynamicLabelProcessStatus.Text = ExifToolWrapper.Status.ToString();
-                ExifToolResponse cmdRes = ExifToolWrapper.SendCommand("-ver");
-                dynamicLabelVersion.Text = cmdRes.Result.Trim();
+                try
+                {
+                    ExifToolWrapper.init(textBoxProgramPath.Text);
+                }
+                catch (Exception ex)
+                {
+                    GeneralUtilities.message(LangCfg.Message.E_ErrorExifToolWrapper, ex.Message);
+                }
             }
+            displayCurrentExifToolInformation();
+
+            MainMaskInterface.readFolderAndDisplayImage(true);
+            this.Cursor = Cursors.Default;
+        }
+
+        private void buttonOk_Click(object sender, EventArgs e)
+        {
+            if (!ExifToolWrapper.isReady() || !ExifToolWrapper.getPath().Equals(textBoxProgramPath.Text))
+            {
+                RestartExifTool();
+            }
+            Close();
+        }
+
+        private void buttonCancel_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

@@ -2306,15 +2306,6 @@ namespace QuickImageComment
         //*****************************************************************
         // ExifTool methods
         //*****************************************************************
-        internal static void initExifTool(string ExifToolPath)
-        {
-            Logger.log("initExifTool " + ExifToolPath);
-            ExifToolWrapper.init(ExifToolPath);
-            Logger.log("new ExifToolWrapper");
-            ExifToolResponse cmdRes = ExifToolWrapper.SendCommand("-ver");
-            Logger.log("ExifTool started. Version: " + cmdRes.Result.Trim());
-        }
-
         private void readExifToolMetaData()
         {
             // if ExifToolWrapper is not ready, it is not properly initialised
@@ -2877,7 +2868,8 @@ namespace QuickImageComment
                         ImageChangedFieldsForCompare.Add(key, ImageChangedFieldsForRun[key]);
                     }
 
-                    statusWrite = writeMetaData(TxtChangedFieldsForRun, ImageChangedFieldsForRun, SavePerformance);
+                    statusWrite = writeMetaData(TxtChangedFieldsForRun, ImageChangedFieldsForRun, 
+                        ImageChangedFieldsForCompare, SavePerformance);
 
                     // if file was modfied externally before saving, reload to get also image changes
                     if (fileInfoForUpdate != null)
@@ -2942,6 +2934,8 @@ namespace QuickImageComment
 
                         achievedValue = getMetaDataValuesStringByKey(key, MetaDataItem.Format.ForComparisonAfterSave);
 
+                        Logger.log("compare achieved with target: " + key + " = " + achievedValue + " / " + targetValue);
+
                         // warning message removed as it can happen when a reference gives same value as already saved
                         // now cannot remember what is the purpose of this message
                         //if (((String)OldValues[key]).Equals(targetValue))
@@ -2953,7 +2947,7 @@ namespace QuickImageComment
                         if (!achievedValue.Equals(targetValue))
                         {
                             string[] words = key.Split('.');
-                            if (achievedValue.Equals("") && isExifMakernote(words[0], words[1]) == 1)
+                            if (!key.Contains(":") && achievedValue.Equals("") && isExifMakernote(words[0], words[1]) == 1)
                             {
                                 // a non-blank value was given, but tag is not added
                                 // most likely tag is from a Makernote, which is not contained
@@ -3281,7 +3275,8 @@ namespace QuickImageComment
         }
 
         // write MetaData into text file and image
-        private int writeMetaData(SortedList TxtChangedFields, SortedList ImageChangedFields, Performance SavePerformance)
+        private int writeMetaData(SortedList TxtChangedFields, SortedList ImageChangedFields, 
+            SortedList ImageChangedFieldsForCompare, Performance SavePerformance)
         {
             int statusWrite = 0;
 
@@ -3350,10 +3345,23 @@ namespace QuickImageComment
 
                 if (ExifToolValues.Count > 0)
                 {
-                    ExifToolResponse cmdRes = ExifToolWrapper.SetExifInto(ImageFileName, ExifToolValues);
-                    if (!cmdRes)
+                    if (ExifToolWrapper.isReady())
                     {
-                        GeneralUtilities.message(LangCfg.Message.E_ExifToolWriteError, cmdRes.Result);
+                        ExifToolResponse cmdRes = ExifToolWrapper.SetExifInto(ImageFileName, ExifToolValues);
+                        if (!cmdRes)
+                        {
+                            GeneralUtilities.message(LangCfg.Message.E_ExifToolWriteError, cmdRes.Result);
+                        }
+                    }
+                    else
+                    {
+                        string keys = "";
+                        foreach (string key in ExifToolValues.Keys)
+                        {
+                            keys += "\r\n" + key;
+                            ImageChangedFieldsForCompare.Remove(key);
+                        }
+                        GeneralUtilities.message(LangCfg.Message.E_ExifToolNotReadyForWrite, keys);//DE
                     }
                 }
             }

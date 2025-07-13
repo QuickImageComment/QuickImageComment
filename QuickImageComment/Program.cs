@@ -16,6 +16,7 @@
 
 #define USESTARTUPTHREAD
 
+using Brain2CPU.ExifTool;
 using JR.Utils.GUI.Forms;
 using System;
 using System.Collections;
@@ -279,6 +280,7 @@ namespace QuickImageComment
             //checking flag closing was not sufficient, so try this approach from
             //https://stackoverflow.com/questions/2688923/how-to-exit-all-running-threads
             //Application.Exit();
+            ExifToolWrapper.Stop();
             Environment.Exit(Environment.ExitCode);
         }
 
@@ -315,6 +317,7 @@ namespace QuickImageComment
                 }
                 JR.Utils.GUI.Forms.FlexibleMessageBox.Show(message,
                 "QuickImageComment", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                ExifToolWrapper.Stop();
                 Environment.Exit(Environment.ExitCode);
             }
             else
@@ -372,6 +375,7 @@ namespace QuickImageComment
                 if (terminate)
                 {
                     new FormError(ex.Message, details, ErrorFile, true);
+                    ExifToolWrapper.Stop();
                     Environment.Exit(Environment.ExitCode);
                 }
                 else

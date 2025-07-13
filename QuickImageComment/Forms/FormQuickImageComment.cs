@@ -898,7 +898,14 @@ namespace QuickImageComment
             string ExifToolPath = ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.ExifToolPath);
             if (ExifToolPath.Length > 0)
             {
-                ExtendedImage.initExifTool(ExifToolPath);
+                try
+                {
+                    ExifToolWrapper.init(ExifToolPath);
+                }
+                catch (Exception ex)
+                {
+                    GeneralUtilities.message(LangCfg.Message.E_ErrorExifToolWrapper, ex.Message);
+                }
             }
             ImageManager.initNewFolder(FolderName);
             ImageManager.initExtendedCacheList();
@@ -1387,6 +1394,8 @@ namespace QuickImageComment
 
                 GeneralUtilities.closeDebugFile();
                 GeneralUtilities.closeTraceFile();
+
+                ExifToolWrapper.Stop();
 
                 cfgSaved = true;
 #if APPCENTER
@@ -7051,6 +7060,11 @@ namespace QuickImageComment
         // create file with all tags (to compare with previous version, especially from exiv2)
         private void toolStripMenuItemWriteTagListFileExifTool_Click(object sender, EventArgs e)
         {
+            if (!ExifToolWrapper.isReady())
+            {
+                GeneralUtilities.message(LangCfg.Message.E_ExifToolNotReadyGeneral);
+                return;
+            }
             this.Cursor = Cursors.WaitCursor;
             System.IO.StreamWriter StreamOut = null;
             string LookupReferenceValuesFile = GeneralUtilities.getMaintenanceOutputFolder() + "TagListExifTool.txt";

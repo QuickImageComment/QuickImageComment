@@ -10,7 +10,6 @@
 // - set encoding for standard input and output
 // - converted to static class
 
-using QuickImageComment;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -119,7 +118,7 @@ namespace Brain2CPU.ExifTool
                 ExifToolPath = path;
 
             if (!File.Exists(ExifToolPath))
-                throw new ExifToolException($"{ExeName} not found");
+                throw new ExifToolException($"{ExifToolPath} not found");
 
             _psi.FileName = ExifToolPath;
             _psi.Arguments = faster ? ArgumentsFaster : Arguments;
@@ -127,13 +126,9 @@ namespace Brain2CPU.ExifTool
             // Status will change after Start(), set here in case Start fails
             Status = ExeStatus.Stopped;
 
-            Logger.log("new ExifToolWrapper");
             Start();
-            Logger.log("ExifTool started");
             FillLocationList();
-            Logger.log("FillLocationList finish");
             FillWritableTagList();
-            Logger.log("FillWritableTagList finish");
         }
 
         private static void OutputDataReceived(object sender, DataReceivedEventArgs e)
@@ -262,6 +257,17 @@ namespace Brain2CPU.ExifTool
         public static bool isReady()
         {
             return Status == ExeStatus.Ready;
+        }
+
+        public static string getPath()
+        {
+            if (_proc != null)
+                if (_proc.StartInfo != null)
+                    return _proc.StartInfo.FileName;
+                else
+                    return "";
+            else
+                return "";
         }
 
         private static readonly object _lockObj = new object();

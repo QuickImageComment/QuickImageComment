@@ -1435,10 +1435,21 @@ namespace QuickImageComment
                             continue;
                         }
                         int colon = key.IndexOf(':');
-                        if (colon > 0 && !ExifToolWrapper.getWritableTagList().Contains(key.Substring(colon + 1)))
+                        if (colon > 0)
                         {
-                            GeneralUtilities.message(LangCfg.Message.E_tagValueNotChangeable, key);
-                            continue;
+                            if (ExifToolWrapper.isReady())
+                            {
+                                if (!ExifToolWrapper.getWritableTagList().Contains(key.Substring(colon + 1)))
+                                {
+                                    GeneralUtilities.message(LangCfg.Message.E_tagValueNotChangeable, key);
+                                    continue;
+                                }
+                            }
+                            else
+                            {
+                                GeneralUtilities.message(LangCfg.Message.E_ExifToolNotReadyForWritableCheck, key);
+                                continue;
+                            }
                         }
                         // key passed initial checks to be added
                         CheckedTagsToAdd.Add(key);

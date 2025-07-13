@@ -1442,33 +1442,42 @@ namespace QuickImageComment
                 }
                 else
                 {
+                    //!! zweige testen
                     string[] parts = metaDatumText.Split(new char[] { ':' });
-                    if (ExifToolWrapper.getLocationList().Contains(parts[0]))
+                    if (ExifToolWrapper.isReady())
                     {
-                        // add/overwrite reference to location+ID for key if it is an ExifTool key
-                        ConfigDefinition.addOverwriteExifToolID(metaDatumText);
+                        if (ExifToolWrapper.getLocationList().Contains(parts[0]))
+                        {
+                            // add/overwrite reference to location+ID for key if it is an ExifTool key
+                            ConfigDefinition.addOverwriteExifToolID(metaDatumText);
 
-                        bool found = false;
-                        for (int ii = 0; ii < listViewTags.Items.Count; ii++)
-                        {
-                            if (listViewTags.Items[ii].SubItems[3].Text.Equals(metaDatumText))
+                            bool found = false;
+                            for (int ii = 0; ii < listViewTags.Items.Count; ii++)
                             {
-                                found = true;
-                                break;
+                                if (listViewTags.Items[ii].SubItems[3].Text.Equals(metaDatumText))
+                                {
+                                    found = true;
+                                    break;
+                                }
                             }
+                            // it is a tag from ExifTool, which cannot be checked exactly
+                            // so just give a warning and continue
+                            if (!found)
+                            {
+                                GeneralUtilities.message(LangCfg.Message.W_unknownEntryExifTool, metaDatumText);
+                            }
+                            return false;
                         }
-                        // it is a tag from ExifTool, which cannot be checked exactly
-                        // so just give a warning and continue
-                        if (!found)
+                        else
                         {
-                            GeneralUtilities.message(LangCfg.Message.W_unknownEntryExifTool, metaDatumText);
+                            GeneralUtilities.message(LangCfg.Message.E_unknownEntry, metaDatumText);
+                            return true;
                         }
-                        return false;
                     }
                     else
                     {
-                        GeneralUtilities.message(LangCfg.Message.E_unknownEntry, metaDatumText);
-                        return true;
+                        GeneralUtilities.message(LangCfg.Message.W_ExifToolNotReadyForTagCheck, metaDatumText);//DE
+                        return false;
                     }
                 }
             }
