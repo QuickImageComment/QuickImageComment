@@ -34,6 +34,7 @@ namespace QuickImageComment
         readonly DataGridView DataGridViewExif;
         readonly DataGridView DataGridViewIptc;
         readonly DataGridView DataGridViewXmp;
+        readonly DataGridView DataGridViewExifTool;
         readonly DataGridView DataGridViewOtherMetaData;
         private readonly int splitContainer12SplitterDistanceHorizontal;
 
@@ -46,6 +47,7 @@ namespace QuickImageComment
             DataGridView givenDataGridViewExif,
             DataGridView givenDataGridViewIptc,
             DataGridView givenDataGridViewXmp,
+            DataGridView givenDataGridViewExifTool,
             DataGridView givenDataGridViewOtherMetaData)
         {
             allowSaveSettingsAndAdjustView = false;
@@ -72,6 +74,7 @@ namespace QuickImageComment
             DataGridViewExif = givenDataGridViewExif;
             DataGridViewIptc = givenDataGridViewIptc;
             DataGridViewXmp = givenDataGridViewXmp;
+            DataGridViewExifTool = givenDataGridViewExifTool;
             DataGridViewOtherMetaData = givenDataGridViewOtherMetaData;
             addConfigControlsInPanels(this.splitContainer1.Panel1);
             addConfigControlsInPanels(this.splitContainer1.Panel2);
@@ -285,6 +288,20 @@ namespace QuickImageComment
                 {
                     radioButtonXmpPlain.Checked = true;
                 }
+            }
+
+            // set radioboxes for data grid view of properties - ExifTool
+            if (ConfigDefinition.getDataGridViewDisplaySuffixFirst(DataGridViewExifTool))
+            {
+                radioButtonExifToolSuffixFirst.Checked = true;
+            }
+            else if (ConfigDefinition.getDataGridViewDisplayHeader(DataGridViewExifTool))
+            {
+                radioButtonExifToolHeader.Checked = true;
+            }
+            else
+            {
+                radioButtonExifToolPlain.Checked = true;
             }
 
             // set radioboxes for data grid view of properties - Other
@@ -588,6 +605,26 @@ namespace QuickImageComment
                     ConfigDefinition.setDataGridViewDisplayHeader(DataGridViewXmp, true);
                     ConfigDefinition.setDataGridViewDisplayEnglish(DataGridViewXmp, true);
                     ConfigDefinition.setDataGridViewDisplaySuffixFirst(DataGridViewXmp, false);
+                }
+
+                // data grid view - ExifTool
+                if (radioButtonExifToolPlain.Checked)
+                {
+                    ConfigDefinition.setDataGridViewDisplayHeader(DataGridViewExifTool, false);
+                    ConfigDefinition.setDataGridViewDisplayEnglish(DataGridViewExifTool, false);
+                    ConfigDefinition.setDataGridViewDisplaySuffixFirst(DataGridViewExifTool, false);
+                }
+                else if (radioButtonExifToolSuffixFirst.Checked)
+                {
+                    ConfigDefinition.setDataGridViewDisplayHeader(DataGridViewExifTool, false);
+                    ConfigDefinition.setDataGridViewDisplayEnglish(DataGridViewExifTool, false);
+                    ConfigDefinition.setDataGridViewDisplaySuffixFirst(DataGridViewExifTool, true);
+                }
+                else if (radioButtonExifToolHeader.Checked)
+                {
+                    ConfigDefinition.setDataGridViewDisplayHeader(DataGridViewExifTool, true);
+                    ConfigDefinition.setDataGridViewDisplayEnglish(DataGridViewExifTool, false);
+                    ConfigDefinition.setDataGridViewDisplaySuffixFirst(DataGridViewExifTool, false);
                 }
 
                 // data grid view - Other

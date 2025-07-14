@@ -47,6 +47,7 @@
             this.panelLayout = new System.Windows.Forms.Panel();
             this.buttonMinimum = new System.Windows.Forms.Button();
             this.groupBoxFiles = new System.Windows.Forms.GroupBox();
+            this.radioButtonComment = new System.Windows.Forms.RadioButton();
             this.radioButtonTile = new System.Windows.Forms.RadioButton();
             this.radioButtonDetails = new System.Windows.Forms.RadioButton();
             this.radioButtonList = new System.Windows.Forms.RadioButton();
@@ -107,7 +108,12 @@
             this.buttonSaveAs = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.buttonMap = new System.Windows.Forms.Button();
-            this.radioButtonComment = new System.Windows.Forms.RadioButton();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.radioButtonExifToolHeader = new System.Windows.Forms.RadioButton();
+            this.radioButtonExifToolSuffixFirst = new System.Windows.Forms.RadioButton();
+            this.radioButtonExifToolPlain = new System.Windows.Forms.RadioButton();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -142,6 +148,7 @@
             this.panelVerticalCheckRight.SuspendLayout();
             this.panelVerticalCheckLeft.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonCustomizeForm
@@ -158,7 +165,7 @@
             // buttonHelp
             // 
             this.buttonHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonHelp.Location = new System.Drawing.Point(691, 545);
+            this.buttonHelp.Location = new System.Drawing.Point(769, 545);
             this.buttonHelp.Name = "buttonHelp";
             this.buttonHelp.Size = new System.Drawing.Size(100, 22);
             this.buttonHelp.TabIndex = 9;
@@ -203,8 +210,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer12);
-            this.splitContainer1.Size = new System.Drawing.Size(782, 223);
-            this.splitContainer1.SplitterDistance = 219;
+            this.splitContainer1.Size = new System.Drawing.Size(860, 223);
+            this.splitContainer1.SplitterDistance = 240;
             this.splitContainer1.TabIndex = 34;
             // 
             // splitContainer11
@@ -223,7 +230,7 @@
             // splitContainer11.Panel2
             // 
             this.splitContainer11.Panel2.BackColor = System.Drawing.SystemColors.Control;
-            this.splitContainer11.Size = new System.Drawing.Size(219, 223);
+            this.splitContainer11.Size = new System.Drawing.Size(240, 223);
             this.splitContainer11.SplitterDistance = 98;
             this.splitContainer11.TabIndex = 0;
             // 
@@ -244,7 +251,7 @@
             // splitContainer12.Panel2
             // 
             this.splitContainer12.Panel2.Controls.Add(this.splitContainer122);
-            this.splitContainer12.Size = new System.Drawing.Size(559, 223);
+            this.splitContainer12.Size = new System.Drawing.Size(616, 223);
             this.splitContainer12.SplitterDistance = 130;
             this.splitContainer12.TabIndex = 0;
             // 
@@ -263,7 +270,7 @@
             // splitContainer12P1.Panel2
             // 
             this.splitContainer12P1.Panel2.Controls.Add(this.panelCentralInputArea);
-            this.splitContainer12P1.Size = new System.Drawing.Size(559, 130);
+            this.splitContainer12P1.Size = new System.Drawing.Size(616, 130);
             this.splitContainer12P1.SplitterDistance = 100;
             this.splitContainer12P1.TabIndex = 2;
             // 
@@ -282,8 +289,8 @@
             // splitContainer121.Panel2
             // 
             this.splitContainer121.Panel2.BackColor = System.Drawing.SystemColors.Control;
-            this.splitContainer121.Size = new System.Drawing.Size(559, 100);
-            this.splitContainer121.SplitterDistance = 390;
+            this.splitContainer121.Size = new System.Drawing.Size(616, 100);
+            this.splitContainer121.SplitterDistance = 429;
             this.splitContainer121.TabIndex = 0;
             // 
             // splitContainer1211
@@ -301,8 +308,8 @@
             // splitContainer1211.Panel2
             // 
             this.splitContainer1211.Panel2.BackColor = System.Drawing.SystemColors.Control;
-            this.splitContainer1211.Size = new System.Drawing.Size(390, 100);
-            this.splitContainer1211.SplitterDistance = 202;
+            this.splitContainer1211.Size = new System.Drawing.Size(429, 100);
+            this.splitContainer1211.SplitterDistance = 222;
             this.splitContainer1211.TabIndex = 0;
             this.splitContainer1211.TabStop = false;
             // 
@@ -326,7 +333,7 @@
             this.panelCentralInputArea.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelCentralInputArea.Location = new System.Drawing.Point(0, 0);
             this.panelCentralInputArea.Name = "panelCentralInputArea";
-            this.panelCentralInputArea.Size = new System.Drawing.Size(559, 26);
+            this.panelCentralInputArea.Size = new System.Drawing.Size(616, 26);
             this.panelCentralInputArea.TabIndex = 2;
             // 
             // labelCentralInputArea
@@ -363,8 +370,8 @@
             // splitContainer122.Panel2
             // 
             this.splitContainer122.Panel2.BackColor = System.Drawing.SystemColors.Control;
-            this.splitContainer122.Size = new System.Drawing.Size(559, 89);
-            this.splitContainer122.SplitterDistance = 294;
+            this.splitContainer122.Size = new System.Drawing.Size(616, 89);
+            this.splitContainer122.SplitterDistance = 323;
             this.splitContainer122.TabIndex = 0;
             // 
             // panelLayout
@@ -375,7 +382,7 @@
             this.panelLayout.Controls.Add(this.splitContainer1);
             this.panelLayout.Location = new System.Drawing.Point(3, 243);
             this.panelLayout.Name = "panelLayout";
-            this.panelLayout.Size = new System.Drawing.Size(788, 229);
+            this.panelLayout.Size = new System.Drawing.Size(866, 229);
             this.panelLayout.TabIndex = 3;
             // 
             // buttonMinimum
@@ -402,6 +409,18 @@
             this.groupBoxFiles.TabIndex = 1;
             this.groupBoxFiles.TabStop = false;
             this.groupBoxFiles.Text = "Datei-Ansicht";
+            // 
+            // radioButtonComment
+            // 
+            this.radioButtonComment.AutoSize = true;
+            this.radioButtonComment.Location = new System.Drawing.Point(6, 107);
+            this.radioButtonComment.Name = "radioButtonComment";
+            this.radioButtonComment.Size = new System.Drawing.Size(79, 17);
+            this.radioButtonComment.TabIndex = 4;
+            this.radioButtonComment.TabStop = true;
+            this.radioButtonComment.Text = "Kommentar";
+            this.radioButtonComment.UseVisualStyleBackColor = true;
+            this.radioButtonComment.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
             // 
             // radioButtonTile
             // 
@@ -453,6 +472,9 @@
             // 
             // groupBoxProperties
             // 
+            this.groupBoxProperties.Controls.Add(this.label4);
+            this.groupBoxProperties.Controls.Add(this.label3);
+            this.groupBoxProperties.Controls.Add(this.groupBox2);
             this.groupBoxProperties.Controls.Add(this.label11);
             this.groupBoxProperties.Controls.Add(this.label10);
             this.groupBoxProperties.Controls.Add(this.fixedLabel9);
@@ -469,7 +491,7 @@
             this.groupBoxProperties.Controls.Add(this.groupBoxExif);
             this.groupBoxProperties.Location = new System.Drawing.Point(329, 12);
             this.groupBoxProperties.Name = "groupBoxProperties";
-            this.groupBoxProperties.Size = new System.Drawing.Size(462, 199);
+            this.groupBoxProperties.Size = new System.Drawing.Size(531, 199);
             this.groupBoxProperties.TabIndex = 2;
             this.groupBoxProperties.TabStop = false;
             this.groupBoxProperties.Text = "Eigenschaften-Ansichten";
@@ -477,7 +499,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(139, 164);
+            this.label11.Location = new System.Drawing.Point(183, 164);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(307, 13);
             this.label11.TabIndex = 13;
@@ -486,7 +508,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(104, 16);
+            this.label10.Location = new System.Drawing.Point(143, 16);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(48, 13);
             this.label10.TabIndex = 3;
@@ -495,7 +517,7 @@
             // fixedLabel9
             // 
             this.fixedLabel9.AutoSize = true;
-            this.fixedLabel9.Location = new System.Drawing.Point(74, 16);
+            this.fixedLabel9.Location = new System.Drawing.Point(76, 16);
             this.fixedLabel9.Name = "fixedLabel9";
             this.fixedLabel9.Size = new System.Drawing.Size(27, 13);
             this.fixedLabel9.TabIndex = 2;
@@ -504,7 +526,7 @@
             // fixedLabel8
             // 
             this.fixedLabel8.AutoSize = true;
-            this.fixedLabel8.Location = new System.Drawing.Point(39, 16);
+            this.fixedLabel8.Location = new System.Drawing.Point(40, 16);
             this.fixedLabel8.Name = "fixedLabel8";
             this.fixedLabel8.Size = new System.Drawing.Size(30, 13);
             this.fixedLabel8.TabIndex = 1;
@@ -522,7 +544,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(139, 141);
+            this.label6.Location = new System.Drawing.Point(183, 141);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(278, 13);
             this.label6.TabIndex = 12;
@@ -531,7 +553,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(139, 118);
+            this.label5.Location = new System.Drawing.Point(183, 118);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(299, 13);
             this.label5.TabIndex = 11;
@@ -540,7 +562,7 @@
             // labelSuffixFirst
             // 
             this.labelSuffixFirst.AutoSize = true;
-            this.labelSuffixFirst.Location = new System.Drawing.Point(139, 95);
+            this.labelSuffixFirst.Location = new System.Drawing.Point(183, 95);
             this.labelSuffixFirst.Name = "labelSuffixFirst";
             this.labelSuffixFirst.Size = new System.Drawing.Size(259, 13);
             this.labelSuffixFirst.TabIndex = 10;
@@ -549,7 +571,7 @@
             // labelHeader
             // 
             this.labelHeader.AutoSize = true;
-            this.labelHeader.Location = new System.Drawing.Point(139, 49);
+            this.labelHeader.Location = new System.Drawing.Point(183, 49);
             this.labelHeader.Name = "labelHeader";
             this.labelHeader.Size = new System.Drawing.Size(251, 13);
             this.labelHeader.TabIndex = 8;
@@ -558,7 +580,7 @@
             // labelPlain
             // 
             this.labelPlain.AutoSize = true;
-            this.labelPlain.Location = new System.Drawing.Point(139, 72);
+            this.labelPlain.Location = new System.Drawing.Point(183, 72);
             this.labelPlain.Name = "labelPlain";
             this.labelPlain.Size = new System.Drawing.Size(230, 13);
             this.labelPlain.TabIndex = 9;
@@ -572,7 +594,7 @@
             this.groupBoxOther.Controls.Add(this.radioButtonOtherSuffixFirst);
             this.groupBoxOther.Controls.Add(this.radioButtonOtherPlain);
             this.groupBoxOther.Controls.Add(this.radioButtonOtherHeader);
-            this.groupBoxOther.Location = new System.Drawing.Point(108, 32);
+            this.groupBoxOther.Location = new System.Drawing.Point(152, 32);
             this.groupBoxOther.Name = "groupBoxOther";
             this.groupBoxOther.Size = new System.Drawing.Size(31, 156);
             this.groupBoxOther.TabIndex = 7;
@@ -1072,23 +1094,73 @@
             this.buttonMap.UseVisualStyleBackColor = true;
             this.buttonMap.Click += new System.EventHandler(this.buttonMap_Click);
             // 
-            // radioButtonComment
+            // groupBox2
             // 
-            this.radioButtonComment.AutoSize = true;
-            this.radioButtonComment.Location = new System.Drawing.Point(6, 107);
-            this.radioButtonComment.Name = "radioButtonComment";
-            this.radioButtonComment.Size = new System.Drawing.Size(79, 17);
-            this.radioButtonComment.TabIndex = 4;
-            this.radioButtonComment.TabStop = true;
-            this.radioButtonComment.Text = "Kommentar";
-            this.radioButtonComment.UseVisualStyleBackColor = true;
-            this.radioButtonComment.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
+            this.groupBox2.Controls.Add(this.radioButtonExifToolHeader);
+            this.groupBox2.Controls.Add(this.radioButtonExifToolSuffixFirst);
+            this.groupBox2.Controls.Add(this.radioButtonExifToolPlain);
+            this.groupBox2.Location = new System.Drawing.Point(108, 32);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(31, 156);
+            this.groupBox2.TabIndex = 7;
+            this.groupBox2.TabStop = false;
+            // 
+            // radioButtonExifToolHeader
+            // 
+            this.radioButtonExifToolHeader.AutoSize = true;
+            this.radioButtonExifToolHeader.Location = new System.Drawing.Point(8, 17);
+            this.radioButtonExifToolHeader.Name = "radioButtonExifToolHeader";
+            this.radioButtonExifToolHeader.Size = new System.Drawing.Size(14, 13);
+            this.radioButtonExifToolHeader.TabIndex = 0;
+            this.radioButtonExifToolHeader.TabStop = true;
+            this.radioButtonExifToolHeader.UseVisualStyleBackColor = true;
+            this.radioButtonExifToolHeader.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
+            // 
+            // radioButtonExifToolSuffixFirst
+            // 
+            this.radioButtonExifToolSuffixFirst.AutoSize = true;
+            this.radioButtonExifToolSuffixFirst.Location = new System.Drawing.Point(8, 63);
+            this.radioButtonExifToolSuffixFirst.Name = "radioButtonExifToolSuffixFirst";
+            this.radioButtonExifToolSuffixFirst.Size = new System.Drawing.Size(14, 13);
+            this.radioButtonExifToolSuffixFirst.TabIndex = 2;
+            this.radioButtonExifToolSuffixFirst.TabStop = true;
+            this.radioButtonExifToolSuffixFirst.UseVisualStyleBackColor = true;
+            this.radioButtonExifToolSuffixFirst.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
+            // 
+            // radioButtonExifToolPlain
+            // 
+            this.radioButtonExifToolPlain.AutoSize = true;
+            this.radioButtonExifToolPlain.Location = new System.Drawing.Point(8, 40);
+            this.radioButtonExifToolPlain.Name = "radioButtonExifToolPlain";
+            this.radioButtonExifToolPlain.Size = new System.Drawing.Size(14, 13);
+            this.radioButtonExifToolPlain.TabIndex = 1;
+            this.radioButtonExifToolPlain.TabStop = true;
+            this.radioButtonExifToolPlain.UseVisualStyleBackColor = true;
+            this.radioButtonExifToolPlain.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(101, 16);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(45, 13);
+            this.label3.TabIndex = 14;
+            this.label3.Text = "ExifTool";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(183, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(331, 13);
+            this.label4.TabIndex = 15;
+            this.label4.Text = "Sprache für ExifTool wird im Menü \"Extras\" der Hauptmaske gesetzt";
             // 
             // FormView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(794, 573);
+            this.ClientSize = new System.Drawing.Size(872, 573);
             this.Controls.Add(this.buttonMap);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.panelVerticalCheckLeft);
@@ -1160,6 +1232,8 @@
             this.panelVerticalCheckLeft.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1245,5 +1319,11 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button buttonMap;
         private System.Windows.Forms.RadioButton radioButtonComment;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.RadioButton radioButtonExifToolHeader;
+        private System.Windows.Forms.RadioButton radioButtonExifToolSuffixFirst;
+        private System.Windows.Forms.RadioButton radioButtonExifToolPlain;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
     }
 }

@@ -2179,7 +2179,7 @@ namespace QuickImageComment
         private void toolStripMenuItemViewAdjust_Click(object sender, EventArgs e)
         {
             FormView theFormView = new FormView(SplitContainerPanelControls, DefaultSplitContainerPanelContents,
-                DataGridViewExif, DataGridViewIptc, DataGridViewXmp, DataGridViewOtherMetaData);
+                DataGridViewExif, DataGridViewIptc, DataGridViewXmp, DataGridViewExifTool, DataGridViewOtherMetaData);
             theFormView.Show();
         }
 
@@ -7004,7 +7004,7 @@ namespace QuickImageComment
                 // FormTagValueInput needs main mask to be visible, screen shot taken above
                 new FormUserButtons(this.MenuStrip1);
                 new FormView(SplitContainerPanelControls, DefaultSplitContainerPanelContents,
-                    DataGridViewExif, DataGridViewIptc, DataGridViewXmp, DataGridViewOtherMetaData);
+                    DataGridViewExif, DataGridViewIptc, DataGridViewXmp, DataGridViewExifTool, DataGridViewOtherMetaData);
 
                 GeneralUtilities.CreateScreenshots = false;
 
@@ -7145,7 +7145,7 @@ namespace QuickImageComment
             LangCfg.getListOfControlsWithText(new FormTagValueInput("", textBoxUserComment, FormTagValueInput.type.configurable), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormUserButtons(this.MenuStrip1), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormView(SplitContainerPanelControls, DefaultSplitContainerPanelContents,
-                DataGridViewExif, DataGridViewIptc, DataGridViewXmp, DataGridViewOtherMetaData), ControlTextList);
+                DataGridViewExif, DataGridViewIptc, DataGridViewXmp, DataGridViewExifTool, DataGridViewOtherMetaData), ControlTextList);
             LangCfg.getListOfControlsWithText(new UserControlImageDetails(dpiSettings, null), ControlTextList);
 
             GeneralUtilities.CloseAfterConstructing = false;
@@ -7218,7 +7218,7 @@ namespace QuickImageComment
             new FormTagValueInput("", textBoxUserComment, FormTagValueInput.type.configurable);
             new FormUserButtons(this.MenuStrip1);
             new FormView(SplitContainerPanelControls, DefaultSplitContainerPanelContents,
-                DataGridViewExif, DataGridViewIptc, DataGridViewXmp, DataGridViewOtherMetaData);
+                DataGridViewExif, DataGridViewIptc, DataGridViewXmp, DataGridViewExifTool, DataGridViewOtherMetaData);
             new UserControlImageDetails(dpiSettings, null);
 
             GeneralUtilities.CloseAfterConstructing = false;

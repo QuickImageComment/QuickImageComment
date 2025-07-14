@@ -81,7 +81,7 @@ namespace QuickImageComment
         };
 
         // fields Exif.GPS... for question: better change in map, add anyhow
-        private static readonly ArrayList ExifGPSFields = new ArrayList {
+        internal static readonly ArrayList ExifGPSFields = new ArrayList {
             "Exif.GPSInfo.GPSLatitude",
             "Exif.GPSInfo.GPSLatitudeRef",
             "Exif.GPSInfo.GPSLongitude",
@@ -1338,34 +1338,8 @@ namespace QuickImageComment
                     // consider that changes here may be usefull in input check in FormMetaDataDefinition as well
                     foreach (string key in TagsToAdd)
                     {
-                        // check comment/artist according settings
-                        if (key.Equals("Image.CommentAccordingSettings") || key.Equals("Image.ArtistAccordingSettings"))
+                        if (!tagCanBeAddedToChangeable(key))
                         {
-                            GeneralUtilities.message(LangCfg.Message.I_changeCommentArtistAccSettings, key);
-                            continue;
-                        }
-                        // check artist combined fields
-                        else if (key.Equals("Image.ArtistCombinedFields"))
-                        {
-                            GeneralUtilities.message(LangCfg.Message.I_changeArtistCombined, key);
-                            continue;
-                        }
-                        // check comment combined fields
-                        else if (key.Equals("Image.CommentCombinedFields"))
-                        {
-                            GeneralUtilities.message(LangCfg.Message.I_changeCommentCombined, key);
-                            continue;
-                        }
-                        // check IPTC key words string
-                        else if (key.Equals("Image.IPTC_KeyWordsString"))
-                        {
-                            GeneralUtilities.message(LangCfg.Message.I_IptcKeyWordsString, key);
-                            continue;
-                        }
-                        // check if tag is part of Image GPS fields
-                        else if (ImageGPSFields.Contains(key))
-                        {
-                            GeneralUtilities.message(LangCfg.Message.I_changeGPSviaMap, key);
                             continue;
                         }
                         // check if tag is part of Exif GPS fields
@@ -1376,8 +1350,8 @@ namespace QuickImageComment
                                 continue;
                             }
                         }
-                        // check for ExifEasy
                         else if (key.StartsWith("ExifEasy."))
+                        // check for ExifEasy
                         {
                             MetaDataItem metaDataItem = MainMaskInterface.getTheExtendedImage().getOtherMetaDataItemByKey(key);
                             if (GeneralUtilities.questionMessage(LangCfg.Message.Q_ExifEasyAddRefKey, key, metaDataItem.getTypeName()) == DialogResult.Yes)
@@ -1421,38 +1395,10 @@ namespace QuickImageComment
                             }
                             continue;
                         }
-                        // check if tag is changeable
-                        else if (Exiv2TagDefinitions.UnchangeableTags.Contains(key))
+                        else
                         {
-                            GeneralUtilities.message(LangCfg.Message.E_tagValueNotChangeable, key);
-                            continue;
+                            CheckedTagsToAdd.Add(key);
                         }
-                        // check if tag is used for artist and comment input fields
-                        else if (ConfigDefinition.getTagNamesComment().Contains(key) ||
-                            ConfigDefinition.getTagNamesArtist().Contains(key))
-                        {
-                            GeneralUtilities.message(LangCfg.Message.E_metaDataNotEnteredSettings, key);
-                            continue;
-                        }
-                        int colon = key.IndexOf(':');
-                        if (colon > 0)
-                        {
-                            if (ExifToolWrapper.isReady())
-                            {
-                                if (!ExifToolWrapper.getWritableTagList().Contains(key.Substring(colon + 1)))
-                                {
-                                    GeneralUtilities.message(LangCfg.Message.E_tagValueNotChangeable, key);
-                                    continue;
-                                }
-                            }
-                            else
-                            {
-                                GeneralUtilities.message(LangCfg.Message.E_ExifToolNotReadyForWritableCheck, key);
-                                continue;
-                            }
-                        }
-                        // key passed initial checks to be added
-                        CheckedTagsToAdd.Add(key);
                     }
 
                     // now add the tags
@@ -1493,6 +1439,72 @@ namespace QuickImageComment
                     }
                 }
             }
+        }
+
+        // check if tag is changeable
+        public static bool tagCanBeAddedToChangeable(string key)
+        {
+            // check comment/artist according settings
+            if (key.Equals("Image.CommentAccordingSettings") || key.Equals("Image.ArtistAccordingSettings"))
+            {
+                GeneralUtilities.message(LangCfg.Message.I_changeCommentArtistAccSettings, key);
+                return false;
+            }
+            // check artist combined fields
+            else if (key.Equals("Image.ArtistCombinedFields"))
+            {
+                GeneralUtilities.message(LangCfg.Message.I_changeArtistCombined, key);
+                return false;
+            }
+            // check comment combined fields
+            else if (key.Equals("Image.CommentCombinedFields"))
+            {
+                GeneralUtilities.message(LangCfg.Message.I_changeCommentCombined, key);
+                return false;
+            }
+            // check IPTC key words string
+            else if (key.Equals("Image.IPTC_KeyWordsString") ||
+                     key.Equals("Iptc.Application2.Keywords"))
+            {
+                GeneralUtilities.message(LangCfg.Message.E_metaDataNotEnteredSpecial, key);
+                return false;
+            }
+            // check if tag is part of Image GPS fields
+            else if (ImageGPSFields.Contains(key))
+            {
+                GeneralUtilities.message(LangCfg.Message.I_changeGPSviaMap, key);
+                return false;
+            }
+            else if (Exiv2TagDefinitions.UnchangeableTags.Contains(key))
+            {
+                GeneralUtilities.message(LangCfg.Message.E_tagValueNotChangeable, key);
+                return false;
+            }
+            // check if tag is used for artist and comment input fields
+            else if (ConfigDefinition.getTagNamesComment().Contains(key) ||
+                ConfigDefinition.getTagNamesArtist().Contains(key))
+            {
+                GeneralUtilities.message(LangCfg.Message.E_metaDataNotEnteredSettings, key);
+                return false;
+            }
+            int colon = key.IndexOf(':');
+            if (colon > 0)
+            {
+                if (ExifToolWrapper.isReady())
+                {
+                    if (!ExifToolWrapper.getWritableTagList().Contains(key.Substring(colon + 1)))
+                    {
+                        GeneralUtilities.message(LangCfg.Message.E_tagValueNotChangeable, key);
+                        return false;
+                    }
+                }
+                else
+                {
+                    GeneralUtilities.message(LangCfg.Message.E_ExifToolNotReadyForWritableCheck, key);
+                    return false;
+                }
+            }
+            return true;
         }
 
         // add fields to list of changeable fields

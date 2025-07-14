@@ -1115,21 +1115,14 @@ namespace QuickImageComment
         {
             if (dynamicComboBoxMetaDataType.SelectedItem.Equals(LangCfg.getText(ConfigDefinition.enumMetaDataGroup.MetaDataDefForChange)))
             {
-                if (!Exiv2TagDefinitions.ChangeableTypes.Contains(MetaDataType) ||
-                     Exiv2TagDefinitions.UnchangeableTags.Contains(MetaDataKey))
+                if (!GeneralUtilities.tagCanBeAddedToChangeable(MetaDataKey))
+                {
+                    return false;
+                }
+                // check type of keys from exiv2
+                else if (!MetaDataKey.Contains(":") && !Exiv2TagDefinitions.ChangeableTypes.Contains(MetaDataType))
                 {
                     GeneralUtilities.message(LangCfg.Message.E_tagValueNotChangeable, MetaDataKey);
-                    return false;
-                }
-                else if (ConfigDefinition.getTagNamesComment().Contains(MetaDataKey) ||
-                         ConfigDefinition.getTagNamesArtist().Contains(MetaDataKey))
-                {
-                    GeneralUtilities.message(LangCfg.Message.E_metaDataNotEnteredSettings, MetaDataKey);
-                    return false;
-                }
-                else if (textBoxMetaDatum1.Text.Equals("Iptc.Application2.Keywords"))
-                {
-                    GeneralUtilities.message(LangCfg.Message.E_metaDataNotEnteredSpecial, MetaDataKey);
                     return false;
                 }
             }
@@ -1137,6 +1130,7 @@ namespace QuickImageComment
                       dynamicComboBoxMetaDataType.SelectedItem.Equals(LangCfg.getText(ConfigDefinition.enumMetaDataGroup.MetaDataDefForRemoveMetaDataList))) &&
                       MetaDataType.Equals("Readonly"))
             {
+                //!! anpassen für ExifTool
                 GeneralUtilities.message(LangCfg.Message.E_tagValueNotDeleteable, MetaDataKey);
                 return false;
             }

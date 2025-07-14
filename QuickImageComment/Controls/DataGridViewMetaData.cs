@@ -277,6 +277,10 @@ namespace QuickImageCommentControls
                 // ExifTool does not provide size, so hide that column
                 this.Columns[4].Visible = false;
                 groupSeparator = ':';
+                // language is set via menu
+                toolStripMenuItemPlainEnglish.Visible = false;
+                toolStripMenuItemSuffixFirstEnglish.Visible = false;
+                toolStripMenuItemWithHeaderEnglish.Visible = false;
             }
             else
             {
