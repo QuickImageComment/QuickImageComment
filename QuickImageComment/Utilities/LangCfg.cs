@@ -228,7 +228,8 @@ namespace QuickImageComment
             E_ExifToolNotReadyForWrite,
             E_ExifToolNotReadyGeneral,
             W_ExifToolNotReadyForTagCheck,
-            E_ErrorExifToolWrapper
+            E_ErrorExifToolWrapper,
+            E_ExifToolTagValueNotDeleteable
         }
 
         public enum Others
@@ -755,7 +756,7 @@ namespace QuickImageComment
             catch (Exception ex)
             {
                 GeneralUtilities.fatalInitMessage("Fehler beim Lesen der Konfigurationsdatei\n" + "Error reading configuration file\n\n"
-                    + TranslationFile, ex);
+                    + TranslationFile + "\nZeile/Line: " + lineNo.ToString(), ex);
             }
 #endif
             // check for completeness
@@ -888,7 +889,7 @@ namespace QuickImageComment
                 catch (System.IO.IOException ex)
                 {
                     GeneralUtilities.fatalInitMessage("Fehler beim Lesen der Konfigurationsdatei\n" + "Error reading configuration file\n\n"
-                        + TagLookupFile, ex);
+                        + TagLookupFile + "\nZeile/Line: " + lineNo.ToString(), ex);
                 }
 #endif
             }

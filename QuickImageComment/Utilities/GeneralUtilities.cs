@@ -1431,8 +1431,6 @@ namespace QuickImageComment
                             MetaDataDefinitionItem theMetaDataDefinitionItem;
                             theMetaDataDefinitionItem = new MetaDataDefinitionItem(key, key, getFormatForTagChange(key));
                             MetaDataDefinitionsWork.Add(theMetaDataDefinitionItem);
-                            // add/overwrite reference to location+ID for key if it is an ExifTool key
-                            ConfigDefinition.addOverwriteExifToolID(key);
 
                             MainMaskInterface.afterMetaDataDefinitionChange();
                         }
@@ -1609,8 +1607,6 @@ namespace QuickImageComment
                         {
                             MetaDataDefinitionItem theMetaDataDefinitionItem = new MetaDataDefinitionItem(key, key, MetaDataItem.Format.Interpreted);
                             MetaDataDefinitionsWork.Add(theMetaDataDefinitionItem);
-                            // add/overwrite reference to location+ID for key if it is an ExifTool key
-                            ConfigDefinition.addOverwriteExifToolID(key);
 
                             MainMaskInterface.afterMetaDataDefinitionChange();
                         }

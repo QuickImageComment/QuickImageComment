@@ -2621,7 +2621,7 @@ namespace QuickImageComment
                 catch (Exception ex)
                 {
                     GeneralUtilities.fatalInitMessage("Fehler beim Lesen der Konfigurationsdatei\n" + "Error reading configuration file\n\n"
-                        + UserConfigFile, ex);
+                        + UserConfigFile + "\nZeile/Line: " + lineNo.ToString(), ex);
                 }
 #endif
             }
@@ -4094,37 +4094,5 @@ namespace QuickImageComment
             }
         }
 
-        // add a reference for ExifTool ID to list
-        //!! nicht mehr benötigt, verwenden um Datentyp zu speichern?
-        internal static void addOverwriteExifToolID(string key)
-        {
-            //// for meta data from ExifTool, key consists of location and description, because
-            //// location and ID are not unique:
-            //// found an image with 12 entries "Nikon:ID-0" but different descriptions
-            //// but in order to write data, combination of location and ID has to be used
-            //// so fill a reference table 
-            //ExtendedImage extendedImage = MainMaskInterface.getTheExtendedImage();
-            //if (extendedImage != null)
-            //{
-            //    if (extendedImage.getExifToolMetaDataItems().ContainsKey(key))
-            //    {
-            //        MetaDataItemExifTool metaDataItemExifTool =
-            //            (MetaDataItemExifTool)MainMaskInterface.getTheExtendedImage().getExifToolMetaDataItems()[key];
-            //        if (metaDataItemExifTool != null)
-            //        {
-            //            string writeKey = metaDataItemExifTool.getWriteKey();
-            //            if (ExifToolIDs.ContainsKey(key))
-            //                ExifToolIDs[key] = writeKey;
-            //            else
-            //                ExifToolIDs.Add(key, writeKey);
-            //        }
-            //    }
-            //}
-        }
-
-        internal static SortedList<string, string> getExifToolIDs()
-        {
-            return ExifToolIDs;
-        }
     }
 }

@@ -1126,21 +1126,25 @@ namespace QuickImageComment
                     return false;
                 }
             }
-            else if ((dynamicComboBoxMetaDataType.SelectedItem.Equals(LangCfg.getText(ConfigDefinition.enumMetaDataGroup.MetaDataDefForRemoveMetaDataExceptions)) ||
-                      dynamicComboBoxMetaDataType.SelectedItem.Equals(LangCfg.getText(ConfigDefinition.enumMetaDataGroup.MetaDataDefForRemoveMetaDataList))) &&
-                      MetaDataType.Equals("Readonly"))
+            else if (dynamicComboBoxMetaDataType.SelectedItem.Equals(LangCfg.getText(ConfigDefinition.enumMetaDataGroup.MetaDataDefForRemoveMetaDataExceptions)) ||
+                     dynamicComboBoxMetaDataType.SelectedItem.Equals(LangCfg.getText(ConfigDefinition.enumMetaDataGroup.MetaDataDefForRemoveMetaDataList)))
             {
-                //!! anpassen für ExifTool
-                GeneralUtilities.message(LangCfg.Message.E_tagValueNotDeleteable, MetaDataKey);
-                return false;
-            }
-            else if ((dynamicComboBoxMetaDataType.SelectedItem.Equals(LangCfg.getText(ConfigDefinition.enumMetaDataGroup.MetaDataDefForRemoveMetaDataExceptions)) ||
-                      dynamicComboBoxMetaDataType.SelectedItem.Equals(LangCfg.getText(ConfigDefinition.enumMetaDataGroup.MetaDataDefForRemoveMetaDataList))) &&
-                     (MetaDataKey.Equals("Exif.Photo.MakerNote") ||
-                      MetaDataKey.Equals("Exif.Image.Make")))
-            {
-                GeneralUtilities.message(LangCfg.Message.E_makerSpecificNotSelectable, MetaDataKey);
-                return false;
+                if (MetaDataKey.Contains(":"))
+                {
+                    // key from ExifTool, not supported for removing meta data
+                    GeneralUtilities.message(LangCfg.Message.E_ExifToolTagValueNotDeleteable, MetaDataKey);
+                }
+                else if (MetaDataType.Equals("Readonly"))
+                {
+                    GeneralUtilities.message(LangCfg.Message.E_tagValueNotDeleteable, MetaDataKey);
+                    return false;
+                }
+                else if (MetaDataKey.Equals("Exif.Photo.MakerNote") ||
+                         MetaDataKey.Equals("Exif.Image.Make"))
+                {
+                    GeneralUtilities.message(LangCfg.Message.E_makerSpecificNotSelectable, MetaDataKey);
+                    return false;
+                }
             }
 
             // check if primary key is already entered in another definition
@@ -1442,9 +1446,6 @@ namespace QuickImageComment
                     {
                         if (ExifToolWrapper.getLocationList().Contains(parts[0]))
                         {
-                            // add/overwrite reference to location+ID for key if it is an ExifTool key
-                            ConfigDefinition.addOverwriteExifToolID(metaDatumText);
-
                             bool found = false;
                             for (int ii = 0; ii < listViewTags.Items.Count; ii++)
                             {
