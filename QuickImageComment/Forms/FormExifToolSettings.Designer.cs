@@ -41,6 +41,9 @@
             this.label2 = new System.Windows.Forms.Label();
             this.dynamicLabelPath = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.label4 = new System.Windows.Forms.Label();
+            this.fixedLinkLabelHomePage = new System.Windows.Forms.LinkLabel();
+            this.label3 = new System.Windows.Forms.Label();
             this.buttonStop = new System.Windows.Forms.Button();
             this.buttonStart = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -80,11 +83,12 @@
             this.buttonHelp.TabIndex = 3;
             this.buttonHelp.Text = "Hilfe";
             this.buttonHelp.UseVisualStyleBackColor = true;
+            this.buttonHelp.Click += new System.EventHandler(this.buttonHelp_Click);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 10);
+            this.label1.Location = new System.Drawing.Point(9, 47);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(87, 13);
             this.label1.TabIndex = 4;
@@ -94,7 +98,7 @@
             // 
             this.textBoxProgramPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxProgramPath.Location = new System.Drawing.Point(9, 27);
+            this.textBoxProgramPath.Location = new System.Drawing.Point(9, 64);
             this.textBoxProgramPath.Name = "textBoxProgramPath";
             this.textBoxProgramPath.Size = new System.Drawing.Size(406, 21);
             this.textBoxProgramPath.TabIndex = 5;
@@ -103,7 +107,7 @@
             // 
             this.buttonBrowse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonBrowse.Image = ((System.Drawing.Image)(resources.GetObject("buttonBrowse.Image")));
-            this.buttonBrowse.Location = new System.Drawing.Point(421, 25);
+            this.buttonBrowse.Location = new System.Drawing.Point(421, 62);
             this.buttonBrowse.Name = "buttonBrowse";
             this.buttonBrowse.Size = new System.Drawing.Size(30, 24);
             this.buttonBrowse.TabIndex = 22;
@@ -166,6 +170,9 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.splitContainer1.Panel2.Controls.Add(this.label4);
+            this.splitContainer1.Panel2.Controls.Add(this.fixedLinkLabelHomePage);
+            this.splitContainer1.Panel2.Controls.Add(this.label3);
             this.splitContainer1.Panel2.Controls.Add(this.buttonStop);
             this.splitContainer1.Panel2.Controls.Add(this.buttonStart);
             this.splitContainer1.Panel2.Controls.Add(this.buttonBrowse);
@@ -178,10 +185,39 @@
             this.splitContainer1.SplitterDistance = 94;
             this.splitContainer1.TabIndex = 32;
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(9, 26);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(377, 13);
+            this.label4.TabIndex = 27;
+            this.label4.Text = "Informationen zur Integration von ExiTool in QuickImageComment in der Hilfe";
+            // 
+            // fixedLinkLabelHomePage
+            // 
+            this.fixedLinkLabelHomePage.AutoSize = true;
+            this.fixedLinkLabelHomePage.Location = new System.Drawing.Point(233, 7);
+            this.fixedLinkLabelHomePage.Name = "fixedLinkLabelHomePage";
+            this.fixedLinkLabelHomePage.Size = new System.Drawing.Size(91, 13);
+            this.fixedLinkLabelHomePage.TabIndex = 26;
+            this.fixedLinkLabelHomePage.TabStop = true;
+            this.fixedLinkLabelHomePage.Text = "www.exiftool.org";
+            this.fixedLinkLabelHomePage.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.fixedLinkLabelHomePage_LinkClicked);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(9, 7);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(201, 13);
+            this.label3.TabIndex = 25;
+            this.label3.Text = "Download und Informationen zu ExiTool:";
+            // 
             // buttonStop
             // 
             this.buttonStop.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonStop.Location = new System.Drawing.Point(125, 54);
+            this.buttonStop.Location = new System.Drawing.Point(125, 91);
             this.buttonStop.Name = "buttonStop";
             this.buttonStop.Size = new System.Drawing.Size(96, 23);
             this.buttonStop.TabIndex = 24;
@@ -192,7 +228,7 @@
             // buttonStart
             // 
             this.buttonStart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonStart.Location = new System.Drawing.Point(9, 54);
+            this.buttonStart.Location = new System.Drawing.Point(9, 91);
             this.buttonStart.Name = "buttonStart";
             this.buttonStart.Size = new System.Drawing.Size(96, 23);
             this.buttonStart.TabIndex = 23;
@@ -238,5 +274,8 @@
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.Button buttonStart;
         private System.Windows.Forms.Button buttonStop;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.LinkLabel fixedLinkLabelHomePage;
+        private System.Windows.Forms.Label label4;
     }
 }

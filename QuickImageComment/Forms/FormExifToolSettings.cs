@@ -145,5 +145,15 @@ namespace QuickImageComment
         {
             Close();
         }
+
+        private void buttonHelp_Click(object sender, EventArgs e)
+        {
+            GeneralUtilities.ShowHelp(this, "FormExifToolSettings");
+        }
+
+        private void fixedLinkLabelHomePage_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start(((LinkLabel)sender).Text);
+        }
     }
 }

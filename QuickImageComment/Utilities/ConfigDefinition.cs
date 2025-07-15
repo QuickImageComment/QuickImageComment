@@ -582,7 +582,8 @@ namespace QuickImageComment
             ConfigItems.Add(enumCfgUserString.SlideshowSubtitleFont.ToString(), "");
             ConfigItems.Add(enumCfgUserString.SlideShowSubTitelDisplay.ToString(), "");
             ConfigItems.Add(enumCfgUserString.MapLengthUnit.ToString(), enumMapLengthUnit.km.ToString());
-            ConfigItems.Add(enumCfgUserString.ExifToolPath.ToString(), "C:\\PROGRAM1\\exiftool-13.31_64\\exiftool(-k).exe");
+            // string is used to check if ExifToolPath was never set and thus asking user if he wants to use ExifTool
+            ConfigItems.Add(enumCfgUserString.ExifToolPath.ToString(), "not yet set");
 
             ConfigItems.Add(enumCfgUserInt.CheckForNewVersionPeriodInDays.ToString(), 30);
             ConfigItems.Add(enumCfgUserInt.ImageDetailsFrameColor.ToString(), System.Drawing.Color.Red.ToArgb());

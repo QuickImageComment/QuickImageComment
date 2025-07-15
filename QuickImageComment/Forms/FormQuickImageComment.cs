@@ -96,6 +96,10 @@ namespace QuickImageComment
         // to avoid some actions triggered by events during starting, especially display image
         internal bool starting = true;
 
+        // exception message from ExifToolWrapper during init
+        // not shown directly as message box will be hidden behind this mask when opening
+        private string ExifToolWrapperInitExceptionMessage = "";
+
         // cycle time in milliseconds for display of memory
         private const int displayMemoryCycleTime = 1000;
 
@@ -864,6 +868,27 @@ namespace QuickImageComment
                 formFind = new FormFind(false);
             }
 
+
+            // When ExifToolWrapper.init is called, this mask is not yet shown
+            // so if a message box would show the exception message then, it would be hidden later behind this mask
+            // so show the message now as build up of main mask is finished
+            if (!ExifToolWrapperInitExceptionMessage.Equals(""))
+            {
+                GeneralUtilities.message(LangCfg.Message.E_ErrorExifToolWrapper, ExifToolWrapperInitExceptionMessage);
+            }
+            else
+            {
+                string ExifToolPath = ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.ExifToolPath);
+                if (ExifToolPath.Equals("not yet set"))
+                {
+                    ConfigDefinition.setCfgUserString(ConfigDefinition.enumCfgUserString.ExifToolPath, "");
+                    if (GeneralUtilities.questionMessage(LangCfg.Message.Q_configureExifTool) == DialogResult.Yes)
+                    {
+                        FormExifToolSettings theFormExifToolSettings = new FormExifToolSettings();
+                        theFormExifToolSettings.ShowDialog();
+                    }
+                }
+            }
             //CustomizationInterface.checkFontSize(this, this.Font.Size);
         }
 
@@ -896,7 +921,7 @@ namespace QuickImageComment
         {
             Program.StartupPerformance.measure("FormQIC *** StartupInitNewFolder start");
             string ExifToolPath = ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.ExifToolPath);
-            if (ExifToolPath.Length > 0)
+            if (ExifToolPath.Length > 0 && !ExifToolPath.Equals("not yet set"))
             {
                 try
                 {
@@ -904,7 +929,7 @@ namespace QuickImageComment
                 }
                 catch (Exception ex)
                 {
-                    GeneralUtilities.message(LangCfg.Message.E_ErrorExifToolWrapper, ex.Message);
+                    ExifToolWrapperInitExceptionMessage = ex.Message;
                 }
             }
             ImageManager.initNewFolder(FolderName);

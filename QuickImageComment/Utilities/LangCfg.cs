@@ -229,7 +229,8 @@ namespace QuickImageComment
             E_ExifToolNotReadyGeneral,
             W_ExifToolNotReadyForTagCheck,
             E_ErrorExifToolWrapper,
-            E_ExifToolTagValueNotDeleteable
+            E_ExifToolTagValueNotDeleteable,
+            Q_configureExifTool
         }
 
         public enum Others
@@ -732,25 +733,25 @@ namespace QuickImageComment
             try
             {
 #endif
-            if (System.IO.File.Exists(TranslationFile))
-            {
-                // specify code page 1252 for reading; if file is encoded with UTF8 BOM, it will be read anyhow as UTF8, 
-                // keeping 1252 ensures that old configuration files can be read without problems
-                System.IO.StreamReader StreamIn =
-                  new System.IO.StreamReader(TranslationFile, System.Text.Encoding.GetEncoding(1252));
-                line = StreamIn.ReadLine();
-                while (line != null)
+                if (System.IO.File.Exists(TranslationFile))
                 {
-                    analyzeTranslationFileLine(line, lineNo);
+                    // specify code page 1252 for reading; if file is encoded with UTF8 BOM, it will be read anyhow as UTF8, 
+                    // keeping 1252 ensures that old configuration files can be read without problems
+                    System.IO.StreamReader StreamIn =
+                      new System.IO.StreamReader(TranslationFile, System.Text.Encoding.GetEncoding(1252));
                     line = StreamIn.ReadLine();
-                    lineNo++;
+                    while (line != null)
+                    {
+                        analyzeTranslationFileLine(line, lineNo);
+                        line = StreamIn.ReadLine();
+                        lineNo++;
+                    }
+                    StreamIn.Close();
                 }
-                StreamIn.Close();
-            }
-            else
-            {
-                throw new ExceptionConfigFileNotFound(TranslationFile);
-            }
+                else
+                {
+                    throw new ExceptionConfigFileNotFound(TranslationFile);
+                }
 #if !DEBUG
             }
             catch (Exception ex)
@@ -872,18 +873,18 @@ namespace QuickImageComment
                 try
                 {
 #endif
-                // specify code page 1252 for reading; if file is encoded with UTF8 BOM, it will be read anyhow as UTF8, 
-                // keeping 1252 ensures that old configuration files can be read without problems
-                System.IO.StreamReader StreamIn =
-                  new System.IO.StreamReader(TagLookupFile, System.Text.Encoding.GetEncoding(1252));
-                line = StreamIn.ReadLine();
-                while (line != null)
-                {
-                    analyzeLookupFileLine(line, lineNo);
+                    // specify code page 1252 for reading; if file is encoded with UTF8 BOM, it will be read anyhow as UTF8, 
+                    // keeping 1252 ensures that old configuration files can be read without problems
+                    System.IO.StreamReader StreamIn =
+                      new System.IO.StreamReader(TagLookupFile, System.Text.Encoding.GetEncoding(1252));
                     line = StreamIn.ReadLine();
-                    lineNo++;
-                }
-                StreamIn.Close();
+                    while (line != null)
+                    {
+                        analyzeLookupFileLine(line, lineNo);
+                        line = StreamIn.ReadLine();
+                        lineNo++;
+                    }
+                    StreamIn.Close();
 #if !DEBUG
                 }
                 catch (System.IO.IOException ex)
@@ -1042,17 +1043,15 @@ namespace QuickImageComment
                     }
                 }
             }
-            else if (ParentControl is MenuStrip)
+            else if (ParentControl is MenuStrip aMenuStrip)
             {
-                MenuStrip aMenuStrip = (MenuStrip)ParentControl;
                 foreach (Component aMenuItem in aMenuStrip.Items)
                 {
                     translateControlTextsInMenu(aMenuItem);
                 }
             }
-            else if (ParentControl is ToolStrip)
+            else if (ParentControl is ToolStrip aToolStrip)
             {
-                ToolStrip aToolStrip = (ToolStrip)ParentControl;
                 foreach (ToolStripItem aToolStripItem in aToolStrip.Items)
                 {
                     if (!aToolStripItem.Name.StartsWith("dynamic"))
@@ -1074,9 +1073,8 @@ namespace QuickImageComment
                 // do not add childs: one is the text area of the control,
                 // the other is the pair of two buttons, which cannot be changed
             }
-            else if (ParentControl is SplitContainer)
+            else if (ParentControl is SplitContainer aSplitContainer)
             {
-                SplitContainer aSplitContainer = (SplitContainer)ParentControl;
                 if (aSplitContainer.Orientation == Orientation.Vertical)
                 {
                     translateControlTexts(aSplitContainer.Panel1);
@@ -1115,48 +1113,48 @@ namespace QuickImageComment
         {
             // when adding new types: search for add-new-type-here to find 
             // all other locations where changes are necessary!!!
-            if (ParentMenuItem is ToolStripMenuItem)
+            if (ParentMenuItem is ToolStripMenuItem item)
             {
-                if (!((ToolStripMenuItem)ParentMenuItem).Name.StartsWith("dynamic"))
+                if (!item.Name.StartsWith("dynamic"))
                 {
-                    string TextToTranslate = ((ToolStripMenuItem)ParentMenuItem).Text;
+                    string TextToTranslate = item.Text;
                     if (!TextToTranslate.Equals(""))
                     {
-                        ((ToolStripMenuItem)ParentMenuItem).Text = translate(TextToTranslate, "ToolStripMenuItem");
+                        item.Text = translate(TextToTranslate, "ToolStripMenuItem");
                     }
-                    TextToTranslate = ((ToolStripMenuItem)ParentMenuItem).ToolTipText;
+                    TextToTranslate = item.ToolTipText;
                     if (TextToTranslate != null && !TextToTranslate.Equals(""))
                     {
-                        ((ToolStripMenuItem)ParentMenuItem).ToolTipText = translate(TextToTranslate, "ToolStripMenuItem");
+                        item.ToolTipText = translate(TextToTranslate, "ToolStripMenuItem");
                     }
 
-                    if (!((ToolStripMenuItem)ParentMenuItem).Name.Equals("ToolStripMenuItemLanguage") &&
-                        !((ToolStripMenuItem)ParentMenuItem).Name.Equals("ToolStripMenuItemLanguageExifTool"))
+                    if (!item.Name.Equals("ToolStripMenuItemLanguage") &&
+                        !item.Name.Equals("ToolStripMenuItemLanguageExifTool"))
                     {
-                        foreach (Component aMenuItem in ((ToolStripMenuItem)ParentMenuItem).DropDownItems)
+                        foreach (Component aMenuItem in item.DropDownItems)
                         {
                             translateControlTextsInMenu(aMenuItem);
                         }
                     }
                 }
             }
-            else if (ParentMenuItem is ToolStripDropDownButton)
+            else if (ParentMenuItem is ToolStripDropDownButton button)
             {
-                string TextToTranslate = ((ToolStripDropDownButton)ParentMenuItem).Text;
+                string TextToTranslate = button.Text;
                 if (!TextToTranslate.Equals(""))
                 {
-                    ((ToolStripDropDownButton)ParentMenuItem).Text = translate(TextToTranslate, "ToolStripDropDownButton");
+                    button.Text = translate(TextToTranslate, "ToolStripDropDownButton");
                 }
             }
-            else if (ParentMenuItem is ToolStripButton)
+            else if (ParentMenuItem is ToolStripButton button1)
             {
                 // occurs if command symbols are added to menu bar
-                if (!((ToolStripButton)ParentMenuItem).Name.StartsWith("dynamic"))
+                if (!button1.Name.StartsWith("dynamic"))
                 {
-                    string TextToTranslate = ((ToolStripButton)ParentMenuItem).ToolTipText;
+                    string TextToTranslate = button1.ToolTipText;
                     if (TextToTranslate != null && !TextToTranslate.Equals(""))
                     {
-                        ((ToolStripButton)ParentMenuItem).ToolTipText = translate(TextToTranslate, "ToolStripButtonToolTipText");
+                        button1.ToolTipText = translate(TextToTranslate, "ToolStripButtonToolTipText");
                     }
                 }
             }
@@ -1210,9 +1208,8 @@ namespace QuickImageComment
         // add controls into tree view of controls and control types into list
         private static void addControlsToControlTextList(Control ParentControl, string ParentControlFullName, ArrayList ControlTextList)
         {
-            if (ParentControl is MenuStrip)
+            if (ParentControl is MenuStrip aMenuStrip)
             {
-                MenuStrip aMenuStrip = (MenuStrip)ParentControl;
                 foreach (Component aMenuItem in aMenuStrip.Items)
                 {
                     addMenuItemsToControlTextList(aMenuItem, ParentControlFullName + "/" + aMenuItem.ToString(), ControlTextList);
@@ -1223,9 +1220,8 @@ namespace QuickImageComment
                 // do not add childs: one is the text area of the control,
                 // the other is the pair of two buttons, which cannot be changed
             }
-            else if (ParentControl is SplitContainer)
+            else if (ParentControl is SplitContainer aSplitContainer)
             {
-                SplitContainer aSplitContainer = (SplitContainer)ParentControl;
                 if (aSplitContainer.Orientation == Orientation.Vertical)
                 {
                     addControlsToControlTextList(aSplitContainer.Panel1, ParentControlFullName + "/PanelLeft", ControlTextList);
@@ -1261,18 +1257,18 @@ namespace QuickImageComment
         {
             // when adding new types: search for add-new-type-here to find 
             // all other locations where changes are necessary!!!
-            if (ParentMenuItem is ToolStripMenuItem)
+            if (ParentMenuItem is ToolStripMenuItem item)
             {
                 ControlTextList.Add(ParentMenuItem.ToString() + "\t" + ParentControlFullName);
-                foreach (Component aMenuItem in ((ToolStripMenuItem)ParentMenuItem).DropDownItems)
+                foreach (Component aMenuItem in item.DropDownItems)
                 {
                     addMenuItemsToControlTextList(aMenuItem, ParentControlFullName + "/" + aMenuItem.ToString(), ControlTextList);
                 }
             }
-            else if (ParentMenuItem is ToolStripDropDownButton)
+            else if (ParentMenuItem is ToolStripDropDownButton button)
             {
                 ControlTextList.Add(ParentMenuItem.ToString() + "\t" + ParentControlFullName);
-                foreach (Component aMenuItem in ((ToolStripDropDownButton)ParentMenuItem).DropDownItems)
+                foreach (Component aMenuItem in button.DropDownItems)
                 {
                     addMenuItemsToControlTextList(aMenuItem, ParentControlFullName + "/" + aMenuItem.ToString(), ControlTextList);
                 }
