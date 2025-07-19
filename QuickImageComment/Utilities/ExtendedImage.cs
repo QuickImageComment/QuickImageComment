@@ -2868,7 +2868,7 @@ namespace QuickImageComment
                         ImageChangedFieldsForCompare.Add(key, ImageChangedFieldsForRun[key]);
                     }
 
-                    statusWrite = writeMetaData(TxtChangedFieldsForRun, ImageChangedFieldsForRun, 
+                    statusWrite = writeMetaData(TxtChangedFieldsForRun, ImageChangedFieldsForRun,
                         ImageChangedFieldsForCompare, SavePerformance);
 
                     // if file was modfied externally before saving, reload to get also image changes
@@ -3275,7 +3275,7 @@ namespace QuickImageComment
         }
 
         // write MetaData into text file and image
-        private int writeMetaData(SortedList TxtChangedFields, SortedList ImageChangedFields, 
+        private int writeMetaData(SortedList TxtChangedFields, SortedList ImageChangedFields,
             SortedList ImageChangedFieldsForCompare, Performance SavePerformance)
         {
             int statusWrite = 0;
@@ -3361,162 +3361,176 @@ namespace QuickImageComment
                             keys += "\r\n" + key;
                             ImageChangedFieldsForCompare.Remove(key);
                         }
-                        GeneralUtilities.message(LangCfg.Message.E_ExifToolNotReadyForWrite, keys);//DE
+                        GeneralUtilities.message(LangCfg.Message.E_ExifToolNotReadyForWrite, keys);
                     }
                 }
             }
 
             if (ImageChangedFields.Count > 0)
             {
-                exiv2initWriteBuffer();
-
-                // set values from changed fields
-                // handle all fields except Image.Comment, which needs to be handled separately
-                foreach (string key in ImageChangedFields.Keys)
+                if (isVideo)
                 {
-                    if (!key.Equals("Image.Comment"))
+                    // writing with exiv2 not possible for videos
+                    string keys = "";
+                    foreach (string key in ImageChangedFields.Keys)
                     {
-                        if (ImageChangedFields[key].GetType().Equals(typeof(ArrayList)))
-                        {
-                            foreach (string value in (ArrayList)ImageChangedFields[key])
-                            {
-                                if (key.StartsWith("Exif.") && ConfigDefinition.getCfgUserBool(ConfigDefinition.enumCfgUserBool.WriteExifUtf8) ||
-                                    key.StartsWith("Iptc.") && ConfigDefinition.getCfgUserBool(ConfigDefinition.enumCfgUserBool.WriteIptcUtf8) ||
-                                    key.StartsWith("Xmp."))
-                                {
-                                    // XMP strings are in general UTF8 (and at least XMP toolkit in exiv2 does require UTF8)
-                                    // for Exif and Iptc it is depending on configuration
-                                    exiv2addUtf8ItemToBuffer(key, value, exiv2WriteOptionDefault);
-                                }
-                                else
-                                {
-                                    exiv2addItemToBuffer(key, value, exiv2WriteOptionDefault);
-                                }
-                            }
-                        }
-                        else if (ImageChangedFields[key].GetType().Equals(typeof(SortedList)))
-                        {
-                            string LastXaBagSuffix = "";
-                            foreach (string keySuffix in ((SortedList)ImageChangedFields[key]).GetKeyList())
-                            {
-                                string[] SplitString = keySuffix.Split(new char[] { '[' });
-                                if (!SplitString[0].Equals(LastXaBagSuffix))
-                                {
-                                    // create a new XaBag
-                                    if (keySuffix.StartsWith("/"))
-                                    {
-                                        exiv2addUtf8ItemToBuffer(key, "", exiv2WriteOptionXsStruct);
-
-                                    }
-                                    LastXaBagSuffix = SplitString[0];
-                                    exiv2addUtf8ItemToBuffer(key + LastXaBagSuffix, "", exiv2WriteOptionXaBag);
-                                }
-                                exiv2addUtf8ItemToBuffer(key + keySuffix,
-                                    (string)((SortedList)ImageChangedFields[key])[keySuffix], exiv2WriteOptionXmpText);
-                            }
-                        }
-                        //Exiv2 uses a CommentValue for Exif user comments. The format of the
-                        //comment string includes an optional charset specification at the beginning:
-                        //[charset=["]Ascii|Jis|Unicode|Undefined["] ]comment
-                        //Undefined is used as a default if the comment doesn't start with a charset
-                        //definition.
-                        else if (key.Equals("Exif.Photo.UserComment"))
-                        {
-                            if (((string)ImageChangedFields[key]).Trim().Equals(""))
-                            {
-                                exiv2addUtf8ItemToBuffer(key, "", exiv2WriteOptionDefault);
-                            }
-                            else if (ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.CharsetExifPhotoUserComment).Equals("Unicode"))
-                            {
-                                // charset Unicode needs to be written with UTF8
-                                exiv2addUtf8ItemToBuffer(key, "charset=Unicode " + (string)ImageChangedFields[key], exiv2WriteOptionDefault);
-                            }
-                            else
-                            {
-                                if (ConfigDefinition.getCfgUserBool(ConfigDefinition.enumCfgUserBool.WriteExifUtf8))
-                                    exiv2addUtf8ItemToBuffer(key, "charset=Ascii " + (string)ImageChangedFields[key], exiv2WriteOptionDefault);
-                                else
-                                    exiv2addItemToBuffer(key, "charset=Ascii " + (string)ImageChangedFields[key], exiv2WriteOptionDefault);
-                            }
-                        }
-                        else if (Exiv2TagDefinitions.ByteUCS2Tags.Contains(key))
-                        {
-                            // convert to UCS-2 byte string
-                            string byteString = "";
-                            byte[] utf16Bytes = System.Text.Encoding.Unicode.GetBytes((string)ImageChangedFields[key]);
-                            for (int ii = 0; ii < utf16Bytes.Length; ii++)
-                            {
-                                byteString = byteString + utf16Bytes[ii].ToString() + " ";
-                            }
-                            byteString += "0 0";
-                            exiv2addItemToBuffer(key, byteString, exiv2WriteOptionDefault);
-                        }
-
-
-                        else if (key.StartsWith("Exif.") && ConfigDefinition.getCfgUserBool(ConfigDefinition.enumCfgUserBool.WriteExifUtf8) ||
-                                 key.StartsWith("Iptc.") && ConfigDefinition.getCfgUserBool(ConfigDefinition.enumCfgUserBool.WriteIptcUtf8) ||
-                                 key.StartsWith("Xmp."))
-                        {
-                            // XMP strings are in general UTF8 (and at least XMP toolkit in exiv2 does require UTF8)
-                            // for Exif and Iptc it is depending on configuration
-                            // for XPMP this branch is entered if XMP tag is configured as special input field for artist or comment
-                            exiv2addUtf8ItemToBuffer(key, (string)ImageChangedFields[key], exiv2WriteOptionDefault);
-                        }
-                        else
-                        {
-                            exiv2addItemToBuffer(key, (string)ImageChangedFields[key], exiv2WriteOptionDefault);
-                        }
+                        keys += "\r\n" + key;
+                        ImageChangedFieldsForCompare.Remove(key);
                     }
-                }
-
-                // if in read image IPTC-tags were coded in UTF8:
-                // add all IPTC-tag to exiv2-buffer to rewrite them in Unicode
-                if (IptcUTF8 != ConfigDefinition.getCfgUserBool(ConfigDefinition.enumCfgUserBool.WriteIptcUtf8))
-                {
-                    if (ConfigDefinition.getCfgUserBool(ConfigDefinition.enumCfgUserBool.WriteIptcUtf8))
-                    {
-                        // set Iptc.Envelope.CharacterSet to indicate coding is UTF8 ("<ESC>%G")
-                        ImageChangedFields.Add("Iptc.Envelope.CharacterSet", "\x1B%G");
-                        exiv2addItemToBuffer("Iptc.Envelope.CharacterSet", "\x1B%G", exiv2WriteOptionDefault);
-
-                        foreach (MetaDataItem IptcMetaDataItem in IptcMetaDataItems.GetValueList())
-                        {
-                            if (!ImageChangedFields.ContainsKey(IptcMetaDataItem.getKey()))
-                            {
-                                exiv2addUtf8ItemToBuffer(IptcMetaDataItem.getKey(), IptcMetaDataItem.getValueString(), exiv2WriteOptionDefault);
-                            }
-                        }
-                    }
-                    else
-                    {
-                        // clear Iptc.Envelope.CharacterSet to indicate coding is Unicode
-                        ImageChangedFields.Add("Iptc.Envelope.CharacterSet", "");
-                        exiv2addItemToBuffer("Iptc.Envelope.CharacterSet", "", exiv2WriteOptionDefault);
-
-                        foreach (MetaDataItem IptcMetaDataItem in IptcMetaDataItems.GetValueList())
-                        {
-                            if (!ImageChangedFields.ContainsKey(IptcMetaDataItem.getKey()))
-                            {
-                                exiv2addItemToBuffer(IptcMetaDataItem.getKey(), IptcMetaDataItem.getValueString(), exiv2WriteOptionDefault);
-                            }
-                        }
-                    }
-                    // removed as check using OldValues is removed - see below
-                    //// add also to old values for later comparison
-                    //OldValues.Add("Iptc.Envelope.CharacterSet", ((MetaDataItem)IptcMetaDataItems["Iptc.Envelope.CharacterSet"]).getValueString());
-                }
-
-                // write meta data into image, with or without updating image comment
-                if (ImageChangedFields.ContainsKey("Image.Comment"))
-                {
-                    statusWrite = writeImage(ImageFileName, (string)ImageChangedFields["Image.Comment"]);
+                    GeneralUtilities.message(LangCfg.Message.E_Exiv2CannotWriteVideo, keys);                   
                 }
                 else
                 {
-                    statusWrite = writeImage(ImageFileName, null);
-                }
+                    exiv2initWriteBuffer();
 
-                SavePerformance.measure("image written");
+                    // set values from changed fields
+                    // handle all fields except Image.Comment, which needs to be handled separately
+                    foreach (string key in ImageChangedFields.Keys)
+                    {
+                        if (!key.Equals("Image.Comment"))
+                        {
+                            if (ImageChangedFields[key].GetType().Equals(typeof(ArrayList)))
+                            {
+                                foreach (string value in (ArrayList)ImageChangedFields[key])
+                                {
+                                    if (key.StartsWith("Exif.") && ConfigDefinition.getCfgUserBool(ConfigDefinition.enumCfgUserBool.WriteExifUtf8) ||
+                                        key.StartsWith("Iptc.") && ConfigDefinition.getCfgUserBool(ConfigDefinition.enumCfgUserBool.WriteIptcUtf8) ||
+                                        key.StartsWith("Xmp."))
+                                    {
+                                        // XMP strings are in general UTF8 (and at least XMP toolkit in exiv2 does require UTF8)
+                                        // for Exif and Iptc it is depending on configuration
+                                        exiv2addUtf8ItemToBuffer(key, value, exiv2WriteOptionDefault);
+                                    }
+                                    else
+                                    {
+                                        exiv2addItemToBuffer(key, value, exiv2WriteOptionDefault);
+                                    }
+                                }
+                            }
+                            else if (ImageChangedFields[key].GetType().Equals(typeof(SortedList)))
+                            {
+                                string LastXaBagSuffix = "";
+                                foreach (string keySuffix in ((SortedList)ImageChangedFields[key]).GetKeyList())
+                                {
+                                    string[] SplitString = keySuffix.Split(new char[] { '[' });
+                                    if (!SplitString[0].Equals(LastXaBagSuffix))
+                                    {
+                                        // create a new XaBag
+                                        if (keySuffix.StartsWith("/"))
+                                        {
+                                            exiv2addUtf8ItemToBuffer(key, "", exiv2WriteOptionXsStruct);
+
+                                        }
+                                        LastXaBagSuffix = SplitString[0];
+                                        exiv2addUtf8ItemToBuffer(key + LastXaBagSuffix, "", exiv2WriteOptionXaBag);
+                                    }
+                                    exiv2addUtf8ItemToBuffer(key + keySuffix,
+                                        (string)((SortedList)ImageChangedFields[key])[keySuffix], exiv2WriteOptionXmpText);
+                                }
+                            }
+                            //Exiv2 uses a CommentValue for Exif user comments. The format of the
+                            //comment string includes an optional charset specification at the beginning:
+                            //[charset=["]Ascii|Jis|Unicode|Undefined["] ]comment
+                            //Undefined is used as a default if the comment doesn't start with a charset
+                            //definition.
+                            else if (key.Equals("Exif.Photo.UserComment"))
+                            {
+                                if (((string)ImageChangedFields[key]).Trim().Equals(""))
+                                {
+                                    exiv2addUtf8ItemToBuffer(key, "", exiv2WriteOptionDefault);
+                                }
+                                else if (ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.CharsetExifPhotoUserComment).Equals("Unicode"))
+                                {
+                                    // charset Unicode needs to be written with UTF8
+                                    exiv2addUtf8ItemToBuffer(key, "charset=Unicode " + (string)ImageChangedFields[key], exiv2WriteOptionDefault);
+                                }
+                                else
+                                {
+                                    if (ConfigDefinition.getCfgUserBool(ConfigDefinition.enumCfgUserBool.WriteExifUtf8))
+                                        exiv2addUtf8ItemToBuffer(key, "charset=Ascii " + (string)ImageChangedFields[key], exiv2WriteOptionDefault);
+                                    else
+                                        exiv2addItemToBuffer(key, "charset=Ascii " + (string)ImageChangedFields[key], exiv2WriteOptionDefault);
+                                }
+                            }
+                            else if (Exiv2TagDefinitions.ByteUCS2Tags.Contains(key))
+                            {
+                                // convert to UCS-2 byte string
+                                string byteString = "";
+                                byte[] utf16Bytes = System.Text.Encoding.Unicode.GetBytes((string)ImageChangedFields[key]);
+                                for (int ii = 0; ii < utf16Bytes.Length; ii++)
+                                {
+                                    byteString = byteString + utf16Bytes[ii].ToString() + " ";
+                                }
+                                byteString += "0 0";
+                                exiv2addItemToBuffer(key, byteString, exiv2WriteOptionDefault);
+                            }
+
+
+                            else if (key.StartsWith("Exif.") && ConfigDefinition.getCfgUserBool(ConfigDefinition.enumCfgUserBool.WriteExifUtf8) ||
+                                     key.StartsWith("Iptc.") && ConfigDefinition.getCfgUserBool(ConfigDefinition.enumCfgUserBool.WriteIptcUtf8) ||
+                                     key.StartsWith("Xmp."))
+                            {
+                                // XMP strings are in general UTF8 (and at least XMP toolkit in exiv2 does require UTF8)
+                                // for Exif and Iptc it is depending on configuration
+                                // for XPMP this branch is entered if XMP tag is configured as special input field for artist or comment
+                                exiv2addUtf8ItemToBuffer(key, (string)ImageChangedFields[key], exiv2WriteOptionDefault);
+                            }
+                            else
+                            {
+                                exiv2addItemToBuffer(key, (string)ImageChangedFields[key], exiv2WriteOptionDefault);
+                            }
+                        }
+                    }
+
+                    // if in read image IPTC-tags were coded in UTF8:
+                    // add all IPTC-tag to exiv2-buffer to rewrite them in Unicode
+                    if (IptcUTF8 != ConfigDefinition.getCfgUserBool(ConfigDefinition.enumCfgUserBool.WriteIptcUtf8))
+                    {
+                        if (ConfigDefinition.getCfgUserBool(ConfigDefinition.enumCfgUserBool.WriteIptcUtf8))
+                        {
+                            // set Iptc.Envelope.CharacterSet to indicate coding is UTF8 ("<ESC>%G")
+                            ImageChangedFields.Add("Iptc.Envelope.CharacterSet", "\x1B%G");
+                            exiv2addItemToBuffer("Iptc.Envelope.CharacterSet", "\x1B%G", exiv2WriteOptionDefault);
+
+                            foreach (MetaDataItem IptcMetaDataItem in IptcMetaDataItems.GetValueList())
+                            {
+                                if (!ImageChangedFields.ContainsKey(IptcMetaDataItem.getKey()))
+                                {
+                                    exiv2addUtf8ItemToBuffer(IptcMetaDataItem.getKey(), IptcMetaDataItem.getValueString(), exiv2WriteOptionDefault);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            // clear Iptc.Envelope.CharacterSet to indicate coding is Unicode
+                            ImageChangedFields.Add("Iptc.Envelope.CharacterSet", "");
+                            exiv2addItemToBuffer("Iptc.Envelope.CharacterSet", "", exiv2WriteOptionDefault);
+
+                            foreach (MetaDataItem IptcMetaDataItem in IptcMetaDataItems.GetValueList())
+                            {
+                                if (!ImageChangedFields.ContainsKey(IptcMetaDataItem.getKey()))
+                                {
+                                    exiv2addItemToBuffer(IptcMetaDataItem.getKey(), IptcMetaDataItem.getValueString(), exiv2WriteOptionDefault);
+                                }
+                            }
+                        }
+                        // removed as check using OldValues is removed - see below
+                        //// add also to old values for later comparison
+                        //OldValues.Add("Iptc.Envelope.CharacterSet", ((MetaDataItem)IptcMetaDataItems["Iptc.Envelope.CharacterSet"]).getValueString());
+                    }
+
+                    // write meta data into image, with or without updating image comment
+                    if (ImageChangedFields.ContainsKey("Image.Comment"))
+                    {
+                        statusWrite = writeImage(ImageFileName, (string)ImageChangedFields["Image.Comment"]);
+                    }
+                    else
+                    {
+                        statusWrite = writeImage(ImageFileName, null);
+                    }
+
+                    SavePerformance.measure("image written");
+                }
             }
             // readMetaData would not be necessary if only text file was written
             // but then old warnings from deviating text entries remain
@@ -3925,6 +3939,12 @@ namespace QuickImageComment
             return isVideo;
         }
 
+        // used to check if a video cannot be changed
+        public bool getIsVideoAndExifToolNotReady()
+        {
+            return isVideo && !ExifToolWrapper.isReady();
+        }
+
         public bool getIsReadOnly()
         {
             return isReadOnly;
@@ -3937,7 +3957,7 @@ namespace QuickImageComment
 
         public bool changePossible()
         {
-            return !isVideo && !isReadOnly && !noAccess;
+            return (!isVideo || ExifToolWrapper.isReady()) && !isReadOnly && !noAccess;
         }
 
         public System.Drawing.Image getThumbNailBitmap()

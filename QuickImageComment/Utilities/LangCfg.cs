@@ -230,7 +230,9 @@ namespace QuickImageComment
             W_ExifToolNotReadyForTagCheck,
             E_ErrorExifToolWrapper,
             E_ExifToolTagValueNotDeleteable,
-            Q_configureExifTool
+            Q_configureExifTool,
+            E_Exiv2CannotWriteVideo,
+            E_VideoNotAcceptedExiv2CannotWrite
         }
 
         public enum Others

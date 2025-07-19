@@ -4462,7 +4462,9 @@ namespace QuickImageComment
             textBoxUserComment.Enabled = enableEditable && ConfigDefinition.getTagNamesComment().Count > 0;
 
             // enable configurable input fields
-            theUserControlChangeableFields.setInputControlsEnabled(enableEditable);
+            bool video = false;
+            if (theExtendedImage != null) video = theExtendedImage.getIsVideo();
+            theUserControlChangeableFields.setInputControlsEnabled(enableEditable, video);
 
             // enable key word controls
             theUserControlKeyWords.setInputControlsEnabled(enableEditable);
@@ -5242,8 +5244,8 @@ namespace QuickImageComment
                     // if not changed by user
                     if (!comboBoxArtistUserChanged)
                     {
-                        // show default artist not for videos
-                        if (!theExtendedImage.getIsVideo())
+                        // show default artist not for videos - except ExifTool is ready
+                        if (!theExtendedImage.getIsVideoAndExifToolNotReady())
                         {
                             dynamicComboBoxArtist.Text = theExtendedImage.getArtist();
                             // no artist defined: set default and show label to indicate this
@@ -5770,7 +5772,7 @@ namespace QuickImageComment
             for (int ii = 0; ii < selectedIndicesToStore.Count; ii++)
             {
                 anExtendedImage = ImageManager.getExtendedImage((int)selectedIndicesToStore[ii]);
-                if (anExtendedImage.getIsVideo())
+                if (anExtendedImage.getIsVideoAndExifToolNotReady())
                 {
                     GeneralUtilities.message(LangCfg.Message.I_videoCannotBeChanged, anExtendedImage.getImageFileName());
                     return false;

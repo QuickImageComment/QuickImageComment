@@ -483,7 +483,7 @@ namespace QuickImageComment
                         // if changes of last selected image(s) were not saved, ask user
                         if (oldIndexCount > 0 && allDeselected)
                         {
-                            if (!(theFormQuickImageComment.continueAfterCheckForChangesAndOptionalSaving(listViewFiles.getSelectedIndicesOld())))
+                            if (!theFormQuickImageComment.continueAfterCheckForChangesAndOptionalSaving(listViewFiles.getSelectedIndicesOld()))
                             {
                                 GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceWorkAfterSelectionOfFile,
                                     "restore last selection", 0);
@@ -524,9 +524,41 @@ namespace QuickImageComment
                                     // needs to be done always, even if the image is not displayed
                                     // otherwise values are not blanked in case an image inbetween has a different value
                                     int fileIndex = listViewFiles.SelectedIndices[inew];
+
+                                    ExtendedImage extendedImage = ImageManager.getExtendedImage(fileIndex, false);
+                                    if (extendedImage.getIsVideo())
+                                    {
+                                        string exiv2TagsChanged = "";
+                                        SortedList changedFields = MainMaskInterface.fillAllChangedFieldsForSave();
+                                        foreach (string key in changedFields.Keys)
+                                        {
+                                            if (!key.Contains(":"))
+                                            {
+                                                // key is not for ExifTool
+                                                exiv2TagsChanged += "\n" + key;
+                                                break;
+                                            }
+                                        }
+                                        if (!exiv2TagsChanged.Equals(""))
+                                        {
+                                            GeneralUtilities.message(LangCfg.Message.E_VideoNotAcceptedExiv2CannotWrite, exiv2TagsChanged);
+                                            // resetImageSelection has to be started in thread.
+                                            // if it is started directly an additional event fires listViewFiles_SelectedIndexChanged
+                                            // and the old selection is not restored correct; no idea, where this trigger comes from,
+                                            // but the thread helps
+                                            Thread resetImageSelectionThread = new Thread(resetImageSelection)
+                                            {
+                                                Name = "resetImageSelection",
+                                                Priority = ThreadPriority.Normal,
+                                                IsBackground = true
+                                            };
+                                            resetImageSelectionThread.Start();
+                                            return;
+                                        }
+                                    }
                                     //Logger.log("new selected " + fileIndex.ToString() + " " + selectedFilesNew[inew]);
                                     theFormQuickImageComment.disableEventHandlersRecogniseUserInput();
-                                    theFormQuickImageComment.updateAllChangeableDataForMultipleSelection(ImageManager.getExtendedImage(fileIndex, false));
+                                    theFormQuickImageComment.updateAllChangeableDataForMultipleSelection(extendedImage);
                                     theFormQuickImageComment.enableEventHandlersRecogniseUserInput();
                                     // set newDisplayIndex to have one image to display in case it cannot be set later based on FocusedItem,
                                     // e.g. because previously focused item does not fit new filter

@@ -14,6 +14,7 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
+using Brain2CPU.ExifTool;
 using System;
 using System.Collections;
 using System.Drawing;
@@ -111,7 +112,7 @@ namespace QuickImageComment
             {
                 ImageText[ii] = "";
                 ExtendedImage theExtendedImage = ImageManager.getExtendedImage(listViewFilesSelectedIndices[ii]);
-                if (theExtendedImage.getIsVideo())
+                if (theExtendedImage.getIsVideoAndExifToolNotReady())
                 {
                     GeneralUtilities.message(LangCfg.Message.I_videoCannotBeChanged, theExtendedImage.getImageFileName());
                     return 1;

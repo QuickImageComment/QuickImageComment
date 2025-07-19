@@ -14,6 +14,7 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
+using Brain2CPU.ExifTool;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -488,7 +489,7 @@ namespace QuickImageComment
         }
 
         // set controls enabled or disabled
-        internal void setInputControlsEnabled(bool enable)
+        internal void setInputControlsEnabled(bool enable, bool video)
         {
             // here also the DateTimePickers need to be considered, which are not included in ChangeableFieldInputControls
             // so loop over Controls and exclude labels
@@ -496,7 +497,19 @@ namespace QuickImageComment
             {
                 if (!aControl.GetType().Equals(typeof(Label)))
                 {
-                    aControl.Enabled = enable;
+                    if (enable && video)
+                    {
+                        ChangeableFieldSpecification changeableFieldSpecification = (ChangeableFieldSpecification)aControl.Tag;
+                        if (ExifToolWrapper.isReady() && changeableFieldSpecification.KeyPrim.Contains(":"))
+                            // writing is only possible when ExifTool is ready and tag is for ExifTool
+                            aControl.Enabled = true;
+                        else
+                            aControl.Enabled = false;
+                    }
+                    else
+                    {
+                        aControl.Enabled = enable;
+                    }
                 }
             }
         }
