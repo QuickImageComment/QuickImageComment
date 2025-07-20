@@ -51,7 +51,9 @@ namespace QuickImageCommentControls
         // lists to hold file system changes, which cause ShellListener to fire,
         // but should be ignored, as they are handled inside
         private static ArrayList ShellListenerIgnoreDelete = new ArrayList();
+        private static ArrayList ShellListenerIgnoreUpdate = new ArrayList();
         private static ArrayList ShellListenerIgnoreRename = new ArrayList();
+        private static ArrayList ShellListenerRenameIsUpdate = new ArrayList();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ShellTreeView"/> class.
@@ -473,7 +475,20 @@ namespace QuickImageCommentControls
 #if LOGLISTENEREVENTS
                 Logger.log("ItemCreated Start " + e.Item.ParsingName);
 #endif
-                if (e.Item.IsFileSystem && !e.Item.IsFolder)
+                if (e.Item.ParsingName.EndsWith("_exiftool_tmp"))
+                {
+                    // when exiftool updates a file:
+                    // creates ..._exiftool_temp
+                    // updates ..._exiftool_temp
+                    // deletes original file
+                    // renames ..._exiftool_temp to original name
+                    // ignore some events, especially the delete because delete will deselct the file
+                    string originalFileName = e.Item.ParsingName.Substring(0, parsingName.Length - 13);
+                    ShellListenerIgnoreDelete.Add(originalFileName);
+                    ShellListenerIgnoreUpdate.Add(e.Item.ParsingName);
+                    ShellListenerRenameIsUpdate.Add(e.Item.ParsingName);
+                }
+                else if (e.Item.IsFileSystem && !e.Item.IsFolder)
                 {
                     // start in separate thread so that lock is working
                     new System.Threading.Tasks.Task(() =>
@@ -507,6 +522,9 @@ namespace QuickImageCommentControls
 #endif
                 if (ShellListenerIgnoreDelete.Contains(e.Item.FileSystemPath))
                 {
+#if LOGLISTENEREVENTS
+                    Logger.log("ItemDeleted ignored " + e.Item.ParsingName);
+#endif
                     ShellListenerIgnoreDelete.Remove(e.Item.FileSystemPath);
                 }
                 else
@@ -549,6 +567,24 @@ namespace QuickImageCommentControls
                 {
                     ShellListenerIgnoreRename.Remove(key);
                 }
+                else if (ShellListenerRenameIsUpdate.Contains(e.OldItem.FileSystemPath))
+                {
+#if !DEBUG
+                    // start in separate thread so that lock is working
+                    // only in Release, in Debug creating a thread here will lead to 
+                    // System.InvalidOperationException: 'Cross-thread operation not valid: Control 'listViewFiles' accessed from a thread other than the thread it was created on.'
+                    // Due to this, in Debug it is accepted not to have the security of lock
+                    new System.Threading.Tasks.Task(() =>
+                    {
+#endif
+#if LOGLISTENEREVENTS
+                    Logger.log("is update of " + e.NewItem.FileSystemPath);
+#endif
+                    MainMaskInterface.createOrUpdateItemListViewFiles(e.NewItem.FileSystemPath);
+#if !DEBUG
+                    }).Start();
+#endif
+                }
                 else
                 {
                     if (e.OldItem.IsFileSystem && !e.OldItem.IsFolder)
@@ -584,9 +620,17 @@ namespace QuickImageCommentControls
 #if LOGLISTENEREVENTS
                 Logger.log("ItemUpdated Start " + e.Item.ParsingName);
 #endif
+                if (ShellListenerIgnoreUpdate.Contains(e.Item.FileSystemPath))
+                {
+#if LOGLISTENEREVENTS
+                    Logger.log("ItemUpdated Ignored " + e.Item.ParsingName);
+#endif
+                    ShellListenerIgnoreUpdate.Remove(e.Item.FileSystemPath);
+                }
+
                 // here no check for external/internal like for delete or rename
                 // check is done in UserControlFiles.createOrUpdateItemListViewFiles using last write time
-                if (e.Item.IsFileSystem && !e.Item.IsFolder)
+                else if (e.Item.IsFileSystem && !e.Item.IsFolder)
                 {
 #if !DEBUG
                     // start in separate thread so that lock is working
@@ -620,7 +664,8 @@ namespace QuickImageCommentControls
             }
             // sometimes it crashes, probably because some updates in background create new files, which are deleted again when 
             // listener tries to react on them; just do nothing in this case
-            catch { };
+            catch { }
+            ;
         }
 
         // handles renaming of folders
@@ -638,7 +683,8 @@ namespace QuickImageCommentControls
                 }
             }
             // sometimes it crashes; just do nothing in this case, probably the reason for this trigger is not important
-            catch { };
+            catch { }
+            ;
         }
 
         // handles update of folders - not needed in QIC
@@ -656,7 +702,8 @@ namespace QuickImageCommentControls
                 }
             }
             // sometimes it crashes; just do nothing in this case, probably the reason for this trigger is not important
-            catch { };
+            catch { }
+            ;
         }
 
         // add entry to ShellListener events to be ignored
