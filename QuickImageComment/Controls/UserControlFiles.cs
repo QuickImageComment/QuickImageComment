@@ -700,8 +700,19 @@ namespace QuickImageComment
                             // this is not information about a file change done by this program
                             string MessageText = theFormQuickImageComment.getChangedFields();
 
-                            ExtendedImage extendedImage = ImageManager.getExtendedImage(ii, true);
+                            ExtendedImage extendedImageOld = null;
+                            if (ConfigDefinition.getCfgUserBool(ConfigDefinition.enumCfgUserBool.logDifferencesMetaData) &&
+                                ImageManager.extendedImageLoaded(ii))
+                            {
+                                extendedImageOld = ImageManager.getExtendedImageFromCache(ii);
+                            }
+
                             ImageManager.updateListViewItemAndImage(theFileInfo);
+                            ExtendedImage extendedImage = ImageManager.getExtendedImage(ii, true);
+                            if (extendedImageOld != null)
+                            {
+                                extendedImage.logDifferencesInMetaData(extendedImageOld.getAllMetaDataItems());
+                            }
 
                             if (listViewFiles.SelectedIndices.Count > 1 && listViewFiles.SelectedIndices.Contains(ii))
                             {

@@ -491,41 +491,41 @@ namespace QuickImageComment
             try
             {
 #endif
-            string iniPath = ConfigDefinition.getIniPath();
-            string comment = "";
-            string errorText = "";
+                string iniPath = ConfigDefinition.getIniPath();
+                string comment = "";
+                string errorText = "";
 
-            // do not call exiv2 if image is known to cause fatal exceptions
-            if (!ConfigDefinition.getImagesCausingExiv2Exception().Contains(this.ImageFileName))
-            {
-                // lock because this method can be called in main thread or via updateCaches
-                lock (LockReadExiv2)
+                // do not call exiv2 if image is known to cause fatal exceptions
+                if (!ConfigDefinition.getImagesCausingExiv2Exception().Contains(this.ImageFileName))
                 {
-                    status = exiv2readImageByFileName(ImageFileName, iniPath, ref comment, ref IptcUTF8, ref errorText);
-                    if (!errorText.Equals("") && !ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.HideExiv2Error))
+                    // lock because this method can be called in main thread or via updateCaches
+                    lock (LockReadExiv2)
                     {
-                        MetaDataWarningsRead.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error), errorText));
-                    }
-
-                    // read Exif, Iptc and XMP only, if exiv2readImageByFileName did not return with exception
-                    if (status != exiv2StatusException)
-                    {
-                        // get image comment
-                        addReplaceOtherMetaDataKnownType("Image.Comment", comment);
-
-                        if (neededKeys == null)
+                        status = exiv2readImageByFileName(ImageFileName, iniPath, ref comment, ref IptcUTF8, ref errorText);
+                        if (!errorText.Equals("") && !ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.HideExiv2Error))
                         {
-                            // read all Exif, IPTC and XMP data
-                            readAllExifIptcXmp();
+                            MetaDataWarningsRead.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error), errorText));
                         }
-                        else
+
+                        // read Exif, Iptc and XMP only, if exiv2readImageByFileName did not return with exception
+                        if (status != exiv2StatusException)
                         {
-                            // read all Exif, IPTC and XMP data
-                            readExifIptcXmpForNeededKeys(neededKeys);
+                            // get image comment
+                            addReplaceOtherMetaDataKnownType("Image.Comment", comment);
+
+                            if (neededKeys == null)
+                            {
+                                // read all Exif, IPTC and XMP data
+                                readAllExifIptcXmp();
+                            }
+                            else
+                            {
+                                // read all Exif, IPTC and XMP data
+                                readExifIptcXmpForNeededKeys(neededKeys);
+                            }
                         }
                     }
                 }
-            }
 #if !DEBUG
             }
             catch (Exception ex)
@@ -2316,83 +2316,79 @@ namespace QuickImageComment
             try
             {
 #endif
-            // reading with ExifTool outside the lock as ExitToolWrapper has its own lock
-            string language = ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.LanguageExifTool);
-            string jsonResponse = ExifToolWrapper.FetchExifToStringFrom(ImageFileName, new string[]
-                { "-D", "-G:6:1", "-sep", " | ", "-j", "-l", "-lang", language, "-m" });
+                // reading with ExifTool outside the lock as ExitToolWrapper has its own lock
+                string language = ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.LanguageExifTool);
+                string jsonResponse = ExifToolWrapper.FetchExifToStringFrom(ImageFileName, new string[]
+                    { "-D", "-G:6:1", "-sep", " | ", "-j", "-l", "-lang", language, "-m" });
 
-            if (jsonResponse.Length < 3)
-            {
-                // no content
-                return;
-            }
-            JArray jsonArray = JArray.Parse(jsonResponse);
-            // Iterate through the JSONArray
-            for (int ii = 0; ii < jsonArray.Count; ii++)
-            {
-                JToken jToken = jsonArray[ii];
-                foreach (Newtonsoft.Json.Linq.JProperty child in jToken.Children().Cast<JProperty>())
+                if (jsonResponse.Length < 3)
                 {
+                    // no content
+                    return;
+                }
+                JArray jsonArray = JArray.Parse(jsonResponse);
+                // Iterate through the JSONArray
+                for (int ii = 0; ii < jsonArray.Count; ii++)
+                {
+                    JToken jToken = jsonArray[ii];
+                    foreach (Newtonsoft.Json.Linq.JProperty child in jToken.Children().Cast<JProperty>())
+                    {
 #if !DEBUG
                         exceptionJProperty = child;
 #endif
-                    int colon = child.Name.IndexOf(':');
+                        int colon = child.Name.IndexOf(':');
 
-                    string key = child.Name.Substring(colon + 1);
-                    string format = "";
-                    if (colon > 0) format = child.Name.Substring(0, colon);
+                        string key = child.Name.Substring(colon + 1);
+                        string format = "";
+                        if (colon > 0) format = child.Name.Substring(0, colon);
 
-                    foreach (JToken property in child.Children<JToken>())
-                    {
-                        if (property.HasValues)
+                        foreach (JToken property in child.Children<JToken>())
                         {
-                            var jTokenProperties = property.Children().OfType<JProperty>();
-                            long tag = -1;
-                            string num = null;
-                            string value = "";
-                            string desc = "";
-                            foreach (JProperty prop in jTokenProperties)
+                            if (property.HasValues)
                             {
-                                if (prop.Name.Equals("id"))
+                                var jTokenProperties = property.Children().OfType<JProperty>();
+                                long tag = -1;
+                                string num = null;
+                                string value = "";
+                                string desc = "";
+                                foreach (JProperty prop in jTokenProperties)
                                 {
-                                    try
+                                    if (prop.Name.Equals("id"))
                                     {
-                                        tag = long.Parse((string)prop.Value);
+                                        if (!long.TryParse((string)prop.Value, out tag)) tag = -1;
                                     }
-                                    catch { }
+                                    else if (prop.Name.Equals("num"))
+                                        num = (string)prop.Value;
+                                    else if (prop.Name.Equals("val"))
+                                        value = (string)prop.Value;
+                                    else if (prop.Name.Equals("desc"))
+                                        desc = (string)prop.Value;
                                 }
-                                else if (prop.Name.Equals("num"))
-                                    num = (string)prop.Value;
-                                else if (prop.Name.Equals("val"))
-                                    value = (string)prop.Value;
-                                else if (prop.Name.Equals("desc"))
-                                    desc = (string)prop.Value;
-                            }
-                            if (num == null) num = value;
-                            if (desc.Equals("")) desc = key;
+                                if (num == null) num = value;
+                                if (desc.Equals("")) desc = key;
 
-                            int keyIndex = 0;
-                            string keyStringIndex = key;
-                            while (ExifToolMetaDataItems.ContainsKey(keyStringIndex))
-                            {
-                                keyIndex++;
-                                keyStringIndex = GeneralUtilities.nameUniqueWithRunningNumber(key, keyIndex);
-                            }
-                            if (key.StartsWith("ExifTool:"))
-                            {
-                                if (!key.Equals("ExifTool:ExifToolVersion"))
+                                int keyIndex = 0;
+                                string keyStringIndex = key;
+                                while (ExifToolMetaDataItems.ContainsKey(keyStringIndex))
                                 {
-                                    MetaDataWarningsRead.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exifToolError), desc + ": " + value));
+                                    keyIndex++;
+                                    keyStringIndex = GeneralUtilities.nameUniqueWithRunningNumber(key, keyIndex);
                                 }
-                            }
-                            else
-                            {
-                                ExifToolMetaDataItems.Add(keyStringIndex, new MetaDataItemExifTool(key, desc, tag, format, num, value));
+                                if (key.StartsWith("ExifTool:"))
+                                {
+                                    if (!key.Equals("ExifTool:ExifToolVersion"))
+                                    {
+                                        MetaDataWarningsRead.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exifToolError), desc + ": " + value));
+                                    }
+                                }
+                                else
+                                {
+                                    ExifToolMetaDataItems.Add(keyStringIndex, new MetaDataItemExifTool(key, desc, tag, format, num, value));
+                                }
                             }
                         }
                     }
                 }
-            }
 #if !DEBUG
             }
             catch (Exception ex)
@@ -2743,6 +2739,12 @@ namespace QuickImageComment
                 Logger.log("   " + changedFieldsForSave.GetKey(ii) + " : " + newValue);
             }
 #endif
+            // prepare for logging changes in meta data
+            SortedList oldMetaDataItems = null;
+            if (ConfigDefinition.getCfgUserBool(ConfigDefinition.enumCfgUserBool.logDifferencesMetaData))
+            {
+                oldMetaDataItems = new SortedList(getAllMetaDataItems());
+            }
 
             // set values from changed fields
             foreach (string key in changedFieldsForSave.Keys)
@@ -2960,6 +2962,12 @@ namespace QuickImageComment
                             }
                         }
                     }
+                }
+
+                // log changes of meta data
+                if (oldMetaDataItems != null)
+                {
+                    logDifferencesInMetaData(oldMetaDataItems);
                 }
 
                 SavePerformance.measure("meta compared, tile view filled");
@@ -3377,7 +3385,7 @@ namespace QuickImageComment
                         keys += "\r\n" + key;
                         ImageChangedFieldsForCompare.Remove(key);
                     }
-                    GeneralUtilities.message(LangCfg.Message.E_Exiv2CannotWriteVideo, keys);                   
+                    GeneralUtilities.message(LangCfg.Message.E_Exiv2CannotWriteVideo, keys);
                 }
                 else
                 {
@@ -4393,6 +4401,45 @@ namespace QuickImageComment
         internal void addMetaDataWarningRead(string name, string message)
         {
             MetaDataWarningsRead.Add(new MetaDataWarningItem(name, message));
+        }
+
+        internal void logDifferencesInMetaData(SortedList oldMetaDataItems)
+        {
+            ArrayList differences = new ArrayList();
+            foreach (string key in oldMetaDataItems.Keys)
+            {
+                if (!ConfigDefinition.getMetaDataDefinitionsLogDiffExceptionsKeys().Contains(key))
+                {
+                    MetaDataItem oldItem = (MetaDataItem)oldMetaDataItems[key];
+                    if (getAllMetaDataItems().ContainsKey(key))
+                    {
+                        MetaDataItem newItem = (MetaDataItem)getAllMetaDataItems()[key];
+                        if (!oldItem.getInterpreted().Equals(newItem.getInterpreted()))
+                        {
+                            differences.Add(key + " " + LangCfg.getText(LangCfg.Others.diffOldNew) + ": " + oldItem.getInterpreted() + " # " + newItem.getInterpreted());
+                        }
+                    }
+                    else
+                    {
+                        differences.Add(key + " " + LangCfg.getText(LangCfg.Others.diffDeleted) + ": " + oldItem.getInterpreted());
+                    }
+                }
+            }
+            foreach (string key in getAllMetaDataItems().Keys)
+            {
+                if (!oldMetaDataItems.ContainsKey(key))
+                {
+                    MetaDataItem newItem = (MetaDataItem)getAllMetaDataItems()[key];
+                    differences.Add(key + " " + LangCfg.getText(LangCfg.Others.diffInserted) + ": " + newItem.getInterpreted());
+                }
+            }
+
+            if (differences.Count > 0)
+            {
+                differences.Sort();
+                Logger.logWithDateTime(LangCfg.getText(LangCfg.Others.diffChanges) + " " + ImageFileName);
+                foreach (string change in differences) Logger.logWithDateTime(change);
+            }
         }
     }
 }

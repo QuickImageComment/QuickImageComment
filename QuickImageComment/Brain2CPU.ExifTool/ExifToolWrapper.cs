@@ -91,7 +91,7 @@ namespace Brain2CPU.ExifTool
         private static readonly ManualResetEvent _waitHandle = new ManualResetEvent(true);
         private static readonly ManualResetEvent _waitForErrorHandle = new ManualResetEvent(true);
 
-        private static ArrayList Locations = new ArrayList();
+        private static readonly ArrayList Locations = new ArrayList();
         private static ArrayList WritableTags = new ArrayList();
 
         public static void init(string path = null, bool faster = false)
@@ -432,7 +432,7 @@ namespace Brain2CPU.ExifTool
             return res;
         }
 
-        public static string FetchExifToStringFrom(string path, string[] args, IEnumerable<string> tagsToKeep = null, bool keepKeysWithEmptyValues = true, string separator = ": ")
+        public static string FetchExifToStringFrom(string path, string[] args, IEnumerable<string> tagsToKeep = null)
         {
             if (!File.Exists(path))
                 return "";

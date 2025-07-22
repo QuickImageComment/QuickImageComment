@@ -108,6 +108,8 @@ namespace QuickImageComment
             checkBoxExifUTF8.Checked = ConfigDefinition.getCfgUserBool(ConfigDefinition.enumCfgUserBool.WriteExifUtf8);
             checkBoxIptcUTF8.Checked = ConfigDefinition.getCfgUserBool(ConfigDefinition.enumCfgUserBool.WriteIptcUtf8);
 
+            checkBoxLogDiffMetaData.Checked = ConfigDefinition.getCfgUserBool(ConfigDefinition.enumCfgUserBool.logDifferencesMetaData);
+
             CustomizationInterface.setFormToCustomizedValuesZoomInitial(this);
 
             // call the text changed event as it is not called during the update above
@@ -215,6 +217,8 @@ namespace QuickImageComment
             ConfigDefinition.setCfgUserString(ConfigDefinition.enumCfgUserString.CharsetExifPhotoUserComment, comboBoxCharsetUserComment.Text);
             ConfigDefinition.setCfgUserBool(ConfigDefinition.enumCfgUserBool.WriteExifUtf8, checkBoxExifUTF8.Checked);
             ConfigDefinition.setCfgUserBool(ConfigDefinition.enumCfgUserBool.WriteIptcUtf8, checkBoxIptcUTF8.Checked);
+
+            ConfigDefinition.setCfgUserBool(ConfigDefinition.enumCfgUserBool.logDifferencesMetaData, checkBoxLogDiffMetaData.Checked);
 
             settingsChanged = true;
             Close();

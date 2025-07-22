@@ -48,6 +48,22 @@ namespace QuickImageComment
             theFormLogger.updateLog();
         }
 
+
+        // log with date/time instead of time differences
+        // note: may confuse when both types are mixed
+        public static void logWithDateTime(string message)
+        {
+            if (theFormLogger == null) MainMaskInterface.initFormLogger();
+
+            DateTime CurrentTime = DateTime.Now;
+            string logMessage = CurrentTime.ToShortDateString() + " " + CurrentTime.ToLongTimeString() + "\t " + message;
+            // FormLogger is not initialized if main mask is not yet initialized, 
+            // because the process then hangs or FormLogger is closed again.
+            // In this case just make debug message
+            LogMessageQueue.Enqueue(logMessage);
+
+        }
+
         // generic method to log
         public static void log(string message, bool printOnly, bool init)
         {

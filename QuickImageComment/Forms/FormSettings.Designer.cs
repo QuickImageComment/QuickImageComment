@@ -125,6 +125,7 @@ namespace QuickImageComment
             this.checkBoxExifUTF8 = new System.Windows.Forms.CheckBox();
             this.labelCharSet = new System.Windows.Forms.Label();
             this.checkBoxButtonDeletesPermanent = new System.Windows.Forms.CheckBox();
+            this.checkBoxLogDiffMetaData = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxLastComments)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFullSizeImageCacheMaxSize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaximumMemoryForCaching)).BeginInit();
@@ -880,6 +881,7 @@ namespace QuickImageComment
             // panel3
             // 
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel3.Controls.Add(this.checkBoxLogDiffMetaData);
             this.panel3.Controls.Add(this.buttonExifToolSettings);
             this.panel3.Controls.Add(this.comboBoxCharsetUserComment);
             this.panel3.Controls.Add(this.checkBoxIptcUTF8);
@@ -893,7 +895,7 @@ namespace QuickImageComment
             // buttonExifToolSettings
             // 
             this.buttonExifToolSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonExifToolSettings.Location = new System.Drawing.Point(561, 1);
+            this.buttonExifToolSettings.Location = new System.Drawing.Point(455, 1);
             this.buttonExifToolSettings.Name = "buttonExifToolSettings";
             this.buttonExifToolSettings.Size = new System.Drawing.Size(199, 26);
             this.buttonExifToolSettings.TabIndex = 38;
@@ -951,6 +953,16 @@ namespace QuickImageComment
             this.checkBoxButtonDeletesPermanent.TabIndex = 37;
             this.checkBoxButtonDeletesPermanent.Text = "Mit Schaltfläche \"Löschen\" werden Dateien unwiderruflich gelöscht";
             this.checkBoxButtonDeletesPermanent.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxLogDiffMetaData
+            // 
+            this.checkBoxLogDiffMetaData.AutoSize = true;
+            this.checkBoxLogDiffMetaData.Location = new System.Drawing.Point(455, 44);
+            this.checkBoxLogDiffMetaData.Name = "checkBoxLogDiffMetaData";
+            this.checkBoxLogDiffMetaData.Size = new System.Drawing.Size(227, 17);
+            this.checkBoxLogDiffMetaData.TabIndex = 40;
+            this.checkBoxLogDiffMetaData.Text = "Änderungen der Metadaten protokollieren";
+            this.checkBoxLogDiffMetaData.UseVisualStyleBackColor = true;
             // 
             // FormSettings
             // 
@@ -1084,5 +1096,6 @@ namespace QuickImageComment
         private System.Windows.Forms.Label labelCharSet;
         private System.Windows.Forms.CheckBox checkBoxButtonDeletesPermanent;
         private System.Windows.Forms.Button buttonExifToolSettings;
+        private System.Windows.Forms.CheckBox checkBoxLogDiffMetaData;
     }
 }

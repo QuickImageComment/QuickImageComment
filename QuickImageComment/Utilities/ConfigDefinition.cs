@@ -150,7 +150,8 @@ namespace QuickImageComment
             ButtonDeletesPermanently,
             slideShowHideSettingsAtStart,
             showScaleInMap,
-            hideMapWhenNoGPS
+            hideMapWhenNoGPS,
+            logDifferencesMetaData
         };
 
         public enum enumCfgUserInt
@@ -271,7 +272,8 @@ namespace QuickImageComment
             MetaDataDefForRemoveMetaDataList,
             MetaDataDefForMultiEditTable,
             MetaDataDefForCompareExceptions,
-            MetaDataDefForSlideshow
+            MetaDataDefForSlideshow,
+            MetaDataDefForLogDifferencesExceptions
         };
 
         // for display of scale in map
@@ -566,6 +568,7 @@ namespace QuickImageComment
             ConfigItems.Add(enumCfgUserBool.slideShowHideSettingsAtStart.ToString(), false);
             ConfigItems.Add(enumCfgUserBool.showScaleInMap.ToString(), true);
             ConfigItems.Add(enumCfgUserBool.hideMapWhenNoGPS.ToString(), false);
+            ConfigItems.Add(enumCfgUserBool.logDifferencesMetaData.ToString(), false);
 
             ConfigItems.Add(enumCfgUserString.LastCheckForNewVersion.ToString(), "not configured");
             ConfigItems.Add(enumCfgUserString.NextCheckForNewVersion.ToString(), "not configured");
@@ -885,6 +888,7 @@ namespace QuickImageComment
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForFind].Add(new MetaDataDefinitionItem("Künstler (kombiniert)", "Image.ArtistCombinedFields"));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForFind].Add(new MetaDataDefinitionItem("Kommentar (kombiniert)", "Image.CommentCombinedFields"));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForFind].Add(new MetaDataDefinitionItem("IPTC Schlüsselworte", "Image.IPTC_KeyWordsString"));
+                translateNamesOfMetaDataDefinitionItem(MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForFind]);
             }
 
 
@@ -957,6 +961,22 @@ namespace QuickImageComment
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForRename].Add(new MetaDataDefinitionItem("Blende", "ExifEasy.FNumber"));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForRename].Add(new MetaDataDefinitionItem("Brennweite", "ExifEasy.FocalLength"));
                 translateNamesOfMetaDataDefinitionItem(MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForRename]);
+            }
+
+            // if no entries for MetaDataDefForLogDifferencesExceptions found, define initial set
+            if (MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForLogDifferencesExceptions].Count == 0)
+            {
+                addTagToMetaDataDefinitionsLogDiffExceptions("Define.FileModified_ExifFormat");
+                addTagToMetaDataDefinitionsLogDiffExceptions("Exif.Image.ExifTag");
+                addTagToMetaDataDefinitionsLogDiffExceptions("Exif.Image.GPSTag");
+                addTagToMetaDataDefinitionsLogDiffExceptions("File.Modified");
+                addTagToMetaDataDefinitionsLogDiffExceptions("Image.ArtistAccordingSettings");
+                addTagToMetaDataDefinitionsLogDiffExceptions("Image.ArtistCombinedFields");
+                addTagToMetaDataDefinitionsLogDiffExceptions("Image.CommentAccordingSettings");
+                addTagToMetaDataDefinitionsLogDiffExceptions("Image.CommentCombinedFields");
+                addTagToMetaDataDefinitionsLogDiffExceptions("System:FileAccessDate");
+                addTagToMetaDataDefinitionsLogDiffExceptions("System:FileModifyDate");
+                // no translation: description only visible in FormMetaDataDefinitions, but usually list will be filled by user 
             }
 
             // if UserConfigFile was empty
@@ -1170,6 +1190,16 @@ namespace QuickImageComment
         {
             ArrayList CompareExceptionsKeys = new ArrayList();
             foreach (MetaDataDefinitionItem aMetaDataDefinitionItem in MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForCompareExceptions])
+            {
+                CompareExceptionsKeys.Add(aMetaDataDefinitionItem.KeyPrim);
+            }
+            return CompareExceptionsKeys;
+        }
+
+        public static ArrayList getMetaDataDefinitionsLogDiffExceptionsKeys()
+        {
+            ArrayList CompareExceptionsKeys = new ArrayList();
+            foreach (MetaDataDefinitionItem aMetaDataDefinitionItem in MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForLogDifferencesExceptions])
             {
                 CompareExceptionsKeys.Add(aMetaDataDefinitionItem.KeyPrim);
             }
@@ -4080,6 +4110,12 @@ namespace QuickImageComment
         public static void addTagToMetaDataDefinitionsCompareExceptions(string TagName)
         {
             MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForCompareExceptions].Add(new MetaDataDefinitionItem(TagName, TagName));
+        }
+
+        // add an entry to MetaDataDefinitionsLogDifferencesExceptions
+        public static void addTagToMetaDataDefinitionsLogDiffExceptions(string TagName)
+        {
+            MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForLogDifferencesExceptions].Add(new MetaDataDefinitionItem(TagName, TagName));
         }
 
         // for supporting automatic creation of screenshots

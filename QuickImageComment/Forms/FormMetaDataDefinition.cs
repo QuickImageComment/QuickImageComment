@@ -522,7 +522,8 @@ namespace QuickImageComment
                     dynamicLabelInfo.Text = LangCfg.getText(LangCfg.Others.infoForGroupFind);
                     buttonMetaDatum2.Enabled = false;
                 }
-                else if (dynamicComboBoxMetaDataType.SelectedItem.Equals(LangCfg.getText(ConfigDefinition.enumMetaDataGroup.MetaDataDefForCompareExceptions)))
+                else if (dynamicComboBoxMetaDataType.SelectedItem.Equals(LangCfg.getText(ConfigDefinition.enumMetaDataGroup.MetaDataDefForCompareExceptions)) ||
+                         dynamicComboBoxMetaDataType.SelectedItem.Equals(LangCfg.getText(ConfigDefinition.enumMetaDataGroup.MetaDataDefForLogDifferencesExceptions)))
                 {
                     dynamicLabelInfo.Text = "";
                     buttonMetaDatum2.Enabled = false;
@@ -1342,7 +1343,8 @@ namespace QuickImageComment
             }
             else if (dynamicComboBoxMetaDataType.SelectedItem.Equals(LangCfg.getText(ConfigDefinition.enumMetaDataGroup.MetaDataDefForRemoveMetaDataExceptions)) ||
                      dynamicComboBoxMetaDataType.SelectedItem.Equals(LangCfg.getText(ConfigDefinition.enumMetaDataGroup.MetaDataDefForRemoveMetaDataList)) ||
-                     dynamicComboBoxMetaDataType.SelectedItem.Equals(LangCfg.getText(ConfigDefinition.enumMetaDataGroup.MetaDataDefForCompareExceptions)))
+                     dynamicComboBoxMetaDataType.SelectedItem.Equals(LangCfg.getText(ConfigDefinition.enumMetaDataGroup.MetaDataDefForCompareExceptions)) ||
+                     dynamicComboBoxMetaDataType.SelectedItem.Equals(LangCfg.getText(ConfigDefinition.enumMetaDataGroup.MetaDataDefForLogDifferencesExceptions)))
             {
                 // metadata for remove and compare exceptions, only selection of first field possible
                 textBoxPostfix.Enabled = false;

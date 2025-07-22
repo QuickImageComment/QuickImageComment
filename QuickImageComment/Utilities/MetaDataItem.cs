@@ -145,6 +145,11 @@ namespace QuickImageComment
             return valueString;
         }
 
+        public string getInterpreted()
+        {
+            return interpretedString;
+        }
+
         // gets value for display, depending on format specification
         public virtual string getValueForDisplay(Format FormatSpecification)
         {
