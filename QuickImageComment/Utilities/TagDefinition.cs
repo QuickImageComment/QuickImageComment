@@ -41,5 +41,25 @@ namespace QuickImageComment
             keyTranslated = givenKeyGerman;
             descriptionTranslated = givenDescriptionGerman;
         }
+
+        public static bool isExiv2Tag(string key)
+        {
+            return key.StartsWith("Exif.") ||
+                   key.StartsWith("ExifEasy.") ||
+                   key.StartsWith("Iptc.") ||
+                   key.StartsWith("Xmp.");
+        }
+
+        public static bool isInternalTag(string key)
+        {
+            return key.StartsWith("Define.") ||
+                   key.StartsWith("File.") ||
+                   key.StartsWith("Image.");
+        }
+
+        public static bool isExifToolTag(string key)
+        {
+            return !isExiv2Tag(key) && !isInternalTag(key);
+        }
     }
 }

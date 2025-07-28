@@ -356,20 +356,28 @@ namespace QuickImageComment
         {
             int posDot1;
             int posDot2;
+            int posColon;
             string searchEntry;
             ArrayList SearchTags = new ArrayList();
             foreach (ListViewItem tagEntry in listViewTags.Items)
             {
+                posColon = tagEntry.Text.IndexOf(":");
                 posDot1 = tagEntry.Text.IndexOf(".");
-                // no dot found: is tag from ExifTool where group is terminated by colon
-                if (posDot1 < 0) posDot1 = tagEntry.Text.IndexOf(":");
                 posDot2 = tagEntry.Text.IndexOf(".", posDot1 + 1);
-                if (posDot2 < 0)
+                if (posColon > 0 && (posDot1 < 0 || posColon < posDot1))
                 {
+                    // colon found first - is ExifTool tag
+                    // note: some XMP tags have a colon in the third part
+                    searchEntry = tagEntry.Text.Substring(0, posColon);
+                }
+                else if (posDot2 < 0)
+                {
+                    // exiv2 tag with two parts only 
                     searchEntry = tagEntry.Text.Substring(0, posDot1);
                 }
                 else
                 {
+                    // exiv2 tag with three parts
                     searchEntry = tagEntry.Text.Substring(0, posDot2);
                 }
                 if (!SearchTags.Contains(searchEntry))
@@ -968,7 +976,7 @@ namespace QuickImageComment
             if (listViewTags.SelectedItems.Count > 0)
             {
                 MetaDataKey = listViewTags.SelectedItems[0].SubItems[3].Text;
-                if (MetaDataKey.Contains(":"))
+                if (TagDefinition.isExifToolTag(MetaDataKey))
                 {
                     // key from ExifTool, (short) description used for name
                     Name = listViewTags.SelectedItems[0].SubItems[2].Text;
@@ -1121,7 +1129,7 @@ namespace QuickImageComment
                     return false;
                 }
                 // check type of keys from exiv2
-                else if (!MetaDataKey.Contains(":") && !Exiv2TagDefinitions.ChangeableTypes.Contains(MetaDataType))
+                else if (TagDefinition.isExiv2Tag(MetaDataKey) && !Exiv2TagDefinitions.ChangeableTypes.Contains(MetaDataType))
                 {
                     GeneralUtilities.message(LangCfg.Message.E_tagValueNotChangeable, MetaDataKey);
                     return false;
@@ -1130,7 +1138,7 @@ namespace QuickImageComment
             else if (dynamicComboBoxMetaDataType.SelectedItem.Equals(LangCfg.getText(ConfigDefinition.enumMetaDataGroup.MetaDataDefForRemoveMetaDataExceptions)) ||
                      dynamicComboBoxMetaDataType.SelectedItem.Equals(LangCfg.getText(ConfigDefinition.enumMetaDataGroup.MetaDataDefForRemoveMetaDataList)))
             {
-                if (MetaDataKey.Contains(":"))
+                if (TagDefinition.isExifToolTag(MetaDataKey))
                 {
                     // key from ExifTool, not supported for removing meta data
                     GeneralUtilities.message(LangCfg.Message.E_ExifToolTagValueNotDeleteable, MetaDataKey);

@@ -68,7 +68,7 @@
             this.dataGridViewDifferences.ShowCellToolTips = false;
             this.dataGridViewDifferences.ShowEditingIcon = false;
             this.dataGridViewDifferences.ShowRowErrors = false;
-            this.dataGridViewDifferences.Size = new System.Drawing.Size(876, 297);
+            this.dataGridViewDifferences.Size = new System.Drawing.Size(936, 297);
             this.dataGridViewDifferences.TabIndex = 4;
             this.dataGridViewDifferences.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewDifferences_CellMouseEnter);
             this.dataGridViewDifferences.CellMouseLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewDifferences_CellMouseLeave);
@@ -88,7 +88,7 @@
             // buttonClose
             // 
             this.buttonClose.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.buttonClose.Location = new System.Drawing.Point(390, 330);
+            this.buttonClose.Location = new System.Drawing.Point(420, 330);
             this.buttonClose.Name = "buttonClose";
             this.buttonClose.Size = new System.Drawing.Size(100, 22);
             this.buttonClose.TabIndex = 6;
@@ -110,7 +110,7 @@
             // buttonHelp
             // 
             this.buttonHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonHelp.Location = new System.Drawing.Point(778, 330);
+            this.buttonHelp.Location = new System.Drawing.Point(838, 330);
             this.buttonHelp.Name = "buttonHelp";
             this.buttonHelp.Size = new System.Drawing.Size(100, 22);
             this.buttonHelp.TabIndex = 7;
@@ -132,7 +132,7 @@
             // checkBoxShowThumbnails
             // 
             this.checkBoxShowThumbnails.AutoSize = true;
-            this.checkBoxShowThumbnails.Location = new System.Drawing.Point(354, 4);
+            this.checkBoxShowThumbnails.Location = new System.Drawing.Point(387, 4);
             this.checkBoxShowThumbnails.Name = "checkBoxShowThumbnails";
             this.checkBoxShowThumbnails.Size = new System.Drawing.Size(142, 17);
             this.checkBoxShowThumbnails.TabIndex = 2;
@@ -142,9 +142,9 @@
             // 
             // buttonDisableCompareForColumn
             // 
-            this.buttonDisableCompareForColumn.Location = new System.Drawing.Point(509, 0);
+            this.buttonDisableCompareForColumn.Location = new System.Drawing.Point(538, 1);
             this.buttonDisableCompareForColumn.Name = "buttonDisableCompareForColumn";
-            this.buttonDisableCompareForColumn.Size = new System.Drawing.Size(201, 22);
+            this.buttonDisableCompareForColumn.Size = new System.Drawing.Size(215, 22);
             this.buttonDisableCompareForColumn.TabIndex = 3;
             this.buttonDisableCompareForColumn.Text = "Markierte Werte nicht mehr vergleichen";
             this.buttonDisableCompareForColumn.UseVisualStyleBackColor = true;
@@ -155,15 +155,15 @@
             this.checkBoxTagNamesOriginal.AutoSize = true;
             this.checkBoxTagNamesOriginal.Location = new System.Drawing.Point(197, 4);
             this.checkBoxTagNamesOriginal.Name = "checkBoxTagNamesOriginal";
-            this.checkBoxTagNamesOriginal.Size = new System.Drawing.Size(145, 17);
+            this.checkBoxTagNamesOriginal.Size = new System.Drawing.Size(174, 17);
             this.checkBoxTagNamesOriginal.TabIndex = 1;
-            this.checkBoxTagNamesOriginal.Text = "Namen Englisch (original)";
+            this.checkBoxTagNamesOriginal.Text = "exiv2 Namen Englisch (original)";
             this.checkBoxTagNamesOriginal.UseVisualStyleBackColor = true;
             this.checkBoxTagNamesOriginal.CheckedChanged += new System.EventHandler(this.checkBoxTagNamesOriginal_CheckedChanged);
             // 
             // buttonHiddenColumns
             // 
-            this.buttonHiddenColumns.Location = new System.Drawing.Point(716, 0);
+            this.buttonHiddenColumns.Location = new System.Drawing.Point(765, 1);
             this.buttonHiddenColumns.Name = "buttonHiddenColumns";
             this.buttonHiddenColumns.Size = new System.Drawing.Size(162, 22);
             this.buttonHiddenColumns.TabIndex = 8;
@@ -179,7 +179,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(881, 355);
+            this.ClientSize = new System.Drawing.Size(941, 355);
             this.Controls.Add(this.buttonHiddenColumns);
             this.Controls.Add(this.checkBoxTagNamesOriginal);
             this.Controls.Add(this.buttonDisableCompareForColumn);

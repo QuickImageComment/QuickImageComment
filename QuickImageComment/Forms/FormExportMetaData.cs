@@ -100,7 +100,7 @@ namespace QuickImageComment
                 bool first;
 
 #if !DEBUG
-            try
+                try
 #endif
                 {
                     StreamOut = new StreamWriter(ExportFile, false, System.Text.Encoding.UTF8);
@@ -163,6 +163,16 @@ namespace QuickImageComment
 
             // get arraylist with needed keys
             ArrayList neededKeys = ConfigDefinition.getNeededKeysIncludingReferences(ConfigDefinition.getMetaDataDefinitions(ConfigDefinition.enumMetaDataGroup.MetaDataDefForTextExport));
+            ArrayList neededKeysExifTool = new ArrayList();
+            ArrayList neededKeysExiv2 = new ArrayList();
+
+            foreach (string key in neededKeys)
+            {
+                if (TagDefinition.isExiv2Tag(key))
+                    neededKeysExiv2.Add(key);
+                else if (TagDefinition.isExifToolTag(key))
+                    neededKeysExifTool.Add(key);
+            }
 
             foreach (FileInfo fileInfo in ImageFilesInfoSorted)
             {
@@ -179,7 +189,7 @@ namespace QuickImageComment
 #endif
                 exportedCount++;
 
-                theExtendedImage = new ExtendedImage(fileInfo, neededKeys);
+                theExtendedImage = new ExtendedImage(fileInfo, neededKeysExiv2, neededKeysExifTool);
                 StreamOut.WriteLine(theExtendedImage.getMetaDataForTextExport());
                 StreamOut.Flush();
 

@@ -500,7 +500,7 @@ namespace QuickImageComment
                     if (enable && video)
                     {
                         ChangeableFieldSpecification changeableFieldSpecification = (ChangeableFieldSpecification)aControl.Tag;
-                        if (ExifToolWrapper.isReady() && changeableFieldSpecification.KeyPrim.Contains(":"))
+                        if (ExifToolWrapper.isReady() && TagDefinition.isExifToolTag(changeableFieldSpecification.KeyPrim))
                             // writing is only possible when ExifTool is ready and tag is for ExifTool
                             aControl.Enabled = true;
                         else

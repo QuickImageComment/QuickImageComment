@@ -532,7 +532,7 @@ namespace QuickImageComment
                                         SortedList changedFields = MainMaskInterface.fillAllChangedFieldsForSave();
                                         foreach (string key in changedFields.Keys)
                                         {
-                                            if (!key.Contains(":"))
+                                            if (TagDefinition.isExiv2Tag(key))
                                             {
                                                 // key is not for ExifTool
                                                 exiv2TagsChanged += "\n" + key;

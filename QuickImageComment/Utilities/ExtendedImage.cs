@@ -17,6 +17,7 @@
 //#define LOG_SAVING_STEPS
 //#define LOG_DEVIATION_ORIGINAL_INTERPRETED
 //#define DEBUG_PRINT_READ_STRINGS_ENCODING
+//#define WRITEJSONRESPONSE
 
 using Brain2CPU.ExifTool;
 using CSJ2K;
@@ -304,7 +305,7 @@ namespace QuickImageComment
             AutoScrollPosition.X = 1;
             AutoScrollPosition.Y = 1;
 
-            readMetaData(ConstructorPerformance, null, fileInfo);
+            readMetaData(ConstructorPerformance, null, null, fileInfo);
             DateTime CurrentTime = DateTime.Now;
             readTxtFile();
 
@@ -356,7 +357,7 @@ namespace QuickImageComment
         // Constructor
         // to get meta data only (for export and search)
         //*****************************************************************
-        public ExtendedImage(System.IO.FileInfo fileInfo, ArrayList neededKeys)
+        public ExtendedImage(System.IO.FileInfo fileInfo, ArrayList neededKeysExiv2, ArrayList neededKeysExifTool)
         {
             this.ImageFileName = fileInfo.FullName;
             this.isVideo = ConfigDefinition.getVideoExtensionsPropertiesList().Contains((System.IO.Path.GetExtension(ImageFileName)).ToLower()) ||
@@ -364,14 +365,16 @@ namespace QuickImageComment
             this.displayFrame = ConfigDefinition.getVideoExtensionsFrameList().Contains((System.IO.Path.GetExtension(ImageFileName)).ToLower());
             this.notFrameGrabber = ConfigDefinition.getVideoExtensionsNotFrameGrabberList().Contains((System.IO.Path.GetExtension(ImageFileName)).ToLower());
 
-            readMetaData(ConstructorPerformance, neededKeys, fileInfo);
+            readMetaData(ConstructorPerformance, neededKeysExiv2, neededKeysExifTool, fileInfo);
+
             DateTime CurrentTime = DateTime.Now;
             readTxtFile();
 
             bool tagFromBitmapNeeded = false;
             foreach (string tag in ConfigDefinition.TagsFromBitmap)
             {
-                if (neededKeys.Contains(tag)) tagFromBitmapNeeded = true;
+                //!! needs to be changed to internal tags
+                if (neededKeysExiv2.Contains(tag)) tagFromBitmapNeeded = true;
 
             }
             if (tagFromBitmapNeeded)
@@ -451,7 +454,7 @@ namespace QuickImageComment
         }
 
         // read and analyze meta data
-        private void readMetaData(Performance ReadPerformance, ArrayList neededKeys, System.IO.FileInfo fileInfo)
+        private void readMetaData(Performance ReadPerformance, ArrayList neededKeysExiv2, ArrayList neededKeysExifTool, System.IO.FileInfo fileInfo)
         {
             int status = 0;
             // used when adding ExifTool warning to MetaDataWarningsRead
@@ -496,7 +499,9 @@ namespace QuickImageComment
                 string errorText = "";
 
                 // do not call exiv2 if image is known to cause fatal exceptions
-                if (!ConfigDefinition.getImagesCausingExiv2Exception().Contains(this.ImageFileName))
+                // or an empty list of exiv2 keys is given
+                if (!ConfigDefinition.getImagesCausingExiv2Exception().Contains(this.ImageFileName) &&
+                    (neededKeysExiv2 == null || neededKeysExiv2.Count > 0))
                 {
                     // lock because this method can be called in main thread or via updateCaches
                     lock (LockReadExiv2)
@@ -513,15 +518,15 @@ namespace QuickImageComment
                             // get image comment
                             addReplaceOtherMetaDataKnownType("Image.Comment", comment);
 
-                            if (neededKeys == null)
+                            if (neededKeysExiv2 == null)
                             {
                                 // read all Exif, IPTC and XMP data
                                 readAllExifIptcXmp();
                             }
-                            else
+                            else if (neededKeysExiv2.Count > 0)
                             {
                                 // read all Exif, IPTC and XMP data
-                                readExifIptcXmpForNeededKeys(neededKeys);
+                                readExifIptcXmpForNeededKeys(neededKeysExiv2);
                             }
                         }
                     }
@@ -535,7 +540,7 @@ namespace QuickImageComment
 #endif
             ReadPerformance.measure("Meta data exiv2 copied");
 
-            readExifToolMetaData();
+            readExifToolMetaData(neededKeysExifTool);
             ReadPerformance.measure("ExifTool JSON");
 
             XmpLangAltEntries.Sort();
@@ -2306,8 +2311,19 @@ namespace QuickImageComment
         //*****************************************************************
         // ExifTool methods
         //*****************************************************************
-        private void readExifToolMetaData()
+        private void readExifToolMetaData(ArrayList neededKeysExifTool)
         {
+            if (neededKeysExifTool != null && neededKeysExifTool.Count == 0)
+        {
+                // nothing to do
+                return;
+            }
+            //if (neededKeysExifTool != null)
+            //{
+            //    for (int ii = 0; ii < neededKeysExifTool.Count; ii++)
+            //        Logger.log("read with ExifTool " + neededKeysExifTool[ii]);
+            //}
+
             // if ExifToolWrapper is not ready, it is not properly initialised
             // most likely because path is not set by user, so display no warning or error
             if (!ExifToolWrapper.isReady()) return;
@@ -2318,8 +2334,19 @@ namespace QuickImageComment
 #endif
                 // reading with ExifTool outside the lock as ExitToolWrapper has its own lock
                 string language = ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.LanguageExifTool);
-                string jsonResponse = ExifToolWrapper.FetchExifToStringFrom(ImageFileName, new string[]
-                    { "-D", "-G:6:1", "-sep", " | ", "-j", "-l", "-lang", language, "-m" });
+                List<string> arguments = new List<string> { "-D", "-G:6:1", "-sep", " | ", "-j", "-l", "-lang", language, "-m" };
+                if (neededKeysExifTool != null)
+                {
+                    for (int ii = 0; ii < neededKeysExifTool.Count; ii++) arguments.Add("-" + neededKeysExifTool[ii]);
+                }
+                string jsonResponse = ExifToolWrapper.FetchExifToStringFrom(ImageFileName, arguments.ToArray());
+
+#if WRITEJSONRESPONSE
+                string LookupReferenceValuesFile = GeneralUtilities.getMaintenanceOutputFolder() + "JSonResponse.txt";
+                System.IO.StreamWriter StreamOut = new System.IO.StreamWriter(LookupReferenceValuesFile, false, System.Text.Encoding.UTF8);
+                StreamOut.WriteLine(jsonResponse);
+                StreamOut.Close();
+#endif
 
                 if (jsonResponse.Length < 3)
                 {
@@ -2949,7 +2976,7 @@ namespace QuickImageComment
                         if (!achievedValue.Equals(targetValue))
                         {
                             string[] words = key.Split('.');
-                            if (!key.Contains(":") && achievedValue.Equals("") && isExifMakernote(words[0], words[1]) == 1)
+                            if (TagDefinition.isExiv2Tag(key) && achievedValue.Equals("") && isExifMakernote(words[0], words[1]) == 1)
                             {
                                 // a non-blank value was given, but tag is not added
                                 // most likely tag is from a Makernote, which is not contained
@@ -3341,7 +3368,7 @@ namespace QuickImageComment
                 ArrayList keysToRemove = new ArrayList();
                 foreach (string key in ImageChangedFields.Keys)
                 {
-                    if (key.Contains(":"))
+                    if (TagDefinition.isExifToolTag(key))
                     {
                         // is an ExifTool tag
                         ExifToolValues.Add(key, (string)ImageChangedFields[key]);
@@ -3556,7 +3583,7 @@ namespace QuickImageComment
         internal void readAllMetaDataAndSetRelatedTags(Performance performance)
         {
             FileInfo fileInfo = new FileInfo(ImageFileName);
-            readMetaData(performance, null, fileInfo);
+            readMetaData(performance, null, null, fileInfo);
             readTxtFile();
             addMetaDataFromBitMap();
 
