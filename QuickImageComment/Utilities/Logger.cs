@@ -61,7 +61,10 @@ namespace QuickImageComment
             // because the process then hangs or FormLogger is closed again.
             // In this case just make debug message
             LogMessageQueue.Enqueue(logMessage);
-
+            if (theFormLogger != null && !theFormLogger.IsDisposed)
+            {
+                new System.Threading.Tasks.Task(() => { theFormLogger.updateLog(); }).Start();
+            }
         }
 
         // generic method to log

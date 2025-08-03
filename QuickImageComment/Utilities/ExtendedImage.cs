@@ -357,7 +357,7 @@ namespace QuickImageComment
         // Constructor
         // to get meta data only (for export and search)
         //*****************************************************************
-        public ExtendedImage(System.IO.FileInfo fileInfo, ArrayList neededKeysExiv2, ArrayList neededKeysExifTool)
+        public ExtendedImage(System.IO.FileInfo fileInfo, ArrayList neededKeysExiv2, ArrayList neededKeysExifTool, ArrayList neededKeysInternal)
         {
             this.ImageFileName = fileInfo.FullName;
             this.isVideo = ConfigDefinition.getVideoExtensionsPropertiesList().Contains((System.IO.Path.GetExtension(ImageFileName)).ToLower()) ||
@@ -373,9 +373,7 @@ namespace QuickImageComment
             bool tagFromBitmapNeeded = false;
             foreach (string tag in ConfigDefinition.TagsFromBitmap)
             {
-                //!! needs to be changed to internal tags
-                if (neededKeysExiv2.Contains(tag)) tagFromBitmapNeeded = true;
-
+                if (neededKeysInternal.Contains(tag)) tagFromBitmapNeeded = true;
             }
             if (tagFromBitmapNeeded)
             {

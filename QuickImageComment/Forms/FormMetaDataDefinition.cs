@@ -337,13 +337,16 @@ namespace QuickImageComment
                     }
                 }
 
-                foreach (MetaDataItemExifTool metaDataItemExifTool in theExtendedImage.getExifToolMetaDataItems().Values)
+                if (theExtendedImage != null)
                 {
-                    theListViewItem = new ListViewItem(new string[] { metaDataItemExifTool.getKey(),
+                    foreach (MetaDataItemExifTool metaDataItemExifTool in theExtendedImage.getExifToolMetaDataItems().Values)
+                    {
+                        theListViewItem = new ListViewItem(new string[] { metaDataItemExifTool.getKey(),
                                                                       metaDataItemExifTool.getTypeName(),
                                                                       metaDataItemExifTool.getShortDesc(),
                                                                       metaDataItemExifTool.getKey() });
-                    listViewTags.Items.Add(theListViewItem);
+                        listViewTags.Items.Add(theListViewItem);
+                    }
                 }
 
             }

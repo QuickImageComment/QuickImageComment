@@ -14,6 +14,7 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
+using Brain2CPU.ExifTool;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -314,8 +315,10 @@ namespace QuickImageComment
         private static ArrayList OtherMetaDataDefinitions;
         private static ArrayList TagNamesArtist;
         private static ArrayList TagNamesComment;
-        private static ArrayList AllTagNamesArtist;
-        private static ArrayList AllTagNamesComment;
+        private static ArrayList AllTagNamesArtistExiv2;
+        private static ArrayList AllTagNamesCommentExiv2;
+        private static ArrayList AllTagNamesArtistExifTool;
+        private static ArrayList AllTagNamesCommentExifTool;
         private static ArrayList TagDependencies;
         private static SortedList InternalMetaDataDefinitions;
         private static ArrayList IgnoreLines;
@@ -2158,7 +2161,16 @@ namespace QuickImageComment
         // returns names of possible tags to store artist
         public static ArrayList getAllTagNamesArtist()
         {
+            if (ExifToolWrapper.isReady())
+            {
+                ArrayList AllTagNamesArtist = new ArrayList(AllTagNamesArtistExiv2);
+                AllTagNamesArtist.AddRange(AllTagNamesArtistExifTool);
             return AllTagNamesArtist;
+            }
+            else
+            {
+                return AllTagNamesArtistExiv2;
+            }
         }
 
         // returns names of tags to store comment
@@ -2169,22 +2181,46 @@ namespace QuickImageComment
         // returns names of possible tags to store comment
         public static ArrayList getAllTagNamesComment()
         {
+            if (ExifToolWrapper.isReady())
+            {
+                ArrayList AllTagNamesComment = new ArrayList(AllTagNamesCommentExiv2);
+                AllTagNamesComment.AddRange(AllTagNamesCommentExifTool);
             return AllTagNamesComment;
+            }
+            else
+            {
+                return AllTagNamesCommentExiv2;
+            }
         }
         // returns list of tags needed for special Exif and IPTC information
-        public static ArrayList getNeededKeysIncludingReferences(ArrayList MetaDataDefinitionArrayList)
+        public static void getNeededKeysIncludingReferences(ArrayList MetaDataDefinitionArrayList,
+            ref ArrayList neededKeysExiv2, ref ArrayList neededKeysExifTool, ref ArrayList neededKeysInternal)
         {
             ArrayList neededKeys = new ArrayList();
-            // add keys for combined fields
-            // for simplicity it is not checked, if they are needed, as reading them is not consuming too much time
-            neededKeys.AddRange(ConfigDefinition.getAllTagNamesArtist());
-            neededKeys.AddRange(ConfigDefinition.getAllTagNamesComment());
-
             foreach (MetaDataDefinitionItem aMetaDataDefinitionItem in MetaDataDefinitionArrayList)
             {
                 if (!neededKeys.Contains(aMetaDataDefinitionItem.KeyPrim)) neededKeys.Add(aMetaDataDefinitionItem.KeyPrim);
                 if (!aMetaDataDefinitionItem.KeySec.Equals("") && !neededKeys.Contains(aMetaDataDefinitionItem.KeySec)) neededKeys.Add(aMetaDataDefinitionItem.KeySec);
             }
+
+            // add keys for internal fields
+            if (neededKeys.Contains("Image.ArtistCombinedFields"))
+            {
+                neededKeys.AddRange(ConfigDefinition.getAllTagNamesArtist());
+            }
+            if (neededKeys.Contains("Image.CommentCombinedFields"))
+            {
+                neededKeys.AddRange(ConfigDefinition.getAllTagNamesComment());
+            }
+            if (neededKeys.Contains("Image.ArtistAccordingSettings"))
+            {
+                neededKeys.AddRange(ConfigDefinition.getTagNamesArtist());
+            }
+            if (neededKeys.Contains("Image.CommentAccordingSettings"))
+            {
+                neededKeys.AddRange(ConfigDefinition.getTagNamesComment());
+            }
+
             // TagDependencies contains the tags needed to fill the tag listed as first in the array
             foreach (string[] tagNames in TagDependencies)
             {
@@ -2197,7 +2233,16 @@ namespace QuickImageComment
                 }
             }
 
-            return neededKeys;
+            // split into Exiv2 and ExifTool
+            foreach (string key in neededKeys)
+            {
+                if (TagDefinition.isExiv2Tag(key))
+                    neededKeysExiv2.Add(key);
+                else if (TagDefinition.isInternalTag(key))
+                    neededKeysInternal.Add(key);
+                else
+                    neededKeysExifTool.Add(key);
+            }
         }
 
         // return config path
@@ -3980,8 +4025,10 @@ namespace QuickImageComment
         {
             TagNamesArtist = new ArrayList();
             TagNamesComment = new ArrayList();
-            AllTagNamesArtist = new ArrayList();
-            AllTagNamesComment = new ArrayList();
+            AllTagNamesArtistExiv2 = new ArrayList();
+            AllTagNamesCommentExiv2 = new ArrayList();
+            AllTagNamesArtistExifTool = new ArrayList();
+            AllTagNamesCommentExifTool = new ArrayList();
 
             // fill list of tag names for artist
             if (getSaveNameInExifImageArtist())
@@ -4044,28 +4091,30 @@ namespace QuickImageComment
             }
 
             // fill AllTagNamesArtist for determination of Image.ArtistCombinedFields
-            AllTagNamesArtist.Add("Exif.Image.Artist");
-            AllTagNamesArtist.Add("Exif.Image.XPAuthor");
-            AllTagNamesArtist.Add("Iptc.Application2.Writer");
-            AllTagNamesArtist.Add("Xmp.dc.creator");
+            AllTagNamesArtistExiv2.Add("Exif.Image.Artist");
+            AllTagNamesArtistExiv2.Add("Exif.Image.XPAuthor");
+            AllTagNamesArtistExiv2.Add("Iptc.Application2.Writer");
+            AllTagNamesArtistExiv2.Add("Xmp.dc.creator");
             if (!ConfigDefinition.getTxtKeyWordArtist().Equals(""))
             {
-                AllTagNamesArtist.Add("Txt." + ConfigDefinition.getTxtKeyWordArtist());
+                AllTagNamesArtistExiv2.Add("Txt." + ConfigDefinition.getTxtKeyWordArtist());
             }
+            AllTagNamesArtistExifTool.Add("ItemList:Artist");
 
             // fill AllTagNamesComment for determination of Image.CommentCombinedFields
-            AllTagNamesComment.Add("Exif.Image.ImageDescription");
-            AllTagNamesComment.Add("Exif.Image.XPComment");
-            AllTagNamesComment.Add("Exif.Image.XPTitle");
-            AllTagNamesComment.Add("Exif.Photo.UserComment");
-            AllTagNamesComment.Add("Iptc.Application2.Caption");
-            AllTagNamesComment.Add("Xmp.dc.description");
-            AllTagNamesComment.Add("Xmp.dc.title");
-            AllTagNamesComment.Add("Image.Comment");
+            AllTagNamesCommentExiv2.Add("Exif.Image.ImageDescription");
+            AllTagNamesCommentExiv2.Add("Exif.Image.XPComment");
+            AllTagNamesCommentExiv2.Add("Exif.Image.XPTitle");
+            AllTagNamesCommentExiv2.Add("Exif.Photo.UserComment");
+            AllTagNamesCommentExiv2.Add("Iptc.Application2.Caption");
+            AllTagNamesCommentExiv2.Add("Xmp.dc.description");
+            AllTagNamesCommentExiv2.Add("Xmp.dc.title");
+            AllTagNamesCommentExiv2.Add("Image.Comment");
             if (!ConfigDefinition.getTxtKeyWordComment().Equals(""))
             {
-                AllTagNamesComment.Add("Txt." + ConfigDefinition.getTxtKeyWordComment());
+                AllTagNamesCommentExiv2.Add("Txt." + ConfigDefinition.getTxtKeyWordComment());
             }
+            AllTagNamesCommentExifTool.Add("ItemList:Comment");
         }
 
         // delete a Rename Configuration

@@ -69,6 +69,7 @@ namespace QuickImageComment
         private bool filterDefinitionsComplete = false;
         private static ArrayList MetaDataDefinitionsToReadExiv2;
         private static ArrayList MetaDataDefinitionsToReadExifTool;
+        private static ArrayList MetaDataDefinitionsToReadInternal;
         private static FilterDefinition filterDefinitionKeyWords = null;
 
         private static bool initialisationCompleted = false;
@@ -1148,7 +1149,8 @@ namespace QuickImageComment
                         DataRow row = dataTable.NewRow();
                         row["FileName"] = ImageFilesInfo[ii].FullName;
                         FilenameForExceptionMessage = ImageFilesInfo[ii].FullName;
-                        extendedImage = new ExtendedImage(ImageFilesInfo[ii], MetaDataDefinitionsToReadExiv2, MetaDataDefinitionsToReadExifTool);
+                        extendedImage = new ExtendedImage(ImageFilesInfo[ii], MetaDataDefinitionsToReadExiv2, 
+                            MetaDataDefinitionsToReadExifTool, MetaDataDefinitionsToReadInternal);
                         fillDataTableRow(row, extendedImage, formFindReadErrors);
                         dataTable.Rows.Add(row);
 
@@ -1328,7 +1330,8 @@ namespace QuickImageComment
                         return;
                     }
                     fileName = (string)dataRow["FileName"];
-                    extendedImage = new ExtendedImage(new FileInfo(fileName), MetaDataDefinitionsToReadExiv2, MetaDataDefinitionsToReadExifTool);
+                    extendedImage = new ExtendedImage(new FileInfo(fileName), MetaDataDefinitionsToReadExiv2, 
+                        MetaDataDefinitionsToReadExifTool, MetaDataDefinitionsToReadInternal);
                     addOrUpdateRow(extendedImage);
                     count++;
                 }
@@ -1609,7 +1612,8 @@ namespace QuickImageComment
                 {
                     try
                     {
-                        ExtendedImage extendedImage = new ExtendedImage(new FileInfo(fullFileName), MetaDataDefinitionsToReadExiv2, MetaDataDefinitionsToReadExifTool);
+                        ExtendedImage extendedImage = new ExtendedImage(new FileInfo(fullFileName), 
+                            MetaDataDefinitionsToReadExiv2, MetaDataDefinitionsToReadExifTool, MetaDataDefinitionsToReadInternal);
                         addOrUpdateRow(extendedImage);
                     }
                     // in case of errors do nothing, most likely it is no valid image or video file
@@ -1740,17 +1744,11 @@ namespace QuickImageComment
             {
                 MetaDataDefinitionsToStore.Add(((FilterDefinition)filterDefinitions[ii]).metaDataDefinitionItem);
             }
-            ArrayList MetaDataDefinitionsToRead = ConfigDefinition.getNeededKeysIncludingReferences(MetaDataDefinitionsToStore);
-            MetaDataDefinitionsToReadExifTool = new ArrayList();
             MetaDataDefinitionsToReadExiv2 = new ArrayList();
-
-            foreach (string key in MetaDataDefinitionsToRead)
-            {
-                if (TagDefinition.isExiv2Tag(key))
-                    MetaDataDefinitionsToReadExiv2.Add(key);
-                else if (TagDefinition.isExifToolTag(key))
-                    MetaDataDefinitionsToReadExifTool.Add(key);
-            }
+            MetaDataDefinitionsToReadExifTool = new ArrayList();
+            MetaDataDefinitionsToReadInternal = new ArrayList();
+            ConfigDefinition.getNeededKeysIncludingReferences(MetaDataDefinitionsToStore,
+                ref MetaDataDefinitionsToReadExiv2, ref MetaDataDefinitionsToReadExifTool, ref MetaDataDefinitionsToReadInternal);
 
             // show tree view with predefined key words only if a column for IPTC key words is configured
             labelIptcKeyWords.Visible = filterDefinitionKeyWords != null;

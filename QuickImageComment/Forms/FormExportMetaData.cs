@@ -31,7 +31,7 @@ namespace QuickImageComment
 
         // definitions used with background worker
         // used to show passed time when reading folder
-        private DateTime startTime1;
+        private readonly DateTime startTime1;
         // used to show passed time when exporting meta data
         private DateTime startTime2;
         // used to reduce counts of refresh when reading folder
@@ -39,8 +39,8 @@ namespace QuickImageComment
         // count of files, filled in backgroundworker1
         int totalCount = 0;
         int exportedCount = 0;
-        StreamWriter StreamOut;
-        Cursor OldCursor;
+        readonly StreamWriter StreamOut;
+        readonly Cursor OldCursor;
 #if LOG_MEMORY
         long newRemMem;
         long oldRemMem;
@@ -80,12 +80,14 @@ namespace QuickImageComment
             }
 
             // main function to export properties to text file
-            SaveFileDialog saveTextExportFileDialog = new SaveFileDialog();
-            saveTextExportFileDialog.InitialDirectory = FolderName;
-            saveTextExportFileDialog.DefaultExt = "txt";
-            saveTextExportFileDialog.Title = LangCfg.getText(LangCfg.Others.exportPropertiesAllImages);
-            saveTextExportFileDialog.Filter = LangCfg.getText(LangCfg.Others.textFilesAllFiles);
-            saveTextExportFileDialog.RestoreDirectory = true;
+            SaveFileDialog saveTextExportFileDialog = new SaveFileDialog
+            {
+                InitialDirectory = FolderName,
+                DefaultExt = "txt",
+                Title = LangCfg.getText(LangCfg.Others.exportPropertiesAllImages),
+                Filter = LangCfg.getText(LangCfg.Others.textFilesAllFiles),
+                RestoreDirectory = true
+            };
 
             if (saveTextExportFileDialog.ShowDialog() == DialogResult.OK)
             {
@@ -162,18 +164,11 @@ namespace QuickImageComment
             exportedCount = 0;
 
             // get arraylist with needed keys
-            ArrayList neededKeys = ConfigDefinition.getNeededKeysIncludingReferences(ConfigDefinition.getMetaDataDefinitions(ConfigDefinition.enumMetaDataGroup.MetaDataDefForTextExport));
             ArrayList neededKeysExifTool = new ArrayList();
             ArrayList neededKeysExiv2 = new ArrayList();
-
-            foreach (string key in neededKeys)
-            {
-                if (TagDefinition.isExiv2Tag(key))
-                    neededKeysExiv2.Add(key);
-                else if (TagDefinition.isExifToolTag(key))
-                    neededKeysExifTool.Add(key);
-            }
-
+            ArrayList neededKeysInternal = new ArrayList();
+            ConfigDefinition.getNeededKeysIncludingReferences(ConfigDefinition.getMetaDataDefinitions(ConfigDefinition.enumMetaDataGroup.MetaDataDefForTextExport),
+                ref neededKeysExiv2, ref neededKeysExifTool, ref neededKeysInternal);
             foreach (FileInfo fileInfo in ImageFilesInfoSorted)
             {
 #if LOG_MEMORY
@@ -189,7 +184,7 @@ namespace QuickImageComment
 #endif
                 exportedCount++;
 
-                theExtendedImage = new ExtendedImage(fileInfo, neededKeysExiv2, neededKeysExifTool);
+                theExtendedImage = new ExtendedImage(fileInfo, neededKeysExiv2, neededKeysExifTool, neededKeysInternal);
                 StreamOut.WriteLine(theExtendedImage.getMetaDataForTextExport());
                 StreamOut.Flush();
 
@@ -242,7 +237,7 @@ namespace QuickImageComment
                 timeDifference1 = DateTime.Now - startTime1;
                 timeDifference2 = DateTime.Now - startTime2;
                 dynamicLabelPassedTime.Text = timeDifference1.ToString().Substring(0, 8);
-                if (timeDifference2.TotalSeconds > minTimePassedForRemCalc)
+                if (timeDifference2.TotalSeconds > minTimePassedForRemCalc && exportedCount > 0)
                 {
                     RemainingTime = new DateTime(timeDifference2.Ticks
                         * (totalCount - exportedCount) / exportedCount);
