@@ -1479,8 +1479,14 @@ namespace QuickImageComment
                 return false;
             }
             // check if tag is used for artist and comment input fields
-            else if (ConfigDefinition.getTagNamesComment().Contains(key) ||
-                ConfigDefinition.getTagNamesArtist().Contains(key))
+            // limitation: it might happen that a tag is configured to be used as standard artist
+            // in videos and user wants to use same tag as changeable field for images
+            // with following logic, this will not be possible: when defining fields
+            // it is not known if field is used for image or video
+            else if (ConfigDefinition.getTagNamesWriteCommentImage().Contains(key) ||
+                     ConfigDefinition.getTagNamesWriteArtistImage().Contains(key) ||
+                     ConfigDefinition.getTagNamesWriteCommentVideo().Contains(key) ||
+                     ConfigDefinition.getTagNamesWriteArtistVideo().Contains(key))
             {
                 GeneralUtilities.message(LangCfg.Message.E_metaDataNotEnteredSettings, key);
                 return false;

@@ -1442,6 +1442,19 @@ namespace QuickImageComment
             {
                 return false;
             }
+
+            // type is used for check only if it is an exiv2 tag name
+            string type = "";
+            if (Exiv2TagDefinitions.getList().Keys.Contains(metaDatumText))
+            {
+                TagDefinition theTagDefinition = Exiv2TagDefinitions.getList()[metaDatumText];
+                type = theTagDefinition.type;
+            }
+            if (!selectionOfMetaDateOk(metaDatumText, type, theTextBoxMetaDatum.Equals(textBoxMetaDatum1),
+                                       listBoxMetaDataSelectedIndex))
+            {
+                return true;
+            }
             else if (!Exiv2TagDefinitions.getList().ContainsKey(metaDatumText))
             {
                 if (metaDatumText.StartsWith("Xmp.") || metaDatumText.StartsWith("Txt."))
@@ -1484,16 +1497,14 @@ namespace QuickImageComment
                     }
                     else
                     {
-                        GeneralUtilities.message(LangCfg.Message.W_ExifToolNotReadyForTagCheck, metaDatumText);//DE
+                        GeneralUtilities.message(LangCfg.Message.W_ExifToolNotReadyForTagCheck, metaDatumText);
                         return false;
                     }
                 }
             }
             else
             {
-                TagDefinition theTagDefinition = Exiv2TagDefinitions.getList()[metaDatumText];
-                return !selectionOfMetaDateOk(metaDatumText, theTagDefinition.type, theTextBoxMetaDatum.Equals(textBoxMetaDatum1),
-                                              listBoxMetaDataSelectedIndex);
+                return false;
             }
         }
 

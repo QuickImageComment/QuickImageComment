@@ -56,7 +56,7 @@ namespace QuickImageComment
             this.checkBoxLastCommentsWithCursor = new System.Windows.Forms.CheckBox();
             this.checkBoxMetaDataWarningsChangeAppearance = new System.Windows.Forms.CheckBox();
             this.checkBoxMetaDataWarningsMessageBox = new System.Windows.Forms.CheckBox();
-            this.fixedCheckBoxSaveNameInExifImageArtist = new System.Windows.Forms.CheckBox();
+            this.fixedCheckBoxSaveNameImage1 = new System.Windows.Forms.CheckBox();
             this.numericUpDownMaxLastComments = new System.Windows.Forms.NumericUpDown();
             this.labelMaxLastComments = new System.Windows.Forms.Label();
             this.labelReactionListBoxCommentDoubleClick = new System.Windows.Forms.Label();
@@ -68,10 +68,10 @@ namespace QuickImageComment
             this.checkBoxUseDefaultArtist = new System.Windows.Forms.CheckBox();
             this.textBoxDefaultArtist = new System.Windows.Forms.TextBox();
             this.checkBoxNavigationTabSplitbars = new System.Windows.Forms.CheckBox();
-            this.fixedCheckBoxSaveCommentInExifImageImageDescription = new System.Windows.Forms.CheckBox();
-            this.fixedCheckBoxSaveNameInIptcApplication2Writer = new System.Windows.Forms.CheckBox();
-            this.fixedCheckBoxSaveCommentInExifPhotoUserComment = new System.Windows.Forms.CheckBox();
-            this.fixedCheckBoxSaveCommentInImageComment = new System.Windows.Forms.CheckBox();
+            this.fixedCheckBoxSaveCommentImage1 = new System.Windows.Forms.CheckBox();
+            this.fixedCheckBoxSaveNameImage3 = new System.Windows.Forms.CheckBox();
+            this.fixedCheckBoxSaveCommentImage4 = new System.Windows.Forms.CheckBox();
+            this.fixedCheckBoxSaveCommentImage8 = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.labelFullSizeImageCacheMaxSize = new System.Windows.Forms.Label();
@@ -100,14 +100,30 @@ namespace QuickImageComment
             this.label9 = new System.Windows.Forms.Label();
             this.labelMaxArtists = new System.Windows.Forms.Label();
             this.numericUpDownMaxArtists = new System.Windows.Forms.NumericUpDown();
-            this.fixedCheckBoxSaveCommentInIptcApplication2Caption = new System.Windows.Forms.CheckBox();
-            this.fixedCheckBoxSaveCommentInXmpDcDescription = new System.Windows.Forms.CheckBox();
-            this.fixedCheckBoxSaveCommentInXmpDcTitle = new System.Windows.Forms.CheckBox();
-            this.fixedCheckBoxSaveNameInXmpDcCreator = new System.Windows.Forms.CheckBox();
+            this.fixedCheckBoxSaveCommentImage5 = new System.Windows.Forms.CheckBox();
+            this.fixedCheckBoxSaveCommentImage6 = new System.Windows.Forms.CheckBox();
+            this.fixedCheckBoxSaveCommentImage7 = new System.Windows.Forms.CheckBox();
+            this.fixedCheckBoxSaveNameImage4 = new System.Windows.Forms.CheckBox();
             this.Panel2 = new System.Windows.Forms.Panel();
-            this.fixedCheckBoxSaveCommentInExifImageXPTitle = new System.Windows.Forms.CheckBox();
-            this.fixedCheckBoxSaveNameInExifImageXPAuthor = new System.Windows.Forms.CheckBox();
-            this.fixedCheckBoxSaveCommentInExifImageXPComment = new System.Windows.Forms.CheckBox();
+            this.fixedCheckBoxSaveNameVideo2 = new System.Windows.Forms.CheckBox();
+            this.fixedCheckBoxSaveNameVideo4 = new System.Windows.Forms.CheckBox();
+            this.fixedCheckBoxSaveNameVideo3 = new System.Windows.Forms.CheckBox();
+            this.fixedCheckBoxSaveNameVideo1 = new System.Windows.Forms.CheckBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.fixedCheckBoxSaveCommentVideo3 = new System.Windows.Forms.CheckBox();
+            this.fixedCheckBoxSaveCommentVideo2 = new System.Windows.Forms.CheckBox();
+            this.fixedCheckBoxSaveCommentVideo7 = new System.Windows.Forms.CheckBox();
+            this.fixedCheckBoxSaveCommentVideo5 = new System.Windows.Forms.CheckBox();
+            this.fixedCheckBoxSaveCommentVideo4 = new System.Windows.Forms.CheckBox();
+            this.fixedCheckBoxSaveCommentVideo1 = new System.Windows.Forms.CheckBox();
+            this.fixedCheckBoxSaveCommentVideo6 = new System.Windows.Forms.CheckBox();
+            this.fixedCheckBoxSaveCommentVideo8 = new System.Windows.Forms.CheckBox();
+            this.fixedCheckBoxSaveCommentImage3 = new System.Windows.Forms.CheckBox();
+            this.fixedCheckBoxSaveNameImage2 = new System.Windows.Forms.CheckBox();
+            this.fixedCheckBoxSaveCommentImage2 = new System.Windows.Forms.CheckBox();
             this.label1MaxChangeableFieldEntries = new System.Windows.Forms.Label();
             this.numericUpDownMaxChangeableFieldEntries = new System.Windows.Forms.NumericUpDown();
             this.label10 = new System.Windows.Forms.Label();
@@ -119,13 +135,13 @@ namespace QuickImageComment
             this.labelFramePosition = new System.Windows.Forms.Label();
             this.Panel5 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.checkBoxLogDiffMetaData = new System.Windows.Forms.CheckBox();
             this.buttonExifToolSettings = new System.Windows.Forms.Button();
             this.comboBoxCharsetUserComment = new System.Windows.Forms.ComboBox();
             this.checkBoxIptcUTF8 = new System.Windows.Forms.CheckBox();
             this.checkBoxExifUTF8 = new System.Windows.Forms.CheckBox();
             this.labelCharSet = new System.Windows.Forms.Label();
             this.checkBoxButtonDeletesPermanent = new System.Windows.Forms.CheckBox();
-            this.checkBoxLogDiffMetaData = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxLastComments)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFullSizeImageCacheMaxSize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaximumMemoryForCaching)).BeginInit();
@@ -202,17 +218,17 @@ namespace QuickImageComment
             this.checkBoxMetaDataWarningsMessageBox.Text = "Bei Fehler oder Auffälligkeit in den Meta-Daten: Message-Box anzeigen";
             this.checkBoxMetaDataWarningsMessageBox.UseVisualStyleBackColor = true;
             // 
-            // fixedCheckBoxSaveNameInExifImageArtist
+            // fixedCheckBoxSaveNameImage1
             // 
-            this.fixedCheckBoxSaveNameInExifImageArtist.AutoSize = true;
-            this.fixedCheckBoxSaveNameInExifImageArtist.Location = new System.Drawing.Point(5, 192);
-            this.fixedCheckBoxSaveNameInExifImageArtist.Name = "fixedCheckBoxSaveNameInExifImageArtist";
-            this.fixedCheckBoxSaveNameInExifImageArtist.Size = new System.Drawing.Size(108, 17);
-            this.fixedCheckBoxSaveNameInExifImageArtist.TabIndex = 1;
-            this.fixedCheckBoxSaveNameInExifImageArtist.Tag = "Exif.Image.Artist";
-            this.fixedCheckBoxSaveNameInExifImageArtist.Text = "Exif.Image.Artist";
-            this.fixedCheckBoxSaveNameInExifImageArtist.UseVisualStyleBackColor = true;
-            this.fixedCheckBoxSaveNameInExifImageArtist.CheckedChanged += new System.EventHandler(this.checkBoxSaveTags_CheckedChanged);
+            this.fixedCheckBoxSaveNameImage1.AutoSize = true;
+            this.fixedCheckBoxSaveNameImage1.Location = new System.Drawing.Point(5, 223);
+            this.fixedCheckBoxSaveNameImage1.Name = "fixedCheckBoxSaveNameImage1";
+            this.fixedCheckBoxSaveNameImage1.Size = new System.Drawing.Size(89, 17);
+            this.fixedCheckBoxSaveNameImage1.TabIndex = 1;
+            this.fixedCheckBoxSaveNameImage1.Tag = "";
+            this.fixedCheckBoxSaveNameImage1.Text = "NameImage1";
+            this.fixedCheckBoxSaveNameImage1.UseVisualStyleBackColor = true;
+            this.fixedCheckBoxSaveNameImage1.CheckedChanged += new System.EventHandler(this.checkBoxSaveTags_CheckedChanged);
             // 
             // numericUpDownMaxLastComments
             // 
@@ -320,71 +336,71 @@ namespace QuickImageComment
             this.checkBoxNavigationTabSplitbars.Text = "Navigation mit Tabulator zu Splitbar";
             this.checkBoxNavigationTabSplitbars.UseVisualStyleBackColor = true;
             // 
-            // fixedCheckBoxSaveCommentInExifImageImageDescription
+            // fixedCheckBoxSaveCommentImage1
             // 
-            this.fixedCheckBoxSaveCommentInExifImageImageDescription.AutoSize = true;
-            this.fixedCheckBoxSaveCommentInExifImageImageDescription.Location = new System.Drawing.Point(5, 19);
-            this.fixedCheckBoxSaveCommentInExifImageImageDescription.Name = "fixedCheckBoxSaveCommentInExifImageImageDescription";
-            this.fixedCheckBoxSaveCommentInExifImageImageDescription.Size = new System.Drawing.Size(165, 17);
-            this.fixedCheckBoxSaveCommentInExifImageImageDescription.TabIndex = 1;
-            this.fixedCheckBoxSaveCommentInExifImageImageDescription.Tag = "Exif.Image.ImageDescription";
-            this.fixedCheckBoxSaveCommentInExifImageImageDescription.Text = "Exif.Image.ImageDescription";
-            this.fixedCheckBoxSaveCommentInExifImageImageDescription.UseVisualStyleBackColor = true;
-            this.fixedCheckBoxSaveCommentInExifImageImageDescription.CheckedChanged += new System.EventHandler(this.checkBoxSaveTags_CheckedChanged);
+            this.fixedCheckBoxSaveCommentImage1.AutoSize = true;
+            this.fixedCheckBoxSaveCommentImage1.Location = new System.Drawing.Point(5, 35);
+            this.fixedCheckBoxSaveCommentImage1.Name = "fixedCheckBoxSaveCommentImage1";
+            this.fixedCheckBoxSaveCommentImage1.Size = new System.Drawing.Size(107, 17);
+            this.fixedCheckBoxSaveCommentImage1.TabIndex = 1;
+            this.fixedCheckBoxSaveCommentImage1.Tag = "";
+            this.fixedCheckBoxSaveCommentImage1.Text = "CommentImage1";
+            this.fixedCheckBoxSaveCommentImage1.UseVisualStyleBackColor = true;
+            this.fixedCheckBoxSaveCommentImage1.CheckedChanged += new System.EventHandler(this.checkBoxSaveTags_CheckedChanged);
             // 
-            // fixedCheckBoxSaveNameInIptcApplication2Writer
+            // fixedCheckBoxSaveNameImage3
             // 
-            this.fixedCheckBoxSaveNameInIptcApplication2Writer.AutoSize = true;
-            this.fixedCheckBoxSaveNameInIptcApplication2Writer.Location = new System.Drawing.Point(5, 226);
-            this.fixedCheckBoxSaveNameInIptcApplication2Writer.Name = "fixedCheckBoxSaveNameInIptcApplication2Writer";
-            this.fixedCheckBoxSaveNameInIptcApplication2Writer.Size = new System.Drawing.Size(141, 17);
-            this.fixedCheckBoxSaveNameInIptcApplication2Writer.TabIndex = 2;
-            this.fixedCheckBoxSaveNameInIptcApplication2Writer.Tag = "Iptc.Application2.Writer";
-            this.fixedCheckBoxSaveNameInIptcApplication2Writer.Text = "Iptc.Application2.Writer";
-            this.fixedCheckBoxSaveNameInIptcApplication2Writer.UseVisualStyleBackColor = true;
-            this.fixedCheckBoxSaveNameInIptcApplication2Writer.CheckedChanged += new System.EventHandler(this.checkBoxSaveTags_CheckedChanged);
+            this.fixedCheckBoxSaveNameImage3.AutoSize = true;
+            this.fixedCheckBoxSaveNameImage3.Location = new System.Drawing.Point(5, 257);
+            this.fixedCheckBoxSaveNameImage3.Name = "fixedCheckBoxSaveNameImage3";
+            this.fixedCheckBoxSaveNameImage3.Size = new System.Drawing.Size(89, 17);
+            this.fixedCheckBoxSaveNameImage3.TabIndex = 2;
+            this.fixedCheckBoxSaveNameImage3.Tag = "";
+            this.fixedCheckBoxSaveNameImage3.Text = "NameImage3";
+            this.fixedCheckBoxSaveNameImage3.UseVisualStyleBackColor = true;
+            this.fixedCheckBoxSaveNameImage3.CheckedChanged += new System.EventHandler(this.checkBoxSaveTags_CheckedChanged);
             // 
-            // fixedCheckBoxSaveCommentInExifPhotoUserComment
+            // fixedCheckBoxSaveCommentImage4
             // 
-            this.fixedCheckBoxSaveCommentInExifPhotoUserComment.AutoSize = true;
-            this.fixedCheckBoxSaveCommentInExifPhotoUserComment.Location = new System.Drawing.Point(5, 71);
-            this.fixedCheckBoxSaveCommentInExifPhotoUserComment.Name = "fixedCheckBoxSaveCommentInExifPhotoUserComment";
-            this.fixedCheckBoxSaveCommentInExifPhotoUserComment.Size = new System.Drawing.Size(147, 17);
-            this.fixedCheckBoxSaveCommentInExifPhotoUserComment.TabIndex = 2;
-            this.fixedCheckBoxSaveCommentInExifPhotoUserComment.Tag = "Exif.Photo.UserComment";
-            this.fixedCheckBoxSaveCommentInExifPhotoUserComment.Text = "Exif.Photo.UserComment";
-            this.fixedCheckBoxSaveCommentInExifPhotoUserComment.UseVisualStyleBackColor = true;
-            this.fixedCheckBoxSaveCommentInExifPhotoUserComment.CheckedChanged += new System.EventHandler(this.checkBoxSaveTags_CheckedChanged);
+            this.fixedCheckBoxSaveCommentImage4.AutoSize = true;
+            this.fixedCheckBoxSaveCommentImage4.Location = new System.Drawing.Point(5, 87);
+            this.fixedCheckBoxSaveCommentImage4.Name = "fixedCheckBoxSaveCommentImage4";
+            this.fixedCheckBoxSaveCommentImage4.Size = new System.Drawing.Size(107, 17);
+            this.fixedCheckBoxSaveCommentImage4.TabIndex = 2;
+            this.fixedCheckBoxSaveCommentImage4.Tag = "";
+            this.fixedCheckBoxSaveCommentImage4.Text = "CommentImage4";
+            this.fixedCheckBoxSaveCommentImage4.UseVisualStyleBackColor = true;
+            this.fixedCheckBoxSaveCommentImage4.CheckedChanged += new System.EventHandler(this.checkBoxSaveTags_CheckedChanged);
             // 
-            // fixedCheckBoxSaveCommentInImageComment
+            // fixedCheckBoxSaveCommentImage8
             // 
-            this.fixedCheckBoxSaveCommentInImageComment.AutoSize = true;
-            this.fixedCheckBoxSaveCommentInImageComment.Location = new System.Drawing.Point(5, 138);
-            this.fixedCheckBoxSaveCommentInImageComment.Name = "fixedCheckBoxSaveCommentInImageComment";
-            this.fixedCheckBoxSaveCommentInImageComment.Size = new System.Drawing.Size(196, 17);
-            this.fixedCheckBoxSaveCommentInImageComment.TabIndex = 6;
-            this.fixedCheckBoxSaveCommentInImageComment.Tag = "Image.Comment";
-            this.fixedCheckBoxSaveCommentInImageComment.Text = "JPEG Kommentar (Image Comment)";
-            this.fixedCheckBoxSaveCommentInImageComment.UseVisualStyleBackColor = true;
-            this.fixedCheckBoxSaveCommentInImageComment.CheckedChanged += new System.EventHandler(this.checkBoxSaveTags_CheckedChanged);
+            this.fixedCheckBoxSaveCommentImage8.AutoSize = true;
+            this.fixedCheckBoxSaveCommentImage8.Location = new System.Drawing.Point(5, 154);
+            this.fixedCheckBoxSaveCommentImage8.Name = "fixedCheckBoxSaveCommentImage8";
+            this.fixedCheckBoxSaveCommentImage8.Size = new System.Drawing.Size(107, 17);
+            this.fixedCheckBoxSaveCommentImage8.TabIndex = 6;
+            this.fixedCheckBoxSaveCommentImage8.Tag = "";
+            this.fixedCheckBoxSaveCommentImage8.Text = "CommentImage8";
+            this.fixedCheckBoxSaveCommentImage8.UseVisualStyleBackColor = true;
+            this.fixedCheckBoxSaveCommentImage8.CheckedChanged += new System.EventHandler(this.checkBoxSaveTags_CheckedChanged);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(3, 3);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(121, 13);
+            this.label1.Size = new System.Drawing.Size(110, 13);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Kommentar speichern in";
+            this.label1.Text = "Kommentar speichern\r\n";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(3, 175);
+            this.label2.Location = new System.Drawing.Point(3, 191);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(144, 13);
+            this.label2.Size = new System.Drawing.Size(136, 13);
             this.label2.TabIndex = 0;
-            this.label2.Text = "Künstler (Autor) speichern in";
+            this.label2.Text = "Künstler (Autor) speichern ";
             // 
             // labelFullSizeImageCacheMaxSize
             // 
@@ -573,7 +589,7 @@ namespace QuickImageComment
             // checkBoxLangAlt5
             // 
             this.checkBoxLangAlt5.AutoSize = true;
-            this.checkBoxLangAlt5.Location = new System.Drawing.Point(5, 370);
+            this.checkBoxLangAlt5.Location = new System.Drawing.Point(5, 404);
             this.checkBoxLangAlt5.Name = "checkBoxLangAlt5";
             this.checkBoxLangAlt5.Size = new System.Drawing.Size(71, 17);
             this.checkBoxLangAlt5.TabIndex = 6;
@@ -584,7 +600,7 @@ namespace QuickImageComment
             // checkBoxLangAlt3
             // 
             this.checkBoxLangAlt3.AutoSize = true;
-            this.checkBoxLangAlt3.Location = new System.Drawing.Point(5, 337);
+            this.checkBoxLangAlt3.Location = new System.Drawing.Point(5, 371);
             this.checkBoxLangAlt3.Name = "checkBoxLangAlt3";
             this.checkBoxLangAlt3.Size = new System.Drawing.Size(71, 17);
             this.checkBoxLangAlt3.TabIndex = 4;
@@ -595,7 +611,7 @@ namespace QuickImageComment
             // checkBoxLangAlt4
             // 
             this.checkBoxLangAlt4.AutoSize = true;
-            this.checkBoxLangAlt4.Location = new System.Drawing.Point(5, 354);
+            this.checkBoxLangAlt4.Location = new System.Drawing.Point(5, 388);
             this.checkBoxLangAlt4.Name = "checkBoxLangAlt4";
             this.checkBoxLangAlt4.Size = new System.Drawing.Size(71, 17);
             this.checkBoxLangAlt4.TabIndex = 5;
@@ -606,7 +622,7 @@ namespace QuickImageComment
             // checkBoxLangAlt2
             // 
             this.checkBoxLangAlt2.AutoSize = true;
-            this.checkBoxLangAlt2.Location = new System.Drawing.Point(5, 320);
+            this.checkBoxLangAlt2.Location = new System.Drawing.Point(5, 354);
             this.checkBoxLangAlt2.Name = "checkBoxLangAlt2";
             this.checkBoxLangAlt2.Size = new System.Drawing.Size(71, 17);
             this.checkBoxLangAlt2.TabIndex = 3;
@@ -617,7 +633,7 @@ namespace QuickImageComment
             // checkBoxLangAlt1
             // 
             this.checkBoxLangAlt1.AutoSize = true;
-            this.checkBoxLangAlt1.Location = new System.Drawing.Point(5, 303);
+            this.checkBoxLangAlt1.Location = new System.Drawing.Point(5, 337);
             this.checkBoxLangAlt1.Name = "checkBoxLangAlt1";
             this.checkBoxLangAlt1.Size = new System.Drawing.Size(71, 17);
             this.checkBoxLangAlt1.TabIndex = 2;
@@ -628,7 +644,7 @@ namespace QuickImageComment
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 274);
+            this.label3.Location = new System.Drawing.Point(3, 308);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(52, 13);
             this.label3.TabIndex = 0;
@@ -637,7 +653,7 @@ namespace QuickImageComment
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(3, 287);
+            this.label9.Location = new System.Drawing.Point(3, 321);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(144, 13);
             this.label9.TabIndex = 1;
@@ -664,118 +680,314 @@ namespace QuickImageComment
             this.numericUpDownMaxArtists.Size = new System.Drawing.Size(58, 21);
             this.numericUpDownMaxArtists.TabIndex = 11;
             // 
-            // fixedCheckBoxSaveCommentInIptcApplication2Caption
+            // fixedCheckBoxSaveCommentImage5
             // 
-            this.fixedCheckBoxSaveCommentInIptcApplication2Caption.AutoSize = true;
-            this.fixedCheckBoxSaveCommentInIptcApplication2Caption.Location = new System.Drawing.Point(5, 88);
-            this.fixedCheckBoxSaveCommentInIptcApplication2Caption.Name = "fixedCheckBoxSaveCommentInIptcApplication2Caption";
-            this.fixedCheckBoxSaveCommentInIptcApplication2Caption.Size = new System.Drawing.Size(148, 17);
-            this.fixedCheckBoxSaveCommentInIptcApplication2Caption.TabIndex = 3;
-            this.fixedCheckBoxSaveCommentInIptcApplication2Caption.Tag = "Iptc.Application2.Caption";
-            this.fixedCheckBoxSaveCommentInIptcApplication2Caption.Text = "Iptc.Application2.Caption";
-            this.fixedCheckBoxSaveCommentInIptcApplication2Caption.UseVisualStyleBackColor = true;
-            this.fixedCheckBoxSaveCommentInIptcApplication2Caption.CheckedChanged += new System.EventHandler(this.checkBoxSaveTags_CheckedChanged);
+            this.fixedCheckBoxSaveCommentImage5.AutoSize = true;
+            this.fixedCheckBoxSaveCommentImage5.Location = new System.Drawing.Point(5, 104);
+            this.fixedCheckBoxSaveCommentImage5.Name = "fixedCheckBoxSaveCommentImage5";
+            this.fixedCheckBoxSaveCommentImage5.Size = new System.Drawing.Size(107, 17);
+            this.fixedCheckBoxSaveCommentImage5.TabIndex = 3;
+            this.fixedCheckBoxSaveCommentImage5.Tag = "";
+            this.fixedCheckBoxSaveCommentImage5.Text = "CommentImage5";
+            this.fixedCheckBoxSaveCommentImage5.UseVisualStyleBackColor = true;
+            this.fixedCheckBoxSaveCommentImage5.CheckedChanged += new System.EventHandler(this.checkBoxSaveTags_CheckedChanged);
             // 
-            // fixedCheckBoxSaveCommentInXmpDcDescription
+            // fixedCheckBoxSaveCommentImage6
             // 
-            this.fixedCheckBoxSaveCommentInXmpDcDescription.AutoSize = true;
-            this.fixedCheckBoxSaveCommentInXmpDcDescription.Location = new System.Drawing.Point(5, 105);
-            this.fixedCheckBoxSaveCommentInXmpDcDescription.Name = "fixedCheckBoxSaveCommentInXmpDcDescription";
-            this.fixedCheckBoxSaveCommentInXmpDcDescription.Size = new System.Drawing.Size(200, 17);
-            this.fixedCheckBoxSaveCommentInXmpDcDescription.TabIndex = 4;
-            this.fixedCheckBoxSaveCommentInXmpDcDescription.Tag = "Xmp.dc.description";
-            this.fixedCheckBoxSaveCommentInXmpDcDescription.Text = "Xmp.dc.description (lang=x-default)";
-            this.fixedCheckBoxSaveCommentInXmpDcDescription.UseVisualStyleBackColor = true;
-            this.fixedCheckBoxSaveCommentInXmpDcDescription.CheckedChanged += new System.EventHandler(this.checkBoxSaveTags_CheckedChanged);
+            this.fixedCheckBoxSaveCommentImage6.AutoSize = true;
+            this.fixedCheckBoxSaveCommentImage6.Location = new System.Drawing.Point(5, 121);
+            this.fixedCheckBoxSaveCommentImage6.Name = "fixedCheckBoxSaveCommentImage6";
+            this.fixedCheckBoxSaveCommentImage6.Size = new System.Drawing.Size(107, 17);
+            this.fixedCheckBoxSaveCommentImage6.TabIndex = 4;
+            this.fixedCheckBoxSaveCommentImage6.Tag = "";
+            this.fixedCheckBoxSaveCommentImage6.Text = "CommentImage6";
+            this.fixedCheckBoxSaveCommentImage6.UseVisualStyleBackColor = true;
+            this.fixedCheckBoxSaveCommentImage6.CheckedChanged += new System.EventHandler(this.checkBoxSaveTags_CheckedChanged);
             // 
-            // fixedCheckBoxSaveCommentInXmpDcTitle
+            // fixedCheckBoxSaveCommentImage7
             // 
-            this.fixedCheckBoxSaveCommentInXmpDcTitle.AutoSize = true;
-            this.fixedCheckBoxSaveCommentInXmpDcTitle.Location = new System.Drawing.Point(5, 122);
-            this.fixedCheckBoxSaveCommentInXmpDcTitle.Name = "fixedCheckBoxSaveCommentInXmpDcTitle";
-            this.fixedCheckBoxSaveCommentInXmpDcTitle.Size = new System.Drawing.Size(166, 17);
-            this.fixedCheckBoxSaveCommentInXmpDcTitle.TabIndex = 5;
-            this.fixedCheckBoxSaveCommentInXmpDcTitle.Tag = "Xmp.dc.title";
-            this.fixedCheckBoxSaveCommentInXmpDcTitle.Text = "Xmp.dc.title (lang=x-default)";
-            this.fixedCheckBoxSaveCommentInXmpDcTitle.UseVisualStyleBackColor = true;
-            this.fixedCheckBoxSaveCommentInXmpDcTitle.CheckedChanged += new System.EventHandler(this.checkBoxSaveTags_CheckedChanged);
+            this.fixedCheckBoxSaveCommentImage7.AutoSize = true;
+            this.fixedCheckBoxSaveCommentImage7.Location = new System.Drawing.Point(5, 138);
+            this.fixedCheckBoxSaveCommentImage7.Name = "fixedCheckBoxSaveCommentImage7";
+            this.fixedCheckBoxSaveCommentImage7.Size = new System.Drawing.Size(107, 17);
+            this.fixedCheckBoxSaveCommentImage7.TabIndex = 5;
+            this.fixedCheckBoxSaveCommentImage7.Tag = "";
+            this.fixedCheckBoxSaveCommentImage7.Text = "CommentImage7";
+            this.fixedCheckBoxSaveCommentImage7.UseVisualStyleBackColor = true;
+            this.fixedCheckBoxSaveCommentImage7.CheckedChanged += new System.EventHandler(this.checkBoxSaveTags_CheckedChanged);
             // 
-            // fixedCheckBoxSaveNameInXmpDcCreator
+            // fixedCheckBoxSaveNameImage4
             // 
-            this.fixedCheckBoxSaveNameInXmpDcCreator.AutoSize = true;
-            this.fixedCheckBoxSaveNameInXmpDcCreator.Location = new System.Drawing.Point(5, 242);
-            this.fixedCheckBoxSaveNameInXmpDcCreator.Name = "fixedCheckBoxSaveNameInXmpDcCreator";
-            this.fixedCheckBoxSaveNameInXmpDcCreator.Size = new System.Drawing.Size(100, 17);
-            this.fixedCheckBoxSaveNameInXmpDcCreator.TabIndex = 3;
-            this.fixedCheckBoxSaveNameInXmpDcCreator.Tag = "Xmp.dc.creator";
-            this.fixedCheckBoxSaveNameInXmpDcCreator.Text = "Xmp.dc.creator";
-            this.fixedCheckBoxSaveNameInXmpDcCreator.UseVisualStyleBackColor = true;
-            this.fixedCheckBoxSaveNameInXmpDcCreator.CheckedChanged += new System.EventHandler(this.checkBoxSaveTags_CheckedChanged);
+            this.fixedCheckBoxSaveNameImage4.AutoSize = true;
+            this.fixedCheckBoxSaveNameImage4.Location = new System.Drawing.Point(5, 273);
+            this.fixedCheckBoxSaveNameImage4.Name = "fixedCheckBoxSaveNameImage4";
+            this.fixedCheckBoxSaveNameImage4.Size = new System.Drawing.Size(89, 17);
+            this.fixedCheckBoxSaveNameImage4.TabIndex = 3;
+            this.fixedCheckBoxSaveNameImage4.Tag = "";
+            this.fixedCheckBoxSaveNameImage4.Text = "NameImage4";
+            this.fixedCheckBoxSaveNameImage4.UseVisualStyleBackColor = true;
+            this.fixedCheckBoxSaveNameImage4.CheckedChanged += new System.EventHandler(this.checkBoxSaveTags_CheckedChanged);
             // 
             // Panel2
             // 
             this.Panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.Panel2.Controls.Add(this.fixedCheckBoxSaveCommentInExifImageXPTitle);
-            this.Panel2.Controls.Add(this.fixedCheckBoxSaveNameInExifImageXPAuthor);
-            this.Panel2.Controls.Add(this.fixedCheckBoxSaveCommentInExifImageXPComment);
+            this.Panel2.Controls.Add(this.fixedCheckBoxSaveNameVideo2);
+            this.Panel2.Controls.Add(this.fixedCheckBoxSaveNameVideo4);
+            this.Panel2.Controls.Add(this.fixedCheckBoxSaveNameVideo3);
+            this.Panel2.Controls.Add(this.fixedCheckBoxSaveNameVideo1);
+            this.Panel2.Controls.Add(this.label6);
+            this.Panel2.Controls.Add(this.label8);
+            this.Panel2.Controls.Add(this.label5);
+            this.Panel2.Controls.Add(this.label4);
+            this.Panel2.Controls.Add(this.fixedCheckBoxSaveCommentVideo3);
+            this.Panel2.Controls.Add(this.fixedCheckBoxSaveCommentVideo2);
+            this.Panel2.Controls.Add(this.fixedCheckBoxSaveCommentVideo7);
+            this.Panel2.Controls.Add(this.fixedCheckBoxSaveCommentVideo5);
+            this.Panel2.Controls.Add(this.fixedCheckBoxSaveCommentVideo4);
+            this.Panel2.Controls.Add(this.fixedCheckBoxSaveCommentVideo1);
+            this.Panel2.Controls.Add(this.fixedCheckBoxSaveCommentVideo6);
+            this.Panel2.Controls.Add(this.fixedCheckBoxSaveCommentVideo8);
+            this.Panel2.Controls.Add(this.fixedCheckBoxSaveCommentImage3);
+            this.Panel2.Controls.Add(this.fixedCheckBoxSaveNameImage2);
+            this.Panel2.Controls.Add(this.fixedCheckBoxSaveCommentImage2);
             this.Panel2.Controls.Add(this.checkBoxLangAlt5);
-            this.Panel2.Controls.Add(this.fixedCheckBoxSaveNameInXmpDcCreator);
+            this.Panel2.Controls.Add(this.fixedCheckBoxSaveNameImage4);
             this.Panel2.Controls.Add(this.checkBoxLangAlt3);
-            this.Panel2.Controls.Add(this.fixedCheckBoxSaveCommentInXmpDcTitle);
+            this.Panel2.Controls.Add(this.fixedCheckBoxSaveCommentImage7);
             this.Panel2.Controls.Add(this.checkBoxLangAlt4);
             this.Panel2.Controls.Add(this.label2);
             this.Panel2.Controls.Add(this.checkBoxLangAlt2);
-            this.Panel2.Controls.Add(this.fixedCheckBoxSaveNameInIptcApplication2Writer);
+            this.Panel2.Controls.Add(this.fixedCheckBoxSaveNameImage3);
             this.Panel2.Controls.Add(this.checkBoxLangAlt1);
-            this.Panel2.Controls.Add(this.fixedCheckBoxSaveCommentInIptcApplication2Caption);
+            this.Panel2.Controls.Add(this.fixedCheckBoxSaveCommentImage5);
             this.Panel2.Controls.Add(this.label3);
-            this.Panel2.Controls.Add(this.fixedCheckBoxSaveNameInExifImageArtist);
+            this.Panel2.Controls.Add(this.fixedCheckBoxSaveNameImage1);
             this.Panel2.Controls.Add(this.label9);
-            this.Panel2.Controls.Add(this.fixedCheckBoxSaveCommentInExifPhotoUserComment);
-            this.Panel2.Controls.Add(this.fixedCheckBoxSaveCommentInExifImageImageDescription);
-            this.Panel2.Controls.Add(this.fixedCheckBoxSaveCommentInXmpDcDescription);
-            this.Panel2.Controls.Add(this.fixedCheckBoxSaveCommentInImageComment);
+            this.Panel2.Controls.Add(this.fixedCheckBoxSaveCommentImage4);
+            this.Panel2.Controls.Add(this.fixedCheckBoxSaveCommentImage1);
+            this.Panel2.Controls.Add(this.fixedCheckBoxSaveCommentImage6);
+            this.Panel2.Controls.Add(this.fixedCheckBoxSaveCommentImage8);
             this.Panel2.Controls.Add(this.label1);
             this.Panel2.Location = new System.Drawing.Point(550, -2);
             this.Panel2.Name = "Panel2";
-            this.Panel2.Size = new System.Drawing.Size(234, 432);
+            this.Panel2.Size = new System.Drawing.Size(429, 432);
             this.Panel2.TabIndex = 28;
             // 
-            // fixedCheckBoxSaveCommentInExifImageXPTitle
+            // fixedCheckBoxSaveNameVideo2
             // 
-            this.fixedCheckBoxSaveCommentInExifImageXPTitle.AutoSize = true;
-            this.fixedCheckBoxSaveCommentInExifImageXPTitle.Location = new System.Drawing.Point(5, 54);
-            this.fixedCheckBoxSaveCommentInExifImageXPTitle.Name = "fixedCheckBoxSaveCommentInExifImageXPTitle";
-            this.fixedCheckBoxSaveCommentInExifImageXPTitle.Size = new System.Drawing.Size(114, 17);
-            this.fixedCheckBoxSaveCommentInExifImageXPTitle.TabIndex = 9;
-            this.fixedCheckBoxSaveCommentInExifImageXPTitle.Tag = "Exif.Image.XPTitle";
-            this.fixedCheckBoxSaveCommentInExifImageXPTitle.Text = "Exif.Image.XPTitle";
-            this.fixedCheckBoxSaveCommentInExifImageXPTitle.UseVisualStyleBackColor = true;
-            this.fixedCheckBoxSaveCommentInExifImageXPTitle.CheckedChanged += new System.EventHandler(this.checkBoxSaveTags_CheckedChanged);
+            this.fixedCheckBoxSaveNameVideo2.AutoSize = true;
+            this.fixedCheckBoxSaveNameVideo2.Location = new System.Drawing.Point(223, 240);
+            this.fixedCheckBoxSaveNameVideo2.Name = "fixedCheckBoxSaveNameVideo2";
+            this.fixedCheckBoxSaveNameVideo2.Size = new System.Drawing.Size(85, 17);
+            this.fixedCheckBoxSaveNameVideo2.TabIndex = 25;
+            this.fixedCheckBoxSaveNameVideo2.Tag = "";
+            this.fixedCheckBoxSaveNameVideo2.Text = "NameVideo2";
+            this.fixedCheckBoxSaveNameVideo2.UseVisualStyleBackColor = true;
+            this.fixedCheckBoxSaveNameVideo2.CheckedChanged += new System.EventHandler(this.checkBoxSaveTags_CheckedChanged);
             // 
-            // fixedCheckBoxSaveNameInExifImageXPAuthor
+            // fixedCheckBoxSaveNameVideo4
             // 
-            this.fixedCheckBoxSaveNameInExifImageXPAuthor.AutoSize = true;
-            this.fixedCheckBoxSaveNameInExifImageXPAuthor.Location = new System.Drawing.Point(5, 209);
-            this.fixedCheckBoxSaveNameInExifImageXPAuthor.Name = "fixedCheckBoxSaveNameInExifImageXPAuthor";
-            this.fixedCheckBoxSaveNameInExifImageXPAuthor.Size = new System.Drawing.Size(127, 17);
-            this.fixedCheckBoxSaveNameInExifImageXPAuthor.TabIndex = 8;
-            this.fixedCheckBoxSaveNameInExifImageXPAuthor.Tag = "Exif.Image.XPAuthor";
-            this.fixedCheckBoxSaveNameInExifImageXPAuthor.Text = "Exif.Image.XPAuthor";
-            this.fixedCheckBoxSaveNameInExifImageXPAuthor.UseVisualStyleBackColor = true;
-            this.fixedCheckBoxSaveNameInExifImageXPAuthor.CheckedChanged += new System.EventHandler(this.checkBoxSaveTags_CheckedChanged);
+            this.fixedCheckBoxSaveNameVideo4.AutoSize = true;
+            this.fixedCheckBoxSaveNameVideo4.Location = new System.Drawing.Point(223, 273);
+            this.fixedCheckBoxSaveNameVideo4.Name = "fixedCheckBoxSaveNameVideo4";
+            this.fixedCheckBoxSaveNameVideo4.Size = new System.Drawing.Size(85, 17);
+            this.fixedCheckBoxSaveNameVideo4.TabIndex = 24;
+            this.fixedCheckBoxSaveNameVideo4.Tag = "";
+            this.fixedCheckBoxSaveNameVideo4.Text = "NameVideo4";
+            this.fixedCheckBoxSaveNameVideo4.UseVisualStyleBackColor = true;
+            this.fixedCheckBoxSaveNameVideo4.CheckedChanged += new System.EventHandler(this.checkBoxSaveTags_CheckedChanged);
             // 
-            // fixedCheckBoxSaveCommentInExifImageXPComment
+            // fixedCheckBoxSaveNameVideo3
             // 
-            this.fixedCheckBoxSaveCommentInExifImageXPComment.AutoSize = true;
-            this.fixedCheckBoxSaveCommentInExifImageXPComment.Location = new System.Drawing.Point(5, 36);
-            this.fixedCheckBoxSaveCommentInExifImageXPComment.Name = "fixedCheckBoxSaveCommentInExifImageXPComment";
-            this.fixedCheckBoxSaveCommentInExifImageXPComment.Size = new System.Drawing.Size(139, 17);
-            this.fixedCheckBoxSaveCommentInExifImageXPComment.TabIndex = 7;
-            this.fixedCheckBoxSaveCommentInExifImageXPComment.Tag = "Exif.Image.XPComment";
-            this.fixedCheckBoxSaveCommentInExifImageXPComment.Text = "Exif.Image.XPComment";
-            this.fixedCheckBoxSaveCommentInExifImageXPComment.UseVisualStyleBackColor = true;
-            this.fixedCheckBoxSaveCommentInExifImageXPComment.CheckedChanged += new System.EventHandler(this.checkBoxSaveTags_CheckedChanged);
+            this.fixedCheckBoxSaveNameVideo3.AutoSize = true;
+            this.fixedCheckBoxSaveNameVideo3.Location = new System.Drawing.Point(223, 257);
+            this.fixedCheckBoxSaveNameVideo3.Name = "fixedCheckBoxSaveNameVideo3";
+            this.fixedCheckBoxSaveNameVideo3.Size = new System.Drawing.Size(85, 17);
+            this.fixedCheckBoxSaveNameVideo3.TabIndex = 23;
+            this.fixedCheckBoxSaveNameVideo3.Tag = "";
+            this.fixedCheckBoxSaveNameVideo3.Text = "NameVideo3";
+            this.fixedCheckBoxSaveNameVideo3.UseVisualStyleBackColor = true;
+            this.fixedCheckBoxSaveNameVideo3.CheckedChanged += new System.EventHandler(this.checkBoxSaveTags_CheckedChanged);
+            // 
+            // fixedCheckBoxSaveNameVideo1
+            // 
+            this.fixedCheckBoxSaveNameVideo1.AutoSize = true;
+            this.fixedCheckBoxSaveNameVideo1.Location = new System.Drawing.Point(223, 223);
+            this.fixedCheckBoxSaveNameVideo1.Name = "fixedCheckBoxSaveNameVideo1";
+            this.fixedCheckBoxSaveNameVideo1.Size = new System.Drawing.Size(85, 17);
+            this.fixedCheckBoxSaveNameVideo1.TabIndex = 22;
+            this.fixedCheckBoxSaveNameVideo1.Tag = "";
+            this.fixedCheckBoxSaveNameVideo1.Text = "NameVideo1";
+            this.fixedCheckBoxSaveNameVideo1.UseVisualStyleBackColor = true;
+            this.fixedCheckBoxSaveNameVideo1.CheckedChanged += new System.EventHandler(this.checkBoxSaveTags_CheckedChanged);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(220, 207);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(66, 13);
+            this.label6.TabIndex = 21;
+            this.label6.Text = "für Videos in";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(3, 207);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(61, 13);
+            this.label8.TabIndex = 20;
+            this.label8.Text = "für Bilder in";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(220, 19);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(66, 13);
+            this.label5.TabIndex = 19;
+            this.label5.Text = "für Videos in";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(3, 19);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(61, 13);
+            this.label4.TabIndex = 18;
+            this.label4.Text = "für Bilder in";
+            // 
+            // fixedCheckBoxSaveCommentVideo3
+            // 
+            this.fixedCheckBoxSaveCommentVideo3.AutoSize = true;
+            this.fixedCheckBoxSaveCommentVideo3.Location = new System.Drawing.Point(223, 69);
+            this.fixedCheckBoxSaveCommentVideo3.Name = "fixedCheckBoxSaveCommentVideo3";
+            this.fixedCheckBoxSaveCommentVideo3.Size = new System.Drawing.Size(103, 17);
+            this.fixedCheckBoxSaveCommentVideo3.TabIndex = 17;
+            this.fixedCheckBoxSaveCommentVideo3.Tag = "";
+            this.fixedCheckBoxSaveCommentVideo3.Text = "CommentVideo3";
+            this.fixedCheckBoxSaveCommentVideo3.UseVisualStyleBackColor = true;
+            this.fixedCheckBoxSaveCommentVideo3.CheckedChanged += new System.EventHandler(this.checkBoxSaveTags_CheckedChanged);
+            // 
+            // fixedCheckBoxSaveCommentVideo2
+            // 
+            this.fixedCheckBoxSaveCommentVideo2.AutoSize = true;
+            this.fixedCheckBoxSaveCommentVideo2.Location = new System.Drawing.Point(223, 51);
+            this.fixedCheckBoxSaveCommentVideo2.Name = "fixedCheckBoxSaveCommentVideo2";
+            this.fixedCheckBoxSaveCommentVideo2.Size = new System.Drawing.Size(103, 17);
+            this.fixedCheckBoxSaveCommentVideo2.TabIndex = 16;
+            this.fixedCheckBoxSaveCommentVideo2.Tag = "";
+            this.fixedCheckBoxSaveCommentVideo2.Text = "CommentVideo2";
+            this.fixedCheckBoxSaveCommentVideo2.UseVisualStyleBackColor = true;
+            this.fixedCheckBoxSaveCommentVideo2.CheckedChanged += new System.EventHandler(this.checkBoxSaveTags_CheckedChanged);
+            // 
+            // fixedCheckBoxSaveCommentVideo7
+            // 
+            this.fixedCheckBoxSaveCommentVideo7.AutoSize = true;
+            this.fixedCheckBoxSaveCommentVideo7.Location = new System.Drawing.Point(223, 137);
+            this.fixedCheckBoxSaveCommentVideo7.Name = "fixedCheckBoxSaveCommentVideo7";
+            this.fixedCheckBoxSaveCommentVideo7.Size = new System.Drawing.Size(103, 17);
+            this.fixedCheckBoxSaveCommentVideo7.TabIndex = 14;
+            this.fixedCheckBoxSaveCommentVideo7.Tag = "";
+            this.fixedCheckBoxSaveCommentVideo7.Text = "CommentVideo7";
+            this.fixedCheckBoxSaveCommentVideo7.UseVisualStyleBackColor = true;
+            this.fixedCheckBoxSaveCommentVideo7.CheckedChanged += new System.EventHandler(this.checkBoxSaveTags_CheckedChanged);
+            // 
+            // fixedCheckBoxSaveCommentVideo5
+            // 
+            this.fixedCheckBoxSaveCommentVideo5.AutoSize = true;
+            this.fixedCheckBoxSaveCommentVideo5.Location = new System.Drawing.Point(223, 103);
+            this.fixedCheckBoxSaveCommentVideo5.Name = "fixedCheckBoxSaveCommentVideo5";
+            this.fixedCheckBoxSaveCommentVideo5.Size = new System.Drawing.Size(103, 17);
+            this.fixedCheckBoxSaveCommentVideo5.TabIndex = 12;
+            this.fixedCheckBoxSaveCommentVideo5.Tag = "";
+            this.fixedCheckBoxSaveCommentVideo5.Text = "CommentVideo5";
+            this.fixedCheckBoxSaveCommentVideo5.UseVisualStyleBackColor = true;
+            this.fixedCheckBoxSaveCommentVideo5.CheckedChanged += new System.EventHandler(this.checkBoxSaveTags_CheckedChanged);
+            // 
+            // fixedCheckBoxSaveCommentVideo4
+            // 
+            this.fixedCheckBoxSaveCommentVideo4.AutoSize = true;
+            this.fixedCheckBoxSaveCommentVideo4.Location = new System.Drawing.Point(223, 86);
+            this.fixedCheckBoxSaveCommentVideo4.Name = "fixedCheckBoxSaveCommentVideo4";
+            this.fixedCheckBoxSaveCommentVideo4.Size = new System.Drawing.Size(103, 17);
+            this.fixedCheckBoxSaveCommentVideo4.TabIndex = 11;
+            this.fixedCheckBoxSaveCommentVideo4.Tag = "";
+            this.fixedCheckBoxSaveCommentVideo4.Text = "CommentVideo4";
+            this.fixedCheckBoxSaveCommentVideo4.UseVisualStyleBackColor = true;
+            this.fixedCheckBoxSaveCommentVideo4.CheckedChanged += new System.EventHandler(this.checkBoxSaveTags_CheckedChanged);
+            // 
+            // fixedCheckBoxSaveCommentVideo1
+            // 
+            this.fixedCheckBoxSaveCommentVideo1.AutoSize = true;
+            this.fixedCheckBoxSaveCommentVideo1.Location = new System.Drawing.Point(223, 34);
+            this.fixedCheckBoxSaveCommentVideo1.Name = "fixedCheckBoxSaveCommentVideo1";
+            this.fixedCheckBoxSaveCommentVideo1.Size = new System.Drawing.Size(103, 17);
+            this.fixedCheckBoxSaveCommentVideo1.TabIndex = 10;
+            this.fixedCheckBoxSaveCommentVideo1.Tag = "";
+            this.fixedCheckBoxSaveCommentVideo1.Text = "CommentVideo1";
+            this.fixedCheckBoxSaveCommentVideo1.UseVisualStyleBackColor = true;
+            this.fixedCheckBoxSaveCommentVideo1.CheckedChanged += new System.EventHandler(this.checkBoxSaveTags_CheckedChanged);
+            // 
+            // fixedCheckBoxSaveCommentVideo6
+            // 
+            this.fixedCheckBoxSaveCommentVideo6.AutoSize = true;
+            this.fixedCheckBoxSaveCommentVideo6.Location = new System.Drawing.Point(223, 120);
+            this.fixedCheckBoxSaveCommentVideo6.Name = "fixedCheckBoxSaveCommentVideo6";
+            this.fixedCheckBoxSaveCommentVideo6.Size = new System.Drawing.Size(103, 17);
+            this.fixedCheckBoxSaveCommentVideo6.TabIndex = 13;
+            this.fixedCheckBoxSaveCommentVideo6.Tag = "";
+            this.fixedCheckBoxSaveCommentVideo6.Text = "CommentVideo6";
+            this.fixedCheckBoxSaveCommentVideo6.UseVisualStyleBackColor = true;
+            this.fixedCheckBoxSaveCommentVideo6.CheckedChanged += new System.EventHandler(this.checkBoxSaveTags_CheckedChanged);
+            // 
+            // fixedCheckBoxSaveCommentVideo8
+            // 
+            this.fixedCheckBoxSaveCommentVideo8.AutoSize = true;
+            this.fixedCheckBoxSaveCommentVideo8.Location = new System.Drawing.Point(223, 153);
+            this.fixedCheckBoxSaveCommentVideo8.Name = "fixedCheckBoxSaveCommentVideo8";
+            this.fixedCheckBoxSaveCommentVideo8.Size = new System.Drawing.Size(103, 17);
+            this.fixedCheckBoxSaveCommentVideo8.TabIndex = 15;
+            this.fixedCheckBoxSaveCommentVideo8.Tag = "";
+            this.fixedCheckBoxSaveCommentVideo8.Text = "CommentVideo8";
+            this.fixedCheckBoxSaveCommentVideo8.UseVisualStyleBackColor = true;
+            this.fixedCheckBoxSaveCommentVideo8.CheckedChanged += new System.EventHandler(this.checkBoxSaveTags_CheckedChanged);
+            // 
+            // fixedCheckBoxSaveCommentImage3
+            // 
+            this.fixedCheckBoxSaveCommentImage3.AutoSize = true;
+            this.fixedCheckBoxSaveCommentImage3.Location = new System.Drawing.Point(5, 70);
+            this.fixedCheckBoxSaveCommentImage3.Name = "fixedCheckBoxSaveCommentImage3";
+            this.fixedCheckBoxSaveCommentImage3.Size = new System.Drawing.Size(107, 17);
+            this.fixedCheckBoxSaveCommentImage3.TabIndex = 9;
+            this.fixedCheckBoxSaveCommentImage3.Tag = "";
+            this.fixedCheckBoxSaveCommentImage3.Text = "CommentImage3";
+            this.fixedCheckBoxSaveCommentImage3.UseVisualStyleBackColor = true;
+            this.fixedCheckBoxSaveCommentImage3.CheckedChanged += new System.EventHandler(this.checkBoxSaveTags_CheckedChanged);
+            // 
+            // fixedCheckBoxSaveNameImage2
+            // 
+            this.fixedCheckBoxSaveNameImage2.AutoSize = true;
+            this.fixedCheckBoxSaveNameImage2.Location = new System.Drawing.Point(5, 240);
+            this.fixedCheckBoxSaveNameImage2.Name = "fixedCheckBoxSaveNameImage2";
+            this.fixedCheckBoxSaveNameImage2.Size = new System.Drawing.Size(89, 17);
+            this.fixedCheckBoxSaveNameImage2.TabIndex = 8;
+            this.fixedCheckBoxSaveNameImage2.Tag = "";
+            this.fixedCheckBoxSaveNameImage2.Text = "NameImage2";
+            this.fixedCheckBoxSaveNameImage2.UseVisualStyleBackColor = true;
+            this.fixedCheckBoxSaveNameImage2.CheckedChanged += new System.EventHandler(this.checkBoxSaveTags_CheckedChanged);
+            // 
+            // fixedCheckBoxSaveCommentImage2
+            // 
+            this.fixedCheckBoxSaveCommentImage2.AutoSize = true;
+            this.fixedCheckBoxSaveCommentImage2.Location = new System.Drawing.Point(5, 52);
+            this.fixedCheckBoxSaveCommentImage2.Name = "fixedCheckBoxSaveCommentImage2";
+            this.fixedCheckBoxSaveCommentImage2.Size = new System.Drawing.Size(107, 17);
+            this.fixedCheckBoxSaveCommentImage2.TabIndex = 7;
+            this.fixedCheckBoxSaveCommentImage2.Tag = "";
+            this.fixedCheckBoxSaveCommentImage2.Text = "CommentImage2";
+            this.fixedCheckBoxSaveCommentImage2.UseVisualStyleBackColor = true;
+            this.fixedCheckBoxSaveCommentImage2.CheckedChanged += new System.EventHandler(this.checkBoxSaveTags_CheckedChanged);
             // 
             // label1MaxChangeableFieldEntries
             // 
@@ -875,7 +1087,7 @@ namespace QuickImageComment
             this.Panel5.Controls.Add(this.label10);
             this.Panel5.Location = new System.Drawing.Point(-4, 429);
             this.Panel5.Name = "Panel5";
-            this.Panel5.Size = new System.Drawing.Size(777, 83);
+            this.Panel5.Size = new System.Drawing.Size(983, 83);
             this.Panel5.TabIndex = 31;
             // 
             // panel3
@@ -889,8 +1101,18 @@ namespace QuickImageComment
             this.panel3.Controls.Add(this.labelCharSet);
             this.panel3.Location = new System.Drawing.Point(-4, 510);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(788, 65);
+            this.panel3.Size = new System.Drawing.Size(983, 65);
             this.panel3.TabIndex = 36;
+            // 
+            // checkBoxLogDiffMetaData
+            // 
+            this.checkBoxLogDiffMetaData.AutoSize = true;
+            this.checkBoxLogDiffMetaData.Location = new System.Drawing.Point(455, 44);
+            this.checkBoxLogDiffMetaData.Name = "checkBoxLogDiffMetaData";
+            this.checkBoxLogDiffMetaData.Size = new System.Drawing.Size(227, 17);
+            this.checkBoxLogDiffMetaData.TabIndex = 40;
+            this.checkBoxLogDiffMetaData.Text = "Änderungen der Metadaten protokollieren";
+            this.checkBoxLogDiffMetaData.UseVisualStyleBackColor = true;
             // 
             // buttonExifToolSettings
             // 
@@ -954,22 +1176,12 @@ namespace QuickImageComment
             this.checkBoxButtonDeletesPermanent.Text = "Mit Schaltfläche \"Löschen\" werden Dateien unwiderruflich gelöscht";
             this.checkBoxButtonDeletesPermanent.UseVisualStyleBackColor = true;
             // 
-            // checkBoxLogDiffMetaData
-            // 
-            this.checkBoxLogDiffMetaData.AutoSize = true;
-            this.checkBoxLogDiffMetaData.Location = new System.Drawing.Point(455, 44);
-            this.checkBoxLogDiffMetaData.Name = "checkBoxLogDiffMetaData";
-            this.checkBoxLogDiffMetaData.Size = new System.Drawing.Size(227, 17);
-            this.checkBoxLogDiffMetaData.TabIndex = 40;
-            this.checkBoxLogDiffMetaData.Text = "Änderungen der Metadaten protokollieren";
-            this.checkBoxLogDiffMetaData.UseVisualStyleBackColor = true;
-            // 
             // FormSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.ClientSize = new System.Drawing.Size(771, 607);
+            this.ClientSize = new System.Drawing.Size(972, 607);
             this.Controls.Add(this.checkBoxButtonDeletesPermanent);
             this.Controls.Add(this.Panel5);
             this.Controls.Add(this.panel3);
@@ -1038,10 +1250,10 @@ namespace QuickImageComment
     private System.Windows.Forms.CheckBox checkBoxUseDefaultArtist;
     private System.Windows.Forms.TextBox textBoxDefaultArtist;
     private System.Windows.Forms.CheckBox checkBoxNavigationTabSplitbars;
-    private System.Windows.Forms.CheckBox fixedCheckBoxSaveCommentInExifImageImageDescription;
-    private System.Windows.Forms.CheckBox fixedCheckBoxSaveNameInIptcApplication2Writer;
-    private System.Windows.Forms.CheckBox fixedCheckBoxSaveCommentInExifPhotoUserComment;
-    private System.Windows.Forms.CheckBox fixedCheckBoxSaveCommentInImageComment;
+    private System.Windows.Forms.CheckBox fixedCheckBoxSaveCommentImage1;
+    private System.Windows.Forms.CheckBox fixedCheckBoxSaveNameImage3;
+    private System.Windows.Forms.CheckBox fixedCheckBoxSaveCommentImage4;
+    private System.Windows.Forms.CheckBox fixedCheckBoxSaveCommentImage8;
     private System.Windows.Forms.Label label1;
     private System.Windows.Forms.Label label2;
     private System.Windows.Forms.Label labelFullSizeImageCacheMaxSize;
@@ -1063,10 +1275,10 @@ namespace QuickImageComment
     private System.Windows.Forms.Label labelSettingsForCaching;
     private System.Windows.Forms.Label labelMaxArtists;
     private System.Windows.Forms.NumericUpDown numericUpDownMaxArtists;
-    private System.Windows.Forms.CheckBox fixedCheckBoxSaveCommentInIptcApplication2Caption;
-    private System.Windows.Forms.CheckBox fixedCheckBoxSaveCommentInXmpDcDescription;
-    private System.Windows.Forms.CheckBox fixedCheckBoxSaveCommentInXmpDcTitle;
-    private System.Windows.Forms.CheckBox fixedCheckBoxSaveNameInXmpDcCreator;
+    private System.Windows.Forms.CheckBox fixedCheckBoxSaveCommentImage5;
+    private System.Windows.Forms.CheckBox fixedCheckBoxSaveCommentImage6;
+    private System.Windows.Forms.CheckBox fixedCheckBoxSaveCommentImage7;
+    private System.Windows.Forms.CheckBox fixedCheckBoxSaveNameImage4;
     private System.Windows.Forms.Label label3;
     private System.Windows.Forms.Label label9;
     private System.Windows.Forms.Panel Panel2;
@@ -1086,9 +1298,9 @@ namespace QuickImageComment
     private System.Windows.Forms.NumericUpDown numericUpDownFramePosition;
     private System.Windows.Forms.Label labelFramePosition;
     private System.Windows.Forms.Panel Panel5;
-        private System.Windows.Forms.CheckBox fixedCheckBoxSaveCommentInExifImageXPComment;
-        private System.Windows.Forms.CheckBox fixedCheckBoxSaveNameInExifImageXPAuthor;
-        private System.Windows.Forms.CheckBox fixedCheckBoxSaveCommentInExifImageXPTitle;
+        private System.Windows.Forms.CheckBox fixedCheckBoxSaveCommentImage2;
+        private System.Windows.Forms.CheckBox fixedCheckBoxSaveNameImage2;
+        private System.Windows.Forms.CheckBox fixedCheckBoxSaveCommentImage3;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.ComboBox comboBoxCharsetUserComment;
         private System.Windows.Forms.CheckBox checkBoxIptcUTF8;
@@ -1097,5 +1309,21 @@ namespace QuickImageComment
         private System.Windows.Forms.CheckBox checkBoxButtonDeletesPermanent;
         private System.Windows.Forms.Button buttonExifToolSettings;
         private System.Windows.Forms.CheckBox checkBoxLogDiffMetaData;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.CheckBox fixedCheckBoxSaveCommentVideo3;
+        private System.Windows.Forms.CheckBox fixedCheckBoxSaveCommentVideo2;
+        private System.Windows.Forms.CheckBox fixedCheckBoxSaveCommentVideo7;
+        private System.Windows.Forms.CheckBox fixedCheckBoxSaveCommentVideo5;
+        private System.Windows.Forms.CheckBox fixedCheckBoxSaveCommentVideo4;
+        private System.Windows.Forms.CheckBox fixedCheckBoxSaveCommentVideo1;
+        private System.Windows.Forms.CheckBox fixedCheckBoxSaveCommentVideo6;
+        private System.Windows.Forms.CheckBox fixedCheckBoxSaveCommentVideo8;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.CheckBox fixedCheckBoxSaveNameVideo2;
+        private System.Windows.Forms.CheckBox fixedCheckBoxSaveNameVideo4;
+        private System.Windows.Forms.CheckBox fixedCheckBoxSaveNameVideo3;
+        private System.Windows.Forms.CheckBox fixedCheckBoxSaveNameVideo1;
     }
 }

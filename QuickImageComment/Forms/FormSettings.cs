@@ -15,6 +15,7 @@
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 using System;
+using System.Collections.Specialized;
 using System.Windows.Forms;
 
 namespace QuickImageComment
@@ -27,7 +28,7 @@ namespace QuickImageComment
         private CheckBox checkBoxLastCommentsWithCursor;
         private CheckBox checkBoxMetaDataWarningsChangeAppearance;
         private CheckBox checkBoxMetaDataWarningsMessageBox;
-        private CheckBox fixedCheckBoxSaveNameInExifImageArtist;
+        private CheckBox fixedCheckBoxSaveNameImage1;
         private NumericUpDown numericUpDownMaxLastComments;
         private Label labelMaxLastComments;
         private Label labelReactionListBoxCommentDoubleClick;
@@ -35,8 +36,8 @@ namespace QuickImageComment
         private Label labelUserCommentInsertCheckCharacters;
         private Label labelUserCommentAppendCheckCharacters;
         private RichTextBox richTextBoxUserCommentAppendCheckCharacters;
-        private FormCustomization.Interface CustomizationInterface;
-        private string[] PredefinedCommentsMouseDoubleClickActionItems = new string[4];
+        private readonly FormCustomization.Interface CustomizationInterface;
+        private readonly string[] PredefinedCommentsMouseDoubleClickActionItems = new string[4];
 
         public bool settingsChanged = true;
 
@@ -79,19 +80,33 @@ namespace QuickImageComment
             TextBoxVideoExtensionsFrame.Text = ConfigDefinition.getVideoExtensionsFrame();
             numericUpDownFramePosition.Value = ConfigDefinition.getVideoFramePositionInSeconds();
 
-            fixedCheckBoxSaveCommentInExifImageImageDescription.Checked = ConfigDefinition.getSaveCommentInExifImageImageDescription();
-            fixedCheckBoxSaveCommentInExifImageXPComment.Checked = ConfigDefinition.getSaveCommentInExifImageXPComment();
-            fixedCheckBoxSaveCommentInExifImageXPTitle.Checked = ConfigDefinition.getSaveCommentInExifImageXPTitle();
-            fixedCheckBoxSaveCommentInExifPhotoUserComment.Checked = ConfigDefinition.getSaveCommentInExifPhotoUserComment();
-            fixedCheckBoxSaveCommentInIptcApplication2Caption.Checked = ConfigDefinition.getSaveCommentInIptcApplication2Caption();
-            fixedCheckBoxSaveCommentInXmpDcDescription.Checked = ConfigDefinition.getSaveCommentInXmpDcDescription();
-            fixedCheckBoxSaveCommentInXmpDcTitle.Checked = ConfigDefinition.getSaveCommentInXmpDcTitle();
-            fixedCheckBoxSaveCommentInImageComment.Checked = ConfigDefinition.getSaveCommentInImageComment();
+            initCheckBoxCommentArtist(ConfigDefinition.TagSelectionListCommentImage, fixedCheckBoxSaveCommentImage1, 0);
+            initCheckBoxCommentArtist(ConfigDefinition.TagSelectionListCommentImage, fixedCheckBoxSaveCommentImage2, 1);
+            initCheckBoxCommentArtist(ConfigDefinition.TagSelectionListCommentImage, fixedCheckBoxSaveCommentImage3, 2);
+            initCheckBoxCommentArtist(ConfigDefinition.TagSelectionListCommentImage, fixedCheckBoxSaveCommentImage4, 3);
+            initCheckBoxCommentArtist(ConfigDefinition.TagSelectionListCommentImage, fixedCheckBoxSaveCommentImage5, 4);
+            initCheckBoxCommentArtist(ConfigDefinition.TagSelectionListCommentImage, fixedCheckBoxSaveCommentImage6, 5);
+            initCheckBoxCommentArtist(ConfigDefinition.TagSelectionListCommentImage, fixedCheckBoxSaveCommentImage7, 6);
+            initCheckBoxCommentArtist(ConfigDefinition.TagSelectionListCommentImage, fixedCheckBoxSaveCommentImage8, 7);
 
-            fixedCheckBoxSaveNameInExifImageArtist.Checked = ConfigDefinition.getSaveNameInExifImageArtist();
-            fixedCheckBoxSaveNameInExifImageXPAuthor.Checked = ConfigDefinition.getSaveNameInExifImageXPAuthor();
-            fixedCheckBoxSaveNameInIptcApplication2Writer.Checked = ConfigDefinition.getSaveNameInIptcApplication2Writer();
-            fixedCheckBoxSaveNameInXmpDcCreator.Checked = ConfigDefinition.getSaveNameInXmpDcCreator();
+            initCheckBoxCommentArtist(ConfigDefinition.TagSelectionListCommentVideo, fixedCheckBoxSaveCommentVideo1, 0);
+            initCheckBoxCommentArtist(ConfigDefinition.TagSelectionListCommentVideo, fixedCheckBoxSaveCommentVideo2, 1);
+            initCheckBoxCommentArtist(ConfigDefinition.TagSelectionListCommentVideo, fixedCheckBoxSaveCommentVideo3, 2);
+            initCheckBoxCommentArtist(ConfigDefinition.TagSelectionListCommentVideo, fixedCheckBoxSaveCommentVideo4, 3);
+            initCheckBoxCommentArtist(ConfigDefinition.TagSelectionListCommentVideo, fixedCheckBoxSaveCommentVideo5, 4);
+            initCheckBoxCommentArtist(ConfigDefinition.TagSelectionListCommentVideo, fixedCheckBoxSaveCommentVideo6, 5);
+            initCheckBoxCommentArtist(ConfigDefinition.TagSelectionListCommentVideo, fixedCheckBoxSaveCommentVideo7, 6);
+            initCheckBoxCommentArtist(ConfigDefinition.TagSelectionListCommentVideo, fixedCheckBoxSaveCommentVideo8, 7);
+
+            initCheckBoxCommentArtist(ConfigDefinition.TagSelectionListArtistImage, fixedCheckBoxSaveNameImage1, 0);
+            initCheckBoxCommentArtist(ConfigDefinition.TagSelectionListArtistImage, fixedCheckBoxSaveNameImage2, 1);
+            initCheckBoxCommentArtist(ConfigDefinition.TagSelectionListArtistImage, fixedCheckBoxSaveNameImage3, 2);
+            initCheckBoxCommentArtist(ConfigDefinition.TagSelectionListArtistImage, fixedCheckBoxSaveNameImage4, 3);
+
+            initCheckBoxCommentArtist(ConfigDefinition.TagSelectionListArtistVideo, fixedCheckBoxSaveNameVideo1, 0);
+            initCheckBoxCommentArtist(ConfigDefinition.TagSelectionListArtistVideo, fixedCheckBoxSaveNameVideo2, 1);
+            initCheckBoxCommentArtist(ConfigDefinition.TagSelectionListArtistVideo, fixedCheckBoxSaveNameVideo3, 2);
+            initCheckBoxCommentArtist(ConfigDefinition.TagSelectionListArtistVideo, fixedCheckBoxSaveNameVideo4, 3);
 
             checkBoxLangAlt1.Text = ConfigDefinition.getConfigString(ConfigDefinition.enumConfigString.XmpLangAlt1);
             checkBoxLangAlt2.Text = ConfigDefinition.getConfigString(ConfigDefinition.enumConfigString.XmpLangAlt2);
@@ -135,6 +150,12 @@ namespace QuickImageComment
             {
                 return;
             }
+        }
+
+        private void initCheckBoxCommentArtist(NameValueCollection TagSelectionList, CheckBox checkBox, int index)
+        {
+            checkBox.Text = TagSelectionList.GetKey(index);
+            checkBox.Checked = ConfigDefinition.getBooleanConfigurationItem(TagSelectionList.Get(index));
         }
 
         private void setCheckBoxLangAlt(CheckBox theCheckBox)
@@ -188,20 +209,33 @@ namespace QuickImageComment
             ConfigDefinition.setVideoExtensionsFrame(TextBoxVideoExtensionsFrame.Text);
             ConfigDefinition.setVideoFramePositionInSeconds(numericUpDownFramePosition.Value);
 
+            saveCheckBoxCommentArtist(ConfigDefinition.TagSelectionListArtistImage, fixedCheckBoxSaveNameImage1, 0);
+            saveCheckBoxCommentArtist(ConfigDefinition.TagSelectionListArtistImage, fixedCheckBoxSaveNameImage2, 1);
+            saveCheckBoxCommentArtist(ConfigDefinition.TagSelectionListArtistImage, fixedCheckBoxSaveNameImage3, 2);
+            saveCheckBoxCommentArtist(ConfigDefinition.TagSelectionListArtistImage, fixedCheckBoxSaveNameImage4, 3);
 
-            ConfigDefinition.setSaveCommentInExifImageImageDescription(fixedCheckBoxSaveCommentInExifImageImageDescription.Checked);
-            ConfigDefinition.setSaveCommentInExifImageXPComment(fixedCheckBoxSaveCommentInExifImageXPComment.Checked);
-            ConfigDefinition.setSaveCommentInExifImageXPTitle(fixedCheckBoxSaveCommentInExifImageXPTitle.Checked);
-            ConfigDefinition.setSaveCommentInExifPhotoUserComment(fixedCheckBoxSaveCommentInExifPhotoUserComment.Checked);
-            ConfigDefinition.setSaveCommentInIptcApplication2Caption(fixedCheckBoxSaveCommentInIptcApplication2Caption.Checked);
-            ConfigDefinition.setSaveCommentInXmpDcDescription(fixedCheckBoxSaveCommentInXmpDcDescription.Checked);
-            ConfigDefinition.setSaveCommentInXmpDcTitle(fixedCheckBoxSaveCommentInXmpDcTitle.Checked);
-            ConfigDefinition.setSaveCommentInImageComment(fixedCheckBoxSaveCommentInImageComment.Checked);
+            saveCheckBoxCommentArtist(ConfigDefinition.TagSelectionListArtistVideo, fixedCheckBoxSaveNameVideo1, 0);
+            saveCheckBoxCommentArtist(ConfigDefinition.TagSelectionListArtistVideo, fixedCheckBoxSaveNameVideo2, 1);
+            saveCheckBoxCommentArtist(ConfigDefinition.TagSelectionListArtistVideo, fixedCheckBoxSaveNameVideo3, 2);
+            saveCheckBoxCommentArtist(ConfigDefinition.TagSelectionListArtistVideo, fixedCheckBoxSaveNameVideo4, 3);
 
-            ConfigDefinition.setSaveNameInExifImageArtist(fixedCheckBoxSaveNameInExifImageArtist.Checked);
-            ConfigDefinition.setSaveNameInExifImageXPAuthor(fixedCheckBoxSaveNameInExifImageXPAuthor.Checked);
-            ConfigDefinition.setSaveNameInIptcApplication2Writer(fixedCheckBoxSaveNameInIptcApplication2Writer.Checked);
-            ConfigDefinition.setSaveNameInXmpDcCreator(fixedCheckBoxSaveNameInXmpDcCreator.Checked);
+            saveCheckBoxCommentArtist(ConfigDefinition.TagSelectionListCommentImage, fixedCheckBoxSaveCommentImage1, 0);
+            saveCheckBoxCommentArtist(ConfigDefinition.TagSelectionListCommentImage, fixedCheckBoxSaveCommentImage2, 1);
+            saveCheckBoxCommentArtist(ConfigDefinition.TagSelectionListCommentImage, fixedCheckBoxSaveCommentImage3, 2);
+            saveCheckBoxCommentArtist(ConfigDefinition.TagSelectionListCommentImage, fixedCheckBoxSaveCommentImage4, 3);
+            saveCheckBoxCommentArtist(ConfigDefinition.TagSelectionListCommentImage, fixedCheckBoxSaveCommentImage5, 4);
+            saveCheckBoxCommentArtist(ConfigDefinition.TagSelectionListCommentImage, fixedCheckBoxSaveCommentImage6, 5);
+            saveCheckBoxCommentArtist(ConfigDefinition.TagSelectionListCommentImage, fixedCheckBoxSaveCommentImage7, 6);
+            saveCheckBoxCommentArtist(ConfigDefinition.TagSelectionListCommentImage, fixedCheckBoxSaveCommentImage8, 7);
+
+            saveCheckBoxCommentArtist(ConfigDefinition.TagSelectionListCommentVideo, fixedCheckBoxSaveCommentVideo1, 0);
+            saveCheckBoxCommentArtist(ConfigDefinition.TagSelectionListCommentVideo, fixedCheckBoxSaveCommentVideo2, 1);
+            saveCheckBoxCommentArtist(ConfigDefinition.TagSelectionListCommentVideo, fixedCheckBoxSaveCommentVideo3, 2);
+            saveCheckBoxCommentArtist(ConfigDefinition.TagSelectionListCommentVideo, fixedCheckBoxSaveCommentVideo4, 3);
+            saveCheckBoxCommentArtist(ConfigDefinition.TagSelectionListCommentVideo, fixedCheckBoxSaveCommentVideo5, 4);
+            saveCheckBoxCommentArtist(ConfigDefinition.TagSelectionListCommentVideo, fixedCheckBoxSaveCommentVideo6, 5);
+            saveCheckBoxCommentArtist(ConfigDefinition.TagSelectionListCommentVideo, fixedCheckBoxSaveCommentVideo7, 6);
+            saveCheckBoxCommentArtist(ConfigDefinition.TagSelectionListCommentVideo, fixedCheckBoxSaveCommentVideo8, 7);
 
             ConfigDefinition.fillFilesExtensionsArrayList();
             ConfigDefinition.fillTagNamesArtistComment();
@@ -224,6 +258,11 @@ namespace QuickImageComment
             Close();
         }
 
+        private void saveCheckBoxCommentArtist(NameValueCollection TagSelectionList, CheckBox checkBox, int index)
+        {
+            ConfigDefinition.setBooleanConfigurationItem(TagSelectionList.Get(index), checkBox.Checked);
+        }
+
         private void buttonCancel_Click(object sender, System.EventArgs e)
         {
             settingsChanged = false;
@@ -241,9 +280,11 @@ namespace QuickImageComment
             {
                 foreach (MetaDataDefinitionItem aMetaDataDefinitionItem in ConfigDefinition.getMetaDataDefinitions(ConfigDefinition.enumMetaDataGroup.MetaDataDefForChange))
                 {
-                    if (aMetaDataDefinitionItem.KeyPrim.Equals(((CheckBox)sender).Tag))
+                    // remove descriptive part after tag name
+                    string[] keyWords = ((CheckBox)sender).Text.Split(' ');
+                    if (aMetaDataDefinitionItem.KeyPrim.Equals(keyWords[0]))
                     {
-                        GeneralUtilities.message(LangCfg.Message.I_tagAlreadyConfigured, ((CheckBox)sender).Tag.ToString());
+                        GeneralUtilities.message(LangCfg.Message.I_tagAlreadyConfigured, keyWords[0]);
                         ((CheckBox)sender).Checked = false;
                     }
                 }

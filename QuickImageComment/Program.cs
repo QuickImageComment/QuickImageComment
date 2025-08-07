@@ -49,7 +49,7 @@ namespace QuickImageComment
         internal static string TitleSuffix = "";
         internal static DateTime CompileTime;
         // flag is used in exception handling to decide if only a message box can be displayed or handling is based on configuration
-        private static bool initialzationCompleted = false;
+        private static bool initializationCompleted = false;
 
         private static readonly ArrayList ReportedExceptions = new ArrayList();
 #if APPCENTER
@@ -267,7 +267,7 @@ namespace QuickImageComment
             if (Program.AppCenterUsable) Microsoft.AppCenter.Analytics.Analytics.TrackEvent("Startup finished");
 #endif
             // flag is used in exception handling to decide if only a message box can be displayed or handling is based on configuration
-            initialzationCompleted = true;
+            initializationCompleted = true;
 
             // user may have started closing and then Application.Run may result in 
             // Cannot access a disposed object. Object name: 'FormQuickImageComment'.
@@ -303,7 +303,7 @@ namespace QuickImageComment
         }
         internal static void handleException(Exception ex, bool terminate)
         {
-            if (!initialzationCompleted)
+            if (!initializationCompleted)
             {
                 string message = ex.Message;
                 if (ex.StackTrace != null) message += "\r\n" + ex.StackTrace.ToString();

@@ -1085,9 +1085,9 @@ namespace QuickImageComment
             }
             else if (theKeyEventArgs.KeyCode == Keys.F10 && theKeyEventArgs.Shift)
             {
-                if (ConfigDefinition.getTagNamesComment().Count > 0)
+                if (ConfigDefinition.getTagNamesWriteCommentImage().Count > 0)
                 {
-                    string key = (string)ConfigDefinition.getTagNamesComment().ToArray()[0];
+                    string key = (string)ConfigDefinition.getTagNamesWriteCommentImage().ToArray()[0];
                     FormPlaceholder theFormPlaceholder = new FormPlaceholder(key, ((Control)sender).Text);
                     theFormPlaceholder.ShowDialog();
                     ((Control)sender).Text = theFormPlaceholder.resultString;
@@ -1110,9 +1110,9 @@ namespace QuickImageComment
         {
             if (Control.ModifierKeys == Keys.Shift)
             {
-                if (ConfigDefinition.getTagNamesComment().Count > 0)
+                if (ConfigDefinition.getTagNamesWriteCommentImage().Count > 0)
                 {
-                    string key = (string)ConfigDefinition.getTagNamesComment().ToArray()[0];
+                    string key = (string)ConfigDefinition.getTagNamesWriteCommentImage().ToArray()[0];
                     FormPlaceholder theFormPlaceholder = new FormPlaceholder(key, ((Control)sender).Text);
                     theFormPlaceholder.ShowDialog();
                     ((Control)sender).Text = theFormPlaceholder.resultString;
@@ -1164,9 +1164,9 @@ namespace QuickImageComment
             }
             else if (theKeyEventArgs.KeyCode == Keys.F10 && theKeyEventArgs.Shift)
             {
-                if (ConfigDefinition.getTagNamesArtist().Count > 0)
+                if (ConfigDefinition.getTagNamesWriteArtistImage().Count > 0)
                 {
-                    string key = (string)ConfigDefinition.getTagNamesArtist().ToArray()[0];
+                    string key = (string)ConfigDefinition.getTagNamesWriteArtistImage().ToArray()[0];
                     FormPlaceholder theFormPlaceholder = new FormPlaceholder(key, ((Control)sender).Text);
                     theFormPlaceholder.ShowDialog();
                     ((Control)sender).Text = theFormPlaceholder.resultString;
@@ -1194,9 +1194,9 @@ namespace QuickImageComment
             {
                 if (Control.ModifierKeys == Keys.Shift)
                 {
-                    if (ConfigDefinition.getTagNamesArtist().Count > 0)
+                    if (ConfigDefinition.getTagNamesWriteArtistImage().Count > 0)
                     {
-                        string key = (string)ConfigDefinition.getTagNamesArtist().ToArray()[0];
+                        string key = (string)ConfigDefinition.getTagNamesWriteArtistImage().ToArray()[0];
                         FormPlaceholder theFormPlaceholder = new FormPlaceholder(key, ((Control)sender).Text);
                         theFormPlaceholder.ShowDialog();
                         ((Control)sender).Text = theFormPlaceholder.resultString;
@@ -4171,17 +4171,18 @@ namespace QuickImageComment
         }
 
         // set labels for artist and comment based on save settings
+        //!! Anpassen für Video oder nicht mehr anpassen?
         private void setArtistCommentLabel()
         {
-            if (ConfigDefinition.getTagNamesArtist().Count == 0)
+            if (ConfigDefinition.getTagNamesWriteArtistImage().Count == 0)
             {
                 dynamicLabelArtist.Text = LangCfg.getText(LangCfg.Others.notConfigured);
             }
             else
             {
-                if (ConfigDefinition.getTagNamesArtist().Count == 1)
+                if (ConfigDefinition.getTagNamesWriteArtistImage().Count == 1)
                 {
-                    string key = (string)ConfigDefinition.getTagNamesArtist().ToArray()[0];
+                    string key = (string)ConfigDefinition.getTagNamesWriteArtistImage().ToArray()[0];
                     key = LangCfg.getLookupValue("META_KEY", key);
                     int pos1 = key.IndexOf('.');
                     int pos2 = key.LastIndexOf('.');
@@ -4193,21 +4194,22 @@ namespace QuickImageComment
                 }
             }
 
-            if (ConfigDefinition.getTagNamesComment().Count == 0)
+            if (ConfigDefinition.getTagNamesWriteCommentImage().Count == 0)
             {
                 dynamicLabelUserComment.Text = LangCfg.getText(LangCfg.Others.notConfigured);
             }
             else
             {
-                if (ConfigDefinition.getTagNamesComment().Count == 1)
-                {
-                    string key = (string)ConfigDefinition.getTagNamesComment().ToArray()[0];
-                    key = LangCfg.getLookupValue("META_KEY", key);
-                    int pos1 = key.IndexOf('.');
-                    int pos2 = key.LastIndexOf('.');
-                    dynamicLabelUserComment.Text = key.Substring(0, pos1) + " " + key.Substring(pos2 + 1);
-                }
-                else
+                //!! anpassen für video und exiftool (Doppelpunkt)
+                //if (ConfigDefinition.getTagNamesComment().Count == 1)
+                //{
+                //    string key = (string)ConfigDefinition.getTagNamesComment().ToArray()[0];
+                //    key = LangCfg.getLookupValue("META_KEY", key);
+                //    int pos1 = key.IndexOf('.');
+                //    int pos2 = key.LastIndexOf('.');
+                //    dynamicLabelUserComment.Text = key.Substring(0, pos1) + " " + key.Substring(pos2 + 1);
+                //}
+                //else
                 {
                     dynamicLabelUserComment.Text = LangCfg.translate(labelUserCommentInitialText, this.Name);
                 }
@@ -4457,13 +4459,21 @@ namespace QuickImageComment
             toolStripMenuItemLast.Enabled = enableLast;
             toolStripMenuItemNext.Enabled = enableLast;
 
-            // enable central input fields if tags for saving are defined
-            dynamicComboBoxArtist.Enabled = enableEditable && ConfigDefinition.getTagNamesArtist().Count > 0;
-            textBoxUserComment.Enabled = enableEditable && ConfigDefinition.getTagNamesComment().Count > 0;
-
             // enable configurable input fields
             bool video = false;
             if (theExtendedImage != null) video = theExtendedImage.getIsVideo();
+            // enable central input fields if tags for saving are defined
+            if (video)
+            {
+                dynamicComboBoxArtist.Enabled = enableEditable && ConfigDefinition.getTagNamesWriteArtistVideo().Count > 0;
+                textBoxUserComment.Enabled = enableEditable && ConfigDefinition.getTagNamesWriteCommentVideo().Count > 0;
+            }
+            else
+            {
+                dynamicComboBoxArtist.Enabled = enableEditable && ConfigDefinition.getTagNamesWriteArtistImage().Count > 0;
+                textBoxUserComment.Enabled = enableEditable && ConfigDefinition.getTagNamesWriteCommentImage().Count > 0;
+            }
+
             theUserControlChangeableFields.setInputControlsEnabled(enableEditable, video);
 
             // enable key word controls
@@ -5927,10 +5937,16 @@ namespace QuickImageComment
                 if (checkBoxArtistChange.Checked == true)
                 {
                     // copy values from artist
-                    foreach (string key in ConfigDefinition.getTagNamesArtist())
-                    {
-                        changeableFieldsForSave.Add(key, GivenArtist);
-                    }
+                    if (anExtendedImage.getIsVideo())
+                        foreach (string key in ConfigDefinition.getTagNamesWriteArtistVideo())
+                        {
+                            changeableFieldsForSave.Add(key, GivenArtist);
+                        }
+                    else
+                        foreach (string key in ConfigDefinition.getTagNamesWriteArtistImage())
+                        {
+                            changeableFieldsForSave.Add(key, GivenArtist);
+                        }
                 }
 
                 // check comment
@@ -5973,19 +5989,27 @@ namespace QuickImageComment
 
                 if (NewUserComment != null)
                 {
-                    // copy values from user comment
-                    foreach (string key in ConfigDefinition.getTagNamesComment())
-                    {
-                        // these tags could be of XMP type LangAlt
-                        if (Exiv2TagDefinitions.getTagType(key).Equals("LangAlt") && !textBoxUserComment.Text.Equals(""))
+                    if (anExtendedImage.getIsVideo())
+                        // copy values from user comment
+                        foreach (string key in ConfigDefinition.getTagNamesWriteCommentVideo())
                         {
-                            changeableFieldsForSave.Add(key, "lang=x-default " + NewUserComment);
-                        }
-                        else
-                        {
+                            // video is always ExifTool key, so no language
                             changeableFieldsForSave.Add(key, NewUserComment);
                         }
-                    }
+                    else
+                        // copy values from user comment
+                        foreach (string key in ConfigDefinition.getTagNamesWriteCommentImage())
+                        {
+                            // these tags could be of XMP type LangAlt
+                            if (Exiv2TagDefinitions.getTagType(key).Equals("LangAlt") && !textBoxUserComment.Text.Equals(""))
+                            {
+                                changeableFieldsForSave.Add(key, "lang=x-default " + NewUserComment);
+                            }
+                            else
+                            {
+                                changeableFieldsForSave.Add(key, NewUserComment);
+                            }
+                        }
                 }
 
                 // check key words
@@ -6138,11 +6162,18 @@ namespace QuickImageComment
             // copy values from artist
             if (comboBoxArtistUserChanged || labelArtistDefault.Visible)
             {
-                // copy values from artist
-                foreach (string key in ConfigDefinition.getTagNamesArtist())
-                {
-                    changedFieldsForSave.Add(key, dynamicComboBoxArtist.Text);
-                }
+                if (anExtendedImage.getIsVideo())
+                    // copy values from artist
+                    foreach (string key in ConfigDefinition.getTagNamesWriteArtistVideo())
+                    {
+                        changedFieldsForSave.Add(key, dynamicComboBoxArtist.Text);
+                    }
+                else
+                    // copy values from artist
+                    foreach (string key in ConfigDefinition.getTagNamesWriteArtistImage())
+                    {
+                        changedFieldsForSave.Add(key, dynamicComboBoxArtist.Text);
+                    }
 
                 // add artist in list if required (called by save routine
                 if (addInItemList)
@@ -6154,18 +6185,25 @@ namespace QuickImageComment
             // copy values from user comment
             if (textBoxUserCommentUserChanged)
             {
-                foreach (string key in ConfigDefinition.getTagNamesComment())
-                {
-                    // these tags could be of XMP type LangAlt
-                    if (Exiv2TagDefinitions.getTagType(key).Equals("LangAlt") && !textBoxUserComment.Text.Equals(""))
+                if (anExtendedImage.getIsVideo())
+                    foreach (string key in ConfigDefinition.getTagNamesWriteCommentVideo())
                     {
-                        changedFieldsForSave.Add(key, "lang=x-default " + textBoxUserComment.Text);
-                    }
-                    else
-                    {
+                        // video is always ExifTool key, so no language
                         changedFieldsForSave.Add(key, textBoxUserComment.Text);
                     }
-                }
+                else
+                    foreach (string key in ConfigDefinition.getTagNamesWriteCommentImage())
+                    {
+                        // these tags could be of XMP type LangAlt
+                        if (Exiv2TagDefinitions.getTagType(key).Equals("LangAlt") && !textBoxUserComment.Text.Equals(""))
+                        {
+                            changedFieldsForSave.Add(key, "lang=x-default " + textBoxUserComment.Text);
+                        }
+                        else
+                        {
+                            changedFieldsForSave.Add(key, textBoxUserComment.Text);
+                        }
+                    }
                 // add comment in list
                 addAndScrollLastUserComments();
             }

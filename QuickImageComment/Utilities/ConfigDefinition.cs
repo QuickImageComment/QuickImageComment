@@ -18,10 +18,14 @@ using Brain2CPU.ExifTool;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using static QuickImageComment.ConfigDefinition;
 using static QuickImageComment.UserControlMap;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Header;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace QuickImageComment
 {
@@ -53,6 +57,50 @@ namespace QuickImageComment
         // tags whose values are derived when getting Bitmap (which takes longer than other tags)
         // when changing this list, ExtendedImage.addMetaDataFromBitMap needs to changes as well
         public static ArrayList TagsFromBitmap = new ArrayList { "File.ImageSize", "Image.CodecInfo", "Image.PixelFormat", "Image.DisplayImageErrorMessage" };
+
+        // tags to save artist/comment in image/video
+        // use NameValueCollection as it allows access by index, important to fill FormSettings in configured sequence
+        // backdraw: value is string, so enumCfgUserBool cannot be used here, but configuration is anyhow
+        // accessed using this table only
+        public static NameValueCollection TagSelectionListArtistImage = new NameValueCollection
+            {
+                { "Exif.Image.Artist", "SaveNameInExifImageArtist" },
+                { "Exif.Image.XPAuthor" , "SaveNameInExifImageXPAuthor" },
+                { "Iptc.Application2.Writer", "SaveNameInIptcApplication2Writer"},
+                { "Xmp.dc.creator", "SaveNameInXmpDcCreator" }
+            };
+
+        public static NameValueCollection TagSelectionListCommentImage = new NameValueCollection
+            {
+                { "Exif.Image.ImageDescription", "SaveCommentInExifImageImageDescription" },
+                { "Exif.Image.XPComment" , "SaveCommentInExifImageXPComment" },
+                { "Exif.Image.XPTitle", "SaveCommentInExifImageXPTitle" },
+                { "Exif.Photo.UserComment", "SaveCommentInExifPhotoUserComment"},
+                { "Iptc.Application2.Caption", "SaveCommentInIptcApplication2Caption" },
+                { "Xmp.dc.description (lang=x-default)", "SaveCommentInXmpDcDescription" },
+                { "Xmp.dc.title (lang=x-default)", "SaveCommentInXmpDcTitle" },
+                { "Image.Comment (JPEG Comment)", "SaveCommentInImageComment" }
+            };
+
+        public static NameValueCollection TagSelectionListArtistVideo = new NameValueCollection
+            {
+                { "ItemList:Artist", "SaveNameVideoInItemListArtist" },
+                { "ItemList:Author" , "SaveNameVideoInItemListAuthor" },
+                { "XMP-acdsee:Author", "SaveNameVideoInXmpAcdseeAuthor"},
+                { "XMP-dc:Creator", "SaveNameVideoInXmpDcCreator" }
+            };
+
+        public static NameValueCollection TagSelectionListCommentVideo = new NameValueCollection
+            {
+                { "ItemList:Description", "SaveCommentVideoInItemListDescription" },
+                { "ItemList:Comment" , "SaveCommentVideoInItemListComment" },
+                { "ItemList:Title", "SaveCommentVideoInItemListTitle" },
+                { "XMP-acdsee:Caption", "SaveCommentVideoInXmpAcdseeCaption"},
+                { "XMP-crd:Description", "SaveCommentVideoInXmpCrdDescription" },
+                { "XMP-dc:Description", "SaveCommentVideoInXmpDcDescription" },
+                { "XMP-dc:Title", "SaveCommentVideoInXmpDcTitle" },
+                { "XMP-exif:UserComment", "SaveCommentVideoInXmpExifUserComment" }
+            };
 
         // languages supported by ExifTool
         public static ArrayList ExifToolLanguages = new ArrayList { "de", "en", "fr", "es" };
@@ -313,8 +361,10 @@ namespace QuickImageComment
 
         internal static SortedList<enumMetaDataGroup, ArrayList> MetaDataDefinitions = new SortedList<enumMetaDataGroup, ArrayList>();
         private static ArrayList OtherMetaDataDefinitions;
-        private static ArrayList TagNamesArtist;
-        private static ArrayList TagNamesComment;
+        private static ArrayList TagNamesWriteArtistImage;
+        private static ArrayList TagNamesWriteCommentImage;
+        private static ArrayList TagNamesWriteArtistVideo;
+        private static ArrayList TagNamesWriteCommentVideo;
         private static ArrayList AllTagNamesArtistExiv2;
         private static ArrayList AllTagNamesCommentExiv2;
         private static ArrayList AllTagNamesArtistExifTool;
@@ -516,18 +566,32 @@ namespace QuickImageComment
             ConfigItems.Add("RunningNumberPrefix", "");
             ConfigItems.Add("RunningNumberMinLength", "1");
             ConfigItems.Add("RunningNumberSuffix", "");
-            ConfigItems.Add("SaveCommentInExifImageImageDescription", "no");
-            ConfigItems.Add("SaveCommentInExifImageXPComment", "no");
-            ConfigItems.Add("SaveCommentInExifImageXPTitle", "no");
-            ConfigItems.Add("SaveCommentInExifPhotoUserComment", "yes");
-            ConfigItems.Add("SaveCommentInIptcApplication2Caption", "no");
-            ConfigItems.Add("SaveCommentInXmpDcDescription", "no");
-            ConfigItems.Add("SaveCommentInXmpDcTitle", "no");
-            ConfigItems.Add("SaveCommentInImageComment", "no");
-            ConfigItems.Add("SaveNameInExifImageArtist", "yes");
-            ConfigItems.Add("SaveNameInExifImageXPAuthor", "yes");
-            ConfigItems.Add("SaveNameInIptcApplication2Writer", "no");
-            ConfigItems.Add("SaveNameInXmpDcCreator", "no");
+
+            for (int ii = 0; ii < TagSelectionListArtistImage.Count; ii++)
+            {
+                ConfigItems.Add(TagSelectionListArtistImage.Get(ii), "no");
+            }
+            ConfigItems["SaveNameInExifImageArtist"] = "yes";
+            ConfigItems["SaveNameInExifImageXPAuthor"] = "yes";
+
+            for (int ii = 0; ii < TagSelectionListArtistVideo.Count; ii++)
+            {
+                ConfigItems.Add(TagSelectionListArtistVideo.Get(ii), "no");
+            }
+            ConfigItems["SaveNameVideoInXmpDcCreator"] = "yes";
+
+            for (int ii = 0; ii < TagSelectionListCommentImage.Count; ii++)
+            {
+                ConfigItems.Add(TagSelectionListCommentImage.Get(ii), "no");
+            }
+            ConfigItems["SaveCommentInExifPhotoUserComment"] = "yes";
+
+            for (int ii = 0; ii < TagSelectionListCommentVideo.Count; ii++)
+            {
+                ConfigItems.Add(TagSelectionListCommentVideo.Get(ii), "no");
+            }
+            ConfigItems["SaveCommentVideoInXmpDcTitle"] = "yes";
+
             ConfigItems.Add("FullSizeImageCacheMaxSize", "5");
             ConfigItems.Add("ExtendedImageCacheMaxSize", "100");
             ConfigItems.Add("MaximumMemoryWithCaching", "1500");
@@ -1885,115 +1949,6 @@ namespace QuickImageComment
             ConfigItems["RenameConfiguration_" + ConfigurationName + "_RunningNumberSuffix"] = RunningNumberSuffix;
         }
 
-        public static bool getSaveCommentInExifImageImageDescription()
-        {
-            return getBooleanConfigurationItem("SaveCommentInExifImageImageDescription");
-        }
-        public static void setSaveCommentInExifImageImageDescription(bool NewSaveCommentInExifImageImageDescription)
-        {
-            setBooleanConfigurationItem("SaveCommentInExifImageImageDescription", NewSaveCommentInExifImageImageDescription);
-        }
-
-        public static bool getSaveCommentInExifImageXPComment()
-        {
-            return getBooleanConfigurationItem("SaveCommentInExifImageXPComment");
-        }
-        public static void setSaveCommentInExifImageXPComment(bool NewSaveCommentInExifImageXPComment)
-        {
-            setBooleanConfigurationItem("SaveCommentInExifImageXPComment", NewSaveCommentInExifImageXPComment);
-        }
-
-        public static bool getSaveCommentInExifImageXPTitle()
-        {
-            return getBooleanConfigurationItem("SaveCommentInExifImageXPTitle");
-        }
-        public static void setSaveCommentInExifImageXPTitle(bool NewSaveCommentInExifImageXPTitle)
-        {
-            setBooleanConfigurationItem("SaveCommentInExifImageXPTitle", NewSaveCommentInExifImageXPTitle);
-        }
-
-        public static bool getSaveCommentInExifPhotoUserComment()
-        {
-            return getBooleanConfigurationItem("SaveCommentInExifPhotoUserComment");
-        }
-        public static void setSaveCommentInExifPhotoUserComment(bool NewSaveCommentInExifPhotoUserComment)
-        {
-            setBooleanConfigurationItem("SaveCommentInExifPhotoUserComment", NewSaveCommentInExifPhotoUserComment);
-        }
-
-        public static bool getSaveCommentInIptcApplication2Caption()
-        {
-            return getBooleanConfigurationItem("SaveCommentInIptcApplication2Caption");
-        }
-        public static void setSaveCommentInIptcApplication2Caption(bool NewSaveCommentInIptcApplication2Caption)
-        {
-            setBooleanConfigurationItem("SaveCommentInIptcApplication2Caption", NewSaveCommentInIptcApplication2Caption);
-        }
-
-        public static bool getSaveCommentInXmpDcDescription()
-        {
-            return getBooleanConfigurationItem("SaveCommentInXmpDcDescription");
-        }
-        public static void setSaveCommentInXmpDcDescription(bool NewSaveCommentInXmpDcDescription)
-        {
-            setBooleanConfigurationItem("SaveCommentInXmpDcDescription", NewSaveCommentInXmpDcDescription);
-        }
-
-        public static bool getSaveCommentInXmpDcTitle()
-        {
-            return getBooleanConfigurationItem("SaveCommentInXmpDcTitle");
-        }
-        public static void setSaveCommentInXmpDcTitle(bool NewSaveCommentInXmpDcTitle)
-        {
-            setBooleanConfigurationItem("SaveCommentInXmpDcTitle", NewSaveCommentInXmpDcTitle);
-        }
-
-        public static bool getSaveCommentInImageComment()
-        {
-            return getBooleanConfigurationItem("SaveCommentInImageComment");
-        }
-        public static void setSaveCommentInImageComment(bool NewSaveCommentInImageComment)
-        {
-            setBooleanConfigurationItem("SaveCommentInImageComment", NewSaveCommentInImageComment);
-        }
-
-        public static bool getSaveNameInExifImageArtist()
-        {
-            return getBooleanConfigurationItem("SaveNameInExifImageArtist");
-        }
-        public static void setSaveNameInExifImageArtist(bool NewSaveNameInExifImageArtist)
-        {
-            setBooleanConfigurationItem("SaveNameInExifImageArtist", NewSaveNameInExifImageArtist);
-        }
-
-        public static bool getSaveNameInExifImageXPAuthor()
-        {
-            return getBooleanConfigurationItem("SaveNameInExifImageXPAuthor");
-        }
-        public static void setSaveNameInExifImageXPAuthor(bool NewSaveNameInExifImageXPAuthor)
-        {
-            setBooleanConfigurationItem("SaveNameInExifImageXPAuthor", NewSaveNameInExifImageXPAuthor);
-        }
-
-        public static bool getSaveNameInIptcApplication2Writer()
-        {
-            return getBooleanConfigurationItem("SaveNameInIptcApplication2Writer");
-        }
-        public static void setSaveNameInIptcApplication2Writer(bool NewSaveCommentInIptcApplication2Writer)
-        {
-            setBooleanConfigurationItem("SaveNameInIptcApplication2Writer", NewSaveCommentInIptcApplication2Writer);
-        }
-
-        public static bool getSaveNameInXmpDcCreator()
-        {
-            return getBooleanConfigurationItem("SaveNameInXmpDcCreator");
-        }
-        public static void setSaveNameInXmpDcCreator(bool NewSaveCommentInXmpDcCreator)
-        {
-            setBooleanConfigurationItem("SaveNameInXmpDcCreator", NewSaveCommentInXmpDcCreator);
-        }
-
-
         public static bool getDataGridViewDisplayEnglish(DataGridView theDataGridViewMetaData)
         {
             return getBooleanConfigurationItem(theDataGridViewMetaData.Name + "DisplayEnglish");
@@ -2153,10 +2108,15 @@ namespace QuickImageComment
             return int.Parse(value);
         }
 
-        // returns names of tags to store artist
-        public static ArrayList getTagNamesArtist()
+        // returns names of tags to store artist - image
+        public static ArrayList getTagNamesWriteArtistImage()
         {
-            return TagNamesArtist;
+            return TagNamesWriteArtistImage;
+        }
+        // returns names of tags to store artist - video
+        public static ArrayList getTagNamesWriteArtistVideo()
+        {
+            return TagNamesWriteArtistVideo;
         }
         // returns names of possible tags to store artist
         public static ArrayList getAllTagNamesArtist()
@@ -2165,7 +2125,7 @@ namespace QuickImageComment
             {
                 ArrayList AllTagNamesArtist = new ArrayList(AllTagNamesArtistExiv2);
                 AllTagNamesArtist.AddRange(AllTagNamesArtistExifTool);
-            return AllTagNamesArtist;
+                return AllTagNamesArtist;
             }
             else
             {
@@ -2173,10 +2133,15 @@ namespace QuickImageComment
             }
         }
 
-        // returns names of tags to store comment
-        public static ArrayList getTagNamesComment()
+        // returns names of tags to store comment - image
+        public static ArrayList getTagNamesWriteCommentImage()
         {
-            return TagNamesComment;
+            return TagNamesWriteCommentImage;
+        }
+        // returns names of tags to store comment - video
+        public static ArrayList getTagNamesWriteCommentVideo()
+        {
+            return TagNamesWriteCommentVideo;
         }
         // returns names of possible tags to store comment
         public static ArrayList getAllTagNamesComment()
@@ -2185,7 +2150,7 @@ namespace QuickImageComment
             {
                 ArrayList AllTagNamesComment = new ArrayList(AllTagNamesCommentExiv2);
                 AllTagNamesComment.AddRange(AllTagNamesCommentExifTool);
-            return AllTagNamesComment;
+                return AllTagNamesComment;
             }
             else
             {
@@ -2194,6 +2159,7 @@ namespace QuickImageComment
         }
         // returns list of tags needed for special Exif and IPTC information
         public static void getNeededKeysIncludingReferences(ArrayList MetaDataDefinitionArrayList,
+            //!! ref notwendig???
             ref ArrayList neededKeysExiv2, ref ArrayList neededKeysExifTool, ref ArrayList neededKeysInternal)
         {
             ArrayList neededKeys = new ArrayList();
@@ -2204,6 +2170,7 @@ namespace QuickImageComment
             }
 
             // add keys for internal fields
+            //!! keys für ArtistVideo und CommentVideo???
             if (neededKeys.Contains("Image.ArtistCombinedFields"))
             {
                 neededKeys.AddRange(ConfigDefinition.getAllTagNamesArtist());
@@ -2214,11 +2181,11 @@ namespace QuickImageComment
             }
             if (neededKeys.Contains("Image.ArtistAccordingSettings"))
             {
-                neededKeys.AddRange(ConfigDefinition.getTagNamesArtist());
+                neededKeys.AddRange(ConfigDefinition.getTagNamesWriteArtistImage());
             }
             if (neededKeys.Contains("Image.CommentAccordingSettings"))
             {
-                neededKeys.AddRange(ConfigDefinition.getTagNamesComment());
+                neededKeys.AddRange(ConfigDefinition.getTagNamesWriteCommentImage());
             }
 
             // TagDependencies contains the tags needed to fill the tag listed as first in the array
@@ -2280,7 +2247,7 @@ namespace QuickImageComment
         }
 
         // return configuration item converted to bool
-        private static bool getBooleanConfigurationItem(string Name)
+        internal static bool getBooleanConfigurationItem(string Name)
         {
             string Value = (string)ConfigItems[Name];
             if (Value.Equals("yes"))
@@ -2299,7 +2266,7 @@ namespace QuickImageComment
         }
 
         // set configuration item from bool
-        private static void setBooleanConfigurationItem(string Name, bool Value)
+        internal static void setBooleanConfigurationItem(string Name, bool Value)
         {
             if (Value == true)
             {
@@ -4023,98 +3990,100 @@ namespace QuickImageComment
         // fill tag names for saving artist and comment
         public static void fillTagNamesArtistComment()
         {
-            TagNamesArtist = new ArrayList();
-            TagNamesComment = new ArrayList();
+            TagNamesWriteArtistImage = new ArrayList();
+            TagNamesWriteCommentImage = new ArrayList();
+            TagNamesWriteArtistVideo = new ArrayList();
+            TagNamesWriteCommentVideo = new ArrayList();
             AllTagNamesArtistExiv2 = new ArrayList();
             AllTagNamesCommentExiv2 = new ArrayList();
             AllTagNamesArtistExifTool = new ArrayList();
             AllTagNamesCommentExifTool = new ArrayList();
 
-            // fill list of tag names for artist
-            if (getSaveNameInExifImageArtist())
-            {
-                TagNamesArtist.Add("Exif.Image.Artist");
-            }
-            if (getSaveNameInExifImageXPAuthor())
-            {
-                TagNamesArtist.Add("Exif.Image.XPAuthor");
-            }
-            if (getSaveNameInIptcApplication2Writer())
-            {
-                TagNamesArtist.Add("Iptc.Application2.Writer");
-            }
-            if (getSaveNameInXmpDcCreator())
-            {
-                TagNamesArtist.Add("Xmp.dc.creator");
-            }
             if (!ConfigDefinition.getTxtKeyWordArtist().Equals(""))
             {
-                TagNamesArtist.Add("Txt." + ConfigDefinition.getTxtKeyWordArtist());
+                TagNamesWriteArtistImage.Add("Txt." + ConfigDefinition.getTxtKeyWordArtist());
             }
 
-            // fill list of tag names for comment
-            if (getSaveCommentInExifImageImageDescription())
-            {
-                TagNamesComment.Add("Exif.Image.ImageDescription");
-            }
-            if (getSaveCommentInExifImageXPComment())
-            {
-                TagNamesComment.Add("Exif.Image.XPComment");
-            }
-            if (getSaveCommentInExifImageXPTitle())
-            {
-                TagNamesComment.Add("Exif.Image.XPTitle");
-            }
-            if (getSaveCommentInExifPhotoUserComment())
-            {
-                TagNamesComment.Add("Exif.Photo.UserComment");
-            }
-            if (getSaveCommentInIptcApplication2Caption())
-            {
-                TagNamesComment.Add("Iptc.Application2.Caption");
-            }
-            if (getSaveCommentInXmpDcDescription())
-            {
-                TagNamesComment.Add("Xmp.dc.description");
-            }
-            if (getSaveCommentInXmpDcTitle())
-            {
-                TagNamesComment.Add("Xmp.dc.title");
-            }
-            if (getSaveCommentInImageComment())
-            {
-                TagNamesComment.Add("Image.Comment");
-            }
             if (!ConfigDefinition.getTxtKeyWordComment().Equals(""))
             {
-                TagNamesComment.Add("Txt." + ConfigDefinition.getTxtKeyWordComment());
+                TagNamesWriteCommentImage.Add("Txt." + ConfigDefinition.getTxtKeyWordComment());
             }
 
-            // fill AllTagNamesArtist for determination of Image.ArtistCombinedFields
-            AllTagNamesArtistExiv2.Add("Exif.Image.Artist");
-            AllTagNamesArtistExiv2.Add("Exif.Image.XPAuthor");
-            AllTagNamesArtistExiv2.Add("Iptc.Application2.Writer");
-            AllTagNamesArtistExiv2.Add("Xmp.dc.creator");
+            addTagNamesForWrite(TagNamesWriteArtistImage, TagSelectionListArtistImage);
+            addTagNamesForWrite(TagNamesWriteArtistVideo, TagSelectionListArtistVideo);
+            addTagNamesForWrite(TagNamesWriteCommentImage, TagSelectionListCommentImage);
+            addTagNamesForWrite(TagNamesWriteCommentVideo, TagSelectionListCommentVideo);
+
+            //foreach (string key in TagNamesWriteCommentImage) Logger.log("write comment image " + key);
+            //foreach (string key in TagNamesWriteCommentVideo) Logger.log("write comment video " + key);
+            //foreach (string key in TagNamesWriteArtistImage) Logger.log("write artist image " + key);
+            //foreach (string key in TagNamesWriteArtistVideo) Logger.log("write artist video " + key);
+
+            // fill AllTagNamesArtist... for determination of Image.ArtistCombinedFields
+            for (int ii = 0; ii < TagSelectionListArtistImage.Count; ii++)
+            {
+                // remove descriptive part after tag name
+                string[] keyWords = TagSelectionListArtistImage.GetKey(ii).Split(' ');
+                if (TagDefinition.isExifToolTag(keyWords[0]))
+                    AllTagNamesArtistExifTool.Add(keyWords[0]);
+                else
+                    AllTagNamesArtistExiv2.Add(keyWords[0]);
+            }
+            for (int ii = 0; ii < TagSelectionListArtistVideo.Count; ii++)
+            {
+                // remove descriptive part after tag name
+                string[] keyWords = TagSelectionListArtistVideo.GetKey(ii).Split(' ');
+                if (TagDefinition.isExifToolTag(keyWords[0]))
+                    AllTagNamesArtistExifTool.Add(keyWords[0]);
+                else
+                    AllTagNamesArtistExiv2.Add(keyWords[0]);
+            }
             if (!ConfigDefinition.getTxtKeyWordArtist().Equals(""))
             {
                 AllTagNamesArtistExiv2.Add("Txt." + ConfigDefinition.getTxtKeyWordArtist());
             }
-            AllTagNamesArtistExifTool.Add("ItemList:Artist");
 
-            // fill AllTagNamesComment for determination of Image.CommentCombinedFields
-            AllTagNamesCommentExiv2.Add("Exif.Image.ImageDescription");
-            AllTagNamesCommentExiv2.Add("Exif.Image.XPComment");
-            AllTagNamesCommentExiv2.Add("Exif.Image.XPTitle");
-            AllTagNamesCommentExiv2.Add("Exif.Photo.UserComment");
-            AllTagNamesCommentExiv2.Add("Iptc.Application2.Caption");
-            AllTagNamesCommentExiv2.Add("Xmp.dc.description");
-            AllTagNamesCommentExiv2.Add("Xmp.dc.title");
-            AllTagNamesCommentExiv2.Add("Image.Comment");
+            // fill AllTagNamesComment... for determination of Image.CommentCombinedFields
+            for (int ii = 0; ii < TagSelectionListCommentImage.Count; ii++)
+            {
+                // remove descriptive part after tag name
+                string[] keyWords = TagSelectionListCommentImage.GetKey(ii).Split(' ');
+                if (TagDefinition.isExifToolTag(keyWords[0]))
+                    AllTagNamesCommentExifTool.Add(keyWords[0]);
+                else
+                    AllTagNamesCommentExiv2.Add(keyWords[0]);
+            }
+            for (int ii = 0; ii < TagSelectionListCommentVideo.Count; ii++)
+            {
+                // remove descriptive part after tag name
+                string[] keyWords = TagSelectionListCommentVideo.GetKey(ii).Split(' ');
+                if (TagDefinition.isExifToolTag(keyWords[0]))
+                    AllTagNamesCommentExifTool.Add(keyWords[0]);
+                else
+                    AllTagNamesCommentExiv2.Add(keyWords[0]);
+            }
             if (!ConfigDefinition.getTxtKeyWordComment().Equals(""))
             {
                 AllTagNamesCommentExiv2.Add("Txt." + ConfigDefinition.getTxtKeyWordComment());
             }
-            AllTagNamesCommentExifTool.Add("ItemList:Comment");
+
+            //foreach (string key in AllTagNamesCommentExiv2) Logger.log("AllTagNamesCommentExiv2 " + key);
+            //foreach (string key in AllTagNamesCommentExifTool) Logger.log("AllTagNamesCommentExifTool " + key);
+            //foreach (string key in AllTagNamesArtistExiv2) Logger.log("AllTagNamesArtistExiv2 " + key);
+            //foreach (string key in AllTagNamesArtistExifTool) Logger.log("AllTagNamesArtistExifTool " + key);
+        }
+
+        private static void addTagNamesForWrite(ArrayList TagNamesWrite, NameValueCollection TagSelectionList)
+        {
+            for (int ii = 0; ii < TagSelectionList.Count; ii++)
+            {
+                if (getBooleanConfigurationItem(TagSelectionList.Get(ii)))
+                {
+                    // remove descriptive part after tag name
+                    string[] keyWords = TagSelectionList.GetKey(ii).Split(' ');
+                    TagNamesWrite.Add(keyWords[0]);
+                }
+            }
         }
 
         // delete a Rename Configuration

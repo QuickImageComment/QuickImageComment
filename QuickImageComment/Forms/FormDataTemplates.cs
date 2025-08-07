@@ -511,9 +511,9 @@ namespace QuickImageComment
             }
             else if (theKeyEventArgs.KeyCode == Keys.F10 && theKeyEventArgs.Shift)
             {
-                if (ConfigDefinition.getTagNamesArtist().Count > 0)
+                if (ConfigDefinition.getTagNamesWriteArtistImage().Count > 0)
                 {
-                    string key = (string)ConfigDefinition.getTagNamesArtist().ToArray()[0];
+                    string key = (string)ConfigDefinition.getTagNamesWriteArtistImage().ToArray()[0];
                     FormPlaceholder theFormPlaceholder = new FormPlaceholder(key, ((Control)sender).Text);
                     theFormPlaceholder.ShowDialog();
                     ((Control)sender).Text = theFormPlaceholder.resultString;
@@ -539,9 +539,9 @@ namespace QuickImageComment
             {
                 if (Control.ModifierKeys == Keys.Shift)
                 {
-                    if (ConfigDefinition.getTagNamesArtist().Count > 0)
+                    if (ConfigDefinition.getTagNamesWriteArtistImage().Count > 0)
                     {
-                        string key = (string)ConfigDefinition.getTagNamesArtist().ToArray()[0];
+                        string key = (string)ConfigDefinition.getTagNamesWriteArtistImage().ToArray()[0];
                         FormPlaceholder theFormPlaceholder = new FormPlaceholder(key, ((Control)sender).Text);
                         theFormPlaceholder.ShowDialog();
                         ((Control)sender).Text = theFormPlaceholder.resultString;
@@ -577,9 +577,9 @@ namespace QuickImageComment
             }
             else if (theKeyEventArgs.KeyCode == Keys.F10 && theKeyEventArgs.Shift)
             {
-                if (ConfigDefinition.getTagNamesComment().Count > 0)
+                if (ConfigDefinition.getTagNamesWriteCommentImage().Count > 0)
                 {
-                    string key = (string)ConfigDefinition.getTagNamesComment().ToArray()[0];
+                    string key = (string)ConfigDefinition.getTagNamesWriteCommentImage().ToArray()[0];
                     FormPlaceholder theFormPlaceholder = new FormPlaceholder(key, ((Control)sender).Text);
                     theFormPlaceholder.ShowDialog();
                     ((Control)sender).Text = theFormPlaceholder.resultString;
@@ -605,9 +605,9 @@ namespace QuickImageComment
             {
                 if (Control.ModifierKeys == Keys.Shift)
                 {
-                    if (ConfigDefinition.getTagNamesComment().Count > 0)
+                    if (ConfigDefinition.getTagNamesWriteCommentImage().Count > 0)
                     {
-                        string key = (string)ConfigDefinition.getTagNamesComment().ToArray()[0];
+                        string key = (string)ConfigDefinition.getTagNamesWriteCommentImage().ToArray()[0];
                         FormPlaceholder theFormPlaceholder = new FormPlaceholder(key, ((Control)sender).Text);
                         theFormPlaceholder.ShowDialog();
                         ((Control)sender).Text = theFormPlaceholder.resultString;

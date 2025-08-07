@@ -92,13 +92,27 @@ namespace QuickImageComment
 
             // to check that each key can be set only once
             List<string> AllChangeableKeys = new List<string>();
-            foreach (string key in ConfigDefinition.getTagNamesArtist())
+            if (theExtendedImage != null && theExtendedImage.getIsVideo())
             {
-                AllChangeableKeys.Add(key);
+                foreach (string key in ConfigDefinition.getTagNamesWriteArtistVideo())
+                {
+                    AllChangeableKeys.Add(key);
+                }
+                foreach (string key in ConfigDefinition.getTagNamesWriteCommentVideo())
+                {
+                    AllChangeableKeys.Add(key);
+                }
             }
-            foreach (string key in ConfigDefinition.getTagNamesComment())
+            else
             {
-                AllChangeableKeys.Add(key);
+                foreach (string key in ConfigDefinition.getTagNamesWriteArtistImage())
+                {
+                    AllChangeableKeys.Add(key);
+                }
+                foreach (string key in ConfigDefinition.getTagNamesWriteCommentImage())
+                {
+                    AllChangeableKeys.Add(key);
+                }
             }
 
             // fill list of languages for XMP datatype LangAlt
