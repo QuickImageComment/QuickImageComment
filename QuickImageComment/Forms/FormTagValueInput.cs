@@ -218,12 +218,12 @@ namespace QuickImageComment
             // artist
             if (typeId == type.artist)
             {
-                key = (string)ConfigDefinition.getTagNamesWriteArtistImage().ToArray()[0];
+                key = FormPlaceholder.keyArtist;
             }
             // user comment
             else if (typeId == type.usercomment)
             {
-                key = (string)ConfigDefinition.getTagNamesWriteCommentImage().ToArray()[0];
+                key = FormPlaceholder.keyComment;
             }
             // configurable field
             else

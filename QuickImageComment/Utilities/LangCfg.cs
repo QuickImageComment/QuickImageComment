@@ -380,7 +380,8 @@ namespace QuickImageComment
             diffChanges,
             diffOldNew,
             diffDeleted,
-            diffInserted
+            diffInserted,
+            savedIn
         }
 
         // defined as variable

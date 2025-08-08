@@ -28,6 +28,8 @@ namespace QuickImageComment
         private int placeholderPositionStart = -1;
         private int placeholderPositionEnd = -1;
         private string placeholderDefinitionString = "";
+        internal const string keyArtist = "ARTIST";
+        internal const string keyComment = "COMMENT";
 
         private ExtendedImage theExtendedImage;
         private FormCustomization.Interface CustomizationInterface;
@@ -821,7 +823,24 @@ namespace QuickImageComment
             // fill changedFields here as replaceAllTagPlaceholdersInLoop modifies it
             // and can result in duplicate key error when converted value is determined again
             changedFields = MainMaskInterface.fillAllChangedFieldsForSave();
-            changedFields[keyToChange] = richTextBoxValue.Text;
+            if (keyToChange.Equals(keyArtist))
+            {
+                if (theExtendedImage.getIsVideo())
+                    foreach (string key in ConfigDefinition.getTagNamesWriteArtistVideo()) changedFields[key] = richTextBoxValue.Text;
+                else
+                    foreach (string key in ConfigDefinition.getTagNamesWriteArtistImage()) changedFields[key] = richTextBoxValue.Text;
+            }
+            else if (keyToChange.Equals(keyComment))
+            {
+                if (theExtendedImage.getIsVideo())
+                    foreach (string key in ConfigDefinition.getTagNamesWriteCommentVideo()) changedFields[key] = richTextBoxValue.Text;
+                else
+                    foreach (string key in ConfigDefinition.getTagNamesWriteCommentImage()) changedFields[key] = richTextBoxValue.Text;
+            }
+            else
+            {
+                changedFields[keyToChange] = richTextBoxValue.Text;
+            }
             SortedList ImageChangedFieldsForCompare = new SortedList();
             SortedList TxtChangedFieldsForRun = new SortedList();
             SortedList ImageChangedFieldsForRun = new SortedList();

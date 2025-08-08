@@ -2118,7 +2118,21 @@ namespace QuickImageComment
         {
             return TagNamesWriteArtistVideo;
         }
-        // returns names of possible tags to store artist
+        // returns names of tags to store artist, used for Image.ArtistAccordingSettings";
+        public static ArrayList getTagNamesWriteArtist()
+        {
+            if (ExifToolWrapper.isReady())
+            {
+                ArrayList TagNamesWriteArtist = new ArrayList(TagNamesWriteArtistImage);
+                TagNamesWriteArtist.AddRange(TagNamesWriteArtistVideo);
+                return TagNamesWriteArtist;
+            }
+            else
+            {
+                return TagNamesWriteArtistImage;
+            }
+        }
+        // returns names of possible tags to store artist, used for Image.ArtistCombinedFields";
         public static ArrayList getAllTagNamesArtist()
         {
             if (ExifToolWrapper.isReady())
@@ -2142,6 +2156,20 @@ namespace QuickImageComment
         public static ArrayList getTagNamesWriteCommentVideo()
         {
             return TagNamesWriteCommentVideo;
+        }
+        // returns names of tags to store artist, used for Image.CommentAccordingSettings";
+        public static ArrayList getTagNamesWriteComment()
+        {
+            if (ExifToolWrapper.isReady())
+            {
+                ArrayList TagNamesWriteComment = new ArrayList(TagNamesWriteCommentImage);
+                TagNamesWriteComment.AddRange(TagNamesWriteCommentVideo);
+                return TagNamesWriteComment;
+            }
+            else
+            {
+                return TagNamesWriteCommentImage;
+            }
         }
         // returns names of possible tags to store comment
         public static ArrayList getAllTagNamesComment()
@@ -2170,7 +2198,6 @@ namespace QuickImageComment
             }
 
             // add keys for internal fields
-            //!! keys für ArtistVideo und CommentVideo???
             if (neededKeys.Contains("Image.ArtistCombinedFields"))
             {
                 neededKeys.AddRange(ConfigDefinition.getAllTagNamesArtist());
@@ -2179,13 +2206,13 @@ namespace QuickImageComment
             {
                 neededKeys.AddRange(ConfigDefinition.getAllTagNamesComment());
             }
-            if (neededKeys.Contains("Image.ArtistAccordingSettings"))
+            if (neededKeys.Contains("Image.ArtistAccordingSettings")) //!! TEST
             {
-                neededKeys.AddRange(ConfigDefinition.getTagNamesWriteArtistImage());
+                neededKeys.AddRange(ConfigDefinition.getTagNamesWriteArtist());
             }
-            if (neededKeys.Contains("Image.CommentAccordingSettings"))
+            if (neededKeys.Contains("Image.CommentAccordingSettings")) //!! TEST
             {
-                neededKeys.AddRange(ConfigDefinition.getTagNamesWriteCommentImage());
+                neededKeys.AddRange(ConfigDefinition.getTagNamesWriteComment());
             }
 
             // TagDependencies contains the tags needed to fill the tag listed as first in the array

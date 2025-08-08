@@ -2813,10 +2813,19 @@ namespace QuickImageComment
                     oldValue.TrimEnd().Length + newValue.TrimEnd().Length > 0)
                 {
                     // artist was changed by user or tag is none of the artist tags
-                    //!! abhängig ob video oder nicht
-                    if (artistUserChanged || !ConfigDefinition.getTagNamesWriteArtistImage().Contains(key))
+                    if (isVideo)
                     {
-                        fieldsChangedByUser = true;
+                        if (artistUserChanged || !ConfigDefinition.getTagNamesWriteArtistVideo().Contains(key))
+                        {
+                            fieldsChangedByUser = true;
+                        }
+                    }
+                    else
+                    {
+                        if (artistUserChanged || !ConfigDefinition.getTagNamesWriteArtistImage().Contains(key))
+                        {
+                            fieldsChangedByUser = true;
+                        }
                     }
                     ChangedKeys = ChangedKeys + key + LangCfg.getText(LangCfg.Others.oldValue) + " " + oldValue
                         + LangCfg.getText(LangCfg.Others.newValue) + " " + newValue + "\n";
@@ -3110,7 +3119,7 @@ namespace QuickImageComment
                 for (int ii = 0; ii < remainingKeysToHandle.Count; ii++)
                 {
                     string key = remainingKeysToHandle[ii].ToString();
-                    Message = Message + "\n" + key + " = " + changedFieldsForSaveChecked[key];
+                    Message = Message + "\r\n" + key + " = " + changedFieldsForSaveChecked[key];
                     if (key.StartsWith("Txt."))
                     {
                         TxtChangedFieldsForRun.Add(key, changedFieldsForSaveChecked[key]);
@@ -3158,8 +3167,10 @@ namespace QuickImageComment
             }
 
             key = "Image.CommentAccordingSettings";
-            //!! abhängig ob video oder nicht
-            value = newValueAccordingSettings(key, ConfigDefinition.getTagNamesWriteCommentImage(), changedFieldsForSaveChecked);
+            if (isVideo)
+                value = newValueAccordingSettings(key, ConfigDefinition.getTagNamesWriteCommentVideo(), changedFieldsForSaveChecked);
+            else
+                value = newValueAccordingSettings(key, ConfigDefinition.getTagNamesWriteCommentImage(), changedFieldsForSaveChecked);
             changedFieldsForSaveChecked.Add(key, value);
 
             key = "Image.CommentCombinedFields";
@@ -3167,8 +3178,10 @@ namespace QuickImageComment
             changedFieldsForSaveChecked.Add(key, value);
 
             key = "Image.ArtistAccordingSettings";
-            //!! abhängig ob video oder nicht
-            value = newValueAccordingSettings(key, ConfigDefinition.getTagNamesWriteArtistImage(), changedFieldsForSaveChecked);
+            if (isVideo)
+                value = newValueAccordingSettings(key, ConfigDefinition.getTagNamesWriteArtistVideo(), changedFieldsForSaveChecked);
+            else
+                value = newValueAccordingSettings(key, ConfigDefinition.getTagNamesWriteArtistImage(), changedFieldsForSaveChecked);
             changedFieldsForSaveChecked.Add(key, value);
 
             key = "Image.ArtistCombinedFields";

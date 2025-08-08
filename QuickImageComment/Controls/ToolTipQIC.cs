@@ -6,7 +6,7 @@ namespace QuickImageComment
 {
     public partial class ToolTipQIC : System.Windows.Forms.ToolTip
     {
-        private IDictionary<object, string> objectToolTips;
+        private readonly IDictionary<object, string> objectToolTips;
 
         public ToolTipQIC()
         {
@@ -84,16 +84,14 @@ namespace QuickImageComment
                 // add event handlers for showing and hiding tool tip
                 item.MouseHover += (s, args) =>
                 {
-                    var toolStripItem = s as ToolStripItem;
-                    if (toolStripItem != null)
+                    if (s is ToolStripItem toolStripItem)
                     {
                         ShowForObject(item, window);
                     }
                 };
                 item.MouseLeave += (s, e) =>
                 {
-                    var toolStripItem = s as ToolStripItem;
-                    if (toolStripItem != null)
+                    if (s is ToolStripItem toolStripItem)
                     {
                         Hide(window);
                     }

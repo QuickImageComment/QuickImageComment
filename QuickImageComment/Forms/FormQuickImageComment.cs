@@ -173,7 +173,15 @@ namespace QuickImageComment
         private double zoomFactorToolbarLast = 0f;
 
         private string labelArtistInitialText;
+        private string labelArtistTextImage;
+        private string labelArtistTextVideo;
+        private string labelArtistToolTipImage;
+        private string labelArtistToolTipVideo;
         private string labelUserCommentInitialText;
+        private string labelCommentTextImage;
+        private string labelCommentTextVideo;
+        private string labelCommentToolTipImage;
+        private string labelCommentToolTipVideo;
 
         private FormMap theFormMap = null;
 
@@ -609,7 +617,7 @@ namespace QuickImageComment
             labelArtistInitialText = dynamicLabelArtist.Text;
             labelUserCommentInitialText = dynamicLabelUserComment.Text;
             // set label text for artist and user comment accorrding save configuration
-            setArtistCommentLabel();
+            setArtistCommentLabelTexts();
 
             // set view in List of files
             theUserControlFiles.listViewFilesSetViewBasedOnConfig();
@@ -1085,17 +1093,9 @@ namespace QuickImageComment
             }
             else if (theKeyEventArgs.KeyCode == Keys.F10 && theKeyEventArgs.Shift)
             {
-                if (ConfigDefinition.getTagNamesWriteCommentImage().Count > 0)
-                {
-                    string key = (string)ConfigDefinition.getTagNamesWriteCommentImage().ToArray()[0];
-                    FormPlaceholder theFormPlaceholder = new FormPlaceholder(key, ((Control)sender).Text);
-                    theFormPlaceholder.ShowDialog();
-                    ((Control)sender).Text = theFormPlaceholder.resultString;
-                }
-                else
-                {
-                    throw new Exception("Internal program error: trigger event should not have been possible");
-                }
+                FormPlaceholder theFormPlaceholder = new FormPlaceholder(FormPlaceholder.keyComment, ((Control)sender).Text);
+                theFormPlaceholder.ShowDialog();
+                ((Control)sender).Text = theFormPlaceholder.resultString;
             }
             else if (theKeyEventArgs.KeyCode == Keys.F10)
             {
@@ -1110,17 +1110,9 @@ namespace QuickImageComment
         {
             if (Control.ModifierKeys == Keys.Shift)
             {
-                if (ConfigDefinition.getTagNamesWriteCommentImage().Count > 0)
-                {
-                    string key = (string)ConfigDefinition.getTagNamesWriteCommentImage().ToArray()[0];
-                    FormPlaceholder theFormPlaceholder = new FormPlaceholder(key, ((Control)sender).Text);
-                    theFormPlaceholder.ShowDialog();
-                    ((Control)sender).Text = theFormPlaceholder.resultString;
-                }
-                else
-                {
-                    throw new Exception("Internal program error: trigger event should not have been possible");
-                }
+                FormPlaceholder theFormPlaceholder = new FormPlaceholder(FormPlaceholder.keyComment, ((Control)sender).Text);
+                theFormPlaceholder.ShowDialog();
+                ((Control)sender).Text = theFormPlaceholder.resultString;
             }
             else
             {
@@ -1164,17 +1156,9 @@ namespace QuickImageComment
             }
             else if (theKeyEventArgs.KeyCode == Keys.F10 && theKeyEventArgs.Shift)
             {
-                if (ConfigDefinition.getTagNamesWriteArtistImage().Count > 0)
-                {
-                    string key = (string)ConfigDefinition.getTagNamesWriteArtistImage().ToArray()[0];
-                    FormPlaceholder theFormPlaceholder = new FormPlaceholder(key, ((Control)sender).Text);
-                    theFormPlaceholder.ShowDialog();
-                    ((Control)sender).Text = theFormPlaceholder.resultString;
-                }
-                else
-                {
-                    throw new Exception("Internal program error: trigger event should not have been possible");
-                }
+                FormPlaceholder theFormPlaceholder = new FormPlaceholder(FormPlaceholder.keyArtist, ((Control)sender).Text);
+                theFormPlaceholder.ShowDialog();
+                ((Control)sender).Text = theFormPlaceholder.resultString;
             }
             else if (theKeyEventArgs.KeyCode == Keys.F10)
             {
@@ -1194,17 +1178,9 @@ namespace QuickImageComment
             {
                 if (Control.ModifierKeys == Keys.Shift)
                 {
-                    if (ConfigDefinition.getTagNamesWriteArtistImage().Count > 0)
-                    {
-                        string key = (string)ConfigDefinition.getTagNamesWriteArtistImage().ToArray()[0];
-                        FormPlaceholder theFormPlaceholder = new FormPlaceholder(key, ((Control)sender).Text);
-                        theFormPlaceholder.ShowDialog();
-                        ((Control)sender).Text = theFormPlaceholder.resultString;
-                    }
-                    else
-                    {
-                        throw new Exception("Internal program error: trigger event should not have been possible");
-                    }
+                    FormPlaceholder theFormPlaceholder = new FormPlaceholder(FormPlaceholder.keyArtist, ((Control)sender).Text);
+                    theFormPlaceholder.ShowDialog();
+                    ((Control)sender).Text = theFormPlaceholder.resultString;
                 }
                 else
                 {
@@ -2614,7 +2590,7 @@ namespace QuickImageComment
                     this.Cursor = Cursors.WaitCursor;
                     listBoxPredefinedComments.set_MouseDoubleClickAction(ConfigDefinition.getPredefinedCommentMouseDoubleClickAction());
                     setNavigationTabSplitBars(ConfigDefinition.getNavigationTabSplitBars());
-                    setArtistCommentLabel();
+                    setArtistCommentLabelTexts();
                     configureDeleteButton();
                     fillAndConfigureChangeableFieldPanel();
                     fillCheckedListBoxChangeableFieldsChange();
@@ -2874,7 +2850,7 @@ namespace QuickImageComment
 
             Exiv2TagDefinitions.fillTagDefinitionListTranslations();
             LangCfg.translateControlTexts(this);
-            setArtistCommentLabel();
+            setArtistCommentLabelTexts();
             configureDeleteButton();
             if (theExtendedImage != null)
             {
@@ -4171,48 +4147,57 @@ namespace QuickImageComment
         }
 
         // set labels for artist and comment based on save settings
-        //!! Anpassen für Video oder nicht mehr anpassen?
-        private void setArtistCommentLabel()
+        private void setArtistCommentLabelTexts()
         {
+            // set labels for artist and comment - depending on configuration
             if (ConfigDefinition.getTagNamesWriteArtistImage().Count == 0)
             {
-                dynamicLabelArtist.Text = LangCfg.getText(LangCfg.Others.notConfigured);
+                labelArtistTextImage = LangCfg.getText(LangCfg.Others.notConfigured);
+                labelArtistToolTipImage = "";
             }
             else
             {
-                if (ConfigDefinition.getTagNamesWriteArtistImage().Count == 1)
-                {
-                    string key = (string)ConfigDefinition.getTagNamesWriteArtistImage().ToArray()[0];
-                    key = LangCfg.getLookupValue("META_KEY", key);
-                    int pos1 = key.IndexOf('.');
-                    int pos2 = key.LastIndexOf('.');
-                    dynamicLabelArtist.Text = key.Substring(0, pos1) + " " + key.Substring(pos2 + 1);
-                }
-                else
-                {
-                    dynamicLabelArtist.Text = LangCfg.translate(labelArtistInitialText, this.Name);
-                }
+                labelArtistTextImage = LangCfg.translate(labelArtistInitialText, this.Name);
+                labelArtistToolTipImage = LangCfg.getText(LangCfg.Others.savedIn);
+                foreach (string tag in ConfigDefinition.getTagNamesWriteArtistImage())
+                    labelArtistToolTipImage += " " + tag;
+            }
+            if (ConfigDefinition.getTagNamesWriteArtistVideo().Count == 0)
+            {
+                labelArtistTextVideo = LangCfg.getText(LangCfg.Others.notConfigured);
+                labelArtistToolTipVideo = "";
+            }
+            else
+            {
+                labelArtistTextVideo = LangCfg.translate(labelArtistInitialText, this.Name);
+                labelArtistToolTipVideo = LangCfg.getText(LangCfg.Others.savedIn);
+                foreach (string tag in ConfigDefinition.getTagNamesWriteArtistVideo())
+                    labelArtistToolTipVideo += " " + tag;
             }
 
             if (ConfigDefinition.getTagNamesWriteCommentImage().Count == 0)
             {
-                dynamicLabelUserComment.Text = LangCfg.getText(LangCfg.Others.notConfigured);
+                labelCommentTextImage = LangCfg.getText(LangCfg.Others.notConfigured);
+                labelCommentToolTipImage = "";
             }
             else
             {
-                //!! anpassen für video und exiftool (Doppelpunkt)
-                //if (ConfigDefinition.getTagNamesComment().Count == 1)
-                //{
-                //    string key = (string)ConfigDefinition.getTagNamesComment().ToArray()[0];
-                //    key = LangCfg.getLookupValue("META_KEY", key);
-                //    int pos1 = key.IndexOf('.');
-                //    int pos2 = key.LastIndexOf('.');
-                //    dynamicLabelUserComment.Text = key.Substring(0, pos1) + " " + key.Substring(pos2 + 1);
-                //}
-                //else
-                {
-                    dynamicLabelUserComment.Text = LangCfg.translate(labelUserCommentInitialText, this.Name);
-                }
+                labelCommentTextImage = LangCfg.translate(labelUserCommentInitialText, this.Name);
+                labelCommentToolTipImage = LangCfg.getText(LangCfg.Others.savedIn);
+                foreach (string tag in ConfigDefinition.getTagNamesWriteCommentImage())
+                    labelCommentToolTipImage += " " + tag;
+            }
+            if (ConfigDefinition.getTagNamesWriteCommentVideo().Count == 0)
+            {
+                labelCommentTextVideo = LangCfg.getText(LangCfg.Others.notConfigured);
+                labelCommentToolTipVideo = "";
+            }
+            else
+            {
+                labelCommentTextVideo = LangCfg.translate(labelUserCommentInitialText, this.Name);
+                labelCommentToolTipVideo = LangCfg.getText(LangCfg.Others.savedIn);
+                foreach (string tag in ConfigDefinition.getTagNamesWriteCommentVideo())
+                    labelCommentToolTipVideo += " " + tag;
             }
         }
 
@@ -4467,11 +4452,19 @@ namespace QuickImageComment
             {
                 dynamicComboBoxArtist.Enabled = enableEditable && ConfigDefinition.getTagNamesWriteArtistVideo().Count > 0;
                 textBoxUserComment.Enabled = enableEditable && ConfigDefinition.getTagNamesWriteCommentVideo().Count > 0;
+                dynamicLabelArtist.Text = labelArtistTextVideo;
+                dynamicLabelUserComment.Text = labelCommentTextVideo;
+                toolTip1.SetToolTip(dynamicLabelArtist, labelArtistToolTipVideo);
+                toolTip1.SetToolTip(dynamicLabelUserComment, labelCommentToolTipVideo);
             }
             else
             {
                 dynamicComboBoxArtist.Enabled = enableEditable && ConfigDefinition.getTagNamesWriteArtistImage().Count > 0;
                 textBoxUserComment.Enabled = enableEditable && ConfigDefinition.getTagNamesWriteCommentImage().Count > 0;
+                dynamicLabelArtist.Text = labelArtistTextImage;
+                dynamicLabelUserComment.Text = labelCommentTextImage;
+                toolTip1.SetToolTip(dynamicLabelArtist, labelArtistToolTipImage);
+                toolTip1.SetToolTip(dynamicLabelUserComment, labelCommentToolTipImage);
             }
 
             theUserControlChangeableFields.setInputControlsEnabled(enableEditable, video);

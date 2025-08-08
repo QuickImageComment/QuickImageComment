@@ -511,17 +511,9 @@ namespace QuickImageComment
             }
             else if (theKeyEventArgs.KeyCode == Keys.F10 && theKeyEventArgs.Shift)
             {
-                if (ConfigDefinition.getTagNamesWriteArtistImage().Count > 0)
-                {
-                    string key = (string)ConfigDefinition.getTagNamesWriteArtistImage().ToArray()[0];
-                    FormPlaceholder theFormPlaceholder = new FormPlaceholder(key, ((Control)sender).Text);
-                    theFormPlaceholder.ShowDialog();
-                    ((Control)sender).Text = theFormPlaceholder.resultString;
-                }
-                else
-                {
-                    throw new Exception("Internal program error: trigger event should not have been possible");
-                }
+                FormPlaceholder theFormPlaceholder = new FormPlaceholder(FormPlaceholder.keyArtist, ((Control)sender).Text);
+                theFormPlaceholder.ShowDialog();
+                ((Control)sender).Text = theFormPlaceholder.resultString;
             }
             else if (theKeyEventArgs.KeyCode == Keys.F10)
             {
@@ -539,17 +531,9 @@ namespace QuickImageComment
             {
                 if (Control.ModifierKeys == Keys.Shift)
                 {
-                    if (ConfigDefinition.getTagNamesWriteArtistImage().Count > 0)
-                    {
-                        string key = (string)ConfigDefinition.getTagNamesWriteArtistImage().ToArray()[0];
-                        FormPlaceholder theFormPlaceholder = new FormPlaceholder(key, ((Control)sender).Text);
-                        theFormPlaceholder.ShowDialog();
-                        ((Control)sender).Text = theFormPlaceholder.resultString;
-                    }
-                    else
-                    {
-                        throw new Exception("Internal program error: trigger event should not have been possible");
-                    }
+                    FormPlaceholder theFormPlaceholder = new FormPlaceholder(FormPlaceholder.keyArtist, ((Control)sender).Text);
+                    theFormPlaceholder.ShowDialog();
+                    ((Control)sender).Text = theFormPlaceholder.resultString;
                 }
                 else
                 {
@@ -577,17 +561,9 @@ namespace QuickImageComment
             }
             else if (theKeyEventArgs.KeyCode == Keys.F10 && theKeyEventArgs.Shift)
             {
-                if (ConfigDefinition.getTagNamesWriteCommentImage().Count > 0)
-                {
-                    string key = (string)ConfigDefinition.getTagNamesWriteCommentImage().ToArray()[0];
-                    FormPlaceholder theFormPlaceholder = new FormPlaceholder(key, ((Control)sender).Text);
+                    FormPlaceholder theFormPlaceholder = new FormPlaceholder(FormPlaceholder.keyComment, ((Control)sender).Text);
                     theFormPlaceholder.ShowDialog();
                     ((Control)sender).Text = theFormPlaceholder.resultString;
-                }
-                else
-                {
-                    throw new Exception("Internal program error: trigger event should not have been possible");
-                }
             }
             else if (theKeyEventArgs.KeyCode == Keys.F10)
             {
@@ -605,17 +581,9 @@ namespace QuickImageComment
             {
                 if (Control.ModifierKeys == Keys.Shift)
                 {
-                    if (ConfigDefinition.getTagNamesWriteCommentImage().Count > 0)
-                    {
-                        string key = (string)ConfigDefinition.getTagNamesWriteCommentImage().ToArray()[0];
-                        FormPlaceholder theFormPlaceholder = new FormPlaceholder(key, ((Control)sender).Text);
+                        FormPlaceholder theFormPlaceholder = new FormPlaceholder(FormPlaceholder.keyComment, ((Control)sender).Text);
                         theFormPlaceholder.ShowDialog();
                         ((Control)sender).Text = theFormPlaceholder.resultString;
-                    }
-                    else
-                    {
-                        throw new Exception("Internal program error: trigger event should not have been possible");
-                    }
                 }
                 else
                 {
