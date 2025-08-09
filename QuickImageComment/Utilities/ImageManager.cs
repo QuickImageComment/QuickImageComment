@@ -554,8 +554,8 @@ namespace QuickImageComment
 #endif
                 CachePerformance.measure("add extended images around selected File");
                 CachePerformance.log(ConfigDefinition.enumConfigFlags.PerformanceUpdateCaches);
-                MainMaskInterface.setToolStripStatusLabelBufferingThread(false);
             }
+            MainMaskInterface.setToolStripStatusLabelBufferingThread(false);
             GeneralUtilities.writeTraceFileEntry("Finish updateCaches");
             GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceCaching, "finish caching " + cacheIndex.ToString());
             return 0;

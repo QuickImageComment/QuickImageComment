@@ -50,7 +50,8 @@ namespace QuickImageComment
             {
                 while (Logger.LogMessageQueue.Count > 0) // permanent use of Logger
                 {
-                    textBoxLogs.Text += Logger.LogMessageQueue.Dequeue() + "\r\n"; // permanent use of Logger
+                    // use AppendText instead of .Text += ... as it automatically scrolls to the end
+                    textBoxLogs.AppendText(Logger.LogMessageQueue.Dequeue() + "\r\n"); // permanent use of Logger
                 }
                 if (!this.IsDisposed) this.Show();
             }
