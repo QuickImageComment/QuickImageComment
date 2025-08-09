@@ -14,6 +14,7 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
+using Brain2CPU.ExifTool;
 using System;
 
 namespace QuickImageComment
@@ -387,12 +388,11 @@ namespace QuickImageComment
               + valueFloat.ToString();
         }
 
-        public bool isEditableInDataGridView()
+        public virtual bool isEditableInDataGridView()
         {
             return valueString.Equals(interpretedString) &&
                    Exiv2TagDefinitions.isEditableInDataGridView(typeName, key);
         }
-
     }
     //*****************************************************************
     // derived class for meta data items filled with ExifTool
@@ -424,6 +424,11 @@ namespace QuickImageComment
         public string getShortDesc()
         {
             return shortDesc;
+        }
+        public override bool isEditableInDataGridView()
+        {
+            return valueString.Equals(interpretedString) &&
+                   ExifToolWrapper.isWritable(key);
         }
     }
 }

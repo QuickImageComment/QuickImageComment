@@ -24,31 +24,31 @@ namespace QuickImageCommentControls
 
     class DataGridViewMetaData : System.Windows.Forms.DataGridView
     {
-        private System.ComponentModel.IContainer components = null;
-        private ContextMenuStrip ContextMenuStripDataGridViewMetaData;
-        private ToolStripMenuItem toolStripMenuItemPlain;
-        private ToolStripMenuItem toolStripMenuItemSuffixFirst;
-        private ToolStripMenuItem toolStripMenuItemWithHeader;
-        private ToolStripMenuItem toolStripMenuItemPlainEnglish;
-        private ToolStripMenuItem toolStripMenuItemSuffixFirstEnglish;
-        private ToolStripMenuItem toolStripMenuItemWithHeaderEnglish;
-        private ToolStripSeparator toolStripSeparator1;
+        private readonly System.ComponentModel.IContainer components = null;
+        private readonly ContextMenuStrip ContextMenuStripDataGridViewMetaData;
+        private readonly ToolStripMenuItem toolStripMenuItemPlain;
+        private readonly ToolStripMenuItem toolStripMenuItemSuffixFirst;
+        private readonly ToolStripMenuItem toolStripMenuItemWithHeader;
+        private readonly ToolStripMenuItem toolStripMenuItemPlainEnglish;
+        private readonly ToolStripMenuItem toolStripMenuItemSuffixFirstEnglish;
+        private readonly ToolStripMenuItem toolStripMenuItemWithHeaderEnglish;
+        private readonly ToolStripSeparator toolStripSeparator1;
         // some internal as used in FormQuickImageComment to define context menu for Overview
         internal ToolStripMenuItem toolStripMenuItemAddToChangeable;
-        private ToolStripMenuItem toolStripMenuItemAddToOverview;
+        private readonly ToolStripMenuItem toolStripMenuItemAddToOverview;
         internal ToolStripMenuItem toolStripMenuItemAddToMultiEditTable;
         internal ToolStripMenuItem toolStripMenuItemAddToFind;
         internal ToolStripSeparator toolStripSeparator2;
         internal ToolStripMenuItem toolStripMenuItemCopy;
-        private System.Collections.ArrayList HeadersNonVisibleRows = new System.Collections.ArrayList();
+        private readonly System.Collections.ArrayList HeadersNonVisibleRows = new System.Collections.ArrayList();
         string Prefix;
         private char groupSeparator;
         System.Collections.SortedList MetaDataItems = new System.Collections.SortedList();
 
         private int userSetColumnWidth_1;
-        private ToolTipQIC toolTip;
+        private readonly ToolTipQIC toolTip;
 
-        private SortedList<string, string> ChangedDataGridViewValues;
+        private readonly SortedList<string, string> ChangedDataGridViewValues;
 
         public DataGridViewMetaData(string name, ToolTipQIC toolTip, SortedList<string, string> ChangedDataGridViewValues)
         {
@@ -67,9 +67,11 @@ namespace QuickImageCommentControls
             this.RowHeadersVisible = false;
             this.ReadOnly = false;
 
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle = new System.Windows.Forms.DataGridViewCellStyle();
-            dataGridViewCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle.BackColor = System.Drawing.SystemColors.Control;
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle = new System.Windows.Forms.DataGridViewCellStyle
+            {
+                Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft,
+                BackColor = System.Drawing.SystemColors.Control
+            };
             this.RowsDefaultCellStyle = dataGridViewCellStyle;
 
             this.components = new System.ComponentModel.Container();
@@ -111,9 +113,11 @@ namespace QuickImageCommentControls
             this.BackgroundColor = System.Drawing.SystemColors.Window;
             this.GridColor = System.Drawing.SystemColors.ScrollBar;
             this.RowTemplate.Height = 18;
-            DataGridViewCellStyle dataGridViewCellStyleMetaData = new DataGridViewCellStyle();
-            dataGridViewCellStyleMetaData.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyleMetaData.BackColor = System.Drawing.SystemColors.Control;
+            DataGridViewCellStyle dataGridViewCellStyleMetaData = new DataGridViewCellStyle
+            {
+                Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft,
+                BackColor = System.Drawing.SystemColors.Control
+            };
             this.RowsDefaultCellStyle = dataGridViewCellStyleMetaData;
             this.ShowCellToolTips = false;
 
@@ -305,7 +309,7 @@ namespace QuickImageCommentControls
             bool isEditable;
 
             System.Collections.SortedList KeyList = new System.Collections.SortedList();
-            // no translation of keys from ExifTool (at least now)
+            // no translation of keys from ExifTool as ExifTool has its own translation
             if (Prefix.Equals("ExifTool."))
             {
                 foreach (string key in MetaDataItems.GetKeyList())
@@ -856,8 +860,7 @@ namespace QuickImageCommentControls
         {
             if (e.RowIndex >= 0 && e.ColumnIndex == 1)
             {
-                string newValue = (string)Rows[e.RowIndex].Cells[1].Value;
-                if (newValue == null) newValue = "";
+                string newValue = (string)Rows[e.RowIndex].Cells[1].Value ?? "";
                 string key = (string)Rows[e.RowIndex].Cells[5].Value;
 
                 if (key != null)

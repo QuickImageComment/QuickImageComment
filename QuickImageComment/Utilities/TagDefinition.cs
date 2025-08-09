@@ -57,9 +57,14 @@ namespace QuickImageComment
                    key.StartsWith("Image.");
         }
 
+        public static bool isTextTag(string key)
+        {
+            return key.StartsWith("Txt.");
+        }
+
         public static bool isExifToolTag(string key)
         {
-            return !isExiv2Tag(key) && !isInternalTag(key);
+            return !isExiv2Tag(key) && !isInternalTag(key) && !isTextTag(key);
         }
     }
 }

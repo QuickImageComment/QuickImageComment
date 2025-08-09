@@ -142,6 +142,7 @@ namespace QuickImageComment
             this.checkBoxExifUTF8 = new System.Windows.Forms.CheckBox();
             this.labelCharSet = new System.Windows.Forms.Label();
             this.checkBoxButtonDeletesPermanent = new System.Windows.Forms.CheckBox();
+            this.label11 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxLastComments)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFullSizeImageCacheMaxSize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaximumMemoryForCaching)).BeginInit();
@@ -1078,7 +1079,9 @@ namespace QuickImageComment
             // Panel5
             // 
             this.Panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Panel5.Controls.Add(this.label11);
             this.Panel5.Controls.Add(this.labelFramePosition);
+            this.Panel5.Controls.Add(this.buttonExifToolSettings);
             this.Panel5.Controls.Add(this.numericUpDownFramePosition);
             this.Panel5.Controls.Add(this.TextBoxVideoExtensionsFrame);
             this.Panel5.Controls.Add(this.labelVideoFrame);
@@ -1094,7 +1097,6 @@ namespace QuickImageComment
             // 
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel3.Controls.Add(this.checkBoxLogDiffMetaData);
-            this.panel3.Controls.Add(this.buttonExifToolSettings);
             this.panel3.Controls.Add(this.comboBoxCharsetUserComment);
             this.panel3.Controls.Add(this.checkBoxIptcUTF8);
             this.panel3.Controls.Add(this.checkBoxExifUTF8);
@@ -1117,9 +1119,9 @@ namespace QuickImageComment
             // buttonExifToolSettings
             // 
             this.buttonExifToolSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonExifToolSettings.Location = new System.Drawing.Point(455, 1);
+            this.buttonExifToolSettings.Location = new System.Drawing.Point(775, 35);
             this.buttonExifToolSettings.Name = "buttonExifToolSettings";
-            this.buttonExifToolSettings.Size = new System.Drawing.Size(199, 26);
+            this.buttonExifToolSettings.Size = new System.Drawing.Size(185, 26);
             this.buttonExifToolSettings.TabIndex = 38;
             this.buttonExifToolSettings.Text = "Einstellungen ExifTool";
             this.buttonExifToolSettings.UseVisualStyleBackColor = true;
@@ -1175,6 +1177,14 @@ namespace QuickImageComment
             this.checkBoxButtonDeletesPermanent.TabIndex = 37;
             this.checkBoxButtonDeletesPermanent.Text = "Mit Schaltfläche \"Löschen\" werden Dateien unwiderruflich gelöscht";
             this.checkBoxButtonDeletesPermanent.UseVisualStyleBackColor = true;
+            // 
+            // label11
+            // 
+            this.label11.Location = new System.Drawing.Point(775, 4);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(186, 31);
+            this.label11.TabIndex = 39;
+            this.label11.Text = "Um in Videos zu speichern, ist ExifTool notwendig:";
             // 
             // FormSettings
             // 
@@ -1325,5 +1335,6 @@ namespace QuickImageComment
         private System.Windows.Forms.CheckBox fixedCheckBoxSaveNameVideo4;
         private System.Windows.Forms.CheckBox fixedCheckBoxSaveNameVideo3;
         private System.Windows.Forms.CheckBox fixedCheckBoxSaveNameVideo1;
+        private System.Windows.Forms.Label label11;
     }
 }

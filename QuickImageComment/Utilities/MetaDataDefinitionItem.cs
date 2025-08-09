@@ -14,6 +14,8 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
+using Brain2CPU.ExifTool;
+
 namespace QuickImageComment
 {
     public class MetaDataDefinitionItem
@@ -260,7 +262,8 @@ namespace QuickImageComment
         public bool isEditableInDataGridView()
         {
             return KeySec.Equals("") && 
-                   Exiv2TagDefinitions.isEditableInDataGridView(TypePrim, KeyPrim);
+                   (Exiv2TagDefinitions.isEditableInDataGridView(TypePrim, KeyPrim) ||
+                    TagDefinition.isExifToolTag(KeyPrim) && ExifToolWrapper.isWritable(KeyPrim));
         }
     }
 }
