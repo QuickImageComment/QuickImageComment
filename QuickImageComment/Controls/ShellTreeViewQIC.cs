@@ -50,10 +50,10 @@ namespace QuickImageCommentControls
     {
         // lists to hold file system changes, which cause ShellListener to fire,
         // but should be ignored, as they are handled inside
-        private static ArrayList ShellListenerIgnoreDelete = new ArrayList();
-        private static ArrayList ShellListenerIgnoreUpdate = new ArrayList();
-        private static ArrayList ShellListenerIgnoreRename = new ArrayList();
-        private static ArrayList ShellListenerRenameIsUpdate = new ArrayList();
+        private static readonly ArrayList ShellListenerIgnoreDelete = new ArrayList();
+        private static readonly ArrayList ShellListenerIgnoreUpdate = new ArrayList();
+        private static readonly ArrayList ShellListenerIgnoreRename = new ArrayList();
+        private static readonly ArrayList ShellListenerRenameIsUpdate = new ArrayList();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ShellTreeView"/> class.
@@ -62,12 +62,14 @@ namespace QuickImageCommentControls
         {
             // if following line is enabled, an error occurs when opening mask FormQuickImageComment in Designer
             //QuickImageComment.Program.StartupPerformance.measure("ShellTreeViewQIC Create start");
-            m_TreeView = new TreeView();
-            m_TreeView.Dock = DockStyle.Fill;
-            m_TreeView.HideSelection = false;
-            m_TreeView.HotTracking = true;
-            m_TreeView.Parent = this;
-            m_TreeView.ShowRootLines = false;
+            m_TreeView = new TreeView
+            {
+                Dock = DockStyle.Fill,
+                HideSelection = false,
+                HotTracking = true,
+                Parent = this,
+                ShowRootLines = false
+            };
             m_TreeView.AfterSelect += new TreeViewEventHandler(m_TreeView_AfterSelect);
             m_TreeView.BeforeExpand += new TreeViewCancelEventHandler(m_TreeView_BeforeExpand);
             SystemImageList.UseSystemImageList(m_TreeView);
@@ -436,10 +438,7 @@ namespace QuickImageCommentControls
 
         void m_TreeView_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            if (SelectionChanged != null)
-            {
-                SelectionChanged(this, EventArgs.Empty);
-            }
+            SelectionChanged?.Invoke(this, EventArgs.Empty);
         }
 
         void m_TreeView_BeforeExpand(object sender, TreeViewCancelEventArgs e)
@@ -517,19 +516,19 @@ namespace QuickImageCommentControls
 
             if (!FormQuickImageComment.closing && !parsingName.StartsWith("::"))
             {
-#if LOGLISTENEREVENTS
-                Logger.log("ItemDeleted Start " + e.Item.ParsingName);
-#endif
-                if (ShellListenerIgnoreDelete.Contains(e.Item.FileSystemPath))
+                if (e.Item.IsFileSystem && !e.Item.IsFolder)
                 {
 #if LOGLISTENEREVENTS
-                    Logger.log("ItemDeleted ignored " + e.Item.ParsingName);
+                    Logger.log("ItemDeleted Start " + e.Item.ParsingName);
 #endif
-                    ShellListenerIgnoreDelete.Remove(e.Item.FileSystemPath);
-                }
-                else
-                {
-                    if (e.Item.IsFileSystem && !e.Item.IsFolder)
+                    if (ShellListenerIgnoreDelete.Contains(e.Item.FileSystemPath))
+                    {
+#if LOGLISTENEREVENTS
+                        Logger.log("ItemDeleted ignored " + e.Item.ParsingName);
+#endif
+                        ShellListenerIgnoreDelete.Remove(e.Item.FileSystemPath);
+                    }
+                    else
                     {
                         // start in separate thread so that lock is working
                         new System.Threading.Tasks.Task(() =>
@@ -578,9 +577,9 @@ namespace QuickImageCommentControls
                     {
 #endif
 #if LOGLISTENEREVENTS
-                    Logger.log("is update of " + e.NewItem.FileSystemPath);
+                        Logger.log("is update of " + e.NewItem.FileSystemPath);
 #endif
-                    MainMaskInterface.createOrUpdateItemListViewFiles(e.NewItem.FileSystemPath);
+                        MainMaskInterface.createOrUpdateItemListViewFiles(e.NewItem.FileSystemPath);
 #if !DEBUG
                     }).Start();
 #endif
@@ -617,33 +616,36 @@ namespace QuickImageCommentControls
 
             if (!FormQuickImageComment.closing && !parsingName.StartsWith("::"))
             {
-#if LOGLISTENEREVENTS
-                Logger.log("ItemUpdated Start " + e.Item.ParsingName);
-#endif
-                if (ShellListenerIgnoreUpdate.Contains(e.Item.FileSystemPath))
-                {
-#if LOGLISTENEREVENTS
-                    Logger.log("ItemUpdated Ignored " + e.Item.ParsingName);
-#endif
-                    ShellListenerIgnoreUpdate.Remove(e.Item.FileSystemPath);
-                }
-
                 // here no check for external/internal like for delete or rename
                 // check is done in UserControlFiles.createOrUpdateItemListViewFiles using last write time
-                else if (e.Item.IsFileSystem && !e.Item.IsFolder)
+                if (e.Item.IsFileSystem && !e.Item.IsFolder)
                 {
-#if !DEBUG
-                    // start in separate thread so that lock is working
-                    // only in Release, in Debug creating a thread here will lead to 
-                    // System.InvalidOperationException: 'Cross-thread operation not valid: Control 'listViewFiles' accessed from a thread other than the thread it was created on.'
-                    // Due to this, in Debug it is accepted not to have the security of lock
-                    new System.Threading.Tasks.Task(() =>
+#if LOGLISTENEREVENTS
+                    Logger.log("ItemUpdated Start " + e.Item.ParsingName);
+#endif
+                    if (ShellListenerIgnoreUpdate.Contains(e.Item.FileSystemPath))
                     {
+#if LOGLISTENEREVENTS
+                        Logger.log("ItemUpdated Ignored " + e.Item.ParsingName);
 #endif
-                    MainMaskInterface.createOrUpdateItemListViewFiles(e.Item.FileSystemPath);
+                        ShellListenerIgnoreUpdate.Remove(e.Item.FileSystemPath);
+                    }
+                    else
+
+                    {
 #if !DEBUG
-                    }).Start();
+                        // start in separate thread so that lock is working
+                        // only in Release, in Debug creating a thread here will lead to 
+                        // System.InvalidOperationException: 'Cross-thread operation not valid: Control 'listViewFiles' accessed from a thread other than the thread it was created on.'
+                        // Due to this, in Debug it is accepted not to have the security of lock
+                        new System.Threading.Tasks.Task(() =>
+                        {
 #endif
+                            MainMaskInterface.createOrUpdateItemListViewFiles(e.Item.FileSystemPath);
+#if !DEBUG
+                        }).Start();
+#endif
+                    }
                 }
             }
         }
@@ -716,10 +718,10 @@ namespace QuickImageCommentControls
             ShellListenerIgnoreRename.Add(oldFileName + "*" + newFileName);
         }
 
-        TreeView m_TreeView;
-        ShellItem m_RootFolder = ShellItem.Desktop;
+        readonly TreeView m_TreeView;
+        readonly ShellItem m_RootFolder = ShellItem.Desktop;
         ShowHidden m_ShowHidden = ShowHidden.System;
-        ShellNotificationListener m_ShellListener = new ShellNotificationListener();
+        readonly ShellNotificationListener m_ShellListener = new ShellNotificationListener();
     }
 
     /// Describes whether hidden files/folders should be displayed in a 
