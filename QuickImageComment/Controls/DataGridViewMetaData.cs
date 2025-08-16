@@ -537,7 +537,9 @@ namespace QuickImageCommentControls
                 }
             }
             // adjust context menu
-            if (LangCfg.getTagLookupForLanguageAvailable())
+            // enable depends on language and availability of tag translations
+            // ExifTool has its own language and translation, so allways enabled
+            if (LangCfg.getTagLookupForLanguageAvailable() || Prefix.Equals("ExifTool."))
             {
                 toolStripMenuItemPlain.Enabled = true;
                 toolStripMenuItemSuffixFirst.Enabled = true;

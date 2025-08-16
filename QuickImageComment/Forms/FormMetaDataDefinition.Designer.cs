@@ -104,7 +104,7 @@ namespace QuickImageComment
             this.buttonInputCheckCreate = new System.Windows.Forms.Button();
             this.buttonBeginning = new System.Windows.Forms.Button();
             this.buttonEnd = new System.Windows.Forms.Button();
-            this.labelHint = new System.Windows.Forms.Label();
+            this.dynamicLabelHint = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownVerticalDisplayOffset)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLinesForChange)).BeginInit();
             this.SuspendLayout();
@@ -120,10 +120,10 @@ namespace QuickImageComment
             this.columnHeaderDescription});
             this.listViewTags.FullRowSelect = true;
             this.listViewTags.HideSelection = false;
-            this.listViewTags.Location = new System.Drawing.Point(5, 78);
+            this.listViewTags.Location = new System.Drawing.Point(5, 102);
             this.listViewTags.MultiSelect = false;
             this.listViewTags.Name = "listViewTags";
-            this.listViewTags.Size = new System.Drawing.Size(826, 192);
+            this.listViewTags.Size = new System.Drawing.Size(826, 184);
             this.listViewTags.TabIndex = 7;
             this.listViewTags.UseCompatibleStateImageBehavior = false;
             this.listViewTags.View = System.Windows.Forms.View.Details;
@@ -157,7 +157,7 @@ namespace QuickImageComment
             // buttonAbort
             // 
             this.buttonAbort.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonAbort.Location = new System.Drawing.Point(505, 596);
+            this.buttonAbort.Location = new System.Drawing.Point(505, 612);
             this.buttonAbort.Name = "buttonAbort";
             this.buttonAbort.Size = new System.Drawing.Size(95, 22);
             this.buttonAbort.TabIndex = 43;
@@ -169,7 +169,7 @@ namespace QuickImageComment
             // 
             this.listBoxMetaData.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.listBoxMetaData.FormattingEnabled = true;
-            this.listBoxMetaData.Location = new System.Drawing.Point(5, 330);
+            this.listBoxMetaData.Location = new System.Drawing.Point(5, 346);
             this.listBoxMetaData.Name = "listBoxMetaData";
             this.listBoxMetaData.Size = new System.Drawing.Size(286, 225);
             this.listBoxMetaData.TabIndex = 17;
@@ -180,7 +180,7 @@ namespace QuickImageComment
             this.dynamicComboBoxMetaDataType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.dynamicComboBoxMetaDataType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.dynamicComboBoxMetaDataType.FormattingEnabled = true;
-            this.dynamicComboBoxMetaDataType.Location = new System.Drawing.Point(5, 306);
+            this.dynamicComboBoxMetaDataType.Location = new System.Drawing.Point(5, 322);
             this.dynamicComboBoxMetaDataType.Name = "dynamicComboBoxMetaDataType";
             this.dynamicComboBoxMetaDataType.Size = new System.Drawing.Size(286, 21);
             this.dynamicComboBoxMetaDataType.TabIndex = 16;
@@ -190,7 +190,7 @@ namespace QuickImageComment
             // buttonUp
             // 
             this.buttonUp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonUp.Location = new System.Drawing.Point(297, 352);
+            this.buttonUp.Location = new System.Drawing.Point(297, 368);
             this.buttonUp.Name = "buttonUp";
             this.buttonUp.Size = new System.Drawing.Size(95, 22);
             this.buttonUp.TabIndex = 18;
@@ -201,7 +201,7 @@ namespace QuickImageComment
             // buttonDown
             // 
             this.buttonDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonDown.Location = new System.Drawing.Point(297, 374);
+            this.buttonDown.Location = new System.Drawing.Point(297, 390);
             this.buttonDown.Name = "buttonDown";
             this.buttonDown.Size = new System.Drawing.Size(95, 22);
             this.buttonDown.TabIndex = 19;
@@ -212,7 +212,7 @@ namespace QuickImageComment
             // buttonNew
             // 
             this.buttonNew.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonNew.Location = new System.Drawing.Point(297, 421);
+            this.buttonNew.Location = new System.Drawing.Point(297, 437);
             this.buttonNew.Name = "buttonNew";
             this.buttonNew.Size = new System.Drawing.Size(95, 22);
             this.buttonNew.TabIndex = 20;
@@ -223,7 +223,7 @@ namespace QuickImageComment
             // label2
             // 
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label2.Location = new System.Drawing.Point(412, 308);
+            this.label2.Location = new System.Drawing.Point(412, 324);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(104, 20);
             this.label2.TabIndex = 23;
@@ -234,7 +234,7 @@ namespace QuickImageComment
             // 
             this.textBoxName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxName.Location = new System.Drawing.Point(518, 308);
+            this.textBoxName.Location = new System.Drawing.Point(518, 324);
             this.textBoxName.Name = "textBoxName";
             this.textBoxName.Size = new System.Drawing.Size(313, 21);
             this.textBoxName.TabIndex = 24;
@@ -245,7 +245,7 @@ namespace QuickImageComment
             this.textBoxPrefix.AllowDrop = true;
             this.textBoxPrefix.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxPrefix.Location = new System.Drawing.Point(518, 330);
+            this.textBoxPrefix.Location = new System.Drawing.Point(518, 346);
             this.textBoxPrefix.Name = "textBoxPrefix";
             this.textBoxPrefix.Size = new System.Drawing.Size(313, 21);
             this.textBoxPrefix.TabIndex = 26;
@@ -254,7 +254,7 @@ namespace QuickImageComment
             // label3
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label3.Location = new System.Drawing.Point(412, 330);
+            this.label3.Location = new System.Drawing.Point(412, 346);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(104, 20);
             this.label3.TabIndex = 25;
@@ -266,7 +266,7 @@ namespace QuickImageComment
             this.textBoxMetaDatum1.AllowDrop = true;
             this.textBoxMetaDatum1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxMetaDatum1.Location = new System.Drawing.Point(518, 352);
+            this.textBoxMetaDatum1.Location = new System.Drawing.Point(518, 368);
             this.textBoxMetaDatum1.Name = "textBoxMetaDatum1";
             this.textBoxMetaDatum1.Size = new System.Drawing.Size(313, 21);
             this.textBoxMetaDatum1.TabIndex = 28;
@@ -276,7 +276,7 @@ namespace QuickImageComment
             // label4
             // 
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label4.Location = new System.Drawing.Point(412, 352);
+            this.label4.Location = new System.Drawing.Point(412, 368);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(104, 20);
             this.label4.TabIndex = 27;
@@ -288,7 +288,7 @@ namespace QuickImageComment
             this.textBoxSeparator.AllowDrop = true;
             this.textBoxSeparator.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxSeparator.Location = new System.Drawing.Point(518, 397);
+            this.textBoxSeparator.Location = new System.Drawing.Point(518, 413);
             this.textBoxSeparator.Name = "textBoxSeparator";
             this.textBoxSeparator.Size = new System.Drawing.Size(313, 21);
             this.textBoxSeparator.TabIndex = 32;
@@ -297,7 +297,7 @@ namespace QuickImageComment
             // label5
             // 
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label5.Location = new System.Drawing.Point(412, 397);
+            this.label5.Location = new System.Drawing.Point(412, 413);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(104, 20);
             this.label5.TabIndex = 31;
@@ -307,7 +307,7 @@ namespace QuickImageComment
             // label6
             // 
             this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label6.Location = new System.Drawing.Point(412, 374);
+            this.label6.Location = new System.Drawing.Point(412, 390);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(104, 20);
             this.label6.TabIndex = 29;
@@ -317,7 +317,7 @@ namespace QuickImageComment
             // label7
             // 
             this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label7.Location = new System.Drawing.Point(412, 441);
+            this.label7.Location = new System.Drawing.Point(412, 457);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(104, 20);
             this.label7.TabIndex = 35;
@@ -329,7 +329,7 @@ namespace QuickImageComment
             this.textBoxPostfix.AllowDrop = true;
             this.textBoxPostfix.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxPostfix.Location = new System.Drawing.Point(518, 464);
+            this.textBoxPostfix.Location = new System.Drawing.Point(518, 480);
             this.textBoxPostfix.Name = "textBoxPostfix";
             this.textBoxPostfix.Size = new System.Drawing.Size(313, 21);
             this.textBoxPostfix.TabIndex = 38;
@@ -338,7 +338,7 @@ namespace QuickImageComment
             // label8
             // 
             this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label8.Location = new System.Drawing.Point(412, 464);
+            this.label8.Location = new System.Drawing.Point(412, 480);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(104, 20);
             this.label8.TabIndex = 37;
@@ -350,7 +350,7 @@ namespace QuickImageComment
             this.textBoxMetaDatum2.AllowDrop = true;
             this.textBoxMetaDatum2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxMetaDatum2.Location = new System.Drawing.Point(518, 419);
+            this.textBoxMetaDatum2.Location = new System.Drawing.Point(518, 435);
             this.textBoxMetaDatum2.Name = "textBoxMetaDatum2";
             this.textBoxMetaDatum2.Size = new System.Drawing.Size(313, 21);
             this.textBoxMetaDatum2.TabIndex = 34;
@@ -359,7 +359,7 @@ namespace QuickImageComment
             // label9
             // 
             this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label9.Location = new System.Drawing.Point(412, 419);
+            this.label9.Location = new System.Drawing.Point(412, 435);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(104, 20);
             this.label9.TabIndex = 33;
@@ -369,7 +369,7 @@ namespace QuickImageComment
             // buttonMetaDatum1
             // 
             this.buttonMetaDatum1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonMetaDatum1.Location = new System.Drawing.Point(650, 275);
+            this.buttonMetaDatum1.Location = new System.Drawing.Point(650, 291);
             this.buttonMetaDatum1.Name = "buttonMetaDatum1";
             this.buttonMetaDatum1.Size = new System.Drawing.Size(86, 22);
             this.buttonMetaDatum1.TabIndex = 14;
@@ -380,7 +380,7 @@ namespace QuickImageComment
             // buttonMetaDatum2
             // 
             this.buttonMetaDatum2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonMetaDatum2.Location = new System.Drawing.Point(745, 275);
+            this.buttonMetaDatum2.Location = new System.Drawing.Point(745, 291);
             this.buttonMetaDatum2.Name = "buttonMetaDatum2";
             this.buttonMetaDatum2.Size = new System.Drawing.Size(86, 22);
             this.buttonMetaDatum2.TabIndex = 15;
@@ -393,7 +393,7 @@ namespace QuickImageComment
             this.dynamicLabelExample.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dynamicLabelExample.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.dynamicLabelExample.Location = new System.Drawing.Point(518, 486);
+            this.dynamicLabelExample.Location = new System.Drawing.Point(518, 502);
             this.dynamicLabelExample.Name = "dynamicLabelExample";
             this.dynamicLabelExample.Size = new System.Drawing.Size(313, 20);
             this.dynamicLabelExample.TabIndex = 40;
@@ -404,7 +404,7 @@ namespace QuickImageComment
             // 
             this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(517, 280);
+            this.label11.Location = new System.Drawing.Point(517, 296);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(126, 13);
             this.label11.TabIndex = 13;
@@ -413,7 +413,7 @@ namespace QuickImageComment
             // buttonOk
             // 
             this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonOk.Location = new System.Drawing.Point(238, 596);
+            this.buttonOk.Location = new System.Drawing.Point(238, 612);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(95, 22);
             this.buttonOk.TabIndex = 42;
@@ -424,7 +424,7 @@ namespace QuickImageComment
             // buttonCopy
             // 
             this.buttonCopy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonCopy.Location = new System.Drawing.Point(297, 443);
+            this.buttonCopy.Location = new System.Drawing.Point(297, 459);
             this.buttonCopy.Name = "buttonCopy";
             this.buttonCopy.Size = new System.Drawing.Size(95, 22);
             this.buttonCopy.TabIndex = 21;
@@ -435,7 +435,7 @@ namespace QuickImageComment
             // buttonDelete
             // 
             this.buttonDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonDelete.Location = new System.Drawing.Point(297, 465);
+            this.buttonDelete.Location = new System.Drawing.Point(297, 481);
             this.buttonDelete.Name = "buttonDelete";
             this.buttonDelete.Size = new System.Drawing.Size(95, 22);
             this.buttonDelete.TabIndex = 22;
@@ -446,7 +446,7 @@ namespace QuickImageComment
             // dynamicLabelInfo
             // 
             this.dynamicLabelInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.dynamicLabelInfo.Location = new System.Drawing.Point(2, 558);
+            this.dynamicLabelInfo.Location = new System.Drawing.Point(2, 574);
             this.dynamicLabelInfo.Name = "dynamicLabelInfo";
             this.dynamicLabelInfo.Size = new System.Drawing.Size(828, 33);
             this.dynamicLabelInfo.TabIndex = 41;
@@ -517,7 +517,7 @@ namespace QuickImageComment
             // 
             this.label12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(4, 280);
+            this.label12.Location = new System.Drawing.Point(4, 296);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(74, 13);
             this.label12.TabIndex = 9;
@@ -526,7 +526,7 @@ namespace QuickImageComment
             // label13
             // 
             this.label13.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label13.Location = new System.Drawing.Point(215, 278);
+            this.label13.Location = new System.Drawing.Point(215, 294);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(88, 17);
             this.label13.TabIndex = 11;
@@ -536,7 +536,7 @@ namespace QuickImageComment
             // dynamicLabelValueOriginal
             // 
             this.dynamicLabelValueOriginal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.dynamicLabelValueOriginal.Location = new System.Drawing.Point(74, 280);
+            this.dynamicLabelValueOriginal.Location = new System.Drawing.Point(74, 296);
             this.dynamicLabelValueOriginal.Name = "dynamicLabelValueOriginal";
             this.dynamicLabelValueOriginal.Size = new System.Drawing.Size(156, 17);
             this.dynamicLabelValueOriginal.TabIndex = 10;
@@ -546,7 +546,7 @@ namespace QuickImageComment
             // 
             this.dynamicLabelValueInterpreted.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.dynamicLabelValueInterpreted.BackColor = System.Drawing.SystemColors.Control;
-            this.dynamicLabelValueInterpreted.Location = new System.Drawing.Point(299, 280);
+            this.dynamicLabelValueInterpreted.Location = new System.Drawing.Point(299, 296);
             this.dynamicLabelValueInterpreted.Name = "dynamicLabelValueInterpreted";
             this.dynamicLabelValueInterpreted.Size = new System.Drawing.Size(200, 17);
             this.dynamicLabelValueInterpreted.TabIndex = 12;
@@ -555,7 +555,7 @@ namespace QuickImageComment
             // buttonCustomizeForm
             // 
             this.buttonCustomizeForm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonCustomizeForm.Location = new System.Drawing.Point(5, 596);
+            this.buttonCustomizeForm.Location = new System.Drawing.Point(5, 612);
             this.buttonCustomizeForm.Name = "buttonCustomizeForm";
             this.buttonCustomizeForm.Size = new System.Drawing.Size(98, 22);
             this.buttonCustomizeForm.TabIndex = 41;
@@ -569,7 +569,7 @@ namespace QuickImageComment
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dynamicComboBoxMetaDataFormat2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.dynamicComboBoxMetaDataFormat2.FormattingEnabled = true;
-            this.dynamicComboBoxMetaDataFormat2.Location = new System.Drawing.Point(518, 441);
+            this.dynamicComboBoxMetaDataFormat2.Location = new System.Drawing.Point(518, 457);
             this.dynamicComboBoxMetaDataFormat2.Name = "dynamicComboBoxMetaDataFormat2";
             this.dynamicComboBoxMetaDataFormat2.Size = new System.Drawing.Size(312, 21);
             this.dynamicComboBoxMetaDataFormat2.TabIndex = 36;
@@ -581,7 +581,7 @@ namespace QuickImageComment
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dynamicComboBoxMetaDataFormat1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.dynamicComboBoxMetaDataFormat1.FormattingEnabled = true;
-            this.dynamicComboBoxMetaDataFormat1.Location = new System.Drawing.Point(518, 374);
+            this.dynamicComboBoxMetaDataFormat1.Location = new System.Drawing.Point(518, 390);
             this.dynamicComboBoxMetaDataFormat1.Name = "dynamicComboBoxMetaDataFormat1";
             this.dynamicComboBoxMetaDataFormat1.Size = new System.Drawing.Size(312, 21);
             this.dynamicComboBoxMetaDataFormat1.TabIndex = 30;
@@ -590,7 +590,7 @@ namespace QuickImageComment
             // buttonHelp
             // 
             this.buttonHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonHelp.Location = new System.Drawing.Point(736, 596);
+            this.buttonHelp.Location = new System.Drawing.Point(736, 612);
             this.buttonHelp.Name = "buttonHelp";
             this.buttonHelp.Size = new System.Drawing.Size(95, 22);
             this.buttonHelp.TabIndex = 44;
@@ -601,7 +601,7 @@ namespace QuickImageComment
             // label14
             // 
             this.label14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label14.Location = new System.Drawing.Point(318, 486);
+            this.label14.Location = new System.Drawing.Point(318, 502);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(198, 20);
             this.label14.TabIndex = 39;
@@ -611,7 +611,7 @@ namespace QuickImageComment
             // label15
             // 
             this.label15.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label15.Location = new System.Drawing.Point(318, 508);
+            this.label15.Location = new System.Drawing.Point(318, 524);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(198, 20);
             this.label15.TabIndex = 47;
@@ -621,7 +621,7 @@ namespace QuickImageComment
             // label16
             // 
             this.label16.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label16.Location = new System.Drawing.Point(318, 532);
+            this.label16.Location = new System.Drawing.Point(318, 548);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(198, 20);
             this.label16.TabIndex = 48;
@@ -631,7 +631,7 @@ namespace QuickImageComment
             // numericUpDownVerticalDisplayOffset
             // 
             this.numericUpDownVerticalDisplayOffset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.numericUpDownVerticalDisplayOffset.Location = new System.Drawing.Point(518, 508);
+            this.numericUpDownVerticalDisplayOffset.Location = new System.Drawing.Point(518, 524);
             this.numericUpDownVerticalDisplayOffset.Maximum = new decimal(new int[] {
             50,
             0,
@@ -655,7 +655,7 @@ namespace QuickImageComment
             // numericUpDownLinesForChange
             // 
             this.numericUpDownLinesForChange.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.numericUpDownLinesForChange.Location = new System.Drawing.Point(518, 532);
+            this.numericUpDownLinesForChange.Location = new System.Drawing.Point(518, 548);
             this.numericUpDownLinesForChange.Maximum = new decimal(new int[] {
             99,
             0,
@@ -690,7 +690,7 @@ namespace QuickImageComment
             // buttonInputCheckEdit
             // 
             this.buttonInputCheckEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonInputCheckEdit.Location = new System.Drawing.Point(687, 529);
+            this.buttonInputCheckEdit.Location = new System.Drawing.Point(687, 545);
             this.buttonInputCheckEdit.Name = "buttonInputCheckEdit";
             this.buttonInputCheckEdit.Size = new System.Drawing.Size(70, 22);
             this.buttonInputCheckEdit.TabIndex = 52;
@@ -702,7 +702,7 @@ namespace QuickImageComment
             // 
             this.label17.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(613, 512);
+            this.label17.Location = new System.Drawing.Point(613, 528);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(87, 13);
             this.label17.TabIndex = 53;
@@ -711,7 +711,7 @@ namespace QuickImageComment
             // buttonInputCheckDelete
             // 
             this.buttonInputCheckDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonInputCheckDelete.Location = new System.Drawing.Point(761, 529);
+            this.buttonInputCheckDelete.Location = new System.Drawing.Point(761, 545);
             this.buttonInputCheckDelete.Name = "buttonInputCheckDelete";
             this.buttonInputCheckDelete.Size = new System.Drawing.Size(70, 22);
             this.buttonInputCheckDelete.TabIndex = 54;
@@ -722,7 +722,7 @@ namespace QuickImageComment
             // buttonInputCheckCreate
             // 
             this.buttonInputCheckCreate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonInputCheckCreate.Location = new System.Drawing.Point(613, 528);
+            this.buttonInputCheckCreate.Location = new System.Drawing.Point(613, 544);
             this.buttonInputCheckCreate.Name = "buttonInputCheckCreate";
             this.buttonInputCheckCreate.Size = new System.Drawing.Size(70, 22);
             this.buttonInputCheckCreate.TabIndex = 55;
@@ -733,7 +733,7 @@ namespace QuickImageComment
             // buttonBeginning
             // 
             this.buttonBeginning.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonBeginning.Location = new System.Drawing.Point(297, 330);
+            this.buttonBeginning.Location = new System.Drawing.Point(297, 346);
             this.buttonBeginning.Name = "buttonBeginning";
             this.buttonBeginning.Size = new System.Drawing.Size(95, 22);
             this.buttonBeginning.TabIndex = 56;
@@ -744,7 +744,7 @@ namespace QuickImageComment
             // buttonEnd
             // 
             this.buttonEnd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonEnd.Location = new System.Drawing.Point(297, 396);
+            this.buttonEnd.Location = new System.Drawing.Point(297, 412);
             this.buttonEnd.Name = "buttonEnd";
             this.buttonEnd.Size = new System.Drawing.Size(95, 22);
             this.buttonEnd.TabIndex = 57;
@@ -752,22 +752,21 @@ namespace QuickImageComment
             this.buttonEnd.UseVisualStyleBackColor = true;
             this.buttonEnd.Click += new System.EventHandler(this.buttonEnd_Click);
             // 
-            // labelHint
+            // dynamicLabelHint
             // 
-            this.labelHint.AutoSize = true;
-            this.labelHint.Location = new System.Drawing.Point(5, 54);
-            this.labelHint.Name = "labelHint";
-            this.labelHint.Size = new System.Drawing.Size(473, 13);
-            this.labelHint.TabIndex = 58;
-            this.labelHint.Text = "Hinweise: Liste enthält Meta-Daten, die über ExifTool aus dem ausgewählten Bild g" +
-    "elesen wurden";
+            this.dynamicLabelHint.AutoSize = true;
+            this.dynamicLabelHint.Location = new System.Drawing.Point(5, 54);
+            this.dynamicLabelHint.Name = "dynamicLabelHint";
+            this.dynamicLabelHint.Size = new System.Drawing.Size(92, 13);
+            this.dynamicLabelHint.TabIndex = 58;
+            this.dynamicLabelHint.Text = "Hinweise zur Liste";
             // 
             // FormMetaDataDefinition
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(837, 623);
-            this.Controls.Add(this.labelHint);
+            this.ClientSize = new System.Drawing.Size(837, 639);
+            this.Controls.Add(this.dynamicLabelHint);
             this.Controls.Add(this.buttonEnd);
             this.Controls.Add(this.buttonBeginning);
             this.Controls.Add(this.buttonInputCheckCreate);
@@ -900,6 +899,6 @@ namespace QuickImageComment
         private System.Windows.Forms.Button buttonInputCheckCreate;
         private System.Windows.Forms.Button buttonBeginning;
         private System.Windows.Forms.Button buttonEnd;
-        private System.Windows.Forms.Label labelHint;
+        private System.Windows.Forms.Label dynamicLabelHint;
     }
 }

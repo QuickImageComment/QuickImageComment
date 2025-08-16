@@ -14,6 +14,8 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
+//#define WARNING_TAG_CANNOT_BE_CHECKED
+
 using Brain2CPU.ExifTool;
 using System;
 using System.Collections;
@@ -26,6 +28,8 @@ namespace QuickImageComment
         public bool settingsChanged = true;
 
         private bool initialisationFinished = false;
+        private static bool onlyInImageChecked = true;
+        private static bool originalLanguageChecked = false;
 
         private ArrayList[] MetaDataDefinitions;
         private ArrayList MetaDataDefinitionsWork;
@@ -86,11 +90,13 @@ namespace QuickImageComment
             if (Program.AppCenterUsable) Microsoft.AppCenter.Analytics.Analytics.TrackEvent(this.Name);
 #endif
             buttonAbort.Select();
+            dynamicLabelHint.Text = LangCfg.getText(LangCfg.Others.hintListAvailableMetaData);
+            checkBoxOnlyInImage.Checked = onlyInImageChecked;
+            checkBoxOriginalLanguage.Checked = originalLanguageChecked;
             dynamicLabelValueOriginal.Text = "";
             dynamicLabelValueInterpreted.Text = "";
             dynamicLabelExample.Text = "";
             dynamicLabelInfo.Text = "";
-            checkBoxOnlyInImage.Checked = true;
             // center manually: as this mask is not modal StartPosition=CenterParent does not work
             this.Top = MainMaskInterface.top() + (MainMaskInterface.height() - this.Height) / 2;
             this.Left = MainMaskInterface.left() + (MainMaskInterface.width() - this.Width) / 2;
@@ -342,9 +348,9 @@ namespace QuickImageComment
                     foreach (MetaDataItemExifTool metaDataItemExifTool in theExtendedImage.getExifToolMetaDataItems().Values)
                     {
                         theListViewItem = new ListViewItem(new string[] { metaDataItemExifTool.getKey(),
-                                                                      metaDataItemExifTool.getTypeName(),
-                                                                      metaDataItemExifTool.getShortDesc(),
-                                                                      metaDataItemExifTool.getKey() });
+                                                                          metaDataItemExifTool.getTypeName(),
+                                                                          metaDataItemExifTool.getShortDesc(),
+                                                                          metaDataItemExifTool.getKey() });
                         listViewTags.Items.Add(theListViewItem);
                     }
                 }
@@ -806,6 +812,8 @@ namespace QuickImageComment
         private void buttonAbort_Click(object sender, EventArgs e)
         {
             settingsChanged = false;
+            onlyInImageChecked = checkBoxOnlyInImage.Checked;
+            originalLanguageChecked = checkBoxOriginalLanguage.Checked;
             this.Close();
         }
 
@@ -872,6 +880,8 @@ namespace QuickImageComment
                 }
 
                 settingsChanged = true;
+                onlyInImageChecked = checkBoxOnlyInImage.Checked;
+                originalLanguageChecked = checkBoxOriginalLanguage.Checked;
                 this.Close();
             }
         }
@@ -1455,7 +1465,21 @@ namespace QuickImageComment
             {
                 return true;
             }
-            else if (!Exiv2TagDefinitions.getList().ContainsKey(metaDatumText))
+            else if (metaDatumText.StartsWith("Exif.") ||
+                     metaDatumText.StartsWith("ExifEasy.") ||
+                     metaDatumText.StartsWith("Iptc.") ||
+                     metaDatumText.StartsWith("Image.") ||
+                     metaDatumText.StartsWith("Define.") ||
+                     metaDatumText.StartsWith("File."))
+            {
+                if (!Exiv2TagDefinitions.getList().ContainsKey(metaDatumText))
+                {
+                    GeneralUtilities.message(LangCfg.Message.E_unknownEntry, metaDatumText);
+                    return true;
+                }
+            }
+#if WARNING_TAG_CANNOT_BE_CHECKED
+            else
             {
                 if (metaDatumText.StartsWith("Xmp.") || metaDatumText.StartsWith("Txt."))
                 {
@@ -1466,7 +1490,6 @@ namespace QuickImageComment
                 }
                 else
                 {
-                    //!! zweige testen
                     string[] parts = metaDatumText.Split(new char[] { ':' });
                     if (ExifToolWrapper.isReady())
                     {
@@ -1491,6 +1514,8 @@ namespace QuickImageComment
                         }
                         else
                         {
+                            // could be too restrictive: ExifTool tag may be defined with
+                            // other group than location or without group at all
                             GeneralUtilities.message(LangCfg.Message.E_unknownEntry, metaDatumText);
                             return true;
                         }
@@ -1502,10 +1527,8 @@ namespace QuickImageComment
                     }
                 }
             }
-            else
-            {
-                return false;
-            }
+#endif
+            return false;
         }
 
         // check string for invalid charactes, which are used as separators in configuration file

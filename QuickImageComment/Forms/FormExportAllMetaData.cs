@@ -48,7 +48,7 @@ namespace QuickImageComment
         private readonly ArrayList FilesToExportIdx = new ArrayList();
         private readonly ArrayList FilesExportedName = new ArrayList();
         private readonly ArrayList FilesExportedIdx = new ArrayList();
-        
+
         public FormExportAllMetaData(ListView.SelectedIndexCollection SelectedIndices, string FolderName, enumExImPortMode exImPortMode)
         {
             string fullFileName;
@@ -180,6 +180,7 @@ namespace QuickImageComment
         private void backgroundWorker1_DoWork(object sender, System.ComponentModel.DoWorkEventArgs doWorkEventArgs)
         {
             string fullFileName;
+            string videoFileNames = "";
             int idx;
 
             System.ComponentModel.BackgroundWorker worker = sender as System.ComponentModel.BackgroundWorker;
@@ -196,11 +197,31 @@ namespace QuickImageComment
                         break;
                     case enumExImPortMode.BinaryExport:
                         if (FilesToExportName.Contains(fullFileName))
-                            ImageManager.exportImageBinary(fullFileName);
+                        {
+                            if (ConfigDefinition.getVideoExtensionsPropertiesList().Contains((System.IO.Path.GetExtension(fullFileName)).ToLower()) ||
+                                ConfigDefinition.getVideoExtensionsFrameList().Contains((System.IO.Path.GetExtension(fullFileName)).ToLower()))
+                            {
+                                // videos in general can be exported, but some data are missing, so it is not supported here
+                                videoFileNames += "\n" + fullFileName;
+                            }
+                            else
+                            {
+                                ImageManager.exportImageBinary(fullFileName);
+                            }
+                        }
                         break;
                     case enumExImPortMode.BinaryImport:
                         if (FilesExportedName.Contains(fullFileName))
-                            ImageManager.importImageBinary(fullFileName);
+                            if (ConfigDefinition.getVideoExtensionsPropertiesList().Contains((System.IO.Path.GetExtension(fullFileName)).ToLower()) ||
+                                ConfigDefinition.getVideoExtensionsFrameList().Contains((System.IO.Path.GetExtension(fullFileName)).ToLower()))
+                            {
+                                // import to videos does not work as expected, so it is not supported here
+                                videoFileNames += "\n" + fullFileName;
+                            }
+                            else
+                            {
+                                ImageManager.importImageBinary(fullFileName);
+                            }
                         break;
                     default:
                         GeneralUtilities.debugMessage("Export/Import mode " + exImPortMode.ToString() + " not handled!");
@@ -218,6 +239,7 @@ namespace QuickImageComment
                     worker.ReportProgress(0);
                 }
             }
+            if (videoFileNames.Length > 0) GeneralUtilities.message(LangCfg.Message.W_noBinaryExImPortVideo, videoFileNames);
         }
 
         // export properties of one image to file

@@ -186,6 +186,7 @@ namespace QuickImageComment
 
         private void buttonOK_Click(object sender, System.EventArgs e)
         {
+            this.Cursor = Cursors.WaitCursor;
             ConfigDefinition.setKeepImageBakFile(checkBoxKeepImageBakFile.Checked);
             ConfigDefinition.setCfgUserBool(ConfigDefinition.enumCfgUserBool.ButtonDeletesPermanently, checkBoxButtonDeletesPermanent.Checked);
             ConfigDefinition.setSaveWithReturn(checkBoxSaveWithReturn.Checked);
@@ -255,6 +256,7 @@ namespace QuickImageComment
             ConfigDefinition.setCfgUserBool(ConfigDefinition.enumCfgUserBool.logDifferencesMetaData, checkBoxLogDiffMetaData.Checked);
 
             settingsChanged = true;
+            this.Cursor = Cursors.Default;
             Close();
         }
 

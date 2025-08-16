@@ -10,6 +10,7 @@
 // - set encoding for standard input and output
 // - converted to static class
 
+using QuickImageComment;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -608,6 +609,19 @@ namespace Brain2CPU.ExifTool
 
         public static ExifToolResponse SetOrientationDeg(string path, int ori, bool overwriteOriginal = true) =>
             SetOrientation(path, OrientationDeg2Pos(ori), overwriteOriginal);
+
+        public static bool isWritable(string key)
+        {
+            try
+            {
+                string[] parts = key.Split(':');
+                return getWritableTagList().Contains(parts[1]);
+            }
+            catch (Exception ex)
+            {
+                GeneralUtilities.debugMessage(key + "\r\n" + ex.Message);
+                return false; }
+        }
 
         #region Static orientation helpers
 

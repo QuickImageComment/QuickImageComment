@@ -3701,9 +3701,16 @@ namespace QuickImageComment
                             {
                                 TagValue = DateTime.Now.ToString("HH:mm:ss");
                             }
-                            // other tag
-                            else if (Exiv2TagDefinitions.getList().Keys.Contains(thePlaceholderDefinition.keyMain)
-                                  || getOtherMetaDataItems().GetKeyList().Contains(thePlaceholderDefinition.keyMain))
+                            // check exiv2 tags - except Xmp
+                            else if ((TagDefinition.isExiv2Tag(thePlaceholderDefinition.keyMain) &&
+                                      !thePlaceholderDefinition.keyMain.StartsWith("Xmp.") &&
+                                      !Exiv2TagDefinitions.getList().Keys.Contains(thePlaceholderDefinition.keyMain)) ||
+                                // check internal tags
+                                     (TagDefinition.isInternalTag(thePlaceholderDefinition.keyMain) &&
+                                      !getOtherMetaDataItems().GetKeyList().Contains(thePlaceholderDefinition.keyMain)))
+                                throw new ExceptionErrorReplacePlaceholder(LangCfg.getText(LangCfg.Message.E_invalidPlaceholderKey, thePlaceholderDefinition.keyOriginal, Value));
+                            else 
+                            // tag is proven to be valid or validity cannot be proven (Xmp, ExifTool)
                             {
                                 // get replace tag value
                                 ArrayList TagValueArrayList = new ArrayList();
@@ -3716,10 +3723,6 @@ namespace QuickImageComment
                                     TagValueArrayList = getMetaDataArrayListByKey(thePlaceholderDefinition.key, thePlaceholderDefinition.format);
                                 }
                                 TagValue = GeneralUtilities.getValuesStringOfArrayList(TagValueArrayList, thePlaceholderDefinition.separator, thePlaceholderDefinition.sorted);
-                            }
-                            if (TagValue == null)
-                            {
-                                throw new ExceptionErrorReplacePlaceholder(LangCfg.getText(LangCfg.Message.E_invalidPlaceholderKey, thePlaceholderDefinition.keyOriginal, Value));
                             }
 
                             // check parameter and take substring
@@ -4465,12 +4468,12 @@ namespace QuickImageComment
                         MetaDataItem newItem = (MetaDataItem)getAllMetaDataItems()[key];
                         if (!oldItem.getInterpreted().Equals(newItem.getInterpreted()))
                         {
-                            differences.Add(key + " " + LangCfg.getText(LangCfg.Others.diffOldNew) + ": " + oldItem.getInterpreted() + " # " + newItem.getInterpreted());
+                            differences.Add("  " + key + " " + LangCfg.getText(LangCfg.Others.diffOldNew) + ": " + oldItem.getInterpreted() + " # " + newItem.getInterpreted());
                         }
                     }
                     else
                     {
-                        differences.Add(key + " " + LangCfg.getText(LangCfg.Others.diffDeleted) + ": " + oldItem.getInterpreted());
+                        differences.Add("  " + key + " " + LangCfg.getText(LangCfg.Others.diffDeleted) + ": " + oldItem.getInterpreted());
                     }
                 }
             }
@@ -4479,7 +4482,7 @@ namespace QuickImageComment
                 if (!oldMetaDataItems.ContainsKey(key))
                 {
                     MetaDataItem newItem = (MetaDataItem)getAllMetaDataItems()[key];
-                    differences.Add(key + " " + LangCfg.getText(LangCfg.Others.diffInserted) + ": " + newItem.getInterpreted());
+                    differences.Add("  " + key + " " + LangCfg.getText(LangCfg.Others.diffInserted) + ": " + newItem.getInterpreted());
                 }
             }
 

@@ -529,7 +529,7 @@ namespace QuickImageComment
                                     if (extendedImage.getIsVideo())
                                     {
                                         string exiv2TagsChanged = "";
-                                        SortedList changedFields = MainMaskInterface.fillAllChangedFieldsForSave();
+                                        SortedList changedFields = MainMaskInterface.fillAllChangedFieldsForSaveExcludingArtistComment();
                                         foreach (string key in changedFields.Keys)
                                         {
                                             if (TagDefinition.isExiv2Tag(key))

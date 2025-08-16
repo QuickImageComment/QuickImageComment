@@ -1254,14 +1254,14 @@ namespace QuickImageComment
             // 
             this.toolStripMenuItemTextExportSelectedProp.Name = "toolStripMenuItemTextExportSelectedProp";
             this.toolStripMenuItemTextExportSelectedProp.Size = new System.Drawing.Size(343, 22);
-            this.toolStripMenuItemTextExportSelectedProp.Text = "E&xport: Ausgew. Eigenschaften der Bilder im Verzeichnis";
+            this.toolStripMenuItemTextExportSelectedProp.Text = "E&xport: Ausgew. Eigenschaften der Bilder/Videos im Verzeichnis";
             this.toolStripMenuItemTextExportSelectedProp.Click += new System.EventHandler(this.toolStripMenuItemTextExportSelectedProp_Click);
             // 
             // toolStripMenuItemTextExportAllProp
             // 
             this.toolStripMenuItemTextExportAllProp.Name = "toolStripMenuItemTextExportAllProp";
             this.toolStripMenuItemTextExportAllProp.Size = new System.Drawing.Size(343, 22);
-            this.toolStripMenuItemTextExportAllProp.Text = "Export: Alle Eigenschaften der markierten Bilder";
+            this.toolStripMenuItemTextExportAllProp.Text = "Export: Alle Eigenschaften der markierten Bilder/Videos";
             this.toolStripMenuItemTextExportAllProp.Click += new System.EventHandler(this.toolStripMenuItemTextExportAllProp_Click);
             // 
             // toolStripMenuItemBinaryExportAllProp

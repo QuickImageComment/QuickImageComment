@@ -378,7 +378,6 @@ namespace QuickImageComment
         private static ArrayList RawDecoderNotRotatingArrayList;
         private static ArrayList EditExternalDefinitionArrayList;
         private static List<string> ImagesCausingExiv2Exception;
-        internal static SortedList<string, string> ExifToolIDs;
 
         internal static SortedList<string, DataTemplate> DataTemplates;
         internal static SortedList<string, string> MapUrls;
@@ -478,7 +477,6 @@ namespace QuickImageComment
             DataTemplates = new SortedList<string, DataTemplate>();
             MapUrls = new SortedList<string, string>();
             MapLeafletList = new SortedList<string, MapSource>();
-            ExifToolIDs = new SortedList<string, string>();
 
             for (int ii = 0; ii < ImageGridsCount; ii++)
             {
@@ -2187,8 +2185,7 @@ namespace QuickImageComment
         }
         // returns list of tags needed for special Exif and IPTC information
         public static void getNeededKeysIncludingReferences(ArrayList MetaDataDefinitionArrayList,
-            //!! ref notwendig???
-            ref ArrayList neededKeysExiv2, ref ArrayList neededKeysExifTool, ref ArrayList neededKeysInternal)
+            ArrayList neededKeysExiv2, ArrayList neededKeysExifTool, ArrayList neededKeysInternal)
         {
             ArrayList neededKeys = new ArrayList();
             foreach (MetaDataDefinitionItem aMetaDataDefinitionItem in MetaDataDefinitionArrayList)
@@ -2206,11 +2203,11 @@ namespace QuickImageComment
             {
                 neededKeys.AddRange(ConfigDefinition.getAllTagNamesComment());
             }
-            if (neededKeys.Contains("Image.ArtistAccordingSettings")) //!! TEST
+            if (neededKeys.Contains("Image.ArtistAccordingSettings"))
             {
                 neededKeys.AddRange(ConfigDefinition.getTagNamesWriteArtist());
             }
-            if (neededKeys.Contains("Image.CommentAccordingSettings")) //!! TEST
+            if (neededKeys.Contains("Image.CommentAccordingSettings"))
             {
                 neededKeys.AddRange(ConfigDefinition.getTagNamesWriteComment());
             }
@@ -2892,18 +2889,6 @@ namespace QuickImageComment
                     {
                         ImagesCausingExiv2Exception.Add(secondPart);
                     }
-                    else if (firstPart.Equals("ExifToolIDs"))
-                    {
-                        int indexEqual = secondPart.IndexOf("=");
-                        string Key = secondPart.Substring(0, indexEqual);
-                        string ID = secondPart.Substring(indexEqual + 1);
-
-                        if (!ExifToolIDs.ContainsKey(Key))
-                        {
-                            // add with empty attribution and subdomain and a max zoom of 20
-                            ExifToolIDs.Add(Key, ID);
-                        }
-                    }
                     else if (firstPart.StartsWith("#"))
                     {
                         PredefinedComments.Add(new PredefinedCommentItem(firstPart.Substring(1), secondPart));
@@ -3546,11 +3531,6 @@ namespace QuickImageComment
             foreach (DataTemplate aDataTemplate in DataTemplates.Values)
             {
                 StreamOut.WriteLine(aDataTemplate.toString());
-            }
-
-            foreach (string aKey in ExifToolIDs.Keys)
-            {
-                StreamOut.WriteLine("ExifToolIDs:" + aKey + "=" + ExifToolIDs[aKey]);
             }
 
             if (IgnoreLines.Count > 0)

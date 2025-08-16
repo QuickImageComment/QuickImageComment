@@ -14,6 +14,7 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
+using Brain2CPU.ExifTool;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -1121,6 +1122,14 @@ namespace QuickImageComment
             string FilenameForExceptionMessage = "";
             System.ComponentModel.BackgroundWorker worker = sender as System.ComponentModel.BackgroundWorker;
 
+            if (MetaDataDefinitionsToReadExifTool.Count > 0 && !ExifToolWrapper.isReady())
+            {
+                string keys = "";
+                foreach (string key in MetaDataDefinitionsToReadExifTool) keys += "\n" + key;
+                GeneralUtilities.message(LangCfg.Message.E_ExifToolNotReadyToReadKeys, keys);
+                return;
+            }
+
             // get all files including files in subfolders
             FileInfo[] ImageFilesInfo = GeneralUtilities.getFileInfosFromFolderAllDirectories(FolderName, worker, doWorkEventArgs);
             totalCount = ImageFilesInfo.Length;
@@ -1748,7 +1757,7 @@ namespace QuickImageComment
             MetaDataDefinitionsToReadExifTool = new ArrayList();
             MetaDataDefinitionsToReadInternal = new ArrayList();
             ConfigDefinition.getNeededKeysIncludingReferences(MetaDataDefinitionsToStore,
-                ref MetaDataDefinitionsToReadExiv2, ref MetaDataDefinitionsToReadExifTool, ref MetaDataDefinitionsToReadInternal);
+                MetaDataDefinitionsToReadExiv2, MetaDataDefinitionsToReadExifTool, MetaDataDefinitionsToReadInternal);
 
             // show tree view with predefined key words only if a column for IPTC key words is configured
             labelIptcKeyWords.Visible = filterDefinitionKeyWords != null;

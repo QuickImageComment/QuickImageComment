@@ -23,6 +23,9 @@ namespace QuickImageComment
     public partial class FormPlaceholder : Form
     {
         private bool initialisationFinished = false;
+        private static bool onlyInImageChecked = true;
+        private static bool originalLanguageChecked = false;
+
         internal string resultString;
         private string keyToChange;
         private int placeholderPositionStart = -1;
@@ -45,6 +48,9 @@ namespace QuickImageComment
 #if APPCENTER
             if (Program.AppCenterUsable) Microsoft.AppCenter.Analytics.Analytics.TrackEvent(this.Name);
 #endif
+            dynamicLabelHint.Text = LangCfg.getText(LangCfg.Others.hintListAvailableMetaData);
+            checkBoxOnlyInImage.Checked = onlyInImageChecked;
+            checkBoxOriginalLanguage.Checked = originalLanguageChecked;
 
             Text = LangCfg.getText(LangCfg.Others.formPlaceholderTitle, givenkeyToChange);
             resultString = inputString;
@@ -66,7 +72,6 @@ namespace QuickImageComment
             dynamicLabelValueOriginal.Text = "";
             dynamicLabelValueInterpreted.Text = "";
             textBoxValueConverted.Text = "";
-            checkBoxOnlyInImage.Checked = true;
 
             buttonAbort.Select();
 
@@ -193,6 +198,17 @@ namespace QuickImageComment
                         listViewTags.Items.Add(theListViewItem);
                     }
                 }
+                if (theExtendedImage != null)
+                {
+                    foreach (MetaDataItemExifTool metaDataItemExifTool in theExtendedImage.getExifToolMetaDataItems().Values)
+                    {
+                        theListViewItem = new ListViewItem(new string[] { metaDataItemExifTool.getKey(),
+                                                                          metaDataItemExifTool.getTypeName(),
+                                                                          metaDataItemExifTool.getShortDesc(),
+                                                                          metaDataItemExifTool.getKey() });
+                        listViewTags.Items.Add(theListViewItem);
+                    }
+                }
             }
             listViewTags.Sorting = SortOrder.Ascending;
             this.Cursor = Cursors.Default;
@@ -203,18 +219,28 @@ namespace QuickImageComment
         {
             int posDot1;
             int posDot2;
+            int posColon;
             string searchEntry;
             ArrayList SearchTags = new ArrayList();
             foreach (ListViewItem tagEntry in listViewTags.Items)
             {
+                posColon = tagEntry.Text.IndexOf(":");
                 posDot1 = tagEntry.Text.IndexOf(".");
                 posDot2 = tagEntry.Text.IndexOf(".", posDot1 + 1);
-                if (posDot2 < 0)
+                if (posColon > 0 && (posDot1 < 0 || posColon < posDot1))
                 {
+                    // colon found first - is ExifTool tag
+                    // note: some XMP tags have a colon in the third part
+                    searchEntry = tagEntry.Text.Substring(0, posColon);
+                }
+                else if (posDot2 < 0)
+                {
+                    // exiv2 tag with two parts only 
                     searchEntry = tagEntry.Text.Substring(0, posDot1);
                 }
                 else
                 {
+                    // exiv2 tag with three parts
                     searchEntry = tagEntry.Text.Substring(0, posDot2);
                 }
                 if (!SearchTags.Contains(searchEntry))
@@ -568,6 +594,8 @@ namespace QuickImageComment
         // abort pressed
         private void buttonAbort_Click(object sender, EventArgs e)
         {
+            onlyInImageChecked = checkBoxOnlyInImage.Checked;
+            originalLanguageChecked = checkBoxOriginalLanguage.Checked;
             this.Close();
         }
 
@@ -575,6 +603,8 @@ namespace QuickImageComment
         private void buttonOk_Click(object sender, EventArgs e)
         {
             resultString = richTextBoxValue.Text;
+            onlyInImageChecked = checkBoxOnlyInImage.Checked;
+            originalLanguageChecked = checkBoxOriginalLanguage.Checked;
             this.Close();
         }
 
@@ -822,20 +852,45 @@ namespace QuickImageComment
             SortedList changedFields;
             // fill changedFields here as replaceAllTagPlaceholdersInLoop modifies it
             // and can result in duplicate key error when converted value is determined again
-            changedFields = MainMaskInterface.fillAllChangedFieldsForSave();
+            changedFields = MainMaskInterface.fillAllChangedFieldsForSaveExcludingArtistComment();
+            string keyForResult = keyToChange;
             if (keyToChange.Equals(keyArtist))
             {
                 if (theExtendedImage.getIsVideo())
-                    foreach (string key in ConfigDefinition.getTagNamesWriteArtistVideo()) changedFields[key] = richTextBoxValue.Text;
+                {
+                    if (ConfigDefinition.getTagNamesWriteArtistVideo().Count > 0)
+                    {
+                        keyForResult = (string)ConfigDefinition.getTagNamesWriteArtistVideo()[0];
+                        foreach (string key in ConfigDefinition.getTagNamesWriteArtistVideo()) changedFields[key] = richTextBoxValue.Text;
+                    }
+                }
                 else
-                    foreach (string key in ConfigDefinition.getTagNamesWriteArtistImage()) changedFields[key] = richTextBoxValue.Text;
+                {
+                    if (ConfigDefinition.getTagNamesWriteArtistImage().Count > 0)
+                    {
+                        keyForResult = (string)ConfigDefinition.getTagNamesWriteArtistImage()[0];
+                        foreach (string key in ConfigDefinition.getTagNamesWriteArtistImage()) changedFields[key] = richTextBoxValue.Text;
+                    }
+                }
             }
             else if (keyToChange.Equals(keyComment))
             {
                 if (theExtendedImage.getIsVideo())
-                    foreach (string key in ConfigDefinition.getTagNamesWriteCommentVideo()) changedFields[key] = richTextBoxValue.Text;
+                {
+                    if (ConfigDefinition.getTagNamesWriteCommentVideo().Count > 0)
+                    {
+                        keyForResult = (string)ConfigDefinition.getTagNamesWriteCommentVideo()[0];
+                        foreach (string key in ConfigDefinition.getTagNamesWriteCommentVideo()) changedFields[key] = richTextBoxValue.Text;
+                    }
+                }
                 else
-                    foreach (string key in ConfigDefinition.getTagNamesWriteCommentImage()) changedFields[key] = richTextBoxValue.Text;
+                {
+                    if (ConfigDefinition.getTagNamesWriteCommentImage().Count > 0)
+                    {
+                        keyForResult = (string)ConfigDefinition.getTagNamesWriteCommentImage()[0];
+                        foreach (string key in ConfigDefinition.getTagNamesWriteCommentImage()) changedFields[key] = richTextBoxValue.Text;
+                    }
+                }
             }
             else
             {
@@ -847,7 +902,7 @@ namespace QuickImageComment
             try
             {
                 theExtendedImage.replaceAllTagPlaceholdersInLoop(changedFields, TxtChangedFieldsForRun, ImageChangedFieldsForRun);
-                textBoxValueConverted.Text = (string)changedFields[keyToChange];
+                textBoxValueConverted.Text = (string)changedFields[keyForResult];
             }
             catch (Exception ex)
             {

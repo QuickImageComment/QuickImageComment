@@ -1491,11 +1491,12 @@ namespace QuickImageComment
                 GeneralUtilities.message(LangCfg.Message.E_metaDataNotEnteredSettings, key);
                 return false;
             }
-            int colon = key.IndexOf(':');
-            if (colon > 0)
+
+            if (TagDefinition.isExifToolTag(key))
             {
                 if (ExifToolWrapper.isReady())
                 {
+                    int colon = key.IndexOf(':');
                     if (!ExifToolWrapper.getWritableTagList().Contains(key.Substring(colon + 1)))
                     {
                         GeneralUtilities.message(LangCfg.Message.E_tagValueNotChangeable, key);

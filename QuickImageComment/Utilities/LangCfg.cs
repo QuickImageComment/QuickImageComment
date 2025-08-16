@@ -232,7 +232,9 @@ namespace QuickImageComment
             E_ExifToolTagValueNotDeleteable,
             Q_configureExifTool,
             E_Exiv2CannotWriteVideo,
-            E_VideoNotAcceptedExiv2CannotWrite
+            E_VideoNotAcceptedExiv2CannotWrite,
+            E_ExifToolNotReadyToReadKeys, 
+            W_noBinaryExImPortVideo
         }
 
         public enum Others
@@ -381,7 +383,8 @@ namespace QuickImageComment
             diffOldNew,
             diffDeleted,
             diffInserted,
-            savedIn
+            savedIn,
+            hintListAvailableMetaData
         }
 
         // defined as variable
@@ -1340,6 +1343,8 @@ namespace QuickImageComment
                     StreamOut.WriteLine("Note: list should be created with empty user configuration to check tranlation of preset meta definitions" +
                                         "\nlist may contain entries, although they are needed:" +
                                         "\ntexts from configuration file and maintenance texts; check them manually." +
+                                        "\ncheck for unused translations is not perfect." +
+                                        "\nsome entries are kept for possible future use." +
                                         "\n-----------------------------------------------------------------------------------------------");
                     foreach (string entry in UnusedTranslations)
                     {

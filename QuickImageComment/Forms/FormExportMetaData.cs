@@ -16,6 +16,7 @@
 
 //#define LOG_MEMORY
 
+using Brain2CPU.ExifTool;
 using System;
 using System.Collections;
 using System.IO;
@@ -168,7 +169,16 @@ namespace QuickImageComment
             ArrayList neededKeysExiv2 = new ArrayList();
             ArrayList neededKeysInternal = new ArrayList();
             ConfigDefinition.getNeededKeysIncludingReferences(ConfigDefinition.getMetaDataDefinitions(ConfigDefinition.enumMetaDataGroup.MetaDataDefForTextExport),
-                ref neededKeysExiv2, ref neededKeysExifTool, ref neededKeysInternal);
+                neededKeysExiv2, neededKeysExifTool, neededKeysInternal);
+
+            if (neededKeysExifTool.Count > 0 && !ExifToolWrapper.isReady())
+            {
+                string keys = "";
+                foreach (string key in neededKeysExifTool) keys += "\n" + key;
+                GeneralUtilities.message(LangCfg.Message.E_ExifToolNotReadyToReadKeys, keys);
+                return;
+            }
+
             foreach (FileInfo fileInfo in ImageFilesInfoSorted)
             {
 #if LOG_MEMORY

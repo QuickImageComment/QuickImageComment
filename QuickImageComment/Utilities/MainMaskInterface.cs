@@ -355,11 +355,11 @@ namespace QuickImageComment
             }
         }
 
-        internal static System.Collections.SortedList fillAllChangedFieldsForSave()
+        internal static System.Collections.SortedList fillAllChangedFieldsForSaveExcludingArtistComment()
         {
             if (theFormQuickImageComment != null)
             {
-                return theFormQuickImageComment.fillAllChangedFieldsForSave(theFormQuickImageComment.theExtendedImage, false);
+                return theFormQuickImageComment.fillAllChangedFieldsForSave(theFormQuickImageComment.theExtendedImage, false, false);
             }
             else
             {

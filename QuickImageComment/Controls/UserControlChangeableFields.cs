@@ -515,14 +515,24 @@ namespace QuickImageComment
                     {
                         ChangeableFieldSpecification changeableFieldSpecification = (ChangeableFieldSpecification)aControl.Tag;
                         if (ExifToolWrapper.isReady() && TagDefinition.isExifToolTag(changeableFieldSpecification.KeyPrim))
-                            // writing is only possible when ExifTool is ready and tag is for ExifTool
+                        // writing is only possible when ExifTool is ready and tag is for ExifTool
+                        {
                             aControl.Enabled = true;
+                            aControl.BackColor = System.Drawing.Color.White;
+                        }
                         else
+                        {
                             aControl.Enabled = false;
+                            aControl.BackColor = this.BackColor;
+                        }
                     }
                     else
                     {
                         aControl.Enabled = enable;
+                        if (enable)
+                            aControl.BackColor = System.Drawing.Color.White;
+                        else
+                            aControl.BackColor = this.BackColor;
                     }
                 }
             }

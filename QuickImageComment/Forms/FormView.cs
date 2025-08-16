@@ -83,10 +83,6 @@ namespace QuickImageComment
 
             if (!LangCfg.getTagLookupForLanguageAvailable())
             {
-                labelHeader.Enabled = false;
-                labelPlain.Enabled = false;
-                labelSuffixFirst.Enabled = false;
-
                 radioButtonExifHeader.Enabled = false;
                 radioButtonExifPlain.Enabled = false;
                 radioButtonExifSuffixFirst.Enabled = false;

@@ -430,7 +430,7 @@ namespace QuickImageComment
             }
             foreach (ToolStripMenuItem menuItem in ToolStripMenuItemLanguageExifTool.DropDownItems)
             {
-                if (menuItem.Text.Equals(LangCfg.getLoadedLanguage()))
+                if (menuItem.Text.Equals(ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.LanguageExifTool)))
                 {
                     menuItem.Checked = true;
                 }
@@ -2947,10 +2947,12 @@ namespace QuickImageComment
                 FormMetaDataDefinition theFormMetaDataDefinition =
                   new FormMetaDataDefinition(theExtendedImage);
                 theFormMetaDataDefinition.ShowDialog();
+                this.Cursor = Cursors.WaitCursor;
                 if (theFormMetaDataDefinition.settingsChanged)
                 {
                     afterMetaDataDefinitionChange();
                 }
+                this.Cursor = Cursors.Default;
             }
         }
 
@@ -5717,7 +5719,7 @@ namespace QuickImageComment
             int statusWrite = 0;
             ExtendedImage anExtendedImage = ImageManager.getExtendedImage(indexToStore);
             //Logger.log("Save " + indexToStore.ToString() + " " + anExtendedImage.getImageFileName());
-            SortedList changeableFieldsForSave = fillAllChangedFieldsForSave(anExtendedImage, true);
+            SortedList changeableFieldsForSave = fillAllChangedFieldsForSave(anExtendedImage, true, true);
             // save image with message in status bar
             try
             {
@@ -6144,7 +6146,9 @@ namespace QuickImageComment
         }
 
         // fill SortedList with all changeable fields to be saved
-        internal SortedList fillAllChangedFieldsForSave(ExtendedImage anExtendedImage, bool addInItemList)
+        // method is also used to check if exiv2 fields are changed when a video is selected in multi edit
+        // so there is an option to exclude artist and comment as for them different fields for image or video are configured
+        internal SortedList fillAllChangedFieldsForSave(ExtendedImage anExtendedImage, bool addInItemList, bool includeArtistComment)
         {
             SortedList changedFieldsForSave = new SortedList();
 
@@ -6152,53 +6156,56 @@ namespace QuickImageComment
             dynamicComboBoxArtist.Text = dynamicComboBoxArtist.Text.TrimEnd(null);
             textBoxUserComment.Text = textBoxUserComment.Text.TrimEnd(null);
 
-            // copy values from artist
-            if (comboBoxArtistUserChanged || labelArtistDefault.Visible)
+            if (includeArtistComment)
             {
-                if (anExtendedImage.getIsVideo())
-                    // copy values from artist
-                    foreach (string key in ConfigDefinition.getTagNamesWriteArtistVideo())
-                    {
-                        changedFieldsForSave.Add(key, dynamicComboBoxArtist.Text);
-                    }
-                else
-                    // copy values from artist
-                    foreach (string key in ConfigDefinition.getTagNamesWriteArtistImage())
-                    {
-                        changedFieldsForSave.Add(key, dynamicComboBoxArtist.Text);
-                    }
-
-                // add artist in list if required (called by save routine
-                if (addInItemList)
+                // copy values from artist
+                if (comboBoxArtistUserChanged || labelArtistDefault.Visible)
                 {
-                    addAndSortArtists();
-                }
-            }
-
-            // copy values from user comment
-            if (textBoxUserCommentUserChanged)
-            {
-                if (anExtendedImage.getIsVideo())
-                    foreach (string key in ConfigDefinition.getTagNamesWriteCommentVideo())
-                    {
-                        // video is always ExifTool key, so no language
-                        changedFieldsForSave.Add(key, textBoxUserComment.Text);
-                    }
-                else
-                    foreach (string key in ConfigDefinition.getTagNamesWriteCommentImage())
-                    {
-                        // these tags could be of XMP type LangAlt
-                        if (Exiv2TagDefinitions.getTagType(key).Equals("LangAlt") && !textBoxUserComment.Text.Equals(""))
+                    if (anExtendedImage.getIsVideo())
+                        // copy values from artist
+                        foreach (string key in ConfigDefinition.getTagNamesWriteArtistVideo())
                         {
-                            changedFieldsForSave.Add(key, "lang=x-default " + textBoxUserComment.Text);
+                            changedFieldsForSave.Add(key, dynamicComboBoxArtist.Text);
                         }
-                        else
+                    else
+                        // copy values from artist
+                        foreach (string key in ConfigDefinition.getTagNamesWriteArtistImage())
                         {
+                            changedFieldsForSave.Add(key, dynamicComboBoxArtist.Text);
+                        }
+
+                    // add artist in list if required (called by save routine
+                    if (addInItemList)
+                    {
+                        addAndSortArtists();
+                    }
+                }
+
+                // copy values from user comment
+                if (textBoxUserCommentUserChanged)
+                {
+                    if (anExtendedImage.getIsVideo())
+                        foreach (string key in ConfigDefinition.getTagNamesWriteCommentVideo())
+                        {
+                            // video is always ExifTool key, so no language
                             changedFieldsForSave.Add(key, textBoxUserComment.Text);
                         }
-                    }
-                // add comment in list
-                addAndScrollLastUserComments();
+                    else
+                        foreach (string key in ConfigDefinition.getTagNamesWriteCommentImage())
+                        {
+                            // these tags could be of XMP type LangAlt
+                            if (Exiv2TagDefinitions.getTagType(key).Equals("LangAlt") && !textBoxUserComment.Text.Equals(""))
+                            {
+                                changedFieldsForSave.Add(key, "lang=x-default " + textBoxUserComment.Text);
+                            }
+                            else
+                            {
+                                changedFieldsForSave.Add(key, textBoxUserComment.Text);
+                            }
+                        }
+                    // add comment in list
+                    addAndScrollLastUserComments();
+                }
             }
 
             // copy values from key words
@@ -7115,7 +7122,7 @@ namespace QuickImageComment
             StreamOut.Close();
         }
 
-        // create file with all tags (to compare with previous version, especially from exiv2)
+        // create file with all ExifTool tags (to compare with previous version)
         private void toolStripMenuItemWriteTagListFileExifTool_Click(object sender, EventArgs e)
         {
             if (!ExifToolWrapper.isReady())
