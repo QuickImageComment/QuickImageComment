@@ -234,7 +234,8 @@ namespace QuickImageComment
             E_Exiv2CannotWriteVideo,
             E_VideoNotAcceptedExiv2CannotWrite,
             E_ExifToolNotReadyToReadKeys, 
-            W_noBinaryExImPortVideo
+            W_noBinaryExImPortVideo,
+            E_LocationOfExifToolTagNotKnown
         }
 
         public enum Others

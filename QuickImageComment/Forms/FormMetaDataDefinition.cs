@@ -16,6 +16,7 @@
 
 //#define WARNING_TAG_CANNOT_BE_CHECKED
 
+using Brain2CPU.ExifTool;
 using System;
 using System.Collections;
 using System.Windows.Forms;
@@ -1474,6 +1475,21 @@ namespace QuickImageComment
                 if (!Exiv2TagDefinitions.getList().ContainsKey(metaDatumText))
                 {
                     GeneralUtilities.message(LangCfg.Message.E_unknownEntry, metaDatumText);
+                    return true;
+                }
+            }
+            // an XMP or TXT entry may have been created based on tag found in an image, but is not generally documented
+            // so do not check them; other tags are expected to be from ExifTool
+            else if (!metaDatumText.StartsWith("Xmp.") && !metaDatumText.StartsWith("Txt."))
+            {
+                // tag name must start with Location, because when reading data, they are stored using tag names with location
+                // without location, the read data cannot be assigned
+                // as there is a list of valid locations, location is checked
+                int posColon = metaDatumText.IndexOf(':');
+                if (posColon < 0 ||
+                    !ExifToolWrapper.getLocationList().Contains(metaDatumText.Substring(0, posColon)))
+                {
+                    GeneralUtilities.message(LangCfg.Message.E_LocationOfExifToolTagNotKnown, metaDatumText);
                     return true;
                 }
             }
