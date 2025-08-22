@@ -2340,7 +2340,10 @@ namespace QuickImageComment
 #endif
             // reading with ExifTool outside the lock as ExitToolWrapper has its own lock
             string language = ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.LanguageExifTool);
-            List<string> arguments = new List<string> { "-D", "-G:6:1", "-sep", " | ", "-j", "-l", "-lang", language, "-m" };
+            // use -charset exif=Latin and iptc=Latin to get exif/iptc values in Unicode
+            // note: if the value was stored in UTF8 it can be converted back to UTF8 later (see below),
+            // whereas not using -charset and trying the opposite conversion seems not to be possible
+            List<string> arguments = new List<string> { "-charset", "exif=Latin", "-charset", "iptc=Latin", "-D", "-G:6:1", "-sep", " | ", "-j", "-l", "-lang", language, "-m" };
             if (neededKeysExifTool != null)
             {
                 for (int ii = 0; ii < neededKeysExifTool.Count; ii++) arguments.Add("-" + neededKeysExifTool[ii]);
@@ -2399,6 +2402,18 @@ namespace QuickImageComment
                             }
                             if (num == null) num = value;
                             if (desc.Equals("")) desc = key;
+
+                            // if needed, convert to UTF8
+                            // applies only for string Exif tags (location taken from https://exiftool.org/TagNames/EXIF.html)
+                            if ((key.StartsWith("IFD0:") ||
+                                 key.StartsWith("InteropIFD:") ||
+                                 key.StartsWith("ExifIFD:")) &&
+                                format.Equals("string"))
+                            {
+                                if (stringIsUTF8(value)) value = getStringFromUTF8CString(value);
+                                // num used for original, in case of string is equal to value
+                                num = value;
+                            }
 
                             int keyIndex = 0;
                             string keyStringIndex = key;
@@ -2979,8 +2994,6 @@ namespace QuickImageComment
 
                         achievedValue = getMetaDataValuesStringByKey(key, MetaDataItem.Format.ForComparisonAfterSave);
 
-                        Logger.log("compare achieved with target: " + key + " = " + achievedValue + " / " + targetValue);
-
                         // warning message removed as it can happen when a reference gives same value as already saved
                         // now cannot remember what is the purpose of this message
                         //if (((String)OldValues[key]).Equals(targetValue))
@@ -3336,6 +3349,8 @@ namespace QuickImageComment
             SortedList ImageChangedFieldsForCompare, Performance SavePerformance)
         {
             int statusWrite = 0;
+            bool changeEncodingIptcRequired =
+                 IptcUTF8 != ConfigDefinition.getCfgUserBool(ConfigDefinition.enumCfgUserBool.WriteIptcUtf8);
 
 #if LOG_SAVING_STEPS
             Logger.log("Writing:");
@@ -3384,9 +3399,24 @@ namespace QuickImageComment
             }
             SavePerformance.measure("text written");
 
+            string charsetExif = "Latin1";
+            if (ConfigDefinition.getCfgUserBool(ConfigDefinition.enumCfgUserBool.WriteExifUtf8)) charsetExif = "UTF8";
+
+            string charsetIptc = "Latin1";
+            if (ConfigDefinition.getCfgUserBool(ConfigDefinition.enumCfgUserBool.WriteIptcUtf8)) charsetIptc = "UTF8";
+
+            Dictionary<string, string> ExifToolValues = new Dictionary<string, string>();
+
+            if (changeEncodingIptcRequired)
+            {
+                if (ConfigDefinition.getCfgUserBool(ConfigDefinition.enumCfgUserBool.WriteIptcUtf8))
+                    ExifToolValues.Add("IPTC:CodedCharacterSet", "UTF8");
+                else
+                    ExifToolValues.Add("IPTC:CodedCharacterSet", "");
+            }
+
             if (ImageChangedFields.Count > 0)
             {
-                Dictionary<string, string> ExifToolValues = new Dictionary<string, string>();
                 ArrayList keysToRemove = new ArrayList();
                 foreach (string key in ImageChangedFields.Keys)
                 {
@@ -3404,11 +3434,26 @@ namespace QuickImageComment
                 {
                     if (ExifToolWrapper.isReady())
                     {
-                        ExifToolResponse cmdRes = ExifToolWrapper.SetExifInto(ImageFileName, ExifToolValues);
+                        // if encoding for IPTC-tags was changed:
+                        // add all IPTC-tags to exiftool values to rewrite them in new encoding
+                        if (changeEncodingIptcRequired)
+                        {
+                            foreach (MetaDataItem ExifToolMetaDataItem in ExifToolMetaDataItems.GetValueList())
+                            {
+                                string key = ExifToolMetaDataItem.getKey();
+                                if (key.StartsWith("IPTC:") && !ExifToolValues.ContainsKey(key))
+                                {
+                                    ExifToolValues.Add(key, ExifToolMetaDataItem.getValueString());
+                                }
+                            }
+                        }
+
+                        ExifToolResponse cmdRes = ExifToolWrapper.SetExifInto(ImageFileName, ExifToolValues, charsetExif, charsetIptc);
                         if (!cmdRes)
                         {
                             GeneralUtilities.message(LangCfg.Message.E_ExifToolWriteError, cmdRes.Result);
                         }
+                        changeEncodingIptcRequired = false;
                     }
                     else
                     {
@@ -3539,36 +3584,27 @@ namespace QuickImageComment
                         }
                     }
 
-                    // if in read image IPTC-tags were coded in UTF8:
-                    // add all IPTC-tag to exiv2-buffer to rewrite them in Unicode
-                    if (IptcUTF8 != ConfigDefinition.getCfgUserBool(ConfigDefinition.enumCfgUserBool.WriteIptcUtf8))
+                    // if encoding for IPTC-tags was changed and conversion not handled via ExifTool:
+                    // add all IPTC-tags to exiv2-buffer to rewrite them in new encoding
+                    if (changeEncodingIptcRequired)
                     {
                         if (ConfigDefinition.getCfgUserBool(ConfigDefinition.enumCfgUserBool.WriteIptcUtf8))
                         {
                             // set Iptc.Envelope.CharacterSet to indicate coding is UTF8 ("<ESC>%G")
                             ImageChangedFields.Add("Iptc.Envelope.CharacterSet", "\x1B%G");
                             exiv2addItemToBuffer("Iptc.Envelope.CharacterSet", "\x1B%G", exiv2WriteOptionDefault);
-
-                            foreach (MetaDataItem IptcMetaDataItem in IptcMetaDataItems.GetValueList())
-                            {
-                                if (!ImageChangedFields.ContainsKey(IptcMetaDataItem.getKey()))
-                                {
-                                    exiv2addUtf8ItemToBuffer(IptcMetaDataItem.getKey(), IptcMetaDataItem.getValueString(), exiv2WriteOptionDefault);
-                                }
-                            }
                         }
                         else
                         {
                             // clear Iptc.Envelope.CharacterSet to indicate coding is Unicode
                             ImageChangedFields.Add("Iptc.Envelope.CharacterSet", "");
                             exiv2addItemToBuffer("Iptc.Envelope.CharacterSet", "", exiv2WriteOptionDefault);
-
+                        }
                             foreach (MetaDataItem IptcMetaDataItem in IptcMetaDataItems.GetValueList())
                             {
                                 if (!ImageChangedFields.ContainsKey(IptcMetaDataItem.getKey()))
                                 {
                                     exiv2addItemToBuffer(IptcMetaDataItem.getKey(), IptcMetaDataItem.getValueString(), exiv2WriteOptionDefault);
-                                }
                             }
                         }
                         // removed as check using OldValues is removed - see below
@@ -4489,8 +4525,8 @@ namespace QuickImageComment
             if (differences.Count > 0)
             {
                 differences.Sort();
-                Logger.logWithDateTime(LangCfg.getText(LangCfg.Others.diffChanges) + " " + ImageFileName);
-                foreach (string change in differences) Logger.logWithDateTime(change);
+                Logger.logWithDateTime(LangCfg.getText(LangCfg.Others.diffChanges) + " " + ImageFileName); // permanent use of Logger
+                foreach (string change in differences) Logger.logWithDateTime(change); // permanent use of Logger
             }
         }
     }

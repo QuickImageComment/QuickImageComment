@@ -16,7 +16,6 @@
 
 //#define WARNING_TAG_CANNOT_BE_CHECKED
 
-using Brain2CPU.ExifTool;
 using System;
 using System.Collections;
 using System.Windows.Forms;

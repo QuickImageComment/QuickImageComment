@@ -22,10 +22,7 @@ using System.Collections.Specialized;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using static QuickImageComment.ConfigDefinition;
 using static QuickImageComment.UserControlMap;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Header;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace QuickImageComment
 {

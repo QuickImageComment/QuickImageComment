@@ -75,6 +75,7 @@ namespace Brain2CPU.ExifTool
         private static int _cmdCnt = 0;
         private static readonly StringBuilder _output = new StringBuilder();
         private static readonly StringBuilder _error = new StringBuilder();
+        private static StreamWriter inputWriter;
 
         private static readonly ProcessStartInfo _psi = new ProcessStartInfo
         {
@@ -110,7 +111,7 @@ namespace Brain2CPU.ExifTool
                     }
                     catch (Exception xcp)
                     {
-                        Debug.WriteLine(xcp.ToString());
+                        GeneralUtilities.debugMessage(xcp.ToString());
                         ExifToolPath = ExeName;
                     }
                 }
@@ -192,7 +193,9 @@ namespace Brain2CPU.ExifTool
             _proc.StandardInput.AutoFlush = true;
 
             _waitHandle.Reset();
-            _proc.StandardInput.Write("-ver\n-execute0\n");
+            inputWriter = new StreamWriter(_proc.StandardInput.BaseStream, new UTF8Encoding(false));
+            inputWriter.WriteLine("-ver\n-execute0\n");
+            inputWriter.Flush();
             _waitHandle.WaitOne();
 
             Status = ExeStatus.Ready;
@@ -245,7 +248,7 @@ namespace Brain2CPU.ExifTool
                     }
                     catch (Exception xcp)
                     {
-                        Debug.WriteLine(xcp.ToString());
+                        GeneralUtilities.debugMessage(xcp.ToString());
                     }
 
                     _proc = null;
@@ -275,12 +278,8 @@ namespace Brain2CPU.ExifTool
 
         private static void DirectSend(string cmd, params object[] args)
         {
-            //tried some re-encoding like this, no success
-            //var ba = Encoding.Convert(Encoding.Unicode, Encoding.UTF8, Encoding.Unicode.GetBytes(cmd));
-            //string b = Encoding.UTF8.GetString(ba);
-            //proc.StandardInput.Write("-charset\nfilename=UTF8\n{0}\n-execute{1}\n", args.Length == 0 ? b : string.Format(b, args), cmdCnt);
-
-            _proc.StandardInput.Write("{0}\n-execute{1}\n", args.Length == 0 ? cmd : string.Format(cmd, args), _cmdCnt);
+            inputWriter.WriteLine("{0}\n-execute{1}\n", args.Length == 0 ? cmd : string.Format(cmd, args), _cmdCnt);// Send UTF-8 encoded string
+            inputWriter.Flush();
             _waitHandle.WaitOne();
         }
 
@@ -349,10 +348,12 @@ namespace Brain2CPU.ExifTool
             return resp;
         }
 
-        public static ExifToolResponse SetExifInto(string path, string key, string val, bool overwriteOriginal = true) =>
-            SetExifInto(path, new Dictionary<string, string> { [key] = val }, overwriteOriginal);
+        public static ExifToolResponse SetExifInto(string path, string key, string val,
+            string charsetExif = "UTF8", string charsetIptc = "UTF8", bool overwriteOriginal = true) =>
+            SetExifInto(path, new Dictionary<string, string> { [key] = val }, charsetExif, charsetIptc, overwriteOriginal);
 
-        public static ExifToolResponse SetExifInto(string path, Dictionary<string, string> data, bool overwriteOriginal = true)
+        public static ExifToolResponse SetExifInto(string path, Dictionary<string, string> data,
+            string charsetExif, string charsetIptc, bool overwriteOriginal = true)
         {
             if (!File.Exists(path))
                 return new ExifToolResponse(false, $"'{path}' not found");
@@ -365,6 +366,9 @@ namespace Brain2CPU.ExifTool
 
             if (overwriteOriginal)
                 cmd.Append("-overwrite_original\n");
+
+            cmd.Append("-charset\nexif=" + charsetExif + "\n");
+            cmd.Append("-charset\niptc=" + charsetIptc + "\n");
 
             cmd.Append(path);
             var cmdRes = SendCommand(cmd.ToString());
@@ -620,7 +624,8 @@ namespace Brain2CPU.ExifTool
             catch (Exception ex)
             {
                 GeneralUtilities.debugMessage(key + "\r\n" + ex.Message);
-                return false; }
+                return false;
+            }
         }
 
         #region Static orientation helpers
