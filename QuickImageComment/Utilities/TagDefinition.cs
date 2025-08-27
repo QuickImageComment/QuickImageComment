@@ -20,6 +20,7 @@ namespace QuickImageComment
     {
         public string key;
         public string type;
+        public string xmpValueType;
         public string description;
         public string keyTranslated;
         public string descriptionTranslated;
@@ -28,6 +29,17 @@ namespace QuickImageComment
         {
             key = givenKey;
             type = givenType;
+            xmpValueType = "";
+            description = givenDescription;
+            keyTranslated = key;
+            descriptionTranslated = description;
+        }
+
+        public TagDefinition(string givenKey, string givenType, string givenXmpValueType, string givenDescription)
+        {
+            key = givenKey;
+            type = givenType;
+            xmpValueType = givenXmpValueType;
             description = givenDescription;
             keyTranslated = key;
             descriptionTranslated = description;
@@ -37,6 +49,7 @@ namespace QuickImageComment
         {
             key = givenKey;
             type = givenType;
+            xmpValueType = "";
             description = givenDescription;
             keyTranslated = givenKeyGerman;
             descriptionTranslated = givenDescriptionGerman;

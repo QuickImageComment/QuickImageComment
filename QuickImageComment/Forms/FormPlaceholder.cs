@@ -662,8 +662,8 @@ namespace QuickImageComment
         {
             // sorting allowed for repeatable IPTC values, XmpSeq and XmpText
             if (MetaDataKey.StartsWith("Iptc") && Exiv2TagDefinitions.isRepeatable(MetaDataKey) ||
-                MetaDataType.Equals("XmpSeq") ||
-                MetaDataType.Equals("XmpText"))
+                MetaDataType.Equals("XmpSeq") || MetaDataType.Equals("XmpSeq-Date") ||
+                MetaDataType.Equals("XmpText") || MetaDataType.Equals("XmpText-Date"))
             {
                 checkBoxSorted.Enabled = true;
                 richTextBoxSeparator.Enabled = true;

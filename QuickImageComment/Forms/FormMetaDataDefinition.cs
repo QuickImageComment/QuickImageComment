@@ -328,14 +328,14 @@ namespace QuickImageComment
                         if (checkBoxOriginalLanguage.Checked)
                         {
                             theListViewItem = new ListViewItem(new string[] { aTagDefinition.key,
-                                                                              aTagDefinition.type,
+                                                                              aTagDefinition.type + " " + aTagDefinition.xmpValueType,
                                                                               aTagDefinition.description,
                                                                               aTagDefinition.key});
                         }
                         else
                         {
                             theListViewItem = new ListViewItem(new string[] { aTagDefinition.keyTranslated,
-                                                                              aTagDefinition.type,
+                                                                              aTagDefinition.type + " " + aTagDefinition.xmpValueType,
                                                                               aTagDefinition.descriptionTranslated,
                                                                               aTagDefinition.key});
                         }
