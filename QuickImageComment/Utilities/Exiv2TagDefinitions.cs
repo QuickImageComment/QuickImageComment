@@ -100,7 +100,9 @@ namespace QuickImageComment
                 "XmpBag",
                 "XmpSeq",
                 "XmpText",
-                "LangAlt"     // XMP
+                "XmpSeq-Date", // combined from type and xmp value type
+                "XmpText-Date",// combined from type and xmp value type
+                "LangAlt"      // XMP
             };
 
             ChangeableWarningTypes = new ArrayList
@@ -247,6 +249,7 @@ namespace QuickImageComment
             string tagString = "";
             string key = "";
             string type = "";
+            string xmpValueType = "";
             string description = "";
 
             // get Exif tags
@@ -319,7 +322,17 @@ namespace QuickImageComment
                 string[] tagValues = tagString.Split(new string[] { "\t" }, System.StringSplitOptions.None);
                 key = tagValues[0];
                 type = tagValues[1];
-                description = tagValues[2];
+                if (tagValues[2].Contains("Date"))
+                {
+                    type += "-Date";
+                    xmpValueType = "";
+                }
+                else
+                {
+                    xmpValueType = tagValues[2];
+                }
+
+                description = tagValues[3];
 
                 // Some Tags were depreciated and new with same name (other address) were created
                 // If there is a conflict use the not-depreciated one
@@ -333,7 +346,7 @@ namespace QuickImageComment
                 }
                 else
                 {
-                    TagDefinitionList.Add(key, new TagDefinition(key, type, description));
+                    TagDefinitionList.Add(key, new TagDefinition(key, type, xmpValueType, description));
                 }
             }
         }

@@ -431,17 +431,11 @@ namespace QuickImageComment
         // check for date properties
         public static bool isDateProperty(string keyPrim, string typePrim)
         {
-            return (typePrim.Equals("Ascii") && keyPrim.Contains("Date")
-                 || typePrim.Equals("Date")
-                 || typePrim.Equals("LangAlt") && keyPrim.Contains("Date")
-                 || typePrim.Equals("XmpSeq") && keyPrim.Contains("Date")
-                 || typePrim.Equals("XmpText") && keyPrim.Contains("Date")
-                    && !keyPrim.Contains("MediaCreateDate")
-                    && !keyPrim.Contains("MediaModifyDate")
-                    && !keyPrim.Contains("TrackCreateDate")
-                    && !keyPrim.Contains("TrackModifyDate")
-                 || keyPrim.Equals("Xmp.dc.date")
-                 || keyPrim.Equals("Xmp.dcterms.modified"));
+            return typePrim.Equals("Ascii") && keyPrim.Contains("Date") // Exif
+                || typePrim.Equals("Date")                              // Iptc
+                || typePrim.Equals("XmpSeq-Date") 
+                || typePrim.Equals("XmpText-Date") 
+                || TagDefinition.isExifToolTag(keyPrim) && keyPrim.Contains("Date");
         }
 
         // convert longitude/latitude from original exif format to degrees with decimals
@@ -495,17 +489,22 @@ namespace QuickImageComment
         {
             string[] dateFormats = null;
             LangCfg.Others typeSpecId = 0;
-            if (key.StartsWith("Exif"))
+            if (TagDefinition.isExifToolTag(key))
             {
                 dateFormats = dateFormatsExif;
                 typeSpecId = LangCfg.Others.typeSpecDateTimeExif;
             }
-            if (key.StartsWith("Iptc"))
+            else if (key.StartsWith("Exif"))
+            {
+                dateFormats = dateFormatsExif;
+                typeSpecId = LangCfg.Others.typeSpecDateTimeExif;
+            }
+            else if (key.StartsWith("Iptc"))
             {
                 dateFormats = dateFormatsIptc;
                 typeSpecId = LangCfg.Others.typeSpecDateIptc;
             }
-            if (key.StartsWith("Xmp"))
+            else if (key.StartsWith("Xmp"))
             {
                 dateFormats = dateFormatsXmp;
                 typeSpecId = LangCfg.Others.typeSpecDateTimeXmp;
@@ -541,11 +540,13 @@ namespace QuickImageComment
         public static string getExifIptcXmpDateString(DateTime dateTime, string key)
         {
             string dateFormat = null;
-            if (key.StartsWith("Exif"))
+            if (TagDefinition.isExifToolTag(key))
                 dateFormat = "yyyy:MM:dd";
-            if (key.StartsWith("Iptc"))
+            else if (key.StartsWith("Exif"))
+                dateFormat = "yyyy:MM:dd";
+            else if (key.StartsWith("Iptc"))
                 dateFormat = "yyyy-MM-dd";
-            if (key.StartsWith("Xmp"))
+            else if (key.StartsWith("Xmp"))
                 dateFormat = "yyyy-MM-dd";
 
             return dateTime.ToString(dateFormat);

@@ -6311,7 +6311,7 @@ namespace QuickImageComment
             // XmpText with structure
             // XmpText without structure needs to be given to exiv2 as one value (even if multi-line), done in else-branch
             // if multiple values without structure are given to exiv2, only last value is stored
-            else if (Spec.TypePrim.Equals("XmpText") &&
+            else if ((Spec.TypePrim.Equals("XmpText") || Spec.TypePrim.Equals("XmpText-Date")) &&
                     (valueString.StartsWith("[") || valueString.StartsWith("/")))
             {
                 // Structure for XmpText found
@@ -6336,7 +6336,7 @@ namespace QuickImageComment
                 }
                 changedFieldsForSave.Add(Spec.KeyPrim, ChangeableFieldValuesSortedList);
             }
-            else if (Spec.TypePrim.Equals("XmpBag") || Spec.TypePrim.Equals("XmpSeq") ||
+            else if (Spec.TypePrim.Equals("XmpBag") || Spec.TypePrim.Equals("XmpSeq") || Spec.TypePrim.Equals("XmpSeq-Date") ||
                      Spec.KeyPrim.StartsWith("Iptc.") && inputControl.GetType().Equals(typeof(TextBox)))
             {
                 // XmpBag, XmpSeq and repeatable Iptc-values (which are entered in TextBox) can have several values
@@ -7111,11 +7111,11 @@ namespace QuickImageComment
             {
                 if (LangCfg.getLoadedLanguage().Equals("English"))
                 {
-                    StreamOut.WriteLine(aTagDefinition.key + "\t" + aTagDefinition.type + "\t" + aTagDefinition.description);
+                    StreamOut.WriteLine(aTagDefinition.key + "\t" + aTagDefinition.type + "\t" + aTagDefinition.xmpValueType + "\t" + aTagDefinition.description);
                 }
                 else
                 {
-                    StreamOut.WriteLine(aTagDefinition.keyTranslated + "\t" + aTagDefinition.type + "\t" + aTagDefinition.descriptionTranslated);
+                    StreamOut.WriteLine(aTagDefinition.keyTranslated + "\t" + aTagDefinition.type + "\t" + aTagDefinition.xmpValueType + "\t" + aTagDefinition.descriptionTranslated);
                 }
             }
             GeneralUtilities.debugMessage(LookupReferenceValuesFile + " created.");

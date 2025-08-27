@@ -36,7 +36,7 @@
 
 //#define TRACING 200
 
-constexpr auto VERSION = "0.28.5.2";
+constexpr auto VERSION = "0.28.5.3";
 
 // NOTE: must match definition in ConfigDefinition.cs
 const char* exiv2_exception_file = "\\QIC_exiv2_exception.txt";
@@ -268,6 +268,7 @@ extern "C" __declspec(dllexport) int __cdecl exiv2getXmpTagDescriptions(LPSTR* r
                     oss << "Xmp." << groupList->prefix_ << "."
                         << pl[i].name_ << "\t"
                         << Exiv2::TypeInfo::typeName(pl[i].typeId_) << "\t"
+                        << pl[i].xmpValueType_ << "\t"
                         << pl[i].desc_ << "\n";
                 }
             }
