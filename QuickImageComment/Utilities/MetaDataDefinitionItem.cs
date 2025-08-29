@@ -263,7 +263,8 @@ namespace QuickImageComment
         {
             return KeySec.Equals("") && 
                    (Exiv2TagDefinitions.isEditableInDataGridView(TypePrim, KeyPrim) ||
-                    TagDefinition.isExifToolTag(KeyPrim) && ExifToolWrapper.isWritable(KeyPrim));
+                    TagDefinition.isExifToolTag(KeyPrim) && !TagDefinition.isRepeatable(KeyPrim) &&
+                    ExifToolWrapper.isWritable(KeyPrim));
         }
     }
 }

@@ -14,10 +14,39 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
+using System.Collections;
+using System.Runtime.InteropServices;
+
 namespace QuickImageComment
 {
     class TagDefinition
     {
+        const string exiv2DllImport = "exiv2Cdecl.dll";
+
+        [DllImport(exiv2DllImport, CallingConvention = CallingConvention.Cdecl)]
+        public static extern bool exiv2tagRepeatable([MarshalAs(UnmanagedType.LPStr)] string tagName);
+
+        // filled based on https://exiftool.org/TagNames/IPTC.html on 2025-08-28
+        private static ArrayList ExifToolIptcRepeatable = new ArrayList
+        {
+            "IPTC:Destination",
+            "IPTC:ProductID",
+            "IPTC:ObjectAttributeReference",
+            "IPTC:SubjectReference",
+            "IPTC:SupplementalCategories",
+            "IPTC:Keywords",
+            "IPTC:ContentLocationCode",
+            "IPTC:ContentLocationName",
+            "IPTC:ReferenceService",
+            "IPTC:ReferenceDate",
+            "IPTC:ReferenceNumber",
+            "IPTC:By-line",
+            "IPTC:By-lineTitle",
+            "IPTC:Contact",
+            "IPTC:Writer-Editor",
+            "IPTC:CatalogSets"
+        };
+
         public string key;
         public string type;
         public string xmpValueType;
@@ -78,6 +107,26 @@ namespace QuickImageComment
         public static bool isExifToolTag(string key)
         {
             return !isExiv2Tag(key) && !isInternalTag(key) && !isTextTag(key);
+        }
+
+        // return if tag is repeatable (several values)
+        public static bool isRepeatable(string key)
+        {
+            if (isExifToolTag(key))
+            {
+                // as ExifTool does not give information about repeatable,
+                // best assumption is all XMP are, others (Exif, Iptc, ListItem) not
+                if (key.StartsWith("XMP"))
+                    return true;
+                else if (key.StartsWith("IPTC"))
+                    return ExifToolIptcRepeatable.Contains(key);
+                else
+                    return false;
+            }
+            else if (isInternalTag(key))
+                return false;
+            else
+                return exiv2tagRepeatable(key);
         }
     }
 }

@@ -191,10 +191,7 @@ namespace QuickImageComment
                     else
                     {
                         Control anInputControl;
-                        if ((aMetaDataDefinitionItem.KeyPrim.StartsWith("Exif.") ||
-                             aMetaDataDefinitionItem.KeyPrim.StartsWith("Iptc.") ||
-                             aMetaDataDefinitionItem.KeyPrim.StartsWith("Xmp."))
-                            && Exiv2TagDefinitions.isRepeatable(aMetaDataDefinitionItem.KeyPrim))
+                        if (TagDefinition.isRepeatable(aMetaDataDefinitionItem.KeyPrim))
                         {
                             // exiv2 tag and proven to be repeatable
                             anInputControl = new TextBox();

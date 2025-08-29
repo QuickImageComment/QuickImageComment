@@ -22,21 +22,21 @@ namespace QuickImageComment
 {
     public partial class FormPlaceholder : Form
     {
-        private bool initialisationFinished = false;
+        private readonly bool initialisationFinished = false;
         private static bool onlyInImageChecked = true;
         private static bool originalLanguageChecked = false;
 
         internal string resultString;
-        private string keyToChange;
+        private readonly string keyToChange;
         private int placeholderPositionStart = -1;
         private int placeholderPositionEnd = -1;
         private string placeholderDefinitionString = "";
         internal const string keyArtist = "ARTIST";
         internal const string keyComment = "COMMENT";
 
-        private ExtendedImage theExtendedImage;
-        private FormCustomization.Interface CustomizationInterface;
-        private SortedList MetaDataFormatIndex = new SortedList();
+        private readonly ExtendedImage theExtendedImage;
+        private readonly FormCustomization.Interface CustomizationInterface;
+        private readonly SortedList MetaDataFormatIndex = new SortedList();
 
         private bool definitionControlsFilledProgrammatically = false;
         private bool richTextValueChangedProgrammatically = false;
@@ -660,10 +660,9 @@ namespace QuickImageComment
 
         private void enableDefinitionControls(string MetaDataKey, string MetaDataType)
         {
-            // sorting allowed for repeatable IPTC values, XmpSeq and XmpText
-            if (MetaDataKey.StartsWith("Iptc") && Exiv2TagDefinitions.isRepeatable(MetaDataKey) ||
-                MetaDataType.Equals("XmpSeq") || MetaDataType.Equals("XmpSeq-Date") ||
-                MetaDataType.Equals("XmpText") || MetaDataType.Equals("XmpText-Date"))
+            // sorting allowed for repeatable values
+            // except XmpSeq, where entries are already sorted
+            if (TagDefinition.isRepeatable(MetaDataKey) && !MetaDataType.Equals("XmpSeq"))
             {
                 checkBoxSorted.Enabled = true;
                 richTextBoxSeparator.Enabled = true;

@@ -428,6 +428,7 @@ namespace QuickImageComment
         public override bool isEditableInDataGridView()
         {
             return valueString.Equals(interpretedString) &&
+                   !TagDefinition.isRepeatable(key) &&
                    ExifToolWrapper.isWritable(key);
         }
     }

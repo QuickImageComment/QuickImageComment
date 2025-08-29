@@ -602,7 +602,7 @@ namespace QuickImageComment
                     MetaDataDefinitionItem theMetaDataDefinitionItem =
                       (MetaDataDefinitionItem)MetaDataDefinitionsWork[listBoxMetaData.SelectedIndex];
                     theMetaDataDefinitionItem.TypePrim = theTagDefinition.type;
-                    if (Exiv2TagDefinitions.isRepeatable(textBoxMetaDatum1.Text))
+                    if (TagDefinition.isRepeatable(textBoxMetaDatum1.Text))
                     {
                         numericUpDownLinesForChange.Enabled = true;
                     }
@@ -985,10 +985,12 @@ namespace QuickImageComment
 
             string Name = LangCfg.getText(LangCfg.Others.newEntry);
             string MetaDataKey = "";
+            string MetaDataType = "";
             int posDot = 0;
             if (listViewTags.SelectedItems.Count > 0)
             {
                 MetaDataKey = listViewTags.SelectedItems[0].SubItems[3].Text;
+                MetaDataType = listViewTags.SelectedItems[0].SubItems[1].Text.Split(' ')[0];
                 if (TagDefinition.isExifToolTag(MetaDataKey))
                 {
                     // key from ExifTool, (short) description used for name
@@ -1004,17 +1006,9 @@ namespace QuickImageComment
                     }
                 }
             }
-            TagDefinition theTagDefinition;
-            if (Exiv2TagDefinitions.getList().ContainsKey(MetaDataKey))
-                theTagDefinition = Exiv2TagDefinitions.getList()[MetaDataKey];
-            else
-            {
-                string type = ((MetaDataItem)theExtendedImage.getExifToolMetaDataItems()[MetaDataKey]).getTypeName();
-                theTagDefinition = new TagDefinition(MetaDataKey, type, "");
-            }
 
             // no exception for selected index as entry is new
-            if (selectionOfMetaDateOk(MetaDataKey, theTagDefinition.type, true, -1))
+            if (selectionOfMetaDateOk(MetaDataKey, MetaDataType, true, -1))
             {
                 // start with basic constructor and set name only
                 MetaDataDefinitionItem newMetaDataDefinitionItem = new MetaDataDefinitionItem
@@ -1122,7 +1116,7 @@ namespace QuickImageComment
             if (listViewTags.SelectedItems.Count > 0)
             {
                 string MetaDataKey = listViewTags.SelectedItems[0].SubItems[3].Text;
-                string MetaDataType = listViewTags.SelectedItems[0].SubItems[1].Text;
+                string MetaDataType = listViewTags.SelectedItems[0].SubItems[1].Text.Split(' ')[0];
 
                 if (selectionOfMetaDateOk(MetaDataKey, MetaDataType, theTextBoxMetaDatum.Equals(textBoxMetaDatum1),
                     listBoxMetaDataSelectedIndex))
@@ -1275,7 +1269,7 @@ namespace QuickImageComment
 
                 // input check configuration only for single-line-properties
                 // input check probably makes sense for some data types only, however user can use it for any type he likes
-                if (!Exiv2TagDefinitions.isRepeatable(textBoxMetaDatum1.Text))
+                if (!TagDefinition.isRepeatable(textBoxMetaDatum1.Text))
                 {
                     InputCheckConfig theInputCheckConfig = ConfigDefinition.getInputCheckConfig(textBoxMetaDatum1.Text);
                     if (theInputCheckConfig != null)
@@ -1306,7 +1300,7 @@ namespace QuickImageComment
                     buttonInputCheckEdit.Enabled = false;
                     buttonInputCheckDelete.Enabled = false;
                 }
-                if (Exiv2TagDefinitions.isRepeatable(textBoxMetaDatum1.Text))
+                if (TagDefinition.isRepeatable(textBoxMetaDatum1.Text))
                 {
                     numericUpDownLinesForChange.Enabled = true;
                 }
@@ -1318,6 +1312,8 @@ namespace QuickImageComment
                 if (!textBoxMetaDatum1.Text.Equals(textBoxMetaDatum1TextLastCheck) && enableChecks)
                 {
                     string MetaDataKey = textBoxMetaDatum1.Text;
+                    // call only if key is known
+                    // otherwise check is done when typing of a key is not complete and thus will fail
                     if (Exiv2TagDefinitions.getList().ContainsKey(MetaDataKey))
                     {
                         theTagDefinition = Exiv2TagDefinitions.getList()[MetaDataKey];
