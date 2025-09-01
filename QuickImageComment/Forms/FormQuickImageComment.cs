@@ -6336,10 +6336,11 @@ namespace QuickImageComment
                 }
                 changedFieldsForSave.Add(Spec.KeyPrim, ChangeableFieldValuesSortedList);
             }
-            else if (Spec.TypePrim.Equals("XmpBag") || Spec.TypePrim.Equals("XmpSeq") || Spec.TypePrim.Equals("XmpSeq-Date") ||
-                     Spec.KeyPrim.StartsWith("Iptc.") && inputControl.GetType().Equals(typeof(TextBox)))
+            else if (inputControl.GetType().Equals(typeof(TextBox)))
             {
-                // XmpBag, XmpSeq and repeatable Iptc-values (which are entered in TextBox) can have several values
+                // If values are repeatable, they are entered in TextBox, see 
+                // UserControlChangeableFields.fillChangeableFieldPanelWithControls
+                // this applies to XmpBag, XmpSeq, repeatable Iptc-values, repeatable ExifTool values
                 ArrayList ChangeableFieldValuesArraylist = new ArrayList();
                 string[] Values = valueString.Split(new string[] { "\r\n" }, StringSplitOptions.None);
                 for (int jj = 0; jj < Values.Length; jj++)

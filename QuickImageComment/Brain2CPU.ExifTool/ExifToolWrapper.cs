@@ -55,6 +55,8 @@ namespace Brain2CPU.ExifTool
         private const string ArgumentsFaster = "-fast2 -stay_open True -@ - -common_args -t -a";
         private const string ExitMessage = "-- press RETURN --";
         internal const string SuccessMessage = "1 image files updated";
+        internal const string writeSeparator = "«¦»";
+        internal const string readSeparator = "~§$#";
 
         //-fast2 also causes exiftool to avoid extracting any EXIF MakerNote information
 
@@ -348,20 +350,30 @@ namespace Brain2CPU.ExifTool
             return resp;
         }
 
-        public static ExifToolResponse SetExifInto(string path, string key, string val,
-            string charsetExif = "UTF8", string charsetIptc = "UTF8", bool overwriteOriginal = true) =>
-            SetExifInto(path, new Dictionary<string, string> { [key] = val }, charsetExif, charsetIptc, overwriteOriginal);
-
-        public static ExifToolResponse SetExifInto(string path, Dictionary<string, string> data,
+        public static ExifToolResponse SetExifInto(string path, Dictionary<string, object> data,
             string charsetExif, string charsetIptc, bool overwriteOriginal = true)
         {
             if (!File.Exists(path))
                 return new ExifToolResponse(false, $"'{path}' not found");
 
             var cmd = new StringBuilder();
-            foreach (KeyValuePair<string, string> kv in data)
+            foreach (KeyValuePair<string, object> kv in data)
             {
-                cmd.AppendFormat("-{0}={1}\n", kv.Key, kv.Value);
+                string valueToSet = "";
+                if (kv.Value.GetType().Equals(typeof(ArrayList)))
+                {
+                    valueToSet = ((ArrayList)kv.Value)[0].ToString();
+                    for (int ii = 1; ii < ((ArrayList)kv.Value).Count; ii++)
+            {
+                        valueToSet += writeSeparator + ((ArrayList)kv.Value)[ii].ToString();
+                    }
+                }
+                else
+                {
+                    valueToSet = (string)kv.Value;
+                }
+                   
+                cmd.AppendFormat("-{0}={1}\n", kv.Key, valueToSet);
             }
 
             if (overwriteOriginal)
@@ -369,6 +381,7 @@ namespace Brain2CPU.ExifTool
 
             cmd.Append("-charset\nexif=" + charsetExif + "\n");
             cmd.Append("-charset\niptc=" + charsetIptc + "\n");
+            cmd.Append("-sep\n" + writeSeparator + "\n");
 
             cmd.Append(path);
             var cmdRes = SendCommand(cmd.ToString());

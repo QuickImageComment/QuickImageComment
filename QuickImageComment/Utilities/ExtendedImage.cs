@@ -1499,7 +1499,7 @@ namespace QuickImageComment
                 }
                 catch (Exception ex)
                 {
-                    //OPT log exception during decoding RAW
+                    //OPT: log exception during decoding RAW
                     //if (ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.Maintenance))
                     //{
                     //    Logger.log(exceptionMessagePrefix + ex.Message + "\n" + ex.StackTrace);
@@ -2343,7 +2343,8 @@ namespace QuickImageComment
             // use -charset exif=Latin and iptc=Latin to get exif/iptc values in Unicode
             // note: if the value was stored in UTF8 it can be converted back to UTF8 later (see below),
             // whereas not using -charset and trying the opposite conversion seems not to be possible
-            List<string> arguments = new List<string> { "-charset", "exif=Latin", "-charset", "iptc=Latin", "-D", "-G:6:1", "-sep", " | ", "-j", "-l", "-lang", language, "-m" };
+            List<string> arguments = new List<string> { "-charset", "exif=Latin", "-charset", "iptc=Latin", "-D", "-G:6:1",
+                "-sep", ExifToolWrapper.readSeparator, "-j", "-l", "-lang", language, "-m" };
             if (neededKeysExifTool != null)
             {
                 for (int ii = 0; ii < neededKeysExifTool.Count; ii++) arguments.Add("-" + neededKeysExifTool[ii]);
@@ -2431,7 +2432,15 @@ namespace QuickImageComment
                             }
                             else
                             {
-                                ExifToolMetaDataItems.Add(keyStringIndex, new MetaDataItemExifTool(key, desc, tag, format, num, value));
+                                string[] valueArray = value.Split(new string[] { ExifToolWrapper.readSeparator }, System.StringSplitOptions.None);
+                                string[] numArray = num.Split(new string[] { ExifToolWrapper.readSeparator }, System.StringSplitOptions.None);
+                                ExifToolMetaDataItems.Add(keyStringIndex, new MetaDataItemExifTool(key, desc, tag, format, numArray[0], valueArray[0]));
+
+                                for (int jj = 1; jj < valueArray.Length; jj++)
+                                {
+                                    string keyArray = GeneralUtilities.nameUniqueWithRunningNumber(key, jj);
+                                    ExifToolMetaDataItems.Add(keyArray, new MetaDataItemExifTool(keyArray, desc, tag, format, numArray[jj], valueArray[jj]));
+                                }
                             }
                         }
                     }
@@ -2586,7 +2595,7 @@ namespace QuickImageComment
 #pragma warning disable CS0168
             catch (Exception ex)
             {
-                //OPT log exception during decoding RAW
+                //OPT: log exception during decoding RAW
                 //if (ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.Maintenance))
                 //{
                 //    Logger.log(exceptionMessagePrefix + ex.Message + "\n" + ex.StackTrace);
@@ -3014,7 +3023,10 @@ namespace QuickImageComment
                             }
                             else
                             {
-                                GeneralUtilities.message(LangCfg.Message.W_differentValueSaved, key, achievedValue, targetValue);
+                                if (achievedValue.Contains(ExifToolWrapper.writeSeparator))
+                                    GeneralUtilities.message(LangCfg.Message.W_differentValueSavedNotMultiple, key, achievedValue, targetValue);
+                                else
+                                    GeneralUtilities.message(LangCfg.Message.W_differentValueSaved, key, achievedValue, targetValue);
                             }
                         }
                     }
@@ -3405,7 +3417,7 @@ namespace QuickImageComment
             string charsetIptc = "Latin1";
             if (ConfigDefinition.getCfgUserBool(ConfigDefinition.enumCfgUserBool.WriteIptcUtf8)) charsetIptc = "UTF8";
 
-            Dictionary<string, string> ExifToolValues = new Dictionary<string, string>();
+            Dictionary<string, object> ExifToolValues = new Dictionary<string, object>();
 
             if (changeEncodingIptcRequired)
             {
@@ -3423,7 +3435,7 @@ namespace QuickImageComment
                     if (TagDefinition.isExifToolTag(key))
                     {
                         // is an ExifTool tag
-                        ExifToolValues.Add(key, (string)ImageChangedFields[key]);
+                        ExifToolValues.Add(key, ImageChangedFields[key]);
                         keysToRemove.Add(key);
                     }
                 }
