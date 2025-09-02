@@ -229,7 +229,7 @@ extern "C" __declspec(dllexport) int __cdecl exiv2getExifEasyTagDescription(int 
 //-------------------------------------------------------------------------
 // get list of IPTC tags
 //-------------------------------------------------------------------------
-//!! with exiv2 1.0 try a more generic approach (see loop in Exiv2::IptcDataSets::dataSetList)
+//!!: with exiv2 1.0 try a more generic approach (see loop in Exiv2::IptcDataSets::dataSetList)
 extern "C" __declspec(dllexport) int __cdecl exiv2getIptcTagDescriptions(LPSTR* retStr) {
     std::ostringstream oss;
 
@@ -1071,7 +1071,7 @@ extern "C" __declspec(dllexport) int __cdecl exiv2getLogString(int index, LPSTR*
 //-------------------------------------------------------------------------
 // check if tag is repeatable
 //-------------------------------------------------------------------------
-extern "C" __declspec(dllexport) bool __cdecl exiv2tagRepeatable(LPSTR tagName) {
+extern "C" __declspec(dllexport) bool __cdecl exiv2IptcTagRepeatable(LPSTR tagName) {
     if (!strncmp(tagName, "Exif.", 5)) {
         return false;
     }

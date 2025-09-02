@@ -24,10 +24,10 @@ namespace QuickImageComment
         const string exiv2DllImport = "exiv2Cdecl.dll";
 
         [DllImport(exiv2DllImport, CallingConvention = CallingConvention.Cdecl)]
-        public static extern bool exiv2tagRepeatable([MarshalAs(UnmanagedType.LPStr)] string tagName);
+        public static extern bool exiv2IptcTagRepeatable([MarshalAs(UnmanagedType.LPStr)] string tagName);
 
         // filled based on https://exiftool.org/TagNames/IPTC.html on 2025-08-28
-        private static ArrayList ExifToolIptcRepeatable = new ArrayList
+        private static readonly ArrayList ExifToolIptcRepeatable = new ArrayList
         {
             "IPTC:Destination",
             "IPTC:ProductID",
@@ -126,7 +126,25 @@ namespace QuickImageComment
             else if (isInternalTag(key))
                 return false;
             else
-                return exiv2tagRepeatable(key);
+            {
+                // now is either exiv2 or txt
+                if (key.StartsWith("Exif."))
+                    return false;
+                else if (key.StartsWith("Iptc."))
+                    return exiv2IptcTagRepeatable(key);
+                else if (key.StartsWith("Xmp."))
+                {
+                    string type = Exiv2TagDefinitions.getTagType(key);
+                    if (type.Equals("XmpBag") || 
+                        type.Equals("XmpSeq") ||
+                        type.Equals("XmpSeq-Date") ||
+                        type.Equals("XmpText"))
+                        return true;
+                    else
+                        return false;
+                }
+                return false;
+            }
         }
     }
 }

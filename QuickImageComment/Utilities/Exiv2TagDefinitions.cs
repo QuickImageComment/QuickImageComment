@@ -22,6 +22,20 @@ namespace QuickImageComment
 {
     class Exiv2TagDefinitions
     {
+        // list of value types which are added to the type (XmpText --> XmpText-Date)
+        // these types are considered to hold single values only (confirmed by tests)
+        private static readonly ArrayList ValueTypesAddToType = new ArrayList
+        {
+            "Boolean",
+            "Date",
+            "Integer",
+            "Rational",
+            "Real",
+            "Text",
+            "Time",
+            "URI",
+            "URL"
+        };
         const string exiv2DllImport = "exiv2Cdecl.dll";
 
         [DllImport(exiv2DllImport, CallingConvention = CallingConvention.Cdecl)]
@@ -97,9 +111,13 @@ namespace QuickImageComment
                 "XmpSeq",
                 "XmpText",
                 "XmpSeq-Date", // combined from type and xmp value type
-                "XmpText-Date",// combined from type and xmp value type
                 "LangAlt"      // XMP
             };
+
+            foreach (string valueType in ValueTypesAddToType)
+            {
+                ChangeableTypes.Add("XmpText-" + valueType);
+            }
 
             ChangeableWarningTypes = new ArrayList
             {
@@ -114,6 +132,7 @@ namespace QuickImageComment
                 "Rational",
                 "SRational"
             };
+
 
             UnChangeableTypes = new ArrayList();
             // Iptc.Envelope.CharacterSet is unchangeable; is set during writing to indicate 
@@ -318,8 +337,14 @@ namespace QuickImageComment
                 string[] tagValues = tagString.Split(new string[] { "\t" }, System.StringSplitOptions.None);
                 key = tagValues[0];
                 type = tagValues[1];
-                if (tagValues[2].Contains("Date"))
+                if (ValueTypesAddToType.Contains(tagValues[2]))
                 {
+                    type += "-" + tagValues[2];
+                    xmpValueType = "";
+                }
+                else if (tagValues[2].Equals("seq Date"))
+                {
+                    // XmpSeq with value type "seq Date"
                     type += "-Date";
                     xmpValueType = "";
                 }

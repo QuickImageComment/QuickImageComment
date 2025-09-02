@@ -2659,7 +2659,7 @@ namespace QuickImageComment
             ArrayListEnumCfgUserBool = new ArrayList(Enum.GetNames(typeof(enumCfgUserBool)));
             ArrayListEnumCfgUserString = new ArrayList(Enum.GetNames(typeof(enumCfgUserString)));
             ArrayListEnumCfgUserInt = new ArrayList(Enum.GetNames(typeof(enumCfgUserInt)));
-
+            
             if (System.IO.File.Exists(UserConfigFile))
             {
 #if !DEBUG
@@ -2897,6 +2897,11 @@ namespace QuickImageComment
 #endif
                         {
                             theMetaDataDefinitionItem = new MetaDataDefinitionItem(secondPart);
+                            // version 5.00 introduced more detailed types; update them in meta defintion item
+                            // as more types may be defined in the future or assigned types may change, update is
+                            // not only done when changing from 4.xx to 5.xx
+                            if (TagDefinition.isExiv2Tag(theMetaDataDefinitionItem.KeyPrim))
+                                theMetaDataDefinitionItem.TypePrim = Exiv2TagDefinitions.getTagType(theMetaDataDefinitionItem.KeyPrim);
                         }
 #if !DEBUG
                         catch (Exception ex)

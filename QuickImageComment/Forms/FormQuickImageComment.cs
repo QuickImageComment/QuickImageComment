@@ -6311,8 +6311,8 @@ namespace QuickImageComment
             // XmpText with structure
             // XmpText without structure needs to be given to exiv2 as one value (even if multi-line), done in else-branch
             // if multiple values without structure are given to exiv2, only last value is stored
-            else if ((Spec.TypePrim.Equals("XmpText") || Spec.TypePrim.Equals("XmpText-Date")) &&
-                    (valueString.StartsWith("[") || valueString.StartsWith("/")))
+            else if (Spec.TypePrim.Equals("XmpText") &&
+                     (valueString.StartsWith("[") || valueString.StartsWith("/")))
             {
                 // Structure for XmpText found
                 SortedList ChangeableFieldValuesSortedList = new SortedList();
