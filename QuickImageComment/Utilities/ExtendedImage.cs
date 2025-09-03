@@ -1506,6 +1506,9 @@ namespace QuickImageComment
                     //}
                     DisplayImageErrorMessage = exceptionMessagePrefix + ex.Message;
                     TempImage = createImageWithText(LangCfg.getText(LangCfg.Others.imageNotShown));
+                    // set AppliedOrientation to initial: avoids message of changed orientation when switching image
+                    // could happen when showing .exv with orientation set to other value than 1
+                    AppliedOrientation = InitialOrientation;
                 }
 
                 //ReadImagePerformance.measure("temp image loaded");
