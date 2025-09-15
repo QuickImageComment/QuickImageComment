@@ -6,6 +6,6 @@ namespace Brain2CPU.ExifTool
     public class ExifToolException : Exception
     {
         public ExifToolException(string msg) : base(msg)
-        {}
+        { }
     }
 }

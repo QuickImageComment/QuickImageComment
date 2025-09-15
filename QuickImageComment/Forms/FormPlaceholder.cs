@@ -578,7 +578,7 @@ namespace QuickImageComment
                 checkBoxSorted.Checked = thePlaceholderDefinition.sorted;
                 dynamicComboBoxLanguage.Text = thePlaceholderDefinition.language;
 
-                string metaDataType = Exiv2TagDefinitions.getTagType(thePlaceholderDefinition.keyMain);
+                string metaDataType = TagUtilities.getTagType(thePlaceholderDefinition.keyMain);
 
                 enableDefinitionControls(dynamicLabelMetaDate.Text, metaDataType);
                 dynamicComboBoxFormat.SelectedIndex = (int)MetaDataFormatIndex[thePlaceholderDefinition.format];
@@ -662,18 +662,18 @@ namespace QuickImageComment
         {
             // sorting allowed for repeatable values
             // except XmpSeq, where entries are already sorted
-            if (TagDefinition.isRepeatable(MetaDataKey) && !MetaDataType.Equals("XmpSeq"))
+            if (TagUtilities.isMultiLine(MetaDataKey) && !TagUtilities.isSequentiellType(MetaDataType))
             {
                 checkBoxSorted.Enabled = true;
                 richTextBoxSeparator.Enabled = true;
             }
 
-            if (MetaDataType.Equals("LangAlt"))
+            if (TagUtilities.LangAltTypes.Contains(MetaDataType))
             {
                 dynamicComboBoxLanguage.Enabled = true;
                 richTextBoxSeparator.Enabled = true;
             }
-            else if (MetaDataType.Equals("Rational") || MetaDataType.Equals("SRational"))
+            else if (TagUtilities.RationalTypes.Contains(MetaDataType))
             {
                 // more formats are allowd
                 dynamicComboBoxFormat.Items.Clear();
@@ -701,7 +701,7 @@ namespace QuickImageComment
                 MetaDataFormatIndex.Add(MetaDataItem.Format.Decimal5, ii++);
                 MetaDataFormatIndex.Add(MetaDataItem.Format.Decimal0, ii++);
             }
-            else if (GeneralUtilities.isDateProperty(MetaDataKey, MetaDataType))
+            else if (TagUtilities.isDateProperty(MetaDataKey, MetaDataType))
             {
                 // more formats are allowd
                 dynamicComboBoxFormat.Items.Clear();

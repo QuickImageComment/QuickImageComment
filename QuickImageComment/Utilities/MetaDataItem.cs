@@ -14,7 +14,6 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-using Brain2CPU.ExifTool;
 using System;
 
 namespace QuickImageComment
@@ -274,11 +273,7 @@ namespace QuickImageComment
                     try
 #endif
                     {
-                        if (typeName.Equals("LangAlt"))
-                        {
-                            return OriginalValue;
-                        }
-                        else if (OriginalValue.Equals(InterpretedValue))
+                        if (OriginalValue.Equals(InterpretedValue))
                         {
                             return OriginalValue;
                         }
@@ -314,7 +309,7 @@ namespace QuickImageComment
 
         string dateString(string Format)
         {
-            try //!! use getDateTime?
+            try //!!: use getDateTime?
             {
                 int year = int.Parse(valueString.Substring(0, 4));
                 int month = int.Parse(valueString.Substring(5, 2));
@@ -339,7 +334,7 @@ namespace QuickImageComment
         {
             string Format = "0." + new string('0', precision);
 
-            if (typeName.Equals("Rational") || typeName.Equals("SRational"))
+            if (TagUtilities.RationalTypes.Contains(typeName))
             {
                 return valueFloat.ToString(Format);
             }
@@ -349,49 +344,10 @@ namespace QuickImageComment
             }
         }
 
-        public float getValueFloat()
-        {
-            return valueFloat;
-        }
-
-        public override string ToString()
-        {
-            if (typeName.Equals("Rational") || typeName.Equals("SRational"))
-            {
-                return tag.ToString() + " "
-                  + typeName + " "
-                  + count.ToString() + " "
-                  + size.ToString() + " "
-                  + valueString + " "
-                  + valueFloat.ToString();
-            }
-            else
-            {
-                return tag.ToString() + " "
-                  + typeName + " "
-                  + count.ToString() + " "
-                  + size.ToString() + " "
-                  + valueString;
-            }
-        }
-
-        public string allToString()
-        {
-            return key + " "
-              + tag.ToString() + " "
-              + typeName + " "
-              + language + " "
-              + count.ToString() + " "
-              + size.ToString() + " "
-              + valueString + " "
-              + interpretedString + " "
-              + valueFloat.ToString();
-        }
-
-        public virtual bool isEditableInDataGridView()
+        public bool isEditableInDataGridView()
         {
             return valueString.Equals(interpretedString) &&
-                   Exiv2TagDefinitions.isEditableInDataGridView(typeName, key);
+                   TagUtilities.isEditableInDataGridView(typeName, key);
         }
     }
     //*****************************************************************
@@ -419,17 +375,13 @@ namespace QuickImageComment
             "")
         {
             shortDesc = givenShortDesc;
+            // when reading meta data with exiftool, sometimes type (called format in exiftool) is not given
+            if (givenTypeName.Equals("")) typeName = TagUtilities.getTagType(givenKey);
         }
 
         public string getShortDesc()
         {
             return shortDesc;
-        }
-        public override bool isEditableInDataGridView()
-        {
-            return valueString.Equals(interpretedString) &&
-                   !TagDefinition.isRepeatable(key) &&
-                   ExifToolWrapper.isWritable(key);
         }
     }
 }

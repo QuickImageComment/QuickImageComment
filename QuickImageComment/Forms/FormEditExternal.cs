@@ -421,7 +421,7 @@ namespace QuickImageComment
             textBoxProgramOptions.Enabled = radioButtonProgram.Checked;
             checkBoxOptionsFirst.Enabled = radioButtonProgram.Checked;
             checkBoxDropOnWindow.Enabled = radioButtonProgram.Checked;
-            labelWindowTitle.Enabled= radioButtonProgram.Checked;
+            labelWindowTitle.Enabled = radioButtonProgram.Checked;
             textBoxWindowsTitle.Enabled = radioButtonProgram.Checked;
 
             // controls for choice batch

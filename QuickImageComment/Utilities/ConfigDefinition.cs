@@ -2224,13 +2224,18 @@ namespace QuickImageComment
             // split into Exiv2 and ExifTool
             foreach (string key in neededKeys)
             {
-                if (TagDefinition.isExiv2Tag(key))
+                //!!: Txt keys separat oder in exiv2
+                if (TagUtilities.isExiv2Tag(key))
                     neededKeysExiv2.Add(key);
-                else if (TagDefinition.isInternalTag(key))
+                else if (TagUtilities.isInternalTag(key))
                     neededKeysInternal.Add(key);
                 else
                     neededKeysExifTool.Add(key);
             }
+            //foreach (string key in neededKeys) Logger.log("need " + key);
+            //foreach (string key in neededKeysExiv2) Logger.log("Exiv2 " + key);
+            //foreach (string key in neededKeysInternal) Logger.log("Internal " + key);
+            //foreach (string key in neededKeysExifTool) Logger.log("ExifTool " + key);
         }
 
         // return config path
@@ -2659,27 +2664,27 @@ namespace QuickImageComment
             ArrayListEnumCfgUserBool = new ArrayList(Enum.GetNames(typeof(enumCfgUserBool)));
             ArrayListEnumCfgUserString = new ArrayList(Enum.GetNames(typeof(enumCfgUserString)));
             ArrayListEnumCfgUserInt = new ArrayList(Enum.GetNames(typeof(enumCfgUserInt)));
-            
+
             if (System.IO.File.Exists(UserConfigFile))
             {
 #if !DEBUG
                 try
                 {
 #endif
-                // specify code page 1252 for reading; if file is encoded with UTF8 BOM, it will be read anyhow as UTF8, 
-                // keeping 1252 ensures that old configuration files can be read without problems
-                System.IO.StreamReader StreamIn =
-                  new System.IO.StreamReader(UserConfigFile, System.Text.Encoding.GetEncoding(1252));
-                line = StreamIn.ReadLine();
-                while (line != null)
-                {
-                    analyzeUserConfigFileLine(line, lineNo, ref unknownKeyWords);
+                    // specify code page 1252 for reading; if file is encoded with UTF8 BOM, it will be read anyhow as UTF8, 
+                    // keeping 1252 ensures that old configuration files can be read without problems
+                    System.IO.StreamReader StreamIn =
+                      new System.IO.StreamReader(UserConfigFile, System.Text.Encoding.GetEncoding(1252));
                     line = StreamIn.ReadLine();
-                    lineNo++;
-                }
-                StreamIn.Close();
+                    while (line != null)
+                    {
+                        analyzeUserConfigFileLine(line, lineNo, ref unknownKeyWords);
+                        line = StreamIn.ReadLine();
+                        lineNo++;
+                    }
+                    StreamIn.Close();
 
-                fillPredefinedKeyWordsTrimmed();
+                    fillPredefinedKeyWordsTrimmed();
 #if !DEBUG
                 }
                 catch (Exception ex)
@@ -2897,11 +2902,6 @@ namespace QuickImageComment
 #endif
                         {
                             theMetaDataDefinitionItem = new MetaDataDefinitionItem(secondPart);
-                            // version 5.00 introduced more detailed types; update them in meta defintion item
-                            // as more types may be defined in the future or assigned types may change, update is
-                            // not only done when changing from 4.xx to 5.xx
-                            if (TagDefinition.isExiv2Tag(theMetaDataDefinitionItem.KeyPrim))
-                                theMetaDataDefinitionItem.TypePrim = Exiv2TagDefinitions.getTagType(theMetaDataDefinitionItem.KeyPrim);
                         }
 #if !DEBUG
                         catch (Exception ex)
@@ -3566,31 +3566,31 @@ namespace QuickImageComment
             try
             {
 #endif
-            if (System.IO.File.Exists(GeneralConfigFile))
-            {
-                // specify code page 1252 for reading; if file is encoded with UTF8 BOM, it will be read anyhow as UTF8, 
-                // keeping 1252 ensures that old configuration files modified by user can be read without problems
-                System.IO.StreamReader StreamIn =
-                  new System.IO.StreamReader(GeneralConfigFile, System.Text.Encoding.GetEncoding(1252));
-                line = StreamIn.ReadLine();
-                while (line != null)
+                if (System.IO.File.Exists(GeneralConfigFile))
                 {
-                    analyzeGeneralConfigFileLine(GeneralConfigFile, line, lineNo, ref unknownKeyWords);
+                    // specify code page 1252 for reading; if file is encoded with UTF8 BOM, it will be read anyhow as UTF8, 
+                    // keeping 1252 ensures that old configuration files modified by user can be read without problems
+                    System.IO.StreamReader StreamIn =
+                      new System.IO.StreamReader(GeneralConfigFile, System.Text.Encoding.GetEncoding(1252));
                     line = StreamIn.ReadLine();
-                    lineNo++;
+                    while (line != null)
+                    {
+                        analyzeGeneralConfigFileLine(GeneralConfigFile, line, lineNo, ref unknownKeyWords);
+                        line = StreamIn.ReadLine();
+                        lineNo++;
+                    }
+                    StreamIn.Close();
                 }
-                StreamIn.Close();
-            }
-            else if (required)
-            {
-                throw new ExceptionConfigFileNotFound(GeneralConfigFile);
-            }
-            if (!unknownKeyWords.Equals(""))
-            {
-                // do not translate here, as language configuration is not yet loaded
-                GeneralUtilities.debugMessage("Unknown key words in configuration file " + GeneralConfigFile
-                    + ":\n" + unknownKeyWords + "\n\nLines are ignored.");
-            }
+                else if (required)
+                {
+                    throw new ExceptionConfigFileNotFound(GeneralConfigFile);
+                }
+                if (!unknownKeyWords.Equals(""))
+                {
+                    // do not translate here, as language configuration is not yet loaded
+                    GeneralUtilities.debugMessage("Unknown key words in configuration file " + GeneralConfigFile
+                        + ":\n" + unknownKeyWords + "\n\nLines are ignored.");
+                }
 #if !DEBUG
             }
             catch (Exception ex)
@@ -3909,29 +3909,29 @@ namespace QuickImageComment
             try
             {
 #endif
-            if (System.IO.File.Exists(exceptionFile))
-            {
-                System.IO.StreamReader StreamIn = new System.IO.StreamReader(exceptionFile);
-                line = StreamIn.ReadLine();
-                // needs to be adopted if writeFundamentalExceptionToFileAndTerminate in exiv2Cdecl.cpp is changed
-                while (line != null)
+                if (System.IO.File.Exists(exceptionFile))
                 {
-                    if (line.StartsWith("File:"))
-                    {
-                        imageFileName = line.Substring(5).Trim();
-                    }
-                    else
-                    {
-                        exceptionInfo += "\r\n" + line;
-                    }
+                    System.IO.StreamReader StreamIn = new System.IO.StreamReader(exceptionFile);
                     line = StreamIn.ReadLine();
+                    // needs to be adopted if writeFundamentalExceptionToFileAndTerminate in exiv2Cdecl.cpp is changed
+                    while (line != null)
+                    {
+                        if (line.StartsWith("File:"))
+                        {
+                            imageFileName = line.Substring(5).Trim();
+                        }
+                        else
+                        {
+                            exceptionInfo += "\r\n" + line;
+                        }
+                        line = StreamIn.ReadLine();
+                    }
+                    StreamIn.Close();
+                    if (!imageFileName.Equals(""))
+                    {
+                        handleExiv2ExceptionImageFileName(imageFileName, exceptionInfo);
+                    }
                 }
-                StreamIn.Close();
-                if (!imageFileName.Equals(""))
-                {
-                    handleExiv2ExceptionImageFileName(imageFileName, exceptionInfo);
-                }
-            }
 #if !DEBUG
             }
             catch (Exception ex)
@@ -4033,7 +4033,7 @@ namespace QuickImageComment
             {
                 // remove descriptive part after tag name
                 string[] keyWords = TagSelectionListArtistImage.GetKey(ii).Split(' ');
-                if (TagDefinition.isExifToolTag(keyWords[0]))
+                if (TagUtilities.isExifToolTag(keyWords[0]))
                     AllTagNamesArtistExifTool.Add(keyWords[0]);
                 else
                     AllTagNamesArtistExiv2.Add(keyWords[0]);
@@ -4042,7 +4042,7 @@ namespace QuickImageComment
             {
                 // remove descriptive part after tag name
                 string[] keyWords = TagSelectionListArtistVideo.GetKey(ii).Split(' ');
-                if (TagDefinition.isExifToolTag(keyWords[0]))
+                if (TagUtilities.isExifToolTag(keyWords[0]))
                     AllTagNamesArtistExifTool.Add(keyWords[0]);
                 else
                     AllTagNamesArtistExiv2.Add(keyWords[0]);
@@ -4057,7 +4057,7 @@ namespace QuickImageComment
             {
                 // remove descriptive part after tag name
                 string[] keyWords = TagSelectionListCommentImage.GetKey(ii).Split(' ');
-                if (TagDefinition.isExifToolTag(keyWords[0]))
+                if (TagUtilities.isExifToolTag(keyWords[0]))
                     AllTagNamesCommentExifTool.Add(keyWords[0]);
                 else
                     AllTagNamesCommentExiv2.Add(keyWords[0]);
@@ -4066,7 +4066,7 @@ namespace QuickImageComment
             {
                 // remove descriptive part after tag name
                 string[] keyWords = TagSelectionListCommentVideo.GetKey(ii).Split(' ');
-                if (TagDefinition.isExifToolTag(keyWords[0]))
+                if (TagUtilities.isExifToolTag(keyWords[0]))
                     AllTagNamesCommentExifTool.Add(keyWords[0]);
                 else
                     AllTagNamesCommentExiv2.Add(keyWords[0]);

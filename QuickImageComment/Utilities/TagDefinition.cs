@@ -14,38 +14,10 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-using System.Collections;
-using System.Runtime.InteropServices;
-
 namespace QuickImageComment
 {
     class TagDefinition
     {
-        const string exiv2DllImport = "exiv2Cdecl.dll";
-
-        [DllImport(exiv2DllImport, CallingConvention = CallingConvention.Cdecl)]
-        public static extern bool exiv2IptcTagRepeatable([MarshalAs(UnmanagedType.LPStr)] string tagName);
-
-        // filled based on https://exiftool.org/TagNames/IPTC.html on 2025-08-28
-        private static readonly ArrayList ExifToolIptcRepeatable = new ArrayList
-        {
-            "IPTC:Destination",
-            "IPTC:ProductID",
-            "IPTC:ObjectAttributeReference",
-            "IPTC:SubjectReference",
-            "IPTC:SupplementalCategories",
-            "IPTC:Keywords",
-            "IPTC:ContentLocationCode",
-            "IPTC:ContentLocationName",
-            "IPTC:ReferenceService",
-            "IPTC:ReferenceDate",
-            "IPTC:ReferenceNumber",
-            "IPTC:By-line",
-            "IPTC:By-lineTitle",
-            "IPTC:Contact",
-            "IPTC:Writer-Editor",
-            "IPTC:CatalogSets"
-        };
 
         public string key;
         public string type;
@@ -53,6 +25,7 @@ namespace QuickImageComment
         public string description;
         public string keyTranslated;
         public string descriptionTranslated;
+        public string flags;
 
         public TagDefinition(string givenKey, string givenType, string givenDescription)
         {
@@ -62,6 +35,7 @@ namespace QuickImageComment
             description = givenDescription;
             keyTranslated = key;
             descriptionTranslated = description;
+            flags = "";
         }
 
         public TagDefinition(string givenKey, string givenType, string givenXmpValueType, string givenDescription)
@@ -72,79 +46,19 @@ namespace QuickImageComment
             description = givenDescription;
             keyTranslated = key;
             descriptionTranslated = description;
+            flags = "";
         }
 
-        public TagDefinition(string givenKey, string givenType, string givenDescription, string givenKeyGerman, string givenDescriptionGerman)
+        public TagDefinition(string givenKey, string givenType, string givenDescription, string givenKeyTranslated,
+                             string givenDescriptionTranslated, string givenFlags)
         {
             key = givenKey;
             type = givenType;
             xmpValueType = "";
             description = givenDescription;
-            keyTranslated = givenKeyGerman;
-            descriptionTranslated = givenDescriptionGerman;
-        }
-
-        public static bool isExiv2Tag(string key)
-        {
-            return key.StartsWith("Exif.") ||
-                   key.StartsWith("ExifEasy.") ||
-                   key.StartsWith("Iptc.") ||
-                   key.StartsWith("Xmp.");
-        }
-
-        public static bool isInternalTag(string key)
-        {
-            return key.StartsWith("Define.") ||
-                   key.StartsWith("File.") ||
-                   key.StartsWith("Image.");
-        }
-
-        public static bool isTextTag(string key)
-        {
-            return key.StartsWith("Txt.");
-        }
-
-        public static bool isExifToolTag(string key)
-        {
-            return !isExiv2Tag(key) && !isInternalTag(key) && !isTextTag(key);
-        }
-
-        // return if tag is repeatable (several values)
-        public static bool isRepeatable(string key)
-        {
-            if (isExifToolTag(key))
-            {
-                // as ExifTool does not give information about repeatable,
-                // best assumption is all XMP are, others (Exif, Iptc, ListItem) not
-                if (key.StartsWith("XMP"))
-                    return true;
-                else if (key.StartsWith("IPTC"))
-                    return ExifToolIptcRepeatable.Contains(key);
-                else
-                    return false;
-            }
-            else if (isInternalTag(key))
-                return false;
-            else
-            {
-                // now is either exiv2 or txt
-                if (key.StartsWith("Exif."))
-                    return false;
-                else if (key.StartsWith("Iptc."))
-                    return exiv2IptcTagRepeatable(key);
-                else if (key.StartsWith("Xmp."))
-                {
-                    string type = Exiv2TagDefinitions.getTagType(key);
-                    if (type.Equals("XmpBag") || 
-                        type.Equals("XmpSeq") ||
-                        type.Equals("XmpSeq-Date") ||
-                        type.Equals("XmpText"))
-                        return true;
-                    else
-                        return false;
-                }
-                return false;
-            }
+            keyTranslated = givenKeyTranslated;
+            descriptionTranslated = givenDescriptionTranslated;
+            flags = givenFlags;
         }
     }
 }

@@ -96,7 +96,9 @@ namespace Brain2CPU.ExifTool
         private static readonly ManualResetEvent _waitForErrorHandle = new ManualResetEvent(true);
 
         private static readonly ArrayList Locations = new ArrayList();
-        private static ArrayList WritableTags = new ArrayList();
+        private static readonly SortedList<string, TagDefinition> Tags = new SortedList<string, TagDefinition>();
+        // list of tags with flag "Unsafe" - should not be changed
+        internal static readonly ArrayList UnsafeTags = new ArrayList();
 
         public static void init(string path = null, bool faster = false)
         {
@@ -132,7 +134,7 @@ namespace Brain2CPU.ExifTool
 
             Start();
             FillLocationList();
-            FillWritableTagList();
+            FillTagList();
         }
 
         private static void OutputDataReceived(object sender, DataReceivedEventArgs e)
@@ -364,7 +366,7 @@ namespace Brain2CPU.ExifTool
                 {
                     valueToSet = ((ArrayList)kv.Value)[0].ToString();
                     for (int ii = 1; ii < ((ArrayList)kv.Value).Count; ii++)
-            {
+                    {
                         valueToSet += writeSeparator + ((ArrayList)kv.Value)[ii].ToString();
                     }
                 }
@@ -372,7 +374,7 @@ namespace Brain2CPU.ExifTool
                 {
                     valueToSet = (string)kv.Value;
                 }
-                   
+
                 cmd.AppendFormat("-{0}={1}\n", kv.Key, valueToSet);
             }
 
@@ -491,64 +493,75 @@ namespace Brain2CPU.ExifTool
             return Locations;
         }
 
-        public static void FillWritableTagList()
+        public static void FillTagList()
         {
-            string cmd = "-listw";
+            string cmd = "-listx\n-f";
             var cmdRes = SendCommand(cmd);
             if (cmdRes)
             {
+                string translatedLanguage = ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.LanguageExifTool);
+                string group1 = "";
+                string[] words;
                 string[] lines = cmdRes.Result.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
                 {
                     for (int ii = 1; ii < lines.Length; ii++)
                     {
-                        foreach (string word in lines[ii].Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries))
+                        if (lines[ii].StartsWith("<table name="))
                         {
-                            WritableTags.Add(word);
-                        }
-                    }
-                }
-            }
-        }
-
-        public static ArrayList getWritableTagList()
-        {
-            return WritableTags;
-        }
-
-        public static ArrayList FetchTagListWithLocation(string listArg)
-        {
-            string cmd = "";
-            ExifToolResponse cmdRes;
-            ArrayList tags = new ArrayList();
-
-            if (Locations.Count == 0)
-            {
-                throw new Exception("ExifTool Location list not yet filled");
-            }
-            foreach (string location in Locations)
-            {
-                cmd = listArg + "\r\n-" + location + ":All";
-                cmdRes = SendCommand(cmd);
-                if (cmdRes)
-                {
-                    string[] lines = cmdRes.Result.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-                    {
-                        for (int ii = 1; ii < lines.Length; ii++)
-                        {
-                            foreach (string word in lines[ii].Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries))
+                            words = lines[ii].Split(new[] { "'" }, StringSplitOptions.RemoveEmptyEntries);
+                            for (int jj = 1; jj < words.Length; jj++)
                             {
-                                tags.Add(location + ":" + word);
+                                if (words[jj].Trim().Equals("g1="))
+                                {
+                                    group1 = words[++jj];
+                                    break;
+                                }
+                            }
+                        }
+                        else if (lines[ii].StartsWith(" <tag id="))
+                        {
+                            words = lines[ii].Split(new[] { "'" }, StringSplitOptions.RemoveEmptyEntries);
+                            string name = "";
+                            string type = "";
+                            string description = "";
+                            string descriptionTranslated = "";
+                            bool writable = false;
+                            string flags = "";
+                            for (int jj = 1; jj < words.Length; jj++)
+                            {
+                                if (words[jj].Trim().Equals("name=")) name = group1 + ":" + words[jj + 1];
+                                if (words[jj].Trim().Equals("type=")) type = words[jj + 1];
+                                if (words[jj].Trim().Equals("writable=")) writable = words[jj + 1].Equals("true");
+                                if (words[jj].Trim().Equals("flags=")) flags = words[jj + 1];
+                            }
+                            if (!writable) type = TagUtilities.typeReadonly;
+                            if (flags.Contains("Alt")) type = "Alt-" + type;
+                            else if (flags.Contains("Bag")) type = "Bag-" + type;
+                            else if (flags.Contains("Seq")) type = "Seq-" + type;
+
+                            while (lines[ii + 1].StartsWith("  <desc lang="))
+                            {
+                                // sample of line:  <desc lang='en'>Composite</desc>
+                                words = lines[ii + 1].Split(new[] { "'", "<", ">" }, StringSplitOptions.RemoveEmptyEntries);
+                                if (words[2].Equals("en")) description = words[3];
+                                if (words[2].Equals(translatedLanguage)) descriptionTranslated = words[3];
+                                ii++;
+                            }
+                            //!!: name is not unique
+                            if (!Tags.ContainsKey(name))
+                            {
+                                Tags.Add(name, new TagDefinition(name, type, description, name, descriptionTranslated, flags));
+                                if (flags.Contains("Unsafe")) UnsafeTags.Add(name);
                             }
                         }
                     }
                 }
             }
-            return tags;
         }
 
-        public static void FillWritableTagListWithLocation()
+        internal static SortedList<string, TagDefinition> getTagList()
         {
-            WritableTags = FetchTagListWithLocation("-listw");
+            return Tags;
         }
 
         public static ExifToolResponse CloneExif(string source, string dest, bool backup = false)
@@ -626,20 +639,6 @@ namespace Brain2CPU.ExifTool
 
         public static ExifToolResponse SetOrientationDeg(string path, int ori, bool overwriteOriginal = true) =>
             SetOrientation(path, OrientationDeg2Pos(ori), overwriteOriginal);
-
-        public static bool isWritable(string key)
-        {
-            try
-            {
-                string[] parts = key.Split(':');
-                return getWritableTagList().Contains(parts[1]);
-            }
-            catch (Exception ex)
-            {
-                GeneralUtilities.debugMessage(key + "\r\n" + ex.Message);
-                return false;
-            }
-        }
 
         #region Static orientation helpers
 

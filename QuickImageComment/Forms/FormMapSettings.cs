@@ -84,16 +84,16 @@ namespace QuickImageComment
             {
                 foreach (UserControlMap userControlMap in UserControlMap.UserControlMapList)
                 {
-                if (userControlMap != null)
-                {
-                    string opacity = numericUpDownOpacity.Value.ToString("000");
-                    opacity = opacity.Substring(0, 1) + "." + opacity.Substring(1);
-                    string fillOpacity = numericUpDownFillOpacity.Value.ToString("000");
-                    fillOpacity = fillOpacity.Substring(0, 1) + "." + fillOpacity.Substring(1);
+                    if (userControlMap != null)
+                    {
+                        string opacity = numericUpDownOpacity.Value.ToString("000");
+                        opacity = opacity.Substring(0, 1) + "." + opacity.Substring(1);
+                        string fillOpacity = numericUpDownFillOpacity.Value.ToString("000");
+                        fillOpacity = fillOpacity.Substring(0, 1) + "." + fillOpacity.Substring(1);
 
-                    userControlMap.applyMapSettings(textBoxColor.Text, opacity, fillOpacity,
-                            numericUpDownCircleSegmentRadius.Value.ToString(), MapLengthUnit,
-                            checkBoxScale.Checked);
+                        userControlMap.applyMapSettings(textBoxColor.Text, opacity, fillOpacity,
+                                numericUpDownCircleSegmentRadius.Value.ToString(), MapLengthUnit,
+                                checkBoxScale.Checked);
                     }
                 }
             }

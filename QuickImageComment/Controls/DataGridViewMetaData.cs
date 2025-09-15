@@ -597,7 +597,7 @@ namespace QuickImageCommentControls
 
             foreach (MetaDataDefinitionItem anMetaDataDefinitionItem in MetaDataDefinitions)
             {
-                if (anMetaDataDefinitionItem.TypePrim.Equals("LangAlt"))
+                if (anMetaDataDefinitionItem.TypePrim.Equals("LangAlt"))//!!: exiftool LangAlt
                 {
                     string value = theExtendedImage.getMetaDataValueByDefinitionAndLanguage(anMetaDataDefinitionItem, "x-default");
                     if (!value.Equals(""))
@@ -644,8 +644,9 @@ namespace QuickImageCommentControls
                         Rows.Add(row);
 
                         bool displayedValueInEditableFormat = false;
+                        // no adjustment for exiftool needed
                         if (Exiv2TagDefinitions.ByteUCS2Tags.Contains(anMetaDataDefinitionItem.KeyPrim) ||
-                            anMetaDataDefinitionItem.TypePrim.Equals("Comment"))
+                            anMetaDataDefinitionItem.TypePrim.Equals(TagUtilities.typeComment))
                         {
                             displayedValueInEditableFormat = anMetaDataDefinitionItem.FormatPrim == MetaDataItem.Format.Interpreted;
                         }
@@ -727,15 +728,15 @@ namespace QuickImageCommentControls
 
         private void toolStripMenuItemAddToChangeable_Click(object sender, System.EventArgs e)
         {
-            GeneralUtilities.addFieldToListOfChangeableFields(collectSelectedFields());
+            TagUtilities.addFieldToListOfChangeableFields(collectSelectedFields());
         }
         private void toolStripMenuItemAddToFind_Click(object sender, System.EventArgs e)
         {
-            GeneralUtilities.addFieldToListOfFieldsForFind(collectSelectedFields());
+            TagUtilities.addFieldToListOfFieldsForFind(collectSelectedFields());
         }
         private void toolStripMenuItemAddToMultiEditTable_Click(object sender, System.EventArgs e)
         {
-            GeneralUtilities.addFieldToListOfFieldsForMultiEditTable(collectSelectedFields());
+            TagUtilities.addFieldToListOfFieldsForMultiEditTable(collectSelectedFields());
         }
         // copy to clipboard - menu item is visible only, if exactly one cell is selected
         private void toolStripMenuItemCopy_Click(object sender, System.EventArgs e)
@@ -781,7 +782,7 @@ namespace QuickImageCommentControls
 
         private void toolStripMenuItemAddToOverview_Click(object sender, System.EventArgs e)
         {
-            GeneralUtilities.addFieldToOverview(collectSelectedFields());
+            TagUtilities.addFieldToOverview(collectSelectedFields());
         }
 
         private void dataGridViewMetaData_KeyDown(object sender, KeyEventArgs e)

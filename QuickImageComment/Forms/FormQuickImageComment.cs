@@ -29,6 +29,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
+using static QuickImageComment.ConfigDefinition;
 using Color = System.Drawing.Color;
 using Pen = System.Drawing.Pen;
 
@@ -942,6 +943,18 @@ namespace QuickImageComment
             }
             ImageManager.initNewFolder(FolderName);
             ImageManager.initExtendedCacheList();
+
+            // version 5.00 introduced more detailed types; update them in meta defintion item
+            // as more types may be defined in the future or assigned types may change, update is
+            // not only done when changing from 4.xx to 5.xx
+            // this type update quite fast and part of separate thread, so should not slow down startup
+            foreach (enumMetaDataGroup group in Enum.GetValues(typeof(enumMetaDataGroup)))
+            {
+                foreach (MetaDataDefinitionItem metaDataDefinitionItem in MetaDataDefinitions[group])
+                {
+                    metaDataDefinitionItem.TypePrim = TagUtilities.getTagType(metaDataDefinitionItem.KeyPrim);
+                }
+            }
 
             Program.StartupPerformance.measure("FormQIC *** ImageManager.initNewFolder finish");
             ShellItemStartupSelectedFolder = new GongSolutions.Shell.ShellItem(FolderName);
@@ -3241,23 +3254,6 @@ namespace QuickImageComment
             }
         }
 
-        // context menu add fields to changeable fields
-        private void toolStripMenuItemAddFromOverviewToChangeable_Click(object sender, EventArgs e)
-        {
-            GeneralUtilities.addFieldToListOfChangeableFields(this.DataGridViewOverview.collectSelectedFields());
-        }
-        // context menu add fields to fields for find
-        private void toolStripMenuItemAddToFind_Click(object sender, EventArgs e)
-        {
-            GeneralUtilities.addFieldToListOfFieldsForFind(this.DataGridViewOverview.collectSelectedFields());
-        }
-        // context menu add fields to fields in multi-edit-tab
-        private void toolStripMenuItemAddToMultiEditTab_Click(object sender, EventArgs e)
-        {
-            GeneralUtilities.addFieldToListOfFieldsForMultiEditTable(this.DataGridViewOverview.collectSelectedFields());
-        }
-
-        // end program
         private void toolStripMenuItemEnd_Click(object sender, EventArgs e)
         {
             // close mask; close event handler will be started to write configuration
@@ -5996,7 +5992,7 @@ namespace QuickImageComment
                         foreach (string key in ConfigDefinition.getTagNamesWriteCommentImage())
                         {
                             // these tags could be of XMP type LangAlt
-                            if (Exiv2TagDefinitions.getTagType(key).Equals("LangAlt") && !textBoxUserComment.Text.Equals(""))
+                            if (TagUtilities.getTagType(key).Equals("LangAlt") && !textBoxUserComment.Text.Equals(""))//!!: exiftool LangAlt
                             {
                                 changeableFieldsForSave.Add(key, "lang=x-default " + NewUserComment);
                             }
@@ -6188,13 +6184,14 @@ namespace QuickImageComment
                         foreach (string key in ConfigDefinition.getTagNamesWriteCommentVideo())
                         {
                             // video is always ExifTool key, so no language
+                            //!!: keine Anpassung für ExifTool notwendig?
                             changedFieldsForSave.Add(key, textBoxUserComment.Text);
                         }
                     else
                         foreach (string key in ConfigDefinition.getTagNamesWriteCommentImage())
                         {
                             // these tags could be of XMP type LangAlt
-                            if (Exiv2TagDefinitions.getTagType(key).Equals("LangAlt") && !textBoxUserComment.Text.Equals(""))
+                            if (TagUtilities.getTagType(key).Equals("LangAlt") && !textBoxUserComment.Text.Equals(""))//!!: exiftool LangAlt
                             {
                                 changedFieldsForSave.Add(key, "lang=x-default " + textBoxUserComment.Text);
                             }
@@ -6289,7 +6286,7 @@ namespace QuickImageComment
             {
                 changedFieldsForSave.Add(Spec.KeyPrim, valueString);
             }
-            else if (Spec.TypePrim.Equals("LangAlt"))
+            else if (Spec.TypePrim.Equals("LangAlt"))//!!: exiftool LangAlt
             {
                 if (!changedFieldsForSave.Contains(Spec.KeyPrim))
                 {
@@ -6311,7 +6308,7 @@ namespace QuickImageComment
             // XmpText with structure
             // XmpText without structure needs to be given to exiv2 as one value (even if multi-line), done in else-branch
             // if multiple values without structure are given to exiv2, only last value is stored
-            else if (Spec.TypePrim.Equals("XmpText") &&
+            else if (Spec.TypePrim.Equals(TagUtilities.typeXmpText) &&//!!: exiftool zu prüfen, wenn RegionInfo anders ausgelesen wird
                      (valueString.StartsWith("[") || valueString.StartsWith("/")))
             {
                 // Structure for XmpText found
@@ -6338,9 +6335,9 @@ namespace QuickImageComment
             }
             else if (inputControl.GetType().Equals(typeof(TextBox)))
             {
-                // If values are repeatable, they are entered in TextBox, see 
+                // If values are multiline, they are entered in TextBox, see 
                 // UserControlChangeableFields.fillChangeableFieldPanelWithControls
-                // this applies to XmpBag, XmpSeq, repeatable Iptc-values, repeatable ExifTool values
+                // this applies to XmpBag, XmpSeq, repeatable Iptc-values, multiline ExifTool values
                 ArrayList ChangeableFieldValuesArraylist = new ArrayList();
                 string[] Values = valueString.Split(new string[] { "\r\n" }, StringSplitOptions.None);
                 for (int jj = 0; jj < Values.Length; jj++)
@@ -7140,10 +7137,11 @@ namespace QuickImageComment
             {
                 StreamOut.WriteLine("; Tag-List ExifTool " + cmdRes.Result.Trim());
                 StreamOut.WriteLine("; --------------------------------------------------------------------------");
-                ArrayList tags = ExifToolWrapper.FetchTagListWithLocation("-list");
-                for (int ii = 0; ii < tags.Count; ii++)
+                foreach (string tag in ExifToolWrapper.getTagList().Keys)
                 {
-                    StreamOut.WriteLine(tags[ii]);
+                    TagDefinition tagDefinition = ExifToolWrapper.getTagList()[tag];
+                    StreamOut.WriteLine(tagDefinition.key + "\t" + tagDefinition.type + "\t"
+                        + tagDefinition.description + "\t" + tagDefinition.flags);
                 }
                 this.Cursor = Cursors.Default;
                 GeneralUtilities.debugMessage(LookupReferenceValuesFile + " created.");

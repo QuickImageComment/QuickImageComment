@@ -561,9 +561,9 @@ namespace QuickImageComment
             }
             else if (theKeyEventArgs.KeyCode == Keys.F10 && theKeyEventArgs.Shift)
             {
-                    FormPlaceholder theFormPlaceholder = new FormPlaceholder(FormPlaceholder.keyComment, ((Control)sender).Text);
-                    theFormPlaceholder.ShowDialog();
-                    ((Control)sender).Text = theFormPlaceholder.resultString;
+                FormPlaceholder theFormPlaceholder = new FormPlaceholder(FormPlaceholder.keyComment, ((Control)sender).Text);
+                theFormPlaceholder.ShowDialog();
+                ((Control)sender).Text = theFormPlaceholder.resultString;
             }
             else if (theKeyEventArgs.KeyCode == Keys.F10)
             {
@@ -581,9 +581,9 @@ namespace QuickImageComment
             {
                 if (Control.ModifierKeys == Keys.Shift)
                 {
-                        FormPlaceholder theFormPlaceholder = new FormPlaceholder(FormPlaceholder.keyComment, ((Control)sender).Text);
-                        theFormPlaceholder.ShowDialog();
-                        ((Control)sender).Text = theFormPlaceholder.resultString;
+                    FormPlaceholder theFormPlaceholder = new FormPlaceholder(FormPlaceholder.keyComment, ((Control)sender).Text);
+                    theFormPlaceholder.ShowDialog();
+                    ((Control)sender).Text = theFormPlaceholder.resultString;
                 }
                 else
                 {

@@ -252,7 +252,8 @@ namespace QuickImageComment
                 // add general offset for all
                 newDateTime = newDateTime.AddSeconds((double)GroupDateTimeOffsets[0]);
             }
-            catch { };
+            catch { }
+            ;
             return dateTime2ExifString(newDateTime);
         }
 

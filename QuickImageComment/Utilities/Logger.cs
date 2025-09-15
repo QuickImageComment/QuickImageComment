@@ -137,10 +137,10 @@ namespace QuickImageComment
             log(message, false, true);
         }
 
-        // log one message just for coverage analyiss
+        // log one message just for coverage analysis
         public static void log()
         {
-            log("...coverage ", 0);
+            log("...coverage ", 2);
         }
 
         // log one message with optionally writing to file

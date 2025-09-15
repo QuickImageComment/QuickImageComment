@@ -658,7 +658,7 @@ namespace FormCustomization
             int selectedNodeIndex = treeViewComponents.SelectedNode.Index;
 
             foreach (Control control in ChangeableForm.Controls) control.Visible = false;
-            theCustomizer.zoomForm( Customizer.enumSetTo.Customized, ChangeableForm, (float)numericUpDownZoom.Value / 100);
+            theCustomizer.zoomForm(Customizer.enumSetTo.Customized, ChangeableForm, (float)numericUpDownZoom.Value / 100);
             foreach (Control control in ChangeableForm.Controls) control.Visible = true;
             theCustomizer.setCustomizedSettingsChanged();
 

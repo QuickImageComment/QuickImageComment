@@ -97,7 +97,7 @@ namespace QuickImageComment
         }
 
         // return value based on this definition - from read data in ExtendedImage
-        
+
         public string getValue(ExtendedImage theExtendedImage)
         {
             string originalValue = theExtendedImage.getMetaDataValueByKey(ReferenceKey, MetaDataItem.Format.Original);

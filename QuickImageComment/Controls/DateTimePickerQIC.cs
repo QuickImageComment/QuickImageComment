@@ -57,7 +57,7 @@ namespace QuickImageComment
                         new Point(middle.X, middle.Y + 4)
                     };
 
-                    var buttonFillColor =  Enabled ? ButtonFillColor : Color.LightGray;
+                    var buttonFillColor = Enabled ? ButtonFillColor : Color.LightGray;
                     using (var brush = new SolidBrush(buttonFillColor))
                         g.FillRectangle(brush, dropDownRect);
                     using (var pen = new Pen(Color.DarkGray))

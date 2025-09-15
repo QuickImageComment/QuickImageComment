@@ -363,7 +363,7 @@ namespace QuickImageComment
 
         private void radioButtonPath_CheckedChanged(object sender, EventArgs e)
         {
-            if (((RadioButton)sender).Checked && listViewIcons.SelectedItems.Count > 0) 
+            if (((RadioButton)sender).Checked && listViewIcons.SelectedItems.Count > 0)
                 listViewIcons.SelectedItems[0].Selected = false;
         }
 

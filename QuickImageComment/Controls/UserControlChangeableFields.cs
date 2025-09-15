@@ -156,7 +156,7 @@ namespace QuickImageComment
                 else
                 {
                     AllChangeableKeys.Add(aMetaDataDefinitionItem.KeyPrim);
-                    if (aMetaDataDefinitionItem.TypePrim.Equals("LangAlt"))
+                    if (aMetaDataDefinitionItem.TypePrim.Equals("LangAlt"))//!!: exiftool LangAlt
                     {
                         // controls for default language
                         // entries for type LangAlt are not multiline, so use comboBox
@@ -191,15 +191,12 @@ namespace QuickImageComment
                     else
                     {
                         Control anInputControl;
-                        if (TagDefinition.isRepeatable(aMetaDataDefinitionItem.KeyPrim))
+                        if (TagUtilities.isMultiLine(aMetaDataDefinitionItem.KeyPrim))
                         {
-                            // exiv2 tag and proven to be repeatable
                             anInputControl = new TextBox();
                         }
                         else
                         {
-                            // not repeatable exiv2 tag or ExifTool tag
-                            // ExifTool gives no information if repeatable or not
                             anInputControl = new ComboBox();
                         }
 
@@ -325,7 +322,7 @@ namespace QuickImageComment
                 anInputControl.Height = comboBoxChangeableField.Height;
             }
 
-            if (GeneralUtilities.isDateProperty(aMetaDataDefinitionItem.KeyPrim, aMetaDataDefinitionItem.TypePrim))
+            if (TagUtilities.isDateProperty(aMetaDataDefinitionItem.KeyPrim, aMetaDataDefinitionItem.TypePrim))
             {
                 // add a date picker
                 anInputControl.Width = anInputControl.Width - dateTimePickerChangeableField.Width - 2;
@@ -511,7 +508,7 @@ namespace QuickImageComment
                     if (enable && video)
                     {
                         ChangeableFieldSpecification changeableFieldSpecification = (ChangeableFieldSpecification)aControl.Tag;
-                        if (ExifToolWrapper.isReady() && TagDefinition.isExifToolTag(changeableFieldSpecification.KeyPrim))
+                        if (ExifToolWrapper.isReady() && TagUtilities.isExifToolTag(changeableFieldSpecification.KeyPrim))
                         // writing is only possible when ExifTool is ready and tag is for ExifTool
                         {
                             aControl.Enabled = true;
@@ -734,7 +731,7 @@ namespace QuickImageComment
                     {
                         InputCheckConfig theInputCheckConfig = ConfigDefinition.getInputCheckConfig(Spec.KeyPrim);
 
-                        if (MetaType.Equals("Time"))
+                        if (TagUtilities.isTimeProperty(MetaType))
                         {
                             ExceptionMessage = LangCfg.getText(LangCfg.Others.typeSpecTimeIptc);
                             Values[ii] = Values[ii].Trim();
@@ -764,15 +761,16 @@ namespace QuickImageComment
                             }
                         }
                         // check Exif data/time tags
-                        else if (GeneralUtilities.isDateProperty(Spec.KeyPrim, MetaType))
+                        else if (TagUtilities.isDateProperty(Spec.KeyPrim, MetaType))
                         {
                             // no ExceptionMessage; possible exception is caught specifically
                             Values[ii] = Values[ii].Trim();
                             // check date and correct format to fit to specification of Exif/IPTC/XMP
                             // following logic works, because the formaats differ only in separators, 
                             // i.e. hours, minutes and seconds are in the same position inside the string
-                            if (MetaType.Equals("Date"))
+                            if (MetaType.Equals("Date"))//!!: function exiftool date
                             {
+                                Logger.log(); //!!: exiftool date hier berücksichtigen
                                 DateTime temp = GeneralUtilities.getDateTimeFromExifIptcXmpString(Values[ii], Spec.KeyPrim);
                                 // no time allowed
                                 Values[ii] = temp.ToString("yyyy-MM-dd");
@@ -803,6 +801,7 @@ namespace QuickImageComment
                             string[] SubValues = Values[ii].Split(' ');
                             for (int kk = 0; kk < SubValues.Length; kk++)
                             {
+                                //!!: im folgendne Block exifTool Typen berücksichtigen, ggfs. über Funktionen
                                 if (MetaType.Equals("Byte"))
                                 {
                                     if (!Exiv2TagDefinitions.ByteUCS2Tags.Contains(Spec.KeyPrim))
@@ -888,7 +887,7 @@ namespace QuickImageComment
                         }
                     }
                 }
-                if (GeneralUtilities.isDateProperty(Spec.KeyPrim, MetaType))
+                if (TagUtilities.isDateProperty(Spec.KeyPrim, MetaType))
                 {
                     // concatenate values again as format may have been corrected
                     string concatenatedValue = Values[0];

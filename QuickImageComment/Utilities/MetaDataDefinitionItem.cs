@@ -14,8 +14,6 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-using Brain2CPU.ExifTool;
-
 namespace QuickImageComment
 {
     public class MetaDataDefinitionItem
@@ -67,7 +65,7 @@ namespace QuickImageComment
             KeySec = givenKeySec;
             FormatSec = givenFormatSec;
             Postfix = givenPostfix;
-            TypePrim = Exiv2TagDefinitions.getTagType(KeyPrim);
+            TypePrim = TagUtilities.getTagType(KeyPrim);
             VerticalDisplayOffset = 1;
             LinesForChange = 1;
         }
@@ -85,7 +83,7 @@ namespace QuickImageComment
             KeySec = "";
             FormatSec = MetaDataItem.Format.Interpreted;
             Postfix = "";
-            TypePrim = Exiv2TagDefinitions.getTagType(KeyPrim);
+            TypePrim = TagUtilities.getTagType(KeyPrim);
             VerticalDisplayOffset = 1;
             LinesForChange = 1;
         }
@@ -104,7 +102,7 @@ namespace QuickImageComment
             KeySec = "";
             FormatSec = MetaDataItem.Format.Interpreted;
             Postfix = "";
-            TypePrim = Exiv2TagDefinitions.getTagType(KeyPrim);
+            TypePrim = TagUtilities.getTagType(KeyPrim);
             VerticalDisplayOffset = 1;
             LinesForChange = 1;
         }
@@ -123,7 +121,7 @@ namespace QuickImageComment
             KeySec = "";
             FormatSec = MetaDataItem.Format.Interpreted;
             Postfix = "";
-            TypePrim = Exiv2TagDefinitions.getTagType(KeyPrim);
+            TypePrim = TagUtilities.getTagType(KeyPrim);
             VerticalDisplayOffset = 1;
             LinesForChange = 1;
         }
@@ -143,7 +141,7 @@ namespace QuickImageComment
             KeySec = givenKeySec;
             FormatSec = MetaDataItem.Format.Interpreted;
             Postfix = "";
-            TypePrim = Exiv2TagDefinitions.getTagType(KeyPrim);
+            TypePrim = TagUtilities.getTagType(KeyPrim);
             VerticalDisplayOffset = 1;
             LinesForChange = 1;
         }
@@ -261,10 +259,8 @@ namespace QuickImageComment
 
         public bool isEditableInDataGridView()
         {
-            return KeySec.Equals("") && 
-                   (Exiv2TagDefinitions.isEditableInDataGridView(TypePrim, KeyPrim) ||
-                    TagDefinition.isExifToolTag(KeyPrim) && !TagDefinition.isRepeatable(KeyPrim) &&
-                    ExifToolWrapper.isWritable(KeyPrim));
+            return KeySec.Equals("") &&
+                   TagUtilities.isEditableInDataGridView(TypePrim, KeyPrim);
         }
     }
 }

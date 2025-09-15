@@ -282,9 +282,9 @@ namespace QuickImageComment
 
             this.Cursor = Cursors.WaitCursor;
 
+            // add Xmp and txt tags from current image in case not included in exiv2 tag list
             if (Exiv2TagDefinitions.getList() != null)
             {
-
                 if (theExtendedImage == null)
                 {
                     // no image available, display all tags
@@ -315,8 +315,33 @@ namespace QuickImageComment
                     }
                 }
 
+                // add tags from current image in case not included in exiftool tag list
+                if (ExifToolWrapper.getTagList() != null)
+                {
+                    if (theExtendedImage != null)
+                    {
+                        // add XMP tags from current image as some of them might not be in definition list
+                        foreach (string key in theExtendedImage.getExifToolMetaDataItems().GetKeyList())
+                        {
+                            string keyWithoutNumber = GeneralUtilities.nameWithoutRunningNumber(key);
+                            //!!: auch keys mit Sprache ausfiltern, z.B. Xmp-dc:Description-de-DE
+                            if (!ExifToolWrapper.getTagList().ContainsKey(keyWithoutNumber))
+                            {
+                                MetaDataItemExifTool metaDataItemExifTool = (MetaDataItemExifTool)theExtendedImage.getExifToolMetaDataItems()[keyWithoutNumber];
+                                ExifToolWrapper.getTagList().Add(metaDataItemExifTool.getKey(),
+                                    new TagDefinition(metaDataItemExifTool.getKey(),
+                                                      metaDataItemExifTool.getTypeName(),
+                                                      metaDataItemExifTool.getShortDesc()));
+                            }
+                        }
+                    }
+                }
+
                 listViewTags.Items.Clear();
 
+                // filling with exiv2 tags is based on Exiv2TagDefinitions
+                // - even if only tags from image shall be used,
+                // because only there type and description are available
                 foreach (TagDefinition aTagDefinition in Exiv2TagDefinitions.getList().Values)
                 {
                     if (!checkBoxOnlyInImage.Checked
@@ -343,21 +368,46 @@ namespace QuickImageComment
                     }
                 }
 
-                if (theExtendedImage != null)
+                // filling with exiftool tags for image only is based on ExifToolMetaDataItems
+                // because there also type and description are contained
+                // using this is faster than looping over ExifToolWrapper's tag list and filter
+                // - like it is done for exiv2
+                if (checkBoxOnlyInImage.Checked)
                 {
+                    // theExtendedImage is not null, else checkBoxOnlyInImage would not be checked
                     foreach (MetaDataItemExifTool metaDataItemExifTool in theExtendedImage.getExifToolMetaDataItems().Values)
                     {
                         if (!metaDataItemExifTool.getKey().Contains(GeneralUtilities.UniqueSeparator))
                         {
                             theListViewItem = new ListViewItem(new string[] { metaDataItemExifTool.getKey(),
-                                                                          metaDataItemExifTool.getTypeName(),
-                                                                          metaDataItemExifTool.getShortDesc(),
-                                                                          metaDataItemExifTool.getKey() });
+                                                                              TagUtilities.getTagType(metaDataItemExifTool.getKey()),
+                                                                              metaDataItemExifTool.getShortDesc(),
+                                                                              metaDataItemExifTool.getKey() });
                             listViewTags.Items.Add(theListViewItem);
                         }
                     }
                 }
-
+                else
+                {
+                    foreach (TagDefinition aTagDefinition in ExifToolWrapper.getTagList().Values)
+                    {
+                        if (checkBoxOriginalLanguage.Checked)
+                        {
+                            theListViewItem = new ListViewItem(new string[] { aTagDefinition.key,
+                                                                              aTagDefinition.type,
+                                                                              aTagDefinition.description,
+                                                                              aTagDefinition.key});
+                        }
+                        else
+                        {
+                            theListViewItem = new ListViewItem(new string[] { aTagDefinition.keyTranslated,
+                                                                              aTagDefinition.type,
+                                                                              aTagDefinition.descriptionTranslated,
+                                                                              aTagDefinition.key});
+                        }
+                        listViewTags.Items.Add(theListViewItem);
+                    }
+                }
             }
             listViewTags.Sorting = SortOrder.Ascending;
             this.Cursor = Cursors.Default;
@@ -373,28 +423,35 @@ namespace QuickImageComment
             ArrayList SearchTags = new ArrayList();
             foreach (ListViewItem tagEntry in listViewTags.Items)
             {
-                posColon = tagEntry.Text.IndexOf(":");
-                posDot1 = tagEntry.Text.IndexOf(".");
-                posDot2 = tagEntry.Text.IndexOf(".", posDot1 + 1);
-                if (posColon > 0 && (posDot1 < 0 || posColon < posDot1))
+                try
                 {
-                    // colon found first - is ExifTool tag
-                    // note: some XMP tags have a colon in the third part
-                    searchEntry = tagEntry.Text.Substring(0, posColon);
+                    posColon = tagEntry.Text.IndexOf(":");
+                    posDot1 = tagEntry.Text.IndexOf(".");
+                    posDot2 = tagEntry.Text.IndexOf(".", posDot1 + 1);
+                    if (posColon > 0 && (posDot1 < 0 || posColon < posDot1))
+                    {
+                        // colon found first - is ExifTool tag
+                        // note: some XMP tags have a colon in the third part
+                        searchEntry = tagEntry.Text.Substring(0, posColon);
+                    }
+                    else if (posDot2 < 0)
+                    {
+                        // exiv2 tag with two parts only 
+                        searchEntry = tagEntry.Text.Substring(0, posDot1);
+                    }
+                    else
+                    {
+                        // exiv2 tag with three parts
+                        searchEntry = tagEntry.Text.Substring(0, posDot2);
+                    }
+                    if (!SearchTags.Contains(searchEntry))
+                    {
+                        SearchTags.Add(searchEntry);
+                    }
                 }
-                else if (posDot2 < 0)
+                catch (Exception ex)
                 {
-                    // exiv2 tag with two parts only 
-                    searchEntry = tagEntry.Text.Substring(0, posDot1);
-                }
-                else
-                {
-                    // exiv2 tag with three parts
-                    searchEntry = tagEntry.Text.Substring(0, posDot2);
-                }
-                if (!SearchTags.Contains(searchEntry))
-                {
-                    SearchTags.Add(searchEntry);
+                    Logger.log(tagEntry + " " + ex.Message);
                 }
             }
             SearchTags.Sort();
@@ -600,12 +657,12 @@ namespace QuickImageComment
                 // set type of tag and enable additional controls to change layout for changeable fields
                 if (theTagDefinition != null)
                 {
-                    dynamicComboBoxMetaDataFormat1.SelectedIndex = (int)MetaDataFormatIndex1[GeneralUtilities.getFormatForTagChange(theTagDefinition.key)];
+                    dynamicComboBoxMetaDataFormat1.SelectedIndex = (int)MetaDataFormatIndex1[TagUtilities.getFormatForTagChange(theTagDefinition.key)];
 
                     MetaDataDefinitionItem theMetaDataDefinitionItem =
                       (MetaDataDefinitionItem)MetaDataDefinitionsWork[listBoxMetaData.SelectedIndex];
                     theMetaDataDefinitionItem.TypePrim = theTagDefinition.type;
-                    if (TagDefinition.isRepeatable(textBoxMetaDatum1.Text))
+                    if (TagUtilities.isMultiLine(textBoxMetaDatum1.Text))
                     {
                         numericUpDownLinesForChange.Enabled = true;
                     }
@@ -621,8 +678,8 @@ namespace QuickImageComment
                 // warning to change tags only if tag is changed manually
                 if (fieldDefinitionChangedActive)
                 {
-                    if (Exiv2TagDefinitions.ChangeableWarningTags.Contains(textBoxMetaDatum1.Text)
-                                && ConfigDefinition.getInputCheckConfig(textBoxMetaDatum1.Text) == null)
+                    if (TagUtilities.warnBeforeAddToChangeable(textBoxMetaDatum1.Text)
+                        && ConfigDefinition.getInputCheckConfig(textBoxMetaDatum1.Text) == null)
                     {
                         GeneralUtilities.message(LangCfg.Message.W_changeDataOfThisTypeNotUseful, textBoxMetaDatum1.Text);
                     }
@@ -633,7 +690,7 @@ namespace QuickImageComment
                 addItemsComboBoxMetaDataFormatInterpretedOriginal(dynamicComboBoxMetaDataFormat1, MetaDataFormatIndex1);
                 if (theTagDefinition != null)
                 {
-                    dynamicComboBoxMetaDataFormat1.SelectedIndex = (int)MetaDataFormatIndex1[GeneralUtilities.getFormatForTagFind(theTagDefinition.key, theTagDefinition.type)];
+                    dynamicComboBoxMetaDataFormat1.SelectedIndex = (int)MetaDataFormatIndex1[TagUtilities.getFormatForTagFind(theTagDefinition.key, theTagDefinition.type)];
                 }
                 else
                 {
@@ -651,11 +708,11 @@ namespace QuickImageComment
             // when tags are edited manually, the name may not be valid
             else if (theTagDefinition != null)
             {
-                if (theTagDefinition.type.Equals("Rational") || theTagDefinition.type.Equals("SRational"))
+                if (TagUtilities.RationalTypes.Contains(theTagDefinition.type))
                 {
                     addItemsComboBoxMetaDataFormatDecimal(dynamicComboBoxMetaDataFormat1, MetaDataFormatIndex1);
                 }
-                else if (GeneralUtilities.isDateProperty(theTagDefinition.key, theTagDefinition.type))
+                else if (TagUtilities.isDateProperty(theTagDefinition.key, theTagDefinition.type))
                 {
                     addItemsComboBoxMetaDataFormatDate(dynamicComboBoxMetaDataFormat1, MetaDataFormatIndex1);
                 }
@@ -678,11 +735,11 @@ namespace QuickImageComment
                 {
                     theTagDefinition = Exiv2TagDefinitions.getList()[textBoxMetaDatum2.Text];
                     // no check of dynamicComboBoxMetaDataType: MetaDatum2 is enabled if "changeProp" is not selected
-                    if (theTagDefinition.type.Equals("Rational") || theTagDefinition.type.Equals("SRational"))
+                    if (TagUtilities.RationalTypes.Contains(theTagDefinition.type))
                     {
                         addItemsComboBoxMetaDataFormatDecimal(dynamicComboBoxMetaDataFormat2, MetaDataFormatIndex2);
                     }
-                    else if (GeneralUtilities.isDateProperty(theTagDefinition.key, theTagDefinition.type))
+                    else if (TagUtilities.isDateProperty(theTagDefinition.key, theTagDefinition.type))
                     {
                         addItemsComboBoxMetaDataFormatDate(dynamicComboBoxMetaDataFormat2, MetaDataFormatIndex2);
                     }
@@ -708,7 +765,7 @@ namespace QuickImageComment
                     theMetaDataDefinitionItem.Name = textBoxName.Text;
                     theMetaDataDefinitionItem.Prefix = textBoxPrefix.Text;
                     theMetaDataDefinitionItem.KeyPrim = textBoxMetaDatum1.Text;
-                    theMetaDataDefinitionItem.TypePrim = Exiv2TagDefinitions.getTagType(theMetaDataDefinitionItem.KeyPrim);
+                    theMetaDataDefinitionItem.TypePrim = TagUtilities.getTagType(theMetaDataDefinitionItem.KeyPrim);
                     int index = MetaDataFormatIndex1.IndexOfValue(dynamicComboBoxMetaDataFormat1.SelectedIndex);
                     theMetaDataDefinitionItem.FormatPrim = (MetaDataItem.Format)MetaDataFormatIndex1.GetKey(index);
                     theMetaDataDefinitionItem.Separator = textBoxSeparator.Text;
@@ -994,7 +1051,7 @@ namespace QuickImageComment
             {
                 MetaDataKey = listViewTags.SelectedItems[0].SubItems[3].Text;
                 MetaDataType = listViewTags.SelectedItems[0].SubItems[1].Text.Split(' ')[0];
-                if (TagDefinition.isExifToolTag(MetaDataKey))
+                if (TagUtilities.isExifToolTag(MetaDataKey))
                 {
                     // key from ExifTool, (short) description used for name
                     Name = listViewTags.SelectedItems[0].SubItems[2].Text;
@@ -1134,33 +1191,27 @@ namespace QuickImageComment
         {
             if (dynamicComboBoxMetaDataType.SelectedItem.Equals(LangCfg.getText(ConfigDefinition.enumMetaDataGroup.MetaDataDefForChange)))
             {
-                if (!GeneralUtilities.tagCanBeAddedToChangeable(MetaDataKey))
+                if (!TagUtilities.tagCanBeAddedToChangeable(MetaDataKey))
                 {
-                    return false;
-                }
-                // check type of keys from exiv2
-                else if (TagDefinition.isExiv2Tag(MetaDataKey) && !Exiv2TagDefinitions.ChangeableTypes.Contains(MetaDataType))
-                {
-                    GeneralUtilities.message(LangCfg.Message.E_tagValueNotChangeable, MetaDataKey);
                     return false;
                 }
             }
             else if (dynamicComboBoxMetaDataType.SelectedItem.Equals(LangCfg.getText(ConfigDefinition.enumMetaDataGroup.MetaDataDefForRemoveMetaDataExceptions)) ||
                      dynamicComboBoxMetaDataType.SelectedItem.Equals(LangCfg.getText(ConfigDefinition.enumMetaDataGroup.MetaDataDefForRemoveMetaDataList)))
             {
-                if (TagDefinition.isExifToolTag(MetaDataKey))
+                if (TagUtilities.isExifToolTag(MetaDataKey))
                 {
                     // key from ExifTool, not supported for removing meta data
                     GeneralUtilities.message(LangCfg.Message.E_ExifToolTagValueNotDeleteable, MetaDataKey);
                 }
-                else if (MetaDataType.Equals("Readonly"))
+                else if (MetaDataType.Equals(TagUtilities.typeReadonly))
                 {
                     GeneralUtilities.message(LangCfg.Message.E_tagValueNotDeleteable, MetaDataKey);
                     return false;
                 }
-                else if (MetaDataKey.Equals("Exif.Photo.MakerNote") ||
-                         MetaDataKey.Equals("Exif.Image.Make"))
+                else if (MetaDataKey.Equals("Exif.Photo.MakerNote")) //!!: unchangeable tags, exiftool
                 {
+                    Logger.log();
                     GeneralUtilities.message(LangCfg.Message.E_makerSpecificNotSelectable, MetaDataKey);
                     return false;
                 }
@@ -1272,7 +1323,7 @@ namespace QuickImageComment
 
                 // input check configuration only for single-line-properties
                 // input check probably makes sense for some data types only, however user can use it for any type he likes
-                if (!TagDefinition.isRepeatable(textBoxMetaDatum1.Text))
+                if (!TagUtilities.isMultiLine(textBoxMetaDatum1.Text))
                 {
                     InputCheckConfig theInputCheckConfig = ConfigDefinition.getInputCheckConfig(textBoxMetaDatum1.Text);
                     if (theInputCheckConfig != null)
@@ -1303,7 +1354,7 @@ namespace QuickImageComment
                     buttonInputCheckEdit.Enabled = false;
                     buttonInputCheckDelete.Enabled = false;
                 }
-                if (TagDefinition.isRepeatable(textBoxMetaDatum1.Text))
+                if (TagUtilities.isMultiLine(textBoxMetaDatum1.Text))
                 {
                     numericUpDownLinesForChange.Enabled = true;
                 }
@@ -1344,7 +1395,7 @@ namespace QuickImageComment
                 if (theTagDefinition != null &&
                     (textBoxMetaDatum1.Text.Equals("Exif.Photo.UserComment") ||
                      Exiv2TagDefinitions.ByteUCS2Tags.Contains(textBoxMetaDatum1.Text) ||
-                     GeneralUtilities.isDateProperty(theTagDefinition.key, theTagDefinition.type) ||
+                     TagUtilities.isDateProperty(theTagDefinition.key, theTagDefinition.type) ||
                      ConfigDefinition.getInputCheckConfig(theTagDefinition.key) != null && !(ConfigDefinition.getInputCheckConfig(theTagDefinition.key)).isUserCheck()))
                 {
                     dynamicComboBoxMetaDataFormat1.Enabled = false;
@@ -1452,96 +1503,64 @@ namespace QuickImageComment
                 return false;
             }
 
-            // type is used for check only if it is an exiv2 tag name
-            string type = "";
-            if (Exiv2TagDefinitions.getList().Keys.Contains(metaDatumText))
-            {
-                TagDefinition theTagDefinition = Exiv2TagDefinitions.getList()[metaDatumText];
-                type = theTagDefinition.type;
-            }
+            string type = TagUtilities.getTagType(metaDatumText);
+            // check considers group of meta data (e.g. for change)
             if (!selectionOfMetaDateOk(metaDatumText, type, theTextBoxMetaDatum.Equals(textBoxMetaDatum1),
                                        listBoxMetaDataSelectedIndex))
             {
                 return true;
             }
-            else if (metaDatumText.StartsWith("Exif.") ||
-                     metaDatumText.StartsWith("ExifEasy.") ||
-                     metaDatumText.StartsWith("Iptc.") ||
-                     metaDatumText.StartsWith("Image.") ||
-                     metaDatumText.StartsWith("Define.") ||
-                     metaDatumText.StartsWith("File."))
+            else if (TagUtilities.isExifToolTag(metaDatumText))
             {
-                if (!Exiv2TagDefinitions.getList().ContainsKey(metaDatumText))
+                if (!ExifToolWrapper.getTagList().Keys.Contains(metaDatumText))
                 {
-                    GeneralUtilities.message(LangCfg.Message.E_unknownEntry, metaDatumText);
-                    return true;
-                }
-            }
-            // an XMP or TXT entry may have been created based on tag found in an image, but is not generally documented
-            // so do not check them; other tags are expected to be from ExifTool
-            else if (!metaDatumText.StartsWith("Xmp.") && !metaDatumText.StartsWith("Txt."))
-            {
-                // tag name must start with Location, because when reading data, they are stored using tag names with location
-                // without location, the read data cannot be assigned
-                // as there is a list of valid locations, location is checked
-                int posColon = metaDatumText.IndexOf(':');
-                if (posColon < 0 ||
-                    !ExifToolWrapper.getLocationList().Contains(metaDatumText.Substring(0, posColon)))
-                {
-                    GeneralUtilities.message(LangCfg.Message.E_LocationOfExifToolTagNotKnown, metaDatumText);
-                    return true;
-                }
-            }
-#if WARNING_TAG_CANNOT_BE_CHECKED
-            else
-            {
-                if (metaDatumText.StartsWith("Xmp.") || metaDatumText.StartsWith("Txt."))
-                {
-                    // an XMP or TXT entry may have been created based on tag found in an image, but is not generally documented
-                    // so just give a warning and continue
-                    GeneralUtilities.message(LangCfg.Message.W_unknownEntry, metaDatumText);
-                    return false;
-                }
-                else
-                {
-                    string[] parts = metaDatumText.Split(new char[] { ':' });
-                    if (ExifToolWrapper.isReady())
+                    if (metaDatumText.StartsWith("XMP"))
                     {
-                        if (ExifToolWrapper.getLocationList().Contains(parts[0]))
+                        // tag name must start with Location, because when reading data, they are stored using tag names with location
+                        // without location, the read data cannot be assigned
+                        // as there is a list of valid locations, location is checked
+                        int posColon = metaDatumText.IndexOf(':');
+                        if (posColon < 0 ||
+                            !ExifToolWrapper.getLocationList().Contains(metaDatumText.Substring(0, posColon)))
                         {
-                            bool found = false;
-                            for (int ii = 0; ii < listViewTags.Items.Count; ii++)
-                            {
-                                if (listViewTags.Items[ii].SubItems[3].Text.Equals(metaDatumText))
-                                {
-                                    found = true;
-                                    break;
-                                }
-                            }
-                            // it is a tag from ExifTool, which cannot be checked exactly
-                            // so just give a warning and continue
-                            if (!found)
-                            {
-                                GeneralUtilities.message(LangCfg.Message.W_unknownEntryExifTool, metaDatumText);
-                            }
-                            return false;
+                            GeneralUtilities.message(LangCfg.Message.E_LocationOfExifToolTagNotKnown, metaDatumText);
+                            return true;
                         }
                         else
                         {
-                            // could be too restrictive: ExifTool tag may be defined with
-                            // other group than location or without group at all
-                            GeneralUtilities.message(LangCfg.Message.E_unknownEntry, metaDatumText);
-                            return true;
+                            // XMP is an open standard, so an image can contain XMP tags, which exiftool does not know
+                            // so just give a warning and continue
+                            GeneralUtilities.message(LangCfg.Message.W_unknownEntry, metaDatumText);
+                            return false;
                         }
                     }
                     else
                     {
-                        GeneralUtilities.message(LangCfg.Message.W_ExifToolNotReadyForTagCheck, metaDatumText);
-                        return false;
+                        GeneralUtilities.message(LangCfg.Message.E_unknownEntry, metaDatumText);
+                        return true;
                     }
                 }
             }
-#endif
+            else
+            {
+                if (!Exiv2TagDefinitions.getList().ContainsKey(metaDatumText))
+                {
+                    // tag is not known
+                    if (metaDatumText.StartsWith("Xmp.") || metaDatumText.StartsWith("Txt."))
+                    {
+                        // XMP is an open standard, so an image can contain XMP tags, which exiv2 does not know
+                        // Txt tags may also not be documented 
+                        // so just give a warning and continue
+                        GeneralUtilities.message(LangCfg.Message.W_unknownEntry, metaDatumText);
+                        return false;
+                    }
+                    else
+                    {
+                        GeneralUtilities.message(LangCfg.Message.E_unknownEntry, metaDatumText);
+                        return true;
+                    }
+                }
+            }
             return false;
         }
 

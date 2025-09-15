@@ -61,7 +61,7 @@ namespace QuickImageComment
         {
             foreach (TreeNode treeNode in treeViewPredefKeyWords.Nodes)
             {
-               uncheckTreeNodes(treeNode);
+                uncheckTreeNodes(treeNode);
             }
 
         }

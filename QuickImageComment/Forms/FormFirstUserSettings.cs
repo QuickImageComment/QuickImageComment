@@ -25,7 +25,7 @@ namespace QuickImageComment
         {
             InitializeComponent();
             FormCustomization.Interface CustomizationInterface = MainMaskInterface.getCustomizationInterface();
-            if (CustomizationInterface != null )
+            if (CustomizationInterface != null)
             {
                 CustomizationInterface.setFormToCustomizedValuesZoomInitial(this);
             }

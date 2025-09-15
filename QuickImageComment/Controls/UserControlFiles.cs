@@ -532,7 +532,7 @@ namespace QuickImageComment
                                         SortedList changedFields = MainMaskInterface.fillAllChangedFieldsForSaveExcludingArtistComment();
                                         foreach (string key in changedFields.Keys)
                                         {
-                                            if (TagDefinition.isExiv2Tag(key))
+                                            if (TagUtilities.isExiv2Tag(key))
                                             {
                                                 // key is not for ExifTool
                                                 exiv2TagsChanged += "\n" + key;
@@ -656,7 +656,7 @@ namespace QuickImageComment
                     // update cache only if exactly one file is selected
                     // during updating cache extended images are deleted, which might be still necessary
                     // when multiple images are selected
-                    //!! beim Füllen des Cache prüfen, ob selektierte Dateien rausgeworfen werden?
+                    //!!: beim Füllen des Cache prüfen, ob selektierte Dateien rausgeworfen werden?
                     if (listViewFiles.SelectedItems.Count == 1)
                     {
                         ImageManager.fillListOfFilesToCache(listViewFiles.SelectedIndices[0]);
@@ -1097,7 +1097,7 @@ namespace QuickImageComment
             contextMenuStripMenuItemLargeIcons.Checked = listViewFiles.View.Equals(View.LargeIcon);
             contextMenuStripMenuItemList.Checked = listViewFiles.View.Equals(View.List);
             contextMenuStripMenuItemTile.Checked = listViewFiles.View.Equals(View.Tile);
-            contextMenuStripMenuItemComment.Checked = listViewFiles.View.Equals(View.Details) && 
+            contextMenuStripMenuItemComment.Checked = listViewFiles.View.Equals(View.Details) &&
                 listViewFiles.viewDetailSubtype == ListViewFiles.enumViewDetailSubtype.Comment;
             listViewFiles.EndUpdate();
             if (displayedIndex() >= 0)

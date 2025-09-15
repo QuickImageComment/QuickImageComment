@@ -64,7 +64,7 @@ namespace QuickImageComment
             System.IO.StreamReader reader = new System.IO.StreamReader(stream, System.Text.Encoding.UTF8);
             string content = reader.ReadToEnd();
             reader.Close();
-            GeneralUtilities.fillRichTextBoxWithChanges(richTextBoxChanges, 
+            GeneralUtilities.fillRichTextBoxWithChanges(richTextBoxChanges,
                 GeneralUtilities.getChangeInfoFromcontent(content));
         }
     }

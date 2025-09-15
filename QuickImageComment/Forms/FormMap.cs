@@ -32,7 +32,7 @@ namespace QuickImageComment
 #endif
             CustomizationInterface = MainMaskInterface.getCustomizationInterface();
             bool changeLocationAllowed = MainMaskInterface.getTheExtendedImage() != null && MainMaskInterface.getTheExtendedImage().changePossible();
-            theUserControlMap = new UserControlMap(false, MainMaskInterface.commonRecordingLocation(), changeLocationAllowed, 
+            theUserControlMap = new UserControlMap(false, MainMaskInterface.commonRecordingLocation(), changeLocationAllowed,
                 0, ConfigDefinition.enumCfgUserInt.SplitterMap1DistanceFormMap, null);
             MainMaskInterface.setUserControlMap(theUserControlMap);
             theUserControlMap.isInOwnWindow = true;

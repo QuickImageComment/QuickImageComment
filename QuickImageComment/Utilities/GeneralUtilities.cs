@@ -17,7 +17,6 @@
 // for Microsoft Store, promotion of download has to be disabled
 //#define MICROSOFT_STORE
 
-using Brain2CPU.ExifTool;
 using JR.Utils.GUI.Forms;
 using System;
 using System.Collections;
@@ -79,21 +78,6 @@ namespace QuickImageComment
             "yyyy:MM",
             "yyyy"
         };
-
-        // fields Exif.GPS... for question: better change in map, add anyhow
-        internal static readonly ArrayList ExifGPSFields = new ArrayList {
-            "Exif.GPSInfo.GPSLatitude",
-            "Exif.GPSInfo.GPSLatitudeRef",
-            "Exif.GPSInfo.GPSLongitude",
-            "Exif.GPSInfo.GPSLongitudeRef"};
-
-        // fields Image.GPS... for information message: change in map
-        private static readonly ArrayList ImageGPSFields = new ArrayList {
-            "Image.GPSLatitudeDecimal",
-            "Image.GPSLongitudeDecimal",
-            "Image.GPSPosition",
-            "Image.GPSsignedLatitude",
-            "Image.GPSsignedLongitude"};
 
         // to control creating screenshots and control text list
         // when flag is set, inside constructor of mask special actions to create screenshots are done and mask is closed
@@ -428,16 +412,6 @@ namespace QuickImageComment
                 + LangCfg.getText(LangCfg.Others.fileLastModified) + " " + theFileInfo.LastWriteTime.ToString();
         }
 
-        // check for date properties
-        public static bool isDateProperty(string keyPrim, string typePrim)
-        {
-            return typePrim.Equals("Ascii") && keyPrim.Contains("Date") // Exif
-                || typePrim.Equals("Date")                              // Iptc
-                || typePrim.Equals("XmpSeq-Date") 
-                || typePrim.Equals("XmpText-Date") 
-                || TagDefinition.isExifToolTag(keyPrim) && keyPrim.Contains("Date");
-        }
-
         // convert longitude/latitude from original exif format to degrees with decimals
         public static double getDegreesWithDecimals(string coordinateRationalArray)
         {
@@ -489,7 +463,7 @@ namespace QuickImageComment
         {
             string[] dateFormats = null;
             LangCfg.Others typeSpecId = 0;
-            if (TagDefinition.isExifToolTag(key))
+            if (TagUtilities.isExifToolTag(key))
             {
                 dateFormats = dateFormatsExif;
                 typeSpecId = LangCfg.Others.typeSpecDateTimeExif;
@@ -540,7 +514,7 @@ namespace QuickImageComment
         public static string getExifIptcXmpDateString(DateTime dateTime, string key)
         {
             string dateFormat = null;
-            if (TagDefinition.isExifToolTag(key))
+            if (TagUtilities.isExifToolTag(key))
                 dateFormat = "yyyy:MM:dd";
             else if (key.StartsWith("Exif"))
                 dateFormat = "yyyy:MM:dd";
@@ -758,7 +732,7 @@ namespace QuickImageComment
         }
 
         // get arraylist of all Image-files
-        //!! return FileInfo - if it can be used
+        //!!: return FileInfo - if it can be used
         public static void addImageFilesFromFolderToListConsideringFileFilterSorted(string FolderName, ArrayList ImageFiles)
         {
             try
@@ -1306,407 +1280,6 @@ namespace QuickImageComment
         public static bool isWindowsVistaOrHigher()
         {
             return System.Environment.OSVersion.Version.Major > 5;
-        }
-
-        // add fields to list of changeable fields
-        public static void addFieldToListOfChangeableFields(System.Collections.ArrayList TagsToAdd)
-        {
-            System.Collections.ArrayList MetaDataDefinitionsWork = ConfigDefinition.getMetaDataDefinitions(ConfigDefinition.enumMetaDataGroup.MetaDataDefForChange);
-            ArrayList CheckedTagsToAdd = new ArrayList();
-
-            if (TagsToAdd.Count == 0)
-            {
-                GeneralUtilities.message(LangCfg.Message.W_noFieldSelected);
-            }
-            else
-            {
-                string message = "";
-                foreach (string key in TagsToAdd)
-                {
-                    message = message + "\n" + key;
-                }
-
-                if (GeneralUtilities.questionMessage(LangCfg.Message.Q_addFollowingPropertiesChangeable, message) == DialogResult.Yes)
-                {
-                    // create sorted list with tag dependencies
-                    SortedList tagDependencies = new SortedList();
-                    // TagDependencies contains the tags needed to fill the tag listed as first in the array
-                    foreach (string[] tagNames in ConfigDefinition.getTagDependencies())
-                    {
-                        tagDependencies.Add(tagNames[0], tagNames);
-                    }
-
-                    // consider that changes here may be usefull in input check in FormMetaDataDefinition as well
-                    foreach (string key in TagsToAdd)
-                    {
-                        if (!tagCanBeAddedToChangeable(key))
-                        {
-                            continue;
-                        }
-                        // check if tag is part of Exif GPS fields
-                        else if (ExifGPSFields.Contains(key))
-                        {
-                            if (GeneralUtilities.questionMessage(LangCfg.Message.Q_changeGPSviaMapOrAdd, key) == DialogResult.No)
-                            {
-                                continue;
-                            }
-                        }
-                        else if (key.StartsWith("ExifEasy."))
-                        // check for ExifEasy
-                        {
-                            MetaDataItem metaDataItem = MainMaskInterface.getTheExtendedImage().getOtherMetaDataItemByKey(key);
-                            if (GeneralUtilities.questionMessage(LangCfg.Message.Q_ExifEasyAddRefKey, key, metaDataItem.getTypeName()) == DialogResult.Yes)
-                            {
-                                CheckedTagsToAdd.Add(metaDataItem.getTypeName());
-                            }
-                            continue;
-                        }
-                        else if (tagDependencies.ContainsKey(key))
-                        {
-                            string[] tagNames = (string[])tagDependencies[key];
-                            string refKeys = "";
-                            string refKeysChangeable = "";
-                            for (int ii = 1; ii < tagNames.Length; ii++)
-                            {
-                                refKeys += tagNames[ii] + "\n";
-                                if (!Exiv2TagDefinitions.UnchangeableTags.Contains(tagNames[ii]))
-                                {
-                                    refKeysChangeable += tagNames[ii] + "\n";
-                                }
-                            }
-                            if (refKeysChangeable == "")
-                            {
-                                GeneralUtilities.message(LangCfg.Message.E_RefKeyNotChangeable, key, refKeys);
-                            }
-                            else
-                            {
-                                DialogResult answer = DialogResult.No;
-                                if (refKeys.Equals(refKeysChangeable))
-                                    answer = GeneralUtilities.questionMessage(LangCfg.Message.Q_addRefKey, key, refKeys);
-                                else
-                                    answer = GeneralUtilities.questionMessage(LangCfg.Message.Q_addRefKeyPartially, key, refKeys, refKeysChangeable);
-                                if (answer == DialogResult.Yes)
-                                {
-                                    for (int ii = 1; ii < tagNames.Length; ii++)
-                                    {
-                                        if (!Exiv2TagDefinitions.UnchangeableTags.Contains(tagNames[ii]))
-                                            CheckedTagsToAdd.Add(tagNames[ii]);
-                                    }
-                                }
-                            }
-                            continue;
-                        }
-                        else
-                        {
-                            CheckedTagsToAdd.Add(key);
-                        }
-                    }
-
-                    // now add the tags
-                    foreach (string key in CheckedTagsToAdd)
-                    {
-                        // check for tags which should normally not be changed; exceptions those with defined input check
-                        if (Exiv2TagDefinitions.ChangeableWarningTags.Contains(key) && ConfigDefinition.getInputCheckConfig(key) == null)
-                        {
-                            if (GeneralUtilities.questionMessage(LangCfg.Message.Q_changeDataOfThisTypeNotUseful, key) == DialogResult.No)
-                            {
-                                continue;
-                            }
-                        }
-
-                        // check if tag is already entered in changeable fields
-                        bool inList = false;
-                        int ii = 1;
-                        foreach (MetaDataDefinitionItem aMetaDataDefinitionItem in MetaDataDefinitionsWork)
-                        {
-                            if (key.Equals(aMetaDataDefinitionItem.KeyPrim))
-                            {
-                                GeneralUtilities.message(LangCfg.Message.E_tagAlreadyEntered, aMetaDataDefinitionItem.Name, ii.ToString());
-                                inList = true;
-                                break;
-                            }
-                            ii++;
-                        }
-                        if (!inList)
-                        {
-                            MetaDataDefinitionItem theMetaDataDefinitionItem;
-                            theMetaDataDefinitionItem = new MetaDataDefinitionItem(key, key, getFormatForTagChange(key));
-                            MetaDataDefinitionsWork.Add(theMetaDataDefinitionItem);
-
-                            MainMaskInterface.afterMetaDataDefinitionChange();
-                        }
-                    }
-                }
-            }
-        }
-
-        // check if tag is changeable
-        public static bool tagCanBeAddedToChangeable(string key)
-        {
-            // check comment/artist according settings
-            if (key.Equals("Image.CommentAccordingSettings") || key.Equals("Image.ArtistAccordingSettings"))
-            {
-                GeneralUtilities.message(LangCfg.Message.I_changeCommentArtistAccSettings, key);
-                return false;
-            }
-            // check artist combined fields
-            else if (key.Equals("Image.ArtistCombinedFields"))
-            {
-                GeneralUtilities.message(LangCfg.Message.I_changeArtistCombined, key);
-                return false;
-            }
-            // check comment combined fields
-            else if (key.Equals("Image.CommentCombinedFields"))
-            {
-                GeneralUtilities.message(LangCfg.Message.I_changeCommentCombined, key);
-                return false;
-            }
-            // check IPTC key words string
-            else if (key.Equals("Image.IPTC_KeyWordsString") ||
-                     key.Equals("Iptc.Application2.Keywords"))
-            {
-                GeneralUtilities.message(LangCfg.Message.E_metaDataNotEnteredSpecial, key);
-                return false;
-            }
-            // check if tag is part of Image GPS fields
-            else if (ImageGPSFields.Contains(key))
-            {
-                GeneralUtilities.message(LangCfg.Message.I_changeGPSviaMap, key);
-                return false;
-            }
-            else if (Exiv2TagDefinitions.UnchangeableTags.Contains(key))
-            {
-                GeneralUtilities.message(LangCfg.Message.E_tagValueNotChangeable, key);
-                return false;
-            }
-            // check if tag is used for artist and comment input fields
-            // limitation: it might happen that a tag is configured to be used as standard artist
-            // in videos and user wants to use same tag as changeable field for images
-            // with following logic, this will not be possible: when defining fields
-            // it is not known if field is used for image or video
-            else if (ConfigDefinition.getTagNamesWriteCommentImage().Contains(key) ||
-                     ConfigDefinition.getTagNamesWriteArtistImage().Contains(key) ||
-                     ConfigDefinition.getTagNamesWriteCommentVideo().Contains(key) ||
-                     ConfigDefinition.getTagNamesWriteArtistVideo().Contains(key))
-            {
-                GeneralUtilities.message(LangCfg.Message.E_metaDataNotEnteredSettings, key);
-                return false;
-            }
-
-            if (TagDefinition.isExifToolTag(key))
-            {
-                if (ExifToolWrapper.isReady())
-                {
-                    int colon = key.IndexOf(':');
-                    if (!ExifToolWrapper.getWritableTagList().Contains(key.Substring(colon + 1)))
-                    {
-                        GeneralUtilities.message(LangCfg.Message.E_tagValueNotChangeable, key);
-                        return false;
-                    }
-                }
-                else
-                {
-                    GeneralUtilities.message(LangCfg.Message.E_ExifToolNotReadyForWritableCheck, key);
-                    return false;
-                }
-            }
-            return true;
-        }
-
-        // add fields to list of changeable fields
-        public static void addFieldToListOfFieldsForFind(System.Collections.ArrayList TagsToAdd)
-        {
-            System.Collections.ArrayList MetaDataDefinitionsWork = ConfigDefinition.getMetaDataDefinitions(ConfigDefinition.enumMetaDataGroup.MetaDataDefForFind);
-
-            if (TagsToAdd.Count == 0)
-            {
-                GeneralUtilities.message(LangCfg.Message.W_noFieldSelected);
-            }
-            else
-            {
-                string message = "";
-                foreach (string key in TagsToAdd)
-                {
-                    message = message + "\n" + key;
-                }
-
-                if (GeneralUtilities.questionMessage(LangCfg.Message.Q_addFollowingPropertiesFind, message) == DialogResult.Yes)
-                {
-                    // consider that changes here may be usefull in input check in FormMetaDataDefinition as well
-                    foreach (string key in TagsToAdd)
-                    {
-                        if (ConfigDefinition.TagsFromBitmap.Contains(key))
-                        {
-                            if (GeneralUtilities.questionMessage(LangCfg.Message.Q_tagRequiresReadBitmap, key) == DialogResult.No)
-                            {
-                                continue;
-                            }
-                        }
-                        // check if tag is already entered in fields for find
-                        bool inList = false;
-                        int ii = 1;
-                        foreach (MetaDataDefinitionItem aMetaDataDefinitionItem in MetaDataDefinitionsWork)
-                        {
-                            if (key.Equals(aMetaDataDefinitionItem.KeyPrim))
-                            {
-                                GeneralUtilities.message(LangCfg.Message.E_tagAlreadyEntered, aMetaDataDefinitionItem.Name, ii.ToString());
-                                inList = true;
-                                break;
-                            }
-                            ii++;
-                        }
-                        if (!inList)
-                        {
-                            MetaDataDefinitionItem theMetaDataDefinitionItem;
-                            string type = Exiv2TagDefinitions.getTagType(key);
-                            theMetaDataDefinitionItem = new MetaDataDefinitionItem(key, key, getFormatForTagFind(key, type));
-                            MetaDataDefinitionsWork.Add(theMetaDataDefinitionItem);
-                            FormFind.updateAfterMetaDataChange();
-                        }
-                    }
-                }
-            }
-        }
-
-        // add fields to overview
-        public static void addFieldToOverview(System.Collections.ArrayList TagsToMove)
-        {
-            ArrayList MetaDataDefinitionsWork;
-
-            if (MainMaskInterface.getTheExtendedImage().getIsVideo())
-            {
-                MetaDataDefinitionsWork = ConfigDefinition.getMetaDataDefinitions(ConfigDefinition.enumMetaDataGroup.MetaDataDefForDisplayVideo);
-            }
-            else
-            {
-                MetaDataDefinitionsWork = ConfigDefinition.getMetaDataDefinitions(ConfigDefinition.enumMetaDataGroup.MetaDataDefForDisplay);
-            }
-
-            if (TagsToMove.Count == 0)
-            {
-                GeneralUtilities.message(LangCfg.Message.W_noFieldSelected);
-            }
-            else
-            {
-                string message = "";
-                foreach (string key in TagsToMove)
-                {
-                    message = message + "\n" + key;
-                }
-
-                if (GeneralUtilities.questionMessage(LangCfg.Message.Q_addFollowingPropertiesOverview, message) == DialogResult.Yes)
-                {
-                    foreach (string key in TagsToMove)
-                    {
-                        // check if tag is already entered in fields for overview
-                        bool inList = false;
-                        int ii = 1;
-                        foreach (MetaDataDefinitionItem aMetaDataDefinitionItem in MetaDataDefinitionsWork)
-                        {
-                            if (key.Equals(aMetaDataDefinitionItem.KeyPrim))
-                            {
-                                GeneralUtilities.message(LangCfg.Message.E_tagAlreadyEntered, aMetaDataDefinitionItem.Name, ii.ToString());
-                                inList = true;
-                                break;
-                            }
-                            ii++;
-                        }
-                        if (!inList)
-                        {
-                            MetaDataDefinitionItem theMetaDataDefinitionItem = new MetaDataDefinitionItem(key, key, MetaDataItem.Format.Interpreted);
-                            MetaDataDefinitionsWork.Add(theMetaDataDefinitionItem);
-
-                            MainMaskInterface.afterMetaDataDefinitionChange();
-                        }
-                    }
-                }
-            }
-        }
-
-        // add fields to overview
-        public static void addFieldToListOfFieldsForMultiEditTable(System.Collections.ArrayList TagsToMove)
-        {
-            ArrayList MetaDataDefinitionsWork;
-
-            MetaDataDefinitionsWork = ConfigDefinition.getMetaDataDefinitions(ConfigDefinition.enumMetaDataGroup.MetaDataDefForMultiEditTable);
-
-            if (TagsToMove.Count == 0)
-            {
-                GeneralUtilities.message(LangCfg.Message.W_noFieldSelected);
-            }
-            else
-            {
-                string message = "";
-                foreach (string key in TagsToMove)
-                {
-                    message = message + "\n" + key;
-                }
-
-                if (GeneralUtilities.questionMessage(LangCfg.Message.Q_addFollowingPropertiesMultiEditTable, message) == DialogResult.Yes)
-                {
-                    foreach (string key in TagsToMove)
-                    {
-                        // check if tag is already entered in fields for overview
-                        bool inList = false;
-                        int ii = 1;
-                        foreach (MetaDataDefinitionItem aMetaDataDefinitionItem in MetaDataDefinitionsWork)
-                        {
-                            if (key.Equals(aMetaDataDefinitionItem.KeyPrim))
-                            {
-                                GeneralUtilities.message(LangCfg.Message.E_tagAlreadyEntered, aMetaDataDefinitionItem.Name, ii.ToString());
-                                inList = true;
-                                break;
-                            }
-                            ii++;
-                        }
-                        if (!inList)
-                        {
-                            MetaDataDefinitionItem theMetaDataDefinitionItem = new MetaDataDefinitionItem(key, key, MetaDataItem.Format.Original);
-                            MetaDataDefinitionsWork.Add(theMetaDataDefinitionItem);
-                            MainMaskInterface.afterMetaDataDefinitionChange();
-                        }
-                    }
-                }
-            }
-        }
-
-        // get format for a new tag for group MetaDataDefForChange
-        internal static MetaDataItem.Format getFormatForTagChange(string key)
-        {
-            if (key.Equals("Exif.Photo.UserComment") ||
-                Exiv2TagDefinitions.ByteUCS2Tags.Contains(key))
-            {
-                // use format "interpreted" because with "original" value of Usercomment start with "charset=..."
-                // and UCS2 tags are in original bytes
-                return MetaDataItem.Format.Interpreted;
-            }
-            else
-            {
-                return MetaDataItem.Format.Original;
-            }
-        }
-
-        // get format for a new tag for group MetaDataDefForFind
-        internal static MetaDataItem.Format getFormatForTagFind(string key, string type)
-        {
-            if (key.Equals("Exif.Photo.UserComment") ||
-                Exiv2TagDefinitions.ByteUCS2Tags.Contains(key))
-            {
-                // use format "interpreted" because with "original" value of Usercomment start with "charset=..."
-                // and UCS2 tags are in original bytes
-                return MetaDataItem.Format.Interpreted;
-            }
-            else if (GeneralUtilities.isDateProperty(key, type) ||
-                     ConfigDefinition.getInputCheckConfig(key) != null && !(ConfigDefinition.getInputCheckConfig(key)).isUserCheck() ||
-                     Exiv2TagDefinitions.FloatTypes.Contains(type) ||
-                     Exiv2TagDefinitions.IntegerTypes.Contains(type))
-            {
-                return MetaDataItem.Format.Original;
-            }
-            else
-            {
-                return MetaDataItem.Format.Interpreted;
-            }
         }
 
         // get bitmap from path

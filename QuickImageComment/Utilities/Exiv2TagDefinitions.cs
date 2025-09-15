@@ -24,6 +24,7 @@ namespace QuickImageComment
     {
         // list of value types which are added to the type (XmpText --> XmpText-Date)
         // these types are considered to hold single values only (confirmed by tests)
+        // note: exiftool provides flag for each tag if it can hold several values
         private static readonly ArrayList ValueTypesAddToType = new ArrayList
         {
             "Boolean",
@@ -36,6 +37,67 @@ namespace QuickImageComment
             "URI",
             "URL"
         };
+
+        // list of changeable types in exiv2
+        // used to determine unchangeable types
+        // note: some entries are determined in init
+        // note: exiftool provides flag for each tag if it is writeable
+        private static readonly ArrayList ChangeableTypes = new ArrayList
+        {
+            "Ascii",
+            "Byte",
+            "Comment",
+            "Date",        // IPTC 
+            "Double",
+            "Float",
+            "Long",
+            "SByte",
+            "SLong",
+            "Short",
+            "SShort",
+            "String",      // IPTC
+            "Rational",
+            "SRational",
+            "Time",        // IPTC
+            "XmpBag",
+            "XmpSeq",
+            "XmpText",
+            "XmpSeq-Date", // combined from type and xmp value type
+            "LangAlt"      // XMP
+        };
+
+        // special logic for these tags only needed when writing with exiv2
+        // note: exiftool needs no special logic
+        public static ArrayList ByteUCS2Tags = new ArrayList
+        {
+            "Exif.Image.XPAuthor",
+            "Exif.Image.XPComment",
+            "Exif.Image.XPKeywords",
+            "Exif.Image.XPSubject",
+            "Exif.Image.XPTitle",
+            "Exif.Thumbnail.XPAuthor",
+            "Exif.Thumbnail.XPComment",
+            "Exif.Thumbnail.XPKeywords",
+            "Exif.Thumbnail.XPSubject",
+            "Exif.Thumbnail.XPTitle"
+        };
+
+        // list of tags which cannot be changed due to functional reasons
+        // does not include tags which cannot be changed due to its type
+        // in ExifTool those tags are marked with flag "Unsafe"
+        public static ArrayList UnchangeableTags = new ArrayList
+        {
+            // Iptc.Envelope.CharacterSet is unchangeable; is set during writing to indicate 
+            // that IPTC-tags are written in Unicode
+            "Iptc.Envelope.CharacterSet",
+            "Exif.Image.ExifTag",
+            "Exif.Image.GPSTag",
+            "Exif.PanasonicRaw.ExifTag",
+            "Exif.PanasonicRaw.GPSTag",
+            "Exif.Thumbnail.ExifTag",
+            "Exif.Thumbnail.GPSTag"
+        };
+
         const string exiv2DllImport = "exiv2Cdecl.dll";
 
         [DllImport(exiv2DllImport, CallingConvention = CallingConvention.Cdecl)]
@@ -50,15 +112,7 @@ namespace QuickImageComment
         [DllImport(exiv2DllImport, CallingConvention = CallingConvention.Cdecl)]
         static extern int exiv2getXmpTagDescriptions([MarshalAs(UnmanagedType.LPStr)] ref string retStr);
 
-        public static ArrayList ChangeableTypes;
-        public static ArrayList ChangeableWarningTags;
-        public static ArrayList UnchangeableTags;
         public static ArrayList UnChangeableTypes;
-        public static ArrayList IntegerTypes;
-        public static ArrayList FloatTypes;
-        public static ArrayList ByteUCS2Tags;
-
-        private static ArrayList ChangeableWarningTypes;
 
         private static SortedList<string, TagDefinition> TagDefinitionList;
         private static SortedList<string, int> ExifEasyTagIndexList;
@@ -86,91 +140,12 @@ namespace QuickImageComment
 
         public static void init()
         {
-            UnchangeableTags = new ArrayList();
-            ChangeableWarningTags = new ArrayList();
-
-            // set changeable types
-            ChangeableTypes = new ArrayList
-            {
-                "Ascii",
-                "Byte",
-                "Comment",
-                "Date",        // IPTC 
-                "Double",
-                "Float",
-                "Long",
-                "SByte",
-                "SLong",
-                "Short",
-                "SShort",
-                "String",      // IPTC
-                "Rational",
-                "SRational",
-                "Time",        // IPTC
-                "XmpBag",
-                "XmpSeq",
-                "XmpText",
-                "XmpSeq-Date", // combined from type and xmp value type
-                "LangAlt"      // XMP
-            };
-
             foreach (string valueType in ValueTypesAddToType)
             {
                 ChangeableTypes.Add("XmpText-" + valueType);
             }
 
-            ChangeableWarningTypes = new ArrayList
-            {
-                "Byte",
-                "Double",
-                "Float",
-                "Long",
-                "SByte",
-                "SLong",
-                "Short",
-                "SShort",
-                "Rational",
-                "SRational"
-            };
-
-
             UnChangeableTypes = new ArrayList();
-            // Iptc.Envelope.CharacterSet is unchangeable; is set during writing to indicate 
-            // that IPTC-tags are written in Unicode
-            UnchangeableTags.Add("Iptc.Envelope.CharacterSet");
-            UnchangeableTags.Add("Exif.Image.ExifTag");
-
-            IntegerTypes = new ArrayList
-            {
-                "Byte",
-                "Long",
-                "SByte",
-                "SLong",
-                "Short",
-                "SShort"
-            };
-
-            FloatTypes = new ArrayList
-            {
-                "Double",
-                "Float",
-                "Rational",
-                "SRational"
-            };
-
-            ByteUCS2Tags = new ArrayList
-            {
-                "Exif.Image.XPAuthor",
-                "Exif.Image.XPComment",
-                "Exif.Image.XPKeywords",
-                "Exif.Image.XPSubject",
-                "Exif.Image.XPTitle",
-                "Exif.Thumbnail.XPAuthor",
-                "Exif.Thumbnail.XPComment",
-                "Exif.Thumbnail.XPKeywords",
-                "Exif.Thumbnail.XPSubject",
-                "Exif.Thumbnail.XPTitle"
-            };
 
             TagDefinitionList = new SortedList<string, TagDefinition>();
             ExifEasyTagIndexList = new SortedList<string, int>();
@@ -191,23 +166,6 @@ namespace QuickImageComment
                 }
             }
 
-            ArrayList changeable = new ArrayList();
-            // fill list of unchangeable and changeableWarning tags using type lists
-            foreach (TagDefinition aTagDefinition in TagDefinitionList.Values)
-            {
-                if (UnChangeableTypes.Contains(aTagDefinition.type))
-                {
-                    UnchangeableTags.Add(aTagDefinition.key);
-                }
-                if (ChangeableWarningTypes.Contains(aTagDefinition.type))
-                {
-                    if (!Exiv2TagDefinitions.ByteUCS2Tags.Contains(aTagDefinition.key))
-                    {
-                        // do not add Byte-types which represent UCS2 string
-                        ChangeableWarningTags.Add(aTagDefinition.key);
-                    }
-                }
-            }
             UnChangeableTypes.Sort();
         }
 
@@ -337,14 +295,16 @@ namespace QuickImageComment
                 string[] tagValues = tagString.Split(new string[] { "\t" }, System.StringSplitOptions.None);
                 key = tagValues[0];
                 type = tagValues[1];
-                if (ValueTypesAddToType.Contains(tagValues[2]))
+                // XmpText is multiline for complex data, whereas XmpText with basic types is single line
+                // so append basic types to XmpText to identify single/multiline via type
+                if (type.Equals(TagUtilities.typeXmpText) && ValueTypesAddToType.Contains(tagValues[2]))
                 {
                     type += "-" + tagValues[2];
                     xmpValueType = "";
                 }
-                else if (tagValues[2].Equals("seq Date"))
+                // append date to XmpSeq so that based on type a date picker is shown in configurable input area
+                else if (type.Equals(TagUtilities.typeXmpSeq) && tagValues[2].Equals("seq Date"))
                 {
-                    // XmpSeq with value type "seq Date"
                     type += "-Date";
                     xmpValueType = "";
                 }
@@ -370,31 +330,6 @@ namespace QuickImageComment
                     TagDefinitionList.Add(key, new TagDefinition(key, type, xmpValueType, description));
                 }
             }
-        }
-
-        // return the type of a tag, empty string if not defined
-        public static string getTagType(string key)
-        {
-            if (TagDefinitionList.ContainsKey(key))
-            {
-                return TagDefinitionList[key].type;
-            }
-            else
-            {
-                return "";
-            }
-        }
-
-        // return if tag/type is editable in data grid view for meta data
-        public static bool isEditableInDataGridView(string type, string key)
-        {
-            return !Exiv2TagDefinitions.UnChangeableTypes.Contains(type) &&
-                   !Exiv2TagDefinitions.ChangeableWarningTags.Contains(key) &&
-                   !TagDefinition.isRepeatable(key) &&
-                   !type.Equals("LangAlt") &&
-                   !type.Equals("Date") &&
-                   !type.Equals("Time") &&
-                   !GeneralUtilities.isDateProperty(key, type);
         }
     }
 }

@@ -124,7 +124,7 @@ namespace QuickImageComment
         //*****************************************************************
         protected override void FormPrevNext_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (previousWindow == null &&  nextWindow == null)
+            if (previousWindow == null && nextWindow == null)
             {
                 // last window to close
                 // set UserControl to null, as existance is checked for updates of content

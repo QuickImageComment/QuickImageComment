@@ -324,8 +324,8 @@ namespace QuickImageComment
                         Name = dynamicLabelNamePrefix + aMetaDataDefinitionItem.KeyPrim
                     };
                     if (aMetaDataDefinitionItem.FormatPrim == MetaDataItem.Format.Interpreted &&
-                        (Exiv2TagDefinitions.IntegerTypes.Contains(aMetaDataDefinitionItem.TypePrim) ||
-                         Exiv2TagDefinitions.FloatTypes.Contains(aMetaDataDefinitionItem.TypePrim)))
+                        (TagUtilities.IntegerTypes.Contains(aMetaDataDefinitionItem.TypePrim) ||
+                         TagUtilities.FloatTypes.Contains(aMetaDataDefinitionItem.TypePrim)))
                     {
                         aLabel.Text = aMetaDataDefinitionItem.Name + " [" + LangCfg.getText(LangCfg.Others.fmtIntrpr) + "]";
                     }
@@ -349,7 +349,7 @@ namespace QuickImageComment
                 FilterDefinition filterDefinition = (FilterDefinition)filterDefinitions[ii];
                 MetaDataDefinitionItem metaDataDefinitionItem = filterDefinition.metaDataDefinitionItem;
 
-                if (GeneralUtilities.isDateProperty(metaDataDefinitionItem.KeyPrim, metaDataDefinitionItem.TypePrim))
+                if (TagUtilities.isDateProperty(metaDataDefinitionItem.KeyPrim, metaDataDefinitionItem.TypePrim))
                 {
                     ComboBox comboBoxOperator1 = addComboBoxOperator(metaDataDefinitionItem.KeyPrim + "_1");
                     ComboBox comboBoxValue1 = addComboBoxValue(metaDataDefinitionItem.KeyPrim + "_1");
@@ -410,13 +410,13 @@ namespace QuickImageComment
                     filterDefinition.comboBoxOperator2.Tag = filterDefinition;
                     filterDefinition.comboBoxValue2.Tag = filterDefinition;
 
-                    if (TagDefinition.isRepeatable(metaDataDefinitionItem.KeyPrim) ||
+                    if (TagUtilities.isMultiLine(metaDataDefinitionItem.KeyPrim) ||
                         metaDataDefinitionItem.KeyPrim.Equals("Image.IPTC_KeyWordsString") ||
                         metaDataDefinitionItem.KeyPrim.Equals("Image.IPTC_SuppCategoriesString") ||
                         metaDataDefinitionItem.KeyPrim.Equals("Image.CommentCombinedFields") ||
                         metaDataDefinitionItem.KeyPrim.Equals("Image.ArtistCombinedFields"))
                     {
-                        // repeatable tags some operators make no sense:
+                        // for multiline tags some operators make no sense:
                         // comparison is done with concatenated values, where sequence is not defined
                         comboBoxOperator1.Items.AddRange(new object[] { "",
                         LangCfg.getText(LangCfg.Others.selectOpEmpty),
@@ -1019,7 +1019,7 @@ namespace QuickImageComment
                     else
                         query += " and " + columnNameForQuery + " is not null";
                 }
-                else if (GeneralUtilities.isDateProperty(aMetaDataDefinitionItem.KeyPrim, aMetaDataDefinitionItem.TypePrim))
+                else if (TagUtilities.isDateProperty(aMetaDataDefinitionItem.KeyPrim, aMetaDataDefinitionItem.TypePrim))
                 {
                     if (comboBoxOperator.Text.Equals("="))
                     {
@@ -1158,7 +1158,7 @@ namespace QuickImageComment
                         DataRow row = dataTable.NewRow();
                         row["FileName"] = ImageFilesInfo[ii].FullName;
                         FilenameForExceptionMessage = ImageFilesInfo[ii].FullName;
-                        extendedImage = new ExtendedImage(ImageFilesInfo[ii], MetaDataDefinitionsToReadExiv2, 
+                        extendedImage = new ExtendedImage(ImageFilesInfo[ii], MetaDataDefinitionsToReadExiv2,
                             MetaDataDefinitionsToReadExifTool, MetaDataDefinitionsToReadInternal);
                         fillDataTableRow(row, extendedImage, formFindReadErrors);
                         dataTable.Rows.Add(row);
@@ -1339,7 +1339,7 @@ namespace QuickImageComment
                         return;
                     }
                     fileName = (string)dataRow["FileName"];
-                    extendedImage = new ExtendedImage(new FileInfo(fileName), MetaDataDefinitionsToReadExiv2, 
+                    extendedImage = new ExtendedImage(new FileInfo(fileName), MetaDataDefinitionsToReadExiv2,
                         MetaDataDefinitionsToReadExifTool, MetaDataDefinitionsToReadInternal);
                     addOrUpdateRow(extendedImage);
                     count++;
@@ -1585,7 +1585,7 @@ namespace QuickImageComment
             {
                 lock (LockDataTable)
                 {
-                    //!! Prüfung vereinfachen, nicht hier?
+                    //!!: Prüfung vereinfachen, nicht hier?
                     string fullFileName = extendedImage.getImageFileName();
                     // add DirectorySeparatorChar to avoid adding C:\folder-suffix\... if table contains C:\folder
                     if (fullFileName.StartsWith((string)dataTable.ExtendedProperties["Folder"] + System.IO.Path.DirectorySeparatorChar))
@@ -1621,7 +1621,7 @@ namespace QuickImageComment
                 {
                     try
                     {
-                        ExtendedImage extendedImage = new ExtendedImage(new FileInfo(fullFileName), 
+                        ExtendedImage extendedImage = new ExtendedImage(new FileInfo(fullFileName),
                             MetaDataDefinitionsToReadExiv2, MetaDataDefinitionsToReadExifTool, MetaDataDefinitionsToReadInternal);
                         addOrUpdateRow(extendedImage);
                     }
@@ -1664,7 +1664,7 @@ namespace QuickImageComment
                 thisFormFind.fillFilterDefinitionsAndKeyLists();
                 thisFormFind.fillFilterPanelWithControls();
                 thisFormFind.fillItemsFilterFields();
-                //!! mit lock, backgroundworker stoppen
+                //!!: mit lock, backgroundworker stoppen
                 {
                     dataTable = null;
                     thisFormFind.setControlsDependingOnDataTable();
@@ -1799,17 +1799,17 @@ namespace QuickImageComment
             foreach (FilterDefinition filterDefinition in filterDefinitions)
             {
                 MetaDataDefinitionItem aMetaDataDefinitionItem = filterDefinition.metaDataDefinitionItem;
-                if (GeneralUtilities.isDateProperty(aMetaDataDefinitionItem.KeyPrim, aMetaDataDefinitionItem.TypePrim))
+                if (TagUtilities.isDateProperty(aMetaDataDefinitionItem.KeyPrim, aMetaDataDefinitionItem.TypePrim))
                 {
                     dataTable.Columns.Add(aMetaDataDefinitionItem.KeyPrim, System.Type.GetType("System.DateTime"));
                 }
                 else if (aMetaDataDefinitionItem.FormatPrim == MetaDataItem.Format.Original &&
-                         Exiv2TagDefinitions.FloatTypes.Contains(aMetaDataDefinitionItem.TypePrim))
+                         TagUtilities.FloatTypes.Contains(aMetaDataDefinitionItem.TypePrim))
                 {
                     dataTable.Columns.Add(aMetaDataDefinitionItem.KeyPrim, System.Type.GetType("System.Decimal"));
                 }
                 else if (aMetaDataDefinitionItem.FormatPrim == MetaDataItem.Format.Original &&
-                         Exiv2TagDefinitions.IntegerTypes.Contains(aMetaDataDefinitionItem.TypePrim))
+                         TagUtilities.IntegerTypes.Contains(aMetaDataDefinitionItem.TypePrim))
                 {
                     dataTable.Columns.Add(aMetaDataDefinitionItem.KeyPrim, System.Type.GetType("System.Int32"));
                 }
@@ -1840,17 +1840,17 @@ namespace QuickImageComment
                 {
                     try
                     {
-                        if (GeneralUtilities.isDateProperty(aMetaDataDefinitionItem.KeyPrim, aMetaDataDefinitionItem.TypePrim))
+                        if (TagUtilities.isDateProperty(aMetaDataDefinitionItem.KeyPrim, aMetaDataDefinitionItem.TypePrim))
                         {
                             row[aMetaDataDefinitionItem.KeyPrim] = GeneralUtilities.getDateTimeFromExifIptcXmpString(stringValue, aMetaDataDefinitionItem.KeyPrim);
                         }
                         else if (aMetaDataDefinitionItem.FormatPrim == MetaDataItem.Format.Original &&
-                                 Exiv2TagDefinitions.FloatTypes.Contains(aMetaDataDefinitionItem.TypePrim))
+                                 TagUtilities.FloatTypes.Contains(aMetaDataDefinitionItem.TypePrim))
                         {
                             row[aMetaDataDefinitionItem.KeyPrim] = GeneralUtilities.getFloatValue(stringValue);
                         }
                         else if (aMetaDataDefinitionItem.FormatPrim == MetaDataItem.Format.Original &&
-                                 Exiv2TagDefinitions.IntegerTypes.Contains(aMetaDataDefinitionItem.TypePrim))
+                                 TagUtilities.IntegerTypes.Contains(aMetaDataDefinitionItem.TypePrim))
                         {
                             row[aMetaDataDefinitionItem.KeyPrim] = GeneralUtilities.getIntegerValue(stringValue);
                         }
@@ -1895,7 +1895,7 @@ namespace QuickImageComment
                     int valueInt = comboBoxValue.SelectedIndex;
                     return valueInt.ToString();
                 }
-                else if (GeneralUtilities.isDateProperty(aMetaDataDefinitionItem.KeyPrim, aMetaDataDefinitionItem.TypePrim))
+                else if (TagUtilities.isDateProperty(aMetaDataDefinitionItem.KeyPrim, aMetaDataDefinitionItem.TypePrim))
                 {
                     bool hasTime = false;
                     string usedFormat = "";
@@ -1914,13 +1914,13 @@ namespace QuickImageComment
                     return dateTime.ToString("#yyyy-MM-dd HH:mm:ss#", System.Globalization.CultureInfo.InvariantCulture);
                 }
                 else if (aMetaDataDefinitionItem.FormatPrim == MetaDataItem.Format.Original &&
-                         Exiv2TagDefinitions.FloatTypes.Contains(aMetaDataDefinitionItem.TypePrim))
+                         TagUtilities.FloatTypes.Contains(aMetaDataDefinitionItem.TypePrim))
                 {
                     float floatValue = GeneralUtilities.getFloatValue(stringValue);
                     return string.Format(System.Globalization.CultureInfo.InvariantCulture.NumberFormat, "{0}", floatValue);
                 }
                 else if (aMetaDataDefinitionItem.FormatPrim == MetaDataItem.Format.Original &&
-                         Exiv2TagDefinitions.IntegerTypes.Contains(aMetaDataDefinitionItem.TypePrim))
+                         TagUtilities.IntegerTypes.Contains(aMetaDataDefinitionItem.TypePrim))
                 {
                     int intValue = GeneralUtilities.getIntegerValue(stringValue);
                     return intValue.ToString();

@@ -28,7 +28,7 @@ namespace QuickImageCommentControls
         {
             int newWidth = this.Width;
             using (Graphics g = this.CreateGraphics())
-            { 
+            {
                 for (int ii = 0; ii < this.Items.Count; ii++)
                 {
                     SizeF textSize = g.MeasureString(Items[ii].ToString(), this.Font);

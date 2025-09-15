@@ -233,7 +233,7 @@ namespace QuickImageComment
             Q_configureExifTool,
             E_Exiv2CannotWriteVideo,
             E_VideoNotAcceptedExiv2CannotWrite,
-            E_ExifToolNotReadyToReadKeys, 
+            E_ExifToolNotReadyToReadKeys,
             W_noBinaryExImPortVideo,
             E_LocationOfExifToolTagNotKnown,
             W_differentValueSavedNotMultiple
@@ -745,25 +745,25 @@ namespace QuickImageComment
             try
             {
 #endif
-            if (System.IO.File.Exists(TranslationFile))
-            {
-                // specify code page 1252 for reading; if file is encoded with UTF8 BOM, it will be read anyhow as UTF8, 
-                // keeping 1252 ensures that old configuration files can be read without problems
-                System.IO.StreamReader StreamIn =
-                  new System.IO.StreamReader(TranslationFile, System.Text.Encoding.GetEncoding(1252));
-                line = StreamIn.ReadLine();
-                while (line != null)
+                if (System.IO.File.Exists(TranslationFile))
                 {
-                    analyzeTranslationFileLine(line, lineNo);
+                    // specify code page 1252 for reading; if file is encoded with UTF8 BOM, it will be read anyhow as UTF8, 
+                    // keeping 1252 ensures that old configuration files can be read without problems
+                    System.IO.StreamReader StreamIn =
+                      new System.IO.StreamReader(TranslationFile, System.Text.Encoding.GetEncoding(1252));
                     line = StreamIn.ReadLine();
-                    lineNo++;
+                    while (line != null)
+                    {
+                        analyzeTranslationFileLine(line, lineNo);
+                        line = StreamIn.ReadLine();
+                        lineNo++;
+                    }
+                    StreamIn.Close();
                 }
-                StreamIn.Close();
-            }
-            else
-            {
-                throw new ExceptionConfigFileNotFound(TranslationFile);
-            }
+                else
+                {
+                    throw new ExceptionConfigFileNotFound(TranslationFile);
+                }
 #if !DEBUG
             }
             catch (Exception ex)
@@ -885,18 +885,18 @@ namespace QuickImageComment
                 try
                 {
 #endif
-                // specify code page 1252 for reading; if file is encoded with UTF8 BOM, it will be read anyhow as UTF8, 
-                // keeping 1252 ensures that old configuration files can be read without problems
-                System.IO.StreamReader StreamIn =
-                  new System.IO.StreamReader(TagLookupFile, System.Text.Encoding.GetEncoding(1252));
-                line = StreamIn.ReadLine();
-                while (line != null)
-                {
-                    analyzeLookupFileLine(line, lineNo);
+                    // specify code page 1252 for reading; if file is encoded with UTF8 BOM, it will be read anyhow as UTF8, 
+                    // keeping 1252 ensures that old configuration files can be read without problems
+                    System.IO.StreamReader StreamIn =
+                      new System.IO.StreamReader(TagLookupFile, System.Text.Encoding.GetEncoding(1252));
                     line = StreamIn.ReadLine();
-                    lineNo++;
-                }
-                StreamIn.Close();
+                    while (line != null)
+                    {
+                        analyzeLookupFileLine(line, lineNo);
+                        line = StreamIn.ReadLine();
+                        lineNo++;
+                    }
+                    StreamIn.Close();
 #if !DEBUG
                 }
                 catch (System.IO.IOException ex)
