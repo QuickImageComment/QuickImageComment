@@ -36,7 +36,7 @@
 
 //#define TRACING 200
 
-constexpr auto VERSION = "0.28.5.3";
+constexpr auto VERSION = "0.28.7.0";
 
 // NOTE: must match definition in ConfigDefinition.cs
 const char* exiv2_exception_file = "\\QIC_exiv2_exception.txt";
@@ -1192,20 +1192,20 @@ extern "C" __declspec(dllexport) float __cdecl exiv2floatValue(LPSTR tagName, LP
 // instead of copy exiv2.cpp and modify the code when a new version is 
 // available.
 //-------------------------------------------------------------------------
-// copied from exiv2
+// copied from exiv2.cpp
 constexpr auto emptyYodAdjust_ = std::array{
     Params::YodAdjust{false, "-Y", 0},
     Params::YodAdjust{false, "-O", 0},
     Params::YodAdjust{false, "-D", 0},
 };
 
-// copied from exiv2
+// copied from exiv2.cpp
 Params& Params::instance() {
     static Params instance_;
     return instance_;
 }
 
-// copied from exiv2
+// copied from exiv2.cpp
 Params::Params() :
     optstring_(":hVvqfbuktTFa:Y:O:D:r:p:P:d:e:i:c:m:M:l:S:g:K:n:Q:"),
     target_(ctExif | ctIptc | ctComment | ctXmp),
@@ -1213,7 +1213,7 @@ Params::Params() :
     format_("%Y%m%d_%H%M%S") {
 }
 
-// copied from exiv2
+// copied from exiv2.cpp
 static size_t readFileToBuf(FILE* f, Exiv2::DataBuf& buf) {
     const int buff_size = 4 * 1028;
     std::vector<Exiv2::byte> bytes(buff_size);
@@ -1257,7 +1257,7 @@ void Params::getStdin(Exiv2::DataBuf& buf) {
         if (select(1, &readfds, nullptr, nullptr, &timeout)) {
 #endif
 #ifdef DEBUG
-            std::cerr << "stdin has data" << '\n';
+            std::cerr << "stdin has data" << std::endl;
 #endif
             readFileToBuf(stdin, stdinBuf);
         }
@@ -1271,14 +1271,14 @@ void Params::getStdin(Exiv2::DataBuf& buf) {
             if (f) {
                 readFileToBuf(f, stdinBuf);
                 fclose(f);
-                std::cerr << "read stdin from " << path << '\n';
+                std::cerr << "read stdin from " << path << std::endl;
             }
         }
 #endif
 #ifdef DEBUG
-        std::cerr << "getStdin stdinBuf.size_ = " << stdinBuf.size() << '\n';
+        std::cerr << "getStdin stdinBuf.size_ = " << stdinBuf.size() << std::endl;
 #endif
-    }
+        }
 
     // copy stdinBuf to buf
     if (!stdinBuf.empty()) {
@@ -1286,10 +1286,10 @@ void Params::getStdin(Exiv2::DataBuf& buf) {
         std::copy(stdinBuf.begin(), stdinBuf.end(), buf.begin());
     }
 #ifdef DEBUG
-    std::cerr << "getStdin stdinBuf.size_ = " << stdinBuf.size() << '\n';
+    std::cerr << "getStdin stdinBuf.size_ = " << stdinBuf.size() << std::endl;
 #endif
 
-}  // Params::getStdin()
+    }  // Params::getStdin()
 
 // copied from exv2.cpp
 // needed to avoid link error, but is not called, so reduced to an empty frame

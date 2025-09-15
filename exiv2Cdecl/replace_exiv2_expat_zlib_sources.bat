@@ -1,6 +1,6 @@
 @echo off
 rem start of settings: paths for sources
-set Exiv2=C:\_prg\VisualCpp\exiv2-0.28.5-Source
+set Exiv2=C:\_prg\VisualCpp\exiv2-0.28.7-Source
 set Expat=C:\Users\njwag\.conan\data\expat\2.4.9\_\_\build\8e589e066a19f700666be77ed94ff8e8bc88ee10
 set Zlib=C:\Users\njwag\.conan\data\zlib\1.2.13\_\_\build\5a61a86bb3e07ce4262c80e1510f9c05e9b6d48b
 set Inih=C:\Users\njwag\.conan\data\inih\55\_\_\build\5a61a86bb3e07ce4262c80e1510f9c05e9b6d48b

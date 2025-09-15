@@ -189,7 +189,7 @@ static int setModeAndPrintStructure(Exiv2::PrintStructureOption option, const st
         size_t length = code.size();
         for (size_t start = 0; start < length; start += chunk) {
           size_t count = (start + chunk) < length ? chunk : length - start;
-          std::cout << code.substr(start, count) << '\n';
+          std::cout << code.substr(start, count) << std::endl;
         }
       }
     }
@@ -245,19 +245,19 @@ int Print::printSummary() {
 
   // Filename
   printLabel(_("File name"));
-  std::cout << path_ << '\n';
+  std::cout << path_ << std::endl;
 
   // Filesize
   printLabel(_("File size"));
-  std::cout << fs::file_size(path_) << " " << _("Bytes") << '\n';
+  std::cout << fs::file_size(path_) << " " << _("Bytes") << std::endl;
 
   // MIME type
   printLabel(_("MIME type"));
-  std::cout << image->mimeType() << '\n';
+  std::cout << image->mimeType() << std::endl;
 
   // Image size
   printLabel(_("Image size"));
-  std::cout << image->pixelWidth() << " x " << image->pixelHeight() << '\n';
+  std::cout << image->pixelWidth() << " x " << image->pixelHeight() << std::endl;
 
   if (exifData.empty()) {
     std::cerr << path_ << ": " << _("No Exif data found in the file") << "\n";
@@ -278,7 +278,7 @@ int Print::printSummary() {
       std::cout << exifThumb.mimeType() << ", " << dataBuf.size() << " " << _("Bytes");
     }
   }
-  std::cout << '\n';
+  std::cout << std::endl;
 
   printTag(exifData, Exiv2::make, _("Camera make"));
   printTag(exifData, Exiv2::model, _("Camera model"));
@@ -300,7 +300,7 @@ int Print::printSummary() {
   printTag(exifData, "Exif.Image.Copyright", _("Copyright"));
   printTag(exifData, "Exif.Photo.UserComment", _("Exif comment"));
 
-  std::cout << '\n';
+  std::cout << std::endl;
 
   return 0;
 }  // Print::printSummary
@@ -325,7 +325,7 @@ int Print::printTag(const Exiv2::ExifData& exifData, const std::string& key, con
     rc = 1;
   }
   if (!label.empty())
-    std::cout << '\n';
+    std::cout << std::endl;
   return rc;
 }  // Print::printTag
 
@@ -347,7 +347,7 @@ int Print::printTag(const Exiv2::ExifData& exifData, EasyAccessFct easyAccessFct
     }
   }
   if (!label.empty())
-    std::cout << '\n';
+    std::cout << std::endl;
   return rc;
 }  // Print::printTag
 
@@ -552,14 +552,14 @@ bool Print::printMetadatum(const Exiv2::Metadatum& md, const Exiv2::Image* pImag
   }
   if (Params::instance().printItems_ & Params::prHex) {
     if (!first)
-      std::cout << '\n';
+      std::cout << std::endl;
     if (md.size() > 0) {
       Exiv2::DataBuf buf(md.size());
       md.copy(buf.data(), pImage->byteOrder());
       Exiv2::hexdump(std::cout, buf.c_data(), buf.size());
     }
   }
-  std::cout << '\n';
+  std::cout << std::endl;
   return true;
 }  // Print::printMetadatum
 
@@ -574,7 +574,7 @@ int Print::printComment() {
   if (Params::instance().verbose_) {
     std::cout << _("JPEG comment") << ": ";
   }
-  std::cout << image->comment() << '\n';
+  std::cout << image->comment() << std::endl;
   return 0;
 }  // Print::printComment
 
@@ -649,7 +649,7 @@ int Rename::run(const std::string& path) {
     std::string newPath = path;
     if (Params::instance().timestampOnly_) {
       if (Params::instance().verbose_) {
-        std::cout << _("Updating timestamp to") << " " << v << '\n';
+        std::cout << _("Updating timestamp to") << " " << v << std::endl;
       }
     } else {
       rc = renameFile(newPath, &tm, exifData);
@@ -730,14 +730,14 @@ int Erase::eraseThumbnail(Exiv2::Image* image) {
   }
   exifThumb.erase();
   if (Params::instance().verbose_) {
-    std::cout << _("Erasing thumbnail data") << '\n';
+    std::cout << _("Erasing thumbnail data") << std::endl;
   }
   return 0;
 }
 
 int Erase::eraseExifData(Exiv2::Image* image) {
   if (Params::instance().verbose_ && !image->exifData().empty()) {
-    std::cout << _("Erasing Exif data from the file") << '\n';
+    std::cout << _("Erasing Exif data from the file") << std::endl;
   }
   image->clearExifData();
   return 0;
@@ -745,7 +745,7 @@ int Erase::eraseExifData(Exiv2::Image* image) {
 
 int Erase::eraseIptcData(Exiv2::Image* image) {
   if (Params::instance().verbose_ && !image->iptcData().empty()) {
-    std::cout << _("Erasing IPTC data from the file") << '\n';
+    std::cout << _("Erasing IPTC data from the file") << std::endl;
   }
   image->clearIptcData();
   return 0;
@@ -753,7 +753,7 @@ int Erase::eraseIptcData(Exiv2::Image* image) {
 
 int Erase::eraseComment(Exiv2::Image* image) {
   if (Params::instance().verbose_ && !image->comment().empty()) {
-    std::cout << _("Erasing JPEG comment from the file") << '\n';
+    std::cout << _("Erasing JPEG comment from the file") << std::endl;
   }
   image->clearComment();
   return 0;
@@ -761,7 +761,7 @@ int Erase::eraseComment(Exiv2::Image* image) {
 
 int Erase::eraseXmpData(Exiv2::Image* image) {
   if (Params::instance().verbose_ && !image->xmpData().empty()) {
-    std::cout << _("Erasing XMP data from the file") << '\n';
+    std::cout << _("Erasing XMP data from the file") << std::endl;
   }
   image->clearXmpData();  // Quick fix for bug #612
   image->clearXmpPacket();
@@ -769,7 +769,7 @@ int Erase::eraseXmpData(Exiv2::Image* image) {
 }
 int Erase::eraseIccProfile(Exiv2::Image* image) {
   if (Params::instance().verbose_ && image->iccProfileDefined()) {
-    std::cout << _("Erasing ICC Profile data from the file") << '\n';
+    std::cout << _("Erasing ICC Profile data from the file") << std::endl;
   }
   image->clearIccProfile();
   return 0;
@@ -852,7 +852,7 @@ int Extract::writeThumbnail() const {
       Exiv2::DataBuf buf = exifThumb.copy();
       if (!buf.empty()) {
         std::cout << _("Writing thumbnail") << " (" << exifThumb.mimeType() << ", " << buf.size() << " " << _("Bytes")
-                  << ") " << _("to file") << " " << thumbPath << '\n';
+                  << ") " << _("to file") << " " << thumbPath << std::endl;
       }
     }
     rc = static_cast<int>(exifThumb.writeFile(thumb));
@@ -908,14 +908,14 @@ int Extract::writeIccProfile(const std::string& target) const {
     auto image = Exiv2::ImageFactory::open(path_);
     image->readMetadata();
     if (!image->iccProfileDefined()) {
-      std::cerr << _("No embedded iccProfile: ") << path_ << '\n';
+      std::cerr << _("No embedded iccProfile: ") << path_ << std::endl;
       rc = -2;
     } else {
       if (bStdout) {  // -eC-
         std::cout.write(image->iccProfile().c_str(), image->iccProfile().size());
       } else {
         if (Params::instance().verbose_) {
-          std::cout << _("Writing iccProfile: ") << target << '\n';
+          std::cout << _("Writing iccProfile: ") << target << std::endl;
         }
         Exiv2::FileIo iccFile(target);
         iccFile.open("wb");
@@ -937,7 +937,7 @@ void Extract::writePreviewFile(const Exiv2::PreviewImage& pvImg, size_t num) con
     if (pvImg.width() != 0 && pvImg.height() != 0) {
       std::cout << pvImg.width() << "x" << pvImg.height() << " " << _("pixels") << ", ";
     }
-    std::cout << pvImg.size() << " " << _("bytes") << ") " << _("to file") << " " << pvPath << '\n';
+    std::cout << pvImg.size() << " " << _("bytes") << ") " << _("to file") << " " << pvPath << std::endl;
   }
   auto rc = pvImg.writeFile(pvFile);
   if (rc == 0) {
@@ -1136,7 +1136,7 @@ int Modify::applyCommands(Exiv2::Image* pImage) {
     // If modify is used when extracting to stdout then ignore verbose
     if (Params::instance().verbose_ &&
         !(Params::instance().action_ & Action::extract && Params::instance().target_ & Params::ctStdInOut)) {
-      std::cout << _("Setting JPEG comment") << " '" << Params::instance().jpegComment_ << "'" << '\n';
+      std::cout << _("Setting JPEG comment") << " '" << Params::instance().jpegComment_ << "'" << std::endl;
     }
     pImage->setComment(Params::instance().jpegComment_);
   }
@@ -1175,7 +1175,7 @@ int Modify::addMetadatum(Exiv2::Image* pImage, const ModifyCmd& modifyCmd) {
   if (Params::instance().verbose_ &&
       !(Params::instance().action_ & Action::extract && Params::instance().target_ & Params::ctStdInOut)) {
     std::cout << _("Add") << " " << modifyCmd.key_ << " \"" << modifyCmd.value_ << "\" ("
-              << Exiv2::TypeInfo::typeName(modifyCmd.typeId_) << ")" << '\n';
+              << Exiv2::TypeInfo::typeName(modifyCmd.typeId_) << ")" << std::endl;
   }
   Exiv2::ExifData& exifData = pImage->exifData();
   Exiv2::IptcData& iptcData = pImage->iptcData();
@@ -1206,7 +1206,7 @@ int Modify::setMetadatum(Exiv2::Image* pImage, const ModifyCmd& modifyCmd) {
   if (Params::instance().verbose_ &&
       !(Params::instance().action_ & Action::extract && Params::instance().target_ & Params::ctStdInOut)) {
     std::cout << _("Set") << " " << modifyCmd.key_ << " \"" << modifyCmd.value_ << "\" ("
-              << Exiv2::TypeInfo::typeName(modifyCmd.typeId_) << ")" << '\n';
+              << Exiv2::TypeInfo::typeName(modifyCmd.typeId_) << ")" << std::endl;
   }
   Exiv2::ExifData& exifData = pImage->exifData();
   Exiv2::IptcData& iptcData = pImage->iptcData();
@@ -1266,7 +1266,7 @@ void Modify::delMetadatum(Exiv2::Image* pImage, const ModifyCmd& modifyCmd) {
   // If modify is used when extracting to stdout then ignore verbose
   if (Params::instance().verbose_ &&
       !(Params::instance().action_ & Action::extract && Params::instance().target_ & Params::ctStdInOut)) {
-    std::cout << _("Del") << " " << modifyCmd.key_ << '\n';
+    std::cout << _("Del") << " " << modifyCmd.key_ << std::endl;
   }
 
   Exiv2::ExifData& exifData = pImage->exifData();
@@ -1299,7 +1299,7 @@ void Modify::regNamespace(const ModifyCmd& modifyCmd) {
   // If modify is used when extracting to stdout then ignore verbose
   if (Params::instance().verbose_ &&
       !(Params::instance().action_ & Action::extract && Params::instance().target_ & Params::ctStdInOut)) {
-    std::cout << _("Reg ") << modifyCmd.key_ << "=\"" << modifyCmd.value_ << "\"" << '\n';
+    std::cout << _("Reg ") << modifyCmd.key_ << "=\"" << modifyCmd.value_ << "\"" << std::endl;
   }
   Exiv2::XmpProperties::registerNs(modifyCmd.value_, modifyCmd.key_);
 }
@@ -1404,7 +1404,7 @@ int Adjust::adjustDateTime(Exiv2::ExifData& exifData, const std::string& key, co
   tm tm;
   if (str2Tm(timeStr, &tm) != 0) {
     if (Params::instance().verbose_)
-      std::cout << '\n';
+      std::cout << std::endl;
     std::cerr << path << ": " << _("Failed to parse timestamp") << " `" << timeStr << "'\n";
     return 1;
   }
@@ -1444,7 +1444,7 @@ int Adjust::adjustDateTime(Exiv2::ExifData& exifData, const std::string& key, co
   // Let's not create files with non-4-digit years, we can't read them.
   if (tm.tm_year > 9999 - 1900 || tm.tm_year < 1000 - 1900) {
     if (Params::instance().verbose_)
-      std::cout << '\n';
+      std::cout << std::endl;
     std::cerr << path << ": " << _("Can't adjust timestamp by") << " " << yearAdjustment + monOverflow << " "
               << _("years") << "\n";
     return 1;
@@ -1453,7 +1453,7 @@ int Adjust::adjustDateTime(Exiv2::ExifData& exifData, const std::string& key, co
   time = Safe::add(time, Safe::add(adjustment, dayAdjustment * secondsInDay));
   timeStr = time2Str(time);
   if (Params::instance().verbose_) {
-    std::cout << " " << _("to") << " " << timeStr << '\n';
+    std::cout << " " << _("to") << " " << timeStr << std::endl;
   }
   md->setValue(timeStr);
   return 0;
@@ -1689,7 +1689,7 @@ std::string temporaryPath() {
 int metacopy(const std::string& source, const std::string& tgt, Exiv2::ImageType targetType, bool preserve) {
 #ifdef EXIV2_DEBUG_MESSAGES
   std::cerr << "actions.cpp::metacopy"
-            << " source = " << source << " target = " << tgt << '\n';
+            << " source = " << source << " target = " << tgt << std::endl;
 #endif
 
   // read the source metadata
@@ -1731,7 +1731,7 @@ int metacopy(const std::string& source, const std::string& tgt, Exiv2::ImageType
   // Copy each type of metadata
   if (Params::instance().target_ & Params::ctExif && !sourceImage->exifData().empty()) {
     if (Params::instance().verbose_ && !bStdout) {
-      std::cout << _("Writing Exif data from") << " " << source << " " << _("to") << " " << target << '\n';
+      std::cout << _("Writing Exif data from") << " " << source << " " << _("to") << " " << target << std::endl;
     }
     if (preserve) {
       for (const auto& exif : sourceImage->exifData()) {
@@ -1743,7 +1743,7 @@ int metacopy(const std::string& source, const std::string& tgt, Exiv2::ImageType
   }
   if (Params::instance().target_ & Params::ctIptc && !sourceImage->iptcData().empty()) {
     if (Params::instance().verbose_ && !bStdout) {
-      std::cout << _("Writing IPTC data from") << " " << source << " " << _("to") << " " << target << '\n';
+      std::cout << _("Writing IPTC data from") << " " << source << " " << _("to") << " " << target << std::endl;
     }
     if (preserve) {
       for (const auto& iptc : sourceImage->iptcData()) {
@@ -1755,13 +1755,13 @@ int metacopy(const std::string& source, const std::string& tgt, Exiv2::ImageType
   }
   if (Params::instance().target_ & (Params::ctXmp | Params::ctXmpRaw) && !sourceImage->xmpData().empty()) {
     if (Params::instance().verbose_ && !bStdout) {
-      std::cout << _("Writing XMP data from") << " " << source << " " << _("to") << " " << target << '\n';
+      std::cout << _("Writing XMP data from") << " " << source << " " << _("to") << " " << target << std::endl;
     }
 
     // #1148 use Raw XMP packet if there are no XMP modification commands
     Params::CommonTarget tRawSidecar = Params::ctXmpSidecar | Params::ctXmpRaw;  // option -eXX
     if (Params::instance().modifyCmds_.empty() && (Params::instance().target_ & tRawSidecar) == tRawSidecar) {
-      // std::cout << "short cut" << '\n';
+      // std::cout << "short cut" << std::endl;
       // http://www.cplusplus.com/doc/tutorial/files/
       std::ofstream os;
       os.open(target.c_str());
@@ -1773,13 +1773,13 @@ int metacopy(const std::string& source, const std::string& tgt, Exiv2::ImageType
         targetImage->xmpData()[xmp.key()] = xmp.value();
       }
     } else {
-      // std::cout << "long cut" << '\n';
+      // std::cout << "long cut" << std::endl;
       targetImage->setXmpData(sourceImage->xmpData());
     }
   }
   if (Params::instance().target_ & Params::ctComment && !sourceImage->comment().empty()) {
     if (Params::instance().verbose_ && !bStdout) {
-      std::cout << _("Writing JPEG comment from") << " " << source << " " << _("to") << " " << tgt << '\n';
+      std::cout << _("Writing JPEG comment from") << " " << source << " " << _("to") << " " << tgt << std::endl;
     }
     targetImage->setComment(sourceImage->comment());
   }
@@ -1828,9 +1828,9 @@ int renameFile(std::string& newPath, const tm* tm, Exiv2::ExifData& exifData) {
   std::string format = Params::instance().format_;
   std::string filename = p.stem().string();
   std::string basesuffix = "";
-  int pos = filename.find('.');
-  if (pos > 0)
-    basesuffix = filename.substr(filename.find('.'));
+  const size_t pos = filename.find('.');
+  if (pos != std::string::npos)
+    basesuffix = filename.substr(pos);
   replace(format, ":basename:", p.stem().string());
   replace(format, ":basesuffix:", basesuffix);
   replace(format, ":dirname:", p.parent_path().filename().string());
@@ -1847,10 +1847,10 @@ int renameFile(std::string& newPath, const tm* tm, Exiv2::ExifData& exifData) {
   // for concatenation of new file name, concatenation operator of std::filesystem::path is not used:
   // On MSYS2 UCRT64 the path separator to be used in terminal is slash, but as concatenation operator
   // a back slash will be added. Rename works but with verbose a path with different operators will be shown.
-  int len = p.parent_path().string().length();
+  const size_t len = p.parent_path().string().length();
   std::string parent_path_sep = "";
   if (len > 0)
-    parent_path_sep = newPath.substr(0, ++len);
+    parent_path_sep = newPath.substr(0, len + 1);
 
   newPath = parent_path_sep + std::string(basename) + p.extension().string();
 
@@ -1866,6 +1866,7 @@ int renameFile(std::string& newPath, const tm* tm, Exiv2::ExifData& exifData) {
   std::regex_token_iterator<std::string::iterator> rend;
   std::regex_token_iterator<std::string::iterator> token(format.begin(), format.end(), format_regex);
   while (token != rend) {
+    Exiv2::Internal::enforce<std::overflow_error>(token->str().length() >= 2, "token too short");
     std::string tag = token->str().substr(1, token->str().length() - 2);
     const auto key = exifData.findKey(Exiv2::ExifKey(tag));
     std::string val = "";
@@ -1892,7 +1893,7 @@ int renameFile(std::string& newPath, const tm* tm, Exiv2::ExifData& exifData) {
 
   if (p.parent_path() == oldFsPath.parent_path() && p.filename() == oldFsPath.filename()) {
     if (Params::instance().verbose_) {
-      std::cout << _("This file already has the correct name") << '\n';
+      std::cout << _("This file already has the correct name") << std::endl;
     }
     return -1;
   }
@@ -1938,7 +1939,7 @@ int renameFile(std::string& newPath, const tm* tm, Exiv2::ExifData& exifData) {
     if (Params::instance().timestamp_) {
       std::cout << ", " << _("updating timestamp");
     }
-    std::cout << '\n';
+    std::cout << std::endl;
   }
 
   fs::rename(path, newPath);

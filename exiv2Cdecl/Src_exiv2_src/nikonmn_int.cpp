@@ -3133,7 +3133,7 @@ std::ostream& Nikon3MakerNote::printLensId(std::ostream& os, const Value& value,
      */
     if (auto pf = Exiv2::find(fmountlens, vid))
       return os << pf->manuf << " " << pf->lensname;
-    return os << value;
+    return os << "(" << value << ")";
   }
 
   byte raw[] = {0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0};
@@ -3148,14 +3148,14 @@ std::ostream& Nikon3MakerNote::printLensId(std::ostream& os, const Value& value,
     ExifKey key(pre + std::string(tags[i]));
     auto md = metadata->findKey(key);
     if (md == metadata->end() || md->typeId() != unsignedByte || md->count() == 0) {
-      return os << value;
+      return os << "(" << value << ")";
     }
     raw[i] = static_cast<byte>(md->toInt64());
   }
 
   auto md = metadata->findKey(ExifKey("Exif.Nikon3.LensType"));
   if (md == metadata->end() || md->typeId() != unsignedByte || md->count() == 0) {
-    return os << value;
+    return os << "(" << value << ")";
   }
   raw[7] = static_cast<byte>(md->toInt64());
 
@@ -3180,9 +3180,9 @@ std::ostream& Nikon3MakerNote::printLensId(std::ostream& os, const Value& value,
     }
   }
   // Lens not found in database
-  return os << value;
+  return os << "(" << value << ")";
 #else
-  return os << value;
+  return os << "(" << value << ")";
 #endif  // EXV_HAVE_LENSDATA
 }
 
@@ -3881,9 +3881,12 @@ std::ostream& Nikon3MakerNote::printLensId4ZMount(std::ostream& os, const Value&
       {46, "Nikon", "Nikkor Z 135mm f/1.8 S Plena"},
       {47, "Nikon", "Nikkor Z 35mm f/1.2 S"},
       {48, "Nikon", "Nikkor Z 28-400mm f/4-8 VR"},
+      {49, "Nikon", "Nikkor Z 28-135mm f/4 PZ"},
       {51, "Nikon", "Nikkor Z 35mm f/1.4"},
       {52, "Nikon", "Nikkor Z 50mm f/1.4"},
       {2305, "Laowa", "FFII 10mm F2.8 C&D Dreamer"},
+      {2820, "Viltrox", "AF 16mm F1.8"},
+      {2822, "Viltrox", "AF 20mm F2.8"},
       {53251, "Sigma", "56mm F1.4 DC DN | C"},
       {57346, "Tamron", "35-150mm F/2-2.8 Di III VXD"},
   };
@@ -3892,7 +3895,7 @@ std::ostream& Nikon3MakerNote::printLensId4ZMount(std::ostream& os, const Value&
   for (auto&& [l, manuf, lensname] : zmountlens)
     if (l == lid)
       return os << manuf << " " << lensname;
-  return os << lid;
+  return os << "(" << value << ")";
 }
 
 std::ostream& Nikon3MakerNote::printApertureLd4(std::ostream& os, const Value& value, const ExifData*) {
