@@ -204,7 +204,7 @@ namespace QuickImageComment
                         }
                         // fill translated description
                         aTagDefinition.descriptionTranslated = LangCfg.getLookupValueLogNullReferenceValue("META_DESC", aTagDefinition.key,
-                            "META_DESC\t" + aTagDefinition.key + "\t" + aTagDefinition.type + "\t" + aTagDefinition.description);
+                            "META_DESC\t" + aTagDefinition.key + "\t" + aTagDefinition.type + "\t" + aTagDefinition.xmpValueType + "\t" + aTagDefinition.description);
                         if (aTagDefinition.descriptionTranslated == null)
                         {
                             aTagDefinition.descriptionTranslated = aTagDefinition.description;
