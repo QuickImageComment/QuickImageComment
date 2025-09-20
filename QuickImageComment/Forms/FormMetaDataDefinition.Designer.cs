@@ -45,11 +45,6 @@ namespace QuickImageComment
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMetaDataDefinition));
-            this.listViewTags = new System.Windows.Forms.ListView();
-            this.columnHeaderTag = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeaderType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeaderDescription = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.label1 = new System.Windows.Forms.Label();
             this.buttonAbort = new System.Windows.Forms.Button();
             this.listBoxMetaData = new System.Windows.Forms.ListBox();
             this.dynamicComboBoxMetaDataType = new System.Windows.Forms.ComboBox();
@@ -78,12 +73,6 @@ namespace QuickImageComment
             this.buttonCopy = new System.Windows.Forms.Button();
             this.buttonDelete = new System.Windows.Forms.Button();
             this.dynamicLabelInfo = new System.Windows.Forms.Label();
-            this.dynamicComboBoxSearchTag = new System.Windows.Forms.ComboBox();
-            this.fixedButtonSearchPrevious = new System.Windows.Forms.Button();
-            this.fixedButtonSearchNext = new System.Windows.Forms.Button();
-            this.label10 = new System.Windows.Forms.Label();
-            this.textBoxSearchTag = new System.Windows.Forms.TextBox();
-            this.checkBoxOnlyInImage = new System.Windows.Forms.CheckBox();
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.dynamicLabelValueOriginal = new System.Windows.Forms.Label();
@@ -97,62 +86,16 @@ namespace QuickImageComment
             this.label16 = new System.Windows.Forms.Label();
             this.numericUpDownVerticalDisplayOffset = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownLinesForChange = new System.Windows.Forms.NumericUpDown();
-            this.checkBoxOriginalLanguage = new System.Windows.Forms.CheckBox();
             this.buttonInputCheckEdit = new System.Windows.Forms.Button();
             this.label17 = new System.Windows.Forms.Label();
             this.buttonInputCheckDelete = new System.Windows.Forms.Button();
             this.buttonInputCheckCreate = new System.Windows.Forms.Button();
             this.buttonBeginning = new System.Windows.Forms.Button();
             this.buttonEnd = new System.Windows.Forms.Button();
-            this.dynamicLabelHint = new System.Windows.Forms.Label();
+            this.userControlTagList = new QuickImageComment.UserControlTagList();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownVerticalDisplayOffset)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLinesForChange)).BeginInit();
             this.SuspendLayout();
-            // 
-            // listViewTags
-            // 
-            this.listViewTags.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.listViewTags.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeaderTag,
-            this.columnHeaderType,
-            this.columnHeaderDescription});
-            this.listViewTags.FullRowSelect = true;
-            this.listViewTags.HideSelection = false;
-            this.listViewTags.Location = new System.Drawing.Point(5, 102);
-            this.listViewTags.MultiSelect = false;
-            this.listViewTags.Name = "listViewTags";
-            this.listViewTags.Size = new System.Drawing.Size(826, 184);
-            this.listViewTags.TabIndex = 7;
-            this.listViewTags.UseCompatibleStateImageBehavior = false;
-            this.listViewTags.View = System.Windows.Forms.View.Details;
-            this.listViewTags.SelectedIndexChanged += new System.EventHandler(this.listViewTags_SelectedIndexChanged);
-            // 
-            // columnHeaderTag
-            // 
-            this.columnHeaderTag.Text = "Tag-Name";
-            this.columnHeaderTag.Width = 220;
-            // 
-            // columnHeaderType
-            // 
-            this.columnHeaderType.Text = "Datentyp";
-            this.columnHeaderType.Width = 65;
-            // 
-            // columnHeaderDescription
-            // 
-            this.columnHeaderDescription.Text = "Beschreibung";
-            this.columnHeaderDescription.Width = 1500;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(303, 3);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(231, 16);
-            this.label1.TabIndex = 50;
-            this.label1.Text = "Liste der verfügbaren Meta-Daten";
             // 
             // buttonAbort
             // 
@@ -452,67 +395,6 @@ namespace QuickImageComment
             this.dynamicLabelInfo.TabIndex = 41;
             this.dynamicLabelInfo.Text = "Info";
             // 
-            // dynamicComboBoxSearchTag
-            // 
-            this.dynamicComboBoxSearchTag.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.dynamicComboBoxSearchTag.Location = new System.Drawing.Point(321, 27);
-            this.dynamicComboBoxSearchTag.Name = "dynamicComboBoxSearchTag";
-            this.dynamicComboBoxSearchTag.Size = new System.Drawing.Size(239, 21);
-            this.dynamicComboBoxSearchTag.TabIndex = 2;
-            this.dynamicComboBoxSearchTag.SelectedIndexChanged += new System.EventHandler(this.comboBoxSearchTag_SelectedIndexChanged);
-            // 
-            // fixedButtonSearchPrevious
-            // 
-            this.fixedButtonSearchPrevious.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.fixedButtonSearchPrevious.Location = new System.Drawing.Point(776, 26);
-            this.fixedButtonSearchPrevious.Name = "fixedButtonSearchPrevious";
-            this.fixedButtonSearchPrevious.Size = new System.Drawing.Size(24, 22);
-            this.fixedButtonSearchPrevious.TabIndex = 5;
-            this.fixedButtonSearchPrevious.Text = "<";
-            this.fixedButtonSearchPrevious.UseVisualStyleBackColor = true;
-            this.fixedButtonSearchPrevious.Click += new System.EventHandler(this.fixedButtonSearchPrevious_Click);
-            // 
-            // fixedButtonSearchNext
-            // 
-            this.fixedButtonSearchNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.fixedButtonSearchNext.Location = new System.Drawing.Point(806, 26);
-            this.fixedButtonSearchNext.Name = "fixedButtonSearchNext";
-            this.fixedButtonSearchNext.Size = new System.Drawing.Size(24, 22);
-            this.fixedButtonSearchNext.TabIndex = 6;
-            this.fixedButtonSearchNext.Text = ">";
-            this.fixedButtonSearchNext.UseVisualStyleBackColor = true;
-            this.fixedButtonSearchNext.Click += new System.EventHandler(this.fixedButtonSearchNext_Click);
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(566, 31);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(36, 13);
-            this.label10.TabIndex = 3;
-            this.label10.Text = "Suche";
-            // 
-            // textBoxSearchTag
-            // 
-            this.textBoxSearchTag.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxSearchTag.Location = new System.Drawing.Point(606, 27);
-            this.textBoxSearchTag.Name = "textBoxSearchTag";
-            this.textBoxSearchTag.Size = new System.Drawing.Size(164, 21);
-            this.textBoxSearchTag.TabIndex = 4;
-            this.textBoxSearchTag.TextChanged += new System.EventHandler(this.textBoxSearchTag_TextChanged);
-            // 
-            // checkBoxOnlyInImage
-            // 
-            this.checkBoxOnlyInImage.AutoSize = true;
-            this.checkBoxOnlyInImage.Location = new System.Drawing.Point(5, 30);
-            this.checkBoxOnlyInImage.Name = "checkBoxOnlyInImage";
-            this.checkBoxOnlyInImage.Size = new System.Drawing.Size(306, 17);
-            this.checkBoxOnlyInImage.TabIndex = 1;
-            this.checkBoxOnlyInImage.Text = "Nur im ausgewählten Bild enthaltene Meta-Daten anzeigen";
-            this.checkBoxOnlyInImage.UseVisualStyleBackColor = true;
-            this.checkBoxOnlyInImage.CheckedChanged += new System.EventHandler(this.checkBoxOnlyInImage_CheckedChanged);
-            // 
             // label12
             // 
             this.label12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -676,17 +558,6 @@ namespace QuickImageComment
             0});
             this.numericUpDownLinesForChange.ValueChanged += new System.EventHandler(this.fieldDefinitionChanged);
             // 
-            // checkBoxOriginalLanguage
-            // 
-            this.checkBoxOriginalLanguage.AutoSize = true;
-            this.checkBoxOriginalLanguage.Location = new System.Drawing.Point(5, 7);
-            this.checkBoxOriginalLanguage.Name = "checkBoxOriginalLanguage";
-            this.checkBoxOriginalLanguage.Size = new System.Drawing.Size(261, 17);
-            this.checkBoxOriginalLanguage.TabIndex = 0;
-            this.checkBoxOriginalLanguage.Text = "Anzeige Name/Beschreibung in Englisch (Original)";
-            this.checkBoxOriginalLanguage.UseVisualStyleBackColor = true;
-            this.checkBoxOriginalLanguage.CheckedChanged += new System.EventHandler(this.checkBoxOriginalLanguage_CheckedChanged);
-            // 
             // buttonInputCheckEdit
             // 
             this.buttonInputCheckEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -752,28 +623,25 @@ namespace QuickImageComment
             this.buttonEnd.UseVisualStyleBackColor = true;
             this.buttonEnd.Click += new System.EventHandler(this.buttonEnd_Click);
             // 
-            // dynamicLabelHint
+            // userControlTagList
             // 
-            this.dynamicLabelHint.AutoSize = true;
-            this.dynamicLabelHint.Location = new System.Drawing.Point(5, 54);
-            this.dynamicLabelHint.Name = "dynamicLabelHint";
-            this.dynamicLabelHint.Size = new System.Drawing.Size(92, 13);
-            this.dynamicLabelHint.TabIndex = 58;
-            this.dynamicLabelHint.Text = "Hinweise zur Liste";
+            this.userControlTagList.Location = new System.Drawing.Point(0, 0);
+            this.userControlTagList.Name = "userControlTagList";
+            this.userControlTagList.Size = new System.Drawing.Size(836, 286);
+            this.userControlTagList.TabIndex = 58;
             // 
             // FormMetaDataDefinition
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(837, 639);
-            this.Controls.Add(this.dynamicLabelHint);
+            this.Controls.Add(this.userControlTagList);
             this.Controls.Add(this.buttonEnd);
             this.Controls.Add(this.buttonBeginning);
             this.Controls.Add(this.buttonInputCheckCreate);
             this.Controls.Add(this.buttonInputCheckDelete);
             this.Controls.Add(this.label17);
             this.Controls.Add(this.buttonInputCheckEdit);
-            this.Controls.Add(this.checkBoxOriginalLanguage);
             this.Controls.Add(this.numericUpDownLinesForChange);
             this.Controls.Add(this.numericUpDownVerticalDisplayOffset);
             this.Controls.Add(this.label16);
@@ -785,11 +653,6 @@ namespace QuickImageComment
             this.Controls.Add(this.dynamicLabelValueOriginal);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.label12);
-            this.Controls.Add(this.textBoxSearchTag);
-            this.Controls.Add(this.label10);
-            this.Controls.Add(this.fixedButtonSearchNext);
-            this.Controls.Add(this.fixedButtonSearchPrevious);
-            this.Controls.Add(this.dynamicComboBoxSearchTag);
             this.Controls.Add(this.dynamicLabelInfo);
             this.Controls.Add(this.buttonDelete);
             this.Controls.Add(this.buttonCopy);
@@ -798,7 +661,6 @@ namespace QuickImageComment
             this.Controls.Add(this.dynamicLabelExample);
             this.Controls.Add(this.buttonMetaDatum2);
             this.Controls.Add(this.buttonMetaDatum1);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.dynamicComboBoxMetaDataFormat2);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.textBoxPostfix);
@@ -821,8 +683,6 @@ namespace QuickImageComment
             this.Controls.Add(this.dynamicComboBoxMetaDataType);
             this.Controls.Add(this.listBoxMetaData);
             this.Controls.Add(this.buttonAbort);
-            this.Controls.Add(this.listViewTags);
-            this.Controls.Add(this.checkBoxOnlyInImage);
             this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
@@ -830,6 +690,7 @@ namespace QuickImageComment
             this.Name = "FormMetaDataDefinition";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Felddefinitionen";
+            this.Shown += new System.EventHandler(this.FormMetaDataDefinition_Shown);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FormMetaDataDefinition_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownVerticalDisplayOffset)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLinesForChange)).EndInit();
@@ -839,12 +700,6 @@ namespace QuickImageComment
         }
 
         #endregion
-
-        private System.Windows.Forms.ListView listViewTags;
-        private System.Windows.Forms.ColumnHeader columnHeaderTag;
-        private System.Windows.Forms.ColumnHeader columnHeaderType;
-        private System.Windows.Forms.ColumnHeader columnHeaderDescription;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button buttonAbort;
         private System.Windows.Forms.ListBox listBoxMetaData;
         private System.Windows.Forms.ComboBox dynamicComboBoxMetaDataType;
@@ -875,12 +730,6 @@ namespace QuickImageComment
         private System.Windows.Forms.Button buttonCopy;
         private System.Windows.Forms.Button buttonDelete;
         private System.Windows.Forms.Label dynamicLabelInfo;
-        private System.Windows.Forms.ComboBox dynamicComboBoxSearchTag;
-        private System.Windows.Forms.Button fixedButtonSearchPrevious;
-        private System.Windows.Forms.Button fixedButtonSearchNext;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.TextBox textBoxSearchTag;
-        private System.Windows.Forms.CheckBox checkBoxOnlyInImage;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label dynamicLabelValueOriginal;
@@ -892,13 +741,12 @@ namespace QuickImageComment
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.NumericUpDown numericUpDownVerticalDisplayOffset;
         private System.Windows.Forms.NumericUpDown numericUpDownLinesForChange;
-        private System.Windows.Forms.CheckBox checkBoxOriginalLanguage;
         private System.Windows.Forms.Button buttonInputCheckEdit;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Button buttonInputCheckDelete;
         private System.Windows.Forms.Button buttonInputCheckCreate;
         private System.Windows.Forms.Button buttonBeginning;
         private System.Windows.Forms.Button buttonEnd;
-        private System.Windows.Forms.Label dynamicLabelHint;
+        private UserControlTagList userControlTagList;
     }
 }

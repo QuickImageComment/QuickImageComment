@@ -1,10 +1,3 @@
-
-
-
-
-
-
-
 //Copyright (C) 2009 Norbert Wagner
 
 //This program is free software; you can redistribute it and/or

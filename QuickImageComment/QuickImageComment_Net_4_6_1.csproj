@@ -107,6 +107,7 @@
     <Reference Include="System.Numerics" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
@@ -129,6 +130,12 @@
     </Compile>
     <Compile Include="Controls\TreeViewKeyWords.cs">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\UserControlTagList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\UserControlTagList.Designer.cs">
+      <DependentUpon>UserControlTagList.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\FormChangesInVersion.cs">
       <SubType>Form</SubType>
@@ -224,6 +231,7 @@
     <Compile Include="Utilities\ChangeableFieldSpecification.cs" />
     <Compile Include="Utilities\DropFileOnProcess.cs" />
     <Compile Include="Utilities\EditExternalDefinition.cs" />
+    <Compile Include="Utilities\TagUtilities.cs" />
     <Compile Include="Utilities\UserButtonDefinition.cs" />
     <Compile Include="Utilities\ConfigDefinition.cs" />
     <Compile Include="Controls\DataGridViewMetaData.cs">
@@ -566,6 +574,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\ToolTipQIC.resx">
       <DependentUpon>ToolTipQIC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\UserControlTagList.resx">
+      <DependentUpon>UserControlTagList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormChangesInVersion.resx">
       <DependentUpon>FormChangesInVersion.cs</DependentUpon>

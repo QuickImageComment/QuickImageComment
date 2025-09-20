@@ -22,10 +22,6 @@ namespace QuickImageComment
 {
     public partial class FormPlaceholder : Form
     {
-        private readonly bool initialisationFinished = false;
-        private static bool onlyInImageChecked = true;
-        private static bool originalLanguageChecked = false;
-
         internal string resultString;
         private readonly string keyToChange;
         private int placeholderPositionStart = -1;
@@ -48,9 +44,6 @@ namespace QuickImageComment
 #if APPCENTER
             if (Program.AppCenterUsable) Microsoft.AppCenter.Analytics.Analytics.TrackEvent(this.Name);
 #endif
-            dynamicLabelHint.Text = LangCfg.getText(LangCfg.Others.hintListAvailableMetaData);
-            checkBoxOnlyInImage.Checked = onlyInImageChecked;
-            checkBoxOriginalLanguage.Checked = originalLanguageChecked;
 
             Text = LangCfg.getText(LangCfg.Others.formPlaceholderTitle, givenkeyToChange);
             resultString = inputString;
@@ -79,29 +72,6 @@ namespace QuickImageComment
 
             LangCfg.translateControlTexts(this);
 
-            if (LangCfg.getTagLookupForLanguageAvailable())
-            {
-                if (!checkBoxOriginalLanguage.Enabled)
-                {
-                    // check box is not enabled, so assume at last call no tag lookup for language was available
-                    // now it is available, so use it.
-                    checkBoxOriginalLanguage.Checked = false;
-                    checkBoxOriginalLanguage.Enabled = true;
-                }
-            }
-            else
-            {
-                // tag lookup for language not available, always display in English (original language)
-                checkBoxOriginalLanguage.Checked = true;
-                checkBoxOriginalLanguage.Enabled = false;
-            }
-
-            // filling list view of tags depends on checkBoxOriginalLanguage
-            this.listViewTags.BeginUpdate();
-            this.fillListViewTag();
-            this.listViewTags.EndUpdate();
-            this.fillComboBoxSearch();
-
             // mark first placeholder for edit
             int ii = richTextBoxValue.Find("{{");
             if (ii >= 0 && richTextBoxValue.Find("}}", ii, RichTextBoxFinds.None) > 0)
@@ -111,6 +81,8 @@ namespace QuickImageComment
                 buttonEdit_Click(null, null);
                 setConvertedValue();
             }
+
+            userControlTagList.listViewTags.SelectedIndexChanged += new System.EventHandler(this.listViewTags_SelectedIndexChanged);
 
             // if flag set, create screenshot and return
             if (GeneralUtilities.CreateScreenshots)
@@ -126,138 +98,13 @@ namespace QuickImageComment
                 Close();
                 return;
             }
-
-            initialisationFinished = true;
         }
 
-        // fill the list view with tag definitions
-        private void fillListViewTag()
+        // init userControlTagList on event Shown
+        // it takes some time, so mask can be shown before tag list is filled
+        private void FormPlaceholder_Shown(object sender, EventArgs e)
         {
-            ListViewItem theListViewItem;
-            listViewTags.Sorting = SortOrder.None;
-
-            this.Cursor = Cursors.WaitCursor;
-
-            if (Exiv2TagDefinitions.getList() != null)
-            {
-
-                if (theExtendedImage == null)
-                {
-                    // no image available, display all tags
-                    checkBoxOnlyInImage.Checked = false;
-                }
-                else
-                {
-                    // add XMP tags from current image as some of them might not be in definition list
-                    foreach (string key in theExtendedImage.getXmpMetaDataItems().GetKeyList())
-                    {
-                        string keyWithoutNumber = GeneralUtilities.nameWithoutRunningNumber(key);
-                        if (!Exiv2TagDefinitions.getList().ContainsKey(keyWithoutNumber))
-                        {
-                            Exiv2TagDefinitions.getList().Add(key, new TagDefinition(key, "Readonly", "-/-"));
-                        }
-                    }
-                    // add Text tags from current image as they are not in definition list
-                    foreach (string key in theExtendedImage.getOtherMetaDataItems().GetKeyList())
-                    {
-                        if (key.StartsWith("Txt."))
-                        {
-                            string keyWithoutNumber = GeneralUtilities.nameWithoutRunningNumber(key);
-                            if (!Exiv2TagDefinitions.getList().ContainsKey(keyWithoutNumber))
-                            {
-                                Exiv2TagDefinitions.getList().Add(key, new TagDefinition(key, "String", "-/-"));
-                            }
-                        }
-                    }
-                }
-
-                listViewTags.Items.Clear();
-
-                foreach (TagDefinition aTagDefinition in Exiv2TagDefinitions.getList().Values)
-                {
-                    if (!checkBoxOnlyInImage.Checked
-                        || theExtendedImage.getExifMetaDataItems().Contains(aTagDefinition.key)
-                        || theExtendedImage.getIptcMetaDataItems().Contains(aTagDefinition.key)
-                        || theExtendedImage.getXmpMetaDataItems().Contains(aTagDefinition.key)
-                        || theExtendedImage.getOtherMetaDataItems().Contains(aTagDefinition.key))
-                    {
-                        if (checkBoxOriginalLanguage.Checked)
-                        {
-                            theListViewItem = new ListViewItem(new string[] { aTagDefinition.key,
-                                                                              aTagDefinition.type,
-                                                                              aTagDefinition.description,
-                                                                              aTagDefinition.key});
-                        }
-                        else
-                        {
-                            theListViewItem = new ListViewItem(new string[] { aTagDefinition.keyTranslated,
-                                                                              aTagDefinition.type,
-                                                                              aTagDefinition.descriptionTranslated,
-                                                                              aTagDefinition.key});
-                        }
-                        listViewTags.Items.Add(theListViewItem);
-                    }
-                }
-                if (theExtendedImage != null)
-                {
-                    foreach (MetaDataItemExifTool metaDataItemExifTool in theExtendedImage.getExifToolMetaDataItems().Values)
-                    {
-                        theListViewItem = new ListViewItem(new string[] { metaDataItemExifTool.getKey(),
-                                                                          metaDataItemExifTool.getTypeName(),
-                                                                          metaDataItemExifTool.getShortDesc(),
-                                                                          metaDataItemExifTool.getKey() });
-                        listViewTags.Items.Add(theListViewItem);
-                    }
-                }
-            }
-            listViewTags.Sorting = SortOrder.Ascending;
-            this.Cursor = Cursors.Default;
-        }
-
-        // fill drop down for search
-        private void fillComboBoxSearch()
-        {
-            int posDot1;
-            int posDot2;
-            int posColon;
-            string searchEntry;
-            ArrayList SearchTags = new ArrayList();
-            foreach (ListViewItem tagEntry in listViewTags.Items)
-            {
-                posColon = tagEntry.Text.IndexOf(":");
-                posDot1 = tagEntry.Text.IndexOf(".");
-                posDot2 = tagEntry.Text.IndexOf(".", posDot1 + 1);
-                if (posColon > 0 && (posDot1 < 0 || posColon < posDot1))
-                {
-                    // colon found first - is ExifTool tag
-                    // note: some XMP tags have a colon in the third part
-                    searchEntry = tagEntry.Text.Substring(0, posColon);
-                }
-                else if (posDot2 < 0)
-                {
-                    // exiv2 tag with two parts only 
-                    searchEntry = tagEntry.Text.Substring(0, posDot1);
-                }
-                else
-                {
-                    // exiv2 tag with three parts
-                    searchEntry = tagEntry.Text.Substring(0, posDot2);
-                }
-                if (!SearchTags.Contains(searchEntry))
-                {
-                    SearchTags.Add(searchEntry);
-                }
-            }
-            SearchTags.Sort();
-            dynamicComboBoxSearchTag.Items.Clear();
-            foreach (string aTag in SearchTags)
-            {
-                dynamicComboBoxSearchTag.Items.Add(aTag);
-            }
-            if (dynamicComboBoxSearchTag.Items.Count > 0)
-            {
-                dynamicComboBoxSearchTag.SelectedIndex = 0;
-            }
+            userControlTagList.init(theExtendedImage);
         }
 
         //-------------------------------------------------------------------------
@@ -273,73 +120,17 @@ namespace QuickImageComment
             }
         }
 
-        // check box display only tags contained in selected image changed
-        private void checkBoxOnlyInImage_CheckedChanged(object sender, EventArgs e)
-        {
-            if (initialisationFinished)
-            {
-                fillListViewTag();
-                fillComboBoxSearch();
-            }
-        }
-
-        // check box select language: translated or English = original
-        private void checkBoxOriginalLanguage_CheckedChanged(object sender, EventArgs e)
-        {
-            if (initialisationFinished)
-            {
-                fillListViewTag();
-                fillComboBoxSearch();
-            }
-        }
-
         // index of selected meta data definition changed
         private void listViewTags_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (listViewTags.SelectedItems.Count > 0)
+            if (userControlTagList.listViewTags.SelectedItems.Count > 0)
             {
-                string MetaDataKey = listViewTags.SelectedItems[0].SubItems[3].Text;
+                string MetaDataKey = userControlTagList.listViewTags.SelectedItems[0].SubItems[3].Text;
                 if (theExtendedImage != null)
                 {
                     this.dynamicLabelValueOriginal.Text = theExtendedImage.getMetaDataValueByKey(MetaDataKey, MetaDataItem.Format.Original);
                     this.dynamicLabelValueInterpreted.Text = theExtendedImage.getMetaDataValueByKey(MetaDataKey, MetaDataItem.Format.Interpreted);
                 }
-            }
-        }
-
-        // selection in combo box (containing first one or two identifiers of tag names) changed
-        private void comboBoxSearchTag_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            for (int ii = 0; ii < listViewTags.Items.Count; ii++)
-            {
-                ListViewItem theListViewItem = listViewTags.Items[ii];
-                if (theListViewItem.Text.StartsWith(dynamicComboBoxSearchTag.Text))
-                {
-                    listViewTags.TopItem = listViewTags.Items[ii];
-                    listViewTags.SelectedIndices.Clear();
-                    listViewTags.SelectedIndices.Add(ii);
-                    break;
-                }
-            }
-        }
-
-        // search text changed
-        private void textBoxSearchTag_TextChanged(object sender, EventArgs e)
-        {
-            if (textBoxSearchTag.Text.Length > 2)
-            {
-                if (listViewTags.SelectedIndices.Count == 0)
-                {
-                    listViewTags.Items[0].Selected = true;
-                }
-                for (int ii = listViewTags.SelectedIndices[0]; ii < listViewTags.Items.Count; ii++)
-                {
-                    if (selectItemInListViewTagsIfMatches(ii))
-                    {
-                        return;
-                    }
-                }
-                GeneralUtilities.message(LangCfg.Message.I_searchTextNotFound);
             }
         }
 
@@ -449,49 +240,15 @@ namespace QuickImageComment
         // buttons
         //-------------------------------------------------------------------------
 
-        // search previous tag
-        private void buttonSearchPrevious_Click(object sender, EventArgs e)
-        {
-            if (listViewTags.SelectedIndices.Count == 0)
-            {
-                listViewTags.Items[listViewTags.Items.Count - 1].Selected = true;
-            }
-            for (int ii = listViewTags.SelectedIndices[0] - 1; ii >= 0; ii--)
-            {
-                if (selectItemInListViewTagsIfMatches(ii))
-                {
-                    return;
-                }
-            }
-            GeneralUtilities.message(LangCfg.Message.I_searchTextNotFound);
-        }
-
-        // search next tag
-        private void buttonSearchNext_Click(object sender, EventArgs e)
-        {
-            if (listViewTags.SelectedIndices.Count == 0)
-            {
-                listViewTags.Items[0].Selected = true;
-            }
-            for (int ii = listViewTags.SelectedIndices[0] + 1; ii < listViewTags.Items.Count; ii++)
-            {
-                if (selectItemInListViewTagsIfMatches(ii))
-                {
-                    return;
-                }
-            }
-            GeneralUtilities.message(LangCfg.Message.I_searchTextNotFound);
-        }
-
         // meta date selected
         private void buttonMetaDatum_Click(object sender, EventArgs e)
         {
-            if (listViewTags.SelectedItems.Count > 0)
+            if (userControlTagList.listViewTags.SelectedItems.Count > 0)
             {
                 initDefinitionControls();
 
-                string MetaDataKey = listViewTags.SelectedItems[0].SubItems[3].Text;
-                string MetaDataType = listViewTags.SelectedItems[0].SubItems[1].Text;
+                string MetaDataKey = userControlTagList.listViewTags.SelectedItems[0].SubItems[3].Text;
+                string MetaDataType = userControlTagList.listViewTags.SelectedItems[0].SubItems[1].Text;
                 dynamicLabelMetaDate.Text = MetaDataKey;
 
                 enableDefinitionControls(MetaDataKey, MetaDataType);
@@ -594,8 +351,7 @@ namespace QuickImageComment
         // abort pressed
         private void buttonAbort_Click(object sender, EventArgs e)
         {
-            onlyInImageChecked = checkBoxOnlyInImage.Checked;
-            originalLanguageChecked = checkBoxOriginalLanguage.Checked;
+            userControlTagList.saveTagSelectionCriteria();
             this.Close();
         }
 
@@ -603,8 +359,7 @@ namespace QuickImageComment
         private void buttonOk_Click(object sender, EventArgs e)
         {
             resultString = richTextBoxValue.Text;
-            onlyInImageChecked = checkBoxOnlyInImage.Checked;
-            originalLanguageChecked = checkBoxOriginalLanguage.Checked;
+            userControlTagList.saveTagSelectionCriteria();
             this.Close();
         }
 
@@ -733,20 +488,6 @@ namespace QuickImageComment
                 MetaDataFormatIndex.Add(MetaDataItem.Format.DateFormat4, ii++);
                 MetaDataFormatIndex.Add(MetaDataItem.Format.DateFormat5, ii++);
             }
-        }
-
-        // search in list view of tags
-        private bool selectItemInListViewTagsIfMatches(int ii)
-        {
-            ListViewItem theListViewItem = listViewTags.Items[ii];
-            if (theListViewItem.Text.ToLower().Contains(textBoxSearchTag.Text.ToLower()) ||
-                theListViewItem.SubItems[2].Text.ToLower().Contains(textBoxSearchTag.Text.ToLower()))
-            {
-                listViewTags.TopItem = listViewTags.Items[ii];
-                listViewTags.Items[ii].Selected = true;
-                return true;
-            }
-            return false;
         }
 
         // get the placeholder definition around cursor position

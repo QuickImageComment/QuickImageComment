@@ -385,8 +385,7 @@ namespace QuickImageComment
             diffOldNew,
             diffDeleted,
             diffInserted,
-            savedIn,
-            hintListAvailableMetaData
+            savedIn
         }
 
         // defined as variable

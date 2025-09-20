@@ -100,7 +100,7 @@ namespace QuickImageComment
             };
 
         // languages supported by ExifTool
-        public static ArrayList ExifToolLanguages = new ArrayList { "de", "en", "fr", "es" };
+        public static ArrayList ExifToolLanguages = new ArrayList();
 
         // NOTE: must match definition in exiv2Cdecl.cpp
         private const string exiv2_exception_file = "\\QIC_exiv2_exception.txt";

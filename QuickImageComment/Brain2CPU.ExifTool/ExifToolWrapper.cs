@@ -550,6 +550,13 @@ namespace Brain2CPU.ExifTool
                             //!!: name is not unique
                             if (!Tags.ContainsKey(name))
                             {
+                                // check if a known tag looks like having a language suffix
+                                // is needed to verify that logic in UserControlTagList is sufficient to detect
+                                // entries having a language suffix
+                                if (mightBeLanguageSuffixAtEnd(name))
+                                {
+                                    GeneralUtilities.debugMessage("Looks like having a language suffix:" + name);
+                                }
                                 Tags.Add(name, new TagDefinition(name, type, description, name, descriptionTranslated, flags));
                                 if (flags.Contains("Unsafe")) UnsafeTags.Add(name);
                             }
@@ -562,6 +569,32 @@ namespace Brain2CPU.ExifTool
         internal static SortedList<string, TagDefinition> getTagList()
         {
             return Tags;
+        }
+
+        // checks if tag name might have a language suffix at the end like "-de-DE"
+        // it is a syntactical check only without verifying that it is really a valid lang-alt language suffix
+        // when creating list of tags it is checked that none of the known tags is matching these
+        // syntactical criteria and thus this simple check is sufficient
+        internal static bool mightBeLanguageSuffixAtEnd(string tagName)
+        {
+            int len = tagName.Length;
+            if (len > 6)
+            {
+                string langSuffix = tagName.Substring(len - 6);
+                if (langSuffix.Substring(0, 1).Equals("-") &&
+                    langSuffix.Substring(3, 1).Equals("-"))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public static ExifToolResponse CloneExif(string source, string dest, bool backup = false)
