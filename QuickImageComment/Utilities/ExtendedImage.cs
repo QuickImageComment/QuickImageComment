@@ -873,7 +873,7 @@ namespace QuickImageComment
                 keyIndex++;
                 keyStringIndex = GeneralUtilities.nameUniqueWithRunningNumber(keyString, keyIndex);
             }
-            if (Exiv2TagDefinitions.ByteUCS2Tags.Contains(keyString))
+            if (TagUtilities.ByteUCS2Tags.Contains(keyString))
             {
                 // string is coded as UCS-2, rebuild from byte array
                 string[] utf16strings = valueString.Split(new char[] { ' ' });
@@ -3570,7 +3570,7 @@ namespace QuickImageComment
                                         exiv2addItemToBuffer(key, "charset=Ascii " + (string)ImageChangedFields[key], exiv2WriteOptionDefault);
                                 }
                             }
-                            else if (Exiv2TagDefinitions.ByteUCS2Tags.Contains(key))
+                            else if (TagUtilities.ByteUCS2Tags.Contains(key))
                             {
                                 // convert to UCS-2 byte string
                                 string byteString = "";
@@ -3753,8 +3753,11 @@ namespace QuickImageComment
                             {
                                 TagValue = DateTime.Now.ToString("HH:mm:ss");
                             }
-                            // check exiv2 tags - except Xmp
-                            else if ((TagUtilities.isExiv2Tag(thePlaceholderDefinition.keyMain) &&
+                            // check tags - except Xmp as Xmp is open standard
+                            else if ((TagUtilities.isExifToolTag(thePlaceholderDefinition.keyMain) &&
+                                      !thePlaceholderDefinition.keyMain.StartsWith("XMP") &&
+                                      !ExifToolWrapper.getTagList().Keys.Contains(thePlaceholderDefinition.keyMain)) ||
+                                     (TagUtilities.isExiv2Tag(thePlaceholderDefinition.keyMain) &&
                                       !thePlaceholderDefinition.keyMain.StartsWith("Xmp.") &&
                                       !Exiv2TagDefinitions.getList().Keys.Contains(thePlaceholderDefinition.keyMain)) ||
                                      // check internal tags
@@ -3764,7 +3767,7 @@ namespace QuickImageComment
                                 throw new ExceptionErrorReplacePlaceholder(LangCfg.getText(LangCfg.Message.E_invalidPlaceholderKey, thePlaceholderDefinition.keyOriginal, Value));
                             }
                             else
-                            // tag is proven to be valid or validity cannot be proven (Xmp, ExifTool)
+                            // tag is proven to be valid or validity cannot be proven (Xmp)
                             {
                                 // get replace tag value
                                 ArrayList TagValueArrayList = new ArrayList();

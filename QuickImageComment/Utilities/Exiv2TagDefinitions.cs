@@ -66,22 +66,6 @@ namespace QuickImageComment
             "LangAlt"      // XMP
         };
 
-        // special logic for these tags only needed when writing with exiv2
-        // note: exiftool needs no special logic
-        public static ArrayList ByteUCS2Tags = new ArrayList
-        {
-            "Exif.Image.XPAuthor",
-            "Exif.Image.XPComment",
-            "Exif.Image.XPKeywords",
-            "Exif.Image.XPSubject",
-            "Exif.Image.XPTitle",
-            "Exif.Thumbnail.XPAuthor",
-            "Exif.Thumbnail.XPComment",
-            "Exif.Thumbnail.XPKeywords",
-            "Exif.Thumbnail.XPSubject",
-            "Exif.Thumbnail.XPTitle"
-        };
-
         // list of tags which cannot be changed due to functional reasons
         // does not include tags which cannot be changed due to its type
         // in ExifTool those tags are marked with flag "Unsafe"

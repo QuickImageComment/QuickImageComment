@@ -804,7 +804,7 @@ namespace QuickImageComment
                                 //!!: im folgendne Block exifTool Typen berücksichtigen, ggfs. über Funktionen
                                 if (MetaType.Equals("Byte"))
                                 {
-                                    if (!Exiv2TagDefinitions.ByteUCS2Tags.Contains(Spec.KeyPrim))
+                                    if (!TagUtilities.ByteUCS2Tags.Contains(Spec.KeyPrim))
                                     {
                                         ExceptionMessage = LangCfg.getText(LangCfg.Others.typeSpecByte);
                                         byte temp = byte.Parse(SubValues[kk]);

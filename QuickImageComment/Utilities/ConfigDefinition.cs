@@ -2912,7 +2912,7 @@ namespace QuickImageComment
                         enumMetaDataGroup enumValue = (enumMetaDataGroup)Enum.Parse(typeof(enumMetaDataGroup), firstPart);
                         // change with version 4.35: tags of type Byte containing UCS2 string 
                         // (e.g. Exif.Image.XPTitle) are entered as interpreted
-                        if (enumValue == enumMetaDataGroup.MetaDataDefForChange && Exiv2TagDefinitions.ByteUCS2Tags.Contains(theMetaDataDefinitionItem.KeyPrim))
+                        if (enumValue == enumMetaDataGroup.MetaDataDefForChange && TagUtilities.ByteUCS2Tags.Contains(theMetaDataDefinitionItem.KeyPrim))
                         {
                             theMetaDataDefinitionItem.FormatPrim = MetaDataItem.Format.Interpreted;
                         }

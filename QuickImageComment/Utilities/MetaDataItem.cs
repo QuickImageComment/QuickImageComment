@@ -290,7 +290,7 @@ namespace QuickImageComment
                     }
 #endif
                 case Format.ForComparisonAfterSave:
-                    if (key.Equals("Exif.Photo.UserComment") || Exiv2TagDefinitions.ByteUCS2Tags.Contains(key))
+                    if (key.Equals("Exif.Photo.UserComment") || TagUtilities.ByteUCS2Tags.Contains(key))
                     {
                         return InterpretedValue;
                     }

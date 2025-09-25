@@ -424,7 +424,7 @@ namespace QuickImageCommentControls
                 {
                     this.Rows[rowIndex].Cells[0].Value += " " + aMetaDataItem.getLanguage();
                 }
-                if (Exiv2TagDefinitions.ByteUCS2Tags.Contains(aMetaDataItem.getKey()))
+                if (TagUtilities.ByteUCS2Tags.Contains(aMetaDataItem.getKey()))
                 {
                     // show as interpreted to allow direct editing
                     this.Rows[rowIndex].Cells[1].Value = aMetaDataItem.getValueForDisplay(MetaDataItem.Format.Interpreted);
@@ -460,6 +460,7 @@ namespace QuickImageCommentControls
                 }
 
                 string key = aMetaDataItem.getKey();
+                // note: toolTip only for exiv2 tags, for exifTool description (which is short) is directly shown in table
                 if (Exiv2TagDefinitions.getList().ContainsKey(key))
                 {
                     if (ConfigDefinition.getDataGridViewDisplayEnglish(this))
@@ -645,7 +646,7 @@ namespace QuickImageCommentControls
 
                         bool displayedValueInEditableFormat = false;
                         // no adjustment for exiftool needed
-                        if (Exiv2TagDefinitions.ByteUCS2Tags.Contains(anMetaDataDefinitionItem.KeyPrim) ||
+                        if (TagUtilities.ByteUCS2Tags.Contains(anMetaDataDefinitionItem.KeyPrim) ||
                             anMetaDataDefinitionItem.TypePrim.Equals(TagUtilities.typeComment))
                         {
                             displayedValueInEditableFormat = anMetaDataDefinitionItem.FormatPrim == MetaDataItem.Format.Interpreted;

@@ -199,6 +199,7 @@ namespace QuickImageComment
                 dataGridViewDifferences.Columns[colidx].ToolTipText = "";
                 int jj = (int)KeyList[translatedkey];
                 string key = (string)differentTagsDisplay[jj];
+                // note: toolTip only for exiv2 tags, for exifTool description (which is short) is directly shown in table
                 if (Exiv2TagDefinitions.getList().ContainsKey(key))
                 {
                     toolTipText = Exiv2TagDefinitions.getList()[key].descriptionTranslated;

@@ -248,7 +248,8 @@ namespace QuickImageComment
                 initDefinitionControls();
 
                 string MetaDataKey = userControlTagList.listViewTags.SelectedItems[0].SubItems[3].Text;
-                string MetaDataType = userControlTagList.listViewTags.SelectedItems[0].SubItems[1].Text;
+                // type can contain additional information Xmp value type, separated with a space
+                string MetaDataType = userControlTagList.listViewTags.SelectedItems[0].SubItems[1].Text.Split(' ')[0];
                 dynamicLabelMetaDate.Text = MetaDataKey;
 
                 enableDefinitionControls(MetaDataKey, MetaDataType);

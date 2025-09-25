@@ -58,6 +58,32 @@ namespace QuickImageComment
             "rational64s",
             "rational64u"};
 
+        // tags have type Byte, but represent UCS2 encoded string
+        // special logic for these tags only needed when writing with exiv2
+        public static ArrayList ByteUCS2Tags = new ArrayList
+        {
+            "Exif.Image.XPAuthor",
+            "Exif.Image.XPComment",
+            "Exif.Image.XPKeywords",
+            "Exif.Image.XPSubject",
+            "Exif.Image.XPTitle",
+            "Exif.Thumbnail.XPAuthor",
+            "Exif.Thumbnail.XPComment",
+            "Exif.Thumbnail.XPKeywords",
+            "Exif.Thumbnail.XPSubject",
+            "Exif.Thumbnail.XPTitle"
+        };
+
+        // tags have type int8u, but represent UCS2 encoded string
+        public static ArrayList int8uUCS2Tags = new ArrayList
+        {
+            "IFD0:XPAuthor",
+            "IFD0:XPComment",
+            "IFD0:XPKeywords",
+            "IFD0:XPSubject",
+            "IFD0:XPTitle"
+        };
+
         // fields Exif.GPS... for question: better change in map, add anyhow
         internal static readonly ArrayList ExifGPSFields = new ArrayList {
             "Exif.GPSInfo.GPSLatitude",
@@ -70,7 +96,7 @@ namespace QuickImageComment
             "GPS:GPSLongitudeRef",
             "Composite:GPSLatitude",
             "Composite:GPSLongitude",
-            "Composite:GPSPosition"
+            "Composite:GPSPosition"  // has flag unsafe, so is not allowed to be added to changeable fields; added here just for completeness of GPS tags
         };
 
         // fields Image.GPS... for information message: change in map
@@ -129,8 +155,9 @@ namespace QuickImageComment
         // return if warning should be displayed before tag is added to changeable
         public static bool warnBeforeAddToChangeable(string key)
         {
-            if (Exiv2TagDefinitions.ByteUCS2Tags.Contains(key))
-                // these tags are of type byte, no warning is needed as they store UCS2 strings
+            if (TagUtilities.ByteUCS2Tags.Contains(key) ||
+                TagUtilities.int8uUCS2Tags.Contains(key))
+                // these tags are of type byte/intu8u, no warning is needed as they store UCS2 strings
                 return false;
             else
             {
@@ -228,6 +255,17 @@ namespace QuickImageComment
             }
         }
 
+        // return tagDefinition of a tag key
+        public static TagDefinition getTagDefinition(string key)
+        {
+            if (Exiv2TagDefinitions.getList().ContainsKey(key))
+                return Exiv2TagDefinitions.getList()[key];
+            else if (ExifToolWrapper.getTagList().ContainsKey(key))
+                return ExifToolWrapper.getTagList()[key];
+            else
+                return null;
+        }
+
         // check if tag is changeable
         public static bool tagCanBeAddedToChangeable(string key)
         {
@@ -251,8 +289,8 @@ namespace QuickImageComment
             }
             // check IPTC key words string
             else if (key.Equals("Image.IPTC_KeyWordsString") ||
-                     key.Equals("Iptc.Application2.Keywords"))
-                     //!!: add tag for keywords in videos
+                     key.Equals("Iptc.Application2.Keywords") ||
+                     key.Equals("IPTC:Keywords"))
             {
                 GeneralUtilities.message(LangCfg.Message.E_metaDataNotEnteredSpecial, key);
                 return false;
@@ -284,21 +322,7 @@ namespace QuickImageComment
 
             if (TagUtilities.isExifToolTag(key))
             {
-                if (ExifToolWrapper.isReady())
-                {
-                    if (ExifToolWrapper.getTagList().ContainsKey(key))
-                    {
-                        if (ExifToolWrapper.getTagList()[key].type.Equals("Readonly"))
-                            return false;
-                        else
-                            return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                }
-                else
+                if (!ExifToolWrapper.isReady())
                 {
                     GeneralUtilities.message(LangCfg.Message.E_ExifToolNotReadyForWritableCheck, key);
                     return false;
@@ -308,9 +332,9 @@ namespace QuickImageComment
         }
 
         // add fields to list of changeable fields
-        public static void addFieldToListOfChangeableFields(System.Collections.ArrayList TagsToAdd)
+        public static void addFieldToListOfChangeableFields(ArrayList TagsToAdd)
         {
-            System.Collections.ArrayList MetaDataDefinitionsWork = ConfigDefinition.getMetaDataDefinitions(ConfigDefinition.enumMetaDataGroup.MetaDataDefForChange);
+            ArrayList MetaDataDefinitionsWork = ConfigDefinition.getMetaDataDefinitions(ConfigDefinition.enumMetaDataGroup.MetaDataDefForChange);
             ArrayList CheckedTagsToAdd = new ArrayList();
 
             if (TagsToAdd.Count == 0)
@@ -338,28 +362,24 @@ namespace QuickImageComment
                     // consider that changes here may be usefull in input check in FormMetaDataDefinition as well
                     foreach (string key in TagsToAdd)
                     {
-                        if (!tagCanBeAddedToChangeable(key))
-                        {
-                            continue;
-                        }
                         // check if tag is part of Exif GPS fields
-                        else if (ExifGPSFields.Contains(key))
+                        if (ExifGPSFields.Contains(key))
                         {
-                            if (GeneralUtilities.questionMessage(LangCfg.Message.Q_changeGPSviaMapOrAdd, key) == DialogResult.No)
+                            if (GeneralUtilities.questionMessage(LangCfg.Message.Q_changeGPSviaMapOrAdd, key) == DialogResult.Yes)
                             {
-                                continue;
+                                CheckedTagsToAdd.Add(key);
                             }
                         }
-                        else if (key.StartsWith("ExifEasy."))
                         // check for ExifEasy
+                        else if (key.StartsWith("ExifEasy."))
                         {
                             MetaDataItem metaDataItem = MainMaskInterface.getTheExtendedImage().getOtherMetaDataItemByKey(key);
                             if (GeneralUtilities.questionMessage(LangCfg.Message.Q_ExifEasyAddRefKey, key, metaDataItem.getTypeName()) == DialogResult.Yes)
                             {
                                 CheckedTagsToAdd.Add(metaDataItem.getTypeName());
                             }
-                            continue;
                         }
+                        // check if tag depends on others with option to add those
                         else if (tagDependencies.ContainsKey(key))
                         {
                             string[] tagNames = (string[])tagDependencies[key];
@@ -393,9 +413,9 @@ namespace QuickImageComment
                                     }
                                 }
                             }
-                            continue;
                         }
-                        else
+                        // check if tag is changeable
+                        else if (tagCanBeAddedToChangeable(key))
                         {
                             CheckedTagsToAdd.Add(key);
                         }
@@ -439,11 +459,10 @@ namespace QuickImageComment
             }
         }
 
-
         // add fields to list of changeable fields
-        public static void addFieldToListOfFieldsForFind(System.Collections.ArrayList TagsToAdd)
+        public static void addFieldToListOfFieldsForFind(ArrayList TagsToAdd)
         {
-            System.Collections.ArrayList MetaDataDefinitionsWork = ConfigDefinition.getMetaDataDefinitions(ConfigDefinition.enumMetaDataGroup.MetaDataDefForFind);
+            ArrayList MetaDataDefinitionsWork = ConfigDefinition.getMetaDataDefinitions(ConfigDefinition.enumMetaDataGroup.MetaDataDefForFind);
 
             if (TagsToAdd.Count == 0)
             {
@@ -496,7 +515,7 @@ namespace QuickImageComment
         }
 
         // add fields to overview
-        public static void addFieldToOverview(System.Collections.ArrayList TagsToMove)
+        public static void addFieldToOverview(ArrayList TagsToMove)
         {
             ArrayList MetaDataDefinitionsWork;
 
@@ -551,7 +570,7 @@ namespace QuickImageComment
         }
 
         // add fields to overview
-        public static void addFieldToListOfFieldsForMultiEditTable(System.Collections.ArrayList TagsToMove)
+        public static void addFieldToListOfFieldsForMultiEditTable(ArrayList TagsToMove)
         {
             ArrayList MetaDataDefinitionsWork;
 
@@ -601,7 +620,7 @@ namespace QuickImageComment
         internal static MetaDataItem.Format getFormatForTagChange(string key)
         {
             if (key.Equals("Exif.Photo.UserComment") ||
-                Exiv2TagDefinitions.ByteUCS2Tags.Contains(key))
+                TagUtilities.ByteUCS2Tags.Contains(key))
             {
                 // use format "interpreted" because with "original" value of Usercomment start with "charset=..."
                 // and UCS2 tags are in original bytes
@@ -617,7 +636,7 @@ namespace QuickImageComment
         internal static MetaDataItem.Format getFormatForTagFind(string key, string type)
         {
             if (key.Equals("Exif.Photo.UserComment") ||
-                Exiv2TagDefinitions.ByteUCS2Tags.Contains(key))
+                TagUtilities.ByteUCS2Tags.Contains(key))
             {
                 // use format "interpreted" because with "original" value of Usercomment start with "charset=..."
                 // and UCS2 tags are in original bytes

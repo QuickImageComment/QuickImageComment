@@ -407,12 +407,8 @@ namespace QuickImageComment
         private void textBoxMetaDatum1_TextChanged(object sender, EventArgs e)
         {
             TagDefinition theTagDefinition = null;
-            // when tags are entered manually, the key may not be found; so try-catch to avoid errors
-            try
-            {
-                theTagDefinition = Exiv2TagDefinitions.getList()[textBoxMetaDatum1.Text];
-            }
-            catch { }
+            // when tags are entered manually, the key may not be found
+            theTagDefinition = TagUtilities.getTagDefinition(textBoxMetaDatum1.Text);
 
             if (dynamicComboBoxMetaDataType.SelectedItem.Equals(LangCfg.getText(ConfigDefinition.enumMetaDataGroup.MetaDataDefForChange)))
             {
@@ -493,10 +489,12 @@ namespace QuickImageComment
             if (!textBoxMetaDatum2.Text.Equals(""))
             {
                 TagDefinition theTagDefinition = null;
+                // when tags are entered manually, the key may not be found
+                theTagDefinition = TagUtilities.getTagDefinition(textBoxMetaDatum2.Text);
+
                 // when tags are entered manually, the key may not be found; so first check tag
-                if (Exiv2TagDefinitions.getList().ContainsKey(textBoxMetaDatum2.Text))
+                if (theTagDefinition != null)
                 {
-                    theTagDefinition = Exiv2TagDefinitions.getList()[textBoxMetaDatum2.Text];
                     // no check of dynamicComboBoxMetaDataType: MetaDatum2 is enabled if "changeProp" is not selected
                     if (TagUtilities.RationalTypes.Contains(theTagDefinition.type))
                     {
@@ -867,6 +865,7 @@ namespace QuickImageComment
             if (userControlTagList.listViewTags.SelectedItems.Count > 0)
             {
                 string MetaDataKey = userControlTagList.listViewTags.SelectedItems[0].SubItems[3].Text;
+                // type can contain additional information Xmp value type, separated with a space
                 string MetaDataType = userControlTagList.listViewTags.SelectedItems[0].SubItems[1].Text.Split(' ')[0];
 
                 if (selectionOfMetaDateOk(MetaDataKey, MetaDataType, theTextBoxMetaDatum.Equals(textBoxMetaDatum1),
@@ -902,7 +901,6 @@ namespace QuickImageComment
                 }
                 else if (MetaDataKey.Equals("Exif.Photo.MakerNote")) //!!: unchangeable tags, exiftool
                 {
-                    Logger.log();
                     GeneralUtilities.message(LangCfg.Message.E_makerSpecificNotSelectable, MetaDataKey);
                     return false;
                 }
@@ -1059,9 +1057,10 @@ namespace QuickImageComment
                     string MetaDataKey = textBoxMetaDatum1.Text;
                     // call only if key is known
                     // otherwise check is done when typing of a key is not complete and thus will fail
-                    if (Exiv2TagDefinitions.getList().ContainsKey(MetaDataKey))
+                    theTagDefinition = TagUtilities.getTagDefinition(theMetaDataDefinitionItem.KeyPrim);
+
+                    if (theTagDefinition != null)
                     {
-                        theTagDefinition = Exiv2TagDefinitions.getList()[MetaDataKey];
                         // just call for validation, no action depending on result needed
                         selectionOfMetaDateOk(MetaDataKey, theTagDefinition.type, true, listBoxMetaDataSelectedIndex);
                     }
@@ -1071,11 +1070,7 @@ namespace QuickImageComment
             else if (this.dynamicComboBoxMetaDataType.SelectedItem.Equals(LangCfg.getText(ConfigDefinition.enumMetaDataGroup.MetaDataDefForFind)))
             {
                 // when tags are entered manually, the key may not be found; so try-catch to avoid errors
-                try
-                {
-                    theTagDefinition = Exiv2TagDefinitions.getList()[textBoxMetaDatum1.Text];
-                }
-                catch { }
+                theTagDefinition = TagUtilities.getTagDefinition(textBoxMetaDatum1.Text);
 
                 // metadata for search, only selection of first field possible, but including format and vertical display offset
                 textBoxPostfix.Enabled = false;
@@ -1085,7 +1080,7 @@ namespace QuickImageComment
 
                 if (theTagDefinition != null &&
                     (textBoxMetaDatum1.Text.Equals("Exif.Photo.UserComment") ||
-                     Exiv2TagDefinitions.ByteUCS2Tags.Contains(textBoxMetaDatum1.Text) ||
+                     TagUtilities.ByteUCS2Tags.Contains(textBoxMetaDatum1.Text) ||
                      TagUtilities.isDateProperty(theTagDefinition.key, theTagDefinition.type) ||
                      ConfigDefinition.getInputCheckConfig(theTagDefinition.key) != null && !(ConfigDefinition.getInputCheckConfig(theTagDefinition.key)).isUserCheck()))
                 {
@@ -1133,9 +1128,9 @@ namespace QuickImageComment
                 buttonInputCheckEdit.Enabled = false;
                 buttonInputCheckDelete.Enabled = false;
 
-                if (Exiv2TagDefinitions.getList().ContainsKey(theMetaDataDefinitionItem.KeyPrim))
+                theTagDefinition = TagUtilities.getTagDefinition(theMetaDataDefinitionItem.KeyPrim);
+                if (theTagDefinition != null)
                 {
-                    theTagDefinition = Exiv2TagDefinitions.getList()[theMetaDataDefinitionItem.KeyPrim];
                     dynamicComboBoxMetaDataFormat1.Enabled = true;
                 }
                 else
@@ -1149,9 +1144,9 @@ namespace QuickImageComment
                 }
                 else
                 {
-                    if (Exiv2TagDefinitions.getList().ContainsKey(theMetaDataDefinitionItem.KeySec))
+                    theTagDefinition = TagUtilities.getTagDefinition(theMetaDataDefinitionItem.KeySec);
+                    if (theTagDefinition != null)
                     {
-                        theTagDefinition = Exiv2TagDefinitions.getList()[theMetaDataDefinitionItem.KeySec];
                         dynamicComboBoxMetaDataFormat2.Enabled = true;
                     }
                     else
