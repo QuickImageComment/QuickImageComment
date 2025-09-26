@@ -224,13 +224,26 @@ namespace Brain2CPU.ExifTool
 
         public static void Stop()
         {
-            if (Status == ExeStatus.Stopped)
+            if (Status == ExeStatus.Stopped || Status == ExeStatus.Stopping)
             {
-                // already stopped
+                // already stopped or stopping
                 return;
             }
 
             _stopRequested = true;
+
+            if (Status == ExeStatus.Starting)
+            {
+                // wait some time to finish start
+                for (int ii = 1; ii < 10; ii++)
+                {
+                    Thread.Sleep(500); // time in milliseconds
+                    if (Status == ExeStatus.Ready)
+                    {
+                        break; 
+                    }
+                }
+            }
 
             if (Status != ExeStatus.Ready)
                 throw new ExifToolException("Process must be ready");

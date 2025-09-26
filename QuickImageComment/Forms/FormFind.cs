@@ -2046,6 +2046,10 @@ namespace QuickImageComment
                     dataTable.ExtendedProperties["Folder"] = checkTable.ExtendedProperties["Folder"];
                     FolderName = (string)dataTable.ExtendedProperties["Folder"];
                     dynamicLabelFolder.Text = FolderName;
+                    if (!Directory.Exists(FolderName))
+                    {
+                        throw new Exception(LangCfg.getText(LangCfg.Others.folderForSearchInvalid, FolderName));
+                    }
                     dynamicLabelScanInformation.Text = LangCfg.getText(LangCfg.Others.findDataLoaded);
                     dynamicLabelScanInformation.Visible = true;
 

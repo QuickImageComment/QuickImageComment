@@ -236,7 +236,8 @@ namespace QuickImageComment
             E_ExifToolNotReadyToReadKeys,
             W_noBinaryExImPortVideo,
             E_LocationOfExifToolTagNotKnown,
-            W_differentValueSavedNotMultiple
+            W_differentValueSavedNotMultiple,
+            Q_startExifTool
         }
 
         public enum Others
@@ -385,7 +386,8 @@ namespace QuickImageComment
             diffOldNew,
             diffDeleted,
             diffInserted,
-            savedIn
+            savedIn,
+            folderForSearchInvalid
         }
 
         // defined as variable

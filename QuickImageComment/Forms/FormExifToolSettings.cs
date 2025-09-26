@@ -105,13 +105,13 @@ namespace QuickImageComment
 
         private void buttonStart_Click(object sender, EventArgs e)
         {
+            ConfigDefinition.setCfgUserString(ConfigDefinition.enumCfgUserString.ExifToolPath, textBoxProgramPath.Text);
             RestartExifTool();
         }
 
         private void RestartExifTool()
         {
             this.Cursor = Cursors.WaitCursor;
-            ConfigDefinition.setCfgUserString(ConfigDefinition.enumCfgUserString.ExifToolPath, textBoxProgramPath.Text);
             // stop and restart ExifTool
             ExifToolWrapper.Stop();
             displayCurrentExifToolInformation();
@@ -134,9 +134,12 @@ namespace QuickImageComment
 
         private void buttonOk_Click(object sender, EventArgs e)
         {
-            if (!ExifToolWrapper.isReady() || !ExifToolWrapper.getPath().Equals(textBoxProgramPath.Text))
+            string oldPath = ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.ExifToolPath);
+            ConfigDefinition.setCfgUserString(ConfigDefinition.enumCfgUserString.ExifToolPath, textBoxProgramPath.Text);
+            if (!ExifToolWrapper.isReady() && !oldPath.Equals(textBoxProgramPath.Text))
             {
-                RestartExifTool();
+                DialogResult dialogResult = GeneralUtilities.questionMessage(LangCfg.Message.Q_startExifTool);
+                if (dialogResult == DialogResult.Yes) RestartExifTool();
             }
             Close();
         }
