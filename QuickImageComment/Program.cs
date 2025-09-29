@@ -328,15 +328,6 @@ namespace QuickImageComment
                 {
                     hints += " MicrosoftStore";
                 }
-                else
-                {
-                    bool pdb = System.IO.File.Exists(ProgramPath + System.IO.Path.DirectorySeparatorChar + "QuickImageComment.pdb");
-                    hints += " PDB=" + pdb.ToString();
-                    if (!pdb)
-                    {
-                        GeneralUtilities.message(LangCfg.Message.W_noPDBfile);
-                    }
-                }
 #pragma warning restore CS0162
 
                 string details = LangCfg.getText(LangCfg.Others.errorFileCreated) + " " + DateTime.Now.ToString();

@@ -169,7 +169,6 @@ namespace QuickImageComment
             W_MetaDate1Empty,
             Q_deleteGeoDataEntry,
             Q_renameSearchEntry,
-            W_noPDBfile,
             W_menuEntryMissing,
             I_entryDeletionMissingMenuEntry,
             I_menEntryDisabled,
@@ -237,7 +236,8 @@ namespace QuickImageComment
             W_noBinaryExImPortVideo,
             E_LocationOfExifToolTagNotKnown,
             W_differentValueSavedNotMultiple,
-            Q_startExifTool
+            Q_startExifTool,
+            W_ShellItemNotSelectable
         }
 
         public enum Others

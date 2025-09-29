@@ -19,9 +19,12 @@ namespace QuickImageComment
         {
             InitializeComponent();
             MainMaskInterface.getCustomizationInterface().setFormToCustomizedValuesZoomInitial(this);
-            newSelectedFolder = FolderName;
+            if (FolderName.Equals("") || !Directory.Exists(FolderName))
+                newSelectedFolder = GongSolutions.Shell.ShellItem.Desktop.FileSystemPath;
+            else
+                newSelectedFolder = FolderName;
             //GongSolutions.Shell.ShellItem ShellItemSelectedFolder = new GongSolutions.Shell.ShellItem(FolderName);
-            theFolderTreeView.SelectedFolder = new GongSolutions.Shell.ShellItem(FolderName);
+            theFolderTreeView.SelectedFolder = new GongSolutions.Shell.ShellItem(newSelectedFolder);
             listBoxLastFolders.Items.Clear();
             listBoxLastFolders.Items.AddRange(ConfigDefinition.getFormSelectFolderLastFolders().ToArray());
             listBoxLastFolders.TopIndex = 0;
@@ -58,7 +61,15 @@ namespace QuickImageComment
         private void buttonOk_Click(object sender, EventArgs e)
         {
             if (listBoxLastFolders.SelectedIndex == -1)
-                newSelectedFolder = theFolderTreeView.SelectedFolder.FileSystemPath;
+            {
+                if (theFolderTreeView.SelectedFolder.IsFileSystem)
+                    newSelectedFolder = theFolderTreeView.SelectedFolder.FileSystemPath;
+                else
+                {
+                    GeneralUtilities.message(LangCfg.Message.W_ShellItemNotSelectable, theFolderTreeView.SelectedFolder.ParsingName);
+                    return;
+                }
+            }
             else
                 newSelectedFolder = listBoxLastFolders.SelectedItem.ToString();
 
