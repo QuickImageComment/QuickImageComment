@@ -14,6 +14,7 @@ namespace QuickImageComment
         public const string typeXmpSeq = "XmpSeq";
         public const string typeXmpText = "XmpText";
         public const string exifToolTypeString = "string";
+        public const string exifToolTypeLangAlt = "lang-alt";
 
         internal static ArrayList LangAltTypes = new ArrayList {
             "LangAlt",

@@ -598,7 +598,7 @@ namespace QuickImageCommentControls
 
             foreach (MetaDataDefinitionItem anMetaDataDefinitionItem in MetaDataDefinitions)
             {
-                if (anMetaDataDefinitionItem.TypePrim.Equals("LangAlt"))//!!: exiftool LangAlt
+                if (TagUtilities.LangAltTypes.Contains(anMetaDataDefinitionItem.TypePrim))
                 {
                     string value = theExtendedImage.getMetaDataValueByDefinitionAndLanguage(anMetaDataDefinitionItem, "x-default");
                     if (!value.Equals(""))

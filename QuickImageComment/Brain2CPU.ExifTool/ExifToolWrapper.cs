@@ -240,7 +240,7 @@ namespace Brain2CPU.ExifTool
                     Thread.Sleep(500); // time in milliseconds
                     if (Status == ExeStatus.Ready)
                     {
-                        break; 
+                        break;
                     }
                 }
             }
@@ -560,7 +560,10 @@ namespace Brain2CPU.ExifTool
                                 if (words[2].Equals(translatedLanguage)) descriptionTranslated = words[3];
                                 ii++;
                             }
-                            //!!: name is not unique
+                            // name can be contained in different tables which causes duplicates here
+                            // Example: CompressionLevel is listed in:
+                            // <table name='APE::NewHeader' g0='APE' g1='MAC' g2='Audio'>
+                            // <table name='APE::OldHeader' g0='APE' g1='MAC' g2='Audio'>
                             if (!Tags.ContainsKey(name))
                             {
                                 // check if a known tag looks like having a language suffix

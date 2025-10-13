@@ -156,7 +156,7 @@ namespace QuickImageComment
                 else
                 {
                     AllChangeableKeys.Add(aMetaDataDefinitionItem.KeyPrim);
-                    if (aMetaDataDefinitionItem.TypePrim.Equals("LangAlt"))//!!: exiftool LangAlt
+                    if (TagUtilities.LangAltTypes.Contains(aMetaDataDefinitionItem.TypePrim))
                     {
                         // controls for default language
                         // entries for type LangAlt are not multiline, so use comboBox

@@ -5984,7 +5984,7 @@ namespace QuickImageComment
                         // copy values from user comment
                         foreach (string key in ConfigDefinition.getTagNamesWriteCommentVideo())
                         {
-                            // video is always ExifTool key, so no language
+                            // video is always ExifTool key
                             changeableFieldsForSave.Add(key, NewUserComment);
                         }
                     else
@@ -5992,7 +5992,7 @@ namespace QuickImageComment
                         foreach (string key in ConfigDefinition.getTagNamesWriteCommentImage())
                         {
                             // these tags could be of XMP type LangAlt
-                            if (TagUtilities.getTagType(key).Equals("LangAlt") && !textBoxUserComment.Text.Equals(""))//!!: exiftool LangAlt
+                            if (TagUtilities.getTagType(key).Equals(TagUtilities.typeLangAlt) && !textBoxUserComment.Text.Equals(""))
                             {
                                 changeableFieldsForSave.Add(key, "lang=x-default " + NewUserComment);
                             }
@@ -6183,15 +6183,14 @@ namespace QuickImageComment
                     if (anExtendedImage.getIsVideo())
                         foreach (string key in ConfigDefinition.getTagNamesWriteCommentVideo())
                         {
-                            // video is always ExifTool key, so no language
-                            //!!: keine Anpassung für ExifTool notwendig?
+                            // video is always ExifTool key
                             changedFieldsForSave.Add(key, textBoxUserComment.Text);
                         }
                     else
                         foreach (string key in ConfigDefinition.getTagNamesWriteCommentImage())
                         {
                             // these tags could be of XMP type LangAlt
-                            if (TagUtilities.getTagType(key).Equals("LangAlt") && !textBoxUserComment.Text.Equals(""))//!!: exiftool LangAlt
+                            if (TagUtilities.getTagType(key).Equals("LangAlt") && !textBoxUserComment.Text.Equals(""))
                             {
                                 changedFieldsForSave.Add(key, "lang=x-default " + textBoxUserComment.Text);
                             }
@@ -6286,7 +6285,7 @@ namespace QuickImageComment
             {
                 changedFieldsForSave.Add(Spec.KeyPrim, valueString);
             }
-            else if (Spec.TypePrim.Equals("LangAlt"))//!!: exiftool LangAlt
+            else if (Spec.TypePrim.Equals(TagUtilities.typeLangAlt))
             {
                 if (!changedFieldsForSave.Contains(Spec.KeyPrim))
                 {
@@ -6304,6 +6303,12 @@ namespace QuickImageComment
                     }
                     ((ArrayList)changedFieldsForSave[Spec.KeyPrim]).Add("lang=" + Spec.Language + " " + valueString);
                 }
+            }
+            else if (Spec.TypePrim.Equals(TagUtilities.exifToolTypeLangAlt))
+            {
+                // key is composed with pipe here for placeholder handling
+                // key is converted to use dash in ExtendedImage.writeMetaData
+                changedFieldsForSave.Add(Spec.KeyPrim + "|" + Spec.Language, valueString);
             }
             // XmpText with structure
             // XmpText without structure needs to be given to exiv2 as one value (even if multi-line), done in else-branch
