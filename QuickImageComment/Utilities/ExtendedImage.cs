@@ -1882,8 +1882,8 @@ namespace QuickImageComment
             ReturnValue = theMetaDataDefinitionItem.Prefix;
             if (theMetaDataDefinitionItem.TypePrim.Equals(TagUtilities.typeLangAlt))
             {
-            ReturnValue += getMetaDataValueByKey(KeyPrim + "|" + language, theMetaDataDefinitionItem.FormatPrim);
-            ValueSec = getMetaDataValueByKey(KeySec + "|" + language, theMetaDataDefinitionItem.FormatSec);
+                ReturnValue += getMetaDataValueByKey(KeyPrim + "|" + language, theMetaDataDefinitionItem.FormatPrim);
+                ValueSec = getMetaDataValueByKey(KeySec + "|" + language, theMetaDataDefinitionItem.FormatSec);
             }
             else if (language.Equals("x-default"))
             {
@@ -1972,24 +1972,24 @@ namespace QuickImageComment
                 else
                 {
                     // key does not include language, return values for all languages
-            // specific sort order for values of type LangAlt: first default language, then languages as stored in XmpLangAltEntries
-            if (XmpMetaDataLangItems.ContainsKey(Key + "|x-default"))
-            {
-                ReturnArrayList.Add(getMetaDataValueByKey((string)XmpMetaDataLangItems[Key + "|x-default"], FormatSpecification));
-            }
-            foreach (string language in XmpLangAltEntries)
-            {
-                if (XmpMetaDataLangItems.ContainsKey(Key + "|" + language))
-                {
-                    string value = getMetaDataValueByKey((string)XmpMetaDataLangItems[Key + "|" + language], FormatSpecification);
-                    if (FormatSpecification == MetaDataItem.Format.Interpreted)
+                    // specific sort order for values of type LangAlt: first default language, then languages as stored in XmpLangAltEntries
+                    if (XmpMetaDataLangItems.ContainsKey(Key + "|x-default"))
                     {
-                        ReturnArrayList.Add(language + ": " + value);
+                        ReturnArrayList.Add(getMetaDataValueByKey((string)XmpMetaDataLangItems[Key + "|x-default"], FormatSpecification));
                     }
-                    else
+                    foreach (string language in XmpLangAltEntries)
                     {
-                        ReturnArrayList.Add(value);
-                    }
+                        if (XmpMetaDataLangItems.ContainsKey(Key + "|" + language))
+                        {
+                            string value = getMetaDataValueByKey((string)XmpMetaDataLangItems[Key + "|" + language], FormatSpecification);
+                            if (FormatSpecification == MetaDataItem.Format.Interpreted)
+                            {
+                                ReturnArrayList.Add(language + ": " + value);
+                            }
+                            else
+                            {
+                                ReturnArrayList.Add(value);
+                            }
                         }
                     }
                 }
@@ -2012,8 +2012,8 @@ namespace QuickImageComment
                     if (metaDataItemsContainKey(KeyMod))
                     {
                         ReturnArrayList.Add(getMetaDataValueByKey(KeyMod, FormatSpecification));
+                    }
                 }
-            }
                 else
                 {
                     // key does not include language, return values for all languages
@@ -2069,10 +2069,10 @@ namespace QuickImageComment
             // so it is easier to just try to get value array list instead of first searching for this key
             // if specific language is required, this will be done later
             if (TagUtilities.getTagType(thePlaceholderDefinition.keyMain).Equals(TagUtilities.exifToolTypeLangAlt))
-                {
+            {
                 ArrayList ReturnArrayList = new ArrayList();
-                    if (thePlaceholderDefinition.language.Equals(""))
-                    {
+                if (thePlaceholderDefinition.language.Equals(""))
+                {
                     if (changedFields.ContainsKey(thePlaceholderDefinition.keyMain + "|x-default"))
                     {
                         ReturnArrayList.Add(changedFields[thePlaceholderDefinition.keyMain + "|x-default"]);
@@ -2105,31 +2105,31 @@ namespace QuickImageComment
             {
                 // special formatting handling for LangAlt 
                 if (TagUtilities.getTagType(thePlaceholderDefinition.keyMain).Equals(TagUtilities.typeLangAlt))
-                        {
+                {
                     ArrayList theArrayList = (ArrayList)changedFields[thePlaceholderDefinition.keyMain];
                     ArrayList ReturnArrayList;
                     if (thePlaceholderDefinition.language.Equals(""))
-                            {
-                        ReturnArrayList = new ArrayList(theArrayList);
-                    // remove language prefix for format Original and shorten it for format Interpreted
-                    for (int ii = 0; ii < ReturnArrayList.Count; ii++)
                     {
-                        string[] values = ((string)ReturnArrayList[ii]).Split(new char[] { ' ' });
-                        if (values.Length == 1)
+                        ReturnArrayList = new ArrayList(theArrayList);
+                        // remove language prefix for format Original and shorten it for format Interpreted
+                        for (int ii = 0; ii < ReturnArrayList.Count; ii++)
                         {
-                            ReturnArrayList[ii] = "";
+                            string[] values = ((string)ReturnArrayList[ii]).Split(new char[] { ' ' });
+                            if (values.Length == 1)
+                            {
+                                ReturnArrayList[ii] = "";
+                            }
+                            else if (values[0].Equals("lang=x-default") ||
+                                thePlaceholderDefinition.format == MetaDataItem.Format.Original)
+                            {
+                                ReturnArrayList[ii] = ((string)ReturnArrayList[ii]).Substring(values[0].Length + 1);
+                            }
+                            else
+                            {
+                                ReturnArrayList[ii] = values[0].Substring(5) + ": " + ((string)ReturnArrayList[ii]).Substring(values[0].Length + 1);
+                            }
                         }
-                        else if (values[0].Equals("lang=x-default") ||
-                            thePlaceholderDefinition.format == MetaDataItem.Format.Original)
-                        {
-                            ReturnArrayList[ii] = ((string)ReturnArrayList[ii]).Substring(values[0].Length + 1);
-                        }
-                        else
-                        {
-                            ReturnArrayList[ii] = values[0].Substring(5) + ": " + ((string)ReturnArrayList[ii]).Substring(values[0].Length + 1);
-                        }
-                    }
-                    return ReturnArrayList;
+                        return ReturnArrayList;
                     }
                     else
                     {
@@ -3559,7 +3559,7 @@ namespace QuickImageComment
                             // it is key of type lang-alt, replace pipe to get valid exifTool key
                             ExifToolValues.Add(key.Replace("|", "-"), ImageChangedFields[key]);
                         else
-                        ExifToolValues.Add(key, ImageChangedFields[key]);
+                            ExifToolValues.Add(key, ImageChangedFields[key]);
 
                         keysToRemove.Add(key);
                     }

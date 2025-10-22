@@ -267,13 +267,13 @@ namespace QuickImageComment
 
             readFolderPerfomance = new Performance();
 #if USESTARTUPTHREAD
-            Thread StartupInitNewFolderThread = new Thread(StartupInitNewFolder)
+            Thread StartupExifToolInitNewFolderThread = new Thread(StartupExifToolInitNewFolder)
             {
                 IsBackground = true
             };
-            StartupInitNewFolderThread.Start();
+            StartupExifToolInitNewFolderThread.Start();
 #else
-            StartupInitNewFolder();
+            StartupExifToolInitNewFolder();
 #endif
             // set colors
             backColorInputUnchanged = dynamicComboBoxArtist.BackColor;
@@ -776,9 +776,9 @@ namespace QuickImageComment
             Program.StartupPerformance.measure("FormQIC after expandRoot");
 
 #if USESTARTUPTHREAD
-            //Program.StartupPerformance.measure("FormQIC before StartupInitNewFolderThread.Join");
-            StartupInitNewFolderThread.Join();
-            Program.StartupPerformance.measure("FormQIC *** after StartupInitNewFolderThread.Join");
+            //Program.StartupPerformance.measure("FormQIC before StartupExifToolInitNewFolderThread.Join");
+            StartupExifToolInitNewFolderThread.Join();
+            Program.StartupPerformance.measure("FormQIC *** after StartupExifToolInitNewFolderThread.Join");
 #endif
 
             theFolderTreeView.registerEventHandlers();
@@ -817,7 +817,7 @@ namespace QuickImageComment
             Program.StartupPerformance.measure("FormQIC after displayImageAfterReadFolder");
 
             // start update caching after display first image via displayImageAfterReadFolder
-            // when caching is started before e.g. via StartupInitNewFolder it happened that first file in folder 
+            // when caching is started before e.g. via StartupExifToolInitNewFolder it happened that first file in folder 
             // was read twice (first during caching) which caused delays in display first image
             ImageManager.startThreadToUpdateCaches();
 
@@ -926,15 +926,19 @@ namespace QuickImageComment
         }
 
         // as only one argument can be passed when starting a thread
-        private void StartupInitNewFolder()
+        private void StartupExifToolInitNewFolder()
         {
-            Program.StartupPerformance.measure("FormQIC *** StartupInitNewFolder start");
+            Program.StartupPerformance.measure("FormQIC *** StartupExifToolInitNewFolder start");
             string ExifToolPath = ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.ExifToolPath);
+            string iniPath = ConfigDefinition.getIniPath();
+            string ExifToolLanguage = ConfigDefinition.getCfgUserString(enumCfgUserString.LanguageExifTool);
             if (ExifToolPath.Length > 0 && !ExifToolPath.Equals("not yet set"))
             {
                 try
                 {
-                    ExifToolWrapper.init(ExifToolPath);
+                    //Program.StartupPerformance.measure("FormQIC *** exifTool start");
+                    ExifToolWrapper.init(iniPath, ExifToolLanguage, ExifToolPath);
+                    //Program.StartupPerformance.measure("FormQIC *** exifTool finish");
                 }
                 catch (Exception ex)
                 {
@@ -959,7 +963,7 @@ namespace QuickImageComment
             Program.StartupPerformance.measure("FormQIC *** ImageManager.initNewFolder finish");
             ShellItemStartupSelectedFolder = new GongSolutions.Shell.ShellItem(FolderName);
             //Program.StartupPerformance.measure("FormQIC *** ImageManagerInitNewFolder ShellItemStartupSelectedFolder created");
-            Program.StartupPerformance.measure("FormQIC *** StartupInitNewFolder finish");
+            Program.StartupPerformance.measure("FormQIC *** StartupExifToolInitNewFolder finish");
         }
 
         // started in thread to cyclically display memory information

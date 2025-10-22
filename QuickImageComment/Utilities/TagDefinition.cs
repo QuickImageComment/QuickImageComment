@@ -60,5 +60,32 @@ namespace QuickImageComment
             descriptionTranslated = givenDescriptionTranslated;
             flags = givenFlags;
         }
+
+        public TagDefinition(string tagDefinitionString)
+        {
+            var parts = tagDefinitionString.Split('\t');
+            if (parts.Length == 7)
+            {
+                key = parts[0];
+                type = parts[1];
+                xmpValueType = parts[2];
+                description = parts[3];
+                keyTranslated = parts[4];
+                descriptionTranslated = parts[5];
+                flags = parts[6];
+            }
+        }
+
+        public override string ToString()
+        {
+            return string.Join("\t",
+                               key,
+                               type,
+                               xmpValueType,
+                               description,
+                               keyTranslated,
+                               descriptionTranslated,
+                               flags);
+        }
     }
 }

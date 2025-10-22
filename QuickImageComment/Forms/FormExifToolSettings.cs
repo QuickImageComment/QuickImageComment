@@ -17,6 +17,7 @@
 using Brain2CPU.ExifTool;
 using System;
 using System.Windows.Forms;
+using static QuickImageComment.ConfigDefinition;
 
 namespace QuickImageComment
 {
@@ -119,7 +120,9 @@ namespace QuickImageComment
             {
                 try
                 {
-                    ExifToolWrapper.init(textBoxProgramPath.Text);
+                    string iniPath = ConfigDefinition.getIniPath();
+                    string ExifToolLanguage = ConfigDefinition.getCfgUserString(enumCfgUserString.LanguageExifTool);
+                    ExifToolWrapper.init(iniPath, ExifToolLanguage, textBoxProgramPath.Text);
                 }
                 catch (Exception ex)
                 {
