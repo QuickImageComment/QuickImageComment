@@ -24,10 +24,72 @@
 #include "makernote_int.hpp"
 #include "makernote_int_add.hpp"
 #include "properties.hpp"
+#include <wtypes.h>
+#include <fstream>
+#include <iostream>
+#include <windows.h>
+#include <shlobj.h> // For SHGetFolderPath
+#include <ShlObj_core.h>
 
 //#define TRACING 200
 
-#define VERSION "0.27.5.2"
+#define VERSION "0.27.5.3"
+
+// NOTE: must match definition in ConfigDefinition.cs
+const char* exiv2_exception_file = "\\QIC_exiv2_exception.txt";
+
+//-------------------------------------------------------------------------
+// basics: handling of fundamental exceptions
+// those, where control cannot be given back to C#, e.g. access violation
+// https://stackoverflow.com/questions/457577/catching-access-violation-exceptions
+//-------------------------------------------------------------------------
+
+// file name to be written to exception file
+static std::string imageFileName = "";
+
+// write fundamental exceptions to file 
+// NOTE: if changed, readExiv2ExceptionFile in ConfigDefinition.cs may need to be adopted
+static void writeFundamentalExceptionToFileAndTerminate(std::exception ex, const char* file, int line) {
+    // no error handling here, because this function is called in case
+    // of exceptions, where anyhow all is lost already
+
+    // Get the path to the AppData folder
+    char appDataPath[MAX_PATH];
+    HRESULT result = SHGetFolderPath(NULL, CSIDL_APPDATA, NULL, SHGFP_TYPE_CURRENT, appDataPath);
+    std::string filePath = std::string(appDataPath) + exiv2_exception_file;
+
+    // Write to the file
+    std::ofstream outFile(filePath);
+    if (outFile.is_open()) {
+        outFile << "File: " << imageFileName << "\n";
+        outFile << "Location: " << file << " " << line << "\n";
+        outFile << ex.what();
+        outFile.close();
+    }
+    exit(1);
+}
+
+// init structured exception translator
+extern "C" __declspec(dllexport) void __cdecl init_SE_Translator() {
+    // Be sure to enable "Yes with SEH Exceptions (/EHa)" in C++ / Code Generation;
+    _set_se_translator([](unsigned int u, EXCEPTION_POINTERS* pExp) {
+        std::string error = "SE Exception: ";
+        switch (u) {
+        case 0xC0000005:
+            error += "Access Violation";
+            break;
+        default:
+            char result[11];
+            sprintf_s(result, 11, "0x%08X", u);
+            error += result;
+        };
+        throw std::exception(error.c_str());
+        });
+}
+
+//-------------------------------------------------------------------------
+// start of wrapping code for exiv2
+//-------------------------------------------------------------------------
 
 // definitions for Exif Easy Access
 typedef Exiv2::ExifData::const_iterator(*EasyAccessFct)(const Exiv2::ExifData& ed);
@@ -242,6 +304,8 @@ extern "C" __declspec(dllexport) int __cdecl isExifMakernote(LPSTR metaDataClass
 extern "C" __declspec(dllexport) int __cdecl exiv2readImageByFileName(LPSTR fileName, LPSTR givenIniPath,
     LPSTR * comment, bool* IptcUTF8, LPSTR * errorText)
 {
+    // set file name used fundamental exception handling 
+    imageFileName = fileName;
     xmpBagSeqCount = -1;
     xmpLangLoop = false;
     *errorText = strdup("");
@@ -277,9 +341,14 @@ extern "C" __declspec(dllexport) int __cdecl exiv2readImageByFileName(LPSTR file
 
         return 0;
     }
-    catch (Exiv2::AnyError& e) {
+    catch (Exiv2::Error& e) {
         *errorText = strdup(e.what());
         return exiv2StatusException;
+    }
+    catch (std::exception ex) {
+        writeFundamentalExceptionToFileAndTerminate(ex, __FILE__, __LINE__);
+        // to avoid compiler warning "not all control paths return a value"
+        return 0;
     }
 }
 
@@ -288,7 +357,9 @@ extern "C" __declspec(dllexport) int __cdecl exiv2readImageByFileName(LPSTR file
 //-------------------------------------------------------------------------
 
 // get Exif buffer and first meta data item
-extern "C" __declspec(dllexport) void __cdecl exiv2getExifDataIteratorAll(bool* exifAvail) {
+extern "C" __declspec(dllexport) int __cdecl exiv2getExifDataIteratorAll(bool* exifAvail,
+    LPSTR * errorText) {
+    try {
     *exifAvail = false;
     exifDataRead = image->exifData();
     if (!exifDataRead.empty()) {
@@ -298,10 +369,23 @@ extern "C" __declspec(dllexport) void __cdecl exiv2getExifDataIteratorAll(bool* 
             *exifAvail = true;
         }
     }
+        return 0;
+    }
+    catch (Exiv2::Error& e) {
+        *errorText = strdup(e.what());
+        return exiv2StatusException;
+    }
+    catch (std::exception ex) {
+        writeFundamentalExceptionToFileAndTerminate(ex, __FILE__, __LINE__);
+        // to avoid compiler warning "not all control paths return a value"
+        return 0;
+    }
 }
 
 // get Exif buffer and first meta data item for key
-extern "C" __declspec(dllexport) void __cdecl exiv2getExifDataIteratorKey(LPSTR keyString, bool* exifAvail) {
+extern "C" __declspec(dllexport) int __cdecl exiv2getExifDataIteratorKey(LPSTR keyString, bool* exifAvail,
+    LPSTR * errorText) {
+    try {
     *exifAvail = false;
     exifDataRead = image->exifData();
     if (!exifDataRead.empty()) {
@@ -310,6 +394,17 @@ extern "C" __declspec(dllexport) void __cdecl exiv2getExifDataIteratorKey(LPSTR 
         if (exifMetaDataItem != exifEndItem) {
             *exifAvail = true;
         }
+    }
+        return 0;
+    }
+    catch (Exiv2::Error& e) {
+        *errorText = strdup(e.what());
+        return exiv2StatusException;
+    }
+    catch (std::exception ex) {
+        writeFundamentalExceptionToFileAndTerminate(ex, __FILE__, __LINE__);
+        // to avoid compiler warning "not all control paths return a value"
+        return 0;
     }
 }
 
@@ -392,10 +487,15 @@ extern "C" __declspec(dllexport) int __cdecl exiv2getExifDataItem(LPSTR * keyStr
         *exifAvail = exifMetaDataItem != exifEndItem;
         return 0;
     }
-    catch (Exiv2::AnyError& e) {
+    catch (Exiv2::Error& e) {
         *errorText = strdup(e.what());
         *exifAvail = false;
         return exiv2StatusException;
+    }
+    catch (std::exception ex) {
+        writeFundamentalExceptionToFileAndTerminate(ex, __FILE__, __LINE__);
+        // to avoid compiler warning "not all control paths return a value"
+        return 0;
     }
 }
 
@@ -431,9 +531,14 @@ extern "C" __declspec(dllexport) int __cdecl exiv2getExifEasyDataItem(int* index
         // loop finished, no data found 
         return 1;
     }
-    catch (Exiv2::AnyError& e) {
+    catch (Exiv2::Error& e) {
         *errorText = strdup(e.what());
         return exiv2StatusException;
+    }
+    catch (std::exception ex) {
+        writeFundamentalExceptionToFileAndTerminate(ex, __FILE__, __LINE__);
+        // to avoid compiler warning "not all control paths return a value"
+        return 0;
     }
 }
 
@@ -442,7 +547,9 @@ extern "C" __declspec(dllexport) int __cdecl exiv2getExifEasyDataItem(int* index
 //-------------------------------------------------------------------------
 
 // get Iptc buffer and first meta data item
-extern "C" __declspec(dllexport) void __cdecl exiv2getIptcDataIteratorAll(bool* iptcAvail) {
+extern "C" __declspec(dllexport) int __cdecl exiv2getIptcDataIteratorAll(bool* iptcAvail,
+    LPSTR * errorText) {
+    try {
     *iptcAvail = false;
     Exiv2::IptcData& iptcData = image->iptcData();
     if (!iptcData.empty()) {
@@ -452,10 +559,23 @@ extern "C" __declspec(dllexport) void __cdecl exiv2getIptcDataIteratorAll(bool* 
             *iptcAvail = true;
         }
     }
+        return 0;
+    }
+    catch (Exiv2::Error& e) {
+        *errorText = strdup(e.what());
+        return exiv2StatusException;
+    }
+    catch (std::exception ex) {
+        writeFundamentalExceptionToFileAndTerminate(ex, __FILE__, __LINE__);
+        // to avoid compiler warning "not all control paths return a value"
+        return 0;
+    }
 }
 
 // get Iptc buffer and first meta data item for key
-extern "C" __declspec(dllexport) void __cdecl exiv2getIptcDataIteratorKey(LPSTR keyString, bool* iptcAvail) {
+extern "C" __declspec(dllexport) int __cdecl exiv2getIptcDataIteratorKey(LPSTR keyString, bool* iptcAvail,
+    LPSTR * errorText) {
+    try {
     *iptcAvail = false;
     Exiv2::IptcData& iptcData = image->iptcData();
     if (!iptcData.empty()) {
@@ -464,6 +584,17 @@ extern "C" __declspec(dllexport) void __cdecl exiv2getIptcDataIteratorKey(LPSTR 
         if (iptcMetaDataItem != iptcEndItem) {
             *iptcAvail = true;
         }
+    }
+        return 0;
+    }
+    catch (Exiv2::Error& e) {
+        *errorText = strdup(e.what());
+        return exiv2StatusException;
+    }
+    catch (std::exception ex) {
+        writeFundamentalExceptionToFileAndTerminate(ex, __FILE__, __LINE__);
+        // to avoid compiler warning "not all control paths return a value"
+        return 0;
     }
 }
 
@@ -492,10 +623,15 @@ extern "C" __declspec(dllexport) int __cdecl exiv2getIptcDataItem(LPSTR * keyStr
         *iptcAvail = iptcMetaDataItem != iptcEndItem;
         return 0;
     }
-    catch (Exiv2::AnyError& e) {
+    catch (Exiv2::Error& e) {
         *errorText = strdup(e.what());
         *iptcAvail = false;
         return exiv2StatusException;
+    }
+    catch (std::exception ex) {
+        writeFundamentalExceptionToFileAndTerminate(ex, __FILE__, __LINE__);
+        // to avoid compiler warning "not all control paths return a value"
+        return 0;
     }
 }
 
@@ -504,7 +640,9 @@ extern "C" __declspec(dllexport) int __cdecl exiv2getIptcDataItem(LPSTR * keyStr
 //-------------------------------------------------------------------------
 
 // get Xmp buffer and first meta data item
-extern "C" __declspec(dllexport) void __cdecl exiv2getXmpDataIteratorAll(bool* xmpAvail) {
+extern "C" __declspec(dllexport) int __cdecl exiv2getXmpDataIteratorAll(bool* xmpAvail,
+    LPSTR * errorText) {
+    try {
     *xmpAvail = false;
     Exiv2::XmpData& xmpData = image->xmpData();
     if (!xmpData.empty()) {
@@ -514,10 +652,23 @@ extern "C" __declspec(dllexport) void __cdecl exiv2getXmpDataIteratorAll(bool* x
             *xmpAvail = true;
         }
     }
+        return 0;
+    }
+    catch (Exiv2::Error& e) {
+        *errorText = strdup(e.what());
+        return exiv2StatusException;
+    }
+    catch (std::exception ex) {
+        writeFundamentalExceptionToFileAndTerminate(ex, __FILE__, __LINE__);
+        // to avoid compiler warning "not all control paths return a value"
+        return 0;
+    }
 }
 
 // get Xmp buffer and first meta data item for key
-extern "C" __declspec(dllexport) void __cdecl exiv2getXmpDataIteratorKey(LPSTR keyString, bool* xmpAvail) {
+extern "C" __declspec(dllexport) int __cdecl exiv2getXmpDataIteratorKey(LPSTR keyString, bool* xmpAvail,
+    LPSTR * errorText) {
+    try {
     *xmpAvail = false;
     Exiv2::XmpData& xmpData = image->xmpData();
     if (!xmpData.empty()) {
@@ -526,6 +677,17 @@ extern "C" __declspec(dllexport) void __cdecl exiv2getXmpDataIteratorKey(LPSTR k
         if (xmpMetaDataItem != xmpEndItem) {
             *xmpAvail = true;
         }
+    }
+        return 0;
+    }
+    catch (Exiv2::Error& e) {
+        *errorText = strdup(e.what());
+        return exiv2StatusException;
+    }
+    catch (std::exception ex) {
+        writeFundamentalExceptionToFileAndTerminate(ex, __FILE__, __LINE__);
+        // to avoid compiler warning "not all control paths return a value"
+        return 0;
     }
 }
 
@@ -611,10 +773,15 @@ extern "C" __declspec(dllexport) int __cdecl exiv2getXmpDataItem(LPSTR * keyStri
         *xmpAvail = xmpMetaDataItem != xmpEndItem;
         return 0;
     }
-    catch (Exiv2::AnyError& e) {
+    catch (Exiv2::Error& e) {
         *errorText = strdup(e.what());
         *xmpAvail = false;
         return exiv2StatusException;
+    }
+    catch (std::exception ex) {
+        writeFundamentalExceptionToFileAndTerminate(ex, __FILE__, __LINE__);
+        // to avoid compiler warning "not all control paths return a value"
+        return 0;
     }
 }
 
@@ -859,12 +1026,17 @@ extern "C" __declspec(dllexport) int __cdecl exiv2writeImage(LPSTR fileName, LPS
 #endif
         return 0;
     }
-    catch (Exiv2::AnyError& e) {
+    catch (Exiv2::Error& e) {
         *errorText = strdup(e.what());
 #ifdef TRACING
         if (tracingCount < TRACING) tracingLog[tracingCount++] = strdup("exiv2writeImage finished with exception");
 #endif
         return exiv2StatusException;
+    }
+    catch (std::exception ex) {
+        writeFundamentalExceptionToFileAndTerminate(ex, __FILE__, __LINE__);
+        // to avoid compiler warning "not all control paths return a value"
+        return 0;
     }
 }
 
@@ -894,9 +1066,14 @@ extern "C" __declspec(dllexport) bool __cdecl exiv2tagRepeatable(LPSTR tagName) 
             Exiv2::IptcKey iptcKey(tagName);
             return Exiv2::IptcDataSets::dataSetRepeatable(iptcKey.tag(), iptcKey.record());
         }
-        catch (Exiv2::AnyError&)
+        catch (Exiv2::Error&)
         {
             return false;
+        }
+        catch (std::exception ex) {
+            writeFundamentalExceptionToFileAndTerminate(ex, __FILE__, __LINE__);
+            // to avoid compiler warning "not all control paths return a value"
+            return 0;
         }
     }
     else if (!strncmp(tagName, "Xmp.", 4)) {
@@ -912,9 +1089,14 @@ extern "C" __declspec(dllexport) bool __cdecl exiv2tagRepeatable(LPSTR tagName) 
                 return false;
             }
         }
-        catch (Exiv2::AnyError&)
+        catch (Exiv2::Error&)
         {
             return false;
+        }
+        catch (std::exception ex) {
+            writeFundamentalExceptionToFileAndTerminate(ex, __FILE__, __LINE__);
+            // to avoid compiler warning "not all control paths return a value"
+            return 0;
         }
     }
     else {
