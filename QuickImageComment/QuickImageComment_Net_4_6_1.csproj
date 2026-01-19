@@ -794,6 +794,7 @@
     <None Include="config\QuickImageCommentGeneral.ini">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="DirectShowLib\.editorconfig" />
     <None Include="leaflet\leaflet-src.esm.js.map" />
     <None Include="leaflet\leaflet-src.js.map" />
     <None Include="leaflet\leaflet.js.map" />

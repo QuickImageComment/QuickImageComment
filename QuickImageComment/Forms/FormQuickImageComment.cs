@@ -233,7 +233,7 @@ namespace QuickImageComment
             // data grids for meta data
             // controls added here, so that all settings can be defined in constructor of DataGridViewMetaData
             // when controls are added in Designer.cs then each time the mask is changed, new columns are added by Visual Studio Designer
-            this.DataGridViewOverview = new QuickImageCommentControls.DataGridViewMetaData("DataGridViewOverview",
+            this.DataGridViewOverview = new QuickImageCommentControls.DataGridViewMetaData("DataGridViewOverview", "",
                 toolTip1, ChangedDataGridViewValues);
             this.tabPageOverview.Controls.Add(this.DataGridViewOverview);
             // as DataGridViewMetaData sets column headers, which is not wanted for overview ...
@@ -250,19 +250,20 @@ namespace QuickImageComment
             this.DataGridViewOverview.ContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
                 DataGridViewOverview.toolStripSeparator2,
                 DataGridViewOverview.toolStripMenuItemCopy});
-            this.DataGridViewExif = new QuickImageCommentControls.DataGridViewMetaData("DataGridViewExif",
+            this.DataGridViewExif = new QuickImageCommentControls.DataGridViewMetaData("DataGridViewExif", "Exif.",
                 toolTip1, ChangedDataGridViewValues);
             this.tabPageExif.Controls.Add(this.DataGridViewExif);
-            this.DataGridViewIptc = new QuickImageCommentControls.DataGridViewMetaData("DataGridViewIptc",
+            this.DataGridViewIptc = new QuickImageCommentControls.DataGridViewMetaData("DataGridViewIptc", "Iptc.",
                 toolTip1, ChangedDataGridViewValues);
             this.tabPageIptc.Controls.Add(this.DataGridViewIptc);
-            this.DataGridViewXmp = new QuickImageCommentControls.DataGridViewMetaData("DataGridViewXmp",
+            this.DataGridViewXmp = new QuickImageCommentControls.DataGridViewMetaData("DataGridViewXmp", "Xmp.",
                 toolTip1, ChangedDataGridViewValues);
             this.tabPageXmp.Controls.Add(this.DataGridViewXmp);
-            this.DataGridViewExifTool = new QuickImageCommentControls.DataGridViewMetaData("DataGridViewExifTool",
+            this.DataGridViewExifTool = new QuickImageCommentControls.DataGridViewMetaData("DataGridViewExifTool", "ExifTool.",
                 toolTip1, ChangedDataGridViewValues);
             this.tabPageExifTool.Controls.Add(this.DataGridViewExifTool);
-            this.DataGridViewOtherMetaData = new QuickImageCommentControls.DataGridViewMetaData("DataGridViewOtherMetaData", toolTip1, ChangedDataGridViewValues);
+            this.DataGridViewOtherMetaData = new QuickImageCommentControls.DataGridViewMetaData("DataGridViewOtherMetaData", "",
+                toolTip1, ChangedDataGridViewValues);
             this.tabPageOther.Controls.Add(this.DataGridViewOtherMetaData);
 
             readFolderPerfomance = new Performance();
@@ -4082,11 +4083,11 @@ namespace QuickImageComment
             //}
             DataGridViewOverview.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
 
-            DataGridViewExif.fillData("Exif.", theExtendedImage.getExifMetaDataItems());
-            DataGridViewIptc.fillData("Iptc.", theExtendedImage.getIptcMetaDataItems());
-            DataGridViewXmp.fillData("Xmp.", theExtendedImage.getXmpMetaDataItems());
-            DataGridViewExifTool.fillData("ExifTool.", theExtendedImage.getExifToolMetaDataItems());
-            DataGridViewOtherMetaData.fillData("", theExtendedImage.getOtherMetaDataItems());
+            DataGridViewExif.fillData(theExtendedImage.getExifMetaDataItems());
+            DataGridViewIptc.fillData(theExtendedImage.getIptcMetaDataItems());
+            DataGridViewXmp.fillData(theExtendedImage.getXmpMetaDataItems());
+            DataGridViewExifTool.fillData(theExtendedImage.getExifToolMetaDataItems());
+            DataGridViewOtherMetaData.fillData(theExtendedImage.getOtherMetaDataItems());
         }
 
         // get predefined comment categories and store in combo box

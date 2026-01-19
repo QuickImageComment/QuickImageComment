@@ -50,8 +50,9 @@ namespace QuickImageCommentControls
 
         private readonly SortedList<string, string> ChangedDataGridViewValues;
 
-        public DataGridViewMetaData(string name, ToolTipQIC toolTip, SortedList<string, string> ChangedDataGridViewValues)
+        public DataGridViewMetaData(string name, string Prefix, ToolTipQIC toolTip, SortedList<string, string> ChangedDataGridViewValues)
         {
+            this.Prefix = Prefix;
             this.toolTip = toolTip;
             this.ChangedDataGridViewValues = ChangedDataGridViewValues;
             this.AllowUserToAddRows = false;
@@ -266,9 +267,8 @@ namespace QuickImageCommentControls
             toolStripSeparator2.Visible = visible;
         }
 
-        public void fillData(string givenPrefix, System.Collections.SortedList givenMetaDataItems)
+        public void fillData(System.Collections.SortedList givenMetaDataItems)
         {
-            Prefix = givenPrefix;
             MetaDataItems = givenMetaDataItems;
 
             // Frozen set here and not in constructor:
