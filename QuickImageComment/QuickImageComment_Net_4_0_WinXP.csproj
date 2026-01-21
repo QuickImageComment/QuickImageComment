@@ -118,9 +118,6 @@
     <Compile Include="Controls\ToolTipQIC.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\ToolTipQIC.Designer.cs">
-      <DependentUpon>ToolTipQIC.cs</DependentUpon>
-    </Compile>
     <Compile Include="Controls\TreeViewKeyWords.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -559,9 +556,6 @@
     <Compile Include="Controls\UserControlMap.Designer.cs">
       <DependentUpon>UserControlMap.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Controls\ToolTipQIC.resx">
-      <DependentUpon>ToolTipQIC.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Controls\UserControlTagList.resx">
       <DependentUpon>UserControlTagList.cs</DependentUpon>
     </EmbeddedResource>
@@ -1027,8 +1021,7 @@ copy $(ProjectDir)\App_Net4_WinXP.config $(TargetDir)\$(TargetName).exe.config</
   <PropertyGroup>
     <PreBuildEvent>
 echo Copy exiv2cdecl.dll
-echo exiv2 0.28 does not run on Win XP, use 0.27.5.x from QIC 4.54 
-$(PlatformName)\exiv2Cdecl.dll  $(ProjectDir)\exiv2Cdecl.dll
+echo exiv2 0.28 does not run on Win XP, use 0.27.5.x from branch exiv2-0.27.5-for-WinXP
 xcopy /y C:\_prg\exiv2Cdecl_WinXP\exiv2Cdecl\Prj_exiv2Cdecl\$(ConfigurationName)_$(PlatformName)\exiv2Cdecl.dll  $(ProjectDir)\exiv2Cdecl.dll
 if %25errorlevel%25 neq 0 exit /b %25errorlevel%25</PreBuildEvent>
   </PropertyGroup>

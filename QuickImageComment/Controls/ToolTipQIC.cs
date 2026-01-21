@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace QuickImageComment
@@ -8,9 +10,13 @@ namespace QuickImageComment
     {
         private readonly IDictionary<object, string> objectToolTips;
 
+        private SubclassedWindow _wnd;
+
         public ToolTipQIC()
         {
-            InitializeComponent();
+            this.OwnerDraw = true;
+            this.Draw += new System.Windows.Forms.DrawToolTipEventHandler(this.toolTipQIC_Draw);
+            this.Popup += new System.Windows.Forms.PopupEventHandler(this.toolTipQIC_Popup);
             objectToolTips = new Dictionary<object, string>();
         }
 
@@ -40,6 +46,16 @@ namespace QuickImageComment
 
         private void toolTipQIC_Popup(object sender, PopupEventArgs e)
         {
+            if (_wnd == null)
+            {
+                IntPtr hWnd = FindToolTipWindow();
+                if (hWnd != IntPtr.Zero)
+                {
+                    _wnd = new SubclassedWindow();
+                    _wnd.AssignHandle(hWnd);
+                }
+            }
+
             e.ToolTipSize = TextRenderer.MeasureText(
                 GetToolTip(e.AssociatedControl), e.AssociatedControl.Font, new Size(600, int.MaxValue),
                 System.Windows.Forms.TextFormatFlags.WordBreak);
@@ -63,6 +79,9 @@ namespace QuickImageComment
 
         //*****************************************************************
         // specific logic for MenuStrio
+        // DISABLED in FormQuickImageComment
+        // When building on Windows 11 the own tool tip caused problems with menu item delete:
+        // delete dialog was displayed, but disappeared almost immedeatly due to cancel events from tool tip
         //*****************************************************************
         internal void configureToolTipForMenuStrip(MenuStrip menuStrip, IWin32Window window)
         {
@@ -82,11 +101,33 @@ namespace QuickImageComment
                 item.ToolTipText = "";
 
                 // add event handlers for showing and hiding tool tip
-                item.MouseHover += (s, args) =>
+                item.MouseHover += (sender, args) =>
                 {
-                    if (s is ToolStripItem toolStripItem)
+                    if (sender is ToolStripItem toolStripItem)
                     {
-                        ShowForObject(item, window);
+                        Point offsetPoint = new Point(toolStripItem.Bounds.Left, toolStripItem.Bounds.Top - toolStripItem.Height);
+                        string toolTipText = LangCfg.translate(objectToolTips[toolStripItem], toolStripItem.ToString());
+
+                        Control owner = toolStripItem.GetCurrentParent();
+                        if (owner != null)
+                        {
+                            ((Control)window).BeginInvoke((Action)(() =>
+                            {
+                                Timer t = new Timer();
+                                t.Interval = 10; // small delay
+                                t.Tick += (s, e) =>
+                                {
+                                    t.Stop();
+                                    t.Dispose();
+                                    base.Show(toolTipText, window);
+                                };
+                                t.Start();
+                            }));
+                        }
+                        else
+                        {
+                            base.Show(toolTipText, window);
+                        }
                     }
                 };
                 item.MouseLeave += (s, e) =>
@@ -108,10 +149,40 @@ namespace QuickImageComment
             }
         }
 
-        internal void ShowForObject(object sender, IWin32Window window)
+        protected override void Dispose(bool disposing)
         {
-            string toolTipText = LangCfg.translate(objectToolTips[sender], sender.ToString());
-            ShowAtOffset(toolTipText, window);
+            if (_wnd != null)
+            {
+                _wnd.ReleaseHandle();
+                _wnd = null;
+            }
+
+            base.Dispose(disposing);
         }
+
+        private IntPtr FindToolTipWindow()
+        {
+            // Tooltip windows use the class name "tooltips_class32"
+            return FindWindow("tooltips_class32", null);
+        }
+
+        internal class SubclassedWindow : NativeWindow
+        {
+            private const int WM_CANCELMODE = 0x001F;
+            protected override void WndProc(ref Message m)
+            {
+                if (m.Msg == WM_CANCELMODE)
+                {
+                    Logger.log("TOOLTIP: WM_CANCELMODE swallowed");
+                    // swallow the message so it doesn't propagate
+                    return;
+                }
+                base.WndProc(ref m);
+            }
+        }
+
+
+        [DllImport("user32.dll", SetLastError = true)]
+        private static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
     }
 }

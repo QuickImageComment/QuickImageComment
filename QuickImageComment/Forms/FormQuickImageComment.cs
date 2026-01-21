@@ -203,7 +203,11 @@ namespace QuickImageComment
             // Required for Windows Form Designer support
             InitializeComponent();
 
-            toolTip1.configureToolTipForMenuStrip(MenuStrip1, this);
+            // For menu items use built-in tool tip
+            // When building on Windows 11 the own tool tip caused problems with menu item delete:
+            // delete dialog was displayed, but disappeared almost immedeatly due to cancel events from tool tip
+            MenuStrip1.ShowItemToolTips = true;
+            //toolTip1.configureToolTipForMenuStrip(MenuStrip1, this);
 
             // for Microsoft Store, promotion of download has to be disabled
             ToolStripMenuItemWebPageDownload.Visible = !GeneralUtilities.MicrosoftStore;
@@ -1654,7 +1658,7 @@ namespace QuickImageComment
         // for display of tool tips with scaling
         private void toolStripItem_MouseHover(object sender, EventArgs e)
         {
-            toolTip1.ShowAtOffset(((ToolStripButton)sender).ToolTipText, this.toolStrip1);
+            toolTip1.Show(((ToolStripButton)sender).ToolTipText, this.toolStrip1);
         }
         private void toolStripItem_MouseLeave(object sender, EventArgs e)
         {
