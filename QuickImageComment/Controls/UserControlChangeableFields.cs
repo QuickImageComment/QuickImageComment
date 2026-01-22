@@ -801,8 +801,11 @@ namespace QuickImageComment
                             string[] SubValues = Values[ii].Split(' ');
                             for (int kk = 0; kk < SubValues.Length; kk++)
                             {
-                                //!!: im folgendne Block exifTool Typen berücksichtigen, ggfs. über Funktionen
-                                if (MetaType.Equals("Byte"))
+                                // exifTool types are not considered here:
+                                // they can be entered as interpreted, e.g. "cm" for JFIF:ResolutionUnit
+                                // exifTool throws exception if entered value is invalid, so no need to do it here
+                                // it is accepted that behaviour is slightly different to input errors of exiv2 tags
+                                if (MetaType.Equals(TagUtilities.typeByte))
                                 {
                                     if (!TagUtilities.ByteUCS2Tags.Contains(Spec.KeyPrim))
                                     {
@@ -810,32 +813,32 @@ namespace QuickImageComment
                                         byte temp = byte.Parse(SubValues[kk]);
                                     }
                                 }
-                                else if (MetaType.Equals("SByte"))
+                                else if (MetaType.Equals(TagUtilities.typeSByte))
                                 {
                                     ExceptionMessage = LangCfg.getText(LangCfg.Others.typeSpecSByte);
                                     sbyte temp = sbyte.Parse(SubValues[kk]);
                                 }
-                                else if (MetaType.Equals("Short"))
+                                else if (MetaType.Equals(TagUtilities.typeShort))
                                 {
                                     ExceptionMessage = LangCfg.getText(LangCfg.Others.typeSpecShort);
                                     ushort temp = ushort.Parse(SubValues[kk]);
                                 }
-                                else if (MetaType.Equals("SShort"))
+                                else if (MetaType.Equals(TagUtilities.typeSShort))
                                 {
                                     ExceptionMessage = LangCfg.getText(LangCfg.Others.typeSpecSShort);
                                     short temp = short.Parse(SubValues[kk]);
                                 }
-                                else if (MetaType.Equals("Long"))
+                                else if (MetaType.Equals(TagUtilities.typeLong))
                                 {
                                     ExceptionMessage = LangCfg.getText(LangCfg.Others.typeSpecLong);
                                     uint temp = uint.Parse(SubValues[kk]);
                                 }
-                                else if (MetaType.Equals("SLong"))
+                                else if (MetaType.Equals(TagUtilities.typeSLong))
                                 {
                                     ExceptionMessage = LangCfg.getText(LangCfg.Others.typeSpecSLong);
                                     int temp = int.Parse(SubValues[kk]);
                                 }
-                                else if (MetaType.Equals("Float"))
+                                else if (MetaType.Equals(TagUtilities.typeFloat))
                                 {
                                     ExceptionMessage = LangCfg.getText(LangCfg.Others.typeSpecFloatDouble);
                                     if (SubValues[kk].Contains(","))
@@ -844,7 +847,7 @@ namespace QuickImageComment
                                     }
                                     float temp = float.Parse(SubValues[kk]);
                                 }
-                                else if (MetaType.Equals("Double"))
+                                else if (MetaType.Equals(TagUtilities.typeDouble))
                                 {
                                     ExceptionMessage = LangCfg.getText(LangCfg.Others.typeSpecFloatDouble);
                                     if (SubValues[kk].Contains(","))
@@ -853,7 +856,7 @@ namespace QuickImageComment
                                     }
                                     double temp = double.Parse(SubValues[kk]);
                                 }
-                                else if (MetaType.Equals("Rational"))
+                                else if (MetaType.Equals(TagUtilities.typeRational))
                                 {
                                     ExceptionMessage = LangCfg.getText(LangCfg.Others.typeSpecRational);
                                     string[] RationalParts = SubValues[kk].Split(new string[] { "/" }, StringSplitOptions.None);
@@ -864,7 +867,7 @@ namespace QuickImageComment
                                     uint temp0 = uint.Parse(RationalParts[0]);
                                     uint temp1 = uint.Parse(RationalParts[1]);
                                 }
-                                else if (MetaType.Equals("SRational"))
+                                else if (MetaType.Equals(TagUtilities.typeSRational))
                                 {
                                     ExceptionMessage = LangCfg.getText(LangCfg.Others.typeSpecSRational);
                                     string[] RationalParts = SubValues[kk].Split(new string[] { "/" }, StringSplitOptions.None);

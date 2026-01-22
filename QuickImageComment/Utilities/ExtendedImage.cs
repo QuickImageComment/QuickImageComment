@@ -492,43 +492,43 @@ namespace QuickImageComment
             try
             {
 #endif
-                string iniPath = ConfigDefinition.getIniPath();
-                string comment = "";
-                string errorText = "";
+            string iniPath = ConfigDefinition.getIniPath();
+            string comment = "";
+            string errorText = "";
 
-                // do not call exiv2 if image is known to cause fatal exceptions
-                // or an empty list of exiv2 keys is given
-                if (!ConfigDefinition.getImagesCausingExiv2Exception().Contains(this.ImageFileName) &&
-                    (neededKeysExiv2 == null || neededKeysExiv2.Count > 0))
+            // do not call exiv2 if image is known to cause fatal exceptions
+            // or an empty list of exiv2 keys is given
+            if (!ConfigDefinition.getImagesCausingExiv2Exception().Contains(this.ImageFileName) &&
+                (neededKeysExiv2 == null || neededKeysExiv2.Count > 0))
+            {
+                // lock because this method can be called in main thread or via updateCaches
+                lock (LockReadExiv2)
                 {
-                    // lock because this method can be called in main thread or via updateCaches
-                    lock (LockReadExiv2)
+                    status = exiv2readImageByFileName(ImageFileName, iniPath, ref comment, ref IptcUTF8, ref errorText);
+                    if (!errorText.Equals("") && !ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.HideExiv2Error))
                     {
-                        status = exiv2readImageByFileName(ImageFileName, iniPath, ref comment, ref IptcUTF8, ref errorText);
-                        if (!errorText.Equals("") && !ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.HideExiv2Error))
+                        MetaDataWarningsRead.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error), errorText));
+                    }
+
+                    // read Exif, Iptc and XMP only, if exiv2readImageByFileName did not return with exception
+                    if (status != exiv2StatusException)
+                    {
+                        // get image comment
+                        addReplaceOtherMetaDataKnownType("Image.Comment", comment);
+
+                        if (neededKeysExiv2 == null)
                         {
-                            MetaDataWarningsRead.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exiv2Error), errorText));
+                            // read all Exif, IPTC and XMP data
+                            readAllExifIptcXmp();
                         }
-
-                        // read Exif, Iptc and XMP only, if exiv2readImageByFileName did not return with exception
-                        if (status != exiv2StatusException)
+                        else if (neededKeysExiv2.Count > 0)
                         {
-                            // get image comment
-                            addReplaceOtherMetaDataKnownType("Image.Comment", comment);
-
-                            if (neededKeysExiv2 == null)
-                            {
-                                // read all Exif, IPTC and XMP data
-                                readAllExifIptcXmp();
-                            }
-                            else if (neededKeysExiv2.Count > 0)
-                            {
-                                // read all Exif, IPTC and XMP data
-                                readExifIptcXmpForNeededKeys(neededKeysExiv2);
-                            }
+                            // read all Exif, IPTC and XMP data
+                            readExifIptcXmpForNeededKeys(neededKeysExiv2);
                         }
                     }
                 }
+            }
 #if !DEBUG
             }
             catch (Exception ex)
@@ -2455,18 +2455,18 @@ namespace QuickImageComment
             try
             {
 #endif
-                // reading with ExifTool outside the lock as ExitToolWrapper has its own lock
-                string language = ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.LanguageExifTool);
-                // use -charset exif=Latin and iptc=Latin to get exif/iptc values in Unicode
-                // note: if the value was stored in UTF8 it can be converted back to UTF8 later (see below),
-                // whereas not using -charset and trying the opposite conversion seems not to be possible
-                List<string> arguments = new List<string> { "-charset", "exif=Latin", "-charset", "iptc=Latin", "-D", "-G:6:1",
+            // reading with ExifTool outside the lock as ExitToolWrapper has its own lock
+            string language = ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.LanguageExifTool);
+            // use -charset exif=Latin and iptc=Latin to get exif/iptc values in Unicode
+            // note: if the value was stored in UTF8 it can be converted back to UTF8 later (see below),
+            // whereas not using -charset and trying the opposite conversion seems not to be possible
+            List<string> arguments = new List<string> { "-charset", "exif=Latin", "-charset", "iptc=Latin", "-D", "-G:6:1",
                 "-sep", ExifToolWrapper.readSeparator, "-j", "-l", "-lang", language, "-m" };
-                if (neededKeysExifTool != null)
-                {
-                    for (int ii = 0; ii < neededKeysExifTool.Count; ii++) arguments.Add("-" + neededKeysExifTool[ii]);
-                }
-                string jsonResponse = ExifToolWrapper.FetchExifToStringFrom(ImageFileName, arguments.ToArray());
+            if (neededKeysExifTool != null)
+            {
+                for (int ii = 0; ii < neededKeysExifTool.Count; ii++) arguments.Add("-" + neededKeysExifTool[ii]);
+            }
+            string jsonResponse = ExifToolWrapper.FetchExifToStringFrom(ImageFileName, arguments.ToArray());
 
 #if WRITEJSONRESPONSE
                 string LookupReferenceValuesFile = GeneralUtilities.getMaintenanceOutputFolder() + "JSonResponse.txt";
@@ -2475,94 +2475,94 @@ namespace QuickImageComment
                 StreamOut.Close();
 #endif
 
-                if (jsonResponse.Length < 3)
+            if (jsonResponse.Length < 3)
+            {
+                // no content
+                return;
+            }
+            JArray jsonArray = JArray.Parse(jsonResponse);
+            // Iterate through the JSONArray
+            for (int ii = 0; ii < jsonArray.Count; ii++)
+            {
+                JToken jToken = jsonArray[ii];
+                foreach (Newtonsoft.Json.Linq.JProperty child in jToken.Children().Cast<JProperty>())
                 {
-                    // no content
-                    return;
-                }
-                JArray jsonArray = JArray.Parse(jsonResponse);
-                // Iterate through the JSONArray
-                for (int ii = 0; ii < jsonArray.Count; ii++)
-                {
-                    JToken jToken = jsonArray[ii];
-                    foreach (Newtonsoft.Json.Linq.JProperty child in jToken.Children().Cast<JProperty>())
-                    {
 #if !DEBUG
                         exceptionJProperty = child;
 #endif
-                        int colon = child.Name.IndexOf(':');
+                    int colon = child.Name.IndexOf(':');
 
-                        string key = child.Name.Substring(colon + 1);
-                        string format = "";
-                        if (colon > 0) format = child.Name.Substring(0, colon);
+                    string key = child.Name.Substring(colon + 1);
+                    string format = "";
+                    if (colon > 0) format = child.Name.Substring(0, colon);
 
-                        foreach (JToken property in child.Children<JToken>())
+                    foreach (JToken property in child.Children<JToken>())
+                    {
+                        if (property.HasValues)
                         {
-                            if (property.HasValues)
+                            var jTokenProperties = property.Children().OfType<JProperty>();
+                            long tag = -1;
+                            string num = null;
+                            string value = "";
+                            string desc = "";
+                            foreach (JProperty prop in jTokenProperties)
                             {
-                                var jTokenProperties = property.Children().OfType<JProperty>();
-                                long tag = -1;
-                                string num = null;
-                                string value = "";
-                                string desc = "";
-                                foreach (JProperty prop in jTokenProperties)
+                                if (prop.Name.Equals("id"))
                                 {
-                                    if (prop.Name.Equals("id"))
-                                    {
-                                        if (!long.TryParse((string)prop.Value, out tag)) tag = -1;
-                                    }
-                                    else if (prop.Name.Equals("num"))
-                                        num = (string)prop.Value;
-                                    else if (prop.Name.Equals("val"))
-                                        value = (string)prop.Value;
-                                    else if (prop.Name.Equals("desc"))
-                                        desc = (string)prop.Value;
+                                    if (!long.TryParse((string)prop.Value, out tag)) tag = -1;
                                 }
-                                if (num == null) num = value;
-                                if (desc.Equals("")) desc = key;
+                                else if (prop.Name.Equals("num"))
+                                    num = (string)prop.Value;
+                                else if (prop.Name.Equals("val"))
+                                    value = (string)prop.Value;
+                                else if (prop.Name.Equals("desc"))
+                                    desc = (string)prop.Value;
+                            }
+                            if (num == null) num = value;
+                            if (desc.Equals("")) desc = key;
 
-                                // if needed, convert to UTF8
-                                // applies only for string Exif tags (location taken from https://exiftool.org/TagNames/EXIF.html)
-                                if ((key.StartsWith("IFD0:") ||
-                                     key.StartsWith("InteropIFD:") ||
-                                     key.StartsWith("ExifIFD:")) &&
-                                    format.Equals(TagUtilities.exifToolTypeString))
-                                {
-                                    if (stringIsUTF8(value)) value = getStringFromUTF8CString(value);
-                                    // num used for original, in case of string is equal to value
-                                    num = value;
-                                }
+                            // if needed, convert to UTF8
+                            // applies only for string Exif tags (location taken from https://exiftool.org/TagNames/EXIF.html)
+                            if ((key.StartsWith("IFD0:") ||
+                                 key.StartsWith("InteropIFD:") ||
+                                 key.StartsWith("ExifIFD:")) &&
+                                format.Equals(TagUtilities.exifToolTypeString))
+                            {
+                                if (stringIsUTF8(value)) value = getStringFromUTF8CString(value);
+                                // num used for original, in case of string is equal to value
+                                num = value;
+                            }
 
-                                int keyIndex = 0;
-                                string keyStringIndex = key;
-                                while (ExifToolMetaDataItems.ContainsKey(keyStringIndex))
+                            int keyIndex = 0;
+                            string keyStringIndex = key;
+                            while (ExifToolMetaDataItems.ContainsKey(keyStringIndex))
+                            {
+                                keyIndex++;
+                                keyStringIndex = GeneralUtilities.nameUniqueWithRunningNumber(key, keyIndex);
+                            }
+                            if (key.StartsWith("ExifTool:"))
+                            {
+                                if (!key.Equals("ExifTool:ExifToolVersion"))
                                 {
-                                    keyIndex++;
-                                    keyStringIndex = GeneralUtilities.nameUniqueWithRunningNumber(key, keyIndex);
+                                    MetaDataWarningsRead.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exifToolError), desc + ": " + value));
                                 }
-                                if (key.StartsWith("ExifTool:"))
-                                {
-                                    if (!key.Equals("ExifTool:ExifToolVersion"))
-                                    {
-                                        MetaDataWarningsRead.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exifToolError), desc + ": " + value));
-                                    }
-                                }
-                                else
-                                {
-                                    string[] valueArray = value.Split(new string[] { ExifToolWrapper.readSeparator }, System.StringSplitOptions.None);
-                                    string[] numArray = num.Split(new string[] { ExifToolWrapper.readSeparator }, System.StringSplitOptions.None);
-                                    ExifToolMetaDataItems.Add(keyStringIndex, new MetaDataItemExifTool(key, desc, tag, format, numArray[0], valueArray[0]));
+                            }
+                            else
+                            {
+                                string[] valueArray = value.Split(new string[] { ExifToolWrapper.readSeparator }, System.StringSplitOptions.None);
+                                string[] numArray = num.Split(new string[] { ExifToolWrapper.readSeparator }, System.StringSplitOptions.None);
+                                ExifToolMetaDataItems.Add(keyStringIndex, new MetaDataItemExifTool(key, desc, tag, format, numArray[0], valueArray[0]));
 
-                                    for (int jj = 1; jj < valueArray.Length; jj++)
-                                    {
-                                        string keyArray = GeneralUtilities.nameUniqueWithRunningNumber(key, jj);
-                                        ExifToolMetaDataItems.Add(keyArray, new MetaDataItemExifTool(keyArray, desc, tag, format, numArray[jj], valueArray[jj]));
-                                    }
+                                for (int jj = 1; jj < valueArray.Length; jj++)
+                                {
+                                    string keyArray = GeneralUtilities.nameUniqueWithRunningNumber(key, jj);
+                                    ExifToolMetaDataItems.Add(keyArray, new MetaDataItemExifTool(keyArray, desc, tag, format, numArray[jj], valueArray[jj]));
                                 }
                             }
                         }
                     }
                 }
+            }
 #if !DEBUG
             }
             catch (Exception ex)
@@ -3131,12 +3131,14 @@ namespace QuickImageComment
                         if (!achievedValue.Equals(targetValue))
                         {
                             string[] words = key.Split('.');
-                            //!!: exiftool kann man Makernote erkennen?
                             if (TagUtilities.isExiv2Tag(key) && achievedValue.Equals("") && isExifMakernote(words[0], words[1]) == 1)
                             {
                                 // a non-blank value was given, but tag is not added
                                 // most likely tag is from a Makernote, which is not contained
                                 // then tags for it cannot be added
+                                // in exifTool MakerNote might be detected via location ("Canon", "Nikon", ...),
+                                // but there are also other locations than maker names to which writing is not possible
+                                // so no corresponding check for exifTool tags
                                 GeneralUtilities.message(LangCfg.Message.W_MakernoteValueNotSaved, key, targetValue);
                             }
                             else

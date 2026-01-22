@@ -1071,7 +1071,7 @@ extern "C" __declspec(dllexport) int __cdecl exiv2getLogString(int index, LPSTR*
 //-------------------------------------------------------------------------
 // check if tag is repeatable
 //-------------------------------------------------------------------------
-extern "C" __declspec(dllexport) bool __cdecl exiv2IptcTagRepeatable(LPSTR tagName) {
+extern "C" __declspec(dllexport) bool __cdecl exiv2TagRepeatable(LPSTR tagName) {
     if (!strncmp(tagName, "Exif.", 5)) {
         return false;
     }
@@ -1278,7 +1278,7 @@ void Params::getStdin(Exiv2::DataBuf& buf) {
 #ifdef DEBUG
         std::cerr << "getStdin stdinBuf.size_ = " << stdinBuf.size() << std::endl;
 #endif
-        }
+    }
 
     // copy stdinBuf to buf
     if (!stdinBuf.empty()) {
@@ -1289,7 +1289,7 @@ void Params::getStdin(Exiv2::DataBuf& buf) {
     std::cerr << "getStdin stdinBuf.size_ = " << stdinBuf.size() << std::endl;
 #endif
 
-    }  // Params::getStdin()
+}  // Params::getStdin()
 
 // copied from exv2.cpp
 // needed to avoid link error, but is not called, so reduced to an empty frame

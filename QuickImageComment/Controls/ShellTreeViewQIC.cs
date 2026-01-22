@@ -577,9 +577,9 @@ namespace QuickImageCommentControls
                     {
 #endif
 #if LOGLISTENEREVENTS
-                        Logger.log("is update of " + e.NewItem.FileSystemPath);
+                    Logger.log("is update of " + e.NewItem.FileSystemPath);
 #endif
-                        MainMaskInterface.createOrUpdateItemListViewFiles(e.NewItem.FileSystemPath);
+                    MainMaskInterface.createOrUpdateItemListViewFiles(e.NewItem.FileSystemPath);
 #if !DEBUG
                     }).Start();
 #endif
@@ -641,7 +641,7 @@ namespace QuickImageCommentControls
                         new System.Threading.Tasks.Task(() =>
                         {
 #endif
-                            MainMaskInterface.createOrUpdateItemListViewFiles(e.Item.FileSystemPath);
+                        MainMaskInterface.createOrUpdateItemListViewFiles(e.Item.FileSystemPath);
 #if !DEBUG
                         }).Start();
 #endif

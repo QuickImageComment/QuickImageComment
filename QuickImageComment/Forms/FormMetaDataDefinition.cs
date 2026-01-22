@@ -899,8 +899,9 @@ namespace QuickImageComment
                     GeneralUtilities.message(LangCfg.Message.E_tagValueNotDeleteable, MetaDataKey);
                     return false;
                 }
-                else if (MetaDataKey.Equals("Exif.Photo.MakerNote")) //!!: unchangeable tags, exiftool
+                else if (MetaDataKey.Equals("Exif.Photo.MakerNote"))
                 {
+                    // hint: this is tag 37500 and seems there is no tag 37500 in exifTool
                     GeneralUtilities.message(LangCfg.Message.E_makerSpecificNotSelectable, MetaDataKey);
                     return false;
                 }

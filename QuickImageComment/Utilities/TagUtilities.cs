@@ -13,8 +13,26 @@ namespace QuickImageComment
         public const string typeReadonly = "Readonly";
         public const string typeXmpSeq = "XmpSeq";
         public const string typeXmpText = "XmpText";
+        public const string typeByte = "Byte";
+        public const string typeSByte = "SByte";
+        public const string typeShort = "Short";
+        public const string typeSShort = "SShort";
+        public const string typeLong = "Long";
+        public const string typeSLong = "SLong";
+        public const string typeRational = "Rational";
+        public const string typeSRational = "SRational";
+        public const string typeFloat = "Float";
+        public const string typeDouble = "Double";
+
         public const string exifToolTypeString = "string";
         public const string exifToolTypeLangAlt = "lang-alt";
+        public const string exifToolTypeInt8u = "int8u";
+        public const string exifToolTypeInt8s = "int8s";
+        public const string exifToolTypeInt16u = "int16u";
+        public const string exifToolTypeInt16s = "int16s";
+        public const string exifToolTypeInt32u = "int32u";
+        public const string exifToolTypeInt32s = "int32s";
+        public const string exifToolTypeReal = "real";
 
         internal static ArrayList LangAltTypes = new ArrayList {
             "LangAlt",
@@ -111,7 +129,7 @@ namespace QuickImageComment
         const string exiv2DllImport = "exiv2Cdecl.dll";
 
         [DllImport(exiv2DllImport, CallingConvention = CallingConvention.Cdecl)]
-        public static extern bool exiv2IptcTagRepeatable([MarshalAs(UnmanagedType.LPStr)] string tagName);
+        public static extern bool exiv2TagRepeatable([MarshalAs(UnmanagedType.LPStr)] string tagName);
 
         public static bool isExiv2Tag(string key)
         {
@@ -206,7 +224,7 @@ namespace QuickImageComment
                 if (key.StartsWith("Exif."))
                     return false;
                 else if (key.StartsWith("Iptc."))
-                    return exiv2IptcTagRepeatable(key);
+                    return exiv2TagRepeatable(key);
                 else if (key.StartsWith("Xmp."))
                 {
                     string type = TagUtilities.getTagType(key);
