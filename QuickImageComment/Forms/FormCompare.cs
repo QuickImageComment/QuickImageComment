@@ -22,9 +22,9 @@ namespace QuickImageComment
 {
     public partial class FormCompare : Form
     {
-        /// <summary>
-        /// //////
-        /// </summary>
+        // maximum number of columns is 654 according to https://stackoverflow.com/questions/3982864/max-number-of-columns-on-a-datagridview
+        // limit set to a round value
+        private const int maxDifferences = 500;
 
         private int[] listViewFilesSelectedIndices;
         private FormCustomization.Interface CustomizationInterface;
@@ -119,6 +119,7 @@ namespace QuickImageComment
             int colidx;
             MetaDataItem.Format DisplayFormat;
             string toolTipText;
+            int maxDisplay = 0;
 
             differentTagsDisplay = new ArrayList();
 
@@ -142,14 +143,24 @@ namespace QuickImageComment
                 }
             }
 
-            dataGridViewDifferences.ColumnCount = differentTagsDisplay.Count + 1;
+            if (differentTagsDisplay.Count > maxDifferences)
+            {
+                GeneralUtilities.message(LangCfg.Message.W_compareTooManyDifferences, maxDifferences.ToString());
+                maxDisplay = maxDifferences;
+            }
+            else
+            {
+                maxDisplay = differentTagsDisplay.Count;
+            }
+
+            dataGridViewDifferences.ColumnCount = maxDisplay + 1;
 
             string[] row = new string[dataGridViewDifferences.ColumnCount];
 
             // Fill sorted List to display headers
             KeyList = new System.Collections.SortedList();
 
-            for (int jj = 0; jj < differentTagsDisplay.Count; jj++)
+            for (int jj = 0; jj < maxDisplay; jj++)
             {
                 if (checkBoxTagNamesOriginal.Checked)
                 {
