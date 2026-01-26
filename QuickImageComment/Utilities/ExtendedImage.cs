@@ -3103,6 +3103,7 @@ namespace QuickImageComment
                 {
                     string targetValue = "";
                     string achievedValue = "";
+                    string achievedInterpretedValue = "";
                     foreach (string key in ImageChangedFieldsForCompare.Keys)
                     {
                         if (ImageChangedFieldsForCompare[key].GetType().Equals(typeof(ArrayList)))
@@ -3119,6 +3120,7 @@ namespace QuickImageComment
                         }
 
                         achievedValue = getMetaDataValuesStringByKey(key, MetaDataItem.Format.ForComparisonAfterSave);
+                        achievedInterpretedValue = getMetaDataValuesStringByKey(key, MetaDataItem.Format.Interpreted);
 
                         // warning message removed as it can happen when a reference gives same value as already saved
                         // now cannot remember what is the purpose of this message
@@ -3128,7 +3130,12 @@ namespace QuickImageComment
                         //      + "\" wurde nicht gespeichert.");
                         //}
                         //else 
-                        if (!achievedValue.Equals(targetValue))
+
+                        // compare also interpreted value with target value as exiftool allows entering interpreted values
+                        // however, this is not perfect as exiftool is tolerant with interpreted values, e.g.
+                        // for ExifIFD:Saturation you may enter "Hi" which is interpreted as "High" and then
+                        // comparison fails although correct value is stored
+                        if (!achievedValue.Equals(targetValue) && !achievedInterpretedValue.Equals(targetValue))
                         {
                             string[] words = key.Split('.');
                             if (TagUtilities.isExiv2Tag(key) && achievedValue.Equals("") && isExifMakernote(words[0], words[1]) == 1)
