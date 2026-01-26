@@ -237,7 +237,8 @@ namespace QuickImageComment
             E_LocationOfExifToolTagNotKnown,
             W_differentValueSavedNotMultiple,
             Q_startExifTool,
-            W_ShellItemNotSelectable
+            W_ShellItemNotSelectable,
+            W_compareTooManyDifferences
         }
 
         public enum Others

@@ -4638,14 +4638,15 @@ namespace QuickImageComment
         internal void logDifferencesInMetaData(SortedList oldMetaDataItems)
         {
             ArrayList differences = new ArrayList();
+            SortedList newMetaDataItems = getAllMetaDataItems();
             foreach (string key in oldMetaDataItems.Keys)
             {
                 if (!ConfigDefinition.getMetaDataDefinitionsLogDiffExceptionsKeys().Contains(key))
                 {
                     MetaDataItem oldItem = (MetaDataItem)oldMetaDataItems[key];
-                    if (getAllMetaDataItems().ContainsKey(key))
+                    if (newMetaDataItems.ContainsKey(key))
                     {
-                        MetaDataItem newItem = (MetaDataItem)getAllMetaDataItems()[key];
+                        MetaDataItem newItem = (MetaDataItem)newMetaDataItems[key];
                         if (!oldItem.getInterpreted().Equals(newItem.getInterpreted()))
                         {
                             differences.Add("  " + key + " " + LangCfg.getText(LangCfg.Others.diffOldNew) + ": " + oldItem.getInterpreted() + " # " + newItem.getInterpreted());
@@ -4657,11 +4658,11 @@ namespace QuickImageComment
                     }
                 }
             }
-            foreach (string key in getAllMetaDataItems().Keys)
+            foreach (string key in newMetaDataItems.Keys)
             {
                 if (!oldMetaDataItems.ContainsKey(key))
                 {
-                    MetaDataItem newItem = (MetaDataItem)getAllMetaDataItems()[key];
+                    MetaDataItem newItem = (MetaDataItem)newMetaDataItems[key];
                     differences.Add("  " + key + " " + LangCfg.getText(LangCfg.Others.diffInserted) + ": " + newItem.getInterpreted());
                 }
             }
