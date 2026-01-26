@@ -208,6 +208,7 @@ namespace QuickImageComment
             this.toolStripMenuItemUserButtons = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator16 = new System.Windows.Forms.ToolStripSeparator();
             this.ToolStripMenuItemLanguage = new System.Windows.Forms.ToolStripMenuItem();
+            this.ToolStripMenuItemLanguageExifTool = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItemUserConfigStorage = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemMaintenance = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemCreateScreenshots = new System.Windows.Forms.ToolStripMenuItem();
@@ -270,7 +271,6 @@ namespace QuickImageComment
             this.toolStripButtonFind = new System.Windows.Forms.ToolStripButton();
             this.toolTip1 = new QuickImageComment.ToolTipQIC();
             this.theFolderTreeView = new QuickImageCommentControls.ShellTreeViewQIC();
-            this.ToolStripMenuItemLanguageExifTool = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer12)).BeginInit();
             this.splitContainer12.Panel1.SuspendLayout();
             this.splitContainer12.Panel2.SuspendLayout();
@@ -803,9 +803,12 @@ namespace QuickImageComment
             this.dataGridViewSelectedFiles.Location = new System.Drawing.Point(0, 0);
             this.dataGridViewSelectedFiles.Name = "dataGridViewSelectedFiles";
             this.dataGridViewSelectedFiles.RowHeadersVisible = false;
+            this.dataGridViewSelectedFiles.ShowCellToolTips = false;
             this.dataGridViewSelectedFiles.ShowEditingIcon = false;
             this.dataGridViewSelectedFiles.Size = new System.Drawing.Size(245, 191);
             this.dataGridViewSelectedFiles.TabIndex = 4;
+            this.dataGridViewSelectedFiles.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewSelectedFiles_CellMouseEnter);
+            this.dataGridViewSelectedFiles.CellMouseLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewSelectedFiles_CellMouseLeave);
             this.dataGridViewSelectedFiles.SelectionChanged += new System.EventHandler(this.dataGridViewSelectedFiles_SelectionChanged);
             // 
             // contextMenuStripMetaData
@@ -1171,40 +1174,40 @@ namespace QuickImageComment
             // toolStripMenuItemSelectFolder
             // 
             this.toolStripMenuItemSelectFolder.Name = "toolStripMenuItemSelectFolder";
-            this.toolStripMenuItemSelectFolder.Size = new System.Drawing.Size(343, 22);
+            this.toolStripMenuItemSelectFolder.Size = new System.Drawing.Size(378, 22);
             this.toolStripMenuItemSelectFolder.Text = "Ordner wählen ...";
             this.toolStripMenuItemSelectFolder.Click += new System.EventHandler(this.toolStripMenuItemSelectFolder_Click);
             // 
             // toolStripMenuItemOpen
             // 
             this.toolStripMenuItemOpen.Name = "toolStripMenuItemOpen";
-            this.toolStripMenuItemOpen.Size = new System.Drawing.Size(343, 22);
+            this.toolStripMenuItemOpen.Size = new System.Drawing.Size(378, 22);
             this.toolStripMenuItemOpen.Text = "Öffnen ...";
             this.toolStripMenuItemOpen.Click += new System.EventHandler(this.toolStripMenuItemOpen_Click);
             // 
             // toolStripMenuItemFind
             // 
             this.toolStripMenuItemFind.Name = "toolStripMenuItemFind";
-            this.toolStripMenuItemFind.Size = new System.Drawing.Size(343, 22);
+            this.toolStripMenuItemFind.Size = new System.Drawing.Size(378, 22);
             this.toolStripMenuItemFind.Text = "Suche über Eigenschaften";
             this.toolStripMenuItemFind.Click += new System.EventHandler(this.toolStripMenuItemFind_Click);
             // 
             // toolStripSeparator12
             // 
             this.toolStripSeparator12.Name = "toolStripSeparator12";
-            this.toolStripSeparator12.Size = new System.Drawing.Size(340, 6);
+            this.toolStripSeparator12.Size = new System.Drawing.Size(375, 6);
             // 
             // toolStripMenuItemSelectAll
             // 
             this.toolStripMenuItemSelectAll.Name = "toolStripMenuItemSelectAll";
-            this.toolStripMenuItemSelectAll.Size = new System.Drawing.Size(343, 22);
+            this.toolStripMenuItemSelectAll.Size = new System.Drawing.Size(378, 22);
             this.toolStripMenuItemSelectAll.Text = "&Alle Auswählen";
             this.toolStripMenuItemSelectAll.Click += new System.EventHandler(this.toolStripMenuItemSelectAll_Click);
             // 
             // toolStripMenuItemRefreshFolderTree
             // 
             this.toolStripMenuItemRefreshFolderTree.Name = "toolStripMenuItemRefreshFolderTree";
-            this.toolStripMenuItemRefreshFolderTree.Size = new System.Drawing.Size(343, 22);
+            this.toolStripMenuItemRefreshFolderTree.Size = new System.Drawing.Size(378, 22);
             this.toolStripMenuItemRefreshFolderTree.Text = "Verzeichnisbaum aktualisieren";
             this.toolStripMenuItemRefreshFolderTree.Click += new System.EventHandler(this.toolStripMenuItemRefreshFolderTree_Click);
             // 
@@ -1212,7 +1215,7 @@ namespace QuickImageComment
             // 
             this.toolStripMenuItemRefresh.Name = "toolStripMenuItemRefresh";
             this.toolStripMenuItemRefresh.ShortcutKeys = System.Windows.Forms.Keys.F5;
-            this.toolStripMenuItemRefresh.Size = new System.Drawing.Size(343, 22);
+            this.toolStripMenuItemRefresh.Size = new System.Drawing.Size(378, 22);
             this.toolStripMenuItemRefresh.Text = "&Dateiliste aktualisieren";
             this.toolStripMenuItemRefresh.Click += new System.EventHandler(this.toolStripMenuItemRefresh_Click);
             // 
@@ -1220,80 +1223,80 @@ namespace QuickImageComment
             // 
             this.toolStripMenuItemRename.Name = "toolStripMenuItemRename";
             this.toolStripMenuItemRename.ShortcutKeys = System.Windows.Forms.Keys.F2;
-            this.toolStripMenuItemRename.Size = new System.Drawing.Size(343, 22);
+            this.toolStripMenuItemRename.Size = new System.Drawing.Size(378, 22);
             this.toolStripMenuItemRename.Text = "Dateien &umbenennen";
             this.toolStripMenuItemRename.Click += new System.EventHandler(this.toolStripMenuItemRename_Click);
             // 
             // toolStripMenuItemCompare
             // 
             this.toolStripMenuItemCompare.Name = "toolStripMenuItemCompare";
-            this.toolStripMenuItemCompare.Size = new System.Drawing.Size(343, 22);
+            this.toolStripMenuItemCompare.Size = new System.Drawing.Size(378, 22);
             this.toolStripMenuItemCompare.Text = "Dateien &vergleichen";
             this.toolStripMenuItemCompare.Click += new System.EventHandler(this.toolStripMenuItemCompare_Click);
             // 
             // toolStripMenuItemDateTimeChange
             // 
             this.toolStripMenuItemDateTimeChange.Name = "toolStripMenuItemDateTimeChange";
-            this.toolStripMenuItemDateTimeChange.Size = new System.Drawing.Size(343, 22);
+            this.toolStripMenuItemDateTimeChange.Size = new System.Drawing.Size(378, 22);
             this.toolStripMenuItemDateTimeChange.Text = "Au&fnahmedatum/zeit ändern";
             this.toolStripMenuItemDateTimeChange.Click += new System.EventHandler(this.toolStripMenuItemDateTimeChange_Click);
             // 
             // ToolStripMenuItemRemoveMetaData
             // 
             this.ToolStripMenuItemRemoveMetaData.Name = "ToolStripMenuItemRemoveMetaData";
-            this.ToolStripMenuItemRemoveMetaData.Size = new System.Drawing.Size(343, 22);
+            this.ToolStripMenuItemRemoveMetaData.Size = new System.Drawing.Size(378, 22);
             this.ToolStripMenuItemRemoveMetaData.Text = "&Meta-Daten entfernen";
             this.ToolStripMenuItemRemoveMetaData.Click += new System.EventHandler(this.toolStripMenuItemRemoveMetaData_Click);
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(340, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(375, 6);
             // 
             // toolStripMenuItemTextExportSelectedProp
             // 
             this.toolStripMenuItemTextExportSelectedProp.Name = "toolStripMenuItemTextExportSelectedProp";
-            this.toolStripMenuItemTextExportSelectedProp.Size = new System.Drawing.Size(343, 22);
+            this.toolStripMenuItemTextExportSelectedProp.Size = new System.Drawing.Size(378, 22);
             this.toolStripMenuItemTextExportSelectedProp.Text = "E&xport: Ausgew. Eigenschaften der Bilder/Videos im Verzeichnis";
             this.toolStripMenuItemTextExportSelectedProp.Click += new System.EventHandler(this.toolStripMenuItemTextExportSelectedProp_Click);
             // 
             // toolStripMenuItemTextExportAllProp
             // 
             this.toolStripMenuItemTextExportAllProp.Name = "toolStripMenuItemTextExportAllProp";
-            this.toolStripMenuItemTextExportAllProp.Size = new System.Drawing.Size(343, 22);
+            this.toolStripMenuItemTextExportAllProp.Size = new System.Drawing.Size(378, 22);
             this.toolStripMenuItemTextExportAllProp.Text = "Export: Alle Eigenschaften der markierten Bilder/Videos";
             this.toolStripMenuItemTextExportAllProp.Click += new System.EventHandler(this.toolStripMenuItemTextExportAllProp_Click);
             // 
             // toolStripMenuItemBinaryExportAllProp
             // 
             this.toolStripMenuItemBinaryExportAllProp.Name = "toolStripMenuItemBinaryExportAllProp";
-            this.toolStripMenuItemBinaryExportAllProp.Size = new System.Drawing.Size(343, 22);
+            this.toolStripMenuItemBinaryExportAllProp.Size = new System.Drawing.Size(378, 22);
             this.toolStripMenuItemBinaryExportAllProp.Text = "Binärer Export aller Eigenschaften der markierten Bilder";
             this.toolStripMenuItemBinaryExportAllProp.Click += new System.EventHandler(this.toolStripMenuItemBinaryExportAllProp_Click);
             // 
             // toolStripMenuItemBinaryImportAllProp
             // 
             this.toolStripMenuItemBinaryImportAllProp.Name = "toolStripMenuItemBinaryImportAllProp";
-            this.toolStripMenuItemBinaryImportAllProp.Size = new System.Drawing.Size(343, 22);
+            this.toolStripMenuItemBinaryImportAllProp.Size = new System.Drawing.Size(378, 22);
             this.toolStripMenuItemBinaryImportAllProp.Text = "Binärer Import aller Eigenschaften der markierten Bilder";
             this.toolStripMenuItemBinaryImportAllProp.Click += new System.EventHandler(this.toolStripMenuItemBinaryImportAllProp_Click);
             // 
             // toolStripSeparator20
             // 
             this.toolStripSeparator20.Name = "toolStripSeparator20";
-            this.toolStripSeparator20.Size = new System.Drawing.Size(340, 6);
+            this.toolStripSeparator20.Size = new System.Drawing.Size(375, 6);
             // 
             // toolStripMenuItemSetFileDateToDateGenerated
             // 
             this.toolStripMenuItemSetFileDateToDateGenerated.Name = "toolStripMenuItemSetFileDateToDateGenerated";
-            this.toolStripMenuItemSetFileDateToDateGenerated.Size = new System.Drawing.Size(343, 22);
+            this.toolStripMenuItemSetFileDateToDateGenerated.Size = new System.Drawing.Size(378, 22);
             this.toolStripMenuItemSetFileDateToDateGenerated.Text = "Dateidatum auf Aufnahmedatum setzen";
             this.toolStripMenuItemSetFileDateToDateGenerated.Click += new System.EventHandler(this.toolStripMenuItemSetFileDateToDateGenerated_Click);
             // 
             // toolStripMenuItemEnd
             // 
             this.toolStripMenuItemEnd.Name = "toolStripMenuItemEnd";
-            this.toolStripMenuItemEnd.Size = new System.Drawing.Size(343, 22);
+            this.toolStripMenuItemEnd.Size = new System.Drawing.Size(378, 22);
             this.toolStripMenuItemEnd.Text = "&Beenden";
             this.toolStripMenuItemEnd.Click += new System.EventHandler(this.toolStripMenuItemEnd_Click);
             // 
@@ -1920,6 +1923,12 @@ namespace QuickImageComment
             this.ToolStripMenuItemLanguage.Name = "ToolStripMenuItemLanguage";
             this.ToolStripMenuItemLanguage.Size = new System.Drawing.Size(276, 22);
             this.ToolStripMenuItemLanguage.Text = "Sprache";
+            // 
+            // ToolStripMenuItemLanguageExifTool
+            // 
+            this.ToolStripMenuItemLanguageExifTool.Name = "ToolStripMenuItemLanguageExifTool";
+            this.ToolStripMenuItemLanguageExifTool.Size = new System.Drawing.Size(276, 22);
+            this.ToolStripMenuItemLanguageExifTool.Text = "Sprache für Exiftool";
             // 
             // ToolStripMenuItemUserConfigStorage
             // 
@@ -2551,12 +2560,6 @@ namespace QuickImageComment
             this.theFolderTreeView.Name = "theFolderTreeView";
             this.theFolderTreeView.Size = new System.Drawing.Size(253, 147);
             this.theFolderTreeView.TabIndex = 0;
-            // 
-            // ToolStripMenuItemLanguageExifTool
-            // 
-            this.ToolStripMenuItemLanguageExifTool.Name = "ToolStripMenuItemLanguageExifTool";
-            this.ToolStripMenuItemLanguageExifTool.Size = new System.Drawing.Size(276, 22);
-            this.ToolStripMenuItemLanguageExifTool.Text = "Sprache für Exiftool";
             // 
             // FormQuickImageComment
             // 

@@ -317,6 +317,10 @@ namespace QuickImageComment
             {
                 toolTip1.ShowAtOffset(dataGridViewDifferences.Columns[e.ColumnIndex].ToolTipText, this);
             }
+            else if (e.ColumnIndex > 0 && e.RowIndex > 0)
+            {
+                toolTip1.ShowAtOffset(dataGridViewDifferences.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString(), this);
+            }
         }
         private void dataGridViewDifferences_CellMouseLeave(object sender, DataGridViewCellEventArgs e)
         {

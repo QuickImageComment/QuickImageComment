@@ -1483,6 +1483,22 @@ namespace QuickImageComment
             }
         }
 
+        // event handlers to trigger own ToolTip class
+        private void dataGridViewSelectedFiles_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex > 0 && e.RowIndex == -1)
+            {
+                toolTip1.ShowAtOffset(dataGridViewSelectedFiles.Columns[e.ColumnIndex].ToolTipText, this);
+            }
+            else if (e.ColumnIndex > 0 && e.RowIndex > 0)
+            {
+                toolTip1.ShowAtOffset(dataGridViewSelectedFiles.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString(), this);
+            }
+        }
+        private void dataGridViewSelectedFiles_CellMouseLeave(object sender, DataGridViewCellEventArgs e)
+        {
+            toolTip1.Hide(this);
+        }
         // event handler triggered when value of changeable field is changed
         private void inputControlChangeableField_TextChanged(object sender, EventArgs e)
         {
