@@ -45,6 +45,28 @@ namespace Brain2CPU.ExifTool
         public static implicit operator bool(ExifToolResponse r) => r.IsSuccess;
     }
 
+    internal class AllowedValues
+    {
+        private string key;
+        private string index;
+        private string value;
+
+        internal AllowedValues(string key, string index, string value)
+        {
+            this.key = key;
+            this.index = index;
+            this.value = value;
+        }
+
+        public override string ToString()
+        {
+            return string.Join("\t",
+                               key,
+                               index,
+                               value);
+        }
+    }
+
     public sealed class ExifToolWrapper : IDisposable
     {
         public static string ExifToolPath { get; private set; }
@@ -415,6 +437,7 @@ namespace Brain2CPU.ExifTool
 
             cmd.Append(path);
             var cmdRes = SendCommand(cmd.ToString());
+            //Logger.log(cmd.Replace("\n", " ").ToString());
 
             //if failed return as it is, if it's success must check the response
             return cmdRes ? new ExifToolResponse(cmdRes.Result) : cmdRes;
@@ -563,12 +586,15 @@ namespace Brain2CPU.ExifTool
 
         public static void FillTagListFromExifTool(string iniPath, string language)
         {
+            Queue<AllowedValues> AllAllowedValues = new Queue<AllowedValues>();
             string cmd = "-listx\n-f\n-lang\n" + language;
             var cmdRes = SendCommand(cmd);
             if (cmdRes)
             {
                 string group1 = "";
                 string[] words;
+                string name = "";
+                string keyId = "";
                 string[] lines = cmdRes.Result.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
                 {
                     for (int ii = 1; ii < lines.Length; ii++)
@@ -588,7 +614,6 @@ namespace Brain2CPU.ExifTool
                         else if (lines[ii].StartsWith(" <tag id="))
                         {
                             words = lines[ii].Split(new[] { "'" }, StringSplitOptions.RemoveEmptyEntries);
-                            string name = "";
                             string type = "";
                             string description = "";
                             string descriptionTranslated = "";
@@ -631,6 +656,17 @@ namespace Brain2CPU.ExifTool
                                 if (flags.Contains("Unsafe")) UnsafeTags.Add(name);
                             }
                         }
+                        else if (lines[ii].StartsWith("   <key id="))
+                        {
+                            words = lines[ii].Split(new[] { "'" }, StringSplitOptions.RemoveEmptyEntries);
+                            keyId = words[1];
+                        }
+                        else if (lines[ii].StartsWith("    <val lang="))
+                        {
+                            // sample of line:  <desc lang='en'>Composite</desc>
+                            words = lines[ii].Split(new[] { "'", "<", ">" }, StringSplitOptions.RemoveEmptyEntries);
+                            AllAllowedValues.Enqueue(new AllowedValues(name, keyId, words[3]));
+                        }
                     }
                     // write locations to file
                     System.IO.StreamWriter StreamOut = null;
@@ -650,6 +686,11 @@ namespace Brain2CPU.ExifTool
                     {
                         StreamOut.WriteLine(Tags[tag].ToString());
                     }
+                    StreamOut.WriteLine("#################################################");
+                    foreach (AllowedValues allowdValues in AllAllowedValues)
+                    {
+                        StreamOut.WriteLine(allowdValues.ToString());
+                    }
                     StreamOut.Close();
                 }
             }
@@ -664,10 +705,42 @@ namespace Brain2CPU.ExifTool
                 string line = StreamIn.ReadLine();
                 while (line != null)
                 {
-                    if (!line.StartsWith(";"))
+                    if (line.StartsWith("####"))
+                    {
+                        // separation line between tags and allowed values
+                        break;
+                    }
+                    else if (!line.StartsWith(";"))
                     {
                         TagDefinition tagDefinition = new TagDefinition(line);
                         Tags.Add(tagDefinition.key, tagDefinition);
+                    }
+                    line = StreamIn.ReadLine();
+                }
+                // read second block with allowed values
+                line = StreamIn.ReadLine();
+                string tagName = "";
+                ArrayList values = new ArrayList();
+                while (line != null)
+                {
+                    if (!line.StartsWith(";"))
+                    {
+                        var parts = line.Split('\t');
+                        if (parts.Length == 3)
+                        {
+                            if (tagName.Equals(parts[0]))
+                            {
+                                values.Add(parts[2]);
+                            }
+                            else
+                            {
+                                // new key found
+                                ConfigDefinition.addReplaceInputCheckConfiguration(tagName,
+                                    new InputCheckConfig(tagName, false, false, true, values));
+                                tagName = parts[0];
+                                values = new ArrayList();
+                            }
+                        }
                     }
                     line = StreamIn.ReadLine();
                 }

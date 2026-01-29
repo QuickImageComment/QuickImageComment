@@ -1236,6 +1236,16 @@ namespace QuickImageComment
             }
         }
 
+        // add or replace input check configuration for exifTool tags
+        public static void addReplaceInputCheckConfiguration(string tagName, InputCheckConfig inputCheckConfig)
+        {
+            if (InputCheckConfigurations.ContainsKey(tagName))
+            {
+                InputCheckConfigurations.Remove(tagName);
+            }
+            InputCheckConfigurations.Add(tagName, inputCheckConfig);
+        }
+
         //*****************************************************************
         // Methods to read and set Configuration items
         //*****************************************************************

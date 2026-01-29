@@ -6403,6 +6403,10 @@ namespace QuickImageComment
                         valueString = valueInt.ToString();
                     }
                 }
+                else 
+                {
+                    valueString = ((ComboBox)inputControl).Text;
+                }
                 changedFieldsForSave.Add(Spec.KeyPrim, valueString);
             }
             // if required add entry in item list of ComboBox

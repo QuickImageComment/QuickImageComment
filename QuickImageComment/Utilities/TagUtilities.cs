@@ -639,10 +639,15 @@ namespace QuickImageComment
         internal static MetaDataItem.Format getFormatForTagChange(string key)
         {
             if (key.Equals("Exif.Photo.UserComment") ||
-                TagUtilities.ByteUCS2Tags.Contains(key))
+                TagUtilities.ByteUCS2Tags.Contains(key) ||
+                TagUtilities.isExifToolTag(key))
             {
                 // use format "interpreted" because with "original" value of Usercomment start with "charset=..."
-                // and UCS2 tags are in original bytes
+                // UCS2 tags are in original bytes
+                // ExifTool does own PrintConv
+                // Saving an integer without -n results in "Can't convert"
+                // Saving converted value with -n results in "Not an integer"
+                // So approach is to use always converted value; possible values can be retrieved using listx
                 return MetaDataItem.Format.Interpreted;
             }
             else
