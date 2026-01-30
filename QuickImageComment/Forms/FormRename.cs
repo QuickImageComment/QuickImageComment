@@ -58,7 +58,7 @@ namespace QuickImageComment
 
         private int[] listViewFilesSelectedIndices;
         // list contains new file names; used to check for duplicate new names
-        private List<string> newFullFileNamesList = new List<string>();
+        private List<string> newFileNamesList = new List<string>();
         // hashtable contains old and new file name which could not be renamed 
         // because new file name is still used
         private Hashtable filesStillToRename;
@@ -322,7 +322,7 @@ namespace QuickImageComment
             progressPanel1.Visible = true;
             progressPanel1.init(listViewFilesSelectedIndices.Length);
 
-            newFullFileNamesList.Clear();
+            newFileNamesList.Clear();
             filesStillToRename = new Hashtable();
             filesToUpdateListView = new SortedList();
             int[] SortedIndices = new int[listViewFilesSelectedIndices.Length];
@@ -565,18 +565,16 @@ namespace QuickImageComment
                   + richTextBoxRunningSuffix.Text + Extension;
             }
 
-            string FullNewFileName = System.IO.Path.GetDirectoryName(OldFullFileName) + System.IO.Path.DirectorySeparatorChar + NewFileName;
             // make name unique
-            while (newFullFileNamesList.Contains(FullNewFileName.ToLower()))
+            while (newFileNamesList.Contains(NewFileName.ToLower()))
             {
                 runningNumber++;
-                FullNewFileName = System.IO.Path.GetDirectoryName(OldFullFileName) + System.IO.Path.DirectorySeparatorChar
-                  + NewName + richTextBoxRunningPrefix.Text + runningNumber.ToString(Format)
+                NewFileName = NewName + richTextBoxRunningPrefix.Text + runningNumber.ToString(Format)
                   + richTextBoxRunningSuffix.Text + Extension;
             }
+            newFileNamesList.Add(NewFileName.ToLower());
 
-            newFullFileNamesList.Add(FullNewFileName.ToLower());
-            return FullNewFileName;
+            return System.IO.Path.GetDirectoryName(OldFullFileName) + System.IO.Path.DirectorySeparatorChar + NewFileName;
         }
 
         // replace characters, which are invalid in file names
