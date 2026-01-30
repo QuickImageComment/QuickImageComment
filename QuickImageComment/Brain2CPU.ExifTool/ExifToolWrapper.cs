@@ -10,6 +10,7 @@
 // - set encoding for standard input and output
 // - converted to static class
 
+using Newtonsoft.Json.Linq;
 using QuickImageComment;
 using System;
 using System.Collections;
@@ -47,9 +48,9 @@ namespace Brain2CPU.ExifTool
 
     internal class AllowedValues
     {
-        private string key;
-        private string index;
-        private string value;
+        internal string key;
+        internal string index;
+        internal string value;
 
         internal AllowedValues(string key, string index, string value)
         {
@@ -692,12 +693,14 @@ namespace Brain2CPU.ExifTool
                         StreamOut.WriteLine(allowdValues.ToString());
                     }
                     StreamOut.Close();
+                    addReplaceInputCheckConfigurations(AllAllowedValues);
                 }
             }
         }
 
         public static void FillTagListFromFile(string iniPath, string language)
         {
+            Queue<AllowedValues> AllAllowedValues = new Queue<AllowedValues>();
             if (System.IO.File.Exists(getTagFileName(iniPath, language)))
             {
                 System.IO.StreamReader StreamIn =
@@ -719,8 +722,6 @@ namespace Brain2CPU.ExifTool
                 }
                 // read second block with allowed values
                 line = StreamIn.ReadLine();
-                string tagName = "";
-                ArrayList values = new ArrayList();
                 while (line != null)
                 {
                     if (!line.StartsWith(";"))
@@ -728,23 +729,35 @@ namespace Brain2CPU.ExifTool
                         var parts = line.Split('\t');
                         if (parts.Length == 3)
                         {
-                            if (tagName.Equals(parts[0]))
-                            {
-                                values.Add(parts[2]);
-                            }
-                            else
-                            {
-                                // new key found
-                                ConfigDefinition.addReplaceInputCheckConfiguration(tagName,
-                                    new InputCheckConfig(tagName, false, false, true, values));
-                                tagName = parts[0];
-                                values = new ArrayList();
-                            }
+                            AllAllowedValues.Enqueue(new AllowedValues(parts[0], parts[1], parts[2]));
                         }
                     }
                     line = StreamIn.ReadLine();
                 }
                 StreamIn.Close();
+                addReplaceInputCheckConfigurations(AllAllowedValues);
+            }
+        }
+
+        private static void addReplaceInputCheckConfigurations(Queue<AllowedValues> AllAllowedValues)
+        {
+            string tagName = "";
+            ArrayList values = new ArrayList();
+
+            foreach (AllowedValues allowdValues in AllAllowedValues)
+            {
+                if (!allowdValues.key.Equals(tagName))
+                {
+                    if (!tagName.Equals(""))
+                    {
+                        ConfigDefinition.addReplaceInputCheckConfiguration(tagName,
+                            new InputCheckConfig(tagName, false, false, values));
+                    }
+
+                    tagName = allowdValues.key;
+                    values = new ArrayList();
+                }
+                values.Add(allowdValues.value);
             }
         }
 

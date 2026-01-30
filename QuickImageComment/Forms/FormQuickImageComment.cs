@@ -220,6 +220,15 @@ namespace QuickImageComment
         public void init(string DisplayFolder, ArrayList DisplayFiles)
         {
             Program.StartupPerformance.measure("FormQIC init start");
+#if USESTARTUPTHREAD
+            Thread StartupExifToolInitNewFolderThread = new Thread(StartupExifToolInitNewFolder)
+            {
+                IsBackground = true
+            };
+            StartupExifToolInitNewFolderThread.Start();
+#else
+            StartupExifToolInitNewFolder();
+#endif
             if (DisplayFolder.Equals("") || !Directory.Exists(DisplayFolder))
                 // DisplayFolder is blank in case there is no common root folder for files given on command line
                 FolderName = GongSolutions.Shell.ShellItem.Desktop.FileSystemPath;
@@ -271,15 +280,6 @@ namespace QuickImageComment
             this.tabPageOther.Controls.Add(this.DataGridViewOtherMetaData);
 
             readFolderPerfomance = new Performance();
-#if USESTARTUPTHREAD
-            Thread StartupExifToolInitNewFolderThread = new Thread(StartupExifToolInitNewFolder)
-            {
-                IsBackground = true
-            };
-            StartupExifToolInitNewFolderThread.Start();
-#else
-            StartupExifToolInitNewFolder();
-#endif
             // set colors
             backColorInputUnchanged = dynamicComboBoxArtist.BackColor;
             backColorInputValueChanged = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigInt.BackColorValueChanged);
@@ -729,7 +729,14 @@ namespace QuickImageComment
             GeneralUtilities.setSplitterDistanceWithCheck(this.splitContainer1213, ConfigDefinition.enumCfgUserInt.Splitter1213Distance);
             GeneralUtilities.setSplitterDistanceWithCheck(this.splitContainer122, ConfigDefinition.enumCfgUserInt.Splitter122Distance);
 
+#if USESTARTUPTHREAD
+            Program.StartupPerformance.measure("FormQIC before StartupExifToolInitNewFolderThread.Join");
+            StartupExifToolInitNewFolderThread.Join();
+            Program.StartupPerformance.measure("FormQIC *** after StartupExifToolInitNewFolderThread.Join");
+#endif
             // adjust panels according configuration
+            // needs to be done after StartupExifToolInitNewFolder because there allowed values are collected
+            // which are used to define InputCheckConfigurations in UserControlChangeableFields
             //Program.StartupPerformance.measure("FormQIC before set split container panels content");
             setSplitContainerPanelsContent();
             //Program.StartupPerformance.measure("FormQIC After set splitter distance");
@@ -779,12 +786,6 @@ namespace QuickImageComment
             Program.StartupPerformance.measure("FormQIC before expandRoot");
             theFolderTreeView.expandRoot();
             Program.StartupPerformance.measure("FormQIC after expandRoot");
-
-#if USESTARTUPTHREAD
-            //Program.StartupPerformance.measure("FormQIC before StartupExifToolInitNewFolderThread.Join");
-            StartupExifToolInitNewFolderThread.Join();
-            Program.StartupPerformance.measure("FormQIC *** after StartupExifToolInitNewFolderThread.Join");
-#endif
 
             theFolderTreeView.registerEventHandlers();
 
