@@ -1272,6 +1272,7 @@ namespace QuickImageComment
             this.toolStripMenuItemBinaryExportAllProp.Name = "toolStripMenuItemBinaryExportAllProp";
             this.toolStripMenuItemBinaryExportAllProp.Size = new System.Drawing.Size(378, 22);
             this.toolStripMenuItemBinaryExportAllProp.Text = "Binärer Export aller Eigenschaften der markierten Bilder";
+            this.toolStripMenuItemBinaryExportAllProp.Visible = false;
             this.toolStripMenuItemBinaryExportAllProp.Click += new System.EventHandler(this.toolStripMenuItemBinaryExportAllProp_Click);
             // 
             // toolStripMenuItemBinaryImportAllProp
@@ -1279,6 +1280,7 @@ namespace QuickImageComment
             this.toolStripMenuItemBinaryImportAllProp.Name = "toolStripMenuItemBinaryImportAllProp";
             this.toolStripMenuItemBinaryImportAllProp.Size = new System.Drawing.Size(378, 22);
             this.toolStripMenuItemBinaryImportAllProp.Text = "Binärer Import aller Eigenschaften der markierten Bilder";
+            this.toolStripMenuItemBinaryImportAllProp.Visible = false;
             this.toolStripMenuItemBinaryImportAllProp.Click += new System.EventHandler(this.toolStripMenuItemBinaryImportAllProp_Click);
             // 
             // toolStripSeparator20
@@ -2665,7 +2667,6 @@ namespace QuickImageComment
         private System.Windows.Forms.TabControl tabControlSingleMulti;
         private System.Windows.Forms.TabPage tabPageSingle;
         private System.Windows.Forms.TabPage tabPageMulti;
-        private System.Windows.Forms.TabControl tabControlProperties;
         private System.Windows.Forms.TabPage tabPageOverview;
         private System.Windows.Forms.TabPage tabPageExif;
         private QuickImageCommentControls.ShellTreeViewQIC theFolderTreeView;
@@ -2876,8 +2877,9 @@ namespace QuickImageComment
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemBinaryExportAllProp;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemBinaryImportAllProp;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator20;
-        private System.Windows.Forms.TabPage tabPageExifTool;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemWriteTagListFileExifTool;
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemLanguageExifTool;
+        internal System.Windows.Forms.TabControl tabControlProperties;
+        internal System.Windows.Forms.TabPage tabPageExifTool;
     }
 }

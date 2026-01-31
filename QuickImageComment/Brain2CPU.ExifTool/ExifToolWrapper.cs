@@ -10,7 +10,6 @@
 // - set encoding for standard input and output
 // - converted to static class
 
-using Newtonsoft.Json.Linq;
 using QuickImageComment;
 using System;
 using System.Collections;

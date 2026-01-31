@@ -144,11 +144,13 @@ namespace QuickImageComment
                 DialogResult dialogResult = GeneralUtilities.questionMessage(LangCfg.Message.Q_startExifTool);
                 if (dialogResult == DialogResult.Yes) RestartExifTool();
             }
+            MainMaskInterface.showHideExifToolTabBasedOnStatus();
             Close();
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)
         {
+            MainMaskInterface.showHideExifToolTabBasedOnStatus();
             Close();
         }
 

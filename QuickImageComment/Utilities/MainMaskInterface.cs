@@ -14,6 +14,7 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
+using Brain2CPU.ExifTool;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -419,6 +420,20 @@ namespace QuickImageComment
             {
                 theFormQuickImageComment.theUserControlFiles.listViewFiles.Invalidate();
                 theFormQuickImageComment.theUserControlFiles.listViewFiles.Update();
+            }
+        }
+
+        internal static void showHideExifToolTabBasedOnStatus()
+        {
+            if (ExifToolWrapper.isReady())
+            {
+                if (!theFormQuickImageComment.tabControlProperties.TabPages.ContainsKey(theFormQuickImageComment.tabPageExifTool.Name))
+                    theFormQuickImageComment.tabControlProperties.TabPages.Insert(4, theFormQuickImageComment.tabPageExifTool);
+            }
+            else
+            {
+                if (theFormQuickImageComment.tabControlProperties.TabPages.ContainsKey(theFormQuickImageComment.tabPageExifTool.Name))
+                    theFormQuickImageComment.tabControlProperties.TabPages.Remove(theFormQuickImageComment.tabPageExifTool);
             }
         }
 

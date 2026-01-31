@@ -220,6 +220,8 @@ namespace QuickImageComment
         public void init(string DisplayFolder, ArrayList DisplayFiles)
         {
             Program.StartupPerformance.measure("FormQIC init start");
+            readFolderPerfomance = new Performance();
+
 #if USESTARTUPTHREAD
             Thread StartupExifToolInitNewFolderThread = new Thread(StartupExifToolInitNewFolder)
             {
@@ -279,7 +281,6 @@ namespace QuickImageComment
                 toolTip1, ChangedDataGridViewValues);
             this.tabPageOther.Controls.Add(this.DataGridViewOtherMetaData);
 
-            readFolderPerfomance = new Performance();
             // set colors
             backColorInputUnchanged = dynamicComboBoxArtist.BackColor;
             backColorInputValueChanged = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigInt.BackColorValueChanged);
@@ -951,6 +952,7 @@ namespace QuickImageComment
                     ExifToolWrapperInitExceptionMessage = ex.Message;
                 }
             }
+            MainMaskInterface.showHideExifToolTabBasedOnStatus();
             ImageManager.initNewFolder(FolderName);
             ImageManager.initExtendedCacheList();
 
@@ -6404,7 +6406,7 @@ namespace QuickImageComment
                         valueString = valueInt.ToString();
                     }
                 }
-                else 
+                else
                 {
                     valueString = ((ComboBox)inputControl).Text;
                 }
