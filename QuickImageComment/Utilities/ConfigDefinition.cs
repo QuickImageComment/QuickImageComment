@@ -99,9 +99,6 @@ namespace QuickImageComment
                 { "XMP-exif:UserComment", "SaveCommentVideoInXmpExifUserComment" }
             };
 
-        // languages supported by ExifTool
-        public static ArrayList ExifToolLanguages = new ArrayList();
-
         // NOTE: must match definition in exiv2Cdecl.cpp
         private const string exiv2_exception_file = "\\QIC_exiv2_exception.txt";
 
@@ -3687,14 +3684,6 @@ namespace QuickImageComment
                             {
                                 ConfigItems["_TxtInitialDescriptionItems"] = ConfigItems["_TxtInitialDescriptionItems"] + "\r\n" + secondPart;
                             }
-                        }
-                    }
-
-                    else if (firstPart.Equals("ExifToolLanguage"))
-                    {
-                        if (!ExifToolLanguages.Contains(secondPart))
-                        {
-                            ExifToolLanguages.Add(secondPart);
                         }
                     }
 

@@ -429,21 +429,6 @@ namespace QuickImageComment
                 }
             }
 
-            // add languages for ExifTool in menu
-            foreach (string language in ConfigDefinition.ExifToolLanguages)
-            {
-                this.ToolStripMenuItemLanguageExifTool.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-                     new ToolStripMenuItem(language, null, ToolStripMenuItemLanguageExifToolX_Click, "LANGUAGE " + language)});
-            }
-            foreach (ToolStripMenuItem menuItem in ToolStripMenuItemLanguageExifTool.DropDownItems)
-            {
-                if (menuItem.Text.Equals(ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.LanguageExifTool)))
-                {
-                    menuItem.Checked = true;
-                }
-            }
-
-
             //Program.StartupPerformance.measure("FormQIC languages in menu");
 
             // add configured map-URLs in menu
@@ -953,6 +938,7 @@ namespace QuickImageComment
                 }
             }
             MainMaskInterface.showHideExifToolTabBasedOnStatus();
+            addExifToolLanguagesToMenu();
             ImageManager.initNewFolder(FolderName);
             ImageManager.initExtendedCacheList();
 
@@ -972,6 +958,25 @@ namespace QuickImageComment
             ShellItemStartupSelectedFolder = new GongSolutions.Shell.ShellItem(FolderName);
             //Program.StartupPerformance.measure("FormQIC *** ImageManagerInitNewFolder ShellItemStartupSelectedFolder created");
             Program.StartupPerformance.measure("FormQIC *** StartupExifToolInitNewFolder finish");
+        }
+
+        // add languages for ExifTool in menu
+        private void addExifToolLanguagesToMenu()
+        {
+            this.ToolStripMenuItemLanguageExifTool.DropDownItems.Clear();
+            foreach (string language in ExifToolWrapper.getLanguageList())
+            {
+                this.ToolStripMenuItemLanguageExifTool.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+                     new ToolStripMenuItem(language, null, ToolStripMenuItemLanguageExifToolX_Click, "LANGUAGE " + language)});
+            }
+            foreach (ToolStripMenuItem menuItem in ToolStripMenuItemLanguageExifTool.DropDownItems)
+            {
+                string languageCode = menuItem.Text.Split(' ')[0];
+                if (languageCode.Equals(ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.LanguageExifTool)))
+                {
+                    menuItem.Checked = true;
+                }
+            }
         }
 
         // started in thread to cyclically display memory information
@@ -2933,7 +2938,8 @@ namespace QuickImageComment
         // set language for ExifTool
         private void ToolStripMenuItemLanguageExifToolX_Click(object sender, EventArgs e)
         {
-            ConfigDefinition.setCfgUserString(ConfigDefinition.enumCfgUserString.LanguageExifTool, sender.ToString());
+            string languageCode = sender.ToString().Split(' ')[0];
+            ConfigDefinition.setCfgUserString(ConfigDefinition.enumCfgUserString.LanguageExifTool, languageCode);
             if (theExtendedImage != null)
             {
                 toolStripMenuItemRefresh_Click(sender, e);

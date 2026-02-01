@@ -118,6 +118,7 @@ namespace Brain2CPU.ExifTool
         private static readonly ManualResetEvent _waitForErrorHandle = new ManualResetEvent(true);
 
         private static readonly ArrayList Locations = new ArrayList();
+        private static readonly ArrayList Languages = new ArrayList();
         private static readonly SortedList<string, TagDefinition> Tags = new SortedList<string, TagDefinition>();
         // list of tags with flag "Unsafe" - should not be changed
         internal static readonly ArrayList UnsafeTags = new ArrayList();
@@ -172,6 +173,7 @@ namespace Brain2CPU.ExifTool
             {
                 FillTagListFromExifTool(iniPath, language);
             }
+            FillLanguageListFromExifTool();
         }
 
         private static void OutputDataReceived(object sender, DataReceivedEventArgs e)
@@ -520,6 +522,22 @@ namespace Brain2CPU.ExifTool
                 return cmdRes.Result;
         }
 
+        public static void FillLanguageListFromExifTool()
+        {
+            string cmd = "-lang";
+            var cmdRes = SendCommand(cmd);
+            if (cmdRes)
+            {
+                string[] lines = cmdRes.Result.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                {
+                    for (int ii = 1; ii < lines.Length; ii++)
+                    {
+                        Languages.Add(lines[ii].Trim());
+                    }
+                }
+            }
+        }
+
         public static void FillLocationListFromExifTool(string iniPath)
         {
             string cmd = "-listg1";
@@ -582,6 +600,11 @@ namespace Brain2CPU.ExifTool
         public static ArrayList getLocationList()
         {
             return Locations;
+        }
+
+        public static ArrayList getLanguageList()
+        {
+            return Languages;
         }
 
         public static void FillTagListFromExifTool(string iniPath, string language)
