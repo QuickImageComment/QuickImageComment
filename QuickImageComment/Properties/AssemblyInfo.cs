@@ -43,16 +43,16 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("4.67.*")]
-[assembly: AssemblyInformationalVersion("4.67" + AssemblyInfo.VersionSuffix + AssemblyInfo.Platform + AssemblyInfo.Framework)]
-[assembly: AssemblyFileVersion("4.67.0.0")]
+[assembly: AssemblyVersion("5.00.*")]
+[assembly: AssemblyInformationalVersion("5.00" + AssemblyInfo.VersionSuffix + AssemblyInfo.Platform + AssemblyInfo.Framework)]
+[assembly: AssemblyFileVersion("5.00.0.0")]
 
 class AssemblyInfo
 {
 #if DEBUG
     public const string VersionSuffix = "-DBG";
 #else
-    public const string VersionSuffix = "";
+    public const string VersionSuffix = "-Beta-1";
 #endif
     // Version to Check is the last published version
     // for beta versions it is one before AssemblyVersion

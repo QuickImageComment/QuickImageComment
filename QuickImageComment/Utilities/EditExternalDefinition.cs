@@ -16,6 +16,7 @@
 
 using System;
 using System.Collections;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace QuickImageComment
@@ -28,7 +29,8 @@ namespace QuickImageComment
         internal enum CommandType
         {
             BatchCommand,
-            ProgramReference
+            ProgramReference,
+            URI
         }
 
         internal string Name;
@@ -173,6 +175,7 @@ namespace QuickImageComment
         {
             string[] placeholders = { "%f", "%~f", "%~df", "%~pf", "%~nf", "%~xf", "%~nxf" };
 
+            var psi = new ProcessStartInfo();
             ArrayList FileNames = MainMaskInterface.getSelectedFileNames();
             if (FileNames.Count == 0)
             {
@@ -257,6 +260,16 @@ namespace QuickImageComment
                 command = System.Text.RegularExpressions.Regex.Replace(command, "(&\\s*)+$", "");
                 if (windowPauseAfterExecution) command += "& pause";
                 startProcessBatch(command);
+            }
+            else if (commandType == CommandType.URI)
+            {
+                psi.UseShellExecute = true;
+                for (int ii = 0; ii < FileNames.Count; ii++)
+                {
+                    psi.FileName = commandOrOptions + FileNames[ii];
+                    Logger.log(psi.FileName);
+                    Process.Start(psi);
+                }
             }
             else
             {

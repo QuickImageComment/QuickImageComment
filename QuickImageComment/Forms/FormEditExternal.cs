@@ -138,6 +138,7 @@ namespace QuickImageComment
                         textBoxProgramOptions.Text = "";
                         textBoxWindowsTitle.Text = "";
                         textBoxBatchCommand.Text = editExternalDefinition.commandOrOptions.Replace(GeneralUtilities.UniqueSeparator, "\r\n");
+                        textBoxUri.Text = "";
                         break;
                     case EditExternalDefinition.CommandType.ProgramReference:
                         radioButtonProgram.Checked = true;
@@ -145,6 +146,15 @@ namespace QuickImageComment
                         textBoxProgramOptions.Text = editExternalDefinition.commandOrOptions;
                         textBoxWindowsTitle.Text = editExternalDefinition.windowTitle;
                         textBoxBatchCommand.Text = "";
+                        textBoxUri.Text = "";
+                        break;
+                    case EditExternalDefinition.CommandType.URI:
+                        radioButtonUri.Checked = true;
+                        textBoxProgramPath.Text = "";
+                        textBoxProgramOptions.Text = "";
+                        textBoxWindowsTitle.Text = "";
+                        textBoxBatchCommand.Text = "";
+                        textBoxUri.Text = editExternalDefinition.commandOrOptions;
                         break;
                     default:
                         radioButtonBatchCommand.Checked = false;
@@ -153,6 +163,7 @@ namespace QuickImageComment
                         textBoxProgramOptions.Text = "";
                         textBoxWindowsTitle.Text = "";
                         textBoxBatchCommand.Text = "";
+                        textBoxUri.Text = "";
                         break;
                 }
                 // enable event handler actions when definition changes
@@ -199,6 +210,8 @@ namespace QuickImageComment
                     editExternalDefinition.commandType = EditExternalDefinition.CommandType.BatchCommand;
                 else if (radioButtonProgram.Checked)
                     editExternalDefinition.commandType = EditExternalDefinition.CommandType.ProgramReference;
+                else if (radioButtonUri.Checked)
+                    editExternalDefinition.commandType = EditExternalDefinition.CommandType.URI;
 
                 switch (editExternalDefinition.commandType)
                 {
@@ -210,6 +223,9 @@ namespace QuickImageComment
                         editExternalDefinition.programPath = textBoxProgramPath.Text;
                         editExternalDefinition.commandOrOptions = textBoxProgramOptions.Text;
                         editExternalDefinition.windowTitle = textBoxWindowsTitle.Text;
+                        break;
+                    case EditExternalDefinition.CommandType.URI:
+                        editExternalDefinition.commandOrOptions = textBoxUri.Text;
                         break;
                     default:
                         editExternalDefinition.programPath = "";
@@ -429,6 +445,10 @@ namespace QuickImageComment
             textBoxBatchCommand.Enabled = radioButtonBatchCommand.Checked;
             checkBoxWindowPauseAfterExecution.Enabled = radioButtonBatchCommand.Checked;
             labelPlaceholder.Enabled = radioButtonBatchCommand.Checked;
+
+            // controls for choice URI
+            labelUri.Enabled = radioButtonUri.Checked;
+            textBoxUri.Enabled = radioButtonUri.Checked;
         }
 
         // enable / disable controls based on selection
@@ -456,6 +476,7 @@ namespace QuickImageComment
             checkBoxOptionsFirst.Checked = false;
             textBoxProgramPath.Text = "";
             checkBoxWindowPauseAfterExecution.Checked = false;
+            textBoxUri.Text = "";
 
             this.buttonUp.Enabled = false;
             this.buttonDown.Enabled = false;

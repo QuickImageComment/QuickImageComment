@@ -76,13 +76,16 @@ namespace QuickImageComment
             this.labelWindowTitle = new System.Windows.Forms.Label();
             this.textBoxWindowsTitle = new System.Windows.Forms.TextBox();
             this.buttonSelectApplication = new System.Windows.Forms.Button();
+            this.radioButtonUri = new System.Windows.Forms.RadioButton();
+            this.textBoxUri = new System.Windows.Forms.TextBox();
+            this.labelUri = new System.Windows.Forms.Label();
             this.panelType.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonAbort
             // 
             this.buttonAbort.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonAbort.Location = new System.Drawing.Point(484, 416);
+            this.buttonAbort.Location = new System.Drawing.Point(484, 451);
             this.buttonAbort.Name = "buttonAbort";
             this.buttonAbort.Size = new System.Drawing.Size(95, 22);
             this.buttonAbort.TabIndex = 26;
@@ -97,7 +100,7 @@ namespace QuickImageComment
             this.listBoxExternalCommands.FormattingEnabled = true;
             this.listBoxExternalCommands.Location = new System.Drawing.Point(5, 8);
             this.listBoxExternalCommands.Name = "listBoxExternalCommands";
-            this.listBoxExternalCommands.Size = new System.Drawing.Size(212, 381);
+            this.listBoxExternalCommands.Size = new System.Drawing.Size(212, 407);
             this.listBoxExternalCommands.TabIndex = 0;
             this.listBoxExternalCommands.SelectedIndexChanged += new System.EventHandler(this.listBoxExternalCommands_SelectedIndexChanged);
             // 
@@ -134,7 +137,7 @@ namespace QuickImageComment
             // buttonOk
             // 
             this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonOk.Location = new System.Drawing.Point(246, 416);
+            this.buttonOk.Location = new System.Drawing.Point(246, 451);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(95, 22);
             this.buttonOk.TabIndex = 25;
@@ -165,7 +168,7 @@ namespace QuickImageComment
             // buttonCustomizeForm
             // 
             this.buttonCustomizeForm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonCustomizeForm.Location = new System.Drawing.Point(5, 416);
+            this.buttonCustomizeForm.Location = new System.Drawing.Point(5, 451);
             this.buttonCustomizeForm.Name = "buttonCustomizeForm";
             this.buttonCustomizeForm.Size = new System.Drawing.Size(98, 22);
             this.buttonCustomizeForm.TabIndex = 24;
@@ -176,7 +179,7 @@ namespace QuickImageComment
             // buttonHelp
             // 
             this.buttonHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonHelp.Location = new System.Drawing.Point(722, 416);
+            this.buttonHelp.Location = new System.Drawing.Point(722, 451);
             this.buttonHelp.Name = "buttonHelp";
             this.buttonHelp.Size = new System.Drawing.Size(95, 22);
             this.buttonHelp.TabIndex = 28;
@@ -187,12 +190,13 @@ namespace QuickImageComment
             // panelType
             // 
             this.panelType.BackColor = System.Drawing.SystemColors.Control;
+            this.panelType.Controls.Add(this.radioButtonUri);
             this.panelType.Controls.Add(this.radioButtonBatchCommand);
             this.panelType.Controls.Add(this.radioButtonProgram);
             this.panelType.ForeColor = System.Drawing.SystemColors.Control;
             this.panelType.Location = new System.Drawing.Point(449, 23);
             this.panelType.Name = "panelType";
-            this.panelType.Size = new System.Drawing.Size(262, 33);
+            this.panelType.Size = new System.Drawing.Size(368, 33);
             this.panelType.TabIndex = 8;
             // 
             // radioButtonBatchCommand
@@ -299,7 +303,7 @@ namespace QuickImageComment
             this.textBoxBatchCommand.Multiline = true;
             this.textBoxBatchCommand.Name = "textBoxBatchCommand";
             this.textBoxBatchCommand.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxBatchCommand.Size = new System.Drawing.Size(361, 151);
+            this.textBoxBatchCommand.Size = new System.Drawing.Size(361, 142);
             this.textBoxBatchCommand.TabIndex = 22;
             this.textBoxBatchCommand.TextChanged += new System.EventHandler(this.editExternalDefinitionChanged);
             // 
@@ -326,7 +330,7 @@ namespace QuickImageComment
             // 
             this.checkBoxWindowPauseAfterExecution.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.checkBoxWindowPauseAfterExecution.AutoSize = true;
-            this.checkBoxWindowPauseAfterExecution.Location = new System.Drawing.Point(457, 390);
+            this.checkBoxWindowPauseAfterExecution.Location = new System.Drawing.Point(457, 381);
             this.checkBoxWindowPauseAfterExecution.Name = "checkBoxWindowPauseAfterExecution";
             this.checkBoxWindowPauseAfterExecution.Size = new System.Drawing.Size(247, 17);
             this.checkBoxWindowPauseAfterExecution.TabIndex = 23;
@@ -404,11 +408,44 @@ namespace QuickImageComment
             this.buttonSelectApplication.UseVisualStyleBackColor = true;
             this.buttonSelectApplication.Click += new System.EventHandler(this.buttonSelectApplication_Click);
             // 
+            // radioButtonUri
+            // 
+            this.radioButtonUri.AutoSize = true;
+            this.radioButtonUri.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.radioButtonUri.Location = new System.Drawing.Point(303, 10);
+            this.radioButtonUri.Name = "radioButtonUri";
+            this.radioButtonUri.Size = new System.Drawing.Size(43, 17);
+            this.radioButtonUri.TabIndex = 2;
+            this.radioButtonUri.TabStop = true;
+            this.radioButtonUri.Text = "URI";
+            this.radioButtonUri.UseVisualStyleBackColor = true;
+            // 
+            // textBoxUri
+            // 
+            this.textBoxUri.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxUri.Location = new System.Drawing.Point(456, 414);
+            this.textBoxUri.Name = "textBoxUri";
+            this.textBoxUri.Size = new System.Drawing.Size(361, 21);
+            this.textBoxUri.TabIndex = 30;
+            this.textBoxUri.TextChanged += new System.EventHandler(this.editExternalDefinitionChanged);
+            // 
+            // labelUri
+            // 
+            this.labelUri.Location = new System.Drawing.Point(334, 418);
+            this.labelUri.Name = "labelUri";
+            this.labelUri.Size = new System.Drawing.Size(120, 13);
+            this.labelUri.TabIndex = 31;
+            this.labelUri.Text = "URI";
+            this.labelUri.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // FormEditExternal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(824, 443);
+            this.ClientSize = new System.Drawing.Size(824, 478);
+            this.Controls.Add(this.labelUri);
+            this.Controls.Add(this.textBoxUri);
             this.Controls.Add(this.buttonSelectApplication);
             this.Controls.Add(this.textBoxWindowsTitle);
             this.Controls.Add(this.labelWindowTitle);
@@ -486,5 +523,8 @@ namespace QuickImageComment
         private System.Windows.Forms.Label labelWindowTitle;
         private System.Windows.Forms.TextBox textBoxWindowsTitle;
         private System.Windows.Forms.Button buttonSelectApplication;
+        private System.Windows.Forms.RadioButton radioButtonUri;
+        private System.Windows.Forms.TextBox textBoxUri;
+        private System.Windows.Forms.Label labelUri;
     }
 }
