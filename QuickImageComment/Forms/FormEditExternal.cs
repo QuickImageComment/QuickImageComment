@@ -115,6 +115,12 @@ namespace QuickImageComment
             editExternalDefinitionChanged(sender, e);
         }
 
+        private void radioButtonUri_CheckedChanged(object sender, EventArgs e)
+        {
+            enableDisableControlsBasedOnType();
+            editExternalDefinitionChanged(sender, e);
+        }
+
         // index of selected meta data items changed
         private void listBoxExternalCommands_SelectedIndexChanged(object sender, EventArgs e)
         {

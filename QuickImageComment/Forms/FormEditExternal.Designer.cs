@@ -56,6 +56,7 @@ namespace QuickImageComment
             this.buttonCustomizeForm = new System.Windows.Forms.Button();
             this.buttonHelp = new System.Windows.Forms.Button();
             this.panelType = new System.Windows.Forms.Panel();
+            this.radioButtonUri = new System.Windows.Forms.RadioButton();
             this.radioButtonBatchCommand = new System.Windows.Forms.RadioButton();
             this.radioButtonProgram = new System.Windows.Forms.RadioButton();
             this.checkBoxMultipleFiles = new System.Windows.Forms.CheckBox();
@@ -76,7 +77,6 @@ namespace QuickImageComment
             this.labelWindowTitle = new System.Windows.Forms.Label();
             this.textBoxWindowsTitle = new System.Windows.Forms.TextBox();
             this.buttonSelectApplication = new System.Windows.Forms.Button();
-            this.radioButtonUri = new System.Windows.Forms.RadioButton();
             this.textBoxUri = new System.Windows.Forms.TextBox();
             this.labelUri = new System.Windows.Forms.Label();
             this.panelType.SuspendLayout();
@@ -198,6 +198,19 @@ namespace QuickImageComment
             this.panelType.Name = "panelType";
             this.panelType.Size = new System.Drawing.Size(368, 33);
             this.panelType.TabIndex = 8;
+            // 
+            // radioButtonUri
+            // 
+            this.radioButtonUri.AutoSize = true;
+            this.radioButtonUri.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.radioButtonUri.Location = new System.Drawing.Point(303, 10);
+            this.radioButtonUri.Name = "radioButtonUri";
+            this.radioButtonUri.Size = new System.Drawing.Size(43, 17);
+            this.radioButtonUri.TabIndex = 2;
+            this.radioButtonUri.TabStop = true;
+            this.radioButtonUri.Text = "URI";
+            this.radioButtonUri.UseVisualStyleBackColor = true;
+            this.radioButtonUri.CheckedChanged += new System.EventHandler(this.radioButtonUri_CheckedChanged);
             // 
             // radioButtonBatchCommand
             // 
@@ -407,18 +420,6 @@ namespace QuickImageComment
             this.buttonSelectApplication.Text = "Wähle aus geöffneten Programmen";
             this.buttonSelectApplication.UseVisualStyleBackColor = true;
             this.buttonSelectApplication.Click += new System.EventHandler(this.buttonSelectApplication_Click);
-            // 
-            // radioButtonUri
-            // 
-            this.radioButtonUri.AutoSize = true;
-            this.radioButtonUri.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.radioButtonUri.Location = new System.Drawing.Point(303, 10);
-            this.radioButtonUri.Name = "radioButtonUri";
-            this.radioButtonUri.Size = new System.Drawing.Size(43, 17);
-            this.radioButtonUri.TabIndex = 2;
-            this.radioButtonUri.TabStop = true;
-            this.radioButtonUri.Text = "URI";
-            this.radioButtonUri.UseVisualStyleBackColor = true;
             // 
             // textBoxUri
             // 

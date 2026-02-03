@@ -116,6 +116,8 @@ namespace QuickImageComment
                     commandType = CommandType.ProgramReference;
                 else if (flags.Contains("B"))
                     commandType = CommandType.BatchCommand;
+                else if (flags.Contains("U"))
+                    commandType = CommandType.URI;
                 else
                     // do not translate here, as language configuration is not yet loaded
                     GeneralUtilities.debugMessage("Error in user configuration file: external edit definition \"" + Name + "\" without valid command type");
@@ -144,7 +146,7 @@ namespace QuickImageComment
                         }
                     }
                 }
-                else if (commandType == CommandType.BatchCommand)
+                else if (commandType == CommandType.BatchCommand || commandType == CommandType.URI)
                 {
                     programPath = "";
                     commandOrOptions = DefinitionString.Substring(startIndex);
@@ -158,13 +160,16 @@ namespace QuickImageComment
             string definitionString = Name + "|";
             if (commandType == CommandType.ProgramReference) definitionString += "P";
             if (commandType == CommandType.BatchCommand) definitionString += "B";
+            if (commandType == CommandType.URI) definitionString += "U";
             if (optionsFirst) definitionString += "F";
             if (dropInWindow) definitionString += "D";
             if (multipleFiles) definitionString += "M";
             if (windowPauseAfterExecution) definitionString += "W";
             if (commandType == CommandType.ProgramReference)
                 definitionString += "|" + programPath + "|" + commandOrOptions + "|" + windowTitle;
-            if (commandType == CommandType.BatchCommand)
+            else if (commandType == CommandType.BatchCommand)
+                definitionString += "|" + commandOrOptions;
+            else if (commandType == CommandType.URI)
                 definitionString += "|" + commandOrOptions;
 
             return definitionString;
@@ -267,7 +272,6 @@ namespace QuickImageComment
                 for (int ii = 0; ii < FileNames.Count; ii++)
                 {
                     psi.FileName = commandOrOptions + FileNames[ii];
-                    Logger.log(psi.FileName);
                     Process.Start(psi);
                 }
             }
