@@ -721,6 +721,14 @@ namespace QuickImageComment
             StartupExifToolInitNewFolderThread.Join();
             Program.StartupPerformance.measure("FormQIC *** after StartupExifToolInitNewFolderThread.Join");
 #endif
+#if DEBUG
+            // in RELEASE addExifToolLanguagesToMenu is called in StartupExifToolInitNewFolder
+            // in DEBUG it is called here to avoid 'Cross-thread operation not valid' when
+            // StartupExifToolInitNewFolder is called in thread
+            // using Invoke will result in lock at StartupExifToolInitNewFolderThread.Join()
+            // so call it here as it anyhow takes only about 50 ms
+            addExifToolLanguagesToMenu();
+#endif
             // adjust panels according configuration
             // needs to be done after StartupExifToolInitNewFolder because there allowed values are collected
             // which are used to define InputCheckConfigurations in UserControlChangeableFields
@@ -943,7 +951,11 @@ namespace QuickImageComment
                 }
             }
             MainMaskInterface.showHideExifToolTabBasedOnStatus();
+#if !DEBUG
+            // in DEBUG mode this causes 'Cross-thread operation not valid' if this method runs in a thread
+            // addExifToolLanguagesToMenu is then called after StartupExifToolInitNewFolderThread.Join()
             addExifToolLanguagesToMenu();
+#endif
             ImageManager.initNewFolder(FolderName);
             ImageManager.initExtendedCacheList();
 
