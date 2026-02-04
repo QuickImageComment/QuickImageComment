@@ -54,13 +54,13 @@ namespace QuickImageComment
         private Button buttonAbort;
         private FormCustomization.Interface CustomizationInterface;
         private UserControlMap theUserControlMap;
-        private static string FolderName;
+        internal static string FolderName;
         private static DataTable dataTable;
         private static int topDiffLabelToComboBox;
         private static int topDiffLabelToDateTimePicker;
         private readonly string dataTableFileName;
 
-        public bool findExecuted = false;
+        internal bool findExecuted = false;
 
         private static FormFind thisFormFind;
         internal List<string> FilterFieldTags = new List<string>();

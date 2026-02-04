@@ -226,6 +226,7 @@
     </Compile>
     <Compile Include="JR.Utils.GUI.Forms\FlexibleMessageBox.cs" />
     <Compile Include="Utilities\ChangeableFieldSpecification.cs" />
+    <Compile Include="Utilities\DirectoryWatcher.cs" />
     <Compile Include="Utilities\DropFileOnProcess.cs" />
     <Compile Include="Utilities\EditExternalDefinition.cs" />
     <Compile Include="Utilities\TagUtilities.cs" />

@@ -14,7 +14,6 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-using QuickImageCommentControls;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -370,7 +369,7 @@ namespace QuickImageComment
                     string FullNewFileName = (string)filesStillToRename[FullOldFileName];
                     if (!System.IO.File.Exists(FullNewFileName))
                     {
-                        ShellTreeViewQIC.addShellListenerIgnoreRename(FullOldFileName, FullNewFileName);
+                        UserControlFiles.addDirectoryWatcherIgnoreRename(FullOldFileName, FullNewFileName);
                         System.IO.File.Move(FullOldFileName, FullNewFileName);
                         // enter new file name in update list for list view
                         int index = filesToUpdateListView.IndexOfValue(FullOldFileName);
@@ -439,7 +438,7 @@ namespace QuickImageComment
                     filesStillToRename.Add(FullNewFileNameUnique, FullNewFileName);
                 }
 
-                ShellTreeViewQIC.addShellListenerIgnoreRename(FullOldFileName, FullNewFileName);
+                UserControlFiles.addDirectoryWatcherIgnoreRename(FullOldFileName, FullNewFileName);
                 System.IO.File.Move(FullOldFileName, FullNewFileNameUnique);
                 filesToUpdateListView.Add(FullOldFileName, FullNewFileNameUnique);
                 // rename additional files

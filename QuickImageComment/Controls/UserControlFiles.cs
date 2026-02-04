@@ -13,6 +13,7 @@
 //You should have received a copy of the GNU General Public License
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+//#define LOGWATCHEREVENTS
 
 using QuickImageCommentControls;
 using System;
@@ -46,6 +47,13 @@ namespace QuickImageComment
         // flag to indicate if file list is filled with complete content of folder
         // is used to decide, which updates from ShellListener affect listViewFiles
         internal static bool listViewWithCompleteFolder = false;
+
+        // lists to hold file system changes, which cause DirectoryWatcher to fire,
+        // but should be ignored, as they are handled inside
+        private static readonly ArrayList DirectoryWatcherIgnoreDelete = new ArrayList();
+        private static readonly ArrayList DirectoryWatcherIgnoreUpdate = new ArrayList();
+        private static readonly ArrayList DirectoryWatcherIgnoreRename = new ArrayList();
+        private static readonly ArrayList DirectoryWatcherRenameIsUpdate = new ArrayList();
 
         internal UserControlFiles()
         {
@@ -81,6 +89,7 @@ namespace QuickImageComment
         {
             if (theFormQuickImageComment.continueAfterCheckForChangesAndOptionalSaving(listViewFiles.SelectedIndices))
             {
+                //!!: should not filter if file list is filled from FormFind
                 analyseNormaliseFileFilter();
                 theFormQuickImageComment.readFolderAndDisplayImage(true);
             }
@@ -358,6 +367,7 @@ namespace QuickImageComment
             {
                 if (theFormQuickImageComment.continueAfterCheckForChangesAndOptionalSaving(listViewFiles.SelectedIndices))
                 {
+                    //!!: should not filter if file list is filled from FormFind
                     analyseNormaliseFileFilter();
                     theFormQuickImageComment.readFolderAndDisplayImage(true);
                 }
@@ -680,6 +690,138 @@ namespace QuickImageComment
         // create item in list view (after event from ShellItemChangeEventHandler)
         // When Paint saves an image generated two create-events. So combine create and update in one method
         // to be able to handle a second create event as update.
+
+        internal void OnChangeDetected(string path, WatcherChangeTypes type)
+        {
+            // If you touch UI here, marshal to UI thread:
+            if (InvokeRequired)
+            {
+                BeginInvoke(new Action(() => OnChangeDetected(path, type)));
+                return;
+            }
+
+            if (type == WatcherChangeTypes.Created)
+            {
+                if (path.EndsWith("_exiftool_tmp"))
+                {
+#if LOGWATCHEREVENTS
+                    Logger.log("Change by ExifTool " + path);
+#endif
+                    // when exiftool updates a file:
+                    // creates ..._exiftool_temp
+                    // updates ..._exiftool_temp
+                    // deletes original file
+                    // renames ..._exiftool_temp to original name
+                    // ignore some events, especially the delete because delete will deselct the file
+                    string originalFileName = path.Substring(0, path.Length - 13);
+                    DirectoryWatcherIgnoreDelete.Add(originalFileName);
+                    DirectoryWatcherIgnoreUpdate.Add(path);
+                    DirectoryWatcherRenameIsUpdate.Add(path);
+                }
+                else
+                {
+                    // start in separate thread so that lock is working
+                    new System.Threading.Tasks.Task(() =>
+                    {
+#if LOGWATCHEREVENTS
+                        Logger.log("Created " + path);
+#endif
+                        createOrUpdateItemListViewFiles(path);
+                    }).Start();
+                }
+            }
+            else if (type == WatcherChangeTypes.Changed)
+            {
+                if (DirectoryWatcherIgnoreUpdate.Contains(path))
+                {
+#if LOGWATCHEREVENTS
+                    Logger.log("Changed Ignored " + path);
+#endif
+                    DirectoryWatcherIgnoreUpdate.Remove(path);
+                }
+                else
+                {
+#if !DEBUG
+                    // start in separate thread so that lock is working
+                    // only in Release, in Debug creating a thread here will lead to 
+                    // System.InvalidOperationException: 'Cross-thread operation not valid: Control 'listViewFiles' accessed from a thread other than the thread it was created on.'
+                    // Due to this, in Debug it is accepted not to have the security of lock
+                    new System.Threading.Tasks.Task(() =>
+                    {
+#endif
+#if LOGWATCHEREVENTS
+                    Logger.log("Changed " + path);
+#endif
+                    createOrUpdateItemListViewFiles(path);
+#if !DEBUG
+                    }).Start();
+#endif
+                }
+            }
+            else if (type == WatcherChangeTypes.Deleted)
+            {
+                if (DirectoryWatcherIgnoreDelete.Contains(path))
+                {
+#if LOGWATCHEREVENTS
+                    Logger.log("Delete ignored " + path);
+#endif
+                    DirectoryWatcherIgnoreDelete.Remove(path);
+                }
+                else
+                {
+                    // start in separate thread so that lock is working
+                    new System.Threading.Tasks.Task(() =>
+                    {
+#if LOGWATCHEREVENTS
+                        Logger.log("Deleted " + path);
+#endif
+                        deleteItemListViewFiles(path);
+                    }).Start();
+                }
+            }
+            else if (type == WatcherChangeTypes.Renamed)
+            {
+                // split argument, first name is old file, second name is new file
+                string[] names = path.Split('|');
+                if (DirectoryWatcherIgnoreRename.Contains(path))
+                {
+#if LOGWATCHEREVENTS
+                    Logger.log("Rename ignored " + path);
+#endif
+                    DirectoryWatcherIgnoreRename.Remove(path);
+                }
+                else if (DirectoryWatcherRenameIsUpdate.Contains(names[0]))
+                {
+#if !DEBUG
+                    // start in separate thread so that lock is working
+                    // only in Release, in Debug creating a thread here will lead to 
+                    // System.InvalidOperationException: 'Cross-thread operation not valid: Control 'listViewFiles' accessed from a thread other than the thread it was created on.'
+                    // Due to this, in Debug it is accepted not to have the security of lock
+                    new System.Threading.Tasks.Task(() =>
+                    {
+#endif
+#if LOGWATCHEREVENTS
+                    Logger.log("Rename is update " + path);
+#endif
+                    createOrUpdateItemListViewFiles(names[1]);
+#if !DEBUG
+                    }).Start();
+#endif
+                }
+                else
+                {
+                    // start in separate thread so that lock is working
+                    new System.Threading.Tasks.Task(() =>
+                    {
+#if LOGWATCHEREVENTS
+                        Logger.log("Renamed " + path);
+#endif
+                        renameItemListViewFiles(names[0], names[1]);
+                    }).Start();
+                }
+            }
+        }
+
         internal void createOrUpdateItemListViewFiles(string fullFileName)
         {
             // if main mask is not already closing
@@ -735,10 +877,15 @@ namespace QuickImageComment
                             formImageDetails?.newImage(extendedImage);
                             FormImageWindow formImageWindow = FormImageWindow.getWindowForImage(extendedImage);
                             formImageWindow?.newImage(extendedImage);
+#if LOGWATCHEREVENTS
+                            Logger.log("update " + fullFileName, 0);
+#endif
                         }
                         else
                         {
-                            //Logger.log("was just saved " + fullFileName, 2);
+#if LOGWATCHEREVENTS
+                            Logger.log("was just saved " + fullFileName, 0);
+#endif
                         }
                     }
                     else
@@ -763,6 +910,9 @@ namespace QuickImageComment
                                 listViewFiles.View = tempView;
 
                                 theFormQuickImageComment.toolStripStatusLabelFiles.Text = LangCfg.translate("Bilder/Videos", this.Name) + ": " + listViewFiles.Items.Count.ToString();
+#if LOGWATCHEREVENTS
+                                Logger.log("create " + fullFileName, 0);
+#endif
                             }
                         }
                     }
@@ -806,6 +956,10 @@ namespace QuickImageComment
                         FormFind.deleteRow(fullFileName);
 
                         theFormQuickImageComment.toolStripStatusLabelFiles.Text = LangCfg.translate("Bilder/Videos", this.Name) + ": " + listViewFiles.Items.Count.ToString();
+#if LOGWATCHEREVENTS
+                        Logger.log("delete " + fullFileName, 0);
+#endif
+
                     }
                 }
             }
@@ -918,7 +1072,20 @@ namespace QuickImageComment
                 FormFind.addOrUpdateRow(newFullFileName);
 
                 theFormQuickImageComment.toolStripStatusLabelFiles.Text = LangCfg.translate("Bilder/Videos", this.Name) + ": " + listViewFiles.Items.Count.ToString();
+#if LOGWATCHEREVENTS
+                Logger.log("rename " + oldFullFileName + " >>> " + newFullFileName, 0);
+#endif
             }
+        }
+
+        // add entry to DirectoryWatcher events to be ignored
+        internal static void addDirectoryWatcherIgnoreDelete(string fileName)
+        {
+            DirectoryWatcherIgnoreDelete.Add(fileName);
+        }
+        internal static void addDirectoryWatcherIgnoreRename(string oldFileName, string newFileName)
+        {
+            DirectoryWatcherIgnoreRename.Add(oldFileName + "*" + newFileName);
         }
 
         //*****************************************************************

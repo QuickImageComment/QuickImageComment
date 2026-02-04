@@ -75,6 +75,7 @@ namespace QuickImageComment
         public static bool cfgSaved = false;
         public static Performance readFolderPerfomance;
         private static FormFind formFind;
+        private static DirectoryWatcher directoryWatcher;
 
         // colors
         internal Color backColorInputUnchanged;
@@ -773,7 +774,8 @@ namespace QuickImageComment
             theFolderTreeView.expandRoot();
             Program.StartupPerformance.measure("FormQIC after expandRoot");
 
-            theFolderTreeView.registerEventHandlers();
+            // 2026-02-04: shell listener replaced by DirectoryWatcher, which is more reliable 
+            //theFolderTreeView.registerEventHandlers();
 
             // try/catch to handle if FolderName is not valid
             // however should not happen, as existance of FolderName is checked before
@@ -812,6 +814,9 @@ namespace QuickImageComment
             // when caching is started before e.g. via StartupExifToolInitNewFolder it happened that first file in folder 
             // was read twice (first during caching) which caused delays in display first image
             ImageManager.startThreadToUpdateCaches();
+
+            // start DirectoryWatcher to watch changes in folder
+            initDirectoryWatcher(FolderName);
 
             starting = false;
             this.toolStripStatusLabelMemory.Text = "";
@@ -1000,6 +1005,16 @@ namespace QuickImageComment
             }
         }
 
+        // init directory watcher
+        private void initDirectoryWatcher(string FolderName)
+        {
+            if (directoryWatcher != null)
+            {
+                directoryWatcher.Dispose();
+            }
+            directoryWatcher = new DirectoryWatcher(FolderName);
+            directoryWatcher.ChangeDetected += new System.Action<string, WatcherChangeTypes>(theUserControlFiles.OnChangeDetected);
+        }
 
         //*****************************************************************
         // Event Handler
@@ -1451,6 +1466,7 @@ namespace QuickImageComment
                 {
                     FolderName = theFolderTreeView.SelectedFolder.FileSystemPath;
                     readFolderAndDisplayImage(false);
+                    initDirectoryWatcher(FolderName);
                 }
                 catch
                 {
@@ -1978,7 +1994,7 @@ namespace QuickImageComment
                                 if (mode == manageSelectedFilesModes.delete ||
                                     mode == manageSelectedFilesModes.permanentDelete)
                                 {
-                                    ShellTreeViewQIC.addShellListenerIgnoreDelete(filesToBeManaged[ii]);
+                                    UserControlFiles.addDirectoryWatcherIgnoreDelete(filesToBeManaged[ii]);
                                     try
                                     {
                                         if (mode == manageSelectedFilesModes.permanentDelete)
@@ -2032,7 +2048,7 @@ namespace QuickImageComment
                                         }
                                         else // mode == manageSelectedFilesModes.move
                                         {
-                                            ShellTreeViewQIC.addShellListenerIgnoreDelete(filesToBeManaged[ii]);
+                                            UserControlFiles.addDirectoryWatcherIgnoreDelete(filesToBeManaged[ii]);
                                             Microsoft.VisualBasic.FileIO.FileSystem.MoveFile(filesToBeManaged[ii],
                                                 GeneralUtilities.fileNameNewFolder(filesToBeManaged[ii], targetFolder),
                                                 true);
@@ -2074,7 +2090,7 @@ namespace QuickImageComment
                                                     true);
                                                 break;
                                             case manageSelectedFilesModes.move:
-                                                ShellTreeViewQIC.addShellListenerIgnoreDelete(additionalFile);
+                                                UserControlFiles.addDirectoryWatcherIgnoreDelete(additionalFile);
                                                 Microsoft.VisualBasic.FileIO.FileSystem.MoveFile(additionalFile,
                                                     GeneralUtilities.fileNameNewFolder(additionalFile, targetFolder),
                                                     true);
@@ -2143,6 +2159,7 @@ namespace QuickImageComment
             {
                 readFolderAndDisplayImage(true);
             }
+            initDirectoryWatcher(FolderName);
         }
 
         // reset input fields of image to original values
@@ -2697,6 +2714,7 @@ namespace QuickImageComment
                 {
                     theUserControlFiles.listViewFiles.clearThumbnails();
                     displayImageAfterReadFolder(false);
+                    initDirectoryWatcher(FormFind.FolderName);
                     // before searching for files, FormFind sets cursor to wait, so reset here
                     this.Cursor = Cursors.Default;
                 }
@@ -3239,6 +3257,8 @@ namespace QuickImageComment
                         FolderName = newFolderName;
                         theFolderTreeView.SelectedFolder = new GongSolutions.Shell.ShellItem(FolderName);
                         readFolderAndDisplayImage(false);
+                        // calling initDirectoryWatcher here not needed as it is done 
+                        // via theFolderTreeView_AfterSelect
                     }
                     else
                     {
@@ -4902,6 +4922,7 @@ namespace QuickImageComment
                 ImageManager.initWithImageFilesArrayList(DisplayFiles, false);
                 theUserControlFiles.listViewFiles.clearThumbnails();
                 displayImageAfterReadFolder(false);
+                initDirectoryWatcher(FolderName);
             }
             catch (Exception ex)
             {

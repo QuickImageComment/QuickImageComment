@@ -368,24 +368,6 @@ namespace QuickImageComment
             }
         }
 
-        internal static void createOrUpdateItemListViewFiles(string fullFileName)
-        {
-            // if main mask is not already closing
-            if (!FormQuickImageComment.closing)
-            {
-                theFormQuickImageComment.theUserControlFiles.createOrUpdateItemListViewFiles(fullFileName);
-            }
-        }
-
-        internal static void deleteItemListViewFiles(string fullFileName)
-        {
-            // if main mask is not already closing
-            if (!FormQuickImageComment.closing)
-            {
-                theFormQuickImageComment.theUserControlFiles.deleteItemListViewFiles(fullFileName);
-            }
-        }
-
         internal static void renameItemListViewFiles(string oldFullFileName, string newFullFileName)
         {
             // if main mask is not already closing

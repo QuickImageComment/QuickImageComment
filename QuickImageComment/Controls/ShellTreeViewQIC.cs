@@ -492,7 +492,8 @@ namespace QuickImageCommentControls
                     // start in separate thread so that lock is working
                     new System.Threading.Tasks.Task(() =>
                     {
-                        MainMaskInterface.createOrUpdateItemListViewFiles(e.Item.FileSystemPath);
+                        // 2026-02-04: shell listener replaced by DirectoryWatcher, which is more reliable 
+                        //MainMaskInterface.createOrUpdateItemListViewFiles(e.Item.FileSystemPath);
                     }).Start();
                 }
             }
@@ -533,7 +534,8 @@ namespace QuickImageCommentControls
                         // start in separate thread so that lock is working
                         new System.Threading.Tasks.Task(() =>
                         {
-                            MainMaskInterface.deleteItemListViewFiles(e.Item.FileSystemPath);
+                            // 2026-02-04: shell listener replaced by DirectoryWatcher, which is more reliable 
+                            //MainMaskInterface.deleteItemListViewFiles(e.Item.FileSystemPath);
                         }).Start();
                     }
                 }
@@ -577,9 +579,10 @@ namespace QuickImageCommentControls
                     {
 #endif
 #if LOGLISTENEREVENTS
-                    Logger.log("is update of " + e.NewItem.FileSystemPath);
+                        Logger.log("is update of " + e.NewItem.FileSystemPath);
 #endif
-                    MainMaskInterface.createOrUpdateItemListViewFiles(e.NewItem.FileSystemPath);
+                    // 2026-02-04: shell listener replaced by DirectoryWatcher, which is more reliable 
+                    //MainMaskInterface.createOrUpdateItemListViewFiles(e.NewItem.FileSystemPath);
 #if !DEBUG
                     }).Start();
 #endif
@@ -591,7 +594,8 @@ namespace QuickImageCommentControls
                         // start in separate thread so that lock is working
                         new System.Threading.Tasks.Task(() =>
                         {
-                            MainMaskInterface.renameItemListViewFiles(e.OldItem.FileSystemPath, e.NewItem.FileSystemPath);
+                            // 2026-02-04: shell listener replaced by DirectoryWatcher, which is more reliable 
+                            //MainMaskInterface.renameItemListViewFiles(e.OldItem.FileSystemPath, e.NewItem.FileSystemPath);
                         }).Start();
                     }
                 }
@@ -641,7 +645,8 @@ namespace QuickImageCommentControls
                         new System.Threading.Tasks.Task(() =>
                         {
 #endif
-                        MainMaskInterface.createOrUpdateItemListViewFiles(e.Item.FileSystemPath);
+                        // 2026-02-04: shell listener replaced by DirectoryWatcher, which is more reliable 
+                        //MainMaskInterface.createOrUpdateItemListViewFiles(e.Item.FileSystemPath);
 #if !DEBUG
                         }).Start();
 #endif
@@ -708,15 +713,15 @@ namespace QuickImageCommentControls
             ;
         }
 
-        // add entry to ShellListener events to be ignored
-        internal static void addShellListenerIgnoreDelete(string fileName)
-        {
-            ShellListenerIgnoreDelete.Add(fileName);
-        }
-        internal static void addShellListenerIgnoreRename(string oldFileName, string newFileName)
-        {
-            ShellListenerIgnoreRename.Add(oldFileName + "*" + newFileName);
-        }
+        //// add entry to ShellListener events to be ignored
+        //internal static void addShellListenerIgnoreDelete(string fileName)
+        //{
+        //    ShellListenerIgnoreDelete.Add(fileName);
+        //}
+        //internal static void addShellListenerIgnoreRename(string oldFileName, string newFileName)
+        //{
+        //    ShellListenerIgnoreRename.Add(oldFileName + "*" + newFileName);
+        //}
 
         readonly TreeView m_TreeView;
         readonly ShellItem m_RootFolder = ShellItem.Desktop;
