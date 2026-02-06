@@ -970,44 +970,44 @@ namespace QuickImageComment
         {
             if (comboBoxOperator.Text.Equals(LangCfg.getText(LangCfg.Others.selectOpEmpty)))
             {
-                query += " and " + columnNameForQuery + " is null";
+                query += " and [" + columnNameForQuery + "] is null";
             }
             else if (comboBoxOperator.Text.Equals(LangCfg.getText(LangCfg.Others.selectOpNotEmpty)))
             {
-                query += " and " + columnNameForQuery + " is not null";
+                query += " and [" + columnNameForQuery + "] is not null";
             }
             else if (comboBoxOperator.Text.Equals(LangCfg.getText(LangCfg.Others.selectOpContains)))
             {
-                query += " and " + columnNameForQuery
-                                 + " like '*" + comboBoxValue.Text + "*'";
+                query += " and [" + columnNameForQuery
+                                 + "] like '*" + comboBoxValue.Text + "*'";
             }
             else if (comboBoxOperator.Text.Equals(LangCfg.getText(LangCfg.Others.selectOpContainsNot)))
             {
-                query += " and (not " + columnNameForQuery
-                                      + " like '*" + comboBoxValue.Text + "*'"
-                                      + " or " + columnNameForQuery + " is null)";
+                query += " and (not [" + columnNameForQuery
+                                      + "] like '*" + comboBoxValue.Text + "*'"
+                                      + " or [" + columnNameForQuery + "] is null)";
             }
             else if (comboBoxOperator.Text.Equals(LangCfg.getText(LangCfg.Others.selectOpStartsWith)))
             {
-                query += " and " + columnNameForQuery
-                                 + " like '" + comboBoxValue.Text + "*'";
+                query += " and [" + columnNameForQuery
+                                 + "] like '" + comboBoxValue.Text + "*'";
             }
             else if (comboBoxOperator.Text.Equals(LangCfg.getText(LangCfg.Others.selectOpStartsNotWith)))
             {
-                query += " and (not " + columnNameForQuery
-                                      + " like '" + comboBoxValue.Text + "*'"
-                                      + " or " + columnNameForQuery + " is null)";
+                query += " and (not [" + columnNameForQuery
+                                      + "] like '" + comboBoxValue.Text + "*'"
+                                      + " or [" + columnNameForQuery + "] is null)";
             }
             else if (comboBoxOperator.Text.Equals(LangCfg.getText(LangCfg.Others.selectOpEndsWith)))
             {
-                query += " and " + columnNameForQuery
-                                 + " like '*" + comboBoxValue.Text + "'";
+                query += " and [" + columnNameForQuery
+                                 + "] like '*" + comboBoxValue.Text + "'";
             }
             else if (comboBoxOperator.Text.Equals(LangCfg.getText(LangCfg.Others.selectOpEndsNotWith)))
             {
-                query += " and (not " + columnNameForQuery
-                                      + " like '*" + comboBoxValue.Text + "'"
-                                      + " or " + columnNameForQuery + " is null)";
+                query += " and (not [" + columnNameForQuery
+                                      + "] like '*" + comboBoxValue.Text + "'"
+                                      + " or [" + columnNameForQuery + "] is null)";
             }
             else
             {
@@ -1015,26 +1015,26 @@ namespace QuickImageComment
                 if (comboBoxValue.Text.Trim().Equals(""))
                 {
                     if (comboBoxOperator.Text.Equals("="))
-                        query += " and " + columnNameForQuery + " is null";
+                        query += " and [" + columnNameForQuery + "] is null";
                     else
-                        query += " and " + columnNameForQuery + " is not null";
+                        query += " and [" + columnNameForQuery + "] is not null";
                 }
                 else if (TagUtilities.isDateProperty(aMetaDataDefinitionItem.KeyPrim, aMetaDataDefinitionItem.TypePrim))
                 {
                     if (comboBoxOperator.Text.Equals("="))
                     {
-                        query += " and " + columnNameForQuery + " >= "
+                        query += " and [" + columnNameForQuery + "] >= "
                                          + getValueForSelectWithCheck(comboBoxValue, DateModifierForSelect.min);
-                        query += " and " + columnNameForQuery + " <= "
+                        query += " and [" + columnNameForQuery + "] <= "
                                          + getValueForSelectWithCheck(comboBoxValue, DateModifierForSelect.max);
                     }
                     else if (comboBoxOperator.Text.Equals("<>"))
                     {
-                        query += " and (" + columnNameForQuery + " < "
+                        query += " and ([" + columnNameForQuery + "] < "
                                           + getValueForSelectWithCheck(comboBoxValue, DateModifierForSelect.min)
-                                          + " or " + columnNameForQuery + " > "
+                                          + " or [" + columnNameForQuery + "] > "
                                           + getValueForSelectWithCheck(comboBoxValue, DateModifierForSelect.max)
-                                          + " or " + columnNameForQuery + " is null)";
+                                          + " or [" + columnNameForQuery + "] is null)";
                     }
                     else
                     {
@@ -1050,21 +1050,21 @@ namespace QuickImageComment
                         else
                             throw new Exception("Internal program error: select operator '" + comboBoxOperator.Text + "' not handled.");
 
-                        query += " and " + columnNameForQuery + " "
+                        query += " and [" + columnNameForQuery + "] "
                                          + comboBoxOperator.Text + " "
                                          + getValueForSelectWithCheck(comboBoxValue, dateModifierForSelect);
                     }
                 }
                 else if (comboBoxOperator.Text.Equals("<>"))
                 {
-                    query += " and (" + columnNameForQuery + " "
+                    query += " and ([" + columnNameForQuery + "] "
                                       + comboBoxOperator.Text + " "
                                       + getValueForSelectWithCheck(comboBoxValue, DateModifierForSelect.none)
-                                      + " or " + columnNameForQuery + " is null)";
+                                      + " or [" + columnNameForQuery + "] is null)";
                 }
                 else
                 {
-                    query += " and " + columnNameForQuery + " "
+                    query += " and [" + columnNameForQuery + "] "
                                      + comboBoxOperator.Text + " "
                                      + getValueForSelectWithCheck(comboBoxValue, DateModifierForSelect.none);
                 }
