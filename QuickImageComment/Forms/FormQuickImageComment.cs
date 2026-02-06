@@ -2970,6 +2970,10 @@ namespace QuickImageComment
         {
             string languageCode = sender.ToString().Split(' ')[0];
             ConfigDefinition.setCfgUserString(ConfigDefinition.enumCfgUserString.LanguageExifTool, languageCode);
+            ExifToolWrapper.SetLanguage(ConfigDefinition.getIniPath(), languageCode);
+            // update drop downs with new language
+            fillAndConfigureChangeableFieldPanel();
+
             if (theExtendedImage != null)
             {
                 toolStripMenuItemRefresh_Click(sender, e);

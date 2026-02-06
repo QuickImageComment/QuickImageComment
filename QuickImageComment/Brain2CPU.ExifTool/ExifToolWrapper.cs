@@ -100,6 +100,7 @@ namespace Brain2CPU.ExifTool
         private static readonly StringBuilder _output = new StringBuilder();
         private static readonly StringBuilder _error = new StringBuilder();
         private static StreamWriter inputWriter;
+        private static string language = "";
 
         private static readonly ProcessStartInfo _psi = new ProcessStartInfo
         {
@@ -123,7 +124,7 @@ namespace Brain2CPU.ExifTool
         // list of tags with flag "Unsafe" - should not be changed
         internal static readonly ArrayList UnsafeTags = new ArrayList();
 
-        public static void init(string iniPath, string language, string exifToolPath = null, bool faster = false)
+        public static void init(string iniPath, string givenLanguage, string exifToolPath = null, bool faster = false)
         {
             if (string.IsNullOrEmpty(exifToolPath))
             {
@@ -168,12 +169,8 @@ namespace Brain2CPU.ExifTool
             // first try to get tags from file (is faster)
             // if no file for this version/language exists, get tags from exiftool
             Tags.Clear();
-            FillTagListFromFile(iniPath, language);
-            if (Tags.Count == 0)
-            {
-                FillTagListFromExifTool(iniPath, language);
-            }
             FillLanguageListFromExifTool();
+            SetLanguage(iniPath, givenLanguage);
         }
 
         private static void OutputDataReceived(object sender, DataReceivedEventArgs e)
@@ -436,6 +433,7 @@ namespace Brain2CPU.ExifTool
             cmd.Append("-charset\nexif=" + charsetExif + "\n");
             cmd.Append("-charset\niptc=" + charsetIptc + "\n");
             cmd.Append("-sep\n" + writeSeparator + "\n");
+            cmd.Append("-lang\n" + language + "\n");
 
             cmd.Append(path);
             var cmdRes = SendCommand(cmd.ToString());
@@ -607,7 +605,19 @@ namespace Brain2CPU.ExifTool
             return Languages;
         }
 
-        public static void FillTagListFromExifTool(string iniPath, string language)
+        public static void SetLanguage(string iniPath, string givenLanguage)
+        {
+            language = givenLanguage;
+            Tags.Clear();
+            FillTagListFromFile(iniPath);
+            if (Tags.Count == 0 && Status == ExeStatus.Ready)
+
+            {
+                FillTagListFromExifTool(iniPath);
+            }
+        }
+
+        private static void FillTagListFromExifTool(string iniPath)
         {
             Queue<AllowedValues> AllAllowedValues = new Queue<AllowedValues>();
             string cmd = "-listx\n-f\n-lang\n" + language;
@@ -695,11 +705,11 @@ namespace Brain2CPU.ExifTool
                     System.IO.StreamWriter StreamOut = null;
                     try
                     {
-                        StreamOut = new System.IO.StreamWriter(getTagFileName(iniPath, language), false, System.Text.Encoding.UTF8);
+                        StreamOut = new System.IO.StreamWriter(getTagFileName(iniPath), false, System.Text.Encoding.UTF8);
                     }
                     catch (UnauthorizedAccessException)
                     {
-                        GeneralUtilities.message(LangCfg.Message.E_configFileNoWriteAccess, getTagFileName(iniPath, language));
+                        GeneralUtilities.message(LangCfg.Message.E_configFileNoWriteAccess, getTagFileName(iniPath));
                         return;
                     }
                     StreamOut.WriteLine("; Tag-List ExifTool " + ExifToolVersion + " " + language);
@@ -720,13 +730,13 @@ namespace Brain2CPU.ExifTool
             }
         }
 
-        public static void FillTagListFromFile(string iniPath, string language)
+        private static void FillTagListFromFile(string iniPath)
         {
             Queue<AllowedValues> AllAllowedValues = new Queue<AllowedValues>();
-            if (System.IO.File.Exists(getTagFileName(iniPath, language)))
+            if (System.IO.File.Exists(getTagFileName(iniPath)))
             {
                 System.IO.StreamReader StreamIn =
-                  new System.IO.StreamReader(getTagFileName(iniPath, language), System.Text.Encoding.UTF8);
+                  new System.IO.StreamReader(getTagFileName(iniPath), System.Text.Encoding.UTF8);
                 string line = StreamIn.ReadLine();
                 while (line != null)
                 {
@@ -783,7 +793,7 @@ namespace Brain2CPU.ExifTool
             }
         }
 
-        private static string getTagFileName(string iniPath, string language)
+        private static string getTagFileName(string iniPath)
         {
             return iniPath + "QIC-exifTool-" + ExifToolVersion + "-" + language + "-Tags.txt";
         }
