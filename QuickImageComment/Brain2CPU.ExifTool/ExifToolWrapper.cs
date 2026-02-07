@@ -607,12 +607,22 @@ namespace Brain2CPU.ExifTool
 
         public static void SetLanguage(string iniPath, string givenLanguage)
         {
+            bool firstCall = language.Equals("");
             language = givenLanguage;
             Tags.Clear();
             FillTagListFromFile(iniPath);
             if (Tags.Count == 0 && Status == ExeStatus.Ready)
-
             {
+                if (!firstCall)
+                {
+                    // When called a second time, there may have been read some images.
+                    // If those images contained language specific entries in lang-alt tags
+                    // -listx will return tags like XMP-dc:Description-de-DE
+                    // which are not "real" tags.
+                    // In order to avoid this, stop and restart ExifTool
+                    Stop();
+                    Start();
+                }
                 FillTagListFromExifTool(iniPath);
             }
         }
@@ -681,7 +691,8 @@ namespace Brain2CPU.ExifTool
                                 // check if a known tag looks like having a language suffix
                                 // is needed to verify that logic in UserControlTagList is sufficient to detect
                                 // entries having a language suffix
-                                if (mightBeLanguageSuffixAtEnd(name))
+                                if (mightBeLanguageSuffixAtEnd(name) &&
+                                    ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.Maintenance))
                                 {
                                     GeneralUtilities.debugMessage("Looks like having a language suffix:" + name);
                                 }
