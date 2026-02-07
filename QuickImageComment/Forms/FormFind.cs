@@ -428,6 +428,15 @@ namespace QuickImageComment
                         LangCfg.getText(LangCfg.Others.selectOpContainsNot)});
 
                     }
+                    else if (metaDataDefinitionItem.TypePrim.Equals(TagUtilities.exifToolTypeBoolean))
+                    {
+                        comboBoxOperator1.Items.AddRange(new object[] { "", "=", "<>",
+                        LangCfg.getText(LangCfg.Others.selectOpEmpty),
+                        LangCfg.getText(LangCfg.Others.selectOpNotEmpty)});
+                        comboBoxOperator2.Items.AddRange(new object[] { "", "=", "<>",
+                        LangCfg.getText(LangCfg.Others.selectOpEmpty),
+                        LangCfg.getText(LangCfg.Others.selectOpNotEmpty)});
+                    }
                     else if (metaDataDefinitionItem.FormatPrim == MetaDataItem.Format.Interpreted)
                     {
                         // operator with string operators
@@ -610,6 +619,17 @@ namespace QuickImageComment
                                 filterDefinition.comboBoxValue2.Items.Add(Entry);
                             }
                         }
+                    }
+                    else if (filterDefinition.metaDataDefinitionItem.TypePrim.Equals(TagUtilities.exifToolTypeBoolean))
+                    {
+                        filterDefinition.comboBoxValue1.DropDownStyle = ComboBoxStyle.DropDownList;
+                        filterDefinition.comboBoxValue1.Items.Add("");
+                        filterDefinition.comboBoxValue1.Items.Add("False");
+                        filterDefinition.comboBoxValue1.Items.Add("True");
+                        filterDefinition.comboBoxValue2.DropDownStyle = ComboBoxStyle.DropDownList;
+                        filterDefinition.comboBoxValue2.Items.Add("");
+                        filterDefinition.comboBoxValue2.Items.Add("False");
+                        filterDefinition.comboBoxValue2.Items.Add("True");
                     }
                     else
                     {

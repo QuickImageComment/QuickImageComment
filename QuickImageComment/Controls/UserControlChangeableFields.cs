@@ -398,6 +398,12 @@ namespace QuickImageComment
                         ((ComboBox)aControl).Items.Add("");
                         ((ComboBox)aControl).Items.AddRange(theInputCheckConfig.ValidValues.ToArray());
                     }
+                    else if (theChangeableFieldSpecification.TypePrim.Equals(TagUtilities.exifToolTypeBoolean))
+                    {
+                        ((ComboBox)aControl).Items.Add("");
+                        ((ComboBox)aControl).Items.Add("False");
+                        ((ComboBox)aControl).Items.Add("True");
+                    }
                     else
                     {
                         if (ConfigDefinition.getChangeableFieldEntriesLists().ContainsKey(theChangeableFieldSpecification.KeyPrim))
