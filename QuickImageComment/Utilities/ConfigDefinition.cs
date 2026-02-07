@@ -122,7 +122,8 @@ namespace QuickImageComment
             LoggerToFile,
             ShowHiddenFiles,
             KeepFileModifiedTime,
-            FindShowDataTable
+            FindShowDataTable,
+            UseKeyAsNameForMetaDataDefinition
         };
 
         public enum enumConfigInt

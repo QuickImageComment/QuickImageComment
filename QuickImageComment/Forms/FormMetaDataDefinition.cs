@@ -740,18 +740,30 @@ namespace QuickImageComment
             {
                 MetaDataKey = userControlTagList.listViewTags.SelectedItems[0].SubItems[3].Text;
                 MetaDataType = userControlTagList.listViewTags.SelectedItems[0].SubItems[1].Text.Split(' ')[0];
-                if (TagUtilities.isExifToolTag(MetaDataKey))
+                if (ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.UseKeyAsNameForMetaDataDefinition))
                 {
-                    // key from ExifTool, (short) description used for name
-                    Name = userControlTagList.listViewTags.SelectedItems[0].SubItems[2].Text;
+                    Name = userControlTagList.listViewTags.SelectedItems[0].SubItems[0].Text;
                 }
                 else
                 {
-                    Name = userControlTagList.listViewTags.SelectedItems[0].SubItems[0].Text;
-                    posDot = Name.LastIndexOf(".");
-                    if (posDot > 0)
+                    if (TagUtilities.isExifToolTag(MetaDataKey))
                     {
-                        Name = Name.Substring(posDot + 1);
+                        // key from ExifTool, (short) description used for name
+                        Name = userControlTagList.listViewTags.SelectedItems[0].SubItems[2].Text;
+                        // some ExifTool tags do not have a description
+                        if (Name.Equals(""))
+                        {
+                            Name = userControlTagList.listViewTags.SelectedItems[0].SubItems[0].Text;
+                        }
+                    }
+                    else
+                    {
+                        Name = userControlTagList.listViewTags.SelectedItems[0].SubItems[0].Text;
+                        posDot = Name.LastIndexOf(".");
+                        if (posDot > 0)
+                        {
+                            Name = Name.Substring(posDot + 1);
+                        }
                     }
                 }
             }
