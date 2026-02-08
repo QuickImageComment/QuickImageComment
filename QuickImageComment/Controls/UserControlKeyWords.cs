@@ -22,6 +22,8 @@ namespace QuickImageComment
 {
     public partial class UserControlKeyWords : UserControl
     {
+        static bool duringDisplay = false;
+
         public UserControlKeyWords()
         {
             InitializeComponent();
@@ -38,11 +40,13 @@ namespace QuickImageComment
         // display key words in the respective controls
         internal void displayKeyWords(ArrayList KeyWords)
         {
+            duringDisplay = true;
             textBoxFreeInputKeyWords.Text = "";
             foreach (TreeNode treeNode in treeViewPredefKeyWords.Nodes)
             {
                 checkTreeNodesIfMatch(treeNode, KeyWords);
             }
+            duringDisplay = false;
 
             foreach (string keyWord in KeyWords)
             {
@@ -115,6 +119,11 @@ namespace QuickImageComment
         // cascade check nodes up and down
         private void treeViewPredefKeyWords_AfterCheck(object sender, TreeViewEventArgs e)
         {
+            // when items are checked during filling display, do not check parents
+            // only those keywords shall be checked which are stored in file,
+            // independent from parent-child relationships configured by user
+            if (duringDisplay) return;
+
             if (e.Node.Checked)
             {
                 if (e.Node.Parent != null) e.Node.Parent.Checked = true;
