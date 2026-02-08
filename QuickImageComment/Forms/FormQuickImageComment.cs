@@ -2901,6 +2901,7 @@ namespace QuickImageComment
         // set language
         private void ToolStripMenuItemLanguageX_Click(object sender, EventArgs e)
         {
+            this.Cursor = Cursors.WaitCursor;
             LangCfg.setLanguageAndInit(sender.ToString(), true);
             if (LangCfg.getTagLookupForLanguageAvailable())
             {
@@ -2956,13 +2957,14 @@ namespace QuickImageComment
             // change also language for ExifTool
             foreach (ToolStripMenuItem toolStripMenuItem in ToolStripMenuItemLanguageExifTool.DropDownItems)
             {
-                if (toolStripMenuItem.ToString().Equals(LangCfg.getText(LangCfg.Others._ISOlanguageCode)))
+                if (toolStripMenuItem.ToString().StartsWith(LangCfg.getText(LangCfg.Others._ISOlanguageCode) + " - "))
                 {
                     ToolStripMenuItemLanguageExifToolX_Click(toolStripMenuItem, e);
                 }
             }
 
             this.Refresh();
+            this.Cursor = Cursors.Default;
         }
 
         // set language for ExifTool
