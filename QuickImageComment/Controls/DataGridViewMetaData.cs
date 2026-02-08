@@ -14,6 +14,11 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
+// following define is also used in ExtendedImage
+// if needed, enable there as well or define it in
+// Project Properties => Build => Conditional compilation symbols
+//#define SHOW_UTF8_ENCODED_IN_OVERVIEW
+
 using QuickImageComment;
 using System.Collections;
 using System.Collections.Generic;
@@ -604,6 +609,7 @@ namespace QuickImageCommentControls
                     if (!value.Equals(""))
                     {
                         row[0] = anMetaDataDefinitionItem.Name;
+                        // no indication UTF8 als XMP always is UTF8
                         row[1] = value;
                         row[2] = "";
                         row[3] = "";
@@ -619,6 +625,7 @@ namespace QuickImageCommentControls
                         if (!value.Equals(""))
                         {
                             row[0] = anMetaDataDefinitionItem.Name + " " + language;
+                            // no indication UTF8 als XMP always is UTF8
                             row[1] = value;
                             row[2] = "";
                             row[3] = "";
@@ -636,6 +643,10 @@ namespace QuickImageCommentControls
                     foreach (string OverViewMetaDataString in OverViewMetaDataArrayList)
                     {
                         row[0] = anMetaDataDefinitionItem.Name;
+                        // add indication UTF8 to name if type indicates UTF8 encodding
+#if SHOW_UTF8_ENCODED_IN_OVERVIEW
+                        if (theExtendedImage.isUTF8Encoded(anMetaDataDefinitionItem.KeyPrim)) row[0] += " UFT8";
+#endif
                         row[1] = OverViewMetaDataString.Replace("\r\n", " | ");
                         row[2] = "";
                         row[3] = "";

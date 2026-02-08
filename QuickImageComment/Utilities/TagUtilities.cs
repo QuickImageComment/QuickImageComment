@@ -32,7 +32,7 @@ namespace QuickImageComment
         public const string exifToolTypeInt16s = "int16s";
         public const string exifToolTypeInt32u = "int32u";
         public const string exifToolTypeInt32s = "int32s";
-        public const string exifToolTypeReal = "real"; 
+        public const string exifToolTypeReal = "real";
         public const string exifToolTypeBoolean = "boolean";
 
 

@@ -19,6 +19,11 @@
 //#define DEBUG_PRINT_READ_STRINGS_ENCODING
 //#define WRITEJSONRESPONSE
 
+// following define is also used in DataGridViewMetaData
+// if needed, enable there as well or define it in
+// Project Properties => Build => Conditional compilation symbols
+//#define SHOW_UTF8_ENCODED_IN_OVERVIEW
+
 using Brain2CPU.ExifTool;
 using CSJ2K;
 using CSJ2K.Util;
@@ -228,6 +233,9 @@ namespace QuickImageComment
 
         private ArrayList TileViewMetaDataItems;
         private ArrayList XmpLangAltEntries;
+#if SHOW_UTF8_ENCODED_IN_OVERVIEW
+        private ArrayList UTF8EncodedKeys;
+#endif
 
         // Required Orientation indicates which orientation is required based on meta data
         private int RequiredOrientation = 0;
@@ -404,6 +412,9 @@ namespace QuickImageComment
             OtherMetaDataItems = new SortedList();
             MetaDataWarnings = new ArrayList();
             MetaDataWarningsRead = new ArrayList();
+#if SHOW_UTF8_ENCODED_IN_OVERVIEW
+            UTF8EncodedKeys = new ArrayList();
+#endif
 
             this.ImageFileName = ImageFileName;
             addReplaceOtherMetaDataKnownType("File.DirectoryName", System.IO.Path.GetDirectoryName(ImageFileName));
@@ -466,6 +477,9 @@ namespace QuickImageComment
             XmpLangAltEntries = new ArrayList();
             ExifToolMetaDataItems = new SortedList();
             MetaDataWarningsRead = new ArrayList();
+#if SHOW_UTF8_ENCODED_IN_OVERVIEW
+            UTF8EncodedKeys = new ArrayList();
+#endif 
 
             // Initialise other meta data items with key
             // filling keys from InternalMetaDataDefinitions ensures that hard coded meta data
@@ -897,6 +911,9 @@ namespace QuickImageComment
                 if (typeName.Equals(TagUtilities.typeAscii) && stringIsUTF8(interpretedString) ||
                     keyString.Equals("Exif.Photo.UserComment") && stringIsUTF8(interpretedString))
                 {
+#if SHOW_UTF8_ENCODED_IN_OVERVIEW
+                    UTF8EncodedKeys.Add(keyStringIndex);
+#endif
                     ExifMetaDataItems.Add(keyStringIndex, new MetaDataItem(keyString, tag, typeName, count, size,
                         getStringFromUTF8CString(valueString), getStringFromUTF8CString(interpretedString), valueFloat));
                 }
@@ -929,16 +946,26 @@ namespace QuickImageComment
             if (OtherMetaDataItems.ContainsKey(keyString))
             {
                 if (stringIsUTF8(interpretedString))
+                {
+#if SHOW_UTF8_ENCODED_IN_OVERVIEW
+                    UTF8EncodedKeys.Add(keyString);
+#endif
                     OtherMetaDataItems[keyString] = new MetaDataItem(keyString, tag, typeName, count, size,
                         getStringFromUTF8CString(valueString), getStringFromUTF8CString(interpretedString), valueFloat);
+                }
                 else
                     OtherMetaDataItems[keyString] = new MetaDataItem(keyString, tag, typeName, count, size, valueString, interpretedString, valueFloat);
             }
             else
             {
                 if (stringIsUTF8(interpretedString))
+                {
+#if SHOW_UTF8_ENCODED_IN_OVERVIEW
+                    UTF8EncodedKeys.Add(keyString);
+#endif
                     OtherMetaDataItems.Add(keyString, new MetaDataItem(keyString, tag, typeName, count, size,
                         getStringFromUTF8CString(valueString), getStringFromUTF8CString(interpretedString), valueFloat));
+                }
                 else
                     OtherMetaDataItems.Add(keyString, new MetaDataItem(keyString, tag, typeName, count, size, valueString, interpretedString, valueFloat));
             }
@@ -964,6 +991,9 @@ namespace QuickImageComment
             }
 #endif
             // if IPTC is encoded in UTF8, convert
+#if SHOW_UTF8_ENCODED_IN_OVERVIEW
+            if (stringIsUTF8(interpretedString)) UTF8EncodedKeys.Add(keyString);
+#endif
             if (IptcUTF8)
             {
                 valueString = getStringFromUTF8CString(valueString);
@@ -2528,7 +2558,13 @@ namespace QuickImageComment
                                  key.StartsWith("ExifIFD:")) &&
                                 format.Equals(TagUtilities.exifToolTypeString))
                             {
-                                if (stringIsUTF8(value)) value = getStringFromUTF8CString(value);
+                                if (stringIsUTF8(value))
+                                {
+                                    value = getStringFromUTF8CString(value);
+#if SHOW_UTF8_ENCODED_IN_OVERVIEW
+                                    UTF8EncodedKeys.Add(key);
+#endif
+                                }
                                 // num used for original, in case of string is equal to value
                                 num = value;
                             }
@@ -4628,6 +4664,13 @@ namespace QuickImageComment
         {
             return InitialOrientation;
         }
+
+#if SHOW_UTF8_ENCODED_IN_OVERVIEW
+        internal bool isUTF8Encoded(string key)
+        {
+            return UTF8EncodedKeys.Contains(key);
+        }
+#endif
 
         public override string ToString()
         {
