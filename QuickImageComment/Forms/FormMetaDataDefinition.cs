@@ -26,6 +26,8 @@ namespace QuickImageComment
     public partial class FormMetaDataDefinition : Form
     {
         public bool settingsChanged = true;
+        private bool duringCopy = false;
+        private const string formatRunningNumber = "00  ";
 
         private ArrayList[] MetaDataDefinitions;
         private ArrayList MetaDataDefinitionsWork;
@@ -548,7 +550,9 @@ namespace QuickImageComment
             listBoxChangedActive = false;
             if (listBoxMetaData.SelectedIndex >= 0)
             {
-                listBoxMetaData.Items[listBoxMetaData.SelectedIndex] = textBoxName.Text;
+                int runningNumber = listBoxMetaData.SelectedIndex + 1;
+                listBoxMetaData.Items[listBoxMetaData.SelectedIndex] = 
+                    runningNumber.ToString(formatRunningNumber) + textBoxName.Text;
             }
             listBoxChangedActive = true;
             // continue with general change event
@@ -783,6 +787,10 @@ namespace QuickImageComment
                 this.listBoxMetaData.SelectedIndex = listBoxMetaData.Items.Count - 1;
                 // now set the primary key; format and type are set via textBoxMetaDatum1_TextChanged based on different rules
                 textBoxMetaDatum1.Text = MetaDataKey;
+                if (numericUpDownLinesForChange.Enabled && TagUtilities.isMultiLine(textBoxMetaDatum1.Text))
+                {
+                    numericUpDownLinesForChange.Value = 2;
+                }
             }
             // reset flag
             noCheckEnteredMetaDefinitionIsOk = false;
@@ -798,7 +806,10 @@ namespace QuickImageComment
                 MetaDataDefinitionItem MetaDataDefinitionItemForCopy = (MetaDataDefinitionItem)MetaDataDefinitionsWork[index];
                 MetaDataDefinitionsWork.Add(new MetaDataDefinitionItem(MetaDataDefinitionItemForCopy));
                 fillListBoxMetaData();
+                // indicate that index is changed during copy to avoid message "already entered"
+                duringCopy = true;
                 this.listBoxMetaData.SelectedIndex = listBoxMetaData.Items.Count - 1;
+                duringCopy = false;
             }
         }
 
@@ -935,7 +946,7 @@ namespace QuickImageComment
                             GeneralUtilities.message(LangCfg.Message.W_tagAlreadyEnteredExport, aMetaDataDefinitionItem.Name, ii.ToString());
                             return true;
                         }
-                        else
+                        else if (!duringCopy)
                         {
                             GeneralUtilities.message(LangCfg.Message.E_tagAlreadyEntered, aMetaDataDefinitionItem.Name, ii.ToString());
                             return false;
@@ -951,9 +962,10 @@ namespace QuickImageComment
         private void fillListBoxMetaData()
         {
             listBoxMetaData.Items.Clear();
+            int ii = 1;
             foreach (MetaDataDefinitionItem theMetaDataDefinitionItem in MetaDataDefinitionsWork)
             {
-                listBoxMetaData.Items.Add(theMetaDataDefinitionItem.Name);
+                listBoxMetaData.Items.Add(ii++.ToString(formatRunningNumber) + theMetaDataDefinitionItem.Name);
             }
             this.buttonUp.Enabled = false;
             this.buttonDown.Enabled = false;
