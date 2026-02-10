@@ -1543,13 +1543,16 @@ namespace QuickImageComment
                 theUserControlChangeableFields.inputControlChangeableField_handleTextChanged(sender, e);
                 ((Control)sender).BackColor = backColorInputValueChanged;
                 setControlsEnabledBasedOnDataChange();
-                if (sender == theUserControlChangeableFields.getInputControlOrientation())
+                if (sender == theUserControlChangeableFields.getInputControlOrientationExiv2() ||
+                    sender == theUserControlChangeableFields.getInputControlOrientationExifTool())
                 {
-                    string[] SubValues = ((Control)sender).Text.Split(' ');
-                    if (SubValues.Length > 0 && !SubValues[0].Trim().Equals(""))
+                    int orienationIndex = ((ComboBox)sender).SelectedIndex;
+                    if (orienationIndex > 0)
                     {
-                        int orientation = int.Parse(SubValues[0]);
-                        rotateImageToNewOrientation(orientation);
+                        rotateImageToNewOrientation(orienationIndex);
+                        // in case both input controls for orientation (exiv2 and exiftool) are included,
+                        // ensure to have them aligned
+                        theUserControlChangeableFields.setInputFieldForOrientation(orienationIndex);
                     }
                 }
             }
@@ -3767,30 +3770,30 @@ namespace QuickImageComment
         {
             int orientation = theExtendedImage.getAppliedOrientation();
             int newOrientationIndex = ExtendedImage.orientationRotateRight.IndexOf(orientation);
-            if (theUserControlChangeableFields.getInputControlOrientation() == null)
+            if (theUserControlChangeableFields.hasInputFieldForOrientation())
             {
-                rotateImageToNewOrientation(newOrientationIndex);
-                setControlsEnabledBasedOnDataChange();
+                // change orientation value, which triggers rotation of image
+                theUserControlChangeableFields.setInputFieldForOrientation(newOrientationIndex);
             }
             else
             {
-                // change orientation value, which triggers rotation of image
-                theUserControlChangeableFields.getInputControlOrientation().SelectedIndex = newOrientationIndex;
+                rotateImageToNewOrientation(newOrientationIndex);
+                setControlsEnabledBasedOnDataChange();
             }
         }
         private void toolStripMenuItemRotateRight_Click(object sender, EventArgs e)
         {
             int orientation = theExtendedImage.getAppliedOrientation();
             int newOrientationIndex = (int)ExtendedImage.orientationRotateRight[orientation];
-            if (theUserControlChangeableFields.getInputControlOrientation() == null)
+            if (theUserControlChangeableFields.hasInputFieldForOrientation())
             {
-                rotateImageToNewOrientation(newOrientationIndex);
-                setControlsEnabledBasedOnDataChange();
+                // change orientation value, which triggers rotation of image
+                theUserControlChangeableFields.setInputFieldForOrientation(newOrientationIndex);
             }
             else
             {
-                // change orientation value, which triggers rotation of image
-                theUserControlChangeableFields.getInputControlOrientation().SelectedIndex = newOrientationIndex;
+                rotateImageToNewOrientation(newOrientationIndex);
+                setControlsEnabledBasedOnDataChange();
             }
         }
         private void rotateImageToNewOrientation(int orientation)

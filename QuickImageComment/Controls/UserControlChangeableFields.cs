@@ -43,7 +43,8 @@ namespace QuickImageComment
         // used to simulate double click events for ComboBox 
         private static DateTime lastPreviousClick;
 
-        private ComboBox inputControlOrientation = null;
+        private ComboBox inputControlOrientationExiv2 = null;
+        private ComboBox inputControlOrientationExifTool = null;
 
         public class ExceptionInputcheckNotInValidValues : ApplicationException
         {
@@ -75,7 +76,8 @@ namespace QuickImageComment
         {
             this.Visible = false;
             Label LabelTemplate = dynamicLabelChangeableField;
-            inputControlOrientation = null;
+            inputControlOrientationExiv2 = null;
+            inputControlOrientationExifTool = null;
 
             // scale the templates; this method is called after rest of mask is already scaled
             FormCustomization.Interface customziationInterface = MainMaskInterface.getCustomizationInterface();
@@ -210,7 +212,11 @@ namespace QuickImageComment
                         configureDynamicChangeableFieldControls(aMetaDataDefinitionItem, anInputControl, aLabel, true, ref lastTop, ref maxLabelWidth);
                         if (aMetaDataDefinitionItem.KeyPrim.Equals("Exif.Image.Orientation"))
                         {
-                            inputControlOrientation = (ComboBox)anInputControl;
+                            inputControlOrientationExiv2 = (ComboBox)anInputControl;
+                        }
+                        else if (aMetaDataDefinitionItem.KeyPrim.Equals("IFD0:Orientation"))
+                        {
+                            inputControlOrientationExifTool = (ComboBox)anInputControl;
                         }
                         kk++;
                     }
@@ -948,10 +954,26 @@ namespace QuickImageComment
         //*****************************************************************
         #region Others
         //*****************************************************************
-        // check entry in changeable field
-        internal ComboBox getInputControlOrientation()
+        // handling of orientation by rotate button and input field
+        internal ComboBox getInputControlOrientationExiv2()
         {
-            return inputControlOrientation;
+            return inputControlOrientationExiv2;
+        }
+
+        internal ComboBox getInputControlOrientationExifTool()
+        {
+            return inputControlOrientationExifTool;
+        }
+
+        internal bool hasInputFieldForOrientation()
+        {
+            return inputControlOrientationExifTool != null || inputControlOrientationExiv2 != null;
+        }
+
+        internal void setInputFieldForOrientation(int orientation)
+        {
+            if (inputControlOrientationExiv2 != null) inputControlOrientationExiv2.SelectedIndex = orientation;
+            if (inputControlOrientationExifTool != null) inputControlOrientationExifTool.SelectedIndex = orientation;
         }
         #endregion
     }

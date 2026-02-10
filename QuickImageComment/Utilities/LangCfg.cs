@@ -238,7 +238,8 @@ namespace QuickImageComment
             W_differentValueSavedNotMultiple,
             Q_startExifTool,
             W_ShellItemNotSelectable,
-            W_compareTooManyDifferences
+            W_compareTooManyDifferences,
+            I_functionNotForVideos
         }
 
         public enum Others
