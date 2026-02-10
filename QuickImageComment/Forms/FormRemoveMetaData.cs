@@ -47,9 +47,12 @@ namespace QuickImageComment
             for (int ii = 0; ii < listViewFilesSelectedIndices.Length; ii++)
             {
                 ExtendedImage theExtendedImage = ImageManager.getExtendedImage(listViewFilesSelectedIndices[ii]);
-                if (theExtendedImage.getIsVideoAndExifToolNotReady())
+                //if (theExtendedImage.getIsVideoAndExifToolNotReady())
+                //{
+                //    GeneralUtilities.message(LangCfg.Message.I_videoCannotBeChanged, theExtendedImage.getImageFileName());
+                if (theExtendedImage.getIsVideo())
                 {
-                    GeneralUtilities.message(LangCfg.Message.I_videoCannotBeChanged, theExtendedImage.getImageFileName());
+                    GeneralUtilities.message(LangCfg.Message.I_functionNotForVideos, theExtendedImage.getImageFileName());
                     abort = true;
                     return;
                 }
