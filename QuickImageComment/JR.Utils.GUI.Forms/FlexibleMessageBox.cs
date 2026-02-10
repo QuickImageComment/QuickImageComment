@@ -303,6 +303,7 @@ namespace JR.Utils.GUI.Forms
                 this.components = new System.ComponentModel.Container();
                 this.button1 = new System.Windows.Forms.Button();
                 this.richTextBoxMessage = new System.Windows.Forms.RichTextBox();
+                this.richTextBoxMessage.DetectUrls = false;
                 this.FlexibleMessageBoxFormBindingSource = new System.Windows.Forms.BindingSource(this.components);
                 this.panel1 = new System.Windows.Forms.Panel();
                 this.pictureBoxForIcon = new System.Windows.Forms.PictureBox();
