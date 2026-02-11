@@ -593,7 +593,7 @@ namespace QuickImageComment
             SortedList changedFields;
             // fill changedFields here as replaceAllTagPlaceholdersInLoop modifies it
             // and can result in duplicate key error when converted value is determined again
-            changedFields = MainMaskInterface.fillAllChangedFieldsForSaveExcludingArtistComment();
+            changedFields = MainMaskInterface.fillAllChangedFieldsForSaveExcludingArtistComment(theExtendedImage);
             string keyForResult = keyToChange;
             if (keyToChange.Equals(keyArtist))
             {
