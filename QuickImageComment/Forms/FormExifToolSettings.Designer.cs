@@ -46,16 +46,22 @@
             this.label3 = new System.Windows.Forms.Label();
             this.buttonStop = new System.Windows.Forms.Button();
             this.buttonStart = new System.Windows.Forms.Button();
+            this.groupBoxOptions = new System.Windows.Forms.GroupBox();
+            this.dynamicCheckBox_m = new System.Windows.Forms.CheckBox();
+            this.dynamicCheckBox_fast = new System.Windows.Forms.CheckBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.groupBoxOptions.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonOk
             // 
             this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonOk.Location = new System.Drawing.Point(58, 174);
+            this.buttonOk.Location = new System.Drawing.Point(58, 206);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(96, 23);
             this.buttonOk.TabIndex = 1;
@@ -66,7 +72,7 @@
             // buttonCancel
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonCancel.Location = new System.Drawing.Point(201, 174);
+            this.buttonCancel.Location = new System.Drawing.Point(201, 206);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(96, 23);
             this.buttonCancel.TabIndex = 2;
@@ -77,7 +83,7 @@
             // buttonHelp
             // 
             this.buttonHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonHelp.Location = new System.Drawing.Point(304, 174);
+            this.buttonHelp.Location = new System.Drawing.Point(304, 206);
             this.buttonHelp.Name = "buttonHelp";
             this.buttonHelp.Size = new System.Drawing.Size(96, 23);
             this.buttonHelp.TabIndex = 3;
@@ -170,6 +176,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.splitContainer1.Panel2.Controls.Add(this.groupBoxOptions);
             this.splitContainer1.Panel2.Controls.Add(this.label4);
             this.splitContainer1.Panel2.Controls.Add(this.fixedLinkLabelHomePage);
             this.splitContainer1.Panel2.Controls.Add(this.label3);
@@ -181,8 +188,8 @@
             this.splitContainer1.Panel2.Controls.Add(this.buttonCancel);
             this.splitContainer1.Panel2.Controls.Add(this.buttonOk);
             this.splitContainer1.Panel2.Controls.Add(this.textBoxProgramPath);
-            this.splitContainer1.Size = new System.Drawing.Size(459, 308);
-            this.splitContainer1.SplitterDistance = 94;
+            this.splitContainer1.Size = new System.Drawing.Size(459, 353);
+            this.splitContainer1.SplitterDistance = 107;
             this.splitContainer1.TabIndex = 32;
             // 
             // label4
@@ -217,7 +224,7 @@
             // buttonStop
             // 
             this.buttonStop.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonStop.Location = new System.Drawing.Point(125, 91);
+            this.buttonStop.Location = new System.Drawing.Point(125, 88);
             this.buttonStop.Name = "buttonStop";
             this.buttonStop.Size = new System.Drawing.Size(96, 23);
             this.buttonStop.TabIndex = 24;
@@ -228,7 +235,7 @@
             // buttonStart
             // 
             this.buttonStart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonStart.Location = new System.Drawing.Point(9, 91);
+            this.buttonStart.Location = new System.Drawing.Point(9, 88);
             this.buttonStart.Name = "buttonStart";
             this.buttonStart.Size = new System.Drawing.Size(96, 23);
             this.buttonStart.TabIndex = 23;
@@ -236,11 +243,62 @@
             this.buttonStart.UseVisualStyleBackColor = true;
             this.buttonStart.Click += new System.EventHandler(this.buttonStart_Click);
             // 
+            // groupBoxOptions
+            // 
+            this.groupBoxOptions.Controls.Add(this.label6);
+            this.groupBoxOptions.Controls.Add(this.label5);
+            this.groupBoxOptions.Controls.Add(this.dynamicCheckBox_fast);
+            this.groupBoxOptions.Controls.Add(this.dynamicCheckBox_m);
+            this.groupBoxOptions.Location = new System.Drawing.Point(3, 118);
+            this.groupBoxOptions.Name = "groupBoxOptions";
+            this.groupBoxOptions.Size = new System.Drawing.Size(455, 78);
+            this.groupBoxOptions.TabIndex = 28;
+            this.groupBoxOptions.TabStop = false;
+            this.groupBoxOptions.Text = "ExifTool Optionen - Weitere Erläuterung zu den Optionen in der Hile";
+            // 
+            // dynamicCheckBox_m
+            // 
+            this.dynamicCheckBox_m.AutoSize = true;
+            this.dynamicCheckBox_m.Location = new System.Drawing.Point(9, 18);
+            this.dynamicCheckBox_m.Name = "dynamicCheckBox_m";
+            this.dynamicCheckBox_m.Size = new System.Drawing.Size(38, 17);
+            this.dynamicCheckBox_m.TabIndex = 0;
+            this.dynamicCheckBox_m.Text = "-m";
+            this.dynamicCheckBox_m.UseVisualStyleBackColor = true;
+            // 
+            // dynamicCheckBox_fast
+            // 
+            this.dynamicCheckBox_fast.AutoSize = true;
+            this.dynamicCheckBox_fast.Location = new System.Drawing.Point(9, 39);
+            this.dynamicCheckBox_fast.Name = "dynamicCheckBox_fast";
+            this.dynamicCheckBox_fast.Size = new System.Drawing.Size(49, 17);
+            this.dynamicCheckBox_fast.TabIndex = 1;
+            this.dynamicCheckBox_fast.Text = "-fast";
+            this.dynamicCheckBox_fast.UseVisualStyleBackColor = true;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(96, 19);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(204, 13);
+            this.label5.TabIndex = 2;
+            this.label5.Text = "Ignoriere kleinere Fehler und Warnungen";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(96, 41);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(280, 13);
+            this.label6.TabIndex = 3;
+            this.label6.Text = "Erhöhe Geschwindigkeit beim Extrahieren von Metadaten";
+            // 
             // FormExifToolSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(459, 308);
+            this.ClientSize = new System.Drawing.Size(459, 353);
             this.Controls.Add(this.splitContainer1);
             this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -255,6 +313,8 @@
             this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            this.groupBoxOptions.ResumeLayout(false);
+            this.groupBoxOptions.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -277,5 +337,10 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.LinkLabel fixedLinkLabelHomePage;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.GroupBox groupBoxOptions;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.CheckBox dynamicCheckBox_fast;
+        private System.Windows.Forms.CheckBox dynamicCheckBox_m;
+        private System.Windows.Forms.Label label6;
     }
 }

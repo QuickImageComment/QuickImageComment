@@ -294,7 +294,8 @@ namespace QuickImageComment
             SlideshowSubtitleFont,
             SlideShowSubTitelDisplay,
             MapLengthUnit,
-            ExifToolPath
+            ExifToolPath,
+            ExifToolOptions
         };
 
         public enum enumMetaDataGroup
@@ -647,6 +648,7 @@ namespace QuickImageComment
             ConfigItems.Add(enumCfgUserString.MapLengthUnit.ToString(), enumMapLengthUnit.km.ToString());
             // string is used to check if ExifToolPath was never set and thus asking user if he wants to use ExifTool
             ConfigItems.Add(enumCfgUserString.ExifToolPath.ToString(), "not yet set");
+            ConfigItems.Add(enumCfgUserString.ExifToolOptions.ToString(), "-fast");
 
             ConfigItems.Add(enumCfgUserInt.CheckForNewVersionPeriodInDays.ToString(), 30);
             ConfigItems.Add(enumCfgUserInt.ImageDetailsFrameColor.ToString(), System.Drawing.Color.Red.ToArgb());
@@ -2679,20 +2681,20 @@ namespace QuickImageComment
                 try
                 {
 #endif
-                // specify code page 1252 for reading; if file is encoded with UTF8 BOM, it will be read anyhow as UTF8, 
-                // keeping 1252 ensures that old configuration files can be read without problems
-                System.IO.StreamReader StreamIn =
-                  new System.IO.StreamReader(UserConfigFile, System.Text.Encoding.GetEncoding(1252));
-                line = StreamIn.ReadLine();
-                while (line != null)
-                {
-                    analyzeUserConfigFileLine(line, lineNo, ref unknownKeyWords);
+                    // specify code page 1252 for reading; if file is encoded with UTF8 BOM, it will be read anyhow as UTF8, 
+                    // keeping 1252 ensures that old configuration files can be read without problems
+                    System.IO.StreamReader StreamIn =
+                      new System.IO.StreamReader(UserConfigFile, System.Text.Encoding.GetEncoding(1252));
                     line = StreamIn.ReadLine();
-                    lineNo++;
-                }
-                StreamIn.Close();
+                    while (line != null)
+                    {
+                        analyzeUserConfigFileLine(line, lineNo, ref unknownKeyWords);
+                        line = StreamIn.ReadLine();
+                        lineNo++;
+                    }
+                    StreamIn.Close();
 
-                fillPredefinedKeyWordsTrimmed();
+                    fillPredefinedKeyWordsTrimmed();
 #if !DEBUG
                 }
                 catch (Exception ex)
@@ -3574,31 +3576,31 @@ namespace QuickImageComment
             try
             {
 #endif
-            if (System.IO.File.Exists(GeneralConfigFile))
-            {
-                // specify code page 1252 for reading; if file is encoded with UTF8 BOM, it will be read anyhow as UTF8, 
-                // keeping 1252 ensures that old configuration files modified by user can be read without problems
-                System.IO.StreamReader StreamIn =
-                  new System.IO.StreamReader(GeneralConfigFile, System.Text.Encoding.GetEncoding(1252));
-                line = StreamIn.ReadLine();
-                while (line != null)
+                if (System.IO.File.Exists(GeneralConfigFile))
                 {
-                    analyzeGeneralConfigFileLine(GeneralConfigFile, line, lineNo, ref unknownKeyWords);
+                    // specify code page 1252 for reading; if file is encoded with UTF8 BOM, it will be read anyhow as UTF8, 
+                    // keeping 1252 ensures that old configuration files modified by user can be read without problems
+                    System.IO.StreamReader StreamIn =
+                      new System.IO.StreamReader(GeneralConfigFile, System.Text.Encoding.GetEncoding(1252));
                     line = StreamIn.ReadLine();
-                    lineNo++;
+                    while (line != null)
+                    {
+                        analyzeGeneralConfigFileLine(GeneralConfigFile, line, lineNo, ref unknownKeyWords);
+                        line = StreamIn.ReadLine();
+                        lineNo++;
+                    }
+                    StreamIn.Close();
                 }
-                StreamIn.Close();
-            }
-            else if (required)
-            {
-                throw new ExceptionConfigFileNotFound(GeneralConfigFile);
-            }
-            if (!unknownKeyWords.Equals(""))
-            {
-                // do not translate here, as language configuration is not yet loaded
-                GeneralUtilities.debugMessage("Unknown key words in configuration file " + GeneralConfigFile
-                    + ":\n" + unknownKeyWords + "\n\nLines are ignored.");
-            }
+                else if (required)
+                {
+                    throw new ExceptionConfigFileNotFound(GeneralConfigFile);
+                }
+                if (!unknownKeyWords.Equals(""))
+                {
+                    // do not translate here, as language configuration is not yet loaded
+                    GeneralUtilities.debugMessage("Unknown key words in configuration file " + GeneralConfigFile
+                        + ":\n" + unknownKeyWords + "\n\nLines are ignored.");
+                }
 #if !DEBUG
             }
             catch (Exception ex)
@@ -3909,29 +3911,29 @@ namespace QuickImageComment
             try
             {
 #endif
-            if (System.IO.File.Exists(exceptionFile))
-            {
-                System.IO.StreamReader StreamIn = new System.IO.StreamReader(exceptionFile);
-                line = StreamIn.ReadLine();
-                // needs to be adopted if writeFundamentalExceptionToFileAndTerminate in exiv2Cdecl.cpp is changed
-                while (line != null)
+                if (System.IO.File.Exists(exceptionFile))
                 {
-                    if (line.StartsWith("File:"))
-                    {
-                        imageFileName = line.Substring(5).Trim();
-                    }
-                    else
-                    {
-                        exceptionInfo += "\r\n" + line;
-                    }
+                    System.IO.StreamReader StreamIn = new System.IO.StreamReader(exceptionFile);
                     line = StreamIn.ReadLine();
+                    // needs to be adopted if writeFundamentalExceptionToFileAndTerminate in exiv2Cdecl.cpp is changed
+                    while (line != null)
+                    {
+                        if (line.StartsWith("File:"))
+                        {
+                            imageFileName = line.Substring(5).Trim();
+                        }
+                        else
+                        {
+                            exceptionInfo += "\r\n" + line;
+                        }
+                        line = StreamIn.ReadLine();
+                    }
+                    StreamIn.Close();
+                    if (!imageFileName.Equals(""))
+                    {
+                        handleExiv2ExceptionImageFileName(imageFileName, exceptionInfo);
+                    }
                 }
-                StreamIn.Close();
-                if (!imageFileName.Equals(""))
-                {
-                    handleExiv2ExceptionImageFileName(imageFileName, exceptionInfo);
-                }
-            }
 #if !DEBUG
             }
             catch (Exception ex)

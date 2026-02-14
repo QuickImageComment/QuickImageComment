@@ -551,7 +551,7 @@ namespace QuickImageComment
             if (listBoxMetaData.SelectedIndex >= 0)
             {
                 int runningNumber = listBoxMetaData.SelectedIndex + 1;
-                listBoxMetaData.Items[listBoxMetaData.SelectedIndex] = 
+                listBoxMetaData.Items[listBoxMetaData.SelectedIndex] =
                     runningNumber.ToString(formatRunningNumber) + textBoxName.Text;
             }
             listBoxChangedActive = true;

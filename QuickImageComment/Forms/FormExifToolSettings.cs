@@ -16,6 +16,7 @@
 
 using Brain2CPU.ExifTool;
 using System;
+using System.Linq;
 using System.Windows.Forms;
 using static QuickImageComment.ConfigDefinition;
 
@@ -29,6 +30,14 @@ namespace QuickImageComment
             dynamicLabelPath.Text = "";
             dynamicLabelVersion.Text = "";
             textBoxProgramPath.Text = ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.ExifToolPath);
+            string[] options = ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.ExifToolOptions).Split('|');
+            foreach (Control checkBox in groupBoxOptions.Controls)
+            {
+                if (checkBox is CheckBox)
+                {
+                    ((CheckBox)checkBox).Checked = options.Contains(checkBox.Text);
+                }
+            }
 
             MainMaskInterface.getCustomizationInterface().setFormToCustomizedValuesZoomInitial(this);
 #if APPCENTER
@@ -139,6 +148,17 @@ namespace QuickImageComment
         {
             string oldPath = ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.ExifToolPath);
             ConfigDefinition.setCfgUserString(ConfigDefinition.enumCfgUserString.ExifToolPath, textBoxProgramPath.Text);
+            string options = "";
+            foreach (Control checkBox in groupBoxOptions.Controls)
+            {
+                if (checkBox is CheckBox && ((CheckBox)checkBox).Checked)
+                {
+                    options += checkBox.Text + "|";
+                }
+            }
+            ConfigDefinition.setCfgUserString(ConfigDefinition.enumCfgUserString.ExifToolOptions, options);
+            ExifToolWrapper.setUserOptions();
+
             if (!ExifToolWrapper.isReady() && !oldPath.Equals(textBoxProgramPath.Text))
             {
                 DialogResult dialogResult = GeneralUtilities.questionMessage(LangCfg.Message.Q_startExifTool);

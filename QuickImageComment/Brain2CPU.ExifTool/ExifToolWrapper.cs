@@ -73,8 +73,8 @@ namespace Brain2CPU.ExifTool
         public static string ExifToolVersion { get; private set; }
 
         private const string ExeName = "exiftool(-k).exe";
-        private const string Arguments = "-fast -stay_open True -@ - -common_args -t -a";
-        private const string ArgumentsFaster = "-fast2 -stay_open True -@ - -common_args -t -a";
+        private const string Arguments = "-fast -stay_open True -@ -";
+        private const string ArgumentsFaster = "-fast2 -stay_open True -@ -";
         private const string ExitMessage = "-- press RETURN --";
         internal const string SuccessMessage = "1 image files updated";
         internal const string writeSeparator = "«¦»";
@@ -101,6 +101,7 @@ namespace Brain2CPU.ExifTool
         private static readonly StringBuilder _error = new StringBuilder();
         private static StreamWriter inputWriter;
         private static string language = "";
+        private static string userOptions = "";
 
         private static readonly ProcessStartInfo _psi = new ProcessStartInfo
         {
@@ -126,6 +127,7 @@ namespace Brain2CPU.ExifTool
 
         public static void init(string iniPath, string givenLanguage, string exifToolPath = null, bool faster = false)
         {
+            setUserOptions();
             if (string.IsNullOrEmpty(exifToolPath))
             {
                 if (File.Exists(ExeName)) //in current directory
@@ -171,6 +173,11 @@ namespace Brain2CPU.ExifTool
             Tags.Clear();
             FillLanguageListFromExifTool();
             SetLanguage(iniPath, givenLanguage);
+        }
+
+        public static void setUserOptions()
+        {
+            userOptions = ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.ExifToolOptions).Replace('|', '\n');
         }
 
         private static void OutputDataReceived(object sender, DataReceivedEventArgs e)
@@ -434,6 +441,8 @@ namespace Brain2CPU.ExifTool
             cmd.Append("-charset\niptc=" + charsetIptc + "\n");
             cmd.Append("-sep\n" + writeSeparator + "\n");
             cmd.Append("-lang\n" + language + "\n");
+            cmd.Append("-a\n");
+            cmd.Append(userOptions);
 
             cmd.Append(path);
             var cmdRes = SendCommand(cmd.ToString());
@@ -512,6 +521,7 @@ namespace Brain2CPU.ExifTool
             bool filter = tagsTable?.Count > 0;
             string cmd = "";
             for (int ii = 0; ii < args.Length; ii++) cmd += args[ii] + "\n";
+            cmd += userOptions;
             cmd += path;
             var cmdRes = SendCommand(cmd);
             if (!cmdRes)

@@ -581,8 +581,8 @@ namespace QuickImageCommentControls
 #if LOGLISTENEREVENTS
                         Logger.log("is update of " + e.NewItem.FileSystemPath);
 #endif
-                    // 2026-02-04: shell listener replaced by DirectoryWatcher, which is more reliable 
-                    //MainMaskInterface.createOrUpdateItemListViewFiles(e.NewItem.FileSystemPath);
+                        // 2026-02-04: shell listener replaced by DirectoryWatcher, which is more reliable 
+                        //MainMaskInterface.createOrUpdateItemListViewFiles(e.NewItem.FileSystemPath);
 #if !DEBUG
                     }).Start();
 #endif
@@ -645,8 +645,8 @@ namespace QuickImageCommentControls
                         new System.Threading.Tasks.Task(() =>
                         {
 #endif
-                        // 2026-02-04: shell listener replaced by DirectoryWatcher, which is more reliable 
-                        //MainMaskInterface.createOrUpdateItemListViewFiles(e.Item.FileSystemPath);
+                            // 2026-02-04: shell listener replaced by DirectoryWatcher, which is more reliable 
+                            //MainMaskInterface.createOrUpdateItemListViewFiles(e.Item.FileSystemPath);
 #if !DEBUG
                         }).Start();
 #endif
