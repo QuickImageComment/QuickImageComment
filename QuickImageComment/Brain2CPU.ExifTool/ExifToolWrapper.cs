@@ -442,6 +442,8 @@ namespace Brain2CPU.ExifTool
             cmd.Append("-sep\n" + writeSeparator + "\n");
             cmd.Append("-lang\n" + language + "\n");
             cmd.Append("-a\n");
+            if (ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.KeepFileModifiedTime))
+                cmd.Append("-P\n");
             cmd.Append(userOptions);
 
             cmd.Append(path);
