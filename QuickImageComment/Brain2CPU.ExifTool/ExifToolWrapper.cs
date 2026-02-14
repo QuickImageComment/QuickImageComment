@@ -607,22 +607,11 @@ namespace Brain2CPU.ExifTool
 
         public static void SetLanguage(string iniPath, string givenLanguage)
         {
-            bool firstCall = language.Equals("");
             language = givenLanguage;
             Tags.Clear();
             FillTagListFromFile(iniPath);
             if (Tags.Count == 0 && Status == ExeStatus.Ready)
             {
-                if (!firstCall)
-                {
-                    // When called a second time, there may have been read some images.
-                    // If those images contained language specific entries in lang-alt tags
-                    // -listx will return tags like XMP-dc:Description-de-DE
-                    // which are not "real" tags.
-                    // In order to avoid this, stop and restart ExifTool
-                    Stop();
-                    Start();
-                }
                 FillTagListFromExifTool(iniPath);
             }
         }
