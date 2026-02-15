@@ -24,7 +24,8 @@ namespace QuickImageComment
     public partial class FormDateTimeChange : Form
     {
         // tag of value to be shifted
-        private string dateTimeTag = ConfigDefinition.getConfigString(ConfigDefinition.enumConfigString.TagDateImageGenerated);
+        private string dateTimeTagImage = ConfigDefinition.getConfigString(ConfigDefinition.enumConfigString.TagDateImageGenerated);
+        private string dateTimeTagVideo = ConfigDefinition.getConfigString(ConfigDefinition.enumConfigString.TagDateVideoGenerated);
 
         public bool abort;
         public bool dateTimeChanged;
@@ -105,6 +106,8 @@ namespace QuickImageComment
         {
             ArrayList Groups = new ArrayList();
             GroupDateTimeOffsets = new ArrayList();
+            string dateTimeOriginal = "";
+            string dateTimeTag = "";
 
             // get data from images
             for (int ii = 0; ii < listViewFilesSelectedIndices.Length; ii++)
@@ -130,7 +133,12 @@ namespace QuickImageComment
                     Groups.Add(ImageText[ii]);
                     GroupDateTimeOffsets.Add(0.0);
                 }
-                string dateTimeOriginal = theExtendedImage.getMetaDataValueByKey(dateTimeTag, MetaDataItem.Format.Original);
+                if (theExtendedImage.getIsVideo())
+                    dateTimeTag = dateTimeTagVideo;
+                else
+                    dateTimeTag = dateTimeTagImage;
+
+                dateTimeOriginal = theExtendedImage.getMetaDataValueByKey(dateTimeTag, MetaDataItem.Format.Original);
                 try
                 {
                     ImageDateTime[ii] = GeneralUtilities.getDateTimeFromExifIptcXmpString(dateTimeOriginal, dateTimeTag);
@@ -225,8 +233,14 @@ namespace QuickImageComment
         // change date and time of one file
         private void changeDateTimeSingleFile(int index)
         {
+            string dateTimeTag = "";
             ExtendedImage theExtendedImage = ImageManager.getExtendedImage(listViewFilesSelectedIndices[index]);
             string newtime = newDateTime(index);
+            if (theExtendedImage.getIsVideo())
+                dateTimeTag = dateTimeTagVideo;
+            else
+                dateTimeTag = dateTimeTagImage;
+
             string oldtime = theExtendedImage.getMetaDataValueByKey(dateTimeTag, MetaDataItem.Format.Original);
             if (!newDateTime(index).Equals(theExtendedImage.getMetaDataValueByKey(dateTimeTag, MetaDataItem.Format.Original)))
             {

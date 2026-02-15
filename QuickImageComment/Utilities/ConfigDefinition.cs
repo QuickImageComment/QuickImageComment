@@ -155,6 +155,7 @@ namespace QuickImageComment
             DateFormat4_Spec,
             DateFormat5_Spec,
             TagDateImageGenerated,
+            TagDateVideoGenerated,
             XmpLangAlt1,
             XmpLangAlt2,
             XmpLangAlt3,
@@ -1105,7 +1106,7 @@ namespace QuickImageComment
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForTileViewVideo].Add(new MetaDataDefinitionItem("Dateigröße", "File.Size"));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForTileViewVideo].Add(new MetaDataDefinitionItem("Auflösung", "Xmp.video.FrameWidth", " x ", "Xmp.video.FrameHeight"));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForTileViewVideo].Add(new MetaDataDefinitionItem("Modell", "Xmp.video.Model"));
-                MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForTileViewVideo].Add(new MetaDataDefinitionItem("Aufnahmedatum", "Xmp.video.DateTimeOriginal", ".", "Exif.Photo.SubSecTimeOriginal"));
+                MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForTileViewVideo].Add(new MetaDataDefinitionItem("Aufnahmedatum", "Xmp.video.DateUTC"));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForTileViewVideo].Add(new MetaDataDefinitionItem("Medien-Dauer", "Xmp.video.MediaDuration"));
                 translateNamesOfMetaDataDefinitionItem(MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForTileViewVideo]);
             }
