@@ -4929,6 +4929,16 @@ const XmpPrintInfo xmpPrintInfo[] = {
     {"Xmp.plus.PropertyReleaseStatus", EXV_PRINT_VOCABULARY(plusPropertyReleaseStatus)},
     {"Xmp.plus.Reuse", EXV_PRINT_VOCABULARY(plusReuse)},
     {"Xmp.plus.DataMining", EXV_PRINT_VOCABULARY(plusDataMining)},
+    {"Xmp.video.DateUTC", printXmpDate1904},
+    {"Xmp.video.ModificationDate", printXmpDate1904},
+    {"Xmp.audio.MediaCreateDate", printXmpDate1904},
+    {"Xmp.audio.MediaModifyDate", printXmpDate1904},
+    {"Xmp.audio.TrackCreateDate", printXmpDate1904},
+    {"Xmp.audio.TrackModifyDate", printXmpDate1904},
+    {"Xmp.video.MediaCreateDate", printXmpDate1904},
+    {"Xmp.video.MediaModifyDate", printXmpDate1904},
+    {"Xmp.video.TrackCreateDate", printXmpDate1904},
+    {"Xmp.video.TrackModifyDate", printXmpDate1904},
 };
 
 bool XmpNsInfo::operator==(const XmpNsInfo::Ns& ns) const {

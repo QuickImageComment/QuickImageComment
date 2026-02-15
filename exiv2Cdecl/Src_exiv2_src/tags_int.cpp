@@ -3176,6 +3176,26 @@ std::ostream& printXmpDate(std::ostream& os, const Value& value, const ExifData*
   return os << stringValue;
 }
 
+std::ostream& printXmpDate1904(std::ostream& os, const Value& value, const ExifData*) {
+    if (value.typeId() != xmpText) {
+        return os << value;
+    }
+
+    // seconds from 1904-01-01 to 1970-01-01
+    const int64_t diff = (int64_t)2082844800;
+    int64_t secondsSince1904 = value.toInt64();
+    if (diff > secondsSince1904) {
+        return os << value;
+    }
+    else {
+        int64_t secondsSince1970 = secondsSince1904 -diff;
+        time_t tt = (time_t)secondsSince1970;
+        char timeString[20];
+        std::strftime(timeString, sizeof(timeString), "%Y:%m:%d %H:%M:%S", std::gmtime(&tt));
+        return os << timeString;
+    }
+}
+
 const GroupInfo* groupList() {
   return groupInfo + 1;
 }

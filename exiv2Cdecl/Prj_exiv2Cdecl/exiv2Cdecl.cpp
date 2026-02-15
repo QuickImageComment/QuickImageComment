@@ -36,7 +36,7 @@
 
 //#define TRACING 200
 
-constexpr auto VERSION = "0.28.7.0";
+constexpr auto VERSION = "0.28.7.1";
 
 // NOTE: must match definition in ConfigDefinition.cs
 const char* exiv2_exception_file = "\\QIC_exiv2_exception.txt";

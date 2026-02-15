@@ -472,6 +472,8 @@ std::ostream& printExifVersion(std::ostream& os, const Value& value, const ExifD
 std::ostream& printXmpVersion(std::ostream& os, const Value& value, const ExifData*);
 //! Print a date following the format YYYY-MM-DDTHH:MM:SSZ
 std::ostream& printXmpDate(std::ostream& os, const Value& value, const ExifData*);
+//! Print a date in seconds since 1904 following the format YYYY-MM-DDTHH:MM
+std::ostream& printXmpDate1904(std::ostream& os, const Value& value, const ExifData*);
 //! Print a bitmask as (none) | n | n,m... where: (none) = no bits set | n = bit n from left (0=left-most) | n,m.. =
 //! multiple bits "
 std::ostream& printBitmask(std::ostream& os, const Value& value, const ExifData*);
