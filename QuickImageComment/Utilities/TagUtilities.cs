@@ -199,7 +199,9 @@ namespace QuickImageComment
                 || typePrim.Equals("Date")                              // Iptc
                 || typePrim.Equals("XmpSeq-Date")
                 || typePrim.Equals("XmpText-Date")
-                || typePrim.Equals("date");                             // exifTool
+                || typePrim.Equals("date")                              // exifTool
+                || typePrim.Equals("Bag-date")                          // exifTool
+                || typePrim.Equals("Seq-date");                         // exifTool
         }
 
         // return if tag is time property
