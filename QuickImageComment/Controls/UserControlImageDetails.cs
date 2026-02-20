@@ -16,6 +16,7 @@
 
 using System;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -23,7 +24,7 @@ namespace QuickImageComment
 {
     public partial class UserControlImageDetails : UserControl
     {
-        float[] ZoomFactors = new float[9];
+        float[] ZoomFactors = new float[10];
         private float maxZoom = 1.0f;
         public float zoomFactor = 1.0f;
         private float RGBlinesWidth = 2.0f;
@@ -33,6 +34,8 @@ namespace QuickImageComment
         private int pixelYmin;
         private int pixelYmiddle;
         private int pixelYmax;
+        private int middleX;
+        private int middleY;
 
         // to inform other image detail windows about shift
         private int oldX = -9999;
@@ -108,6 +111,10 @@ namespace QuickImageComment
             ZoomFactors[ii++] = 4.0f;
             comboBoxZoom.Items.Add("5:1 Raster");
             ZoomFactors[ii++] = 5.0f;
+            comboBoxZoom.Items.Add("8:1");
+            ZoomFactors[ii++] = 8.0f;
+            comboBoxZoom.Items.Add("9:1 Raster");
+            ZoomFactors[ii++] = 9.0f;
 
             comboBoxGraphicDisplay.Items.AddRange(GraphicModesStrings);
 
@@ -429,8 +436,6 @@ namespace QuickImageComment
         // draw the image considering current scaling
         private void pictureBoxImage_Paint(object sender, PaintEventArgs e)
         {
-            int middleX = pictureBoxImage.Width / 2;
-            int middleY = pictureBoxImage.Height / 2;
             int height = pictureBoxImage.Height;
             int width = pictureBoxImage.Width;
 
@@ -442,19 +447,22 @@ namespace QuickImageComment
             {
                 Graphics g = e.Graphics;
                 g.Clear(Color.Empty);
-                int offsetX = 0;
-                int offsetY = 0;
-                if (zoomFactor > 1.0f)
-                {
-                    offsetX = (int)zoomFactor / 2 - pictureBoxImage.Width / 2 + pictureBoxImage.Width / 2 / (int)zoomFactor * (int)zoomFactor;
-                    offsetY = -pictureBoxImage.Height / 2 + pictureBoxImage.Height / 2 / (int)zoomFactor * (int)zoomFactor;// -1;
-                }
                 Rectangle destRect = new Rectangle(0, 0, pictureBoxImage.Width, pictureBoxImage.Height);
                 Rectangle srcRect = new Rectangle(pixelXmin, pixelYmin, pixelXmax - pixelXmin, pixelYmax - pixelYmin);
+                if (zoomFactor > 1.0f)
+                {
+                    destRect.Width = srcRect.Width * (int)zoomFactor;
+                    destRect.Height = srcRect.Height * (int)zoomFactor;
+                }
+
+                // no interpolation, show "clear" pixels here
+                e.Graphics.InterpolationMode = InterpolationMode.NearestNeighbor;
+                e.Graphics.PixelOffsetMode = PixelOffsetMode.Half;
+
                 g.DrawImage(theImage, destRect, srcRect, GraphicsUnit.Pixel);
 
-                // paint grid for zooms 1:3 and 1:5
-                if (zoomFactor == 3.0f || zoomFactor == 5.0f)
+                // paint grid for zooms 1:3, 1:5 and 1:9
+                if (zoomFactor == 3.0f || zoomFactor == 5.0f || zoomFactor == 9.0f)
                 {
                     Color gridColor = Color.FromArgb(ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.ImageDetailsGridColor));
                     int ii = 0;
@@ -506,6 +514,9 @@ namespace QuickImageComment
             long SumR;
             long SumG;
             long SumB;
+            long OldR = 0;
+            long OldG = 0;
+            long OldB = 0;
             double SumBright;
 
             if (theImage == null)
@@ -514,13 +525,15 @@ namespace QuickImageComment
             }
             else
             {
+                e.Graphics.InterpolationMode = InterpolationMode.NearestNeighbor;
+                e.Graphics.PixelOffsetMode = PixelOffsetMode.Half;
+
                 Color gridColor = Color.FromArgb(ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.ImageDetailsGridColor));
-                int middleX = pictureBoxImage.Width / 2;
                 int height = pictureBoxHorizontal.Height;
                 int width = pictureBoxHorizontal.Width;
-                Point[] ColorR = new Point[pictureBoxHorizontal.Width];
-                Point[] ColorG = new Point[pictureBoxHorizontal.Width];
-                Point[] ColorB = new Point[pictureBoxHorizontal.Width];
+                Point[] ColorR = new Point[pictureBoxHorizontal.Width * 2];
+                Point[] ColorG = new Point[pictureBoxHorizontal.Width * 2];
+                Point[] ColorB = new Point[pictureBoxHorizontal.Width * 2];
 
                 horizRmin = 255;
                 horizRmax = 0;
@@ -539,16 +552,12 @@ namespace QuickImageComment
                     int pixelX2;
                     int pixelCount;
                     int barLength;
-                    int iiOffset = 0;
-                    if (zoomFactor > 1.0f)
-                    {
-                        // offset to consider that middle of enlarged image is not multiple zoomFactor
-                        iiOffset = (int)zoomFactor / 2 - pictureBoxImage.Width / 2 + pictureBoxImage.Width / 2 / (int)zoomFactor * (int)zoomFactor;
-                    }
+                    int iix = 0;
 
                     // zoom is 1:1 or less, not each pixel appears in graph
                     for (int ii = 0; ii < pictureBoxHorizontal.Width; ii++)
                     {
+                        iix = ii + 1;
                         if (zoomFactor <= 1.0f)
                         {
                             pixelX1 = pixelXmin + ii * (pixelXmax - pixelXmin) / pictureBoxHorizontal.Width;
@@ -556,7 +565,7 @@ namespace QuickImageComment
                         }
                         else
                         {
-                            pixelX1 = pixelXmin + (ii + iiOffset) / (int)zoomFactor;
+                            pixelX1 = pixelXmin + ii / (int)zoomFactor;
                             pixelX2 = pixelX1 + 1;
                         }
                         pixelCount = pixelX2 - pixelX1;
@@ -580,12 +589,19 @@ namespace QuickImageComment
                                 SumG += pixel.G;
                                 SumB += pixel.B;
                             }
-                            barLength = (int)((1.0f - SumBright / pixelCount) * pictureBoxHorizontal.Height);
-                            e.Graphics.DrawLine(barPen, new Point(ii, 0), new Point(ii, barLength));
+                            barLength = (int)(SumBright / pixelCount * pictureBoxHorizontal.Height);
+                            e.Graphics.DrawLine(barPen, new Point(iix, 0), new Point(iix, barLength));
 
-                            ColorR[ii] = new Point(ii, pictureBoxHorizontal.Height - (int)(SumR * pictureBoxHorizontal.Height / 256 / pixelCount));
-                            ColorG[ii] = new Point(ii, pictureBoxHorizontal.Height - (int)(SumG * pictureBoxHorizontal.Height / 256 / pixelCount));
-                            ColorB[ii] = new Point(ii, pictureBoxHorizontal.Height - (int)(SumB * pictureBoxHorizontal.Height / 256 / pixelCount));
+                            ColorR[ii * 2] = new Point(OldR < SumR ? iix : ii, pictureBoxHorizontal.Height - (int)(OldR * pictureBoxHorizontal.Height / 256 / pixelCount));
+                            ColorR[ii * 2 + 1] = new Point(OldR < SumR ? iix : ii, pictureBoxHorizontal.Height - (int)(SumR * pictureBoxHorizontal.Height / 256 / pixelCount));
+                            ColorG[ii * 2] = new Point(OldG < SumG ? iix : ii, pictureBoxHorizontal.Height - (int)(OldG * pictureBoxHorizontal.Height / 256 / pixelCount));
+                            ColorG[ii * 2 + 1] = new Point(OldG < SumG ? iix : ii, pictureBoxHorizontal.Height - (int)(SumG * pictureBoxHorizontal.Height / 256 / pixelCount));
+                            ColorB[ii * 2] = new Point(OldB < SumB ? iix : ii, pictureBoxHorizontal.Height - (int)(OldB * pictureBoxHorizontal.Height / 256 / pixelCount));
+                            ColorB[ii * 2 + 1] = new Point(OldB < SumB ? iix : ii, pictureBoxHorizontal.Height - (int)(SumB * pictureBoxHorizontal.Height / 256 / pixelCount));
+
+                            OldR = SumR;
+                            OldG = SumG;
+                            OldB = SumB;
 
                             if (horizRmin > pixel.R) horizRmin = pixel.R;
                             if (horizRmax < pixel.R) horizRmax = pixel.R;
@@ -599,10 +615,13 @@ namespace QuickImageComment
                         else
                         {
                             barLength = pictureBoxHorizontal.Height;
-                            e.Graphics.DrawLine(barPen, new Point(ii, 0), new Point(ii, barLength));
-                            ColorR[ii] = new Point(ii, pictureBoxHorizontal.Height);
-                            ColorG[ii] = new Point(ii, pictureBoxHorizontal.Height);
-                            ColorB[ii] = new Point(ii, pictureBoxHorizontal.Height);
+                            e.Graphics.DrawLine(barPen, new Point(iix, 0), new Point(iix, barLength));
+                            ColorR[ii * 2] = new Point(iix, pictureBoxHorizontal.Height);
+                            ColorR[ii * 2 + 1] = new Point(iix, pictureBoxHorizontal.Height);
+                            ColorG[ii * 2] = new Point(iix, pictureBoxHorizontal.Height);
+                            ColorG[ii * 2 + 1] = new Point(iix, pictureBoxHorizontal.Height);
+                            ColorB[ii * 2] = new Point(iix, pictureBoxHorizontal.Height);
+                            ColorB[ii * 2 + 1] = new Point(iix, pictureBoxHorizontal.Height);
                         }
                     }
                     if (checkBoxColorR.Checked)
@@ -620,7 +639,7 @@ namespace QuickImageComment
                 }
 
                 // paint grid for zooms 1:3 and 1:5
-                if (zoomFactor == 3.0f || zoomFactor == 5.0f)
+                if (zoomFactor == 3.0f || zoomFactor == 5.0f || zoomFactor == 9.0f)
                 {
                     int ii = 0;
                     while (ii < middleX)
@@ -665,6 +684,9 @@ namespace QuickImageComment
             long SumR;
             long SumG;
             long SumB;
+            long OldR = 0;
+            long OldG = 0;
+            long OldB = 0;
             double SumBright;
 
             if (theImage == null)
@@ -673,13 +695,15 @@ namespace QuickImageComment
             }
             else
             {
+                e.Graphics.InterpolationMode = InterpolationMode.NearestNeighbor;
+                e.Graphics.PixelOffsetMode = PixelOffsetMode.Half;
+
                 Color gridColor = Color.FromArgb(ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.ImageDetailsGridColor));
-                int middleY = pictureBoxImage.Height / 2;
                 int height = pictureBoxVertical.Height;
                 int width = pictureBoxVertical.Width;
-                Point[] ColorR = new Point[pictureBoxVertical.Height];
-                Point[] ColorG = new Point[pictureBoxVertical.Height];
-                Point[] ColorB = new Point[pictureBoxVertical.Height];
+                Point[] ColorR = new Point[pictureBoxVertical.Height * 2];
+                Point[] ColorG = new Point[pictureBoxVertical.Height * 2];
+                Point[] ColorB = new Point[pictureBoxVertical.Height * 2];
 
                 vertRmin = 255;
                 vertRmax = 0;
@@ -698,16 +722,12 @@ namespace QuickImageComment
                     int pixelY2;
                     int pixelCount;
                     int barLength;
-                    int iiOffset = 0;
-                    if (zoomFactor > 1.0f)
-                    {
-                        // offset to consider that middle of enlarged image is not multiple of zoomFactor
-                        iiOffset = (int)zoomFactor / 2 - pictureBoxImage.Height / 2 + pictureBoxImage.Height / 2 / (int)zoomFactor * (int)zoomFactor;
-                    }
+                    int iiy = 0;
 
                     // zoom is 1:1 or less, not each pixel appears in graph
                     for (int ii = 0; ii < pictureBoxVertical.Height; ii++)
                     {
+                        iiy = ii + 1;
                         if (zoomFactor <= 1.0f)
                         {
                             pixelY1 = pixelYmin + ii * (pixelYmax - pixelYmin) / pictureBoxVertical.Height;
@@ -715,7 +735,7 @@ namespace QuickImageComment
                         }
                         else
                         {
-                            pixelY1 = pixelYmin + (ii + iiOffset) / (int)zoomFactor;
+                            pixelY1 = pixelYmin + ii / (int)zoomFactor;
                             pixelY2 = pixelY1 + 1;
                         }
                         pixelCount = pixelY2 - pixelY1;
@@ -740,11 +760,18 @@ namespace QuickImageComment
                                 SumB += pixel.B;
                             }
                             barLength = (int)(SumBright / pixelCount * pictureBoxVertical.Width);
-                            e.Graphics.DrawLine(barPen, new Point(pictureBoxVertical.Width, ii), new Point(barLength, ii));
+                            e.Graphics.DrawLine(barPen, new Point(pictureBoxVertical.Width, iiy), new Point(barLength, iiy));
 
-                            ColorR[ii] = new Point((int)(SumR * pictureBoxVertical.Width / 256 / pixelCount), ii);
-                            ColorG[ii] = new Point((int)(SumG * pictureBoxVertical.Width / 256 / pixelCount), ii);
-                            ColorB[ii] = new Point((int)(SumB * pictureBoxVertical.Width / 256 / pixelCount), ii);
+                            ColorR[ii * 2] = new Point((int)(OldR * pictureBoxVertical.Width / 256 / pixelCount), OldR < SumR ? iiy : ii);
+                            ColorR[ii * 2 + 1] = new Point((int)(SumR * pictureBoxVertical.Width / 256 / pixelCount), OldR < SumR ? iiy : ii);
+                            ColorG[ii * 2] = new Point((int)(OldG * pictureBoxVertical.Width / 256 / pixelCount), OldG < SumG ? iiy : ii);
+                            ColorG[ii * 2 + 1] = new Point((int)(SumG * pictureBoxVertical.Width / 256 / pixelCount), OldG < SumG ? iiy : ii);
+                            ColorB[ii * 2] = new Point((int)(OldB * pictureBoxVertical.Width / 256 / pixelCount), OldB < SumB ? iiy : ii);
+                            ColorB[ii * 2 + 1] = new Point((int)(SumB * pictureBoxVertical.Width / 256 / pixelCount), OldB < SumB ? iiy : ii);
+
+                            OldR = SumR;
+                            OldG = SumG;
+                            OldB = SumB;
 
                             if (vertRmin > pixel.R) vertRmin = pixel.R;
                             if (vertRmax < pixel.R) vertRmax = pixel.R;
@@ -758,10 +785,13 @@ namespace QuickImageComment
                         else
                         {
                             barLength = pictureBoxVertical.Width;
-                            e.Graphics.DrawLine(barPen, new Point(pictureBoxVertical.Width, ii), new Point(barLength, ii));
-                            ColorR[ii] = new Point(0, ii);
-                            ColorG[ii] = new Point(0, ii);
-                            ColorB[ii] = new Point(0, ii);
+                            e.Graphics.DrawLine(barPen, new Point(pictureBoxVertical.Width, ii), new Point(barLength, iiy));
+                            ColorR[ii * 2] = new Point(0, iiy);
+                            ColorR[ii * 2 + 1] = new Point(0, iiy);
+                            ColorG[ii * 2] = new Point(0, iiy);
+                            ColorG[ii * 2 + 1] = new Point(0, iiy);
+                            ColorB[ii * 2] = new Point(0, iiy);
+                            ColorB[ii * 2 + 1] = new Point(0, iiy);
                         }
                     }
                     // draw lines may fail, if panels are scaled too small (width/height 1)
@@ -783,7 +813,7 @@ namespace QuickImageComment
                     catch { }
                 }
                 // paint grid for zooms 1:3 and 1:5
-                if (zoomFactor == 3.0f || zoomFactor == 5.0f)
+                if (zoomFactor == 3.0f || zoomFactor == 5.0f || zoomFactor == 9.0f)
                 {
                     int ii = 0;
                     while (ii < middleY)
@@ -819,7 +849,7 @@ namespace QuickImageComment
         {
             int width = ((SplitContainer)sender).Size.Width;
             int Y = splitContainerImageDetails111.SplitterDistance + splitContainerImageDetails111.SplitterWidth
-                + pictureBoxImage.Height / 2;
+                + middleY - 1;
             e.Graphics.DrawLine(new Pen(System.Drawing.Color.Black, 15.0f), new Point(0, Y), new Point(width, Y));
             e.Graphics.DrawLine(new Pen(System.Drawing.Color.White, 1.0f), new Point(0, Y), new Point(width, Y));
         }
@@ -827,7 +857,7 @@ namespace QuickImageComment
         // paint marks to indicate row and column for pixel display, top (on splitter bars)
         private void splitContainerImageDetails111_Paint(object sender, PaintEventArgs e)
         {
-            int X = pictureBoxImage.Width / 2 + pictureBoxImage.Left;
+            int X = middleX + pictureBoxImage.Left - 1;
             int height = ((SplitContainer)sender).Size.Height;
             e.Graphics.DrawLine(new Pen(System.Drawing.Color.Black, 15.0f), new Point(X, 0), new Point(X, height));
             e.Graphics.DrawLine(new Pen(System.Drawing.Color.White, 1.0f), new Point(X, 0), new Point(X, height));
@@ -838,8 +868,8 @@ namespace QuickImageComment
         {
             int width = ((Panel)sender).Size.Width;
             int height = ((Panel)sender).Size.Height;
-            int X = pictureBoxImage.Width / 2 + pictureBoxImage.Left;
-            int Y = pictureBoxImage.Height / 2;
+            int X = middleX + pictureBoxImage.Left - 1;
+            int Y = middleY - 1;
             e.Graphics.DrawLine(new Pen(System.Drawing.Color.Black, 15.0f), new Point(0, Y), new Point(width, Y));
             e.Graphics.DrawLine(new Pen(System.Drawing.Color.Black, 15.0f), new Point(X, 0), new Point(X, height));
             e.Graphics.DrawLine(new Pen(System.Drawing.Color.White, 1.0f), new Point(0, Y), new Point(width, Y));
@@ -926,10 +956,13 @@ namespace QuickImageComment
                 pixelXmin = (int)numericUpDownX.Value;
                 pixelXmiddle = (int)numericUpDownX.Value + imageDetailSize.Width / 2;
                 pixelXmax = (int)numericUpDownX.Value + imageDetailSize.Width;
+
+                middleX = (pixelXmiddle - pixelXmin) * (int)zoomFactor + (int)zoomFactor / 2 + 1;
+                middleY = (pixelYmiddle - pixelYmin) * (int)zoomFactor + (int)zoomFactor / 2 + 1;
+
                 // enable refresh now and make refresh
                 imageRefreshEnabled = true;
-                // note: refresh of pictureBoxImage (via pictureBoxImage_Paint) refreshes also pictureBoxHorizontal and pictureBoxVertical
-                pictureBoxImage.Refresh();
+                splitContainerImageDetails11.Refresh();
                 MainMaskInterface.refreshImageDetailsFrame();
                 // prepare to shift in other image detail windows
                 // it is checked in FormImageDetails, that this done only from master window
