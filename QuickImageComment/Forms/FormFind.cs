@@ -411,6 +411,7 @@ namespace QuickImageComment
                     filterDefinition.comboBoxValue2.Tag = filterDefinition;
 
                     if (TagUtilities.isMultiLine(metaDataDefinitionItem.KeyPrim) ||
+                        metaDataDefinitionItem.KeyPrim.Equals("Image.KeyWordsAccordingConfigString") ||
                         metaDataDefinitionItem.KeyPrim.Equals("Image.IPTC_KeyWordsString") ||
                         metaDataDefinitionItem.KeyPrim.Equals("Image.IPTC_SuppCategoriesString") ||
                         metaDataDefinitionItem.KeyPrim.Equals("Image.CommentCombinedFields") ||
@@ -849,7 +850,7 @@ namespace QuickImageComment
                     }
                 }
 
-                // query for predefined IPTC key words
+                // query for predefined key words
                 ArrayList theKeywords = new ArrayList();
                 treeViewKeyWords.getCheckedKeyWords(theKeywords);
                 foreach (string keyword in theKeywords)
@@ -1757,9 +1758,13 @@ namespace QuickImageComment
                 {
                     if (aMetaDataDefinitionItem.KeyPrim.Equals("Image.GPSsignedLatitude")) signedLatFound = true;
                     if (aMetaDataDefinitionItem.KeyPrim.Equals("Image.GPSsignedLongitude")) signedLonFound = true;
+                    // keep logic with Image.IPTC_KeyWordsString and Iptc.Application2.Keywords so that
+                    // QIC behaves like before if no configuration changes for 5.00 are made by user
                     if (aMetaDataDefinitionItem.KeyPrim.Equals("Image.IPTC_KeyWordsString"))
                         filterDefinitionKeyWords = (FilterDefinition)filterDefinitions[ii];
                     if (aMetaDataDefinitionItem.KeyPrim.Equals("Iptc.Application2.Keywords"))
+                        filterDefinitionKeyWords = (FilterDefinition)filterDefinitions[ii];
+                    if (aMetaDataDefinitionItem.KeyPrim.Equals("Image.KeyWordsAccordingConfigString"))
                         filterDefinitionKeyWords = (FilterDefinition)filterDefinitions[ii];
                 }
             }
@@ -1779,8 +1784,8 @@ namespace QuickImageComment
             ConfigDefinition.getNeededKeysIncludingReferences(MetaDataDefinitionsToStore,
                 MetaDataDefinitionsToReadExiv2, MetaDataDefinitionsToReadExifTool, MetaDataDefinitionsToReadInternal);
 
-            // show tree view with predefined key words only if a column for IPTC key words is configured
-            labelIptcKeyWords.Visible = filterDefinitionKeyWords != null;
+            // show tree view with predefined key words only if a column for key words is configured
+            labelKeyWords.Visible = filterDefinitionKeyWords != null;
             splitContainer2.Panel2Collapsed = filterDefinitionKeyWords == null;
         }
 

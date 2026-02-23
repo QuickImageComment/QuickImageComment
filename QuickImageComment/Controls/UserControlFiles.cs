@@ -750,9 +750,9 @@ namespace QuickImageComment
                     {
 #endif
 #if LOGWATCHEREVENTS
-                    Logger.log("Changed " + path);
+                        Logger.log("Changed " + path);
 #endif
-                    createOrUpdateItemListViewFiles(path);
+                        createOrUpdateItemListViewFiles(path);
 #if !DEBUG
                     }).Start();
 #endif
@@ -801,9 +801,9 @@ namespace QuickImageComment
                     {
 #endif
 #if LOGWATCHEREVENTS
-                    Logger.log("Rename is update " + path);
+                        Logger.log("Rename is update " + path);
 #endif
-                    createOrUpdateItemListViewFiles(names[1]);
+                        createOrUpdateItemListViewFiles(names[1]);
 #if !DEBUG
                     }).Start();
 #endif

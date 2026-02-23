@@ -311,9 +311,9 @@ namespace QuickImageComment
                 return false;
             }
             // check IPTC key words string
-            else if (key.Equals("Image.IPTC_KeyWordsString") ||
-                     key.Equals("Iptc.Application2.Keywords") ||
-                     key.Equals("IPTC:Keywords"))
+            //!!: tags gemäß config, Problem: ExifTool-tag für exiv2-tags?
+            else if (key.Equals(ConfigDefinition.getConfigString(ConfigDefinition.enumConfigString.TagKeyWordsImage)) ||
+                     key.Equals(ConfigDefinition.getConfigString(ConfigDefinition.enumConfigString.TagKeyWordsVideo)))
             {
                 GeneralUtilities.message(LangCfg.Message.E_metaDataNotEnteredSpecial, key);
                 return false;

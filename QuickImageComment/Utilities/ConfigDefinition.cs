@@ -163,7 +163,9 @@ namespace QuickImageComment
             XmpLangAlt5,
             OutputPathMaintenance,
             OutputPathScreenshots,
-            FindDataTableFileName
+            FindDataTableFileName,
+            TagKeyWordsImage,
+            TagKeyWordsVideo
         };
 
         // no longer used, defined here to avoid warning messages when reading config file
@@ -751,6 +753,7 @@ namespace QuickImageComment
             InternalMetaDataDefinitions.Add("Image.PixelFormat", new TagDefinition("Image.PixelFormat", "Readonly", "Pixel format in RAW image (provided from RAW decoder)"));
             InternalMetaDataDefinitions.Add("Image.Comment", new TagDefinition("Image.Comment", "Ascii", "Comment assigned to image, called \"Jpeg-comment\" in Exifer"));
             InternalMetaDataDefinitions.Add("Image.IPTC_KeyWordsString", new TagDefinition("Image.IPTC_KeyWordsString", "Readonly", "IPTC key words concatenated in one string"));
+            InternalMetaDataDefinitions.Add("Image.KeyWordsAccordingConfigString", new TagDefinition("Image.KeyWordsAccordingConfigString", "Readonly", "Keywords according to configuration concatenated in one string"));
             InternalMetaDataDefinitions.Add("Image.IPTC_SuppCategoriesString", new TagDefinition("Image.IPTC_SuppCategoriesString", "Readonly", "IPTC supplemental categories concatenated in one string"));
             InternalMetaDataDefinitions.Add("Image.CommentAccordingSettings", new TagDefinition("Image.CommentAccordingSettings", "Readonly", "Comment selected from fields according settings to store comment"));
             InternalMetaDataDefinitions.Add("Image.CommentCombinedFields", new TagDefinition("Image.CommentCombinedFields", "Readonly", "Comment as combination of several comment fields (as selectable in mask \"Settings\""));
@@ -848,6 +851,9 @@ namespace QuickImageComment
             {
                 GeneralUtilities.fatalInitMessage("Parameters not set in general configuration:\n" + undefinedConfigFlags);
             }
+
+            // now as general configuration file is read, following dependencies can be added
+            TagDependencies.Add(new string[] { "Image.KeyWordsAccordingConfigString", getConfigString(enumConfigString.TagKeyWordsImage), getConfigString(enumConfigString.TagKeyWordsVideo) });
             Program.StartupPerformance.measure("ConfigDefinition.readGeneralConfigFiles Finish");
         }
 
@@ -929,7 +935,7 @@ namespace QuickImageComment
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForDisplay].Add(new MetaDataDefinitionItem("Exif-Künstler", "Exif.Image.Artist"));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForDisplay].Add(new MetaDataDefinitionItem("Exif-Kommentar", "Exif.Photo.UserComment"));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForDisplay].Add(new MetaDataDefinitionItem("JPEG-Kommentar", "Image.Comment"));
-                MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForDisplay].Add(new MetaDataDefinitionItem("IPTC Schlüsselworte", "Image.IPTC_KeyWordsString"));
+                MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForDisplay].Add(new MetaDataDefinitionItem("Schlüsselworte", getConfigString(enumConfigString.TagKeyWordsImage)));
                 translateNamesOfMetaDataDefinitionItem(MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForDisplay]);
             }
 
@@ -943,6 +949,7 @@ namespace QuickImageComment
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForDisplayVideo].Add(new MetaDataDefinitionItem("Auflösung", "Xmp.video.FrameWidth", " x ", "Xmp.video.FrameHeight"));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForDisplayVideo].Add(new MetaDataDefinitionItem("Bildrate", "Xmp.video.FrameRate"));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForDisplayVideo].Add(new MetaDataDefinitionItem("Medien-Dauer", "Xmp.video.MediaDuration"));
+                MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForDisplayVideo].Add(new MetaDataDefinitionItem("Schlüsselworte", getConfigString(enumConfigString.TagKeyWordsVideo)));
                 translateNamesOfMetaDataDefinitionItem(MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForDisplayVideo]);
             }
 
@@ -952,7 +959,7 @@ namespace QuickImageComment
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForFind].Add(new MetaDataDefinitionItem("Aufnahmedatum", "Exif.Photo.DateTimeOriginal"));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForFind].Add(new MetaDataDefinitionItem("Künstler (kombiniert)", "Image.ArtistCombinedFields"));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForFind].Add(new MetaDataDefinitionItem("Kommentar (kombiniert)", "Image.CommentCombinedFields"));
-                MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForFind].Add(new MetaDataDefinitionItem("IPTC Schlüsselworte", "Image.IPTC_KeyWordsString"));
+                MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForFind].Add(new MetaDataDefinitionItem("Schlüsselworte", "Image.KeyWordsAccordingConfigString"));
                 translateNamesOfMetaDataDefinitionItem(MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForFind]);
             }
 
@@ -1007,7 +1014,7 @@ namespace QuickImageComment
             {
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForMultiEditTable].Add(new MetaDataDefinitionItem("Künstler", "Image.ArtistAccordingSettings"));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForMultiEditTable].Add(new MetaDataDefinitionItem("Kommentar", "Image.CommentAccordingSettings"));
-                MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForMultiEditTable].Add(new MetaDataDefinitionItem("IPTC Schlüsselworte", "Image.IPTC_KeyWordsString"));
+                MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForMultiEditTable].Add(new MetaDataDefinitionItem("Schlüsselworte", "Image.KeyWordsAccordingConfigString"));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForMultiEditTable].Add(new MetaDataDefinitionItem("Aufnahmedatum", "Exif.Photo.DateTimeOriginal"));
                 translateNamesOfMetaDataDefinitionItem(MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForMultiEditTable]);
             }

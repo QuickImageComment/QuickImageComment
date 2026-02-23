@@ -1264,7 +1264,7 @@ namespace QuickImageComment
             if (ConfigDefinition.getCfgUserBool(ConfigDefinition.enumCfgUserBool.HintUsingNotPredefKeyWord))
             {
                 ArrayList PredefinedKeyWordsTrimmed = ConfigDefinition.getPredefinedKeyWordsTrimmed();
-                foreach (string keyWord in getIptcKeyWordsArrayList())
+                foreach (string keyWord in getKeyWordsAccordingConfigArrayList())
                 {
                     if (!PredefinedKeyWordsTrimmed.Contains(keyWord))
                     {
@@ -1732,6 +1732,7 @@ namespace QuickImageComment
             checkForMultipleMetaDataItem("Exif.Image.Artist", ExifMetaDataItems, MetaDataItem.Format.Original);
 
             addReplaceOtherMetaDataKnownType("Image.IPTC_KeyWordsString", getIptcKeyWordsString());
+            addReplaceOtherMetaDataKnownType("Image.KeyWordsAccordingConfigString", getKeyWordsAccordingConfigString());
             addReplaceOtherMetaDataKnownType("Image.IPTC_SuppCategoriesString",
               this.getMetaDataValuesStringByKey("Iptc.Application2.SuppCategory", MetaDataItem.Format.Original));
             try
@@ -2963,7 +2964,8 @@ namespace QuickImageComment
                 string newValue = "";
                 string oldValue = "";
                 bool sorted = false;
-                if (key.Equals("Iptc.Application2.Keywords"))
+                if (key.Equals(ConfigDefinition.getConfigString(ConfigDefinition.enumConfigString.TagKeyWordsImage)) ||
+                    key.Equals(ConfigDefinition.getConfigString(ConfigDefinition.enumConfigString.TagKeyWordsVideo)))
                 {
                     // for comparison sort IPTC keywords as they are displayed sorted 
                     // and user has no option to change sequence
@@ -3345,6 +3347,15 @@ namespace QuickImageComment
             if (changedFieldsForSaveChecked.ContainsKey("Iptc.Application2.Keywords"))
             {
                 value = GeneralUtilities.getValuesStringOfArrayList((ArrayList)changedFieldsForSaveChecked["Iptc.Application2.Keywords"], " | ", true);
+                changedFieldsForSaveChecked.Add(key, value);
+            }
+
+            key = "Image.KeyWordsAccordingConfigString";
+            string tagKeyWords = getIsVideo() ? ConfigDefinition.getConfigString(ConfigDefinition.enumConfigString.TagKeyWordsVideo)
+                                              : ConfigDefinition.getConfigString(ConfigDefinition.enumConfigString.TagKeyWordsImage);
+            if (changedFieldsForSaveChecked.ContainsKey(tagKeyWords))
+            {
+                value = GeneralUtilities.getValuesStringOfArrayList((ArrayList)changedFieldsForSaveChecked[tagKeyWords], " | ", true);
                 changedFieldsForSaveChecked.Add(key, value);
             }
 
@@ -4578,9 +4589,26 @@ namespace QuickImageComment
             return IptcKeyWordsArrayListSorted;
         }
 
+        public ArrayList getKeyWordsAccordingConfigArrayList()
+        {
+            string tagKeyWords = "";
+            if (isVideo)
+                tagKeyWords = ConfigDefinition.getConfigString(ConfigDefinition.enumConfigString.TagKeyWordsVideo);
+            else
+                tagKeyWords = ConfigDefinition.getConfigString(ConfigDefinition.enumConfigString.TagKeyWordsImage);
+            ArrayList KeyWordsArrayListSorted = new ArrayList(this.getMetaDataArrayListByKey(tagKeyWords, MetaDataItem.Format.Original));
+            KeyWordsArrayListSorted.Sort();
+            return KeyWordsArrayListSorted;
+        }
+
         public string getIptcKeyWordsString()
         {
             return GeneralUtilities.getValuesStringOfArrayList(getIptcKeyWordsArrayList(), " | ", true);
+        }
+
+        public string getKeyWordsAccordingConfigString()
+        {
+            return GeneralUtilities.getValuesStringOfArrayList(getKeyWordsAccordingConfigArrayList(), " | ", true);
         }
 
         internal GeoDataItem getRecordingLocation()

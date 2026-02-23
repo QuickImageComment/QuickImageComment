@@ -78,12 +78,13 @@
             this.labelInputKeyWords.AutoSize = true;
             this.labelInputKeyWords.Location = new System.Drawing.Point(0, 4);
             this.labelInputKeyWords.Name = "labelInputKeyWords";
-            this.labelInputKeyWords.Size = new System.Drawing.Size(105, 13);
+            this.labelInputKeyWords.Size = new System.Drawing.Size(78, 13);
             this.labelInputKeyWords.TabIndex = 0;
-            this.labelInputKeyWords.Text = "IPTC Schlüsselworte";
+            this.labelInputKeyWords.Text = "Schlüsselworte";
             // 
             // treeViewPredefKeyWords
             // 
+            this.treeViewPredefKeyWords.CheckBoxes = true;
             this.treeViewPredefKeyWords.Dock = System.Windows.Forms.DockStyle.Fill;
             this.treeViewPredefKeyWords.Location = new System.Drawing.Point(0, 0);
             this.treeViewPredefKeyWords.Name = "treeViewPredefKeyWords";

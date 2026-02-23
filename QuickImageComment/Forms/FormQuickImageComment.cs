@@ -83,6 +83,10 @@ namespace QuickImageComment
         // background color for non-default selections in multi edit tab
         private Color backColorMultiEditNonDefault;
 
+        // tags
+        private string tagKeyWordsImage;
+        private string tagKeyWordsVideo;
+
 
         // delegate for call within thread
         public delegate void setToolStripStatusLabelThreadCallback(string text, bool clearNow, bool clearBeforeNext);
@@ -286,6 +290,10 @@ namespace QuickImageComment
             backColorInputUnchanged = dynamicComboBoxArtist.BackColor;
             backColorInputValueChanged = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigInt.BackColorValueChanged);
             backColorMultiEditNonDefault = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigInt.BackColorMultiEditNonDefault);
+
+            // set tags
+            tagKeyWordsImage = ConfigDefinition.getConfigString(enumConfigString.TagKeyWordsImage);
+            tagKeyWordsVideo = ConfigDefinition.getConfigString(enumConfigString.TagKeyWordsVideo);
 
             checkedListBoxChangeableFieldsChange.CheckedColor = backColorMultiEditNonDefault;
 
@@ -1254,7 +1262,7 @@ namespace QuickImageComment
         {
             if (theKeyEventArgs.KeyCode == Keys.Escape)
             {
-                theUserControlKeyWords.displayKeyWords(theExtendedImage.getIptcKeyWordsArrayList());
+                theUserControlKeyWords.displayKeyWords(theExtendedImage.getKeyWordsAccordingConfigArrayList());
                 theUserControlKeyWords.treeViewPredefKeyWords.BackColor = backColorInputUnchanged;
                 theUserControlKeyWords.textBoxFreeInputKeyWords.BackColor = backColorInputUnchanged;
                 keyWordsUserChanged = false;
@@ -1284,7 +1292,7 @@ namespace QuickImageComment
         {
             if (theKeyEventArgs.KeyCode == Keys.Escape)
             {
-                theUserControlKeyWords.displayKeyWords(theExtendedImage.getIptcKeyWordsArrayList());
+                theUserControlKeyWords.displayKeyWords(theExtendedImage.getKeyWordsAccordingConfigArrayList());
                 theUserControlKeyWords.treeViewPredefKeyWords.BackColor = backColorInputUnchanged;
                 theUserControlKeyWords.textBoxFreeInputKeyWords.BackColor = backColorInputUnchanged;
                 keyWordsUserChanged = false;
@@ -2186,7 +2194,7 @@ namespace QuickImageComment
             if (theExtendedImage != null)
             {
                 // display data from main selected file (whose image is displayed)
-                theUserControlKeyWords.displayKeyWords(theExtendedImage.getIptcKeyWordsArrayList());
+                theUserControlKeyWords.displayKeyWords(theExtendedImage.getKeyWordsAccordingConfigArrayList());
                 dynamicComboBoxArtist.Text = theExtendedImage.getArtist();
                 labelArtistDefault.Visible = false;
                 textBoxUserComment.Text = theExtendedImage.getUserComment();
@@ -2709,7 +2717,7 @@ namespace QuickImageComment
                 if (theExtendedImage != null)
                 {
                     disableEventHandlersRecogniseUserInput();
-                    theUserControlKeyWords.displayKeyWords(theExtendedImage.getIptcKeyWordsArrayList());
+                    theUserControlKeyWords.displayKeyWords(theExtendedImage.getKeyWordsAccordingConfigArrayList());
                     enableEventHandlersRecogniseUserInput();
                     // redisplay properties as status of hint for not predefined key words may have changed
                     displayProperties();
@@ -5351,7 +5359,7 @@ namespace QuickImageComment
 
                     if (!keyWordsUserChanged)
                     {
-                        theUserControlKeyWords.displayKeyWords(theExtendedImage.getIptcKeyWordsArrayList());
+                        theUserControlKeyWords.displayKeyWords(theExtendedImage.getKeyWordsAccordingConfigArrayList());
                     }
 
                     fillChangeableFieldValues(theExtendedImage, false);
@@ -5561,7 +5569,7 @@ namespace QuickImageComment
         private void updateKeywordsForMultipleSelection(ExtendedImage selectedExtendedImage)
         {
             ArrayList OldKeyWords = theUserControlKeyWords.getKeyWordsArrayList();
-            ArrayList ImageKeyWords = selectedExtendedImage.getIptcKeyWordsArrayList();
+            ArrayList ImageKeyWords = selectedExtendedImage.getKeyWordsAccordingConfigArrayList();
             ArrayList NewKeyWords = new ArrayList();
             foreach (string KeyWord in OldKeyWords)
             {
@@ -5998,7 +6006,7 @@ namespace QuickImageComment
                 //Logger.log("Multi-Save " + selectedIndicesToStore[ii].ToString() + " " + anExtendedImage.getImageFileName());
                 OldArtist = anExtendedImage.getArtist();
                 OldUserComment = anExtendedImage.getUserComment();
-                OldNewKeyWordsArrayList = anExtendedImage.getIptcKeyWordsArrayList();
+                OldNewKeyWordsArrayList = anExtendedImage.getKeyWordsAccordingConfigArrayList();
 
                 // check artist
                 if (checkBoxArtistChange.Checked == true)
@@ -6087,7 +6095,10 @@ namespace QuickImageComment
                         // add empty String to ensure that tag is passed to exiv2 for deletion
                         GivenKeyWordsArrayList.Add("");
                     }
-                    changeableFieldsForSave.Add("Iptc.Application2.Keywords", GivenKeyWordsArrayList);
+                    if (anExtendedImage.getIsVideo())
+                        changeableFieldsForSave.Add(tagKeyWordsVideo, GivenKeyWordsArrayList);
+                    else
+                        changeableFieldsForSave.Add(tagKeyWordsImage, GivenKeyWordsArrayList);
                 }
                 else if (comboBoxKeyWordsChange.SelectedIndex == (int)enumComboBoxKeyWordChange.add)
                 {
@@ -6106,7 +6117,10 @@ namespace QuickImageComment
                             }
                         }
                     }
-                    changeableFieldsForSave.Add("Iptc.Application2.Keywords", OldNewKeyWordsArrayList);
+                    if (anExtendedImage.getIsVideo())
+                        changeableFieldsForSave.Add(tagKeyWordsVideo, OldNewKeyWordsArrayList);
+                    else
+                        changeableFieldsForSave.Add(tagKeyWordsImage, OldNewKeyWordsArrayList);
                 }
                 else if (comboBoxKeyWordsChange.SelectedIndex == (int)enumComboBoxKeyWordChange.nothing)
                 {
@@ -6162,7 +6176,7 @@ namespace QuickImageComment
                 theUserControlChangeableFields.resetChangedChangeableFieldTags();
                 fillChangeableFieldValues(anExtendedImage, false);
 
-                theUserControlKeyWords.displayKeyWords(anExtendedImage.getIptcKeyWordsArrayList());
+                theUserControlKeyWords.displayKeyWords(anExtendedImage.getKeyWordsAccordingConfigArrayList());
                 // set properties considering following keywords
                 for (int ii = 1; ii < selectedIndicesToStore.Count; ii++)
                 {
@@ -6188,7 +6202,7 @@ namespace QuickImageComment
 
                     // check key words
                     ArrayList OldKeyWords = theUserControlKeyWords.getKeyWordsArrayList();
-                    ArrayList ImageKeyWords = anExtendedImage.getIptcKeyWordsArrayList();
+                    ArrayList ImageKeyWords = anExtendedImage.getKeyWordsAccordingConfigArrayList();
                     ArrayList NewKeyWords = new ArrayList();
                     foreach (string KeyWord in OldKeyWords)
                     {
@@ -6289,7 +6303,14 @@ namespace QuickImageComment
                     // add empty String to ensure that tag is passed to exiv2 for deletion
                     KeyWordsArrayList.Add("");
                 }
-                changedFieldsForSave.Add("Iptc.Application2.Keywords", KeyWordsArrayList);
+                if (anExtendedImage.getIsVideo())
+                {
+                    changedFieldsForSave.Add(tagKeyWordsVideo, KeyWordsArrayList);
+                }
+                else
+                {
+                    changedFieldsForSave.Add(tagKeyWordsImage, KeyWordsArrayList);
+                }
             }
 
             // copy values from changeable fields

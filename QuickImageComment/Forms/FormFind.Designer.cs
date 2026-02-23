@@ -83,7 +83,7 @@ namespace QuickImageComment
             this.numericUpDownGpsRange = new System.Windows.Forms.NumericUpDown();
             this.panelKeyWords = new System.Windows.Forms.Panel();
             this.treeViewKeyWords = new QuickImageCommentControls.TreeViewKeyWords();
-            this.labelIptcKeyWords = new System.Windows.Forms.Label();
+            this.labelKeyWords = new System.Windows.Forms.Label();
             this.checkBoxShowDataTable = new System.Windows.Forms.CheckBox();
             this.backgroundWorkerInit = new System.ComponentModel.BackgroundWorker();
             this.checkBoxSaveFindDataTable = new System.Windows.Forms.CheckBox();
@@ -420,7 +420,7 @@ namespace QuickImageComment
             // 
             this.splitContainer2.Panel2.BackColor = System.Drawing.SystemColors.Control;
             this.splitContainer2.Panel2.Controls.Add(this.panelKeyWords);
-            this.splitContainer2.Panel2.Controls.Add(this.labelIptcKeyWords);
+            this.splitContainer2.Panel2.Controls.Add(this.labelKeyWords);
             this.splitContainer2.Panel2MinSize = 200;
             this.splitContainer2.Size = new System.Drawing.Size(893, 127);
             this.splitContainer2.SplitterDistance = 654;
@@ -499,13 +499,13 @@ namespace QuickImageComment
             // 
             // labelIptcKeyWords
             // 
-            this.labelIptcKeyWords.AutoSize = true;
-            this.labelIptcKeyWords.Location = new System.Drawing.Point(3, 6);
-            this.labelIptcKeyWords.Name = "labelIptcKeyWords";
-            this.labelIptcKeyWords.Size = new System.Drawing.Size(145, 13);
-            this.labelIptcKeyWords.TabIndex = 25;
-            this.labelIptcKeyWords.Text = "Enthält IPTC Schlüsselworte:";
-            this.labelIptcKeyWords.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.labelKeyWords.AutoSize = true;
+            this.labelKeyWords.Location = new System.Drawing.Point(3, 6);
+            this.labelKeyWords.Name = "labelKeyWords";
+            this.labelKeyWords.Size = new System.Drawing.Size(145, 13);
+            this.labelKeyWords.TabIndex = 25;
+            this.labelKeyWords.Text = "Enthält Schlüsselworte:";
+            this.labelKeyWords.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // checkBoxShowDataTable
             // 
@@ -659,7 +659,7 @@ namespace QuickImageComment
         private System.ComponentModel.BackgroundWorker backgroundWorkerUpdate;
         private System.Windows.Forms.SplitContainer splitContainer2;
         private QuickImageCommentControls.TreeViewKeyWords treeViewKeyWords;
-        private System.Windows.Forms.Label labelIptcKeyWords;
+        private System.Windows.Forms.Label labelKeyWords;
         private System.Windows.Forms.Panel panelMap;
         private System.Windows.Forms.Panel panelKeyWords;
         private System.Windows.Forms.Button buttonQuery;
