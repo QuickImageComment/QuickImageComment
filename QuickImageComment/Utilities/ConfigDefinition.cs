@@ -296,7 +296,8 @@ namespace QuickImageComment
             SlideShowSubTitelDisplay,
             MapLengthUnit,
             ExifToolPath,
-            ExifToolOptions
+            ExifToolOptionsRead,
+            ExifToolOptionsWrite
         };
 
         public enum enumMetaDataGroup
@@ -649,7 +650,8 @@ namespace QuickImageComment
             ConfigItems.Add(enumCfgUserString.MapLengthUnit.ToString(), enumMapLengthUnit.km.ToString());
             // string is used to check if ExifToolPath was never set and thus asking user if he wants to use ExifTool
             ConfigItems.Add(enumCfgUserString.ExifToolPath.ToString(), "not yet set");
-            ConfigItems.Add(enumCfgUserString.ExifToolOptions.ToString(), "-fast");
+            ConfigItems.Add(enumCfgUserString.ExifToolOptionsRead.ToString(), "-fast");
+            ConfigItems.Add(enumCfgUserString.ExifToolOptionsWrite.ToString(), "");
 
             ConfigItems.Add(enumCfgUserInt.CheckForNewVersionPeriodInDays.ToString(), 30);
             ConfigItems.Add(enumCfgUserInt.ImageDetailsFrameColor.ToString(), System.Drawing.Color.Red.ToArgb());

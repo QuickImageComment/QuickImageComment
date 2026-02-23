@@ -101,7 +101,8 @@ namespace Brain2CPU.ExifTool
         private static readonly StringBuilder _error = new StringBuilder();
         private static StreamWriter inputWriter;
         private static string language = "";
-        private static string userOptions = "";
+        private static string userOptionsRead = "";
+        private static string userOptionsWrite = "";
 
         private static readonly ProcessStartInfo _psi = new ProcessStartInfo
         {
@@ -177,7 +178,8 @@ namespace Brain2CPU.ExifTool
 
         public static void setUserOptions()
         {
-            userOptions = ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.ExifToolOptions).Replace('|', '\n');
+            userOptionsRead = ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.ExifToolOptionsRead).Replace('|', '\n');
+            userOptionsWrite = ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.ExifToolOptionsWrite).Replace('|', '\n');
         }
 
         private static void OutputDataReceived(object sender, DataReceivedEventArgs e)
@@ -444,7 +446,7 @@ namespace Brain2CPU.ExifTool
             cmd.Append("-a\n");
             if (ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.KeepFileModifiedTime))
                 cmd.Append("-P\n");
-            cmd.Append(userOptions);
+            cmd.Append(userOptionsWrite);
 
             cmd.Append(path);
             var cmdRes = SendCommand(cmd.ToString());
@@ -523,9 +525,10 @@ namespace Brain2CPU.ExifTool
             bool filter = tagsTable?.Count > 0;
             string cmd = "";
             for (int ii = 0; ii < args.Length; ii++) cmd += args[ii] + "\n";
-            cmd += userOptions;
+            cmd += userOptionsRead;
             cmd += path;
             var cmdRes = SendCommand(cmd);
+            //Logger.log(cmd.Replace("\n", " ").ToString());
             if (!cmdRes)
                 return "";
             else

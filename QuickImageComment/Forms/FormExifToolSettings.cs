@@ -30,8 +30,16 @@ namespace QuickImageComment
             dynamicLabelPath.Text = "";
             dynamicLabelVersion.Text = "";
             textBoxProgramPath.Text = ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.ExifToolPath);
-            string[] options = ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.ExifToolOptions).Split('|');
-            foreach (Control checkBox in groupBoxOptions.Controls)
+            string[] options = ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.ExifToolOptionsRead).Split('|');
+            foreach (Control checkBox in groupBoxOptionsRead.Controls)
+            {
+                if (checkBox is CheckBox)
+                {
+                    ((CheckBox)checkBox).Checked = options.Contains(checkBox.Text);
+                }
+            }
+            options = ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.ExifToolOptionsWrite).Split('|');
+            foreach (Control checkBox in groupBoxOptionsWrite.Controls)
             {
                 if (checkBox is CheckBox)
                 {
@@ -149,14 +157,25 @@ namespace QuickImageComment
             string oldPath = ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.ExifToolPath);
             ConfigDefinition.setCfgUserString(ConfigDefinition.enumCfgUserString.ExifToolPath, textBoxProgramPath.Text);
             string options = "";
-            foreach (Control checkBox in groupBoxOptions.Controls)
+            foreach (Control checkBox in groupBoxOptionsRead.Controls)
             {
                 if (checkBox is CheckBox && ((CheckBox)checkBox).Checked)
                 {
                     options += checkBox.Text + "|";
                 }
             }
-            ConfigDefinition.setCfgUserString(ConfigDefinition.enumCfgUserString.ExifToolOptions, options);
+            ConfigDefinition.setCfgUserString(ConfigDefinition.enumCfgUserString.ExifToolOptionsRead, options);
+
+            options = "";
+            foreach (Control checkBox in groupBoxOptionsWrite.Controls)
+            {
+                if (checkBox is CheckBox && ((CheckBox)checkBox).Checked)
+                {
+                    options += checkBox.Text + "|";
+                }
+            }
+            ConfigDefinition.setCfgUserString(ConfigDefinition.enumCfgUserString.ExifToolOptionsWrite, options);
+
             ExifToolWrapper.setUserOptions();
 
             if (!ExifToolWrapper.isReady() && !oldPath.Equals(textBoxProgramPath.Text))
