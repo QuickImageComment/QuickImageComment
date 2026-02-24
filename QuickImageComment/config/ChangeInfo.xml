@@ -1,45 +1,37 @@
-﻿<Program_Version>4.67</Program_Version>
+﻿<Program_Version>5.00</Program_Version>
 <Program_Change_Info_German>
 Erweiterungen und Verbesserungen:
 
-* Wenn Felder auf den Reiter "Übersicht" über das Kontextmenü im Reiter Exif hinzugefügt werden, ist das Format jetzt Interpretiert statt Original. Auf diese Weise sind Exif.Image.XP... im Reiter "Übersicht" editierbar.
-* Wenn die Bildausrichtung über das Menü Zoomen/Drehen oder die Schaltflächen in der Symbolleiste geändert wird, wird dies beim Speichern des Bildes gespeichert.
-* Das Drehen des Bildes durch Ändern von Exif.Image.Orientation wird nun sofort auf das Bild angewendet.
-* Ein kleines Erdsymbol wird in den Miniaturansichten angezeigt, wenn das Bild GPS-Daten enthält.
-* Bilder können als Diashow angezeigt werden (Menü Ansicht/Diashow).
-* Neue Dateiansicht "Kommentar": zeigt den Dateinamen und den dem Bild zugeordneten Kommentar an.
-* Wenn Felder über das Kontextmenü zu änderbaren Feldern hinzugefügt werden, werden zusätzliche Informationen angezeigt. Beispiel: Beim Hinzufügen von Feldern für GPS-Daten wird als Alternative das Ändern der GPS-Daten über die Karte angeboten.
-* Für die Karte kann nun ausgewählt werden, ob der Maßstab in km oder mi angezeigt wird, entsprechend wird der Suchkreis in der Maske "Suche über Eigenschaften" in km oder mi definiert.
-* Kartenansicht: Bei der Suche nach einem Ort kann mittels einer zusätzlichen Maske über Parameter gesucht werden, z.B. in einem bestimmten Land.
-* Kartenansicht: Wenn die Suche nach einem Ort mehrere Ergebnisse liefert, werden diese in einer Tabelle angezeigt, aus der der passende Ort ausgewählt werden kann.
-* Neue Option in den Einstellungen für die Kartenansicht: Karte ausblenden, wenn das ausgewählte Bild keine GPS-Daten hat.
-* Neuer Menüeintrag "Hilfe / Problembehandlung": Verweist auf neue Seite von quickimagecomment.de, in der Probleme/Fragen und deren Lösung/Antwort zu finden sind.
-* Aktualisierung auf exiv2 0.28.5.
+* Metadaten können zusätzlich über ExifTool gelesen und geschrieben werden. Gegenüber exiv2 (der Komponente, die bisher alleinig für Lesen und Schreiben von Metadaten verwendet wurde) kann ExifTool auch in einige Video-Formate schreiben und unterstützt mehr Felder. Das Ändern von Aufnahmedatum und -zeit ist auch für Videos möglich, das Entfernen von Metadaten wird für Videos jedoch noch nicht unterstützt.
+* Im zentralen Eingabebereich der Hauptmaske wird über Quickinfo angezeigt, in welche Felder Künstler (Autor) und Kommentar gespeichert werden. Dies ersetzt die alte Logik, bei der der Feldname als Beschriftung genutzt wurde.
+* Optional können Änderungen von Metadaten - auch außerhalb von QuickImageComment - protokolliert werden.
+* Start externer Programme über URI (z.B. Microsoft Photos)
+* Erkennung der Änderungen von Dateien außerhalb von QuickImageComment und entsprechende Aktualisierung in QuickImageComment ist nun zuverlässiger.
+* Nur für die .Net 4.6.1-Varianten: Neue Version 0.28.7 der exiv2-Bibliothek integriert: weitere Kameramodell- und Objektiv-IDs hinzugefügt und kleinere Bugs behoben.
+* Nur für die .Net 4.6.1-Varianten: Einige Tags speichern das Datum in Sekunden seit dem 01.01.1904: Diese werden nun im Datumsformat angezeigt.
+* Neuer allgemeiner Parameter: Beim Anlegen neuer Definitionen in Maske "Felddefinitionen" wird vollständiger Tag-Name als Name der Definition verwendet. Falls nicht auf "yes" gesetzt, wird wie bisher der letzte beschreibende Teil des Tag-Namens verwendet.
 
 Folgende Fehler wurden behoben:
 
-* Exif.Image.XP... war im Reiter Exif nicht editierbar
-* Program stürzte ab, wenn ein Tag vom Typ "LangAlt" ohne Spracheintrag vorhanden war.
+* Reiter Exif/IPTC/XMP/Sonstige: Das Ein- und Ausblenden der Eigenschaften einer Gruppe funktionierte nicht.
+
+Hinweis: Die Version 5.00 bietet neue Konfigurationsmöglichkeiten. Je nach Nutzung dieser Möglichkeiten empfiehlt es sich, die vorhandenen Benutzereinstellungen zu prüfen und ggfs. zu ändern. Details hierzu in der Hilfe unter Kapitel 2.3 Upgrades.
 </Program_Change_Info_German>
 <Program_Change_Info_English>
 Enhancements and improvements:
 
-* When fields are added to tab "Overview" via context menu in Tab Exif, the format is now Interpreted instead of Original. In this way Exif.Image.XP... are editable in tab "Overview".
-* When image orientation is changed via menu Zoom/Rotate or buttons in tool bar, this will be stored when saving the image.
-* Rotating the image by changing Exif.Image.Orientation is immediately applied to the image now.
-* Show a small earth icon in views thumbnails/tiles if image has GPS data.
-* Images can be shown as slide show (menu View/Slideshow).
-* New file view "Comment": shows file name and comment assigned to image.
-* When fields are added to changeable fields via context menu, additional information is provided. Example: When adding fields for GPS data, as alternative changing GPS data via map is offered.
-* For the map, you can now select whether the scale is displayed in km or mi; the search circle in the "Search via properties" screen is defined accordingly in km or mi.
-* Map view: When searching for a location, an additional screen can be used to search via parameters, e.g. in a specific country.
-* Map view: If the search for a location returns several results, these are displayed in a table from which the appropriate location can be selected.
-* New option in the settings for the map view: Hide map if the selected image has no GPS data.
-* New menu item "Help / Troubleshooting": Links to new page of quickimagecomment.de, where problems/questions and their solutions/answers can be found.
-* Update to exiv2 0.28.5.
+* Metadata can also be read and written via ExifTool. Compared to exiv2 (the component that was previously only used for reading and writing metadata), ExifTool can also write to some video formats and supports more fields. Changing recording date and time is possible also for videos, but removing meta data is not yet supported for videos.
+* In the central input area of the main screen, ToolTip displays the fields in which Artist (author) and comment are saved. This replaces the old logic where the label was used to show the field name.
+* Optionally, changes to metadata can be logged - even changes outside QuickImageComment.
+* Start of external programs via URI (e.g. Microsoft Photos)
+* Detection of changes to files outside QuickImageComment and corresponding updates in QuickImageComment is now more reliable.
+* Only for the .Net 4.6.1 variants: New version 0.28.7 of the exiv2 library integrated: more camera model and lens IDs added and minor bugs fixed.
+* Only for the .Net 4.6.1 variants: Some tags store date in seconds since 1904-01-01: they are now shown in date format.
+* New general parameter: When creating new definitions in the "Field Definitions" mask, the complete tag name is used as the name of the definition. If not set to "yes," the last descriptive part of the tag name will be used as before.
 
 The following errors have been fixed:
 
-* Exif.Image.XP... was not editable in Tab Exif
-* Program crashed if a tag of type "LangAlt" was present without a language entry.
+* Exif/IPTC/XMP/Other tab: Showing and hiding the properties of a group did not work.
+
+Note: Version 5.00 offers new configuration options. Depending on how you use these options, it is advisable to check your existing user settings and change them if necessary. For details, see the Help section under Chapter 2.3 Upgrades.
 </Program_Change_Info_English>

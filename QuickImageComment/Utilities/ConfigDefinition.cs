@@ -937,7 +937,7 @@ namespace QuickImageComment
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForDisplay].Add(new MetaDataDefinitionItem("Exif-Künstler", "Exif.Image.Artist"));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForDisplay].Add(new MetaDataDefinitionItem("Exif-Kommentar", "Exif.Photo.UserComment"));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForDisplay].Add(new MetaDataDefinitionItem("JPEG-Kommentar", "Image.Comment"));
-                MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForDisplay].Add(new MetaDataDefinitionItem("Schlüsselworte", getConfigString(enumConfigString.TagKeyWordsImage)));
+                MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForDisplay].Add(new MetaDataDefinitionItem("Schlüsselworte", "Image.KeyWordsAccordingConfigString"));
                 translateNamesOfMetaDataDefinitionItem(MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForDisplay]);
             }
 
@@ -951,7 +951,7 @@ namespace QuickImageComment
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForDisplayVideo].Add(new MetaDataDefinitionItem("Auflösung", "Xmp.video.FrameWidth", " x ", "Xmp.video.FrameHeight"));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForDisplayVideo].Add(new MetaDataDefinitionItem("Bildrate", "Xmp.video.FrameRate"));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForDisplayVideo].Add(new MetaDataDefinitionItem("Medien-Dauer", "Xmp.video.MediaDuration"));
-                MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForDisplayVideo].Add(new MetaDataDefinitionItem("Schlüsselworte", getConfigString(enumConfigString.TagKeyWordsVideo)));
+                MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForDisplayVideo].Add(new MetaDataDefinitionItem("Schlüsselworte", "Image.KeyWordsAccordingConfigString"));
                 translateNamesOfMetaDataDefinitionItem(MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForDisplayVideo]);
             }
 
