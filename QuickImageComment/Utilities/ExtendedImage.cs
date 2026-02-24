@@ -1733,6 +1733,7 @@ namespace QuickImageComment
 
             addReplaceOtherMetaDataKnownType("Image.IPTC_KeyWordsString", getIptcKeyWordsString());
             addReplaceOtherMetaDataKnownType("Image.KeyWordsAccordingConfigString", getKeyWordsAccordingConfigString());
+            addReplaceOtherMetaDataKnownType("Image.RecordingDateAccordingConfig", getRecordingDateAccordingConfig());
             addReplaceOtherMetaDataKnownType("Image.IPTC_SuppCategoriesString",
               this.getMetaDataValuesStringByKey("Iptc.Application2.SuppCategory", MetaDataItem.Format.Original));
             try
@@ -4599,6 +4600,16 @@ namespace QuickImageComment
             ArrayList KeyWordsArrayListSorted = new ArrayList(this.getMetaDataArrayListByKey(tagKeyWords, MetaDataItem.Format.Original));
             KeyWordsArrayListSorted.Sort();
             return KeyWordsArrayListSorted;
+        }
+
+        public string getRecordingDateAccordingConfig()
+        {
+            string tagKeyWords = "";
+            if (isVideo)
+                tagKeyWords = ConfigDefinition.getConfigString(ConfigDefinition.enumConfigString.TagDateVideoGenerated);
+            else
+                tagKeyWords = ConfigDefinition.getConfigString(ConfigDefinition.enumConfigString.TagDateImageGenerated);
+            return this.getMetaDataValueByKey(tagKeyWords, MetaDataItem.Format.Interpreted);
         }
 
         public string getIptcKeyWordsString()

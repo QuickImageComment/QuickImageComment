@@ -593,8 +593,8 @@ namespace QuickImageComment
             ConfigItems.Add("FullSizeImageCacheMaxSize", "5");
             ConfigItems.Add("ExtendedImageCacheMaxSize", "100");
             ConfigItems.Add("MaximumMemoryWithCaching", "1500");
-            ConfigItems.Add("VideoFileExtensionsProperties", "avi");
-            ConfigItems.Add("VideoFileExtensionsFrame", "avi");
+            ConfigItems.Add("VideoFileExtensionsProperties", "avi;mov");
+            ConfigItems.Add("VideoFileExtensionsFrame", "avi;mov");
             ConfigItems.Add("VideoFramePosition", "500");
             ConfigItems.Add("MaskCustomizationFile", "");
             ConfigItems.Add("ToolstripStyle", "show");
@@ -754,6 +754,7 @@ namespace QuickImageComment
             InternalMetaDataDefinitions.Add("Image.Comment", new TagDefinition("Image.Comment", "Ascii", "Comment assigned to image, called \"Jpeg-comment\" in Exifer"));
             InternalMetaDataDefinitions.Add("Image.IPTC_KeyWordsString", new TagDefinition("Image.IPTC_KeyWordsString", "Readonly", "IPTC key words concatenated in one string"));
             InternalMetaDataDefinitions.Add("Image.KeyWordsAccordingConfigString", new TagDefinition("Image.KeyWordsAccordingConfigString", "Readonly", "Keywords according to configuration concatenated in one string"));
+            InternalMetaDataDefinitions.Add("Image.RecordingDateAccordingConfig", new TagDefinition("Image.RecordingDateAccordingConfig", "Readonly", "Recording date according to configuration"));
             InternalMetaDataDefinitions.Add("Image.IPTC_SuppCategoriesString", new TagDefinition("Image.IPTC_SuppCategoriesString", "Readonly", "IPTC supplemental categories concatenated in one string"));
             InternalMetaDataDefinitions.Add("Image.CommentAccordingSettings", new TagDefinition("Image.CommentAccordingSettings", "Readonly", "Comment selected from fields according settings to store comment"));
             InternalMetaDataDefinitions.Add("Image.CommentCombinedFields", new TagDefinition("Image.CommentCombinedFields", "Readonly", "Comment as combination of several comment fields (as selectable in mask \"Settings\""));
@@ -854,6 +855,7 @@ namespace QuickImageComment
 
             // now as general configuration file is read, following dependencies can be added
             TagDependencies.Add(new string[] { "Image.KeyWordsAccordingConfigString", getConfigString(enumConfigString.TagKeyWordsImage), getConfigString(enumConfigString.TagKeyWordsVideo) });
+            TagDependencies.Add(new string[] { "Image.RecordingDateAccordingConfig", getConfigString(enumConfigString.TagDateImageGenerated), getConfigString(enumConfigString.TagDateVideoGenerated) });
             Program.StartupPerformance.measure("ConfigDefinition.readGeneralConfigFiles Finish");
         }
 
@@ -925,7 +927,7 @@ namespace QuickImageComment
             {
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForDisplay].Add(new MetaDataDefinitionItem("Hersteller", "ExifEasy.CameraMake"));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForDisplay].Add(new MetaDataDefinitionItem("Kamera-Modell", "ExifEasy.CameraModel"));
-                MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForDisplay].Add(new MetaDataDefinitionItem("Aufnahmedatum", "Exif.Photo.DateTimeOriginal", ".", "Exif.Photo.SubSecTimeOriginal"));
+                MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForDisplay].Add(new MetaDataDefinitionItem("Aufnahmedatum", "Image.RecordingDateAccordingConfig", ".", "Exif.Photo.SubSecTimeOriginal"));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForDisplay].Add(new MetaDataDefinitionItem("Belichtungszeit", "ExifEasy.ExposureTime", MetaDataItem.Format.InterpretedBracketOriginal));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForDisplay].Add(new MetaDataDefinitionItem("Blende", "ExifEasy.FNumber", MetaDataItem.Format.InterpretedBracketOriginal));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForDisplay].Add(new MetaDataDefinitionItem("ISO-Einstellung", "ExifEasy.ISOspeed"));
@@ -944,7 +946,7 @@ namespace QuickImageComment
             {
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForDisplayVideo].Add(new MetaDataDefinitionItem("Hersteller", "Xmp.video.Make"));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForDisplayVideo].Add(new MetaDataDefinitionItem("Modell", "Xmp.video.Model"));
-                MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForDisplayVideo].Add(new MetaDataDefinitionItem("Aufnahmedatum", "Xmp.video.DateTimeOriginal", ".", "Exif.Photo.SubSecTimeOriginal"));
+                MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForDisplayVideo].Add(new MetaDataDefinitionItem("Aufnahmedatum", "Image.RecordingDateAccordingConfig", ".", "Exif.Photo.SubSecTimeOriginal"));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForDisplayVideo].Add(new MetaDataDefinitionItem("Codec", "Xmp.video.Codec"));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForDisplayVideo].Add(new MetaDataDefinitionItem("Auflösung", "Xmp.video.FrameWidth", " x ", "Xmp.video.FrameHeight"));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForDisplayVideo].Add(new MetaDataDefinitionItem("Bildrate", "Xmp.video.FrameRate"));
@@ -956,7 +958,7 @@ namespace QuickImageComment
             // if no entries for MetaDataDefForFind found, define initial set
             if (MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForFind].Count == 0)
             {
-                MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForFind].Add(new MetaDataDefinitionItem("Aufnahmedatum", "Exif.Photo.DateTimeOriginal"));
+                MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForFind].Add(new MetaDataDefinitionItem("Aufnahmedatum", "Image.RecordingDateAccordingConfig"));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForFind].Add(new MetaDataDefinitionItem("Künstler (kombiniert)", "Image.ArtistCombinedFields"));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForFind].Add(new MetaDataDefinitionItem("Kommentar (kombiniert)", "Image.CommentCombinedFields"));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForFind].Add(new MetaDataDefinitionItem("Schlüsselworte", "Image.KeyWordsAccordingConfigString"));
@@ -969,7 +971,7 @@ namespace QuickImageComment
             {
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForImageWindow].Add(new MetaDataDefinitionItem("Hersteller", "ExifEasy.CameraMake"));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForImageWindow].Add(new MetaDataDefinitionItem("Kamera-Modell", "ExifEasy.CameraModel"));
-                MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForImageWindow].Add(new MetaDataDefinitionItem("Aufnahmedatum", "Exif.Photo.DateTimeOriginal", ".", "Exif.Photo.SubSecTimeOriginal"));
+                MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForImageWindow].Add(new MetaDataDefinitionItem("Aufnahmedatum", "Image.RecordingDateAccordingConfig", ".", "Exif.Photo.SubSecTimeOriginal"));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForImageWindow].Add(new MetaDataDefinitionItem("Belichtungszeit", "ExifEasy.ExposureTime", MetaDataItem.Format.InterpretedBracketOriginal));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForImageWindow].Add(new MetaDataDefinitionItem("Blende", "ExifEasy.FNumber", MetaDataItem.Format.InterpretedBracketOriginal));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForImageWindow].Add(new MetaDataDefinitionItem("ISO-Einstellung", "ExifEasy.ISOspeed"));
@@ -984,7 +986,7 @@ namespace QuickImageComment
             {
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForImageWindowVideo].Add(new MetaDataDefinitionItem("Hersteller", "Xmp.video.Make"));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForImageWindowVideo].Add(new MetaDataDefinitionItem("Modell", "Xmp.video.Model"));
-                MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForImageWindowVideo].Add(new MetaDataDefinitionItem("Aufnahmedatum", "Xmp.video.DateTimeOriginal", ".", "Exif.Photo.SubSecTimeOriginal"));
+                MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForImageWindowVideo].Add(new MetaDataDefinitionItem("Aufnahmedatum", "Image.RecordingDateAccordingConfig", ".", "Exif.Photo.SubSecTimeOriginal"));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForImageWindowVideo].Add(new MetaDataDefinitionItem("Codec", "Xmp.video.Codec"));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForImageWindowVideo].Add(new MetaDataDefinitionItem("Auflösung", "Xmp.video.FrameWidth", " x ", "Xmp.video.FrameHeight"));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForImageWindowVideo].Add(new MetaDataDefinitionItem("Bildrate", "Xmp.video.FrameRate"));
@@ -1015,7 +1017,7 @@ namespace QuickImageComment
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForMultiEditTable].Add(new MetaDataDefinitionItem("Künstler", "Image.ArtistAccordingSettings"));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForMultiEditTable].Add(new MetaDataDefinitionItem("Kommentar", "Image.CommentAccordingSettings"));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForMultiEditTable].Add(new MetaDataDefinitionItem("Schlüsselworte", "Image.KeyWordsAccordingConfigString"));
-                MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForMultiEditTable].Add(new MetaDataDefinitionItem("Aufnahmedatum", "Exif.Photo.DateTimeOriginal"));
+                MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForMultiEditTable].Add(new MetaDataDefinitionItem("Aufnahmedatum", "Image.RecordingDateAccordingConfig"));
                 translateNamesOfMetaDataDefinitionItem(MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForMultiEditTable]);
             }
 
@@ -1023,8 +1025,8 @@ namespace QuickImageComment
             if (MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForRename].Count == 0)
             {
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForRename].Add(new MetaDataDefinitionItem("Alter Dateiname", "File.NameWithoutExtension"));
-                MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForRename].Add(new MetaDataDefinitionItem("Aufnahme-Datum JJJJMMDD", "Define.PhotoDateOriginal_YYYYMMDD"));
-                MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForRename].Add(new MetaDataDefinitionItem("Aufnahme-Zeit m. Hunderstel-Sek.", "Exif.Photo.DateTimeOriginal", ".", "Exif.Photo.SubSecTimeOriginal"));
+                MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForRename].Add(new MetaDataDefinitionItem("Aufnahme-Datum JJJJMMDD", "Define.RecordingDate_YYYYMMDD"));
+                MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForRename].Add(new MetaDataDefinitionItem("Aufnahme-Zeit hhmmss.HH ", "Define.RecordingTime_hhmmss", ".", "Exif.Photo.SubSecTimeOriginal"));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForRename].Add(new MetaDataDefinitionItem("Künstler (Autor)", "Image.ArtistAccordingSettings"));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForRename].Add(new MetaDataDefinitionItem("Kamera-Hersteller", "ExifEasy.CameraMake"));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForRename].Add(new MetaDataDefinitionItem("Kamera-Modell", "ExifEasy.CameraModel"));
@@ -1101,7 +1103,7 @@ namespace QuickImageComment
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForTileView].Add(new MetaDataDefinitionItem("Dateiname", "File.Name"));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForTileView].Add(new MetaDataDefinitionItem("Dateigröße", "File.Size"));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForTileView].Add(new MetaDataDefinitionItem("Auflösung", "Exif.Photo.PixelXDimension", " x ", "Exif.Photo.PixelYDimension"));
-                MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForTileView].Add(new MetaDataDefinitionItem("Aufnahmedatum", "", MetaDataItem.Format.Interpreted, "Exif.Photo.DateTimeOriginal", ".",
+                MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForTileView].Add(new MetaDataDefinitionItem("Aufnahmedatum", "", MetaDataItem.Format.Interpreted, "Image.RecordingDateAccordingConfig", ".",
                                                                                                  MetaDataItem.Format.Interpreted, "Exif.Photo.SubSecTimeOriginal", ""));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForTileView].Add(new MetaDataDefinitionItem("Kamera-Modell", "ExifEasy.CameraModel"));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForTileView].Add(new MetaDataDefinitionItem("Künstler", "Exif.Image.Artist"));
@@ -1115,7 +1117,7 @@ namespace QuickImageComment
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForTileViewVideo].Add(new MetaDataDefinitionItem("Dateigröße", "File.Size"));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForTileViewVideo].Add(new MetaDataDefinitionItem("Auflösung", "Xmp.video.FrameWidth", " x ", "Xmp.video.FrameHeight"));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForTileViewVideo].Add(new MetaDataDefinitionItem("Modell", "Xmp.video.Model"));
-                MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForTileViewVideo].Add(new MetaDataDefinitionItem("Aufnahmedatum", "Xmp.video.DateUTC"));
+                MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForTileViewVideo].Add(new MetaDataDefinitionItem("Aufnahmedatum", "Image.RecordingDateAccordingConfig"));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForTileViewVideo].Add(new MetaDataDefinitionItem("Medien-Dauer", "Xmp.video.MediaDuration"));
                 translateNamesOfMetaDataDefinitionItem(MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForTileViewVideo]);
             }
