@@ -1025,8 +1025,8 @@ namespace QuickImageComment
             if (MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForRename].Count == 0)
             {
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForRename].Add(new MetaDataDefinitionItem("Alter Dateiname", "File.NameWithoutExtension"));
-                MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForRename].Add(new MetaDataDefinitionItem("Aufnahme-Datum JJJJMMDD", "Define.RecordingDate_YYYYMMDD"));
-                MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForRename].Add(new MetaDataDefinitionItem("Aufnahme-Zeit hhmmss.HH ", "Define.RecordingTime_hhmmss", ".", "Exif.Photo.SubSecTimeOriginal"));
+                MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForRename].Add(new MetaDataDefinitionItem("Aufnahme-Datum gem Konfig JJJJMMDD", "Define.RecordingDateAccConfig_YYYYMMDD"));
+                MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForRename].Add(new MetaDataDefinitionItem("Aufnahme-Zeit gem Konfig hhmmss", "Define.RecordingTimeAccConfig_hhmmss"));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForRename].Add(new MetaDataDefinitionItem("Künstler (Autor)", "Image.ArtistAccordingSettings"));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForRename].Add(new MetaDataDefinitionItem("Kamera-Hersteller", "ExifEasy.CameraMake"));
                 MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForRename].Add(new MetaDataDefinitionItem("Kamera-Modell", "ExifEasy.CameraModel"));

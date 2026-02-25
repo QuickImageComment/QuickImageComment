@@ -4606,7 +4606,11 @@ namespace QuickImageComment
         {
             string tagKeyWords = "";
             if (isVideo)
+            {
                 tagKeyWords = ConfigDefinition.getConfigString(ConfigDefinition.enumConfigString.TagDateVideoGenerated);
+                // in case ExifTool is not configured use exiv2 tag for standard configured tag
+                if (tagKeyWords.Equals("QuickTime:CreateDate")) tagKeyWords = "Xmp.video.DateUTC";
+            }
             else
                 tagKeyWords = ConfigDefinition.getConfigString(ConfigDefinition.enumConfigString.TagDateImageGenerated);
             return this.getMetaDataValueByKey(tagKeyWords, MetaDataItem.Format.Interpreted);
