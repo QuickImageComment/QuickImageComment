@@ -339,6 +339,8 @@ namespace QuickImageComment
         private static string ConfigPath;
         private static ArrayList UserConfigCommentLines;
 
+        internal static ArrayList ExportAllExceptions;
+
         // Attributes in configuration file
         internal static string UserConfigFileVersion = "";
         private static SortedList ConfigItems;
@@ -445,6 +447,7 @@ namespace QuickImageComment
             XmpLangAltNames = new ArrayList();
             FormSelectFolderLastFolders = new ArrayList();
             UserConfigCommentLines = new ArrayList();
+            ExportAllExceptions = new ArrayList();
             TagDependencies = new ArrayList();
 
             foreach (enumMetaDataGroup enumValue in Enum.GetValues(typeof(enumMetaDataGroup)))
@@ -3799,6 +3802,14 @@ namespace QuickImageComment
                         else
                         {
                             MapLeafletList[Key].attribution2 = attribution;
+                        }
+                    }
+
+                    else if (firstPart.Equals("ExportAllException"))
+                    {
+                        if (!ExportAllExceptions.Contains(secondPart))
+                        {
+                            ExportAllExceptions.Add(secondPart);
                         }
                     }
 

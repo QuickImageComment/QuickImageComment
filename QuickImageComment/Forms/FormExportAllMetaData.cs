@@ -264,19 +264,22 @@ namespace QuickImageComment
             SortedList MetaDataItems = theExtendedImage.getAllMetaDataItems();
             foreach (string key in MetaDataItems.GetKeyList())
             {
-                MetaDataItem aMetaDataItem = (MetaDataItem)MetaDataItems[key];
-                string keyForPrint = GeneralUtilities.nameWithoutRunningNumber(key);
-                if (!aMetaDataItem.getLanguage().Equals("") && !aMetaDataItem.getLanguage().Equals("x-default"))
+                if (!ConfigDefinition.ExportAllExceptions.Contains(key))
                 {
-                    keyForPrint += " " + aMetaDataItem.getLanguage();
+                    MetaDataItem aMetaDataItem = (MetaDataItem)MetaDataItems[key];
+                    string keyForPrint = GeneralUtilities.nameWithoutRunningNumber(key);
+                    if (!aMetaDataItem.getLanguage().Equals("") && !aMetaDataItem.getLanguage().Equals("x-default"))
+                    {
+                        keyForPrint += " " + aMetaDataItem.getLanguage();
+                    }
+                    StreamOut.Write(keyForPrint + " = ");
+                    string Value = aMetaDataItem.getValueForDisplay(MetaDataItem.Format.ForGenericList).Replace("\r\n", " | ");
+                    if (Value.Length > ConfigDefinition.getConfigInt(ConfigDefinition.enumConfigInt.MaximumValueLengthExport))
+                    {
+                        Value = Value.Substring(0, ConfigDefinition.getConfigInt(ConfigDefinition.enumConfigInt.MaximumValueLengthExport)) + "...";
+                    }
+                    StreamOut.WriteLine(Value);
                 }
-                StreamOut.Write(keyForPrint + " = ");
-                string Value = aMetaDataItem.getValueForDisplay(MetaDataItem.Format.ForGenericList).Replace("\r\n", " | ");
-                if (Value.Length > ConfigDefinition.getConfigInt(ConfigDefinition.enumConfigInt.MaximumValueLengthExport))
-                {
-                    Value = Value.Substring(0, ConfigDefinition.getConfigInt(ConfigDefinition.enumConfigInt.MaximumValueLengthExport)) + "...";
-                }
-                StreamOut.WriteLine(Value);
             }
 
             StreamOut.Close();
