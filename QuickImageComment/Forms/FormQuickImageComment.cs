@@ -3192,19 +3192,26 @@ namespace QuickImageComment
         // set file date and time to date and time when image was generated
         private void toolStripMenuItemSetFileDateToDateGenerated_Click(object sender, EventArgs e)
         {
+            string dateGenerated = "";
+            string tagToChangeFileDate = "";
             if (continueAfterCheckForChangesAndOptionalSaving(theUserControlFiles.listViewFiles.SelectedIndices))
             {
                 lock (UserControlFiles.LockListViewFiles)
                 {
-                    string tagToChangeFileDate = ConfigDefinition.getConfigString(ConfigDefinition.enumConfigString.TagDateImageGenerated);
-                    DialogResult theDialogResult = GeneralUtilities.questionMessage(LangCfg.Message.Q_setFileDateToDateGenerated, tagToChangeFileDate);
+                    string tagToChangeFileDateImage = ConfigDefinition.getConfigString(ConfigDefinition.enumConfigString.TagDateImageGenerated);
+                    string tagToChangeFileDateVideo = ConfigDefinition.getConfigString(ConfigDefinition.enumConfigString.TagDateVideoGenerated);
+                    DialogResult theDialogResult = GeneralUtilities.questionMessage(LangCfg.Message.Q_setFileDateToDateGenerated, tagToChangeFileDateImage, tagToChangeFileDateVideo);
                     if (theDialogResult == DialogResult.Yes)
                     {
                         this.Cursor = Cursors.WaitCursor;
                         for (int ii = 0; ii < theUserControlFiles.listViewFiles.SelectedIndices.Count; ii++)
                         {
                             ExtendedImage theExtendedImage = ImageManager.getExtendedImage(theUserControlFiles.listViewFiles.SelectedIndices[ii]);
-                            string dateGenerated = theExtendedImage.getMetaDataValueByKey(tagToChangeFileDate, MetaDataItem.Format.Original);
+                            if (theExtendedImage.getIsVideo())
+                                tagToChangeFileDate = tagToChangeFileDateVideo;
+                            else
+                                tagToChangeFileDate = tagToChangeFileDateImage;
+                            dateGenerated = theExtendedImage.getMetaDataValueByKey(tagToChangeFileDate, MetaDataItem.Format.Original);
                             string fileName = theExtendedImage.getImageFileName();
                             try
                             {
