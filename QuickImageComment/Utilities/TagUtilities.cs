@@ -254,6 +254,7 @@ namespace QuickImageComment
         public static bool isEditableInDataGridView(string type, string key)
         {
             return isChangeable(key) &&
+                   !key.Contains(GeneralUtilities.UniqueSeparator) && // key is enhanced by separator and running number, so one entry of multiline
                    !warnBeforeAddToChangeable(key) &&
                    !isMultiLine(key) &&
                    !isTimeProperty(type) && //!!: doch zulassen? Bei Xmp gibt es keine einfache Prüfung auf Date
