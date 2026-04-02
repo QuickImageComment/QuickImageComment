@@ -23,6 +23,7 @@ namespace QuickImageComment
         public const string typeSRational = "SRational";
         public const string typeFloat = "Float";
         public const string typeDouble = "Double";
+        public const string typeIPTCDate = "Date";
 
         public const string exifToolTypeString = "string";
         public const string exifToolTypeLangAlt = "lang-alt";

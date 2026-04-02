@@ -785,11 +785,12 @@ namespace QuickImageComment
                             // no ExceptionMessage; possible exception is caught specifically
                             Values[ii] = Values[ii].Trim();
                             // check date and correct format to fit to specification of Exif/IPTC/XMP
-                            // following logic works, because the formaats differ only in separators, 
+                            // following logic works, because the formats differ only in separators, 
                             // i.e. hours, minutes and seconds are in the same position inside the string
-                            if (MetaType.Equals("Date"))//!!: function exiftool date
+                            if (MetaType.Equals(TagUtilities.typeIPTCDate))
                             {
-                                Logger.log(); //!!: exiftool date hier berücksichtigen
+                                // type Date of IPTC in exiv2 has date only (i.e. without time)
+                                // delimiter is "-"
                                 DateTime temp = GeneralUtilities.getDateTimeFromExifIptcXmpString(Values[ii], Spec.KeyPrim);
                                 // no time allowed
                                 Values[ii] = temp.ToString("yyyy-MM-dd");
@@ -809,6 +810,16 @@ namespace QuickImageComment
                                 string timeZone = "";
                                 if (len > 19) timeZone = Values[ii].Substring(19);
                                 Values[ii] = temp.ToString("yyyy-MM-ddTHH:mm:ss") + timeZone;
+                                // trim to level provided by input string
+                                Values[ii] = Values[ii].Substring(0, len);
+                            }
+                            else if (Spec.KeyPrim.StartsWith("XMP"))
+                            {
+                                DateTime temp = GeneralUtilities.getDateTimeFromExifIptcXmpString(Values[ii], Spec.KeyPrim);
+                                int len = Values[ii].Length;
+                                string timeZone = "";
+                                if (len > 19) timeZone = Values[ii].Substring(19);
+                                Values[ii] = temp.ToString("yyyy:MM:dd HH:mm:ss") + timeZone;
                                 // trim to level provided by input string
                                 Values[ii] = Values[ii].Substring(0, len);
                             }

@@ -60,7 +60,7 @@ namespace QuickImageComment
             "",
             "yyyy:MM:dd"
         };
-        private static readonly string[] dateFormatsXmp =
+        private static readonly string[] dateFormatsXmpExiv2 =
         {
             "yyyy-MM-ddTHH:mm:ssK",
             "yyyy-MM-ddTHH:mm:ss",
@@ -72,11 +72,29 @@ namespace QuickImageComment
             "yyyy-MM",
             "yyyy",
             "",
+            "yyyy:MM:dd HH:mm:ssK",
+            "yyyy:MM:dd HH:mm:ss",
+            "yyyy:MM:dd HH:mm",
+            "yyyy:MM:dd",
+            "yyyy:MM"
+        };
+        private static readonly string[] dateFormatsXmpExifTool =
+        {
+            "yyyy:MM:dd HH:mm:ssK",
             "yyyy:MM:dd HH:mm:ss",
             "yyyy:MM:dd HH:mm",
             "yyyy:MM:dd",
             "yyyy:MM",
-            "yyyy"
+            "yyyy",
+            "",
+            "yyyy-MM-ddTHH:mm:ssK",
+            "yyyy-MM-ddTHH:mm:ss",
+            "yyyy-MM-ddTHH:mm",
+            "yyyy-MM-dd HH:mm:ssK",
+            "yyyy-MM-dd HH:mm:ss",
+            "yyyy-MM-dd HH:mm",
+            "yyyy-MM-dd",
+            "yyyy-MM"
         };
 
         // to control creating screenshots and control text list
@@ -465,8 +483,16 @@ namespace QuickImageComment
             LangCfg.Others typeSpecId = 0;
             if (TagUtilities.isExifToolTag(key))
             {
-                dateFormats = dateFormatsExif;
-                typeSpecId = LangCfg.Others.typeSpecDateTimeExif;
+                if (key.StartsWith("XMP"))
+                {
+                    dateFormats = dateFormatsXmpExifTool;
+                    typeSpecId = LangCfg.Others.typeSpecDateTimeXmp;
+                }
+                else
+                {
+                    dateFormats = dateFormatsExif;
+                    typeSpecId = LangCfg.Others.typeSpecDateTimeExif;
+                }
             }
             else if (key.StartsWith("Exif"))
             {
@@ -480,7 +506,7 @@ namespace QuickImageComment
             }
             else if (key.StartsWith("Xmp"))
             {
-                dateFormats = dateFormatsXmp;
+                dateFormats = dateFormatsXmpExiv2;
                 typeSpecId = LangCfg.Others.typeSpecDateTimeXmp;
             }
 
