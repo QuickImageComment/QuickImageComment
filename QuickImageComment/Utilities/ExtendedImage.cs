@@ -552,7 +552,16 @@ namespace QuickImageComment
 #endif
             ReadPerformance.measure("Meta data exiv2 copied");
 
+            DateTime startTime = DateTime.Now;
             readExifToolMetaData(neededKeysExifTool);
+            if (ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.ExifToolLogRead))
+            {
+                string duration = DateTime.Now.Subtract(startTime).TotalMilliseconds.ToString("0");
+                Logger.logWithDateTime(
+                    "General options:" + ConfigDefinition.getConfigString(ConfigDefinition.enumConfigString.ExifToolGeneralOptionsRead) +
+                    " User options:" + ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.ExifToolOptionsRead).Replace('|', ' ') +
+                    "\t" + ImageFileName + "\tDuration[ms]:\t" + duration + "\tValues read:\t" + ExifToolMetaDataItems.Count.ToString());
+            }
             ReadPerformance.measure("ExifTool JSON");
 
             XmpLangAltEntries.Sort();

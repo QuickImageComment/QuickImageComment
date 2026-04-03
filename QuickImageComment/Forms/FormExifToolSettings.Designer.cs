@@ -41,6 +41,10 @@
             this.label2 = new System.Windows.Forms.Label();
             this.dynamicLabelPath = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.label9 = new System.Windows.Forms.Label();
+            this.groupBoxOptionsWrite = new System.Windows.Forms.GroupBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.dynamicCheckBox_m_Write = new System.Windows.Forms.CheckBox();
             this.groupBoxOptionsRead = new System.Windows.Forms.GroupBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -51,16 +55,12 @@
             this.label3 = new System.Windows.Forms.Label();
             this.buttonStop = new System.Windows.Forms.Button();
             this.buttonStart = new System.Windows.Forms.Button();
-            this.groupBoxOptionsWrite = new System.Windows.Forms.GroupBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.dynamicCheckBox_m_Write = new System.Windows.Forms.CheckBox();
-            this.label9 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            this.groupBoxOptionsRead.SuspendLayout();
             this.groupBoxOptionsWrite.SuspendLayout();
+            this.groupBoxOptionsRead.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonOk
@@ -77,7 +77,7 @@
             // buttonCancel
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonCancel.Location = new System.Drawing.Point(201, 276);
+            this.buttonCancel.Location = new System.Drawing.Point(278, 276);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(96, 23);
             this.buttonCancel.TabIndex = 2;
@@ -88,7 +88,7 @@
             // buttonHelp
             // 
             this.buttonHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonHelp.Location = new System.Drawing.Point(304, 276);
+            this.buttonHelp.Location = new System.Drawing.Point(381, 276);
             this.buttonHelp.Name = "buttonHelp";
             this.buttonHelp.Size = new System.Drawing.Size(96, 23);
             this.buttonHelp.TabIndex = 3;
@@ -111,14 +111,14 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxProgramPath.Location = new System.Drawing.Point(9, 64);
             this.textBoxProgramPath.Name = "textBoxProgramPath";
-            this.textBoxProgramPath.Size = new System.Drawing.Size(406, 21);
+            this.textBoxProgramPath.Size = new System.Drawing.Size(483, 21);
             this.textBoxProgramPath.TabIndex = 5;
             // 
             // buttonBrowse
             // 
             this.buttonBrowse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonBrowse.Image = ((System.Drawing.Image)(resources.GetObject("buttonBrowse.Image")));
-            this.buttonBrowse.Location = new System.Drawing.Point(421, 62);
+            this.buttonBrowse.Location = new System.Drawing.Point(498, 62);
             this.buttonBrowse.Name = "buttonBrowse";
             this.buttonBrowse.Size = new System.Drawing.Size(30, 24);
             this.buttonBrowse.TabIndex = 22;
@@ -195,19 +195,60 @@
             this.splitContainer1.Panel2.Controls.Add(this.buttonCancel);
             this.splitContainer1.Panel2.Controls.Add(this.buttonOk);
             this.splitContainer1.Panel2.Controls.Add(this.textBoxProgramPath);
-            this.splitContainer1.Size = new System.Drawing.Size(459, 392);
+            this.splitContainer1.Size = new System.Drawing.Size(536, 392);
             this.splitContainer1.SplitterDistance = 76;
             this.splitContainer1.TabIndex = 32;
             // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(9, 251);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(236, 13);
+            this.label9.TabIndex = 30;
+            this.label9.Text = "Weitere Erläuterung zu den Optionen in der Hile";
+            // 
+            // groupBoxOptionsWrite
+            // 
+            this.groupBoxOptionsWrite.Controls.Add(this.label8);
+            this.groupBoxOptionsWrite.Controls.Add(this.dynamicCheckBox_m_Write);
+            this.groupBoxOptionsWrite.Location = new System.Drawing.Point(4, 191);
+            this.groupBoxOptionsWrite.Name = "groupBoxOptionsWrite";
+            this.groupBoxOptionsWrite.Size = new System.Drawing.Size(455, 74);
+            this.groupBoxOptionsWrite.TabIndex = 29;
+            this.groupBoxOptionsWrite.TabStop = false;
+            this.groupBoxOptionsWrite.Text = "ExifTool Optionen - Schreiben";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(96, 19);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(204, 13);
+            this.label8.TabIndex = 2;
+            this.label8.Text = "Ignoriere kleinere Fehler und Warnungen";
+            // 
+            // dynamicCheckBox_m_Write
+            // 
+            this.dynamicCheckBox_m_Write.AutoSize = true;
+            this.dynamicCheckBox_m_Write.Location = new System.Drawing.Point(9, 18);
+            this.dynamicCheckBox_m_Write.Name = "dynamicCheckBox_m_Write";
+            this.dynamicCheckBox_m_Write.Size = new System.Drawing.Size(38, 17);
+            this.dynamicCheckBox_m_Write.TabIndex = 0;
+            this.dynamicCheckBox_m_Write.Text = "-m";
+            this.dynamicCheckBox_m_Write.UseVisualStyleBackColor = true;
+            // 
             // groupBoxOptionsRead
             // 
+            this.groupBoxOptionsRead.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBoxOptionsRead.Controls.Add(this.label6);
             this.groupBoxOptionsRead.Controls.Add(this.label5);
             this.groupBoxOptionsRead.Controls.Add(this.dynamicCheckBox_fast);
             this.groupBoxOptionsRead.Controls.Add(this.dynamicCheckBox_m_Read);
             this.groupBoxOptionsRead.Location = new System.Drawing.Point(3, 118);
             this.groupBoxOptionsRead.Name = "groupBoxOptionsRead";
-            this.groupBoxOptionsRead.Size = new System.Drawing.Size(455, 67);
+            this.groupBoxOptionsRead.Size = new System.Drawing.Size(525, 67);
             this.groupBoxOptionsRead.TabIndex = 28;
             this.groupBoxOptionsRead.TabStop = false;
             this.groupBoxOptionsRead.Text = "ExifTool Optionen - Lesen";
@@ -217,9 +258,10 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(96, 41);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(280, 13);
+            this.label6.Size = new System.Drawing.Size(427, 13);
             this.label6.TabIndex = 3;
-            this.label6.Text = "Erhöhe Geschwindigkeit beim Extrahieren von Metadaten";
+            this.label6.Text = "Schnellere Extraktion von Informationen; Risiko: Tags sind möglicherweise unvolls" +
+    "tändig";
             // 
             // label5
             // 
@@ -299,50 +341,11 @@
             this.buttonStart.UseVisualStyleBackColor = true;
             this.buttonStart.Click += new System.EventHandler(this.buttonStart_Click);
             // 
-            // groupBoxOptionsWrite
-            // 
-            this.groupBoxOptionsWrite.Controls.Add(this.label8);
-            this.groupBoxOptionsWrite.Controls.Add(this.dynamicCheckBox_m_Write);
-            this.groupBoxOptionsWrite.Location = new System.Drawing.Point(4, 191);
-            this.groupBoxOptionsWrite.Name = "groupBoxOptionsWrite";
-            this.groupBoxOptionsWrite.Size = new System.Drawing.Size(455, 74);
-            this.groupBoxOptionsWrite.TabIndex = 29;
-            this.groupBoxOptionsWrite.TabStop = false;
-            this.groupBoxOptionsWrite.Text = "ExifTool Optionen - Schreiben";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(96, 19);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(204, 13);
-            this.label8.TabIndex = 2;
-            this.label8.Text = "Ignoriere kleinere Fehler und Warnungen";
-            // 
-            // dynamicCheckBox_m_Write
-            // 
-            this.dynamicCheckBox_m_Write.AutoSize = true;
-            this.dynamicCheckBox_m_Write.Location = new System.Drawing.Point(9, 18);
-            this.dynamicCheckBox_m_Write.Name = "dynamicCheckBox_m_Write";
-            this.dynamicCheckBox_m_Write.Size = new System.Drawing.Size(38, 17);
-            this.dynamicCheckBox_m_Write.TabIndex = 0;
-            this.dynamicCheckBox_m_Write.Text = "-m";
-            this.dynamicCheckBox_m_Write.UseVisualStyleBackColor = true;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(9, 251);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(236, 13);
-            this.label9.TabIndex = 30;
-            this.label9.Text = "Weitere Erläuterung zu den Optionen in der Hile";
-            // 
             // FormExifToolSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(459, 392);
+            this.ClientSize = new System.Drawing.Size(536, 392);
             this.Controls.Add(this.splitContainer1);
             this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -357,10 +360,10 @@
             this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            this.groupBoxOptionsRead.ResumeLayout(false);
-            this.groupBoxOptionsRead.PerformLayout();
             this.groupBoxOptionsWrite.ResumeLayout(false);
             this.groupBoxOptionsWrite.PerformLayout();
+            this.groupBoxOptionsRead.ResumeLayout(false);
+            this.groupBoxOptionsRead.PerformLayout();
             this.ResumeLayout(false);
 
         }

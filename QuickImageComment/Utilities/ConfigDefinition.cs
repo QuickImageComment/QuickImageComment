@@ -123,7 +123,8 @@ namespace QuickImageComment
             ShowHiddenFiles,
             KeepFileModifiedTime,
             FindShowDataTable,
-            UseKeyAsNameForMetaDataDefinition
+            UseKeyAsNameForMetaDataDefinition,
+            ExifToolLogRead
         };
 
         public enum enumConfigInt
@@ -165,7 +166,9 @@ namespace QuickImageComment
             OutputPathScreenshots,
             FindDataTableFileName,
             TagKeyWordsImage,
-            TagKeyWordsVideo
+            TagKeyWordsVideo,
+            ExifToolGeneralOptionsRead,
+            ExifToolGeneralOptionsWrite
         };
 
         // no longer used, defined here to avoid warning messages when reading config file
@@ -3825,7 +3828,9 @@ namespace QuickImageComment
                     // items from general configuration file are marked with "_" at beginning
                     else if (ConfigItems.ContainsKey("_" + firstPart))
                     {
-                        if (secondPart.Equals(""))
+                        // ExifToolGeneralOptionsRead may be empty, others not
+                        if (secondPart.Equals("") && !firstPart.Equals(enumConfigString.ExifToolGeneralOptionsRead.ToString())
+                                                  && !firstPart.Equals(enumConfigString.ExifToolGeneralOptionsWrite.ToString()))
                         {
                             GeneralUtilities.debugMessage("Missing configuration value in configuration file " + GeneralConfigFile
                                 + " line " + lineNo.ToString());

@@ -103,6 +103,8 @@ namespace Brain2CPU.ExifTool
         private static string language = "";
         private static string userOptionsRead = "";
         private static string userOptionsWrite = "";
+        private static string generalOptionsRead = "";
+        private static string generalOptionsWrite = "";
 
         private static readonly ProcessStartInfo _psi = new ProcessStartInfo
         {
@@ -129,6 +131,11 @@ namespace Brain2CPU.ExifTool
         public static void init(string iniPath, string givenLanguage, string exifToolPath = null, bool faster = false)
         {
             setUserOptions();
+            generalOptionsRead = ConfigDefinition.getConfigString(ConfigDefinition.enumConfigString.ExifToolGeneralOptionsRead);
+            generalOptionsRead = generalOptionsRead.Trim().Replace(' ', '\n') + '\n';
+            generalOptionsWrite = ConfigDefinition.getConfigString(ConfigDefinition.enumConfigString.ExifToolGeneralOptionsWrite);
+            generalOptionsWrite = generalOptionsWrite.Trim().Replace(' ', '\n') + '\n';
+
             if (string.IsNullOrEmpty(exifToolPath))
             {
                 if (File.Exists(ExeName)) //in current directory
@@ -446,11 +453,12 @@ namespace Brain2CPU.ExifTool
             cmd.Append("-a\n");
             if (ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.KeepFileModifiedTime))
                 cmd.Append("-P\n");
+            cmd.Append(generalOptionsWrite);
             cmd.Append(userOptionsWrite);
 
             cmd.Append(path);
             var cmdRes = SendCommand(cmd.ToString());
-            //Logger.log(cmd.Replace("\n", " ").ToString());
+            //Logger.log(cmd.Replace("\n", "   ").ToString());
 
             //if failed return as it is, if it's success must check the response
             return cmdRes ? new ExifToolResponse(cmdRes.Result) : cmdRes;
@@ -525,10 +533,11 @@ namespace Brain2CPU.ExifTool
             bool filter = tagsTable?.Count > 0;
             string cmd = "";
             for (int ii = 0; ii < args.Length; ii++) cmd += args[ii] + "\n";
+            cmd += generalOptionsRead;
             cmd += userOptionsRead;
             cmd += path;
             var cmdRes = SendCommand(cmd);
-            //Logger.log(cmd.Replace("\n", " ").ToString());
+            //Logger.log(cmd.Replace("\n", "   ").ToString());
             if (!cmdRes)
                 return "";
             else
@@ -634,7 +643,8 @@ namespace Brain2CPU.ExifTool
         private static void FillTagListFromExifTool(string iniPath)
         {
             Queue<AllowedValues> AllAllowedValues = new Queue<AllowedValues>();
-            string cmd = "-listx\n-f\n-lang\n" + language;
+            string cmd = "-listx\n-f\n-use\nmwg\n-lang\n" + language;
+            //Logger.log(cmd.Replace("\n", "   "));
             var cmdRes = SendCommand(cmd);
             if (cmdRes)
             {
