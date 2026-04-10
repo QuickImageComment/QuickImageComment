@@ -165,10 +165,14 @@ namespace QuickImageComment
             OutputPathMaintenance,
             OutputPathScreenshots,
             FindDataTableFileName,
-            TagKeyWordsImage,
-            TagKeyWordsVideo,
             ExifToolGeneralOptionsRead,
             ExifToolGeneralOptionsWrite
+        };
+
+        public enum enumConfigStringArray
+        {
+            TagKeyWordsImage,
+            TagKeyWordsVideo
         };
 
         // no longer used, defined here to avoid warning messages when reading config file
@@ -463,7 +467,7 @@ namespace QuickImageComment
             {
                 { "splitContainer11.Panel1", LangCfg.PanelContent.Folders },
                 { "splitContainer11.Panel2", LangCfg.PanelContent.Files },
-                { "splitContainer121.Panel2", LangCfg.PanelContent.IptcKeywords },
+                { "splitContainer121.Panel2", LangCfg.PanelContent.Keywords },
                 { "splitContainer1211.Panel2", LangCfg.PanelContent.Properties },
                 { "splitContainer122.Panel1", LangCfg.PanelContent.CommentLists },
                 { "splitContainer122.Panel2", LangCfg.PanelContent.Configurable }
@@ -746,6 +750,12 @@ namespace QuickImageComment
                 ConfigItems.Add("_" + ConfigFlagName, null);
             }
 
+            // loop for String Array configurations
+            foreach (string ConfigFlagName in Enum.GetNames(typeof(enumConfigStringArray)))
+            {
+                ConfigItems.Add("_" + ConfigFlagName, null);
+            }
+
             // initialise list of internal meta data
             InternalMetaDataDefinitions.Add("File.DirectoryName", new TagDefinition("File.DirectoryName", "Readonly", "Directory name"));
             InternalMetaDataDefinitions.Add("File.FullName", new TagDefinition("File.FullName", "Readonly", "Full file name"));
@@ -854,13 +864,29 @@ namespace QuickImageComment
                 }
             }
 
+            // loop for String Array configurations
+            foreach (string ConfigFlagName in Enum.GetNames(typeof(enumConfigStringArray)))
+            {
+                if (ConfigItems["_" + ConfigFlagName] == null)
+                {
+                    undefinedConfigFlags = undefinedConfigFlags + "\n" + ConfigFlagName;
+                }
+            }
+
             if (!undefinedConfigFlags.Equals(""))
             {
                 GeneralUtilities.fatalInitMessage("Parameters not set in general configuration:\n" + undefinedConfigFlags);
             }
 
             // now as general configuration file is read, following dependencies can be added
-            TagDependencies.Add(new string[] { "Image.KeyWordsAccordingConfigString", getConfigString(enumConfigString.TagKeyWordsImage), getConfigString(enumConfigString.TagKeyWordsVideo) });
+            int imageTagCount = getConfigStringArray(enumConfigStringArray.TagKeyWordsImage).Count;
+            int videoTagCount = getConfigStringArray(enumConfigStringArray.TagKeyWordsVideo).Count;
+            string[] tagArray = new string[1 + imageTagCount + videoTagCount];
+            tagArray[0] = "Image.KeyWordsAccordingConfigString";
+            getConfigStringArray(enumConfigStringArray.TagKeyWordsImage).CopyTo(tagArray, 1);
+            getConfigStringArray(enumConfigStringArray.TagKeyWordsVideo).CopyTo(tagArray, 1 + imageTagCount);
+            TagDependencies.Add(tagArray);
+
             TagDependencies.Add(new string[] { "Image.RecordingDateAccordingConfig", getConfigString(enumConfigString.TagDateImageGenerated), getConfigString(enumConfigString.TagDateVideoGenerated) });
             Program.StartupPerformance.measure("ConfigDefinition.readGeneralConfigFiles Finish");
         }
@@ -2350,6 +2376,12 @@ namespace QuickImageComment
             return (string)ConfigItems["_" + ConfigEnum.ToString()];
         }
 
+        // get user general configuration items of type string array
+        public static ArrayList getConfigStringArray(enumConfigStringArray ConfigEnum)
+        {
+            return (ArrayList)ConfigItems["_" + ConfigEnum.ToString()];
+        }
+
         // get and set user configuration items of type bool
         public static bool getCfgUserBool(enumCfgUserBool ConfigEnum)
         {
@@ -3207,7 +3239,7 @@ namespace QuickImageComment
                 { "Kommentarlisten", LangCfg.PanelContent.CommentLists },
                 { "Kommentar", LangCfg.PanelContent.Comment },
                 { "Konfigurierbarer Eingabebereich", LangCfg.PanelContent.Configurable },
-                { "IPTC Schlüsselworte", LangCfg.PanelContent.IptcKeywords },
+                { "Schlüsselworte", LangCfg.PanelContent.Keywords },
                 { "Bild Details", LangCfg.PanelContent.ImageDetails },
                 { "Karte", LangCfg.PanelContent.Map }
             };
@@ -3640,6 +3672,7 @@ namespace QuickImageComment
 
             ArrayList ArrayListEnumConfigInt = new ArrayList(Enum.GetNames(typeof(enumConfigInt)));
             ArrayList ArrayListEnumConfigString = new ArrayList(Enum.GetNames(typeof(enumConfigString)));
+            ArrayList ArrayListEnumConfigStringArray = new ArrayList(Enum.GetNames(typeof(enumConfigStringArray)));
 
             if (line.Length > 0)
             {
@@ -3847,6 +3880,16 @@ namespace QuickImageComment
                                 else
                                     // it is a hex number
                                     ConfigItems["_" + firstPart] = int.Parse(secondPart, System.Globalization.NumberStyles.HexNumber);
+                            }
+                        }
+                        // check if type is string array list
+                        else if (ArrayListEnumConfigStringArray.Contains(firstPart))
+                        {
+                            if (ConfigItems["_" + firstPart] == null)
+                            {
+                                ConfigItems["_" + firstPart] = new ArrayList();
+                                string[] tags = secondPart.Split(';');
+                                for (int ii = 0; ii < tags.Length; ii++) ((ArrayList)ConfigItems["_" + firstPart]).Add(tags[ii].Trim());
                             }
                         }
                         // assume type is string

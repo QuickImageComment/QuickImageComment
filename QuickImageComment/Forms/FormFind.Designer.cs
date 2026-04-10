@@ -497,7 +497,7 @@ namespace QuickImageComment
             this.treeViewKeyWords.Size = new System.Drawing.Size(237, 101);
             this.treeViewKeyWords.TabIndex = 0;
             // 
-            // labelIptcKeyWords
+            // labelKeyWords
             // 
             this.labelKeyWords.AutoSize = true;
             this.labelKeyWords.Location = new System.Drawing.Point(3, 6);

@@ -252,6 +252,7 @@ namespace QuickImageComment
         private string pixelFormat = "";
         private bool artistDifferentEntries = false;
         private bool commentDifferentEntries = false;
+        private bool keywordsDifferentEntries = false;
         private int FramePosition;
         private int GridPosX;
         private int GridPosY;
@@ -1248,6 +1249,7 @@ namespace QuickImageComment
             MetaDataWarnings = new ArrayList(MetaDataWarningsRead);
             artistDifferentEntries = false;
             commentDifferentEntries = false;
+            keywordsDifferentEntries = false;
 
             if (isVideo)
             {
@@ -1262,13 +1264,50 @@ namespace QuickImageComment
 
             addReplaceOtherMetaDataKnownType("Image.ArtistAccordingSettings", OldArtist);
             addReplaceOtherMetaDataKnownType("Image.CommentAccordingSettings", OldUserComment);
-            if (artistDifferentEntries || commentDifferentEntries)
-            {
-                MetaDataWarnings.Add(new MetaDataWarningItem("", LangCfg.getText(LangCfg.Others.saveToMakeConsistent)));
-            }
 
             addReplaceOtherMetaDataKnownType("Image.ArtistCombinedFields", combinedFieldValues(ConfigDefinition.getAllTagNamesArtist(), null, null));
             addReplaceOtherMetaDataKnownType("Image.CommentCombinedFields", combinedFieldValues(ConfigDefinition.getAllTagNamesComment(), null, null));
+
+            ArrayList KeyWordsArrayListSorted = getKeyWordsAccordingConfigArrayList();
+            // check for differences
+            ArrayList tagKeyWords = new ArrayList();
+            if (isVideo)
+                tagKeyWords = ConfigDefinition.getConfigStringArray(ConfigDefinition.enumConfigStringArray.TagKeyWordsVideo);
+            else
+                tagKeyWords = ConfigDefinition.getConfigStringArray(ConfigDefinition.enumConfigStringArray.TagKeyWordsImage);
+
+            foreach (string TagName in tagKeyWords)
+            {
+                string differences = "";
+                ArrayList keyWords;
+                if (TagName.Equals("Exif.Image.XPKeywords") || TagName.Equals("IFD0:XPKeywords"))
+                {
+                    // keywords are stored in one string, separated with semicolon
+                    keyWords = new ArrayList(getMetaDataValueByKey(TagName, MetaDataItem.Format.Interpreted).Split(';'));
+                }
+                else
+                {
+                    keyWords = new ArrayList(this.getMetaDataArrayListByKey(TagName, MetaDataItem.Format.Interpreted));
+                }
+                foreach (string keyWord in KeyWordsArrayListSorted)
+                {
+                    if (!keyWords.Contains(keyWord))
+                    {
+                        differences += keyWord + " | ";
+                    }
+                }
+                if (!differences.Equals(""))
+                {
+                    keywordsDifferentEntries = true;
+                    // remove last separation string
+                    differences = differences.Substring(0, differences.Length - 3);
+                    MetaDataWarnings.Add(new MetaDataWarningItem(TagName, LangCfg.getText(LangCfg.Others.differentKeywords) + ": " + differences));
+                }
+            }
+            if (artistDifferentEntries || commentDifferentEntries || keywordsDifferentEntries)
+            {
+                MetaDataWarnings.Add(new MetaDataWarningItem("", LangCfg.getText(LangCfg.Others.saveToMakeConsistent)));
+            }
 
             if (ConfigDefinition.getCfgUserBool(ConfigDefinition.enumCfgUserBool.HintUsingNotPredefKeyWord))
             {
@@ -1277,7 +1316,7 @@ namespace QuickImageComment
                 {
                     if (!PredefinedKeyWordsTrimmed.Contains(keyWord))
                     {
-                        MetaDataWarnings.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.IptcKeyWords),
+                        MetaDataWarnings.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.KeyWords),
                                                                      LangCfg.getText(LangCfg.Others.notPredefinedKeyWordsUsed)));
                         break;
                     }
@@ -2974,8 +3013,8 @@ namespace QuickImageComment
                 string newValue = "";
                 string oldValue = "";
                 bool sorted = false;
-                if (key.Equals(ConfigDefinition.getConfigString(ConfigDefinition.enumConfigString.TagKeyWordsImage)) ||
-                    key.Equals(ConfigDefinition.getConfigString(ConfigDefinition.enumConfigString.TagKeyWordsVideo)))
+                if (ConfigDefinition.getConfigStringArray(ConfigDefinition.enumConfigStringArray.TagKeyWordsImage).Contains(key) ||
+                    ConfigDefinition.getConfigStringArray(ConfigDefinition.enumConfigStringArray.TagKeyWordsVideo).Contains(key))
                 {
                     // for comparison sort IPTC keywords as they are displayed sorted 
                     // and user has no option to change sequence
@@ -3361,13 +3400,11 @@ namespace QuickImageComment
             }
 
             key = "Image.KeyWordsAccordingConfigString";
-            string tagKeyWords = getIsVideo() ? ConfigDefinition.getConfigString(ConfigDefinition.enumConfigString.TagKeyWordsVideo)
-                                              : ConfigDefinition.getConfigString(ConfigDefinition.enumConfigString.TagKeyWordsImage);
-            if (changedFieldsForSaveChecked.ContainsKey(tagKeyWords))
-            {
-                value = GeneralUtilities.getValuesStringOfArrayList((ArrayList)changedFieldsForSaveChecked[tagKeyWords], " | ", true);
-                changedFieldsForSaveChecked.Add(key, value);
-            }
+            if (isVideo)
+                value = newValueAccordingSettings(key, ConfigDefinition.getConfigStringArray(ConfigDefinition.enumConfigStringArray.TagKeyWordsVideo), changedFieldsForSaveChecked);
+            else
+                value = newValueAccordingSettings(key, ConfigDefinition.getConfigStringArray(ConfigDefinition.enumConfigStringArray.TagKeyWordsImage), changedFieldsForSaveChecked);
+            changedFieldsForSaveChecked.Add(key, value);
 
             key = "Image.IPTC_SuppCategoriesString";
             if (changedFieldsForSaveChecked.ContainsKey("Iptc.Application2.SuppCategory"))
@@ -4578,9 +4615,14 @@ namespace QuickImageComment
             return commentDifferentEntries;
         }
 
-        public bool getArtistCommentDifferentEntries()
+        public bool getKeywordsDifferentEntries()
         {
-            return artistDifferentEntries || commentDifferentEntries;
+            return keywordsDifferentEntries;
+        }
+
+        public bool getArtistCommentKeywordsDifferentEntries()
+        {
+            return artistDifferentEntries || commentDifferentEntries || keywordsDifferentEntries;
         }
 
         public float getGamma()
@@ -4601,12 +4643,32 @@ namespace QuickImageComment
 
         public ArrayList getKeyWordsAccordingConfigArrayList()
         {
-            string tagKeyWords = "";
+            ArrayList tagKeyWords = new ArrayList();
+            ArrayList KeyWordsArrayListSorted = new ArrayList();
             if (isVideo)
-                tagKeyWords = ConfigDefinition.getConfigString(ConfigDefinition.enumConfigString.TagKeyWordsVideo);
+                tagKeyWords = ConfigDefinition.getConfigStringArray(ConfigDefinition.enumConfigStringArray.TagKeyWordsVideo);
             else
-                tagKeyWords = ConfigDefinition.getConfigString(ConfigDefinition.enumConfigString.TagKeyWordsImage);
-            ArrayList KeyWordsArrayListSorted = new ArrayList(this.getMetaDataArrayListByKey(tagKeyWords, MetaDataItem.Format.Original));
+                tagKeyWords = ConfigDefinition.getConfigStringArray(ConfigDefinition.enumConfigStringArray.TagKeyWordsImage);
+
+            foreach (string TagName in tagKeyWords)
+            {
+                ArrayList keyWords;
+                if (TagName.Equals("Exif.Image.XPKeywords") || TagName.Equals("IFD0:XPKeywords"))
+                {
+                    // keywords are stored in one string, separated with semicolon
+                    keyWords = new ArrayList(getMetaDataValueByKey(TagName, MetaDataItem.Format.Interpreted).Split(';'));
+                }
+                else
+                {
+                    keyWords = new ArrayList(this.getMetaDataArrayListByKey(TagName, MetaDataItem.Format.Interpreted));
+                }
+
+                foreach (string keyWord in keyWords)
+                {
+                    if (!KeyWordsArrayListSorted.Contains(keyWord)) KeyWordsArrayListSorted.Add(keyWord);
+                }
+            }
+
             KeyWordsArrayListSorted.Sort();
             return KeyWordsArrayListSorted;
         }

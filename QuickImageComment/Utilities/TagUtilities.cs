@@ -314,8 +314,8 @@ namespace QuickImageComment
             }
             // check IPTC key words string
             //!!: tags gemäß config, Problem: ExifTool-tag für exiv2-tags?
-            else if (key.Equals(ConfigDefinition.getConfigString(ConfigDefinition.enumConfigString.TagKeyWordsImage)) ||
-                     key.Equals(ConfigDefinition.getConfigString(ConfigDefinition.enumConfigString.TagKeyWordsVideo)))
+            else if (ConfigDefinition.getConfigStringArray(ConfigDefinition.enumConfigStringArray.TagKeyWordsImage).Contains(key) ||
+                     ConfigDefinition.getConfigStringArray(ConfigDefinition.enumConfigStringArray.TagKeyWordsVideo).Contains(key))
             {
                 GeneralUtilities.message(LangCfg.Message.E_metaDataNotEnteredSpecial, key);
                 return false;

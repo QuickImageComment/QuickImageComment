@@ -1828,7 +1828,7 @@ namespace QuickImageComment
             this.toolStripMenuItemKeyWords.Name = "toolStripMenuItemKeyWords";
             this.toolStripMenuItemKeyWords.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.I)));
             this.toolStripMenuItemKeyWords.Size = new System.Drawing.Size(276, 22);
-            this.toolStripMenuItemKeyWords.Text = "Vordefinierte &IPTC Schlüsselwörter";
+            this.toolStripMenuItemKeyWords.Text = "Vordefinierte Schlüsselworte";
             this.toolStripMenuItemKeyWords.Click += new System.EventHandler(this.toolStripMenuItemPredefinedKeyWords_Click);
             // 
             // toolStripSeparator13
@@ -2519,8 +2519,8 @@ namespace QuickImageComment
             this.toolStripButtonPredefinedKeyWords.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonPredefinedKeyWords.Name = "toolStripButtonPredefinedKeyWords";
             this.toolStripButtonPredefinedKeyWords.Size = new System.Drawing.Size(36, 36);
-            this.toolStripButtonPredefinedKeyWords.Text = "vordefinierte IPTC-Schlüsselwörter ändern";
-            this.toolStripButtonPredefinedKeyWords.ToolTipText = "vordefinierte IPTC-Schlüsselwörter ändern";
+            this.toolStripButtonPredefinedKeyWords.Text = "vordefinierte Schlüsselworte ändern";
+            this.toolStripButtonPredefinedKeyWords.ToolTipText = "vordefinierte Schlüsselworte ändern";
             this.toolStripButtonPredefinedKeyWords.Click += new System.EventHandler(this.toolStripMenuItemPredefinedKeyWords_Click);
             this.toolStripButtonPredefinedKeyWords.MouseLeave += new System.EventHandler(this.toolStripItem_MouseLeave);
             this.toolStripButtonPredefinedKeyWords.MouseHover += new System.EventHandler(this.toolStripItem_MouseHover);

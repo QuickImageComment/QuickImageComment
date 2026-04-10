@@ -210,7 +210,7 @@ namespace QuickImageComment
             }
             if (keyWordsUserChanged)
             {
-                returnString = returnString + LangCfg.getText(LangCfg.Others.compareCheckIptcKeyWords);
+                returnString = returnString + LangCfg.getText(LangCfg.Others.compareCheckKeyWords);
             }
             string userControlChangedFields = theUserControlChangeableFields.getChangedFields();
             if (!userControlChangedFields.Equals(""))

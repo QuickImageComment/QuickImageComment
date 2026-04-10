@@ -84,8 +84,8 @@ namespace QuickImageComment
         private Color backColorMultiEditNonDefault;
 
         // tags
-        private string tagKeyWordsImage;
-        private string tagKeyWordsVideo;
+        private ArrayList tagKeyWordsImage;
+        private ArrayList tagKeyWordsVideo;
 
 
         // delegate for call within thread
@@ -292,8 +292,8 @@ namespace QuickImageComment
             backColorMultiEditNonDefault = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigInt.BackColorMultiEditNonDefault);
 
             // set tags
-            tagKeyWordsImage = ConfigDefinition.getConfigString(enumConfigString.TagKeyWordsImage);
-            tagKeyWordsVideo = ConfigDefinition.getConfigString(enumConfigString.TagKeyWordsVideo);
+            tagKeyWordsImage = ConfigDefinition.getConfigStringArray(enumConfigStringArray.TagKeyWordsImage);
+            tagKeyWordsVideo = ConfigDefinition.getConfigStringArray(enumConfigStringArray.TagKeyWordsVideo);
 
             checkedListBoxChangeableFieldsChange.CheckedColor = backColorMultiEditNonDefault;
 
@@ -539,7 +539,7 @@ namespace QuickImageComment
                 { LangCfg.PanelContent.CommentLists, tabControlLastPredefComments },
                 { LangCfg.PanelContent.Configurable, theUserControlChangeableFields },
                 { LangCfg.PanelContent.Properties, tabControlProperties },
-                { LangCfg.PanelContent.IptcKeywords, theUserControlKeyWords },
+                { LangCfg.PanelContent.Keywords, theUserControlKeyWords },
                 // add the panel, not the whole user control to assure resizing
                 { LangCfg.PanelContent.ImageDetails, null },
                 { LangCfg.PanelContent.Map, null }
@@ -1739,6 +1739,7 @@ namespace QuickImageComment
                 {
                     if (theExtendedImage.getArtistDifferentEntries()) comboBoxArtistUserChanged = true;
                     if (theExtendedImage.getCommentDifferentEntries()) textBoxUserCommentUserChanged = true;
+                    if (theExtendedImage.getKeywordsDifferentEntries()) keyWordsUserChanged = true;
                 }
                 saveAndStoreInLastList(theUserControlFiles.listViewFiles.SelectedIndices);
             }
@@ -1773,6 +1774,7 @@ namespace QuickImageComment
                     // check if there are  different entries for artist or comment and set flag to get them saved and thus aligned
                     if (theExtendedImage.getArtistDifferentEntries()) comboBoxArtistUserChanged = true;
                     if (theExtendedImage.getCommentDifferentEntries()) textBoxUserCommentUserChanged = true;
+                    if (theExtendedImage.getKeywordsDifferentEntries()) keyWordsUserChanged = true;
 
                     int status = singleSaveAndStoreInLastList(theUserControlFiles.displayedIndex(), null, null);
                     if (status == 0)
@@ -1804,6 +1806,7 @@ namespace QuickImageComment
                     // check if there are  different entries for artist or comment and set flag to get them saved and thus aligned
                     if (theExtendedImage.getArtistDifferentEntries()) comboBoxArtistUserChanged = true;
                     if (theExtendedImage.getCommentDifferentEntries()) textBoxUserCommentUserChanged = true;
+                    if (theExtendedImage.getKeywordsDifferentEntries()) keyWordsUserChanged = true;
 
                     int status = singleSaveAndStoreInLastList(theUserControlFiles.displayedIndex(), null, null);
                     if (status == 0)
@@ -1841,6 +1844,7 @@ namespace QuickImageComment
                     // check if there are  different entries for artist or comment and set flag to get them saved and thus aligned
                     if (theExtendedImage.getArtistDifferentEntries()) comboBoxArtistUserChanged = true;
                     if (theExtendedImage.getCommentDifferentEntries()) textBoxUserCommentUserChanged = true;
+                    if (theExtendedImage.getKeywordsDifferentEntries()) keyWordsUserChanged = true;
 
                     int status = singleSaveAndStoreInLastList(theUserControlFiles.displayedIndex(), null, null);
                     if (status == 0)
@@ -1878,6 +1882,7 @@ namespace QuickImageComment
                     // check if there are  different entries for artist or comment and set flag to get them saved and thus aligned
                     if (theExtendedImage.getArtistDifferentEntries()) comboBoxArtistUserChanged = true;
                     if (theExtendedImage.getCommentDifferentEntries()) textBoxUserCommentUserChanged = true;
+                    if (theExtendedImage.getKeywordsDifferentEntries()) keyWordsUserChanged = true;
 
                     int status = singleSaveAndStoreInLastList(theUserControlFiles.displayedIndex(), null, null);
                     if (status == 0)
@@ -2643,7 +2648,7 @@ namespace QuickImageComment
             SortedList panelContents = ConfigDefinition.getSplitContainerPanelContents();
             for (int ii = 0; ii < panelContents.Count; ii++)
             {
-                if ((LangCfg.PanelContent)panelContents.GetByIndex(ii) == LangCfg.PanelContent.IptcKeywords)
+                if ((LangCfg.PanelContent)panelContents.GetByIndex(ii) == LangCfg.PanelContent.Keywords)
                 {
                     string panel = ((string)panelContents.GetKey(ii));
                     userControlKeyWordsVisible = !panelCollapsed[panel];
@@ -4602,7 +4607,7 @@ namespace QuickImageComment
             {
                 enableSave = enableSave ||
                     theUserControlFiles.listViewFiles.SelectedItems.Count == 1
-                    && theExtendedImage.getArtistCommentDifferentEntries()
+                    && theExtendedImage.getArtistCommentKeywordsDifferentEntries()
                     && theExtendedImage.changePossible();
             }
 
@@ -5906,7 +5911,7 @@ namespace QuickImageComment
             }
             if (this.keyWordsUserChanged && this.comboBoxKeyWordsChange.SelectedIndex == (int)enumComboBoxKeyWordChange.nothing)
             {
-                MessageText += LangCfg.getText(LangCfg.Others.compareCheckIptcKeyWords);
+                MessageText += LangCfg.getText(LangCfg.Others.compareCheckKeyWords);
             }
 
             foreach (Control anInputControl in theUserControlChangeableFields.ChangeableFieldInputControls.Values)
@@ -6103,9 +6108,13 @@ namespace QuickImageComment
                         GivenKeyWordsArrayList.Add("");
                     }
                     if (anExtendedImage.getIsVideo())
-                        changeableFieldsForSave.Add(tagKeyWordsVideo, GivenKeyWordsArrayList);
+                    {
+                        foreach (string key in tagKeyWordsVideo) changeableFieldsForSave.Add(key, GivenKeyWordsArrayList);
+                    }
                     else
-                        changeableFieldsForSave.Add(tagKeyWordsImage, GivenKeyWordsArrayList);
+                    {
+                        foreach (string key in tagKeyWordsImage) changeableFieldsForSave.Add(tagKeyWordsImage, GivenKeyWordsArrayList);
+                    }
                 }
                 else if (comboBoxKeyWordsChange.SelectedIndex == (int)enumComboBoxKeyWordChange.add)
                 {
@@ -6310,13 +6319,26 @@ namespace QuickImageComment
                     // add empty String to ensure that tag is passed to exiv2 for deletion
                     KeyWordsArrayList.Add("");
                 }
+                ArrayList tagKeyWords;
                 if (anExtendedImage.getIsVideo())
-                {
-                    changedFieldsForSave.Add(tagKeyWordsVideo, KeyWordsArrayList);
-                }
+                    tagKeyWords = tagKeyWordsVideo;
                 else
+                    tagKeyWords = tagKeyWordsImage;
+
+                foreach (string TagName in tagKeyWords)
                 {
-                    changedFieldsForSave.Add(tagKeyWordsImage, KeyWordsArrayList);
+                    if (TagName.Equals("Exif.Image.XPKeywords") || TagName.Equals("IFD0:XPKeywords"))
+                    {
+                        // keywords are stored in one string, separated with semicolon
+                        string keyWords = "";
+                        foreach (string keyword in KeyWordsArrayList) keyWords += keyword + ";";
+                        // remove last added semicolon
+                        changedFieldsForSave.Add(TagName, keyWords.Substring(0, keyWords.Length - 1));
+                    }
+                    else
+                    {
+                        changedFieldsForSave.Add(TagName, KeyWordsArrayList);
+                    }
                 }
             }
 
@@ -6515,7 +6537,7 @@ namespace QuickImageComment
             }
             if (keyWordsUserChanged)
             {
-                MessageText += LangCfg.getText(LangCfg.Others.compareCheckIptcKeyWords);
+                MessageText += LangCfg.getText(LangCfg.Others.compareCheckKeyWords);
             }
             string userControlChangedFields = theUserControlChangeableFields.getChangedFields();
             if (!userControlChangedFields.Equals(""))

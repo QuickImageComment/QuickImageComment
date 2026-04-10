@@ -36,7 +36,7 @@ namespace QuickImageComment
             CommentLists,
             Comment,
             Configurable,
-            IptcKeywords,
+            Keywords,
             ImageDetails,
             Map,
             Empty
@@ -217,7 +217,6 @@ namespace QuickImageComment
             I_changeCommentArtistAccSettings,
             I_changeArtistCombined,
             I_changeCommentCombined,
-            I_IptcKeyWordsString,
             W_nominatimInvalidParameter,
             Q_overwriteExportFile,
             Q_missingExvFiles,
@@ -281,7 +280,7 @@ namespace QuickImageComment
             notConfigured,
             compareCheckArtist,
             compareCheckComment,
-            compareCheckIptcKeyWords,
+            compareCheckKeyWords,
             valuesChangedNoOptionSet,
             saveFileNofM,
             typeSpecByte,
@@ -366,7 +365,7 @@ namespace QuickImageComment
             imageReadError,
             selectProgram,
             editExternalProgramFilter,
-            IptcKeyWords,
+            KeyWords,
             notPredefinedKeyWordsUsed,
             queryMapInfo,
             infoDonate,
@@ -389,7 +388,8 @@ namespace QuickImageComment
             diffDeleted,
             diffInserted,
             savedIn,
-            folderForSearchInvalid
+            folderForSearchInvalid,
+            differentKeywords
         }
 
         // defined as variable
