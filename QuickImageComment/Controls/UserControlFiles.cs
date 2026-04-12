@@ -853,7 +853,7 @@ namespace QuickImageComment
                             ExtendedImage extendedImage = ImageManager.getExtendedImage(ii, true);
                             if (extendedImageOld != null)
                             {
-                                extendedImage.logDifferencesInMetaData(extendedImageOld.getAllMetaDataItems());
+                                extendedImage.logDifferencesInMetaData(extendedImageOld.getAllMetaDataValues(MetaDataItem.Format.Interpreted));
                             }
 
                             if (listViewFiles.SelectedIndices.Count > 1 && listViewFiles.SelectedIndices.Contains(ii))

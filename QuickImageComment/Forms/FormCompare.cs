@@ -86,25 +86,21 @@ namespace QuickImageComment
             {
                 ExtendedImage thisExtendedImage = ImageManager.getExtendedImage(listViewFilesSelectedIndices[ii]);
 
-                foreach (string key in thisExtendedImage.getAllMetaDataItems().GetKeyList())
+                foreach (string key in thisExtendedImage.getAllMetaDataKeys())
                 {
-                    // do not compare the internal numbered (sub-)tags
-                    if (!key.Contains(GeneralUtilities.UniqueSeparator))
+                    if (!differentTagsAll.Contains(key))
                     {
-                        if (!differentTagsAll.Contains(key))
+                        string thisValue = thisExtendedImage.getMetaDataValuesStringByKey(key, MetaDataItem.Format.Original);
+                        for (int jj = 0; jj < listViewFilesSelectedIndices.Length; jj++)
                         {
-                            for (int jj = 0; jj < listViewFilesSelectedIndices.Length; jj++)
+                            if (ii != jj)
                             {
-                                if (ii != jj)
+                                ExtendedImage otherExtendedImage = ImageManager.getExtendedImage(listViewFilesSelectedIndices[jj]);
+                                string otherValue = otherExtendedImage.getMetaDataValuesStringByKey(key, MetaDataItem.Format.Original);
+                                if (!thisValue.Equals(otherValue))
                                 {
-                                    ExtendedImage otherExtendedImage = ImageManager.getExtendedImage(listViewFilesSelectedIndices[jj]);
-                                    string thisValue = thisExtendedImage.getMetaDataValuesStringByKey(key, MetaDataItem.Format.Original);
-                                    string otherValue = otherExtendedImage.getMetaDataValuesStringByKey(key, MetaDataItem.Format.Original);
-                                    if (!thisValue.Equals(otherValue))
-                                    {
-                                        differentTagsAll.Add(key);
-                                        break;
-                                    }
+                                    differentTagsAll.Add(key);
+                                    break;
                                 }
                             }
                         }

@@ -3001,10 +3001,10 @@ namespace QuickImageComment
             }
 #endif
             // prepare for logging changes in meta data
-            SortedList oldMetaDataItems = null;
+            SortedList<string, string> oldMetaDataValues = null;
             if (ConfigDefinition.getCfgUserBool(ConfigDefinition.enumCfgUserBool.logDifferencesMetaData))
             {
-                oldMetaDataItems = new SortedList(getAllMetaDataItems());
+                oldMetaDataValues = new SortedList<string, string>(getAllMetaDataValues(MetaDataItem.Format.Interpreted));
             }
 
             // set values from changed fields
@@ -3248,9 +3248,9 @@ namespace QuickImageComment
                 }
 
                 // log changes of meta data
-                if (oldMetaDataItems != null)
+                if (oldMetaDataValues != null)
                 {
-                    logDifferencesInMetaData(oldMetaDataItems);
+                    logDifferencesInMetaData(oldMetaDataValues);
                 }
 
                 SavePerformance.measure("meta compared, tile view filled");
@@ -4575,6 +4575,45 @@ namespace QuickImageComment
             return returnList;
         }
 
+        public ArrayList getAllMetaDataKeys()
+        {
+            ArrayList keys = new ArrayList();
+
+            foreach (string key in ExifMetaDataItems.Keys)
+            {
+                if (!key.Contains(GeneralUtilities.UniqueSeparator)) keys.Add(key);
+            }
+            foreach (string key in IptcMetaDataItems.Keys)
+            {
+                if (!key.Contains(GeneralUtilities.UniqueSeparator)) keys.Add(key);
+            }
+            foreach (string key in XmpMetaDataItems.Keys)
+            {
+                if (!key.Contains(GeneralUtilities.UniqueSeparator)) keys.Add(key);
+            }
+            foreach (string key in ExifToolMetaDataItems.Keys)
+            {
+                if (!key.Contains(GeneralUtilities.UniqueSeparator) && !ExifToolWrapper.mightBeLanguageSuffixAtEnd(key)) keys.Add(key);
+            }
+            foreach (string key in OtherMetaDataItems.Keys)
+            {
+                if (!key.Contains(GeneralUtilities.UniqueSeparator)) keys.Add(key);
+            }
+
+            return keys;
+        }
+
+        // return sorted list of all meta data values (multiple values combined in one string)
+        public SortedList<string, string> getAllMetaDataValues(MetaDataItem.Format metaDataFormat)
+        {
+            SortedList<string, string> returnList = new SortedList<string, string>();
+            foreach (string key in getAllMetaDataKeys())
+            {
+                returnList.Add(key, getMetaDataValuesStringByKey(key, metaDataFormat));
+            }
+            return returnList;
+        }
+
         public bool XmpMetaDataStructItemsContainsKeys(string key)
         {
             return XmpMetaDataStructItems.ContainsKey(key);
@@ -4800,35 +4839,34 @@ namespace QuickImageComment
             MetaDataWarningsRead.Add(new MetaDataWarningItem(name, message));
         }
 
-        internal void logDifferencesInMetaData(SortedList oldMetaDataItems)
+        internal void logDifferencesInMetaData(SortedList<string, string> oldMetaDataValues)
         {
             ArrayList differences = new ArrayList();
-            SortedList newMetaDataItems = getAllMetaDataItems();
-            foreach (string key in oldMetaDataItems.Keys)
+            SortedList<string, string> newMetaDataValues = getAllMetaDataValues(MetaDataItem.Format.Interpreted);
+            foreach (string key in oldMetaDataValues.Keys)
             {
                 if (!ConfigDefinition.getMetaDataDefinitionsLogDiffExceptionsKeys().Contains(key))
                 {
-                    MetaDataItem oldItem = (MetaDataItem)oldMetaDataItems[key];
-                    if (newMetaDataItems.ContainsKey(key))
+                    string oldValue = oldMetaDataValues[key];
+                    if (newMetaDataValues.ContainsKey(key))
                     {
-                        MetaDataItem newItem = (MetaDataItem)newMetaDataItems[key];
-                        if (!oldItem.getInterpreted().Equals(newItem.getInterpreted()))
+                        string newValue = newMetaDataValues[key];
+                        if (!oldValue.Equals(newValue))
                         {
-                            differences.Add("  " + key + " " + LangCfg.getText(LangCfg.Others.diffOldNew) + ": " + oldItem.getInterpreted() + " # " + newItem.getInterpreted());
+                            differences.Add("  " + key + " " + LangCfg.getText(LangCfg.Others.diffOldNew) + ": " + oldValue + " # " + newValue);
                         }
                     }
                     else
                     {
-                        differences.Add("  " + key + " " + LangCfg.getText(LangCfg.Others.diffDeleted) + ": " + oldItem.getInterpreted());
+                        differences.Add("  " + key + " " + LangCfg.getText(LangCfg.Others.diffDeleted) + ": " + oldValue);
                     }
                 }
             }
-            foreach (string key in newMetaDataItems.Keys)
+            foreach (string key in newMetaDataValues.Keys)
             {
-                if (!oldMetaDataItems.ContainsKey(key))
+                if (!oldMetaDataValues.ContainsKey(key))
                 {
-                    MetaDataItem newItem = (MetaDataItem)newMetaDataItems[key];
-                    differences.Add("  " + key + " " + LangCfg.getText(LangCfg.Others.diffInserted) + ": " + newItem.getInterpreted());
+                    differences.Add("  " + key + " " + LangCfg.getText(LangCfg.Others.diffInserted) + ": " + newMetaDataValues[key]);
                 }
             }
 
