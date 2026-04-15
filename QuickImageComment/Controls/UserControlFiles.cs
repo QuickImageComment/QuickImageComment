@@ -693,6 +693,9 @@ namespace QuickImageComment
 
         internal void OnChangeDetected(string path, WatcherChangeTypes type)
         {
+#if LOGWATCHEREVENTS
+            Logger.log("UserControlFiles.OnChangeDetected " + path + " * " + type.ToString());
+#endif
             // If you touch UI here, marshal to UI thread:
             if (InvokeRequired)
             {

@@ -2535,19 +2535,14 @@ namespace QuickImageComment
             try
             {
 #endif
-                // reading with ExifTool outside the lock as ExitToolWrapper has its own lock
-                string language = ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.LanguageExifTool);
-                // use -charset exif=Latin and iptc=Latin to get exif/iptc values in Unicode
-                // note: if the value was stored in UTF8 it can be converted back to UTF8 later (see below),
-                // whereas not using -charset and trying the opposite conversion seems not to be possible
-                List<string> arguments = new List<string> { "-charset", "exif=Latin", "-charset", "iptc=Latin", "-D", "-G:6:1",
-                "-sep", ExifToolWrapper.readSeparator, "-j", "-l", "-lang", language, "-a" };
-
-                if (neededKeysExifTool != null)
+                // reading with ExifTool outside the lock as ExifToolWrapper has its own lock
+                ExifToolResponse resp = ExifToolWrapper.ReadMetaDataFrom(ImageFileName, neededKeysExifTool);
+                if (!resp)
                 {
-                    for (int ii = 0; ii < neededKeysExifTool.Count; ii++) arguments.Add("-" + neededKeysExifTool[ii]);
+                    throw new Exception(resp.Result);
                 }
-                string jsonResponse = ExifToolWrapper.FetchExifToStringFrom(ImageFileName, arguments.ToArray());
+
+                string jsonResponse = resp.Result;
 
 #if WRITEJSONRESPONSE
                 string LookupReferenceValuesFile = GeneralUtilities.getMaintenanceOutputFolder() + "JSonResponse.txt";

@@ -6,9 +6,11 @@
 // Several adjustments for usage in QuickImageComment. The main modifications:
 // - fix error: Can not parse line :'{ready0000}'
 // - Change of Arguments given to ExifTool
-// - Some new methods like FetchExifToStringFrom, FillWritableTagList, FillLocationList
+// - Some new methods like ReadMetaDataFrom, FillWritableTagList, FillLocationList
 // - set encoding for standard input and output
 // - converted to static class
+
+//#define LOGEXIFTOOLRESPONSE
 
 using QuickImageComment;
 using System;
@@ -524,24 +526,41 @@ namespace Brain2CPU.ExifTool
             return res;
         }
 
-        public static string FetchExifToStringFrom(string path, string[] args, IEnumerable<string> tagsToKeep = null)
+        public static ExifToolResponse ReadMetaDataFrom(string path, ArrayList neededKeysExifTool)
         {
-            if (!File.Exists(path))
-                return "";
+            // use -charset exif=Latin and iptc=Latin to get exif/iptc values in Unicode
+            // note: if the value was stored in UTF8 it can be converted back to UTF8 later
+            // (see in ExtendedImage after calling ReadMetaDataFrom),
+            // whereas not using -charset and trying the opposite conversion seems not to be possible
+            string cmd = "-charset\nexif=Latin\n-charset\niptc=Latin\n-D\n-G:6:1\n-sep\n" + ExifToolWrapper.readSeparator 
+                       + "\n-j\n-l\n-lang\n" + language + "\n-a\n";
+            if (neededKeysExifTool != null)
+            {
+                for (int ii = 0; ii < neededKeysExifTool.Count; ii++) cmd += "\n-" + neededKeysExifTool[ii];
+                cmd += "\n";
+            }
 
-            var tagsTable = tagsToKeep?.ToDictionary(x => x, x => 1);
-            bool filter = tagsTable?.Count > 0;
-            string cmd = "";
-            for (int ii = 0; ii < args.Length; ii++) cmd += args[ii] + "\n";
             cmd += generalOptionsRead;
             cmd += userOptionsRead;
             cmd += path;
-            var cmdRes = SendCommand(cmd);
+
+            ExifToolResponse resp = SendCommand(cmd);
             //Logger.log(cmd.Replace("\n", "   ").ToString());
-            if (!cmdRes)
-                return "";
-            else
-                return cmdRes.Result;
+#if LOGEXIFTOOLRESPONSE
+                System.IO.StreamWriter StreamOut = null;
+                try
+                {
+                    StreamOut = new System.IO.StreamWriter(ConfigDefinition.getIniPath() + "QIC-exiftool-read-output.txt", false, Encoding.UTF8);
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    GeneralUtilities.message(LangCfg.Message.E_configFileNoWriteAccess, ConfigDefinition.getIniPath() + "QIC-exiftool-read-output.txt");
+                    return resp;
+                }
+                StreamOut.WriteLine(resp.Result);
+                StreamOut.Close();
+#endif
+            return resp;
         }
 
         public static void FillLanguageListFromExifTool()
