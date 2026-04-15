@@ -2624,7 +2624,11 @@ namespace QuickImageComment
                                 }
                                 if (key.StartsWith("ExifTool:"))
                                 {
-                                    if (!key.Equals("ExifTool:ExifToolVersion"))
+                                    if (!key.Equals("ExifTool:ExifToolVersion") && 
+                                        !key.Equals("ExifTool:Now") &&
+                                        !key.Equals("ExifTool:NewGUID") &&
+                                        !key.Equals("ExifTool:FileSequence") &&
+                                        !key.Equals("ExifTool:ProcessingTime"))
                                     {
                                         MetaDataWarningsRead.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exifToolError), desc + ": " + value));
                                     }
