@@ -911,6 +911,13 @@ namespace QuickImageComment
                     }
                 }
             }
+
+            // when logging of meta data is enabled, open FormLogger
+            if (ConfigDefinition.getCfgUserBool(enumCfgUserBool.logDifferencesMetaData))
+            {
+                Logger.initFormLogger(); // permanent use of Logger
+            }
+
             //CustomizationInterface.checkFontSize(this, this.Font.Size);
         }
 

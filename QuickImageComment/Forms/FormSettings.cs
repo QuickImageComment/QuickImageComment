@@ -17,6 +17,7 @@
 using System;
 using System.Collections.Specialized;
 using System.Windows.Forms;
+using static QuickImageComment.ConfigDefinition;
 
 namespace QuickImageComment
 {
@@ -253,7 +254,13 @@ namespace QuickImageComment
             ConfigDefinition.setCfgUserBool(ConfigDefinition.enumCfgUserBool.WriteExifUtf8, checkBoxExifUTF8.Checked);
             ConfigDefinition.setCfgUserBool(ConfigDefinition.enumCfgUserBool.WriteIptcUtf8, checkBoxIptcUTF8.Checked);
 
+            bool logDifferencesMetaDataPrev = ConfigDefinition.getCfgUserBool(enumCfgUserBool.logDifferencesMetaData);
             ConfigDefinition.setCfgUserBool(ConfigDefinition.enumCfgUserBool.logDifferencesMetaData, checkBoxLogDiffMetaData.Checked);
+            // when logging of meta data is now enabled, open FormLogger
+            if (checkBoxLogDiffMetaData.Checked && !logDifferencesMetaDataPrev)
+            {
+                Logger.initFormLogger(); // permanent use of Logger
+            }
 
             settingsChanged = true;
             this.Cursor = Cursors.Default;

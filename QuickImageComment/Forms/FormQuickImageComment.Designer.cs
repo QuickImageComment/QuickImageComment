@@ -210,6 +210,7 @@ namespace QuickImageComment
             this.ToolStripMenuItemLanguage = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItemLanguageExifTool = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItemUserConfigStorage = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemFormLogger = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemMaintenance = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemCreateScreenshots = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemWriteTagLookupReferenceFile = new System.Windows.Forms.ToolStripMenuItem();
@@ -217,7 +218,6 @@ namespace QuickImageComment
             this.toolStripMenuItemWriteTagListFileExifTool = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemCreateControlTextList = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemCheckTranslationComplete = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItemFormLogger = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemEditExtern = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparatorEditExternal = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItemEditExternalAdministration = new System.Windows.Forms.ToolStripMenuItem();
@@ -1794,6 +1794,7 @@ namespace QuickImageComment
             this.ToolStripMenuItemLanguage,
             this.ToolStripMenuItemLanguageExifTool,
             this.ToolStripMenuItemUserConfigStorage,
+            this.toolStripMenuItemFormLogger,
             this.toolStripMenuItemMaintenance});
             this.toolStripMenuItemExtras.Name = "toolStripMenuItemExtras";
             this.toolStripMenuItemExtras.Size = new System.Drawing.Size(50, 20);
@@ -1803,7 +1804,7 @@ namespace QuickImageComment
             // 
             this.toolStripMenuItemSettings.Name = "toolStripMenuItemSettings";
             this.toolStripMenuItemSettings.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
-            this.toolStripMenuItemSettings.Size = new System.Drawing.Size(276, 22);
+            this.toolStripMenuItemSettings.Size = new System.Drawing.Size(274, 22);
             this.toolStripMenuItemSettings.Text = "&Einstellungen";
             this.toolStripMenuItemSettings.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.toolStripMenuItemSettings.Click += new System.EventHandler(this.toolStripMenuItemSettings_Click);
@@ -1811,7 +1812,7 @@ namespace QuickImageComment
             // toolStripMenuItemFields
             // 
             this.toolStripMenuItemFields.Name = "toolStripMenuItemFields";
-            this.toolStripMenuItemFields.Size = new System.Drawing.Size(276, 22);
+            this.toolStripMenuItemFields.Size = new System.Drawing.Size(274, 22);
             this.toolStripMenuItemFields.Text = "&Felddefinitionen";
             this.toolStripMenuItemFields.Click += new System.EventHandler(this.toolStripMenuItemFields_Click);
             // 
@@ -1819,7 +1820,7 @@ namespace QuickImageComment
             // 
             this.toolStripMenuItemPredefinedComments.Name = "toolStripMenuItemPredefinedComments";
             this.toolStripMenuItemPredefinedComments.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.K)));
-            this.toolStripMenuItemPredefinedComments.Size = new System.Drawing.Size(276, 22);
+            this.toolStripMenuItemPredefinedComments.Size = new System.Drawing.Size(274, 22);
             this.toolStripMenuItemPredefinedComments.Text = "Vordefinierte &Kommentare";
             this.toolStripMenuItemPredefinedComments.Click += new System.EventHandler(this.toolStripMenuItemPredefinedComments_Click);
             // 
@@ -1827,117 +1828,124 @@ namespace QuickImageComment
             // 
             this.toolStripMenuItemKeyWords.Name = "toolStripMenuItemKeyWords";
             this.toolStripMenuItemKeyWords.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.I)));
-            this.toolStripMenuItemKeyWords.Size = new System.Drawing.Size(276, 22);
+            this.toolStripMenuItemKeyWords.Size = new System.Drawing.Size(274, 22);
             this.toolStripMenuItemKeyWords.Text = "Vordefinierte Schlüsselworte";
             this.toolStripMenuItemKeyWords.Click += new System.EventHandler(this.toolStripMenuItemPredefinedKeyWords_Click);
             // 
             // toolStripSeparator13
             // 
             this.toolStripSeparator13.Name = "toolStripSeparator13";
-            this.toolStripSeparator13.Size = new System.Drawing.Size(273, 6);
+            this.toolStripSeparator13.Size = new System.Drawing.Size(271, 6);
             // 
             // toolStripMenuItemDataTemplates
             // 
             this.toolStripMenuItemDataTemplates.Name = "toolStripMenuItemDataTemplates";
-            this.toolStripMenuItemDataTemplates.Size = new System.Drawing.Size(276, 22);
+            this.toolStripMenuItemDataTemplates.Size = new System.Drawing.Size(274, 22);
             this.toolStripMenuItemDataTemplates.Text = "Daten-Vorlage auswählen/bearbeiten";
             this.toolStripMenuItemDataTemplates.Click += new System.EventHandler(this.toolStripMenuItemDataTemplates_Click);
             // 
             // dynamicToolStripMenuItemLoadDataFromTemplate
             // 
             this.dynamicToolStripMenuItemLoadDataFromTemplate.Name = "dynamicToolStripMenuItemLoadDataFromTemplate";
-            this.dynamicToolStripMenuItemLoadDataFromTemplate.Size = new System.Drawing.Size(276, 22);
+            this.dynamicToolStripMenuItemLoadDataFromTemplate.Size = new System.Drawing.Size(274, 22);
             this.dynamicToolStripMenuItemLoadDataFromTemplate.Text = "Daten übernehmen aus Vorlage: <name>";
             this.dynamicToolStripMenuItemLoadDataFromTemplate.Click += new System.EventHandler(this.dynamciToolStripMenuItemLoadDataFromTemplate_Click);
             // 
             // toolStripSeparator11
             // 
             this.toolStripSeparator11.Name = "toolStripSeparator11";
-            this.toolStripSeparator11.Size = new System.Drawing.Size(273, 6);
+            this.toolStripSeparator11.Size = new System.Drawing.Size(271, 6);
             // 
             // toolStripMenuItemImageWindow
             // 
             this.toolStripMenuItemImageWindow.Name = "toolStripMenuItemImageWindow";
-            this.toolStripMenuItemImageWindow.Size = new System.Drawing.Size(276, 22);
+            this.toolStripMenuItemImageWindow.Size = new System.Drawing.Size(274, 22);
             this.toolStripMenuItemImageWindow.Text = "&Bild in eigenem Fenster";
             this.toolStripMenuItemImageWindow.Click += new System.EventHandler(this.toolStripMenuItemImageWindow_Click);
             // 
             // toolStripMenuItemDetailsWindow
             // 
             this.toolStripMenuItemDetailsWindow.Name = "toolStripMenuItemDetailsWindow";
-            this.toolStripMenuItemDetailsWindow.Size = new System.Drawing.Size(276, 22);
+            this.toolStripMenuItemDetailsWindow.Size = new System.Drawing.Size(274, 22);
             this.toolStripMenuItemDetailsWindow.Text = "Bild Details in eigenem Fenster";
             this.toolStripMenuItemDetailsWindow.Click += new System.EventHandler(this.toolStripMenuItemDetailsWindow_Click);
             // 
             // toolStripMenuItemMapWindow
             // 
             this.toolStripMenuItemMapWindow.Name = "toolStripMenuItemMapWindow";
-            this.toolStripMenuItemMapWindow.Size = new System.Drawing.Size(276, 22);
+            this.toolStripMenuItemMapWindow.Size = new System.Drawing.Size(274, 22);
             this.toolStripMenuItemMapWindow.Text = "Karte in eigenem Fenster";
             this.toolStripMenuItemMapWindow.Click += new System.EventHandler(this.toolStripMenuItemMapWindow_Click);
             // 
             // ToolStripMenuItemMapUrl
             // 
             this.ToolStripMenuItemMapUrl.Name = "ToolStripMenuItemMapUrl";
-            this.ToolStripMenuItemMapUrl.Size = new System.Drawing.Size(276, 22);
+            this.ToolStripMenuItemMapUrl.Size = new System.Drawing.Size(274, 22);
             this.ToolStripMenuItemMapUrl.Text = "Karte in Standard Browser";
             // 
             // toolStripSeparator10
             // 
             this.toolStripSeparator10.Name = "toolStripSeparator10";
-            this.toolStripSeparator10.Size = new System.Drawing.Size(273, 6);
+            this.toolStripSeparator10.Size = new System.Drawing.Size(271, 6);
             // 
             // toolStripMenuItemScale
             // 
             this.toolStripMenuItemScale.Name = "toolStripMenuItemScale";
-            this.toolStripMenuItemScale.Size = new System.Drawing.Size(276, 22);
+            this.toolStripMenuItemScale.Size = new System.Drawing.Size(274, 22);
             this.toolStripMenuItemScale.Text = "Skalierung";
             this.toolStripMenuItemScale.Click += new System.EventHandler(this.toolStripMenuItemScale_Click);
             // 
             // toolStripMenuItemCustomizeForm
             // 
             this.toolStripMenuItemCustomizeForm.Name = "toolStripMenuItemCustomizeForm";
-            this.toolStripMenuItemCustomizeForm.Size = new System.Drawing.Size(276, 22);
+            this.toolStripMenuItemCustomizeForm.Size = new System.Drawing.Size(274, 22);
             this.toolStripMenuItemCustomizeForm.Text = "&Maske anpassen";
             this.toolStripMenuItemCustomizeForm.Click += new System.EventHandler(this.toolStripMenuItemCustomizeForm_Click);
             // 
             // toolStripMenuItemRemoveAllMaskCustomizations
             // 
             this.toolStripMenuItemRemoveAllMaskCustomizations.Name = "toolStripMenuItemRemoveAllMaskCustomizations";
-            this.toolStripMenuItemRemoveAllMaskCustomizations.Size = new System.Drawing.Size(276, 22);
+            this.toolStripMenuItemRemoveAllMaskCustomizations.Size = new System.Drawing.Size(274, 22);
             this.toolStripMenuItemRemoveAllMaskCustomizations.Text = "&Alle Masken Anpassungen entfernen";
             this.toolStripMenuItemRemoveAllMaskCustomizations.Click += new System.EventHandler(this.toolStripMenuItemRemoveAllMaskCustomizations_Click);
             // 
             // toolStripMenuItemUserButtons
             // 
             this.toolStripMenuItemUserButtons.Name = "toolStripMenuItemUserButtons";
-            this.toolStripMenuItemUserButtons.Size = new System.Drawing.Size(276, 22);
+            this.toolStripMenuItemUserButtons.Size = new System.Drawing.Size(274, 22);
             this.toolStripMenuItemUserButtons.Text = "Benutzerdefinierte Schaltflächen";
             this.toolStripMenuItemUserButtons.Click += new System.EventHandler(this.toolStripMenuItemUserButtons_Click);
             // 
             // toolStripSeparator16
             // 
             this.toolStripSeparator16.Name = "toolStripSeparator16";
-            this.toolStripSeparator16.Size = new System.Drawing.Size(273, 6);
+            this.toolStripSeparator16.Size = new System.Drawing.Size(271, 6);
             // 
             // ToolStripMenuItemLanguage
             // 
             this.ToolStripMenuItemLanguage.Name = "ToolStripMenuItemLanguage";
-            this.ToolStripMenuItemLanguage.Size = new System.Drawing.Size(276, 22);
+            this.ToolStripMenuItemLanguage.Size = new System.Drawing.Size(274, 22);
             this.ToolStripMenuItemLanguage.Text = "Sprache";
             // 
             // ToolStripMenuItemLanguageExifTool
             // 
             this.ToolStripMenuItemLanguageExifTool.Name = "ToolStripMenuItemLanguageExifTool";
-            this.ToolStripMenuItemLanguageExifTool.Size = new System.Drawing.Size(276, 22);
+            this.ToolStripMenuItemLanguageExifTool.Size = new System.Drawing.Size(274, 22);
             this.ToolStripMenuItemLanguageExifTool.Text = "Sprache für Exiftool";
             // 
             // ToolStripMenuItemUserConfigStorage
             // 
             this.ToolStripMenuItemUserConfigStorage.Name = "ToolStripMenuItemUserConfigStorage";
-            this.ToolStripMenuItemUserConfigStorage.Size = new System.Drawing.Size(276, 22);
+            this.ToolStripMenuItemUserConfigStorage.Size = new System.Drawing.Size(274, 22);
             this.ToolStripMenuItemUserConfigStorage.Text = "Speicherort für Benutzer-Einstellungen";
             this.ToolStripMenuItemUserConfigStorage.Click += new System.EventHandler(this.ToolStripMenuItemUserConfigStorage_Click);
+            // 
+            // toolStripMenuItemFormLogger
+            // 
+            this.toolStripMenuItemFormLogger.Name = "toolStripMenuItemFormLogger";
+            this.toolStripMenuItemFormLogger.Size = new System.Drawing.Size(274, 22);
+            this.toolStripMenuItemFormLogger.Text = "Protokollierung anzeigen";
+            this.toolStripMenuItemFormLogger.Click += new System.EventHandler(this.toolStripMenuItemFormLogger_Click);
             // 
             // toolStripMenuItemMaintenance
             // 
@@ -1947,10 +1955,9 @@ namespace QuickImageComment
             this.toolStripMenuItemWriteTagListFile,
             this.toolStripMenuItemWriteTagListFileExifTool,
             this.toolStripMenuItemCreateControlTextList,
-            this.toolStripMenuItemCheckTranslationComplete,
-            this.toolStripMenuItemFormLogger});
+            this.toolStripMenuItemCheckTranslationComplete});
             this.toolStripMenuItemMaintenance.Name = "toolStripMenuItemMaintenance";
-            this.toolStripMenuItemMaintenance.Size = new System.Drawing.Size(276, 22);
+            this.toolStripMenuItemMaintenance.Size = new System.Drawing.Size(274, 22);
             this.toolStripMenuItemMaintenance.Text = "Wartung";
             // 
             // toolStripMenuItemCreateScreenshots
@@ -1994,13 +2001,6 @@ namespace QuickImageComment
             this.toolStripMenuItemCheckTranslationComplete.Size = new System.Drawing.Size(247, 22);
             this.toolStripMenuItemCheckTranslationComplete.Text = "Prüfen ob Übersetzung vollständig";
             this.toolStripMenuItemCheckTranslationComplete.Click += new System.EventHandler(this.toolStripMenuItemCheckTranslationComplete_Click);
-            // 
-            // toolStripMenuItemFormLogger
-            // 
-            this.toolStripMenuItemFormLogger.Name = "toolStripMenuItemFormLogger";
-            this.toolStripMenuItemFormLogger.Size = new System.Drawing.Size(247, 22);
-            this.toolStripMenuItemFormLogger.Text = "FormLogger";
-            this.toolStripMenuItemFormLogger.Click += new System.EventHandler(this.toolStripMenuItemFormLogger_Click);
             // 
             // toolStripMenuItemEditExtern
             // 
