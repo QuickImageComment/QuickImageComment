@@ -35,6 +35,10 @@ namespace QuickImageComment
         static string fileFilterNormalised = "";
         static enumFileFilterType fileFilterType = enumFileFilterType.contains;
 
+        // constants for retrying if file is still locked
+        private const int maxTriesCheckLock = 15;
+        private const int delayBetweenCheckLock = 20;
+
         // delay in milliseconds after event "selected index changed" to display image and do further actions
         private const int delayTimeAfterSelectedIndexChanged = 50;
 
@@ -825,11 +829,35 @@ namespace QuickImageComment
             }
         }
 
+        // this method is called when DirectoryWatcher detects a new or modified file
         internal void createOrUpdateItemListViewFiles(string fullFileName)
         {
             // if main mask is not already closing
             if (!FormQuickImageComment.closing)
             {
+
+                GeneralUtilities.FileCheckState fileCheckState = GeneralUtilities.CheckFileState(fullFileName);
+
+                if (fileCheckState == GeneralUtilities.FileCheckState.Missing)
+                {
+                    // seems that file has been deleted since DirectoryWatcher detected its creation or change
+                    // so nothing can be done with the file now
+                    return;
+                }
+                else if (fileCheckState == GeneralUtilities.FileCheckState.Locked)
+                {
+                    int tries = 0;
+                    while (tries < maxTriesCheckLock && fileCheckState != GeneralUtilities.FileCheckState.Ok)
+                    {
+                        Thread.Sleep(delayBetweenCheckLock);
+                        fileCheckState = GeneralUtilities.CheckFileState(fullFileName);
+                        tries++;
+                    }
+                    // if file still is locked, continue anyhow
+                    // reading meta data with exiv2 probably still will work
+                    // errors reading with exiftool or getting image will be shown in meta data warnings
+                }
+
                 int ii;
 
                 FileInfo theFileInfo = new FileInfo(fullFileName);

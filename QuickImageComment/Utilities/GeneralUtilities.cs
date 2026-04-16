@@ -97,6 +97,13 @@ namespace QuickImageComment
             "yyyy-MM"
         };
 
+        public enum FileCheckState
+        {
+            Ok,
+            Locked,
+            Missing
+        }
+
         // to control creating screenshots and control text list
         // when flag is set, inside constructor of mask special actions to create screenshots are done and mask is closed
         public static bool CreateScreenshots = false;
@@ -428,6 +435,29 @@ namespace QuickImageComment
             return fileName + "\n"
                 + LangCfg.getText(LangCfg.Others.fileSize) + " " + FileSize.ToString("#,### KB") + "\n"
                 + LangCfg.getText(LangCfg.Others.fileLastModified) + " " + theFileInfo.LastWriteTime.ToString();
+        }
+
+        // check file status
+        public static FileCheckState CheckFileState(string path)
+        {
+            if (!File.Exists(path))
+                return FileCheckState.Missing;
+
+            try
+            {
+                using (var stream = new FileStream(
+                    path,
+                    FileMode.Open,
+                    FileAccess.ReadWrite,
+                    FileShare.None))
+                {
+                    return FileCheckState.Ok;
+                }
+            }
+            catch (IOException)
+            {
+                return FileCheckState.Locked;
+            }
         }
 
         // convert longitude/latitude from original exif format to degrees with decimals

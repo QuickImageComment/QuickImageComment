@@ -532,7 +532,7 @@ namespace Brain2CPU.ExifTool
             // note: if the value was stored in UTF8 it can be converted back to UTF8 later
             // (see in ExtendedImage after calling ReadMetaDataFrom),
             // whereas not using -charset and trying the opposite conversion seems not to be possible
-            string cmd = "-charset\nexif=Latin\n-charset\niptc=Latin\n-D\n-G:6:1\n-sep\n" + ExifToolWrapper.readSeparator 
+            string cmd = "-charset\nexif=Latin\n-charset\niptc=Latin\n-D\n-G:6:1\n-sep\n" + ExifToolWrapper.readSeparator
                        + "\n-j\n-l\n-lang\n" + language + "\n-a\n";
             if (neededKeysExifTool != null)
             {
