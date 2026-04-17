@@ -458,6 +458,7 @@ namespace QuickImageComment
             listViewIcons.Items.Add(new ListViewItem("Ok"));
             listViewIcons.Items.Add(new ListViewItem("Paint_over_pixels"));
             listViewIcons.Items.Add(new ListViewItem("Pantone"));
+            listViewIcons.Items.Add(new ListViewItem("Photos"));
             listViewIcons.Items.Add(new ListViewItem("Picture"));
             listViewIcons.Items.Add(new ListViewItem("Pie_chart"));
             listViewIcons.Items.Add(new ListViewItem("Pin"));
