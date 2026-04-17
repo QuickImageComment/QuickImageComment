@@ -63,6 +63,7 @@ namespace QuickImageComment
             {
                 { "Exif.Image.Artist", "SaveNameInExifImageArtist" },
                 { "Exif.Image.XPAuthor" , "SaveNameInExifImageXPAuthor" },
+                { "Iptc.Application2.Byline", "SaveNameInIptcApplication2Byline" },
                 { "Iptc.Application2.Writer", "SaveNameInIptcApplication2Writer"},
                 { "Xmp.dc.creator", "SaveNameInXmpDcCreator" }
             };

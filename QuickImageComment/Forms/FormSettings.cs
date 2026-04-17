@@ -103,6 +103,7 @@ namespace QuickImageComment
             initCheckBoxCommentArtist(ConfigDefinition.TagSelectionListArtistImage, fixedCheckBoxSaveNameImage2, 1);
             initCheckBoxCommentArtist(ConfigDefinition.TagSelectionListArtistImage, fixedCheckBoxSaveNameImage3, 2);
             initCheckBoxCommentArtist(ConfigDefinition.TagSelectionListArtistImage, fixedCheckBoxSaveNameImage4, 3);
+            initCheckBoxCommentArtist(ConfigDefinition.TagSelectionListArtistImage, fixedCheckBoxSaveNameImage5, 4);
 
             initCheckBoxCommentArtist(ConfigDefinition.TagSelectionListArtistVideo, fixedCheckBoxSaveNameVideo1, 0);
             initCheckBoxCommentArtist(ConfigDefinition.TagSelectionListArtistVideo, fixedCheckBoxSaveNameVideo2, 1);
@@ -215,6 +216,7 @@ namespace QuickImageComment
             saveCheckBoxCommentArtist(ConfigDefinition.TagSelectionListArtistImage, fixedCheckBoxSaveNameImage2, 1);
             saveCheckBoxCommentArtist(ConfigDefinition.TagSelectionListArtistImage, fixedCheckBoxSaveNameImage3, 2);
             saveCheckBoxCommentArtist(ConfigDefinition.TagSelectionListArtistImage, fixedCheckBoxSaveNameImage4, 3);
+            saveCheckBoxCommentArtist(ConfigDefinition.TagSelectionListArtistImage, fixedCheckBoxSaveNameImage5, 4);
 
             saveCheckBoxCommentArtist(ConfigDefinition.TagSelectionListArtistVideo, fixedCheckBoxSaveNameVideo1, 0);
             saveCheckBoxCommentArtist(ConfigDefinition.TagSelectionListArtistVideo, fixedCheckBoxSaveNameVideo2, 1);

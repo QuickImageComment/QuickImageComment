@@ -134,15 +134,16 @@ namespace QuickImageComment
             this.numericUpDownFramePosition = new System.Windows.Forms.NumericUpDown();
             this.labelFramePosition = new System.Windows.Forms.Label();
             this.Panel5 = new System.Windows.Forms.Panel();
+            this.label11 = new System.Windows.Forms.Label();
+            this.buttonExifToolSettings = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
             this.checkBoxLogDiffMetaData = new System.Windows.Forms.CheckBox();
-            this.buttonExifToolSettings = new System.Windows.Forms.Button();
             this.comboBoxCharsetUserComment = new System.Windows.Forms.ComboBox();
             this.checkBoxIptcUTF8 = new System.Windows.Forms.CheckBox();
             this.checkBoxExifUTF8 = new System.Windows.Forms.CheckBox();
             this.labelCharSet = new System.Windows.Forms.Label();
             this.checkBoxButtonDeletesPermanent = new System.Windows.Forms.CheckBox();
-            this.label11 = new System.Windows.Forms.Label();
+            this.fixedCheckBoxSaveNameImage5 = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxLastComments)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFullSizeImageCacheMaxSize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaximumMemoryForCaching)).BeginInit();
@@ -159,7 +160,7 @@ namespace QuickImageComment
             // buttonOK
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonOK.Location = new System.Drawing.Point(276, 577);
+            this.buttonOK.Location = new System.Drawing.Point(276, 583);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(99, 26);
             this.buttonOK.TabIndex = 33;
@@ -222,7 +223,7 @@ namespace QuickImageComment
             // fixedCheckBoxSaveNameImage1
             // 
             this.fixedCheckBoxSaveNameImage1.AutoSize = true;
-            this.fixedCheckBoxSaveNameImage1.Location = new System.Drawing.Point(5, 223);
+            this.fixedCheckBoxSaveNameImage1.Location = new System.Drawing.Point(5, 214);
             this.fixedCheckBoxSaveNameImage1.Name = "fixedCheckBoxSaveNameImage1";
             this.fixedCheckBoxSaveNameImage1.Size = new System.Drawing.Size(89, 17);
             this.fixedCheckBoxSaveNameImage1.TabIndex = 1;
@@ -352,7 +353,7 @@ namespace QuickImageComment
             // fixedCheckBoxSaveNameImage3
             // 
             this.fixedCheckBoxSaveNameImage3.AutoSize = true;
-            this.fixedCheckBoxSaveNameImage3.Location = new System.Drawing.Point(5, 257);
+            this.fixedCheckBoxSaveNameImage3.Location = new System.Drawing.Point(5, 248);
             this.fixedCheckBoxSaveNameImage3.Name = "fixedCheckBoxSaveNameImage3";
             this.fixedCheckBoxSaveNameImage3.Size = new System.Drawing.Size(89, 17);
             this.fixedCheckBoxSaveNameImage3.TabIndex = 2;
@@ -364,7 +365,7 @@ namespace QuickImageComment
             // fixedCheckBoxSaveCommentImage4
             // 
             this.fixedCheckBoxSaveCommentImage4.AutoSize = true;
-            this.fixedCheckBoxSaveCommentImage4.Location = new System.Drawing.Point(5, 87);
+            this.fixedCheckBoxSaveCommentImage4.Location = new System.Drawing.Point(5, 86);
             this.fixedCheckBoxSaveCommentImage4.Name = "fixedCheckBoxSaveCommentImage4";
             this.fixedCheckBoxSaveCommentImage4.Size = new System.Drawing.Size(107, 17);
             this.fixedCheckBoxSaveCommentImage4.TabIndex = 2;
@@ -397,7 +398,7 @@ namespace QuickImageComment
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(3, 191);
+            this.label2.Location = new System.Drawing.Point(3, 182);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(136, 13);
             this.label2.TabIndex = 0;
@@ -427,7 +428,7 @@ namespace QuickImageComment
             // buttonCustomizeForm
             // 
             this.buttonCustomizeForm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonCustomizeForm.Location = new System.Drawing.Point(4, 577);
+            this.buttonCustomizeForm.Location = new System.Drawing.Point(4, 583);
             this.buttonCustomizeForm.Name = "buttonCustomizeForm";
             this.buttonCustomizeForm.Size = new System.Drawing.Size(99, 26);
             this.buttonCustomizeForm.TabIndex = 32;
@@ -438,7 +439,7 @@ namespace QuickImageComment
             // buttonCancel
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonCancel.Location = new System.Drawing.Point(380, 577);
+            this.buttonCancel.Location = new System.Drawing.Point(380, 583);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(99, 26);
             this.buttonCancel.TabIndex = 34;
@@ -466,7 +467,7 @@ namespace QuickImageComment
             // buttonHelp
             // 
             this.buttonHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonHelp.Location = new System.Drawing.Point(649, 577);
+            this.buttonHelp.Location = new System.Drawing.Point(649, 583);
             this.buttonHelp.Name = "buttonHelp";
             this.buttonHelp.Size = new System.Drawing.Size(99, 26);
             this.buttonHelp.TabIndex = 35;
@@ -684,7 +685,7 @@ namespace QuickImageComment
             // fixedCheckBoxSaveCommentImage5
             // 
             this.fixedCheckBoxSaveCommentImage5.AutoSize = true;
-            this.fixedCheckBoxSaveCommentImage5.Location = new System.Drawing.Point(5, 104);
+            this.fixedCheckBoxSaveCommentImage5.Location = new System.Drawing.Point(5, 103);
             this.fixedCheckBoxSaveCommentImage5.Name = "fixedCheckBoxSaveCommentImage5";
             this.fixedCheckBoxSaveCommentImage5.Size = new System.Drawing.Size(107, 17);
             this.fixedCheckBoxSaveCommentImage5.TabIndex = 3;
@@ -696,7 +697,7 @@ namespace QuickImageComment
             // fixedCheckBoxSaveCommentImage6
             // 
             this.fixedCheckBoxSaveCommentImage6.AutoSize = true;
-            this.fixedCheckBoxSaveCommentImage6.Location = new System.Drawing.Point(5, 121);
+            this.fixedCheckBoxSaveCommentImage6.Location = new System.Drawing.Point(5, 120);
             this.fixedCheckBoxSaveCommentImage6.Name = "fixedCheckBoxSaveCommentImage6";
             this.fixedCheckBoxSaveCommentImage6.Size = new System.Drawing.Size(107, 17);
             this.fixedCheckBoxSaveCommentImage6.TabIndex = 4;
@@ -708,7 +709,7 @@ namespace QuickImageComment
             // fixedCheckBoxSaveCommentImage7
             // 
             this.fixedCheckBoxSaveCommentImage7.AutoSize = true;
-            this.fixedCheckBoxSaveCommentImage7.Location = new System.Drawing.Point(5, 138);
+            this.fixedCheckBoxSaveCommentImage7.Location = new System.Drawing.Point(5, 137);
             this.fixedCheckBoxSaveCommentImage7.Name = "fixedCheckBoxSaveCommentImage7";
             this.fixedCheckBoxSaveCommentImage7.Size = new System.Drawing.Size(107, 17);
             this.fixedCheckBoxSaveCommentImage7.TabIndex = 5;
@@ -720,7 +721,7 @@ namespace QuickImageComment
             // fixedCheckBoxSaveNameImage4
             // 
             this.fixedCheckBoxSaveNameImage4.AutoSize = true;
-            this.fixedCheckBoxSaveNameImage4.Location = new System.Drawing.Point(5, 273);
+            this.fixedCheckBoxSaveNameImage4.Location = new System.Drawing.Point(5, 265);
             this.fixedCheckBoxSaveNameImage4.Name = "fixedCheckBoxSaveNameImage4";
             this.fixedCheckBoxSaveNameImage4.Size = new System.Drawing.Size(89, 17);
             this.fixedCheckBoxSaveNameImage4.TabIndex = 3;
@@ -732,6 +733,7 @@ namespace QuickImageComment
             // Panel2
             // 
             this.Panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.Panel2.Controls.Add(this.fixedCheckBoxSaveNameImage5);
             this.Panel2.Controls.Add(this.fixedCheckBoxSaveNameVideo2);
             this.Panel2.Controls.Add(this.fixedCheckBoxSaveNameVideo4);
             this.Panel2.Controls.Add(this.fixedCheckBoxSaveNameVideo3);
@@ -777,7 +779,7 @@ namespace QuickImageComment
             // fixedCheckBoxSaveNameVideo2
             // 
             this.fixedCheckBoxSaveNameVideo2.AutoSize = true;
-            this.fixedCheckBoxSaveNameVideo2.Location = new System.Drawing.Point(223, 240);
+            this.fixedCheckBoxSaveNameVideo2.Location = new System.Drawing.Point(223, 231);
             this.fixedCheckBoxSaveNameVideo2.Name = "fixedCheckBoxSaveNameVideo2";
             this.fixedCheckBoxSaveNameVideo2.Size = new System.Drawing.Size(85, 17);
             this.fixedCheckBoxSaveNameVideo2.TabIndex = 25;
@@ -789,7 +791,7 @@ namespace QuickImageComment
             // fixedCheckBoxSaveNameVideo4
             // 
             this.fixedCheckBoxSaveNameVideo4.AutoSize = true;
-            this.fixedCheckBoxSaveNameVideo4.Location = new System.Drawing.Point(223, 273);
+            this.fixedCheckBoxSaveNameVideo4.Location = new System.Drawing.Point(223, 265);
             this.fixedCheckBoxSaveNameVideo4.Name = "fixedCheckBoxSaveNameVideo4";
             this.fixedCheckBoxSaveNameVideo4.Size = new System.Drawing.Size(85, 17);
             this.fixedCheckBoxSaveNameVideo4.TabIndex = 24;
@@ -801,7 +803,7 @@ namespace QuickImageComment
             // fixedCheckBoxSaveNameVideo3
             // 
             this.fixedCheckBoxSaveNameVideo3.AutoSize = true;
-            this.fixedCheckBoxSaveNameVideo3.Location = new System.Drawing.Point(223, 257);
+            this.fixedCheckBoxSaveNameVideo3.Location = new System.Drawing.Point(223, 248);
             this.fixedCheckBoxSaveNameVideo3.Name = "fixedCheckBoxSaveNameVideo3";
             this.fixedCheckBoxSaveNameVideo3.Size = new System.Drawing.Size(85, 17);
             this.fixedCheckBoxSaveNameVideo3.TabIndex = 23;
@@ -813,7 +815,7 @@ namespace QuickImageComment
             // fixedCheckBoxSaveNameVideo1
             // 
             this.fixedCheckBoxSaveNameVideo1.AutoSize = true;
-            this.fixedCheckBoxSaveNameVideo1.Location = new System.Drawing.Point(223, 223);
+            this.fixedCheckBoxSaveNameVideo1.Location = new System.Drawing.Point(223, 214);
             this.fixedCheckBoxSaveNameVideo1.Name = "fixedCheckBoxSaveNameVideo1";
             this.fixedCheckBoxSaveNameVideo1.Size = new System.Drawing.Size(85, 17);
             this.fixedCheckBoxSaveNameVideo1.TabIndex = 22;
@@ -825,7 +827,7 @@ namespace QuickImageComment
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(220, 207);
+            this.label6.Location = new System.Drawing.Point(220, 198);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(66, 13);
             this.label6.TabIndex = 21;
@@ -834,7 +836,7 @@ namespace QuickImageComment
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(3, 207);
+            this.label8.Location = new System.Drawing.Point(3, 198);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(61, 13);
             this.label8.TabIndex = 20;
@@ -873,7 +875,7 @@ namespace QuickImageComment
             // fixedCheckBoxSaveCommentVideo2
             // 
             this.fixedCheckBoxSaveCommentVideo2.AutoSize = true;
-            this.fixedCheckBoxSaveCommentVideo2.Location = new System.Drawing.Point(223, 51);
+            this.fixedCheckBoxSaveCommentVideo2.Location = new System.Drawing.Point(223, 52);
             this.fixedCheckBoxSaveCommentVideo2.Name = "fixedCheckBoxSaveCommentVideo2";
             this.fixedCheckBoxSaveCommentVideo2.Size = new System.Drawing.Size(103, 17);
             this.fixedCheckBoxSaveCommentVideo2.TabIndex = 16;
@@ -921,7 +923,7 @@ namespace QuickImageComment
             // fixedCheckBoxSaveCommentVideo1
             // 
             this.fixedCheckBoxSaveCommentVideo1.AutoSize = true;
-            this.fixedCheckBoxSaveCommentVideo1.Location = new System.Drawing.Point(223, 34);
+            this.fixedCheckBoxSaveCommentVideo1.Location = new System.Drawing.Point(223, 35);
             this.fixedCheckBoxSaveCommentVideo1.Name = "fixedCheckBoxSaveCommentVideo1";
             this.fixedCheckBoxSaveCommentVideo1.Size = new System.Drawing.Size(103, 17);
             this.fixedCheckBoxSaveCommentVideo1.TabIndex = 10;
@@ -945,7 +947,7 @@ namespace QuickImageComment
             // fixedCheckBoxSaveCommentVideo8
             // 
             this.fixedCheckBoxSaveCommentVideo8.AutoSize = true;
-            this.fixedCheckBoxSaveCommentVideo8.Location = new System.Drawing.Point(223, 153);
+            this.fixedCheckBoxSaveCommentVideo8.Location = new System.Drawing.Point(223, 154);
             this.fixedCheckBoxSaveCommentVideo8.Name = "fixedCheckBoxSaveCommentVideo8";
             this.fixedCheckBoxSaveCommentVideo8.Size = new System.Drawing.Size(103, 17);
             this.fixedCheckBoxSaveCommentVideo8.TabIndex = 15;
@@ -957,7 +959,7 @@ namespace QuickImageComment
             // fixedCheckBoxSaveCommentImage3
             // 
             this.fixedCheckBoxSaveCommentImage3.AutoSize = true;
-            this.fixedCheckBoxSaveCommentImage3.Location = new System.Drawing.Point(5, 70);
+            this.fixedCheckBoxSaveCommentImage3.Location = new System.Drawing.Point(5, 69);
             this.fixedCheckBoxSaveCommentImage3.Name = "fixedCheckBoxSaveCommentImage3";
             this.fixedCheckBoxSaveCommentImage3.Size = new System.Drawing.Size(107, 17);
             this.fixedCheckBoxSaveCommentImage3.TabIndex = 9;
@@ -969,7 +971,7 @@ namespace QuickImageComment
             // fixedCheckBoxSaveNameImage2
             // 
             this.fixedCheckBoxSaveNameImage2.AutoSize = true;
-            this.fixedCheckBoxSaveNameImage2.Location = new System.Drawing.Point(5, 240);
+            this.fixedCheckBoxSaveNameImage2.Location = new System.Drawing.Point(5, 231);
             this.fixedCheckBoxSaveNameImage2.Name = "fixedCheckBoxSaveNameImage2";
             this.fixedCheckBoxSaveNameImage2.Size = new System.Drawing.Size(89, 17);
             this.fixedCheckBoxSaveNameImage2.TabIndex = 8;
@@ -1093,6 +1095,25 @@ namespace QuickImageComment
             this.Panel5.Size = new System.Drawing.Size(983, 83);
             this.Panel5.TabIndex = 31;
             // 
+            // label11
+            // 
+            this.label11.Location = new System.Drawing.Point(775, 4);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(186, 31);
+            this.label11.TabIndex = 39;
+            this.label11.Text = "Um in Videos zu speichern, ist ExifTool notwendig:";
+            // 
+            // buttonExifToolSettings
+            // 
+            this.buttonExifToolSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonExifToolSettings.Location = new System.Drawing.Point(775, 35);
+            this.buttonExifToolSettings.Name = "buttonExifToolSettings";
+            this.buttonExifToolSettings.Size = new System.Drawing.Size(185, 26);
+            this.buttonExifToolSettings.TabIndex = 38;
+            this.buttonExifToolSettings.Text = "Einstellungen ExifTool";
+            this.buttonExifToolSettings.UseVisualStyleBackColor = true;
+            this.buttonExifToolSettings.Click += new System.EventHandler(this.buttonExifToolSettings_Click);
+            // 
             // panel3
             // 
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -1115,17 +1136,6 @@ namespace QuickImageComment
             this.checkBoxLogDiffMetaData.TabIndex = 40;
             this.checkBoxLogDiffMetaData.Text = "Änderungen der Metadaten protokollieren";
             this.checkBoxLogDiffMetaData.UseVisualStyleBackColor = true;
-            // 
-            // buttonExifToolSettings
-            // 
-            this.buttonExifToolSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonExifToolSettings.Location = new System.Drawing.Point(775, 35);
-            this.buttonExifToolSettings.Name = "buttonExifToolSettings";
-            this.buttonExifToolSettings.Size = new System.Drawing.Size(185, 26);
-            this.buttonExifToolSettings.TabIndex = 38;
-            this.buttonExifToolSettings.Text = "Einstellungen ExifTool";
-            this.buttonExifToolSettings.UseVisualStyleBackColor = true;
-            this.buttonExifToolSettings.Click += new System.EventHandler(this.buttonExifToolSettings_Click);
             // 
             // comboBoxCharsetUserComment
             // 
@@ -1178,20 +1188,23 @@ namespace QuickImageComment
             this.checkBoxButtonDeletesPermanent.Text = "Mit Schaltfläche \"Löschen\" werden Dateien unwiderruflich gelöscht";
             this.checkBoxButtonDeletesPermanent.UseVisualStyleBackColor = true;
             // 
-            // label11
+            // fixedCheckBoxSaveNameImage5
             // 
-            this.label11.Location = new System.Drawing.Point(775, 4);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(186, 31);
-            this.label11.TabIndex = 39;
-            this.label11.Text = "Um in Videos zu speichern, ist ExifTool notwendig:";
+            this.fixedCheckBoxSaveNameImage5.AutoSize = true;
+            this.fixedCheckBoxSaveNameImage5.Location = new System.Drawing.Point(5, 282);
+            this.fixedCheckBoxSaveNameImage5.Name = "fixedCheckBoxSaveNameImage5";
+            this.fixedCheckBoxSaveNameImage5.Size = new System.Drawing.Size(89, 17);
+            this.fixedCheckBoxSaveNameImage5.TabIndex = 26;
+            this.fixedCheckBoxSaveNameImage5.Tag = "";
+            this.fixedCheckBoxSaveNameImage5.Text = "NameImage5";
+            this.fixedCheckBoxSaveNameImage5.UseVisualStyleBackColor = true;
             // 
             // FormSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.ClientSize = new System.Drawing.Size(972, 607);
+            this.ClientSize = new System.Drawing.Size(972, 613);
             this.Controls.Add(this.checkBoxButtonDeletesPermanent);
             this.Controls.Add(this.Panel5);
             this.Controls.Add(this.panel3);
@@ -1336,5 +1349,6 @@ namespace QuickImageComment
         private System.Windows.Forms.CheckBox fixedCheckBoxSaveNameVideo3;
         private System.Windows.Forms.CheckBox fixedCheckBoxSaveNameVideo1;
         private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.CheckBox fixedCheckBoxSaveNameImage5;
     }
 }
