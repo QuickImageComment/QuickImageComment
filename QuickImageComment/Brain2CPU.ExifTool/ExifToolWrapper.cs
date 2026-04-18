@@ -669,7 +669,7 @@ namespace Brain2CPU.ExifTool
             {
                 string group1 = "";
                 string[] words;
-                string name = "";
+                string fullName = "";
                 string keyId = "";
                 string[] lines = cmdRes.Result.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
                 {
@@ -690,6 +690,8 @@ namespace Brain2CPU.ExifTool
                         else if (lines[ii].StartsWith(" <tag id="))
                         {
                             words = lines[ii].Split(new[] { "'" }, StringSplitOptions.RemoveEmptyEntries);
+                            string group1atTagId = "";
+                            string name = "";
                             string type = "";
                             string description = "";
                             string descriptionTranslated = "";
@@ -697,11 +699,18 @@ namespace Brain2CPU.ExifTool
                             string flags = "";
                             for (int jj = 1; jj < words.Length; jj++)
                             {
-                                if (words[jj].Trim().Equals("name=")) name = group1 + ":" + words[jj + 1];
+                                if (words[jj].Trim().Equals("g1=")) group1atTagId = words[jj + 1];
+                                if (words[jj].Trim().Equals("name=")) name = words[jj + 1];
                                 if (words[jj].Trim().Equals("type=")) type = words[jj + 1];
                                 if (words[jj].Trim().Equals("writable=")) writable = words[jj + 1].Equals("true");
                                 if (words[jj].Trim().Equals("flags=")) flags = words[jj + 1];
                             }
+                            // MWG tags are listed in table with g1=Composite and have a g1-entry in tag-id-line
+                            if (group1atTagId.Equals(""))
+                                fullName = group1 + ":" + name;
+                            else
+                                fullName = group1atTagId + ":" + name;
+
                             if (!writable) type = TagUtilities.typeReadonly;
                             if (flags.Contains("Alt")) type = "Alt-" + type;
                             else if (flags.Contains("Bag")) type = "Bag-" + type;
@@ -719,18 +728,18 @@ namespace Brain2CPU.ExifTool
                             // Example: CompressionLevel is listed in:
                             // <table name='APE::NewHeader' g0='APE' g1='MAC' g2='Audio'>
                             // <table name='APE::OldHeader' g0='APE' g1='MAC' g2='Audio'>
-                            if (!Tags.ContainsKey(name))
+                            if (!Tags.ContainsKey(fullName) && !fullName.StartsWith("*"))
                             {
                                 // check if a known tag looks like having a language suffix
                                 // is needed to verify that logic in UserControlTagList is sufficient to detect
                                 // entries having a language suffix
-                                if (mightBeLanguageSuffixAtEnd(name) &&
+                                if (mightBeLanguageSuffixAtEnd(fullName) &&
                                     ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.Maintenance))
                                 {
-                                    GeneralUtilities.debugMessage("Looks like having a language suffix:" + name);
+                                    GeneralUtilities.debugMessage("Looks like having a language suffix:" + fullName);
                                 }
-                                Tags.Add(name, new TagDefinition(name, type, description, name, descriptionTranslated, flags));
-                                if (flags.Contains("Unsafe")) UnsafeTags.Add(name);
+                                Tags.Add(fullName, new TagDefinition(fullName, type, description, fullName, descriptionTranslated, flags));
+                                if (flags.Contains("Unsafe")) UnsafeTags.Add(fullName);
                             }
                         }
                         else if (lines[ii].StartsWith("   <key id="))
@@ -742,7 +751,7 @@ namespace Brain2CPU.ExifTool
                         {
                             // sample of line:  <desc lang='en'>Composite</desc>
                             words = lines[ii].Split(new[] { "'", "<", ">" }, StringSplitOptions.RemoveEmptyEntries);
-                            AllAllowedValues.Enqueue(new AllowedValues(name, keyId, words[3]));
+                            AllAllowedValues.Enqueue(new AllowedValues(fullName, keyId, words[3]));
                         }
                     }
                     // write locations to file
