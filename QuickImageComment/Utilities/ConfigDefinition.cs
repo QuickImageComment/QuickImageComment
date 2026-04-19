@@ -468,7 +468,7 @@ namespace QuickImageComment
             {
                 { "splitContainer11.Panel1", LangCfg.PanelContent.Folders },
                 { "splitContainer11.Panel2", LangCfg.PanelContent.Files },
-                { "splitContainer121.Panel2", LangCfg.PanelContent.Keywords },
+                { "splitContainer121.Panel2", LangCfg.PanelContent.IptcKeywords },
                 { "splitContainer1211.Panel2", LangCfg.PanelContent.Properties },
                 { "splitContainer122.Panel1", LangCfg.PanelContent.CommentLists },
                 { "splitContainer122.Panel2", LangCfg.PanelContent.Configurable }
@@ -3240,7 +3240,7 @@ namespace QuickImageComment
                 { "Kommentarlisten", LangCfg.PanelContent.CommentLists },
                 { "Kommentar", LangCfg.PanelContent.Comment },
                 { "Konfigurierbarer Eingabebereich", LangCfg.PanelContent.Configurable },
-                { "Schlüsselworte", LangCfg.PanelContent.Keywords },
+                { "Schlüsselworte", LangCfg.PanelContent.IptcKeywords },
                 { "Bild Details", LangCfg.PanelContent.ImageDetails },
                 { "Karte", LangCfg.PanelContent.Map }
             };

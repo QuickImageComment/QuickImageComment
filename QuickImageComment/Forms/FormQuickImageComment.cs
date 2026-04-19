@@ -539,7 +539,7 @@ namespace QuickImageComment
                 { LangCfg.PanelContent.CommentLists, tabControlLastPredefComments },
                 { LangCfg.PanelContent.Configurable, theUserControlChangeableFields },
                 { LangCfg.PanelContent.Properties, tabControlProperties },
-                { LangCfg.PanelContent.Keywords, theUserControlKeyWords },
+                { LangCfg.PanelContent.IptcKeywords, theUserControlKeyWords },
                 // add the panel, not the whole user control to assure resizing
                 { LangCfg.PanelContent.ImageDetails, null },
                 { LangCfg.PanelContent.Map, null }
@@ -2655,7 +2655,7 @@ namespace QuickImageComment
             SortedList panelContents = ConfigDefinition.getSplitContainerPanelContents();
             for (int ii = 0; ii < panelContents.Count; ii++)
             {
-                if ((LangCfg.PanelContent)panelContents.GetByIndex(ii) == LangCfg.PanelContent.Keywords)
+                if ((LangCfg.PanelContent)panelContents.GetByIndex(ii) == LangCfg.PanelContent.IptcKeywords)
                 {
                     string panel = ((string)panelContents.GetKey(ii));
                     userControlKeyWordsVisible = !panelCollapsed[panel];

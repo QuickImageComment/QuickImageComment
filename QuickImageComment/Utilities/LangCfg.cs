@@ -36,7 +36,7 @@ namespace QuickImageComment
             CommentLists,
             Comment,
             Configurable,
-            Keywords,
+            IptcKeywords, // hint v5.00: not renamed to Keywords, caused crash due to incompatibility with older configuration files
             ImageDetails,
             Map,
             Empty
