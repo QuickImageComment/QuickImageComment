@@ -2475,8 +2475,8 @@ namespace QuickImageComment
             EditExternalDefinitionArrayList = new ArrayList(newEditExternalArrayList);
         }
 
-        // get program path from external definition for a tooltip text (user defined button)
-        public static string getProgramPathFromEditExternalDefinition(string tooltipText)
+        // get edit external definition for a tooltip text (user defined button)
+        internal static EditExternalDefinition getEditExternalDefinition(string tooltipText)
         {
             foreach (EditExternalDefinition editExternalDefinition in ConfigDefinition.getEditExternalDefinitionArrayList())
             {
@@ -2484,10 +2484,20 @@ namespace QuickImageComment
                 // as new languages may be added, no complete comparison is made here
                 if (tooltipText.EndsWith(" - " + editExternalDefinition.Name))
                 {
-                    return editExternalDefinition.programPath;
+                    return editExternalDefinition;
                 }
             }
-            return "";
+            return null;
+        }
+
+        // get program path from external definition for a tooltip text (user defined button)
+        public static string getProgramPathFromEditExternalDefinition(string tooltipText)
+        {
+            EditExternalDefinition editExternalDefinition = getEditExternalDefinition(tooltipText);
+            if (editExternalDefinition != null)
+                return editExternalDefinition.programPath;
+            else
+                return "";
         }
 
         // list of files causing fatal exiv2 exception

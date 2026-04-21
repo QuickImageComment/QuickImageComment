@@ -261,6 +261,7 @@ namespace QuickImageComment
             this.pictureBoxProgramPath.Location = new System.Drawing.Point(915, 315);
             this.pictureBoxProgramPath.Name = "pictureBoxProgramPath";
             this.pictureBoxProgramPath.Size = new System.Drawing.Size(32, 32);
+            this.pictureBoxProgramPath.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBoxProgramPath.TabIndex = 17;
             this.pictureBoxProgramPath.TabStop = false;
             // 
@@ -321,9 +322,11 @@ namespace QuickImageComment
             // 
             // Dynamic_ColumnIcon
             // 
+            this.Dynamic_ColumnIcon.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.Dynamic_ColumnIcon.HeaderText = "Icon";
+            this.Dynamic_ColumnIcon.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
             this.Dynamic_ColumnIcon.Name = "Dynamic_ColumnIcon";
-            this.Dynamic_ColumnIcon.Width = 5;
+            this.Dynamic_ColumnIcon.Width = 40;
             // 
             // Dynamic_ColumnText
             // 

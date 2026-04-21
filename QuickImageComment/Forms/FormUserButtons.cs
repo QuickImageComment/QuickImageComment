@@ -13,6 +13,7 @@ namespace QuickImageComment
 
         private FormCustomization.Interface CustomizationInterface;
         private ArrayList NodeTagList;
+        private string uriIconName ="";
 
         public bool settingsChanged = true;
 
@@ -293,8 +294,16 @@ namespace QuickImageComment
                 }
                 else if (radioButtonProgrammPath.Checked)
                 {
-                    selectedRow.Cells[3].Value = "*prgPath*";
-                    selectedRow.Cells[0].Value = pictureBoxProgramPath.Image;
+                    if (uriIconName.Equals(""))
+                    {
+                        selectedRow.Cells[3].Value = "*prgPath*";
+                        selectedRow.Cells[0].Value = pictureBoxProgramPath.Image;
+                    }
+                    else
+                    {
+                        selectedRow.Cells[3].Value = uriIconName;
+                        selectedRow.Cells[0].Value = Properties.Resources.ResourceManager.GetObject(uriIconName);
+                    }
                 }
                 else if (radioButtonImagePath.Checked)
                 {
@@ -314,6 +323,7 @@ namespace QuickImageComment
             radioButtonProgrammPath.Enabled = false;
             radioButtonImagePath.Checked = false;
             pictureBoxProgramPath.Image = null;
+            uriIconName = "";
 
             if (dataGridViewButtons.SelectedCells.Count > 0)
             {
@@ -323,11 +333,21 @@ namespace QuickImageComment
                 buttonUp.Enabled = rowIndex > 0;
                 buttonDown.Enabled = rowIndex < dataGridViewButtons.Rows.Count - 1;
 
-                string programPath = ConfigDefinition.getProgramPathFromEditExternalDefinition((string)dataGridViewButtons.SelectedCells[0].OwningRow.Cells[1].Value);
-                if (!programPath.Equals(""))
+                EditExternalDefinition editExternalDefinition = ConfigDefinition.getEditExternalDefinition((string)dataGridViewButtons.SelectedCells[0].OwningRow.Cells[1].Value);
+                if (editExternalDefinition != null)
                 {
-                    pictureBoxProgramPath.Image = GeneralUtilities.getBitMapFromPath(programPath);
-                    radioButtonProgrammPath.Enabled = true;
+                    if (editExternalDefinition.commandType == EditExternalDefinition.CommandType.ProgramReference)
+                    {
+                        pictureBoxProgramPath.Image = GeneralUtilities.getBitMapFromPath(editExternalDefinition.programPath);
+                        radioButtonProgrammPath.Enabled = true;
+                    }
+                    else if (editExternalDefinition.commandType == EditExternalDefinition.CommandType.URI &&
+                             editExternalDefinition.commandOrOptions.StartsWith("ms-photos:viewer"))
+                    {
+                        uriIconName = "_forURI_ms_photos";
+                        pictureBoxProgramPath.Image = (System.Drawing.Image)Properties.Resources.ResourceManager.GetObject(uriIconName);
+                        radioButtonProgrammPath.Enabled = true;
+                    }
                 }
                 if (System.IO.File.Exists((string)selectedRow.Cells[3].Value))
                 {
@@ -458,7 +478,6 @@ namespace QuickImageComment
             listViewIcons.Items.Add(new ListViewItem("Ok"));
             listViewIcons.Items.Add(new ListViewItem("Paint_over_pixels"));
             listViewIcons.Items.Add(new ListViewItem("Pantone"));
-            listViewIcons.Items.Add(new ListViewItem("Photos"));
             listViewIcons.Items.Add(new ListViewItem("Picture"));
             listViewIcons.Items.Add(new ListViewItem("Pie_chart"));
             listViewIcons.Items.Add(new ListViewItem("Pin"));

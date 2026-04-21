@@ -113,6 +113,16 @@ namespace QuickImageComment.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _forURI_ms_photos {
+            get {
+                object obj = ResourceManager.GetObject("_forURI_ms_photos", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Add {
             get {
                 object obj = ResourceManager.GetObject("Add", resourceCulture);
@@ -866,16 +876,6 @@ namespace QuickImageComment.Properties {
         internal static System.Drawing.Bitmap Pantone {
             get {
                 object obj = ResourceManager.GetObject("Pantone", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Photos {
-            get {
-                object obj = ResourceManager.GetObject("Photos", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
