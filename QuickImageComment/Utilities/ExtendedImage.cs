@@ -558,7 +558,7 @@ namespace QuickImageComment
             if (ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.ExifToolLogRead))
             {
                 string duration = DateTime.Now.Subtract(startTime).TotalMilliseconds.ToString("0");
-                Logger.logWithDateTime(
+                Logger.logWithDateTime(    // permanent use of Logger
                     "General options:" + ConfigDefinition.getConfigString(ConfigDefinition.enumConfigString.ExifToolGeneralOptionsRead) +
                     " User options:" + ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.ExifToolOptionsRead).Replace('|', ' ') +
                     "\t" + ImageFileName + "\tDuration[ms]:\t" + duration + "\tValues read:\t" + ExifToolMetaDataItems.Count.ToString());

@@ -6,16 +6,19 @@ Erweiterungen und Verbesserungen:
 * Im zentralen Eingabebereich der Hauptmaske wird über Quickinfo angezeigt, in welche Felder Künstler (Autor) und Kommentar gespeichert werden. Dies ersetzt die alte Logik, bei der der Feldname als Beschriftung genutzt wurde.
 * Optional können Änderungen von Metadaten - auch außerhalb von QuickImageComment - protokolliert werden.
 * Start externer Programme über URI (z.B. Microsoft Photos)
-* Erkennung der Änderungen von Dateien außerhalb von QuickImageComment und entsprechende Aktualisierung in QuickImageComment ist nun zuverlässiger.
+* Erkennung der Änderungen von Dateien außerhalb von QuickImageComment und entsprechende Aktualisierung in QuickImageComment ist nun zuverlässiger, allerdings wird mit diesem neuen Ansatz die Ordnerliste nicht mehr aktualisiert, sondern nur die Liste der angezeigten Bilder/Videos.
 * Nur für die .Net 4.6.1-Varianten: Neue Version 0.28.7 der exiv2-Bibliothek integriert: weitere Kameramodell- und Objektiv-IDs hinzugefügt und kleinere Bugs behoben.
 * Nur für die .Net 4.6.1-Varianten: Einige Tags speichern das Datum in Sekunden seit dem 01.01.1904: Diese werden nun im Datumsformat angezeigt.
 * Neuer allgemeiner Parameter: Beim Anlegen neuer Definitionen in Maske "Felddefinitionen" wird vollständiger Tag-Name als Name der Definition verwendet. Falls nicht auf "yes" gesetzt, wird wie bisher der letzte beschreibende Teil des Tag-Namens verwendet.
+* In der Maske "Einstellungen" kann nun auch Iptc.Application2.Byline für das Speichern von Künstler (Autor) ausgewählt werden.
 
 Folgende Fehler wurden behoben:
 
 * Reiter Exif/IPTC/XMP/Sonstige: Das Ein- und Ausblenden der Eigenschaften einer Gruppe funktionierte nicht.
 
-Hinweis: Die Version 5.00 bietet neue Konfigurationsmöglichkeiten. Je nach Nutzung dieser Möglichkeiten empfiehlt es sich, die vorhandenen Benutzereinstellungen zu prüfen und ggfs. zu ändern. Details hierzu in der Hilfe unter Kapitel 2.3 Upgrades.
+Hinweise: 
+* Die Version 5.00 bietet neue Konfigurationsmöglichkeiten. Je nach Nutzung dieser Möglichkeiten empfiehlt es sich, die vorhandenen Benutzereinstellungen zu prüfen und ggfs. zu ändern. Details hierzu in der Hilfe unter Kapitel 2.3 Upgrades.
+* Die Benutzeranleitung enthält nun im Kapitel "Metadata Working Group (MWG)" einen Verweis auf die "Guidelines for handling image metadata". Basierend auf diesen Guidelines sind Empfehlungen für die Konfiguration dieses Programmes ergänzt worden. 
 </Program_Change_Info_German>
 <Program_Change_Info_English>
 Enhancements and improvements:
@@ -24,14 +27,17 @@ Enhancements and improvements:
 * In the central input area of the main screen, ToolTip displays the fields in which Artist (author) and comment are saved. This replaces the old logic where the label was used to show the field name.
 * Optionally, changes to metadata can be logged - even changes outside QuickImageComment.
 * Start of external programs via URI (e.g. Microsoft Photos)
-* Detection of changes to files outside QuickImageComment and corresponding updates in QuickImageComment is now more reliable.
+* Detection of changes to files outside QuickImageComment and corresponding updates in QuickImageComment is now more reliable, however, with this new approach, the folder list is no longer updated, only the list of displayed images/videos.
 * Only for the .Net 4.6.1 variants: New version 0.28.7 of the exiv2 library integrated: more camera model and lens IDs added and minor bugs fixed.
 * Only for the .Net 4.6.1 variants: Some tags store date in seconds since 1904-01-01: they are now shown in date format.
 * New general parameter: When creating new definitions in the "Field Definitions" mask, the complete tag name is used as the name of the definition. If not set to "yes," the last descriptive part of the tag name will be used as before.
+* In the "Settings" dialog, you can now also select Iptc.Application2.Byline for saving artist (author) information.
 
 The following errors have been fixed:
 
 * Exif/IPTC/XMP/Other tab: Showing and hiding the properties of a group did not work.
 
-Note: Version 5.00 offers new configuration options. Depending on how you use these options, it is advisable to check your existing user settings and change them if necessary. For details, see the Help section under Chapter 2.3 Upgrades.
+Notes: 
+* Version 5.00 offers new configuration options. Depending on how you use these options, it is advisable to check your existing user settings and change them if necessary. For details, see the Help section under Chapter 2.3 Upgrades.
+* The user manual now includes a reference to the "Guidelines for handling image metadata" in the "Metadata Working Group (MWG)" chapter. Recommendations for configuring this program have been added based on these guidelines. 
 </Program_Change_Info_English>

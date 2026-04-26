@@ -13,7 +13,7 @@ namespace QuickImageComment
 
         private FormCustomization.Interface CustomizationInterface;
         private ArrayList NodeTagList;
-        private string uriIconName ="";
+        private string uriIconName = "";
 
         public bool settingsChanged = true;
 

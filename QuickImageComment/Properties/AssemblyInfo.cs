@@ -24,7 +24,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Norbert Wagner")]
 [assembly: AssemblyProduct("QuickImageComment")]
-[assembly: AssemblyCopyright("Copyright © Norbert Wagner 2007-2025")]
+[assembly: AssemblyCopyright("Copyright © Norbert Wagner 2007-2026")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -52,12 +52,12 @@ class AssemblyInfo
 #if DEBUG
     public const string VersionSuffix = "-DBG";
 #else
-    public const string VersionSuffix = "-Beta-2";
+    public const string VersionSuffix = "";
 #endif
     // Version to Check is the last published version
     // for beta versions it is one before AssemblyVersion
     // for released versions it is same as AssemblyVersion
-    public const string VersionToCheck = "4.67";
+    public const string VersionToCheck = "5.00";
 
 #if PLATFORMTARGET_X64
     public const string Platform = " - 64 Bit";

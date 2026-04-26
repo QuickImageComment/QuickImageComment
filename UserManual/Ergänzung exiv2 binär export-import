@@ -1,0 +1,10 @@
+Binärer Export aller Eigenschaften der markierten Bilder	Schreibt alle Eigenschaften der markierten Bilder in .exv-Dateien, ein Format, das auch das Kommandozeilentool exiv2 für Export und Import verwendet.
+Der Export kann als Sicherung der Metadaten genutzt werden. Diese Sicherung kann verwendet werden, wenn durch Bearbeitung des Bildes oder Umwandlung in ein anderes Format Metadaten verloren gehen. 
+Der Export kann ggfs. auch anstatt des Bildes als Anhang zu einer Fehlermeldung an quickimagecomment@gmail.com verwendet werden.
+Binärer Import aller Eigenschaften der markierten Bilder	Importiert die Metadaten von einer .exv-Exportdatei, wobei Dateinamen der Exportdatei und Zieldatei bis auf die Erweiterung identisch sind.
+
+
+Binary export of all properties of the selected images	Writes all properties of the selected images to .exv files, a format that is also used by the command line tool exiv2 for export and import.
+The export can be used as a backup of the metadata. This backup can be used if metadata is lost when editing the image or converting it to another format. 
+If necessary, the export can also be used instead of the image as an attachment to an error message to quickimagecomment@gmail.com.
+Binary import of all properties of the selected images	Imports the metadata from an .exv export file, whereby the file names of the export file and target file are identical except for the extension.

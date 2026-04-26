@@ -173,7 +173,7 @@ namespace QuickImageComment
             {
                 if (m.Msg == WM_CANCELMODE)
                 {
-                    Logger.log("TOOLTIP: WM_CANCELMODE swallowed");
+                    //Logger.log("TOOLTIP: WM_CANCELMODE swallowed");
                     // swallow the message so it doesn't propagate
                     return;
                 }

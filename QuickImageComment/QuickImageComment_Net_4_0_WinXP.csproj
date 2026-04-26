@@ -222,6 +222,7 @@
     <Compile Include="Utilities\DirectoryWatcher.cs" />
     <Compile Include="Utilities\DropFileOnProcess.cs" />
     <Compile Include="Utilities\EditExternalDefinition.cs" />
+    <Compile Include="Utilities\PngHelper.cs" />
     <Compile Include="Utilities\TagUtilities.cs" />
     <Compile Include="Utilities\UserButtonDefinition.cs" />
     <Compile Include="Utilities\ConfigDefinition.cs" />
