@@ -106,15 +106,15 @@ namespace QuickImageComment
             // get version information
             Assembly ExecAssembly = Assembly.GetExecutingAssembly();
             System.Version assemblyVersion = ExecAssembly.GetName().Version;
+            VersionNumber = assemblyVersion.Major + "." + assemblyVersion.Minor.ToString("00");
             if (AssemblyInfo.VersionSuffix.Equals(""))
             {
-                if (!AssemblyInfo.VersionToCheck.Equals(assemblyVersion.Major + "." + assemblyVersion.Minor))
+                if (!AssemblyInfo.VersionToCheck.Equals(VersionNumber))
                 {
                     GeneralUtilities.debugMessage("AssemblyInfo.VersionToCheck does not fit to Version");
                 }
             }
 
-            VersionNumber = assemblyVersion.Major + "." + assemblyVersion.Minor;
             VersionNumberInformational = Application.ProductVersion;
             if (AssemblyInfo.VersionSuffix.Equals(""))
                 VersionNumberOnlyWhenSuffixDefined = "";
