@@ -3238,6 +3238,55 @@ namespace Exiv2 {
         return os << stringValue;
     }
 
+    std::ostream& printXmpDate1904(std::ostream& os, const Value& value, const ExifData*) {
+        if (value.typeId() != xmpText) {
+            return os << value;
+        }
+
+        // seconds from 1904-01-01 to 1970-01-01
+        const int64_t diff = (int64_t)2082844800;
+        int64_t secondsSince1904 = value.toLong();
+        if (diff > secondsSince1904) {
+            return os << secondsSince1904 << " # " << value;
+        }
+        else {
+            int64_t secondsSince1970 = secondsSince1904 - diff;
+            time_t tt = (time_t)secondsSince1970;
+            char timeString[20];
+            std::strftime(timeString, sizeof(timeString), "%Y:%m:%d %H:%M:%S", std::gmtime(&tt));
+            return os << timeString;
+        }
+    }
+
+    //std::ostream& printXmpDate1904(std::ostream& os, const Value& value, const ExifData*) {
+    //    if (value.typeId() != xmpText) {
+    //        return os << value;
+    //    }
+
+    //    // substract seconds from 1904-01-01 to 1970-01-01
+    //    long seconds = std::stoll(value.toString()) - 2082844800;
+    //    if (seconds < 0) {
+    //        return os << value;
+    //    }
+    //    else {
+    //        time_t secondsSince1904 = (time_t)seconds;
+    //        //tm* gmtm = gmtime(&secondsSince1904);
+    //        char timeString[20];
+    //        //secondsSince1904 = (time_t)2082844800;
+    //        //std::time_t t = std::time(nullptr);
+    //        std::strftime(timeString, sizeof(timeString), "%Y:%m:%d %H:%M:%S", std::gmtime(&secondsSince1904));
+    //        return os << seconds << " # " << timeString;
+    //    }
+    //    //    std::cout << mbstr << '\n';
+    //    //char[20] buffer;
+    //    //return os <<  1900 << std::strftime( gmtm->tm_year;
+    //    //    //<< ":" << std::setw(2) << std::setfill('0') << gmtm->tm_mon
+    //    //    //<< ":" << std::setw(2) << std::setfill('0') << gmtm->tm_mday
+    //    //    //<< " " << std::setw(2) << std::setfill('0') << gmtm->tm_hour
+    //    //    //<< ":" << std::setw(2) << std::setfill('0') << gmtm->tm_min
+    //    //    //<< ":" << std::setw(2) << std::setfill('0') << gmtm->tm_sec;
+    //}
+
     const GroupInfo *groupList()
     {
         return groupInfo + 1;

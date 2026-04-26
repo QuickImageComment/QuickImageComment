@@ -33,7 +33,7 @@
 
 //#define TRACING 200
 
-#define VERSION "0.27.5.3"
+#define VERSION "0.27.5.4"
 
 // NOTE: must match definition in ConfigDefinition.cs
 const char* exiv2_exception_file = "\\QIC_exiv2_exception.txt";
@@ -169,7 +169,7 @@ static const EasyAccess easyAccess[] = {
 //-------------------------------------------------------------------------
 // get list of Exif tags
 //-------------------------------------------------------------------------
-extern "C" __declspec(dllexport) int __cdecl exiv2getExifTagDescriptions(LPSTR * retStr) {
+extern "C" __declspec(dllexport) int __cdecl exiv2getExifTagDescriptions(LPSTR* retStr) {
     std::ostringstream oss;
 
     const Exiv2::GroupInfo* groupList = Exiv2::ExifTags::groupList();
@@ -213,7 +213,7 @@ extern "C" __declspec(dllexport) int __cdecl exiv2getExifTagDescriptions(LPSTR *
 //-------------------------------------------------------------------------
 // get Exif Easy description by index
 //-------------------------------------------------------------------------
-extern "C" __declspec(dllexport) int __cdecl exiv2getExifEasyTagDescription(int index, LPSTR * key, LPSTR * desc) {
+extern "C" __declspec(dllexport) int __cdecl exiv2getExifEasyTagDescription(int index, LPSTR* key, LPSTR* desc) {
     if (index < EXV_COUNTOF(easyAccess)) {
         *key = strdup(easyAccess[index].tagName);
         *desc = strdup(easyAccess[index].label_);
@@ -227,8 +227,8 @@ extern "C" __declspec(dllexport) int __cdecl exiv2getExifEasyTagDescription(int 
 //-------------------------------------------------------------------------
 // get list of IPTC tags
 //-------------------------------------------------------------------------
-//!! with exiv2 1.0 try a more generic approach (see loop in Exiv2::IptcDataSets::dataSetList)
-extern "C" __declspec(dllexport) int __cdecl exiv2getIptcTagDescriptions(LPSTR * retStr) {
+//!!: with exiv2 1.0 try a more generic approach (see loop in Exiv2::IptcDataSets::dataSetList)
+extern "C" __declspec(dllexport) int __cdecl exiv2getIptcTagDescriptions(LPSTR* retStr) {
     std::ostringstream oss;
 
     const Exiv2::DataSet* record = Exiv2::IptcDataSets::envelopeRecordList();
@@ -253,7 +253,7 @@ extern "C" __declspec(dllexport) int __cdecl exiv2getIptcTagDescriptions(LPSTR *
 //-------------------------------------------------------------------------
 // get list of XMP tags
 //-------------------------------------------------------------------------
-extern "C" __declspec(dllexport) int __cdecl exiv2getXmpTagDescriptions(LPSTR * retStr) {
+extern "C" __declspec(dllexport) int __cdecl exiv2getXmpTagDescriptions(LPSTR* retStr) {
     std::ostringstream oss;
 
     const Exiv2::XmpNsInfo* groupList = Exiv2::getXmpNsInfo();
@@ -266,6 +266,7 @@ extern "C" __declspec(dllexport) int __cdecl exiv2getXmpTagDescriptions(LPSTR * 
                     oss << "Xmp." << groupList->prefix_ << "."
                         << pl[i].name_ << "\t"
                         << Exiv2::TypeInfo::typeName(pl[i].typeId_) << "\t"
+                        << pl[i].xmpValueType_ << "\t"
                         << pl[i].desc_ << "\n";
                 }
             }
@@ -299,17 +300,22 @@ extern "C" __declspec(dllexport) int __cdecl isExifMakernote(LPSTR metaDataClass
     return 0;
 }
 
+//-------------------------------------------------------------------------
 // Read data from image using file name
 //-------------------------------------------------------------------------
 extern "C" __declspec(dllexport) int __cdecl exiv2readImageByFileName(LPSTR fileName, LPSTR givenIniPath,
-    LPSTR * comment, bool* IptcUTF8, LPSTR * errorText)
+    LPSTR* comment, bool* IptcUTF8, LPSTR* errorText)
 {
     // set file name used fundamental exception handling 
     imageFileName = fileName;
+
     xmpBagSeqCount = -1;
     xmpLangLoop = false;
     *errorText = strdup("");
     Exiv2::Internal::setIniPath(givenIniPath);
+#ifdef EXV_ENABLE_BMFF
+    Exiv2::enableBMFF();
+#endif
 
     try
     {
@@ -358,17 +364,17 @@ extern "C" __declspec(dllexport) int __cdecl exiv2readImageByFileName(LPSTR file
 
 // get Exif buffer and first meta data item
 extern "C" __declspec(dllexport) int __cdecl exiv2getExifDataIteratorAll(bool* exifAvail,
-    LPSTR * errorText) {
+    LPSTR* errorText) {
     try {
-    *exifAvail = false;
-    exifDataRead = image->exifData();
-    if (!exifDataRead.empty()) {
-        exifEndItem = exifDataRead.end();
-        exifMetaDataItem = exifDataRead.begin();
-        if (exifMetaDataItem != exifEndItem) {
-            *exifAvail = true;
+        *exifAvail = false;
+        exifDataRead = image->exifData();
+        if (!exifDataRead.empty()) {
+            exifEndItem = exifDataRead.end();
+            exifMetaDataItem = exifDataRead.begin();
+            if (exifMetaDataItem != exifEndItem) {
+                *exifAvail = true;
+            }
         }
-    }
         return 0;
     }
     catch (Exiv2::Error& e) {
@@ -384,17 +390,17 @@ extern "C" __declspec(dllexport) int __cdecl exiv2getExifDataIteratorAll(bool* e
 
 // get Exif buffer and first meta data item for key
 extern "C" __declspec(dllexport) int __cdecl exiv2getExifDataIteratorKey(LPSTR keyString, bool* exifAvail,
-    LPSTR * errorText) {
+    LPSTR* errorText) {
     try {
-    *exifAvail = false;
-    exifDataRead = image->exifData();
-    if (!exifDataRead.empty()) {
-        exifEndItem = exifDataRead.end();
-        exifMetaDataItem = exifDataRead.findKey(Exiv2::ExifKey(keyString));
-        if (exifMetaDataItem != exifEndItem) {
-            *exifAvail = true;
+        *exifAvail = false;
+        exifDataRead = image->exifData();
+        if (!exifDataRead.empty()) {
+            exifEndItem = exifDataRead.end();
+            exifMetaDataItem = exifDataRead.findKey(Exiv2::ExifKey(keyString));
+            if (exifMetaDataItem != exifEndItem) {
+                *exifAvail = true;
+            }
         }
-    }
         return 0;
     }
     catch (Exiv2::Error& e) {
@@ -409,8 +415,8 @@ extern "C" __declspec(dllexport) int __cdecl exiv2getExifDataIteratorKey(LPSTR k
 }
 
 // return one Exif meta data item and get next
-extern "C" __declspec(dllexport) int __cdecl exiv2getExifDataItem(LPSTR * keyString, long* tag, LPSTR * typeName, long* count,
-    long* size, LPSTR * valueString, LPSTR * interpretedString, float* valueFloat, bool* exifAvail, LPSTR * errorText) {
+extern "C" __declspec(dllexport) int __cdecl exiv2getExifDataItem(LPSTR* keyString, long* tag, LPSTR* typeName, long* count,
+    long* size, LPSTR* valueString, LPSTR* interpretedString, float* valueFloat, bool* exifAvail, LPSTR* errorText) {
 
     *errorText = strdup("");
     try {
@@ -502,8 +508,8 @@ extern "C" __declspec(dllexport) int __cdecl exiv2getExifDataItem(LPSTR * keyStr
 //-------------------------------------------------------------------------
 // get one Exif Easy Access meta data item
 //-------------------------------------------------------------------------
-extern "C" __declspec(dllexport) int __cdecl exiv2getExifEasyDataItem(int* index, LPSTR * keyString, long* tag, LPSTR * typeName, long* count,
-    long* size, LPSTR * valueString, LPSTR * interpretedString, float* valueFloat, LPSTR * errorText) {
+extern "C" __declspec(dllexport) int __cdecl exiv2getExifEasyDataItem(int* index, LPSTR* keyString, long* tag, LPSTR* typeName, long* count,
+    long* size, LPSTR* valueString, LPSTR* interpretedString, float* valueFloat, LPSTR* errorText) {
 
     *errorText = strdup("");
     try {
@@ -548,17 +554,17 @@ extern "C" __declspec(dllexport) int __cdecl exiv2getExifEasyDataItem(int* index
 
 // get Iptc buffer and first meta data item
 extern "C" __declspec(dllexport) int __cdecl exiv2getIptcDataIteratorAll(bool* iptcAvail,
-    LPSTR * errorText) {
+    LPSTR* errorText) {
     try {
-    *iptcAvail = false;
-    Exiv2::IptcData& iptcData = image->iptcData();
-    if (!iptcData.empty()) {
-        iptcEndItem = iptcData.end();
-        iptcMetaDataItem = iptcData.begin();
-        if (iptcMetaDataItem != iptcEndItem) {
-            *iptcAvail = true;
+        *iptcAvail = false;
+        Exiv2::IptcData& iptcData = image->iptcData();
+        if (!iptcData.empty()) {
+            iptcEndItem = iptcData.end();
+            iptcMetaDataItem = iptcData.begin();
+            if (iptcMetaDataItem != iptcEndItem) {
+                *iptcAvail = true;
+            }
         }
-    }
         return 0;
     }
     catch (Exiv2::Error& e) {
@@ -574,17 +580,17 @@ extern "C" __declspec(dllexport) int __cdecl exiv2getIptcDataIteratorAll(bool* i
 
 // get Iptc buffer and first meta data item for key
 extern "C" __declspec(dllexport) int __cdecl exiv2getIptcDataIteratorKey(LPSTR keyString, bool* iptcAvail,
-    LPSTR * errorText) {
+    LPSTR* errorText) {
     try {
-    *iptcAvail = false;
-    Exiv2::IptcData& iptcData = image->iptcData();
-    if (!iptcData.empty()) {
-        iptcEndItem = iptcData.end();
-        iptcMetaDataItem = iptcData.findKey(Exiv2::IptcKey(keyString));
-        if (iptcMetaDataItem != iptcEndItem) {
-            *iptcAvail = true;
+        *iptcAvail = false;
+        Exiv2::IptcData& iptcData = image->iptcData();
+        if (!iptcData.empty()) {
+            iptcEndItem = iptcData.end();
+            iptcMetaDataItem = iptcData.findKey(Exiv2::IptcKey(keyString));
+            if (iptcMetaDataItem != iptcEndItem) {
+                *iptcAvail = true;
+            }
         }
-    }
         return 0;
     }
     catch (Exiv2::Error& e) {
@@ -599,8 +605,8 @@ extern "C" __declspec(dllexport) int __cdecl exiv2getIptcDataIteratorKey(LPSTR k
 }
 
 // return one IPTC meta data item and get next
-extern "C" __declspec(dllexport) int __cdecl exiv2getIptcDataItem(LPSTR * keyString, long* tag, LPSTR * typeName, long* count,
-    long* size, LPSTR * valueString, LPSTR * interpretedString, float* valueFloat, bool* iptcAvail, LPSTR * errorText) {
+extern "C" __declspec(dllexport) int __cdecl exiv2getIptcDataItem(LPSTR* keyString, long* tag, LPSTR* typeName, long* count,
+    long* size, LPSTR* valueString, LPSTR* interpretedString, float* valueFloat, bool* iptcAvail, LPSTR* errorText) {
 
     *errorText = strdup("");
     try {
@@ -641,17 +647,17 @@ extern "C" __declspec(dllexport) int __cdecl exiv2getIptcDataItem(LPSTR * keyStr
 
 // get Xmp buffer and first meta data item
 extern "C" __declspec(dllexport) int __cdecl exiv2getXmpDataIteratorAll(bool* xmpAvail,
-    LPSTR * errorText) {
+    LPSTR* errorText) {
     try {
-    *xmpAvail = false;
-    Exiv2::XmpData& xmpData = image->xmpData();
-    if (!xmpData.empty()) {
-        xmpEndItem = xmpData.end();
-        xmpMetaDataItem = xmpData.begin();
-        if (xmpMetaDataItem != xmpEndItem) {
-            *xmpAvail = true;
+        *xmpAvail = false;
+        Exiv2::XmpData& xmpData = image->xmpData();
+        if (!xmpData.empty()) {
+            xmpEndItem = xmpData.end();
+            xmpMetaDataItem = xmpData.begin();
+            if (xmpMetaDataItem != xmpEndItem) {
+                *xmpAvail = true;
+            }
         }
-    }
         return 0;
     }
     catch (Exiv2::Error& e) {
@@ -667,17 +673,17 @@ extern "C" __declspec(dllexport) int __cdecl exiv2getXmpDataIteratorAll(bool* xm
 
 // get Xmp buffer and first meta data item for key
 extern "C" __declspec(dllexport) int __cdecl exiv2getXmpDataIteratorKey(LPSTR keyString, bool* xmpAvail,
-    LPSTR * errorText) {
+    LPSTR* errorText) {
     try {
-    *xmpAvail = false;
-    Exiv2::XmpData& xmpData = image->xmpData();
-    if (!xmpData.empty()) {
-        xmpEndItem = xmpData.end();
-        xmpMetaDataItem = xmpData.findKey(Exiv2::XmpKey(keyString));
-        if (xmpMetaDataItem != xmpEndItem) {
-            *xmpAvail = true;
+        *xmpAvail = false;
+        Exiv2::XmpData& xmpData = image->xmpData();
+        if (!xmpData.empty()) {
+            xmpEndItem = xmpData.end();
+            xmpMetaDataItem = xmpData.findKey(Exiv2::XmpKey(keyString));
+            if (xmpMetaDataItem != xmpEndItem) {
+                *xmpAvail = true;
+            }
         }
-    }
         return 0;
     }
     catch (Exiv2::Error& e) {
@@ -705,8 +711,8 @@ static void getGeneralXmpMetaDatum(LPSTR* keyString, long* tag, LPSTR* typeName,
 }
 
 // return one XMP meta data item and get next
-extern "C" __declspec(dllexport) int __cdecl exiv2getXmpDataItem(LPSTR * keyString, long* tag, LPSTR * typeName, LPSTR * language, long* count,
-    long* size, LPSTR * valueString, LPSTR * interpretedString, float* valueFloat, bool* xmpAvail, LPSTR * errorText) {
+extern "C" __declspec(dllexport) int __cdecl exiv2getXmpDataItem(LPSTR* keyString, long* tag, LPSTR* typeName, LPSTR* language, long* count,
+    long* size, LPSTR* valueString, LPSTR* interpretedString, float* valueFloat, bool* xmpAvail, LPSTR* errorText) {
 
     *errorText = strdup("");
     try {
@@ -748,20 +754,27 @@ extern "C" __declspec(dllexport) int __cdecl exiv2getXmpDataItem(LPSTR * keyStri
                 xmpLangEnd = value.value_.end();
                 xmpLangLoop = true;
             }
-            // get language entry
-            getGeneralXmpMetaDatum(keyString, tag, typeName, language, count, size, valueFloat, xmpMetaDataItem);
-            *language = strdup(xmpLangIterator->first.c_str());
-            *valueString = strdup(xmpLangIterator->second.c_str());
-            *interpretedString = strdup(xmpLangIterator->second.c_str());
-            ++xmpLangIterator;
-            if (xmpLangIterator != xmpLangEnd) {
-                // next call will continue with next language
-                return 0;
-            }
-            else {
-                // stop loop with language
+            if (xmpLangIterator == xmpLangEnd) {
+                // stop loop with language, here tag is contained but has no language at all
                 xmpLangLoop = false;
                 // continue getting next xmpMetaDataItem
+            }
+            else {
+                // get language entry
+                getGeneralXmpMetaDatum(keyString, tag, typeName, language, count, size, valueFloat, xmpMetaDataItem);
+                *language = strdup(xmpLangIterator->first.c_str());
+                *valueString = strdup(xmpLangIterator->second.c_str());
+                *interpretedString = strdup(xmpLangIterator->second.c_str());
+                ++xmpLangIterator;
+                if (xmpLangIterator != xmpLangEnd) {
+                    // next call will continue with next language
+                    return 0;
+                }
+                else {
+                    // stop loop with language
+                    xmpLangLoop = false;
+                    // continue getting next xmpMetaDataItem
+                }
             }
         }
         else {
@@ -823,7 +836,7 @@ extern "C" __declspec(dllexport) void __cdecl exiv2addItemToBuffer(LPSTR tag, LP
 }
 
 // return UTF8 encoded string
-std::string utf8EncodedString(const std::string& str)
+static std::string utf8EncodedString(const std::string& str)
 {
     // convert to wide string
     int size_needed = MultiByteToWideChar(CP_ACP, 0, &str[0], (int)str.size(), NULL, 0);
@@ -856,7 +869,7 @@ extern "C" __declspec(dllexport) void __cdecl exiv2addUtf8ItemToBuffer(LPSTR tag
 //-------------------------------------------------------------------------
 // write metadata to image
 //-------------------------------------------------------------------------
-extern "C" __declspec(dllexport) int __cdecl exiv2writeImage(LPSTR fileName, LPSTR comment, LPSTR * errorText) {
+extern "C" __declspec(dllexport) int __cdecl exiv2writeImage(LPSTR fileName, LPSTR comment, LPSTR* errorText) {
 
 #ifdef TRACING
     // not elegant because temporary string could be longer, but this size should fit all needs - and anyhow only for tracing during development
@@ -1043,7 +1056,7 @@ extern "C" __declspec(dllexport) int __cdecl exiv2writeImage(LPSTR fileName, LPS
 //-------------------------------------------------------------------------
 // get log string by index
 //-------------------------------------------------------------------------
-extern "C" __declspec(dllexport) int __cdecl exiv2getLogString(int index, LPSTR * logString) {
+extern "C" __declspec(dllexport) int __cdecl exiv2getLogString(int index, LPSTR* logString) {
     if (index < tracingCount) {
         *logString = strdup(tracingLog[index]);
         return 0;
@@ -1056,7 +1069,7 @@ extern "C" __declspec(dllexport) int __cdecl exiv2getLogString(int index, LPSTR 
 //-------------------------------------------------------------------------
 // check if tag is repeatable
 //-------------------------------------------------------------------------
-extern "C" __declspec(dllexport) bool __cdecl exiv2tagRepeatable(LPSTR tagName) {
+extern "C" __declspec(dllexport) bool __cdecl exiv2TagRepeatable(LPSTR tagName) {
     if (!strncmp(tagName, "Exif.", 5)) {
         return false;
     }
@@ -1107,7 +1120,7 @@ extern "C" __declspec(dllexport) bool __cdecl exiv2tagRepeatable(LPSTR tagName) 
 //-------------------------------------------------------------------------
 // return interpreted value of tag
 //-------------------------------------------------------------------------
-extern "C" __declspec(dllexport) void __cdecl exiv2getInterpretedValue(LPSTR tagName, LPSTR valueString, LPSTR * interpretedValue) {
+extern "C" __declspec(dllexport) void __cdecl exiv2getInterpretedValue(LPSTR tagName, LPSTR valueString, LPSTR* interpretedValue) {
     if (!strncmp(tagName, "Exif.", 5)) {
         Exiv2::ExifKey key(tagName);
         Exiv2::Value::AutoPtr value = Exiv2::Value::create(key.defaultTypeId());

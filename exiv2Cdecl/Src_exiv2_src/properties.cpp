@@ -2445,7 +2445,17 @@ namespace Exiv2 {
         {"Xmp.plus.MinorModelAgeDisclosure",     EXV_PRINT_VOCABULARY(plusMinorModelAgeDisclosure)    },
         {"Xmp.plus.ModelReleaseStatus",          EXV_PRINT_VOCABULARY(plusModelReleaseStatus)         },
         {"Xmp.plus.PropertyReleaseStatus",       EXV_PRINT_VOCABULARY(plusPropertyReleaseStatus)      },
-        {"Xmp.plus.Reuse",                       EXV_PRINT_VOCABULARY(plusReuse)                      }
+        {"Xmp.plus.Reuse",                       EXV_PRINT_VOCABULARY(plusReuse)                      },
+        {"Xmp.video.DateUTC", printXmpDate1904},
+        {"Xmp.video.ModificationDate", printXmpDate1904},
+        {"Xmp.audio.MediaCreateDate", printXmpDate1904},
+        {"Xmp.audio.MediaModifyDate", printXmpDate1904},
+        {"Xmp.audio.TrackCreateDate", printXmpDate1904},
+        {"Xmp.audio.TrackModifyDate", printXmpDate1904},
+        {"Xmp.video.MediaCreateDate", printXmpDate1904},
+        {"Xmp.video.MediaModifyDate", printXmpDate1904},
+        {"Xmp.video.TrackCreateDate", printXmpDate1904},
+        {"Xmp.video.TrackModifyDate", printXmpDate1904},
     };
 
     XmpNsInfo::Ns::Ns(const std::string& ns)
