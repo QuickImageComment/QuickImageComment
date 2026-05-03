@@ -208,6 +208,8 @@ namespace QuickImageComment
             // Required for Windows Form Designer support
             InitializeComponent();
 
+            pictureBox1.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseWheel);
+
             // For menu items use built-in tool tip
             // When building on Windows 11 the own tool tip caused problems with menu item delete:
             // delete dialog was displayed, but disappeared almost immedeatly due to cancel events from tool tip
@@ -3541,8 +3543,8 @@ namespace QuickImageComment
             {
                 oldWidth = pictureBox1.Width;
                 oldHeigth = pictureBox1.Height;
-                scrollX = -panelPictureBox.AutoScrollPosition.X;
-                scrollY = -panelPictureBox.AutoScrollPosition.Y;
+                scrollX = -panelPictureBox.AutoScrollPosition.X + panelPictureBox.Width / 2;
+                scrollY = -panelPictureBox.AutoScrollPosition.Y + panelPictureBox.Height / 2;
                 maxWidth = panelPictureBox.Height * zoomFactor *
                     pictureBox1.Image.Width / pictureBox1.Image.Height;
                 maxHeight = panelPictureBox.Width * zoomFactor *
@@ -3575,9 +3577,9 @@ namespace QuickImageComment
 
                 // adjust scrolls bar to keep picture centered            
                 factor = pictureBox1.Height / oldHeigth;
-                newVertical = (int)(factor * scrollY + (factor - 1) * this.panelPictureBox.Height / 2);
+                newVertical = (int)(factor * scrollY) - panelPictureBox.Height / 2;
                 factor = pictureBox1.Width / oldWidth;
-                newHorizontal = (int)(factor * scrollX + (factor - 1) * this.panelPictureBox.Width / 2);
+                newHorizontal = (int)(factor * scrollX) - panelPictureBox.Width / 2;
                 panelPictureBox.AutoScrollPosition = new Point(newHorizontal, newVertical);
                 panelPictureBox.Refresh();
 
@@ -3624,17 +3626,17 @@ namespace QuickImageComment
             int newVertical;
             double factor;
             double oldWidth;
-            double oldHeigth;
+            double oldHeight;
 
             if (theExtendedImage != null && pictureBox1.Image != null)
             {
                 if (viewMode > 0)
                 {
                     oldWidth = pictureBox1.Width;
-                    oldHeigth = pictureBox1.Height;
+                    oldHeight = pictureBox1.Height;
                     // need to save AutoScrollPosition before changing pictureBox1
-                    scrollX = -panelPictureBox.AutoScrollPosition.X;
-                    scrollY = -panelPictureBox.AutoScrollPosition.Y;
+                    scrollX = -panelPictureBox.AutoScrollPosition.X + panelPictureBox.Width / 2;
+                    scrollY = -panelPictureBox.AutoScrollPosition.Y + panelPictureBox.Height / 2;
 
                     this.pictureBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left;
                     this.pictureBox1.Height = pictureBox1.Image.Height * viewModeBase / viewMode;
@@ -3650,10 +3652,10 @@ namespace QuickImageComment
                     }
 
                     // adjust scrolls bar to keep picture centered
-                    factor = pictureBox1.Height / oldHeigth;
-                    newVertical = (int)(factor * scrollY + (factor - 1) * this.panelPictureBox.Height / 2);
+                    factor = pictureBox1.Height / oldHeight;
+                    newVertical = (int)(factor * scrollY) - panelPictureBox.Height / 2;
                     factor = pictureBox1.Width / oldWidth;
-                    newHorizontal = (int)(factor * scrollX + (factor - 1) * this.panelPictureBox.Width / 2);
+                    newHorizontal = (int)(factor * scrollX) - panelPictureBox.Width / 2;
                     panelPictureBox.AutoScrollPosition = new Point(newHorizontal, newVertical);
                     panelPictureBox.Refresh();
                 }
@@ -4086,6 +4088,34 @@ namespace QuickImageComment
                     }
                 }
             }
+        }
+
+        // zoom based upon the mouse wheel scrolling
+        private void pictureBox1_MouseWheel(object sender, System.Windows.Forms.MouseEventArgs e)
+        {
+            // determine current zoom factor
+            if (viewMode > 0)
+            {
+                zoomFactor = (double)viewModeBase / viewMode;
+                // disable viewMode
+                viewMode = -1;
+            }
+
+            float modifier = 1 + (float)ConfigDefinition.getConfigInt(enumConfigInt.ZoomMainImageChangeMouseWheel) / 100;
+            if (e.Delta > 0)
+            {
+                zoomFactor *= modifier;
+#if !PLATFORMTARGET_X64
+                zoomFactor = Math.Min(4.0F, zoomFactor);
+#else
+                zoomFactor = Math.Min(8.0F, zoomFactor);
+#endif
+            }
+            else if (e.Delta < 0)
+            {
+                zoomFactor /= modifier;
+            }
+            changeImageZoom();
         }
         #endregion
 

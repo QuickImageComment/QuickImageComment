@@ -19,13 +19,14 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Threading;
 using System.Windows.Forms;
+using static QuickImageComment.ConfigDefinition;
 
 namespace QuickImageComment
 {
     public partial class UserControlImageDetails : UserControl
     {
         float[] ZoomFactors = new float[10];
-        private float maxZoom = 1.0f;
+        private float maxZoom = 9.0f;
         public float zoomFactor = 1.0f;
         private float RGBlinesWidth = 2.0f;
         private int pixelXmin;
@@ -90,6 +91,8 @@ namespace QuickImageComment
         public UserControlImageDetails(float dpiSettings, FormImageDetails givenMasterFormImageDetails)
         {
             InitializeComponent();
+
+            pictureBoxImage.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.pictureBoxImage_MouseWheel);
 
             masterFormImageDetails = givenMasterFormImageDetails;
 
@@ -310,6 +313,21 @@ namespace QuickImageComment
             }
         }
 
+        // zoom based upon the mouse wheel scrolling.
+        private void pictureBoxImage_MouseWheel(object sender, System.Windows.Forms.MouseEventArgs e)
+        {
+            // switch to variable zoom
+            comboBoxZoom.Text = LangCfg.translate("variabel", "pictureBoxImage_MouseWheel");
+            float modifier = 1 + (float)ConfigDefinition.getConfigInt(enumConfigInt.ZoomDetailImageChangeMouseWheel) / 100;
+            if (e.Delta > 0)
+                zoomFactor *= modifier;
+            else if (e.Delta < 0)
+                zoomFactor /= modifier;
+            float minZoom = calculateMinZoom(theImage);
+            hScrollBarZoom.Value = Math.Min(100, (int)((zoomFactor - minZoom) * 100.0F / (maxZoom - minZoom)));
+            dynamicLabelZoom.Text = zoomFactor.ToString("0.00");
+            refreshGraphicDisplay(false);
+        }
         // set orientation based on ratio height/width
         private void splitContainerImageDetails1_Resize(object sender, EventArgs e)
         {
@@ -449,11 +467,6 @@ namespace QuickImageComment
                 g.Clear(Color.Empty);
                 Rectangle destRect = new Rectangle(0, 0, pictureBoxImage.Width, pictureBoxImage.Height);
                 Rectangle srcRect = new Rectangle(pixelXmin, pixelYmin, pixelXmax - pixelXmin, pixelYmax - pixelYmin);
-                if (zoomFactor > 1.0f)
-                {
-                    destRect.Width = srcRect.Width * (int)zoomFactor;
-                    destRect.Height = srcRect.Height * (int)zoomFactor;
-                }
 
                 // no interpolation, show "clear" pixels here
                 e.Graphics.InterpolationMode = InterpolationMode.NearestNeighbor;
@@ -1217,15 +1230,7 @@ namespace QuickImageComment
         {
             if (comboBoxZoom.SelectedIndex == 0)
             {
-                // scrollbar value =   0 ==> fit to picture box
-                // scrollbar value = 100 ==> maximum blow-up
-                float minZoomHeight = pictureBoxImage.Height / (float)givenImage.Height;
-                float minZoomWidth = pictureBoxImage.Width / (float)givenImage.Width;
-                float minZoom = minZoomHeight;
-                if (minZoomWidth < minZoom)
-                {
-                    minZoom = minZoomWidth;
-                }
+                float minZoom = calculateMinZoom(givenImage);
                 zoomFactor = minZoom + hScrollBarZoom.Value * (maxZoom - minZoom) / 100.0F;
                 dynamicLabelZoom.Text = zoomFactor.ToString("0.00");
                 hScrollBarZoom.Enabled = true;
@@ -1237,6 +1242,20 @@ namespace QuickImageComment
                 hScrollBarZoom.Enabled = false;
                 dynamicLabelZoom.Visible = false;
             }
+        }
+
+        private float calculateMinZoom(Image givenImage)
+        {
+            // scrollbar value =   0 ==> fit to picture box
+            // scrollbar value = 100 ==> maximum blow-up
+            float minZoomHeight = pictureBoxImage.Height / (float)givenImage.Height;
+            float minZoomWidth = pictureBoxImage.Width / (float)givenImage.Width;
+            float minZoom = minZoomHeight;
+            if (minZoomWidth < minZoom)
+            {
+                minZoom = minZoomWidth;
+            }
+            return minZoom;
         }
 
         // set values in ConfigDefinition

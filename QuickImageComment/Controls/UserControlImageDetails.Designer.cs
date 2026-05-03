@@ -586,7 +586,6 @@
             this.hScrollBarZoom.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.hScrollBarZoom.Location = new System.Drawing.Point(4, 68);
-            this.hScrollBarZoom.Maximum = 109;
             this.hScrollBarZoom.Name = "hScrollBarZoom";
             this.hScrollBarZoom.Size = new System.Drawing.Size(151, 20);
             this.hScrollBarZoom.TabIndex = 7;

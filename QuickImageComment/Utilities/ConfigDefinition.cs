@@ -140,7 +140,9 @@ namespace QuickImageComment
             MaximumMemoryTolerance,
             MaximumValueLengthExport,
             BackColorValueChanged,
-            BackColorMultiEditNonDefault
+            BackColorMultiEditNonDefault,
+            ZoomMainImageChangeMouseWheel,
+            ZoomDetailImageChangeMouseWheel
         };
 
         public enum enumConfigString
