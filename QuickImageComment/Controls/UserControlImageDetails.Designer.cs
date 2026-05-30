@@ -35,7 +35,7 @@
             this.splitContainerImageDetails11 = new System.Windows.Forms.SplitContainer();
             this.splitContainerImageDetails111 = new System.Windows.Forms.SplitContainer();
             this.pictureBoxHorizontal = new System.Windows.Forms.PictureBox();
-            this.pictureBoxImage = new System.Windows.Forms.PictureBox();
+            this.pictureBoxImage = new QuickImageCommentControls.PictureBoxQIC();
             this.splitContainerImageDetails112 = new System.Windows.Forms.SplitContainer();
             this.pictureBoxVertical = new System.Windows.Forms.PictureBox();
             this.panelControlOuter = new System.Windows.Forms.Panel();
@@ -136,8 +136,6 @@
             this.splitContainerImageDetails11.Size = new System.Drawing.Size(333, 355);
             this.splitContainerImageDetails11.SplitterDistance = 229;
             this.splitContainerImageDetails11.TabIndex = 0;
-            this.splitContainerImageDetails11.SizeChanged += new System.EventHandler(this.splitContainerImageDetails11_SizeChanged);
-            this.splitContainerImageDetails11.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainerImageDetails11_Paint);
             // 
             // splitContainerImageDetails111
             // 
@@ -155,13 +153,10 @@
             // 
             this.splitContainerImageDetails111.Panel2.BackColor = System.Drawing.SystemColors.Control;
             this.splitContainerImageDetails111.Panel2.Controls.Add(this.pictureBoxImage);
-            this.splitContainerImageDetails111.Panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainerImageDetails111_Panel2_Paint);
             this.splitContainerImageDetails111.Size = new System.Drawing.Size(229, 355);
             this.splitContainerImageDetails111.SplitterDistance = 53;
             this.splitContainerImageDetails111.TabIndex = 0;
             this.splitContainerImageDetails111.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitContainerImageDetails111_SplitterMoved);
-            this.splitContainerImageDetails111.SizeChanged += new System.EventHandler(this.splitContainerImageDetails111_SizeChanged);
-            this.splitContainerImageDetails111.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainerImageDetails111_Paint);
             // 
             // pictureBoxHorizontal
             // 
@@ -169,9 +164,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBoxHorizontal.BackColor = System.Drawing.Color.White;
-            this.pictureBoxHorizontal.Location = new System.Drawing.Point(3, 0);
+            this.pictureBoxHorizontal.Location = new System.Drawing.Point(0, 0);
             this.pictureBoxHorizontal.Name = "pictureBoxHorizontal";
-            this.pictureBoxHorizontal.Size = new System.Drawing.Size(226, 54);
+            this.pictureBoxHorizontal.Size = new System.Drawing.Size(229, 53);
             this.pictureBoxHorizontal.TabIndex = 3;
             this.pictureBoxHorizontal.TabStop = false;
             this.pictureBoxHorizontal.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBoxHorizontal_Paint);
@@ -181,15 +176,15 @@
             this.pictureBoxImage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBoxImage.Location = new System.Drawing.Point(3, 0);
+            this.pictureBoxImage.BackColor = System.Drawing.SystemColors.Control;
+            this.pictureBoxImage.Location = new System.Drawing.Point(0, 0);
             this.pictureBoxImage.Name = "pictureBoxImage";
-            this.pictureBoxImage.Size = new System.Drawing.Size(226, 293);
+            this.pictureBoxImage.Size = new System.Drawing.Size(229, 297);
             this.pictureBoxImage.TabIndex = 2;
             this.pictureBoxImage.TabStop = false;
-            this.pictureBoxImage.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBoxImage_Paint);
-            this.pictureBoxImage.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBoxImage_MouseDown);
-            this.pictureBoxImage.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBoxImage_MouseMove);
-            this.pictureBoxImage.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBoxImage_MouseUp);
+            this.pictureBoxImage.zoomChanged += new QuickImageCommentControls.PictureBoxQIC.ZoomChangedEventHandler(this.pictureBoxImage_zoomChanged);
+            this.pictureBoxImage.painted += new QuickImageCommentControls.PictureBoxQIC.PaintedEventHandler(this.pictureBoxImage_painted);
+            //this.pictureBoxImage.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBoxImage_MouseMove);
             this.pictureBoxImage.Resize += new System.EventHandler(this.pictureBoxImage_Resize);
             // 
             // splitContainerImageDetails112
@@ -221,7 +216,7 @@
             this.pictureBoxVertical.BackColor = System.Drawing.Color.White;
             this.pictureBoxVertical.Location = new System.Drawing.Point(0, 0);
             this.pictureBoxVertical.Name = "pictureBoxVertical";
-            this.pictureBoxVertical.Size = new System.Drawing.Size(100, 293);
+            this.pictureBoxVertical.Size = new System.Drawing.Size(100, 297);
             this.pictureBoxVertical.TabIndex = 4;
             this.pictureBoxVertical.TabStop = false;
             this.pictureBoxVertical.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBoxVertical_Paint);
@@ -633,7 +628,7 @@
 
         private System.Windows.Forms.PictureBox pictureBoxVertical;
         private System.Windows.Forms.PictureBox pictureBoxHorizontal;
-        private System.Windows.Forms.PictureBox pictureBoxImage;
+        private QuickImageCommentControls.PictureBoxQIC pictureBoxImage;
         private System.Windows.Forms.NumericUpDown numericUpDownY;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.NumericUpDown numericUpDownX;

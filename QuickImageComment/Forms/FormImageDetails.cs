@@ -21,9 +21,9 @@ namespace QuickImageComment
 {
     public partial class FormImageDetails : FormPrevNext
     {
-        private FormCustomization.Interface CustomizationInterface;
+        private readonly FormCustomization.Interface CustomizationInterface;
         // made internal to allow creating static methods to modify reference window
-        private UserControlImageDetails theUserControlImageDetails;
+        private readonly UserControlImageDetails theUserControlImageDetails;
 
         public FormImageDetails(float dpiSettings, ExtendedImage givenExtendedImage) : base(givenExtendedImage)
         {
@@ -105,10 +105,11 @@ namespace QuickImageComment
         private void buttonOtherWindowsEqual_Click(object sender, EventArgs e)
         {
             saveConfigDefinitions();
+            bool showGrid = theUserControlImageDetails.getShowGrid();
             FormImageDetails prev1 = (FormImageDetails)previousWindow;
             while (prev1 != null)
             {
-                prev1.adjustToConfigDefinitionsZoom(theUserControlImageDetails.zoomFactor);
+                prev1.adjustToConfigDefinitionsZoom(theUserControlImageDetails.zoomFactor, showGrid);
                 prev1 = (FormImageDetails)prev1.previousWindow;
             }
         }
@@ -180,6 +181,21 @@ namespace QuickImageComment
             }
         }
 
+        // refresh display of image details in slave windows
+        public void refreshGraphicDisplayInOthers()
+        {
+            if (this.nextWindow == null)
+            {
+                // this is master, so adjust the slave windows
+                FormImageDetails prev1 = (FormImageDetails)previousWindow;
+                while (prev1 != null)
+                {
+                    prev1.Invalidate();
+                    prev1 = (FormImageDetails)prev1.previousWindow;
+                }
+            }
+        }
+
         // save the configuration data
         protected override void saveConfigDefinitions()
         {
@@ -190,7 +206,7 @@ namespace QuickImageComment
             ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.FormImageDetailsWidth, this.Width);
         }
 
-        private void adjustToConfigDefinitionsZoom(float zoomFactor)
+        private void adjustToConfigDefinitionsZoom(float zoomFactor, bool showGrid)
         {
             // seems not have much impact on speeding up layout change, but keep it
             this.SuspendLayout();
@@ -198,8 +214,9 @@ namespace QuickImageComment
             this.Width = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.FormImageDetailsWidth);
             theUserControlImageDetails.adjustColorGraphicSettings();
             theUserControlImageDetails.adjustSizeAndSplitterDistances(panel1.Size);
-            theUserControlImageDetails.zoomFactor = zoomFactor;
-            theUserControlImageDetails.refreshGraphicDisplay(true);
+            theUserControlImageDetails.setZoomFactorAndShowGrid(zoomFactor, showGrid);
+            theUserControlImageDetails.setGridColor(ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.ImageDetailsGridColor));
+            refreshGraphicDisplayInOthers();
             // seems not have much impact on speeding up layout change, but keep it
             this.ResumeLayout();
         }

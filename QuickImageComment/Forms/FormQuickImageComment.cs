@@ -30,6 +30,7 @@ using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using static QuickImageComment.ConfigDefinition;
+using static QuickImageCommentControls.PictureBoxQIC;
 using Color = System.Drawing.Color;
 using Pen = System.Drawing.Pen;
 
@@ -139,18 +140,6 @@ namespace QuickImageComment
         // replaced by using continueAfterCheckForChangesAndOptionalSaving() and getChangedFields()
         //private bool checkForChangeNecessary = false;
 
-        // position for scrolling the picture/detail frame with mouse
-        private int mouseX = 0;
-        private int mouseY = 0;
-        private int scrollX = 0;
-        private int scrollY = 0;
-        private int detailFrameX = 0;
-        private int detailFrameY = 0;
-        // other variables for scrolling the picture/detail frame with mouse
-        Rectangle detailFrameRectangle;
-        enum enumMouseMove { nothing, grid, detailFrame };
-        enumMouseMove mouseMoveMode;
-
         // used to simulate double click events for ComboBox 
         private static DateTime lastPreviousClick;
 
@@ -175,7 +164,7 @@ namespace QuickImageComment
         // view mode: fit, 1:4, 1:2, 1:1, 2:1, 4:1, 8:1
         const int viewModeBase = 8;
         private int viewMode = 0;
-        private double zoomFactor = -1;
+        private double magnificationFactor = -1;
         private double zoomFactorToolbarLast = 0f;
 
         private string labelArtistInitialText;
@@ -208,8 +197,6 @@ namespace QuickImageComment
             // Required for Windows Form Designer support
             InitializeComponent();
 
-            pictureBox1.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseWheel);
-
             // For menu items use built-in tool tip
             // When building on Windows 11 the own tool tip caused problems with menu item delete:
             // delete dialog was displayed, but disappeared almost immedeatly due to cancel events from tool tip
@@ -238,6 +225,8 @@ namespace QuickImageComment
 #else
             StartupExifToolInitNewFolder();
 #endif
+            pictureBox1.zoomChanged += pictureBox1_zoomChanged;
+
             if (DisplayFolder.Equals("") || !Directory.Exists(DisplayFolder))
                 // DisplayFolder is blank in case there is no common root folder for files given on command line
                 FolderName = GongSolutions.Shell.ShellItem.Desktop.FileSystemPath;
@@ -629,7 +618,7 @@ namespace QuickImageComment
 
             // set view for images to "fit"
             viewMode = 0;
-            zoomFactor = -1;
+            magnificationFactor = -1;
             //Program.StartupPerformance.measure("FormQIC Before changeImageView");
             changeImageView();
             //Program.StartupPerformance.measure("FormQIC after changeImageView");
@@ -1037,10 +1026,7 @@ namespace QuickImageComment
         // init directory watcher
         private void initDirectoryWatcher(string FolderName)
         {
-            if (directoryWatcher != null)
-            {
-                directoryWatcher.Dispose();
-            }
+            directoryWatcher?.Dispose();
             directoryWatcher = new DirectoryWatcher(FolderName);
             directoryWatcher.ChangeDetected += new System.Action<string, WatcherChangeTypes>(theUserControlFiles.OnChangeDetected);
         }
@@ -1104,6 +1090,61 @@ namespace QuickImageComment
             {
                 theUserControlChangeableFields.inputControlChangeableField_openFormTagValueInput(sender);
             }
+        }
+
+        private void pictureBox1_painted(object sender, PaintedEventArgs e)
+        {
+            // pictureBox1 is repainted whenever size of panel changes or file name changes
+            // use this event to center label for file name and panel for frame position
+            setPositionLabelFileName();
+            setPositionPanelFramePosition();
+
+            // calculate virtual box size
+            int virtualBoxWidth;
+            int virtualBoxHeight;
+            if (e.zoomFactor < 0f)
+            {
+                // zoom set to fit
+                virtualBoxWidth = pictureBox1.Image.Width;
+                virtualBoxHeight = pictureBox1.Image.Height;
+            }
+            else
+            {
+                virtualBoxWidth = (int)((double)pictureBox1.Width / e.zoomFactor);
+                virtualBoxHeight = (int)((double)pictureBox1.Height / e.zoomFactor);
+            }
+            // configure horizontal scrollbar
+            hScrollBar1.Minimum = 0;
+            hScrollBar1.Maximum = Math.Max(0, pictureBox1.Image.Width - 1);
+            hScrollBar1.LargeChange = virtualBoxWidth;
+            hScrollBar1.SmallChange = hScrollBar1.LargeChange / 10;
+            hScrollBar1.Enabled = virtualBoxWidth < pictureBox1.Image.Width;
+            hScrollBar1.Value = e.posX;
+
+            // configure vertical scrollbar
+            vScrollBar1.Minimum = 0;
+            vScrollBar1.Maximum = Math.Max(0, pictureBox1.Image.Height - 1);
+            vScrollBar1.LargeChange = virtualBoxHeight;
+            vScrollBar1.SmallChange = vScrollBar1.LargeChange / 10;
+            vScrollBar1.Enabled = virtualBoxHeight < pictureBox1.Image.Height;
+            vScrollBar1.Value = e.posY;
+        }
+
+        private void pictureBox1_zoomChanged(object sender, PictureBoxQIC.ZoomChangedEventArgs e)
+        {
+            viewMode = -1;
+            uncheckAllZoomControls();
+        }
+
+        private void hScrollBar1_ValueChanged(object sender, EventArgs e)
+        {
+            pictureBox1.setPosX(hScrollBar1.Value);
+        }
+
+        private void vScrollBar1_ValueChanged(object sender, EventArgs e)
+        {
+            pictureBox1.setPosY(vScrollBar1.Value);
+
         }
 
         // key event handler for text box user comment
@@ -1631,51 +1672,6 @@ namespace QuickImageComment
         private void splitContainer1_SplitterMoved(object sender, SplitterEventArgs e)
         {
             theUserControlFiles.listViewFiles.Refresh();
-        }
-
-        // event handler to paint picture box, used to draw rectangle for image details
-        private void pictureBox1_Paint(object sender, PaintEventArgs e)
-        {
-            // pictureBox1 is repainted whenever size of panel changes or file name changes
-            // use this event to center label for file name and panel for frame position
-            setPositionLabelFileName();
-            setPositionPanelFramePosition();
-
-            if (theUserControlImageDetails != null && theExtendedImage != null)
-            {
-                Size frameSize = theUserControlImageDetails.getImageDetailsSize(theExtendedImage.getFullSizeImage());
-                Color frameColor = Color.FromArgb(ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.ImageDetailsFrameColor));
-                float scaleX = pictureBox1.Width / (float)pictureBox1.Image.Width;
-                float scaleY = pictureBox1.Height / (float)pictureBox1.Image.Height;
-                float scale;
-                float offsetX = 0;
-                float offsetY = 0;
-                if (scaleX < scaleY)
-                {
-                    scale = scaleX;
-                    offsetY = (pictureBox1.Height - pictureBox1.Image.Height * scale) / 2;
-                }
-                else
-                {
-                    scale = scaleY;
-                    offsetX = (pictureBox1.Width - pictureBox1.Image.Width * scale) / 2;
-                }
-                detailFrameRectangle = new Rectangle((int)(theExtendedImage.getImageDetailsPosX() * scale + offsetX + 0.5f),
-                                                     (int)(theExtendedImage.getImageDetailsPosY() * scale + offsetY + 0.5f),
-                                                     (int)(frameSize.Width * scale + 0.5f),
-                                                     (int)(frameSize.Height * scale + 0.5f));
-                e.Graphics.DrawRectangle(new Pen(frameColor, 1.0f), detailFrameRectangle);
-                e.Graphics.DrawLine(new Pen(frameColor, 1.0f),
-                    detailFrameRectangle.X,
-                    detailFrameRectangle.Y + detailFrameRectangle.Height / 2,
-                    detailFrameRectangle.X + detailFrameRectangle.Width,
-                    detailFrameRectangle.Y + detailFrameRectangle.Height / 2);
-                e.Graphics.DrawLine(new Pen(frameColor, 1.0f),
-                    detailFrameRectangle.X + detailFrameRectangle.Width / 2,
-                    detailFrameRectangle.Y,
-                    detailFrameRectangle.X + detailFrameRectangle.Width / 2,
-                    detailFrameRectangle.Y + detailFrameRectangle.Height);
-            }
         }
 
         // event handler for Drag and Drop
@@ -3531,75 +3527,7 @@ namespace QuickImageComment
         // change image view
         private void changeImageZoom()
         {
-            int newHorizontal;
-            int newVertical;
-            double factor;
-            double oldWidth;
-            double oldHeigth;
-            double maxWidth;
-            double maxHeight;
-
-            if (theExtendedImage != null)
-            {
-                oldWidth = pictureBox1.Width;
-                oldHeigth = pictureBox1.Height;
-                scrollX = -panelPictureBox.AutoScrollPosition.X + panelPictureBox.Width / 2;
-                scrollY = -panelPictureBox.AutoScrollPosition.Y + panelPictureBox.Height / 2;
-                maxWidth = panelPictureBox.Height * zoomFactor *
-                    pictureBox1.Image.Width / pictureBox1.Image.Height;
-                maxHeight = panelPictureBox.Width * zoomFactor *
-                    pictureBox1.Image.Height / pictureBox1.Image.Width;
-
-                this.pictureBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left;
-                this.pictureBox1.Height = (int)(this.panelPictureBox.Height * zoomFactor);
-                // Do not make picture box greater than needed (based on width)
-                if (this.pictureBox1.Height > maxHeight)
-                {
-                    this.pictureBox1.Height = (int)maxHeight;
-                }
-                // Do not make picture box greater than needed (based on height)
-                this.pictureBox1.Width = (int)(this.panelPictureBox.Width * zoomFactor);
-                if (this.pictureBox1.Width > maxWidth)
-                {
-                    this.pictureBox1.Width = (int)maxWidth;
-                }
-                // Set size of picture box to at least size of panel for picture box
-                if (this.pictureBox1.Height < panelPictureBox.Height)
-                {
-                    this.pictureBox1.Height = panelPictureBox.Height;
-                    this.pictureBox1.Anchor |= AnchorStyles.Bottom;
-                }
-                if (this.pictureBox1.Width < panelPictureBox.Width)
-                {
-                    this.pictureBox1.Width = panelPictureBox.Width;
-                    this.pictureBox1.Anchor |= AnchorStyles.Right;
-                }
-
-                // adjust scrolls bar to keep picture centered            
-                factor = pictureBox1.Height / oldHeigth;
-                newVertical = (int)(factor * scrollY) - panelPictureBox.Height / 2;
-                factor = pictureBox1.Width / oldWidth;
-                newHorizontal = (int)(factor * scrollX) - panelPictureBox.Width / 2;
-                panelPictureBox.AutoScrollPosition = new Point(newHorizontal, newVertical);
-                panelPictureBox.Refresh();
-
-                toolStripMenuItemImage4.Checked = false;
-                toolStripMenuItemImage2.Checked = false;
-                toolStripMenuItemImage1.Checked = false;
-                toolStripMenuItemImageFit.Checked = false;
-                toolStripButtonImage4.BackColor = System.Drawing.Color.White;
-                toolStripButtonImage2.BackColor = System.Drawing.Color.White;
-                toolStripButtonImage1.BackColor = System.Drawing.Color.White;
-                toolStripButtonImageFit.BackColor = System.Drawing.Color.White;
-
-                // if image details is visible and thus frame in picture
-                // refresh image so that border size is adjusted
-                if (theUserControlImageDetails != null)
-                {
-                    refreshImageDetailsFrame();
-                }
-                this.Refresh();
-            }
+            pictureBox1.setMagnificationFactor(magnificationFactor);
         }
 
         private void toolStripMenuItemZoom_Click(object sender, EventArgs e)
@@ -3607,164 +3535,124 @@ namespace QuickImageComment
             if (theExtendedImage != null)
             {
                 ToolStripMenuItem theMenuItem = (ToolStripMenuItem)sender;
-                foreach (ToolStripMenuItem aMenuItem in this.toolStripMenuItemZoomFactor.DropDownItems)
-                {
-                    aMenuItem.Checked = false;
-                }
+                uncheckAllZoomControls();
                 theMenuItem.Checked = true;
                 int Index = theMenuItem.Text.IndexOf("x");
-                zoomFactor = double.Parse(theMenuItem.Text.Substring(0, Index));
+                magnificationFactor = double.Parse(theMenuItem.Text.Substring(0, Index));
                 viewMode = -1;
                 changeImageZoom();
             }
         }
 
         // change image view
-        private void changeImageView(bool useLastScrollRefence = false)
+        private void changeImageView()
         {
-            int newHorizontal;
-            int newVertical;
-            double factor;
-            double oldWidth;
-            double oldHeight;
+            if (viewMode == 0)
+                pictureBox1.setZoom(-1.0);
+            else
+                pictureBox1.setZoom((float)viewModeBase / viewMode);
+            pictureBox1.Refresh();
 
-            if (theExtendedImage != null && pictureBox1.Image != null)
+            uncheckAllZoomControls();
+
+            toolStripMenuItemImage4.Checked = (viewModeBase * 4 == viewMode);
+            toolStripMenuItemImage2.Checked = (viewModeBase * 2 == viewMode);
+            toolStripMenuItemImage1.Checked = (viewModeBase * 1 == viewMode);
+            toolStripMenuItemImageX2.Checked = (viewModeBase / 2 == viewMode);
+            toolStripMenuItemImageX4.Checked = (viewModeBase / 4 == viewMode);
+            toolStripMenuItemImageX8.Checked = (viewModeBase / 8 == viewMode);
+            toolStripMenuItemImageFit.Checked = (0 == viewMode);
+            if (viewModeBase * 4 == viewMode)
             {
-                if (viewMode > 0)
-                {
-                    oldWidth = pictureBox1.Width;
-                    oldHeight = pictureBox1.Height;
-                    // need to save AutoScrollPosition before changing pictureBox1
-                    scrollX = -panelPictureBox.AutoScrollPosition.X + panelPictureBox.Width / 2;
-                    scrollY = -panelPictureBox.AutoScrollPosition.Y + panelPictureBox.Height / 2;
-
-                    this.pictureBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left;
-                    this.pictureBox1.Height = pictureBox1.Image.Height * viewModeBase / viewMode;
-                    this.pictureBox1.Width = pictureBox1.Image.Width * viewModeBase / viewMode;
-
-                    panelPictureBox.Refresh();
-
-                    // if an auto scroll position was set before, use it
-                    if (useLastScrollRefence)
-                    {
-                        scrollX = -theExtendedImage.getAutoScrollPosition().X;
-                        scrollY = -theExtendedImage.getAutoScrollPosition().Y;
-                    }
-
-                    // adjust scrolls bar to keep picture centered
-                    factor = pictureBox1.Height / oldHeight;
-                    newVertical = (int)(factor * scrollY) - panelPictureBox.Height / 2;
-                    factor = pictureBox1.Width / oldWidth;
-                    newHorizontal = (int)(factor * scrollX) - panelPictureBox.Width / 2;
-                    panelPictureBox.AutoScrollPosition = new Point(newHorizontal, newVertical);
-                    panelPictureBox.Refresh();
-                }
-                else
-                {
-                    this.pictureBox1.Anchor = AnchorStyles.Bottom | AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-                    this.pictureBox1.Height = this.panelPictureBox.Height;
-                    this.pictureBox1.Width = this.panelPictureBox.Width;
-                }
-                foreach (ToolStripMenuItem aMenuItem in this.toolStripMenuItemZoomFactor.DropDownItems)
-                {
-                    aMenuItem.Checked = false;
-                }
-                toolStripMenuItemImage4.Checked = (viewModeBase * 4 == viewMode);
-                toolStripMenuItemImage2.Checked = (viewModeBase * 2 == viewMode);
-                toolStripMenuItemImage1.Checked = (viewModeBase * 1 == viewMode);
-                toolStripMenuItemImageX2.Checked = (viewModeBase / 2 == viewMode);
-                toolStripMenuItemImageX4.Checked = (viewModeBase / 4 == viewMode);
-                toolStripMenuItemImageX8.Checked = (viewModeBase / 8 == viewMode);
-                toolStripMenuItemImageFit.Checked = (0 == viewMode);
-                if (viewModeBase * 4 == viewMode)
-                {
-                    toolStripButtonImage4.BackColor = System.Drawing.Color.Black;
-                }
-                else
-                {
-                    toolStripButtonImage4.BackColor = System.Drawing.Color.White;
-                }
-                if (viewModeBase * 2 == viewMode)
-                {
-                    toolStripButtonImage2.BackColor = System.Drawing.Color.Black;
-                }
-                else
-                {
-                    toolStripButtonImage2.BackColor = System.Drawing.Color.White;
-                }
-                if (viewModeBase * 1 == viewMode)
-                {
-                    toolStripButtonImage1.BackColor = System.Drawing.Color.Black;
-                }
-                else
-                {
-                    toolStripButtonImage1.BackColor = System.Drawing.Color.White;
-                }
-                if (0 == viewMode)
-                {
-                    toolStripButtonImageFit.BackColor = System.Drawing.Color.Black;
-                }
-                else
-                {
-                    toolStripButtonImageFit.BackColor = System.Drawing.Color.White;
-                }
-                // if image details are visible and thus frame in picture is shown
-                // refresh image so that border size is adjusted
-                if (theUserControlImageDetails != null)
-                {
-                    refreshImageDetailsFrame();
-                }
-                this.Refresh();
+                toolStripButtonImage4.BackColor = System.Drawing.Color.Black;
             }
+            if (viewModeBase * 2 == viewMode)
+            {
+                toolStripButtonImage2.BackColor = System.Drawing.Color.Black;
+            }
+            if (viewModeBase * 1 == viewMode)
+            {
+                toolStripButtonImage1.BackColor = System.Drawing.Color.Black;
+            }
+            if (0 == viewMode)
+            {
+                toolStripButtonImageFit.BackColor = System.Drawing.Color.Black;
+            }
+            // if image details are visible and thus frame in picture is shown
+            // refresh image so that border size is adjusted
+            if (theUserControlImageDetails != null)
+            {
+                refreshImageDetailsFrame();
+            }
+            this.Refresh();
+        }
+
+        private void uncheckAllZoomControls()
+        {
+            foreach (ToolStripMenuItem aMenuItem in this.toolStripMenuItemZoomFactor.DropDownItems)
+            {
+                aMenuItem.Checked = false;
+            }
+            toolStripMenuItemImage4.Checked = false;
+            toolStripMenuItemImage2.Checked = false;
+            toolStripMenuItemImage1.Checked = false;
+            toolStripMenuItemImageX2.Checked = false;
+            toolStripMenuItemImageX4.Checked = false;
+            toolStripMenuItemImageX8.Checked = false;
+            toolStripMenuItemImageFit.Checked = false;
+            toolStripButtonImage4.BackColor = System.Drawing.Color.White;
+            toolStripButtonImage2.BackColor = System.Drawing.Color.White;
+            toolStripButtonImage1.BackColor = System.Drawing.Color.White;
+            toolStripButtonImageFit.BackColor = System.Drawing.Color.White;
         }
 
         // change image view to 1:4
         private void toolStripMenuItemImage4_Click(object sender, EventArgs e)
         {
             viewMode = viewModeBase * 4;
-            zoomFactor = -1;
+            magnificationFactor = -1;
             changeImageView();
         }
         // change image view to 1:2
         private void toolStripMenuItemImage2_Click(object sender, EventArgs e)
         {
             viewMode = viewModeBase * 2;
-            zoomFactor = -1;
+            magnificationFactor = -1;
             changeImageView();
         }
         // change image view to 1:1
         private void toolStripMenuItemImage1_Click(object sender, EventArgs e)
         {
             viewMode = viewModeBase * 1;
-            zoomFactor = -1;
+            magnificationFactor = -1;
             changeImageView();
         }
         // change image view to 2:1
         private void toolStripMenuItemImageX2_Click(object sender, EventArgs e)
         {
             viewMode = viewModeBase / 2;
-            zoomFactor = -1;
+            magnificationFactor = -1;
             changeImageView();
         }
         // change image view to 4:1
         private void toolStripMenuItemImageX4_Click(object sender, EventArgs e)
         {
             viewMode = viewModeBase / 4;
-            zoomFactor = -1;
+            magnificationFactor = -1;
             changeImageView();
         }
         // change image view to 8:1
         private void toolStripMenuItemImageX8_Click(object sender, EventArgs e)
         {
             viewMode = viewModeBase / 8;
-            zoomFactor = -1;
+            magnificationFactor = -1;
             changeImageView();
         }
         // change image view to fit
         private void toolStripMenuItemImageFit_Click(object sender, EventArgs e)
         {
             viewMode = 0;
-            zoomFactor = -1;
+            magnificationFactor = -1;
             changeImageView();
         }
 
@@ -3961,161 +3849,6 @@ namespace QuickImageComment
         {
             FormDonate theFormDonate = new FormDonate();
             theFormDonate.ShowDialog();
-        }
-        #endregion
-
-        //*****************************************************************
-        // mouse action on picture box to move picture
-        //*****************************************************************
-        #region mouse action on picture box
-        private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
-        {
-            // when event is raised buttons Left and XButton2 are active
-            // found no way to check for left except using ToString
-            if (e.Button.ToString().Contains("Left"))
-            {
-                Control control = (Control)sender;
-                System.Drawing.Point startPoint = control.PointToScreen(new Point(e.X, e.Y));
-                int DiffX = startPoint.X - mouseX;
-                int DiffY = startPoint.Y - mouseY;
-
-                panelPictureBox.AutoScrollPosition = new Point(scrollX - DiffX, scrollY - DiffY);
-                panelPictureBox.Refresh();
-            }
-            // when event is raised buttons Left and XButton2 are active
-            // found no way to check for left except using ToString
-            else if (mouseMoveMode == enumMouseMove.detailFrame && e.Button.ToString().Contains("Right"))
-            {
-                Control control = (Control)sender;
-                System.Drawing.Point startPoint = control.PointToScreen(new Point(e.X, e.Y));
-                // consider scaling in display
-                float scaleX = pictureBox1.Width / (float)pictureBox1.Image.Width;
-                float scaleY = pictureBox1.Height / (float)pictureBox1.Image.Height;
-                float scale;
-                if (scaleX < scaleY)
-                {
-                    scale = scaleX;
-                }
-                else
-                {
-                    scale = scaleY;
-                }
-                int DiffX = (int)((startPoint.X - mouseX) / scale);
-                int DiffY = (int)((startPoint.Y - mouseY) / scale);
-                // for shifting the image details window
-                theExtendedImage.setImageDetailsPosX(detailFrameX + DiffX);
-                theExtendedImage.setImageDetailsPosY(detailFrameY + DiffY);
-                theUserControlImageDetails.setPositionAndRepaint(theExtendedImage.getImageDetailsPosX(), theExtendedImage.getImageDetailsPosY());
-                refreshImageDetailsFrame();
-            }
-        }
-
-        private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
-        {
-            if (e.Button.Equals(MouseButtons.Left))
-            {
-                Control control = (Control)sender;
-                System.Drawing.Point startPoint = control.PointToScreen(new Point(e.X, e.Y));
-                mouseX = startPoint.X;
-                mouseY = startPoint.Y;
-                scrollX = -panelPictureBox.AutoScrollPosition.X;
-                scrollY = -panelPictureBox.AutoScrollPosition.Y;
-                pictureBox1.Cursor = Cursors.NoMove2D;
-            }
-            if (e.Button.Equals(MouseButtons.Right))
-            {
-                mouseMoveMode = enumMouseMove.nothing;
-                if (toolStripMenuItemImageWithGrid.Checked || theUserControlImageDetails != null)
-                {
-                    Control control = (Control)sender;
-                    System.Drawing.Point startPoint = control.PointToScreen(new Point(e.X, e.Y));
-                    mouseX = startPoint.X;
-                    mouseY = startPoint.Y;
-                    detailFrameX = theExtendedImage.getImageDetailsPosX();
-                    detailFrameY = theExtendedImage.getImageDetailsPosY();
-                    if (theUserControlImageDetails != null &&
-                        // slight tolerance of two pixels around rectangle
-                        e.X > detailFrameRectangle.X && e.X - 2 < detailFrameRectangle.X + detailFrameRectangle.Width + 2 &&
-                        e.Y > detailFrameRectangle.Y && e.Y - 2 < detailFrameRectangle.Y + detailFrameRectangle.Height + 2)
-                    {
-                        // detail display and mouse pointer in detail frame rectangle
-                        mouseMoveMode = enumMouseMove.detailFrame;
-                        pictureBox1.Cursor = Cursors.SizeAll;
-                    }
-                    else if (toolStripMenuItemImageWithGrid.Checked)
-                    {
-                        // mouse pointer in outside detail frame rectangle or no detail display
-                        mouseMoveMode = enumMouseMove.grid;
-                        pictureBox1.Cursor = Cursors.Cross;
-                    }
-                }
-            }
-        }
-
-        private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
-        {
-            if (e.Button.Equals(MouseButtons.Left))
-            {
-                pictureBox1.Cursor = Cursors.Default;
-            }
-            else if (e.Button.Equals(MouseButtons.Right))
-            {
-                pictureBox1.Cursor = Cursors.Default;
-                if (mouseMoveMode == enumMouseMove.grid)
-                {
-                    Control control = (Control)sender;
-                    System.Drawing.Point startPoint = control.PointToScreen(new Point(e.X, e.Y));
-                    // consider scaling in display
-                    float scaleX = pictureBox1.Width / (float)pictureBox1.Image.Width;
-                    float scaleY = pictureBox1.Height / (float)pictureBox1.Image.Height;
-                    float scale;
-                    if (scaleX < scaleY)
-                    {
-                        scale = scaleX;
-                    }
-                    else
-                    {
-                        scale = scaleY;
-                    }
-                    int DiffX = (int)((startPoint.X - mouseX) / scale);
-                    int DiffY = (int)((startPoint.Y - mouseY) / scale);
-                    if (DiffX != 0 || DiffY != 0)
-                    {
-                        // for shifting the grid
-                        theExtendedImage.setGridPosX(theExtendedImage.getGridPosX() + DiffX);
-                        theExtendedImage.setGridPosY(theExtendedImage.getGridPosY() + DiffY);
-                        refreshImage();
-                    }
-                }
-            }
-        }
-
-        // zoom based upon the mouse wheel scrolling
-        private void pictureBox1_MouseWheel(object sender, System.Windows.Forms.MouseEventArgs e)
-        {
-            // determine current zoom factor
-            if (viewMode > 0)
-            {
-                zoomFactor = (double)viewModeBase / viewMode;
-                // disable viewMode
-                viewMode = -1;
-            }
-
-            float modifier = 1 + (float)ConfigDefinition.getConfigInt(enumConfigInt.ZoomMainImageChangeMouseWheel) / 100;
-            if (e.Delta > 0)
-            {
-                zoomFactor *= modifier;
-#if !PLATFORMTARGET_X64
-                zoomFactor = Math.Min(4.0F, zoomFactor);
-#else
-                zoomFactor = Math.Min(8.0F, zoomFactor);
-#endif
-            }
-            else if (e.Delta < 0)
-            {
-                zoomFactor /= modifier;
-            }
-            changeImageZoom();
         }
         #endregion
 
@@ -5210,19 +4943,6 @@ namespace QuickImageComment
             GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceWorkAfterSelectionOfFile, "index:" + fileIndex.ToString(), 2);
             disableEventHandlersRecogniseUserInput();
 
-            // save AutoScrollPosition for next display of current image
-            // needs to be done before hiding pictureBox
-            if (theExtendedImage != null)
-            {
-                // inverse calculation to calculation in changeImageView
-                double factorY = (double)pictureBox1.Height / panelPictureBox.Height;
-                double factorX = (double)pictureBox1.Width / panelPictureBox.Width;
-                double scrollY = (panelPictureBox.AutoScrollPosition.Y + (factorY - 1) * panelPictureBox.Height / 2) / factorY;
-                double scrollX = (panelPictureBox.AutoScrollPosition.X + (factorX - 1) * panelPictureBox.Width / 2) / factorX;
-                Point normalisedAutoScrollPosition = new Point((int)scrollX, (int)scrollY);
-                theExtendedImage.setAutoScrollPosition(normalisedAutoScrollPosition);
-            }
-
             this.Cursor = Cursors.WaitCursor;
             pictureBox1.Visible = false;
             dynamicLabelFileName.Visible = false;
@@ -5340,21 +5060,14 @@ namespace QuickImageComment
                     "after getFullSizeImage/display in picture box" +
                     DateTime.Now.Subtract(StartTime).TotalMilliseconds.ToString("   0") + " ms");
 
-                pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-
-                this.pictureBox1.Anchor = AnchorStyles.Bottom | AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-                this.pictureBox1.Height = this.panelPictureBox.Height;
-                this.pictureBox1.Width = this.panelPictureBox.Width;
-
-                // pictureBox must be visible to change Autoscroll
                 pictureBox1.Visible = true;
-                if (zoomFactor > 0)
+                if (magnificationFactor > 0)
                 {
                     changeImageZoom();
                 }
                 else
                 {
-                    changeImageView(useLastScrollRefence: true);
+                    changeImageView();
                 }
 
                 foreach (string aLanguage in theExtendedImage.getXmpLangAltEntries())
@@ -6762,11 +6475,9 @@ namespace QuickImageComment
         // for refresh of frame by UserControlImageDetails
         public void refreshImageDetailsFrame()
         {
-            //this.Cursor = Cursors.WaitCursor; // not needed as refresh is quite fast
-            pictureBox1.Refresh();
+            pictureBox1.Invalidate();
             // Force Garbage Collection as creating adjusted image may use a lot of memory
             GC.Collect();
-            //this.Cursor = Cursors.Default; // not needed as refresh is quite fast
         }
 
         // check if new version is available; called in thread

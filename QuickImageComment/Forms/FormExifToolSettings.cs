@@ -117,7 +117,7 @@ namespace QuickImageComment
             this.Cursor = Cursors.WaitCursor;
             ExifToolWrapper.Stop();
             displayCurrentExifToolInformation();
-            MainMaskInterface.readFolderAndDisplayImage(true);
+            MainMaskInterface.readFolderAndDisplayImage();
             this.Cursor = Cursors.Default;
         }
 
@@ -148,7 +148,7 @@ namespace QuickImageComment
             }
             displayCurrentExifToolInformation();
 
-            MainMaskInterface.readFolderAndDisplayImage(true);
+            MainMaskInterface.readFolderAndDisplayImage();
             this.Cursor = Cursors.Default;
         }
 

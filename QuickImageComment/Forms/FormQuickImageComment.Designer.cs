@@ -48,6 +48,7 @@ namespace QuickImageComment
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormQuickImageComment));
             this.dynamicLabelArtist = new System.Windows.Forms.Label();
+            this.pictureBox1 = new QuickImageCommentControls.PictureBoxQIC();
             this.textBoxUserComment = new System.Windows.Forms.TextBox();
             this.labelLastCommentsFilter = new System.Windows.Forms.Label();
             this.splitContainer12 = new System.Windows.Forms.SplitContainer();
@@ -57,8 +58,8 @@ namespace QuickImageComment
             this.tabPageSingle = new System.Windows.Forms.TabPage();
             this.splitContainer1211 = new System.Windows.Forms.SplitContainer();
             this.splitContainer1211P1 = new System.Windows.Forms.SplitContainer();
-            this.panelPictureBox = new System.Windows.Forms.Panel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.hScrollBar1 = new System.Windows.Forms.HScrollBar();
+            this.vScrollBar1 = new System.Windows.Forms.VScrollBar();
             this.dynamicLabelImageNumber = new System.Windows.Forms.Label();
             this.dynamicLabelFileName = new System.Windows.Forms.Label();
             this.panelFramePosition = new System.Windows.Forms.Panel();
@@ -271,6 +272,7 @@ namespace QuickImageComment
             this.toolStripButtonFind = new System.Windows.Forms.ToolStripButton();
             this.toolTip1 = new QuickImageComment.ToolTipQIC();
             this.theFolderTreeView = new QuickImageCommentControls.ShellTreeViewQIC();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer12)).BeginInit();
             this.splitContainer12.Panel1.SuspendLayout();
             this.splitContainer12.Panel2.SuspendLayout();
@@ -292,8 +294,6 @@ namespace QuickImageComment
             this.splitContainer1211P1.Panel1.SuspendLayout();
             this.splitContainer1211P1.Panel2.SuspendLayout();
             this.splitContainer1211P1.SuspendLayout();
-            this.panelPictureBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panelFramePosition.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFramePosition)).BeginInit();
             this.tabControlProperties.SuspendLayout();
@@ -334,6 +334,23 @@ namespace QuickImageComment
             this.dynamicLabelArtist.Size = new System.Drawing.Size(84, 13);
             this.dynamicLabelArtist.TabIndex = 1;
             this.dynamicLabelArtist.Text = "Künstler (Autor)";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox1.BackColor = System.Drawing.SystemColors.Control;
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.pictureBox1.Cursor = System.Windows.Forms.Cursors.Default;
+            this.pictureBox1.Location = new System.Drawing.Point(3, 3);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(209, 88);
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.zoomChanged += new QuickImageCommentControls.PictureBoxQIC.ZoomChangedEventHandler(this.pictureBox1_zoomChanged);
+            this.pictureBox1.painted += new QuickImageCommentControls.PictureBoxQIC.PaintedEventHandler(this.pictureBox1_painted);
+            //this.pictureBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox1_Paint);
             // 
             // textBoxUserComment
             // 
@@ -484,7 +501,9 @@ namespace QuickImageComment
             // 
             // splitContainer1211P1.Panel1
             // 
-            this.splitContainer1211P1.Panel1.Controls.Add(this.panelPictureBox);
+            this.splitContainer1211P1.Panel1.Controls.Add(this.hScrollBar1);
+            this.splitContainer1211P1.Panel1.Controls.Add(this.vScrollBar1);
+            this.splitContainer1211P1.Panel1.Controls.Add(this.pictureBox1);
             this.splitContainer1211P1.Panel1MinSize = 20;
             // 
             // splitContainer1211P1.Panel2
@@ -498,34 +517,27 @@ namespace QuickImageComment
             this.splitContainer1211P1.SplitterWidth = 2;
             this.splitContainer1211P1.TabIndex = 4;
             // 
-            // panelPictureBox
+            // hScrollBar1
             // 
-            this.panelPictureBox.AutoScroll = true;
-            this.panelPictureBox.Controls.Add(this.pictureBox1);
-            this.panelPictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelPictureBox.Location = new System.Drawing.Point(0, 0);
-            this.panelPictureBox.Margin = new System.Windows.Forms.Padding(0);
-            this.panelPictureBox.Name = "panelPictureBox";
-            this.panelPictureBox.Size = new System.Drawing.Size(224, 109);
-            this.panelPictureBox.TabIndex = 0;
-            this.panelPictureBox.TabStop = true;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.hScrollBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.pictureBox1.Cursor = System.Windows.Forms.Cursors.Default;
-            this.pictureBox1.Location = new System.Drawing.Point(1, 1);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(226, 128);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox1_Paint);
-            this.pictureBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseDown);
-            this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseMove);
-            this.pictureBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseUp);
+            this.hScrollBar1.Location = new System.Drawing.Point(3, 94);
+            this.hScrollBar1.Maximum = 1000;
+            this.hScrollBar1.Name = "hScrollBar1";
+            this.hScrollBar1.Size = new System.Drawing.Size(209, 14);
+            this.hScrollBar1.TabIndex = 6;
+            this.hScrollBar1.ValueChanged += new System.EventHandler(this.hScrollBar1_ValueChanged);
+            // 
+            // vScrollBar1
+            // 
+            this.vScrollBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.vScrollBar1.Location = new System.Drawing.Point(212, 3);
+            this.vScrollBar1.Maximum = 1000;
+            this.vScrollBar1.Name = "vScrollBar1";
+            this.vScrollBar1.Size = new System.Drawing.Size(14, 88);
+            this.vScrollBar1.TabIndex = 1;
+            this.vScrollBar1.ValueChanged += new System.EventHandler(this.vScrollBar1_ValueChanged);
             // 
             // dynamicLabelImageNumber
             // 
@@ -2585,6 +2597,7 @@ namespace QuickImageComment
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.FormQuickImageComment_DragDrop);
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.FormQuickImageComment_DragEnter);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FormQuickImageComment_KeyDown);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.splitContainer12.Panel1.ResumeLayout(false);
             this.splitContainer12.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer12)).EndInit();
@@ -2607,8 +2620,6 @@ namespace QuickImageComment
             this.splitContainer1211P1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1211P1)).EndInit();
             this.splitContainer1211P1.ResumeLayout(false);
-            this.panelPictureBox.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panelFramePosition.ResumeLayout(false);
             this.panelFramePosition.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFramePosition)).EndInit();
@@ -2658,7 +2669,7 @@ namespace QuickImageComment
         private System.Windows.Forms.Label dynamicLabelUserComment;
         private QuickImageCommentControls.ListBoxComments listBoxLastUserComments;
         private QuickImageCommentControls.ListBoxComments listBoxPredefinedComments;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private QuickImageCommentControls.PictureBoxQIC pictureBox1;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.SplitContainer splitContainer11;
         private System.Windows.Forms.SplitContainer splitContainer12;
@@ -2680,7 +2691,6 @@ namespace QuickImageComment
         internal System.Windows.Forms.ToolStripMenuItem toolStripMenuItemTile;
         internal System.Windows.Forms.ToolStripMenuItem toolStripMenuItemList;
         internal System.Windows.Forms.ToolStripMenuItem toolStripMenuItemDetails;
-        private System.Windows.Forms.Panel panelPictureBox;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemZoomRotate;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemImageFit;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemImage4;
@@ -2881,5 +2891,7 @@ namespace QuickImageComment
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemLanguageExifTool;
         internal System.Windows.Forms.TabControl tabControlProperties;
         internal System.Windows.Forms.TabPage tabPageExifTool;
+        private System.Windows.Forms.VScrollBar vScrollBar1;
+        private System.Windows.Forms.HScrollBar hScrollBar1;
     }
 }

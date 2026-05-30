@@ -18,6 +18,7 @@ using Brain2CPU.ExifTool;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace QuickImageComment
@@ -55,6 +56,18 @@ namespace QuickImageComment
             else
             {
                 return null;
+            }
+        }
+
+        public static Size getImageDetailsSize()
+        {
+            if (theFormQuickImageComment.theUserControlImageDetails != null && theFormQuickImageComment.theExtendedImage != null)
+            {
+                return theFormQuickImageComment.theUserControlImageDetails.getImageDetailsSize();
+            }
+            else
+            {
+                return Size.Empty;
             }
         }
 
@@ -186,6 +199,23 @@ namespace QuickImageComment
             if (!FormQuickImageComment.closing)
             {
                 theFormQuickImageComment.showRefreshImageGrid();
+            }
+        }
+
+        internal static void setPositionAndRepaintImageDetails(int posX, int posY)
+        {
+            // for shifting the image details window
+            theFormQuickImageComment.theExtendedImage.setImageDetailsPosX(posX);
+            theFormQuickImageComment.theExtendedImage.setImageDetailsPosY(posY);
+            theFormQuickImageComment.theUserControlImageDetails.setPositionAndRepaint(posX, posY);
+        }
+
+        internal static void refreshImage()
+        {
+            // if main mask is not already closing
+            if (!FormQuickImageComment.closing)
+            {
+                theFormQuickImageComment.refreshImage();
             }
         }
 
@@ -541,13 +571,15 @@ namespace QuickImageComment
             return theFormQuickImageComment.toolStripMenuItemImageWithGrid.Checked;
         }
 
+        internal static bool showImageDetails()
+        {
+            return theFormQuickImageComment.theUserControlImageDetails != null;
+        }
+
         internal static void initFormLogger()
         {
             // when FormLogger is initialized before initialzing of main mask, FormLogger may crash
-            if (theFormQuickImageComment != null)
-            {
-                theFormQuickImageComment.initFormLogger();
-            }
+            theFormQuickImageComment?.initFormLogger();
         }
 
         internal static void fillMenuViewConfigurations()
@@ -559,7 +591,7 @@ namespace QuickImageComment
             }
         }
 
-        internal static void readFolderAndDisplayImage(bool restoreSelection)
+        internal static void readFolderAndDisplayImage()
         {
             // if main mask is not already closing
             if (!FormQuickImageComment.closing)

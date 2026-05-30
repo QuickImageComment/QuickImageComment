@@ -122,6 +122,7 @@
     <Compile Include="Controls\DateTimePickerQIC.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controls\pictureBoxQIC.cs" />
     <Compile Include="Controls\ToolTipQIC.cs">
       <SubType>Component</SubType>
     </Compile>
