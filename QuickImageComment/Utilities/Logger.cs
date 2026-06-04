@@ -169,9 +169,8 @@ namespace QuickImageComment
             {
                 traceString = traceString + "@" + stackFrames[ii].GetMethod().Name + "-" + stackFrames[ii].GetFileLineNumber().ToString();
             }
-            traceString = traceString + ": " + message;
 
-            log(traceString);  // permanent use of Logger.log
+            log(message + "@@" + traceString);  // permanent use of Logger.log
         }
 
         // print one message (can be used when forms are not yet available)
