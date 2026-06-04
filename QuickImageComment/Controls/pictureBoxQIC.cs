@@ -1,6 +1,7 @@
 ﻿using QuickImageComment;
 using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
@@ -11,6 +12,10 @@ namespace QuickImageCommentControls
     [DesignerCategory("Code")]
     public class PictureBoxQIC : System.Windows.Forms.PictureBox
     {
+        private bool IsInDesignMode =>
+            LicenseManager.UsageMode == LicenseUsageMode.Designtime ||
+            Process.GetCurrentProcess().ProcessName == "devenv";
+
         // event handler definition: zoom changed
         public class ZoomChangedEventArgs : EventArgs
         {
@@ -508,7 +513,10 @@ namespace QuickImageCommentControls
         {
             base.OnResize(e);
             Invalidate();
-            MainMaskInterface.refreshImageDetailsFrame();
+            if (!IsInDesignMode)
+            {
+                MainMaskInterface.refreshImageDetailsFrame();
+            }
         }
 
         //*****************************************************************
