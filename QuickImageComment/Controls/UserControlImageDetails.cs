@@ -161,6 +161,7 @@ namespace QuickImageComment
                 ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.ImageDetailsGridColor,
                     theColorDialog.Color.ToArgb());
                 setGridColor(ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.ImageDetailsGridColor));
+                masterFormImageDetails?.adjustConfigDefinitionsZoomInOthers();
                 // note: refresh of pictureBoxImage refreshes also pictureBoxHorizontal and pictureBoxVertical via pictureBoxImage_painted
                 pictureBoxImage.Invalidate();
             }
@@ -170,18 +171,24 @@ namespace QuickImageComment
         {
             pictureBoxHorizontal.Refresh();
             pictureBoxVertical.Refresh();
+            saveConfigDefinitions();
+            masterFormImageDetails?.adjustConfigDefinitionsZoomInOthers();
         }
 
         private void checkBoxColorG_CheckedChanged(object sender, EventArgs e)
         {
             pictureBoxHorizontal.Refresh();
             pictureBoxVertical.Refresh();
+            saveConfigDefinitions();
+            masterFormImageDetails?.adjustConfigDefinitionsZoomInOthers();
         }
 
         private void checkBoxColorB_CheckedChanged(object sender, EventArgs e)
         {
             pictureBoxHorizontal.Refresh();
             pictureBoxVertical.Refresh();
+            saveConfigDefinitions();
+            masterFormImageDetails?.adjustConfigDefinitionsZoomInOthers();
         }
 
         private void comboBoxGraphicDisplay_SelectedIndexChanged(object sender, EventArgs e)
@@ -214,6 +221,9 @@ namespace QuickImageComment
             }
             // speed up display change, , suspendLayout was not efficient
             this.splitContainerImageDetails11.Visible = true;
+
+            saveConfigDefinitions();
+            masterFormImageDetails?.adjustConfigDefinitionsZoomInOthers();
         }
 
         private void comboBoxZoom_SelectedIndexChanged(object sender, EventArgs e)
@@ -257,7 +267,8 @@ namespace QuickImageComment
             if (theImage != null)
             {
                 pictureBoxImage.setGridSize((int)numericUpDownGridSize.Value);
-                shiftImageInOtherWindows();
+                saveConfigDefinitions();
+                masterFormImageDetails?.adjustConfigDefinitionsZoomInOthers();
             }
         }
 
@@ -266,14 +277,24 @@ namespace QuickImageComment
             if (theImage != null)
             {
                 pictureBoxImage.Invalidate();
+                saveConfigDefinitions();
+                masterFormImageDetails?.adjustConfigDefinitionsZoomInOthers();
             }
         }
 
         // after resize, ensure that depending graphics are displayed correct
         private void pictureBoxImage_Resize(object sender, EventArgs e)
         {
+            // if there is no image, it is probably still initialising
+            //!!!: anyhow, no need to adjust if there is no image
             if (theImage != null)
             {
+                if (masterFormImageDetails != null)
+                {
+                    // save configuration only if this is part of the master form
+                    saveConfigDefinitions();
+                    masterFormImageDetails.adjustConfigDefinitionsZoomInOthers();
+                }
                 MainMaskInterface.refreshImageDetailsFrame();
             }
         }
@@ -344,11 +365,9 @@ namespace QuickImageComment
             pictureBoxHorizontal.Invalidate();
             pictureBoxVertical.Invalidate();
 
-            if (e.centerChanged)
-            {
-                // shift other windows only if center changed, not due to changing posX and posY indirect via zoom
-                shiftImageInOtherWindows();
-            }
+            // even if there was no shift, there might have been a zoom change
+            // use shiftImageInOtherWindows to refresh other windows
+            shiftImageSetZoomInOtherWindows();
             MainMaskInterface.refreshImageDetailsFrame();
         }
 
@@ -763,13 +782,13 @@ namespace QuickImageComment
         }
 
         // refresh the graphic display after a new image is given or settings have changed
-        public void shiftImageInOtherWindows()
+        public void shiftImageSetZoomInOtherWindows()
         {
             if (masterFormImageDetails != null)
             {
                 if (oldX != -9999 && oldY != -9999)
                 {
-                    masterFormImageDetails.shiftImageInOtherWindows((int)numericUpDownX.Value - oldX, (int)numericUpDownY.Value - oldY);
+                    masterFormImageDetails.shiftImageSetZoomInOtherWindows((int)numericUpDownX.Value - oldX, (int)numericUpDownY.Value - oldY, zoomFactor);
                 }
                 oldX = (int)numericUpDownX.Value;
                 oldY = (int)numericUpDownY.Value;
@@ -800,7 +819,7 @@ namespace QuickImageComment
             pictureBoxImage.setPosXY((int)numericUpDownX.Value, (int)numericUpDownY.Value);
             if (theImage != null)
             {
-                shiftImageInOtherWindows();
+                shiftImageSetZoomInOtherWindows();
             }
         }
 
@@ -1004,6 +1023,17 @@ namespace QuickImageComment
         //*****************************************************************
         // utilities
         //*****************************************************************
+        // disable and enable event handlers for resize
+        internal void disableResizeEventHandlers()
+        {
+            pictureBoxImage.Resize -= pictureBoxImage_Resize;
+            splitContainerImageDetails1.Resize -= splitContainerImageDetails1_Resize;
+        }
+        internal void enableResizeEventHandlers()
+        {
+            pictureBoxImage.Resize += pictureBoxImage_Resize;
+            splitContainerImageDetails1.Resize += splitContainerImageDetails1_Resize;
+        }
 
         // return the size of image displayed in image details
         public Size getImageDetailsSize()
@@ -1051,25 +1081,29 @@ namespace QuickImageComment
         // set values in ConfigDefinition
         public void saveConfigDefinitions()
         {
-            if (isInOwnWindow)
+            // do not save config definitions if this is a slave window
+            if (masterFormImageDetails != null || !isInOwnWindow)
             {
-                ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.SplitterImageDetails1DistanceWindow, splitContainerImageDetails1.SplitterDistance);
-                ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.SplitterImageDetails11DistanceWindow, splitContainerImageDetails11.SplitterDistance);
-                ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.SplitterImageDetails111DistanceWindow, splitContainerImageDetails111.SplitterDistance);
+                if (isInOwnWindow)
+                {
+                    ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.SplitterImageDetails1DistanceWindow, splitContainerImageDetails1.SplitterDistance);
+                    ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.SplitterImageDetails11DistanceWindow, splitContainerImageDetails11.SplitterDistance);
+                    ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.SplitterImageDetails111DistanceWindow, splitContainerImageDetails111.SplitterDistance);
+                }
+                else
+                {
+                    ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.SplitterImageDetails1Distance, splitContainerImageDetails1.SplitterDistance);
+                    ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.SplitterImageDetails11Distance, splitContainerImageDetails11.SplitterDistance);
+                    ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.SplitterImageDetails111Distance, splitContainerImageDetails111.SplitterDistance);
+                }
+                ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.ImageDetailsGridSize, (int)numericUpDownGridSize.Value);
+                ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.ImageDetailsScaleLines, (int)numericUpDownScaleLines.Value);
+                enumGraphicModes gridMode = (enumGraphicModes)comboBoxGraphicDisplay.SelectedIndex;
+                ConfigDefinition.setCfgUserString(ConfigDefinition.enumCfgUserString.ImageDetailsGraphicDisplay, gridMode.ToString());
+                ConfigDefinition.setCfgUserBool(ConfigDefinition.enumCfgUserBool.ImageDetailsColorR, checkBoxColorR.Checked);
+                ConfigDefinition.setCfgUserBool(ConfigDefinition.enumCfgUserBool.ImageDetailsColorG, checkBoxColorG.Checked);
+                ConfigDefinition.setCfgUserBool(ConfigDefinition.enumCfgUserBool.ImageDetailsColorB, checkBoxColorB.Checked);
             }
-            else
-            {
-                ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.SplitterImageDetails1Distance, splitContainerImageDetails1.SplitterDistance);
-                ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.SplitterImageDetails11Distance, splitContainerImageDetails11.SplitterDistance);
-                ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.SplitterImageDetails111Distance, splitContainerImageDetails111.SplitterDistance);
-            }
-            ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.ImageDetailsGridSize, (int)numericUpDownGridSize.Value);
-            ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.ImageDetailsScaleLines, (int)numericUpDownScaleLines.Value);
-            enumGraphicModes gridMode = (enumGraphicModes)comboBoxGraphicDisplay.SelectedIndex;
-            ConfigDefinition.setCfgUserString(ConfigDefinition.enumCfgUserString.ImageDetailsGraphicDisplay, gridMode.ToString());
-            ConfigDefinition.setCfgUserBool(ConfigDefinition.enumCfgUserBool.ImageDetailsColorR, checkBoxColorR.Checked);
-            ConfigDefinition.setCfgUserBool(ConfigDefinition.enumCfgUserBool.ImageDetailsColorG, checkBoxColorG.Checked);
-            ConfigDefinition.setCfgUserBool(ConfigDefinition.enumCfgUserBool.ImageDetailsColorB, checkBoxColorB.Checked);
         }
 
         // for creating screenshot with lower part of panelControlInner

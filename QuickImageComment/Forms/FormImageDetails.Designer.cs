@@ -33,7 +33,6 @@
             this.buttonHelp = new System.Windows.Forms.Button();
             this.buttonClose = new System.Windows.Forms.Button();
             this.buttonCustomizeForm = new System.Windows.Forms.Button();
-            this.buttonOtherWindowsEqual = new System.Windows.Forms.Button();
             this.buttonCloseAll = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -81,17 +80,6 @@
             this.buttonCustomizeForm.UseVisualStyleBackColor = true;
             this.buttonCustomizeForm.Click += new System.EventHandler(this.buttonCustomizeForm_Click);
             // 
-            // buttonOtherWindowsEqual
-            // 
-            this.buttonOtherWindowsEqual.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.buttonOtherWindowsEqual.Location = new System.Drawing.Point(352, 296);
-            this.buttonOtherWindowsEqual.Name = "buttonOtherWindowsEqual";
-            this.buttonOtherWindowsEqual.Size = new System.Drawing.Size(130, 22);
-            this.buttonOtherWindowsEqual.TabIndex = 71;
-            this.buttonOtherWindowsEqual.Text = "Andere Fenster gleich";
-            this.buttonOtherWindowsEqual.UseVisualStyleBackColor = true;
-            this.buttonOtherWindowsEqual.Click += new System.EventHandler(this.buttonOtherWindowsEqual_Click);
-            // 
             // buttonCloseAll
             // 
             this.buttonCloseAll.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
@@ -109,7 +97,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(593, 325);
             this.Controls.Add(this.buttonCloseAll);
-            this.Controls.Add(this.buttonOtherWindowsEqual);
             this.Controls.Add(this.buttonCustomizeForm);
             this.Controls.Add(this.buttonClose);
             this.Controls.Add(this.buttonHelp);
@@ -130,7 +117,6 @@
         private System.Windows.Forms.Button buttonHelp;
         private System.Windows.Forms.Button buttonClose;
         private System.Windows.Forms.Button buttonCustomizeForm;
-        private System.Windows.Forms.Button buttonOtherWindowsEqual;
         private System.Windows.Forms.Button buttonCloseAll;
     }
 }

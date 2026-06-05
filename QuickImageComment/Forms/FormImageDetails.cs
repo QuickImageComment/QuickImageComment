@@ -78,6 +78,10 @@ namespace QuickImageComment
                 // the normal case
                 Show();
             }
+
+            // register event handlers for controls here so that initialisation of mask does not fire them
+            // and cause interim changes in slave windows before master form is fully initialised
+            this.panel1.Resize += new System.EventHandler(this.panel1_Resize);
         }
 
         //*****************************************************************
@@ -101,19 +105,6 @@ namespace QuickImageComment
             closeAllWindows();
         }
 
-        // make other Image Detail windows equal
-        private void buttonOtherWindowsEqual_Click(object sender, EventArgs e)
-        {
-            saveConfigDefinitions();
-            bool showGrid = theUserControlImageDetails.getShowGrid();
-            FormImageDetails prev1 = (FormImageDetails)previousWindow;
-            while (prev1 != null)
-            {
-                prev1.adjustToConfigDefinitionsZoom(theUserControlImageDetails.zoomFactor, showGrid);
-                prev1 = (FormImageDetails)prev1.previousWindow;
-            }
-        }
-
         // Help
         private void buttonHelp_Click(object sender, EventArgs e)
         {
@@ -123,6 +114,16 @@ namespace QuickImageComment
         //*****************************************************************
         // events
         //*****************************************************************
+
+        private void panel1_Resize(object sender, EventArgs e)
+        {
+            MainMaskInterface.refreshImageDetailsFrame();
+            theUserControlImageDetails.saveConfigDefinitions();
+            ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.FormImageDetailsHeight, this.Height);
+            ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.FormImageDetailsWidth, this.Width);
+            adjustConfigDefinitionsZoomInOthers();
+        }
+
         protected override void FormPrevNext_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (previousWindow == null && nextWindow == null)
@@ -167,7 +168,7 @@ namespace QuickImageComment
         }
 
         // shift image in slave windows
-        public void shiftImageInOtherWindows(int shiftX, int shiftY)
+        public void shiftImageSetZoomInOtherWindows(int shiftX, int shiftY, float zoomFactor)
         {
             if (this.nextWindow == null)
             {
@@ -175,6 +176,7 @@ namespace QuickImageComment
                 FormImageDetails prev1 = (FormImageDetails)previousWindow;
                 while (prev1 != null)
                 {
+                    prev1.theUserControlImageDetails.setZoomFactorAndShowGrid(zoomFactor, theUserControlImageDetails.getShowGrid());
                     prev1.theUserControlImageDetails.shiftImagePosition(shiftX, shiftY);
                     prev1 = (FormImageDetails)prev1.previousWindow;
                 }
@@ -182,43 +184,45 @@ namespace QuickImageComment
         }
 
         // refresh display of image details in slave windows
-        public void refreshGraphicDisplayInOthers()
+        public void adjustConfigDefinitionsZoomInOthers()
         {
-            if (this.nextWindow == null)
+            if (theUserControlImageDetails != null)
             {
-                // this is master, so adjust the slave windows
-                FormImageDetails prev1 = (FormImageDetails)previousWindow;
-                while (prev1 != null)
+                bool showGrid = theUserControlImageDetails.getShowGrid();
+                if (this.nextWindow == null)
                 {
-                    prev1.Invalidate();
-                    prev1 = (FormImageDetails)prev1.previousWindow;
+                    // this is master, so adjust the slave windows
+                    FormImageDetails prev1 = (FormImageDetails)previousWindow;
+                    while (prev1 != null)
+                    {
+                        prev1.adjustToConfigDefinitionsZoom(theUserControlImageDetails.zoomFactor, showGrid);
+                        prev1 = (FormImageDetails)prev1.previousWindow;
+                    }
                 }
             }
         }
 
-        // save the configuration data
-        protected override void saveConfigDefinitions()
-        {
-            theUserControlImageDetails.saveConfigDefinitions();
-            // to hide image details frame
-            MainMaskInterface.refreshImageDetailsFrame();
-            ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.FormImageDetailsHeight, this.Height);
-            ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.FormImageDetailsWidth, this.Width);
-        }
-
         private void adjustToConfigDefinitionsZoom(float zoomFactor, bool showGrid)
         {
+            // disable resize event handlers to avoid firing causing changes overriding the explicit settings
+            theUserControlImageDetails.disableResizeEventHandlers();
+            panel1.Resize -= panel1_Resize;
+
             // seems not have much impact on speeding up layout change, but keep it
             this.SuspendLayout();
             this.Height = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.FormImageDetailsHeight);
             this.Width = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.FormImageDetailsWidth);
+            this.Invalidate();
             theUserControlImageDetails.adjustColorGraphicSettings();
             theUserControlImageDetails.adjustSizeAndSplitterDistances(panel1.Size);
             theUserControlImageDetails.setZoomFactorAndShowGrid(zoomFactor, showGrid);
             theUserControlImageDetails.setGridColor(ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.ImageDetailsGridColor));
-            refreshGraphicDisplayInOthers();
             // seems not have much impact on speeding up layout change, but keep it
             this.ResumeLayout();
+
+            // enable resize event handlers again
+            theUserControlImageDetails.enableResizeEventHandlers();
+            panel1.Resize += panel1_Resize;
         }
 
         // show or hide controls in chain to set master/slave behaviour and show close-all only if more than one window
@@ -234,18 +238,15 @@ namespace QuickImageComment
                 if (master.previousWindow == null)
                 {
                     master.buttonCloseAll.Visible = false;
-                    master.buttonOtherWindowsEqual.Visible = false;
                 }
                 else
                 {
                     master.buttonCloseAll.Visible = true;
-                    master.buttonOtherWindowsEqual.Visible = true;
 
                     FormImageDetails prev = (FormImageDetails)master.previousWindow;
                     while (prev != null)
                     {
                         prev.buttonCloseAll.Visible = false;
-                        prev.buttonOtherWindowsEqual.Visible = false;
                         prev.theUserControlImageDetails.setVisibilityControlsSetValuesForSlaveWindows(false);
                         prev = (FormImageDetails)prev.previousWindow;
                     }
