@@ -1,0 +1,24 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+  </Folder>
+  <Project Path="exiv2Cdecl/Prj_exiv2Cdecl/exiv2Cdecl.vcxproj" Id="16180316-d623-4790-830c-8173b8da7da5" />
+  <Project Path="LibRaw/libraw.vcxproj" Id="0126708f-2003-48f8-8445-dc0fa8fccce2" />
+  <Project Path="LibRawWrapper/LibRawWrapper.vcxproj" Id="3ca4543c-2e0f-4c7a-95b7-3173477bcda1">
+    <BuildDependency Project="LibRaw/libraw.vcxproj" />
+  </Project>
+  <Project Path="QuickImageComment/QuickImageComment_Net_10.csproj">
+    <BuildDependency Project="exiv2Cdecl/Prj_exiv2Cdecl/exiv2Cdecl.vcxproj" />
+    <BuildDependency Project="SimplePsd/SimplePsd_Net_10.csproj" />
+    <Platform Solution="*|x64" Project="x64" />
+    <Platform Solution="*|x86" Project="x86" />
+  </Project>
+  <Project Path="SimplePsd/SimplePsd_Net_10.csproj">
+    <Platform Solution="*|x64" Project="x64" />
+    <Platform Solution="*|x86" Project="x86" />
+  </Project>
+</Solution>

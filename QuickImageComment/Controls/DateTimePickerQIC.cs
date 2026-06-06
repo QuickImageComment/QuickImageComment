@@ -5,6 +5,7 @@
 // https://stackoverflow.com/questions/48020286/is-it-possible-to-increase-size-of-calendar-popup-in-winform
 // 
 using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
@@ -21,6 +22,7 @@ namespace QuickImageComment
 
         private Color buttonFillColor = Color.White;
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Color ButtonFillColor
         {
             get { return buttonFillColor; }

@@ -1009,9 +1009,9 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SimplePsd\SimplePsd.csproj">
+    <ProjectReference Include="..\SimplePsd\SimplePsd_Net_4_0.csproj">
       <Project>{0b73d848-c02d-4eab-8999-4fc5d086b08e}</Project>
-      <Name>SimplePsd</Name>
+      <Name>SimplePsd_Net_4_0</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

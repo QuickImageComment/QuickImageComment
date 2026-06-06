@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -14,6 +15,7 @@ namespace QuickImageCommentControls
         private SolidBrush checkedColor = new SolidBrush(Color.LightGreen);
 
         //[Browsable(true)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Color CheckedColor
         {
             get { return checkedColor.Color; }

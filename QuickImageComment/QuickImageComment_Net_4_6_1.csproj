@@ -97,7 +97,9 @@
   <ItemGroup>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="PresentationCore" />
-    <Reference Include="System" />
+    <Reference Include="System">
+      <HintPath>..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\System.dll</HintPath>
+    </Reference>
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
@@ -1045,9 +1047,9 @@
       <Project>{3ca4543c-2e0f-4c7a-95b7-3173477bcda1}</Project>
       <Name>LibRawWrapper</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SimplePsd\SimplePsd.csproj">
+    <ProjectReference Include="..\SimplePsd\SimplePsd_Net_4_0.csproj">
       <Project>{0b73d848-c02d-4eab-8999-4fc5d086b08e}</Project>
-      <Name>SimplePsd</Name>
+      <Name>SimplePsd_Net_4_0</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

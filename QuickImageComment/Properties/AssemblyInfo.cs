@@ -43,16 +43,16 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("5.00.*")]
-[assembly: AssemblyInformationalVersion("5.00" + AssemblyInfo.VersionSuffix + AssemblyInfo.Platform + AssemblyInfo.Framework)]
-[assembly: AssemblyFileVersion("5.00.0.0")]
+[assembly: AssemblyVersion("5.01.*")]
+[assembly: AssemblyInformationalVersion("5.01" + AssemblyInfo.VersionSuffix + AssemblyInfo.Platform + AssemblyInfo.Framework)]
+[assembly: AssemblyFileVersion("5.01.0.0")]
 
 class AssemblyInfo
 {
 #if DEBUG
     public const string VersionSuffix = "-DBG";
 #else
-    public const string VersionSuffix = "";
+    public const string VersionSuffix = " Beta";
 #endif
     // Version to Check is the last published version
     // for beta versions it is one before AssemblyVersion
@@ -65,7 +65,9 @@ class AssemblyInfo
     public const string Platform = " - 32 Bit";
 #endif
 
-#if NET5
+#if NET10_0_OR_GREATER
+    public const string Framework = " .Net 10";
+#elif NET5
     public const string Framework = " .Net 5";
 #elif NET461
     public const string Framework = " .Net 4.6.1";

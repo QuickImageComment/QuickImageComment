@@ -1126,7 +1126,11 @@ namespace QuickImageComment
         {
             try
             {
+#if NET10_0_OR_GREATER
+                byte[] utf8Bytes = CodePagesEncodingProvider.Instance.GetEncoding(1252).GetBytes(checkString);
+#else
                 byte[] utf8Bytes = Encoding.GetEncoding(1252).GetBytes(checkString);
+#endif
                 new UTF8Encoding(false, true).GetCharCount(utf8Bytes);
                 return true;
             }
@@ -1140,7 +1144,11 @@ namespace QuickImageComment
         private string getStringFromUTF8CString(string utf8String)
         {
             // Get UTF-8 bytes by reading each byte with ANSI encoding
+#if NET10_0_OR_GREATER
+            byte[] utf8Bytes = CodePagesEncodingProvider.Instance.GetEncoding(1252).GetBytes(utf8String);
+#else
             byte[] utf8Bytes = Encoding.GetEncoding(1252).GetBytes(utf8String);
+#endif
 
             // Convert UTF-8 bytes to UTF-16 bytes
             byte[] utf16Bytes = Encoding.Convert(Encoding.UTF8, Encoding.Unicode, utf8Bytes);
@@ -2746,7 +2754,9 @@ namespace QuickImageComment
         private System.Drawing.Bitmap jpeg2000BitmapFromStream(System.IO.MemoryStream theMemoryStream)
         {
             // reference: https://github.com/cureos/csj2k
+#if !NET10_0_OR_GREATER
             BitmapImageCreator.Register();
+#endif
             PortableImage portableImage = J2kImage.FromStream(theMemoryStream);
             return portableImage.As<Bitmap>();
         }

@@ -2747,7 +2747,11 @@ namespace QuickImageComment
                     // specify code page 1252 for reading; if file is encoded with UTF8 BOM, it will be read anyhow as UTF8, 
                     // keeping 1252 ensures that old configuration files can be read without problems
                     System.IO.StreamReader StreamIn =
-                      new System.IO.StreamReader(UserConfigFile, System.Text.Encoding.GetEncoding(1252));
+#if NET10_0_OR_GREATER
+                        new System.IO.StreamReader(UserConfigFile, CodePagesEncodingProvider.Instance.GetEncoding(1252));
+#else
+                        new System.IO.StreamReader(UserConfigFile, System.Text.Encoding.GetEncoding(1252));
+#endif
                     line = StreamIn.ReadLine();
                     while (line != null)
                     {
@@ -3639,31 +3643,35 @@ namespace QuickImageComment
             try
             {
 #endif
-                if (System.IO.File.Exists(GeneralConfigFile))
+            if (System.IO.File.Exists(GeneralConfigFile))
+            {
+                // specify code page 1252 for reading; if file is encoded with UTF8 BOM, it will be read anyhow as UTF8, 
+                // keeping 1252 ensures that old configuration files modified by user can be read without problems
+                System.IO.StreamReader StreamIn =
+#if NET10_0_OR_GREATER
+                    new System.IO.StreamReader(GeneralConfigFile, CodePagesEncodingProvider.Instance.GetEncoding(1252));
+#else
+                    new System.IO.StreamReader(GeneralConfigFile, System.Text.Encoding.GetEncoding(1252));
+#endif
+                line = StreamIn.ReadLine();
+                while (line != null)
                 {
-                    // specify code page 1252 for reading; if file is encoded with UTF8 BOM, it will be read anyhow as UTF8, 
-                    // keeping 1252 ensures that old configuration files modified by user can be read without problems
-                    System.IO.StreamReader StreamIn =
-                      new System.IO.StreamReader(GeneralConfigFile, System.Text.Encoding.GetEncoding(1252));
+                    analyzeGeneralConfigFileLine(GeneralConfigFile, line, lineNo, ref unknownKeyWords);
                     line = StreamIn.ReadLine();
-                    while (line != null)
-                    {
-                        analyzeGeneralConfigFileLine(GeneralConfigFile, line, lineNo, ref unknownKeyWords);
-                        line = StreamIn.ReadLine();
-                        lineNo++;
-                    }
-                    StreamIn.Close();
+                    lineNo++;
                 }
-                else if (required)
-                {
-                    throw new ExceptionConfigFileNotFound(GeneralConfigFile);
-                }
-                if (!unknownKeyWords.Equals(""))
-                {
-                    // do not translate here, as language configuration is not yet loaded
-                    GeneralUtilities.debugMessage("Unknown key words in configuration file " + GeneralConfigFile
-                        + ":\n" + unknownKeyWords + "\n\nLines are ignored.");
-                }
+                StreamIn.Close();
+            }
+            else if (required)
+            {
+                throw new ExceptionConfigFileNotFound(GeneralConfigFile);
+            }
+            if (!unknownKeyWords.Equals(""))
+            {
+                // do not translate here, as language configuration is not yet loaded
+                GeneralUtilities.debugMessage("Unknown key words in configuration file " + GeneralConfigFile
+                    + ":\n" + unknownKeyWords + "\n\nLines are ignored.");
+            }
 #if !DEBUG
             }
             catch (Exception ex)

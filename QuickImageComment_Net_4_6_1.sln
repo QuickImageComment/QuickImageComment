@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.1.32414.318
+# Visual Studio Version 18
+VisualStudioVersion = 18.5.11801.241 oobstable
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickImageComment_Net_4_6_1", "QuickImageComment\QuickImageComment_Net_4_6_1.csproj", "{8658DA34-73F6-4C52-89AA-7BC7AC646F37}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -20,7 +20,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LibRawWrapper", "LibRawWrap
 		{0126708F-2003-48F8-8445-DC0FA8FCCCE2} = {0126708F-2003-48F8-8445-DC0FA8FCCCE2}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimplePsd", "SimplePsd\SimplePsd.csproj", "{0B73D848-C02D-4EAB-8999-4FC5D086B08E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimplePsd_Net_4_0", "SimplePsd\SimplePsd_Net_4_0.csproj", "{0B73D848-C02D-4EAB-8999-4FC5D086B08E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 	ProjectSection(SolutionItems) = preProject
