@@ -39,13 +39,11 @@ namespace QuickImageCommentControls
             public int posX { get; set; }
             public int posY { get; set; }
             public double zoomFactor { get; set; }
-            public bool centerChanged { get; set; }
-            public PaintedEventArgs(int posX, int posY, double zoomFactor, bool centerChanged)
+            public PaintedEventArgs(int posX, int posY, double zoomFactor)
             {
                 this.posX = posX;
                 this.posY = posY;
                 this.zoomFactor = zoomFactor;
-                this.centerChanged = centerChanged;
             }
         }
         public delegate void PaintedEventHandler(object sender, PaintedEventArgs e);
@@ -85,8 +83,6 @@ namespace QuickImageCommentControls
         private Color gridColor;
         private double centerX = 0.5;
         private double centerY = 0.5;
-        private double centerXold = 0.5;
-        private double centerYold = 0.5;
 
         // position for scrolling the picture/detail frame with mouse
         private int startMouseX = 0;
@@ -162,7 +158,9 @@ namespace QuickImageCommentControls
         }
         private void setCenterXByPosX(int posX)
         {
-            double srcWidth = Math.Min(Image.Width, Width / zoomFactor);
+            double srcWidth;
+            double srcHeight;
+            calculateSrcWidthHeight(out srcWidth, out srcHeight);
             centerX = (double)(posX + srcWidth / 2) / Image.Width;
         }
 
@@ -174,7 +172,9 @@ namespace QuickImageCommentControls
 
         private void setCenterYByPosY(int posY)
         {
-            double srcHeight = Math.Min(Image.Height, Height / zoomFactor);
+            double srcWidth;
+            double srcHeight;
+            calculateSrcWidthHeight(out srcWidth, out srcHeight);
             centerY = (double)(posY + srcHeight / 2) / Image.Height;
         }
 
@@ -384,10 +384,6 @@ namespace QuickImageCommentControls
             centerX += shiftX / Image.Width;
             centerY += shiftY / Image.Height;
 
-            // set centerXold/centerYold to centerX/centerY to avoid that this leads to shifting other images
-            centerXold = centerX;
-            centerYold = centerY;
-
             Invalidate();
             OnZoomChanged(new ZoomChangedEventArgs(zoomFactor));
         }
@@ -415,16 +411,9 @@ namespace QuickImageCommentControls
                     e.Graphics.PixelOffsetMode = PixelOffsetMode.Half;
                 }
 
-                // check if center changed here as calculating rectangles may change center implicitly 
-                bool centerChanged = centerX != centerXold || centerY != centerYold;
-                centerXold = centerX;
-                centerYold = centerY;
-
-                float srcRatio = (float)srcRect.Width / srcRect.Height;
-                float destRatio = (float)(destRect.Width - borderWidth) / (destRect.Height - borderWidth);
                 g.DrawImage(Image, destRect, srcRect, GraphicsUnit.Pixel);
 
-                OnPainted(new PaintedEventArgs(srcRect.X, srcRect.Y, zoomFactor, centerChanged));
+                OnPainted(new PaintedEventArgs(srcRect.X, srcRect.Y, zoomFactor));
 
                 if (showGrid)
                 {
@@ -523,11 +512,11 @@ namespace QuickImageCommentControls
         // utilities
         //*****************************************************************
 
-        // return the rectangle in image to be drawn (source for g.DrawImage) considering current zoom/magnification and center position
-        public Rectangle getSourceRectangle()
+        // calculate width and height of source
+        private void calculateSrcWidthHeight(out double srcWidth, out double srcHeight)
         {
-            double srcWidth = Image.Width;
-            double srcHeight = Image.Height;
+            srcWidth = Image.Width;
+            srcHeight = Image.Height;
 
             if (magnificationFactor > 1.0F)
             {
@@ -562,8 +551,20 @@ namespace QuickImageCommentControls
                     srcWidth = Math.Min(Image.Width, srcWidth / heightRatio * widthRatio);
                 }
             }
+        }
+
+        // return the rectangle in image to be drawn (source for g.DrawImage) considering current zoom/magnification and center position
+        public Rectangle getSourceRectangle()
+        {
+            double srcWidth;
+            double srcHeight;
+            calculateSrcWidthHeight(out srcWidth, out srcHeight);
             centerXmin = srcWidth / 2 / Image.Width;
             centerYmin = srcHeight / 2 / Image.Height;
+            // if centerXmin/Ymin is greater than 0.5, it means that the image is smaller than picture box for current zoom/magnification
+            if (centerXmin > 0.5f) centerXmin = 1.0f - centerXmin;
+            if (centerYmin > 0.5f) centerYmin = 1.0f - centerYmin;
+
             centerXmax = 1.0 - centerXmin;
             centerYmax = 1.0 - centerYmin;
 
