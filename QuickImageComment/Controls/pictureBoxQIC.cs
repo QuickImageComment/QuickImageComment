@@ -77,6 +77,7 @@ namespace QuickImageCommentControls
         private readonly bool imageRefreshEnabled = true;
         private double zoomFactor = -1.0f;
         private double magnificationFactor = -1.0f;
+        private bool zoomFit = false;
         private bool showGrid = false;
         private bool forDetails = false;
         private int gridSize = 10;
@@ -119,6 +120,14 @@ namespace QuickImageCommentControls
         {
             zoomFactor = newZoomFactor;
             magnificationFactor = -1.0f;
+            zoomFit = zoomFactor == -1.0f;
+            if (zoomFit)
+            {
+                if (Image != null)
+                {
+                    zoomFactor = zoomFactorForFit();
+                }
+            }
             Invalidate();
         }
 
@@ -144,9 +153,10 @@ namespace QuickImageCommentControls
         {
             magnificationFactor = newMagnificationFactor;
             zoomFactor = -1.0f;
+            zoomFit = false;
             if (Image != null)
             {
-                zoomFactor = Math.Min((float)Width / Image.Width, (float)Height / Image.Height) * magnificationFactor;
+                zoomFactor = zoomFactorForFit() * magnificationFactor;
             }
             Invalidate();
         }
@@ -365,15 +375,17 @@ namespace QuickImageCommentControls
                 // from now on zooming is based on zoomFactor
                 magnificationFactor = -1.0;
             }
-            else if (zoomFactor < 0)
+            else if (zoomFit)
             {
-                // was set to "fit"
+                zoomFit = false;
                 zoomFactor = Math.Min((float)Width / Image.Width, (float)Height / Image.Height);
             }
             if (e.Delta > 0)
                 zoomFactor *= modifier;
             else if (e.Delta < 0)
                 zoomFactor /= modifier;
+
+            if (zoomFactor < zoomFactorForFit()) zoomFactor = zoomFactorForFit();
 
             // Zoom around mouse position
             // so calculate shift of centerX/Y to keep the image position under mouse pointer
@@ -523,7 +535,7 @@ namespace QuickImageCommentControls
                 srcWidth = Image.Width / magnificationFactor;
                 srcHeight = Image.Height / magnificationFactor;
             }
-            else if (zoomFactor > 0)
+            else if (!zoomFit)
             {
                 if (!forDetails)
                 {
@@ -553,6 +565,16 @@ namespace QuickImageCommentControls
             }
         }
 
+        // calculate zoomfactor for "fit"
+        private double zoomFactorForFit()
+        {
+            if (Image != null)
+            {
+                return Math.Min((float)Width / Image.Width, (float)Height / Image.Height);
+            }
+            return -1.0f;
+        }
+
         // return the rectangle in image to be drawn (source for g.DrawImage) considering current zoom/magnification and center position
         public Rectangle getSourceRectangle()
         {
@@ -568,31 +590,26 @@ namespace QuickImageCommentControls
             centerXmax = 1.0 - centerXmin;
             centerYmax = 1.0 - centerYmin;
 
-            int x = (int)(Image.Width * centerX - (int)(srcWidth / 2));
-            int y = (int)((Image.Height * centerY) - (int)(srcHeight / 2));
+            int x = (int)(Image.Width * centerX - (srcWidth / 2) + 0.5f);
+            int y = (int)((Image.Height * centerY) - (srcHeight / 2) + 0.5f);
 
-            if (forDetails)
+            if (!forDetails)
             {
-                pixelYmin = y;
-                pixelYmax = y + (int)srcHeight;
-                pixelYmiddle = y + (int)(srcHeight / 2);
-                pixelXmin = x;
-                pixelXmax = x + (int)srcWidth;
-                pixelXmiddle = x + (int)(srcWidth / 2);
-                middleX = (int)((pixelXmiddle - pixelXmin) * zoomFactor + 0.5f) + (int)Math.Round(zoomFactor / 2);
-                middleY = (int)((pixelYmiddle - pixelYmin) * zoomFactor + 0.5f) + (int)Math.Round(zoomFactor / 2);
-                middleX = Math.Max(middleX, Width / 2 - borderWidth);
-                middleY = Math.Max(middleY, Height / 2 - borderWidth);
-                return new Rectangle(pixelXmin, pixelYmin, pixelXmax - pixelXmin, pixelYmax - pixelYmin);
-            }
-            else
-            {
-                x = Math.Max(0, x);
-                y = Math.Max(0, y);
                 if (x + srcWidth > Image.Width) x = (int)(Image.Width - srcWidth);
                 if (y + srcHeight > Image.Height) y = (int)(Image.Height - srcHeight);
-                return new Rectangle(x, y, (int)srcWidth, (int)srcHeight);
             }
+            pixelYmin = y;
+            pixelYmax = y + (int)srcHeight;
+            pixelYmiddle = y + (int)(srcHeight / 2);
+            pixelXmin = x;
+            pixelXmax = x + (int)srcWidth;
+            pixelXmiddle = x + (int)(srcWidth / 2);
+            double zf = zoomFactor;
+            middleX = (int)((pixelXmiddle - pixelXmin) * zoomFactor + 0.5f) + (int)Math.Round(zf / 2);
+            middleY = (int)((pixelYmiddle - pixelYmin) * zoomFactor + 0.5f) + (int)Math.Round(zf / 2);
+            middleX = Math.Max(middleX, Width / 2 - borderWidth);
+            middleY = Math.Max(middleY, Height / 2 - borderWidth);
+            return new Rectangle(pixelXmin, pixelYmin, pixelXmax - pixelXmin, pixelYmax - pixelYmin);
         }
 
         // get the rectangle in picture box to draw the image (destination for g.DrawImage) considering current zoom/magnification and center position
