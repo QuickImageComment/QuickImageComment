@@ -114,6 +114,12 @@ namespace QuickImageComment
             adjustColorGraphicSettings();
             pictureBoxImage.setGridSize((int)numericUpDownGridSize.Value);
             setGridColor(ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.ImageDetailsGridColor));
+
+            checkBoxShowFocusPoint.Checked = ConfigDefinition.getCfgUserBool(ConfigDefinition.enumCfgUserBool.showFocusPointImageDetails);
+            buttonFocusPointColor.BackColor = Color.FromArgb(ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.FocusPointColor));
+            numericUpDownWidth.Value = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.FocusPointWidth);
+            numericUpDownRadius.Value = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.FocusPointRadius);
+
             pictureBoxImage.setForDetails(true);
 
             if (splitContainerImageDetails1.Orientation == Orientation.Vertical)
@@ -262,6 +268,48 @@ namespace QuickImageComment
             }
         }
 
+        private void buttonFocusPointColor_Click(object sender, EventArgs e)
+        {
+            // Alows the user to select a custom color.
+            theColorDialog.AllowFullOpen = true;
+            theColorDialog.ShowHelp = true;
+
+            // if OK set new color
+            if (theColorDialog.ShowDialog() == DialogResult.OK)
+            {
+                ((Button)sender).BackColor = theColorDialog.Color;
+                ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.FocusPointColor,
+                    theColorDialog.Color.ToArgb());
+                pictureBoxImage.Invalidate();
+            }
+        }
+
+        private void numericUpDownRadius_ValueChanged(object sender, EventArgs e)
+        {
+            ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.FocusPointRadius, (int)numericUpDownRadius.Value);
+            pictureBoxImage.Invalidate();
+        }
+
+        private void numericUpDownWidth_ValueChanged(object sender, EventArgs e)
+        {
+            ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.FocusPointWidth, (int)numericUpDownWidth.Value);
+            pictureBoxImage.Invalidate();
+        }
+
+        private void checkBoxShowFocusPoint_CheckedChanged(object sender, EventArgs e)
+        {
+            ConfigDefinition.setCfgUserBool(ConfigDefinition.enumCfgUserBool.showFocusPointImageDetails, checkBoxShowFocusPoint.Checked);
+            pictureBoxImage.Invalidate();
+        }
+
+        private void buttonCenterFocusPoint_Click(object sender, EventArgs e)
+        {
+            numericUpDownX.Value = (decimal)(theExtendedImage.getFocusPoint().X
+                - (pictureBoxImage.Width - pictureBoxImage.borderWidth) / 2 / zoomFactor);
+            numericUpDownY.Value = (decimal)(theExtendedImage.getFocusPoint().Y 
+                - (float)((pictureBoxImage.Height - pictureBoxImage.borderWidth) / 2) / zoomFactor);
+        }
+
         private void numericUpDownGridSize_ValueChanged(object sender, EventArgs e)
         {
             if (theImage != null)
@@ -356,8 +404,8 @@ namespace QuickImageComment
         {
             numericUpDownX.ValueChanged -= numericUpDownX_ValueChanged;
             numericUpDownY.ValueChanged -= numericUpDownY_ValueChanged;
-            numericUpDownX.Value = e.posX;
-            numericUpDownY.Value = e.posY;
+            numericUpDownX.Value = Math.Max(numericUpDownX.Minimum, Math.Min(numericUpDownX.Maximum, e.posX));
+            numericUpDownY.Value = Math.Max(numericUpDownY.Minimum, Math.Min(numericUpDownY.Maximum, e.posY));
             numericUpDownX.ValueChanged += numericUpDownX_ValueChanged;
             numericUpDownY.ValueChanged += numericUpDownY_ValueChanged;
             theExtendedImage.setImageDetailsPosX((int)numericUpDownX.Value);
@@ -377,7 +425,7 @@ namespace QuickImageComment
             comboBoxZoom.Text = LangCfg.translate("variabel", "pictureBoxImage_MouseWheel");
             zoomFactor = (float)e.zoomFactor;
             float minZoom = calculateMinZoom(theImage);
-            hScrollBarZoom.Value = Math.Min(100, (int)((zoomFactor - minZoom) * 100.0F / (maxZoom - minZoom)));
+            hScrollBarZoom.Value = Math.Max(hScrollBarZoom.Minimum, Math.Min(hScrollBarZoom.Maximum, (int)((zoomFactor - minZoom) * 100.0F / (maxZoom - minZoom))));
             dynamicLabelZoom.Text = zoomFactor.ToString("0.00");
         }
 
@@ -744,6 +792,8 @@ namespace QuickImageComment
                 theImage = (System.Drawing.Bitmap)givenExtendedImage.getFullSizeImage();
                 pictureBoxImage.Image = theImage;
                 pictureBoxImage.setZoom(zoomFactor);
+                pictureBoxImage.setFocusPoint(givenExtendedImage.getFocusPoint());
+                panelFocusPointControls.Visible = givenExtendedImage.getFocusPoint() != Point.Empty;
                 if (theExtendedImage.getImageDetailsPosX() == -9999)
                 {
                     // position of image detail frame not set before, set position to middle

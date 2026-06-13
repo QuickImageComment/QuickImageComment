@@ -272,6 +272,7 @@ namespace QuickImageComment
             this.toolStripButtonFind = new System.Windows.Forms.ToolStripButton();
             this.toolTip1 = new QuickImageComment.ToolTipQIC();
             this.theFolderTreeView = new QuickImageCommentControls.ShellTreeViewQIC();
+            this.toolStripMenuItemShowFocusPoint = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer12)).BeginInit();
             this.splitContainer12.Panel1.SuspendLayout();
@@ -350,7 +351,6 @@ namespace QuickImageComment
             this.pictureBox1.TabStop = false;
             this.pictureBox1.zoomChanged += new QuickImageCommentControls.PictureBoxQIC.ZoomChangedEventHandler(this.pictureBox1_zoomChanged);
             this.pictureBox1.painted += new QuickImageCommentControls.PictureBoxQIC.PaintedEventHandler(this.pictureBox1_painted);
-            //this.pictureBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox1_Paint);
             // 
             // textBoxUserComment
             // 
@@ -1445,6 +1445,7 @@ namespace QuickImageComment
             this.toolStripMenuItemPanelPictureOnly,
             this.toolStripMenuItemImageWithGrid,
             this.toolStripMenuItemDefineImageGrids,
+            this.toolStripMenuItemShowFocusPoint,
             this.toolStripSeparatorViewConfigurations,
             this.toolStripMenuItemSlideshow,
             this.toolStripSeparator19});
@@ -2575,6 +2576,13 @@ namespace QuickImageComment
             this.theFolderTreeView.Size = new System.Drawing.Size(253, 147);
             this.theFolderTreeView.TabIndex = 0;
             // 
+            // toolStripMenuItemShowFocusPoint
+            // 
+            this.toolStripMenuItemShowFocusPoint.Name = "toolStripMenuItemShowFocusPoint";
+            this.toolStripMenuItemShowFocusPoint.Size = new System.Drawing.Size(219, 22);
+            this.toolStripMenuItemShowFocusPoint.Text = "Fokuspunkt anzeigen";
+            this.toolStripMenuItemShowFocusPoint.Click += new System.EventHandler(this.toolStripMenuItemShowFocusPoint_Click);
+            // 
             // FormQuickImageComment
             // 
             this.AllowDrop = true;
@@ -2893,5 +2901,6 @@ namespace QuickImageComment
         internal System.Windows.Forms.TabPage tabPageExifTool;
         private System.Windows.Forms.VScrollBar vScrollBar1;
         private System.Windows.Forms.HScrollBar hScrollBar1;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemShowFocusPoint;
     }
 }

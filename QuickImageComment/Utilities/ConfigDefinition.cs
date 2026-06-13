@@ -208,7 +208,9 @@ namespace QuickImageComment
             slideShowHideSettingsAtStart,
             showScaleInMap,
             hideMapWhenNoGPS,
-            logDifferencesMetaData
+            logDifferencesMetaData,
+            showFocusPointImageDetails,
+            showFocusPointMainMask
         };
 
         public enum enumCfgUserInt
@@ -283,7 +285,10 @@ namespace QuickImageComment
             slideShowBackColor,
             slideShowSubtitleForeColor,
             slideShowDelay,
-            slideShowSubtitleOpacity
+            slideShowSubtitleOpacity,
+            FocusPointColor,
+            FocusPointRadius,
+            FocusPointWidth
         };
 
         public enum enumCfgUserString
@@ -647,6 +652,8 @@ namespace QuickImageComment
             ConfigItems.Add(enumCfgUserBool.showScaleInMap.ToString(), true);
             ConfigItems.Add(enumCfgUserBool.hideMapWhenNoGPS.ToString(), false);
             ConfigItems.Add(enumCfgUserBool.logDifferencesMetaData.ToString(), false);
+            ConfigItems.Add(enumCfgUserBool.showFocusPointImageDetails.ToString(), false);
+            ConfigItems.Add(enumCfgUserBool.showFocusPointMainMask.ToString(), false);
 
             ConfigItems.Add(enumCfgUserString.LastCheckForNewVersion.ToString(), "not configured");
             ConfigItems.Add(enumCfgUserString.NextCheckForNewVersion.ToString(), "not configured");
@@ -715,6 +722,9 @@ namespace QuickImageComment
             ConfigItems.Add(enumCfgUserInt.slideShowSubtitleForeColor.ToString(), Color.White.ToArgb());
             ConfigItems.Add(enumCfgUserInt.slideShowDelay.ToString(), 5);
             ConfigItems.Add(enumCfgUserInt.slideShowSubtitleOpacity.ToString(), 50);
+            ConfigItems.Add(enumCfgUserInt.FocusPointColor.ToString(), Color.Red.ToArgb());
+            ConfigItems.Add(enumCfgUserInt.FocusPointRadius.ToString(), 10);
+            ConfigItems.Add(enumCfgUserInt.FocusPointWidth.ToString(), 1);
 
             // the following are not contained in standard general configuration file and are optional
             // so they are not defined via enum

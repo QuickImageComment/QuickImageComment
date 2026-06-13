@@ -258,6 +258,7 @@ namespace QuickImageComment
         private int GridPosY;
         private int ImageDetailsPosX;
         private int ImageDetailsPosY;
+        private Point focusPoint;
         private System.Drawing.Point AutoScrollPosition;
         private bool RotateAfterRawDecode = false;
 
@@ -315,6 +316,7 @@ namespace QuickImageComment
             AutoScrollPosition.Y = 1;
 
             readMetaData(ConstructorPerformance, null, null, fileInfo);
+            determineFocusPoint();
             DateTime CurrentTime = DateTime.Now;
             readTxtFile();
 
@@ -590,6 +592,24 @@ namespace QuickImageComment
                 addOtherMetaDataReadonly(anOtherMetaDataDefinition.getKey(), anOtherMetaDataDefinition.getValue(this));
             }
             ReadPerformance.measure("readMetaData finish");
+        }
+
+        // determine focus point
+        private void determineFocusPoint()
+        {
+            string focusPointString = getMetaDataValueByKey("Exif.Fujifilm.FocusPoint", MetaDataItem.Format.Original);
+
+            string[] fp = focusPointString.Split(' ');
+            if (fp.Length == 2)
+            {
+                int focusPointX = Convert.ToInt32(fp[0]);
+                int focusPointY = Convert.ToInt32(fp[1]);
+                focusPoint = new Point(focusPointX, focusPointY);
+            }
+            else
+            {
+                focusPoint = Point.Empty;
+            }
         }
 
         // add meta data which are derived when getting BitMap of image
@@ -2966,6 +2986,12 @@ namespace QuickImageComment
             return codecInfo;
         }
 
+        // get focus point
+        internal Point getFocusPoint()
+        {
+            return focusPoint;
+        }
+
         //*****************************************************************
         // Save new data
         // only if attributes changed
@@ -3894,6 +3920,7 @@ namespace QuickImageComment
         {
             FileInfo fileInfo = new FileInfo(ImageFileName);
             readMetaData(performance, null, null, fileInfo);
+            determineFocusPoint();
             readTxtFile();
             addMetaDataFromBitMap();
 

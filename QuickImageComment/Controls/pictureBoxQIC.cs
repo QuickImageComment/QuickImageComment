@@ -84,6 +84,7 @@ namespace QuickImageCommentControls
         private Color gridColor;
         private double centerX = 0.5;
         private double centerY = 0.5;
+        private Point focusPoint = Point.Empty;
 
         // position for scrolling the picture/detail frame with mouse
         private int startMouseX = 0;
@@ -128,6 +129,12 @@ namespace QuickImageCommentControls
                     zoomFactor = zoomFactorForFit();
                 }
             }
+            Invalidate();
+        }
+
+        internal void setFocusPoint(Point focusPoint)
+        {
+            this.focusPoint = focusPoint;
             Invalidate();
         }
 
@@ -463,6 +470,17 @@ namespace QuickImageCommentControls
                     e.Graphics.DrawLine(new Pen(System.Drawing.Color.White, 1.0f), new Point(0, middleY), new Point(borderWidth, middleY));
                     e.Graphics.DrawLine(new Pen(System.Drawing.Color.Black, 15.0f), new Point(Width - borderWidth, middleY), new Point(Width, middleY));
                     e.Graphics.DrawLine(new Pen(System.Drawing.Color.White, 1.0f), new Point(Width - borderWidth, middleY), new Point(Width, middleY));
+
+                    // mark focus point
+                    if (ConfigDefinition.getCfgUserBool(enumCfgUserBool.showFocusPointImageDetails) && focusPoint != Point.Empty)
+                    {
+                        Color color = Color.FromArgb(ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.FocusPointColor));
+                        int r = ConfigDefinition.getCfgUserInt(enumCfgUserInt.FocusPointRadius);
+                        int w = ConfigDefinition.getCfgUserInt(enumCfgUserInt.FocusPointWidth);
+                        int x = (int)((focusPoint.X - srcRect.X) * zoomFactor) - r / 2;
+                        int y = (int)((focusPoint.Y - srcRect.Y) * zoomFactor) - r / 2;
+                        e.Graphics.DrawEllipse(new System.Drawing.Pen(color, (float)w), x, y, r, r);
+                    }
                 }
                 else
                 {
@@ -505,6 +523,17 @@ namespace QuickImageCommentControls
                             detailFrameRectangle.Y,
                             detailFrameRectangle.X + detailFrameRectangle.Width / 2,
                             detailFrameRectangle.Y + detailFrameRectangle.Height);
+                    }
+
+                    // mark focus point
+                    if (ConfigDefinition.getCfgUserBool(enumCfgUserBool.showFocusPointMainMask) && focusPoint != Point.Empty)
+                    {
+                        Color color = Color.FromArgb(ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.FocusPointColor));
+                        int r = ConfigDefinition.getCfgUserInt(enumCfgUserInt.FocusPointRadius);
+                        int w = ConfigDefinition.getCfgUserInt(enumCfgUserInt.FocusPointWidth);
+                        int x = (int)((focusPoint.X - srcRect.X) * zoomFactor) + destRect.X - r / 2;
+                        int y = (int)((focusPoint.Y - srcRect.Y) * zoomFactor) + destRect.Y - r / 2;
+                        e.Graphics.DrawEllipse(new System.Drawing.Pen(color, (float)w), x, y, r, r);
                     }
                 }
             }

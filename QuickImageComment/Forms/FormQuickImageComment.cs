@@ -615,6 +615,7 @@ namespace QuickImageComment
             theUserControlFiles.listViewFilesSetViewBasedOnConfig();
 
             toolStripMenuItemImageWithGrid.Checked = ConfigDefinition.getShowImageWithGrid();
+            toolStripMenuItemShowFocusPoint.Checked = ConfigDefinition.getCfgUserBool(ConfigDefinition.enumCfgUserBool.showFocusPointMainMask);
 
             // set view for images to "fit"
             viewMode = 0;
@@ -1119,7 +1120,7 @@ namespace QuickImageComment
             hScrollBar1.LargeChange = virtualBoxWidth;
             hScrollBar1.SmallChange = hScrollBar1.LargeChange / 10;
             hScrollBar1.Enabled = virtualBoxWidth < pictureBox1.Image.Width;
-            hScrollBar1.Value = e.posX;
+            hScrollBar1.Value = Math.Max(hScrollBar1.Minimum, Math.Min(hScrollBar1.Maximum, e.posX));
 
             // configure vertical scrollbar
             vScrollBar1.Minimum = 0;
@@ -1127,7 +1128,7 @@ namespace QuickImageComment
             vScrollBar1.LargeChange = virtualBoxHeight;
             vScrollBar1.SmallChange = vScrollBar1.LargeChange / 10;
             vScrollBar1.Enabled = virtualBoxHeight < pictureBox1.Image.Height;
-            vScrollBar1.Value = e.posY;
+            vScrollBar1.Value = Math.Max(vScrollBar1.Minimum, Math.Min(vScrollBar1.Maximum, e.posY));
         }
 
         private void pictureBox1_zoomChanged(object sender, PictureBoxQIC.ZoomChangedEventArgs e)
@@ -3669,6 +3670,14 @@ namespace QuickImageComment
             refreshImage();
         }
 
+        // show focus point
+        private void toolStripMenuItemShowFocusPoint_Click(object sender, EventArgs e)
+        {
+            toolStripMenuItemShowFocusPoint.Checked = !toolStripMenuItemShowFocusPoint.Checked;
+            ConfigDefinition.setCfgUserBool(ConfigDefinition.enumCfgUserBool.showFocusPointMainMask, toolStripMenuItemShowFocusPoint.Checked);
+            pictureBox1.Invalidate();
+        }
+
         // define image grids
         private void toolStripMenuItemDefineImageGrids_Click(object sender, EventArgs e)
         {
@@ -5028,6 +5037,9 @@ namespace QuickImageComment
                 // configuration for RAW decoders requiring rotation may have changed
                 theExtendedImage.rotateIfRawDecoderRotationChanged();
                 pictureBox1.Image = theExtendedImage.createAndGetAdjustedImage(toolStripMenuItemImageWithGrid.Checked);
+                pictureBox1.setFocusPoint(theExtendedImage.getFocusPoint());
+                toolStripMenuItemShowFocusPoint.Visible = theExtendedImage.getFocusPoint() != Point.Empty;
+
                 // Force Garbage Collection as creating adjusted image may use a lot of memory
                 GC.Collect();
 #endif
@@ -6768,6 +6780,7 @@ namespace QuickImageComment
                 }
                 showRefreshImageGrid();
                 toolStripMenuItemImageWithGrid.Checked = false;
+                toolStripMenuItemShowFocusPoint.Checked = false;
                 toolStripMenuItemImageFit_Click(null, null);
 
                 ConfigDefinition.loadViewConfiguration("LeftVertical");
