@@ -571,6 +571,7 @@ namespace Brain2CPU.ExifTool
             {
                 string[] lines = cmdRes.Result.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
                 {
+                    // first line is header, so start with ii=1
                     for (int ii = 1; ii < lines.Length; ii++)
                     {
                         Languages.Add(lines[ii].Trim());
@@ -587,6 +588,7 @@ namespace Brain2CPU.ExifTool
             {
                 string[] lines = cmdRes.Result.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
                 {
+                    // first line is header, so start with ii=1
                     for (int ii = 1; ii < lines.Length; ii++)
                     {
                         foreach (string word in lines[ii].Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries))

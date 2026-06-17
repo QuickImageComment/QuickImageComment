@@ -73,6 +73,9 @@ namespace QuickImageComment
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
+            // ignore exception due to cross thread calls during debugging
+            if (System.Diagnostics.Debugger.IsAttached) Control.CheckForIllegalCrossThreadCalls = false;
+
             // initialise structured excepation tranlator
             // to catch also exception like read access violation
             // note: debug step into does not work for first Cdecl call, which is this one

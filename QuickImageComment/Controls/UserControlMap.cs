@@ -1030,22 +1030,45 @@ namespace QuickImageComment
         // general methods 
         //---------------------------------------------------------------------
         // return selected GPS position values
-        public string getLongitudeVal()
+        public string getLongitudeExiv2Val()
         {
             if (markerGeoDataItem != null)
             {
-                return markerGeoDataItem.getLongitudeVal();
+                return markerGeoDataItem.getLongitudeExiv2Val();
             }
             else
             {
                 return "";
             }
         }
-        public string getLatitudeVal()
+        public string getLatitudeExiv2Val()
         {
             if (markerGeoDataItem != null)
             {
-                return markerGeoDataItem.getLatitudeVal();
+                return markerGeoDataItem.getLatitudeExiv2Val();
+            }
+            else
+            {
+                return "";
+            }
+        }
+        // return selected GPS position values
+        public string getLongitudeDegMinSec()
+        {
+            if (markerGeoDataItem != null)
+            {
+                return markerGeoDataItem.getLongitudeDegMinSec();
+            }
+            else
+            {
+                return "";
+            }
+        }
+        public string getLatitudeDegMinSec()
+        {
+            if (markerGeoDataItem != null)
+            {
+                return markerGeoDataItem.getLatitudeDegMinSec();
             }
             else
             {

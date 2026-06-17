@@ -191,14 +191,24 @@ namespace QuickImageComment
             return lat == otherGeoDataItem.lat && lon == otherGeoDataItem.lon;
         }
 
-        // get geo data in format to be saved in Exif
-        public string getLatitudeVal()
+        // get geo data in format to be saved in Exifv via exiv2
+        public string getLatitudeExiv2Val()
         {
-            return GeneralUtilities.getExifGpsCoordinate(latUnsigned);
+            return GeneralUtilities.getExiv2GpsCoordinate(latUnsigned);
         }
-        public string getLongitudeVal()
+        public string getLongitudeExiv2Val()
         {
-            return GeneralUtilities.getExifGpsCoordinate(lonUnsigned);
+            return GeneralUtilities.getExiv2GpsCoordinate(lonUnsigned);
+        }
+
+        // get geo data in format to be saved in Exif via exiftool
+        public string getLatitudeDegMinSec()
+        {
+            return GeneralUtilities.getExiftoolGpsCoordinate(latUnsigned);
+        }
+        public string getLongitudeDegMinSec()
+        {
+            return GeneralUtilities.getExiftoolGpsCoordinate(lonUnsigned);
         }
     }
 }

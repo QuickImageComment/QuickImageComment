@@ -397,6 +397,11 @@ namespace QuickImageComment
         private static List<string> ImagesCausingExiv2Exception;
 
         internal static SortedList<string, DataTemplate> DataTemplates;
+        // mapping of exiv2 tags to exiftool tags, can be used for write
+        internal static SortedList<string, string> Exiv2ExifToolMappingWrite;
+        // mapping of exiv2 tags to exiftool tags, can be used for read only,
+        // write may fail due to different representation of values
+        internal static SortedList<string, string> Exiv2ExifToolMappingRead;
         internal static SortedList<string, string> MapUrls;
         internal static SortedList<string, MapSource> MapLeafletList;
 
@@ -493,6 +498,8 @@ namespace QuickImageComment
             RenameConfigurationNames = new ArrayList();
             ViewConfigurationNames = new ArrayList();
             DataTemplates = new SortedList<string, DataTemplate>();
+            Exiv2ExifToolMappingWrite = new SortedList<string, string>();
+            Exiv2ExifToolMappingRead = new SortedList<string, string>();
             MapUrls = new SortedList<string, string>();
             MapLeafletList = new SortedList<string, MapSource>();
 
@@ -3653,35 +3660,35 @@ namespace QuickImageComment
             try
             {
 #endif
-            if (System.IO.File.Exists(GeneralConfigFile))
-            {
-                // specify code page 1252 for reading; if file is encoded with UTF8 BOM, it will be read anyhow as UTF8, 
-                // keeping 1252 ensures that old configuration files modified by user can be read without problems
-                System.IO.StreamReader StreamIn =
+                if (System.IO.File.Exists(GeneralConfigFile))
+                {
+                    // specify code page 1252 for reading; if file is encoded with UTF8 BOM, it will be read anyhow as UTF8, 
+                    // keeping 1252 ensures that old configuration files modified by user can be read without problems
+                    System.IO.StreamReader StreamIn =
 #if NET10_0_OR_GREATER
                     new System.IO.StreamReader(GeneralConfigFile, CodePagesEncodingProvider.Instance.GetEncoding(1252));
 #else
-                    new System.IO.StreamReader(GeneralConfigFile, System.Text.Encoding.GetEncoding(1252));
+                        new System.IO.StreamReader(GeneralConfigFile, System.Text.Encoding.GetEncoding(1252));
 #endif
-                line = StreamIn.ReadLine();
-                while (line != null)
-                {
-                    analyzeGeneralConfigFileLine(GeneralConfigFile, line, lineNo, ref unknownKeyWords);
                     line = StreamIn.ReadLine();
-                    lineNo++;
+                    while (line != null)
+                    {
+                        analyzeGeneralConfigFileLine(GeneralConfigFile, line, lineNo, ref unknownKeyWords);
+                        line = StreamIn.ReadLine();
+                        lineNo++;
+                    }
+                    StreamIn.Close();
                 }
-                StreamIn.Close();
-            }
-            else if (required)
-            {
-                throw new ExceptionConfigFileNotFound(GeneralConfigFile);
-            }
-            if (!unknownKeyWords.Equals(""))
-            {
-                // do not translate here, as language configuration is not yet loaded
-                GeneralUtilities.debugMessage("Unknown key words in configuration file " + GeneralConfigFile
-                    + ":\n" + unknownKeyWords + "\n\nLines are ignored.");
-            }
+                else if (required)
+                {
+                    throw new ExceptionConfigFileNotFound(GeneralConfigFile);
+                }
+                if (!unknownKeyWords.Equals(""))
+                {
+                    // do not translate here, as language configuration is not yet loaded
+                    GeneralUtilities.debugMessage("Unknown key words in configuration file " + GeneralConfigFile
+                        + ":\n" + unknownKeyWords + "\n\nLines are ignored.");
+                }
 #if !DEBUG
             }
             catch (Exception ex)
@@ -3769,6 +3776,30 @@ namespace QuickImageComment
                             {
                                 ConfigItems["_TxtInitialDescriptionItems"] = ConfigItems["_TxtInitialDescriptionItems"] + "\r\n" + secondPart;
                             }
+                        }
+                    }
+
+                    else if (firstPart.Equals("Exiv2ExifToolMappingWrite"))
+                    {
+                        int indexEqual = secondPart.IndexOf("=");
+                        string Exiv2Tag = secondPart.Substring(0, indexEqual);
+                        string ExifToolTag = secondPart.Substring(indexEqual + 1);
+
+                        if (!Exiv2ExifToolMappingWrite.ContainsKey(Exiv2Tag))
+                        {
+                            Exiv2ExifToolMappingWrite.Add(Exiv2Tag, ExifToolTag);
+                        }
+                    }
+
+                    else if (firstPart.Equals("Exiv2ExifToolMappingRead"))
+                    {
+                        int indexEqual = secondPart.IndexOf("=");
+                        string Exiv2Tag = secondPart.Substring(0, indexEqual);
+                        string ExifToolTag = secondPart.Substring(indexEqual + 1);
+
+                        if (!Exiv2ExifToolMappingRead.ContainsKey(Exiv2Tag))
+                        {
+                            Exiv2ExifToolMappingRead.Add(Exiv2Tag, ExifToolTag);
                         }
                     }
 
@@ -4262,5 +4293,25 @@ namespace QuickImageComment
             }
         }
 
+        // get mapped ExifTool tag for exiv2 tag - write
+        public static string getExifToolTag4exiv2Write(string key)
+        {
+            if (Exiv2ExifToolMappingWrite.ContainsKey(key))
+                return Exiv2ExifToolMappingWrite[key];
+            else
+                Logger.log("key >" + key + "< not found in Exiv2ExifToolMappingWrite");
+            return null;
+        }
+
+        // get mapped ExifTool tag for exiv2 tag - read
+        public static string getExifToolTag4exiv2(string key)
+        {
+            if (Exiv2ExifToolMappingWrite.ContainsKey(key))
+                return Exiv2ExifToolMappingWrite[key];
+            else if (Exiv2ExifToolMappingRead.ContainsKey(key))
+                return Exiv2ExifToolMappingRead[key];
+            else
+                return null;
+        }
     }
 }

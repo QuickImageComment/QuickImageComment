@@ -483,8 +483,8 @@ namespace QuickImageComment
             return degree;
         }
 
-        // convert longitude/latitude as decimal string to exif GPS format string (Rational representation)
-        public static string getExifGpsCoordinate(string CoordinateDecimalString)
+        // convert longitude/latitude as decimal string to exiv2 GPS format string (Rational representation)
+        public static string getExiv2GpsCoordinate(string CoordinateDecimalString)
         {
             try
             {
@@ -498,6 +498,29 @@ namespace QuickImageComment
                 coordinate = (coordinate - integerPart) * 60 * 10000;
                 integerPart = (int)coordinate;
                 ExifGpsCoordinate = ExifGpsCoordinate + integerPart.ToString() + "/10000";
+                return ExifGpsCoordinate;
+            }
+            catch (Exception)
+            {
+                return "";
+            }
+        }
+
+        // convert longitude/latitude as decimal string to exiftool GPS format string (deg min sec representation)
+        public static string getExiftoolGpsCoordinate(string CoordinateDecimalString)
+        {
+            try
+            {
+                string ExifGpsCoordinate = "";
+                double coordinate = double.Parse(CoordinateDecimalString, System.Globalization.CultureInfo.InvariantCulture);
+                int integerPart = (int)coordinate;
+                ExifGpsCoordinate = integerPart.ToString() + " deg ";
+                coordinate = (coordinate - integerPart) * 60;
+                integerPart = (int)coordinate;
+                ExifGpsCoordinate = ExifGpsCoordinate + integerPart.ToString() + "' ";
+                coordinate = (coordinate - integerPart) * 60 * 10000;
+                integerPart = (int)coordinate;
+                ExifGpsCoordinate = ExifGpsCoordinate + ((float)integerPart / 10000f).ToString("0.00\\\"", System.Globalization.CultureInfo.InvariantCulture);
                 return ExifGpsCoordinate;
             }
             catch (Exception)

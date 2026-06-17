@@ -1103,7 +1103,7 @@ namespace QuickImageComment
                 }
                 string structKey = keyStringDisplay.Substring(0, keyFirstPartLength);
                 string structKeyIndex = structKey;
-                // no structKeyIndes should be like Xmp.MP.RegionInfo or Xmp.xmpBJ.JobRef
+                // no structKeyIndex should be like Xmp.MP.RegionInfo or Xmp.xmpBJ.JobRef
                 string valueStringStruct = keyStringDisplay.Substring(keyFirstPartLength) + "=" + valueString;
                 string interpretedStringStruct = keyStringDisplay.Substring(keyFirstPartLength) + "=" + interpretedString;
                 while (XmpMetaDataStructItems.ContainsKey(structKeyIndex))
@@ -3278,7 +3278,7 @@ namespace QuickImageComment
                                 if (achievedValue.Contains(ExifToolWrapper.writeSeparator))
                                     GeneralUtilities.message(LangCfg.Message.W_differentValueSavedNotMultiple, key, achievedValue, targetValue);
                                 else
-                                    GeneralUtilities.message(LangCfg.Message.W_differentValueSaved, key, achievedValue, targetValue);
+                                    GeneralUtilities.message(LangCfg.Message.W_differentValueSaved, key, achievedValue + " [" + achievedInterpretedValue + "]", targetValue);
                             }
                         }
                     }
@@ -3703,6 +3703,50 @@ namespace QuickImageComment
                             ExifToolValues.Add(key, ImageChangedFields[key]);
 
                         keysToRemove.Add(key);
+                    }
+                    else if (ExifToolWrapper.isReady())
+                    {
+                        if (key.Equals("Exif.Image.Orientation"))
+                        {
+                            // ValidValues counts starting with 0, orientation starts with 1
+                            int idx = getAppliedOrientation() - 1;
+                            string value = (string)ConfigDefinition.getInputCheckConfig("IFD0:Orientation").ValidValues[idx];
+                            ExifToolValues.Add("IFD0:Orientation", value);
+                            keysToRemove.Add(key);
+                        }
+                        else
+                        {
+                            string exifToolKey = ConfigDefinition.getExifToolTag4exiv2Write(key);
+                            if (exifToolKey != null)
+                            {
+                                if (TagUtilities.LangAltTypes.Contains(TagUtilities.getTagType(key)))
+                                {
+                                    if (ImageChangedFields[key].GetType().Equals(typeof(ArrayList)))
+                                    {
+                                        // several values for different languages may be given
+                                        foreach (string value in (ArrayList)ImageChangedFields[key])
+                                        {
+                                            int pos = value.IndexOf(' ');
+                                            if (value.Substring(0, pos).Equals("lang=x-default"))
+                                                ExifToolValues.Add(exifToolKey, value.Substring(15));
+                                            else
+                                                ExifToolValues.Add(exifToolKey + "-" + value.Substring(5), value.Substring(pos));
+                                        }
+                                    }
+                                    else
+                                    {
+                                        // value is string type, so it is comment or artist from central input area
+                                        // starting with "lang=x-default ", which needs to be removed for exiftool
+                                        ExifToolValues.Add(exifToolKey, ((string)ImageChangedFields[key]).Substring(15));
+                                    }
+                                }
+                                else
+                                {
+                                    ExifToolValues.Add(exifToolKey, ImageChangedFields[key]);
+                                }
+                                keysToRemove.Add(key);
+                            }
+                        }
                     }
                 }
                 // remove ExifTool keys form ImageChangedFields

@@ -5912,10 +5912,24 @@ namespace QuickImageComment
                 // add GPS values (if available)
                 if (theUserControlMap != null && checkBoxGpsDataChange.Checked && theUserControlMap.GpsDataChanged)
                 {
-                    changeableFieldsForSave.Add("Exif.GPSInfo.GPSLatitude", theUserControlMap.getLatitudeVal());
-                    changeableFieldsForSave.Add("Exif.GPSInfo.GPSLatitudeRef", theUserControlMap.getLatitudeRef());
-                    changeableFieldsForSave.Add("Exif.GPSInfo.GPSLongitude", theUserControlMap.getLongitudeVal());
-                    changeableFieldsForSave.Add("Exif.GPSInfo.GPSLongitudeRef", theUserControlMap.getLongitudeRef());
+                    if (!ExifToolWrapper.isReady())
+                    {
+                        changeableFieldsForSave.Add("Exif.GPSInfo.GPSLatitude", theUserControlMap.getLatitudeExiv2Val());
+                        changeableFieldsForSave.Add("Exif.GPSInfo.GPSLatitudeRef", theUserControlMap.getLatitudeRef());
+                        changeableFieldsForSave.Add("Exif.GPSInfo.GPSLongitude", theUserControlMap.getLongitudeExiv2Val());
+                        changeableFieldsForSave.Add("Exif.GPSInfo.GPSLongitudeRef", theUserControlMap.getLongitudeRef());
+                    }
+                    else
+                    {
+                        string latitude = theUserControlMap.getSignedLatitudeString();
+                        if (latitude.StartsWith("-")) latitude = latitude.Substring(1);
+                        string longitude = theUserControlMap.getSignedLongitudeString();
+                        if (longitude.StartsWith("-")) longitude = longitude.Substring(1);
+                        changeableFieldsForSave.Add("GPS:GPSLatitude", theUserControlMap.getLatitudeDegMinSec());
+                        changeableFieldsForSave.Add("GPS:GPSLatitudeRef", theUserControlMap.getLatitudeRef());
+                        changeableFieldsForSave.Add("GPS:GPSLongitude", theUserControlMap.getLongitudeDegMinSec());
+                        changeableFieldsForSave.Add("GPS:GPSLongitudeRef", theUserControlMap.getLongitudeRef());
+                    }
                     theUserControlMap.addMarkerPositionToLists();
                 }
 
@@ -6123,10 +6137,24 @@ namespace QuickImageComment
             // add GPS values (if available)
             if (theUserControlMap != null && theUserControlMap.GpsDataChanged)
             {
-                changedFieldsForSave.Add("Exif.GPSInfo.GPSLatitude", theUserControlMap.getLatitudeVal());
-                changedFieldsForSave.Add("Exif.GPSInfo.GPSLatitudeRef", theUserControlMap.getLatitudeRef());
-                changedFieldsForSave.Add("Exif.GPSInfo.GPSLongitude", theUserControlMap.getLongitudeVal());
-                changedFieldsForSave.Add("Exif.GPSInfo.GPSLongitudeRef", theUserControlMap.getLongitudeRef());
+                if (!ExifToolWrapper.isReady())
+                {
+                    changedFieldsForSave.Add("Exif.GPSInfo.GPSLatitude", theUserControlMap.getLatitudeExiv2Val());
+                    changedFieldsForSave.Add("Exif.GPSInfo.GPSLatitudeRef", theUserControlMap.getLatitudeRef());
+                    changedFieldsForSave.Add("Exif.GPSInfo.GPSLongitude", theUserControlMap.getLongitudeExiv2Val());
+                    changedFieldsForSave.Add("Exif.GPSInfo.GPSLongitudeRef", theUserControlMap.getLongitudeRef());
+                }
+                else
+                {
+                    string latitude = theUserControlMap.getSignedLatitudeString();
+                    if (latitude.StartsWith("-")) latitude = latitude.Substring(1);
+                    string longitude = theUserControlMap.getSignedLongitudeString();
+                    if (longitude.StartsWith("-")) longitude = longitude.Substring(1);
+                    changedFieldsForSave.Add("GPS:GPSLatitude", theUserControlMap.getLatitudeDegMinSec());
+                    changedFieldsForSave.Add("GPS:GPSLatitudeRef", theUserControlMap.getLatitudeRef());
+                    changedFieldsForSave.Add("GPS:GPSLongitude", theUserControlMap.getLongitudeDegMinSec());
+                    changedFieldsForSave.Add("GPS:GPSLongitudeRef", theUserControlMap.getLongitudeRef());
+                }
                 theUserControlMap.addMarkerPositionToLists();
             }
 
@@ -6154,7 +6182,7 @@ namespace QuickImageComment
             addAndSortChangeableFields(changedFieldsForSave);
 
             // save rotation via menu Zoom/rotate or buttons if not yet done via changeable fields
-            if (!changedFieldsForSave.ContainsKey("Exif.Image.Orientation"))
+            if (!changedFieldsForSave.ContainsKey("Exif.Image.Orientation") && !changedFieldsForSave.ContainsKey("IFD0:Orientation"))
             {
                 if (anExtendedImage.getAppliedOrientation() != anExtendedImage.getInitialOrientation())
                 {

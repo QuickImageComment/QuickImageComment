@@ -306,7 +306,7 @@ namespace QuickImageComment
         {
             numericUpDownX.Value = (decimal)(theExtendedImage.getFocusPoint().X
                 - (pictureBoxImage.Width - pictureBoxImage.borderWidth) / 2 / zoomFactor);
-            numericUpDownY.Value = (decimal)(theExtendedImage.getFocusPoint().Y 
+            numericUpDownY.Value = (decimal)(theExtendedImage.getFocusPoint().Y
                 - (float)((pictureBoxImage.Height - pictureBoxImage.borderWidth) / 2) / zoomFactor);
         }
 
