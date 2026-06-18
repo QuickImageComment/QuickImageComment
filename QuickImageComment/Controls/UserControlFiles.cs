@@ -1243,7 +1243,7 @@ namespace QuickImageComment
             switch (detailSubtype)
             {
                 case ListViewFiles.enumViewDetailSubtype.Standard:
-                    listViewFiles.Columns[ListViewFiles.columnComment].Width = 0;
+                    //nothing to do
                     break;
                 case ListViewFiles.enumViewDetailSubtype.Comment:
                     for (int ii = 1; ii < ListViewFiles.columnComment; ii++)
