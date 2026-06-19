@@ -4299,8 +4299,7 @@ namespace QuickImageComment
             if (Exiv2ExifToolMappingWrite.ContainsKey(key))
                 return Exiv2ExifToolMappingWrite[key];
             else
-                Logger.log("key >" + key + "< not found in Exiv2ExifToolMappingWrite");
-            return null;
+                return null;
         }
 
         // get mapped ExifTool tag for exiv2 tag - read
