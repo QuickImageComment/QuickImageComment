@@ -42,6 +42,7 @@
             this.textBoxLogs.Location = new System.Drawing.Point(1, 0);
             this.textBoxLogs.Multiline = true;
             this.textBoxLogs.Name = "textBoxLogs";
+            this.textBoxLogs.ReadOnly = true;
             this.textBoxLogs.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.textBoxLogs.Size = new System.Drawing.Size(849, 548);
             this.textBoxLogs.TabIndex = 2;

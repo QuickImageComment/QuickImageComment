@@ -29,18 +29,22 @@ namespace Brain2CPU.ExifTool
     public readonly struct ExifToolResponse
     {
         public bool IsSuccess { get; }
+        public string Error { get; }
         public string Result { get; }
 
-        public ExifToolResponse(string r)
+        public ExifToolResponse(string r, string e)
         {
+            //!!: needs improvement, when two files are passed, ExifTool answers with 2 image files updated, which differs from SuccessMessage
             IsSuccess = r.ToLowerInvariant().Contains(ExifToolWrapper.SuccessMessage);
             Result = r;
+            Error = e;
         }
 
-        public ExifToolResponse(bool b, string r)
+        public ExifToolResponse(bool b, string r, string e)
         {
             IsSuccess = b;
             Result = r;
+            Error = e;
         }
 
         //to use ExifToolResponse directly in if (discarding response)
@@ -75,8 +79,8 @@ namespace Brain2CPU.ExifTool
         public static string ExifToolVersion { get; private set; }
 
         private const string ExeName = "exiftool(-k).exe";
-        private const string Arguments = "-fast -stay_open True -@ -";
-        private const string ArgumentsFaster = "-fast2 -stay_open True -@ -";
+        private const string Arguments = "-stay_open True -@ -";
+        private const string ArgumentsFast = "-fast -stay_open True -@ -";
         private const string ExitMessage = "-- press RETURN --";
         internal const string SuccessMessage = "1 image files updated";
         internal const string writeSeparator = "«¦»";
@@ -107,6 +111,8 @@ namespace Brain2CPU.ExifTool
         private static string userOptionsWrite = "";
         private static string generalOptionsRead = "";
         private static string generalOptionsWrite = "";
+        private static System.IO.StreamWriter StreamDebugFile = null;
+        internal static ArrayList LastCommands { get; } = new ArrayList();
 
         private static readonly ProcessStartInfo _psi = new ProcessStartInfo
         {
@@ -163,7 +169,7 @@ namespace Brain2CPU.ExifTool
                 throw new ExifToolException($"{ExifToolPath} not found");
 
             _psi.FileName = ExifToolPath;
-            _psi.Arguments = faster ? ArgumentsFaster : Arguments;
+            _psi.Arguments = faster ? ArgumentsFast : Arguments;
 
             // Status will change after Start(), set here in case Start fails
             Status = ExeStatus.Stopped;
@@ -212,6 +218,7 @@ namespace Brain2CPU.ExifTool
             }
 
             _output.AppendLine(e.Data);
+            writeDebugFileEntry("OutputDataReceived " + e.Data.Length.ToString() + " characters, total: " + _output.Length.ToString());
         }
 
         //the error message has no 'ready' or other terminator so we must assume it has a single line (or it is received fast enough)
@@ -228,6 +235,7 @@ namespace Brain2CPU.ExifTool
             }
 
             _error.AppendLine(e.Data);
+            writeDebugFileEntry("ErrorDataReceived " + e.Data.Length.ToString() + " characters, total: " + _error.Length.ToString());
             _waitForErrorHandle.Set();
         }
 
@@ -315,7 +323,7 @@ namespace Brain2CPU.ExifTool
                     {
                         _proc.Kill();
                         _proc.WaitForExit((int)(1000 * SecondsToWaitForStop / 2));
-                        _proc.Dispose();
+                        _proc?.Dispose();
                     }
                     catch (Exception xcp)
                     {
@@ -378,14 +386,30 @@ namespace Brain2CPU.ExifTool
 
         private static ExifToolResponse SendCommand(CommunicationMethod method, string cmd, params object[] args)
         {
+            GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceExifToolSendCommand,
+                "sendCommand to ExifToolWrapper start.....", 6);
+
             if (Status != ExeStatus.Ready)
                 throw new ExifToolException("Process must be ready");
 
             ExifToolResponse resp;
             lock (_lockObj)
             {
+                GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceExifToolSendCommand,
+                    "sendCommand to ExifToolWrapper after lock", 6);
+
                 _waitHandle.Reset();
                 _waitForErrorHandle.Reset();
+
+                writeDebugFileEntry("SendCommand:\r\n" + cmd);
+                LastCommands.Add(cmd);
+                if (LastCommands.Count > ConfigDefinition.getConfigInt(ConfigDefinition.enumConfigInt.MaximumNumberExifToolCommandsKept))
+                    LastCommands.RemoveAt(0);
+                //if (ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.ExifToolLogSendCommand))
+                //{
+                //    string cmdToLog = cmd.Replace("\n", "   ");
+                //    Logger.log(cmdToLog, 6);
+                //}
 
                 if (method == CommunicationMethod.ViaFile)
                     SendViaFile(cmd, args);
@@ -396,15 +420,20 @@ namespace Brain2CPU.ExifTool
                 if (_output.Length == 0)
                 {
                     _waitForErrorHandle.WaitOne(TimeSpan.FromSeconds(SecondsToWaitForError));
-                    resp = new ExifToolResponse(false, _error.ToString());
-                    _error.Clear();
+                    resp = new ExifToolResponse(false, _output.ToString(), _error.ToString());
                 }
                 else
                 {
-                    resp = new ExifToolResponse(true, _output.ToString());
-                    _output.Clear();
+                    resp = new ExifToolResponse(true, _output.ToString(), _error.ToString());
                 }
+                _error.Clear();
+                _output.Clear();
 
+                writeDebugFileEntry("resp.IsSuccess: " + resp.IsSuccess.ToString()
+                    + " | Result length: " + resp.Result.Length.ToString()
+                    + " | Error length: " + resp.Error.Length.ToString()
+                    + " | resp.Error:\r\n" + resp.Error + "\r\n"
+                    + "resp.Result:\r\n" + resp.Result);
                 _cmdCnt++;
             }
 
@@ -416,6 +445,9 @@ namespace Brain2CPU.ExifTool
                     return SendCommand(CommunicationMethod.ViaFile, cmd, args);
             }
 
+            GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceExifToolSendCommand,
+                "sendCommand to ExifToolWrapper finish....", 6);
+
             return resp;
         }
 
@@ -423,7 +455,7 @@ namespace Brain2CPU.ExifTool
             string charsetExif, string charsetIptc, bool overwriteOriginal = true)
         {
             if (!File.Exists(path))
-                return new ExifToolResponse(false, $"'{path}' not found");
+                return new ExifToolResponse(false, "", $"'{path}' not found");
 
             var cmd = new StringBuilder();
             foreach (KeyValuePair<string, object> kv in data)
@@ -460,10 +492,8 @@ namespace Brain2CPU.ExifTool
 
             cmd.Append(path);
             var cmdRes = SendCommand(cmd.ToString());
-            //Logger.log(cmd.Replace("\n", "   ").ToString());
-
             //if failed return as it is, if it's success must check the response
-            return cmdRes ? new ExifToolResponse(cmdRes.Result) : cmdRes;
+            return cmdRes ? new ExifToolResponse(cmdRes.Result, cmdRes.Error) : cmdRes;
         }
 
         public static Dictionary<string, string> FetchExifFrom(string path, IEnumerable<string> tagsToKeep = null, bool keepKeysWithEmptyValues = true)
@@ -547,18 +577,18 @@ namespace Brain2CPU.ExifTool
             ExifToolResponse resp = SendCommand(cmd);
             //Logger.log(cmd.Replace("\n", "   ").ToString());
 #if LOGEXIFTOOLRESPONSE
-                System.IO.StreamWriter StreamOut = null;
-                try
-                {
-                    StreamOut = new System.IO.StreamWriter(ConfigDefinition.getIniPath() + "QIC-exiftool-read-output.txt", false, Encoding.UTF8);
-                }
-                catch (UnauthorizedAccessException)
-                {
-                    GeneralUtilities.message(LangCfg.Message.E_configFileNoWriteAccess, ConfigDefinition.getIniPath() + "QIC-exiftool-read-output.txt");
-                    return resp;
-                }
-                StreamOut.WriteLine(resp.Result);
-                StreamOut.Close();
+            System.IO.StreamWriter StreamOut = null;
+            try
+            {
+                StreamOut = new System.IO.StreamWriter(ConfigDefinition.getIniPath() + "QIC-exiftool-read-output.txt", false, Encoding.UTF8);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                GeneralUtilities.message(LangCfg.Message.E_configFileNoWriteAccess, ConfigDefinition.getIniPath() + "QIC-exiftool-read-output.txt");
+                return resp;
+            }
+            StreamOut.WriteLine(resp.Result);
+            StreamOut.Close();
 #endif
             return resp;
         }
@@ -884,24 +914,49 @@ namespace Brain2CPU.ExifTool
             }
         }
 
+        // write debug information to file
+        private static void writeDebugFileEntry(string messageText)
+        {
+            if (ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.DebugExifToolInterface))
+            {
+                if (StreamDebugFile == null)
+                {
+                    string DebugFileName = ConfigDefinition.getIniPath() + "QIC" + Program.VersionNumberOnlyWhenSuffixDefined + "-DebugExifToolInterface.txt";
+                    StreamDebugFile = new System.IO.StreamWriter(DebugFileName, false, System.Text.Encoding.UTF8);
+                }
+
+                System.Diagnostics.StackTrace stackTrace = new System.Diagnostics.StackTrace(true);
+                System.Diagnostics.StackFrame[] stackFrames = stackTrace.GetFrames();
+
+                int offset = 2;
+                string traceString = "";
+                for (long ii = offset; ii < stackFrames.Length && ii <= 6 + offset; ii++)
+                {
+                    traceString = traceString + "@" + stackFrames[ii].GetMethod().Name + "-" + stackFrames[ii].GetFileLineNumber().ToString();
+                }
+                StreamDebugFile.WriteLine("------- " + DateTime.Now.ToString("H:mm:ss.fff ") + traceString + "\r\n" + messageText);
+                StreamDebugFile.Flush();
+            }
+        }
+
         public static ExifToolResponse CloneExif(string source, string dest, bool backup = false)
         {
             if (!File.Exists(source) || !File.Exists(dest))
-                return new ExifToolResponse(false, $"'{source}' or '{dest}' not found");
+                return new ExifToolResponse(false, "", $"'{source}' or '{dest}' not found");
 
             var cmdRes = SendCommand("{0}-tagsFromFile\n{1}\n{2}", backup ? "" : "-overwrite_original\n", source, dest);
 
-            return cmdRes ? new ExifToolResponse(cmdRes.Result) : cmdRes;
+            return cmdRes ? new ExifToolResponse(cmdRes.Result, cmdRes.Error) : cmdRes;
         }
 
         public static ExifToolResponse ClearExif(string path, bool backup = false)
         {
             if (!File.Exists(path))
-                return new ExifToolResponse(false, $"'{path}' not found");
+                return new ExifToolResponse(false, "", $"'{path}' not found");
 
             var cmdRes = SendCommand("{0}-all=\n{1}", backup ? "" : "-overwrite_original\n", path);
 
-            return cmdRes ? new ExifToolResponse(cmdRes.Result) : cmdRes;
+            return cmdRes ? new ExifToolResponse(cmdRes.Result, cmdRes.Error) : cmdRes;
         }
 
         public static DateTime? GetCreationTime(string path)
@@ -943,7 +998,7 @@ namespace Brain2CPU.ExifTool
         public static ExifToolResponse SetOrientation(string path, int ori, bool overwriteOriginal = true)
         {
             if (!File.Exists(path))
-                return new ExifToolResponse(false, $"'{path}' not found");
+                return new ExifToolResponse(false, "", $"'{path}' not found");
 
             var cmd = new StringBuilder();
             cmd.AppendFormat("-Orientation={0}\n-n\n-s3\n", ori);
@@ -954,7 +1009,7 @@ namespace Brain2CPU.ExifTool
             cmd.Append(path);
             var cmdRes = SendCommand(cmd.ToString());
 
-            return cmdRes ? new ExifToolResponse(cmdRes.Result) : cmdRes;
+            return cmdRes ? new ExifToolResponse(cmdRes.Result, cmdRes.Error) : cmdRes;
         }
 
         public static ExifToolResponse SetOrientationDeg(string path, int ori, bool overwriteOriginal = true) =>

@@ -3315,6 +3315,19 @@ namespace QuickImageComment
             }
         }
 
+        // open FormLogger - for the case it is not opened automatically as logs are issued from thread only
+        private void ToolStripMenuItemFormLogger_Click(object sender, EventArgs e)
+        {
+            Logger.initFormLogger(); // permanent use of Logger
+        }
+
+        // open form to send commands directly to ExifTool
+        private void toolStripMenuItemExifToolDirekt_Click(object sender, EventArgs e)
+        {
+            FormExiftoolDirect formExiftoolDirect = new FormExiftoolDirect();
+            formExiftoolDirect.ShowDialog();
+        }
+
         //// open Internet Explorer to allow display images from Internet
         //private void toolStripMenuItemOpenIE_Click(object sender, EventArgs e)
         //{
@@ -7217,11 +7230,6 @@ namespace QuickImageComment
             LangCfg.writeTranslationCheckFiles(true);
         }
 
-        // open FormLogger - for the case it is not opened automatically as logs are issued from thread only
-        private void toolStripMenuItemFormLogger_Click(object sender, EventArgs e)
-        {
-            Logger.initFormLogger(); // permanent use of Logger
-        }
         #endregion
     }
 }

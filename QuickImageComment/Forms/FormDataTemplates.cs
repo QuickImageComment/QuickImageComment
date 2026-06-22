@@ -16,12 +16,19 @@
 
 using System;
 using System.Collections;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace QuickImageComment
 {
     public partial class FormDataTemplates : Form
     {
+        private bool IsInDesignMode =>
+            LicenseManager.UsageMode == LicenseUsageMode.Designtime ||
+            Process.GetCurrentProcess().ProcessName == "devenv";
+
+
         private FormCustomization.Interface CustomizationInterface;
         private UserControlChangeableFields theUserControlChangeableFields;
         private UserControlKeyWords theUserControlKeyWords;
@@ -51,76 +58,79 @@ namespace QuickImageComment
             theUserControlChangeableFields = new UserControlChangeableFields();
             splitContainer1.Panel1.Controls.Add(theUserControlChangeableFields);
 
-            CustomizationInterface = MainMaskInterface.getCustomizationInterface();
-            CustomizationInterface.setFormToCustomizedValuesZoomInitial(this);
-
-            dynamicComboBoxConfigurationName.Items.Add("");
-            foreach (string configuration in ConfigDefinition.DataTemplates.Keys)
+            if (!IsInDesignMode)
             {
-                dynamicComboBoxConfigurationName.Items.Add(configuration);
-            }
+                CustomizationInterface = MainMaskInterface.getCustomizationInterface();
+                CustomizationInterface.setFormToCustomizedValuesZoomInitial(this);
 
-            // fill last artist entries
-            for (int ii = 0; ii < ConfigDefinition.getArtistEntries().Count; ii++)
-            {
-                dynamicComboBoxArtist.Items.Add(ConfigDefinition.getArtistEntries()[ii]);
-            }
-
-            // fill last user comment entries
-            for (int ii = 0; ii < ConfigDefinition.getUserCommentEntries().Count; ii++)
-            {
-                dynamicComboBoxUserComment.Items.Add(ConfigDefinition.getUserCommentEntries()[ii]);
-            }
-
-            // configure changeable fields area
-            theUserControlChangeableFields.fillChangeableFieldPanelWithControls(null);
-            theUserControlChangeableFields.fillItemsComboBoxChangeableFields();
-            theUserControlChangeableFields.Height = splitContainer1.Panel1.Height;
-            theUserControlChangeableFields.Width = splitContainer1.Panel1.Width;
-            theUserControlChangeableFields.Dock = DockStyle.Fill;
-
-            // assign event handlers for changeable fields
-            foreach (Control aControl in theUserControlChangeableFields.panelChangeableFieldsInner.Controls)
-            {
-                if (theUserControlChangeableFields.ChangeableFieldInputControls.Values.Contains(aControl))
+                dynamicComboBoxConfigurationName.Items.Add("");
+                foreach (string configuration in ConfigDefinition.DataTemplates.Keys)
                 {
-                    aControl.KeyDown += new KeyEventHandler(inputControlChangeableField_KeyDown);
+                    dynamicComboBoxConfigurationName.Items.Add(configuration);
                 }
-                else if (aControl.GetType().Equals(typeof(DateTimePickerQIC)))
+
+                // fill last artist entries
+                for (int ii = 0; ii < ConfigDefinition.getArtistEntries().Count; ii++)
                 {
-                    ((DateTimePickerQIC)aControl).ValueChanged += new EventHandler(dateTimePickerChangeableField_ValueChanged);
+                    dynamicComboBoxArtist.Items.Add(ConfigDefinition.getArtistEntries()[ii]);
                 }
+
+                // fill last user comment entries
+                for (int ii = 0; ii < ConfigDefinition.getUserCommentEntries().Count; ii++)
+                {
+                    dynamicComboBoxUserComment.Items.Add(ConfigDefinition.getUserCommentEntries()[ii]);
+                }
+
+                // configure changeable fields area
+                theUserControlChangeableFields.fillChangeableFieldPanelWithControls(null);
+                theUserControlChangeableFields.fillItemsComboBoxChangeableFields();
+                theUserControlChangeableFields.Height = splitContainer1.Panel1.Height;
+                theUserControlChangeableFields.Width = splitContainer1.Panel1.Width;
+                theUserControlChangeableFields.Dock = DockStyle.Fill;
+
+                // assign event handlers for changeable fields
+                foreach (Control aControl in theUserControlChangeableFields.panelChangeableFieldsInner.Controls)
+                {
+                    if (theUserControlChangeableFields.ChangeableFieldInputControls.Values.Contains(aControl))
+                    {
+                        aControl.KeyDown += new KeyEventHandler(inputControlChangeableField_KeyDown);
+                    }
+                    else if (aControl.GetType().Equals(typeof(DateTimePickerQIC)))
+                    {
+                        ((DateTimePickerQIC)aControl).ValueChanged += new EventHandler(dateTimePickerChangeableField_ValueChanged);
+                    }
+                }
+
+                // configure key words area
+                theUserControlKeyWords.Height = splitContainer1.Panel2.Height;
+                theUserControlKeyWords.Width = splitContainer1.Panel2.Width;
+                theUserControlKeyWords.Dock = DockStyle.Fill;
+
+                // assign event handlers for key words
+                theUserControlKeyWords.textBoxFreeInputKeyWords.TextChanged += new EventHandler(textBoxFreeInputKeyWords_TextChanged);
+                theUserControlKeyWords.textBoxFreeInputKeyWords.KeyDown += new KeyEventHandler(textBoxFreeInputKeyWords_KeyDown);
+                theUserControlKeyWords.treeViewPredefKeyWords.KeyDown += new KeyEventHandler(treeViewPredefKeyWords_KeyDown);
+
+                // set size and splitters
+                this.MinimumSize = this.Size;
+                int newHeight = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.FormDataTemplatesHeight);
+                if (this.Height < newHeight)
+                {
+                    this.Height = newHeight;
+                }
+                int newWidth = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.FormDataTemplatesWidth);
+                if (this.Width < newWidth)
+                {
+                    this.Width = newWidth;
+                }
+                GeneralUtilities.setSplitterDistanceWithCheck(this.splitContainer1, ConfigDefinition.enumCfgUserInt.FormDataTemplatesSplitter1Distance);
+                GeneralUtilities.setSplitterDistanceWithCheck(theUserControlKeyWords.splitContainer1212, ConfigDefinition.enumCfgUserInt.FormDataTemplatesSplitter1212Distance);
+
+                // load last data template
+                dynamicComboBoxConfigurationName.Text = ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.LastDataTemplate);
+
+                LangCfg.translateControlTexts(this);
             }
-
-            // configure key words area
-            theUserControlKeyWords.Height = splitContainer1.Panel2.Height;
-            theUserControlKeyWords.Width = splitContainer1.Panel2.Width;
-            theUserControlKeyWords.Dock = DockStyle.Fill;
-
-            // assign event handlers for key words
-            theUserControlKeyWords.textBoxFreeInputKeyWords.TextChanged += new EventHandler(textBoxFreeInputKeyWords_TextChanged);
-            theUserControlKeyWords.textBoxFreeInputKeyWords.KeyDown += new KeyEventHandler(textBoxFreeInputKeyWords_KeyDown);
-            theUserControlKeyWords.treeViewPredefKeyWords.KeyDown += new KeyEventHandler(treeViewPredefKeyWords_KeyDown);
-
-            // set size and splitters
-            this.MinimumSize = this.Size;
-            int newHeight = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.FormDataTemplatesHeight);
-            if (this.Height < newHeight)
-            {
-                this.Height = newHeight;
-            }
-            int newWidth = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.FormDataTemplatesWidth);
-            if (this.Width < newWidth)
-            {
-                this.Width = newWidth;
-            }
-            GeneralUtilities.setSplitterDistanceWithCheck(this.splitContainer1, ConfigDefinition.enumCfgUserInt.FormDataTemplatesSplitter1Distance);
-            GeneralUtilities.setSplitterDistanceWithCheck(theUserControlKeyWords.splitContainer1212, ConfigDefinition.enumCfgUserInt.FormDataTemplatesSplitter1212Distance);
-
-            // load last data template
-            dynamicComboBoxConfigurationName.Text = ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.LastDataTemplate);
-
-            LangCfg.translateControlTexts(this);
 
             // if flag set, create screenshot and return
             if (GeneralUtilities.CreateScreenshots)

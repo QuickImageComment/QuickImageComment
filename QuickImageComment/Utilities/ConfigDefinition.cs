@@ -125,7 +125,9 @@ namespace QuickImageComment
             KeepFileModifiedTime,
             FindShowDataTable,
             UseKeyAsNameForMetaDataDefinition,
-            ExifToolLogRead
+            ExifToolLogRead,
+            TraceExifToolSendCommand,
+            DebugExifToolInterface
         };
 
         public enum enumConfigInt
@@ -142,7 +144,8 @@ namespace QuickImageComment
             BackColorValueChanged,
             BackColorMultiEditNonDefault,
             ZoomMainImageChangeMouseWheel,
-            ZoomDetailImageChangeMouseWheel
+            ZoomDetailImageChangeMouseWheel,
+            MaximumNumberExifToolCommandsKept
         };
 
         public enum enumConfigString
@@ -288,7 +291,9 @@ namespace QuickImageComment
             slideShowSubtitleOpacity,
             FocusPointColor,
             FocusPointRadius,
-            FocusPointWidth
+            FocusPointWidth,
+            FormExifToolDirectHeight,
+            FormExifToolDirectWidth
         };
 
         public enum enumCfgUserString
@@ -732,6 +737,8 @@ namespace QuickImageComment
             ConfigItems.Add(enumCfgUserInt.FocusPointColor.ToString(), Color.Red.ToArgb());
             ConfigItems.Add(enumCfgUserInt.FocusPointRadius.ToString(), 10);
             ConfigItems.Add(enumCfgUserInt.FocusPointWidth.ToString(), 1);
+            ConfigItems.Add(enumCfgUserInt.FormExifToolDirectHeight.ToString(), 0);
+            ConfigItems.Add(enumCfgUserInt.FormExifToolDirectWidth.ToString(), 0);
 
             // the following are not contained in standard general configuration file and are optional
             // so they are not defined via enum

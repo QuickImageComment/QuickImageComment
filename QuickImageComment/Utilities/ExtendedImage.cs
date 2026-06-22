@@ -2564,10 +2564,18 @@ namespace QuickImageComment
             {
 #endif
                 // reading with ExifTool outside the lock as ExifToolWrapper has its own lock
-                ExifToolResponse resp = ExifToolWrapper.ReadMetaDataFrom(ImageFileName, neededKeysExifTool);
+                ExifToolResponse resp = new ExifToolResponse();
+                try
+                {
+                    resp = ExifToolWrapper.ReadMetaDataFrom(ImageFileName, neededKeysExifTool);
+                }
+                catch (Exception ex)
+                {
+                    GeneralUtilities.message(LangCfg.Message.E_ExifToolWrapperError, ex.Message, ex.StackTrace);
+                }
                 if (!resp)
                 {
-                    throw new Exception(resp.Result);
+                    throw new Exception(resp.Error);
                 }
 
                 string jsonResponse = resp.Result;
@@ -3769,11 +3777,22 @@ namespace QuickImageComment
                                 }
                             }
                         }
-
-                        ExifToolResponse cmdRes = ExifToolWrapper.SetExifInto(ImageFileName, ExifToolValues, charsetExif, charsetIptc);
+                        ExifToolResponse cmdRes = new ExifToolResponse();
+                        try
+                        {
+                            cmdRes = ExifToolWrapper.SetExifInto(ImageFileName, ExifToolValues, charsetExif, charsetIptc);
+                        }
+                        catch (Exception ex)
+                        {
+                            GeneralUtilities.message(LangCfg.Message.E_ExifToolWrapperError, ex.Message, ex.StackTrace);
+                        }
                         if (!cmdRes)
                         {
-                            GeneralUtilities.message(LangCfg.Message.E_ExifToolWriteError, cmdRes.Result);
+                            GeneralUtilities.message(LangCfg.Message.E_ExifToolWriteResponse, cmdRes.Error);
+                        }
+                        else if (!cmdRes.Error.Equals(""))
+                        {
+                            GeneralUtilities.message(LangCfg.Message.E_ExifToolWriteResponse, cmdRes.Error);
                         }
                         changeEncodingIptcRequired = false;
                     }

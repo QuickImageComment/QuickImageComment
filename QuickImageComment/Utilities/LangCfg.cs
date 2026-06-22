@@ -221,7 +221,7 @@ namespace QuickImageComment
             Q_overwriteExportFile,
             Q_missingExvFiles,
             W_unknownEntryExifTool,
-            E_ExifToolWriteError,
+            E_ExifToolWriteResponse,
             E_ExifToolNotReadyForWritableCheck,
             E_ExifToolNotReadyForWrite,
             E_ExifToolNotReadyGeneral,
@@ -238,7 +238,8 @@ namespace QuickImageComment
             Q_startExifTool,
             W_ShellItemNotSelectable,
             W_compareTooManyDifferences,
-            I_functionNotForVideos
+            I_functionNotForVideos,
+            E_ExifToolWrapperError
         }
 
         public enum Others

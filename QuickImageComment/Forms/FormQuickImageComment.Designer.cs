@@ -168,6 +168,7 @@ namespace QuickImageComment
             this.toolStripMenuItemPanelPictureOnly = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemImageWithGrid = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemDefineImageGrids = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemShowFocusPoint = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparatorViewConfigurations = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItemSlideshow = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator19 = new System.Windows.Forms.ToolStripSeparator();
@@ -211,7 +212,7 @@ namespace QuickImageComment
             this.ToolStripMenuItemLanguage = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItemLanguageExifTool = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItemUserConfigStorage = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItemFormLogger = new System.Windows.Forms.ToolStripMenuItem();
+            this.ToolStripMenuItemFormLogger = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemMaintenance = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemCreateScreenshots = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemWriteTagLookupReferenceFile = new System.Windows.Forms.ToolStripMenuItem();
@@ -272,7 +273,7 @@ namespace QuickImageComment
             this.toolStripButtonFind = new System.Windows.Forms.ToolStripButton();
             this.toolTip1 = new QuickImageComment.ToolTipQIC();
             this.theFolderTreeView = new QuickImageCommentControls.ShellTreeViewQIC();
-            this.toolStripMenuItemShowFocusPoint = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemExifToolDirekt = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer12)).BeginInit();
             this.splitContainer12.Panel1.SuspendLayout();
@@ -1608,6 +1609,13 @@ namespace QuickImageComment
             this.toolStripMenuItemDefineImageGrids.Text = "Raster definieren ...";
             this.toolStripMenuItemDefineImageGrids.Click += new System.EventHandler(this.toolStripMenuItemDefineImageGrids_Click);
             // 
+            // toolStripMenuItemShowFocusPoint
+            // 
+            this.toolStripMenuItemShowFocusPoint.Name = "toolStripMenuItemShowFocusPoint";
+            this.toolStripMenuItemShowFocusPoint.Size = new System.Drawing.Size(219, 22);
+            this.toolStripMenuItemShowFocusPoint.Text = "Fokuspunkt anzeigen";
+            this.toolStripMenuItemShowFocusPoint.Click += new System.EventHandler(this.toolStripMenuItemShowFocusPoint_Click);
+            // 
             // toolStripSeparatorViewConfigurations
             // 
             this.toolStripSeparatorViewConfigurations.Name = "toolStripSeparatorViewConfigurations";
@@ -1807,7 +1815,8 @@ namespace QuickImageComment
             this.ToolStripMenuItemLanguage,
             this.ToolStripMenuItemLanguageExifTool,
             this.ToolStripMenuItemUserConfigStorage,
-            this.toolStripMenuItemFormLogger,
+            this.ToolStripMenuItemFormLogger,
+            this.toolStripMenuItemExifToolDirekt,
             this.toolStripMenuItemMaintenance});
             this.toolStripMenuItemExtras.Name = "toolStripMenuItemExtras";
             this.toolStripMenuItemExtras.Size = new System.Drawing.Size(50, 20);
@@ -1953,12 +1962,12 @@ namespace QuickImageComment
             this.ToolStripMenuItemUserConfigStorage.Text = "Speicherort für Benutzer-Einstellungen";
             this.ToolStripMenuItemUserConfigStorage.Click += new System.EventHandler(this.ToolStripMenuItemUserConfigStorage_Click);
             // 
-            // toolStripMenuItemFormLogger
+            // ToolStripMenuItemFormLogger
             // 
-            this.toolStripMenuItemFormLogger.Name = "toolStripMenuItemFormLogger";
-            this.toolStripMenuItemFormLogger.Size = new System.Drawing.Size(274, 22);
-            this.toolStripMenuItemFormLogger.Text = "Protokollierung anzeigen";
-            this.toolStripMenuItemFormLogger.Click += new System.EventHandler(this.toolStripMenuItemFormLogger_Click);
+            this.ToolStripMenuItemFormLogger.Name = "ToolStripMenuItemFormLogger";
+            this.ToolStripMenuItemFormLogger.Size = new System.Drawing.Size(274, 22);
+            this.ToolStripMenuItemFormLogger.Text = "Protokollierung anzeigen";
+            this.ToolStripMenuItemFormLogger.Click += new System.EventHandler(this.ToolStripMenuItemFormLogger_Click);
             // 
             // toolStripMenuItemMaintenance
             // 
@@ -2576,12 +2585,12 @@ namespace QuickImageComment
             this.theFolderTreeView.Size = new System.Drawing.Size(253, 147);
             this.theFolderTreeView.TabIndex = 0;
             // 
-            // toolStripMenuItemShowFocusPoint
+            // ToolStripMenuItemExifToolDirektT
             // 
-            this.toolStripMenuItemShowFocusPoint.Name = "toolStripMenuItemShowFocusPoint";
-            this.toolStripMenuItemShowFocusPoint.Size = new System.Drawing.Size(219, 22);
-            this.toolStripMenuItemShowFocusPoint.Text = "Fokuspunkt anzeigen";
-            this.toolStripMenuItemShowFocusPoint.Click += new System.EventHandler(this.toolStripMenuItemShowFocusPoint_Click);
+            this.toolStripMenuItemExifToolDirekt.Name = "toolStripMenuItemExifToolDirekt";
+            this.toolStripMenuItemExifToolDirekt.Size = new System.Drawing.Size(274, 22);
+            this.toolStripMenuItemExifToolDirekt.Text = "Exiftool - direkt";
+            this.toolStripMenuItemExifToolDirekt.Click += new System.EventHandler(this.toolStripMenuItemExifToolDirekt_Click);
             // 
             // FormQuickImageComment
             // 
@@ -2858,7 +2867,7 @@ namespace QuickImageComment
         internal System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelFiles;
         internal System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelFileInfo;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemGitHub;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemFormLogger;
+        private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemFormLogger;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemDataPrivacy;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemChangesInVersion;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator15;
@@ -2902,5 +2911,6 @@ namespace QuickImageComment
         private System.Windows.Forms.VScrollBar vScrollBar1;
         private System.Windows.Forms.HScrollBar hScrollBar1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemShowFocusPoint;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemExifToolDirekt;
     }
 }
