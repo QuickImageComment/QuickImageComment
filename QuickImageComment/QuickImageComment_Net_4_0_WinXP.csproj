@@ -152,6 +152,10 @@
     <Compile Include="Forms\FormError.Designer.cs">
       <DependentUpon>FormError.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FormExiftoolDirect.cs" />
+    <Compile Include="Forms\FormExiftoolDirect.Designer.cs">
+      <DependentUpon>FormExiftoolDirect.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FormExifToolSettings.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -593,6 +597,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormError.resx">
       <DependentUpon>FormError.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormExiftoolDirect.resx">
+      <DependentUpon>FormExiftoolDirect.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormExifToolSettings.resx">
       <DependentUpon>FormExifToolSettings.cs</DependentUpon>

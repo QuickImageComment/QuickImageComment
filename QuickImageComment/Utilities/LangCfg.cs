@@ -239,7 +239,8 @@ namespace QuickImageComment
             W_ShellItemNotSelectable,
             W_compareTooManyDifferences,
             I_functionNotForVideos,
-            E_ExifToolWrapperError
+            E_ExifToolWrapperError,
+            E_ExifToolReponseParsingError
         }
 
         public enum Others
@@ -382,6 +383,7 @@ namespace QuickImageComment
             imageOrientation,
             exceptionContinue,
             exifToolError,
+            exifToolWarning,
             _ISOlanguageCode,
             exifToolNotReady,
             diffChanges,

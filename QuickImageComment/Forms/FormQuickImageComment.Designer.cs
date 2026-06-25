@@ -48,7 +48,6 @@ namespace QuickImageComment
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormQuickImageComment));
             this.dynamicLabelArtist = new System.Windows.Forms.Label();
-            this.pictureBox1 = new QuickImageCommentControls.PictureBoxQIC();
             this.textBoxUserComment = new System.Windows.Forms.TextBox();
             this.labelLastCommentsFilter = new System.Windows.Forms.Label();
             this.splitContainer12 = new System.Windows.Forms.SplitContainer();
@@ -75,7 +74,6 @@ namespace QuickImageComment
             this.tabPageOther = new System.Windows.Forms.TabPage();
             this.tabPageMulti = new System.Windows.Forms.TabPage();
             this.splitContainer1213 = new System.Windows.Forms.SplitContainer();
-            this.checkedListBoxChangeableFieldsChange = new QuickImageCommentControls.CheckedListBoxItemBackcolor();
             this.comboBoxCommentChange = new System.Windows.Forms.ComboBox();
             this.checkBoxArtistChange = new System.Windows.Forms.CheckBox();
             this.comboBoxKeyWordsChange = new System.Windows.Forms.ComboBox();
@@ -91,11 +89,9 @@ namespace QuickImageComment
             this.splitContainer122 = new System.Windows.Forms.SplitContainer();
             this.tabControlLastPredefComments = new System.Windows.Forms.TabControl();
             this.tabPageLastComments = new System.Windows.Forms.TabPage();
-            this.listBoxLastUserComments = new QuickImageCommentControls.ListBoxComments();
             this.textBoxLastCommentsFilter = new System.Windows.Forms.TextBox();
             this.tabPagePredefComments = new System.Windows.Forms.TabPage();
             this.dynamicComboBoxPredefinedComments = new System.Windows.Forms.ComboBox();
-            this.listBoxPredefinedComments = new QuickImageCommentControls.ListBoxComments();
             this.KeyPrim = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.KeySec = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextMenuStripOverview = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -213,6 +209,7 @@ namespace QuickImageComment
             this.ToolStripMenuItemLanguageExifTool = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItemUserConfigStorage = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItemFormLogger = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemExifToolDirekt = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemMaintenance = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemCreateScreenshots = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemWriteTagLookupReferenceFile = new System.Windows.Forms.ToolStripMenuItem();
@@ -271,10 +268,12 @@ namespace QuickImageComment
             this.toolStripButtonPredefinedKeyWords = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator14 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButtonFind = new System.Windows.Forms.ToolStripButton();
+            this.pictureBox1 = new QuickImageCommentControls.PictureBoxQIC();
+            this.checkedListBoxChangeableFieldsChange = new QuickImageCommentControls.CheckedListBoxItemBackcolor();
+            this.listBoxLastUserComments = new QuickImageCommentControls.ListBoxComments();
+            this.listBoxPredefinedComments = new QuickImageCommentControls.ListBoxComments();
             this.toolTip1 = new QuickImageComment.ToolTipQIC();
             this.theFolderTreeView = new QuickImageCommentControls.ShellTreeViewQIC();
-            this.toolStripMenuItemExifToolDirekt = new System.Windows.Forms.ToolStripMenuItem();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer12)).BeginInit();
             this.splitContainer12.Panel1.SuspendLayout();
             this.splitContainer12.Panel2.SuspendLayout();
@@ -325,6 +324,7 @@ namespace QuickImageComment
             this.statusStrip1.SuspendLayout();
             this.MenuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // dynamicLabelArtist
@@ -336,22 +336,6 @@ namespace QuickImageComment
             this.dynamicLabelArtist.Size = new System.Drawing.Size(84, 13);
             this.dynamicLabelArtist.TabIndex = 1;
             this.dynamicLabelArtist.Text = "Künstler (Autor)";
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox1.BackColor = System.Drawing.SystemColors.Control;
-            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.pictureBox1.Cursor = System.Windows.Forms.Cursors.Default;
-            this.pictureBox1.Location = new System.Drawing.Point(3, 3);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(209, 88);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.zoomChanged += new QuickImageCommentControls.PictureBoxQIC.ZoomChangedEventHandler(this.pictureBox1_zoomChanged);
-            this.pictureBox1.painted += new QuickImageCommentControls.PictureBoxQIC.PaintedEventHandler(this.pictureBox1_painted);
             // 
             // textBoxUserComment
             // 
@@ -722,21 +706,6 @@ namespace QuickImageComment
             this.splitContainer1213.SplitterDistance = 256;
             this.splitContainer1213.TabIndex = 6;
             // 
-            // checkedListBoxChangeableFieldsChange
-            // 
-            this.checkedListBoxChangeableFieldsChange.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkedListBoxChangeableFieldsChange.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.checkedListBoxChangeableFieldsChange.CheckedColor = System.Drawing.Color.LightGreen;
-            this.checkedListBoxChangeableFieldsChange.CheckOnClick = true;
-            this.checkedListBoxChangeableFieldsChange.FormattingEnabled = true;
-            this.checkedListBoxChangeableFieldsChange.IntegralHeight = false;
-            this.checkedListBoxChangeableFieldsChange.Location = new System.Drawing.Point(1, 101);
-            this.checkedListBoxChangeableFieldsChange.Name = "checkedListBoxChangeableFieldsChange";
-            this.checkedListBoxChangeableFieldsChange.Size = new System.Drawing.Size(252, 87);
-            this.checkedListBoxChangeableFieldsChange.TabIndex = 3;
-            // 
             // comboBoxCommentChange
             // 
             this.comboBoxCommentChange.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -940,17 +909,6 @@ namespace QuickImageComment
             this.tabPageLastComments.Text = "Letzte Kommentare";
             this.tabPageLastComments.UseVisualStyleBackColor = true;
             // 
-            // listBoxLastUserComments
-            // 
-            this.listBoxLastUserComments.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.listBoxLastUserComments.IntegralHeight = false;
-            this.listBoxLastUserComments.Location = new System.Drawing.Point(1, 28);
-            this.listBoxLastUserComments.Name = "listBoxLastUserComments";
-            this.listBoxLastUserComments.Size = new System.Drawing.Size(311, 135);
-            this.listBoxLastUserComments.TabIndex = 2;
-            // 
             // textBoxLastCommentsFilter
             // 
             this.textBoxLastCommentsFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -985,19 +943,6 @@ namespace QuickImageComment
             this.dynamicComboBoxPredefinedComments.Size = new System.Drawing.Size(309, 21);
             this.dynamicComboBoxPredefinedComments.TabIndex = 1;
             this.dynamicComboBoxPredefinedComments.SelectedIndexChanged += new System.EventHandler(this.comboBoxPredefinedComments_SelectedIndexChanged);
-            // 
-            // listBoxPredefinedComments
-            // 
-            this.listBoxPredefinedComments.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.listBoxPredefinedComments.ColumnWidth = 30;
-            this.listBoxPredefinedComments.IntegralHeight = false;
-            this.listBoxPredefinedComments.Location = new System.Drawing.Point(1, 28);
-            this.listBoxPredefinedComments.Name = "listBoxPredefinedComments";
-            this.listBoxPredefinedComments.Size = new System.Drawing.Size(311, 135);
-            this.listBoxPredefinedComments.Sorted = true;
-            this.listBoxPredefinedComments.TabIndex = 2;
             // 
             // KeyPrim
             // 
@@ -1969,6 +1914,14 @@ namespace QuickImageComment
             this.ToolStripMenuItemFormLogger.Text = "Protokollierung anzeigen";
             this.ToolStripMenuItemFormLogger.Click += new System.EventHandler(this.ToolStripMenuItemFormLogger_Click);
             // 
+            // toolStripMenuItemExifToolDirekt
+            // 
+            this.toolStripMenuItemExifToolDirekt.Name = "toolStripMenuItemExifToolDirekt";
+            this.toolStripMenuItemExifToolDirekt.Size = new System.Drawing.Size(274, 22);
+            this.toolStripMenuItemExifToolDirekt.Text = "Exiftool - direkt";
+            this.toolStripMenuItemExifToolDirekt.Visible = false;
+            this.toolStripMenuItemExifToolDirekt.Click += new System.EventHandler(this.toolStripMenuItemExifToolDirekt_Click);
+            // 
             // toolStripMenuItemMaintenance
             // 
             this.toolStripMenuItemMaintenance.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -2566,6 +2519,61 @@ namespace QuickImageComment
             this.toolStripButtonFind.MouseLeave += new System.EventHandler(this.toolStripItem_MouseLeave);
             this.toolStripButtonFind.MouseHover += new System.EventHandler(this.toolStripItem_MouseHover);
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox1.BackColor = System.Drawing.SystemColors.Control;
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.pictureBox1.Cursor = System.Windows.Forms.Cursors.Default;
+            this.pictureBox1.Location = new System.Drawing.Point(3, 3);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(209, 88);
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.zoomChanged += new QuickImageCommentControls.PictureBoxQIC.ZoomChangedEventHandler(this.pictureBox1_zoomChanged);
+            this.pictureBox1.painted += new QuickImageCommentControls.PictureBoxQIC.PaintedEventHandler(this.pictureBox1_painted);
+            // 
+            // checkedListBoxChangeableFieldsChange
+            // 
+            this.checkedListBoxChangeableFieldsChange.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkedListBoxChangeableFieldsChange.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.checkedListBoxChangeableFieldsChange.CheckedColor = System.Drawing.Color.LightGreen;
+            this.checkedListBoxChangeableFieldsChange.CheckOnClick = true;
+            this.checkedListBoxChangeableFieldsChange.FormattingEnabled = true;
+            this.checkedListBoxChangeableFieldsChange.IntegralHeight = false;
+            this.checkedListBoxChangeableFieldsChange.Location = new System.Drawing.Point(1, 101);
+            this.checkedListBoxChangeableFieldsChange.Name = "checkedListBoxChangeableFieldsChange";
+            this.checkedListBoxChangeableFieldsChange.Size = new System.Drawing.Size(252, 87);
+            this.checkedListBoxChangeableFieldsChange.TabIndex = 3;
+            // 
+            // listBoxLastUserComments
+            // 
+            this.listBoxLastUserComments.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listBoxLastUserComments.IntegralHeight = false;
+            this.listBoxLastUserComments.Location = new System.Drawing.Point(1, 28);
+            this.listBoxLastUserComments.Name = "listBoxLastUserComments";
+            this.listBoxLastUserComments.Size = new System.Drawing.Size(311, 135);
+            this.listBoxLastUserComments.TabIndex = 2;
+            // 
+            // listBoxPredefinedComments
+            // 
+            this.listBoxPredefinedComments.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listBoxPredefinedComments.ColumnWidth = 30;
+            this.listBoxPredefinedComments.IntegralHeight = false;
+            this.listBoxPredefinedComments.Location = new System.Drawing.Point(1, 28);
+            this.listBoxPredefinedComments.Name = "listBoxPredefinedComments";
+            this.listBoxPredefinedComments.Size = new System.Drawing.Size(311, 135);
+            this.listBoxPredefinedComments.Sorted = true;
+            this.listBoxPredefinedComments.TabIndex = 2;
+            // 
             // toolTip1
             // 
             this.toolTip1.AutoPopDelay = 5000;
@@ -2584,13 +2592,6 @@ namespace QuickImageComment
             this.theFolderTreeView.Name = "theFolderTreeView";
             this.theFolderTreeView.Size = new System.Drawing.Size(253, 147);
             this.theFolderTreeView.TabIndex = 0;
-            // 
-            // ToolStripMenuItemExifToolDirektT
-            // 
-            this.toolStripMenuItemExifToolDirekt.Name = "toolStripMenuItemExifToolDirekt";
-            this.toolStripMenuItemExifToolDirekt.Size = new System.Drawing.Size(274, 22);
-            this.toolStripMenuItemExifToolDirekt.Text = "Exiftool - direkt";
-            this.toolStripMenuItemExifToolDirekt.Click += new System.EventHandler(this.toolStripMenuItemExifToolDirekt_Click);
             // 
             // FormQuickImageComment
             // 
@@ -2614,7 +2615,6 @@ namespace QuickImageComment
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.FormQuickImageComment_DragDrop);
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.FormQuickImageComment_DragEnter);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FormQuickImageComment_KeyDown);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.splitContainer12.Panel1.ResumeLayout(false);
             this.splitContainer12.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer12)).EndInit();
@@ -2674,6 +2674,7 @@ namespace QuickImageComment
             this.MenuStrip1.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

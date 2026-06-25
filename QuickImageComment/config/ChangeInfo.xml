@@ -1,29 +1,11 @@
-﻿<Program_Version>5.01</Program_Version>
+﻿<Program_Version>5.02</Program_Version>
 <Program_Change_Info_German>
-Erweiterungen und Verbesserungen:
+Folgender Fehler wurde behoben:
 
-* Neu: Sprachdatei für Japanisch. Dank an coolvitto für Erstellung der Übersetzung.
-* Das Bild in der Hauptmaske und in der Maske "Bild Details" kann mittels Mausrad gezoomed werden.
-* Maske "Bild Details": alle Einstellungsänderungen werden direkt von dem übergeordneten auf die untergeordneten Fenster übertragen. Dadurch ist die Schaltfläche "Andere Fenster gleich" entfallen.
-* Wenn das Bild einen Wert für Exif.Fujifilm.FocusPoint enthält, kann der Fokuspunkt angezeigt werden. In der Hauptmaske über "Ansicht - Fokuspunkt anzeigen", in der Maske "Bild Details" über Ankreuzfeld.
-* In der Dateiliste wird bei Ansicht "Details" auch der Kommentar angezeigt.
-
-Folgende Fehler wurden behoben:
-
-* Auch wenn Exiftool konfiguriert war, wurden GPS-Daten, Künstler, Kommentar, Schlüsselworte und Bildorientierung nicht in .HEIC/.HEIF gespeichert. Hinweis: Diese Fehlerkorrektur betrifft nicht das Speichern von Werten aus dem konfigurierbaren Eingabebereich. Sie ist ggfs. auch nicht wirksam, wenn Tags in der allgemeinen Konfigurationsdatei geändert wurden. In beiden Fällen ist selbst darauf zu achten, dass nur Exiftool-Tags verwendet werden.
-* Das Programm blockierte bei großen Bildern (40 MP) in Ansicht 4:1.
+* Beim Lesen von .heic-Dateien konnte es zu einem Fehler kommen, sodass keine ExifTool-Daten angezeigt wurden. Wenn dies beim Speichern passierte, wurde zusätzlich fälschlicherweise gemeldet, dass die Werte nicht gespeichert wurden. Details in https://github.com/QuickImageComment/QuickImageComment/issues/19
 </Program_Change_Info_German>
 <Program_Change_Info_English>
-Enhancements and improvements:
+The following error has been fixed:
 
-* New: Japanese language file. Thanks to coolvitto for providing the translation.
-* You can zoom in on the image in the main window and in the mask "Image Details"  using the mouse wheel.
-* Mask "Image Details": All setting changes are automatically applied from the superior window to the secondary windows. As a result, the "Apply to Other Windows" button has been removed.
-* If the image contains a value for Exif.Fujifilm.FocusPoint, the focus point can be displayed. In the main window via “View - Show focus point” and in the mask “Image Details” via a checkbox.
-* In the file list, the comment is also displayed in “Details” view.
-
-The following errors have been fixed:
-
-* Even when Exiftool was configured, GPS data, artist, comments, keywords and image orientation were not saved in .HEIC/.HEIF files. Note: This bug fix does not affect the saving of values from the configurable input area. It may also not take effect if tags have been changed in the general configuration file. In both cases, you must ensure that only Exiftool tags are used.
-* The program would freeze when handling large images (40 MP) in 4:1 view.
+*  An error could occur when reading .heic files, causing ExifTool data not to be displayed. If this happened during saving, an additional false error message would appear stating that the values were not saved. Details in https://github.com/QuickImageComment/QuickImageComment/issues/19
 </Program_Change_Info_English>
