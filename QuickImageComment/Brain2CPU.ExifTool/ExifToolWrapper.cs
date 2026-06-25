@@ -111,6 +111,7 @@ namespace Brain2CPU.ExifTool
         private static string userOptionsWrite = "";
         private static string generalOptionsRead = "";
         private static string generalOptionsWrite = "";
+        private static bool writeDebugFile;
         private static System.IO.StreamWriter StreamDebugFile = null;
         internal static ArrayList LastCommands { get; } = new ArrayList();
 
@@ -143,6 +144,7 @@ namespace Brain2CPU.ExifTool
             generalOptionsRead = generalOptionsRead.Trim().Replace(' ', '\n') + '\n';
             generalOptionsWrite = ConfigDefinition.getConfigString(ConfigDefinition.enumConfigString.ExifToolGeneralOptionsWrite);
             generalOptionsWrite = generalOptionsWrite.Trim().Replace(' ', '\n') + '\n';
+            writeDebugFile = ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.DebugExifToolInterface);
 
             if (string.IsNullOrEmpty(exifToolPath))
             {
@@ -917,25 +919,34 @@ namespace Brain2CPU.ExifTool
         // write debug information to file
         private static void writeDebugFileEntry(string messageText)
         {
-            if (ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.DebugExifToolInterface))
+            if (writeDebugFile)
             {
-                if (StreamDebugFile == null)
+                try
                 {
-                    string DebugFileName = ConfigDefinition.getIniPath() + "QIC" + Program.VersionNumberOnlyWhenSuffixDefined + "-DebugExifToolInterface.txt";
-                    StreamDebugFile = new System.IO.StreamWriter(DebugFileName, false, System.Text.Encoding.UTF8);
+                    if (StreamDebugFile == null)
+                    {
+                        string DebugFileName = ConfigDefinition.getIniPath() + "QIC" + Program.VersionNumberOnlyWhenSuffixDefined + "-DebugExifToolInterface.txt";
+                        StreamDebugFile = new System.IO.StreamWriter(DebugFileName, false, System.Text.Encoding.UTF8);
+                    }
+
+                    System.Diagnostics.StackTrace stackTrace = new System.Diagnostics.StackTrace(true);
+                    System.Diagnostics.StackFrame[] stackFrames = stackTrace.GetFrames();
+
+                    int offset = 2;
+                    string traceString = "";
+                    for (long ii = offset; ii < stackFrames.Length && ii <= 6 + offset; ii++)
+                    {
+                        traceString = traceString + "@" + stackFrames[ii].GetMethod().Name + "-" + stackFrames[ii].GetFileLineNumber().ToString();
+                    }
+                    StreamDebugFile.WriteLine("------- " + DateTime.Now.ToString("H:mm:ss.fff ") + traceString + "\r\n" + messageText);
+                    StreamDebugFile.Flush();
                 }
-
-                System.Diagnostics.StackTrace stackTrace = new System.Diagnostics.StackTrace(true);
-                System.Diagnostics.StackFrame[] stackFrames = stackTrace.GetFrames();
-
-                int offset = 2;
-                string traceString = "";
-                for (long ii = offset; ii < stackFrames.Length && ii <= 6 + offset; ii++)
+                catch (Exception ex)
                 {
-                    traceString = traceString + "@" + stackFrames[ii].GetMethod().Name + "-" + stackFrames[ii].GetFileLineNumber().ToString();
+                    writeDebugFile = false;
+                    GeneralUtilities.debugMessage("Exception writing ExifTool debug file: " + ex.Message
+                        + "\r\nWriting to debug file is now disabled.");
                 }
-                StreamDebugFile.WriteLine("------- " + DateTime.Now.ToString("H:mm:ss.fff ") + traceString + "\r\n" + messageText);
-                StreamDebugFile.Flush();
             }
         }
 

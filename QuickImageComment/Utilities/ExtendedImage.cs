@@ -209,6 +209,7 @@ namespace QuickImageComment
         private const string createdWithText = "createdWithText";
 
         private static readonly object LockReadExiv2 = new object();
+        private static readonly object LockReadExifTool = new object();
 
         private readonly string ImageFileName;
         private System.Drawing.Bitmap ThumbNailBitmap;
@@ -556,7 +557,11 @@ namespace QuickImageComment
             ReadPerformance.measure("Meta data exiv2 copied");
 
             DateTime startTime = DateTime.Now;
-            readExifToolMetaData(neededKeysExifTool);
+            // lock because this method can be called in main thread or via updateCaches
+            lock (LockReadExifTool)
+            {
+                readExifToolMetaData(neededKeysExifTool);
+            }
             if (ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.ExifToolLogRead))
             {
                 string duration = DateTime.Now.Subtract(startTime).TotalMilliseconds.ToString("0");
@@ -2558,143 +2563,155 @@ namespace QuickImageComment
             // if ExifToolWrapper is not ready, it is not properly initialised
             // most likely because path is not set by user, so display no warning or error
             if (!ExifToolWrapper.isReady()) return;
-#if !DEBUG
-            Newtonsoft.Json.Linq.JProperty exceptionJProperty = new JProperty("init loop");
+            // reading with ExifTool outside the lock as ExifToolWrapper has its own lock
+            ExifToolResponse resp = new ExifToolResponse();
             try
             {
-#endif
-                // reading with ExifTool outside the lock as ExifToolWrapper has its own lock
-                ExifToolResponse resp = new ExifToolResponse();
+                resp = ExifToolWrapper.ReadMetaDataFrom(ImageFileName, neededKeysExifTool);
+            }
+            catch (Exception ex)
+            {
+                GeneralUtilities.message(LangCfg.Message.E_ExifToolWrapperError, ex.Message, ex.StackTrace);
+            }
+            if (!resp)
+            {
+                MetaDataWarningsRead.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exifToolError),
+                   resp.Error));
+            }
+            else
+            {
+#if !DEBUG
+                Newtonsoft.Json.Linq.JProperty exceptionJProperty = new JProperty("init loop");
                 try
                 {
-                    resp = ExifToolWrapper.ReadMetaDataFrom(ImageFileName, neededKeysExifTool);
-                }
-                catch (Exception ex)
-                {
-                    GeneralUtilities.message(LangCfg.Message.E_ExifToolWrapperError, ex.Message, ex.StackTrace);
-                }
-                if (!resp)
-                {
-                    throw new Exception(resp.Error);
-                }
-
-                string jsonResponse = resp.Result;
+#endif
+                    // 
+                    //string rspFile = GeneralUtilities.additionalFileName(ImageFileName, ".rsp");
+                    //string jsonResponse;
+                    //if (File.Exists(rspFile))
+                    //{
+                    //    System.IO.StreamReader StreamIn =
+                    //        new System.IO.StreamReader(rspFile, System.Text.Encoding.UTF8);
+                    //    jsonResponse = StreamIn.ReadToEnd();
+                    //    StreamIn.Close();
+                    //    Logger.log("Read data from " + rspFile);
+                    //}
+                    //else
+                    string jsonResponse = resp.Result;
 
 #if WRITEJSONRESPONSE
-                string LookupReferenceValuesFile = GeneralUtilities.getMaintenanceOutputFolder() + "JSonResponse.txt";
-                System.IO.StreamWriter StreamOut = new System.IO.StreamWriter(LookupReferenceValuesFile, false, System.Text.Encoding.UTF8);
-                StreamOut.WriteLine(jsonResponse);
-                StreamOut.Close();
+                    string LookupReferenceValuesFile = GeneralUtilities.getMaintenanceOutputFolder() + "JSonResponse.txt";
+                    System.IO.StreamWriter StreamOut = new System.IO.StreamWriter(LookupReferenceValuesFile, false, System.Text.Encoding.UTF8);
+                    StreamOut.WriteLine(jsonResponse);
+                    StreamOut.Close();
 #endif
 
-                if (jsonResponse.Length < 3)
-                {
-                    // no content
-                    return;
-                }
-                JArray jsonArray = JArray.Parse(jsonResponse);
-                // Iterate through the JSONArray
-                for (int ii = 0; ii < jsonArray.Count; ii++)
-                {
-                    JToken jToken = jsonArray[ii];
-                    foreach (Newtonsoft.Json.Linq.JProperty child in jToken.Children().Cast<JProperty>())
+                    if (jsonResponse.Length < 3)
                     {
-#if !DEBUG
-                        exceptionJProperty = child;
-#endif
-                        int colon = child.Name.IndexOf(':');
-
-                        string key = child.Name.Substring(colon + 1);
-                        string format = "";
-                        if (colon > 0) format = child.Name.Substring(0, colon);
-
-                        foreach (JToken property in child.Children<JToken>())
+                        // no content
+                        return;
+                    }
+                    JArray jsonArray = JArray.Parse(jsonResponse);
+                    // Iterate through the JSONArray
+                    for (int ii = 0; ii < jsonArray.Count; ii++)
+                    {
+                        JToken jToken = jsonArray[ii];
+                        foreach (Newtonsoft.Json.Linq.JProperty child in jToken.Children().Cast<JProperty>())
                         {
-                            if (property.HasValues)
-                            {
-                                var jTokenProperties = property.Children().OfType<JProperty>();
-                                long tag = -1;
-                                string num = null;
-                                string value = "";
-                                string desc = "";
-                                foreach (JProperty prop in jTokenProperties)
-                                {
-                                    if (prop.Name.Equals("id"))
-                                    {
-                                        if (!long.TryParse((string)prop.Value, out tag)) tag = -1;
-                                    }
-                                    else if (prop.Name.Equals("num"))
-                                        num = (string)prop.Value;
-                                    else if (prop.Name.Equals("val"))
-                                        value = (string)prop.Value;
-                                    else if (prop.Name.Equals("desc"))
-                                        desc = (string)prop.Value;
-                                }
-                                if (num == null) num = value;
-                                if (desc.Equals("")) desc = key;
+#if !DEBUG
+                            exceptionJProperty = child;
+#endif
+                            int colon = child.Name.IndexOf(':');
 
-                                // if needed, convert to UTF8
-                                // applies only for string Exif tags (location taken from https://exiftool.org/TagNames/EXIF.html)
-                                if ((key.StartsWith("IFD0:") ||
-                                     key.StartsWith("InteropIFD:") ||
-                                     key.StartsWith("ExifIFD:")) &&
-                                    format.Equals(TagUtilities.exifToolTypeString))
+                            string key = child.Name.Substring(colon + 1);
+                            string format = "";
+                            if (colon > 0) format = child.Name.Substring(0, colon);
+
+                            foreach (JToken property in child.Children<JToken>())
+                            {
+                                if (property.HasValues)
                                 {
-                                    if (stringIsUTF8(value))
+                                    var jTokenProperties = property.Children().OfType<JProperty>();
+                                    long tag = -1;
+                                    string num = null;
+                                    string value = "";
+                                    string desc = "";
+                                    foreach (JProperty prop in jTokenProperties)
                                     {
-                                        value = getStringFromUTF8CString(value);
+                                        if (prop.Name.Equals("id"))
+                                        {
+                                            if (!long.TryParse((string)prop.Value, out tag)) tag = -1;
+                                        }
+                                        else if (prop.Name.Equals("num"))
+                                            num = (string)prop.Value;
+                                        else if (prop.Name.Equals("val"))
+                                            value = (string)prop.Value;
+                                        else if (prop.Name.Equals("desc"))
+                                            desc = (string)prop.Value;
+                                    }
+                                    if (num == null) num = value;
+                                    if (desc.Equals("")) desc = key;
+
+                                    // if needed, convert to UTF8
+                                    // applies only for string Exif tags (location taken from https://exiftool.org/TagNames/EXIF.html)
+                                    if ((key.StartsWith("IFD0:") ||
+                                         key.StartsWith("InteropIFD:") ||
+                                         key.StartsWith("ExifIFD:")) &&
+                                        format.Equals(TagUtilities.exifToolTypeString))
+                                    {
+                                        if (stringIsUTF8(value))
+                                        {
+                                            value = getStringFromUTF8CString(value);
 #if SHOW_UTF8_ENCODED_IN_OVERVIEW
                                     UTF8EncodedKeys.Add(key);
 #endif
+                                        }
+                                        // num used for original, in case of string is equal to value
+                                        num = value;
                                     }
-                                    // num used for original, in case of string is equal to value
-                                    num = value;
-                                }
 
-                                int keyIndex = 0;
-                                string keyStringIndex = key;
-                                while (ExifToolMetaDataItems.ContainsKey(keyStringIndex))
-                                {
-                                    keyIndex++;
-                                    keyStringIndex = GeneralUtilities.nameUniqueWithRunningNumber(key, keyIndex);
-                                }
-                                if (key.StartsWith("ExifTool:"))
-                                {
-                                    if (!key.Equals("ExifTool:ExifToolVersion") &&
-                                        !key.Equals("ExifTool:Now") &&
-                                        !key.Equals("ExifTool:NewGUID") &&
-                                        !key.Equals("ExifTool:FileSequence") &&
-                                        !key.Equals("ExifTool:ProcessingTime"))
+                                    int keyIndex = 0;
+                                    string keyStringIndex = key;
+                                    while (ExifToolMetaDataItems.ContainsKey(keyStringIndex))
+                                    {
+                                        keyIndex++;
+                                        keyStringIndex = GeneralUtilities.nameUniqueWithRunningNumber(key, keyIndex);
+                                    }
+                                    if (key.Equals("ExifTool:Error"))
                                     {
                                         MetaDataWarningsRead.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exifToolError), desc + ": " + value));
                                     }
-                                }
-                                else
-                                {
-                                    string[] valueArray = value.Split(new string[] { ExifToolWrapper.readSeparator }, System.StringSplitOptions.None);
-                                    string[] numArray = num.Split(new string[] { ExifToolWrapper.readSeparator }, System.StringSplitOptions.None);
-                                    ExifToolMetaDataItems.Add(keyStringIndex, new MetaDataItemExifTool(key, desc, tag, format, numArray[0], valueArray[0]));
-
-                                    //!!: there was a case, where numArray was smaller than valueArray (DSCF7992.JPG, Debug-mode)
-
-                                    for (int jj = 1; jj < Math.Min(valueArray.Length, numArray.Length); jj++)
+                                    else if (key.Equals("ExifTool:Warning"))
                                     {
-                                        string keyArray = GeneralUtilities.nameUniqueWithRunningNumber(key, jj);
-                                        ExifToolMetaDataItems.Add(keyArray, new MetaDataItemExifTool(keyArray, desc, tag, format, numArray[jj], valueArray[jj]));
+                                        MetaDataWarningsRead.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exifToolWarning), desc + ": " + value));
+                                    }
+                                    else
+                                    {
+                                        string[] valueArray = value.Split(new string[] { ExifToolWrapper.readSeparator }, System.StringSplitOptions.None);
+                                        string[] numArray = num.Split(new string[] { ExifToolWrapper.readSeparator }, System.StringSplitOptions.None);
+                                        ExifToolMetaDataItems.Add(keyStringIndex, new MetaDataItemExifTool(key, desc, tag, format, numArray[0], valueArray[0]));
+
+                                        //!!: there was a case, where numArray was smaller than valueArray (DSCF7992.JPG, Debug-mode)
+
+                                        for (int jj = 1; jj < Math.Min(valueArray.Length, numArray.Length); jj++)
+                                        {
+                                            string keyArray = GeneralUtilities.nameUniqueWithRunningNumber(key, jj);
+                                            ExifToolMetaDataItems.Add(keyArray, new MetaDataItemExifTool(keyArray, desc, tag, format, numArray[jj], valueArray[jj]));
+                                        }
                                     }
                                 }
                             }
                         }
                     }
-                }
 #if !DEBUG
-            }
-            catch (Exception ex)
-            {
-                MetaDataWarningsRead.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exifToolError),
-                    ex.Message + " @ " + exceptionJProperty.ToString()));
-            }
+                }
+                catch (Exception ex)
+                {
+                    GeneralUtilities.message(LangCfg.Message.E_ExifToolReponseParsingError, ex.Message,
+                        ImageFileName, exceptionJProperty.ToString(), ex.StackTrace);
+                }
 #endif
+            }
         }
 
         //*****************************************************************
@@ -3786,14 +3803,15 @@ namespace QuickImageComment
                         {
                             GeneralUtilities.message(LangCfg.Message.E_ExifToolWrapperError, ex.Message, ex.StackTrace);
                         }
-                        if (!cmdRes)
+                        if (!cmdRes.Error.Equals(""))
                         {
                             GeneralUtilities.message(LangCfg.Message.E_ExifToolWriteResponse, cmdRes.Error);
                         }
-                        else if (!cmdRes.Error.Equals(""))
-                        {
-                            GeneralUtilities.message(LangCfg.Message.E_ExifToolWriteResponse, cmdRes.Error);
-                        }
+                        // note: when writing fails, cmdRes.IsSuccess is false, but cmdRes.Error can be empty
+                        // reason: ExifToolWrapper checks for response "1 image files updated" to set IsSuccess
+                        // ExifTool can response with "0 image files updated" without giving error information.
+                        // As later deviations between saved and target values are logged, here no message is needed
+                        // in case cmdRes.Error is empty and IsSuccess is false, as it could not give any details.
                         changeEncodingIptcRequired = false;
                     }
                     else
