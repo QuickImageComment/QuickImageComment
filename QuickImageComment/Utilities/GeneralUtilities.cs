@@ -1289,7 +1289,7 @@ namespace QuickImageComment
 
                 ConfigDefinition.setCfgUserString(ConfigDefinition.enumCfgUserString.LastCheckForNewVersion, DateTime.Now.ToString("dd.MM.yyyy"));
 
-                if (!Version.Equals(AssemblyInfo.VersionToCheck))
+                if (String.Compare(Version, AssemblyInfo.VersionToCheck, comparisonType: StringComparison.OrdinalIgnoreCase) > 0)
                 {
                     Change = getChangeInfoFromcontent(content);
                     return true;
