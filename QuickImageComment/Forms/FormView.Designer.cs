@@ -53,6 +53,12 @@
             this.radioButtonList = new System.Windows.Forms.RadioButton();
             this.radioButtonLargeIcons = new System.Windows.Forms.RadioButton();
             this.groupBoxProperties = new System.Windows.Forms.GroupBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.radioButtonExifToolHeader = new System.Windows.Forms.RadioButton();
+            this.radioButtonExifToolSuffixFirst = new System.Windows.Forms.RadioButton();
+            this.radioButtonExifToolPlain = new System.Windows.Forms.RadioButton();
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.fixedLabel9 = new System.Windows.Forms.Label();
@@ -108,12 +114,7 @@
             this.buttonSaveAs = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.buttonMap = new System.Windows.Forms.Button();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.radioButtonExifToolHeader = new System.Windows.Forms.RadioButton();
-            this.radioButtonExifToolSuffixFirst = new System.Windows.Forms.RadioButton();
-            this.radioButtonExifToolPlain = new System.Windows.Forms.RadioButton();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.radioButtonRating = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -140,6 +141,7 @@
             this.panelLayout.SuspendLayout();
             this.groupBoxFiles.SuspendLayout();
             this.groupBoxProperties.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.groupBoxOther.SuspendLayout();
             this.groupBoxXMP.SuspendLayout();
             this.groupBoxIPTC.SuspendLayout();
@@ -148,7 +150,6 @@
             this.panelVerticalCheckRight.SuspendLayout();
             this.panelVerticalCheckLeft.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonCustomizeForm
@@ -398,6 +399,7 @@
             // 
             // groupBoxFiles
             // 
+            this.groupBoxFiles.Controls.Add(this.radioButtonRating);
             this.groupBoxFiles.Controls.Add(this.radioButtonComment);
             this.groupBoxFiles.Controls.Add(this.radioButtonTile);
             this.groupBoxFiles.Controls.Add(this.radioButtonDetails);
@@ -405,7 +407,7 @@
             this.groupBoxFiles.Controls.Add(this.radioButtonLargeIcons);
             this.groupBoxFiles.Location = new System.Drawing.Point(166, 12);
             this.groupBoxFiles.Name = "groupBoxFiles";
-            this.groupBoxFiles.Size = new System.Drawing.Size(157, 142);
+            this.groupBoxFiles.Size = new System.Drawing.Size(157, 197);
             this.groupBoxFiles.TabIndex = 1;
             this.groupBoxFiles.TabStop = false;
             this.groupBoxFiles.Text = "Datei-Ansicht";
@@ -495,6 +497,68 @@
             this.groupBoxProperties.TabIndex = 2;
             this.groupBoxProperties.TabStop = false;
             this.groupBoxProperties.Text = "Eigenschaften-Ansichten";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(183, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(331, 13);
+            this.label4.TabIndex = 15;
+            this.label4.Text = "Sprache für ExifTool wird im Menü \"Extras\" der Hauptmaske gesetzt";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(101, 16);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(45, 13);
+            this.label3.TabIndex = 14;
+            this.label3.Text = "ExifTool";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.radioButtonExifToolHeader);
+            this.groupBox2.Controls.Add(this.radioButtonExifToolSuffixFirst);
+            this.groupBox2.Controls.Add(this.radioButtonExifToolPlain);
+            this.groupBox2.Location = new System.Drawing.Point(108, 32);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(31, 156);
+            this.groupBox2.TabIndex = 7;
+            this.groupBox2.TabStop = false;
+            // 
+            // radioButtonExifToolHeader
+            // 
+            this.radioButtonExifToolHeader.AutoSize = true;
+            this.radioButtonExifToolHeader.Location = new System.Drawing.Point(8, 17);
+            this.radioButtonExifToolHeader.Name = "radioButtonExifToolHeader";
+            this.radioButtonExifToolHeader.Size = new System.Drawing.Size(14, 13);
+            this.radioButtonExifToolHeader.TabIndex = 0;
+            this.radioButtonExifToolHeader.TabStop = true;
+            this.radioButtonExifToolHeader.UseVisualStyleBackColor = true;
+            this.radioButtonExifToolHeader.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
+            // 
+            // radioButtonExifToolSuffixFirst
+            // 
+            this.radioButtonExifToolSuffixFirst.AutoSize = true;
+            this.radioButtonExifToolSuffixFirst.Location = new System.Drawing.Point(8, 63);
+            this.radioButtonExifToolSuffixFirst.Name = "radioButtonExifToolSuffixFirst";
+            this.radioButtonExifToolSuffixFirst.Size = new System.Drawing.Size(14, 13);
+            this.radioButtonExifToolSuffixFirst.TabIndex = 2;
+            this.radioButtonExifToolSuffixFirst.TabStop = true;
+            this.radioButtonExifToolSuffixFirst.UseVisualStyleBackColor = true;
+            this.radioButtonExifToolSuffixFirst.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
+            // 
+            // radioButtonExifToolPlain
+            // 
+            this.radioButtonExifToolPlain.AutoSize = true;
+            this.radioButtonExifToolPlain.Location = new System.Drawing.Point(8, 40);
+            this.radioButtonExifToolPlain.Name = "radioButtonExifToolPlain";
+            this.radioButtonExifToolPlain.Size = new System.Drawing.Size(14, 13);
+            this.radioButtonExifToolPlain.TabIndex = 1;
+            this.radioButtonExifToolPlain.TabStop = true;
+            this.radioButtonExifToolPlain.UseVisualStyleBackColor = true;
+            this.radioButtonExifToolPlain.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
             // 
             // label11
             // 
@@ -1094,67 +1158,17 @@
             this.buttonMap.UseVisualStyleBackColor = true;
             this.buttonMap.Click += new System.EventHandler(this.buttonMap_Click);
             // 
-            // groupBox2
+            // radioButtonRating
             // 
-            this.groupBox2.Controls.Add(this.radioButtonExifToolHeader);
-            this.groupBox2.Controls.Add(this.radioButtonExifToolSuffixFirst);
-            this.groupBox2.Controls.Add(this.radioButtonExifToolPlain);
-            this.groupBox2.Location = new System.Drawing.Point(108, 32);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(31, 156);
-            this.groupBox2.TabIndex = 7;
-            this.groupBox2.TabStop = false;
-            // 
-            // radioButtonExifToolHeader
-            // 
-            this.radioButtonExifToolHeader.AutoSize = true;
-            this.radioButtonExifToolHeader.Location = new System.Drawing.Point(8, 17);
-            this.radioButtonExifToolHeader.Name = "radioButtonExifToolHeader";
-            this.radioButtonExifToolHeader.Size = new System.Drawing.Size(14, 13);
-            this.radioButtonExifToolHeader.TabIndex = 0;
-            this.radioButtonExifToolHeader.TabStop = true;
-            this.radioButtonExifToolHeader.UseVisualStyleBackColor = true;
-            this.radioButtonExifToolHeader.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
-            // 
-            // radioButtonExifToolSuffixFirst
-            // 
-            this.radioButtonExifToolSuffixFirst.AutoSize = true;
-            this.radioButtonExifToolSuffixFirst.Location = new System.Drawing.Point(8, 63);
-            this.radioButtonExifToolSuffixFirst.Name = "radioButtonExifToolSuffixFirst";
-            this.radioButtonExifToolSuffixFirst.Size = new System.Drawing.Size(14, 13);
-            this.radioButtonExifToolSuffixFirst.TabIndex = 2;
-            this.radioButtonExifToolSuffixFirst.TabStop = true;
-            this.radioButtonExifToolSuffixFirst.UseVisualStyleBackColor = true;
-            this.radioButtonExifToolSuffixFirst.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
-            // 
-            // radioButtonExifToolPlain
-            // 
-            this.radioButtonExifToolPlain.AutoSize = true;
-            this.radioButtonExifToolPlain.Location = new System.Drawing.Point(8, 40);
-            this.radioButtonExifToolPlain.Name = "radioButtonExifToolPlain";
-            this.radioButtonExifToolPlain.Size = new System.Drawing.Size(14, 13);
-            this.radioButtonExifToolPlain.TabIndex = 1;
-            this.radioButtonExifToolPlain.TabStop = true;
-            this.radioButtonExifToolPlain.UseVisualStyleBackColor = true;
-            this.radioButtonExifToolPlain.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(101, 16);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(45, 13);
-            this.label3.TabIndex = 14;
-            this.label3.Text = "ExifTool";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(183, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(331, 13);
-            this.label4.TabIndex = 15;
-            this.label4.Text = "Sprache für ExifTool wird im Menü \"Extras\" der Hauptmaske gesetzt";
+            this.radioButtonRating.AutoSize = true;
+            this.radioButtonRating.Location = new System.Drawing.Point(6, 130);
+            this.radioButtonRating.Name = "radioButtonRating";
+            this.radioButtonRating.Size = new System.Drawing.Size(77, 17);
+            this.radioButtonRating.TabIndex = 5;
+            this.radioButtonRating.TabStop = true;
+            this.radioButtonRating.Text = "Bewertung";
+            this.radioButtonRating.UseVisualStyleBackColor = true;
+            this.radioButtonRating.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
             // 
             // FormView
             // 
@@ -1216,6 +1230,8 @@
             this.groupBoxFiles.PerformLayout();
             this.groupBoxProperties.ResumeLayout(false);
             this.groupBoxProperties.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.groupBoxOther.ResumeLayout(false);
             this.groupBoxOther.PerformLayout();
             this.groupBoxXMP.ResumeLayout(false);
@@ -1232,8 +1248,6 @@
             this.panelVerticalCheckLeft.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1325,5 +1339,6 @@
         private System.Windows.Forms.RadioButton radioButtonExifToolPlain;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.RadioButton radioButtonRating;
     }
 }

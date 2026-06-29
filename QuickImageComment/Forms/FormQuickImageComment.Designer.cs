@@ -59,6 +59,7 @@ namespace QuickImageComment
             this.splitContainer1211P1 = new System.Windows.Forms.SplitContainer();
             this.hScrollBar1 = new System.Windows.Forms.HScrollBar();
             this.vScrollBar1 = new System.Windows.Forms.VScrollBar();
+            this.pictureBox1 = new QuickImageCommentControls.PictureBoxQIC();
             this.dynamicLabelImageNumber = new System.Windows.Forms.Label();
             this.dynamicLabelFileName = new System.Windows.Forms.Label();
             this.panelFramePosition = new System.Windows.Forms.Panel();
@@ -74,6 +75,8 @@ namespace QuickImageComment
             this.tabPageOther = new System.Windows.Forms.TabPage();
             this.tabPageMulti = new System.Windows.Forms.TabPage();
             this.splitContainer1213 = new System.Windows.Forms.SplitContainer();
+            this.checkBoxRatingChange = new System.Windows.Forms.CheckBox();
+            this.checkedListBoxChangeableFieldsChange = new QuickImageCommentControls.CheckedListBoxItemBackcolor();
             this.comboBoxCommentChange = new System.Windows.Forms.ComboBox();
             this.checkBoxArtistChange = new System.Windows.Forms.CheckBox();
             this.comboBoxKeyWordsChange = new System.Windows.Forms.ComboBox();
@@ -84,14 +87,17 @@ namespace QuickImageComment
             this.panelUsercomment = new System.Windows.Forms.Panel();
             this.dynamicLabelUserComment = new System.Windows.Forms.Label();
             this.panelArtist = new System.Windows.Forms.Panel();
+            this.theUserControlRating = new QuickImageComment.UserControlRating();
             this.dynamicComboBoxArtist = new System.Windows.Forms.ComboBox();
             this.labelArtistDefault = new System.Windows.Forms.Label();
             this.splitContainer122 = new System.Windows.Forms.SplitContainer();
             this.tabControlLastPredefComments = new System.Windows.Forms.TabControl();
             this.tabPageLastComments = new System.Windows.Forms.TabPage();
+            this.listBoxLastUserComments = new QuickImageCommentControls.ListBoxComments();
             this.textBoxLastCommentsFilter = new System.Windows.Forms.TextBox();
             this.tabPagePredefComments = new System.Windows.Forms.TabPage();
             this.dynamicComboBoxPredefinedComments = new System.Windows.Forms.ComboBox();
+            this.listBoxPredefinedComments = new QuickImageCommentControls.ListBoxComments();
             this.KeyPrim = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.KeySec = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextMenuStripOverview = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -153,6 +159,7 @@ namespace QuickImageComment
             this.toolStripMenuItemList = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemDetails = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemComment = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemRating = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItemSortSortAsc = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemSortName = new System.Windows.Forms.ToolStripMenuItem();
@@ -160,6 +167,7 @@ namespace QuickImageComment
             this.toolStripMenuItemSortChanged = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemSortCreated = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemSortComment = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemSortRatingDec = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator15 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItemPanelPictureOnly = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemImageWithGrid = new System.Windows.Forms.ToolStripMenuItem();
@@ -268,10 +276,6 @@ namespace QuickImageComment
             this.toolStripButtonPredefinedKeyWords = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator14 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButtonFind = new System.Windows.Forms.ToolStripButton();
-            this.pictureBox1 = new QuickImageCommentControls.PictureBoxQIC();
-            this.checkedListBoxChangeableFieldsChange = new QuickImageCommentControls.CheckedListBoxItemBackcolor();
-            this.listBoxLastUserComments = new QuickImageCommentControls.ListBoxComments();
-            this.listBoxPredefinedComments = new QuickImageCommentControls.ListBoxComments();
             this.toolTip1 = new QuickImageComment.ToolTipQIC();
             this.theFolderTreeView = new QuickImageCommentControls.ShellTreeViewQIC();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer12)).BeginInit();
@@ -295,6 +299,7 @@ namespace QuickImageComment
             this.splitContainer1211P1.Panel1.SuspendLayout();
             this.splitContainer1211P1.Panel2.SuspendLayout();
             this.splitContainer1211P1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panelFramePosition.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFramePosition)).BeginInit();
             this.tabControlProperties.SuspendLayout();
@@ -324,7 +329,6 @@ namespace QuickImageComment
             this.statusStrip1.SuspendLayout();
             this.MenuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // dynamicLabelArtist
@@ -524,6 +528,22 @@ namespace QuickImageComment
             this.vScrollBar1.TabIndex = 1;
             this.vScrollBar1.ValueChanged += new System.EventHandler(this.vScrollBar1_ValueChanged);
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox1.BackColor = System.Drawing.SystemColors.Control;
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.pictureBox1.Cursor = System.Windows.Forms.Cursors.Default;
+            this.pictureBox1.Location = new System.Drawing.Point(3, 3);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(209, 88);
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.zoomChanged += new QuickImageCommentControls.PictureBoxQIC.ZoomChangedEventHandler(this.pictureBox1_zoomChanged);
+            this.pictureBox1.painted += new QuickImageCommentControls.PictureBoxQIC.PaintedEventHandler(this.pictureBox1_painted);
+            // 
             // dynamicLabelImageNumber
             // 
             this.dynamicLabelImageNumber.AutoSize = true;
@@ -693,6 +713,7 @@ namespace QuickImageComment
             // splitContainer1213.Panel1
             // 
             this.splitContainer1213.Panel1.BackColor = System.Drawing.SystemColors.Control;
+            this.splitContainer1213.Panel1.Controls.Add(this.checkBoxRatingChange);
             this.splitContainer1213.Panel1.Controls.Add(this.checkedListBoxChangeableFieldsChange);
             this.splitContainer1213.Panel1.Controls.Add(this.comboBoxCommentChange);
             this.splitContainer1213.Panel1.Controls.Add(this.checkBoxArtistChange);
@@ -705,6 +726,33 @@ namespace QuickImageComment
             this.splitContainer1213.Size = new System.Drawing.Size(505, 191);
             this.splitContainer1213.SplitterDistance = 256;
             this.splitContainer1213.TabIndex = 6;
+            // 
+            // checkBoxRatingChange
+            // 
+            this.checkBoxRatingChange.AutoSize = true;
+            this.checkBoxRatingChange.BackColor = System.Drawing.SystemColors.Window;
+            this.checkBoxRatingChange.Location = new System.Drawing.Point(3, 103);
+            this.checkBoxRatingChange.Name = "checkBoxRatingChange";
+            this.checkBoxRatingChange.Size = new System.Drawing.Size(115, 17);
+            this.checkBoxRatingChange.TabIndex = 6;
+            this.checkBoxRatingChange.Text = "Bewertung ändern";
+            this.checkBoxRatingChange.UseVisualStyleBackColor = true;
+            this.checkBoxRatingChange.CheckedChanged += new System.EventHandler(this.checkBoxRatingChange_CheckedChanged);
+            // 
+            // checkedListBoxChangeableFieldsChange
+            // 
+            this.checkedListBoxChangeableFieldsChange.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkedListBoxChangeableFieldsChange.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.checkedListBoxChangeableFieldsChange.CheckedColor = System.Drawing.Color.LightGreen;
+            this.checkedListBoxChangeableFieldsChange.CheckOnClick = true;
+            this.checkedListBoxChangeableFieldsChange.FormattingEnabled = true;
+            this.checkedListBoxChangeableFieldsChange.IntegralHeight = false;
+            this.checkedListBoxChangeableFieldsChange.Location = new System.Drawing.Point(1, 126);
+            this.checkedListBoxChangeableFieldsChange.Name = "checkedListBoxChangeableFieldsChange";
+            this.checkedListBoxChangeableFieldsChange.Size = new System.Drawing.Size(252, 62);
+            this.checkedListBoxChangeableFieldsChange.TabIndex = 3;
             // 
             // comboBoxCommentChange
             // 
@@ -829,6 +877,7 @@ namespace QuickImageComment
             // 
             // panelArtist
             // 
+            this.panelArtist.Controls.Add(this.theUserControlRating);
             this.panelArtist.Controls.Add(this.dynamicComboBoxArtist);
             this.panelArtist.Controls.Add(this.labelArtistDefault);
             this.panelArtist.Controls.Add(this.dynamicLabelArtist);
@@ -837,6 +886,15 @@ namespace QuickImageComment
             this.panelArtist.Name = "panelArtist";
             this.panelArtist.Size = new System.Drawing.Size(663, 23);
             this.panelArtist.TabIndex = 7;
+            // 
+            // theUserControlRating
+            // 
+            this.theUserControlRating.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.theUserControlRating.Location = new System.Drawing.Point(442, -2);
+            this.theUserControlRating.Name = "theUserControlRating";
+            this.theUserControlRating.Size = new System.Drawing.Size(218, 26);
+            this.theUserControlRating.TabIndex = 4;
+            this.theUserControlRating.dataChanged += new QuickImageComment.UserControlRating.DataChangedEventHandler(this.theUserControlRating_DataChanged);
             // 
             // dynamicComboBoxArtist
             // 
@@ -909,6 +967,17 @@ namespace QuickImageComment
             this.tabPageLastComments.Text = "Letzte Kommentare";
             this.tabPageLastComments.UseVisualStyleBackColor = true;
             // 
+            // listBoxLastUserComments
+            // 
+            this.listBoxLastUserComments.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listBoxLastUserComments.IntegralHeight = false;
+            this.listBoxLastUserComments.Location = new System.Drawing.Point(1, 28);
+            this.listBoxLastUserComments.Name = "listBoxLastUserComments";
+            this.listBoxLastUserComments.Size = new System.Drawing.Size(311, 135);
+            this.listBoxLastUserComments.TabIndex = 2;
+            // 
             // textBoxLastCommentsFilter
             // 
             this.textBoxLastCommentsFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -943,6 +1012,19 @@ namespace QuickImageComment
             this.dynamicComboBoxPredefinedComments.Size = new System.Drawing.Size(309, 21);
             this.dynamicComboBoxPredefinedComments.TabIndex = 1;
             this.dynamicComboBoxPredefinedComments.SelectedIndexChanged += new System.EventHandler(this.comboBoxPredefinedComments_SelectedIndexChanged);
+            // 
+            // listBoxPredefinedComments
+            // 
+            this.listBoxPredefinedComments.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listBoxPredefinedComments.ColumnWidth = 30;
+            this.listBoxPredefinedComments.IntegralHeight = false;
+            this.listBoxPredefinedComments.Location = new System.Drawing.Point(1, 28);
+            this.listBoxPredefinedComments.Name = "listBoxPredefinedComments";
+            this.listBoxPredefinedComments.Size = new System.Drawing.Size(311, 135);
+            this.listBoxPredefinedComments.Sorted = true;
+            this.listBoxPredefinedComments.TabIndex = 2;
             // 
             // KeyPrim
             // 
@@ -1380,6 +1462,7 @@ namespace QuickImageComment
             this.toolStripMenuItemList,
             this.toolStripMenuItemDetails,
             this.toolStripMenuItemComment,
+            this.toolStripMenuItemRating,
             this.toolStripSeparator4,
             this.toolStripMenuItemSortSortAsc,
             this.toolStripMenuItemSortName,
@@ -1387,6 +1470,7 @@ namespace QuickImageComment
             this.toolStripMenuItemSortChanged,
             this.toolStripMenuItemSortCreated,
             this.toolStripMenuItemSortComment,
+            this.toolStripMenuItemSortRatingDec,
             this.toolStripSeparator15,
             this.toolStripMenuItemPanelPictureOnly,
             this.toolStripMenuItemImageWithGrid,
@@ -1480,6 +1564,13 @@ namespace QuickImageComment
             this.toolStripMenuItemComment.Text = "Dateien - Kommentar";
             this.toolStripMenuItemComment.Click += new System.EventHandler(this.toolStripMenuItemComment_Click);
             // 
+            // toolStripMenuItemRating
+            // 
+            this.toolStripMenuItemRating.Name = "toolStripMenuItemRating";
+            this.toolStripMenuItemRating.Size = new System.Drawing.Size(219, 22);
+            this.toolStripMenuItemRating.Text = "Dateien - Bewertung";
+            this.toolStripMenuItemRating.Click += new System.EventHandler(this.toolStripMenuItemRating_Click);
+            // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
@@ -1526,6 +1617,13 @@ namespace QuickImageComment
             this.toolStripMenuItemSortComment.Size = new System.Drawing.Size(219, 22);
             this.toolStripMenuItemSortComment.Text = "... nach Kommentar";
             this.toolStripMenuItemSortComment.Click += new System.EventHandler(this.toolStripMenuItemSortColumn_Click);
+            // 
+            // toolStripMenuItemSortRatingDec
+            // 
+            this.toolStripMenuItemSortRatingDec.Name = "toolStripMenuItemSortRatingDec";
+            this.toolStripMenuItemSortRatingDec.Size = new System.Drawing.Size(219, 22);
+            this.toolStripMenuItemSortRatingDec.Text = "... nach Bewertung";
+            this.toolStripMenuItemSortRatingDec.Click += new System.EventHandler(this.toolStripMenuItemSortColumn_Click);
             // 
             // toolStripSeparator15
             // 
@@ -2519,61 +2617,6 @@ namespace QuickImageComment
             this.toolStripButtonFind.MouseLeave += new System.EventHandler(this.toolStripItem_MouseLeave);
             this.toolStripButtonFind.MouseHover += new System.EventHandler(this.toolStripItem_MouseHover);
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox1.BackColor = System.Drawing.SystemColors.Control;
-            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.pictureBox1.Cursor = System.Windows.Forms.Cursors.Default;
-            this.pictureBox1.Location = new System.Drawing.Point(3, 3);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(209, 88);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.zoomChanged += new QuickImageCommentControls.PictureBoxQIC.ZoomChangedEventHandler(this.pictureBox1_zoomChanged);
-            this.pictureBox1.painted += new QuickImageCommentControls.PictureBoxQIC.PaintedEventHandler(this.pictureBox1_painted);
-            // 
-            // checkedListBoxChangeableFieldsChange
-            // 
-            this.checkedListBoxChangeableFieldsChange.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkedListBoxChangeableFieldsChange.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.checkedListBoxChangeableFieldsChange.CheckedColor = System.Drawing.Color.LightGreen;
-            this.checkedListBoxChangeableFieldsChange.CheckOnClick = true;
-            this.checkedListBoxChangeableFieldsChange.FormattingEnabled = true;
-            this.checkedListBoxChangeableFieldsChange.IntegralHeight = false;
-            this.checkedListBoxChangeableFieldsChange.Location = new System.Drawing.Point(1, 101);
-            this.checkedListBoxChangeableFieldsChange.Name = "checkedListBoxChangeableFieldsChange";
-            this.checkedListBoxChangeableFieldsChange.Size = new System.Drawing.Size(252, 87);
-            this.checkedListBoxChangeableFieldsChange.TabIndex = 3;
-            // 
-            // listBoxLastUserComments
-            // 
-            this.listBoxLastUserComments.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.listBoxLastUserComments.IntegralHeight = false;
-            this.listBoxLastUserComments.Location = new System.Drawing.Point(1, 28);
-            this.listBoxLastUserComments.Name = "listBoxLastUserComments";
-            this.listBoxLastUserComments.Size = new System.Drawing.Size(311, 135);
-            this.listBoxLastUserComments.TabIndex = 2;
-            // 
-            // listBoxPredefinedComments
-            // 
-            this.listBoxPredefinedComments.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.listBoxPredefinedComments.ColumnWidth = 30;
-            this.listBoxPredefinedComments.IntegralHeight = false;
-            this.listBoxPredefinedComments.Location = new System.Drawing.Point(1, 28);
-            this.listBoxPredefinedComments.Name = "listBoxPredefinedComments";
-            this.listBoxPredefinedComments.Size = new System.Drawing.Size(311, 135);
-            this.listBoxPredefinedComments.Sorted = true;
-            this.listBoxPredefinedComments.TabIndex = 2;
-            // 
             // toolTip1
             // 
             this.toolTip1.AutoPopDelay = 5000;
@@ -2637,6 +2680,7 @@ namespace QuickImageComment
             this.splitContainer1211P1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1211P1)).EndInit();
             this.splitContainer1211P1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panelFramePosition.ResumeLayout(false);
             this.panelFramePosition.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFramePosition)).EndInit();
@@ -2674,7 +2718,6 @@ namespace QuickImageComment
             this.MenuStrip1.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2900,6 +2943,7 @@ namespace QuickImageComment
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemSlideshow;
         internal System.Windows.Forms.ToolStripMenuItem toolStripMenuItemComment;
         internal System.Windows.Forms.ToolStripMenuItem toolStripMenuItemSortComment;
+        internal System.Windows.Forms.ToolStripMenuItem toolStripMenuItemSortRatingDec;
         private System.Windows.Forms.SplitContainer splitContainer1213;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemTroubleShooting;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemBinaryExportAllProp;
@@ -2913,5 +2957,8 @@ namespace QuickImageComment
         private System.Windows.Forms.HScrollBar hScrollBar1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemShowFocusPoint;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemExifToolDirekt;
+        private UserControlRating theUserControlRating;
+        private System.Windows.Forms.CheckBox checkBoxRatingChange;
+        internal System.Windows.Forms.ToolStripMenuItem toolStripMenuItemRating;
     }
 }

@@ -34,6 +34,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices; // for DllImport
@@ -262,6 +263,8 @@ namespace QuickImageComment
         private Point focusPoint;
         private System.Drawing.Point AutoScrollPosition;
         private bool RotateAfterRawDecode = false;
+        internal int ratingInt { get; private set; } = 0;
+        internal float ratingDec { get; private set; } = 0f;
 
         // Array for complete content of text-File
         private ArrayList TxtEntries;
@@ -1300,6 +1303,26 @@ namespace QuickImageComment
 
             addReplaceOtherMetaDataKnownType("Image.ArtistCombinedFields", combinedFieldValues(ConfigDefinition.getAllTagNamesArtist(), null, null));
             addReplaceOtherMetaDataKnownType("Image.CommentCombinedFields", combinedFieldValues(ConfigDefinition.getAllTagNamesComment(), null, null));
+            foreach (string tagRating in ConfigDefinition.getConfigStringArray(ConfigDefinition.enumConfigStringArray.TagRating))
+            {
+                string ratingString = getMetaDataValueByKey(tagRating, MetaDataItem.Format.Original);
+                ratingString = ratingString.Trim().Replace(',', '.');
+                if (!string.IsNullOrEmpty(ratingString))
+                {
+                    float ratingFloat;
+                    if (float.TryParse(ratingString, NumberStyles.Float, CultureInfo.InvariantCulture, out ratingFloat))
+                    {
+                        ratingInt = (int)Math.Round(ratingFloat);
+                        addReplaceOtherMetaDataKnownType("Image.RatingInt", ratingInt.ToString());
+                        addReplaceOtherMetaDataKnownType("Image.RatingDec",
+                            ratingFloat.ToString(ConfigDefinition.getConfigString(ConfigDefinition.enumConfigString.FormatRatingDec)));
+                    }
+                    else
+                        ratingInt = 0;
+                    // take the first filled tag
+                    break;
+                }
+            }
 
             ArrayList KeyWordsArrayListSorted = getKeyWordsAccordingConfigArrayList();
             // check for differences
@@ -1519,6 +1542,14 @@ namespace QuickImageComment
             //ExtendedImage extendedImage = (ExtendedImage)HashtableExtendedImages[theFileInfo.FullName];
             listViewItemNew.SubItems[QuickImageCommentControls.ListViewFiles.columnComment].Text =
                 getMetaDataValueByKey("Image.CommentAccordingSettings", MetaDataItem.Format.Interpreted);
+            if (ratingInt == -1)
+                listViewItemNew.SubItems[QuickImageCommentControls.ListViewFiles.columnRating].Text = "#";
+            else if (ratingInt > 0)
+                listViewItemNew.SubItems[QuickImageCommentControls.ListViewFiles.columnRating].Text =
+                    string.Concat(Enumerable.Repeat("*", ratingInt));
+
+            listViewItemNew.SubItems[QuickImageCommentControls.ListViewFiles.columnRatingDec].Text =
+                getMetaDataValueByKey("Image.RatingDec", MetaDataItem.Format.Interpreted);
 
             // it may happen that the listViewItem to be updated is lost during this action,
             // because user is just changing the folder

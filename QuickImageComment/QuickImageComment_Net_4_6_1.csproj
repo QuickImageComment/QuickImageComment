@@ -131,6 +131,12 @@
     <Compile Include="Controls\TreeViewKeyWords.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controls\UserControlRating.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\UserControlRating.Designer.cs">
+      <DependentUpon>UserControlRating.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\UserControlTagList.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -579,6 +585,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\ListViewFiles.resx">
       <DependentUpon>ListViewFiles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\UserControlRating.resx">
+      <DependentUpon>UserControlRating.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\UserControlTagList.resx">
       <DependentUpon>UserControlTagList.cs</DependentUpon>

@@ -83,6 +83,8 @@ namespace QuickImageComment
             this.listViewFiles.Columns[2].Width = ConfigDefinition.getListViewFilesColumnWidth2();
             this.listViewFiles.Columns[3].Width = ConfigDefinition.getListViewFilesColumnWidth3();
             this.listViewFiles.Columns[4].Width = ConfigDefinition.getListViewFilesColumnWidth4();
+            this.listViewFiles.Columns[5].Width = ConfigDefinition.getListViewFilesColumnWidth5();
+            this.listViewFiles.Columns[6].Width = ConfigDefinition.getListViewFilesColumnWidth6();
         }
 
         //*****************************************************************
@@ -110,6 +112,12 @@ namespace QuickImageComment
         {
             listViewFilesSetViewDetails(ListViewFiles.enumViewDetailSubtype.Comment);
             ConfigDefinition.setListViewFilesView(ListViewFiles.enumViewDetailSubtype.Comment.ToString());
+        }
+
+        private void contextMenuStripMenuItemRating_Click(object sender, EventArgs e)
+        {
+            listViewFilesSetViewDetails(ListViewFiles.enumViewDetailSubtype.Rating);
+            ConfigDefinition.setListViewFilesView(ListViewFiles.enumViewDetailSubtype.Rating.ToString());
         }
 
         // change file view to large icons
@@ -190,12 +198,14 @@ namespace QuickImageComment
             contextMenuStripMenuItemSortName.Checked = columnName.Equals("Name");
             contextMenuStripMenuItemSortSize.Checked = columnName.Equals("Size");
             contextMenuStripMenuItemSortComment.Checked = columnName.Equals("Comment");
+            contextMenuStripMenuItemSortRatingDec.Checked = columnName.Equals("RatingDec");
 
             theFormQuickImageComment.toolStripMenuItemSortCreated.Checked = columnName.Equals("Created");
             theFormQuickImageComment.toolStripMenuItemSortChanged.Checked = columnName.Equals("Changed");
             theFormQuickImageComment.toolStripMenuItemSortName.Checked = columnName.Equals("Name");
             theFormQuickImageComment.toolStripMenuItemSortSize.Checked = columnName.Equals("Size");
             theFormQuickImageComment.toolStripMenuItemSortComment.Checked = columnName.Equals("Comment");
+            theFormQuickImageComment.toolStripMenuItemSortRatingDec.Checked = columnName.Equals("RatingDec");
 
             // to enable/disable buttons first, previous, next last
             if (theFormQuickImageComment.theExtendedImage != null && listViewFiles.SelectedIndices.Count == 1)
@@ -1223,6 +1233,10 @@ namespace QuickImageComment
             {
                 listViewFilesSetView(View.List);
             }
+            else if (ConfigDefinition.getListViewFilesView().Equals("Rating"))
+            {
+                listViewFilesSetViewDetails(ListViewFiles.enumViewDetailSubtype.Rating);
+            }
             else if (ConfigDefinition.getListViewFilesView().Equals("Tile"))
             {
                 listViewFilesSetView(View.Tile);
@@ -1239,6 +1253,8 @@ namespace QuickImageComment
             this.listViewFiles.Columns[2].Width = ConfigDefinition.getListViewFilesColumnWidth2();
             this.listViewFiles.Columns[3].Width = ConfigDefinition.getListViewFilesColumnWidth3();
             this.listViewFiles.Columns[4].Width = ConfigDefinition.getListViewFilesColumnWidth4();
+            this.listViewFiles.Columns[5].Width = ConfigDefinition.getListViewFilesColumnWidth5();
+            this.listViewFiles.Columns[6].Width = ConfigDefinition.getListViewFilesColumnWidth6();
 
             switch (detailSubtype)
             {
@@ -1246,9 +1262,16 @@ namespace QuickImageComment
                     //nothing to do
                     break;
                 case ListViewFiles.enumViewDetailSubtype.Comment:
-                    for (int ii = 1; ii < ListViewFiles.columnComment; ii++)
+                    for (int ii = 1; ii < listViewFiles.Columns.Count; ii++)
                     {
-                        listViewFiles.Columns[ii].Width = 0;
+                        if (ii != ListViewFiles.columnComment) listViewFiles.Columns[ii].Width = 0;
+                    }
+                    break;
+                case ListViewFiles.enumViewDetailSubtype.Rating:
+                    for (int ii = 1; ii < listViewFiles.Columns.Count; ii++)
+                    {
+                        if (ii != ListViewFiles.columnRating && ii != ListViewFiles.columnRatingDec)
+                            listViewFiles.Columns[ii].Width = 0;
                     }
                     break;
                 default:
@@ -1289,6 +1312,8 @@ namespace QuickImageComment
             theFormQuickImageComment.toolStripMenuItemTile.Checked = listViewFiles.View.Equals(View.Tile);
             theFormQuickImageComment.toolStripMenuItemComment.Checked = listViewFiles.View.Equals(View.Details) &&
                 listViewFiles.viewDetailSubtype == ListViewFiles.enumViewDetailSubtype.Comment;
+            theFormQuickImageComment.toolStripMenuItemRating.Checked = listViewFiles.View.Equals(View.Details) &&
+                listViewFiles.viewDetailSubtype == ListViewFiles.enumViewDetailSubtype.Rating;
 
             contextMenuStripMenuItemDetails.Checked = listViewFiles.View.Equals(View.Details) &&
                 listViewFiles.viewDetailSubtype == ListViewFiles.enumViewDetailSubtype.Standard;
@@ -1297,6 +1322,8 @@ namespace QuickImageComment
             contextMenuStripMenuItemTile.Checked = listViewFiles.View.Equals(View.Tile);
             contextMenuStripMenuItemComment.Checked = listViewFiles.View.Equals(View.Details) &&
                 listViewFiles.viewDetailSubtype == ListViewFiles.enumViewDetailSubtype.Comment;
+            contextMenuStripMenuItemRating.Checked = listViewFiles.View.Equals(View.Details) &&
+                listViewFiles.viewDetailSubtype == ListViewFiles.enumViewDetailSubtype.Rating;
             listViewFiles.EndUpdate();
             if (displayedIndex() >= 0)
             {
@@ -1323,6 +1350,8 @@ namespace QuickImageComment
                 if (this.listViewFiles.Columns[2].Width > 0) ConfigDefinition.setListViewFilesColumnWidth2(this.listViewFiles.Columns[2].Width);
                 if (this.listViewFiles.Columns[3].Width > 0) ConfigDefinition.setListViewFilesColumnWidth3(this.listViewFiles.Columns[3].Width);
                 if (this.listViewFiles.Columns[4].Width > 0) ConfigDefinition.setListViewFilesColumnWidth4(this.listViewFiles.Columns[4].Width);
+                if (this.listViewFiles.Columns[5].Width > 0) ConfigDefinition.setListViewFilesColumnWidth5(this.listViewFiles.Columns[5].Width);
+                if (this.listViewFiles.Columns[6].Width > 0) ConfigDefinition.setListViewFilesColumnWidth6(this.listViewFiles.Columns[6].Width);
             }
         }
     }

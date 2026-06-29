@@ -240,7 +240,8 @@ namespace QuickImageComment
             W_compareTooManyDifferences,
             I_functionNotForVideos,
             E_ExifToolWrapperError,
-            E_ExifToolReponseParsingError
+            E_ExifToolReponseParsingError,
+            Q_differentRatingFromRatingControl
         }
 
         public enum Others
@@ -283,6 +284,8 @@ namespace QuickImageComment
             compareCheckArtist,
             compareCheckComment,
             compareCheckKeyWords,
+            compareCheckGPS,
+            compareCheckRating,
             valuesChangedNoOptionSet,
             saveFileNofM,
             typeSpecByte,

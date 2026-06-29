@@ -172,13 +172,15 @@ namespace QuickImageComment
             OutputPathScreenshots,
             FindDataTableFileName,
             ExifToolGeneralOptionsRead,
-            ExifToolGeneralOptionsWrite
+            ExifToolGeneralOptionsWrite,
+            FormatRatingDec
         };
 
         public enum enumConfigStringArray
         {
             TagKeyWordsImage,
-            TagKeyWordsVideo
+            TagKeyWordsVideo,
+            TagRating
         };
 
         // no longer used, defined here to avoid warning messages when reading config file
@@ -558,7 +560,8 @@ namespace QuickImageComment
             ConfigItems.Add("ListViewFilesColumnWidth2", "90");
             ConfigItems.Add("ListViewFilesColumnWidth3", "90");
             ConfigItems.Add("ListViewFilesColumnWidth4", "90");
-            ConfigItems.Add("ListViewFilesColumnWidth5", "180");
+            ConfigItems.Add("ListViewFilesColumnWidth5", "90");
+            ConfigItems.Add("ListViewFilesColumnWidth6", "50");
             ConfigItems.Add("DataGridViewSelectedFilesColumnWidth0", "80");
             ConfigItems.Add("DataGridViewSelectedFilesColumnWidth1", "80");
             ConfigItems.Add("DataGridViewSelectedFilesColumnWidth2", "200");
@@ -814,7 +817,8 @@ namespace QuickImageComment
             InternalMetaDataDefinitions.Add("Image.MetaDataWarnings", new TagDefinition("Image.MetaDataWarnings", "Readonly", "Warnings from reading meta data"));
             InternalMetaDataDefinitions.Add("Image.MetaDataWarningsExiv2", new TagDefinition("Image.MetaDataWarningsExiv2", "Readonly", "Warnings from reading meta data - from Exiv2"));
             InternalMetaDataDefinitions.Add("Image.MetaDataWarningsNotExiv2", new TagDefinition("Image.MetaDataWarningsNotExiv2", "Readonly", "Warnings from reading meta data - not from Exiv2"));
-
+            InternalMetaDataDefinitions.Add("Image.RatingInt", new TagDefinition("Image.RatingInt", "Readonly", "Rating according configuration, rounded to integer"));
+            InternalMetaDataDefinitions.Add("Image.RatingDec", new TagDefinition("Image.RatingDec", "Readonly", "Rating according configuration, with with decimal places"));
 
             // fill list of tags needed for special Exif or IPTC information
             // TagDependencies contains the tags needed to fill the tag listed as first in the array
@@ -1520,6 +1524,15 @@ namespace QuickImageComment
         public static void setListViewFilesColumnWidth5(int Value)
         {
             setIntegerConfigurationItem("ListViewFilesColumnWidth5", Value);
+        }
+
+        public static int getListViewFilesColumnWidth6()
+        {
+            return getIntegerConfigurationItem("ListViewFilesColumnWidth6");
+        }
+        public static void setListViewFilesColumnWidth6(int Value)
+        {
+            setIntegerConfigurationItem("ListViewFilesColumnWidth6", Value);
         }
 
         public static int getDataGridViewSelectedFilesColumnWidth(int index)

@@ -178,7 +178,9 @@ namespace QuickImageComment
             }
             // add empty sub item for Comment
             listViewItem.SubItems.Add("---???---");
-
+            // add empty sub items for Rating as integer and decimal
+            listViewItem.SubItems.Add("");
+            listViewItem.SubItems.Add("");
 
             return listViewItem;
         }

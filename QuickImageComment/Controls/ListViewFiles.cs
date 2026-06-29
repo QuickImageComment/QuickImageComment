@@ -33,10 +33,12 @@ namespace QuickImageCommentControls
 
         public const int columnModified = 2;
         public const int columnComment = 4;
+        public const int columnRating = 5;
+        public const int columnRatingDec = 6;
 
         public enum enumViewDetailSubtype
         {
-            Null, Standard, Comment
+            Null, Standard, Comment, Rating
         };
 
         internal enumViewDetailSubtype viewDetailSubtype;

@@ -488,6 +488,10 @@ namespace QuickImageComment
                 {
                     ConfigDefinition.setListViewFilesView(ListViewFiles.enumViewDetailSubtype.Comment.ToString());
                 }
+                else if (radioButtonRating.Checked)
+                {
+                    ConfigDefinition.setListViewFilesView(ListViewFiles.enumViewDetailSubtype.Rating.ToString());
+                }
 
                 // data grid view - Exif
                 if (radioButtonExifPlain.Checked)

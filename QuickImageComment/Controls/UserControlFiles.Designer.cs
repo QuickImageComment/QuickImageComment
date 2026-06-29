@@ -36,12 +36,15 @@ namespace QuickImageComment
             this.columnHeaderChanged = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderCreated = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderComment = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderRating = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderRatingDec = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.contextMenuStripListViewFiles = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.contextMenuStripMenuItemLargeIcons = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripMenuItemTile = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripMenuItemList = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripMenuItemDetails = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripMenuItemComment = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuStripMenuItemRating = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.contextMenuStripMenuItemSortAsc = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripMenuItemSortName = new System.Windows.Forms.ToolStripMenuItem();
@@ -49,6 +52,7 @@ namespace QuickImageComment
             this.contextMenuStripMenuItemSortChanged = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripMenuItemSortCreated = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripMenuItemSortComment = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuStripMenuItemSortRatingDec = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.contextMenuStripMenuItemTileAdjust = new System.Windows.Forms.ToolStripMenuItem();
             this.labelFilter = new System.Windows.Forms.Label();
@@ -67,7 +71,9 @@ namespace QuickImageComment
             this.columnHeaderSize,
             this.columnHeaderChanged,
             this.columnHeaderCreated,
-            this.columnHeaderComment});
+            this.columnHeaderComment,
+            this.columnHeaderRating,
+            this.columnHeaderRatingDec});
             this.listViewFiles.ContextMenuStrip = this.contextMenuStripListViewFiles;
             this.listViewFiles.FullRowSelect = true;
             this.listViewFiles.HideSelection = false;
@@ -105,10 +111,20 @@ namespace QuickImageComment
             this.columnHeaderCreated.Name = "columnHeaderCreated";
             this.columnHeaderCreated.Text = "Erstellt am";
             // 
-            // columnHeaderComme
+            // columnHeaderComment
             // 
             this.columnHeaderComment.Name = "columnHeaderComment";
             this.columnHeaderComment.Text = "Kommentar";
+            // 
+            // columnHeaderRating
+            // 
+            this.columnHeaderRating.Name = "columnHeaderRating";
+            this.columnHeaderRating.Text = "Bewertung";
+            // 
+            // columnHeaderRatingDec
+            // 
+            this.columnHeaderRatingDec.Name = "columnHeaderRatingDec";
+            this.columnHeaderRatingDec.Text = "Bewertung ";
             // 
             // contextMenuStripListViewFiles
             // 
@@ -118,6 +134,7 @@ namespace QuickImageComment
             this.contextMenuStripMenuItemList,
             this.contextMenuStripMenuItemDetails,
             this.contextMenuStripMenuItemComment,
+            this.contextMenuStripMenuItemRating,
             this.toolStripSeparator1,
             this.contextMenuStripMenuItemSortAsc,
             this.contextMenuStripMenuItemSortName,
@@ -125,12 +142,13 @@ namespace QuickImageComment
             this.contextMenuStripMenuItemSortChanged,
             this.contextMenuStripMenuItemSortCreated,
             this.contextMenuStripMenuItemSortComment,
+            this.contextMenuStripMenuItemSortRatingDec,
             this.toolStripSeparator2,
             this.contextMenuStripMenuItemTileAdjust});
             this.contextMenuStripListViewFiles.Name = "contextMenuStripListViewFiles";
             this.contextMenuStripListViewFiles.ShowCheckMargin = true;
             this.contextMenuStripListViewFiles.ShowImageMargin = false;
-            this.contextMenuStripListViewFiles.Size = new System.Drawing.Size(203, 280);
+            this.contextMenuStripListViewFiles.Size = new System.Drawing.Size(203, 324);
             // 
             // contextMenuStripMenuItemLargeIcons
             // 
@@ -166,6 +184,13 @@ namespace QuickImageComment
             this.contextMenuStripMenuItemComment.Size = new System.Drawing.Size(202, 22);
             this.contextMenuStripMenuItemComment.Text = "Kommentar";
             this.contextMenuStripMenuItemComment.Click += new System.EventHandler(this.contextMenuStripMenuItemComment_Click);
+            // 
+            // contextMenuStripMenuItemRating
+            // 
+            this.contextMenuStripMenuItemRating.Name = "contextMenuStripMenuItemRating";
+            this.contextMenuStripMenuItemRating.Size = new System.Drawing.Size(202, 22);
+            this.contextMenuStripMenuItemRating.Text = "Bewertung";
+            this.contextMenuStripMenuItemRating.Click += new System.EventHandler(this.contextMenuStripMenuItemRating_Click);
             // 
             // toolStripSeparator1
             // 
@@ -213,6 +238,13 @@ namespace QuickImageComment
             this.contextMenuStripMenuItemSortComment.Size = new System.Drawing.Size(202, 22);
             this.contextMenuStripMenuItemSortComment.Text = "... nach Kommentar";
             this.contextMenuStripMenuItemSortComment.Click += new System.EventHandler(this.contextMenuStripMenuItemSortColumn_Click);
+            // 
+            // contextMenuStripMenuItemSortRating
+            // 
+            this.contextMenuStripMenuItemSortRatingDec.Name = "contextMenuStripMenuItemSortRatingDec";
+            this.contextMenuStripMenuItemSortRatingDec.Size = new System.Drawing.Size(202, 22);
+            this.contextMenuStripMenuItemSortRatingDec.Text = "... nach Bewertung";
+            this.contextMenuStripMenuItemSortRatingDec.Click += new System.EventHandler(this.contextMenuStripMenuItemSortColumn_Click);
             // 
             // toolStripSeparator2
             // 
@@ -299,5 +331,9 @@ namespace QuickImageComment
         private System.Windows.Forms.ColumnHeader columnHeaderComment;
         private System.Windows.Forms.ToolStripMenuItem contextMenuStripMenuItemComment;
         private System.Windows.Forms.ToolStripMenuItem contextMenuStripMenuItemSortComment;
+        private System.Windows.Forms.ColumnHeader columnHeaderRating;
+        private System.Windows.Forms.ToolStripMenuItem contextMenuStripMenuItemSortRatingDec;
+        private System.Windows.Forms.ToolStripMenuItem contextMenuStripMenuItemRating;
+        private System.Windows.Forms.ColumnHeader columnHeaderRatingDec;
     }
 }

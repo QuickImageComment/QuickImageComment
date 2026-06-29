@@ -1402,6 +1402,13 @@ namespace QuickImageComment
             setControlsEnabledBasedOnDataChange(true);
         }
 
+        // event handler triggered when data in user control is changed by user
+        private void theUserControlRating_DataChanged(object sender, EventArgs e)
+        {
+            // no argument passed, event is also triggered when rating is reverted
+            setControlsEnabledBasedOnDataChange();
+        }
+
         // event handler triggered when value is changed
         private void numericUpDownFramePosition_ValueChanged(object sender, EventArgs e)
         {
@@ -1658,6 +1665,12 @@ namespace QuickImageComment
         private void checkBoxGpsDataChange_CheckedChanged(object sender, EventArgs e)
         {
             setMultiEditSelectionBackground((Control)sender, checkBoxGpsDataChange.Checked);
+        }
+
+        // event handler triggered when check box Rating is changed in multi edit tab
+        private void checkBoxRatingChange_CheckedChanged(object sender, EventArgs e)
+        {
+            setMultiEditSelectionBackground((Control)sender, checkBoxRatingChange.Checked);
         }
 
         // general method to change background color if value in multi edit selection is not default
@@ -2213,6 +2226,7 @@ namespace QuickImageComment
                 fillChangeableFieldValues(theExtendedImage, false);
                 fillListBoxLastUserComments("");
                 clearChangedDataGridViewValues();
+                theUserControlRating.setInitialRating(theExtendedImage.ratingInt);
                 theUserControlMap?.buttonReset_Click(sender, e);
                 // if external browser is started or not is checked in showMap
                 MapInExternalBrowser.newImage(theExtendedImage.getRecordingLocation());
@@ -3388,6 +3402,13 @@ namespace QuickImageComment
             ConfigDefinition.setListViewFilesView(ListViewFiles.enumViewDetailSubtype.Comment.ToString());
         }
 
+        // change file view to rating
+        private void toolStripMenuItemRating_Click(object sender, System.EventArgs e)
+        {
+            theUserControlFiles.listViewFilesSetViewDetails(ListViewFiles.enumViewDetailSubtype.Rating);
+            ConfigDefinition.setListViewFilesView(ListViewFiles.enumViewDetailSubtype.Rating.ToString());
+        }
+
         // change file view to list
         private void toolStripMenuItemList_Click(object sender, System.EventArgs e)
         {
@@ -4368,6 +4389,7 @@ namespace QuickImageComment
             comboBoxCommentChange.Enabled = enable;
             comboBoxKeyWordsChange.Enabled = enable;
             checkBoxGpsDataChange.Enabled = enable;
+            checkBoxRatingChange.Enabled = enable;
             checkedListBoxChangeableFieldsChange.Enabled = enable;
 
             toolStripMenuItemCompare.Enabled = enable;
@@ -5149,6 +5171,11 @@ namespace QuickImageComment
                         theUserControlKeyWords.displayKeyWords(theExtendedImage.getKeyWordsAccordingConfigArrayList());
                     }
 
+                    if (!theUserControlRating.changed)
+                    {
+                        theUserControlRating.setInitialRating(theExtendedImage.ratingInt);
+                    }
+
                     fillChangeableFieldValues(theExtendedImage, false);
 
                     //checkForChangeNecessary = true;
@@ -5171,6 +5198,7 @@ namespace QuickImageComment
             {
                 GeneralUtilities.trace(ConfigDefinition.enumConfigFlags.TraceWorkAfterSelectionOfFile, "no image", 2);
                 theUserControlMap?.newLocation(null, false);
+                theUserControlRating.setInitialRating(0);
                 // if external browser is started or not is checked in showMap
                 MapInExternalBrowser.newImage(null);
             }
@@ -5251,6 +5279,7 @@ namespace QuickImageComment
             textBoxUserCommentUserChanged = false;
             textBoxUserComment.BackColor = backColorInputUnchanged;
             keyWordsUserChanged = false;
+            theUserControlRating.changed = false;
             theUserControlKeyWords.treeViewPredefKeyWords.BackColor = backColorInputUnchanged;
             theUserControlKeyWords.textBoxFreeInputKeyWords.BackColor = backColorInputUnchanged;
             theUserControlChangeableFields.resetChangedChangeableFieldTags();
@@ -5341,6 +5370,10 @@ namespace QuickImageComment
             if (!textBoxUserCommentUserChanged && !textBoxUserComment.Text.Equals(selectedExtendedImage.getUserComment()))
             {
                 textBoxUserComment.Text = "";
+            }
+            if (!theUserControlRating.changed && theUserControlRating.rating != selectedExtendedImage.ratingInt)
+            {
+                theUserControlRating.setInitialRating(0);
             }
             fillChangeableFieldValues(selectedExtendedImage, true);
             // check key words
@@ -5654,7 +5687,8 @@ namespace QuickImageComment
             if (checkBoxArtistChange.Checked ||
                 comboBoxCommentChange.SelectedIndex != (int)enumComboBoxCommentChange.nothing ||
                 comboBoxKeyWordsChange.SelectedIndex != (int)enumComboBoxKeyWordChange.nothing ||
-                checkBoxGpsDataChange.Checked)
+                checkBoxGpsDataChange.Checked ||
+                checkBoxRatingChange.Checked)
             {
                 changeSelected = true;
             }
@@ -5683,6 +5717,14 @@ namespace QuickImageComment
             if (this.textBoxUserCommentUserChanged && comboBoxCommentChange.SelectedIndex == (int)enumComboBoxCommentChange.nothing)
             {
                 MessageText += LangCfg.getText(LangCfg.Others.compareCheckComment);
+            }
+            if (theUserControlMap != null && theUserControlMap.GpsDataChanged && !checkBoxGpsDataChange.Checked)
+            {
+                MessageText += LangCfg.getText(LangCfg.Others.compareCheckGPS);
+            }
+            if (theUserControlRating.changed && !checkBoxRatingChange.Checked)
+            {
+                MessageText += LangCfg.getText(LangCfg.Others.compareCheckRating);
             }
             if (this.keyWordsUserChanged && this.comboBoxKeyWordsChange.SelectedIndex == (int)enumComboBoxKeyWordChange.nothing)
             {
@@ -5946,6 +5988,11 @@ namespace QuickImageComment
                     theUserControlMap.addMarkerPositionToLists();
                 }
 
+                if (checkBoxRatingChange.Checked && theUserControlRating.changed)
+                {
+                    addRatingToChangeableFieldsForSave(changeableFieldsForSave);
+                }
+
                 // save image without message in status bar
                 try
                 {
@@ -6203,7 +6250,38 @@ namespace QuickImageComment
                 }
             }
 
+            addRatingToChangeableFieldsForSave(changedFieldsForSave);
+
             return changedFieldsForSave;
+        }
+
+        private void addRatingToChangeableFieldsForSave(SortedList changedFieldsForSave)
+        {
+            if (theUserControlRating.changed)
+            {
+                foreach (string tag in ConfigDefinition.getConfigStringArray(ConfigDefinition.enumConfigStringArray.TagRating))
+                {
+                    if (changedFieldsForSave.ContainsKey(tag))
+                    {
+                        string value;
+                        if (changedFieldsForSave[tag].GetType().Equals(typeof(ArrayList)))
+                            value = (string)((ArrayList)changedFieldsForSave[tag])[0];
+                        else
+                            value = (string)changedFieldsForSave[tag];
+                        DialogResult answer = GeneralUtilities.questionMessage(LangCfg.Message.Q_differentRatingFromRatingControl,
+                        tag, value, theUserControlRating.rating.ToString());
+                        if (answer == DialogResult.No)
+                        {
+                            changedFieldsForSave[tag] = theUserControlRating.rating.ToString();
+                        }
+                    }
+                    else
+                    {
+                        changedFieldsForSave.Add(tag,
+                            theUserControlRating.rating.ToString());
+                    }
+                }
+            }
         }
 
         // fill SortedList changeableFieldsForSave (used by singlesave and multisave)
@@ -6341,6 +6419,10 @@ namespace QuickImageComment
             if (keyWordsUserChanged)
             {
                 MessageText += LangCfg.getText(LangCfg.Others.compareCheckKeyWords);
+            }
+            if (theUserControlRating.changed)
+            {
+                MessageText += LangCfg.getText(LangCfg.Others.compareCheckRating);
             }
             string userControlChangedFields = theUserControlChangeableFields.getChangedFields();
             if (!userControlChangedFields.Equals(""))
