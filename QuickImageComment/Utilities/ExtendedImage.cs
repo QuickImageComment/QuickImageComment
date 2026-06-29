@@ -2716,19 +2716,16 @@ namespace QuickImageComment
                                     {
                                         MetaDataWarningsRead.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exifToolWarning), desc + ": " + value));
                                     }
-                                    else
+                                    string[] valueArray = value.Split(new string[] { ExifToolWrapper.readSeparator }, System.StringSplitOptions.None);
+                                    string[] numArray = num.Split(new string[] { ExifToolWrapper.readSeparator }, System.StringSplitOptions.None);
+                                    ExifToolMetaDataItems.Add(keyStringIndex, new MetaDataItemExifTool(key, desc, tag, format, numArray[0], valueArray[0]));
+
+                                    //!!: there was a case, where numArray was smaller than valueArray (DSCF7992.JPG, Debug-mode)
+
+                                    for (int jj = 1; jj < Math.Min(valueArray.Length, numArray.Length); jj++)
                                     {
-                                        string[] valueArray = value.Split(new string[] { ExifToolWrapper.readSeparator }, System.StringSplitOptions.None);
-                                        string[] numArray = num.Split(new string[] { ExifToolWrapper.readSeparator }, System.StringSplitOptions.None);
-                                        ExifToolMetaDataItems.Add(keyStringIndex, new MetaDataItemExifTool(key, desc, tag, format, numArray[0], valueArray[0]));
-
-                                        //!!: there was a case, where numArray was smaller than valueArray (DSCF7992.JPG, Debug-mode)
-
-                                        for (int jj = 1; jj < Math.Min(valueArray.Length, numArray.Length); jj++)
-                                        {
-                                            string keyArray = GeneralUtilities.nameUniqueWithRunningNumber(key, jj);
-                                            ExifToolMetaDataItems.Add(keyArray, new MetaDataItemExifTool(keyArray, desc, tag, format, numArray[jj], valueArray[jj]));
-                                        }
+                                        string keyArray = GeneralUtilities.nameUniqueWithRunningNumber(key, jj);
+                                        ExifToolMetaDataItems.Add(keyArray, new MetaDataItemExifTool(keyArray, desc, tag, format, numArray[jj], valueArray[jj]));
                                     }
                                 }
                             }
@@ -4995,7 +4992,9 @@ namespace QuickImageComment
             SortedList<string, string> newMetaDataValues = getAllMetaDataValues(MetaDataItem.Format.Interpreted);
             foreach (string key in oldMetaDataValues.Keys)
             {
-                if (!ConfigDefinition.getMetaDataDefinitionsLogDiffExceptionsKeys().Contains(key))
+                // do not compare ExifTool:* as this information is not related to image but to run of Exiftool
+                if (!key.StartsWith("ExifTool:") &&
+                    !ConfigDefinition.getMetaDataDefinitionsLogDiffExceptionsKeys().Contains(key))
                 {
                     string oldValue = oldMetaDataValues[key];
                     if (newMetaDataValues.ContainsKey(key))

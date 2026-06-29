@@ -133,7 +133,9 @@ namespace QuickImageComment
 
             foreach (string key in differentTagsAll)
             {
-                if (!ConfigDefinition.getMetaDataDefinitionsCompareExceptionsKeys().Contains(key))
+                // do not compare ExifTool:* as this information is not related to image but to run of Exiftool
+                if (!key.StartsWith("ExifTool:") &&
+                    !ConfigDefinition.getMetaDataDefinitionsCompareExceptionsKeys().Contains(key))
                 {
                     differentTagsDisplay.Add(key);
                 }
