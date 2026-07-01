@@ -1303,25 +1303,28 @@ namespace QuickImageComment
 
             addReplaceOtherMetaDataKnownType("Image.ArtistCombinedFields", combinedFieldValues(ConfigDefinition.getAllTagNamesArtist(), null, null));
             addReplaceOtherMetaDataKnownType("Image.CommentCombinedFields", combinedFieldValues(ConfigDefinition.getAllTagNamesComment(), null, null));
+            ratingInt = 0;
+            float ratingFloat;
             foreach (string tagRating in ConfigDefinition.getConfigStringArray(ConfigDefinition.enumConfigStringArray.TagRating))
             {
                 string ratingString = getMetaDataValueByKey(tagRating, MetaDataItem.Format.Original);
-                ratingString = ratingString.Trim().Replace(',', '.');
-                if (!string.IsNullOrEmpty(ratingString))
+                if (ConfigDefinition.getConfigStringArray(ConfigDefinition.enumConfigStringArray.TagRatingPercent).Contains(tagRating))
                 {
-                    float ratingFloat;
-                    if (float.TryParse(ratingString, NumberStyles.Float, CultureInfo.InvariantCulture, out ratingFloat))
-                    {
-                        ratingInt = (int)Math.Round(ratingFloat);
-                        addReplaceOtherMetaDataKnownType("Image.RatingInt", ratingInt.ToString());
-                        addReplaceOtherMetaDataKnownType("Image.RatingDec",
-                            ratingFloat.ToString(ConfigDefinition.getConfigString(ConfigDefinition.enumConfigString.FormatRatingDec)));
-                    }
-                    else
-                        ratingInt = 0;
-                    // take the first filled tag
-                    break;
+                    if (!int.TryParse(ratingString, out int percent)) continue;
+                    ratingFloat = UserControlRating.ratingFromPercent(percent);
                 }
+                else
+                {
+                    ratingString = ratingString.Trim().Replace(',', '.');
+                    if (string.IsNullOrEmpty(ratingString)) continue;
+                    if (!float.TryParse(ratingString, NumberStyles.Float, CultureInfo.InvariantCulture, out ratingFloat)) continue;
+                }
+                ratingInt = (int)Math.Round(ratingFloat);
+                addReplaceOtherMetaDataKnownType("Image.RatingInt", ratingInt.ToString());
+                addReplaceOtherMetaDataKnownType("Image.RatingDec",
+                    ratingFloat.ToString(ConfigDefinition.getConfigString(ConfigDefinition.enumConfigString.FormatRatingDec)));
+                // take the first valid filled tag
+                break;
             }
 
             ArrayList KeyWordsArrayListSorted = getKeyWordsAccordingConfigArrayList();

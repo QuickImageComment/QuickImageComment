@@ -180,7 +180,9 @@ namespace QuickImageComment
         {
             TagKeyWordsImage,
             TagKeyWordsVideo,
-            TagRating
+            TagRating,
+            TagRatingSupportReject,
+            TagRatingPercent
         };
 
         // no longer used, defined here to avoid warning messages when reading config file

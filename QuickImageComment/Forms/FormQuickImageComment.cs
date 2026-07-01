@@ -484,6 +484,20 @@ namespace QuickImageComment
             theUserControlKeyWords.textBoxFreeInputKeyWords.KeyDown += new KeyEventHandler(textBoxFreeInputKeyWords_KeyDown);
             theUserControlKeyWords.treeViewPredefKeyWords.KeyDown += new KeyEventHandler(treeViewPredefKeyWords_KeyDown);
 
+            FormCustomization.Interface.setGeneralZoomFactor(ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.zoomFactorPerCentGeneral) / 100f);
+
+            // initiating CustomizationInterface includes a call of setFormToCustomizedValues...
+            // zoom the form only, needed now before layout is completed due to the dynamics of layout
+            // customization file is loaded later after layout of mask is complete
+            CustomizationInterface = new FormCustomization.Interface(this,
+              "",
+              LangCfg.getText(LangCfg.Others.configFileQicCustomization),
+              "file://" + LangCfg.getHelpFile(),
+              "FormCustomization.htm",
+              LangCfg.getTranslationsFromGerman(),
+              leadingControlNamePartsToIgnore,
+              leadingControlNamePartsPrefixDollar);
+
             // show the mask 
             Program.StartupPerformance.measure("FormQIC before Show");
             this.Show();
@@ -655,19 +669,6 @@ namespace QuickImageComment
             // adjust position of panel 1, needed for dpi values higher than 96
             adjustSplitContainer1DependingOnToolStrip();
 
-            FormCustomization.Interface.setGeneralZoomFactor(ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.zoomFactorPerCentGeneral) / 100f);
-
-            // initiating CustomizationInterface includes a call of setFormToCustomizedValues...
-            // zoom the form only, needed now before layout is completed due to the dynamics of layout
-            // customization file is loaded later after layout of mask is complete
-            CustomizationInterface = new FormCustomization.Interface(this,
-              "",
-              LangCfg.getText(LangCfg.Others.configFileQicCustomization),
-              "file://" + LangCfg.getHelpFile(),
-              "FormCustomization.htm",
-              LangCfg.getTranslationsFromGerman(),
-              leadingControlNamePartsToIgnore,
-              leadingControlNamePartsPrefixDollar);
 
             FlexibleMessageBox.FONT = this.Font;
 
@@ -6263,22 +6264,35 @@ namespace QuickImageComment
                 {
                     if (changedFieldsForSave.ContainsKey(tag))
                     {
+                        DialogResult answer = DialogResult.Yes;
                         string value;
                         if (changedFieldsForSave[tag].GetType().Equals(typeof(ArrayList)))
                             value = (string)((ArrayList)changedFieldsForSave[tag])[0];
                         else
                             value = (string)changedFieldsForSave[tag];
-                        DialogResult answer = GeneralUtilities.questionMessage(LangCfg.Message.Q_differentRatingFromRatingControl,
-                        tag, value, theUserControlRating.rating.ToString());
+                        if (!value.Equals(theUserControlRating.rating.ToString()))
+                        {
+                            answer = GeneralUtilities.questionMessage(LangCfg.Message.Q_differentRatingFromRatingControl,
+                            tag, value, theUserControlRating.rating.ToString());
+                        }
                         if (answer == DialogResult.No)
                         {
-                            changedFieldsForSave[tag] = theUserControlRating.rating.ToString();
+                            if (ConfigDefinition.getConfigStringArray(ConfigDefinition.enumConfigStringArray.TagRatingPercent).Contains(tag))
+                                changedFieldsForSave[tag] = theUserControlRating.ratingPercent();
+                            else if (ConfigDefinition.getConfigStringArray(ConfigDefinition.enumConfigStringArray.TagRatingSupportReject).Contains(tag))
+                                changedFieldsForSave[tag] = theUserControlRating.rating.ToString();
+                            else
+                                changedFieldsForSave[tag] = (Math.Max(0, theUserControlRating.rating)).ToString();
                         }
                     }
                     else
                     {
-                        changedFieldsForSave.Add(tag,
-                            theUserControlRating.rating.ToString());
+                        if (ConfigDefinition.getConfigStringArray(ConfigDefinition.enumConfigStringArray.TagRatingPercent).Contains(tag))
+                            changedFieldsForSave.Add(tag, theUserControlRating.ratingPercent());
+                        else if (ConfigDefinition.getConfigStringArray(ConfigDefinition.enumConfigStringArray.TagRatingSupportReject).Contains(tag))
+                            changedFieldsForSave.Add(tag, theUserControlRating.rating.ToString());
+                        else
+                            changedFieldsForSave.Add(tag, (Math.Max(0, theUserControlRating.rating)).ToString());
                     }
                 }
             }

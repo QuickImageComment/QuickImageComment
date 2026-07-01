@@ -27,6 +27,9 @@ namespace QuickImageComment
             dataChanged?.Invoke(this, e);
         }
 
+        // for conversion of "stars" to percentage, giving same values as Windows Explorer
+        private static readonly string[] ratingPercents = { "1", "25", "50", "75", "99" };
+
         internal int rating { get; private set; } = 0;
         private int initialRating = 0;
         internal bool changed = false;
@@ -96,6 +99,21 @@ namespace QuickImageComment
             this.initialRating = initialRating;
             rating = initialRating;
             markButtons();
+        }
+
+        // conversion of percentage to "stars", giving same values as Windows Explorer
+        internal static float ratingFromPercent(int percent)
+        {
+            if (percent <= 0)
+                return 0.0f;
+            else
+                return (percent + 25.0f) / 25.0f;
+        }
+
+        // conversion of "stars" to percentage, giving same values as Windows Explorer
+        internal string ratingPercent()
+        {
+            return rating <= 0 ? "0" : ratingPercents[rating - 1];
         }
     }
 }
