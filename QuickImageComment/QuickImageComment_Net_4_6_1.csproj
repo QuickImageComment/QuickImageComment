@@ -242,6 +242,8 @@
     <Compile Include="JR.Utils.GUI.Forms\FlexibleMessageBox.cs" />
     <Compile Include="Utilities\ChangeableFieldSpecification.cs" />
     <Compile Include="Utilities\DirectoryWatcher.cs" />
+    <Compile Include="Utilities\DisplayScaleReaderLegacy.cs" />
+    <Compile Include="Utilities\DpiMonitor.cs" />
     <Compile Include="Utilities\DropFileOnProcess.cs" />
     <Compile Include="Utilities\EditExternalDefinition.cs" />
     <Compile Include="Utilities\PngHelper.cs" />
@@ -1054,7 +1056,7 @@
       <Version>1.0.1829-prerelease</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools">
-      <Version>10.0.26100.1742</Version>
+      <Version>10.0.28000.2270</Version>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>13.0.2</Version>

@@ -181,7 +181,7 @@ Hinweis: Einige RAW-Decoder drehen bereits gemäß Exif-Orientierung, andere nic
   <data name="toolStripButtonRefresh.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAc0SURBVFhHxZd7TNNXFMfNXupEpw4mKJtu6JhuM9G4Kbjp
+        YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAc0SURBVFhHxZd7TNNXFMfNXupEpw4mKJtu6JhuM9G4Kbjp
         BIcQoVKqwHCyAYogoEgUBbYKMjZwlceshfBQKZvlIWhRyqN2Cg6QgiJQrVSLoDJgsJmoMeLru5yblFAK
         lP21k5z8bu89v3s/Pffcc+5vHP5nGTe0YzSRN5bjO3EEHPlfwsp/Nkw8JmCS+3i85/cO7CO+QFjaDhSc
         z8f9+/fx7Nmzoa8PK3oAMRI+Hjx4gP7+/sHdyL+QC24cB7bRn4J/JhK/NWVDfrsMNX0XUN1bhZJ2KdIb
@@ -218,7 +218,7 @@ Hinweis: Einige RAW-Decoder drehen bereits gemäß Exif-Orientierung, andere nic
   <data name="toolStripButtonRename.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAnySURBVFhHnZcJVJTXFcdtGmM0GqEoW7SOMRExiWBqFTQN
+        YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAnySURBVFhHnZcJVJTXFcdtGmM0GqEoW7SOMRExiWBqFTQN
         1bScHNqYtmJBhYhCEkRFQGEEWVQYhgEJ+yb7IrgEQaGJRFZZBCGKGBWhiiTucYl7NJpfz3vJjALa5vSe
         c8+Zme+b7/7ee/f+7/0G8Qvt5JWTdF/q5ocffuDHH3/sf/n/tkH9f3iadZztwDLektiKWC5duiRBGlt7
         ydp6kM1b2kjKaSEucz/RaY1okuoJi6tjfXQNwZtqUKq+IDatmmOdPdy5c6fPAn4xwIkLJ7BMs8Qmz4bg
@@ -267,7 +267,7 @@ Hinweis: Einige RAW-Decoder drehen bereits gemäß Exif-Orientierung, andere nic
   <data name="toolStripButtonDateTimeChange.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAYMSURBVFhHrVdpTFRXFJ5utk1aYlqisU21SzSmjf1Tq+CK
+        YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAYMSURBVFhHrVdpTFRXFJ5utk1aYlqisU21SzSmjf1Tq+CK
         YhGMFm0lNrhBxeow7CCD4zaCwyJIYWAQHaRuZd/HggJ20UqL8McEq2kaMRIJUQmNUkAwfs13p2983AGk
         TU/y5cw7y3fOvHffufdpME75vvV37LfWwTfGipl+JrgsjcOz7tFCz1ibAJ+wbOjN5ag834Le3l48evRI
         phhRNLJBLff/GkB26QXMCUzHGyuN+Djwa6yKzkNgQiHC0ytFDDWvaaefcXM3J2GvpRztHZ14+PAhHj9+
@@ -299,7 +299,7 @@ Hinweis: Einige RAW-Decoder drehen bereits gemäß Exif-Orientierung, andere nic
   <data name="toolStripButtonSave.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAATXSURBVFhHxZXdT1pnHMf7vyxZGvdnbMtisrstyy62i824
+        YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAATXSURBVFhHxZXdT1pnHMf7vyxZGvdnbMtisrstyy62i824
         3nSJ2U296cWC7qJZsmTRWWu7Ji7tqNa3ja7IQEEEBQUBwYNwfENAe3gXbEU857v8nsN5QUC9sN2TfHIS
         cvh9P8/3OQdu4ILV29t7LVy0bpz/QL/oy0ajEePj45iYmMDM9DRMJhPM5llYrTY4HHa4XC54PV74fD4E
         A0FEwmFwHIdYLAae568u4A2m0NE5hPc+HFBRBcbGGgRmzeYGAY/HwwSGhobQZzCgu7u7QUA/s6PzN1gd
@@ -326,7 +326,7 @@ Hinweis: Einige RAW-Decoder drehen bereits gemäß Exif-Orientierung, andere nic
   <data name="toolStripButtonFirst.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAUvSURBVFhH1ZdrTJNXHMbPJzUmc9jWcmsLzi06uYwC5apY
+        YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAUvSURBVFhH1ZdrTJNXHMbPJzUmc9jWcmsLzi06uYwC5apY
         FacGBClD5aIBRZagIDCdyqQmQy5ThFKKCONiRSzYOmWwMV0QEUUcKqCJZjinWNziF038qvgs57wtlbpN
         VhGzJ3ly3p5z3j6///9927cleMci1hOTrf8XwLWbw3j27BlGRkasl2zWuAFo+EzPr3H37l08efLEetlm
         jQug94YRAmkBiMtu6HQ6DA4OWm+xWa8FuHrDCFFAEQ7U3mYAOTk56O/vt95ms/4VgFYet82A+tYH0P30
@@ -354,7 +354,7 @@ Hinweis: Einige RAW-Decoder drehen bereits gemäß Exif-Orientierung, andere nic
   <data name="toolStripButtonPrevious.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAeRSURBVFhHrZeLU1N3Fsfzv2w7ta2rzqCUYn1QH5TX8nAM
+        YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAeRSURBVFhHrZeLU1N3Fsfzv2w7ta2rzqCUYn1QH5TX8nAM
         2PKwCAVdSok8giAISSEiEORRAgzqCqutAgUWshEMu+J2Rm1lmOks0q5VHCGLkECeJiH3Xr8753eTDQTp
         dmc4M2d+N/cmv/M553x/v/uLBL/R3Nwr/PJvD/7ywIGqHjNSG5dwsMKIj5SLOKUx4uKAEWOTFhiMLvDC
         q8Cfb2iSwBuBtmTj0X/fgeMaK462unCim4Osn0e5ToBSL6ByREDhAI/PrnNIbHMj+oINue0G3Jk04aXL
@@ -393,7 +393,7 @@ Hinweis: Einige RAW-Decoder drehen bereits gemäß Exif-Orientierung, andere nic
   <data name="toolStripButtonNext.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAenSURBVFhHrZeLU1PXFsbzv7Sd2tarzqCUYqGiVgvIyEMC
+        YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAenSURBVFhHrZeLU1PXFsbzv7Sd2tarzqCUYqGiVgvIyEMC
         PhCLUB9FCgKC4SEkhZS3PErAofUK174gBZQ0iKEVb2fUVoaZzkVui4oVkgAB8jQJOefwddY+SYGg997p
         Zc2sOYfDPnv91rfW3mdHgv/R3NwSHho8uHbPgbJOM47Wz2N3iQnvKWZxWmXCxR4TBkcs0Jtc4IUl/9df
         aBL/B/42b+PRfdeBYyor4ptdON7BIaubR7FWgEInoPSGgNweHh98wSGhxY19lTZktOpxa2QOz1we/+nW
@@ -432,7 +432,7 @@ Hinweis: Einige RAW-Decoder drehen bereits gemäß Exif-Orientierung, andere nic
   <data name="toolStripButtonLast.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAS5SURBVFhH3ZZrTJNnGIa/P5ItW+IEhYJYqG5zTgSpqFgR
+        YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAS5SURBVFhH3ZZrTJNnGIa/P5ItW+IEhYJYqG5zTgSpqFgR
         hAIquDmciuIBxwSpimKRgZsLB/G4LXMVY6V4QEWQgyxaZgCz6DxAQUWjLtlYYhD2Q038oT89XMv79SQq
         QkYzkz3JnTf9mva67qdfm0q84ZFevPBfz/9L4MqNbh4/fszTp09ffKrXcanAkMBCTjW0cv/+/X5LuFRA
         8tvI4IAC9pTW9lvC5QLrtl3BfXwRu/dVc+/evT4lXC5QYOzga8PvhCYYMRir+pRwsUAuRSV/sarwMpt2
@@ -458,7 +458,7 @@ Hinweis: Einige RAW-Decoder drehen bereits gemäß Exif-Orientierung, andere nic
   <data name="dynamicToolStripButtonLoadDataFromTemplate.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAUiSURBVFhHtZV7TJNXGIcb2QIu6pzRiC5LFp1Z5l/+5Way
+        YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAUiSURBVFhHtZV7TJNXGIcb2QIu6pzRiC5LFp1Z5l/+5Way
         xS0xWeJtccQtW5xx6iai0OKwA1So1CnMDEHrZeqMEyGKKEMmIF6CSlQs0OI6oLS00JZeoeVSykXwt5y3
         9LMt9RMIe5Mnv/Odc/q+D6HpJ0CIysh5jIyLXtJzvNBe0Np3h/bZ3ZG1/+d+vViFRzX1cDqdGBoaCh4F
         QfAGq/ScR8FbEy5HpwfHrshx5Xo5rFbrKImQAgf/fEh5s0qHovtqXLmjQm6ZEueLq8eFr5hEVv4TXC4s
@@ -486,7 +486,7 @@ Hinweis: Einige RAW-Decoder drehen bereits gemäß Exif-Orientierung, andere nic
   <data name="toolStripButtonReset.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAlwSURBVFhHlZcJVM/pGseba1bmWkaalmlfp0VFWiQhCTM0
+        YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAlwSURBVFhHlZcJVM/pGseba1bmWkaalmlfp0VFWiQhCTM0
         RHuiUCktok2l0jYVLco0anAlNDXqSinS0E27GlxzjXPmzLljXAyDO5d7MM587nnfMGkw7vec97z/3/Z+
         n/dZvu/zV+Al0XrqIqn5jbgG7MDIMZ3R78fyJ411cjZwSGOebzGxGTXUNvZy584dHj58OHyJZ0Jh+I2h
         +M/de5Tv72Cu7ydoT8tlpk8lftFHCUv5G7llZ9heeZ74vG6Ck9rwjGjCwaMCzak52C3IJqvoEJcuX+XB
@@ -533,7 +533,7 @@ Hinweis: Einige RAW-Decoder drehen bereits gemäß Exif-Orientierung, andere nic
   <data name="toolStripButtonDelete.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAixSURBVFhHtVd5UJTnGX+HBRHTghSDGMeIQEFGRBBcBRHC
+        YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAixSURBVFhHtVd5UJTnGX+HBRHTghSDGMeIQEFGRBBcBRHC
         LhJxRTxRxIRLRERQwMjlkWBiosYoicaGFqOCICFegCu4HLqAgloTj8SjNCAgsGAVVqAziv46zwu77nI0
         /afPzDuzfH7f+zve53hl+D9Gj1KJ169f8zVcsIEPVBEycSLW2tigtrYWXV1dA//5dyPVzw/hVla4e+sW
         Ojs7hyUxJIEoe3t0FEjR8P1xrJs2DdXV1eju7h742rCxPyQERbHx6Ckp5ySKCwvR0dExJAktAvQCKSfw
@@ -576,7 +576,7 @@ Hinweis: Einige RAW-Decoder drehen bereits gemäß Exif-Orientierung, andere nic
   <data name="toolStripButtonImageFit.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAZjSURBVFhHrZfrU9TXGcf5H/o2L5IZyUz7ImlqpkkntBMQ
+        YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAZjSURBVFhHrZfrU9TXGcf5H/o2L5IZyUz7ImlqpkkntBMQ
         tJBMWrykTpyIKaQx2qzEAFIpgg3aCaKNlbEkESg4U6JCFGyDIBepAxhQEQILKOsCC7h39n777e6nc84G
         gtvFutjvzM7Z39k95/k8l/Oc3QT+D5oz2ukeWqCm20Jxs4936hXe+9sklRcGGBqbwu12EwqFopdJJURP
         xCN/QGFYa6eqVUtmSRfrdzeRmHOFZ1W3eKlITeoRDWmfzLL92BD/7ruF3W4nHA4/tMeaAUw2N93fmsk5
@@ -610,7 +610,7 @@ Hinweis: Einige RAW-Decoder drehen bereits gemäß Exif-Orientierung, andere nic
   <data name="toolStripButtonImage4.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAZqSURBVFhHrZfrU9TXGcfzP/RtXiQOZKZ9kTS106QT2gkI
+        YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAZqSURBVFhHrZfrU9TXGcfzP/RtXiQOZKZ9kTS106QT2gkI
         GkgmLV6iE42YQhqryUoNIJUi2KidIFqsjCWJQMGZEhWiYhsEgR3qAAZUhHAV1gUWdO/s/fZb9tM5Z7NE
         Nwt1ab8zv9k5vz3nPJ/ncp6z+xT/B80Z7agHHlCjtlB8xce79Qrv/22Cyot9DIxM4Xa7WVxcjF4m9VT0
         i3jkDygMau1UtWjJLOlk7e4mEnOu8ZzqNi8VjZJ6VEPaJ7NsOz7Av3tuY7fbCYVCj+2xagCTzY36GzM5
@@ -644,7 +644,7 @@ Hinweis: Einige RAW-Decoder drehen bereits gemäß Exif-Orientierung, andere nic
   <data name="toolStripButtonImage2.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAaJSURBVFhHrZfrU9TXGcfzP/RtXiQzkJn2RdLUTJNOaCcg
+        YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAaJSURBVFhHrZfrU9TXGcfzP/RtXiQzkJn2RdLUTJNOaCcg
         aCGZtHhJnTgRI6SxalZiAKkUwUbtBNHGyliSCBQcS1SIAm0Q5CJ1AAMqQmAXlHWBBdw7e7/9lv10ztlA
         cbMal+l35szO7+w5v+fzXM5zdp/i/6BZk4PuoXmqu60UN/l5t07h/b9PUHFxgKGxSTweD4uLi9HbpJ6K
         nohHgaDCsM5BZauOzJIu1uxsJDHnCs+pbvFykZrUI1rSPplhy7Eh/tN3C4fDQTgcfugdqwYw2z10f2sh
@@ -678,7 +678,7 @@ Hinweis: Einige RAW-Decoder drehen bereits gemäß Exif-Orientierung, andere nic
   <data name="toolStripButtonImage1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAZpSURBVFhHrZf9U5TXFcfzP/TX/JA4kJn2h6SpnSad0E5A
+        YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAZpSURBVFhHrZf9U5TXFcfzP/TX/JA4kJn2h6SpnSad0E5A
         0EIyafGFOtGIKaSx2qzUAFIpgo3aCaLGyliSCBScKVEhCrZBkBepAxhQEcKrsi6wgPvOvr89y346926k
         sj40LtPvzM7O88y953zOPeees/sM/wfNmhx0DsxT1WmlqNHPu7UK7/9tgvKLfQyMTOLxeFhcXIzeJvVM
         9ItYFAgqDOocVDTrSC/uYO2uBuKzr/KC5javFI6SfERLysczbD02wL97buNwOAiHw8tsrBrAbPfQ+Y2F
@@ -712,7 +712,7 @@ Hinweis: Einige RAW-Decoder drehen bereits gemäß Exif-Orientierung, andere nic
   <data name="toolStripButtonRotateLeft.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAdOSURBVFhHxZcJUFRHGsdHeMM1HAaVGGM0UaKooInRuJVo
+        YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAdOSURBVFhHxZcJUFRHGsdHeMM1HAaVGGM0UaKooInRuJVo
         orESCEFLia7GGI0H4RCQQ0VwZBAMhxyKoCXCWmtJ1ARlBWISvDAqKodBV6PlsZRulCoOucIAcv22+uGi
         zKASs1X7r+qaqve6+//r7339dY+C/7MUug+eV/UNzaTuPcc8r92UV1TS1NSk26VH/WmAM0WlLAncx+gP
         NjPWcRseq3dy6tQpKioqdLv2qOcCKCuvIyLxCLZTopg4I4UZyw6hjjvHiPdiWbN2HTk5OVRVVekO61G9
@@ -749,7 +749,7 @@ Hinweis: Einige RAW-Decoder drehen bereits gemäß Exif-Orientierung, andere nic
   <data name="toolStripButtonRotateRight.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAeNSURBVFhHxZZ5UFRXFodbu2mghQYXSNzQAeMyxlFJMiZB
+        YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAeNSURBVFhHxZZ5UFRXFodbu2mghQYXSNzQAeMyxlFJMiZB
         jRorkThYmhBFwI1FGWSVZQRB6QYBxSUqOkYdoiVGHVMqMC4MOhDjAjKW6+ioJaUGEtkFbXb4pt5lbKFB
         Cp0/5ld16lW9d+/9fffWeeceGf9nyQxfdKam5hZc/VPZ9l02PxcVU19fT0tLi+GwN1K3ACQlJGcybf53
         vP9FMnM8/8yxk5eprq6mqanJcOhrqdsAhb8UYz8zGe2WPLxWnuWrZYewmRBD0OqD3LxdQG1t7RudSrcA
@@ -787,7 +787,7 @@ Hinweis: Einige RAW-Decoder drehen bereits gemäß Exif-Orientierung, andere nic
   <data name="toolStripButtonView.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAoISURBVFhHrZZ5UFRXFof5Y2ZqMjVJqlIzFTNiFsdo3HGd
+        YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAoISURBVFhHrZZ5UFRXFof5Y2ZqMjVJqlIzFTNiFsdo3HGd
         GI06IARERIyg4BIx4D4awH0BBGQRcAGNIjvI0jR0NzTN2oDQTbMvzdaogLKIGrdEcWX5pmhNR1xqMqn8
         qm7d996955zv3XPPfU+PlzQw0M/929eRndiNx9cTCds0l9jNc0ncNh/hd0aIXBYgc7PhskpK35NHL5v/
         39IbcjcwQGdjOWe3GhPxn3kE2k3Gfck4YpxNUAbY0XruO7pE+8n2sEa615za5OP09z0d4uLX6MHjXt31
@@ -836,7 +836,7 @@ Hinweis: Einige RAW-Decoder drehen bereits gemäß Exif-Orientierung, andere nic
   <data name="toolStripButtonSettings.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAXqSURBVFhHxZdbTFRXFIan0UYb27Spadq3vvjqU61p1LRp
+        YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAXqSURBVFhHxZdbTFRXFIan0UYb27Spadq3vvjqU61p1LRp
         CA+Nig+mId5QaNOAiIBQZIS0UhSUcAk1FQJKguEmKXKbgdIBqdxlZgBBFBC5izCCXARvIH/zL5zjzMCB
         MWnSPzmcYWbvs76z1tprr63B/ywN/4yOjsLNzQ2pKakYGBjAs2fPHMc5rd7eXkRGRsJQbsCFCxdgNBox
         NTWFhYUFx6EiAXB1dUVrayv0xXqc0p5CVVUVnjx5ojpJTWVlZdBqtXj8+DHOnTuHsLAwZGdno6+vD/Pz
@@ -868,7 +868,7 @@ Hinweis: Einige RAW-Decoder drehen bereits gemäß Exif-Orientierung, andere nic
   <data name="toolStripButtonFields.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAVtSURBVFhHtZaJU1NnFMX5+7o4duy0LrXalkEBifvCMIJL
+        YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAVtSURBVFhHtZaJU1NnFMX5+7o4duy0LrXalkEBifvCMIJL
         XVBxAQQcARtIWKUgAygKgpRBUBJKiCBLQkJMIMvLy3tZXjY4nftBYkgiYbFn5g6ZfMOc3zv3fjcvDf+j
         LHYRHq+EUCiElZWV+GOmtPgvdqJAMIxJvQ1Pe7S4WzeMGzVvUdY0Ao12CqIoJoXYMYDg8WNo3Ah5hxrF
         jSPoHtbhg96BJc6LWZMLNV0TuFXdi8GhkaQQ2wboH9WjtGEIxQ1v8Xp0HlNGDh+NfNKqfa5FYXVPUoht
@@ -897,7 +897,7 @@ Hinweis: Einige RAW-Decoder drehen bereits gemäß Exif-Orientierung, andere nic
   <data name="toolStripButtonPredefinedComments.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAMzSURBVFhHtZKLT1JRHMf7+yrXWmttrTVaWyPNpOYszUrT
+        YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAMzSURBVFhHtZKLT1JRHMf7+yrXWmttrTVaWyPNpOYszUrT
         meby/UrNmaj5WqamEj6G5vIBKjZLUQOVSgREfCA+0F+7v8u9nXOEM6Lbb/vse865h+/9MDgDxORoxyCn
         XiRbK4JnzFq6g+fC3eCa/NyL+nEYnfwGHo8HAoEA+RpqzpCbbO0ouf2ncXn3oLjVCK2denA4HGElKIGs
         N58xP45boWPYAq0Ds9CgM0Ntl+mvkEaQKGiZgOZ2XVgJSiCzdgRzfG6dYshsp5k5ve+bsILeaKUEhHFt
@@ -917,7 +917,7 @@ Hinweis: Einige RAW-Decoder drehen bereits gemäß Exif-Orientierung, andere nic
   <data name="toolStripButtonPredefinedKeyWords.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAZlSURBVFhHvZZ/TJXXGcdprWZLdTPVyu26zsw/ulTr1tof
+        YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAZlSURBVFhHvZZ/TJXXGcdprWZLdTPVyu26zsw/ulTr1tof
         s+1ctqSZqYmsJtpVbadQtWxCVERh6mBBXGKayrqlAkNbtSomFqITK0gBEYSC5cLl55Uf3sv73nv5dS9c
         KJd7ue/7ns/yvvzQ0iXLpWxP8s1zzsl5z/d7nuc857xhfEsT6jBK93n8TZEEqpejlM814KtcykDNRtzW
         43j7XQSDQYQQUz8nbOpAKKZ6CgjU/xbVugmt9zRi+EvEaCcicBdtqBy16zhK8zocRa9gt5xgYGAAVVW/
@@ -951,7 +951,7 @@ Hinweis: Einige RAW-Decoder drehen bereits gemäß Exif-Orientierung, andere nic
   <data name="toolStripButtonFind.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAZDSURBVFhH3VUHU5RXFOVPZGIXUEFAVKrUpTfpnaUpfSlq
+        YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAZDSURBVFhH3VUHU5RXFOVPZGIXUEFAVKrUpTfpnaUpfSlq
         wCE2lqoUQWTFAhaKGAVFWEBQE+lNROxKcwJJTMYYkcgAStGTeZe4kUUjBhNncmbeDLMf951z3z3vPAl8
         ZkiI//Bf4/8noP1aG0J4gcjPy8Xk5KT45xmYs4DBwUEMPnuGyckJDAwMwNHOBgnxcfDkusKL64Yf+vvF
         S6bhHwt49eoVGurrUVR4BpFbI8B1dYHNenOYGuoRua6WBjTVVWGkz4Gw5DzVjI+P40bHdQwNPRft89EC

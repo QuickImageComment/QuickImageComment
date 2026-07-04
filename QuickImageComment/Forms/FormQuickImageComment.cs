@@ -185,8 +185,30 @@ namespace QuickImageComment
         private bool userControlChangeableFieldsVisible = false;
 
         internal FormCustomization.Interface CustomizationInterface;
+        private DpiMonitor _dpiMonitor;
 
         //SHDocVw.InternetExplorer theInternetExplorer;
+
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+
+            _dpiMonitor = new DpiMonitor();
+            _dpiMonitor.DpiChanged += (s, args) =>
+            {
+                Logger.log("WndProc : WM_DPICHANGED, new scale: " + DisplayScaleReaderLegacy.GetScalePercent());
+                if (ConfigDefinition.getCfgUserBool(enumCfgUserBool.zoomFactorSystem))
+                {
+                    FormCustomization.Interface.setGeneralZoomFactor(DisplayScaleReaderLegacy.GetScalePercent() / 100f);
+                }
+            };
+        }
+
+        protected override void OnFormClosed(FormClosedEventArgs e)
+        {
+            _dpiMonitor?.Dispose();
+            base.OnFormClosed(e);
+        }
 
         public FormQuickImageComment()
         {
@@ -484,7 +506,12 @@ namespace QuickImageComment
             theUserControlKeyWords.textBoxFreeInputKeyWords.KeyDown += new KeyEventHandler(textBoxFreeInputKeyWords_KeyDown);
             theUserControlKeyWords.treeViewPredefKeyWords.KeyDown += new KeyEventHandler(treeViewPredefKeyWords_KeyDown);
 
-            FormCustomization.Interface.setGeneralZoomFactor(ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.zoomFactorPerCentGeneral) / 100f);
+            float generalZoomFactor;
+            if (ConfigDefinition.getCfgUserBool(enumCfgUserBool.zoomFactorSystem))
+                generalZoomFactor = DisplayScaleReaderLegacy.GetScalePercent();
+            else
+                generalZoomFactor = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.zoomFactorPerCentGeneral);
+            FormCustomization.Interface.setGeneralZoomFactor(generalZoomFactor / 100f);
 
             // initiating CustomizationInterface includes a call of setFormToCustomizedValues...
             // zoom the form only, needed now before layout is completed due to the dynamics of layout
@@ -2822,27 +2849,32 @@ namespace QuickImageComment
         // open form to set overall scaling
         private void toolStripMenuItemScale_Click(object sender, EventArgs e)
         {
-            FormScale theFormScale = new FormScale();
+            FormScale theFormScale = new FormScale(dpiSettings);
         }
 
-        internal void adjustAfterScaleChange(int zoomFactorPercentGeneral, int zoomFactorPercentToolbar, int zoomFactorPercentThumbnail)
+        internal void adjustAfterScaleChange(bool zoomFactorSystem, int zoomFactorPercentGeneral, int zoomFactorPercentToolbar, int zoomFactorPercentThumbnail)
         {
+            bool systemChanged = zoomFactorSystem != ConfigDefinition.getCfgUserBool(ConfigDefinition.enumCfgUserBool.zoomFactorSystem);
             bool generalChanged = zoomFactorPercentGeneral != ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.zoomFactorPerCentGeneral);
             bool toolbarChanged = zoomFactorPercentGeneral != ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.zoomFactorPerCentToolbar);
             bool thumbnailChanged = zoomFactorPercentGeneral != ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.zoomFactorPerCentThumbnail);
 
-            if (generalChanged || toolbarChanged || thumbnailChanged)
+            if (systemChanged || generalChanged || toolbarChanged || thumbnailChanged)
             {
                 // when window is maximized, form size is not changed, but included controls
                 // so set to normal, scale and maximize again
                 bool wasMaximized = this.WindowState == FormWindowState.Maximized;
                 this.WindowState = FormWindowState.Normal;
 
+                if (systemChanged) ConfigDefinition.setCfgUserBool(ConfigDefinition.enumCfgUserBool.zoomFactorSystem, zoomFactorSystem);
                 if (generalChanged) ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.zoomFactorPerCentGeneral, zoomFactorPercentGeneral);
                 if (toolbarChanged) ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.zoomFactorPerCentToolbar, zoomFactorPercentToolbar);
                 if (thumbnailChanged) ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.zoomFactorPerCentThumbnail, zoomFactorPercentThumbnail);
 
-                FormCustomization.Interface.setGeneralZoomFactor(zoomFactorPercentGeneral / 100f);
+                if (zoomFactorSystem)
+                    FormCustomization.Interface.setGeneralZoomFactor(DisplayScaleReaderLegacy.GetScalePercent() / 100f);
+                else
+                    FormCustomization.Interface.setGeneralZoomFactor(zoomFactorPercentGeneral / 100f);
 
                 // hide the controls to avoid flickering during update
                 // using SuspendLayout still caused too much flickering 
@@ -7090,7 +7122,7 @@ namespace QuickImageComment
                 // FormQuickImageComment covered above
                 new FormRemoveMetaData(theUserControlFiles.listViewFiles.SelectedIndices);
                 new FormRename(theUserControlFiles.listViewFiles.SelectedIndices);
-                new FormScale();
+                new FormScale(dpiSettings);
                 // FormSelectApplication not needed
                 // FormSelectFolder not needed
                 new FormSelectLanguage(ConfigDefinition.getConfigPath());
@@ -7232,7 +7264,7 @@ namespace QuickImageComment
             LangCfg.getListOfControlsWithText(this, ControlTextList);
             LangCfg.getListOfControlsWithText(new FormRemoveMetaData(theUserControlFiles.listViewFiles.SelectedIndices), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormRename(theUserControlFiles.listViewFiles.SelectedIndices), ControlTextList);
-            LangCfg.getListOfControlsWithText(new FormScale(), ControlTextList);
+            LangCfg.getListOfControlsWithText(new FormScale(dpiSettings), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormSelectApplication(), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormSelectFolder("C:\\"), ControlTextList);
             LangCfg.getListOfControlsWithText(new FormSelectLanguage(ConfigDefinition.getConfigPath()), ControlTextList);
@@ -7305,7 +7337,7 @@ namespace QuickImageComment
             // FormQuickImageComment is already translated
             new FormRemoveMetaData(theUserControlFiles.listViewFiles.SelectedIndices);
             new FormRename(theUserControlFiles.listViewFiles.SelectedIndices);
-            new FormScale();
+            new FormScale(dpiSettings);
             new FormSelectApplication();
             new FormSelectFolder("C:\\");
             new FormSelectLanguage(ConfigDefinition.getConfigPath());
