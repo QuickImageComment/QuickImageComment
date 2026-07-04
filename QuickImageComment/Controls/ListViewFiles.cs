@@ -152,7 +152,9 @@ namespace QuickImageCommentControls
 
         public void init()
         {
-            InitializeComponent();
+
+            this.SetStyle(ControlStyles.OptimizedDoubleBuffer |
+                          ControlStyles.AllPaintingInWmPaint, true); InitializeComponent();
             earthBitmap = (Bitmap)QuickImageComment.Properties.Resources.ResourceManager.GetObject("Earth");
 
 
@@ -182,6 +184,7 @@ namespace QuickImageCommentControls
             // 
             // ListViewFiles
             // 
+            this.OwnerDraw = true;
             this.Scroll += new System.Windows.Forms.ScrollEventHandler(this.listViewFiles_Scroll);
             this.DrawItem += new System.Windows.Forms.DrawListViewItemEventHandler(this.listViewFiles_DrawItem);
             this.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.listViewFiles_MouseWheel);
@@ -609,6 +612,37 @@ namespace QuickImageCommentControls
             { // Trap WM_VSCROLL
                 OnScroll(new ScrollEventArgs((ScrollEventType)(m.WParam.ToInt32() & 0xffff), 0));
             }
+        }
+
+        protected override void OnDrawSubItem(DrawListViewSubItemEventArgs e)
+        {
+            var bg = (e.Item.Selected)
+                    ? SystemBrushes.Highlight
+                    : SystemBrushes.Window;
+
+            e.Graphics.FillRectangle(bg, e.Bounds);
+
+            Color textColor = (e.Item.Selected)
+                ? System.Drawing.SystemColors.HighlightText
+                : System.Drawing.SystemColors.WindowText;
+
+            Font font = (e.ColumnIndex == columnRating)
+                ? Mdl2Font.GetFont(this.Font.Size)
+                : this.Font;
+
+            TextRenderer.DrawText(
+                e.Graphics,
+                e.SubItem.Text,
+                font,
+                e.Bounds,
+                textColor,
+                TextFormatFlags.Left | TextFormatFlags.VerticalCenter
+            );
+        }
+
+        protected override void OnDrawColumnHeader(DrawListViewColumnHeaderEventArgs e)
+        {
+                e.DrawDefault = true;
         }
 
         private void ListViewFiles_MouseDown(object sender, MouseEventArgs e)

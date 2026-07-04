@@ -246,6 +246,7 @@
     <Compile Include="Utilities\DpiMonitor.cs" />
     <Compile Include="Utilities\DropFileOnProcess.cs" />
     <Compile Include="Utilities\EditExternalDefinition.cs" />
+    <Compile Include="Utilities\Mdl2Font.cs" />
     <Compile Include="Utilities\PngHelper.cs" />
     <Compile Include="Utilities\TagUtilities.cs" />
     <Compile Include="Utilities\UserButtonDefinition.cs" />
@@ -848,6 +849,7 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+    <EmbeddedResource Include="segmdl2.ttf" />
     <None Include="vcruntime140.dll" Condition=" '$(Configuration)' == 'Release'">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

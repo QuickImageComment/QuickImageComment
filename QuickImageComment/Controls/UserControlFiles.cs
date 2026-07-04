@@ -1288,17 +1288,9 @@ namespace QuickImageComment
             saveListViewFilesColumnWidthIfDetailView();
             listViewFiles.View = newView;
             // With Views "LargeIcon" and "Tile" enable own drawing
-            if (listViewFiles.View == View.LargeIcon || listViewFiles.View == View.Tile)
+            if (listViewFiles.View == View.Tile)
             {
-                this.listViewFiles.OwnerDraw = true;
-                if (listViewFiles.View == View.Tile)
-                {
-                    listViewFiles.adjustTileViewWidth();
-                }
-            }
-            else
-            {
-                this.listViewFiles.OwnerDraw = false;
+                listViewFiles.adjustTileViewWidth();
             }
             if (listViewFiles.View == View.List)
             {

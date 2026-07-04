@@ -120,7 +120,7 @@
             this.buttonReject.Name = "buttonReject";
             this.buttonReject.Size = new System.Drawing.Size(28, 28);
             this.buttonReject.TabIndex = 0;
-            this.buttonReject.Text = "#";
+            this.buttonReject.Text = "-";
             this.buttonReject.UseVisualStyleBackColor = true;
             this.buttonReject.Click += new System.EventHandler(this.buttonReject_Click);
             // 
@@ -148,7 +148,7 @@
             this.Controls.Add(this.buttonStar3);
             this.Controls.Add(this.buttonReject);
             this.Name = "UserControlRating";
-            this.Size = new System.Drawing.Size(218, 26);
+            this.Size = new System.Drawing.Size(218, 28);
             this.ResumeLayout(false);
 
         }

@@ -2789,7 +2789,7 @@ namespace QuickImageComment
                     // keeping 1252 ensures that old configuration files can be read without problems
                     System.IO.StreamReader StreamIn =
 #if NET10_0_OR_GREATER
-                        new System.IO.StreamReader(UserConfigFile, CodePagesEncodingProvider.Instance.GetEncoding(1252));
+                        new System.IO.StreamReader(UserConfigFile, System.Text.CodePagesEncodingProvider.Instance.GetEncoding(1252));
 #else
                         new System.IO.StreamReader(UserConfigFile, System.Text.Encoding.GetEncoding(1252));
 #endif
@@ -3690,7 +3690,7 @@ namespace QuickImageComment
                     // keeping 1252 ensures that old configuration files modified by user can be read without problems
                     System.IO.StreamReader StreamIn =
 #if NET10_0_OR_GREATER
-                    new System.IO.StreamReader(GeneralConfigFile, CodePagesEncodingProvider.Instance.GetEncoding(1252));
+                    new System.IO.StreamReader(GeneralConfigFile, System.Text.CodePagesEncodingProvider.Instance.GetEncoding(1252));
 #else
                         new System.IO.StreamReader(GeneralConfigFile, System.Text.Encoding.GetEncoding(1252));
 #endif
