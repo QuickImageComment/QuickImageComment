@@ -62,6 +62,8 @@
             this.buttonStar5.Text = "*";
             this.buttonStar5.UseVisualStyleBackColor = true;
             this.buttonStar5.Click += new System.EventHandler(this.buttonStar_Click);
+            this.buttonStar5.MouseLeave += new System.EventHandler(this.buttonRating_MouseLeave);
+            this.buttonStar5.MouseHover += new System.EventHandler(this.buttonRating_MouseHover);
             // 
             // buttonStar4
             // 
@@ -74,6 +76,8 @@
             this.buttonStar4.Text = "*";
             this.buttonStar4.UseVisualStyleBackColor = true;
             this.buttonStar4.Click += new System.EventHandler(this.buttonStar_Click);
+            this.buttonStar4.MouseLeave += new System.EventHandler(this.buttonRating_MouseLeave);
+            this.buttonStar4.MouseHover += new System.EventHandler(this.buttonRating_MouseHover);
             // 
             // buttonStar1
             // 
@@ -86,6 +90,8 @@
             this.buttonStar1.Text = "*";
             this.buttonStar1.UseVisualStyleBackColor = true;
             this.buttonStar1.Click += new System.EventHandler(this.buttonStar_Click);
+            this.buttonStar1.MouseLeave += new System.EventHandler(this.buttonRating_MouseLeave);
+            this.buttonStar1.MouseHover += new System.EventHandler(this.buttonRating_MouseHover);
             // 
             // buttonStar2
             // 
@@ -99,6 +105,8 @@
             this.buttonStar2.Text = "*";
             this.buttonStar2.UseVisualStyleBackColor = true;
             this.buttonStar2.Click += new System.EventHandler(this.buttonStar_Click);
+            this.buttonStar2.MouseLeave += new System.EventHandler(this.buttonRating_MouseLeave);
+            this.buttonStar2.MouseHover += new System.EventHandler(this.buttonRating_MouseHover);
             // 
             // buttonStar3
             // 
@@ -111,6 +119,8 @@
             this.buttonStar3.Text = "*";
             this.buttonStar3.UseVisualStyleBackColor = true;
             this.buttonStar3.Click += new System.EventHandler(this.buttonStar_Click);
+            this.buttonStar3.MouseLeave += new System.EventHandler(this.buttonRating_MouseLeave);
+            this.buttonStar3.MouseHover += new System.EventHandler(this.buttonRating_MouseHover);
             // 
             // buttonReject
             // 
@@ -123,6 +133,8 @@
             this.buttonReject.Text = "-";
             this.buttonReject.UseVisualStyleBackColor = true;
             this.buttonReject.Click += new System.EventHandler(this.buttonReject_Click);
+            this.buttonReject.MouseLeave += new System.EventHandler(this.buttonRating_MouseLeave);
+            this.buttonReject.MouseHover += new System.EventHandler(this.buttonRating_MouseHover);
             // 
             // buttonRevert
             // 

@@ -42,6 +42,7 @@ namespace QuickImageComment
         internal int rating { get; private set; } = 0;
         private int initialRating = 0;
         internal bool changed = false;
+        private bool mouseHovered = false;
 
         public UserControlRating()
         {
@@ -60,6 +61,33 @@ namespace QuickImageComment
                 if (button.Tag != null && (int)button.Tag > 0) button.Text = Mdl2Font.Icon(iconRatingStar);
             }
             buttonReject.Text = Mdl2Font.Icon(iconReject);
+        }
+        private void buttonRating_MouseHover(object sender, EventArgs e)
+        {
+            if (((Button)sender).Tag != null)
+            {
+                mouseHovered = true;
+                int selected = (int)((Button)sender).Tag;
+                foreach (Button button in this.Controls)
+                {
+                    if (button.Tag != null)
+                    {
+                        if ((int)button.Tag > 0)
+                            button.ForeColor = selected >= (int)button.Tag ? System.Drawing.SystemColors.ControlText : System.Drawing.SystemColors.ControlLight;
+                        else
+                            button.ForeColor = selected == (int)button.Tag ? System.Drawing.SystemColors.ControlText : System.Drawing.SystemColors.ControlLight;
+                    }
+                }
+            }
+        }
+
+        private void buttonRating_MouseLeave(object sender, EventArgs e)
+        {
+            if (mouseHovered)
+            {
+                markButtons();
+                mouseHovered = false;
+            }
         }
 
         private void buttonReject_Click(object sender, EventArgs e)
