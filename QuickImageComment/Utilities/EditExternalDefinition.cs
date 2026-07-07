@@ -150,6 +150,8 @@ namespace QuickImageComment
                 {
                     programPath = "";
                     commandOrOptions = DefinitionString.Substring(startIndex);
+                    // when config file was opened with an older version of QuickImageComment, CommandType may be reset from U to B
+                    if (commandOrOptions.StartsWith("ms-photos:viewer")) commandType = CommandType.URI;
                 }
             }
         }
