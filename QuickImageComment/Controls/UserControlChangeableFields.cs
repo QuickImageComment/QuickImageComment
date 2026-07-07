@@ -151,25 +151,42 @@ namespace QuickImageComment
 
             foreach (MetaDataDefinitionItem aMetaDataDefinitionItem in ConfigDefinition.getMetaDataDefinitions(ConfigDefinition.enumMetaDataGroup.MetaDataDefForChange))
             {
-                if (AllChangeableKeys.Contains(aMetaDataDefinitionItem.KeyPrim))
+                // usedKey is the mapped ExifTool key in case there is a mapping for an exiv2 key
+                string mappedKey = ConfigDefinition.getExifToolTag4exiv2(aMetaDataDefinitionItem.KeyPrim);
+                string mappedType = aMetaDataDefinitionItem.TypePrim;
+                if (mappedKey == null)
                 {
-                    GeneralUtilities.message(LangCfg.Message.I_metaDateMultipleInChangeableList, aMetaDataDefinitionItem.KeyPrim);
+                    // there is no mapped key, so use the original key and type
+                    mappedKey = aMetaDataDefinitionItem.KeyPrim;
                 }
                 else
                 {
-                    AllChangeableKeys.Add(aMetaDataDefinitionItem.KeyPrim);
-                    if (TagUtilities.LangAltTypes.Contains(aMetaDataDefinitionItem.TypePrim))
+                    // there is a mapped key, so get the type for the mapped key
+                    mappedType = TagUtilities.getTagType(mappedKey);
+                }
+
+                if (AllChangeableKeys.Contains(mappedKey))
+                {
+                    if (mappedKey.Equals(aMetaDataDefinitionItem.KeyPrim))
+                        GeneralUtilities.message(LangCfg.Message.I_metaDateMultipleInChangeableList, mappedKey);
+                    else
+                        GeneralUtilities.message(LangCfg.Message.I_metaDateMultipleInChangeableList, mappedKey + " [" + aMetaDataDefinitionItem.KeyPrim + "]");
+                }
+                else
+                {
+                    AllChangeableKeys.Add(mappedKey);
+                    if (TagUtilities.LangAltTypes.Contains(mappedType))
                     {
                         // controls for default language
                         // entries for type LangAlt are not multiline, so use comboBox
                         ComboBox aComboBox = new ComboBox();
                         Label aLabel = new Label();
-                        aComboBox.Tag = new ChangeableFieldSpecification(aMetaDataDefinitionItem.KeyPrim,
-                            aMetaDataDefinitionItem.FormatPrim, aMetaDataDefinitionItem.TypePrim, "x-default", -1,
+                        aComboBox.Tag = new ChangeableFieldSpecification(mappedKey,
+                            aMetaDataDefinitionItem.FormatPrim, mappedType, "x-default", -1,
                             index, aMetaDataDefinitionItem.Name);
                         aComboBox.Name = inputControlName(aComboBox);
                         aLabel.Name = "dynamicLabel" + aComboBox.Name;
-                        aLabel.Text = aMetaDataDefinitionItem.Name + " [" + aMetaDataDefinitionItem.TypePrim + "]";
+                        aLabel.Text = aMetaDataDefinitionItem.Name + " [" + mappedType + "]";
                         configureDynamicChangeableFieldControls(aMetaDataDefinitionItem, aComboBox, aLabel, true, ref lastTop, ref maxLabelWidth);
                         kk++;
                         int langIdx = 0;
@@ -178,8 +195,8 @@ namespace QuickImageComment
                             // controls for other languages
                             aComboBox = new ComboBox();
                             aLabel = new Label();
-                            aComboBox.Tag = new ChangeableFieldSpecification(aMetaDataDefinitionItem.KeyPrim,
-                                aMetaDataDefinitionItem.FormatPrim, aMetaDataDefinitionItem.TypePrim, language, langIdx,
+                            aComboBox.Tag = new ChangeableFieldSpecification(mappedKey,
+                                aMetaDataDefinitionItem.FormatPrim, mappedType, language, langIdx,
                                 index, aMetaDataDefinitionItem.Name + "[" + language + "]");
                             aComboBox.Name = inputControlName(aComboBox);
                             aLabel.Name = "dynamicLabel" + aComboBox.Name;
@@ -193,7 +210,7 @@ namespace QuickImageComment
                     else
                     {
                         Control anInputControl;
-                        if (TagUtilities.isMultiLine(aMetaDataDefinitionItem.KeyPrim))
+                        if (TagUtilities.isMultiLine(mappedKey))
                         {
                             anInputControl = new TextBox();
                         }
@@ -203,18 +220,18 @@ namespace QuickImageComment
                         }
 
                         Label aLabel = new Label();
-                        anInputControl.Tag = new ChangeableFieldSpecification(aMetaDataDefinitionItem.KeyPrim,
-                            aMetaDataDefinitionItem.FormatPrim, aMetaDataDefinitionItem.TypePrim, "", -1,
+                        anInputControl.Tag = new ChangeableFieldSpecification(mappedKey,
+                            aMetaDataDefinitionItem.FormatPrim, mappedType, "", -1,
                             index, aMetaDataDefinitionItem.Name);
                         anInputControl.Name = inputControlName(anInputControl);
                         aLabel.Name = "dynamicLabel" + anInputControl.Name;
-                        aLabel.Text = aMetaDataDefinitionItem.Name + " (" + aMetaDataDefinitionItem.TypePrim + ")";
+                        aLabel.Text = aMetaDataDefinitionItem.Name + " (" + mappedType + ")";
                         configureDynamicChangeableFieldControls(aMetaDataDefinitionItem, anInputControl, aLabel, true, ref lastTop, ref maxLabelWidth);
-                        if (aMetaDataDefinitionItem.KeyPrim.Equals("Exif.Image.Orientation"))
+                        if (mappedKey.Equals("Exif.Image.Orientation"))
                         {
                             inputControlOrientationExiv2 = (ComboBox)anInputControl;
                         }
-                        else if (aMetaDataDefinitionItem.KeyPrim.Equals("IFD0:Orientation"))
+                        else if (mappedKey.Equals("IFD0:Orientation"))
                         {
                             inputControlOrientationExifTool = (ComboBox)anInputControl;
                         }

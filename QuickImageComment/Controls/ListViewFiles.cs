@@ -642,7 +642,7 @@ namespace QuickImageCommentControls
 
         protected override void OnDrawColumnHeader(DrawListViewColumnHeaderEventArgs e)
         {
-                e.DrawDefault = true;
+            e.DrawDefault = true;
         }
 
         private void ListViewFiles_MouseDown(object sender, MouseEventArgs e)

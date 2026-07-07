@@ -409,9 +409,9 @@ namespace QuickImageComment
         internal static SortedList<string, DataTemplate> DataTemplates;
         // mapping of exiv2 tags to exiftool tags, can be used for write
         internal static SortedList<string, string> Exiv2ExifToolMappingWrite;
-        // mapping of exiv2 tags to exiftool tags, can be used for read only,
-        // write may fail due to different representation of values
-        internal static SortedList<string, string> Exiv2ExifToolMappingRead;
+        // tags in read/write list can be used for read and write; 
+        // due to different representation of values, it is essential to use mapping for read as well
+        internal static SortedList<string, string> Exiv2ExifToolMappingReadWrite;
         internal static SortedList<string, string> MapUrls;
         internal static SortedList<string, MapSource> MapLeafletList;
 
@@ -509,7 +509,7 @@ namespace QuickImageComment
             ViewConfigurationNames = new ArrayList();
             DataTemplates = new SortedList<string, DataTemplate>();
             Exiv2ExifToolMappingWrite = new SortedList<string, string>();
-            Exiv2ExifToolMappingRead = new SortedList<string, string>();
+            Exiv2ExifToolMappingReadWrite = new SortedList<string, string>();
             MapUrls = new SortedList<string, string>();
             MapLeafletList = new SortedList<string, MapSource>();
 
@@ -3815,15 +3815,15 @@ namespace QuickImageComment
                         }
                     }
 
-                    else if (firstPart.Equals("Exiv2ExifToolMappingRead"))
+                    else if (firstPart.Equals("Exiv2ExifToolMappingReadWrite"))
                     {
                         int indexEqual = secondPart.IndexOf("=");
                         string Exiv2Tag = secondPart.Substring(0, indexEqual);
                         string ExifToolTag = secondPart.Substring(indexEqual + 1);
 
-                        if (!Exiv2ExifToolMappingRead.ContainsKey(Exiv2Tag))
+                        if (!Exiv2ExifToolMappingReadWrite.ContainsKey(Exiv2Tag))
                         {
-                            Exiv2ExifToolMappingRead.Add(Exiv2Tag, ExifToolTag);
+                            Exiv2ExifToolMappingReadWrite.Add(Exiv2Tag, ExifToolTag);
                         }
                     }
 
@@ -4331,8 +4331,8 @@ namespace QuickImageComment
         {
             if (Exiv2ExifToolMappingWrite.ContainsKey(key))
                 return Exiv2ExifToolMappingWrite[key];
-            else if (Exiv2ExifToolMappingRead.ContainsKey(key))
-                return Exiv2ExifToolMappingRead[key];
+            else if (Exiv2ExifToolMappingReadWrite.ContainsKey(key))
+                return Exiv2ExifToolMappingReadWrite[key];
             else
                 return null;
         }
