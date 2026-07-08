@@ -4317,21 +4317,29 @@ namespace QuickImageComment
             }
         }
 
+
+        //--------------------------------------------------------------------------------------
+        // tags in write list have same representation of values in exiv2 and ExifTool
+        // so mapping is needed only for write
+        // tags in read/write have different representation of values in exiv2 and ExifTool
+        // so it is essential to use mapping for read as well
+        //--------------------------------------------------------------------------------------
+
         // get mapped ExifTool tag for exiv2 tag - write
         public static string getExifToolTag4exiv2Write(string key)
         {
             if (Exiv2ExifToolMappingWrite.ContainsKey(key))
                 return Exiv2ExifToolMappingWrite[key];
+            else if (Exiv2ExifToolMappingReadWrite.ContainsKey(key))
+                return Exiv2ExifToolMappingReadWrite[key];
             else
                 return null;
         }
 
         // get mapped ExifTool tag for exiv2 tag - read
-        public static string getExifToolTag4exiv2(string key)
+        public static string getExifToolTag4exiv2Read(string key)
         {
-            if (Exiv2ExifToolMappingWrite.ContainsKey(key))
-                return Exiv2ExifToolMappingWrite[key];
-            else if (Exiv2ExifToolMappingReadWrite.ContainsKey(key))
+            if (Exiv2ExifToolMappingReadWrite.ContainsKey(key))
                 return Exiv2ExifToolMappingReadWrite[key];
             else
                 return null;

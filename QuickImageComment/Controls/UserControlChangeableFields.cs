@@ -152,7 +152,7 @@ namespace QuickImageComment
             foreach (MetaDataDefinitionItem aMetaDataDefinitionItem in ConfigDefinition.getMetaDataDefinitions(ConfigDefinition.enumMetaDataGroup.MetaDataDefForChange))
             {
                 // usedKey is the mapped ExifTool key in case there is a mapping for an exiv2 key
-                string mappedKey = ConfigDefinition.getExifToolTag4exiv2(aMetaDataDefinitionItem.KeyPrim);
+                string mappedKey = ConfigDefinition.getExifToolTag4exiv2Read(aMetaDataDefinitionItem.KeyPrim);
                 string mappedType = aMetaDataDefinitionItem.TypePrim;
                 if (mappedKey == null)
                 {
