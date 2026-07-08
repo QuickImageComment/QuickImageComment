@@ -105,6 +105,7 @@ namespace QuickImageComment
             this.fixedCheckBoxSaveCommentImage7 = new System.Windows.Forms.CheckBox();
             this.fixedCheckBoxSaveNameImage4 = new System.Windows.Forms.CheckBox();
             this.Panel2 = new System.Windows.Forms.Panel();
+            this.fixedCheckBoxSaveNameImage5 = new System.Windows.Forms.CheckBox();
             this.fixedCheckBoxSaveNameVideo2 = new System.Windows.Forms.CheckBox();
             this.fixedCheckBoxSaveNameVideo4 = new System.Windows.Forms.CheckBox();
             this.fixedCheckBoxSaveNameVideo3 = new System.Windows.Forms.CheckBox();
@@ -143,7 +144,7 @@ namespace QuickImageComment
             this.checkBoxExifUTF8 = new System.Windows.Forms.CheckBox();
             this.labelCharSet = new System.Windows.Forms.Label();
             this.checkBoxButtonDeletesPermanent = new System.Windows.Forms.CheckBox();
-            this.fixedCheckBoxSaveNameImage5 = new System.Windows.Forms.CheckBox();
+            this.checkBoxShowRatingButtonReject = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxLastComments)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFullSizeImageCacheMaxSize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaximumMemoryForCaching)).BeginInit();
@@ -776,6 +777,17 @@ namespace QuickImageComment
             this.Panel2.Size = new System.Drawing.Size(429, 432);
             this.Panel2.TabIndex = 28;
             // 
+            // fixedCheckBoxSaveNameImage5
+            // 
+            this.fixedCheckBoxSaveNameImage5.AutoSize = true;
+            this.fixedCheckBoxSaveNameImage5.Location = new System.Drawing.Point(5, 282);
+            this.fixedCheckBoxSaveNameImage5.Name = "fixedCheckBoxSaveNameImage5";
+            this.fixedCheckBoxSaveNameImage5.Size = new System.Drawing.Size(89, 17);
+            this.fixedCheckBoxSaveNameImage5.TabIndex = 26;
+            this.fixedCheckBoxSaveNameImage5.Tag = "";
+            this.fixedCheckBoxSaveNameImage5.Text = "NameImage5";
+            this.fixedCheckBoxSaveNameImage5.UseVisualStyleBackColor = true;
+            // 
             // fixedCheckBoxSaveNameVideo2
             // 
             this.fixedCheckBoxSaveNameVideo2.AutoSize = true;
@@ -1117,6 +1129,7 @@ namespace QuickImageComment
             // panel3
             // 
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel3.Controls.Add(this.checkBoxShowRatingButtonReject);
             this.panel3.Controls.Add(this.checkBoxLogDiffMetaData);
             this.panel3.Controls.Add(this.comboBoxCharsetUserComment);
             this.panel3.Controls.Add(this.checkBoxIptcUTF8);
@@ -1188,16 +1201,15 @@ namespace QuickImageComment
             this.checkBoxButtonDeletesPermanent.Text = "Mit Schaltfläche \"Löschen\" werden Dateien unwiderruflich gelöscht";
             this.checkBoxButtonDeletesPermanent.UseVisualStyleBackColor = true;
             // 
-            // fixedCheckBoxSaveNameImage5
+            // checkBoxShowRatingButtonReject
             // 
-            this.fixedCheckBoxSaveNameImage5.AutoSize = true;
-            this.fixedCheckBoxSaveNameImage5.Location = new System.Drawing.Point(5, 282);
-            this.fixedCheckBoxSaveNameImage5.Name = "fixedCheckBoxSaveNameImage5";
-            this.fixedCheckBoxSaveNameImage5.Size = new System.Drawing.Size(89, 17);
-            this.fixedCheckBoxSaveNameImage5.TabIndex = 26;
-            this.fixedCheckBoxSaveNameImage5.Tag = "";
-            this.fixedCheckBoxSaveNameImage5.Text = "NameImage5";
-            this.fixedCheckBoxSaveNameImage5.UseVisualStyleBackColor = true;
+            this.checkBoxShowRatingButtonReject.AutoSize = true;
+            this.checkBoxShowRatingButtonReject.Location = new System.Drawing.Point(455, 6);
+            this.checkBoxShowRatingButtonReject.Name = "checkBoxShowRatingButtonReject";
+            this.checkBoxShowRatingButtonReject.Size = new System.Drawing.Size(256, 17);
+            this.checkBoxShowRatingButtonReject.TabIndex = 41;
+            this.checkBoxShowRatingButtonReject.Text = "Bewrtung: Schaltfläche für \"Ablehnen\" anzeigen";
+            this.checkBoxShowRatingButtonReject.UseVisualStyleBackColor = true;
             // 
             // FormSettings
             // 
@@ -1350,5 +1362,6 @@ namespace QuickImageComment
         private System.Windows.Forms.CheckBox fixedCheckBoxSaveNameVideo1;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.CheckBox fixedCheckBoxSaveNameImage5;
+        private System.Windows.Forms.CheckBox checkBoxShowRatingButtonReject;
     }
 }

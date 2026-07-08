@@ -218,7 +218,8 @@ namespace QuickImageComment
             logDifferencesMetaData,
             showFocusPointImageDetails,
             showFocusPointMainMask,
-            zoomFactorSystem
+            zoomFactorSystem,
+            showRatingRejectButton
         };
 
         public enum enumCfgUserInt
@@ -966,6 +967,12 @@ namespace QuickImageComment
                 // fill language definitions/texts
                 LangCfg.init(ConfigPath);
             }
+
+
+            // ask for values not yet found in user configuration file
+            // after LangCfg.init as translation of message is needed
+            ConfigDefinition.aksForCfgUserBoolIfUndefined(ConfigDefinition.enumCfgUserBool.showRatingRejectButton,
+                LangCfg.Message.Q_showRatingRejectButton);
 
             // if no entries for MetaDataDefinitionsChange found, define initial set
             if (MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForChange].Count == 0)
@@ -3273,6 +3280,24 @@ namespace QuickImageComment
                 return true;
             }
         }
+
+        // ask user, if user configuration items of type bool is not yet defined
+        public static void aksForCfgUserBoolIfUndefined(enumCfgUserBool ConfigEnum, LangCfg.Message message)
+        {
+            if (!ConfigItems.ContainsKey(ConfigEnum.ToString()))
+            {
+                DialogResult answer = GeneralUtilities.questionMessage(message);
+                if (answer == DialogResult.Yes)
+                {
+                    ConfigItems[ConfigEnum.ToString()] = true;
+                }
+                else
+                {
+                    ConfigItems[ConfigEnum.ToString()] = false;
+                }
+            }
+        }
+
 
         // fill trimmed predefined key words
         private static void fillPredefinedKeyWordsTrimmed()

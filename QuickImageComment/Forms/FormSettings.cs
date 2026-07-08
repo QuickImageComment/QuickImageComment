@@ -125,6 +125,7 @@ namespace QuickImageComment
             checkBoxExifUTF8.Checked = ConfigDefinition.getCfgUserBool(ConfigDefinition.enumCfgUserBool.WriteExifUtf8);
             checkBoxIptcUTF8.Checked = ConfigDefinition.getCfgUserBool(ConfigDefinition.enumCfgUserBool.WriteIptcUtf8);
 
+            checkBoxShowRatingButtonReject.Checked = ConfigDefinition.getCfgUserBool(ConfigDefinition.enumCfgUserBool.showRatingRejectButton);
             checkBoxLogDiffMetaData.Checked = ConfigDefinition.getCfgUserBool(ConfigDefinition.enumCfgUserBool.logDifferencesMetaData);
 
             CustomizationInterface.setFormToCustomizedValuesZoomInitial(this);
@@ -257,6 +258,7 @@ namespace QuickImageComment
             ConfigDefinition.setCfgUserBool(ConfigDefinition.enumCfgUserBool.WriteIptcUtf8, checkBoxIptcUTF8.Checked);
 
             bool logDifferencesMetaDataPrev = ConfigDefinition.getCfgUserBool(enumCfgUserBool.logDifferencesMetaData);
+            ConfigDefinition.setCfgUserBool(ConfigDefinition.enumCfgUserBool.showRatingRejectButton, checkBoxShowRatingButtonReject.Checked);
             ConfigDefinition.setCfgUserBool(ConfigDefinition.enumCfgUserBool.logDifferencesMetaData, checkBoxLogDiffMetaData.Checked);
             // when logging of meta data is now enabled, open FormLogger
             if (checkBoxLogDiffMetaData.Checked && !logDifferencesMetaDataPrev)

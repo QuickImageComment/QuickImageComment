@@ -1547,10 +1547,10 @@ namespace QuickImageComment
                 getMetaDataValueByKey("Image.CommentAccordingSettings", MetaDataItem.Format.Interpreted);
             if (ratingInt == -1)
                 listViewItemNew.SubItems[QuickImageCommentControls.ListViewFiles.columnRating].Text =
-                    Mdl2Font.Icon(UserControlRating.iconReject);
+                    Mdl2Font.Icon(UserControlRating.iconRejectFilled);
             else if (ratingInt > 0)
                 listViewItemNew.SubItems[QuickImageCommentControls.ListViewFiles.columnRating].Text =
-                    string.Concat(Enumerable.Repeat(Mdl2Font.Icon(UserControlRating.iconRatingStar), ratingInt));
+                    string.Concat(Enumerable.Repeat(Mdl2Font.Icon(UserControlRating.iconRatingStarFilled), ratingInt));
             listViewItemNew.SubItems[QuickImageCommentControls.ListViewFiles.columnRatingDec].Text =
                 getMetaDataValueByKey("Image.RatingDec", MetaDataItem.Format.Interpreted);
 
@@ -3747,6 +3747,7 @@ namespace QuickImageComment
                 ArrayList keysToRemove = new ArrayList();
                 foreach (string key in ImageChangedFields.Keys)
                 {
+                    Logger.log(ImageFileName + " " + key + " = " + ImageChangedFields[key]);
                     string baseKey = key;
                     int pipePos = key.IndexOf('|');
                     if (pipePos > 0) baseKey = key.Substring(0, pipePos);

@@ -241,7 +241,8 @@ namespace QuickImageComment
             I_functionNotForVideos,
             E_ExifToolWrapperError,
             E_ExifToolReponseParsingError,
-            Q_differentRatingFromRatingControl
+            Q_differentRatingFromRatingControl,
+            Q_showRatingRejectButton
         }
 
         public enum Others
