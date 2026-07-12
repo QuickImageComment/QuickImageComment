@@ -30,12 +30,12 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UserControlRating));
             this.buttonNone = new System.Windows.Forms.Button();
-            this.buttonStar5 = new System.Windows.Forms.Button();
-            this.buttonStar4 = new System.Windows.Forms.Button();
-            this.buttonStar1 = new System.Windows.Forms.Button();
-            this.buttonStar2 = new System.Windows.Forms.Button();
-            this.buttonStar3 = new System.Windows.Forms.Button();
-            this.buttonReject = new System.Windows.Forms.Button();
+            this.fixedButtonStar5 = new System.Windows.Forms.Button();
+            this.fixedButtonStar4 = new System.Windows.Forms.Button();
+            this.fixedButtonStar1 = new System.Windows.Forms.Button();
+            this.fixedButtonStar2 = new System.Windows.Forms.Button();
+            this.fixedButtonStar3 = new System.Windows.Forms.Button();
+            this.fixedButtonReject = new System.Windows.Forms.Button();
             this.buttonRevert = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -50,91 +50,91 @@
             this.buttonNone.UseVisualStyleBackColor = true;
             this.buttonNone.Click += new System.EventHandler(this.buttonNone_Click);
             // 
-            // buttonStar5
+            // fixedButtonStar5
             // 
-            this.buttonStar5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.buttonStar5.FlatAppearance.BorderSize = 2;
-            this.buttonStar5.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonStar5.Location = new System.Drawing.Point(130, 0);
-            this.buttonStar5.Name = "buttonStar5";
-            this.buttonStar5.Size = new System.Drawing.Size(28, 28);
-            this.buttonStar5.TabIndex = 5;
-            this.buttonStar5.Text = "*";
-            this.buttonStar5.UseVisualStyleBackColor = true;
-            this.buttonStar5.Click += new System.EventHandler(this.buttonStar_Click);
-            this.buttonStar5.MouseEnter += new System.EventHandler(this.buttonRating_MouseHover);
-            this.buttonStar5.MouseLeave += new System.EventHandler(this.buttonRating_MouseLeave);
+            this.fixedButtonStar5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.fixedButtonStar5.FlatAppearance.BorderSize = 2;
+            this.fixedButtonStar5.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.fixedButtonStar5.Location = new System.Drawing.Point(130, 0);
+            this.fixedButtonStar5.Name = "fixedButtonStar5";
+            this.fixedButtonStar5.Size = new System.Drawing.Size(28, 28);
+            this.fixedButtonStar5.TabIndex = 5;
+            this.fixedButtonStar5.Text = "*";
+            this.fixedButtonStar5.UseVisualStyleBackColor = true;
+            this.fixedButtonStar5.Click += new System.EventHandler(this.buttonStar_Click);
+            this.fixedButtonStar5.MouseEnter += new System.EventHandler(this.buttonRating_MouseHover);
+            this.fixedButtonStar5.MouseLeave += new System.EventHandler(this.buttonRating_MouseLeave);
             // 
-            // buttonStar4
+            // fixedButtonStar4
             // 
-            this.buttonStar4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.buttonStar4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonStar4.Location = new System.Drawing.Point(104, 0);
-            this.buttonStar4.Name = "buttonStar4";
-            this.buttonStar4.Size = new System.Drawing.Size(28, 28);
-            this.buttonStar4.TabIndex = 4;
-            this.buttonStar4.Text = "*";
-            this.buttonStar4.UseVisualStyleBackColor = true;
-            this.buttonStar4.Click += new System.EventHandler(this.buttonStar_Click);
-            this.buttonStar4.MouseEnter += new System.EventHandler(this.buttonRating_MouseHover);
-            this.buttonStar4.MouseLeave += new System.EventHandler(this.buttonRating_MouseLeave);
+            this.fixedButtonStar4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.fixedButtonStar4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.fixedButtonStar4.Location = new System.Drawing.Point(104, 0);
+            this.fixedButtonStar4.Name = "fixedButtonStar4";
+            this.fixedButtonStar4.Size = new System.Drawing.Size(28, 28);
+            this.fixedButtonStar4.TabIndex = 4;
+            this.fixedButtonStar4.Text = "*";
+            this.fixedButtonStar4.UseVisualStyleBackColor = true;
+            this.fixedButtonStar4.Click += new System.EventHandler(this.buttonStar_Click);
+            this.fixedButtonStar4.MouseEnter += new System.EventHandler(this.buttonRating_MouseHover);
+            this.fixedButtonStar4.MouseLeave += new System.EventHandler(this.buttonRating_MouseLeave);
             // 
-            // buttonStar1
+            // fixedButtonStar1
             // 
-            this.buttonStar1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.buttonStar1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonStar1.Location = new System.Drawing.Point(26, 0);
-            this.buttonStar1.Name = "buttonStar1";
-            this.buttonStar1.Size = new System.Drawing.Size(28, 28);
-            this.buttonStar1.TabIndex = 3;
-            this.buttonStar1.Text = "*";
-            this.buttonStar1.UseVisualStyleBackColor = true;
-            this.buttonStar1.Click += new System.EventHandler(this.buttonStar_Click);
-            this.buttonStar1.MouseEnter += new System.EventHandler(this.buttonRating_MouseHover);
-            this.buttonStar1.MouseLeave += new System.EventHandler(this.buttonRating_MouseLeave);
+            this.fixedButtonStar1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.fixedButtonStar1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.fixedButtonStar1.Location = new System.Drawing.Point(26, 0);
+            this.fixedButtonStar1.Name = "fixedButtonStar1";
+            this.fixedButtonStar1.Size = new System.Drawing.Size(28, 28);
+            this.fixedButtonStar1.TabIndex = 3;
+            this.fixedButtonStar1.Text = "*";
+            this.fixedButtonStar1.UseVisualStyleBackColor = true;
+            this.fixedButtonStar1.Click += new System.EventHandler(this.buttonStar_Click);
+            this.fixedButtonStar1.MouseEnter += new System.EventHandler(this.buttonRating_MouseHover);
+            this.fixedButtonStar1.MouseLeave += new System.EventHandler(this.buttonRating_MouseLeave);
             // 
-            // buttonStar2
+            // fixedButtonStar2
             // 
-            this.buttonStar2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.buttonStar2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonStar2.Location = new System.Drawing.Point(52, 0);
-            this.buttonStar2.Name = "buttonStar2";
-            this.buttonStar2.Size = new System.Drawing.Size(28, 28);
-            this.buttonStar2.TabIndex = 2;
-            this.buttonStar2.Tag = "2";
-            this.buttonStar2.Text = "*";
-            this.buttonStar2.UseVisualStyleBackColor = true;
-            this.buttonStar2.Click += new System.EventHandler(this.buttonStar_Click);
-            this.buttonStar2.MouseEnter += new System.EventHandler(this.buttonRating_MouseHover);
-            this.buttonStar2.MouseLeave += new System.EventHandler(this.buttonRating_MouseLeave);
+            this.fixedButtonStar2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.fixedButtonStar2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.fixedButtonStar2.Location = new System.Drawing.Point(52, 0);
+            this.fixedButtonStar2.Name = "fixedButtonStar2";
+            this.fixedButtonStar2.Size = new System.Drawing.Size(28, 28);
+            this.fixedButtonStar2.TabIndex = 2;
+            this.fixedButtonStar2.Tag = "2";
+            this.fixedButtonStar2.Text = "*";
+            this.fixedButtonStar2.UseVisualStyleBackColor = true;
+            this.fixedButtonStar2.Click += new System.EventHandler(this.buttonStar_Click);
+            this.fixedButtonStar2.MouseEnter += new System.EventHandler(this.buttonRating_MouseHover);
+            this.fixedButtonStar2.MouseLeave += new System.EventHandler(this.buttonRating_MouseLeave);
             // 
-            // buttonStar3
+            // fixedButtonStar3
             // 
-            this.buttonStar3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.buttonStar3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonStar3.Location = new System.Drawing.Point(78, 0);
-            this.buttonStar3.Name = "buttonStar3";
-            this.buttonStar3.Size = new System.Drawing.Size(28, 28);
-            this.buttonStar3.TabIndex = 1;
-            this.buttonStar3.Text = "*";
-            this.buttonStar3.UseVisualStyleBackColor = true;
-            this.buttonStar3.Click += new System.EventHandler(this.buttonStar_Click);
-            this.buttonStar3.MouseEnter += new System.EventHandler(this.buttonRating_MouseHover);
-            this.buttonStar3.MouseLeave += new System.EventHandler(this.buttonRating_MouseLeave);
+            this.fixedButtonStar3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.fixedButtonStar3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.fixedButtonStar3.Location = new System.Drawing.Point(78, 0);
+            this.fixedButtonStar3.Name = "fixedButtonStar3";
+            this.fixedButtonStar3.Size = new System.Drawing.Size(28, 28);
+            this.fixedButtonStar3.TabIndex = 1;
+            this.fixedButtonStar3.Text = "*";
+            this.fixedButtonStar3.UseVisualStyleBackColor = true;
+            this.fixedButtonStar3.Click += new System.EventHandler(this.buttonStar_Click);
+            this.fixedButtonStar3.MouseEnter += new System.EventHandler(this.buttonRating_MouseHover);
+            this.fixedButtonStar3.MouseLeave += new System.EventHandler(this.buttonRating_MouseLeave);
             // 
-            // buttonReject
+            // fixedButtonReject
             // 
-            this.buttonReject.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.buttonReject.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonReject.Location = new System.Drawing.Point(0, 0);
-            this.buttonReject.Name = "buttonReject";
-            this.buttonReject.Size = new System.Drawing.Size(28, 28);
-            this.buttonReject.TabIndex = 0;
-            this.buttonReject.Text = "x";
-            this.buttonReject.UseVisualStyleBackColor = true;
-            this.buttonReject.Click += new System.EventHandler(this.buttonReject_Click);
-            this.buttonReject.MouseEnter += new System.EventHandler(this.buttonRating_MouseHover);
-            this.buttonReject.MouseLeave += new System.EventHandler(this.buttonRating_MouseLeave);
+            this.fixedButtonReject.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.fixedButtonReject.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.fixedButtonReject.Location = new System.Drawing.Point(0, 0);
+            this.fixedButtonReject.Name = "fixedButtonReject";
+            this.fixedButtonReject.Size = new System.Drawing.Size(28, 28);
+            this.fixedButtonReject.TabIndex = 0;
+            this.fixedButtonReject.Text = "x";
+            this.fixedButtonReject.UseVisualStyleBackColor = true;
+            this.fixedButtonReject.Click += new System.EventHandler(this.buttonReject_Click);
+            this.fixedButtonReject.MouseEnter += new System.EventHandler(this.buttonRating_MouseHover);
+            this.fixedButtonReject.MouseLeave += new System.EventHandler(this.buttonRating_MouseLeave);
             // 
             // buttonRevert
             // 
@@ -153,12 +153,12 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.buttonRevert);
             this.Controls.Add(this.buttonNone);
-            this.Controls.Add(this.buttonStar5);
-            this.Controls.Add(this.buttonStar4);
-            this.Controls.Add(this.buttonStar1);
-            this.Controls.Add(this.buttonStar2);
-            this.Controls.Add(this.buttonStar3);
-            this.Controls.Add(this.buttonReject);
+            this.Controls.Add(this.fixedButtonStar5);
+            this.Controls.Add(this.fixedButtonStar4);
+            this.Controls.Add(this.fixedButtonStar1);
+            this.Controls.Add(this.fixedButtonStar2);
+            this.Controls.Add(this.fixedButtonStar3);
+            this.Controls.Add(this.fixedButtonReject);
             this.Name = "UserControlRating";
             this.Size = new System.Drawing.Size(218, 28);
             this.ResumeLayout(false);
@@ -167,12 +167,12 @@
 
         #endregion
 
-        private System.Windows.Forms.Button buttonReject;
-        private System.Windows.Forms.Button buttonStar3;
-        private System.Windows.Forms.Button buttonStar2;
-        private System.Windows.Forms.Button buttonStar1;
-        private System.Windows.Forms.Button buttonStar4;
-        private System.Windows.Forms.Button buttonStar5;
+        private System.Windows.Forms.Button fixedButtonReject;
+        private System.Windows.Forms.Button fixedButtonStar3;
+        private System.Windows.Forms.Button fixedButtonStar2;
+        private System.Windows.Forms.Button fixedButtonStar1;
+        private System.Windows.Forms.Button fixedButtonStar4;
+        private System.Windows.Forms.Button fixedButtonStar5;
         private System.Windows.Forms.Button buttonNone;
         private System.Windows.Forms.Button buttonRevert;
     }

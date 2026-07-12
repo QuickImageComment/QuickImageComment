@@ -50,20 +50,20 @@ namespace QuickImageComment
         public UserControlRating()
         {
             InitializeComponent();
-            buttonReject.Tag = -1;
+            fixedButtonReject.Tag = -1;
             int ii = 1;
-            buttonStar1.Tag = ii++;
-            buttonStar2.Tag = ii++;
-            buttonStar3.Tag = ii++;
-            buttonStar4.Tag = ii++;
-            buttonStar5.Tag = ii++;
+            fixedButtonStar1.Tag = ii++;
+            fixedButtonStar2.Tag = ii++;
+            fixedButtonStar3.Tag = ii++;
+            fixedButtonStar4.Tag = ii++;
+            fixedButtonStar5.Tag = ii++;
 
             foreach (Button button in this.Controls)
             {
                 button.Font = Mdl2Font.GetFont(this.Font.Size, System.Drawing.FontStyle.Regular);
                 if (button.Tag != null && (int)button.Tag > 0) button.Text = Mdl2Font.Icon(iconRatingStar);
             }
-            buttonReject.Text = Mdl2Font.Icon(iconReject);
+            fixedButtonReject.Text = Mdl2Font.Icon(iconReject);
         }
         private void buttonRating_MouseHover(object sender, EventArgs e)
         {
@@ -143,7 +143,7 @@ namespace QuickImageComment
 
         internal void setInitialRating(int initialRating)
         {
-            buttonReject.Visible = ConfigDefinition.getCfgUserBool(ConfigDefinition.enumCfgUserBool.showRatingRejectButton);
+            fixedButtonReject.Visible = ConfigDefinition.getCfgUserBool(ConfigDefinition.enumCfgUserBool.showRatingRejectButton);
             this.initialRating = initialRating;
             rating = initialRating;
             markButtons();
