@@ -242,8 +242,6 @@
     <Compile Include="JR.Utils.GUI.Forms\FlexibleMessageBox.cs" />
     <Compile Include="Utilities\ChangeableFieldSpecification.cs" />
     <Compile Include="Utilities\DirectoryWatcher.cs" />
-    <Compile Include="Utilities\DisplayScaleReaderLegacy.cs" />
-    <Compile Include="Utilities\DpiMonitor.cs" />
     <Compile Include="Utilities\DropFileOnProcess.cs" />
     <Compile Include="Utilities\EditExternalDefinition.cs" />
     <Compile Include="Utilities\Mdl2Font.cs" />
@@ -806,6 +804,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="config\QIC_Language_Français.cfg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="config\QIC_Language_Japanese.cfg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="config\QIC_TagLookup_Deutsch.cfg">

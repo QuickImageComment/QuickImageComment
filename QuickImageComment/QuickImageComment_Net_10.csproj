@@ -150,6 +150,9 @@
     <None Update="config\QIC_Language_Français.cfg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="config\QIC_Language_Japanese.cfg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="config\QIC_TagLookup_Deutsch.cfg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

@@ -3747,7 +3747,6 @@ namespace QuickImageComment
                 ArrayList keysToRemove = new ArrayList();
                 foreach (string key in ImageChangedFields.Keys)
                 {
-                    Logger.log(ImageFileName + " " + key + " = " + ImageChangedFields[key]);
                     string baseKey = key;
                     int pipePos = key.IndexOf('|');
                     if (pipePos > 0) baseKey = key.Substring(0, pipePos);

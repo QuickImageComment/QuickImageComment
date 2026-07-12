@@ -138,13 +138,13 @@ namespace QuickImageComment
             this.label11 = new System.Windows.Forms.Label();
             this.buttonExifToolSettings = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.checkBoxShowRatingButtonReject = new System.Windows.Forms.CheckBox();
             this.checkBoxLogDiffMetaData = new System.Windows.Forms.CheckBox();
             this.comboBoxCharsetUserComment = new System.Windows.Forms.ComboBox();
             this.checkBoxIptcUTF8 = new System.Windows.Forms.CheckBox();
             this.checkBoxExifUTF8 = new System.Windows.Forms.CheckBox();
             this.labelCharSet = new System.Windows.Forms.Label();
             this.checkBoxButtonDeletesPermanent = new System.Windows.Forms.CheckBox();
-            this.checkBoxShowRatingButtonReject = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxLastComments)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFullSizeImageCacheMaxSize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaximumMemoryForCaching)).BeginInit();
@@ -1140,6 +1140,16 @@ namespace QuickImageComment
             this.panel3.Size = new System.Drawing.Size(983, 65);
             this.panel3.TabIndex = 36;
             // 
+            // checkBoxShowRatingButtonReject
+            // 
+            this.checkBoxShowRatingButtonReject.AutoSize = true;
+            this.checkBoxShowRatingButtonReject.Location = new System.Drawing.Point(455, 6);
+            this.checkBoxShowRatingButtonReject.Name = "checkBoxShowRatingButtonReject";
+            this.checkBoxShowRatingButtonReject.Size = new System.Drawing.Size(262, 17);
+            this.checkBoxShowRatingButtonReject.TabIndex = 41;
+            this.checkBoxShowRatingButtonReject.Text = "Bewertung: Schaltfläche für \"Ablehnen\" anzeigen";
+            this.checkBoxShowRatingButtonReject.UseVisualStyleBackColor = true;
+            // 
             // checkBoxLogDiffMetaData
             // 
             this.checkBoxLogDiffMetaData.AutoSize = true;
@@ -1200,16 +1210,6 @@ namespace QuickImageComment
             this.checkBoxButtonDeletesPermanent.TabIndex = 37;
             this.checkBoxButtonDeletesPermanent.Text = "Mit Schaltfläche \"Löschen\" werden Dateien unwiderruflich gelöscht";
             this.checkBoxButtonDeletesPermanent.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxShowRatingButtonReject
-            // 
-            this.checkBoxShowRatingButtonReject.AutoSize = true;
-            this.checkBoxShowRatingButtonReject.Location = new System.Drawing.Point(455, 6);
-            this.checkBoxShowRatingButtonReject.Name = "checkBoxShowRatingButtonReject";
-            this.checkBoxShowRatingButtonReject.Size = new System.Drawing.Size(256, 17);
-            this.checkBoxShowRatingButtonReject.TabIndex = 41;
-            this.checkBoxShowRatingButtonReject.Text = "Bewrtung: Schaltfläche für \"Ablehnen\" anzeigen";
-            this.checkBoxShowRatingButtonReject.UseVisualStyleBackColor = true;
             // 
             // FormSettings
             // 
