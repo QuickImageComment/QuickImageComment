@@ -1,4 +1,4 @@
-//Copyright (C) 2009 Norbert Wagner
+ï»¿//Copyright (C) 2009 Norbert Wagner
 
 //This program is free software; you can redistribute it and/or
 //modify it under the terms of the GNU General Public License
@@ -270,7 +270,7 @@ namespace QuickImageComment
             this.buttonChangeFolder.Name = "buttonChangeFolder";
             this.buttonChangeFolder.Size = new System.Drawing.Size(100, 23);
             this.buttonChangeFolder.TabIndex = 12;
-            this.buttonChangeFolder.Text = "Ordner ändern";
+            this.buttonChangeFolder.Text = "Ordner Ã¤ndern";
             this.buttonChangeFolder.UseVisualStyleBackColor = true;
             this.buttonChangeFolder.Click += new System.EventHandler(this.buttonChangeFolder_Click);
             // 
@@ -329,7 +329,7 @@ namespace QuickImageComment
             this.buttonClearCriteria.Name = "buttonClearCriteria";
             this.buttonClearCriteria.Size = new System.Drawing.Size(99, 26);
             this.buttonClearCriteria.TabIndex = 19;
-            this.buttonClearCriteria.Text = "Kriterien löschen";
+            this.buttonClearCriteria.Text = "Kriterien lÃ¶schen";
             this.buttonClearCriteria.UseVisualStyleBackColor = true;
             this.buttonClearCriteria.Click += new System.EventHandler(this.buttonClearCriteria_Click);
             // 
@@ -504,7 +504,7 @@ namespace QuickImageComment
             this.labelKeyWords.Name = "labelKeyWords";
             this.labelKeyWords.Size = new System.Drawing.Size(145, 13);
             this.labelKeyWords.TabIndex = 25;
-            this.labelKeyWords.Text = "Enthält Schlüsselworte:";
+            this.labelKeyWords.Text = "EnthÃ¤lt SchlÃ¼sselworte:";
             this.labelKeyWords.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // checkBoxShowDataTable
@@ -600,7 +600,7 @@ namespace QuickImageComment
             this.MinimumSize = new System.Drawing.Size(816, 407);
             this.Name = "FormFind";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Suche über Eigenschaften";
+            this.Text = "Suche Ã¼ber Eigenschaften";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormFind_FormClosing);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FormFind_KeyDown);
             this.panelFilterInner.ResumeLayout(false);
