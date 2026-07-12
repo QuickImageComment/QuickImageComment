@@ -218,7 +218,6 @@ namespace QuickImageComment
             logDifferencesMetaData,
             showFocusPointImageDetails,
             showFocusPointMainMask,
-            zoomFactorSystem,
             showRatingRejectButton
         };
 
@@ -673,7 +672,6 @@ namespace QuickImageComment
             ConfigItems.Add(enumCfgUserBool.logDifferencesMetaData.ToString(), false);
             ConfigItems.Add(enumCfgUserBool.showFocusPointImageDetails.ToString(), false);
             ConfigItems.Add(enumCfgUserBool.showFocusPointMainMask.ToString(), false);
-            ConfigItems.Add(enumCfgUserBool.zoomFactorSystem.ToString(), true);
 
             ConfigItems.Add(enumCfgUserString.LastCheckForNewVersion.ToString(), "not configured");
             ConfigItems.Add(enumCfgUserString.NextCheckForNewVersion.ToString(), "not configured");

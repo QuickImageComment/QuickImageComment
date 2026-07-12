@@ -26,9 +26,8 @@ namespace QuickImageComment
         private int initialConfigZoomFactorPercentGeneral;
         private int initialConfigZoomFactorPercentToolbar;
         private int initialConfigZoomFactorPercentThumbnail;
-        private bool initialConfigZoomSystem = false;
 
-        public FormScale(float dpiSettings)
+        public FormScale()
         {
             InitializeComponent();
             initialFontSize = dynamicLabelExample.Font.Size;
@@ -36,7 +35,6 @@ namespace QuickImageComment
             // after possible scaling from customization interface, restore font size from example label
             dynamicLabelExample.Font = new Font(dynamicLabelExample.Font.FontFamily, initialFontSize, dynamicLabelExample.Font.Style);
 
-            initialConfigZoomSystem = ConfigDefinition.getCfgUserBool(ConfigDefinition.enumCfgUserBool.zoomFactorSystem);
             initialConfigZoomFactorPercentGeneral = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.zoomFactorPerCentGeneral);
             initialConfigZoomFactorPercentToolbar = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.zoomFactorPerCentToolbar);
             initialConfigZoomFactorPercentThumbnail = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.zoomFactorPerCentThumbnail);
@@ -57,16 +55,7 @@ namespace QuickImageComment
             // (with show one radioButton is checked)
             this.Show();
 
-            if (initialConfigZoomSystem)
-            {
-                radioButtonSystem.Checked = true;
-            }
-            else
-            {
-                // changing numericUpDownGeneral.Value will trigger an event which sets the radioButtons accordingly
-                // except for the system radioButton which needs to be set separately above
-                numericUpDownGeneral.Value = initialConfigZoomFactorPercentGeneral;
-            }
+            numericUpDownGeneral.Value = initialConfigZoomFactorPercentGeneral;
 
             if (initialConfigZoomFactorPercentToolbar > 0)
             {
@@ -122,17 +111,15 @@ namespace QuickImageComment
             if (checkBoxSeparateScaleToolbar.Checked) newConfigZoomFactorPercentToolbar = (int)numericUpDownToolbar.Value;
             int newConfigZoomFactorPercentThumbnail = -1;
             if (checkBoxSeparateScaleThumbnail.Checked) newConfigZoomFactorPercentThumbnail = (int)numericUpDownThumbnail.Value;
-            bool newConfigZoomSystem = radioButtonSystem.Checked;
             // store new zoom factor and adjust mask
-            storeZoomFactorAndAdjustMainMask(newConfigZoomSystem,
+            storeZoomFactorAndAdjustMainMask(
                 newConfigZoomFactorPercentGeneral, newConfigZoomFactorPercentToolbar, newConfigZoomFactorPercentThumbnail);
         }
 
         private void buttonAbort_Click(object sender, EventArgs e)
         {
             // restore initial zoom factor and adjust mask
-            storeZoomFactorAndAdjustMainMask(initialConfigZoomSystem,
-                initialConfigZoomFactorPercentGeneral, initialConfigZoomFactorPercentToolbar, initialConfigZoomFactorPercentThumbnail);
+            storeZoomFactorAndAdjustMainMask(initialConfigZoomFactorPercentGeneral, initialConfigZoomFactorPercentToolbar, initialConfigZoomFactorPercentThumbnail);
 
             Close();
         }
@@ -157,25 +144,17 @@ namespace QuickImageComment
             if (checkBoxSeparateScaleToolbar.Checked) newZoomFactorToolbar = (int)numericUpDownToolbar.Value;
             int newZoomFactorThumbnail = -1;
             if (checkBoxSeparateScaleThumbnail.Checked) newZoomFactorThumbnail = (int)numericUpDownThumbnail.Value;
-            // when user selects system, numericUpDownGeneral is set to system value
-            // then the radiobuttons shall not be changed based on the below logic
-            if (!radioButtonSystem.Checked || numericUpDownGeneral.Value != DisplayScaleReaderLegacy.GetScalePercent())
+            foreach (RadioButton radioButton in panelRecommendedScales.Controls)
             {
-                {
-                    foreach (RadioButton radioButton in panelRecommendedScales.Controls)
-                    {
-                        radioButton.Checked = false;
-                    }
-                }
-                foreach (RadioButton radioButton in panelRecommendedScales.Controls)
-                {
-                    radioButton.Checked = (int)radioButton.Tag == newZoomFactorGeneral;
-                }
+                radioButton.Checked = false;
             }
-            bool newConfigZoomSystem = radioButtonSystem.Checked;
+            foreach (RadioButton radioButton in panelRecommendedScales.Controls)
+            {
+                radioButton.Checked = (int)radioButton.Tag == newZoomFactorGeneral;
+            }
             if (checkBoxApplyDirect.Checked)
             {
-                storeZoomFactorAndAdjustMainMask(newConfigZoomSystem,
+                storeZoomFactorAndAdjustMainMask(
                     newZoomFactorGeneral, newZoomFactorToolbar, newZoomFactorThumbnail);
             }
         }
@@ -188,18 +167,18 @@ namespace QuickImageComment
                 {
                     numericUpDownGeneral.Value = (int)((RadioButton)sender).Tag;
                 }
-                else
-                {
-                    numericUpDownGeneral.Value = DisplayScaleReaderLegacy.GetScalePercent();
-                }
+                //else
+                //{
+                //    numericUpDownGeneral.Value = RealDpiHelper.GetRealScalePercent();
+                //}
             }
         }
 
-        private void storeZoomFactorAndAdjustMainMask(bool zoomFactorSystem,
+        private void storeZoomFactorAndAdjustMainMask(
             int zoomFactorPercentGeneral, int zoomFactorPercentToolbar, int zoomFactorPercentThumbnail)
         {
             ((FormQuickImageComment)MainMaskInterface.getMainMask()).adjustAfterScaleChange(
-                zoomFactorSystem, zoomFactorPercentGeneral, zoomFactorPercentToolbar, zoomFactorPercentThumbnail);
+                zoomFactorPercentGeneral, zoomFactorPercentToolbar, zoomFactorPercentThumbnail);
         }
     }
 }

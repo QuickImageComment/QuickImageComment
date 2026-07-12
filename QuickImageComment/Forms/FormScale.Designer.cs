@@ -33,7 +33,6 @@
             this.buttonOk = new System.Windows.Forms.Button();
             this.buttonAbort = new System.Windows.Forms.Button();
             this.panelRecommendedScales = new System.Windows.Forms.Panel();
-            this.radioButtonSystem = new System.Windows.Forms.RadioButton();
             this.fixedRadioButton1 = new System.Windows.Forms.RadioButton();
             this.fixedRadioButton7 = new System.Windows.Forms.RadioButton();
             this.fixedRadioButton6 = new System.Windows.Forms.RadioButton();
@@ -98,7 +97,6 @@
             this.panelRecommendedScales.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelRecommendedScales.Controls.Add(this.radioButtonSystem);
             this.panelRecommendedScales.Controls.Add(this.fixedRadioButton1);
             this.panelRecommendedScales.Controls.Add(this.fixedRadioButton7);
             this.panelRecommendedScales.Controls.Add(this.fixedRadioButton6);
@@ -110,17 +108,6 @@
             this.panelRecommendedScales.Name = "panelRecommendedScales";
             this.panelRecommendedScales.Size = new System.Drawing.Size(357, 105);
             this.panelRecommendedScales.TabIndex = 0;
-            // 
-            // radioButtonSystem
-            // 
-            this.radioButtonSystem.AutoSize = true;
-            this.radioButtonSystem.Location = new System.Drawing.Point(159, 76);
-            this.radioButtonSystem.Name = "radioButtonSystem";
-            this.radioButtonSystem.Size = new System.Drawing.Size(111, 17);
-            this.radioButtonSystem.TabIndex = 7;
-            this.radioButtonSystem.TabStop = true;
-            this.radioButtonSystem.Text = "Systemeinstellung";
-            this.radioButtonSystem.UseVisualStyleBackColor = true;
             // 
             // fixedRadioButton1
             // 
@@ -441,6 +428,5 @@
         private System.Windows.Forms.Label fixedLabelPercentThumbnail;
         private System.Windows.Forms.NumericUpDown numericUpDownThumbnail;
         private System.Windows.Forms.CheckBox checkBoxSeparateScaleThumbnail;
-        private System.Windows.Forms.RadioButton radioButtonSystem;
     }
 }
