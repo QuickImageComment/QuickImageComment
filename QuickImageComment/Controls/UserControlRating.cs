@@ -65,7 +65,7 @@ namespace QuickImageComment
             }
             fixedButtonReject.Text = Mdl2Font.Icon(iconReject);
         }
-        private void buttonRating_MouseHover(object sender, EventArgs e)
+        private void buttonRating_MouseEnter(object sender, EventArgs e)
         {
             if (((Button)sender).Tag != null)
             {
@@ -81,6 +81,10 @@ namespace QuickImageComment
                             button.Text = selected == (int)button.Tag ? Mdl2Font.Icon(iconRejectFilled) : Mdl2Font.Icon(iconReject);
                     }
                 }
+                if (selected == -1)
+                {
+                    ((FormQuickImageComment)this.FindForm()).toolTip1.ShowAtOffset(LangCfg.getText(LangCfg.Others.ratingReject), this);
+                }
             }
         }
 
@@ -90,6 +94,7 @@ namespace QuickImageComment
             {
                 markButtons();
                 mouseHovered = false;
+                ((FormQuickImageComment)this.FindForm()).toolTip1.Hide(this);
             }
         }
 

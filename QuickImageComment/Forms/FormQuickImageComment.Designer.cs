@@ -2930,7 +2930,7 @@ namespace QuickImageComment
         private System.Windows.Forms.ToolStripSeparator toolStripSeparatorEditExternal;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemSelectFolder;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemScale;
-        private ToolTipQIC toolTip1;
+        internal ToolTipQIC toolTip1;
         private System.Windows.Forms.DataGridViewTextBoxColumn KeyPrim;
         private System.Windows.Forms.DataGridViewTextBoxColumn KeySec;
         internal System.Windows.Forms.Label dynamicLabelImageNumber;

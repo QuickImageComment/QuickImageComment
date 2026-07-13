@@ -62,7 +62,7 @@
             this.fixedButtonStar5.Text = "*";
             this.fixedButtonStar5.UseVisualStyleBackColor = true;
             this.fixedButtonStar5.Click += new System.EventHandler(this.buttonStar_Click);
-            this.fixedButtonStar5.MouseEnter += new System.EventHandler(this.buttonRating_MouseHover);
+            this.fixedButtonStar5.MouseEnter += new System.EventHandler(this.buttonRating_MouseEnter);
             this.fixedButtonStar5.MouseLeave += new System.EventHandler(this.buttonRating_MouseLeave);
             // 
             // fixedButtonStar4
@@ -76,7 +76,7 @@
             this.fixedButtonStar4.Text = "*";
             this.fixedButtonStar4.UseVisualStyleBackColor = true;
             this.fixedButtonStar4.Click += new System.EventHandler(this.buttonStar_Click);
-            this.fixedButtonStar4.MouseEnter += new System.EventHandler(this.buttonRating_MouseHover);
+            this.fixedButtonStar4.MouseEnter += new System.EventHandler(this.buttonRating_MouseEnter);
             this.fixedButtonStar4.MouseLeave += new System.EventHandler(this.buttonRating_MouseLeave);
             // 
             // fixedButtonStar1
@@ -90,7 +90,7 @@
             this.fixedButtonStar1.Text = "*";
             this.fixedButtonStar1.UseVisualStyleBackColor = true;
             this.fixedButtonStar1.Click += new System.EventHandler(this.buttonStar_Click);
-            this.fixedButtonStar1.MouseEnter += new System.EventHandler(this.buttonRating_MouseHover);
+            this.fixedButtonStar1.MouseEnter += new System.EventHandler(this.buttonRating_MouseEnter);
             this.fixedButtonStar1.MouseLeave += new System.EventHandler(this.buttonRating_MouseLeave);
             // 
             // fixedButtonStar2
@@ -105,7 +105,7 @@
             this.fixedButtonStar2.Text = "*";
             this.fixedButtonStar2.UseVisualStyleBackColor = true;
             this.fixedButtonStar2.Click += new System.EventHandler(this.buttonStar_Click);
-            this.fixedButtonStar2.MouseEnter += new System.EventHandler(this.buttonRating_MouseHover);
+            this.fixedButtonStar2.MouseEnter += new System.EventHandler(this.buttonRating_MouseEnter);
             this.fixedButtonStar2.MouseLeave += new System.EventHandler(this.buttonRating_MouseLeave);
             // 
             // fixedButtonStar3
@@ -119,7 +119,7 @@
             this.fixedButtonStar3.Text = "*";
             this.fixedButtonStar3.UseVisualStyleBackColor = true;
             this.fixedButtonStar3.Click += new System.EventHandler(this.buttonStar_Click);
-            this.fixedButtonStar3.MouseEnter += new System.EventHandler(this.buttonRating_MouseHover);
+            this.fixedButtonStar3.MouseEnter += new System.EventHandler(this.buttonRating_MouseEnter);
             this.fixedButtonStar3.MouseLeave += new System.EventHandler(this.buttonRating_MouseLeave);
             // 
             // fixedButtonReject
@@ -133,7 +133,7 @@
             this.fixedButtonReject.Text = "x";
             this.fixedButtonReject.UseVisualStyleBackColor = true;
             this.fixedButtonReject.Click += new System.EventHandler(this.buttonReject_Click);
-            this.fixedButtonReject.MouseEnter += new System.EventHandler(this.buttonRating_MouseHover);
+            this.fixedButtonReject.MouseEnter += new System.EventHandler(this.buttonRating_MouseEnter);
             this.fixedButtonReject.MouseLeave += new System.EventHandler(this.buttonRating_MouseLeave);
             // 
             // buttonRevert
