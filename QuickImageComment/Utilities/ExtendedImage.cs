@@ -1548,6 +1548,8 @@ namespace QuickImageComment
             if (ratingInt == -1)
                 listViewItemNew.SubItems[QuickImageCommentControls.ListViewFiles.columnRating].Text =
                     Mdl2Font.Icon(UserControlRating.iconRejectFilled);
+            if (ratingInt == 0)
+                listViewItemNew.SubItems[QuickImageCommentControls.ListViewFiles.columnRating].Text = "";
             else if (ratingInt > 0)
                 listViewItemNew.SubItems[QuickImageCommentControls.ListViewFiles.columnRating].Text =
                     string.Concat(Enumerable.Repeat(Mdl2Font.Icon(UserControlRating.iconRatingStarFilled), ratingInt));
