@@ -154,6 +154,7 @@ namespace QuickImageComment
                 // usedKey is the mapped ExifTool key in case there is a mapping for an exiv2 key
                 string mappedKey = ConfigDefinition.getExifToolTag4exiv2Read(aMetaDataDefinitionItem.KeyPrim);
                 string mappedType = aMetaDataDefinitionItem.TypePrim;
+                MetaDataItem.Format mappedFormat = aMetaDataDefinitionItem.FormatPrim;
                 if (mappedKey == null)
                 {
                     // there is no mapped key, so use the original key and type
@@ -163,6 +164,11 @@ namespace QuickImageComment
                 {
                     // there is a mapped key, so get the type for the mapped key
                     mappedType = TagUtilities.getTagType(mappedKey);
+                    // for ExifTool always use interpreted format as ExifTool does own PrintConv
+                    // Saving an integer without -n results in "Can't convert"
+                    // Saving converted value with -n results in "Not an integer"
+                    // So approach is to use always converted value; possible values can be retrieved using listx
+                    mappedFormat = MetaDataItem.Format.Interpreted;
                 }
 
                 if (AllChangeableKeys.Contains(mappedKey))
@@ -182,7 +188,7 @@ namespace QuickImageComment
                         ComboBox aComboBox = new ComboBox();
                         Label aLabel = new Label();
                         aComboBox.Tag = new ChangeableFieldSpecification(mappedKey,
-                            aMetaDataDefinitionItem.FormatPrim, mappedType, "x-default", -1,
+                            mappedFormat, mappedType, "x-default", -1,
                             index, aMetaDataDefinitionItem.Name);
                         aComboBox.Name = inputControlName(aComboBox);
                         aLabel.Name = "dynamicLabel" + aComboBox.Name;
@@ -196,7 +202,7 @@ namespace QuickImageComment
                             aComboBox = new ComboBox();
                             aLabel = new Label();
                             aComboBox.Tag = new ChangeableFieldSpecification(mappedKey,
-                                aMetaDataDefinitionItem.FormatPrim, mappedType, language, langIdx,
+                                mappedFormat, mappedType, language, langIdx,
                                 index, aMetaDataDefinitionItem.Name + "[" + language + "]");
                             aComboBox.Name = inputControlName(aComboBox);
                             aLabel.Name = "dynamicLabel" + aComboBox.Name;
@@ -221,7 +227,7 @@ namespace QuickImageComment
 
                         Label aLabel = new Label();
                         anInputControl.Tag = new ChangeableFieldSpecification(mappedKey,
-                            aMetaDataDefinitionItem.FormatPrim, mappedType, "", -1,
+                            mappedFormat, mappedType, "", -1,
                             index, aMetaDataDefinitionItem.Name);
                         anInputControl.Name = inputControlName(anInputControl);
                         aLabel.Name = "dynamicLabel" + anInputControl.Name;
