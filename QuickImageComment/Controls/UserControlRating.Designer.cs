@@ -55,9 +55,9 @@
             this.fixedButtonStar5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.fixedButtonStar5.FlatAppearance.BorderSize = 2;
             this.fixedButtonStar5.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.fixedButtonStar5.Location = new System.Drawing.Point(130, 0);
+            this.fixedButtonStar5.Location = new System.Drawing.Point(130, -5);
             this.fixedButtonStar5.Name = "fixedButtonStar5";
-            this.fixedButtonStar5.Size = new System.Drawing.Size(28, 28);
+            this.fixedButtonStar5.Size = new System.Drawing.Size(28, 32);
             this.fixedButtonStar5.TabIndex = 5;
             this.fixedButtonStar5.Text = "*";
             this.fixedButtonStar5.UseVisualStyleBackColor = true;
@@ -69,9 +69,9 @@
             // 
             this.fixedButtonStar4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.fixedButtonStar4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.fixedButtonStar4.Location = new System.Drawing.Point(104, 0);
+            this.fixedButtonStar4.Location = new System.Drawing.Point(104, -5);
             this.fixedButtonStar4.Name = "fixedButtonStar4";
-            this.fixedButtonStar4.Size = new System.Drawing.Size(28, 28);
+            this.fixedButtonStar4.Size = new System.Drawing.Size(28, 32);
             this.fixedButtonStar4.TabIndex = 4;
             this.fixedButtonStar4.Text = "*";
             this.fixedButtonStar4.UseVisualStyleBackColor = true;
@@ -83,9 +83,9 @@
             // 
             this.fixedButtonStar1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.fixedButtonStar1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.fixedButtonStar1.Location = new System.Drawing.Point(26, 0);
+            this.fixedButtonStar1.Location = new System.Drawing.Point(26, -5);
             this.fixedButtonStar1.Name = "fixedButtonStar1";
-            this.fixedButtonStar1.Size = new System.Drawing.Size(28, 28);
+            this.fixedButtonStar1.Size = new System.Drawing.Size(28, 32);
             this.fixedButtonStar1.TabIndex = 3;
             this.fixedButtonStar1.Text = "*";
             this.fixedButtonStar1.UseVisualStyleBackColor = true;
@@ -97,9 +97,9 @@
             // 
             this.fixedButtonStar2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.fixedButtonStar2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.fixedButtonStar2.Location = new System.Drawing.Point(52, 0);
+            this.fixedButtonStar2.Location = new System.Drawing.Point(52, -5);
             this.fixedButtonStar2.Name = "fixedButtonStar2";
-            this.fixedButtonStar2.Size = new System.Drawing.Size(28, 28);
+            this.fixedButtonStar2.Size = new System.Drawing.Size(28, 32);
             this.fixedButtonStar2.TabIndex = 2;
             this.fixedButtonStar2.Tag = "2";
             this.fixedButtonStar2.Text = "*";
@@ -112,9 +112,9 @@
             // 
             this.fixedButtonStar3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.fixedButtonStar3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.fixedButtonStar3.Location = new System.Drawing.Point(78, 0);
+            this.fixedButtonStar3.Location = new System.Drawing.Point(78, -5);
             this.fixedButtonStar3.Name = "fixedButtonStar3";
-            this.fixedButtonStar3.Size = new System.Drawing.Size(28, 28);
+            this.fixedButtonStar3.Size = new System.Drawing.Size(28, 32);
             this.fixedButtonStar3.TabIndex = 1;
             this.fixedButtonStar3.Text = "*";
             this.fixedButtonStar3.UseVisualStyleBackColor = true;
@@ -126,9 +126,9 @@
             // 
             this.fixedButtonReject.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.fixedButtonReject.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.fixedButtonReject.Location = new System.Drawing.Point(0, 0);
+            this.fixedButtonReject.Location = new System.Drawing.Point(0, -5);
             this.fixedButtonReject.Name = "fixedButtonReject";
-            this.fixedButtonReject.Size = new System.Drawing.Size(28, 28);
+            this.fixedButtonReject.Size = new System.Drawing.Size(28, 32);
             this.fixedButtonReject.TabIndex = 0;
             this.fixedButtonReject.Text = "x";
             this.fixedButtonReject.UseVisualStyleBackColor = true;

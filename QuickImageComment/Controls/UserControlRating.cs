@@ -29,18 +29,6 @@ namespace QuickImageComment
 
         // for conversion of "stars" to percentage, giving same values as Windows Explorer
         private static readonly string[] ratingPercents = { "1", "25", "50", "75", "99" };
-        internal static readonly string iconRatingStarFilled = "E735"; // FavoriteStarFilled
-        //internal static readonly string iconReject = "ECE4"; // Blocked2
-        internal static readonly string iconRatingStar = "E734"; //FavoriteStar 
-        //internal static readonly string iconUndo = "E7A7"; // Undo
-        //internal static readonly string iconReject = "E8D9"; // Unfavorite
-        //internal static readonly string iconDislike = "E8E0"; // Dislike
-        //internal static readonly string iconReject = "F140"; // StatusCircleBlock
-        //internal static readonly string iconStatusCircleBlock2 = "F141"; // StatusCircleBlock2
-        internal static readonly string iconReject = "EA39"; // ErrorBadge
-        internal static readonly string iconRejectFilled = "EB90"; // StatusErrorFull  
-
-
 
         internal int rating { get; private set; } = 0;
         private int initialRating = 0;
@@ -60,10 +48,13 @@ namespace QuickImageComment
 
             foreach (Button button in this.Controls)
             {
-                button.Font = Mdl2Font.GetFont(this.Font.Size, System.Drawing.FontStyle.Regular);
-                if (button.Tag != null && (int)button.Tag > 0) button.Text = Mdl2Font.Icon(iconRatingStar);
+                // not for .NET 4, as standard font is used for rating
+#if !NET4
+                button.Font = IconFont.GetFont(button.Font.Size);
+#endif
+                if (button.Tag != null && (int)button.Tag > 0) button.Text = IconFont.Get(IconFont.Name.RatingStar);
             }
-            fixedButtonReject.Text = Mdl2Font.Icon(iconReject);
+            fixedButtonReject.Text = IconFont.Get(IconFont.Name.RatingReject);
         }
         private void buttonRating_MouseEnter(object sender, EventArgs e)
         {
@@ -76,9 +67,9 @@ namespace QuickImageComment
                     if (button.Tag != null)
                     {
                         if ((int)button.Tag > 0)
-                            button.Text = selected >= (int)button.Tag ? Mdl2Font.Icon(iconRatingStarFilled) : Mdl2Font.Icon(iconRatingStar);
+                            button.Text = selected >= (int)button.Tag ? IconFont.Get(IconFont.Name.RatingStarFilled) : IconFont.Get(IconFont.Name.RatingStar);
                         else
-                            button.Text = selected == (int)button.Tag ? Mdl2Font.Icon(iconRejectFilled) : Mdl2Font.Icon(iconReject);
+                            button.Text = selected == (int)button.Tag ? IconFont.Get(IconFont.Name.RatingRejectFilled) : IconFont.Get(IconFont.Name.RatingReject);
                     }
                 }
                 if (selected == -1)
@@ -139,9 +130,9 @@ namespace QuickImageComment
                 if (button.Tag != null)
                 {
                     if ((int)button.Tag > 0)
-                        button.Text = rating >= (int)button.Tag ? Mdl2Font.Icon(iconRatingStarFilled) : Mdl2Font.Icon(iconRatingStar);
+                        button.Text = rating >= (int)button.Tag ? IconFont.Get(IconFont.Name.RatingStarFilled) : IconFont.Get(IconFont.Name.RatingStar);
                     else
-                        button.Text = rating == (int)button.Tag ? Mdl2Font.Icon(iconRejectFilled) : Mdl2Font.Icon(iconReject);
+                        button.Text = rating == (int)button.Tag ? IconFont.Get(IconFont.Name.RatingRejectFilled) : IconFont.Get(IconFont.Name.RatingReject);
                 }
             }
         }

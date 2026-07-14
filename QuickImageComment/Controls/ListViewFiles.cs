@@ -614,6 +614,8 @@ namespace QuickImageCommentControls
             }
         }
 
+        // owner draw not for .NET 4, as standard font is used for rating column
+#if !NET4
         protected override void OnDrawSubItem(DrawListViewSubItemEventArgs e)
         {
             var bg = (e.Item.Selected)
@@ -627,7 +629,7 @@ namespace QuickImageCommentControls
                 : System.Drawing.SystemColors.WindowText;
 
             Font font = (e.ColumnIndex == columnRating)
-                ? Mdl2Font.GetFont(this.Font.Size)
+                ? IconFont.GetFont(this.Font.Size)
                 : this.Font;
 
             TextRenderer.DrawText(
@@ -644,6 +646,7 @@ namespace QuickImageCommentControls
         {
             e.DrawDefault = true;
         }
+#endif
 
         private void ListViewFiles_MouseDown(object sender, MouseEventArgs e)
         {

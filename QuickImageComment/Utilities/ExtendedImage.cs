@@ -1547,12 +1547,12 @@ namespace QuickImageComment
                 getMetaDataValueByKey("Image.CommentAccordingSettings", MetaDataItem.Format.Interpreted);
             if (ratingInt == -1)
                 listViewItemNew.SubItems[QuickImageCommentControls.ListViewFiles.columnRating].Text =
-                    Mdl2Font.Icon(UserControlRating.iconRejectFilled);
+                    IconFont.Get(IconFont.Name.RatingRejectFilled);
             if (ratingInt == 0)
                 listViewItemNew.SubItems[QuickImageCommentControls.ListViewFiles.columnRating].Text = "";
             else if (ratingInt > 0)
                 listViewItemNew.SubItems[QuickImageCommentControls.ListViewFiles.columnRating].Text =
-                    string.Concat(Enumerable.Repeat(Mdl2Font.Icon(UserControlRating.iconRatingStarFilled), ratingInt));
+                    string.Concat(Enumerable.Repeat(IconFont.Get(IconFont.Name.RatingStarFilled), ratingInt));
             listViewItemNew.SubItems[QuickImageCommentControls.ListViewFiles.columnRatingDec].Text =
                 getMetaDataValueByKey("Image.RatingDec", MetaDataItem.Format.Interpreted);
 

@@ -1440,7 +1440,7 @@ namespace QuickImageComment
                     url += queryParameterNormalized
                         + "&format=json&limit=10&addressdetails=1";
 #if NET4
-                                        ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
+                    ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
 #endif
                     WebClient theWebClient = new WebClient();
                     theWebClient.Encoding = System.Text.Encoding.UTF8;
