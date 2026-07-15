@@ -666,7 +666,7 @@ namespace QuickImageCommentControls
                     destHeight = (int)(srcRect.Height * Width / srcRect.Width);
                 }
                 // in case source image is smaller than needed for zoomFactor, adjust destination rectangle
-                if (zoomFactor > 0 && magnificationFactor < 0)
+                if (zoomFactor > 0 && magnificationFactor < 0 && !zoomFit)
                 {
                     destWidth = Math.Min(destWidth, (int)(srcRect.Width * zoomFactor));
                     destHeight = Math.Min(destHeight, (int)(srcRect.Height * zoomFactor));
