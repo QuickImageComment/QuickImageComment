@@ -1296,11 +1296,7 @@ namespace QuickImageComment
             {
                 listViewFiles.AutoResizeColumns(ColumnHeaderAutoResizeStyle.None);
             }
-#if NET4
             listViewFiles.OwnerDraw = listViewFiles.View != View.List && listViewFiles.View != View.Details;
-#else
-            listViewFiles.OwnerDraw = listViewFiles.View != View.List;
-#endif
 
             theFormQuickImageComment.toolStripMenuItemDetails.Checked = listViewFiles.View.Equals(View.Details) &&
                 listViewFiles.viewDetailSubtype == ListViewFiles.enumViewDetailSubtype.Standard;

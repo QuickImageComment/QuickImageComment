@@ -49,9 +49,6 @@ namespace QuickImageComment
             foreach (Button button in this.Controls)
             {
                 // not for .NET 4, as standard font is used for rating
-#if !NET4
-                button.Font = IconFont.GetFont(button.Font.Size);
-#endif
                 if (button.Tag != null && (int)button.Tag > 0) button.Text = IconFont.Get(IconFont.Name.RatingStar);
             }
             fixedButtonReject.Text = IconFont.Get(IconFont.Name.RatingReject);

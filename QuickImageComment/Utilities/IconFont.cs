@@ -14,6 +14,8 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
+using System;
+
 namespace QuickImageComment
 {
     public static class IconFont
@@ -25,9 +27,7 @@ namespace QuickImageComment
             RatingReject,
             RatingRejectFilled
         }
-#if !NET4
-        private static readonly System.Drawing.FontFamily IconFontFamily = new System.Drawing.FontFamily("Segoe UI Symbol");
-#endif
+
         public static string Get(Name name)
         {
             switch (name)
@@ -38,21 +38,23 @@ namespace QuickImageComment
                 case Name.RatingReject: return "\u00B7";
                 case Name.RatingRejectFilled: return "\u00D7";
 #else
+                // From Microsoft Copilot:
+                // Windows 7 has a stable, well-documented fallback pipeline:
+                // Check current font
+                // If glyph is missing → Check system font
+                // Order:
+                // Segoe UI Symbol
+                // ...
+                // So with the following characters, "Segoe UI Symbol" is used and there is no 
+                // need to set the font family explicitly, which especially means, that in 
+                // ListView no OnDrawSubItem is necessary to show rating
                 case Name.RatingStar: return "\u2729";
                 case Name.RatingStarFilled: return "\u2605";
                 case Name.RatingReject: return "\u2D31";
-                case Name.RatingRejectFilled: return "\u26D4";
+                case Name.RatingRejectFilled: return Environment.OSVersion.Version.Major >= 10 ? "\u26D4" : "\u00D7";
 #endif
                 default: return "?";
             }
         }
-
-        // not for .NET 4, as standard font is used for rating
-#if !NET4
-        public static System.Drawing.Font GetFont(float size)
-        {
-            return new System.Drawing.Font(IconFontFamily, size);
-        }
-#endif
     }
 }
