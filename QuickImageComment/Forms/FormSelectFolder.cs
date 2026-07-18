@@ -6,7 +6,7 @@ namespace QuickImageComment
 {
     public partial class FormSelectFolder : Form
     {
-        private string newSelectedFolder;
+        private string newSelectedFolder = "";
 
         // constructor with setting title
         public FormSelectFolder(string FolderName, string title) : this(FolderName)
@@ -19,12 +19,13 @@ namespace QuickImageComment
         {
             InitializeComponent();
             MainMaskInterface.getCustomizationInterface().setFormToCustomizedValuesZoomInitial(this);
+            string folder;
             if (FolderName.Equals("") || !Directory.Exists(FolderName))
-                newSelectedFolder = GongSolutions.Shell.ShellItem.Desktop.FileSystemPath;
+                folder = GongSolutions.Shell.ShellItem.Desktop.FileSystemPath;
             else
-                newSelectedFolder = FolderName;
+                folder = FolderName;
             //GongSolutions.Shell.ShellItem ShellItemSelectedFolder = new GongSolutions.Shell.ShellItem(FolderName);
-            theFolderTreeView.SelectedFolder = new GongSolutions.Shell.ShellItem(newSelectedFolder);
+            theFolderTreeView.SelectedFolder = new GongSolutions.Shell.ShellItem(folder);
             listBoxLastFolders.Items.Clear();
             listBoxLastFolders.Items.AddRange(ConfigDefinition.getFormSelectFolderLastFolders().ToArray());
             listBoxLastFolders.TopIndex = 0;
@@ -89,7 +90,6 @@ namespace QuickImageComment
 
         private void buttonCancel_Click(object sender, EventArgs e)
         {
-            newSelectedFolder = "";
             Close();
         }
 
