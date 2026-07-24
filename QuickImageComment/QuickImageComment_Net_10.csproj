@@ -359,9 +359,6 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="segmdl2.ttf" />
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="CSJ2K">
       <Version>3.0.0</Version>
     </PackageReference>

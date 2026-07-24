@@ -1,11 +1,23 @@
-﻿<Program_Version>5.02</Program_Version>
+﻿<Program_Version>5.03</Program_Version>
 <Program_Change_Info_German>
+Erweiterungen und Verbesserungen:
+
+* Bewertung kann über Schaltflächen (Sterne) zugeordnet werden. Optional wird "Ablehnen" als Bewertung unterstützt, so wie das von der Metadata Working Group vorgesehen ist.
+* Neue Ansicht mit Bewertung in der Dateiliste; Dateliste kann nach Bewertung sortiert werden.
+* Erweitertes Mapping der Tag-Namen in exiv2-Notation auf ExifTool-Notation. Dadurch kann z.B. Exif.GPSInfo.GPSAltitude in .heic-Dateien gespeichert werden. Details in der Hilfe unter "Anpassung und Konfiguration - Allgemeine Konfigurationsdatei - Tag-Mapping von exiv2 auf ExifTool".
+
 Folgender Fehler wurde behoben:
 
-* Beim Lesen von .heic-Dateien konnte es zu einem Fehler kommen, sodass keine ExifTool-Daten angezeigt wurden. Wenn dies beim Speichern passierte, wurde zusätzlich fälschlicherweise gemeldet, dass die Werte nicht gespeichert wurden. Details in https://github.com/QuickImageComment/QuickImageComment/issues/19
+* Die Sprachdatei für Japanisch war nicht in der Auslieferung enthalten.
 </Program_Change_Info_German>
 <Program_Change_Info_English>
+Enhancements and improvements:
+
+*  Ratings can be assigned using buttons (stars). Optionally, "Reject" is supported as a rating, as specified by the Metadata Working Group.
+* New view showing ratings in the file list; the file list can be sorted by rating.
+* Extended mapping of tag names from exiv2 notation to ExifTool notation. This allows, for example, Exif.GPSInfo.GPSAltitude to be stored in .heic files. See the Help section under “Customization and Configuration - General Configuration File - Tag Mapping from exiv2 to ExifTool” for details.
+
 The following error has been fixed:
 
-*  An error could occur when reading .heic files, causing ExifTool data not to be displayed. If this happened during saving, an additional false error message would appear stating that the values were not saved. Details in https://github.com/QuickImageComment/QuickImageComment/issues/19
+* The Japanese language file was not included in the shipment.
 </Program_Change_Info_English>
