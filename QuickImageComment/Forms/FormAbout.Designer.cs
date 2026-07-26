@@ -51,11 +51,10 @@ namespace QuickImageComment
             this.fixedLabelQuickImageCommentCopyRight = new System.Windows.Forms.Label();
             this.fixedLabelExiv2Cdecl = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.textBoxLicenceGerman = new System.Windows.Forms.TextBox();
+            this.textBoxLicence = new System.Windows.Forms.TextBox();
             this.dynamicLabelQuickImageCommentCreated = new System.Windows.Forms.Label();
             this.buttonLicenses = new System.Windows.Forms.Button();
             this.labelContact = new System.Windows.Forms.Label();
-            this.textBoxLicenceEnglish = new System.Windows.Forms.TextBox();
             this.fixedLinkLabelMail = new System.Windows.Forms.LinkLabel();
             this.fixedLinkLabelHomePage = new System.Windows.Forms.LinkLabel();
             this.textBoxQuickImageCommentVersion = new System.Windows.Forms.TextBox();
@@ -63,6 +62,8 @@ namespace QuickImageComment
             this.fixedLinkLabelGitHub = new System.Windows.Forms.LinkLabel();
             this.labelGitHub = new System.Windows.Forms.Label();
             this.dynamicLabelTranslationAcknowledgment = new System.Windows.Forms.Label();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonClose
@@ -78,23 +79,21 @@ namespace QuickImageComment
             // 
             // textBoxOtherSources
             // 
-            this.textBoxOtherSources.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxOtherSources.BackColor = System.Drawing.SystemColors.Control;
-            this.textBoxOtherSources.Location = new System.Drawing.Point(12, 258);
+            this.textBoxOtherSources.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBoxOtherSources.Location = new System.Drawing.Point(3, 155);
             this.textBoxOtherSources.Multiline = true;
             this.textBoxOtherSources.Name = "textBoxOtherSources";
             this.textBoxOtherSources.ReadOnly = true;
             this.textBoxOtherSources.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBoxOtherSources.Size = new System.Drawing.Size(627, 359);
+            this.textBoxOtherSources.Size = new System.Drawing.Size(646, 331);
             this.textBoxOtherSources.TabIndex = 11;
             this.textBoxOtherSources.Text = resources.GetString("textBoxOtherSources.Text");
             // 
             // fixedLabel1
             // 
             this.fixedLabel1.AutoSize = true;
-            this.fixedLabel1.Location = new System.Drawing.Point(9, 10);
+            this.fixedLabel1.Location = new System.Drawing.Point(3, 10);
             this.fixedLabel1.Name = "fixedLabel1";
             this.fixedLabel1.Size = new System.Drawing.Size(108, 13);
             this.fixedLabel1.TabIndex = 0;
@@ -103,7 +102,7 @@ namespace QuickImageComment
             // fixedLabelQuickImageCommentCopyRight
             // 
             this.fixedLabelQuickImageCommentCopyRight.AutoSize = true;
-            this.fixedLabelQuickImageCommentCopyRight.Location = new System.Drawing.Point(9, 51);
+            this.fixedLabelQuickImageCommentCopyRight.Location = new System.Drawing.Point(3, 51);
             this.fixedLabelQuickImageCommentCopyRight.Name = "fixedLabelQuickImageCommentCopyRight";
             this.fixedLabelQuickImageCommentCopyRight.Size = new System.Drawing.Size(190, 13);
             this.fixedLabelQuickImageCommentCopyRight.TabIndex = 7;
@@ -112,7 +111,7 @@ namespace QuickImageComment
             // fixedLabelExiv2Cdecl
             // 
             this.fixedLabelExiv2Cdecl.AutoSize = true;
-            this.fixedLabelExiv2Cdecl.Location = new System.Drawing.Point(9, 27);
+            this.fixedLabelExiv2Cdecl.Location = new System.Drawing.Point(3, 27);
             this.fixedLabelExiv2Cdecl.Name = "fixedLabelExiv2Cdecl";
             this.fixedLabelExiv2Cdecl.Size = new System.Drawing.Size(59, 13);
             this.fixedLabelExiv2Cdecl.TabIndex = 3;
@@ -121,22 +120,25 @@ namespace QuickImageComment
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(9, 236);
+            this.label5.Dock = System.Windows.Forms.DockStyle.Left;
+            this.label5.Location = new System.Drawing.Point(3, 130);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(218, 13);
+            this.label5.Size = new System.Drawing.Size(218, 22);
             this.label5.TabIndex = 10;
             this.label5.Text = "Verwendete fremde Sourcen/Komponenten:";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // textBoxLicenceGerman
+            // textBoxLicence
             // 
-            this.textBoxLicenceGerman.BackColor = System.Drawing.SystemColors.Control;
-            this.textBoxLicenceGerman.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBoxLicenceGerman.Location = new System.Drawing.Point(12, 120);
-            this.textBoxLicenceGerman.Multiline = true;
-            this.textBoxLicenceGerman.Name = "textBoxLicenceGerman";
-            this.textBoxLicenceGerman.Size = new System.Drawing.Size(625, 113);
-            this.textBoxLicenceGerman.TabIndex = 8;
-            this.textBoxLicenceGerman.Text = resources.GetString("textBoxLicenceGerman.Text");
+            this.textBoxLicence.BackColor = System.Drawing.SystemColors.Control;
+            this.textBoxLicence.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxLicence.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBoxLicence.Location = new System.Drawing.Point(3, 3);
+            this.textBoxLicence.Multiline = true;
+            this.textBoxLicence.Name = "textBoxLicence";
+            this.textBoxLicence.Size = new System.Drawing.Size(646, 124);
+            this.textBoxLicence.TabIndex = 8;
+            this.textBoxLicence.Text = resources.GetString("textBoxLicence.Text");
             // 
             // dynamicLabelQuickImageCommentCreated
             // 
@@ -168,17 +170,6 @@ namespace QuickImageComment
             this.labelContact.Size = new System.Drawing.Size(48, 13);
             this.labelContact.TabIndex = 16;
             this.labelContact.Text = "Kontakt:";
-            // 
-            // textBoxLicenceEnglish
-            // 
-            this.textBoxLicenceEnglish.BackColor = System.Drawing.SystemColors.Control;
-            this.textBoxLicenceEnglish.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBoxLicenceEnglish.Location = new System.Drawing.Point(12, 120);
-            this.textBoxLicenceEnglish.Multiline = true;
-            this.textBoxLicenceEnglish.Name = "textBoxLicenceEnglish";
-            this.textBoxLicenceEnglish.Size = new System.Drawing.Size(625, 113);
-            this.textBoxLicenceEnglish.TabIndex = 18;
-            this.textBoxLicenceEnglish.Text = resources.GetString("textBoxLicenceEnglish.Text");
             // 
             // fixedLinkLabelMail
             // 
@@ -245,17 +236,34 @@ namespace QuickImageComment
             // dynamicLabelTranslationAcknowledgment
             // 
             this.dynamicLabelTranslationAcknowledgment.AutoSize = true;
-            this.dynamicLabelTranslationAcknowledgment.Location = new System.Drawing.Point(9, 94);
+            this.dynamicLabelTranslationAcknowledgment.Location = new System.Drawing.Point(3, 94);
             this.dynamicLabelTranslationAcknowledgment.Name = "dynamicLabelTranslationAcknowledgment";
             this.dynamicLabelTranslationAcknowledgment.Size = new System.Drawing.Size(119, 13);
             this.dynamicLabelTranslationAcknowledgment.TabIndex = 27;
             this.dynamicLabelTranslationAcknowledgment.Text = "Übersetzung ... von ...";
             // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 1;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Controls.Add(this.textBoxLicence, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.label5, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.textBoxOtherSources, 0, 2);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(-1, 122);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 3;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 130F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 22F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(652, 489);
+            this.tableLayoutPanel1.TabIndex = 28;
+            // 
             // FormAbout
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(651, 660);
+            this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.dynamicLabelTranslationAcknowledgment);
             this.Controls.Add(this.labelGitHub);
             this.Controls.Add(this.fixedLinkLabelGitHub);
@@ -263,13 +271,9 @@ namespace QuickImageComment
             this.Controls.Add(this.textBoxQuickImageCommentVersion);
             this.Controls.Add(this.fixedLinkLabelHomePage);
             this.Controls.Add(this.fixedLinkLabelMail);
-            this.Controls.Add(this.textBoxLicenceEnglish);
             this.Controls.Add(this.labelContact);
             this.Controls.Add(this.buttonLicenses);
             this.Controls.Add(this.dynamicLabelQuickImageCommentCreated);
-            this.Controls.Add(this.textBoxLicenceGerman);
-            this.Controls.Add(this.textBoxOtherSources);
-            this.Controls.Add(this.label5);
             this.Controls.Add(this.fixedLabelExiv2Cdecl);
             this.Controls.Add(this.fixedLabelQuickImageCommentCopyRight);
             this.Controls.Add(this.fixedLabel1);
@@ -282,6 +286,8 @@ namespace QuickImageComment
             this.Name = "FormAbout";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Über QuickImageComment";
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -295,11 +301,10 @@ namespace QuickImageComment
     private System.Windows.Forms.Label fixedLabelQuickImageCommentCopyRight;
     private System.Windows.Forms.Label fixedLabelExiv2Cdecl;
     private System.Windows.Forms.Label label5;
-    private System.Windows.Forms.TextBox textBoxLicenceGerman;
+    private System.Windows.Forms.TextBox textBoxLicence;
     private System.Windows.Forms.Label dynamicLabelQuickImageCommentCreated;
     private System.Windows.Forms.Button buttonLicenses;
     private System.Windows.Forms.Label labelContact;
-    private System.Windows.Forms.TextBox textBoxLicenceEnglish;
         private System.Windows.Forms.LinkLabel fixedLinkLabelMail;
         private System.Windows.Forms.LinkLabel fixedLinkLabelHomePage;
         private System.Windows.Forms.TextBox textBoxQuickImageCommentVersion;
@@ -307,5 +312,6 @@ namespace QuickImageComment
         private System.Windows.Forms.LinkLabel fixedLinkLabelGitHub;
         private System.Windows.Forms.Label labelGitHub;
         private System.Windows.Forms.Label dynamicLabelTranslationAcknowledgment;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
     }
 }

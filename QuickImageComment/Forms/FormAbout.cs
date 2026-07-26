@@ -37,16 +37,7 @@ namespace QuickImageComment
             Assembly ExecAssembly = Assembly.GetExecutingAssembly();
 
             LangCfg.translateControlTexts(this);
-            if (LangCfg.getLoadedLanguage().Equals("Deutsch"))
-            {
-                textBoxLicenceGerman.Visible = true;
-                textBoxLicenceEnglish.Visible = false;
-            }
-            else
-            {
-                textBoxLicenceGerman.Visible = false;
-                textBoxLicenceEnglish.Visible = true;
-            }
+            textBoxLicence.Text = LangCfg.getTextForTextBox(LangCfg.Others.licence);
 
             // if flag set, return (is sufficient to create control texts list)
             if (GeneralUtilities.CloseAfterConstructing)

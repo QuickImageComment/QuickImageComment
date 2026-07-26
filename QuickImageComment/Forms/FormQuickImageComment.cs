@@ -38,6 +38,15 @@ namespace QuickImageComment
 {
     public partial class FormQuickImageComment : Form
     {
+        // see below for coding to calculate following values
+        float splitContainer1SplitterRatio = 0.25f;
+        float splitContainer11SplitterRatio = 0.27f;
+        float splitContainer12SplitterRatio = 0.58f;
+        float splitContainer12P1SplitterRatio = 0.81f;
+        float splitContainer121SplitterRatio = 0.77f;
+        float splitContainer1211SplitterRatio = 0.44f;
+        float splitContainer122SplitterRatio = 0.48f;
+
         // enums for entries in comboBoxCommentChange; must fit to definition of comboBox!
         enum enumComboBoxCommentChange { nothing, overwrite, insert, append };
         // enums for entries in comboBoxKeyWordChange; must fit to definition of comboBox!
@@ -196,6 +205,23 @@ namespace QuickImageComment
 
             // Required for Windows Form Designer support
             InitializeComponent();
+
+            // uncomment and run with 100% to get values for splitter ratios
+            //splitContainer1SplitterRatio = (float)splitContainer1.SplitterDistance / splitContainer1.Width;
+            //splitContainer11SplitterRatio = (float)splitContainer11.SplitterDistance / splitContainer11.Height;
+            //splitContainer12SplitterRatio = (float)splitContainer12.SplitterDistance / splitContainer12.Height;
+            //splitContainer12P1SplitterRatio = (float)splitContainer12P1.SplitterDistance / splitContainer12P1.Height;
+            //splitContainer121SplitterRatio = (float)splitContainer121.SplitterDistance / splitContainer121.Width;
+            //splitContainer1211SplitterRatio = (float)splitContainer1211.SplitterDistance / splitContainer1211.Width;
+            //splitContainer122SplitterRatio = (float)splitContainer122.SplitterDistance / splitContainer122.Width;
+
+            //GeneralUtilities.writeDebugFileEntry("float splitContainer1SplitterRatio = " + splitContainer1SplitterRatio.ToString("0.00") + ";");
+            //GeneralUtilities.writeDebugFileEntry("float splitContainer11SplitterRatio = " + splitContainer11SplitterRatio.ToString("0.00") + ";");
+            //GeneralUtilities.writeDebugFileEntry("float splitContainer12SplitterRatio = " + splitContainer12SplitterRatio.ToString("0.00") + ";");
+            //GeneralUtilities.writeDebugFileEntry("float splitContainer12P1SplitterRatio = " + splitContainer12P1SplitterRatio.ToString("0.00") + ";");
+            //GeneralUtilities.writeDebugFileEntry("float splitContainer121SplitterRatio = " + splitContainer121SplitterRatio.ToString("0.00") + ";");
+            //GeneralUtilities.writeDebugFileEntry("float splitContainer1211SplitterRatio = " + splitContainer1211SplitterRatio.ToString("0.00") + ";");
+            //GeneralUtilities.writeDebugFileEntry("float splitContainer122SplitterRatio = " + splitContainer122SplitterRatio.ToString("0.00") + ";");
 
             // For menu items use built-in tool tip
             // When building on Windows 11 the own tool tip caused problems with menu item delete:
@@ -913,6 +939,21 @@ namespace QuickImageComment
             }
 
             //CustomizationInterface.checkFontSize(this, this.Font.Size);
+        }
+
+        // used to adjust splitter distances after scaling and layout is finished (otherwise wrong values)
+        protected override void OnShown(EventArgs e)
+        {
+            base.OnShown(e);
+
+            // Now WinForms has finished scaling and layout.
+            splitContainer1.SplitterDistance = (int)(splitContainer1SplitterRatio * splitContainer1.Width);
+            splitContainer11.SplitterDistance = (int)(splitContainer11SplitterRatio * splitContainer11.Height);
+            splitContainer12.SplitterDistance = (int)(splitContainer12SplitterRatio * splitContainer12.Height);
+            splitContainer12P1.SplitterDistance = (int)(splitContainer12P1SplitterRatio * splitContainer12P1.Height);
+            splitContainer121.SplitterDistance = (int)(splitContainer121SplitterRatio * splitContainer121.Width);
+            splitContainer1211.SplitterDistance = (int)(splitContainer1211SplitterRatio * splitContainer1211.Width);
+            splitContainer122.SplitterDistance = (int)(splitContainer122SplitterRatio * splitContainer122.Width);
         }
 
         private void fillAndConfigureChangeableFieldPanel()
@@ -4732,11 +4773,11 @@ namespace QuickImageComment
             int splitContainer1212SplitterDistanceSave = theUserControlKeyWords.splitContainer1212.SplitterDistance;
             // depending on configuration hide controls in central in put area
             splitContainer12P1.Panel2Collapsed = !ConfigDefinition.getShowControlArtist() && !ConfigDefinition.getShowControlComment();
-            panelArtist.Visible = ConfigDefinition.getShowControlArtist();
-            panelUsercomment.Visible = ConfigDefinition.getShowControlComment();
+            tableLayoutPanelArtist.Visible = ConfigDefinition.getShowControlArtist();
+            tableLayoutPanelUsercomment.Visible = ConfigDefinition.getShowControlComment();
             int splitterdistance = splitContainer12P1.Height - splitContainer12P1.SplitterWidth;
-            if (ConfigDefinition.getShowControlArtist()) splitterdistance -= panelArtist.Height;
-            if (ConfigDefinition.getShowControlComment()) splitterdistance -= panelUsercomment.Height;
+            if (ConfigDefinition.getShowControlArtist()) splitterdistance -= tableLayoutPanelArtist.Height;
+            if (ConfigDefinition.getShowControlComment()) splitterdistance -= tableLayoutPanelUsercomment.Height;
             splitContainer12P1.SplitterDistance = splitterdistance;
             // reset SplitterDistance in theUserControlKeyWords
             theUserControlKeyWords.splitContainer1212.SplitterDistance = splitContainer1212SplitterDistanceSave;

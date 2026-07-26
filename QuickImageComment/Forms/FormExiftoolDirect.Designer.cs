@@ -58,9 +58,9 @@ namespace QuickImageComment
             this.textBoxCommand = new System.Windows.Forms.TextBox();
             this.buttonExecute = new System.Windows.Forms.Button();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.checkBoxAppendOutput = new System.Windows.Forms.CheckBox();
             this.textBoxExifToolError = new System.Windows.Forms.TextBox();
             this.buttonDeleteOutput = new System.Windows.Forms.Button();
-            this.checkBoxAppendOutput = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -146,7 +146,7 @@ namespace QuickImageComment
             this.buttonCopyOutput.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCopyOutput.Location = new System.Drawing.Point(668, 6);
             this.buttonCopyOutput.Name = "buttonCopyOutput";
-            this.buttonCopyOutput.Size = new System.Drawing.Size(126, 23);
+            this.buttonCopyOutput.Size = new System.Drawing.Size(126, 26);
             this.buttonCopyOutput.TabIndex = 14;
             this.buttonCopyOutput.Text = "Ausgabe kopieren";
             this.buttonCopyOutput.UseVisualStyleBackColor = true;
@@ -156,7 +156,7 @@ namespace QuickImageComment
             // 
             this.buttonSelectGuiCommand.Location = new System.Drawing.Point(3, 52);
             this.buttonSelectGuiCommand.Name = "buttonSelectGuiCommand";
-            this.buttonSelectGuiCommand.Size = new System.Drawing.Size(167, 23);
+            this.buttonSelectGuiCommand.Size = new System.Drawing.Size(167, 26);
             this.buttonSelectGuiCommand.TabIndex = 15;
             this.buttonSelectGuiCommand.Text = "Auswahl übernehmen";
             this.buttonSelectGuiCommand.UseVisualStyleBackColor = true;
@@ -190,7 +190,7 @@ namespace QuickImageComment
             this.buttonExecute.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonExecute.Location = new System.Drawing.Point(3, 198);
             this.buttonExecute.Name = "buttonExecute";
-            this.buttonExecute.Size = new System.Drawing.Size(75, 23);
+            this.buttonExecute.Size = new System.Drawing.Size(75, 26);
             this.buttonExecute.TabIndex = 18;
             this.buttonExecute.Text = "Ausführen";
             this.buttonExecute.UseVisualStyleBackColor = true;
@@ -230,6 +230,16 @@ namespace QuickImageComment
             this.splitContainer1.SplitterDistance = 228;
             this.splitContainer1.TabIndex = 19;
             // 
+            // checkBoxAppendOutput
+            // 
+            this.checkBoxAppendOutput.AutoSize = true;
+            this.checkBoxAppendOutput.Location = new System.Drawing.Point(320, 9);
+            this.checkBoxAppendOutput.Name = "checkBoxAppendOutput";
+            this.checkBoxAppendOutput.Size = new System.Drawing.Size(119, 17);
+            this.checkBoxAppendOutput.TabIndex = 16;
+            this.checkBoxAppendOutput.Text = "Ausgabe anhängen";
+            this.checkBoxAppendOutput.UseVisualStyleBackColor = true;
+            // 
             // textBoxExifToolError
             // 
             this.textBoxExifToolError.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
@@ -244,26 +254,16 @@ namespace QuickImageComment
             this.buttonDeleteOutput.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonDeleteOutput.Location = new System.Drawing.Point(536, 6);
             this.buttonDeleteOutput.Name = "buttonDeleteOutput";
-            this.buttonDeleteOutput.Size = new System.Drawing.Size(126, 23);
+            this.buttonDeleteOutput.Size = new System.Drawing.Size(126, 26);
             this.buttonDeleteOutput.TabIndex = 13;
             this.buttonDeleteOutput.Text = "Ausgabe löschen";
             this.buttonDeleteOutput.UseVisualStyleBackColor = true;
             this.buttonDeleteOutput.Click += new System.EventHandler(this.buttonDeleteOutput_Click);
             // 
-            // checkBoxAppendOutput
-            // 
-            this.checkBoxAppendOutput.AutoSize = true;
-            this.checkBoxAppendOutput.Location = new System.Drawing.Point(320, 9);
-            this.checkBoxAppendOutput.Name = "checkBoxAppendOutput";
-            this.checkBoxAppendOutput.Size = new System.Drawing.Size(119, 17);
-            this.checkBoxAppendOutput.TabIndex = 16;
-            this.checkBoxAppendOutput.Text = "Ausgabe anhängen";
-            this.checkBoxAppendOutput.UseVisualStyleBackColor = true;
-            // 
             // FormExiftoolDirect
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.splitContainer1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));

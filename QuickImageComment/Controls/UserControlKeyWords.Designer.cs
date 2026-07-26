@@ -31,11 +31,13 @@
             this.splitContainer1212 = new System.Windows.Forms.SplitContainer();
             this.textBoxFreeInputKeyWords = new System.Windows.Forms.TextBox();
             this.labelInputKeyWords = new System.Windows.Forms.Label();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.treeViewPredefKeyWords = new QuickImageCommentControls.TreeViewKeyWords();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1212)).BeginInit();
             this.splitContainer1212.Panel1.SuspendLayout();
             this.splitContainer1212.Panel2.SuspendLayout();
             this.splitContainer1212.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitContainer1212
@@ -49,7 +51,7 @@
             // splitContainer1212.Panel1
             // 
             this.splitContainer1212.Panel1.BackColor = System.Drawing.SystemColors.Control;
-            this.splitContainer1212.Panel1.Controls.Add(this.textBoxFreeInputKeyWords);
+            this.splitContainer1212.Panel1.Controls.Add(this.tableLayoutPanel1);
             this.splitContainer1212.Panel1.Controls.Add(this.labelInputKeyWords);
             this.splitContainer1212.Panel1MinSize = 20;
             // 
@@ -64,13 +66,12 @@
             // 
             // textBoxFreeInputKeyWords
             // 
-            this.textBoxFreeInputKeyWords.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.textBoxFreeInputKeyWords.Location = new System.Drawing.Point(0, 20);
+            this.textBoxFreeInputKeyWords.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBoxFreeInputKeyWords.Location = new System.Drawing.Point(3, 3);
             this.textBoxFreeInputKeyWords.Multiline = true;
             this.textBoxFreeInputKeyWords.Name = "textBoxFreeInputKeyWords";
             this.textBoxFreeInputKeyWords.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxFreeInputKeyWords.Size = new System.Drawing.Size(363, 207);
+            this.textBoxFreeInputKeyWords.Size = new System.Drawing.Size(357, 201);
             this.textBoxFreeInputKeyWords.TabIndex = 1;
             // 
             // labelInputKeyWords
@@ -81,6 +82,24 @@
             this.labelInputKeyWords.Size = new System.Drawing.Size(78, 13);
             this.labelInputKeyWords.TabIndex = 0;
             this.labelInputKeyWords.Text = "Schlüsselworte";
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.tableLayoutPanel1.ColumnCount = 1;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Controls.Add(this.textBoxFreeInputKeyWords, 0, 0);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 20);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(363, 207);
+            this.tableLayoutPanel1.TabIndex = 1;
             // 
             // treeViewPredefKeyWords
             // 
@@ -94,9 +113,10 @@
             // 
             // UserControlKeyWords
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.Controls.Add(this.splitContainer1212);
+            this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "UserControlKeyWords";
             this.Size = new System.Drawing.Size(363, 507);
             this.splitContainer1212.Panel1.ResumeLayout(false);
@@ -104,6 +124,8 @@
             this.splitContainer1212.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1212)).EndInit();
             this.splitContainer1212.ResumeLayout(false);
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -113,5 +135,6 @@
         private System.Windows.Forms.Label labelInputKeyWords;
         internal System.Windows.Forms.SplitContainer splitContainer1212;
         internal QuickImageCommentControls.TreeViewKeyWords treeViewPredefKeyWords;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
     }
 }

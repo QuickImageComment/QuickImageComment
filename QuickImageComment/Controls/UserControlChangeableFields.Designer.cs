@@ -68,7 +68,6 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxChangeableField.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.comboBoxChangeableField.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.comboBoxChangeableField.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxChangeableField.FormattingEnabled = true;
             this.comboBoxChangeableField.Location = new System.Drawing.Point(146, 29);
             this.comboBoxChangeableField.Name = "comboBoxChangeableField";
@@ -77,7 +76,6 @@
             // 
             // dynamicLabelChangeableField
             // 
-            this.dynamicLabelChangeableField.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dynamicLabelChangeableField.Location = new System.Drawing.Point(3, 7);
             this.dynamicLabelChangeableField.Name = "dynamicLabelChangeableField";
             this.dynamicLabelChangeableField.Size = new System.Drawing.Size(35, 21);
@@ -91,7 +89,6 @@
             this.textBoxChangeableField.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxChangeableField.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBoxChangeableField.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxChangeableField.Location = new System.Drawing.Point(146, 3);
             this.textBoxChangeableField.Name = "textBoxChangeableField";
             this.textBoxChangeableField.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -112,9 +109,10 @@
             // 
             // UserControlChangeableFields
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.Controls.Add(this.panelChangeableFieldsOuter);
+            this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "UserControlChangeableFields";
             this.Size = new System.Drawing.Size(368, 323);
             this.panelChangeableFieldsInner.ResumeLayout(false);

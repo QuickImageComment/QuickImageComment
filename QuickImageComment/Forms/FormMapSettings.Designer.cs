@@ -51,9 +51,11 @@
             this.label9 = new System.Windows.Forms.Label();
             this.checkBoxScale = new System.Windows.Forms.CheckBox();
             this.checkBoxHideMapWhenNoGPS = new System.Windows.Forms.CheckBox();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFillOpacity)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownOpacity)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCircleSegmentRadius)).BeginInit();
+            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonOk
@@ -191,16 +193,18 @@
             // labelColor
             // 
             this.labelColor.BackColor = System.Drawing.Color.Cyan;
-            this.labelColor.Location = new System.Drawing.Point(265, 147);
+            this.labelColor.Location = new System.Drawing.Point(265, 148);
             this.labelColor.Name = "labelColor";
-            this.labelColor.Size = new System.Drawing.Size(45, 23);
+            this.labelColor.Size = new System.Drawing.Size(45, 21);
             this.labelColor.TabIndex = 15;
+            this.labelColor.UseCompatibleTextRendering = true;
             // 
             // label8
             // 
-            this.label8.Location = new System.Drawing.Point(6, 106);
+            this.label8.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label8.Location = new System.Drawing.Point(3, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(303, 39);
+            this.label8.Size = new System.Drawing.Size(310, 30);
             this.label8.TabIndex = 16;
             this.label8.Text = "Einstellungen für Anzeige des Suchkreises und für Aufnahmerichtung mit Aufnahmewi" +
     "nkel\r\n";
@@ -259,17 +263,29 @@
             this.checkBoxHideMapWhenNoGPS.Text = "Karte ausblenden wenn keine GPS Daten verfügbar";
             this.checkBoxHideMapWhenNoGPS.UseVisualStyleBackColor = true;
             // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 1;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Controls.Add(this.label8, 0, 0);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 89);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(316, 30);
+            this.tableLayoutPanel1.TabIndex = 22;
+            // 
             // FormMapSettings
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(324, 308);
+            this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.checkBoxHideMapWhenNoGPS);
             this.Controls.Add(this.checkBoxScale);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.radioButtonScaleMetric);
             this.Controls.Add(this.radioButtonScaleImperial);
-            this.Controls.Add(this.label8);
             this.Controls.Add(this.labelColor);
             this.Controls.Add(this.textBoxColor);
             this.Controls.Add(this.buttonColorDialog);
@@ -295,6 +311,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFillOpacity)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownOpacity)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCircleSegmentRadius)).EndInit();
+            this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -323,5 +340,6 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.CheckBox checkBoxScale;
         private System.Windows.Forms.CheckBox checkBoxHideMapWhenNoGPS;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
     }
 }

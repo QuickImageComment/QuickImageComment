@@ -39,20 +39,20 @@ namespace QuickImageComment
             this.textBoxInstructions = new System.Windows.Forms.TextBox();
             this.buttonGitHubIssue = new System.Windows.Forms.Button();
             this.pictureBoxSeverity = new System.Windows.Forms.PictureBox();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSeverity)).BeginInit();
+            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // textBoxErrorDetails
             // 
-            this.textBoxErrorDetails.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxErrorDetails.Location = new System.Drawing.Point(3, 78);
+            this.textBoxErrorDetails.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBoxErrorDetails.Location = new System.Drawing.Point(3, 3);
             this.textBoxErrorDetails.Multiline = true;
             this.textBoxErrorDetails.Name = "textBoxErrorDetails";
             this.textBoxErrorDetails.ReadOnly = true;
             this.textBoxErrorDetails.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxErrorDetails.Size = new System.Drawing.Size(854, 195);
+            this.textBoxErrorDetails.Size = new System.Drawing.Size(851, 190);
             this.textBoxErrorDetails.TabIndex = 0;
             // 
             // buttonPrepareMail
@@ -109,14 +109,13 @@ namespace QuickImageComment
             // 
             // textBoxInstructions
             // 
-            this.textBoxInstructions.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxInstructions.BackColor = System.Drawing.SystemColors.Control;
             this.textBoxInstructions.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBoxInstructions.Location = new System.Drawing.Point(3, 279);
+            this.textBoxInstructions.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBoxInstructions.Location = new System.Drawing.Point(3, 199);
             this.textBoxInstructions.Multiline = true;
             this.textBoxInstructions.Name = "textBoxInstructions";
-            this.textBoxInstructions.Size = new System.Drawing.Size(853, 73);
+            this.textBoxInstructions.Size = new System.Drawing.Size(851, 72);
             this.textBoxInstructions.TabIndex = 8;
             this.textBoxInstructions.Text = "Instructions";
             // 
@@ -139,20 +138,33 @@ namespace QuickImageComment
             this.pictureBoxSeverity.TabIndex = 12;
             this.pictureBoxSeverity.TabStop = false;
             // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 1;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Controls.Add(this.textBoxErrorDetails, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.textBoxInstructions, 0, 1);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 78);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 78F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(857, 274);
+            this.tableLayoutPanel1.TabIndex = 13;
+            // 
             // FormError
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(860, 383);
+            this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.pictureBoxSeverity);
             this.Controls.Add(this.buttonGitHubIssue);
-            this.Controls.Add(this.textBoxInstructions);
             this.Controls.Add(this.labelDetails);
             this.Controls.Add(this.dynamicLabelErrorHeader);
             this.Controls.Add(this.textBoxErrorMessage);
             this.Controls.Add(this.buttonClose);
             this.Controls.Add(this.buttonPrepareMail);
-            this.Controls.Add(this.textBoxErrorDetails);
             this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -160,6 +172,8 @@ namespace QuickImageComment
             this.Name = "FormError";
             this.Text = "QuickImageComment Fehler";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSeverity)).EndInit();
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -176,5 +190,6 @@ namespace QuickImageComment
         private System.Windows.Forms.TextBox textBoxInstructions;
         private System.Windows.Forms.Button buttonGitHubIssue;
         private System.Windows.Forms.PictureBox pictureBoxSeverity;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
     }
 }

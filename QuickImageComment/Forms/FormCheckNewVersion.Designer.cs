@@ -41,7 +41,9 @@
             this.buttonOk = new System.Windows.Forms.Button();
             this.richTextBoxResult = new System.Windows.Forms.RichTextBox();
             this.buttonDownload = new System.Windows.Forms.Button();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCycle)).BeginInit();
+            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonCheckNowForNewVersion
@@ -153,15 +155,13 @@
             // 
             // richTextBoxResult
             // 
-            this.richTextBoxResult.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.richTextBoxResult.BackColor = System.Drawing.SystemColors.Control;
             this.richTextBoxResult.BulletIndent = 10;
-            this.richTextBoxResult.Location = new System.Drawing.Point(8, 135);
+            this.richTextBoxResult.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.richTextBoxResult.Location = new System.Drawing.Point(3, 3);
             this.richTextBoxResult.Name = "richTextBoxResult";
             this.richTextBoxResult.ReadOnly = true;
-            this.richTextBoxResult.Size = new System.Drawing.Size(467, 149);
+            this.richTextBoxResult.Size = new System.Drawing.Size(470, 151);
             this.richTextBoxResult.TabIndex = 11;
             this.richTextBoxResult.Text = "";
             // 
@@ -177,13 +177,28 @@
             this.buttonDownload.UseVisualStyleBackColor = true;
             this.buttonDownload.Click += new System.EventHandler(this.buttonDownload_Click);
             // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel1.ColumnCount = 1;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Controls.Add(this.richTextBoxResult, 0, 0);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 131);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(476, 157);
+            this.tableLayoutPanel1.TabIndex = 13;
+            // 
             // FormCheckNewVersion
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(483, 345);
+            this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.buttonDownload);
-            this.Controls.Add(this.richTextBoxResult);
             this.Controls.Add(this.buttonOk);
             this.Controls.Add(this.dynamicLabelNextCheck);
             this.Controls.Add(this.dynamicLabelLastCheck);
@@ -202,6 +217,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Auf neue Version prüfen";
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCycle)).EndInit();
+            this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -221,5 +237,6 @@
         private System.Windows.Forms.Button buttonOk;
         private System.Windows.Forms.RichTextBox richTextBoxResult;
         private System.Windows.Forms.Button buttonDownload;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
     }
 }

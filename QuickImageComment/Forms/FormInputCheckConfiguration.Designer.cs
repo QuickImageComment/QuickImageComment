@@ -38,6 +38,8 @@
             this.textBoxValidValues = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.buttonSort = new System.Windows.Forms.Button();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonHelp
@@ -107,13 +109,11 @@
             // 
             // textBoxValidValues
             // 
-            this.textBoxValidValues.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxValidValues.Location = new System.Drawing.Point(3, 33);
+            this.textBoxValidValues.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBoxValidValues.Location = new System.Drawing.Point(3, 3);
             this.textBoxValidValues.Multiline = true;
             this.textBoxValidValues.Name = "textBoxValidValues";
-            this.textBoxValidValues.Size = new System.Drawing.Size(396, 189);
+            this.textBoxValidValues.Size = new System.Drawing.Size(390, 186);
             this.textBoxValidValues.TabIndex = 13;
             // 
             // label2
@@ -136,14 +136,26 @@
             this.buttonSort.UseVisualStyleBackColor = true;
             this.buttonSort.Click += new System.EventHandler(this.buttonSort_Click);
             // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 1;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Controls.Add(this.textBoxValidValues, 0, 0);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 30);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(396, 192);
+            this.tableLayoutPanel1.TabIndex = 16;
+            // 
             // FormInputCheckConfiguration
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(402, 296);
+            this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.buttonSort);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.textBoxValidValues);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.checkBoxAllowOtherValues);
             this.Controls.Add(this.buttonHelp);
@@ -159,6 +171,8 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "FormInputCheckConfiguration";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FormInputCheckConfiguration_KeyDown);
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -175,5 +189,6 @@
         private System.Windows.Forms.TextBox textBoxValidValues;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button buttonSort;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
     }
 }

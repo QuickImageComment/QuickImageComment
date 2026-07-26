@@ -397,7 +397,8 @@ namespace QuickImageComment
             savedIn,
             folderForSearchInvalid,
             differentKeywords,
-            ratingReject
+            ratingReject,
+            licence
         }
 
         // defined as variable

@@ -135,6 +135,7 @@ namespace QuickImageComment
             this.numericUpDownFramePosition = new System.Windows.Forms.NumericUpDown();
             this.labelFramePosition = new System.Windows.Forms.Label();
             this.Panel5 = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label11 = new System.Windows.Forms.Label();
             this.buttonExifToolSettings = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
@@ -145,6 +146,7 @@ namespace QuickImageComment
             this.checkBoxExifUTF8 = new System.Windows.Forms.CheckBox();
             this.labelCharSet = new System.Windows.Forms.Label();
             this.checkBoxButtonDeletesPermanent = new System.Windows.Forms.CheckBox();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxLastComments)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFullSizeImageCacheMaxSize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaximumMemoryForCaching)).BeginInit();
@@ -155,7 +157,9 @@ namespace QuickImageComment
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxChangeableFieldEntries)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFramePosition)).BeginInit();
             this.Panel5.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
             this.panel3.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonOK
@@ -450,9 +454,10 @@ namespace QuickImageComment
             // 
             // labelAdditionalExtensions
             // 
-            this.labelAdditionalExtensions.Location = new System.Drawing.Point(7, 296);
+            this.labelAdditionalExtensions.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelAdditionalExtensions.Location = new System.Drawing.Point(3, 0);
             this.labelAdditionalExtensions.Name = "labelAdditionalExtensions";
-            this.labelAdditionalExtensions.Size = new System.Drawing.Size(319, 27);
+            this.labelAdditionalExtensions.Size = new System.Drawing.Size(360, 30);
             this.labelAdditionalExtensions.TabIndex = 22;
             this.labelAdditionalExtensions.Text = "Bei Umbenennen und Löschen von Dateien auch folgende Dateierweiterungen berücksic" +
     "htigen (getrennt durch \";\"):";
@@ -460,7 +465,7 @@ namespace QuickImageComment
             // TextBoxAdditionalExtensions
             // 
             this.TextBoxAdditionalExtensions.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextBoxAdditionalExtensions.Location = new System.Drawing.Point(389, 303);
+            this.TextBoxAdditionalExtensions.Location = new System.Drawing.Point(389, 297);
             this.TextBoxAdditionalExtensions.Name = "TextBoxAdditionalExtensions";
             this.TextBoxAdditionalExtensions.Size = new System.Drawing.Size(148, 18);
             this.TextBoxAdditionalExtensions.TabIndex = 24;
@@ -549,9 +554,9 @@ namespace QuickImageComment
             this.Panel1.Controls.Add(this.numericUpDownFullSizeImageCacheMaxSize);
             this.Panel1.Controls.Add(this.numericUpDownMaximumMemoryForCaching);
             this.Panel1.Controls.Add(this.labelMaximumMemoryForCaching);
-            this.Panel1.Location = new System.Drawing.Point(-4, 330);
+            this.Panel1.Location = new System.Drawing.Point(-4, 337);
             this.Panel1.Name = "Panel1";
-            this.Panel1.Size = new System.Drawing.Size(561, 100);
+            this.Panel1.Size = new System.Drawing.Size(561, 93);
             this.Panel1.TabIndex = 27;
             // 
             // numericUpDownExtendedImageCacheMaxSize
@@ -1093,9 +1098,8 @@ namespace QuickImageComment
             // Panel5
             // 
             this.Panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Panel5.Controls.Add(this.label11);
+            this.Panel5.Controls.Add(this.tableLayoutPanel1);
             this.Panel5.Controls.Add(this.labelFramePosition);
-            this.Panel5.Controls.Add(this.buttonExifToolSettings);
             this.Panel5.Controls.Add(this.numericUpDownFramePosition);
             this.Panel5.Controls.Add(this.TextBoxVideoExtensionsFrame);
             this.Panel5.Controls.Add(this.labelVideoFrame);
@@ -1107,20 +1111,35 @@ namespace QuickImageComment
             this.Panel5.Size = new System.Drawing.Size(983, 83);
             this.Panel5.TabIndex = 31;
             // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 1;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Controls.Add(this.label11, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.buttonExifToolSettings, 0, 1);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(763, 7);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(200, 60);
+            this.tableLayoutPanel1.TabIndex = 39;
+            // 
             // label11
             // 
-            this.label11.Location = new System.Drawing.Point(775, 4);
+            this.label11.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label11.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label11.Location = new System.Drawing.Point(3, 0);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(186, 31);
+            this.label11.Size = new System.Drawing.Size(194, 30);
             this.label11.TabIndex = 39;
             this.label11.Text = "Um in Videos zu speichern, ist ExifTool notwendig:";
             // 
             // buttonExifToolSettings
             // 
-            this.buttonExifToolSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonExifToolSettings.Location = new System.Drawing.Point(775, 35);
+            this.buttonExifToolSettings.Location = new System.Drawing.Point(3, 33);
             this.buttonExifToolSettings.Name = "buttonExifToolSettings";
-            this.buttonExifToolSettings.Size = new System.Drawing.Size(185, 26);
+            this.buttonExifToolSettings.Size = new System.Drawing.Size(194, 24);
             this.buttonExifToolSettings.TabIndex = 38;
             this.buttonExifToolSettings.Text = "Einstellungen ExifTool";
             this.buttonExifToolSettings.UseVisualStyleBackColor = true;
@@ -1211,12 +1230,26 @@ namespace QuickImageComment
             this.checkBoxButtonDeletesPermanent.Text = "Mit Schaltfläche \"Löschen\" werden Dateien unwiderruflich gelöscht";
             this.checkBoxButtonDeletesPermanent.UseVisualStyleBackColor = true;
             // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.ColumnCount = 1;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.Controls.Add(this.labelAdditionalExtensions, 0, 0);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 297);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 1;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(366, 27);
+            this.tableLayoutPanel2.TabIndex = 38;
+            // 
             // FormSettings
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.ClientSize = new System.Drawing.Size(972, 613);
+            this.Controls.Add(this.tableLayoutPanel2);
             this.Controls.Add(this.checkBoxButtonDeletesPermanent);
             this.Controls.Add(this.Panel5);
             this.Controls.Add(this.panel3);
@@ -1232,7 +1265,6 @@ namespace QuickImageComment
             this.Controls.Add(this.labelMaxArtists);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.TextBoxAdditionalExtensions);
-            this.Controls.Add(this.labelAdditionalExtensions);
             this.Controls.Add(this.checkBoxNavigationTabSplitbars);
             this.Controls.Add(this.textBoxDefaultArtist);
             this.Controls.Add(this.checkBoxUseDefaultArtist);
@@ -1274,8 +1306,10 @@ namespace QuickImageComment
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFramePosition)).EndInit();
             this.Panel5.ResumeLayout(false);
             this.Panel5.PerformLayout();
+            this.tableLayoutPanel1.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            this.tableLayoutPanel2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1363,5 +1397,7 @@ namespace QuickImageComment
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.CheckBox fixedCheckBoxSaveNameImage5;
         private System.Windows.Forms.CheckBox checkBoxShowRatingButtonReject;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
     }
 }

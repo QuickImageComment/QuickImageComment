@@ -39,6 +39,10 @@ namespace QuickImageComment
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.dataGridViewButtons = new System.Windows.Forms.DataGridView();
+            this.Dynamic_ColumnIcon = new System.Windows.Forms.DataGridViewImageColumn();
+            this.Dynamic_ColumnText = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Dynamic_ColumnTag = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Dynamic_ColumnIconPath = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.buttonAdd = new System.Windows.Forms.Button();
             this.buttonRemove = new System.Windows.Forms.Button();
             this.buttonUp = new System.Windows.Forms.Button();
@@ -52,13 +56,11 @@ namespace QuickImageComment
             this.pictureBoxImagePath = new System.Windows.Forms.PictureBox();
             this.buttonBrowse = new System.Windows.Forms.Button();
             this.textBoxImagePath = new System.Windows.Forms.TextBox();
-            this.Dynamic_ColumnIcon = new System.Windows.Forms.DataGridViewImageColumn();
-            this.Dynamic_ColumnText = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Dynamic_ColumnTag = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Dynamic_ColumnIconPath = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewButtons)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProgramPath)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxImagePath)).BeginInit();
+            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // treeViewComponents
@@ -165,6 +167,34 @@ namespace QuickImageComment
             this.dataGridViewButtons.TabIndex = 4;
             this.dataGridViewButtons.SelectionChanged += new System.EventHandler(this.dataGridViewButtons_SelectionChanged);
             // 
+            // Dynamic_ColumnIcon
+            // 
+            this.Dynamic_ColumnIcon.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Dynamic_ColumnIcon.HeaderText = "Icon";
+            this.Dynamic_ColumnIcon.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
+            this.Dynamic_ColumnIcon.Name = "Dynamic_ColumnIcon";
+            this.Dynamic_ColumnIcon.Width = 40;
+            // 
+            // Dynamic_ColumnText
+            // 
+            this.Dynamic_ColumnText.HeaderText = "Text";
+            this.Dynamic_ColumnText.Name = "Dynamic_ColumnText";
+            this.Dynamic_ColumnText.Width = 5;
+            // 
+            // Dynamic_ColumnTag
+            // 
+            this.Dynamic_ColumnTag.HeaderText = "Tag";
+            this.Dynamic_ColumnTag.Name = "Dynamic_ColumnTag";
+            this.Dynamic_ColumnTag.Visible = false;
+            this.Dynamic_ColumnTag.Width = 5;
+            // 
+            // Dynamic_ColumnIconPath
+            // 
+            this.Dynamic_ColumnIconPath.HeaderText = "IconPath";
+            this.Dynamic_ColumnIconPath.Name = "Dynamic_ColumnIconPath";
+            this.Dynamic_ColumnIconPath.Visible = false;
+            this.Dynamic_ColumnIconPath.Width = 5;
+            // 
             // buttonAdd
             // 
             this.buttonAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -211,17 +241,16 @@ namespace QuickImageComment
             // 
             // textBoxInfo
             // 
-            this.textBoxInfo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxInfo.BackColor = System.Drawing.SystemColors.Control;
             this.textBoxInfo.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBoxInfo.CausesValidation = false;
-            this.textBoxInfo.Location = new System.Drawing.Point(3, 387);
+            this.textBoxInfo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBoxInfo.Location = new System.Drawing.Point(3, 3);
             this.textBoxInfo.Multiline = true;
             this.textBoxInfo.Name = "textBoxInfo";
             this.textBoxInfo.ReadOnly = true;
             this.textBoxInfo.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBoxInfo.Size = new System.Drawing.Size(944, 30);
+            this.textBoxInfo.Size = new System.Drawing.Size(941, 26);
             this.textBoxInfo.TabIndex = 12;
             // 
             // listViewIcons
@@ -320,39 +349,24 @@ namespace QuickImageComment
             this.textBoxImagePath.TabIndex = 22;
             this.textBoxImagePath.TextChanged += new System.EventHandler(this.textBoxImagePath_TextChanged);
             // 
-            // Dynamic_ColumnIcon
+            // tableLayoutPanel1
             // 
-            this.Dynamic_ColumnIcon.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Dynamic_ColumnIcon.HeaderText = "Icon";
-            this.Dynamic_ColumnIcon.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
-            this.Dynamic_ColumnIcon.Name = "Dynamic_ColumnIcon";
-            this.Dynamic_ColumnIcon.Width = 40;
-            // 
-            // Dynamic_ColumnText
-            // 
-            this.Dynamic_ColumnText.HeaderText = "Text";
-            this.Dynamic_ColumnText.Name = "Dynamic_ColumnText";
-            this.Dynamic_ColumnText.Width = 5;
-            // 
-            // Dynamic_ColumnTag
-            // 
-            this.Dynamic_ColumnTag.HeaderText = "Tag";
-            this.Dynamic_ColumnTag.Name = "Dynamic_ColumnTag";
-            this.Dynamic_ColumnTag.Visible = false;
-            this.Dynamic_ColumnTag.Width = 5;
-            // 
-            // Dynamic_ColumnIconPath
-            // 
-            this.Dynamic_ColumnIconPath.HeaderText = "IconPath";
-            this.Dynamic_ColumnIconPath.Name = "Dynamic_ColumnIconPath";
-            this.Dynamic_ColumnIconPath.Visible = false;
-            this.Dynamic_ColumnIconPath.Width = 5;
+            this.tableLayoutPanel1.ColumnCount = 1;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Controls.Add(this.textBoxInfo, 0, 0);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 385);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(947, 32);
+            this.tableLayoutPanel1.TabIndex = 23;
             // 
             // FormUserButtons
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(952, 450);
+            this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.textBoxImagePath);
             this.Controls.Add(this.buttonBrowse);
             this.Controls.Add(this.pictureBoxImagePath);
@@ -361,7 +375,6 @@ namespace QuickImageComment
             this.Controls.Add(this.pictureBoxProgramPath);
             this.Controls.Add(this.buttonAssign);
             this.Controls.Add(this.listViewIcons);
-            this.Controls.Add(this.textBoxInfo);
             this.Controls.Add(this.buttonDown);
             this.Controls.Add(this.buttonUp);
             this.Controls.Add(this.buttonRemove);
@@ -382,6 +395,8 @@ namespace QuickImageComment
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewButtons)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProgramPath)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxImagePath)).EndInit();
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -415,5 +430,6 @@ namespace QuickImageComment
         private System.Windows.Forms.DataGridViewTextBoxColumn Dynamic_ColumnText;
         private System.Windows.Forms.DataGridViewTextBoxColumn Dynamic_ColumnTag;
         private System.Windows.Forms.DataGridViewTextBoxColumn Dynamic_ColumnIconPath;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
     }
 }

@@ -42,6 +42,16 @@ namespace QuickImageComment
         private static bool allowComboBoxPanelContent_TextChanged = true;
         private static bool allowDynamicComboBoxConfigurationName_SelectedIndexChanged = true;
 
+        // see below for coding to calculate following values
+        float splitContainer1SplitterRatio = 0.28f;
+        float splitContainer11SplitterRatio = 0.44f;
+        float splitContainer12SplitterRatio = 0.67f;
+        float splitContainer12P1SplitterRatio = 0.77f;
+        float splitContainer121SplitterRatio=0.81f;
+        float splitContainer1211SplitterRatio=0.51f;
+        float splitContainer122SplitterRatio = 0.52f;
+
+
         public FormView(
             SortedList givenPanelControls, SortedList givenDefaultPanelContents,
             DataGridView givenDataGridViewExif,
@@ -52,6 +62,23 @@ namespace QuickImageComment
         {
             allowSaveSettingsAndAdjustView = false;
             InitializeComponent();
+
+            // uncomment and run with 100% to get values for splitter ratios
+            //splitContainer1SplitterRatio = (float)splitContainer1.SplitterDistance / splitContainer1.Width;
+            //splitContainer11SplitterRatio = (float)splitContainer11.SplitterDistance / splitContainer11.Height;
+            //splitContainer12SplitterRatio = (float)splitContainer12.SplitterDistance / splitContainer12.Height;
+            //splitContainer12P1SplitterRatio = (float)splitContainer12P1.SplitterDistance / splitContainer12P1.Height;
+            //splitContainer121SplitterRatio = (float)splitContainer121.SplitterDistance / splitContainer121.Width;
+            //splitContainer1211SplitterRatio = (float)splitContainer1211.SplitterDistance / splitContainer1211.Width;
+            //splitContainer122SplitterRatio = (float)splitContainer122.SplitterDistance / splitContainer122.Width;
+
+            //Logger.log("splitContainer1 " + splitContainer1SplitterRatio + " " + splitContainer1.Width + " " + splitContainer1.SplitterDistance);
+            //Logger.log("splitContainer11 " + splitContainer11SplitterRatio + " " + splitContainer11.Height + " " + splitContainer11.SplitterDistance);
+            //Logger.log("splitContainer12 " + splitContainer12SplitterRatio + " " + splitContainer12.Height + " " + splitContainer12.SplitterDistance);
+            //Logger.log("splitContainer12P1 " + splitContainer12P1SplitterRatio + " " + splitContainer12P1.Height + " " + splitContainer12P1.SplitterDistance);
+            //Logger.log("splitContainer121 " + splitContainer121SplitterRatio + " " + splitContainer121.Width + " " + splitContainer121.SplitterDistance);
+            //Logger.log("splitContainer1211 " + splitContainer1211SplitterRatio + " " + splitContainer1211.Width + " " + splitContainer1211.SplitterDistance);
+            //Logger.log("splitContainer122 " + splitContainer122SplitterRatio + " " + splitContainer122.Width + " " + splitContainer122.SplitterDistance);
 #if APPCENTER
             if (Program.AppCenterUsable) Microsoft.AppCenter.Analytics.Analytics.TrackEvent(this.Name);
 #endif
@@ -153,6 +180,21 @@ namespace QuickImageComment
 
             // during initialsation eventhandler shall not save configuration
             allowSaveSettingsAndAdjustView = true;
+        }
+
+        // used to adjust splitter distances after scaling and layout is finished (otherwise wrong values)
+        protected override void OnShown(EventArgs e)
+        {
+            base.OnShown(e);
+
+            // Now WinForms has finished scaling and layout.
+            splitContainer1.SplitterDistance = (int)(splitContainer1SplitterRatio * splitContainer1.Width);
+            splitContainer11.SplitterDistance = (int)(splitContainer11SplitterRatio * splitContainer11.Height);
+            splitContainer12.SplitterDistance = (int)(splitContainer12SplitterRatio * splitContainer12.Height);
+            splitContainer12P1.SplitterDistance = (int)(splitContainer12P1SplitterRatio * splitContainer12P1.Height);
+            splitContainer121.SplitterDistance = (int)(splitContainer121SplitterRatio * splitContainer121.Width);
+            splitContainer1211.SplitterDistance = (int)(splitContainer1211SplitterRatio * splitContainer1211.Width);
+            splitContainer122.SplitterDistance = (int)(splitContainer122SplitterRatio * splitContainer122.Width);
         }
 
         // set values of controls based on configuration

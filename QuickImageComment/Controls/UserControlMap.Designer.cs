@@ -32,15 +32,18 @@
             this.panelMap = new System.Windows.Forms.Panel();
             this.panelBottom = new System.Windows.Forms.Panel();
             this.splitContainerMapControls = new System.Windows.Forms.SplitContainer();
+            this.tableLayoutPanelLeftBottom = new System.Windows.Forms.TableLayoutPanel();
+            this.buttonDelete = new System.Windows.Forms.Button();
+            this.buttonRename = new System.Windows.Forms.Button();
+            this.dynamicLabelZoom = new System.Windows.Forms.Label();
+            this.dynamicLabelCoordinates = new System.Windows.Forms.Label();
+            this.labelZoom = new System.Windows.Forms.Label();
+            this.tableLayoutPanelLeftTop = new System.Windows.Forms.TableLayoutPanel();
+            this.buttonReset = new System.Windows.Forms.Button();
             this.dynamicComboBoxSearch = new QuickImageCommentControls.ComboBoxQIC();
             this.buttonCenterMarker = new System.Windows.Forms.Button();
-            this.buttonDelete = new System.Windows.Forms.Button();
-            this.buttonReset = new System.Windows.Forms.Button();
-            this.dynamicLabelCoordinates = new System.Windows.Forms.Label();
             this.buttonSearch = new System.Windows.Forms.Button();
-            this.buttonRename = new System.Windows.Forms.Button();
-            this.labelZoom = new System.Windows.Forms.Label();
-            this.dynamicLabelZoom = new System.Windows.Forms.Label();
+            this.tableLayoutPanelRight = new System.Windows.Forms.TableLayoutPanel();
             this.checkBoxWebView2 = new System.Windows.Forms.CheckBox();
             this.dynamicComboBoxMapSource = new QuickImageCommentControls.ComboBoxQIC();
             this.panelTop = new System.Windows.Forms.Panel();
@@ -52,6 +55,9 @@
             this.splitContainerMapControls.Panel1.SuspendLayout();
             this.splitContainerMapControls.Panel2.SuspendLayout();
             this.splitContainerMapControls.SuspendLayout();
+            this.tableLayoutPanelLeftBottom.SuspendLayout();
+            this.tableLayoutPanelLeftTop.SuspendLayout();
+            this.tableLayoutPanelRight.SuspendLayout();
             this.panelTop.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -87,36 +93,130 @@
             // splitContainerMapControls.Panel1
             // 
             this.splitContainerMapControls.Panel1.BackColor = System.Drawing.SystemColors.Control;
-            this.splitContainerMapControls.Panel1.Controls.Add(this.dynamicComboBoxSearch);
-            this.splitContainerMapControls.Panel1.Controls.Add(this.buttonCenterMarker);
-            this.splitContainerMapControls.Panel1.Controls.Add(this.buttonDelete);
-            this.splitContainerMapControls.Panel1.Controls.Add(this.buttonReset);
-            this.splitContainerMapControls.Panel1.Controls.Add(this.dynamicLabelCoordinates);
-            this.splitContainerMapControls.Panel1.Controls.Add(this.buttonSearch);
-            this.splitContainerMapControls.Panel1.Controls.Add(this.buttonRename);
-            this.splitContainerMapControls.Panel1.Controls.Add(this.labelZoom);
-            this.splitContainerMapControls.Panel1.Controls.Add(this.dynamicLabelZoom);
+            this.splitContainerMapControls.Panel1.Controls.Add(this.tableLayoutPanelLeftBottom);
+            this.splitContainerMapControls.Panel1.Controls.Add(this.tableLayoutPanelLeftTop);
             // 
             // splitContainerMapControls.Panel2
             // 
             this.splitContainerMapControls.Panel2.BackColor = System.Drawing.SystemColors.Control;
-            this.splitContainerMapControls.Panel2.Controls.Add(this.checkBoxWebView2);
-            this.splitContainerMapControls.Panel2.Controls.Add(this.dynamicComboBoxMapSource);
+            this.splitContainerMapControls.Panel2.Controls.Add(this.tableLayoutPanelRight);
             this.splitContainerMapControls.Size = new System.Drawing.Size(674, 50);
             this.splitContainerMapControls.SplitterDistance = 430;
             this.splitContainerMapControls.TabIndex = 0;
             // 
+            // tableLayoutPanelLeftBottom
+            // 
+            this.tableLayoutPanelLeftBottom.ColumnCount = 5;
+            this.tableLayoutPanelLeftBottom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 86F));
+            this.tableLayoutPanelLeftBottom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 64F));
+            this.tableLayoutPanelLeftBottom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            this.tableLayoutPanelLeftBottom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.tableLayoutPanelLeftBottom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelLeftBottom.Controls.Add(this.buttonDelete, 1, 0);
+            this.tableLayoutPanelLeftBottom.Controls.Add(this.buttonRename, 0, 0);
+            this.tableLayoutPanelLeftBottom.Controls.Add(this.dynamicLabelZoom, 3, 0);
+            this.tableLayoutPanelLeftBottom.Controls.Add(this.dynamicLabelCoordinates, 4, 0);
+            this.tableLayoutPanelLeftBottom.Controls.Add(this.labelZoom, 2, 0);
+            this.tableLayoutPanelLeftBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.tableLayoutPanelLeftBottom.Location = new System.Drawing.Point(0, 24);
+            this.tableLayoutPanelLeftBottom.Name = "tableLayoutPanelLeftBottom";
+            this.tableLayoutPanelLeftBottom.RowCount = 1;
+            this.tableLayoutPanelLeftBottom.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelLeftBottom.Size = new System.Drawing.Size(430, 26);
+            this.tableLayoutPanelLeftBottom.TabIndex = 19;
+            // 
+            // buttonDelete
+            // 
+            this.buttonDelete.Location = new System.Drawing.Point(89, 3);
+            this.buttonDelete.Name = "buttonDelete";
+            this.buttonDelete.Size = new System.Drawing.Size(56, 20);
+            this.buttonDelete.TabIndex = 17;
+            this.buttonDelete.Text = "Löschen";
+            this.buttonDelete.UseVisualStyleBackColor = true;
+            this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
+            // 
+            // buttonRename
+            // 
+            this.buttonRename.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonRename.Location = new System.Drawing.Point(3, 3);
+            this.buttonRename.Name = "buttonRename";
+            this.buttonRename.Size = new System.Drawing.Size(80, 20);
+            this.buttonRename.TabIndex = 16;
+            this.buttonRename.Text = "Umbenennen";
+            this.buttonRename.UseVisualStyleBackColor = true;
+            this.buttonRename.Click += new System.EventHandler(this.buttonRename_Click);
+            // 
+            // dynamicLabelZoom
+            // 
+            this.dynamicLabelZoom.AutoSize = true;
+            this.dynamicLabelZoom.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dynamicLabelZoom.Location = new System.Drawing.Point(203, 0);
+            this.dynamicLabelZoom.Name = "dynamicLabelZoom";
+            this.dynamicLabelZoom.Size = new System.Drawing.Size(29, 26);
+            this.dynamicLabelZoom.TabIndex = 7;
+            this.dynamicLabelZoom.Text = "13";
+            this.dynamicLabelZoom.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // dynamicLabelCoordinates
+            // 
+            this.dynamicLabelCoordinates.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dynamicLabelCoordinates.Location = new System.Drawing.Point(238, 0);
+            this.dynamicLabelCoordinates.Name = "dynamicLabelCoordinates";
+            this.dynamicLabelCoordinates.Size = new System.Drawing.Size(189, 26);
+            this.dynamicLabelCoordinates.TabIndex = 5;
+            this.dynamicLabelCoordinates.Text = "-199.99999N -199.99999E";
+            this.dynamicLabelCoordinates.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // labelZoom
+            // 
+            this.labelZoom.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelZoom.Location = new System.Drawing.Point(153, 0);
+            this.labelZoom.Name = "labelZoom";
+            this.labelZoom.Size = new System.Drawing.Size(44, 26);
+            this.labelZoom.TabIndex = 6;
+            this.labelZoom.Text = "Zoom:";
+            this.labelZoom.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // tableLayoutPanelLeftTop
+            // 
+            this.tableLayoutPanelLeftTop.ColumnCount = 4;
+            this.tableLayoutPanelLeftTop.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelLeftTop.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 38F));
+            this.tableLayoutPanelLeftTop.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 72F));
+            this.tableLayoutPanelLeftTop.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 90F));
+            this.tableLayoutPanelLeftTop.Controls.Add(this.buttonReset, 3, 0);
+            this.tableLayoutPanelLeftTop.Controls.Add(this.dynamicComboBoxSearch, 0, 0);
+            this.tableLayoutPanelLeftTop.Controls.Add(this.buttonCenterMarker, 2, 0);
+            this.tableLayoutPanelLeftTop.Controls.Add(this.buttonSearch, 1, 0);
+            this.tableLayoutPanelLeftTop.Dock = System.Windows.Forms.DockStyle.Top;
+            this.tableLayoutPanelLeftTop.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanelLeftTop.Name = "tableLayoutPanelLeftTop";
+            this.tableLayoutPanelLeftTop.RowCount = 1;
+            this.tableLayoutPanelLeftTop.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelLeftTop.Size = new System.Drawing.Size(430, 26);
+            this.tableLayoutPanelLeftTop.TabIndex = 18;
+            // 
+            // buttonReset
+            // 
+            this.buttonReset.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonReset.Location = new System.Drawing.Point(343, 3);
+            this.buttonReset.Name = "buttonReset";
+            this.buttonReset.Size = new System.Drawing.Size(84, 20);
+            this.buttonReset.TabIndex = 10;
+            this.buttonReset.Text = "Zurücksetzen";
+            this.buttonReset.UseVisualStyleBackColor = true;
+            this.buttonReset.Click += new System.EventHandler(this.buttonReset_Click);
+            // 
             // dynamicComboBoxSearch
             // 
-            this.dynamicComboBoxSearch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.dynamicComboBoxSearch.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.dynamicComboBoxSearch.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.dynamicComboBoxSearch.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dynamicComboBoxSearch.FormattingEnabled = true;
             this.dynamicComboBoxSearch.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.dynamicComboBoxSearch.Location = new System.Drawing.Point(3, 3);
             this.dynamicComboBoxSearch.Name = "dynamicComboBoxSearch";
-            this.dynamicComboBoxSearch.Size = new System.Drawing.Size(216, 21);
+            this.dynamicComboBoxSearch.Size = new System.Drawing.Size(224, 21);
             this.dynamicComboBoxSearch.TabIndex = 13;
             this.dynamicComboBoxSearch.SelectedIndexChanged += new System.EventHandler(this.dynamicComboBoxSearch_SelectedIndexChanged);
             this.dynamicComboBoxSearch.TextUpdate += new System.EventHandler(this.dynamicComboBoxSearch_TextUpdate);
@@ -125,104 +225,56 @@
             // 
             // buttonCenterMarker
             // 
-            this.buttonCenterMarker.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonCenterMarker.Location = new System.Drawing.Point(259, 2);
+            this.buttonCenterMarker.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonCenterMarker.Location = new System.Drawing.Point(271, 3);
             this.buttonCenterMarker.Name = "buttonCenterMarker";
-            this.buttonCenterMarker.Size = new System.Drawing.Size(80, 23);
+            this.buttonCenterMarker.Size = new System.Drawing.Size(66, 20);
             this.buttonCenterMarker.TabIndex = 11;
             this.buttonCenterMarker.Text = "Zentrieren";
             this.buttonCenterMarker.UseVisualStyleBackColor = true;
             this.buttonCenterMarker.Click += new System.EventHandler(this.buttonCenterMarker_Click);
             // 
-            // buttonDelete
-            // 
-            this.buttonDelete.Location = new System.Drawing.Point(89, 26);
-            this.buttonDelete.Name = "buttonDelete";
-            this.buttonDelete.Size = new System.Drawing.Size(56, 21);
-            this.buttonDelete.TabIndex = 17;
-            this.buttonDelete.Text = "Löschen";
-            this.buttonDelete.UseVisualStyleBackColor = true;
-            this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
-            // 
-            // buttonReset
-            // 
-            this.buttonReset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonReset.Location = new System.Drawing.Point(344, 2);
-            this.buttonReset.Name = "buttonReset";
-            this.buttonReset.Size = new System.Drawing.Size(85, 23);
-            this.buttonReset.TabIndex = 10;
-            this.buttonReset.Text = "Zurücksetzen";
-            this.buttonReset.UseVisualStyleBackColor = true;
-            this.buttonReset.Click += new System.EventHandler(this.buttonReset_Click);
-            // 
-            // dynamicLabelCoordinates
-            // 
-            this.dynamicLabelCoordinates.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.dynamicLabelCoordinates.Location = new System.Drawing.Point(272, 30);
-            this.dynamicLabelCoordinates.Name = "dynamicLabelCoordinates";
-            this.dynamicLabelCoordinates.Size = new System.Drawing.Size(155, 13);
-            this.dynamicLabelCoordinates.TabIndex = 5;
-            this.dynamicLabelCoordinates.Text = "-99.99999N -99.99999E";
-            this.dynamicLabelCoordinates.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
             // buttonSearch
             // 
-            this.buttonSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSearch.Location = new System.Drawing.Point(225, 2);
+            this.buttonSearch.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonSearch.Location = new System.Drawing.Point(233, 3);
             this.buttonSearch.Name = "buttonSearch";
-            this.buttonSearch.Size = new System.Drawing.Size(30, 23);
+            this.buttonSearch.Size = new System.Drawing.Size(32, 20);
             this.buttonSearch.TabIndex = 14;
             this.buttonSearch.Text = "OK";
             this.buttonSearch.UseVisualStyleBackColor = true;
             this.buttonSearch.Click += new System.EventHandler(this.buttonSearch_Click);
             // 
-            // buttonRename
+            // tableLayoutPanelRight
             // 
-            this.buttonRename.Location = new System.Drawing.Point(2, 26);
-            this.buttonRename.Name = "buttonRename";
-            this.buttonRename.Size = new System.Drawing.Size(85, 21);
-            this.buttonRename.TabIndex = 16;
-            this.buttonRename.Text = "Umbenennen";
-            this.buttonRename.UseVisualStyleBackColor = true;
-            this.buttonRename.Click += new System.EventHandler(this.buttonRename_Click);
-            // 
-            // labelZoom
-            // 
-            this.labelZoom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelZoom.Location = new System.Drawing.Point(209, 30);
-            this.labelZoom.Name = "labelZoom";
-            this.labelZoom.Size = new System.Drawing.Size(38, 13);
-            this.labelZoom.TabIndex = 6;
-            this.labelZoom.Text = "Zoom:";
-            this.labelZoom.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // dynamicLabelZoom
-            // 
-            this.dynamicLabelZoom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.dynamicLabelZoom.AutoSize = true;
-            this.dynamicLabelZoom.Location = new System.Drawing.Point(251, 30);
-            this.dynamicLabelZoom.Name = "dynamicLabelZoom";
-            this.dynamicLabelZoom.Size = new System.Drawing.Size(19, 13);
-            this.dynamicLabelZoom.TabIndex = 7;
-            this.dynamicLabelZoom.Text = "13";
+            this.tableLayoutPanelRight.ColumnCount = 1;
+            this.tableLayoutPanelRight.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanelRight.Controls.Add(this.checkBoxWebView2, 0, 1);
+            this.tableLayoutPanelRight.Controls.Add(this.dynamicComboBoxMapSource, 0, 0);
+            this.tableLayoutPanelRight.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelRight.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanelRight.Name = "tableLayoutPanelRight";
+            this.tableLayoutPanelRight.RowCount = 2;
+            this.tableLayoutPanelRight.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanelRight.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanelRight.Size = new System.Drawing.Size(240, 50);
+            this.tableLayoutPanelRight.TabIndex = 0;
             // 
             // checkBoxWebView2
             // 
-            this.checkBoxWebView2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkBoxWebView2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.checkBoxWebView2.Location = new System.Drawing.Point(3, 28);
             this.checkBoxWebView2.Name = "checkBoxWebView2";
-            this.checkBoxWebView2.Size = new System.Drawing.Size(222, 19);
+            this.checkBoxWebView2.Size = new System.Drawing.Size(234, 19);
             this.checkBoxWebView2.TabIndex = 19;
             this.checkBoxWebView2.Text = "einschl. Karten nur für Anzeige (* ...)";
             this.checkBoxWebView2.UseVisualStyleBackColor = true;
             // 
             // dynamicComboBoxMapSource
             // 
-            this.dynamicComboBoxMapSource.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dynamicComboBoxMapSource.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dynamicComboBoxMapSource.FormattingEnabled = true;
-            this.dynamicComboBoxMapSource.Location = new System.Drawing.Point(3, 4);
+            this.dynamicComboBoxMapSource.Location = new System.Drawing.Point(3, 3);
             this.dynamicComboBoxMapSource.Name = "dynamicComboBoxMapSource";
             this.dynamicComboBoxMapSource.Size = new System.Drawing.Size(234, 21);
             this.dynamicComboBoxMapSource.TabIndex = 15;
@@ -266,8 +318,8 @@
             // 
             // UserControlMap
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.Controls.Add(this.panelMap);
             this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "UserControlMap";
@@ -275,10 +327,13 @@
             this.panelMap.ResumeLayout(false);
             this.panelBottom.ResumeLayout(false);
             this.splitContainerMapControls.Panel1.ResumeLayout(false);
-            this.splitContainerMapControls.Panel1.PerformLayout();
             this.splitContainerMapControls.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMapControls)).EndInit();
             this.splitContainerMapControls.ResumeLayout(false);
+            this.tableLayoutPanelLeftBottom.ResumeLayout(false);
+            this.tableLayoutPanelLeftBottom.PerformLayout();
+            this.tableLayoutPanelLeftTop.ResumeLayout(false);
+            this.tableLayoutPanelRight.ResumeLayout(false);
             this.panelTop.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -302,5 +357,8 @@
         private System.Windows.Forms.Button buttonSettings;
         private System.Windows.Forms.SplitContainer splitContainerMapControls;
         private System.Windows.Forms.Label labelHideMap;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelLeftTop;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelRight;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelLeftBottom;
     }
 }

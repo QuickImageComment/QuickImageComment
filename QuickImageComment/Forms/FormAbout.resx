@@ -155,15 +155,10 @@ Icons: Downloaded from www.small-icons.com.
 Creative Commons Attribution-Share Alike 3.0 License by www.aha-soft.com.
 Further information: http://www.small-icons.com/packs/free-license.htm.</value>
   </data>
-  <data name="textBoxLicenceGerman.Text" xml:space="preserve">
+  <data name="textBoxLicence.Text" xml:space="preserve">
     <value>QuickImageComment ist freie Software. Sie können es unter den Bedingungen der GNU General Public License (wie von der Free Software Foundation veröffentlicht) verwenden, weitergeben und/oder modifizieren, entweder gemäß Version 3 der Lizenz oder (nach Ihrer Option) jeder späteren Version.
 
 Die Veröffentlichung dieses Programms erfolgt in der Hoffnung, daß es Ihnen von Nutzen sein wird, aber OHNE IRGENDEINE GARANTIE, sogar ohne die implizite Garantie der MARKTREIFE oder der VERWENDBARKEIT FÜR EINEN BESTIMMTEN ZWECK. Details finden Sie in der GNU General Public License.</value>
-  </data>
-  <data name="textBoxLicenceEnglish.Text" xml:space="preserve">
-    <value>QuickImageComment is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version. 
-
-This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. </value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">

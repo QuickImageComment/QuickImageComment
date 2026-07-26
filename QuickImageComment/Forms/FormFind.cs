@@ -196,7 +196,7 @@ namespace QuickImageComment
             // show map with last used coordinates for find
             theUserControlMap = new UserControlMap(true, new GeoDataItem(ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.LastGeoDataItemForFind)),
                 true, gpsFindRangeInMeter, ConfigDefinition.enumCfgUserInt.SplitterMap1DistanceFormFind, this);
-            panelMap.Controls.Add(theUserControlMap.panelMap);
+            tableLayoutPanelMap.Controls.Add(theUserControlMap.panelMap,0,1);
             theUserControlMap.panelMap.Dock = DockStyle.Fill;
 
             // disable ValueChanged-event to avoid setting radius in UserControlMap again

@@ -31,6 +31,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormChangesInVersion));
             this.buttonOk = new System.Windows.Forms.Button();
             this.richTextBoxChanges = new System.Windows.Forms.RichTextBox();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonOk
@@ -47,24 +49,34 @@
             // 
             // richTextBoxChanges
             // 
-            this.richTextBoxChanges.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.richTextBoxChanges.BackColor = System.Drawing.SystemColors.Control;
             this.richTextBoxChanges.BulletIndent = 10;
-            this.richTextBoxChanges.Location = new System.Drawing.Point(8, 10);
+            this.richTextBoxChanges.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.richTextBoxChanges.Location = new System.Drawing.Point(3, 3);
             this.richTextBoxChanges.Name = "richTextBoxChanges";
             this.richTextBoxChanges.ReadOnly = true;
-            this.richTextBoxChanges.Size = new System.Drawing.Size(445, 227);
+            this.richTextBoxChanges.Size = new System.Drawing.Size(452, 233);
             this.richTextBoxChanges.TabIndex = 11;
             this.richTextBoxChanges.Text = "";
             // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 1;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Controls.Add(this.richTextBoxChanges, 0, 0);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(458, 239);
+            this.tableLayoutPanel1.TabIndex = 12;
+            // 
             // FormChangesInVersion
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(461, 269);
-            this.Controls.Add(this.richTextBoxChanges);
+            this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.buttonOk);
             this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -73,6 +85,7 @@
             this.Name = "FormChangesInVersion";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Änderungen in dieser Version";
+            this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -80,5 +93,6 @@
         #endregion
         private System.Windows.Forms.Button buttonOk;
         private System.Windows.Forms.RichTextBox richTextBoxChanges;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
     }
 }

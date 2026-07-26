@@ -60,6 +60,8 @@ namespace QuickImageComment
             this.labelMapInfo = new System.Windows.Forms.Label();
             this.buttonPrevious = new System.Windows.Forms.Button();
             this.buttonNext = new System.Windows.Forms.Button();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // listViewColumns
@@ -153,10 +155,10 @@ namespace QuickImageComment
             // 
             // richTextBoxValue
             // 
-            this.richTextBoxValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.richTextBoxValue.Location = new System.Drawing.Point(5, 232);
+            this.richTextBoxValue.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.richTextBoxValue.Location = new System.Drawing.Point(3, 3);
             this.richTextBoxValue.Name = "richTextBoxValue";
-            this.richTextBoxValue.Size = new System.Drawing.Size(824, 206);
+            this.richTextBoxValue.Size = new System.Drawing.Size(825, 207);
             this.richTextBoxValue.TabIndex = 6;
             this.richTextBoxValue.Text = "";
             this.richTextBoxValue.KeyDown += new System.Windows.Forms.KeyEventHandler(this.richTextBoxValue_KeyDown);
@@ -213,17 +215,31 @@ namespace QuickImageComment
             this.buttonNext.UseVisualStyleBackColor = true;
             this.buttonNext.Click += new System.EventHandler(this.buttonNext_Click);
             // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 1;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Controls.Add(this.richTextBoxValue, 0, 0);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 229);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(831, 213);
+            this.tableLayoutPanel1.TabIndex = 12;
+            // 
             // FormFindQuery
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(837, 507);
+            this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.buttonNext);
             this.Controls.Add(this.buttonPrevious);
             this.Controls.Add(this.labelMapInfo);
             this.Controls.Add(this.buttonInsertColumnName);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.richTextBoxValue);
             this.Controls.Add(this.buttonHelp);
             this.Controls.Add(this.buttonCustomizeForm);
             this.Controls.Add(this.buttonExecute);
@@ -238,6 +254,7 @@ namespace QuickImageComment
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Suche über Eigenschaften - Abfrage bearbeiten";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FormFindQuery_KeyDown);
+            this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -260,5 +277,6 @@ namespace QuickImageComment
         private System.Windows.Forms.Label labelMapInfo;
         private System.Windows.Forms.Button buttonPrevious;
         private System.Windows.Forms.Button buttonNext;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
     }
 }

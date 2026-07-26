@@ -53,25 +53,27 @@ namespace QuickImageComment
             this.dynamicComboBoxGroup = new System.Windows.Forms.ComboBox();
             this.numericUpDownMinute = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownSecond = new System.Windows.Forms.NumericUpDown();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.labelDays = new System.Windows.Forms.Label();
+            this.labelSeconds = new System.Windows.Forms.Label();
             this.buttonCustomizeForm = new System.Windows.Forms.Button();
             this.numericUpDownDay = new System.Windows.Forms.NumericUpDown();
-            this.label3 = new System.Windows.Forms.Label();
+            this.labelMinutes = new System.Windows.Forms.Label();
             this.numericUpDownHour = new System.Windows.Forms.NumericUpDown();
-            this.label4 = new System.Windows.Forms.Label();
+            this.labelHours = new System.Windows.Forms.Label();
             this.buttonHelp = new System.Windows.Forms.Button();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.progressPanel1 = new QuickImageComment.ProgressPanel();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMinute)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSecond)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDay)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHour)).BeginInit();
+            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonStart
             // 
             this.buttonStart.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.buttonStart.Location = new System.Drawing.Point(273, 311);
+            this.buttonStart.Location = new System.Drawing.Point(306, 311);
             this.buttonStart.Name = "buttonStart";
             this.buttonStart.Size = new System.Drawing.Size(100, 22);
             this.buttonStart.TabIndex = 12;
@@ -82,7 +84,7 @@ namespace QuickImageComment
             // buttonCancel
             // 
             this.buttonCancel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.buttonCancel.Location = new System.Drawing.Point(422, 311);
+            this.buttonCancel.Location = new System.Drawing.Point(455, 311);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(100, 22);
             this.buttonCancel.TabIndex = 13;
@@ -101,7 +103,7 @@ namespace QuickImageComment
             this.listViewImages.Location = new System.Drawing.Point(7, 32);
             this.listViewImages.Name = "listViewImages";
             this.listViewImages.OwnerDraw = true;
-            this.listViewImages.Size = new System.Drawing.Size(751, 244);
+            this.listViewImages.Size = new System.Drawing.Size(817, 244);
             this.listViewImages.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.listViewImages.TabIndex = 9;
             this.listViewImages.UseCompatibleStateImageBehavior = false;
@@ -115,18 +117,20 @@ namespace QuickImageComment
             // 
             // dynamicComboBoxGroup
             // 
+            this.dynamicComboBoxGroup.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dynamicComboBoxGroup.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.dynamicComboBoxGroup.FormattingEnabled = true;
             this.dynamicComboBoxGroup.Location = new System.Drawing.Point(7, 5);
             this.dynamicComboBoxGroup.Name = "dynamicComboBoxGroup";
-            this.dynamicComboBoxGroup.Size = new System.Drawing.Size(252, 21);
+            this.dynamicComboBoxGroup.Size = new System.Drawing.Size(313, 21);
             this.dynamicComboBoxGroup.TabIndex = 0;
             this.dynamicComboBoxGroup.SelectedIndexChanged += new System.EventHandler(this.comboBoxGroup_SelectedIndexChanged);
             // 
             // numericUpDownMinute
             // 
-            this.numericUpDownMinute.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDownMinute.Location = new System.Drawing.Point(588, 5);
+            this.numericUpDownMinute.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.numericUpDownMinute.Location = new System.Drawing.Point(343, 3);
             this.numericUpDownMinute.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -138,14 +142,14 @@ namespace QuickImageComment
             0,
             -2147483648});
             this.numericUpDownMinute.Name = "numericUpDownMinute";
-            this.numericUpDownMinute.Size = new System.Drawing.Size(51, 21);
+            this.numericUpDownMinute.Size = new System.Drawing.Size(34, 21);
             this.numericUpDownMinute.TabIndex = 6;
             this.numericUpDownMinute.ValueChanged += new System.EventHandler(this.numericUpDownMinute_ValueChanged);
             // 
             // numericUpDownSecond
             // 
-            this.numericUpDownSecond.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDownSecond.Location = new System.Drawing.Point(706, 5);
+            this.numericUpDownSecond.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.numericUpDownSecond.Location = new System.Drawing.Point(453, 3);
             this.numericUpDownSecond.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -157,29 +161,29 @@ namespace QuickImageComment
             0,
             -2147483648});
             this.numericUpDownSecond.Name = "numericUpDownSecond";
-            this.numericUpDownSecond.Size = new System.Drawing.Size(51, 21);
+            this.numericUpDownSecond.Size = new System.Drawing.Size(34, 21);
             this.numericUpDownSecond.TabIndex = 8;
             this.numericUpDownSecond.ValueChanged += new System.EventHandler(this.numericUpDownSecond_ValueChanged);
             // 
-            // label1
+            // labelDays
             // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label1.Location = new System.Drawing.Point(265, 7);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(106, 16);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Zeit ändern - Tage";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.labelDays.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelDays.Location = new System.Drawing.Point(3, 0);
+            this.labelDays.Name = "labelDays";
+            this.labelDays.Size = new System.Drawing.Size(114, 25);
+            this.labelDays.TabIndex = 1;
+            this.labelDays.Text = "Zeit ändern - Tage";
+            this.labelDays.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // label2
+            // labelSeconds
             // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label2.Location = new System.Drawing.Point(636, 7);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(69, 17);
-            this.label2.TabIndex = 7;
-            this.label2.Text = "Sekunden";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.labelSeconds.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelSeconds.Location = new System.Drawing.Point(383, 0);
+            this.labelSeconds.Name = "labelSeconds";
+            this.labelSeconds.Size = new System.Drawing.Size(64, 25);
+            this.labelSeconds.TabIndex = 7;
+            this.labelSeconds.Text = "Sekunden";
+            this.labelSeconds.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // buttonCustomizeForm
             // 
@@ -194,8 +198,8 @@ namespace QuickImageComment
             // 
             // numericUpDownDay
             // 
-            this.numericUpDownDay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDownDay.Location = new System.Drawing.Point(372, 5);
+            this.numericUpDownDay.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.numericUpDownDay.Location = new System.Drawing.Point(123, 3);
             this.numericUpDownDay.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -207,24 +211,24 @@ namespace QuickImageComment
             0,
             -2147483648});
             this.numericUpDownDay.Name = "numericUpDownDay";
-            this.numericUpDownDay.Size = new System.Drawing.Size(51, 21);
+            this.numericUpDownDay.Size = new System.Drawing.Size(34, 21);
             this.numericUpDownDay.TabIndex = 2;
             this.numericUpDownDay.ValueChanged += new System.EventHandler(this.numericUpDownDay_ValueChanged);
             // 
-            // label3
+            // labelMinutes
             // 
-            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label3.Location = new System.Drawing.Point(529, 7);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(58, 16);
-            this.label3.TabIndex = 5;
-            this.label3.Text = "Minuten";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.labelMinutes.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelMinutes.Location = new System.Drawing.Point(273, 0);
+            this.labelMinutes.Name = "labelMinutes";
+            this.labelMinutes.Size = new System.Drawing.Size(64, 25);
+            this.labelMinutes.TabIndex = 5;
+            this.labelMinutes.Text = "Minuten";
+            this.labelMinutes.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // numericUpDownHour
             // 
-            this.numericUpDownHour.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDownHour.Location = new System.Drawing.Point(481, 5);
+            this.numericUpDownHour.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.numericUpDownHour.Location = new System.Drawing.Point(233, 3);
             this.numericUpDownHour.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -236,30 +240,57 @@ namespace QuickImageComment
             0,
             -2147483648});
             this.numericUpDownHour.Name = "numericUpDownHour";
-            this.numericUpDownHour.Size = new System.Drawing.Size(51, 21);
+            this.numericUpDownHour.Size = new System.Drawing.Size(34, 21);
             this.numericUpDownHour.TabIndex = 4;
             this.numericUpDownHour.ValueChanged += new System.EventHandler(this.numericUpDownHour_ValueChanged);
             // 
-            // label4
+            // labelHours
             // 
-            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label4.Location = new System.Drawing.Point(423, 7);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(57, 17);
-            this.label4.TabIndex = 3;
-            this.label4.Text = "Stunden";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.labelHours.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelHours.Location = new System.Drawing.Point(163, 0);
+            this.labelHours.Name = "labelHours";
+            this.labelHours.Size = new System.Drawing.Size(64, 25);
+            this.labelHours.TabIndex = 3;
+            this.labelHours.Text = "Stunden";
+            this.labelHours.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // buttonHelp
             // 
             this.buttonHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonHelp.Location = new System.Drawing.Point(658, 311);
+            this.buttonHelp.Location = new System.Drawing.Point(724, 311);
             this.buttonHelp.Name = "buttonHelp";
             this.buttonHelp.Size = new System.Drawing.Size(100, 22);
             this.buttonHelp.TabIndex = 14;
             this.buttonHelp.Text = "Hilfe";
             this.buttonHelp.UseVisualStyleBackColor = true;
             this.buttonHelp.Click += new System.EventHandler(this.buttonHelp_Click);
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel1.ColumnCount = 8;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 70F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 70F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 70F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tableLayoutPanel1.Controls.Add(this.labelDays, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.numericUpDownDay, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.numericUpDownHour, 3, 0);
+            this.tableLayoutPanel1.Controls.Add(this.labelHours, 2, 0);
+            this.tableLayoutPanel1.Controls.Add(this.numericUpDownSecond, 7, 0);
+            this.tableLayoutPanel1.Controls.Add(this.labelMinutes, 4, 0);
+            this.tableLayoutPanel1.Controls.Add(this.numericUpDownMinute, 5, 0);
+            this.tableLayoutPanel1.Controls.Add(this.labelSeconds, 6, 0);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(334, 3);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(490, 25);
+            this.tableLayoutPanel1.TabIndex = 17;
             // 
             // progressPanel1
             // 
@@ -268,29 +299,22 @@ namespace QuickImageComment
             this.progressPanel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.progressPanel1.Location = new System.Drawing.Point(8, 282);
             this.progressPanel1.Name = "progressPanel1";
-            this.progressPanel1.Size = new System.Drawing.Size(750, 23);
+            this.progressPanel1.Size = new System.Drawing.Size(816, 23);
             this.progressPanel1.TabIndex = 16;
             // 
             // FormDateTimeChange
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(763, 344);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.ClientSize = new System.Drawing.Size(829, 344);
+            this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.progressPanel1);
             this.Controls.Add(this.buttonHelp);
-            this.Controls.Add(this.numericUpDownHour);
-            this.Controls.Add(this.numericUpDownDay);
             this.Controls.Add(this.buttonCustomizeForm);
-            this.Controls.Add(this.numericUpDownSecond);
-            this.Controls.Add(this.numericUpDownMinute);
             this.Controls.Add(this.dynamicComboBoxGroup);
             this.Controls.Add(this.listViewImages);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonStart);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label1);
             this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
@@ -303,6 +327,7 @@ namespace QuickImageComment
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSecond)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDay)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHour)).EndInit();
+            this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -316,14 +341,15 @@ namespace QuickImageComment
         private System.Windows.Forms.ComboBox dynamicComboBoxGroup;
         private System.Windows.Forms.NumericUpDown numericUpDownMinute;
         private System.Windows.Forms.NumericUpDown numericUpDownSecond;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label labelDays;
+        private System.Windows.Forms.Label labelSeconds;
         private System.Windows.Forms.Button buttonCustomizeForm;
         private System.Windows.Forms.NumericUpDown numericUpDownDay;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label labelMinutes;
         private System.Windows.Forms.NumericUpDown numericUpDownHour;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label labelHours;
         private System.Windows.Forms.Button buttonHelp;
         private ProgressPanel progressPanel1;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
     }
 }

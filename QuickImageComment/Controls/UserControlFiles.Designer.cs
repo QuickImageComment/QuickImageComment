@@ -239,7 +239,7 @@ namespace QuickImageComment
             this.contextMenuStripMenuItemSortComment.Text = "... nach Kommentar";
             this.contextMenuStripMenuItemSortComment.Click += new System.EventHandler(this.contextMenuStripMenuItemSortColumn_Click);
             // 
-            // contextMenuStripMenuItemSortRating
+            // contextMenuStripMenuItemSortRatingDec
             // 
             this.contextMenuStripMenuItemSortRatingDec.Name = "contextMenuStripMenuItemSortRatingDec";
             this.contextMenuStripMenuItemSortRatingDec.Size = new System.Drawing.Size(202, 22);
@@ -292,8 +292,8 @@ namespace QuickImageComment
             // 
             // UserControlFiles
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.Controls.Add(this.buttonFilterFiles);
             this.Controls.Add(this.textBoxFileFilter);
             this.Controls.Add(this.labelFilter);

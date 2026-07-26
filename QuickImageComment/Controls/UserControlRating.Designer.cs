@@ -42,7 +42,7 @@
             // buttonNone
             // 
             this.buttonNone.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonNone.BackgroundImage")));
-            this.buttonNone.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.buttonNone.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.buttonNone.Location = new System.Drawing.Point(188, 0);
             this.buttonNone.Name = "buttonNone";
             this.buttonNone.Size = new System.Drawing.Size(27, 26);
@@ -139,18 +139,17 @@
             // buttonRevert
             // 
             this.buttonRevert.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonRevert.BackgroundImage")));
-            this.buttonRevert.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.buttonRevert.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.buttonRevert.Location = new System.Drawing.Point(164, 0);
             this.buttonRevert.Name = "buttonRevert";
             this.buttonRevert.Size = new System.Drawing.Size(27, 26);
             this.buttonRevert.TabIndex = 7;
             this.buttonRevert.UseVisualStyleBackColor = true;
-            this.buttonRevert.Click += new System.EventHandler(this.buttonRevert_Click);
             // 
             // UserControlRating
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.Controls.Add(this.buttonRevert);
             this.Controls.Add(this.buttonNone);
             this.Controls.Add(this.fixedButtonStar5);

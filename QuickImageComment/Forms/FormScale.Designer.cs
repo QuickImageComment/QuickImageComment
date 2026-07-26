@@ -226,9 +226,10 @@
             this.dynamicLabelExample.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.dynamicLabelExample.Location = new System.Drawing.Point(9, 274);
             this.dynamicLabelExample.Name = "dynamicLabelExample";
-            this.dynamicLabelExample.Size = new System.Drawing.Size(333, 94);
+            this.dynamicLabelExample.Size = new System.Drawing.Size(348, 36);
             this.dynamicLabelExample.TabIndex = 7;
             this.dynamicLabelExample.Text = "abcdefghijklmnopqrstuvwxyz 1234567890 ABCDEFGHIJKLMNOPQRSTUVWXYZÖÄÜ";
+            this.dynamicLabelExample.UseCompatibleTextRendering = true;
             // 
             // fixedLabelPercentGeneral
             // 
@@ -367,8 +368,8 @@
             // 
             // FormScale
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(358, 409);
             this.Controls.Add(this.fixedLabelPercentThumbnail);
             this.Controls.Add(this.numericUpDownThumbnail);
