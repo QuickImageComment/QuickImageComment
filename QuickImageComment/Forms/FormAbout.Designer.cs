@@ -69,7 +69,7 @@ namespace QuickImageComment
             // buttonClose
             // 
             this.buttonClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonClose.Location = new System.Drawing.Point(400, 631);
+            this.buttonClose.Location = new System.Drawing.Point(400, 550);
             this.buttonClose.Name = "buttonClose";
             this.buttonClose.Size = new System.Drawing.Size(239, 25);
             this.buttonClose.TabIndex = 12;
@@ -81,12 +81,12 @@ namespace QuickImageComment
             // 
             this.textBoxOtherSources.BackColor = System.Drawing.SystemColors.Control;
             this.textBoxOtherSources.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBoxOtherSources.Location = new System.Drawing.Point(3, 155);
+            this.textBoxOtherSources.Location = new System.Drawing.Point(3, 135);
             this.textBoxOtherSources.Multiline = true;
             this.textBoxOtherSources.Name = "textBoxOtherSources";
             this.textBoxOtherSources.ReadOnly = true;
             this.textBoxOtherSources.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBoxOtherSources.Size = new System.Drawing.Size(646, 331);
+            this.textBoxOtherSources.Size = new System.Drawing.Size(646, 282);
             this.textBoxOtherSources.TabIndex = 11;
             this.textBoxOtherSources.Text = resources.GetString("textBoxOtherSources.Text");
             // 
@@ -121,7 +121,7 @@ namespace QuickImageComment
             // 
             this.label5.AutoSize = true;
             this.label5.Dock = System.Windows.Forms.DockStyle.Left;
-            this.label5.Location = new System.Drawing.Point(3, 130);
+            this.label5.Location = new System.Drawing.Point(3, 110);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(218, 22);
             this.label5.TabIndex = 10;
@@ -136,7 +136,7 @@ namespace QuickImageComment
             this.textBoxLicence.Location = new System.Drawing.Point(3, 3);
             this.textBoxLicence.Multiline = true;
             this.textBoxLicence.Name = "textBoxLicence";
-            this.textBoxLicence.Size = new System.Drawing.Size(646, 124);
+            this.textBoxLicence.Size = new System.Drawing.Size(646, 104);
             this.textBoxLicence.TabIndex = 8;
             this.textBoxLicence.Text = resources.GetString("textBoxLicence.Text");
             // 
@@ -154,7 +154,7 @@ namespace QuickImageComment
             // buttonLicenses
             // 
             this.buttonLicenses.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonLicenses.Location = new System.Drawing.Point(12, 631);
+            this.buttonLicenses.Location = new System.Drawing.Point(12, 550);
             this.buttonLicenses.Name = "buttonLicenses";
             this.buttonLicenses.Size = new System.Drawing.Size(239, 25);
             this.buttonLicenses.TabIndex = 14;
@@ -244,6 +244,9 @@ namespace QuickImageComment
             // 
             // tableLayoutPanel1
             // 
+            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Controls.Add(this.textBoxLicence, 0, 0);
@@ -252,17 +255,17 @@ namespace QuickImageComment
             this.tableLayoutPanel1.Location = new System.Drawing.Point(-1, 122);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 3;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 130F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 110F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 22F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(652, 489);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(652, 420);
             this.tableLayoutPanel1.TabIndex = 28;
             // 
             // FormAbout
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(651, 660);
+            this.ClientSize = new System.Drawing.Size(651, 579);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.dynamicLabelTranslationAcknowledgment);
             this.Controls.Add(this.labelGitHub);

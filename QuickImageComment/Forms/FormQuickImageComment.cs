@@ -267,6 +267,15 @@ namespace QuickImageComment
             theUserControlFiles.init(this);
             //Program.StartupPerformance.measure("FormQIC after theUserControlFiles.init");
 
+            // Now WinForms has finished scaling and layout and dynamic controls are added.
+            splitContainer1.SplitterDistance = (int)(splitContainer1SplitterRatio * splitContainer1.Width);
+            splitContainer11.SplitterDistance = (int)(splitContainer11SplitterRatio * splitContainer11.Height);
+            splitContainer12.SplitterDistance = (int)(splitContainer12SplitterRatio * splitContainer12.Height);
+            splitContainer12P1.SplitterDistance = (int)(splitContainer12P1SplitterRatio * splitContainer12P1.Height);
+            splitContainer121.SplitterDistance = (int)(splitContainer121SplitterRatio * splitContainer121.Width);
+            splitContainer1211.SplitterDistance = (int)(splitContainer1211SplitterRatio * splitContainer1211.Width);
+            splitContainer122.SplitterDistance = (int)(splitContainer122SplitterRatio * splitContainer122.Width);
+
             // data grids for meta data
             // controls added here, so that all settings can be defined in constructor of DataGridViewMetaData
             // when controls are added in Designer.cs then each time the mask is changed, new columns are added by Visual Studio Designer
@@ -939,21 +948,6 @@ namespace QuickImageComment
             }
 
             //CustomizationInterface.checkFontSize(this, this.Font.Size);
-        }
-
-        // used to adjust splitter distances after scaling and layout is finished (otherwise wrong values)
-        protected override void OnShown(EventArgs e)
-        {
-            base.OnShown(e);
-
-            // Now WinForms has finished scaling and layout.
-            splitContainer1.SplitterDistance = (int)(splitContainer1SplitterRatio * splitContainer1.Width);
-            splitContainer11.SplitterDistance = (int)(splitContainer11SplitterRatio * splitContainer11.Height);
-            splitContainer12.SplitterDistance = (int)(splitContainer12SplitterRatio * splitContainer12.Height);
-            splitContainer12P1.SplitterDistance = (int)(splitContainer12P1SplitterRatio * splitContainer12P1.Height);
-            splitContainer121.SplitterDistance = (int)(splitContainer121SplitterRatio * splitContainer121.Width);
-            splitContainer1211.SplitterDistance = (int)(splitContainer1211SplitterRatio * splitContainer1211.Width);
-            splitContainer122.SplitterDistance = (int)(splitContainer122SplitterRatio * splitContainer122.Width);
         }
 
         private void fillAndConfigureChangeableFieldPanel()
@@ -7096,35 +7090,47 @@ namespace QuickImageComment
                 FormWindowState formWindowState = this.WindowState;
                 this.WindowState = FormWindowState.Minimized;
 
-                // FormAbout not needed
-                // FormChangesInVersion not needed
+                // FormAbout only for scaling check
+                new FormAbout();
+                // FormChangesInVersion only for scaling check
+                new FormChangesInVersion();
                 new FormCheckNewVersion("", "");
                 new FormCompare(theUserControlFiles.listViewFiles.SelectedIndices);
                 new FormDataTemplates();
                 new FormDateTimeChange(theUserControlFiles.listViewFiles.SelectedIndices);
-                // FormDonate not needed
+                // FormDonate only for scaling check
+                new FormDonate();
                 new FormEditExternal();
-                // FormError not needed
-                // FormExifToolSettings not needed
+                // FormError only for scaling check
+                new FormError("Error message", "Error details", "File name", true);
+                new FormExiftoolDirect();
+                // FormExifToolSettings only for scaling check
+                new FormExifToolSettings();
                 new FormExportAllMetaData(theUserControlFiles.listViewFiles.SelectedIndices, FolderName, FormExportAllMetaData.enumExImPortMode.TextExport);
                 new FormExportMetaData(FolderName);
                 FormFind formFind = new FormFind(true);
                 formFind.createScreenShot();
-                // FormFindQuery not needed
+                // FormFindQuery is included formFind.createScreenShot();
                 new FormFindReadErrors();
-                // FormFirstUserSettings not needed
-                // FormGeoDataItemList not needed
+                // FormFirstUserSettings only for scaling check
+                new FormFirstUserSettings(true);
+                // FormGeoDataItemList only for scaling check
+                new FormGeoDataItemList(new GeoDataItem("düsseldorf hbf|51.2197340|6.7943015|Düsseldorf Hauptbahnhof, Weg Gleis 12, Stadtmitte, Stadtbezirk 1, Düsseldorf, Nordrhein-Westfalen, 40210, Deutschland|Deutschland|de|Nordrhein-Westfalen|Düsseldorf|Stadtbezirk 1"));
                 new FormImageDetails(dpiSettings, theExtendedImage);
                 new FormImageGrid();
                 new FormImageWindow(theExtendedImage);
-                // FormInputBox not needed
+                // FormInputBox only for scaling check
+                new FormInputBox("Input box prompt", "Default value");
                 new FormInputCheckConfiguration("Iptc.Application2.Category");
-                // FormLogger not needed
+                // FormLogger only for scaling check
+                new FormLogger();
                 new FormMap();
                 new FormMapSettings(theUserControlMap);
                 new FormMetaDataDefinition(theExtendedImage);
-                // FormMultiSave not needed
-                // FormNominatimQueryInput not needed
+                // FormMultiSave only for scaling check
+                new FormMultiSave(10);
+                // FormNominatimQueryInput only for scaling check
+                new FormNominatimQueryInput(new ComboBox());
                 new FormPlaceholder("Exif.Image.Copyright", "Copyright {{#Exif.Photo.DateTimeOriginal;;4}} {{Exif.Image.Artist}}");
                 new FormPredefinedComments();
                 new FormPredefinedKeyWords();
@@ -7133,12 +7139,16 @@ namespace QuickImageComment
                 new FormRemoveMetaData(theUserControlFiles.listViewFiles.SelectedIndices);
                 new FormRename(theUserControlFiles.listViewFiles.SelectedIndices);
                 new FormScale();
-                // FormSelectApplication not needed
-                // FormSelectFolder not needed
+                // FormSelectApplication only for scaling check
+                new FormSelectApplication();
+                // FormSelectFolder only for scaling check
+                new FormSelectFolder("C:\\Bilder");
                 new FormSelectLanguage(ConfigDefinition.getConfigPath());
                 new FormSettings();
-                // FormSlideShow not needed
-                // new FormSlideshowSettings(new FormSlideshow(theExtendedImage));
+                // FormSlideShow only for scaling check
+                new FormSlideshow(theExtendedImage);
+                // FormSlideshowSettings only for scaling check
+                new FormSlideshowSettings(new FormSlideshow(theExtendedImage));
                 // FormTagValueInput needs main mask to be visible, screen shot taken above
                 new FormUserButtons(this.MenuStrip1);
                 new FormView(SplitContainerPanelControls, DefaultSplitContainerPanelContents,

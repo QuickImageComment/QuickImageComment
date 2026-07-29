@@ -91,7 +91,7 @@ namespace QuickImageComment
             this.textBoxPredefinedKeyWords.Multiline = true;
             this.textBoxPredefinedKeyWords.Name = "textBoxPredefinedKeyWords";
             this.textBoxPredefinedKeyWords.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxPredefinedKeyWords.Size = new System.Drawing.Size(407, 288);
+            this.textBoxPredefinedKeyWords.Size = new System.Drawing.Size(414, 288);
             this.textBoxPredefinedKeyWords.TabIndex = 1;
             // 
             // label1
@@ -139,6 +139,7 @@ namespace QuickImageComment
             // 
             // label2
             // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(24, 346);
             this.label2.Name = "label2";
@@ -149,6 +150,9 @@ namespace QuickImageComment
             // 
             // tableLayoutPanel1
             // 
+            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -158,7 +162,7 @@ namespace QuickImageComment
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(413, 294);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(420, 294);
             this.tableLayoutPanel1.TabIndex = 8;
             // 
             // FormPredefinedKeyWords
@@ -177,7 +181,6 @@ namespace QuickImageComment
             this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
-            this.MinimumSize = new System.Drawing.Size(448, 409);
             this.Name = "FormPredefinedKeyWords";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Vordefinierte Schlüsselworte";

@@ -53,10 +53,12 @@
             this.fixedLabelPercentThumbnail = new System.Windows.Forms.Label();
             this.numericUpDownThumbnail = new System.Windows.Forms.NumericUpDown();
             this.checkBoxSeparateScaleThumbnail = new System.Windows.Forms.CheckBox();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panelRecommendedScales.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownGeneral)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownToolbar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownThumbnail)).BeginInit();
+            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonHelp
@@ -223,10 +225,10 @@
             // 
             // dynamicLabelExample
             // 
-            this.dynamicLabelExample.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.dynamicLabelExample.Location = new System.Drawing.Point(9, 274);
+            this.dynamicLabelExample.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dynamicLabelExample.Location = new System.Drawing.Point(3, 0);
             this.dynamicLabelExample.Name = "dynamicLabelExample";
-            this.dynamicLabelExample.Size = new System.Drawing.Size(348, 36);
+            this.dynamicLabelExample.Size = new System.Drawing.Size(351, 36);
             this.dynamicLabelExample.TabIndex = 7;
             this.dynamicLabelExample.Text = "abcdefghijklmnopqrstuvwxyz 1234567890 ABCDEFGHIJKLMNOPQRSTUVWXYZÖÄÜ";
             this.dynamicLabelExample.UseCompatibleTextRendering = true;
@@ -366,11 +368,24 @@
             this.checkBoxSeparateScaleThumbnail.UseVisualStyleBackColor = true;
             this.checkBoxSeparateScaleThumbnail.CheckedChanged += new System.EventHandler(this.scalingConfigurationChanged);
             // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 1;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Controls.Add(this.dynamicLabelExample, 0, 0);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 269);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(357, 36);
+            this.tableLayoutPanel1.TabIndex = 16;
+            // 
             // FormScale
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(358, 409);
+            this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.fixedLabelPercentThumbnail);
             this.Controls.Add(this.numericUpDownThumbnail);
             this.Controls.Add(this.checkBoxSeparateScaleThumbnail);
@@ -381,7 +396,6 @@
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.fixedLabelPercentGeneral);
-            this.Controls.Add(this.dynamicLabelExample);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.numericUpDownGeneral);
             this.Controls.Add(this.panelRecommendedScales);
@@ -389,8 +403,8 @@
             this.Controls.Add(this.buttonOk);
             this.Controls.Add(this.buttonAbort);
             this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MinimumSize = new System.Drawing.Size(374, 448);
             this.Name = "FormScale";
             this.Text = "Skalierung";
             this.panelRecommendedScales.ResumeLayout(false);
@@ -398,6 +412,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownGeneral)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownToolbar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownThumbnail)).EndInit();
+            this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -429,5 +444,6 @@
         private System.Windows.Forms.Label fixedLabelPercentThumbnail;
         private System.Windows.Forms.NumericUpDown numericUpDownThumbnail;
         private System.Windows.Forms.CheckBox checkBoxSeparateScaleThumbnail;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
     }
 }

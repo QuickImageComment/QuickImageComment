@@ -30,6 +30,7 @@ namespace QuickImageComment
         public FormPredefinedComments()
         {
             InitializeComponent();
+            this.MinimumSize = this.Size;
 #if APPCENTER
             if (Program.AppCenterUsable) Microsoft.AppCenter.Analytics.Analytics.TrackEvent(this.Name);
 #endif

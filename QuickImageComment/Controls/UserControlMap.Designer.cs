@@ -36,7 +36,7 @@
             this.buttonDelete = new System.Windows.Forms.Button();
             this.buttonRename = new System.Windows.Forms.Button();
             this.dynamicLabelZoom = new System.Windows.Forms.Label();
-            this.dynamicLabelCoordinates = new System.Windows.Forms.Label();
+            this.textBoxCoordinates = new System.Windows.Forms.TextBox();
             this.labelZoom = new System.Windows.Forms.Label();
             this.tableLayoutPanelLeftTop = new System.Windows.Forms.TableLayoutPanel();
             this.buttonReset = new System.Windows.Forms.Button();
@@ -115,7 +115,7 @@
             this.tableLayoutPanelLeftBottom.Controls.Add(this.buttonDelete, 1, 0);
             this.tableLayoutPanelLeftBottom.Controls.Add(this.buttonRename, 0, 0);
             this.tableLayoutPanelLeftBottom.Controls.Add(this.dynamicLabelZoom, 3, 0);
-            this.tableLayoutPanelLeftBottom.Controls.Add(this.dynamicLabelCoordinates, 4, 0);
+            this.tableLayoutPanelLeftBottom.Controls.Add(this.textBoxCoordinates, 4, 0);
             this.tableLayoutPanelLeftBottom.Controls.Add(this.labelZoom, 2, 0);
             this.tableLayoutPanelLeftBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.tableLayoutPanelLeftBottom.Location = new System.Drawing.Point(0, 24);
@@ -157,15 +157,16 @@
             this.dynamicLabelZoom.Text = "13";
             this.dynamicLabelZoom.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // dynamicLabelCoordinates
+            // textBoxCoordinates
             // 
-            this.dynamicLabelCoordinates.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dynamicLabelCoordinates.Location = new System.Drawing.Point(238, 0);
-            this.dynamicLabelCoordinates.Name = "dynamicLabelCoordinates";
-            this.dynamicLabelCoordinates.Size = new System.Drawing.Size(189, 26);
-            this.dynamicLabelCoordinates.TabIndex = 5;
-            this.dynamicLabelCoordinates.Text = "-199.99999N -199.99999E";
-            this.dynamicLabelCoordinates.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.textBoxCoordinates.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBoxCoordinates.Location = new System.Drawing.Point(238, 3);
+            this.textBoxCoordinates.Name = "textBoxCoordinates";
+            this.textBoxCoordinates.ReadOnly = true;
+            this.textBoxCoordinates.Size = new System.Drawing.Size(189, 21);
+            this.textBoxCoordinates.TabIndex = 5;
+            this.textBoxCoordinates.Text = "-199.99999N -199.99999E";
+            this.textBoxCoordinates.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // labelZoom
             // 
@@ -353,7 +354,7 @@
         private System.Windows.Forms.Button buttonRename;
         private System.Windows.Forms.Button buttonDelete;
         private System.Windows.Forms.CheckBox checkBoxWebView2;
-        internal System.Windows.Forms.Label dynamicLabelCoordinates;
+        internal System.Windows.Forms.TextBox textBoxCoordinates;
         private System.Windows.Forms.Button buttonSettings;
         private System.Windows.Forms.SplitContainer splitContainerMapControls;
         private System.Windows.Forms.Label labelHideMap;

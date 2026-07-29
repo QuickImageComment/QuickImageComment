@@ -1228,6 +1228,10 @@ namespace QuickImageComment
         {
             // a little bit smaller, avoids "dirt" from background in the rounded corners
             System.Drawing.Bitmap bmp = new System.Drawing.Bitmap(theForm.Width - 14, theForm.Height - 7);
+            if (theForm.Location.Y + theForm.Height > System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height - 10)
+            {
+                theForm.Location = new System.Drawing.Point(1, 1);
+            }
             theForm.Refresh();
             theForm.Activate();
             // from experience: wait until screen is really ready for screen shots (to avoid ghosts from previous mask)
@@ -1239,8 +1243,16 @@ namespace QuickImageComment
             }
             using (System.Drawing.Graphics gr = System.Drawing.Graphics.FromImage(bmp))
             {
-                gr.CopyFromScreen(theForm.PointToScreen(new System.Drawing.Point(-1, -31)), System.Drawing.Point.Empty,
+                if (theForm.WindowState == FormWindowState.Maximized)
+                {
+                    gr.CopyFromScreen(theForm.PointToScreen(new System.Drawing.Point(0, 0)), System.Drawing.Point.Empty,
                     new System.Drawing.Size(bmp.Width, bmp.Height));
+                }
+                else
+                {
+                    gr.CopyFromScreen(theForm.PointToScreen(new System.Drawing.Point(-1, -31)), System.Drawing.Point.Empty,
+                    new System.Drawing.Size(bmp.Width, bmp.Height));
+                }
             }
             return bmp;
         }

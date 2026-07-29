@@ -41,6 +41,7 @@ namespace QuickImageComment
         public FormPlaceholder(string givenkeyToChange, string inputString)
         {
             InitializeComponent();
+            this.MinimumSize = this.Size;
 #if APPCENTER
             if (Program.AppCenterUsable) Microsoft.AppCenter.Analytics.Analytics.TrackEvent(this.Name);
 #endif
@@ -62,8 +63,8 @@ namespace QuickImageComment
 
             buttonAbort.Select();
             richTextBoxValue.Text = inputString;
-            dynamicLabelValueOriginal.Text = "";
-            dynamicLabelValueInterpreted.Text = "";
+            textBoxValueOriginal.Text = "";
+            textBoxValueInterpreted.Text = "";
             textBoxValueConverted.Text = "";
 
             buttonAbort.Select();
@@ -128,8 +129,8 @@ namespace QuickImageComment
                 string MetaDataKey = userControlTagList.listViewTags.SelectedItems[0].SubItems[3].Text;
                 if (theExtendedImage != null)
                 {
-                    this.dynamicLabelValueOriginal.Text = theExtendedImage.getMetaDataValueByKey(MetaDataKey, MetaDataItem.Format.Original);
-                    this.dynamicLabelValueInterpreted.Text = theExtendedImage.getMetaDataValueByKey(MetaDataKey, MetaDataItem.Format.Interpreted);
+                    this.textBoxValueOriginal.Text = theExtendedImage.getMetaDataValueByKey(MetaDataKey, MetaDataItem.Format.Original);
+                    this.textBoxValueInterpreted.Text = theExtendedImage.getMetaDataValueByKey(MetaDataKey, MetaDataItem.Format.Interpreted);
                 }
             }
         }

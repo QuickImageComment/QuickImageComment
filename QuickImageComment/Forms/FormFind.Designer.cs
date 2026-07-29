@@ -55,6 +55,7 @@ namespace QuickImageComment
             this.buttonHelp = new System.Windows.Forms.Button();
             this.panelFilterInner = new System.Windows.Forms.Panel();
             this.dynamicComboBoxOperator = new System.Windows.Forms.ComboBox();
+            this.dateTimePicker = new QuickImageComment.DateTimePickerQIC();
             this.dynamicComboBoxValue = new System.Windows.Forms.ComboBox();
             this.dynamicLabelFind = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
@@ -76,20 +77,19 @@ namespace QuickImageComment
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panelFilterOuter = new System.Windows.Forms.Panel();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.dynamicLabelLengthUnit = new System.Windows.Forms.Label();
+            this.tableLayoutPanelMap = new System.Windows.Forms.TableLayoutPanel();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.checkBoxFilterGPS = new System.Windows.Forms.CheckBox();
+            this.dynamicLabelLengthUnit = new System.Windows.Forms.Label();
             this.numericUpDownGpsRange = new System.Windows.Forms.NumericUpDown();
+            this.tableLayoutPanelKeyWords = new System.Windows.Forms.TableLayoutPanel();
+            this.treeViewKeyWords = new QuickImageCommentControls.TreeViewKeyWords();
             this.labelKeyWords = new System.Windows.Forms.Label();
             this.checkBoxShowDataTable = new System.Windows.Forms.CheckBox();
             this.backgroundWorkerInit = new System.ComponentModel.BackgroundWorker();
             this.checkBoxSaveFindDataTable = new System.Windows.Forms.CheckBox();
             this.backgroundWorkerUpdate = new System.ComponentModel.BackgroundWorker();
             this.buttonQuery = new System.Windows.Forms.Button();
-            this.tableLayoutPanelMap = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanelKeyWords = new System.Windows.Forms.TableLayoutPanel();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.dateTimePicker = new QuickImageComment.DateTimePickerQIC();
-            this.treeViewKeyWords = new QuickImageCommentControls.TreeViewKeyWords();
             this.progressPanel1 = new QuickImageComment.ProgressPanel();
             this.panelFilterInner.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -102,16 +102,16 @@ namespace QuickImageComment
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownGpsRange)).BeginInit();
             this.tableLayoutPanelMap.SuspendLayout();
-            this.tableLayoutPanelKeyWords.SuspendLayout();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownGpsRange)).BeginInit();
+            this.tableLayoutPanelKeyWords.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonFind
             // 
             this.buttonFind.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonFind.Location = new System.Drawing.Point(596, 339);
+            this.buttonFind.Location = new System.Drawing.Point(568, 339);
             this.buttonFind.Name = "buttonFind";
             this.buttonFind.Size = new System.Drawing.Size(99, 26);
             this.buttonFind.TabIndex = 3;
@@ -122,7 +122,7 @@ namespace QuickImageComment
             // buttonAbort
             // 
             this.buttonAbort.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonAbort.Location = new System.Drawing.Point(702, 339);
+            this.buttonAbort.Location = new System.Drawing.Point(674, 339);
             this.buttonAbort.Name = "buttonAbort";
             this.buttonAbort.Size = new System.Drawing.Size(99, 26);
             this.buttonAbort.TabIndex = 4;
@@ -144,7 +144,7 @@ namespace QuickImageComment
             // buttonHelp
             // 
             this.buttonHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonHelp.Location = new System.Drawing.Point(804, 339);
+            this.buttonHelp.Location = new System.Drawing.Point(776, 339);
             this.buttonHelp.Name = "buttonHelp";
             this.buttonHelp.Size = new System.Drawing.Size(99, 26);
             this.buttonHelp.TabIndex = 5;
@@ -163,7 +163,7 @@ namespace QuickImageComment
             this.panelFilterInner.Controls.Add(this.dynamicLabelFind);
             this.panelFilterInner.Location = new System.Drawing.Point(-1, 0);
             this.panelFilterInner.Name = "panelFilterInner";
-            this.panelFilterInner.Size = new System.Drawing.Size(894, 75);
+            this.panelFilterInner.Size = new System.Drawing.Size(866, 75);
             this.panelFilterInner.TabIndex = 0;
             this.panelFilterInner.Resize += new System.EventHandler(this.panelFilterInner_Resize);
             // 
@@ -176,6 +176,17 @@ namespace QuickImageComment
             this.dynamicComboBoxOperator.Name = "dynamicComboBoxOperator";
             this.dynamicComboBoxOperator.Size = new System.Drawing.Size(192, 21);
             this.dynamicComboBoxOperator.TabIndex = 9;
+            // 
+            // dateTimePicker
+            // 
+            this.dateTimePicker.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.dateTimePicker.ButtonFillColor = System.Drawing.Color.White;
+            this.dateTimePicker.CustomFormat = "yyyy:MM:dd hh:mm:ss";
+            this.dateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTimePicker.Location = new System.Drawing.Point(643, 3);
+            this.dateTimePicker.Name = "dateTimePicker";
+            this.dateTimePicker.Size = new System.Drawing.Size(17, 21);
+            this.dateTimePicker.TabIndex = 8;
             // 
             // dynamicComboBoxValue
             // 
@@ -204,7 +215,7 @@ namespace QuickImageComment
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.Location = new System.Drawing.Point(0, 0);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(893, 127);
+            this.dataGridView1.Size = new System.Drawing.Size(865, 127);
             this.dataGridView1.TabIndex = 10;
             this.dataGridView1.Enter += new System.EventHandler(this.dataGridView1_Enter);
             // 
@@ -230,7 +241,7 @@ namespace QuickImageComment
             // 
             this.labelCount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelCount.AutoSize = true;
-            this.labelCount.Location = new System.Drawing.Point(705, 29);
+            this.labelCount.Location = new System.Drawing.Point(677, 29);
             this.labelCount.Name = "labelCount";
             this.labelCount.Size = new System.Drawing.Size(134, 13);
             this.labelCount.TabIndex = 9;
@@ -240,7 +251,7 @@ namespace QuickImageComment
             // 
             this.dynamicLabelCount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.dynamicLabelCount.AutoSize = true;
-            this.dynamicLabelCount.Location = new System.Drawing.Point(860, 29);
+            this.dynamicLabelCount.Location = new System.Drawing.Point(832, 29);
             this.dynamicLabelCount.Name = "dynamicLabelCount";
             this.dynamicLabelCount.Size = new System.Drawing.Size(19, 13);
             this.dynamicLabelCount.TabIndex = 10;
@@ -374,7 +385,7 @@ namespace QuickImageComment
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
             this.splitContainer1.Panel2.Controls.Add(this.dataGridView1);
-            this.splitContainer1.Size = new System.Drawing.Size(895, 263);
+            this.splitContainer1.Size = new System.Drawing.Size(867, 263);
             this.splitContainer1.SplitterDistance = 130;
             this.splitContainer1.TabIndex = 23;
             // 
@@ -390,7 +401,7 @@ namespace QuickImageComment
             this.panelFilterOuter.Controls.Add(this.panelFilterInner);
             this.panelFilterOuter.Location = new System.Drawing.Point(0, 0);
             this.panelFilterOuter.Name = "panelFilterOuter";
-            this.panelFilterOuter.Size = new System.Drawing.Size(893, 129);
+            this.panelFilterOuter.Size = new System.Drawing.Size(865, 129);
             this.panelFilterOuter.TabIndex = 1;
             // 
             // splitContainer2
@@ -410,18 +421,34 @@ namespace QuickImageComment
             this.splitContainer2.Panel2.BackColor = System.Drawing.SystemColors.Control;
             this.splitContainer2.Panel2.Controls.Add(this.tableLayoutPanelKeyWords);
             this.splitContainer2.Panel2MinSize = 200;
-            this.splitContainer2.Size = new System.Drawing.Size(893, 127);
-            this.splitContainer2.SplitterDistance = 654;
+            this.splitContainer2.Size = new System.Drawing.Size(865, 127);
+            this.splitContainer2.SplitterDistance = 633;
             this.splitContainer2.TabIndex = 11;
             // 
-            // dynamicLabelLengthUnit
+            // tableLayoutPanelMap
             // 
-            this.dynamicLabelLengthUnit.AutoSize = true;
-            this.dynamicLabelLengthUnit.Location = new System.Drawing.Point(288, 3);
-            this.dynamicLabelLengthUnit.Name = "dynamicLabelLengthUnit";
-            this.dynamicLabelLengthUnit.Size = new System.Drawing.Size(20, 13);
-            this.dynamicLabelLengthUnit.TabIndex = 4;
-            this.dynamicLabelLengthUnit.Text = "km";
+            this.tableLayoutPanelMap.ColumnCount = 1;
+            this.tableLayoutPanelMap.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelMap.Controls.Add(this.panel1, 0, 0);
+            this.tableLayoutPanelMap.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelMap.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanelMap.Name = "tableLayoutPanelMap";
+            this.tableLayoutPanelMap.RowCount = 2;
+            this.tableLayoutPanelMap.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 27F));
+            this.tableLayoutPanelMap.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.tableLayoutPanelMap.Size = new System.Drawing.Size(633, 127);
+            this.tableLayoutPanelMap.TabIndex = 5;
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.checkBoxFilterGPS);
+            this.panel1.Controls.Add(this.dynamicLabelLengthUnit);
+            this.panel1.Controls.Add(this.numericUpDownGpsRange);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(3, 3);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(627, 21);
+            this.panel1.TabIndex = 0;
             // 
             // checkBoxFilterGPS
             // 
@@ -432,6 +459,15 @@ namespace QuickImageComment
             this.checkBoxFilterGPS.TabIndex = 2;
             this.checkBoxFilterGPS.Text = "Aufnahmeort im Umkreis von";
             this.checkBoxFilterGPS.UseVisualStyleBackColor = true;
+            // 
+            // dynamicLabelLengthUnit
+            // 
+            this.dynamicLabelLengthUnit.AutoSize = true;
+            this.dynamicLabelLengthUnit.Location = new System.Drawing.Point(288, 3);
+            this.dynamicLabelLengthUnit.Name = "dynamicLabelLengthUnit";
+            this.dynamicLabelLengthUnit.Size = new System.Drawing.Size(20, 13);
+            this.dynamicLabelLengthUnit.TabIndex = 4;
+            this.dynamicLabelLengthUnit.Text = "km";
             // 
             // numericUpDownGpsRange
             // 
@@ -454,13 +490,37 @@ namespace QuickImageComment
             0});
             this.numericUpDownGpsRange.ValueChanged += new System.EventHandler(this.numericUpDownGpsRange_ValueChanged);
             // 
+            // tableLayoutPanelKeyWords
+            // 
+            this.tableLayoutPanelKeyWords.ColumnCount = 1;
+            this.tableLayoutPanelKeyWords.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelKeyWords.Controls.Add(this.treeViewKeyWords, 0, 1);
+            this.tableLayoutPanelKeyWords.Controls.Add(this.labelKeyWords, 0, 0);
+            this.tableLayoutPanelKeyWords.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelKeyWords.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanelKeyWords.Name = "tableLayoutPanelKeyWords";
+            this.tableLayoutPanelKeyWords.RowCount = 2;
+            this.tableLayoutPanelKeyWords.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
+            this.tableLayoutPanelKeyWords.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 103F));
+            this.tableLayoutPanelKeyWords.Size = new System.Drawing.Size(228, 127);
+            this.tableLayoutPanelKeyWords.TabIndex = 26;
+            // 
+            // treeViewKeyWords
+            // 
+            this.treeViewKeyWords.CheckBoxes = true;
+            this.treeViewKeyWords.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeViewKeyWords.Location = new System.Drawing.Point(3, 27);
+            this.treeViewKeyWords.Name = "treeViewKeyWords";
+            this.treeViewKeyWords.Size = new System.Drawing.Size(222, 97);
+            this.treeViewKeyWords.TabIndex = 0;
+            // 
             // labelKeyWords
             // 
             this.labelKeyWords.AutoSize = true;
             this.labelKeyWords.Dock = System.Windows.Forms.DockStyle.Fill;
             this.labelKeyWords.Location = new System.Drawing.Point(3, 0);
             this.labelKeyWords.Name = "labelKeyWords";
-            this.labelKeyWords.Size = new System.Drawing.Size(229, 24);
+            this.labelKeyWords.Size = new System.Drawing.Size(222, 24);
             this.labelKeyWords.TabIndex = 25;
             this.labelKeyWords.Text = "Enthält Schlüsselworte:";
             this.labelKeyWords.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -469,7 +529,7 @@ namespace QuickImageComment
             // 
             this.checkBoxShowDataTable.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBoxShowDataTable.AutoSize = true;
-            this.checkBoxShowDataTable.Location = new System.Drawing.Point(548, 3);
+            this.checkBoxShowDataTable.Location = new System.Drawing.Point(520, 3);
             this.checkBoxShowDataTable.Name = "checkBoxShowDataTable";
             this.checkBoxShowDataTable.Size = new System.Drawing.Size(133, 17);
             this.checkBoxShowDataTable.TabIndex = 5;
@@ -489,7 +549,7 @@ namespace QuickImageComment
             // 
             this.checkBoxSaveFindDataTable.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBoxSaveFindDataTable.AutoSize = true;
-            this.checkBoxSaveFindDataTable.Location = new System.Drawing.Point(702, 3);
+            this.checkBoxSaveFindDataTable.Location = new System.Drawing.Point(674, 3);
             this.checkBoxSaveFindDataTable.Name = "checkBoxSaveFindDataTable";
             this.checkBoxSaveFindDataTable.Size = new System.Drawing.Size(166, 17);
             this.checkBoxSaveFindDataTable.TabIndex = 24;
@@ -505,73 +565,13 @@ namespace QuickImageComment
             // buttonQuery
             // 
             this.buttonQuery.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonQuery.Location = new System.Drawing.Point(489, 339);
+            this.buttonQuery.Location = new System.Drawing.Point(461, 339);
             this.buttonQuery.Name = "buttonQuery";
             this.buttonQuery.Size = new System.Drawing.Size(103, 26);
             this.buttonQuery.TabIndex = 25;
             this.buttonQuery.Text = "Abfrage bearb.";
             this.buttonQuery.UseVisualStyleBackColor = true;
             this.buttonQuery.Click += new System.EventHandler(this.buttonQuery_Click);
-            // 
-            // tableLayoutPanelMap
-            // 
-            this.tableLayoutPanelMap.ColumnCount = 1;
-            this.tableLayoutPanelMap.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanelMap.Controls.Add(this.panel1, 0, 0);
-            this.tableLayoutPanelMap.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanelMap.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanelMap.Name = "tableLayoutPanelMap";
-            this.tableLayoutPanelMap.RowCount = 2;
-            this.tableLayoutPanelMap.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 27F));
-            this.tableLayoutPanelMap.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.tableLayoutPanelMap.Size = new System.Drawing.Size(654, 127);
-            this.tableLayoutPanelMap.TabIndex = 5;
-            // 
-            // tableLayoutPanelKeyWords
-            // 
-            this.tableLayoutPanelKeyWords.ColumnCount = 1;
-            this.tableLayoutPanelKeyWords.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanelKeyWords.Controls.Add(this.treeViewKeyWords, 0, 1);
-            this.tableLayoutPanelKeyWords.Controls.Add(this.labelKeyWords, 0, 0);
-            this.tableLayoutPanelKeyWords.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanelKeyWords.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanelKeyWords.Name = "tableLayoutPanelKeyWords";
-            this.tableLayoutPanelKeyWords.RowCount = 2;
-            this.tableLayoutPanelKeyWords.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
-            this.tableLayoutPanelKeyWords.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 103F));
-            this.tableLayoutPanelKeyWords.Size = new System.Drawing.Size(235, 127);
-            this.tableLayoutPanelKeyWords.TabIndex = 26;
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.checkBoxFilterGPS);
-            this.panel1.Controls.Add(this.dynamicLabelLengthUnit);
-            this.panel1.Controls.Add(this.numericUpDownGpsRange);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(3, 3);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(648, 21);
-            this.panel1.TabIndex = 0;
-            // 
-            // dateTimePicker
-            // 
-            this.dateTimePicker.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.dateTimePicker.ButtonFillColor = System.Drawing.Color.White;
-            this.dateTimePicker.CustomFormat = "yyyy:MM:dd hh:mm:ss";
-            this.dateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker.Location = new System.Drawing.Point(671, 3);
-            this.dateTimePicker.Name = "dateTimePicker";
-            this.dateTimePicker.Size = new System.Drawing.Size(17, 21);
-            this.dateTimePicker.TabIndex = 8;
-            // 
-            // treeViewKeyWords
-            // 
-            this.treeViewKeyWords.CheckBoxes = true;
-            this.treeViewKeyWords.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.treeViewKeyWords.Location = new System.Drawing.Point(3, 27);
-            this.treeViewKeyWords.Name = "treeViewKeyWords";
-            this.treeViewKeyWords.Size = new System.Drawing.Size(229, 97);
-            this.treeViewKeyWords.TabIndex = 0;
             // 
             // progressPanel1
             // 
@@ -580,14 +580,14 @@ namespace QuickImageComment
             this.progressPanel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.progressPanel1.Location = new System.Drawing.Point(9, 49);
             this.progressPanel1.Name = "progressPanel1";
-            this.progressPanel1.Size = new System.Drawing.Size(894, 18);
+            this.progressPanel1.Size = new System.Drawing.Size(866, 18);
             this.progressPanel1.TabIndex = 13;
             // 
             // FormFind
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(907, 368);
+            this.ClientSize = new System.Drawing.Size(879, 368);
             this.Controls.Add(this.checkBoxShowDataTable);
             this.Controls.Add(this.buttonQuery);
             this.Controls.Add(this.checkBoxSaveFindDataTable);
@@ -615,7 +615,6 @@ namespace QuickImageComment
             this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
-            this.MinimumSize = new System.Drawing.Size(816, 407);
             this.Name = "FormFind";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Suche über Eigenschaften";
@@ -633,12 +632,12 @@ namespace QuickImageComment
             this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownGpsRange)).EndInit();
             this.tableLayoutPanelMap.ResumeLayout(false);
-            this.tableLayoutPanelKeyWords.ResumeLayout(false);
-            this.tableLayoutPanelKeyWords.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownGpsRange)).EndInit();
+            this.tableLayoutPanelKeyWords.ResumeLayout(false);
+            this.tableLayoutPanelKeyWords.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 

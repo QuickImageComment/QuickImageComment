@@ -33,6 +33,7 @@ namespace QuickImageComment
             int OffsetY = 30;
 
             InitializeComponent();
+            this.MinimumSize = this.Size;
             MainMaskInterface.getCustomizationInterface().setFormToCustomizedValuesZoomInitial(this);
 #if APPCENTER
             if (Program.AppCenterUsable) Microsoft.AppCenter.Analytics.Analytics.TrackEvent(this.Name);

@@ -28,6 +28,7 @@ namespace QuickImageComment
         public FormInputCheckConfiguration(string tag)
         {
             InitializeComponent();
+            this.MinimumSize = this.Size;
 #if APPCENTER
             if (Program.AppCenterUsable) Microsoft.AppCenter.Analytics.Analytics.TrackEvent(this.Name);
 #endif

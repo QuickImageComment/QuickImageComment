@@ -74,6 +74,18 @@ namespace QuickImageComment
             dataGridViewApplications.Sort(dataGridViewApplications.Columns[0], System.ComponentModel.ListSortDirection.Ascending);
 
             LangCfg.translateControlTexts(this);
+
+            // if flag set, create screenshot and return
+            if (GeneralUtilities.CreateScreenshots)
+            {
+                // required for correct borders in screenshot
+                FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
+                Show();
+                Refresh();
+                GeneralUtilities.saveScreenshot(this, this.Name);
+                Close();
+                return;
+            }
         }
 
         internal string getSelectedApplicationProgramPath()

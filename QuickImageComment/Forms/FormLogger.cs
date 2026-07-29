@@ -26,6 +26,21 @@ namespace QuickImageComment
         public FormLogger()
         {
             InitializeComponent();
+            // if flag set, create screenshot and return
+            if (GeneralUtilities.CreateScreenshots)
+            {
+                // required for correct borders in screenshot
+                FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
+                for (int ii = 0; ii < 40; ii++)
+                {
+                    textBoxLogs.Text += "Eintrag " + ii.ToString() + "\r\n"; // permanent use of Logger
+                }
+                Show();
+                Refresh();
+                GeneralUtilities.saveScreenshot(this, this.Name);
+                Close();
+                return;
+            }
         }
 
         public void clearLogs()

@@ -88,7 +88,7 @@ namespace QuickImageComment
             this.textBoxPredefinedComments.Multiline = true;
             this.textBoxPredefinedComments.Name = "textBoxPredefinedComments";
             this.textBoxPredefinedComments.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxPredefinedComments.Size = new System.Drawing.Size(463, 271);
+            this.textBoxPredefinedComments.Size = new System.Drawing.Size(470, 271);
             this.textBoxPredefinedComments.TabIndex = 1;
             // 
             // labelPredefinedComments2
@@ -125,6 +125,9 @@ namespace QuickImageComment
             // 
             // tableLayoutPanel1
             // 
+            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -134,7 +137,7 @@ namespace QuickImageComment
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(469, 277);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(476, 277);
             this.tableLayoutPanel1.TabIndex = 6;
             // 
             // FormPredefinedComments
@@ -151,7 +154,6 @@ namespace QuickImageComment
             this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
-            this.MinimumSize = new System.Drawing.Size(455, 380);
             this.Name = "FormPredefinedComments";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Vordefinierte Kommentare";

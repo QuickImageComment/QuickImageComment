@@ -50,8 +50,8 @@ namespace QuickImageComment
             this.buttonOk = new System.Windows.Forms.Button();
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
-            this.dynamicLabelValueOriginal = new System.Windows.Forms.Label();
-            this.dynamicLabelValueInterpreted = new System.Windows.Forms.Label();
+            this.textBoxValueOriginal = new System.Windows.Forms.TextBox();
+            this.textBoxValueInterpreted = new System.Windows.Forms.TextBox();
             this.buttonCustomizeForm = new System.Windows.Forms.Button();
             this.buttonHelp = new System.Windows.Forms.Button();
             this.label14 = new System.Windows.Forms.Label();
@@ -81,10 +81,10 @@ namespace QuickImageComment
             this.labelNoPlaceholderMarked = new System.Windows.Forms.Label();
             this.tableLayoutPanelValueResult = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanelTagList = new System.Windows.Forms.TableLayoutPanel();
+            this.userControlTagList = new QuickImageComment.UserControlTagList();
             this.tableLayoutPanelBelowTagList = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanelFormat = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanelLanguage = new System.Windows.Forms.TableLayoutPanel();
-            this.userControlTagList = new QuickImageComment.UserControlTagList();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFrom)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLength)).BeginInit();
             this.tableLayoutPanelValueResult.SuspendLayout();
@@ -110,7 +110,7 @@ namespace QuickImageComment
             this.buttonMetaDatum.Dock = System.Windows.Forms.DockStyle.Fill;
             this.buttonMetaDatum.Location = new System.Drawing.Point(595, 3);
             this.buttonMetaDatum.Name = "buttonMetaDatum";
-            this.buttonMetaDatum.Size = new System.Drawing.Size(119, 18);
+            this.buttonMetaDatum.Size = new System.Drawing.Size(119, 21);
             this.buttonMetaDatum.TabIndex = 14;
             this.buttonMetaDatum.Text = "Auswahl übernehmen";
             this.buttonMetaDatum.UseVisualStyleBackColor = true;
@@ -133,7 +133,7 @@ namespace QuickImageComment
             this.label12.Dock = System.Windows.Forms.DockStyle.Left;
             this.label12.Location = new System.Drawing.Point(3, 0);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(74, 24);
+            this.label12.Size = new System.Drawing.Size(74, 27);
             this.label12.TabIndex = 9;
             this.label12.Text = "Wert Original:";
             this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -143,31 +143,31 @@ namespace QuickImageComment
             this.label13.Dock = System.Windows.Forms.DockStyle.Right;
             this.label13.Location = new System.Drawing.Point(251, 0);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(79, 24);
+            this.label13.Size = new System.Drawing.Size(79, 27);
             this.label13.TabIndex = 11;
             this.label13.Text = "Interpretiert:";
             this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // dynamicLabelValueOriginal
+            // textBoxValueOriginal
             // 
-            this.dynamicLabelValueOriginal.Dock = System.Windows.Forms.DockStyle.Left;
-            this.dynamicLabelValueOriginal.Location = new System.Drawing.Point(88, 0);
-            this.dynamicLabelValueOriginal.Name = "dynamicLabelValueOriginal";
-            this.dynamicLabelValueOriginal.Size = new System.Drawing.Size(154, 24);
-            this.dynamicLabelValueOriginal.TabIndex = 10;
-            this.dynamicLabelValueOriginal.Text = "ValueOriginal";
-            this.dynamicLabelValueOriginal.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.textBoxValueOriginal.Dock = System.Windows.Forms.DockStyle.Left;
+            this.textBoxValueOriginal.Location = new System.Drawing.Point(88, 3);
+            this.textBoxValueOriginal.Name = "textBoxValueOriginal";
+            this.textBoxValueOriginal.ReadOnly = true;
+            this.textBoxValueOriginal.Size = new System.Drawing.Size(154, 21);
+            this.textBoxValueOriginal.TabIndex = 10;
+            this.textBoxValueOriginal.Text = "ValueOriginal";
             // 
-            // dynamicLabelValueInterpreted
+            // textBoxValueInterpreted
             // 
-            this.dynamicLabelValueInterpreted.BackColor = System.Drawing.SystemColors.Control;
-            this.dynamicLabelValueInterpreted.Dock = System.Windows.Forms.DockStyle.Left;
-            this.dynamicLabelValueInterpreted.Location = new System.Drawing.Point(336, 0);
-            this.dynamicLabelValueInterpreted.Name = "dynamicLabelValueInterpreted";
-            this.dynamicLabelValueInterpreted.Size = new System.Drawing.Size(253, 24);
-            this.dynamicLabelValueInterpreted.TabIndex = 12;
-            this.dynamicLabelValueInterpreted.Text = "ValueInterpreted";
-            this.dynamicLabelValueInterpreted.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.textBoxValueInterpreted.BackColor = System.Drawing.SystemColors.Control;
+            this.textBoxValueInterpreted.Dock = System.Windows.Forms.DockStyle.Left;
+            this.textBoxValueInterpreted.Location = new System.Drawing.Point(336, 3);
+            this.textBoxValueInterpreted.Name = "textBoxValueInterpreted";
+            this.textBoxValueInterpreted.ReadOnly = true;
+            this.textBoxValueInterpreted.Size = new System.Drawing.Size(253, 21);
+            this.textBoxValueInterpreted.TabIndex = 12;
+            this.textBoxValueInterpreted.Text = "ValueInterpreted";
             // 
             // buttonCustomizeForm
             // 
@@ -389,7 +389,7 @@ namespace QuickImageComment
             this.buttonDate.Dock = System.Windows.Forms.DockStyle.Fill;
             this.buttonDate.Location = new System.Drawing.Point(720, 3);
             this.buttonDate.Name = "buttonDate";
-            this.buttonDate.Size = new System.Drawing.Size(54, 18);
+            this.buttonDate.Size = new System.Drawing.Size(54, 21);
             this.buttonDate.TabIndex = 69;
             this.buttonDate.Text = "Datum";
             this.buttonDate.UseVisualStyleBackColor = true;
@@ -400,7 +400,7 @@ namespace QuickImageComment
             this.buttonTime.Dock = System.Windows.Forms.DockStyle.Fill;
             this.buttonTime.Location = new System.Drawing.Point(780, 3);
             this.buttonTime.Name = "buttonTime";
-            this.buttonTime.Size = new System.Drawing.Size(54, 18);
+            this.buttonTime.Size = new System.Drawing.Size(54, 21);
             this.buttonTime.TabIndex = 70;
             this.buttonTime.Text = "Zeit";
             this.buttonTime.UseVisualStyleBackColor = true;
@@ -501,6 +501,14 @@ namespace QuickImageComment
             this.tableLayoutPanelTagList.Size = new System.Drawing.Size(846, 268);
             this.tableLayoutPanelTagList.TabIndex = 79;
             // 
+            // userControlTagList
+            // 
+            this.userControlTagList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.userControlTagList.Location = new System.Drawing.Point(3, 3);
+            this.userControlTagList.Name = "userControlTagList";
+            this.userControlTagList.Size = new System.Drawing.Size(840, 262);
+            this.userControlTagList.TabIndex = 77;
+            // 
             // tableLayoutPanelBelowTagList
             // 
             this.tableLayoutPanelBelowTagList.ColumnCount = 7;
@@ -512,17 +520,17 @@ namespace QuickImageComment
             this.tableLayoutPanelBelowTagList.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
             this.tableLayoutPanelBelowTagList.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
             this.tableLayoutPanelBelowTagList.Controls.Add(this.label12, 0, 0);
-            this.tableLayoutPanelBelowTagList.Controls.Add(this.dynamicLabelValueInterpreted, 3, 0);
+            this.tableLayoutPanelBelowTagList.Controls.Add(this.textBoxValueInterpreted, 3, 0);
             this.tableLayoutPanelBelowTagList.Controls.Add(this.buttonDate, 5, 0);
             this.tableLayoutPanelBelowTagList.Controls.Add(this.buttonMetaDatum, 4, 0);
             this.tableLayoutPanelBelowTagList.Controls.Add(this.buttonTime, 6, 0);
-            this.tableLayoutPanelBelowTagList.Controls.Add(this.dynamicLabelValueOriginal, 1, 0);
+            this.tableLayoutPanelBelowTagList.Controls.Add(this.textBoxValueOriginal, 1, 0);
             this.tableLayoutPanelBelowTagList.Controls.Add(this.label13, 2, 0);
             this.tableLayoutPanelBelowTagList.Location = new System.Drawing.Point(0, 277);
             this.tableLayoutPanelBelowTagList.Name = "tableLayoutPanelBelowTagList";
             this.tableLayoutPanelBelowTagList.RowCount = 1;
             this.tableLayoutPanelBelowTagList.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanelBelowTagList.Size = new System.Drawing.Size(837, 24);
+            this.tableLayoutPanelBelowTagList.Size = new System.Drawing.Size(837, 27);
             this.tableLayoutPanelBelowTagList.TabIndex = 80;
             // 
             // tableLayoutPanelFormat
@@ -571,14 +579,6 @@ namespace QuickImageComment
             this.tableLayoutPanelLanguage.Size = new System.Drawing.Size(686, 25);
             this.tableLayoutPanelLanguage.TabIndex = 82;
             // 
-            // userControlTagList
-            // 
-            this.userControlTagList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.userControlTagList.Location = new System.Drawing.Point(3, 3);
-            this.userControlTagList.Name = "userControlTagList";
-            this.userControlTagList.Size = new System.Drawing.Size(840, 262);
-            this.userControlTagList.TabIndex = 77;
-            // 
             // FormPlaceholder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -600,9 +600,9 @@ namespace QuickImageComment
             this.Controls.Add(this.buttonOk);
             this.Controls.Add(this.buttonAbort);
             this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
-            this.MinimumSize = new System.Drawing.Size(840, 546);
             this.Name = "FormPlaceholder";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Platzhalter einfügen / bearbeiten für ...";
@@ -630,8 +630,8 @@ namespace QuickImageComment
         private System.Windows.Forms.Button buttonOk;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Label dynamicLabelValueOriginal;
-        private System.Windows.Forms.Label dynamicLabelValueInterpreted;
+        private System.Windows.Forms.TextBox textBoxValueOriginal;
+        private System.Windows.Forms.TextBox textBoxValueInterpreted;
         private System.Windows.Forms.Button buttonCustomizeForm;
         private System.Windows.Forms.Button buttonHelp;
         private System.Windows.Forms.Label label14;

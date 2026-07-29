@@ -75,8 +75,8 @@ namespace QuickImageComment
             this.dynamicLabelInfo = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
-            this.dynamicLabelValueOriginal = new System.Windows.Forms.Label();
-            this.dynamicLabelValueInterpreted = new System.Windows.Forms.Label();
+            this.textBoxValueOriginal = new System.Windows.Forms.TextBox();
+            this.textBoxValueInterpreted = new System.Windows.Forms.TextBox();
             this.buttonCustomizeForm = new System.Windows.Forms.Button();
             this.dynamicComboBoxMetaDataFormat2 = new System.Windows.Forms.ComboBox();
             this.dynamicComboBoxMetaDataFormat1 = new System.Windows.Forms.ComboBox();
@@ -421,26 +421,26 @@ namespace QuickImageComment
             this.label13.Text = "Interpretiert:";
             this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // dynamicLabelValueOriginal
+            // textBoxValueOriginal
             // 
-            this.dynamicLabelValueOriginal.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dynamicLabelValueOriginal.Location = new System.Drawing.Point(88, 0);
-            this.dynamicLabelValueOriginal.Name = "dynamicLabelValueOriginal";
-            this.dynamicLabelValueOriginal.Size = new System.Drawing.Size(154, 28);
-            this.dynamicLabelValueOriginal.TabIndex = 10;
-            this.dynamicLabelValueOriginal.Text = "ValueOriginal";
-            this.dynamicLabelValueOriginal.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.textBoxValueOriginal.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBoxValueOriginal.Location = new System.Drawing.Point(88, 3);
+            this.textBoxValueOriginal.Name = "textBoxValueOriginal";
+            this.textBoxValueOriginal.ReadOnly = true;
+            this.textBoxValueOriginal.Size = new System.Drawing.Size(154, 21);
+            this.textBoxValueOriginal.TabIndex = 10;
+            this.textBoxValueOriginal.Text = "ValueOriginal";
             // 
-            // dynamicLabelValueInterpreted
+            // textBoxValueInterpreted
             // 
-            this.dynamicLabelValueInterpreted.BackColor = System.Drawing.SystemColors.Control;
-            this.dynamicLabelValueInterpreted.Dock = System.Windows.Forms.DockStyle.Left;
-            this.dynamicLabelValueInterpreted.Location = new System.Drawing.Point(328, 0);
-            this.dynamicLabelValueInterpreted.Name = "dynamicLabelValueInterpreted";
-            this.dynamicLabelValueInterpreted.Size = new System.Drawing.Size(173, 28);
-            this.dynamicLabelValueInterpreted.TabIndex = 12;
-            this.dynamicLabelValueInterpreted.Text = "ValueInterpreted";
-            this.dynamicLabelValueInterpreted.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.textBoxValueInterpreted.BackColor = System.Drawing.SystemColors.Control;
+            this.textBoxValueInterpreted.Dock = System.Windows.Forms.DockStyle.Left;
+            this.textBoxValueInterpreted.Location = new System.Drawing.Point(328, 3);
+            this.textBoxValueInterpreted.Name = "textBoxValueInterpreted";
+            this.textBoxValueInterpreted.ReadOnly = true;
+            this.textBoxValueInterpreted.Size = new System.Drawing.Size(173, 21);
+            this.textBoxValueInterpreted.TabIndex = 12;
+            this.textBoxValueInterpreted.Text = "ValueInterpreted";
             // 
             // buttonCustomizeForm
             // 
@@ -644,8 +644,8 @@ namespace QuickImageComment
             this.tableLayoutPanelBelowTagList.Controls.Add(this.buttonMetaDatum1, 5, 0);
             this.tableLayoutPanelBelowTagList.Controls.Add(this.buttonMetaDatum2, 6, 0);
             this.tableLayoutPanelBelowTagList.Controls.Add(this.label11, 4, 0);
-            this.tableLayoutPanelBelowTagList.Controls.Add(this.dynamicLabelValueInterpreted, 3, 0);
-            this.tableLayoutPanelBelowTagList.Controls.Add(this.dynamicLabelValueOriginal, 1, 0);
+            this.tableLayoutPanelBelowTagList.Controls.Add(this.textBoxValueInterpreted, 3, 0);
+            this.tableLayoutPanelBelowTagList.Controls.Add(this.textBoxValueOriginal, 1, 0);
             this.tableLayoutPanelBelowTagList.Controls.Add(this.label13, 2, 0);
             this.tableLayoutPanelBelowTagList.Location = new System.Drawing.Point(2, 292);
             this.tableLayoutPanelBelowTagList.Name = "tableLayoutPanelBelowTagList";
@@ -787,7 +787,6 @@ namespace QuickImageComment
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
-            this.MinimumSize = new System.Drawing.Size(840, 546);
             this.Name = "FormMetaDataDefinition";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
@@ -842,8 +841,8 @@ namespace QuickImageComment
         private System.Windows.Forms.Label dynamicLabelInfo;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Label dynamicLabelValueOriginal;
-        private System.Windows.Forms.Label dynamicLabelValueInterpreted;
+        private System.Windows.Forms.TextBox textBoxValueOriginal;
+        private System.Windows.Forms.TextBox textBoxValueInterpreted;
         private System.Windows.Forms.Button buttonCustomizeForm;
         private System.Windows.Forms.Button buttonHelp;
         private System.Windows.Forms.Label label14;

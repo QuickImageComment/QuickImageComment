@@ -188,6 +188,7 @@ namespace QuickImageComment
             // 
             // labelMapInfo
             // 
+            this.labelMapInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelMapInfo.AutoSize = true;
             this.labelMapInfo.Location = new System.Drawing.Point(2, 445);
             this.labelMapInfo.Name = "labelMapInfo";
@@ -197,6 +198,7 @@ namespace QuickImageComment
             // 
             // buttonPrevious
             // 
+            this.buttonPrevious.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonPrevious.Location = new System.Drawing.Point(296, 204);
             this.buttonPrevious.Name = "buttonPrevious";
             this.buttonPrevious.Size = new System.Drawing.Size(75, 23);
@@ -207,6 +209,7 @@ namespace QuickImageComment
             // 
             // buttonNext
             // 
+            this.buttonNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonNext.Location = new System.Drawing.Point(465, 204);
             this.buttonNext.Name = "buttonNext";
             this.buttonNext.Size = new System.Drawing.Size(75, 23);
@@ -217,6 +220,8 @@ namespace QuickImageComment
             // 
             // tableLayoutPanel1
             // 
+            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -249,7 +254,6 @@ namespace QuickImageComment
             this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
-            this.MinimumSize = new System.Drawing.Size(840, 546);
             this.Name = "FormFindQuery";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Suche über Eigenschaften - Abfrage bearbeiten";

@@ -44,14 +44,14 @@
             this.textBoxLogs.Name = "textBoxLogs";
             this.textBoxLogs.ReadOnly = true;
             this.textBoxLogs.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxLogs.Size = new System.Drawing.Size(849, 548);
+            this.textBoxLogs.Size = new System.Drawing.Size(849, 496);
             this.textBoxLogs.TabIndex = 2;
             // 
             // buttonClear
             // 
             this.buttonClear.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonClear.Location = new System.Drawing.Point(201, 550);
+            this.buttonClear.Location = new System.Drawing.Point(201, 498);
             this.buttonClear.Name = "buttonClear";
             this.buttonClear.Size = new System.Drawing.Size(448, 27);
             this.buttonClear.TabIndex = 3;
@@ -63,7 +63,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(851, 579);
+            this.ClientSize = new System.Drawing.Size(851, 527);
             this.Controls.Add(this.buttonClear);
             this.Controls.Add(this.textBoxLogs);
             this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));

@@ -34,6 +34,7 @@ namespace QuickImageComment
         public FormRemoveMetaData(ListView.SelectedIndexCollection SelectedIndices)
         {
             InitializeComponent();
+            this.MinimumSize = this.Size;
 #if APPCENTER
             if (Program.AppCenterUsable) Microsoft.AppCenter.Analytics.Analytics.TrackEvent(this.Name);
 #endif

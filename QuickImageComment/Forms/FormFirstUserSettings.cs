@@ -65,6 +65,17 @@ namespace QuickImageComment
                     radioButtonAppdata.Checked = true;
                 }
             }
+            // if flag set, create screenshot and return
+            if (GeneralUtilities.CreateScreenshots)
+            {
+                // required for correct borders in screenshot
+                FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
+                Show();
+                Refresh();
+                GeneralUtilities.saveScreenshot(this, this.Name);
+                Close();
+                return;
+            }
         }
 
         private void buttonOk_Click(object sender, EventArgs e)

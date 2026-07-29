@@ -130,6 +130,7 @@ namespace QuickImageComment
         {
             thisFormFind = this;
             InitializeComponent();
+            this.MinimumSize = this.Size;
             dynamicLabelScanInformation.Visible = false;
             progressPanel1.Visible = false;
             labelPassedTime.Visible = false;
@@ -1708,7 +1709,7 @@ namespace QuickImageComment
         // get recording location position
         internal string getRecordingLocation()
         {
-            return theUserControlMap.dynamicLabelCoordinates.Text;
+            return theUserControlMap.textBoxCoordinates.Text;
         }
 
         // get location radius

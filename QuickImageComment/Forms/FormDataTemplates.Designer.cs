@@ -73,7 +73,7 @@ namespace QuickImageComment
             // buttonClose
             // 
             this.buttonClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonClose.Location = new System.Drawing.Point(333, 556);
+            this.buttonClose.Location = new System.Drawing.Point(333, 314);
             this.buttonClose.Name = "buttonClose";
             this.buttonClose.Size = new System.Drawing.Size(99, 26);
             this.buttonClose.TabIndex = 3;
@@ -84,7 +84,7 @@ namespace QuickImageComment
             // buttonCustomizeForm
             // 
             this.buttonCustomizeForm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonCustomizeForm.Location = new System.Drawing.Point(8, 556);
+            this.buttonCustomizeForm.Location = new System.Drawing.Point(8, 314);
             this.buttonCustomizeForm.Name = "buttonCustomizeForm";
             this.buttonCustomizeForm.Size = new System.Drawing.Size(99, 26);
             this.buttonCustomizeForm.TabIndex = 2;
@@ -95,7 +95,7 @@ namespace QuickImageComment
             // buttonHelp
             // 
             this.buttonHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonHelp.Location = new System.Drawing.Point(655, 556);
+            this.buttonHelp.Location = new System.Drawing.Point(612, 314);
             this.buttonHelp.Name = "buttonHelp";
             this.buttonHelp.Size = new System.Drawing.Size(99, 26);
             this.buttonHelp.TabIndex = 5;
@@ -112,9 +112,9 @@ namespace QuickImageComment
             this.groupBoxConfigurationHandling.Controls.Add(this.buttonSaveAs);
             this.groupBoxConfigurationHandling.Controls.Add(this.buttonSave);
             this.groupBoxConfigurationHandling.Controls.Add(this.buttonDelete);
-            this.groupBoxConfigurationHandling.Location = new System.Drawing.Point(-7, 513);
+            this.groupBoxConfigurationHandling.Location = new System.Drawing.Point(-7, 271);
             this.groupBoxConfigurationHandling.Name = "groupBoxConfigurationHandling";
-            this.groupBoxConfigurationHandling.Size = new System.Drawing.Size(781, 37);
+            this.groupBoxConfigurationHandling.Size = new System.Drawing.Size(738, 37);
             this.groupBoxConfigurationHandling.TabIndex = 130;
             this.groupBoxConfigurationHandling.TabStop = false;
             // 
@@ -165,7 +165,7 @@ namespace QuickImageComment
             // buttonDelete
             // 
             this.buttonDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonDelete.Location = new System.Drawing.Point(692, 9);
+            this.buttonDelete.Location = new System.Drawing.Point(649, 9);
             this.buttonDelete.Name = "buttonDelete";
             this.buttonDelete.Size = new System.Drawing.Size(68, 22);
             this.buttonDelete.TabIndex = 115;
@@ -201,8 +201,8 @@ namespace QuickImageComment
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.BackColor = System.Drawing.SystemColors.Control;
-            this.splitContainer1.Size = new System.Drawing.Size(745, 415);
-            this.splitContainer1.SplitterDistance = 347;
+            this.splitContainer1.Size = new System.Drawing.Size(702, 173);
+            this.splitContainer1.SplitterDistance = 326;
             this.splitContainer1.TabIndex = 131;
             // 
             // label1
@@ -251,7 +251,7 @@ namespace QuickImageComment
             this.dynamicComboBoxUserComment.FormattingEnabled = true;
             this.dynamicComboBoxUserComment.Location = new System.Drawing.Point(125, 57);
             this.dynamicComboBoxUserComment.Name = "dynamicComboBoxUserComment";
-            this.dynamicComboBoxUserComment.Size = new System.Drawing.Size(628, 21);
+            this.dynamicComboBoxUserComment.Size = new System.Drawing.Size(585, 21);
             this.dynamicComboBoxUserComment.TabIndex = 138;
             this.dynamicComboBoxUserComment.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dynamicComboBoxUserComment_KeyDown);
             this.dynamicComboBoxUserComment.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dynamicComboBoxUserComment_MouseClick);
@@ -260,7 +260,7 @@ namespace QuickImageComment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(765, 588);
+            this.ClientSize = new System.Drawing.Size(722, 346);
             this.Controls.Add(this.dynamicComboBoxUserComment);
             this.Controls.Add(this.dynamicComboBoxArtist);
             this.Controls.Add(this.labelUserComment);
@@ -275,7 +275,6 @@ namespace QuickImageComment
             this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
-            this.MinimumSize = new System.Drawing.Size(455, 380);
             this.Name = "FormDataTemplates";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Daten-Vorlagen auswählen und bearbeiten";

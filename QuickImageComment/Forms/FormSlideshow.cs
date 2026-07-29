@@ -84,6 +84,20 @@ namespace QuickImageComment
                 this.dynamicLabelSubTitle.SizeChanged += new System.EventHandler(this.labelSubTitle_SizeChanged);
 
                 getConfiguration();
+
+                // if flag set, create screenshot and return
+                if (GeneralUtilities.CreateScreenshots)
+                {
+                    // required for correct borders in screenshot
+                    //FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
+                    Show();
+                    Refresh();
+                    newImage(givenExtendedImage);
+                    GeneralUtilities.saveScreenshot(this, this.Name);
+                    Close();
+                    return;
+                }
+
                 // the normal case
                 if (!ConfigDefinition.getCfgUserBool(ConfigDefinition.enumCfgUserBool.slideShowHideSettingsAtStart))
                 {

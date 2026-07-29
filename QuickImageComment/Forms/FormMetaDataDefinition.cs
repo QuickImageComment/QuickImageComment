@@ -82,12 +82,13 @@ namespace QuickImageComment
             CustomizationInterface = MainMaskInterface.getCustomizationInterface();
 
             InitializeComponent();
+            this.MinimumSize = this.Size;
 #if APPCENTER
             if (Program.AppCenterUsable) Microsoft.AppCenter.Analytics.Analytics.TrackEvent(this.Name);
 #endif
             buttonAbort.Select();
-            dynamicLabelValueOriginal.Text = "";
-            dynamicLabelValueInterpreted.Text = "";
+            textBoxValueOriginal.Text = "";
+            textBoxValueInterpreted.Text = "";
             dynamicLabelExample.Text = "";
             dynamicLabelInfo.Text = "";
             // center manually: as this mask is not modal StartPosition=CenterParent does not work
@@ -264,8 +265,8 @@ namespace QuickImageComment
                 string MetaDataKey = userControlTagList.listViewTags.SelectedItems[0].SubItems[3].Text;
                 if (theExtendedImage != null)
                 {
-                    this.dynamicLabelValueOriginal.Text = theExtendedImage.getMetaDataValueByKey(MetaDataKey, MetaDataItem.Format.Original);
-                    this.dynamicLabelValueInterpreted.Text = theExtendedImage.getMetaDataValueByKey(MetaDataKey, MetaDataItem.Format.Interpreted);
+                    this.textBoxValueOriginal.Text = theExtendedImage.getMetaDataValueByKey(MetaDataKey, MetaDataItem.Format.Original);
+                    this.textBoxValueInterpreted.Text = theExtendedImage.getMetaDataValueByKey(MetaDataKey, MetaDataItem.Format.Interpreted);
                 }
             }
         }

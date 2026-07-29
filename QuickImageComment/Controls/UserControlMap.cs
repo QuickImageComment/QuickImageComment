@@ -332,13 +332,13 @@ namespace QuickImageComment
 #if WEBVIEW2
             coreWebView2Initialised = true;
 #endif
-            dynamicLabelCoordinates.Text = "";
+            textBoxCoordinates.Text = "";
             // change of location is enabled, if map source is not a configured map URL
             enableChangeLocation(!selectedMapSource.isconfiguredMapURL);
             newLocation(markerGeoDataItem, initChangeLocationAllowed);
 
             // display of zoom and location only if if map source is not a configured map URL
-            dynamicLabelCoordinates.Visible = !selectedMapSource.isconfiguredMapURL;
+            textBoxCoordinates.Visible = !selectedMapSource.isconfiguredMapURL;
             dynamicLabelZoom.Visible = !selectedMapSource.isconfiguredMapURL;
             labelZoom.Visible = !selectedMapSource.isconfiguredMapURL;
 
@@ -675,7 +675,7 @@ namespace QuickImageComment
         // show position of image
         private void showStartPosition()
         {
-            dynamicLabelCoordinates.Text = "";
+            textBoxCoordinates.Text = "";
             clearSearchEntry();
             // buttons are enabled when marker is created via callback from leaflet.html
             buttonCenterMarker.Enabled = false;
@@ -684,7 +684,7 @@ namespace QuickImageComment
 
             if (startGeoDataItem == null)
             {
-                dynamicLabelCoordinates.Text = "";
+                textBoxCoordinates.Text = "";
                 if (selectedMapSource.isconfiguredMapURL)
                 {
                     // when using configurable Map URLs, changig location is not possible
@@ -718,7 +718,7 @@ namespace QuickImageComment
             else
             {
                 labelHideMap.SendToBack();
-                dynamicLabelCoordinates.Text = startGeoDataItem.displayString;
+                textBoxCoordinates.Text = startGeoDataItem.displayString;
                 centerLongitude = startGeoDataItem.lon;
                 centerLatitude = startGeoDataItem.lat;
                 markerGeoDataItem = startGeoDataItem;
@@ -870,7 +870,7 @@ namespace QuickImageComment
                 // remove the marker
                 invokeLeafletMethod("removeMarker", new string[] { changeLocationAllowed.ToString() });
                 markerGeoDataItem = null;
-                dynamicLabelCoordinates.Text = "";
+                textBoxCoordinates.Text = "";
                 clearSearchEntry();
             }
             GpsDataChanged = false;
@@ -996,7 +996,7 @@ namespace QuickImageComment
             // change of location is enabled, if map source is not a configured map URL
             enableChangeLocation(!selectedMapSource.isconfiguredMapURL);
             // display of zoom and location only if if map source is not a configured map URL
-            dynamicLabelCoordinates.Visible = !selectedMapSource.isconfiguredMapURL;
+            textBoxCoordinates.Visible = !selectedMapSource.isconfiguredMapURL;
             dynamicLabelZoom.Visible = !selectedMapSource.isconfiguredMapURL;
             labelZoom.Visible = !selectedMapSource.isconfiguredMapURL;
             navigateToNewUrl();
@@ -1258,7 +1258,7 @@ namespace QuickImageComment
             centerLatitude = theGeoDataItem.lat;
             centerLongitude = theGeoDataItem.lon;
             markerGeoDataItem = theGeoDataItem;
-            dynamicLabelCoordinates.Text = markerGeoDataItem.displayString;
+            textBoxCoordinates.Text = markerGeoDataItem.displayString;
             addMarkerPositionToLists();
             selectFirstEntryInSearchList();
             // show new location on map with marker
@@ -1677,7 +1677,7 @@ namespace QuickImageComment
             string markerLongitudeSigned = parts[1];
 
             markerGeoDataItem = new GeoDataItem(markerLatitudeSigned, markerLongitudeSigned);
-            dynamicLabelCoordinates.Text = markerGeoDataItem.displayString;
+            textBoxCoordinates.Text = markerGeoDataItem.displayString;
             clearSearchEntry();
             lastUrl = "";
             GpsDataChanged = true;
@@ -1723,7 +1723,7 @@ namespace QuickImageComment
             if (!enabled)
             {
                 // marker was removed, clear coordinates
-                dynamicLabelCoordinates.Text = "";
+                textBoxCoordinates.Text = "";
                 clearSearchEntry();
                 markerGeoDataItem = null;
             }

@@ -31,8 +31,19 @@ namespace QuickImageComment
                 labelDetails.Text += " " + LangCfg.getText(LangCfg.Others.alsoInFile, errorFileName);
             }
 
+            // if flag set, create screenshot and return
+            if (GeneralUtilities.CreateScreenshots)
+            {
+                // required for correct borders in screenshot
+                FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
+                Show();
+                Refresh();
+                GeneralUtilities.saveScreenshot(this, this.Name);
+                Close();
+                return;
+            }
             // if flag set, return (is sufficient to create control texts list and check translation
-            if (GeneralUtilities.CloseAfterConstructing)
+            else if (GeneralUtilities.CloseAfterConstructing)
             {
                 return;
             }

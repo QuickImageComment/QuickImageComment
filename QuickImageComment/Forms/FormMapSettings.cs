@@ -102,7 +102,7 @@ namespace QuickImageComment
         private void textBoxColor_TextChanged(object sender, EventArgs e)
         {
             Color color = ColorTranslator.FromHtml("#" + textBoxColor.Text);
-            labelColor.BackColor = color;
+            textBoxColorDisplay.BackColor = color;
             applyChanges(sender, EventArgs.Empty);
         }
 
@@ -148,7 +148,7 @@ namespace QuickImageComment
             // if OK set new color
             if (theColorDialog.ShowDialog() == DialogResult.OK)
             {
-                labelColor.BackColor = theColorDialog.Color;
+                textBoxColorDisplay.BackColor = theColorDialog.Color;
                 textBoxColor.Text = (theColorDialog.Color.ToArgb() & 0x00FFFFFF).ToString("X6");
             }
             applyChanges(sender, EventArgs.Empty);

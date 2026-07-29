@@ -44,7 +44,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.buttonColorDialog = new System.Windows.Forms.Button();
             this.textBoxColor = new System.Windows.Forms.TextBox();
-            this.labelColor = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.radioButtonScaleImperial = new System.Windows.Forms.RadioButton();
             this.radioButtonScaleMetric = new System.Windows.Forms.RadioButton();
@@ -52,6 +51,7 @@
             this.checkBoxScale = new System.Windows.Forms.CheckBox();
             this.checkBoxHideMapWhenNoGPS = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.textBoxColorDisplay = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFillOpacity)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownOpacity)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCircleSegmentRadius)).BeginInit();
@@ -190,15 +190,6 @@
             this.textBoxColor.TabIndex = 14;
             this.textBoxColor.TextChanged += new System.EventHandler(this.textBoxColor_TextChanged);
             // 
-            // labelColor
-            // 
-            this.labelColor.BackColor = System.Drawing.Color.Cyan;
-            this.labelColor.Location = new System.Drawing.Point(265, 148);
-            this.labelColor.Name = "labelColor";
-            this.labelColor.Size = new System.Drawing.Size(45, 21);
-            this.labelColor.TabIndex = 15;
-            this.labelColor.UseCompatibleTextRendering = true;
-            // 
             // label8
             // 
             this.label8.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -275,18 +266,27 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(316, 30);
             this.tableLayoutPanel1.TabIndex = 22;
             // 
+            // textBoxColorDisplay
+            // 
+            this.textBoxColorDisplay.BackColor = System.Drawing.Color.Cyan;
+            this.textBoxColorDisplay.Location = new System.Drawing.Point(268, 148);
+            this.textBoxColorDisplay.Name = "textBoxColorDisplay";
+            this.textBoxColorDisplay.ReadOnly = true;
+            this.textBoxColorDisplay.Size = new System.Drawing.Size(45, 21);
+            this.textBoxColorDisplay.TabIndex = 23;
+            // 
             // FormMapSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(324, 308);
+            this.Controls.Add(this.textBoxColorDisplay);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.checkBoxHideMapWhenNoGPS);
             this.Controls.Add(this.checkBoxScale);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.radioButtonScaleMetric);
             this.Controls.Add(this.radioButtonScaleImperial);
-            this.Controls.Add(this.labelColor);
             this.Controls.Add(this.textBoxColor);
             this.Controls.Add(this.buttonColorDialog);
             this.Controls.Add(this.label7);
@@ -302,6 +302,7 @@
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonOk);
             this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -333,7 +334,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button buttonColorDialog;
         private System.Windows.Forms.TextBox textBoxColor;
-        private System.Windows.Forms.Label labelColor;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.RadioButton radioButtonScaleImperial;
         private System.Windows.Forms.RadioButton radioButtonScaleMetric;
@@ -341,5 +341,6 @@
         private System.Windows.Forms.CheckBox checkBoxScale;
         private System.Windows.Forms.CheckBox checkBoxHideMapWhenNoGPS;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.TextBox textBoxColorDisplay;
     }
 }

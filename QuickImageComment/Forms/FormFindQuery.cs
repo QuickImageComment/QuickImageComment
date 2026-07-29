@@ -32,6 +32,7 @@ namespace QuickImageComment
         public FormFindQuery(ArrayList filterDefinitions, string inputString, FormFind formFind)
         {
             InitializeComponent();
+            this.MinimumSize = this.Size;
 #if APPCENTER
             if (Program.AppCenterUsable) Microsoft.AppCenter.Analytics.Analytics.TrackEvent(this.Name);
 #endif

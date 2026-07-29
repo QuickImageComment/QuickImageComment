@@ -27,6 +27,7 @@ namespace QuickImageComment
         public FormMultiSave(int ImageCount)
         {
             InitializeComponent();
+            this.MinimumSize=this.Size;
             MainMaskInterface.getCustomizationInterface().setFormToCustomizedValuesZoomInitial(this);
 #if APPCENTER
             if (Program.AppCenterUsable) Microsoft.AppCenter.Analytics.Analytics.TrackEvent(this.Name);

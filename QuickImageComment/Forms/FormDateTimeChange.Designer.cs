@@ -73,7 +73,7 @@ namespace QuickImageComment
             // buttonStart
             // 
             this.buttonStart.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.buttonStart.Location = new System.Drawing.Point(306, 311);
+            this.buttonStart.Location = new System.Drawing.Point(283, 311);
             this.buttonStart.Name = "buttonStart";
             this.buttonStart.Size = new System.Drawing.Size(100, 22);
             this.buttonStart.TabIndex = 12;
@@ -84,7 +84,7 @@ namespace QuickImageComment
             // buttonCancel
             // 
             this.buttonCancel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.buttonCancel.Location = new System.Drawing.Point(455, 311);
+            this.buttonCancel.Location = new System.Drawing.Point(432, 311);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(100, 22);
             this.buttonCancel.TabIndex = 13;
@@ -103,7 +103,7 @@ namespace QuickImageComment
             this.listViewImages.Location = new System.Drawing.Point(7, 32);
             this.listViewImages.Name = "listViewImages";
             this.listViewImages.OwnerDraw = true;
-            this.listViewImages.Size = new System.Drawing.Size(817, 244);
+            this.listViewImages.Size = new System.Drawing.Size(771, 244);
             this.listViewImages.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.listViewImages.TabIndex = 9;
             this.listViewImages.UseCompatibleStateImageBehavior = false;
@@ -123,7 +123,7 @@ namespace QuickImageComment
             this.dynamicComboBoxGroup.FormattingEnabled = true;
             this.dynamicComboBoxGroup.Location = new System.Drawing.Point(7, 5);
             this.dynamicComboBoxGroup.Name = "dynamicComboBoxGroup";
-            this.dynamicComboBoxGroup.Size = new System.Drawing.Size(313, 21);
+            this.dynamicComboBoxGroup.Size = new System.Drawing.Size(267, 21);
             this.dynamicComboBoxGroup.TabIndex = 0;
             this.dynamicComboBoxGroup.SelectedIndexChanged += new System.EventHandler(this.comboBoxGroup_SelectedIndexChanged);
             // 
@@ -257,7 +257,7 @@ namespace QuickImageComment
             // buttonHelp
             // 
             this.buttonHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonHelp.Location = new System.Drawing.Point(724, 311);
+            this.buttonHelp.Location = new System.Drawing.Point(678, 311);
             this.buttonHelp.Name = "buttonHelp";
             this.buttonHelp.Size = new System.Drawing.Size(100, 22);
             this.buttonHelp.TabIndex = 14;
@@ -285,7 +285,7 @@ namespace QuickImageComment
             this.tableLayoutPanel1.Controls.Add(this.labelMinutes, 4, 0);
             this.tableLayoutPanel1.Controls.Add(this.numericUpDownMinute, 5, 0);
             this.tableLayoutPanel1.Controls.Add(this.labelSeconds, 6, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(334, 3);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(288, 3);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -299,14 +299,14 @@ namespace QuickImageComment
             this.progressPanel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.progressPanel1.Location = new System.Drawing.Point(8, 282);
             this.progressPanel1.Name = "progressPanel1";
-            this.progressPanel1.Size = new System.Drawing.Size(816, 23);
+            this.progressPanel1.Size = new System.Drawing.Size(770, 23);
             this.progressPanel1.TabIndex = 16;
             // 
             // FormDateTimeChange
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(829, 344);
+            this.ClientSize = new System.Drawing.Size(783, 344);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.progressPanel1);
             this.Controls.Add(this.buttonHelp);
@@ -318,7 +318,6 @@ namespace QuickImageComment
             this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
-            this.MinimumSize = new System.Drawing.Size(779, 328);
             this.Name = "FormDateTimeChange";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Aufnahmedatum und Uhrzeit ändern";
