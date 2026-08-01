@@ -393,6 +393,7 @@ namespace QuickImageCommentControls
                 zoomFactor /= modifier;
 
             if (zoomFactor < zoomFactorForFit()) zoomFactor = zoomFactorForFit();
+            if (zoomFactor > 8f) zoomFactor = 8f;
 
             // Zoom around mouse position
             // so calculate shift of centerX/Y to keep the image position under mouse pointer
