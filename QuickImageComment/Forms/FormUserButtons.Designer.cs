@@ -87,7 +87,7 @@ namespace QuickImageComment
             // buttonHelp
             // 
             this.buttonHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonHelp.Location = new System.Drawing.Point(847, 423);
+            this.buttonHelp.Location = new System.Drawing.Point(874, 423);
             this.buttonHelp.Name = "buttonHelp";
             this.buttonHelp.Size = new System.Drawing.Size(100, 22);
             this.buttonHelp.TabIndex = 16;
@@ -250,7 +250,7 @@ namespace QuickImageComment
             this.textBoxInfo.Name = "textBoxInfo";
             this.textBoxInfo.ReadOnly = true;
             this.textBoxInfo.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBoxInfo.Size = new System.Drawing.Size(941, 26);
+            this.textBoxInfo.Size = new System.Drawing.Size(968, 26);
             this.textBoxInfo.TabIndex = 12;
             // 
             // listViewIcons
@@ -264,7 +264,7 @@ namespace QuickImageComment
             this.listViewIcons.MultiSelect = false;
             this.listViewIcons.Name = "listViewIcons";
             this.listViewIcons.OwnerDraw = true;
-            this.listViewIcons.Size = new System.Drawing.Size(327, 250);
+            this.listViewIcons.Size = new System.Drawing.Size(354, 250);
             this.listViewIcons.TabIndex = 5;
             this.listViewIcons.TileSize = new System.Drawing.Size(50, 50);
             this.listViewIcons.UseCompatibleStateImageBehavior = false;
@@ -287,7 +287,7 @@ namespace QuickImageComment
             // pictureBoxProgramPath
             // 
             this.pictureBoxProgramPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBoxProgramPath.Location = new System.Drawing.Point(915, 315);
+            this.pictureBoxProgramPath.Location = new System.Drawing.Point(942, 315);
             this.pictureBoxProgramPath.Name = "pictureBoxProgramPath";
             this.pictureBoxProgramPath.Size = new System.Drawing.Size(32, 32);
             this.pictureBoxProgramPath.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -322,7 +322,7 @@ namespace QuickImageComment
             // pictureBoxImagePath
             // 
             this.pictureBoxImagePath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBoxImagePath.Location = new System.Drawing.Point(915, 278);
+            this.pictureBoxImagePath.Location = new System.Drawing.Point(942, 278);
             this.pictureBoxImagePath.Name = "pictureBoxImagePath";
             this.pictureBoxImagePath.Size = new System.Drawing.Size(32, 32);
             this.pictureBoxImagePath.TabIndex = 20;
@@ -332,7 +332,7 @@ namespace QuickImageComment
             // 
             this.buttonBrowse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonBrowse.Image = ((System.Drawing.Image)(resources.GetObject("buttonBrowse.Image")));
-            this.buttonBrowse.Location = new System.Drawing.Point(881, 282);
+            this.buttonBrowse.Location = new System.Drawing.Point(908, 282);
             this.buttonBrowse.Name = "buttonBrowse";
             this.buttonBrowse.Size = new System.Drawing.Size(30, 24);
             this.buttonBrowse.TabIndex = 21;
@@ -345,7 +345,7 @@ namespace QuickImageComment
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxImagePath.Location = new System.Drawing.Point(638, 284);
             this.textBoxImagePath.Name = "textBoxImagePath";
-            this.textBoxImagePath.Size = new System.Drawing.Size(239, 21);
+            this.textBoxImagePath.Size = new System.Drawing.Size(266, 21);
             this.textBoxImagePath.TabIndex = 22;
             this.textBoxImagePath.TextChanged += new System.EventHandler(this.textBoxImagePath_TextChanged);
             // 
@@ -360,14 +360,14 @@ namespace QuickImageComment
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(947, 32);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(974, 32);
             this.tableLayoutPanel1.TabIndex = 23;
             // 
             // FormUserButtons
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(952, 450);
+            this.ClientSize = new System.Drawing.Size(979, 450);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.textBoxImagePath);
             this.Controls.Add(this.buttonBrowse);

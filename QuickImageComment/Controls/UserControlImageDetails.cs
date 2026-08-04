@@ -793,7 +793,7 @@ namespace QuickImageComment
                 pictureBoxImage.Image = theImage;
                 pictureBoxImage.setZoom(zoomFactor);
                 pictureBoxImage.setFocusPoint(givenExtendedImage.getFocusPoint());
-                panelFocusPointControls.Visible = givenExtendedImage.getFocusPoint() != Point.Empty;
+                tableLayoutPanelFocusPoint.Visible = givenExtendedImage.getFocusPoint() != Point.Empty;
                 if (theExtendedImage.getImageDetailsPosX() == -9999)
                 {
                     // position of image detail frame not set before, set position to middle

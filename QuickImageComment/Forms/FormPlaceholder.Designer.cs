@@ -81,10 +81,11 @@ namespace QuickImageComment
             this.labelNoPlaceholderMarked = new System.Windows.Forms.Label();
             this.tableLayoutPanelValueResult = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanelTagList = new System.Windows.Forms.TableLayoutPanel();
-            this.userControlTagList = new QuickImageComment.UserControlTagList();
             this.tableLayoutPanelBelowTagList = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanelFormat = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanelLanguage = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanelMetaDate = new System.Windows.Forms.TableLayoutPanel();
+            this.userControlTagList = new QuickImageComment.UserControlTagList();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFrom)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLength)).BeginInit();
             this.tableLayoutPanelValueResult.SuspendLayout();
@@ -92,6 +93,7 @@ namespace QuickImageComment
             this.tableLayoutPanelBelowTagList.SuspendLayout();
             this.tableLayoutPanelFormat.SuspendLayout();
             this.tableLayoutPanelLanguage.SuspendLayout();
+            this.tableLayoutPanelMetaDate.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonAbort
@@ -108,7 +110,7 @@ namespace QuickImageComment
             // buttonMetaDatum
             // 
             this.buttonMetaDatum.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonMetaDatum.Location = new System.Drawing.Point(595, 3);
+            this.buttonMetaDatum.Location = new System.Drawing.Point(601, 3);
             this.buttonMetaDatum.Name = "buttonMetaDatum";
             this.buttonMetaDatum.Size = new System.Drawing.Size(119, 21);
             this.buttonMetaDatum.TabIndex = 14;
@@ -150,22 +152,26 @@ namespace QuickImageComment
             // 
             // textBoxValueOriginal
             // 
+            this.textBoxValueOriginal.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBoxValueOriginal.Dock = System.Windows.Forms.DockStyle.Left;
-            this.textBoxValueOriginal.Location = new System.Drawing.Point(88, 3);
+            this.textBoxValueOriginal.Location = new System.Drawing.Point(88, 8);
+            this.textBoxValueOriginal.Margin = new System.Windows.Forms.Padding(3, 8, 3, 3);
             this.textBoxValueOriginal.Name = "textBoxValueOriginal";
             this.textBoxValueOriginal.ReadOnly = true;
-            this.textBoxValueOriginal.Size = new System.Drawing.Size(154, 21);
+            this.textBoxValueOriginal.Size = new System.Drawing.Size(6, 9);
             this.textBoxValueOriginal.TabIndex = 10;
             this.textBoxValueOriginal.Text = "ValueOriginal";
             // 
             // textBoxValueInterpreted
             // 
             this.textBoxValueInterpreted.BackColor = System.Drawing.SystemColors.Control;
+            this.textBoxValueInterpreted.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBoxValueInterpreted.Dock = System.Windows.Forms.DockStyle.Left;
-            this.textBoxValueInterpreted.Location = new System.Drawing.Point(336, 3);
+            this.textBoxValueInterpreted.Location = new System.Drawing.Point(336, 8);
+            this.textBoxValueInterpreted.Margin = new System.Windows.Forms.Padding(3, 8, 3, 3);
             this.textBoxValueInterpreted.Name = "textBoxValueInterpreted";
             this.textBoxValueInterpreted.ReadOnly = true;
-            this.textBoxValueInterpreted.Size = new System.Drawing.Size(253, 21);
+            this.textBoxValueInterpreted.Size = new System.Drawing.Size(10, 9);
             this.textBoxValueInterpreted.TabIndex = 12;
             this.textBoxValueInterpreted.Text = "ValueInterpreted";
             // 
@@ -199,14 +205,14 @@ namespace QuickImageComment
             this.label14.Size = new System.Drawing.Size(115, 94);
             this.label14.TabIndex = 39;
             this.label14.Text = "Ergebnis der Definition";
-            this.label14.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // richTextBoxValue
             // 
             this.richTextBoxValue.Dock = System.Windows.Forms.DockStyle.Fill;
             this.richTextBoxValue.Location = new System.Drawing.Point(148, 3);
             this.richTextBoxValue.Name = "richTextBoxValue";
-            this.richTextBoxValue.Size = new System.Drawing.Size(591, 87);
+            this.richTextBoxValue.Size = new System.Drawing.Size(604, 87);
             this.richTextBoxValue.TabIndex = 51;
             this.richTextBoxValue.Text = "";
             this.richTextBoxValue.TextChanged += new System.EventHandler(this.richTextBoxValue_TextChanged);
@@ -219,14 +225,14 @@ namespace QuickImageComment
             this.label2.Size = new System.Drawing.Size(69, 93);
             this.label2.TabIndex = 52;
             this.label2.Text = "Wert";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label3
             // 
-            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label3.Location = new System.Drawing.Point(37, 310);
+            this.label3.Dock = System.Windows.Forms.DockStyle.Right;
+            this.label3.Location = new System.Drawing.Point(10, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(198, 20);
+            this.label3.Size = new System.Drawing.Size(112, 24);
             this.label3.TabIndex = 54;
             this.label3.Text = "Meta Datum";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -251,7 +257,7 @@ namespace QuickImageComment
             0,
             0});
             this.numericUpDownFrom.Name = "numericUpDownFrom";
-            this.numericUpDownFrom.Size = new System.Drawing.Size(38, 21);
+            this.numericUpDownFrom.Size = new System.Drawing.Size(25, 21);
             this.numericUpDownFrom.TabIndex = 56;
             this.numericUpDownFrom.Value = new decimal(new int[] {
             1,
@@ -265,7 +271,7 @@ namespace QuickImageComment
             this.numericUpDownLength.Dock = System.Windows.Forms.DockStyle.Left;
             this.numericUpDownLength.Location = new System.Drawing.Point(322, 3);
             this.numericUpDownLength.Name = "numericUpDownLength";
-            this.numericUpDownLength.Size = new System.Drawing.Size(58, 21);
+            this.numericUpDownLength.Size = new System.Drawing.Size(11, 21);
             this.numericUpDownLength.TabIndex = 57;
             this.numericUpDownLength.Value = new decimal(new int[] {
             1,
@@ -276,22 +282,23 @@ namespace QuickImageComment
             // 
             // textBoxValueConverted
             // 
+            this.textBoxValueConverted.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBoxValueConverted.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBoxValueConverted.Location = new System.Drawing.Point(148, 96);
             this.textBoxValueConverted.Multiline = true;
             this.textBoxValueConverted.Name = "textBoxValueConverted";
             this.textBoxValueConverted.ReadOnly = true;
             this.textBoxValueConverted.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxValueConverted.Size = new System.Drawing.Size(591, 88);
+            this.textBoxValueConverted.Size = new System.Drawing.Size(604, 88);
             this.textBoxValueConverted.TabIndex = 59;
             // 
             // dynamicLabelMetaDate
             // 
-            this.dynamicLabelMetaDate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.dynamicLabelMetaDate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.dynamicLabelMetaDate.Location = new System.Drawing.Point(236, 309);
+            this.dynamicLabelMetaDate.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dynamicLabelMetaDate.Location = new System.Drawing.Point(128, 0);
             this.dynamicLabelMetaDate.Name = "dynamicLabelMetaDate";
-            this.dynamicLabelMetaDate.Size = new System.Drawing.Size(594, 22);
+            this.dynamicLabelMetaDate.Size = new System.Drawing.Size(602, 24);
             this.dynamicLabelMetaDate.TabIndex = 60;
             this.dynamicLabelMetaDate.Text = "dynamicLabelMetaDate";
             this.dynamicLabelMetaDate.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -313,7 +320,7 @@ namespace QuickImageComment
             this.dynamicComboBoxFormat.FormattingEnabled = true;
             this.dynamicComboBoxFormat.Location = new System.Drawing.Point(517, 3);
             this.dynamicComboBoxFormat.Name = "dynamicComboBoxFormat";
-            this.dynamicComboBoxFormat.Size = new System.Drawing.Size(198, 21);
+            this.dynamicComboBoxFormat.Size = new System.Drawing.Size(213, 21);
             this.dynamicComboBoxFormat.TabIndex = 62;
             this.dynamicComboBoxFormat.TextChanged += new System.EventHandler(this.placeholderDefinitionChanged);
             // 
@@ -323,7 +330,7 @@ namespace QuickImageComment
             this.checkBoxSorted.Dock = System.Windows.Forms.DockStyle.Left;
             this.checkBoxSorted.Location = new System.Drawing.Point(153, 3);
             this.checkBoxSorted.Name = "checkBoxSorted";
-            this.checkBoxSorted.Size = new System.Drawing.Size(59, 19);
+            this.checkBoxSorted.Size = new System.Drawing.Size(62, 19);
             this.checkBoxSorted.TabIndex = 63;
             this.checkBoxSorted.Text = "Sortiert";
             this.checkBoxSorted.UseVisualStyleBackColor = true;
@@ -334,16 +341,16 @@ namespace QuickImageComment
             this.dynamicComboBoxLanguage.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dynamicComboBoxLanguage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.dynamicComboBoxLanguage.FormattingEnabled = true;
-            this.dynamicComboBoxLanguage.Location = new System.Drawing.Point(403, 3);
+            this.dynamicComboBoxLanguage.Location = new System.Drawing.Point(438, 3);
             this.dynamicComboBoxLanguage.Name = "dynamicComboBoxLanguage";
-            this.dynamicComboBoxLanguage.Size = new System.Drawing.Size(280, 21);
+            this.dynamicComboBoxLanguage.Size = new System.Drawing.Size(258, 21);
             this.dynamicComboBoxLanguage.TabIndex = 64;
             this.dynamicComboBoxLanguage.TextChanged += new System.EventHandler(this.placeholderDefinitionChanged);
             // 
             // label6
             // 
             this.label6.Dock = System.Windows.Forms.DockStyle.Right;
-            this.label6.Location = new System.Drawing.Point(343, 0);
+            this.label6.Location = new System.Drawing.Point(378, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(54, 25);
             this.label6.TabIndex = 65;
@@ -376,9 +383,9 @@ namespace QuickImageComment
             // 
             this.checkBoxSavedValue.AutoSize = true;
             this.checkBoxSavedValue.Dock = System.Windows.Forms.DockStyle.Left;
-            this.checkBoxSavedValue.Location = new System.Drawing.Point(218, 3);
+            this.checkBoxSavedValue.Location = new System.Drawing.Point(228, 3);
             this.checkBoxSavedValue.Name = "checkBoxSavedValue";
-            this.checkBoxSavedValue.Size = new System.Drawing.Size(119, 19);
+            this.checkBoxSavedValue.Size = new System.Drawing.Size(120, 19);
             this.checkBoxSavedValue.TabIndex = 68;
             this.checkBoxSavedValue.Text = "Gespeicherter Wert";
             this.checkBoxSavedValue.UseVisualStyleBackColor = true;
@@ -387,7 +394,7 @@ namespace QuickImageComment
             // buttonDate
             // 
             this.buttonDate.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonDate.Location = new System.Drawing.Point(720, 3);
+            this.buttonDate.Location = new System.Drawing.Point(726, 3);
             this.buttonDate.Name = "buttonDate";
             this.buttonDate.Size = new System.Drawing.Size(54, 21);
             this.buttonDate.TabIndex = 69;
@@ -398,7 +405,7 @@ namespace QuickImageComment
             // buttonTime
             // 
             this.buttonTime.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonTime.Location = new System.Drawing.Point(780, 3);
+            this.buttonTime.Location = new System.Drawing.Point(786, 3);
             this.buttonTime.Name = "buttonTime";
             this.buttonTime.Size = new System.Drawing.Size(54, 21);
             this.buttonTime.TabIndex = 70;
@@ -486,7 +493,7 @@ namespace QuickImageComment
             this.tableLayoutPanelValueResult.RowCount = 2;
             this.tableLayoutPanelValueResult.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanelValueResult.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanelValueResult.Size = new System.Drawing.Size(742, 187);
+            this.tableLayoutPanelValueResult.Size = new System.Drawing.Size(755, 187);
             this.tableLayoutPanelValueResult.TabIndex = 78;
             // 
             // tableLayoutPanelTagList
@@ -500,14 +507,6 @@ namespace QuickImageComment
             this.tableLayoutPanelTagList.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanelTagList.Size = new System.Drawing.Size(846, 268);
             this.tableLayoutPanelTagList.TabIndex = 79;
-            // 
-            // userControlTagList
-            // 
-            this.userControlTagList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.userControlTagList.Location = new System.Drawing.Point(3, 3);
-            this.userControlTagList.Name = "userControlTagList";
-            this.userControlTagList.Size = new System.Drawing.Size(840, 262);
-            this.userControlTagList.TabIndex = 77;
             // 
             // tableLayoutPanelBelowTagList
             // 
@@ -530,7 +529,7 @@ namespace QuickImageComment
             this.tableLayoutPanelBelowTagList.Name = "tableLayoutPanelBelowTagList";
             this.tableLayoutPanelBelowTagList.RowCount = 1;
             this.tableLayoutPanelBelowTagList.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanelBelowTagList.Size = new System.Drawing.Size(837, 27);
+            this.tableLayoutPanelBelowTagList.Size = new System.Drawing.Size(843, 27);
             this.tableLayoutPanelBelowTagList.TabIndex = 80;
             // 
             // tableLayoutPanelFormat
@@ -554,7 +553,8 @@ namespace QuickImageComment
             this.tableLayoutPanelFormat.Name = "tableLayoutPanelFormat";
             this.tableLayoutPanelFormat.RowCount = 1;
             this.tableLayoutPanelFormat.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanelFormat.Size = new System.Drawing.Size(718, 24);
+            this.tableLayoutPanelFormat.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
+            this.tableLayoutPanelFormat.Size = new System.Drawing.Size(733, 24);
             this.tableLayoutPanelFormat.TabIndex = 81;
             // 
             // tableLayoutPanelLanguage
@@ -562,8 +562,8 @@ namespace QuickImageComment
             this.tableLayoutPanelLanguage.ColumnCount = 6;
             this.tableLayoutPanelLanguage.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 90F));
             this.tableLayoutPanelLanguage.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
-            this.tableLayoutPanelLanguage.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 65F));
-            this.tableLayoutPanelLanguage.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 125F));
+            this.tableLayoutPanelLanguage.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 75F));
+            this.tableLayoutPanelLanguage.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
             this.tableLayoutPanelLanguage.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
             this.tableLayoutPanelLanguage.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanelLanguage.Controls.Add(this.label7, 0, 0);
@@ -576,14 +576,37 @@ namespace QuickImageComment
             this.tableLayoutPanelLanguage.Name = "tableLayoutPanelLanguage";
             this.tableLayoutPanelLanguage.RowCount = 1;
             this.tableLayoutPanelLanguage.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanelLanguage.Size = new System.Drawing.Size(686, 25);
+            this.tableLayoutPanelLanguage.Size = new System.Drawing.Size(699, 25);
             this.tableLayoutPanelLanguage.TabIndex = 82;
+            // 
+            // tableLayoutPanelMetaDate
+            // 
+            this.tableLayoutPanelMetaDate.ColumnCount = 2;
+            this.tableLayoutPanelMetaDate.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 125F));
+            this.tableLayoutPanelMetaDate.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelMetaDate.Controls.Add(this.label3, 0, 0);
+            this.tableLayoutPanelMetaDate.Controls.Add(this.dynamicLabelMetaDate, 1, 0);
+            this.tableLayoutPanelMetaDate.Location = new System.Drawing.Point(110, 307);
+            this.tableLayoutPanelMetaDate.Name = "tableLayoutPanelMetaDate";
+            this.tableLayoutPanelMetaDate.RowCount = 1;
+            this.tableLayoutPanelMetaDate.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelMetaDate.Size = new System.Drawing.Size(733, 24);
+            this.tableLayoutPanelMetaDate.TabIndex = 83;
+            // 
+            // userControlTagList
+            // 
+            this.userControlTagList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.userControlTagList.Location = new System.Drawing.Point(3, 3);
+            this.userControlTagList.Name = "userControlTagList";
+            this.userControlTagList.Size = new System.Drawing.Size(840, 262);
+            this.userControlTagList.TabIndex = 77;
             // 
             // FormPlaceholder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(846, 604);
+            this.Controls.Add(this.tableLayoutPanelMetaDate);
             this.Controls.Add(this.tableLayoutPanelLanguage);
             this.Controls.Add(this.tableLayoutPanelFormat);
             this.Controls.Add(this.tableLayoutPanelBelowTagList);
@@ -593,8 +616,6 @@ namespace QuickImageComment
             this.Controls.Add(this.label9);
             this.Controls.Add(this.buttonInsertOverwrite);
             this.Controls.Add(this.tableLayoutPanelValueResult);
-            this.Controls.Add(this.dynamicLabelMetaDate);
-            this.Controls.Add(this.label3);
             this.Controls.Add(this.buttonHelp);
             this.Controls.Add(this.buttonCustomizeForm);
             this.Controls.Add(this.buttonOk);
@@ -619,6 +640,7 @@ namespace QuickImageComment
             this.tableLayoutPanelFormat.PerformLayout();
             this.tableLayoutPanelLanguage.ResumeLayout(false);
             this.tableLayoutPanelLanguage.PerformLayout();
+            this.tableLayoutPanelMetaDate.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -665,5 +687,6 @@ namespace QuickImageComment
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelBelowTagList;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelFormat;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelLanguage;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelMetaDate;
     }
 }

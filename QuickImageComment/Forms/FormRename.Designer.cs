@@ -87,6 +87,7 @@ namespace QuickImageComment
             this.dynamicComboBoxRunningNumberSortField = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBoxInvalidCharacters = new System.Windows.Forms.GroupBox();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.richTextBoxFillUpChar_1 = new System.Windows.Forms.RichTextBox();
             this.numericUpDownFillUpTo_1 = new System.Windows.Forms.NumericUpDown();
             this.checkBoxFillUpRight_1 = new System.Windows.Forms.CheckBox();
@@ -196,6 +197,7 @@ namespace QuickImageComment
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRunningNumberMinLength)).BeginInit();
             this.groupBoxRunningNumber.SuspendLayout();
             this.groupBoxInvalidCharacters.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFillUpTo_1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFillUpTo_7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFillUpTo_6)).BeginInit();
@@ -481,9 +483,11 @@ namespace QuickImageComment
             // 
             // labelReplaceInfo1
             // 
-            this.labelReplaceInfo1.Location = new System.Drawing.Point(9, 12);
+            this.labelReplaceInfo1.Dock = System.Windows.Forms.DockStyle.Right;
+            this.labelReplaceInfo1.Location = new System.Drawing.Point(96, 3);
+            this.labelReplaceInfo1.Margin = new System.Windows.Forms.Padding(3);
             this.labelReplaceInfo1.Name = "labelReplaceInfo1";
-            this.labelReplaceInfo1.Size = new System.Drawing.Size(277, 17);
+            this.labelReplaceInfo1.Size = new System.Drawing.Size(277, 21);
             this.labelReplaceInfo1.TabIndex = 0;
             this.labelReplaceInfo1.Text = "Ersetze die im Dateinamen nicht zulässigen Zeichen";
             this.labelReplaceInfo1.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -491,29 +495,34 @@ namespace QuickImageComment
             // dynamicLabelInvalidCharacters
             // 
             this.dynamicLabelInvalidCharacters.AutoSize = true;
+            this.dynamicLabelInvalidCharacters.Dock = System.Windows.Forms.DockStyle.Left;
             this.dynamicLabelInvalidCharacters.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dynamicLabelInvalidCharacters.Location = new System.Drawing.Point(286, 14);
+            this.dynamicLabelInvalidCharacters.Location = new System.Drawing.Point(379, 3);
+            this.dynamicLabelInvalidCharacters.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.dynamicLabelInvalidCharacters.Name = "dynamicLabelInvalidCharacters";
-            this.dynamicLabelInvalidCharacters.Size = new System.Drawing.Size(68, 11);
+            this.dynamicLabelInvalidCharacters.Size = new System.Drawing.Size(68, 24);
             this.dynamicLabelInvalidCharacters.TabIndex = 1;
             this.dynamicLabelInvalidCharacters.Text = "\\/:*?\"<>|";
             // 
             // labelReplaceInfo2
             // 
-            this.labelReplaceInfo2.Location = new System.Drawing.Point(211, 35);
+            this.labelReplaceInfo2.Dock = System.Windows.Forms.DockStyle.Right;
+            this.labelReplaceInfo2.Location = new System.Drawing.Point(298, 30);
+            this.labelReplaceInfo2.Margin = new System.Windows.Forms.Padding(3);
             this.labelReplaceInfo2.Name = "labelReplaceInfo2";
-            this.labelReplaceInfo2.Size = new System.Drawing.Size(75, 17);
+            this.labelReplaceInfo2.Size = new System.Drawing.Size(75, 21);
             this.labelReplaceInfo2.TabIndex = 2;
             this.labelReplaceInfo2.Text = "durch";
             this.labelReplaceInfo2.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // richTextBoxInvalidCharRepl
             // 
+            this.richTextBoxInvalidCharRepl.Dock = System.Windows.Forms.DockStyle.Left;
             this.richTextBoxInvalidCharRepl.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBoxInvalidCharRepl.Location = new System.Drawing.Point(285, 32);
+            this.richTextBoxInvalidCharRepl.Location = new System.Drawing.Point(379, 30);
             this.richTextBoxInvalidCharRepl.Multiline = false;
             this.richTextBoxInvalidCharRepl.Name = "richTextBoxInvalidCharRepl";
-            this.richTextBoxInvalidCharRepl.Size = new System.Drawing.Size(78, 20);
+            this.richTextBoxInvalidCharRepl.Size = new System.Drawing.Size(78, 21);
             this.richTextBoxInvalidCharRepl.TabIndex = 3;
             this.richTextBoxInvalidCharRepl.Text = "\\/:*?\"<>|";
             this.richTextBoxInvalidCharRepl.TextChanged += new System.EventHandler(this.richTextBoxRenameSettings_TextChanged);
@@ -550,7 +559,7 @@ namespace QuickImageComment
             // labelRunningInfo4
             // 
             this.labelRunningInfo4.AutoSize = true;
-            this.labelRunningInfo4.Location = new System.Drawing.Point(383, 33);
+            this.labelRunningInfo4.Location = new System.Drawing.Point(394, 33);
             this.labelRunningInfo4.Name = "labelRunningInfo4";
             this.labelRunningInfo4.Size = new System.Drawing.Size(61, 13);
             this.labelRunningInfo4.TabIndex = 3;
@@ -587,7 +596,7 @@ namespace QuickImageComment
             // richTextBoxRunningSuffix
             // 
             this.richTextBoxRunningSuffix.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBoxRunningSuffix.Location = new System.Drawing.Point(383, 49);
+            this.richTextBoxRunningSuffix.Location = new System.Drawing.Point(394, 49);
             this.richTextBoxRunningSuffix.Name = "richTextBoxRunningSuffix";
             this.richTextBoxRunningSuffix.Size = new System.Drawing.Size(73, 20);
             this.richTextBoxRunningSuffix.TabIndex = 8;
@@ -610,7 +619,7 @@ namespace QuickImageComment
             this.groupBoxRunningNumber.Controls.Add(this.checkBoxAllwaysRunningNumber);
             this.groupBoxRunningNumber.Location = new System.Drawing.Point(4, 300);
             this.groupBoxRunningNumber.Name = "groupBoxRunningNumber";
-            this.groupBoxRunningNumber.Size = new System.Drawing.Size(814, 75);
+            this.groupBoxRunningNumber.Size = new System.Drawing.Size(859, 75);
             this.groupBoxRunningNumber.TabIndex = 105;
             this.groupBoxRunningNumber.TabStop = false;
             // 
@@ -627,7 +636,7 @@ namespace QuickImageComment
             // 
             this.dynamicComboBoxRunningNumberSortField.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.dynamicComboBoxRunningNumberSortField.FormattingEnabled = true;
-            this.dynamicComboBoxRunningNumberSortField.Location = new System.Drawing.Point(499, 47);
+            this.dynamicComboBoxRunningNumberSortField.Location = new System.Drawing.Point(497, 47);
             this.dynamicComboBoxRunningNumberSortField.Name = "dynamicComboBoxRunningNumberSortField";
             this.dynamicComboBoxRunningNumberSortField.Size = new System.Drawing.Size(308, 21);
             this.dynamicComboBoxRunningNumberSortField.TabIndex = 9;
@@ -647,21 +656,35 @@ namespace QuickImageComment
             // 
             this.groupBoxInvalidCharacters.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBoxInvalidCharacters.Controls.Add(this.richTextBoxInvalidCharRepl);
-            this.groupBoxInvalidCharacters.Controls.Add(this.labelReplaceInfo2);
-            this.groupBoxInvalidCharacters.Controls.Add(this.dynamicLabelInvalidCharacters);
-            this.groupBoxInvalidCharacters.Controls.Add(this.labelReplaceInfo1);
+            this.groupBoxInvalidCharacters.Controls.Add(this.tableLayoutPanel1);
             this.groupBoxInvalidCharacters.Controls.Add(this.dynamicLabelRenameFiles);
             this.groupBoxInvalidCharacters.Location = new System.Drawing.Point(5, 375);
             this.groupBoxInvalidCharacters.Name = "groupBoxInvalidCharacters";
-            this.groupBoxInvalidCharacters.Size = new System.Drawing.Size(812, 78);
+            this.groupBoxInvalidCharacters.Size = new System.Drawing.Size(857, 78);
             this.groupBoxInvalidCharacters.TabIndex = 106;
             this.groupBoxInvalidCharacters.TabStop = false;
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 72.63969F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 27.36031F));
+            this.tableLayoutPanel1.Controls.Add(this.dynamicLabelInvalidCharacters, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.labelReplaceInfo1, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.labelReplaceInfo2, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.richTextBoxInvalidCharRepl, 1, 1);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(6, 6);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(519, 54);
+            this.tableLayoutPanel1.TabIndex = 108;
             // 
             // richTextBoxFillUpChar_1
             // 
             this.richTextBoxFillUpChar_1.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBoxFillUpChar_1.Location = new System.Drawing.Point(731, 23);
+            this.richTextBoxFillUpChar_1.Location = new System.Drawing.Point(754, 23);
             this.richTextBoxFillUpChar_1.MaxLength = 1;
             this.richTextBoxFillUpChar_1.Multiline = false;
             this.richTextBoxFillUpChar_1.Name = "richTextBoxFillUpChar_1";
@@ -671,7 +694,7 @@ namespace QuickImageComment
             // 
             // numericUpDownFillUpTo_1
             // 
-            this.numericUpDownFillUpTo_1.Location = new System.Drawing.Point(780, 23);
+            this.numericUpDownFillUpTo_1.Location = new System.Drawing.Point(790, 23);
             this.numericUpDownFillUpTo_1.Name = "numericUpDownFillUpTo_1";
             this.numericUpDownFillUpTo_1.Size = new System.Drawing.Size(35, 21);
             this.numericUpDownFillUpTo_1.TabIndex = 14;
@@ -679,7 +702,7 @@ namespace QuickImageComment
             // checkBoxFillUpRight_1
             // 
             this.checkBoxFillUpRight_1.AutoSize = true;
-            this.checkBoxFillUpRight_1.Location = new System.Drawing.Point(685, 26);
+            this.checkBoxFillUpRight_1.Location = new System.Drawing.Point(723, 26);
             this.checkBoxFillUpRight_1.Name = "checkBoxFillUpRight_1";
             this.checkBoxFillUpRight_1.Size = new System.Drawing.Size(15, 14);
             this.checkBoxFillUpRight_1.TabIndex = 12;
@@ -688,16 +711,16 @@ namespace QuickImageComment
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(674, 7);
+            this.label3.Location = new System.Drawing.Point(712, 7);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(133, 13);
+            this.label3.Size = new System.Drawing.Size(118, 13);
             this.label3.TabIndex = 5;
-            this.label3.Text = "rechts   auffüllen mit   auf ";
+            this.label3.Text = "rechts auffüllen mit auf";
             // 
             // checkBoxFillUpRight_7
             // 
             this.checkBoxFillUpRight_7.AutoSize = true;
-            this.checkBoxFillUpRight_7.Location = new System.Drawing.Point(685, 164);
+            this.checkBoxFillUpRight_7.Location = new System.Drawing.Point(723, 164);
             this.checkBoxFillUpRight_7.Name = "checkBoxFillUpRight_7";
             this.checkBoxFillUpRight_7.Size = new System.Drawing.Size(15, 14);
             this.checkBoxFillUpRight_7.TabIndex = 66;
@@ -705,7 +728,7 @@ namespace QuickImageComment
             // 
             // numericUpDownFillUpTo_7
             // 
-            this.numericUpDownFillUpTo_7.Location = new System.Drawing.Point(780, 161);
+            this.numericUpDownFillUpTo_7.Location = new System.Drawing.Point(790, 161);
             this.numericUpDownFillUpTo_7.Name = "numericUpDownFillUpTo_7";
             this.numericUpDownFillUpTo_7.Size = new System.Drawing.Size(35, 21);
             this.numericUpDownFillUpTo_7.TabIndex = 68;
@@ -713,7 +736,7 @@ namespace QuickImageComment
             // richTextBoxFillUpChar_7
             // 
             this.richTextBoxFillUpChar_7.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBoxFillUpChar_7.Location = new System.Drawing.Point(731, 161);
+            this.richTextBoxFillUpChar_7.Location = new System.Drawing.Point(754, 161);
             this.richTextBoxFillUpChar_7.MaxLength = 1;
             this.richTextBoxFillUpChar_7.Multiline = false;
             this.richTextBoxFillUpChar_7.Name = "richTextBoxFillUpChar_7";
@@ -724,7 +747,7 @@ namespace QuickImageComment
             // checkBoxFillUpRight_6
             // 
             this.checkBoxFillUpRight_6.AutoSize = true;
-            this.checkBoxFillUpRight_6.Location = new System.Drawing.Point(685, 141);
+            this.checkBoxFillUpRight_6.Location = new System.Drawing.Point(723, 141);
             this.checkBoxFillUpRight_6.Name = "checkBoxFillUpRight_6";
             this.checkBoxFillUpRight_6.Size = new System.Drawing.Size(15, 14);
             this.checkBoxFillUpRight_6.TabIndex = 57;
@@ -732,7 +755,7 @@ namespace QuickImageComment
             // 
             // numericUpDownFillUpTo_6
             // 
-            this.numericUpDownFillUpTo_6.Location = new System.Drawing.Point(780, 138);
+            this.numericUpDownFillUpTo_6.Location = new System.Drawing.Point(790, 138);
             this.numericUpDownFillUpTo_6.Name = "numericUpDownFillUpTo_6";
             this.numericUpDownFillUpTo_6.Size = new System.Drawing.Size(35, 21);
             this.numericUpDownFillUpTo_6.TabIndex = 59;
@@ -740,7 +763,7 @@ namespace QuickImageComment
             // richTextBoxFillUpChar_6
             // 
             this.richTextBoxFillUpChar_6.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBoxFillUpChar_6.Location = new System.Drawing.Point(731, 138);
+            this.richTextBoxFillUpChar_6.Location = new System.Drawing.Point(754, 138);
             this.richTextBoxFillUpChar_6.MaxLength = 1;
             this.richTextBoxFillUpChar_6.Multiline = false;
             this.richTextBoxFillUpChar_6.Name = "richTextBoxFillUpChar_6";
@@ -751,7 +774,7 @@ namespace QuickImageComment
             // checkBoxFillUpRight_5
             // 
             this.checkBoxFillUpRight_5.AutoSize = true;
-            this.checkBoxFillUpRight_5.Location = new System.Drawing.Point(685, 118);
+            this.checkBoxFillUpRight_5.Location = new System.Drawing.Point(723, 118);
             this.checkBoxFillUpRight_5.Name = "checkBoxFillUpRight_5";
             this.checkBoxFillUpRight_5.Size = new System.Drawing.Size(15, 14);
             this.checkBoxFillUpRight_5.TabIndex = 48;
@@ -759,7 +782,7 @@ namespace QuickImageComment
             // 
             // numericUpDownFillUpTo_5
             // 
-            this.numericUpDownFillUpTo_5.Location = new System.Drawing.Point(780, 115);
+            this.numericUpDownFillUpTo_5.Location = new System.Drawing.Point(790, 115);
             this.numericUpDownFillUpTo_5.Name = "numericUpDownFillUpTo_5";
             this.numericUpDownFillUpTo_5.Size = new System.Drawing.Size(35, 21);
             this.numericUpDownFillUpTo_5.TabIndex = 50;
@@ -767,7 +790,7 @@ namespace QuickImageComment
             // richTextBoxFillUpChar_5
             // 
             this.richTextBoxFillUpChar_5.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBoxFillUpChar_5.Location = new System.Drawing.Point(731, 115);
+            this.richTextBoxFillUpChar_5.Location = new System.Drawing.Point(754, 115);
             this.richTextBoxFillUpChar_5.MaxLength = 1;
             this.richTextBoxFillUpChar_5.Multiline = false;
             this.richTextBoxFillUpChar_5.Name = "richTextBoxFillUpChar_5";
@@ -778,7 +801,7 @@ namespace QuickImageComment
             // checkBoxFillUpRight_4
             // 
             this.checkBoxFillUpRight_4.AutoSize = true;
-            this.checkBoxFillUpRight_4.Location = new System.Drawing.Point(685, 95);
+            this.checkBoxFillUpRight_4.Location = new System.Drawing.Point(723, 95);
             this.checkBoxFillUpRight_4.Name = "checkBoxFillUpRight_4";
             this.checkBoxFillUpRight_4.Size = new System.Drawing.Size(15, 14);
             this.checkBoxFillUpRight_4.TabIndex = 39;
@@ -786,7 +809,7 @@ namespace QuickImageComment
             // 
             // numericUpDownFillUpTo_4
             // 
-            this.numericUpDownFillUpTo_4.Location = new System.Drawing.Point(780, 92);
+            this.numericUpDownFillUpTo_4.Location = new System.Drawing.Point(790, 92);
             this.numericUpDownFillUpTo_4.Name = "numericUpDownFillUpTo_4";
             this.numericUpDownFillUpTo_4.Size = new System.Drawing.Size(35, 21);
             this.numericUpDownFillUpTo_4.TabIndex = 41;
@@ -794,7 +817,7 @@ namespace QuickImageComment
             // richTextBoxFillUpChar_4
             // 
             this.richTextBoxFillUpChar_4.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBoxFillUpChar_4.Location = new System.Drawing.Point(731, 92);
+            this.richTextBoxFillUpChar_4.Location = new System.Drawing.Point(754, 92);
             this.richTextBoxFillUpChar_4.MaxLength = 1;
             this.richTextBoxFillUpChar_4.Multiline = false;
             this.richTextBoxFillUpChar_4.Name = "richTextBoxFillUpChar_4";
@@ -805,7 +828,7 @@ namespace QuickImageComment
             // checkBoxFillUpRight_3
             // 
             this.checkBoxFillUpRight_3.AutoSize = true;
-            this.checkBoxFillUpRight_3.Location = new System.Drawing.Point(685, 72);
+            this.checkBoxFillUpRight_3.Location = new System.Drawing.Point(723, 72);
             this.checkBoxFillUpRight_3.Name = "checkBoxFillUpRight_3";
             this.checkBoxFillUpRight_3.Size = new System.Drawing.Size(15, 14);
             this.checkBoxFillUpRight_3.TabIndex = 30;
@@ -813,7 +836,7 @@ namespace QuickImageComment
             // 
             // numericUpDownFillUpTo_3
             // 
-            this.numericUpDownFillUpTo_3.Location = new System.Drawing.Point(780, 69);
+            this.numericUpDownFillUpTo_3.Location = new System.Drawing.Point(790, 69);
             this.numericUpDownFillUpTo_3.Name = "numericUpDownFillUpTo_3";
             this.numericUpDownFillUpTo_3.Size = new System.Drawing.Size(35, 21);
             this.numericUpDownFillUpTo_3.TabIndex = 32;
@@ -821,7 +844,7 @@ namespace QuickImageComment
             // richTextBoxFillUpChar_3
             // 
             this.richTextBoxFillUpChar_3.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBoxFillUpChar_3.Location = new System.Drawing.Point(731, 69);
+            this.richTextBoxFillUpChar_3.Location = new System.Drawing.Point(754, 69);
             this.richTextBoxFillUpChar_3.MaxLength = 1;
             this.richTextBoxFillUpChar_3.Multiline = false;
             this.richTextBoxFillUpChar_3.Name = "richTextBoxFillUpChar_3";
@@ -832,7 +855,7 @@ namespace QuickImageComment
             // checkBoxFillUpRight_2
             // 
             this.checkBoxFillUpRight_2.AutoSize = true;
-            this.checkBoxFillUpRight_2.Location = new System.Drawing.Point(685, 49);
+            this.checkBoxFillUpRight_2.Location = new System.Drawing.Point(723, 49);
             this.checkBoxFillUpRight_2.Name = "checkBoxFillUpRight_2";
             this.checkBoxFillUpRight_2.Size = new System.Drawing.Size(15, 14);
             this.checkBoxFillUpRight_2.TabIndex = 21;
@@ -840,7 +863,7 @@ namespace QuickImageComment
             // 
             // numericUpDownFillUpTo_2
             // 
-            this.numericUpDownFillUpTo_2.Location = new System.Drawing.Point(780, 46);
+            this.numericUpDownFillUpTo_2.Location = new System.Drawing.Point(790, 46);
             this.numericUpDownFillUpTo_2.Name = "numericUpDownFillUpTo_2";
             this.numericUpDownFillUpTo_2.Size = new System.Drawing.Size(35, 21);
             this.numericUpDownFillUpTo_2.TabIndex = 23;
@@ -848,7 +871,7 @@ namespace QuickImageComment
             // richTextBoxFillUpChar_2
             // 
             this.richTextBoxFillUpChar_2.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBoxFillUpChar_2.Location = new System.Drawing.Point(731, 46);
+            this.richTextBoxFillUpChar_2.Location = new System.Drawing.Point(754, 46);
             this.richTextBoxFillUpChar_2.MaxLength = 1;
             this.richTextBoxFillUpChar_2.Multiline = false;
             this.richTextBoxFillUpChar_2.Name = "richTextBoxFillUpChar_2";
@@ -880,17 +903,17 @@ namespace QuickImageComment
             // 
             // labelBaseInfo3
             // 
-            this.labelBaseInfo3.AutoSize = true;
-            this.labelBaseInfo3.Location = new System.Drawing.Point(521, 7);
+            this.labelBaseInfo3.Location = new System.Drawing.Point(499, 7);
             this.labelBaseInfo3.Name = "labelBaseInfo3";
-            this.labelBaseInfo3.Size = new System.Drawing.Size(31, 13);
+            this.labelBaseInfo3.Size = new System.Drawing.Size(51, 13);
             this.labelBaseInfo3.TabIndex = 2;
             this.labelBaseInfo3.Text = "Start";
+            this.labelBaseInfo3.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // checkBoxSubStringRight_1
             // 
             this.checkBoxSubStringRight_1.AutoSize = true;
-            this.checkBoxSubStringRight_1.Location = new System.Drawing.Point(579, 26);
+            this.checkBoxSubStringRight_1.Location = new System.Drawing.Point(602, 26);
             this.checkBoxSubStringRight_1.Name = "checkBoxSubStringRight_1";
             this.checkBoxSubStringRight_1.Size = new System.Drawing.Size(15, 14);
             this.checkBoxSubStringRight_1.TabIndex = 10;
@@ -898,7 +921,7 @@ namespace QuickImageComment
             // 
             // numericUpDownSubstringLength_1
             // 
-            this.numericUpDownSubstringLength_1.Location = new System.Drawing.Point(619, 23);
+            this.numericUpDownSubstringLength_1.Location = new System.Drawing.Point(649, 23);
             this.numericUpDownSubstringLength_1.Name = "numericUpDownSubstringLength_1";
             this.numericUpDownSubstringLength_1.Size = new System.Drawing.Size(35, 21);
             this.numericUpDownSubstringLength_1.TabIndex = 11;
@@ -906,7 +929,7 @@ namespace QuickImageComment
             // labelBaseInfo4
             // 
             this.labelBaseInfo4.AutoSize = true;
-            this.labelBaseInfo4.Location = new System.Drawing.Point(556, 7);
+            this.labelBaseInfo4.Location = new System.Drawing.Point(579, 7);
             this.labelBaseInfo4.Name = "labelBaseInfo4";
             this.labelBaseInfo4.Size = new System.Drawing.Size(58, 13);
             this.labelBaseInfo4.TabIndex = 3;
@@ -915,7 +938,7 @@ namespace QuickImageComment
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(617, 7);
+            this.label2.Location = new System.Drawing.Point(647, 7);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(36, 13);
             this.label2.TabIndex = 4;
@@ -946,7 +969,7 @@ namespace QuickImageComment
             // checkBoxSubStringRight_4
             // 
             this.checkBoxSubStringRight_4.AutoSize = true;
-            this.checkBoxSubStringRight_4.Location = new System.Drawing.Point(579, 95);
+            this.checkBoxSubStringRight_4.Location = new System.Drawing.Point(602, 95);
             this.checkBoxSubStringRight_4.Name = "checkBoxSubStringRight_4";
             this.checkBoxSubStringRight_4.Size = new System.Drawing.Size(15, 14);
             this.checkBoxSubStringRight_4.TabIndex = 37;
@@ -954,7 +977,7 @@ namespace QuickImageComment
             // 
             // numericUpDownSubstringLength_4
             // 
-            this.numericUpDownSubstringLength_4.Location = new System.Drawing.Point(619, 92);
+            this.numericUpDownSubstringLength_4.Location = new System.Drawing.Point(649, 92);
             this.numericUpDownSubstringLength_4.Name = "numericUpDownSubstringLength_4";
             this.numericUpDownSubstringLength_4.Size = new System.Drawing.Size(35, 21);
             this.numericUpDownSubstringLength_4.TabIndex = 38;
@@ -984,7 +1007,7 @@ namespace QuickImageComment
             // checkBoxSubStringRight_3
             // 
             this.checkBoxSubStringRight_3.AutoSize = true;
-            this.checkBoxSubStringRight_3.Location = new System.Drawing.Point(579, 72);
+            this.checkBoxSubStringRight_3.Location = new System.Drawing.Point(602, 72);
             this.checkBoxSubStringRight_3.Name = "checkBoxSubStringRight_3";
             this.checkBoxSubStringRight_3.Size = new System.Drawing.Size(15, 14);
             this.checkBoxSubStringRight_3.TabIndex = 28;
@@ -992,7 +1015,7 @@ namespace QuickImageComment
             // 
             // numericUpDownSubstringLength_3
             // 
-            this.numericUpDownSubstringLength_3.Location = new System.Drawing.Point(619, 69);
+            this.numericUpDownSubstringLength_3.Location = new System.Drawing.Point(649, 69);
             this.numericUpDownSubstringLength_3.Name = "numericUpDownSubstringLength_3";
             this.numericUpDownSubstringLength_3.Size = new System.Drawing.Size(35, 21);
             this.numericUpDownSubstringLength_3.TabIndex = 29;
@@ -1022,7 +1045,7 @@ namespace QuickImageComment
             // checkBoxSubStringRight_2
             // 
             this.checkBoxSubStringRight_2.AutoSize = true;
-            this.checkBoxSubStringRight_2.Location = new System.Drawing.Point(579, 49);
+            this.checkBoxSubStringRight_2.Location = new System.Drawing.Point(602, 49);
             this.checkBoxSubStringRight_2.Name = "checkBoxSubStringRight_2";
             this.checkBoxSubStringRight_2.Size = new System.Drawing.Size(15, 14);
             this.checkBoxSubStringRight_2.TabIndex = 19;
@@ -1030,7 +1053,7 @@ namespace QuickImageComment
             // 
             // numericUpDownSubstringLength_2
             // 
-            this.numericUpDownSubstringLength_2.Location = new System.Drawing.Point(619, 46);
+            this.numericUpDownSubstringLength_2.Location = new System.Drawing.Point(649, 46);
             this.numericUpDownSubstringLength_2.Name = "numericUpDownSubstringLength_2";
             this.numericUpDownSubstringLength_2.Size = new System.Drawing.Size(35, 21);
             this.numericUpDownSubstringLength_2.TabIndex = 20;
@@ -1060,7 +1083,7 @@ namespace QuickImageComment
             // checkBoxSubStringRight_5
             // 
             this.checkBoxSubStringRight_5.AutoSize = true;
-            this.checkBoxSubStringRight_5.Location = new System.Drawing.Point(579, 118);
+            this.checkBoxSubStringRight_5.Location = new System.Drawing.Point(602, 118);
             this.checkBoxSubStringRight_5.Name = "checkBoxSubStringRight_5";
             this.checkBoxSubStringRight_5.Size = new System.Drawing.Size(15, 14);
             this.checkBoxSubStringRight_5.TabIndex = 46;
@@ -1068,7 +1091,7 @@ namespace QuickImageComment
             // 
             // numericUpDownSubstringLength_5
             // 
-            this.numericUpDownSubstringLength_5.Location = new System.Drawing.Point(619, 115);
+            this.numericUpDownSubstringLength_5.Location = new System.Drawing.Point(649, 115);
             this.numericUpDownSubstringLength_5.Name = "numericUpDownSubstringLength_5";
             this.numericUpDownSubstringLength_5.Size = new System.Drawing.Size(35, 21);
             this.numericUpDownSubstringLength_5.TabIndex = 47;
@@ -1098,7 +1121,7 @@ namespace QuickImageComment
             // checkBoxSubStringRight_6
             // 
             this.checkBoxSubStringRight_6.AutoSize = true;
-            this.checkBoxSubStringRight_6.Location = new System.Drawing.Point(579, 141);
+            this.checkBoxSubStringRight_6.Location = new System.Drawing.Point(602, 141);
             this.checkBoxSubStringRight_6.Name = "checkBoxSubStringRight_6";
             this.checkBoxSubStringRight_6.Size = new System.Drawing.Size(15, 14);
             this.checkBoxSubStringRight_6.TabIndex = 55;
@@ -1106,7 +1129,7 @@ namespace QuickImageComment
             // 
             // numericUpDownSubstringLength_6
             // 
-            this.numericUpDownSubstringLength_6.Location = new System.Drawing.Point(619, 138);
+            this.numericUpDownSubstringLength_6.Location = new System.Drawing.Point(649, 138);
             this.numericUpDownSubstringLength_6.Name = "numericUpDownSubstringLength_6";
             this.numericUpDownSubstringLength_6.Size = new System.Drawing.Size(35, 21);
             this.numericUpDownSubstringLength_6.TabIndex = 56;
@@ -1136,7 +1159,7 @@ namespace QuickImageComment
             // checkBoxSubStringRight_7
             // 
             this.checkBoxSubStringRight_7.AutoSize = true;
-            this.checkBoxSubStringRight_7.Location = new System.Drawing.Point(579, 164);
+            this.checkBoxSubStringRight_7.Location = new System.Drawing.Point(602, 164);
             this.checkBoxSubStringRight_7.Name = "checkBoxSubStringRight_7";
             this.checkBoxSubStringRight_7.Size = new System.Drawing.Size(15, 14);
             this.checkBoxSubStringRight_7.TabIndex = 64;
@@ -1144,7 +1167,7 @@ namespace QuickImageComment
             // 
             // numericUpDownSubstringLength_7
             // 
-            this.numericUpDownSubstringLength_7.Location = new System.Drawing.Point(619, 161);
+            this.numericUpDownSubstringLength_7.Location = new System.Drawing.Point(649, 161);
             this.numericUpDownSubstringLength_7.Name = "numericUpDownSubstringLength_7";
             this.numericUpDownSubstringLength_7.Size = new System.Drawing.Size(35, 21);
             this.numericUpDownSubstringLength_7.TabIndex = 65;
@@ -1152,7 +1175,7 @@ namespace QuickImageComment
             // checkBoxFillUpRight_8
             // 
             this.checkBoxFillUpRight_8.AutoSize = true;
-            this.checkBoxFillUpRight_8.Location = new System.Drawing.Point(685, 187);
+            this.checkBoxFillUpRight_8.Location = new System.Drawing.Point(723, 187);
             this.checkBoxFillUpRight_8.Name = "checkBoxFillUpRight_8";
             this.checkBoxFillUpRight_8.Size = new System.Drawing.Size(15, 14);
             this.checkBoxFillUpRight_8.TabIndex = 75;
@@ -1160,14 +1183,14 @@ namespace QuickImageComment
             // 
             // numericUpDownFillUpTo_8
             // 
-            this.numericUpDownFillUpTo_8.Location = new System.Drawing.Point(780, 184);
+            this.numericUpDownFillUpTo_8.Location = new System.Drawing.Point(790, 184);
             this.numericUpDownFillUpTo_8.Name = "numericUpDownFillUpTo_8";
             this.numericUpDownFillUpTo_8.Size = new System.Drawing.Size(35, 21);
             this.numericUpDownFillUpTo_8.TabIndex = 77;
             // 
             // numericUpDownSubstringLength_8
             // 
-            this.numericUpDownSubstringLength_8.Location = new System.Drawing.Point(619, 184);
+            this.numericUpDownSubstringLength_8.Location = new System.Drawing.Point(649, 184);
             this.numericUpDownSubstringLength_8.Name = "numericUpDownSubstringLength_8";
             this.numericUpDownSubstringLength_8.Size = new System.Drawing.Size(35, 21);
             this.numericUpDownSubstringLength_8.TabIndex = 74;
@@ -1175,7 +1198,7 @@ namespace QuickImageComment
             // richTextBoxFillUpChar_8
             // 
             this.richTextBoxFillUpChar_8.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBoxFillUpChar_8.Location = new System.Drawing.Point(731, 184);
+            this.richTextBoxFillUpChar_8.Location = new System.Drawing.Point(754, 184);
             this.richTextBoxFillUpChar_8.MaxLength = 1;
             this.richTextBoxFillUpChar_8.Multiline = false;
             this.richTextBoxFillUpChar_8.Name = "richTextBoxFillUpChar_8";
@@ -1186,7 +1209,7 @@ namespace QuickImageComment
             // checkBoxSubStringRight_8
             // 
             this.checkBoxSubStringRight_8.AutoSize = true;
-            this.checkBoxSubStringRight_8.Location = new System.Drawing.Point(579, 187);
+            this.checkBoxSubStringRight_8.Location = new System.Drawing.Point(602, 187);
             this.checkBoxSubStringRight_8.Name = "checkBoxSubStringRight_8";
             this.checkBoxSubStringRight_8.Size = new System.Drawing.Size(15, 14);
             this.checkBoxSubStringRight_8.TabIndex = 73;
@@ -1245,7 +1268,7 @@ namespace QuickImageComment
             // checkBoxFillUpRight_9
             // 
             this.checkBoxFillUpRight_9.AutoSize = true;
-            this.checkBoxFillUpRight_9.Location = new System.Drawing.Point(685, 210);
+            this.checkBoxFillUpRight_9.Location = new System.Drawing.Point(723, 210);
             this.checkBoxFillUpRight_9.Name = "checkBoxFillUpRight_9";
             this.checkBoxFillUpRight_9.Size = new System.Drawing.Size(15, 14);
             this.checkBoxFillUpRight_9.TabIndex = 84;
@@ -1253,14 +1276,14 @@ namespace QuickImageComment
             // 
             // numericUpDownFillUpTo_9
             // 
-            this.numericUpDownFillUpTo_9.Location = new System.Drawing.Point(780, 207);
+            this.numericUpDownFillUpTo_9.Location = new System.Drawing.Point(790, 207);
             this.numericUpDownFillUpTo_9.Name = "numericUpDownFillUpTo_9";
             this.numericUpDownFillUpTo_9.Size = new System.Drawing.Size(35, 21);
             this.numericUpDownFillUpTo_9.TabIndex = 86;
             // 
             // numericUpDownSubstringLength_9
             // 
-            this.numericUpDownSubstringLength_9.Location = new System.Drawing.Point(619, 207);
+            this.numericUpDownSubstringLength_9.Location = new System.Drawing.Point(649, 207);
             this.numericUpDownSubstringLength_9.Name = "numericUpDownSubstringLength_9";
             this.numericUpDownSubstringLength_9.Size = new System.Drawing.Size(35, 21);
             this.numericUpDownSubstringLength_9.TabIndex = 83;
@@ -1268,7 +1291,7 @@ namespace QuickImageComment
             // richTextBoxFillUpChar_9
             // 
             this.richTextBoxFillUpChar_9.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBoxFillUpChar_9.Location = new System.Drawing.Point(731, 207);
+            this.richTextBoxFillUpChar_9.Location = new System.Drawing.Point(754, 207);
             this.richTextBoxFillUpChar_9.MaxLength = 1;
             this.richTextBoxFillUpChar_9.Multiline = false;
             this.richTextBoxFillUpChar_9.Name = "richTextBoxFillUpChar_9";
@@ -1279,7 +1302,7 @@ namespace QuickImageComment
             // checkBoxSubStringRight_9
             // 
             this.checkBoxSubStringRight_9.AutoSize = true;
-            this.checkBoxSubStringRight_9.Location = new System.Drawing.Point(579, 210);
+            this.checkBoxSubStringRight_9.Location = new System.Drawing.Point(602, 210);
             this.checkBoxSubStringRight_9.Name = "checkBoxSubStringRight_9";
             this.checkBoxSubStringRight_9.Size = new System.Drawing.Size(15, 14);
             this.checkBoxSubStringRight_9.TabIndex = 82;
@@ -1338,7 +1361,7 @@ namespace QuickImageComment
             // checkBoxFillUpRight_10
             // 
             this.checkBoxFillUpRight_10.AutoSize = true;
-            this.checkBoxFillUpRight_10.Location = new System.Drawing.Point(685, 233);
+            this.checkBoxFillUpRight_10.Location = new System.Drawing.Point(723, 233);
             this.checkBoxFillUpRight_10.Name = "checkBoxFillUpRight_10";
             this.checkBoxFillUpRight_10.Size = new System.Drawing.Size(15, 14);
             this.checkBoxFillUpRight_10.TabIndex = 93;
@@ -1346,14 +1369,14 @@ namespace QuickImageComment
             // 
             // numericUpDownFillUpTo_10
             // 
-            this.numericUpDownFillUpTo_10.Location = new System.Drawing.Point(780, 230);
+            this.numericUpDownFillUpTo_10.Location = new System.Drawing.Point(790, 230);
             this.numericUpDownFillUpTo_10.Name = "numericUpDownFillUpTo_10";
             this.numericUpDownFillUpTo_10.Size = new System.Drawing.Size(35, 21);
             this.numericUpDownFillUpTo_10.TabIndex = 95;
             // 
             // numericUpDownSubstringLength_10
             // 
-            this.numericUpDownSubstringLength_10.Location = new System.Drawing.Point(619, 230);
+            this.numericUpDownSubstringLength_10.Location = new System.Drawing.Point(649, 230);
             this.numericUpDownSubstringLength_10.Name = "numericUpDownSubstringLength_10";
             this.numericUpDownSubstringLength_10.Size = new System.Drawing.Size(35, 21);
             this.numericUpDownSubstringLength_10.TabIndex = 92;
@@ -1361,7 +1384,7 @@ namespace QuickImageComment
             // richTextBoxFillUpChar_10
             // 
             this.richTextBoxFillUpChar_10.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBoxFillUpChar_10.Location = new System.Drawing.Point(731, 230);
+            this.richTextBoxFillUpChar_10.Location = new System.Drawing.Point(754, 230);
             this.richTextBoxFillUpChar_10.MaxLength = 1;
             this.richTextBoxFillUpChar_10.Multiline = false;
             this.richTextBoxFillUpChar_10.Name = "richTextBoxFillUpChar_10";
@@ -1372,7 +1395,7 @@ namespace QuickImageComment
             // checkBoxSubStringRight_10
             // 
             this.checkBoxSubStringRight_10.AutoSize = true;
-            this.checkBoxSubStringRight_10.Location = new System.Drawing.Point(579, 233);
+            this.checkBoxSubStringRight_10.Location = new System.Drawing.Point(602, 233);
             this.checkBoxSubStringRight_10.Name = "checkBoxSubStringRight_10";
             this.checkBoxSubStringRight_10.Size = new System.Drawing.Size(15, 14);
             this.checkBoxSubStringRight_10.TabIndex = 91;
@@ -1431,7 +1454,7 @@ namespace QuickImageComment
             // checkBoxFillUpRight_11
             // 
             this.checkBoxFillUpRight_11.AutoSize = true;
-            this.checkBoxFillUpRight_11.Location = new System.Drawing.Point(685, 256);
+            this.checkBoxFillUpRight_11.Location = new System.Drawing.Point(723, 256);
             this.checkBoxFillUpRight_11.Name = "checkBoxFillUpRight_11";
             this.checkBoxFillUpRight_11.Size = new System.Drawing.Size(15, 14);
             this.checkBoxFillUpRight_11.TabIndex = 102;
@@ -1439,14 +1462,14 @@ namespace QuickImageComment
             // 
             // numericUpDownFillUpTo_11
             // 
-            this.numericUpDownFillUpTo_11.Location = new System.Drawing.Point(780, 253);
+            this.numericUpDownFillUpTo_11.Location = new System.Drawing.Point(790, 253);
             this.numericUpDownFillUpTo_11.Name = "numericUpDownFillUpTo_11";
             this.numericUpDownFillUpTo_11.Size = new System.Drawing.Size(35, 21);
             this.numericUpDownFillUpTo_11.TabIndex = 104;
             // 
             // numericUpDownSubstringLength_11
             // 
-            this.numericUpDownSubstringLength_11.Location = new System.Drawing.Point(619, 253);
+            this.numericUpDownSubstringLength_11.Location = new System.Drawing.Point(649, 253);
             this.numericUpDownSubstringLength_11.Name = "numericUpDownSubstringLength_11";
             this.numericUpDownSubstringLength_11.Size = new System.Drawing.Size(35, 21);
             this.numericUpDownSubstringLength_11.TabIndex = 101;
@@ -1454,7 +1477,7 @@ namespace QuickImageComment
             // richTextBoxFillUpChar_11
             // 
             this.richTextBoxFillUpChar_11.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBoxFillUpChar_11.Location = new System.Drawing.Point(731, 253);
+            this.richTextBoxFillUpChar_11.Location = new System.Drawing.Point(754, 253);
             this.richTextBoxFillUpChar_11.MaxLength = 1;
             this.richTextBoxFillUpChar_11.Multiline = false;
             this.richTextBoxFillUpChar_11.Name = "richTextBoxFillUpChar_11";
@@ -1465,7 +1488,7 @@ namespace QuickImageComment
             // checkBoxSubStringRight_11
             // 
             this.checkBoxSubStringRight_11.AutoSize = true;
-            this.checkBoxSubStringRight_11.Location = new System.Drawing.Point(579, 256);
+            this.checkBoxSubStringRight_11.Location = new System.Drawing.Point(602, 256);
             this.checkBoxSubStringRight_11.Name = "checkBoxSubStringRight_11";
             this.checkBoxSubStringRight_11.Size = new System.Drawing.Size(15, 14);
             this.checkBoxSubStringRight_11.TabIndex = 100;
@@ -1534,8 +1557,8 @@ namespace QuickImageComment
             // 
             // buttonHelp
             // 
-            this.buttonHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonHelp.Location = new System.Drawing.Point(715, 550);
+            this.buttonHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonHelp.Location = new System.Drawing.Point(760, 550);
             this.buttonHelp.Name = "buttonHelp";
             this.buttonHelp.Size = new System.Drawing.Size(100, 22);
             this.buttonHelp.TabIndex = 112;
@@ -1703,7 +1726,7 @@ namespace QuickImageComment
             this.groupBoxConfigurationHandling.Controls.Add(this.buttonSave);
             this.groupBoxConfigurationHandling.Location = new System.Drawing.Point(7, 465);
             this.groupBoxConfigurationHandling.Name = "groupBoxConfigurationHandling";
-            this.groupBoxConfigurationHandling.Size = new System.Drawing.Size(810, 45);
+            this.groupBoxConfigurationHandling.Size = new System.Drawing.Size(855, 45);
             this.groupBoxConfigurationHandling.TabIndex = 129;
             this.groupBoxConfigurationHandling.TabStop = false;
             // 
@@ -1721,7 +1744,7 @@ namespace QuickImageComment
             // buttonSaveAs
             // 
             this.buttonSaveAs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonSaveAs.Location = new System.Drawing.Point(678, 11);
+            this.buttonSaveAs.Location = new System.Drawing.Point(467, 11);
             this.buttonSaveAs.Name = "buttonSaveAs";
             this.buttonSaveAs.Size = new System.Drawing.Size(126, 22);
             this.buttonSaveAs.TabIndex = 114;
@@ -1751,17 +1774,19 @@ namespace QuickImageComment
             // 
             // progressPanel1
             // 
+            this.progressPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.progressPanel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.progressPanel1.Location = new System.Drawing.Point(5, 516);
+            this.progressPanel1.Location = new System.Drawing.Point(3, 516);
             this.progressPanel1.Name = "progressPanel1";
-            this.progressPanel1.Size = new System.Drawing.Size(813, 23);
+            this.progressPanel1.Size = new System.Drawing.Size(858, 23);
             this.progressPanel1.TabIndex = 130;
             // 
             // FormRename
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(823, 586);
+            this.ClientSize = new System.Drawing.Size(868, 586);
             this.Controls.Add(this.progressPanel1);
             this.Controls.Add(this.groupBoxConfigurationHandling);
             this.Controls.Add(this.fixedLabelRow_11);
@@ -1905,6 +1930,8 @@ namespace QuickImageComment
             this.groupBoxRunningNumber.PerformLayout();
             this.groupBoxInvalidCharacters.ResumeLayout(false);
             this.groupBoxInvalidCharacters.PerformLayout();
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFillUpTo_1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFillUpTo_7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFillUpTo_6)).EndInit();
@@ -2095,5 +2122,6 @@ namespace QuickImageComment
     private System.Windows.Forms.Label label5;
     private System.Windows.Forms.Button buttonDelete;
     private ProgressPanel progressPanel1;
-  }
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+    }
 }

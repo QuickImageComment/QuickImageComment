@@ -121,7 +121,8 @@ namespace QuickImageComment
             // 
             this.label5.AutoSize = true;
             this.label5.Dock = System.Windows.Forms.DockStyle.Left;
-            this.label5.Location = new System.Drawing.Point(3, 110);
+            this.label5.Location = new System.Drawing.Point(6, 110);
+            this.label5.Margin = new System.Windows.Forms.Padding(6, 0, 3, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(218, 22);
             this.label5.TabIndex = 10;
@@ -250,8 +251,8 @@ namespace QuickImageComment
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Controls.Add(this.textBoxLicence, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.label5, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.textBoxOtherSources, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.label5, 0, 1);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(-1, 122);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 3;

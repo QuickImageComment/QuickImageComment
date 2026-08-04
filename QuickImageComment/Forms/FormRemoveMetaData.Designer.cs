@@ -117,7 +117,7 @@
             // 
             // buttonEditExceptions
             // 
-            this.buttonEditExceptions.Location = new System.Drawing.Point(122, 154);
+            this.buttonEditExceptions.Location = new System.Drawing.Point(154, 154);
             this.buttonEditExceptions.Name = "buttonEditExceptions";
             this.buttonEditExceptions.Size = new System.Drawing.Size(111, 26);
             this.buttonEditExceptions.TabIndex = 129;
@@ -128,7 +128,7 @@
             // buttonEditSingleList
             // 
             this.buttonEditSingleList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonEditSingleList.Location = new System.Drawing.Point(122, 345);
+            this.buttonEditSingleList.Location = new System.Drawing.Point(154, 345);
             this.buttonEditSingleList.Name = "buttonEditSingleList";
             this.buttonEditSingleList.Size = new System.Drawing.Size(111, 26);
             this.buttonEditSingleList.TabIndex = 128;
@@ -153,15 +153,15 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.checkedListBoxRemoveMetaDataList.CheckOnClick = true;
             this.checkedListBoxRemoveMetaDataList.FormattingEnabled = true;
-            this.checkedListBoxRemoveMetaDataList.Location = new System.Drawing.Point(238, 191);
+            this.checkedListBoxRemoveMetaDataList.Location = new System.Drawing.Point(269, 191);
             this.checkedListBoxRemoveMetaDataList.Name = "checkedListBoxRemoveMetaDataList";
-            this.checkedListBoxRemoveMetaDataList.Size = new System.Drawing.Size(404, 180);
+            this.checkedListBoxRemoveMetaDataList.Size = new System.Drawing.Size(373, 180);
             this.checkedListBoxRemoveMetaDataList.TabIndex = 126;
             // 
             // checkBoxExceptions
             // 
             this.checkBoxExceptions.AutoSize = true;
-            this.checkBoxExceptions.Location = new System.Drawing.Point(238, 11);
+            this.checkBoxExceptions.Location = new System.Drawing.Point(269, 11);
             this.checkBoxExceptions.Name = "checkBoxExceptions";
             this.checkBoxExceptions.Size = new System.Drawing.Size(278, 17);
             this.checkBoxExceptions.TabIndex = 125;
@@ -194,9 +194,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.checkedListBoxRemoveMetaDataExceptions.CheckOnClick = true;
             this.checkedListBoxRemoveMetaDataExceptions.FormattingEnabled = true;
-            this.checkedListBoxRemoveMetaDataExceptions.Location = new System.Drawing.Point(238, 32);
+            this.checkedListBoxRemoveMetaDataExceptions.Location = new System.Drawing.Point(269, 32);
             this.checkedListBoxRemoveMetaDataExceptions.Name = "checkedListBoxRemoveMetaDataExceptions";
-            this.checkedListBoxRemoveMetaDataExceptions.Size = new System.Drawing.Size(404, 148);
+            this.checkedListBoxRemoveMetaDataExceptions.Size = new System.Drawing.Size(373, 148);
             this.checkedListBoxRemoveMetaDataExceptions.TabIndex = 121;
             // 
             // checkBoxExif

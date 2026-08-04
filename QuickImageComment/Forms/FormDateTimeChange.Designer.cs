@@ -130,7 +130,7 @@ namespace QuickImageComment
             // numericUpDownMinute
             // 
             this.numericUpDownMinute.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.numericUpDownMinute.Location = new System.Drawing.Point(343, 3);
+            this.numericUpDownMinute.Location = new System.Drawing.Point(351, 3);
             this.numericUpDownMinute.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -149,7 +149,7 @@ namespace QuickImageComment
             // numericUpDownSecond
             // 
             this.numericUpDownSecond.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.numericUpDownSecond.Location = new System.Drawing.Point(453, 3);
+            this.numericUpDownSecond.Location = new System.Drawing.Point(461, 3);
             this.numericUpDownSecond.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -170,7 +170,7 @@ namespace QuickImageComment
             this.labelDays.Dock = System.Windows.Forms.DockStyle.Fill;
             this.labelDays.Location = new System.Drawing.Point(3, 0);
             this.labelDays.Name = "labelDays";
-            this.labelDays.Size = new System.Drawing.Size(114, 25);
+            this.labelDays.Size = new System.Drawing.Size(122, 25);
             this.labelDays.TabIndex = 1;
             this.labelDays.Text = "Zeit ändern - Tage";
             this.labelDays.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -178,7 +178,7 @@ namespace QuickImageComment
             // labelSeconds
             // 
             this.labelSeconds.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelSeconds.Location = new System.Drawing.Point(383, 0);
+            this.labelSeconds.Location = new System.Drawing.Point(391, 0);
             this.labelSeconds.Name = "labelSeconds";
             this.labelSeconds.Size = new System.Drawing.Size(64, 25);
             this.labelSeconds.TabIndex = 7;
@@ -199,7 +199,7 @@ namespace QuickImageComment
             // numericUpDownDay
             // 
             this.numericUpDownDay.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.numericUpDownDay.Location = new System.Drawing.Point(123, 3);
+            this.numericUpDownDay.Location = new System.Drawing.Point(131, 3);
             this.numericUpDownDay.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -218,7 +218,7 @@ namespace QuickImageComment
             // labelMinutes
             // 
             this.labelMinutes.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelMinutes.Location = new System.Drawing.Point(273, 0);
+            this.labelMinutes.Location = new System.Drawing.Point(281, 0);
             this.labelMinutes.Name = "labelMinutes";
             this.labelMinutes.Size = new System.Drawing.Size(64, 25);
             this.labelMinutes.TabIndex = 5;
@@ -228,7 +228,7 @@ namespace QuickImageComment
             // numericUpDownHour
             // 
             this.numericUpDownHour.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.numericUpDownHour.Location = new System.Drawing.Point(233, 3);
+            this.numericUpDownHour.Location = new System.Drawing.Point(241, 3);
             this.numericUpDownHour.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -247,7 +247,7 @@ namespace QuickImageComment
             // labelHours
             // 
             this.labelHours.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelHours.Location = new System.Drawing.Point(163, 0);
+            this.labelHours.Location = new System.Drawing.Point(171, 0);
             this.labelHours.Name = "labelHours";
             this.labelHours.Size = new System.Drawing.Size(64, 25);
             this.labelHours.TabIndex = 3;
@@ -269,7 +269,7 @@ namespace QuickImageComment
             // 
             this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel1.ColumnCount = 8;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 70F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
@@ -285,11 +285,11 @@ namespace QuickImageComment
             this.tableLayoutPanel1.Controls.Add(this.labelMinutes, 4, 0);
             this.tableLayoutPanel1.Controls.Add(this.numericUpDownMinute, 5, 0);
             this.tableLayoutPanel1.Controls.Add(this.labelSeconds, 6, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(288, 3);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(280, 3);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(490, 25);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(498, 25);
             this.tableLayoutPanel1.TabIndex = 17;
             // 
             // progressPanel1

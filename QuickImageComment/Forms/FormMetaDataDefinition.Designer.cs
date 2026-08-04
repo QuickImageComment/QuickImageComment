@@ -96,9 +96,9 @@ namespace QuickImageComment
             this.tableLayoutPanelMetaDataGroups = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanelNote = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanelTagList = new System.Windows.Forms.TableLayoutPanel();
-            this.userControlTagList = new QuickImageComment.UserControlTagList();
             this.tableLayoutPanelDefinitionTop = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.userControlTagList = new QuickImageComment.UserControlTagList();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownVerticalDisplayOffset)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLinesForChange)).BeginInit();
             this.tableLayoutPanelBelowTagList.SuspendLayout();
@@ -126,7 +126,7 @@ namespace QuickImageComment
             this.listBoxMetaData.FormattingEnabled = true;
             this.listBoxMetaData.Location = new System.Drawing.Point(3, 3);
             this.listBoxMetaData.Name = "listBoxMetaData";
-            this.listBoxMetaData.Size = new System.Drawing.Size(283, 221);
+            this.listBoxMetaData.Size = new System.Drawing.Size(263, 221);
             this.listBoxMetaData.TabIndex = 17;
             this.listBoxMetaData.SelectedIndexChanged += new System.EventHandler(this.listBoxMetaData_SelectedIndexChanged);
             // 
@@ -137,7 +137,7 @@ namespace QuickImageComment
             this.dynamicComboBoxMetaDataType.FormattingEnabled = true;
             this.dynamicComboBoxMetaDataType.Location = new System.Drawing.Point(5, 322);
             this.dynamicComboBoxMetaDataType.Name = "dynamicComboBoxMetaDataType";
-            this.dynamicComboBoxMetaDataType.Size = new System.Drawing.Size(286, 21);
+            this.dynamicComboBoxMetaDataType.Size = new System.Drawing.Size(266, 21);
             this.dynamicComboBoxMetaDataType.TabIndex = 16;
             this.dynamicComboBoxMetaDataType.SelectedIndexChanged += new System.EventHandler(this.dynamicComboBoxMetaDataType_SelectedIndexChanged);
             this.dynamicComboBoxMetaDataType.Enter += new System.EventHandler(this.dynamicComboBoxMetaDataType_Enter);
@@ -145,7 +145,7 @@ namespace QuickImageComment
             // buttonUp
             // 
             this.buttonUp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonUp.Location = new System.Drawing.Point(297, 368);
+            this.buttonUp.Location = new System.Drawing.Point(280, 368);
             this.buttonUp.Name = "buttonUp";
             this.buttonUp.Size = new System.Drawing.Size(95, 22);
             this.buttonUp.TabIndex = 18;
@@ -156,7 +156,7 @@ namespace QuickImageComment
             // buttonDown
             // 
             this.buttonDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonDown.Location = new System.Drawing.Point(297, 390);
+            this.buttonDown.Location = new System.Drawing.Point(280, 390);
             this.buttonDown.Name = "buttonDown";
             this.buttonDown.Size = new System.Drawing.Size(95, 22);
             this.buttonDown.TabIndex = 19;
@@ -167,7 +167,7 @@ namespace QuickImageComment
             // buttonNew
             // 
             this.buttonNew.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonNew.Location = new System.Drawing.Point(297, 437);
+            this.buttonNew.Location = new System.Drawing.Point(280, 437);
             this.buttonNew.Name = "buttonNew";
             this.buttonNew.Size = new System.Drawing.Size(95, 22);
             this.buttonNew.TabIndex = 20;
@@ -190,7 +190,7 @@ namespace QuickImageComment
             this.textBoxName.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBoxName.Location = new System.Drawing.Point(148, 3);
             this.textBoxName.Name = "textBoxName";
-            this.textBoxName.Size = new System.Drawing.Size(313, 21);
+            this.textBoxName.Size = new System.Drawing.Size(139, 14);
             this.textBoxName.TabIndex = 24;
             this.textBoxName.TextChanged += new System.EventHandler(this.textBoxName_TextChanged);
             // 
@@ -200,7 +200,7 @@ namespace QuickImageComment
             this.textBoxPrefix.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBoxPrefix.Location = new System.Drawing.Point(148, 25);
             this.textBoxPrefix.Name = "textBoxPrefix";
-            this.textBoxPrefix.Size = new System.Drawing.Size(313, 21);
+            this.textBoxPrefix.Size = new System.Drawing.Size(139, 14);
             this.textBoxPrefix.TabIndex = 26;
             this.textBoxPrefix.TextChanged += new System.EventHandler(this.fieldDefinitionChanged);
             // 
@@ -220,7 +220,7 @@ namespace QuickImageComment
             this.textBoxMetaDatum1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBoxMetaDatum1.Location = new System.Drawing.Point(148, 47);
             this.textBoxMetaDatum1.Name = "textBoxMetaDatum1";
-            this.textBoxMetaDatum1.Size = new System.Drawing.Size(313, 21);
+            this.textBoxMetaDatum1.Size = new System.Drawing.Size(139, 14);
             this.textBoxMetaDatum1.TabIndex = 28;
             this.textBoxMetaDatum1.Tag = "";
             this.textBoxMetaDatum1.TextChanged += new System.EventHandler(this.textBoxMetaDatum1_TextChanged);
@@ -241,7 +241,7 @@ namespace QuickImageComment
             this.textBoxSeparator.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBoxSeparator.Location = new System.Drawing.Point(148, 91);
             this.textBoxSeparator.Name = "textBoxSeparator";
-            this.textBoxSeparator.Size = new System.Drawing.Size(313, 21);
+            this.textBoxSeparator.Size = new System.Drawing.Size(139, 14);
             this.textBoxSeparator.TabIndex = 32;
             this.textBoxSeparator.TextChanged += new System.EventHandler(this.fieldDefinitionChanged);
             // 
@@ -281,7 +281,7 @@ namespace QuickImageComment
             this.textBoxPostfix.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBoxPostfix.Location = new System.Drawing.Point(148, 157);
             this.textBoxPostfix.Name = "textBoxPostfix";
-            this.textBoxPostfix.Size = new System.Drawing.Size(313, 21);
+            this.textBoxPostfix.Size = new System.Drawing.Size(139, 14);
             this.textBoxPostfix.TabIndex = 38;
             this.textBoxPostfix.TextChanged += new System.EventHandler(this.fieldDefinitionChanged);
             // 
@@ -301,7 +301,7 @@ namespace QuickImageComment
             this.textBoxMetaDatum2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBoxMetaDatum2.Location = new System.Drawing.Point(148, 113);
             this.textBoxMetaDatum2.Name = "textBoxMetaDatum2";
-            this.textBoxMetaDatum2.Size = new System.Drawing.Size(313, 21);
+            this.textBoxMetaDatum2.Size = new System.Drawing.Size(139, 14);
             this.textBoxMetaDatum2.TabIndex = 34;
             this.textBoxMetaDatum2.TextChanged += new System.EventHandler(this.textBoxMetaDatum2_TextChanged);
             // 
@@ -318,9 +318,9 @@ namespace QuickImageComment
             // buttonMetaDatum1
             // 
             this.buttonMetaDatum1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonMetaDatum1.Location = new System.Drawing.Point(657, 3);
+            this.buttonMetaDatum1.Location = new System.Drawing.Point(637, 3);
             this.buttonMetaDatum1.Name = "buttonMetaDatum1";
-            this.buttonMetaDatum1.Size = new System.Drawing.Size(84, 22);
+            this.buttonMetaDatum1.Size = new System.Drawing.Size(94, 22);
             this.buttonMetaDatum1.TabIndex = 14;
             this.buttonMetaDatum1.Text = "Meta Datum 1";
             this.buttonMetaDatum1.UseVisualStyleBackColor = true;
@@ -329,9 +329,9 @@ namespace QuickImageComment
             // buttonMetaDatum2
             // 
             this.buttonMetaDatum2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonMetaDatum2.Location = new System.Drawing.Point(747, 3);
+            this.buttonMetaDatum2.Location = new System.Drawing.Point(737, 3);
             this.buttonMetaDatum2.Name = "buttonMetaDatum2";
-            this.buttonMetaDatum2.Size = new System.Drawing.Size(84, 22);
+            this.buttonMetaDatum2.Size = new System.Drawing.Size(94, 22);
             this.buttonMetaDatum2.TabIndex = 15;
             this.buttonMetaDatum2.Text = "Meta Datum 2";
             this.buttonMetaDatum2.UseVisualStyleBackColor = true;
@@ -351,7 +351,7 @@ namespace QuickImageComment
             // 
             this.label11.AutoSize = true;
             this.label11.Dock = System.Windows.Forms.DockStyle.Right;
-            this.label11.Location = new System.Drawing.Point(525, 0);
+            this.label11.Location = new System.Drawing.Point(505, 0);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(126, 28);
             this.label11.TabIndex = 13;
@@ -372,7 +372,7 @@ namespace QuickImageComment
             // buttonCopy
             // 
             this.buttonCopy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonCopy.Location = new System.Drawing.Point(297, 459);
+            this.buttonCopy.Location = new System.Drawing.Point(280, 459);
             this.buttonCopy.Name = "buttonCopy";
             this.buttonCopy.Size = new System.Drawing.Size(95, 22);
             this.buttonCopy.TabIndex = 21;
@@ -383,7 +383,7 @@ namespace QuickImageComment
             // buttonDelete
             // 
             this.buttonDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonDelete.Location = new System.Drawing.Point(297, 481);
+            this.buttonDelete.Location = new System.Drawing.Point(280, 481);
             this.buttonDelete.Name = "buttonDelete";
             this.buttonDelete.Size = new System.Drawing.Size(95, 22);
             this.buttonDelete.TabIndex = 22;
@@ -404,7 +404,7 @@ namespace QuickImageComment
             // 
             this.label12.AutoSize = true;
             this.label12.Dock = System.Windows.Forms.DockStyle.Right;
-            this.label12.Location = new System.Drawing.Point(8, 0);
+            this.label12.Location = new System.Drawing.Point(18, 0);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(74, 28);
             this.label12.TabIndex = 9;
@@ -423,22 +423,24 @@ namespace QuickImageComment
             // 
             // textBoxValueOriginal
             // 
+            this.textBoxValueOriginal.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBoxValueOriginal.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBoxValueOriginal.Location = new System.Drawing.Point(88, 3);
+            this.textBoxValueOriginal.Location = new System.Drawing.Point(98, 3);
             this.textBoxValueOriginal.Name = "textBoxValueOriginal";
             this.textBoxValueOriginal.ReadOnly = true;
-            this.textBoxValueOriginal.Size = new System.Drawing.Size(154, 21);
+            this.textBoxValueOriginal.Size = new System.Drawing.Size(96, 9);
             this.textBoxValueOriginal.TabIndex = 10;
             this.textBoxValueOriginal.Text = "ValueOriginal";
             // 
             // textBoxValueInterpreted
             // 
             this.textBoxValueInterpreted.BackColor = System.Drawing.SystemColors.Control;
+            this.textBoxValueInterpreted.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBoxValueInterpreted.Dock = System.Windows.Forms.DockStyle.Left;
             this.textBoxValueInterpreted.Location = new System.Drawing.Point(328, 3);
             this.textBoxValueInterpreted.Name = "textBoxValueInterpreted";
             this.textBoxValueInterpreted.ReadOnly = true;
-            this.textBoxValueInterpreted.Size = new System.Drawing.Size(173, 21);
+            this.textBoxValueInterpreted.Size = new System.Drawing.Size(45, 9);
             this.textBoxValueInterpreted.TabIndex = 12;
             this.textBoxValueInterpreted.Text = "ValueInterpreted";
             // 
@@ -499,7 +501,7 @@ namespace QuickImageComment
             // label15
             // 
             this.label15.Dock = System.Windows.Forms.DockStyle.Right;
-            this.label15.Location = new System.Drawing.Point(19, 0);
+            this.label15.Location = new System.Drawing.Point(76, 0);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(198, 26);
             this.label15.TabIndex = 47;
@@ -509,7 +511,7 @@ namespace QuickImageComment
             // label16
             // 
             this.label16.Dock = System.Windows.Forms.DockStyle.Right;
-            this.label16.Location = new System.Drawing.Point(19, 26);
+            this.label16.Location = new System.Drawing.Point(76, 26);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(198, 27);
             this.label16.TabIndex = 48;
@@ -519,7 +521,7 @@ namespace QuickImageComment
             // numericUpDownVerticalDisplayOffset
             // 
             this.numericUpDownVerticalDisplayOffset.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.numericUpDownVerticalDisplayOffset.Location = new System.Drawing.Point(223, 3);
+            this.numericUpDownVerticalDisplayOffset.Location = new System.Drawing.Point(280, 3);
             this.numericUpDownVerticalDisplayOffset.Maximum = new decimal(new int[] {
             50,
             0,
@@ -531,7 +533,7 @@ namespace QuickImageComment
             0,
             0});
             this.numericUpDownVerticalDisplayOffset.Name = "numericUpDownVerticalDisplayOffset";
-            this.numericUpDownVerticalDisplayOffset.Size = new System.Drawing.Size(60, 21);
+            this.numericUpDownVerticalDisplayOffset.Size = new System.Drawing.Size(40, 21);
             this.numericUpDownVerticalDisplayOffset.TabIndex = 39;
             this.numericUpDownVerticalDisplayOffset.Value = new decimal(new int[] {
             1,
@@ -543,7 +545,7 @@ namespace QuickImageComment
             // numericUpDownLinesForChange
             // 
             this.numericUpDownLinesForChange.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.numericUpDownLinesForChange.Location = new System.Drawing.Point(223, 29);
+            this.numericUpDownLinesForChange.Location = new System.Drawing.Point(280, 29);
             this.numericUpDownLinesForChange.Maximum = new decimal(new int[] {
             99,
             0,
@@ -555,7 +557,7 @@ namespace QuickImageComment
             0,
             0});
             this.numericUpDownLinesForChange.Name = "numericUpDownLinesForChange";
-            this.numericUpDownLinesForChange.Size = new System.Drawing.Size(60, 21);
+            this.numericUpDownLinesForChange.Size = new System.Drawing.Size(40, 21);
             this.numericUpDownLinesForChange.TabIndex = 40;
             this.numericUpDownLinesForChange.Value = new decimal(new int[] {
             1,
@@ -567,7 +569,7 @@ namespace QuickImageComment
             // buttonInputCheckEdit
             // 
             this.buttonInputCheckEdit.Dock = System.Windows.Forms.DockStyle.Right;
-            this.buttonInputCheckEdit.Location = new System.Drawing.Point(389, 29);
+            this.buttonInputCheckEdit.Location = new System.Drawing.Point(446, 29);
             this.buttonInputCheckEdit.Name = "buttonInputCheckEdit";
             this.buttonInputCheckEdit.Size = new System.Drawing.Size(69, 21);
             this.buttonInputCheckEdit.TabIndex = 52;
@@ -578,18 +580,19 @@ namespace QuickImageComment
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Dock = System.Windows.Forms.DockStyle.Right;
-            this.label17.Location = new System.Drawing.Point(296, 0);
+            this.tableLayoutPanel1.SetColumnSpan(this.label17, 3);
+            this.label17.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label17.Location = new System.Drawing.Point(346, 0);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(87, 26);
+            this.label17.Size = new System.Drawing.Size(244, 26);
             this.label17.TabIndex = 53;
             this.label17.Text = "Eingabeprüfung:";
-            this.label17.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            this.label17.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // buttonInputCheckDelete
             // 
             this.buttonInputCheckDelete.Dock = System.Windows.Forms.DockStyle.Right;
-            this.buttonInputCheckDelete.Location = new System.Drawing.Point(464, 29);
+            this.buttonInputCheckDelete.Location = new System.Drawing.Point(521, 29);
             this.buttonInputCheckDelete.Name = "buttonInputCheckDelete";
             this.buttonInputCheckDelete.Size = new System.Drawing.Size(69, 21);
             this.buttonInputCheckDelete.TabIndex = 54;
@@ -600,7 +603,7 @@ namespace QuickImageComment
             // buttonInputCheckCreate
             // 
             this.buttonInputCheckCreate.Dock = System.Windows.Forms.DockStyle.Right;
-            this.buttonInputCheckCreate.Location = new System.Drawing.Point(313, 29);
+            this.buttonInputCheckCreate.Location = new System.Drawing.Point(370, 29);
             this.buttonInputCheckCreate.Name = "buttonInputCheckCreate";
             this.buttonInputCheckCreate.Size = new System.Drawing.Size(70, 21);
             this.buttonInputCheckCreate.TabIndex = 55;
@@ -611,7 +614,7 @@ namespace QuickImageComment
             // buttonBeginning
             // 
             this.buttonBeginning.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonBeginning.Location = new System.Drawing.Point(297, 346);
+            this.buttonBeginning.Location = new System.Drawing.Point(280, 346);
             this.buttonBeginning.Name = "buttonBeginning";
             this.buttonBeginning.Size = new System.Drawing.Size(95, 22);
             this.buttonBeginning.TabIndex = 56;
@@ -622,7 +625,7 @@ namespace QuickImageComment
             // buttonEnd
             // 
             this.buttonEnd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonEnd.Location = new System.Drawing.Point(297, 412);
+            this.buttonEnd.Location = new System.Drawing.Point(280, 412);
             this.buttonEnd.Name = "buttonEnd";
             this.buttonEnd.Size = new System.Drawing.Size(95, 22);
             this.buttonEnd.TabIndex = 57;
@@ -633,13 +636,13 @@ namespace QuickImageComment
             // tableLayoutPanelBelowTagList
             // 
             this.tableLayoutPanelBelowTagList.ColumnCount = 7;
-            this.tableLayoutPanelBelowTagList.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 85F));
-            this.tableLayoutPanelBelowTagList.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 160F));
+            this.tableLayoutPanelBelowTagList.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 95F));
+            this.tableLayoutPanelBelowTagList.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
             this.tableLayoutPanelBelowTagList.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
             this.tableLayoutPanelBelowTagList.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanelBelowTagList.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
-            this.tableLayoutPanelBelowTagList.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 90F));
-            this.tableLayoutPanelBelowTagList.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 90F));
+            this.tableLayoutPanelBelowTagList.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.tableLayoutPanelBelowTagList.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
             this.tableLayoutPanelBelowTagList.Controls.Add(this.label12, 0, 0);
             this.tableLayoutPanelBelowTagList.Controls.Add(this.buttonMetaDatum1, 5, 0);
             this.tableLayoutPanelBelowTagList.Controls.Add(this.buttonMetaDatum2, 6, 0);
@@ -663,7 +666,7 @@ namespace QuickImageComment
             this.tableLayoutPanelMetaDataGroups.Name = "tableLayoutPanelMetaDataGroups";
             this.tableLayoutPanelMetaDataGroups.RowCount = 1;
             this.tableLayoutPanelMetaDataGroups.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanelMetaDataGroups.Size = new System.Drawing.Size(289, 227);
+            this.tableLayoutPanelMetaDataGroups.Size = new System.Drawing.Size(269, 227);
             this.tableLayoutPanelMetaDataGroups.TabIndex = 60;
             // 
             // tableLayoutPanelNote
@@ -689,14 +692,6 @@ namespace QuickImageComment
             this.tableLayoutPanelTagList.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanelTagList.Size = new System.Drawing.Size(836, 289);
             this.tableLayoutPanelTagList.TabIndex = 62;
-            // 
-            // userControlTagList
-            // 
-            this.userControlTagList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.userControlTagList.Location = new System.Drawing.Point(3, 3);
-            this.userControlTagList.Name = "userControlTagList";
-            this.userControlTagList.Size = new System.Drawing.Size(830, 283);
-            this.userControlTagList.TabIndex = 58;
             // 
             // tableLayoutPanelDefinitionTop
             // 
@@ -752,19 +747,29 @@ namespace QuickImageComment
             this.tableLayoutPanel1.Controls.Add(this.buttonInputCheckEdit, 3, 1);
             this.tableLayoutPanel1.Controls.Add(this.buttonInputCheckDelete, 4, 1);
             this.tableLayoutPanel1.Controls.Add(this.label17, 2, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(295, 522);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(238, 522);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(536, 53);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(593, 53);
             this.tableLayoutPanel1.TabIndex = 64;
+            // 
+            // userControlTagList
+            // 
+            this.userControlTagList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.userControlTagList.Location = new System.Drawing.Point(3, 3);
+            this.userControlTagList.Name = "userControlTagList";
+            this.userControlTagList.Size = new System.Drawing.Size(830, 283);
+            this.userControlTagList.TabIndex = 58;
             // 
             // FormMetaDataDefinition
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(837, 639);
+            this.Controls.Add(this.tableLayoutPanelMetaDataGroups);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.buttonEnd);
             this.Controls.Add(this.buttonBeginning);
@@ -776,7 +781,6 @@ namespace QuickImageComment
             this.Controls.Add(this.tableLayoutPanelDefinitionTop);
             this.Controls.Add(this.tableLayoutPanelTagList);
             this.Controls.Add(this.tableLayoutPanelNote);
-            this.Controls.Add(this.tableLayoutPanelMetaDataGroups);
             this.Controls.Add(this.tableLayoutPanelBelowTagList);
             this.Controls.Add(this.buttonHelp);
             this.Controls.Add(this.buttonCustomizeForm);

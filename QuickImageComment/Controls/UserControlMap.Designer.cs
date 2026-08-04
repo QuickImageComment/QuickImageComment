@@ -40,15 +40,15 @@
             this.labelZoom = new System.Windows.Forms.Label();
             this.tableLayoutPanelLeftTop = new System.Windows.Forms.TableLayoutPanel();
             this.buttonReset = new System.Windows.Forms.Button();
-            this.dynamicComboBoxSearch = new QuickImageCommentControls.ComboBoxQIC();
             this.buttonCenterMarker = new System.Windows.Forms.Button();
             this.buttonSearch = new System.Windows.Forms.Button();
             this.tableLayoutPanelRight = new System.Windows.Forms.TableLayoutPanel();
             this.checkBoxWebView2 = new System.Windows.Forms.CheckBox();
-            this.dynamicComboBoxMapSource = new QuickImageCommentControls.ComboBoxQIC();
             this.panelTop = new System.Windows.Forms.Panel();
             this.buttonSettings = new System.Windows.Forms.Button();
             this.labelHideMap = new System.Windows.Forms.Label();
+            this.dynamicComboBoxSearch = new QuickImageCommentControls.ComboBoxQIC();
+            this.dynamicComboBoxMapSource = new QuickImageCommentControls.ComboBoxQIC();
             this.panelMap.SuspendLayout();
             this.panelBottom.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMapControls)).BeginInit();
@@ -159,11 +159,13 @@
             // 
             // textBoxCoordinates
             // 
+            this.textBoxCoordinates.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBoxCoordinates.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBoxCoordinates.Location = new System.Drawing.Point(238, 3);
+            this.textBoxCoordinates.Location = new System.Drawing.Point(238, 5);
+            this.textBoxCoordinates.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.textBoxCoordinates.Name = "textBoxCoordinates";
             this.textBoxCoordinates.ReadOnly = true;
-            this.textBoxCoordinates.Size = new System.Drawing.Size(189, 21);
+            this.textBoxCoordinates.Size = new System.Drawing.Size(189, 14);
             this.textBoxCoordinates.TabIndex = 5;
             this.textBoxCoordinates.Text = "-199.99999N -199.99999E";
             this.textBoxCoordinates.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -207,22 +209,6 @@
             this.buttonReset.Text = "Zurücksetzen";
             this.buttonReset.UseVisualStyleBackColor = true;
             this.buttonReset.Click += new System.EventHandler(this.buttonReset_Click);
-            // 
-            // dynamicComboBoxSearch
-            // 
-            this.dynamicComboBoxSearch.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.dynamicComboBoxSearch.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.dynamicComboBoxSearch.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dynamicComboBoxSearch.FormattingEnabled = true;
-            this.dynamicComboBoxSearch.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.dynamicComboBoxSearch.Location = new System.Drawing.Point(3, 3);
-            this.dynamicComboBoxSearch.Name = "dynamicComboBoxSearch";
-            this.dynamicComboBoxSearch.Size = new System.Drawing.Size(224, 21);
-            this.dynamicComboBoxSearch.TabIndex = 13;
-            this.dynamicComboBoxSearch.SelectedIndexChanged += new System.EventHandler(this.dynamicComboBoxSearch_SelectedIndexChanged);
-            this.dynamicComboBoxSearch.TextUpdate += new System.EventHandler(this.dynamicComboBoxSearch_TextUpdate);
-            this.dynamicComboBoxSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dynamicComboBoxSearch_KeyDown);
-            this.dynamicComboBoxSearch.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dynamicComboBoxSearch_MouseClick);
             // 
             // buttonCenterMarker
             // 
@@ -271,16 +257,6 @@
             this.checkBoxWebView2.Text = "einschl. Karten nur für Anzeige (* ...)";
             this.checkBoxWebView2.UseVisualStyleBackColor = true;
             // 
-            // dynamicComboBoxMapSource
-            // 
-            this.dynamicComboBoxMapSource.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dynamicComboBoxMapSource.FormattingEnabled = true;
-            this.dynamicComboBoxMapSource.Location = new System.Drawing.Point(3, 3);
-            this.dynamicComboBoxMapSource.Name = "dynamicComboBoxMapSource";
-            this.dynamicComboBoxMapSource.Size = new System.Drawing.Size(234, 21);
-            this.dynamicComboBoxMapSource.TabIndex = 15;
-            this.dynamicComboBoxMapSource.SelectedIndexChanged += new System.EventHandler(this.dynamicComboBoxMapSource_SelectedIndexChanged);
-            // 
             // panelTop
             // 
             this.panelTop.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -316,6 +292,32 @@
             this.labelHideMap.Text = resources.GetString("labelHideMap.Text");
             this.labelHideMap.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.labelHideMap.Click += new System.EventHandler(this.labelHideMap_Click);
+            // 
+            // dynamicComboBoxSearch
+            // 
+            this.dynamicComboBoxSearch.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.dynamicComboBoxSearch.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.dynamicComboBoxSearch.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dynamicComboBoxSearch.FormattingEnabled = true;
+            this.dynamicComboBoxSearch.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.dynamicComboBoxSearch.Location = new System.Drawing.Point(3, 3);
+            this.dynamicComboBoxSearch.Name = "dynamicComboBoxSearch";
+            this.dynamicComboBoxSearch.Size = new System.Drawing.Size(224, 21);
+            this.dynamicComboBoxSearch.TabIndex = 13;
+            this.dynamicComboBoxSearch.SelectedIndexChanged += new System.EventHandler(this.dynamicComboBoxSearch_SelectedIndexChanged);
+            this.dynamicComboBoxSearch.TextUpdate += new System.EventHandler(this.dynamicComboBoxSearch_TextUpdate);
+            this.dynamicComboBoxSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dynamicComboBoxSearch_KeyDown);
+            this.dynamicComboBoxSearch.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dynamicComboBoxSearch_MouseClick);
+            // 
+            // dynamicComboBoxMapSource
+            // 
+            this.dynamicComboBoxMapSource.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dynamicComboBoxMapSource.FormattingEnabled = true;
+            this.dynamicComboBoxMapSource.Location = new System.Drawing.Point(3, 3);
+            this.dynamicComboBoxMapSource.Name = "dynamicComboBoxMapSource";
+            this.dynamicComboBoxMapSource.Size = new System.Drawing.Size(234, 21);
+            this.dynamicComboBoxMapSource.TabIndex = 15;
+            this.dynamicComboBoxMapSource.SelectedIndexChanged += new System.EventHandler(this.dynamicComboBoxMapSource_SelectedIndexChanged);
             // 
             // UserControlMap
             // 

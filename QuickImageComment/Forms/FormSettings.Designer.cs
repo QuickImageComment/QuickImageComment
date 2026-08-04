@@ -239,7 +239,7 @@ namespace QuickImageComment
             // 
             // numericUpDownMaxLastComments
             // 
-            this.numericUpDownMaxLastComments.Location = new System.Drawing.Point(389, 144);
+            this.numericUpDownMaxLastComments.Location = new System.Drawing.Point(423, 144);
             this.numericUpDownMaxLastComments.Maximum = new decimal(new int[] {
             32000,
             0,
@@ -271,7 +271,7 @@ namespace QuickImageComment
             // 
             this.comboBoxPredefinedCommentsMouseDoubleClickAction.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxPredefinedCommentsMouseDoubleClickAction.FormattingEnabled = true;
-            this.comboBoxPredefinedCommentsMouseDoubleClickAction.Location = new System.Drawing.Point(389, 213);
+            this.comboBoxPredefinedCommentsMouseDoubleClickAction.Location = new System.Drawing.Point(423, 213);
             this.comboBoxPredefinedCommentsMouseDoubleClickAction.Name = "comboBoxPredefinedCommentsMouseDoubleClickAction";
             this.comboBoxPredefinedCommentsMouseDoubleClickAction.Size = new System.Drawing.Size(152, 21);
             this.comboBoxPredefinedCommentsMouseDoubleClickAction.TabIndex = 15;
@@ -299,7 +299,7 @@ namespace QuickImageComment
             this.richTextBoxUserCommentInsertCheckCharacters.BackColor = System.Drawing.SystemColors.Window;
             this.richTextBoxUserCommentInsertCheckCharacters.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.richTextBoxUserCommentInsertCheckCharacters.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBoxUserCommentInsertCheckCharacters.Location = new System.Drawing.Point(389, 237);
+            this.richTextBoxUserCommentInsertCheckCharacters.Location = new System.Drawing.Point(423, 237);
             this.richTextBoxUserCommentInsertCheckCharacters.Name = "richTextBoxUserCommentInsertCheckCharacters";
             this.richTextBoxUserCommentInsertCheckCharacters.Size = new System.Drawing.Size(148, 20);
             this.richTextBoxUserCommentInsertCheckCharacters.TabIndex = 17;
@@ -309,7 +309,7 @@ namespace QuickImageComment
             // richTextBoxUserCommentAppendCheckCharacters
             // 
             this.richTextBoxUserCommentAppendCheckCharacters.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBoxUserCommentAppendCheckCharacters.Location = new System.Drawing.Point(389, 259);
+            this.richTextBoxUserCommentAppendCheckCharacters.Location = new System.Drawing.Point(423, 259);
             this.richTextBoxUserCommentAppendCheckCharacters.Name = "richTextBoxUserCommentAppendCheckCharacters";
             this.richTextBoxUserCommentAppendCheckCharacters.Size = new System.Drawing.Size(148, 20);
             this.richTextBoxUserCommentAppendCheckCharacters.TabIndex = 20;
@@ -328,7 +328,7 @@ namespace QuickImageComment
             // 
             // textBoxDefaultArtist
             // 
-            this.textBoxDefaultArtist.Location = new System.Drawing.Point(389, 119);
+            this.textBoxDefaultArtist.Location = new System.Drawing.Point(423, 119);
             this.textBoxDefaultArtist.Name = "textBoxDefaultArtist";
             this.textBoxDefaultArtist.Size = new System.Drawing.Size(152, 21);
             this.textBoxDefaultArtist.TabIndex = 7;
@@ -420,7 +420,7 @@ namespace QuickImageComment
             // 
             // numericUpDownFullSizeImageCacheMaxSize
             // 
-            this.numericUpDownFullSizeImageCacheMaxSize.Location = new System.Drawing.Point(389, 15);
+            this.numericUpDownFullSizeImageCacheMaxSize.Location = new System.Drawing.Point(423, 15);
             this.numericUpDownFullSizeImageCacheMaxSize.Maximum = new decimal(new int[] {
             32000,
             0,
@@ -465,7 +465,7 @@ namespace QuickImageComment
             // TextBoxAdditionalExtensions
             // 
             this.TextBoxAdditionalExtensions.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextBoxAdditionalExtensions.Location = new System.Drawing.Point(389, 297);
+            this.TextBoxAdditionalExtensions.Location = new System.Drawing.Point(423, 297);
             this.TextBoxAdditionalExtensions.Name = "TextBoxAdditionalExtensions";
             this.TextBoxAdditionalExtensions.Size = new System.Drawing.Size(148, 18);
             this.TextBoxAdditionalExtensions.TabIndex = 24;
@@ -524,7 +524,7 @@ namespace QuickImageComment
             0,
             0,
             0});
-            this.numericUpDownMaximumMemoryForCaching.Location = new System.Drawing.Point(389, 59);
+            this.numericUpDownMaximumMemoryForCaching.Location = new System.Drawing.Point(423, 59);
             this.numericUpDownMaximumMemoryForCaching.Maximum = new decimal(new int[] {
             32000,
             0,
@@ -556,7 +556,7 @@ namespace QuickImageComment
             this.Panel1.Controls.Add(this.labelMaximumMemoryForCaching);
             this.Panel1.Location = new System.Drawing.Point(-4, 337);
             this.Panel1.Name = "Panel1";
-            this.Panel1.Size = new System.Drawing.Size(561, 93);
+            this.Panel1.Size = new System.Drawing.Size(588, 93);
             this.Panel1.TabIndex = 27;
             // 
             // numericUpDownExtendedImageCacheMaxSize
@@ -566,7 +566,7 @@ namespace QuickImageComment
             0,
             0,
             0});
-            this.numericUpDownExtendedImageCacheMaxSize.Location = new System.Drawing.Point(389, 37);
+            this.numericUpDownExtendedImageCacheMaxSize.Location = new System.Drawing.Point(423, 37);
             this.numericUpDownExtendedImageCacheMaxSize.Maximum = new decimal(new int[] {
             32000,
             0,
@@ -678,7 +678,7 @@ namespace QuickImageComment
             // 
             // numericUpDownMaxArtists
             // 
-            this.numericUpDownMaxArtists.Location = new System.Drawing.Point(389, 167);
+            this.numericUpDownMaxArtists.Location = new System.Drawing.Point(423, 167);
             this.numericUpDownMaxArtists.Maximum = new decimal(new int[] {
             32000,
             0,
@@ -777,9 +777,9 @@ namespace QuickImageComment
             this.Panel2.Controls.Add(this.fixedCheckBoxSaveCommentImage6);
             this.Panel2.Controls.Add(this.fixedCheckBoxSaveCommentImage8);
             this.Panel2.Controls.Add(this.label1);
-            this.Panel2.Location = new System.Drawing.Point(550, -2);
+            this.Panel2.Location = new System.Drawing.Point(583, -2);
             this.Panel2.Name = "Panel2";
-            this.Panel2.Size = new System.Drawing.Size(429, 432);
+            this.Panel2.Size = new System.Drawing.Size(396, 432);
             this.Panel2.TabIndex = 28;
             // 
             // fixedCheckBoxSaveNameImage5
@@ -1020,7 +1020,7 @@ namespace QuickImageComment
             // 
             // numericUpDownMaxChangeableFieldEntries
             // 
-            this.numericUpDownMaxChangeableFieldEntries.Location = new System.Drawing.Point(389, 190);
+            this.numericUpDownMaxChangeableFieldEntries.Location = new System.Drawing.Point(423, 190);
             this.numericUpDownMaxChangeableFieldEntries.Maximum = new decimal(new int[] {
             32000,
             0,
@@ -1051,7 +1051,7 @@ namespace QuickImageComment
             // TextBoxVideoExtensionsProperties
             // 
             this.TextBoxVideoExtensionsProperties.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextBoxVideoExtensionsProperties.Location = new System.Drawing.Point(389, 17);
+            this.TextBoxVideoExtensionsProperties.Location = new System.Drawing.Point(423, 17);
             this.TextBoxVideoExtensionsProperties.Name = "TextBoxVideoExtensionsProperties";
             this.TextBoxVideoExtensionsProperties.Size = new System.Drawing.Size(198, 18);
             this.TextBoxVideoExtensionsProperties.TabIndex = 2;
@@ -1068,7 +1068,7 @@ namespace QuickImageComment
             // TextBoxVideoExtensionsFrame
             // 
             this.TextBoxVideoExtensionsFrame.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextBoxVideoExtensionsFrame.Location = new System.Drawing.Point(389, 38);
+            this.TextBoxVideoExtensionsFrame.Location = new System.Drawing.Point(423, 38);
             this.TextBoxVideoExtensionsFrame.Name = "TextBoxVideoExtensionsFrame";
             this.TextBoxVideoExtensionsFrame.Size = new System.Drawing.Size(198, 18);
             this.TextBoxVideoExtensionsFrame.TabIndex = 5;
@@ -1081,7 +1081,7 @@ namespace QuickImageComment
             0,
             0,
             65536});
-            this.numericUpDownFramePosition.Location = new System.Drawing.Point(389, 59);
+            this.numericUpDownFramePosition.Location = new System.Drawing.Point(423, 59);
             this.numericUpDownFramePosition.Name = "numericUpDownFramePosition";
             this.numericUpDownFramePosition.Size = new System.Drawing.Size(44, 21);
             this.numericUpDownFramePosition.TabIndex = 8;

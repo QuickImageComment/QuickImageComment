@@ -76,7 +76,7 @@ namespace QuickImageComment
             // buttonAbort
             // 
             this.buttonAbort.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonAbort.Location = new System.Drawing.Point(216, 378);
+            this.buttonAbort.Location = new System.Drawing.Point(237, 378);
             this.buttonAbort.Name = "buttonAbort";
             this.buttonAbort.Size = new System.Drawing.Size(99, 26);
             this.buttonAbort.TabIndex = 4;
@@ -91,7 +91,7 @@ namespace QuickImageComment
             this.textBoxPredefinedKeyWords.Multiline = true;
             this.textBoxPredefinedKeyWords.Name = "textBoxPredefinedKeyWords";
             this.textBoxPredefinedKeyWords.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxPredefinedKeyWords.Size = new System.Drawing.Size(414, 288);
+            this.textBoxPredefinedKeyWords.Size = new System.Drawing.Size(435, 288);
             this.textBoxPredefinedKeyWords.TabIndex = 1;
             // 
             // label1
@@ -117,7 +117,7 @@ namespace QuickImageComment
             // buttonHelp
             // 
             this.buttonHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonHelp.Location = new System.Drawing.Point(321, 378);
+            this.buttonHelp.Location = new System.Drawing.Point(342, 378);
             this.buttonHelp.Name = "buttonHelp";
             this.buttonHelp.Size = new System.Drawing.Size(99, 26);
             this.buttonHelp.TabIndex = 5;
@@ -162,14 +162,14 @@ namespace QuickImageComment
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(420, 294);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(441, 294);
             this.tableLayoutPanel1.TabIndex = 8;
             // 
             // FormPredefinedKeyWords
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(432, 410);
+            this.ClientSize = new System.Drawing.Size(453, 410);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.checkBoxHintUsingNotPredef);

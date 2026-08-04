@@ -47,6 +47,7 @@
             this.panelLayout = new System.Windows.Forms.Panel();
             this.buttonMinimum = new System.Windows.Forms.Button();
             this.groupBoxFiles = new System.Windows.Forms.GroupBox();
+            this.radioButtonRating = new System.Windows.Forms.RadioButton();
             this.radioButtonComment = new System.Windows.Forms.RadioButton();
             this.radioButtonTile = new System.Windows.Forms.RadioButton();
             this.radioButtonDetails = new System.Windows.Forms.RadioButton();
@@ -114,7 +115,6 @@
             this.buttonSaveAs = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.buttonMap = new System.Windows.Forms.Button();
-            this.radioButtonRating = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -166,7 +166,7 @@
             // buttonHelp
             // 
             this.buttonHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonHelp.Location = new System.Drawing.Point(769, 545);
+            this.buttonHelp.Location = new System.Drawing.Point(787, 545);
             this.buttonHelp.Name = "buttonHelp";
             this.buttonHelp.Size = new System.Drawing.Size(100, 22);
             this.buttonHelp.TabIndex = 9;
@@ -211,8 +211,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer12);
-            this.splitContainer1.Size = new System.Drawing.Size(860, 223);
-            this.splitContainer1.SplitterDistance = 240;
+            this.splitContainer1.Size = new System.Drawing.Size(878, 223);
+            this.splitContainer1.SplitterDistance = 245;
             this.splitContainer1.TabIndex = 34;
             // 
             // splitContainer11
@@ -231,7 +231,7 @@
             // splitContainer11.Panel2
             // 
             this.splitContainer11.Panel2.BackColor = System.Drawing.SystemColors.Control;
-            this.splitContainer11.Size = new System.Drawing.Size(240, 223);
+            this.splitContainer11.Size = new System.Drawing.Size(245, 223);
             this.splitContainer11.SplitterDistance = 98;
             this.splitContainer11.TabIndex = 0;
             // 
@@ -252,7 +252,7 @@
             // splitContainer12.Panel2
             // 
             this.splitContainer12.Panel2.Controls.Add(this.splitContainer122);
-            this.splitContainer12.Size = new System.Drawing.Size(616, 223);
+            this.splitContainer12.Size = new System.Drawing.Size(629, 223);
             this.splitContainer12.SplitterDistance = 130;
             this.splitContainer12.TabIndex = 0;
             // 
@@ -271,7 +271,7 @@
             // splitContainer12P1.Panel2
             // 
             this.splitContainer12P1.Panel2.Controls.Add(this.panelCentralInputArea);
-            this.splitContainer12P1.Size = new System.Drawing.Size(616, 130);
+            this.splitContainer12P1.Size = new System.Drawing.Size(629, 130);
             this.splitContainer12P1.SplitterDistance = 100;
             this.splitContainer12P1.TabIndex = 2;
             // 
@@ -290,8 +290,8 @@
             // splitContainer121.Panel2
             // 
             this.splitContainer121.Panel2.BackColor = System.Drawing.SystemColors.Control;
-            this.splitContainer121.Size = new System.Drawing.Size(616, 100);
-            this.splitContainer121.SplitterDistance = 429;
+            this.splitContainer121.Size = new System.Drawing.Size(629, 100);
+            this.splitContainer121.SplitterDistance = 438;
             this.splitContainer121.TabIndex = 0;
             // 
             // splitContainer1211
@@ -309,8 +309,8 @@
             // splitContainer1211.Panel2
             // 
             this.splitContainer1211.Panel2.BackColor = System.Drawing.SystemColors.Control;
-            this.splitContainer1211.Size = new System.Drawing.Size(429, 100);
-            this.splitContainer1211.SplitterDistance = 222;
+            this.splitContainer1211.Size = new System.Drawing.Size(438, 100);
+            this.splitContainer1211.SplitterDistance = 226;
             this.splitContainer1211.TabIndex = 0;
             this.splitContainer1211.TabStop = false;
             // 
@@ -334,7 +334,7 @@
             this.panelCentralInputArea.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelCentralInputArea.Location = new System.Drawing.Point(0, 0);
             this.panelCentralInputArea.Name = "panelCentralInputArea";
-            this.panelCentralInputArea.Size = new System.Drawing.Size(616, 26);
+            this.panelCentralInputArea.Size = new System.Drawing.Size(629, 26);
             this.panelCentralInputArea.TabIndex = 2;
             // 
             // labelCentralInputArea
@@ -371,8 +371,8 @@
             // splitContainer122.Panel2
             // 
             this.splitContainer122.Panel2.BackColor = System.Drawing.SystemColors.Control;
-            this.splitContainer122.Size = new System.Drawing.Size(616, 89);
-            this.splitContainer122.SplitterDistance = 323;
+            this.splitContainer122.Size = new System.Drawing.Size(629, 89);
+            this.splitContainer122.SplitterDistance = 329;
             this.splitContainer122.TabIndex = 0;
             // 
             // panelLayout
@@ -383,7 +383,7 @@
             this.panelLayout.Controls.Add(this.splitContainer1);
             this.panelLayout.Location = new System.Drawing.Point(3, 243);
             this.panelLayout.Name = "panelLayout";
-            this.panelLayout.Size = new System.Drawing.Size(866, 229);
+            this.panelLayout.Size = new System.Drawing.Size(884, 229);
             this.panelLayout.TabIndex = 3;
             // 
             // buttonMinimum
@@ -412,10 +412,22 @@
             this.groupBoxFiles.TabStop = false;
             this.groupBoxFiles.Text = "Datei-Ansicht";
             // 
+            // radioButtonRating
+            // 
+            this.radioButtonRating.AutoSize = true;
+            this.radioButtonRating.Location = new System.Drawing.Point(6, 133);
+            this.radioButtonRating.Name = "radioButtonRating";
+            this.radioButtonRating.Size = new System.Drawing.Size(77, 17);
+            this.radioButtonRating.TabIndex = 5;
+            this.radioButtonRating.TabStop = true;
+            this.radioButtonRating.Text = "Bewertung";
+            this.radioButtonRating.UseVisualStyleBackColor = true;
+            this.radioButtonRating.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
+            // 
             // radioButtonComment
             // 
             this.radioButtonComment.AutoSize = true;
-            this.radioButtonComment.Location = new System.Drawing.Point(6, 107);
+            this.radioButtonComment.Location = new System.Drawing.Point(6, 110);
             this.radioButtonComment.Name = "radioButtonComment";
             this.radioButtonComment.Size = new System.Drawing.Size(79, 17);
             this.radioButtonComment.TabIndex = 4;
@@ -427,7 +439,7 @@
             // radioButtonTile
             // 
             this.radioButtonTile.AutoSize = true;
-            this.radioButtonTile.Location = new System.Drawing.Point(6, 38);
+            this.radioButtonTile.Location = new System.Drawing.Point(6, 41);
             this.radioButtonTile.Name = "radioButtonTile";
             this.radioButtonTile.Size = new System.Drawing.Size(100, 17);
             this.radioButtonTile.TabIndex = 1;
@@ -439,7 +451,7 @@
             // radioButtonDetails
             // 
             this.radioButtonDetails.AutoSize = true;
-            this.radioButtonDetails.Location = new System.Drawing.Point(6, 84);
+            this.radioButtonDetails.Location = new System.Drawing.Point(6, 87);
             this.radioButtonDetails.Name = "radioButtonDetails";
             this.radioButtonDetails.Size = new System.Drawing.Size(57, 17);
             this.radioButtonDetails.TabIndex = 3;
@@ -451,7 +463,7 @@
             // radioButtonList
             // 
             this.radioButtonList.AutoSize = true;
-            this.radioButtonList.Location = new System.Drawing.Point(6, 61);
+            this.radioButtonList.Location = new System.Drawing.Point(6, 64);
             this.radioButtonList.Name = "radioButtonList";
             this.radioButtonList.Size = new System.Drawing.Size(47, 17);
             this.radioButtonList.TabIndex = 2;
@@ -463,7 +475,7 @@
             // radioButtonLargeIcons
             // 
             this.radioButtonLargeIcons.AutoSize = true;
-            this.radioButtonLargeIcons.Location = new System.Drawing.Point(6, 15);
+            this.radioButtonLargeIcons.Location = new System.Drawing.Point(6, 18);
             this.radioButtonLargeIcons.Name = "radioButtonLargeIcons";
             this.radioButtonLargeIcons.Size = new System.Drawing.Size(97, 17);
             this.radioButtonLargeIcons.TabIndex = 0;
@@ -493,7 +505,7 @@
             this.groupBoxProperties.Controls.Add(this.groupBoxExif);
             this.groupBoxProperties.Location = new System.Drawing.Point(329, 12);
             this.groupBoxProperties.Name = "groupBoxProperties";
-            this.groupBoxProperties.Size = new System.Drawing.Size(531, 199);
+            this.groupBoxProperties.Size = new System.Drawing.Size(555, 199);
             this.groupBoxProperties.TabIndex = 2;
             this.groupBoxProperties.TabStop = false;
             this.groupBoxProperties.Text = "Eigenschaften-Ansichten";
@@ -501,7 +513,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(183, 0);
+            this.label4.Location = new System.Drawing.Point(186, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(331, 13);
             this.label4.TabIndex = 15;
@@ -510,7 +522,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(101, 16);
+            this.label3.Location = new System.Drawing.Point(101, 19);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(45, 13);
             this.label3.TabIndex = 14;
@@ -563,7 +575,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(183, 164);
+            this.label11.Location = new System.Drawing.Point(186, 164);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(307, 13);
             this.label11.TabIndex = 13;
@@ -572,7 +584,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(143, 16);
+            this.label10.Location = new System.Drawing.Point(146, 19);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(48, 13);
             this.label10.TabIndex = 3;
@@ -581,7 +593,7 @@
             // fixedLabel9
             // 
             this.fixedLabel9.AutoSize = true;
-            this.fixedLabel9.Location = new System.Drawing.Point(76, 16);
+            this.fixedLabel9.Location = new System.Drawing.Point(76, 19);
             this.fixedLabel9.Name = "fixedLabel9";
             this.fixedLabel9.Size = new System.Drawing.Size(27, 13);
             this.fixedLabel9.TabIndex = 2;
@@ -590,7 +602,7 @@
             // fixedLabel8
             // 
             this.fixedLabel8.AutoSize = true;
-            this.fixedLabel8.Location = new System.Drawing.Point(40, 16);
+            this.fixedLabel8.Location = new System.Drawing.Point(40, 19);
             this.fixedLabel8.Name = "fixedLabel8";
             this.fixedLabel8.Size = new System.Drawing.Size(30, 13);
             this.fixedLabel8.TabIndex = 1;
@@ -599,7 +611,7 @@
             // fixedLabel7
             // 
             this.fixedLabel7.AutoSize = true;
-            this.fixedLabel7.Location = new System.Drawing.Point(9, 16);
+            this.fixedLabel7.Location = new System.Drawing.Point(9, 19);
             this.fixedLabel7.Name = "fixedLabel7";
             this.fixedLabel7.Size = new System.Drawing.Size(25, 13);
             this.fixedLabel7.TabIndex = 0;
@@ -608,7 +620,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(183, 141);
+            this.label6.Location = new System.Drawing.Point(186, 141);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(278, 13);
             this.label6.TabIndex = 12;
@@ -617,7 +629,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(183, 118);
+            this.label5.Location = new System.Drawing.Point(186, 118);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(299, 13);
             this.label5.TabIndex = 11;
@@ -626,7 +638,7 @@
             // labelSuffixFirst
             // 
             this.labelSuffixFirst.AutoSize = true;
-            this.labelSuffixFirst.Location = new System.Drawing.Point(183, 95);
+            this.labelSuffixFirst.Location = new System.Drawing.Point(186, 95);
             this.labelSuffixFirst.Name = "labelSuffixFirst";
             this.labelSuffixFirst.Size = new System.Drawing.Size(259, 13);
             this.labelSuffixFirst.TabIndex = 10;
@@ -635,7 +647,7 @@
             // labelHeader
             // 
             this.labelHeader.AutoSize = true;
-            this.labelHeader.Location = new System.Drawing.Point(183, 49);
+            this.labelHeader.Location = new System.Drawing.Point(186, 49);
             this.labelHeader.Name = "labelHeader";
             this.labelHeader.Size = new System.Drawing.Size(251, 13);
             this.labelHeader.TabIndex = 8;
@@ -644,7 +656,7 @@
             // labelPlain
             // 
             this.labelPlain.AutoSize = true;
-            this.labelPlain.Location = new System.Drawing.Point(183, 72);
+            this.labelPlain.Location = new System.Drawing.Point(186, 72);
             this.labelPlain.Name = "labelPlain";
             this.labelPlain.Size = new System.Drawing.Size(230, 13);
             this.labelPlain.TabIndex = 9;
@@ -658,7 +670,7 @@
             this.groupBoxOther.Controls.Add(this.radioButtonOtherSuffixFirst);
             this.groupBoxOther.Controls.Add(this.radioButtonOtherPlain);
             this.groupBoxOther.Controls.Add(this.radioButtonOtherHeader);
-            this.groupBoxOther.Location = new System.Drawing.Point(152, 32);
+            this.groupBoxOther.Location = new System.Drawing.Point(155, 32);
             this.groupBoxOther.Name = "groupBoxOther";
             this.groupBoxOther.Size = new System.Drawing.Size(31, 156);
             this.groupBoxOther.TabIndex = 7;
@@ -977,7 +989,7 @@
             this.groupBoxToolStrip.Controls.Add(this.radioButtonToolStripShow);
             this.groupBoxToolStrip.Location = new System.Drawing.Point(3, 12);
             this.groupBoxToolStrip.Name = "groupBoxToolStrip";
-            this.groupBoxToolStrip.Size = new System.Drawing.Size(157, 81);
+            this.groupBoxToolStrip.Size = new System.Drawing.Size(157, 101);
             this.groupBoxToolStrip.TabIndex = 0;
             this.groupBoxToolStrip.TabStop = false;
             this.groupBoxToolStrip.Text = "Symbolleiste";
@@ -985,7 +997,7 @@
             // radioButtonToolStripHide
             // 
             this.radioButtonToolStripHide.AutoSize = true;
-            this.radioButtonToolStripHide.Location = new System.Drawing.Point(6, 38);
+            this.radioButtonToolStripHide.Location = new System.Drawing.Point(6, 41);
             this.radioButtonToolStripHide.Name = "radioButtonToolStripHide";
             this.radioButtonToolStripHide.Size = new System.Drawing.Size(81, 17);
             this.radioButtonToolStripHide.TabIndex = 1;
@@ -997,7 +1009,7 @@
             // radioButtonToolStripToolsInMenu
             // 
             this.radioButtonToolStripToolsInMenu.AutoSize = true;
-            this.radioButtonToolStripToolsInMenu.Location = new System.Drawing.Point(6, 61);
+            this.radioButtonToolStripToolsInMenu.Location = new System.Drawing.Point(6, 64);
             this.radioButtonToolStripToolsInMenu.Name = "radioButtonToolStripToolsInMenu";
             this.radioButtonToolStripToolsInMenu.Size = new System.Drawing.Size(130, 17);
             this.radioButtonToolStripToolsInMenu.TabIndex = 2;
@@ -1009,7 +1021,7 @@
             // radioButtonToolStripShow
             // 
             this.radioButtonToolStripShow.AutoSize = true;
-            this.radioButtonToolStripShow.Location = new System.Drawing.Point(6, 15);
+            this.radioButtonToolStripShow.Location = new System.Drawing.Point(6, 18);
             this.radioButtonToolStripShow.Name = "radioButtonToolStripShow";
             this.radioButtonToolStripShow.Size = new System.Drawing.Size(77, 17);
             this.radioButtonToolStripShow.TabIndex = 0;
@@ -1095,7 +1107,7 @@
             // 
             this.dynamicComboBoxConfigurationName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.dynamicComboBoxConfigurationName.FormattingEnabled = true;
-            this.dynamicComboBoxConfigurationName.Location = new System.Drawing.Point(185, 13);
+            this.dynamicComboBoxConfigurationName.Location = new System.Drawing.Point(199, 13);
             this.dynamicComboBoxConfigurationName.Name = "dynamicComboBoxConfigurationName";
             this.dynamicComboBoxConfigurationName.Size = new System.Drawing.Size(234, 21);
             this.dynamicComboBoxConfigurationName.TabIndex = 17;
@@ -1104,7 +1116,7 @@
             // buttonSave
             // 
             this.buttonSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonSave.Location = new System.Drawing.Point(422, 10);
+            this.buttonSave.Location = new System.Drawing.Point(436, 10);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(99, 26);
             this.buttonSave.TabIndex = 18;
@@ -1115,7 +1127,7 @@
             // buttonDelete
             // 
             this.buttonDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonDelete.Location = new System.Drawing.Point(524, 10);
+            this.buttonDelete.Location = new System.Drawing.Point(538, 10);
             this.buttonDelete.Name = "buttonDelete";
             this.buttonDelete.Size = new System.Drawing.Size(99, 26);
             this.buttonDelete.TabIndex = 19;
@@ -1126,7 +1138,7 @@
             // buttonSaveAs
             // 
             this.buttonSaveAs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonSaveAs.Location = new System.Drawing.Point(626, 10);
+            this.buttonSaveAs.Location = new System.Drawing.Point(640, 10);
             this.buttonSaveAs.Name = "buttonSaveAs";
             this.buttonSaveAs.Size = new System.Drawing.Size(128, 26);
             this.buttonSaveAs.TabIndex = 20;
@@ -1143,7 +1155,7 @@
             this.groupBox1.Controls.Add(this.dynamicComboBoxConfigurationName);
             this.groupBox1.Location = new System.Drawing.Point(-7, 499);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(809, 42);
+            this.groupBox1.Size = new System.Drawing.Size(836, 42);
             this.groupBox1.TabIndex = 21;
             this.groupBox1.TabStop = false;
             // 
@@ -1158,23 +1170,11 @@
             this.buttonMap.UseVisualStyleBackColor = true;
             this.buttonMap.Click += new System.EventHandler(this.buttonMap_Click);
             // 
-            // radioButtonRating
-            // 
-            this.radioButtonRating.AutoSize = true;
-            this.radioButtonRating.Location = new System.Drawing.Point(6, 130);
-            this.radioButtonRating.Name = "radioButtonRating";
-            this.radioButtonRating.Size = new System.Drawing.Size(77, 17);
-            this.radioButtonRating.TabIndex = 5;
-            this.radioButtonRating.TabStop = true;
-            this.radioButtonRating.Text = "Bewertung";
-            this.radioButtonRating.UseVisualStyleBackColor = true;
-            this.radioButtonRating.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
-            // 
             // FormView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(872, 573);
+            this.ClientSize = new System.Drawing.Size(890, 573);
             this.Controls.Add(this.buttonMap);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.panelVerticalCheckLeft);

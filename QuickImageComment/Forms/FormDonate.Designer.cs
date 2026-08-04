@@ -32,15 +32,16 @@
             this.buttonClose = new System.Windows.Forms.Button();
             this.textBoxInfo = new System.Windows.Forms.TextBox();
             this.buttonDonate = new System.Windows.Forms.Button();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonClose
             // 
-            this.buttonClose.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonClose.Location = new System.Drawing.Point(106, 173);
+            this.buttonClose.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonClose.Location = new System.Drawing.Point(103, 170);
             this.buttonClose.Name = "buttonClose";
-            this.buttonClose.Size = new System.Drawing.Size(188, 23);
+            this.buttonClose.Size = new System.Drawing.Size(194, 24);
             this.buttonClose.TabIndex = 10;
             this.buttonClose.Text = "Schließen";
             this.buttonClose.UseVisualStyleBackColor = true;
@@ -48,37 +49,52 @@
             // 
             // textBoxInfo
             // 
-            this.textBoxInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxInfo.BackColor = System.Drawing.SystemColors.Control;
-            this.textBoxInfo.Location = new System.Drawing.Point(8, 12);
+            this.tableLayoutPanel1.SetColumnSpan(this.textBoxInfo, 3);
+            this.textBoxInfo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBoxInfo.Location = new System.Drawing.Point(3, 3);
             this.textBoxInfo.Multiline = true;
             this.textBoxInfo.Name = "textBoxInfo";
             this.textBoxInfo.ReadOnly = true;
-            this.textBoxInfo.Size = new System.Drawing.Size(384, 124);
+            this.textBoxInfo.Size = new System.Drawing.Size(394, 131);
             this.textBoxInfo.TabIndex = 11;
             // 
             // buttonDonate
             // 
-            this.buttonDonate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonDonate.Location = new System.Drawing.Point(106, 146);
+            this.buttonDonate.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonDonate.Location = new System.Drawing.Point(103, 140);
             this.buttonDonate.Name = "buttonDonate";
-            this.buttonDonate.Size = new System.Drawing.Size(188, 23);
+            this.buttonDonate.Size = new System.Drawing.Size(194, 24);
             this.buttonDonate.TabIndex = 12;
             this.buttonDonate.Text = "Spenden";
             this.buttonDonate.UseVisualStyleBackColor = true;
             this.buttonDonate.Click += new System.EventHandler(this.buttonDonate_Click);
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 3;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.tableLayoutPanel1.Controls.Add(this.buttonDonate, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.buttonClose, 1, 2);
+            this.tableLayoutPanel1.Controls.Add(this.textBoxInfo, 0, 0);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 3;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(400, 197);
+            this.tableLayoutPanel1.TabIndex = 13;
             // 
             // FormDonate
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(400, 197);
-            this.Controls.Add(this.buttonDonate);
-            this.Controls.Add(this.textBoxInfo);
-            this.Controls.Add(this.buttonClose);
+            this.Controls.Add(this.tableLayoutPanel1);
             this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -87,8 +103,9 @@
             this.Name = "FormDonate";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Spenden";
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -96,5 +113,6 @@
         private System.Windows.Forms.Button buttonClose;
         private System.Windows.Forms.TextBox textBoxInfo;
         private System.Windows.Forms.Button buttonDonate;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
     }
 }

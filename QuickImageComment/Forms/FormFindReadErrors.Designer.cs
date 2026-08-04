@@ -47,7 +47,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonClose.Location = new System.Drawing.Point(201, 232);
             this.buttonClose.Name = "buttonClose";
-            this.buttonClose.Size = new System.Drawing.Size(370, 27);
+            this.buttonClose.Size = new System.Drawing.Size(395, 27);
             this.buttonClose.TabIndex = 3;
             this.buttonClose.Text = "Schließen";
             this.buttonClose.UseVisualStyleBackColor = true;
@@ -56,7 +56,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 9);
+            this.label1.Location = new System.Drawing.Point(3, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(518, 13);
             this.label1.TabIndex = 4;
@@ -66,7 +66,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 27);
+            this.label2.Location = new System.Drawing.Point(3, 27);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(318, 13);
             this.label2.TabIndex = 5;
@@ -75,7 +75,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 45);
+            this.label3.Location = new System.Drawing.Point(3, 45);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(717, 13);
             this.label3.TabIndex = 6;
@@ -103,7 +103,7 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersVisible = false;
-            this.dataGridView1.Size = new System.Drawing.Size(766, 153);
+            this.dataGridView1.Size = new System.Drawing.Size(791, 153);
             this.dataGridView1.TabIndex = 7;
             // 
             // FileName
@@ -142,7 +142,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(773, 261);
+            this.ClientSize = new System.Drawing.Size(798, 261);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);

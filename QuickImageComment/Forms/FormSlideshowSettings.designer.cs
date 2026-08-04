@@ -79,7 +79,7 @@ namespace QuickImageComment
             // buttonAbort
             // 
             this.buttonAbort.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonAbort.Location = new System.Drawing.Point(259, 370);
+            this.buttonAbort.Location = new System.Drawing.Point(383, 373);
             this.buttonAbort.Name = "buttonAbort";
             this.buttonAbort.Size = new System.Drawing.Size(95, 22);
             this.buttonAbort.TabIndex = 10;
@@ -90,7 +90,7 @@ namespace QuickImageComment
             // buttonOk
             // 
             this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonOk.Location = new System.Drawing.Point(159, 370);
+            this.buttonOk.Location = new System.Drawing.Point(159, 373);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(95, 22);
             this.buttonOk.TabIndex = 9;
@@ -101,7 +101,7 @@ namespace QuickImageComment
             // buttonHelp
             // 
             this.buttonHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonHelp.Location = new System.Drawing.Point(412, 370);
+            this.buttonHelp.Location = new System.Drawing.Point(536, 373);
             this.buttonHelp.Name = "buttonHelp";
             this.buttonHelp.Size = new System.Drawing.Size(95, 22);
             this.buttonHelp.TabIndex = 11;
@@ -120,7 +120,7 @@ namespace QuickImageComment
             // 
             // numericUpDownDelay
             // 
-            this.numericUpDownDelay.Location = new System.Drawing.Point(227, 5);
+            this.numericUpDownDelay.Location = new System.Drawing.Point(300, 5);
             this.numericUpDownDelay.Name = "numericUpDownDelay";
             this.numericUpDownDelay.Size = new System.Drawing.Size(57, 21);
             this.numericUpDownDelay.TabIndex = 13;
@@ -128,7 +128,7 @@ namespace QuickImageComment
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(290, 9);
+            this.label2.Location = new System.Drawing.Point(363, 9);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(54, 13);
             this.label2.TabIndex = 14;
@@ -145,7 +145,7 @@ namespace QuickImageComment
             // 
             // numericUpDownPageScrollNumber
             // 
-            this.numericUpDownPageScrollNumber.Location = new System.Drawing.Point(227, 33);
+            this.numericUpDownPageScrollNumber.Location = new System.Drawing.Point(300, 33);
             this.numericUpDownPageScrollNumber.Name = "numericUpDownPageScrollNumber";
             this.numericUpDownPageScrollNumber.Size = new System.Drawing.Size(57, 21);
             this.numericUpDownPageScrollNumber.TabIndex = 16;
@@ -153,7 +153,7 @@ namespace QuickImageComment
             // buttonBackgroundColor
             // 
             this.buttonBackgroundColor.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.buttonBackgroundColor.Location = new System.Drawing.Point(227, 59);
+            this.buttonBackgroundColor.Location = new System.Drawing.Point(300, 59);
             this.buttonBackgroundColor.Name = "buttonBackgroundColor";
             this.buttonBackgroundColor.Size = new System.Drawing.Size(156, 25);
             this.buttonBackgroundColor.TabIndex = 17;
@@ -181,7 +181,7 @@ namespace QuickImageComment
             // buttonForeGroundColor
             // 
             this.buttonForeGroundColor.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.buttonForeGroundColor.Location = new System.Drawing.Point(227, 87);
+            this.buttonForeGroundColor.Location = new System.Drawing.Point(300, 87);
             this.buttonForeGroundColor.MinimumSize = new System.Drawing.Size(156, 25);
             this.buttonForeGroundColor.Name = "buttonForeGroundColor";
             this.buttonForeGroundColor.Size = new System.Drawing.Size(156, 25);
@@ -191,7 +191,7 @@ namespace QuickImageComment
             // 
             // buttonAdjustFields
             // 
-            this.buttonAdjustFields.Location = new System.Drawing.Point(227, 145);
+            this.buttonAdjustFields.Location = new System.Drawing.Point(300, 143);
             this.buttonAdjustFields.Name = "buttonAdjustFields";
             this.buttonAdjustFields.Size = new System.Drawing.Size(280, 23);
             this.buttonAdjustFields.TabIndex = 21;
@@ -201,7 +201,7 @@ namespace QuickImageComment
             // 
             // buttonFontSubtitle
             // 
-            this.buttonFontSubtitle.Location = new System.Drawing.Point(227, 116);
+            this.buttonFontSubtitle.Location = new System.Drawing.Point(300, 116);
             this.buttonFontSubtitle.Name = "buttonFontSubtitle";
             this.buttonFontSubtitle.Size = new System.Drawing.Size(280, 23);
             this.buttonFontSubtitle.TabIndex = 22;
@@ -222,7 +222,7 @@ namespace QuickImageComment
             // 
             this.checkBoxHideAtStart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.checkBoxHideAtStart.AutoSize = true;
-            this.checkBoxHideAtStart.Location = new System.Drawing.Point(6, 288);
+            this.checkBoxHideAtStart.Location = new System.Drawing.Point(6, 291);
             this.checkBoxHideAtStart.Name = "checkBoxHideAtStart";
             this.checkBoxHideAtStart.Size = new System.Drawing.Size(268, 17);
             this.checkBoxHideAtStart.TabIndex = 24;
@@ -233,7 +233,7 @@ namespace QuickImageComment
             // 
             this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(24, 308);
+            this.label7.Location = new System.Drawing.Point(24, 311);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(379, 13);
             this.label7.TabIndex = 25;
@@ -244,9 +244,9 @@ namespace QuickImageComment
             this.groupBox1.Controls.Add(this.radioButtonSubTitleDependingOnSize);
             this.groupBox1.Controls.Add(this.radioButtonSubTitleBelowImage);
             this.groupBox1.Controls.Add(this.radioButtonSubtitleNone);
-            this.groupBox1.Location = new System.Drawing.Point(-1, 169);
+            this.groupBox1.Location = new System.Drawing.Point(-1, 166);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(523, 85);
+            this.groupBox1.Size = new System.Drawing.Size(646, 81);
             this.groupBox1.TabIndex = 26;
             this.groupBox1.TabStop = false;
             // 
@@ -289,7 +289,7 @@ namespace QuickImageComment
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(354, 257);
+            this.label8.Location = new System.Drawing.Point(444, 257);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(18, 13);
             this.label8.TabIndex = 29;
@@ -297,7 +297,7 @@ namespace QuickImageComment
             // 
             // numericUpDownOpacity
             // 
-            this.numericUpDownOpacity.Location = new System.Drawing.Point(291, 253);
+            this.numericUpDownOpacity.Location = new System.Drawing.Point(383, 253);
             this.numericUpDownOpacity.Name = "numericUpDownOpacity";
             this.numericUpDownOpacity.Size = new System.Drawing.Size(57, 21);
             this.numericUpDownOpacity.TabIndex = 28;
@@ -315,7 +315,7 @@ namespace QuickImageComment
             // buttonRevertChanges
             // 
             this.buttonRevertChanges.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonRevertChanges.Location = new System.Drawing.Point(3, 370);
+            this.buttonRevertChanges.Location = new System.Drawing.Point(3, 373);
             this.buttonRevertChanges.Name = "buttonRevertChanges";
             this.buttonRevertChanges.Size = new System.Drawing.Size(142, 22);
             this.buttonRevertChanges.TabIndex = 30;
@@ -327,7 +327,7 @@ namespace QuickImageComment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(513, 397);
+            this.ClientSize = new System.Drawing.Size(637, 400);
             this.Controls.Add(this.buttonRevertChanges);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.numericUpDownOpacity);

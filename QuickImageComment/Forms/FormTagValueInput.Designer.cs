@@ -37,26 +37,27 @@
             this.fixedButtonNext = new System.Windows.Forms.Button();
             this.buttonCurrent = new System.Windows.Forms.Button();
             this.buttonPlaceholder = new System.Windows.Forms.Button();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // textBoxValue
             // 
-            this.textBoxValue.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxValue.Location = new System.Drawing.Point(1, 25);
+            this.tableLayoutPanel1.SetColumnSpan(this.textBoxValue, 2);
+            this.textBoxValue.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBoxValue.Location = new System.Drawing.Point(3, 3);
             this.textBoxValue.Multiline = true;
             this.textBoxValue.Name = "textBoxValue";
             this.textBoxValue.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxValue.Size = new System.Drawing.Size(449, 173);
+            this.textBoxValue.Size = new System.Drawing.Size(441, 163);
             this.textBoxValue.TabIndex = 0;
             // 
             // buttonOk
             // 
-            this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonOk.Location = new System.Drawing.Point(116, 231);
+            this.buttonOk.Dock = System.Windows.Forms.DockStyle.Right;
+            this.buttonOk.Location = new System.Drawing.Point(124, 202);
             this.buttonOk.Name = "buttonOk";
-            this.buttonOk.Size = new System.Drawing.Size(96, 23);
+            this.buttonOk.Size = new System.Drawing.Size(96, 24);
             this.buttonOk.TabIndex = 1;
             this.buttonOk.Text = "OK";
             this.buttonOk.UseVisualStyleBackColor = true;
@@ -64,10 +65,10 @@
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonCancel.Location = new System.Drawing.Point(241, 231);
+            this.buttonCancel.Dock = System.Windows.Forms.DockStyle.Left;
+            this.buttonCancel.Location = new System.Drawing.Point(226, 202);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(96, 23);
+            this.buttonCancel.Size = new System.Drawing.Size(96, 24);
             this.buttonCancel.TabIndex = 2;
             this.buttonCancel.Text = "Abbrechen";
             this.buttonCancel.UseVisualStyleBackColor = true;
@@ -84,7 +85,7 @@
             // 
             // fixedButtonPrevious
             // 
-            this.fixedButtonPrevious.Location = new System.Drawing.Point(203, -1);
+            this.fixedButtonPrevious.Location = new System.Drawing.Point(248, -1);
             this.fixedButtonPrevious.Name = "fixedButtonPrevious";
             this.fixedButtonPrevious.Size = new System.Drawing.Size(29, 25);
             this.fixedButtonPrevious.TabIndex = 5;
@@ -94,7 +95,7 @@
             // 
             // fixedButtonNext
             // 
-            this.fixedButtonNext.Location = new System.Drawing.Point(241, -1);
+            this.fixedButtonNext.Location = new System.Drawing.Point(286, -1);
             this.fixedButtonNext.Name = "fixedButtonNext";
             this.fixedButtonNext.Size = new System.Drawing.Size(29, 25);
             this.fixedButtonNext.TabIndex = 6;
@@ -115,28 +116,45 @@
             // 
             // buttonPlaceholder
             // 
-            this.buttonPlaceholder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonPlaceholder.Location = new System.Drawing.Point(116, 204);
+            this.tableLayoutPanel1.SetColumnSpan(this.buttonPlaceholder, 2);
+            this.buttonPlaceholder.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonPlaceholder.Location = new System.Drawing.Point(3, 172);
             this.buttonPlaceholder.Name = "buttonPlaceholder";
-            this.buttonPlaceholder.Size = new System.Drawing.Size(221, 23);
+            this.buttonPlaceholder.Size = new System.Drawing.Size(441, 24);
             this.buttonPlaceholder.TabIndex = 8;
             this.buttonPlaceholder.Text = "Platzhalter einfügen/bearbeiten";
             this.buttonPlaceholder.UseVisualStyleBackColor = true;
             this.buttonPlaceholder.Click += new System.EventHandler(this.buttonPlaceholder_Click);
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Controls.Add(this.textBoxValue, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.buttonPlaceholder, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.buttonOk, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.buttonCancel, 1, 2);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 32);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 3;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(447, 229);
+            this.tableLayoutPanel1.TabIndex = 9;
             // 
             // FormTagValueInput
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(452, 260);
-            this.Controls.Add(this.buttonPlaceholder);
+            this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.buttonCurrent);
             this.Controls.Add(this.fixedButtonNext);
             this.Controls.Add(this.fixedButtonPrevious);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.buttonCancel);
-            this.Controls.Add(this.buttonOk);
-            this.Controls.Add(this.textBoxValue);
             this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -144,6 +162,8 @@
             this.Name = "FormTagValueInput";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "FormTagValueInput";
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -159,5 +179,6 @@
         private System.Windows.Forms.Button fixedButtonNext;
         private System.Windows.Forms.Button buttonCurrent;
         private System.Windows.Forms.Button buttonPlaceholder;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
     }
 }

@@ -64,7 +64,7 @@
             // buttonHelp
             // 
             this.buttonHelp.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.buttonHelp.Location = new System.Drawing.Point(250, 375);
+            this.buttonHelp.Location = new System.Drawing.Point(298, 377);
             this.buttonHelp.Name = "buttonHelp";
             this.buttonHelp.Size = new System.Drawing.Size(95, 22);
             this.buttonHelp.TabIndex = 10;
@@ -75,7 +75,7 @@
             // buttonOk
             // 
             this.buttonOk.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.buttonOk.Location = new System.Drawing.Point(12, 375);
+            this.buttonOk.Location = new System.Drawing.Point(60, 377);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(95, 22);
             this.buttonOk.TabIndex = 8;
@@ -86,7 +86,7 @@
             // buttonAbort
             // 
             this.buttonAbort.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.buttonAbort.Location = new System.Drawing.Point(131, 375);
+            this.buttonAbort.Location = new System.Drawing.Point(179, 377);
             this.buttonAbort.Name = "buttonAbort";
             this.buttonAbort.Size = new System.Drawing.Size(95, 22);
             this.buttonAbort.TabIndex = 9;
@@ -108,7 +108,7 @@
             this.panelRecommendedScales.Controls.Add(this.fixedRadioButton2);
             this.panelRecommendedScales.Location = new System.Drawing.Point(0, 27);
             this.panelRecommendedScales.Name = "panelRecommendedScales";
-            this.panelRecommendedScales.Size = new System.Drawing.Size(357, 105);
+            this.panelRecommendedScales.Size = new System.Drawing.Size(454, 107);
             this.panelRecommendedScales.TabIndex = 0;
             // 
             // fixedRadioButton1
@@ -191,7 +191,7 @@
             // numericUpDownGeneral
             // 
             this.numericUpDownGeneral.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.numericUpDownGeneral.Location = new System.Drawing.Point(268, 134);
+            this.numericUpDownGeneral.Location = new System.Drawing.Point(316, 136);
             this.numericUpDownGeneral.Maximum = new decimal(new int[] {
             300,
             0,
@@ -217,7 +217,7 @@
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 252);
+            this.label1.Location = new System.Drawing.Point(9, 254);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(46, 13);
             this.label1.TabIndex = 6;
@@ -228,7 +228,7 @@
             this.dynamicLabelExample.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dynamicLabelExample.Location = new System.Drawing.Point(3, 0);
             this.dynamicLabelExample.Name = "dynamicLabelExample";
-            this.dynamicLabelExample.Size = new System.Drawing.Size(351, 36);
+            this.dynamicLabelExample.Size = new System.Drawing.Size(376, 36);
             this.dynamicLabelExample.TabIndex = 7;
             this.dynamicLabelExample.Text = "abcdefghijklmnopqrstuvwxyz 1234567890 ABCDEFGHIJKLMNOPQRSTUVWXYZÖÄÜ";
             this.dynamicLabelExample.UseCompatibleTextRendering = true;
@@ -237,7 +237,7 @@
             // 
             this.fixedLabelPercentGeneral.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.fixedLabelPercentGeneral.AutoSize = true;
-            this.fixedLabelPercentGeneral.Location = new System.Drawing.Point(316, 138);
+            this.fixedLabelPercentGeneral.Location = new System.Drawing.Point(364, 140);
             this.fixedLabelPercentGeneral.Name = "fixedLabelPercentGeneral";
             this.fixedLabelPercentGeneral.Size = new System.Drawing.Size(18, 13);
             this.fixedLabelPercentGeneral.TabIndex = 4;
@@ -245,6 +245,8 @@
             // 
             // label4
             // 
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(9, 9);
             this.label4.Name = "label4";
@@ -254,9 +256,10 @@
             // 
             // label5
             // 
-            this.label5.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(9, 138);
+            this.label5.Location = new System.Drawing.Point(9, 140);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(87, 13);
             this.label5.TabIndex = 2;
@@ -264,9 +267,10 @@
             // 
             // checkBoxApplyDirect
             // 
-            this.checkBoxApplyDirect.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.checkBoxApplyDirect.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.checkBoxApplyDirect.AutoSize = true;
-            this.checkBoxApplyDirect.Location = new System.Drawing.Point(9, 220);
+            this.checkBoxApplyDirect.Location = new System.Drawing.Point(9, 222);
             this.checkBoxApplyDirect.Name = "checkBoxApplyDirect";
             this.checkBoxApplyDirect.Size = new System.Drawing.Size(188, 17);
             this.checkBoxApplyDirect.TabIndex = 5;
@@ -278,7 +282,7 @@
             // 
             this.fixedLabelPercentToolbar.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.fixedLabelPercentToolbar.AutoSize = true;
-            this.fixedLabelPercentToolbar.Location = new System.Drawing.Point(316, 164);
+            this.fixedLabelPercentToolbar.Location = new System.Drawing.Point(364, 166);
             this.fixedLabelPercentToolbar.Name = "fixedLabelPercentToolbar";
             this.fixedLabelPercentToolbar.Size = new System.Drawing.Size(18, 13);
             this.fixedLabelPercentToolbar.TabIndex = 12;
@@ -287,7 +291,7 @@
             // numericUpDownToolbar
             // 
             this.numericUpDownToolbar.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.numericUpDownToolbar.Location = new System.Drawing.Point(268, 160);
+            this.numericUpDownToolbar.Location = new System.Drawing.Point(316, 162);
             this.numericUpDownToolbar.Maximum = new decimal(new int[] {
             300,
             0,
@@ -311,9 +315,10 @@
             // 
             // checkBoxSeparateScaleToolbar
             // 
-            this.checkBoxSeparateScaleToolbar.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.checkBoxSeparateScaleToolbar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.checkBoxSeparateScaleToolbar.AutoSize = true;
-            this.checkBoxSeparateScaleToolbar.Location = new System.Drawing.Point(9, 162);
+            this.checkBoxSeparateScaleToolbar.Location = new System.Drawing.Point(9, 164);
             this.checkBoxSeparateScaleToolbar.Name = "checkBoxSeparateScaleToolbar";
             this.checkBoxSeparateScaleToolbar.Size = new System.Drawing.Size(201, 17);
             this.checkBoxSeparateScaleToolbar.TabIndex = 0;
@@ -325,7 +330,7 @@
             // 
             this.fixedLabelPercentThumbnail.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.fixedLabelPercentThumbnail.AutoSize = true;
-            this.fixedLabelPercentThumbnail.Location = new System.Drawing.Point(316, 187);
+            this.fixedLabelPercentThumbnail.Location = new System.Drawing.Point(364, 189);
             this.fixedLabelPercentThumbnail.Name = "fixedLabelPercentThumbnail";
             this.fixedLabelPercentThumbnail.Size = new System.Drawing.Size(18, 13);
             this.fixedLabelPercentThumbnail.TabIndex = 15;
@@ -334,7 +339,7 @@
             // numericUpDownThumbnail
             // 
             this.numericUpDownThumbnail.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.numericUpDownThumbnail.Location = new System.Drawing.Point(268, 183);
+            this.numericUpDownThumbnail.Location = new System.Drawing.Point(316, 185);
             this.numericUpDownThumbnail.Maximum = new decimal(new int[] {
             300,
             0,
@@ -358,9 +363,10 @@
             // 
             // checkBoxSeparateScaleThumbnail
             // 
-            this.checkBoxSeparateScaleThumbnail.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.checkBoxSeparateScaleThumbnail.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.checkBoxSeparateScaleThumbnail.AutoSize = true;
-            this.checkBoxSeparateScaleThumbnail.Location = new System.Drawing.Point(9, 185);
+            this.checkBoxSeparateScaleThumbnail.Location = new System.Drawing.Point(9, 187);
             this.checkBoxSeparateScaleThumbnail.Name = "checkBoxSeparateScaleThumbnail";
             this.checkBoxSeparateScaleThumbnail.Size = new System.Drawing.Size(255, 17);
             this.checkBoxSeparateScaleThumbnail.TabIndex = 13;
@@ -373,18 +379,18 @@
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.Controls.Add(this.dynamicLabelExample, 0, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 269);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(6, 269);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(357, 36);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(382, 36);
             this.tableLayoutPanel1.TabIndex = 16;
             // 
             // FormScale
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(358, 409);
+            this.ClientSize = new System.Drawing.Size(455, 411);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.fixedLabelPercentThumbnail);
             this.Controls.Add(this.numericUpDownThumbnail);
