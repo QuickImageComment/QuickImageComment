@@ -10,6 +10,9 @@ namespace QuickImageComment.Forms
         internal FormGeoDataItemList(GeoDataItem returnGeoDataItem)
         {
             InitializeComponent();
+
+            LangCfg.translateControlTexts(this);
+            
             // if flag set, create screenshot and return
             if (GeneralUtilities.CreateScreenshots)
             {
