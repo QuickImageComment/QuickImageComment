@@ -1228,8 +1228,13 @@ namespace QuickImageComment
         {
             // a little bit smaller, avoids "dirt" from background in the rounded corners
             System.Drawing.Bitmap bmp = new System.Drawing.Bitmap(theForm.Width - 14, theForm.Height - 7);
-            if (theForm.Location.Y + theForm.Height > System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height - 10)
+            // move form to the top to avoid that screenshot is truncated at the bottom
+            // the check is not perfect, sometimes causes moving the form although not necessary
+            if (theForm.Location.Y + theForm.Height > System.Windows.Forms.Screen.GetWorkingArea(theForm).Height)
             {
+                //GeneralUtilities.debugMessage("shift for screenshot usable Height=" 
+                //    + System.Windows.Forms.Screen.GetWorkingArea(theForm).Height
+                //    + " Y=" + theForm.Location.Y + " height=" + theForm.Height);
                 theForm.Location = new System.Drawing.Point(1, 1);
             }
             theForm.Refresh();
