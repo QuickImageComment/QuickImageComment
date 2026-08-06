@@ -24,10 +24,13 @@ namespace QuickImageComment
 {
     public partial class FormDataTemplates : Form
     {
-        private bool IsInDesignMode =>
-            LicenseManager.UsageMode == LicenseUsageMode.Designtime ||
-            Process.GetCurrentProcess().ProcessName == "devenv";
-
+        private bool IsInDesignMode
+        {
+            get
+            {
+                return DesignMode || (Site?.DesignMode ?? false);
+            }
+        }
 
         private FormCustomization.Interface CustomizationInterface;
         private UserControlChangeableFields theUserControlChangeableFields;

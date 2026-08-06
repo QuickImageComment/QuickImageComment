@@ -12,9 +12,13 @@ namespace QuickImageCommentControls
     [DesignerCategory("Code")]
     public class PictureBoxQIC : System.Windows.Forms.PictureBox
     {
-        private bool IsInDesignMode =>
-            LicenseManager.UsageMode == LicenseUsageMode.Designtime ||
-            Process.GetCurrentProcess().ProcessName == "devenv";
+        private bool IsInDesignMode
+        {
+            get
+            {
+                return DesignMode || (Site?.DesignMode ?? false);
+            }
+        }
 
         // event handler definition: zoom changed
         public class ZoomChangedEventArgs : EventArgs
