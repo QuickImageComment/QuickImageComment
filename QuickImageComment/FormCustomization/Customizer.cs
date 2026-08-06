@@ -111,6 +111,8 @@ namespace FormCustomization
             public float ItemSizeWidth = 0;
             public float ItemSizeHeight = 0;
             public float RowTemplateHeight = 0;
+            public TableLayoutColumnStyleCollection ColumnStyles;
+            public TableLayoutRowStyleCollection RowStyles;
             public Size ImageScalingSize;
             public bool noGapRight = false;
             public bool noGapBottom = false;
@@ -130,6 +132,11 @@ namespace FormCustomization
                     && givenControl.Right + givenControl.Width == givenControl.Parent.Width) noGapRight = true;
                 if (givenControl.Parent != null && (givenControl.Anchor & AnchorStyles.Bottom) == AnchorStyles.Bottom
                     && givenControl.Top + givenControl.Height == givenControl.Parent.Height) noGapBottom = true;
+                if (givenControl is TableLayoutPanel)
+                {
+                    ColumnStyles = ((TableLayoutPanel)givenControl).ColumnStyles;
+                    RowStyles = ((TableLayoutPanel)givenControl).RowStyles;
+                }
             }
         }
 
@@ -812,6 +819,23 @@ namespace FormCustomization
                     // see https://stackoverflow.com/questions/48020286/is-it-possible-to-increase-size-of-calendar-popup-in-winform
                     ((DateTimePicker)ParentControl).CalendarFont = getZoomedFont(((DateTimePicker)ParentControl).CalendarFont,
                         theZoomBasisData.FontSize, zoomFactor);
+                }
+                else if (ParentControl is TableLayoutPanel)
+                {
+                    for (int ii = 0; ii < ((TableLayoutPanel)ParentControl).RowCount; ii++)
+                    {
+                        if (((TableLayoutPanel)ParentControl).RowStyles[ii].SizeType == SizeType.Absolute)
+                        {
+                            ((TableLayoutPanel)ParentControl).RowStyles[ii].Height = (int)(theZoomBasisData.RowStyles[ii].Height * zoomFactor);
+                        }
+                    }
+                    for (int ii = 0; ii < ((TableLayoutPanel)ParentControl).ColumnCount; ii++ ) 
+                    {
+                        if (((TableLayoutPanel)ParentControl).ColumnStyles[ii].SizeType == SizeType.Absolute)
+                        {
+                            ((TableLayoutPanel)ParentControl).ColumnStyles[ii].Width = (int)(theZoomBasisData.ColumnStyles[ii].Width * zoomFactor);
+                        }
+                    }
                 }
 
                 // do not change position of form
