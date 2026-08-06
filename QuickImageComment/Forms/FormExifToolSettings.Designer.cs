@@ -77,7 +77,7 @@
             // buttonCancel
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonCancel.Location = new System.Drawing.Point(278, 276);
+            this.buttonCancel.Location = new System.Drawing.Point(295, 276);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(96, 23);
             this.buttonCancel.TabIndex = 2;
@@ -88,7 +88,7 @@
             // buttonHelp
             // 
             this.buttonHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonHelp.Location = new System.Drawing.Point(381, 276);
+            this.buttonHelp.Location = new System.Drawing.Point(398, 276);
             this.buttonHelp.Name = "buttonHelp";
             this.buttonHelp.Size = new System.Drawing.Size(96, 23);
             this.buttonHelp.TabIndex = 3;
@@ -111,14 +111,14 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxProgramPath.Location = new System.Drawing.Point(9, 64);
             this.textBoxProgramPath.Name = "textBoxProgramPath";
-            this.textBoxProgramPath.Size = new System.Drawing.Size(483, 21);
+            this.textBoxProgramPath.Size = new System.Drawing.Size(500, 21);
             this.textBoxProgramPath.TabIndex = 5;
             // 
             // buttonBrowse
             // 
             this.buttonBrowse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonBrowse.Image = ((System.Drawing.Image)(resources.GetObject("buttonBrowse.Image")));
-            this.buttonBrowse.Location = new System.Drawing.Point(498, 62);
+            this.buttonBrowse.Location = new System.Drawing.Point(515, 62);
             this.buttonBrowse.Name = "buttonBrowse";
             this.buttonBrowse.Size = new System.Drawing.Size(30, 24);
             this.buttonBrowse.TabIndex = 22;
@@ -195,7 +195,7 @@
             this.splitContainer1.Panel2.Controls.Add(this.buttonCancel);
             this.splitContainer1.Panel2.Controls.Add(this.buttonOk);
             this.splitContainer1.Panel2.Controls.Add(this.textBoxProgramPath);
-            this.splitContainer1.Size = new System.Drawing.Size(536, 392);
+            this.splitContainer1.Size = new System.Drawing.Size(553, 392);
             this.splitContainer1.SplitterDistance = 76;
             this.splitContainer1.TabIndex = 32;
             // 
@@ -248,7 +248,7 @@
             this.groupBoxOptionsRead.Controls.Add(this.dynamicCheckBox_m_Read);
             this.groupBoxOptionsRead.Location = new System.Drawing.Point(3, 118);
             this.groupBoxOptionsRead.Name = "groupBoxOptionsRead";
-            this.groupBoxOptionsRead.Size = new System.Drawing.Size(525, 67);
+            this.groupBoxOptionsRead.Size = new System.Drawing.Size(542, 67);
             this.groupBoxOptionsRead.TabIndex = 28;
             this.groupBoxOptionsRead.TabStop = false;
             this.groupBoxOptionsRead.Text = "ExifTool Optionen - Lesen";
@@ -345,7 +345,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(536, 392);
+            this.ClientSize = new System.Drawing.Size(553, 392);
             this.Controls.Add(this.splitContainer1);
             this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;

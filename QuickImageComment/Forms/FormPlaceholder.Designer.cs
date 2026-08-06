@@ -81,11 +81,11 @@ namespace QuickImageComment
             this.labelNoPlaceholderMarked = new System.Windows.Forms.Label();
             this.tableLayoutPanelValueResult = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanelTagList = new System.Windows.Forms.TableLayoutPanel();
+            this.userControlTagList = new QuickImageComment.UserControlTagList();
             this.tableLayoutPanelBelowTagList = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanelFormat = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanelLanguage = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanelMetaDate = new System.Windows.Forms.TableLayoutPanel();
-            this.userControlTagList = new QuickImageComment.UserControlTagList();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFrom)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLength)).BeginInit();
             this.tableLayoutPanelValueResult.SuspendLayout();
@@ -158,7 +158,7 @@ namespace QuickImageComment
             this.textBoxValueOriginal.Margin = new System.Windows.Forms.Padding(3, 8, 3, 3);
             this.textBoxValueOriginal.Name = "textBoxValueOriginal";
             this.textBoxValueOriginal.ReadOnly = true;
-            this.textBoxValueOriginal.Size = new System.Drawing.Size(6, 9);
+            this.textBoxValueOriginal.Size = new System.Drawing.Size(6, 14);
             this.textBoxValueOriginal.TabIndex = 10;
             this.textBoxValueOriginal.Text = "ValueOriginal";
             // 
@@ -171,7 +171,7 @@ namespace QuickImageComment
             this.textBoxValueInterpreted.Margin = new System.Windows.Forms.Padding(3, 8, 3, 3);
             this.textBoxValueInterpreted.Name = "textBoxValueInterpreted";
             this.textBoxValueInterpreted.ReadOnly = true;
-            this.textBoxValueInterpreted.Size = new System.Drawing.Size(10, 9);
+            this.textBoxValueInterpreted.Size = new System.Drawing.Size(10, 14);
             this.textBoxValueInterpreted.TabIndex = 12;
             this.textBoxValueInterpreted.Text = "ValueInterpreted";
             // 
@@ -257,7 +257,7 @@ namespace QuickImageComment
             0,
             0});
             this.numericUpDownFrom.Name = "numericUpDownFrom";
-            this.numericUpDownFrom.Size = new System.Drawing.Size(25, 21);
+            this.numericUpDownFrom.Size = new System.Drawing.Size(38, 21);
             this.numericUpDownFrom.TabIndex = 56;
             this.numericUpDownFrom.Value = new decimal(new int[] {
             1,
@@ -508,6 +508,14 @@ namespace QuickImageComment
             this.tableLayoutPanelTagList.Size = new System.Drawing.Size(846, 268);
             this.tableLayoutPanelTagList.TabIndex = 79;
             // 
+            // userControlTagList
+            // 
+            this.userControlTagList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.userControlTagList.Location = new System.Drawing.Point(3, 3);
+            this.userControlTagList.Name = "userControlTagList";
+            this.userControlTagList.Size = new System.Drawing.Size(840, 262);
+            this.userControlTagList.TabIndex = 77;
+            // 
             // tableLayoutPanelBelowTagList
             // 
             this.tableLayoutPanelBelowTagList.ColumnCount = 7;
@@ -592,14 +600,6 @@ namespace QuickImageComment
             this.tableLayoutPanelMetaDate.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanelMetaDate.Size = new System.Drawing.Size(733, 24);
             this.tableLayoutPanelMetaDate.TabIndex = 83;
-            // 
-            // userControlTagList
-            // 
-            this.userControlTagList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.userControlTagList.Location = new System.Drawing.Point(3, 3);
-            this.userControlTagList.Name = "userControlTagList";
-            this.userControlTagList.Size = new System.Drawing.Size(840, 262);
-            this.userControlTagList.TabIndex = 77;
             // 
             // FormPlaceholder
             // 

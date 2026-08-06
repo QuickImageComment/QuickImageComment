@@ -64,9 +64,8 @@ namespace QuickImageComment
             // 
             // dynamicLabelSubTitle
             // 
-            this.dynamicLabelSubTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.dynamicLabelSubTitle.BackColor = System.Drawing.Color.Transparent;
+            this.dynamicLabelSubTitle.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.dynamicLabelSubTitle.ForeColor = System.Drawing.SystemColors.ControlLight;
             this.dynamicLabelSubTitle.Location = new System.Drawing.Point(0, 334);
             this.dynamicLabelSubTitle.Name = "dynamicLabelSubTitle";

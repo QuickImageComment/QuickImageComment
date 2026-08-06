@@ -1709,7 +1709,7 @@ namespace QuickImageComment
         // get recording location position
         internal string getRecordingLocation()
         {
-            return theUserControlMap.textBoxCoordinates.Text;
+            return theUserControlMap.dynamicLabelCoordinates.Text;
         }
 
         // get location radius
