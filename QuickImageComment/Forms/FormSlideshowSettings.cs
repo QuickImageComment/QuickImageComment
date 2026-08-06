@@ -25,11 +25,15 @@ namespace QuickImageComment
     {
         private readonly FormSlideshow formSlideshow = null;
         private Font fontSubtitle;
+        private FormCustomization.Interface CustomizationInterface;
 
         // constructor 
         public FormSlideshowSettings(FormSlideshow formSlideshow)
         {
+            CustomizationInterface = MainMaskInterface.getCustomizationInterface();
             InitializeComponent();
+            CustomizationInterface.setFormToCustomizedValuesZoomInitial(this);
+
             this.formSlideshow = formSlideshow;
             fontSubtitle = this.formSlideshow.dynamicLabelSubTitle.Font;
 #if APPCENTER

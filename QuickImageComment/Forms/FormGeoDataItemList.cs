@@ -6,13 +6,17 @@ namespace QuickImageComment.Forms
     public partial class FormGeoDataItemList : Form
     {
         internal GeoDataItem returnGeoDataItem;
+        private FormCustomization.Interface CustomizationInterface;
 
         internal FormGeoDataItemList(GeoDataItem returnGeoDataItem)
         {
+            CustomizationInterface = MainMaskInterface.getCustomizationInterface();
+
             InitializeComponent();
 
             LangCfg.translateControlTexts(this);
-            
+            CustomizationInterface.setFormToCustomizedValuesZoomInitial(this);
+
             // if flag set, create screenshot and return
             if (GeneralUtilities.CreateScreenshots)
             {

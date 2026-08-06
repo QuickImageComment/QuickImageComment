@@ -22,10 +22,14 @@ namespace QuickImageComment
     public partial class FormLogger : Form
     {
         public delegate void updateLogCallback();
+        private FormCustomization.Interface CustomizationInterface;
 
         public FormLogger()
         {
+            CustomizationInterface = MainMaskInterface.getCustomizationInterface();
             InitializeComponent();
+            CustomizationInterface.setFormToCustomizedValuesZoomInitial(this);
+
             // if flag set, create screenshot and return
             if (GeneralUtilities.CreateScreenshots)
             {
