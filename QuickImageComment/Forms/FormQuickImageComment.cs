@@ -6846,8 +6846,10 @@ namespace QuickImageComment
                 this.toolStripStatusLabelMemory.Text = LangCfg.textOthersMainMemory + ": " + "50" + " MB   " +
                                                        LangCfg.textOthersFree + ": " + "3000" + " MB";
 
-                ConfigDefinition.loadViewConfiguration("Standard");
-                adjustViewAfterFormView();
+                if (ConfigDefinition.loadViewConfiguration("Standard"))
+                {
+                    adjustViewAfterFormView();
+                }
 
                 // screenshots from main mask
                 int index = 0;
@@ -6956,17 +6958,23 @@ namespace QuickImageComment
                 toolStripMenuItemShowFocusPoint.Checked = false;
                 toolStripMenuItemImageFit_Click(null, null);
 
-                ConfigDefinition.loadViewConfiguration("LeftVertical");
-                adjustViewAfterFormView();
-                GeneralUtilities.saveScreenshot(this, this.Name + index++.ToString("-00"));
+                if (ConfigDefinition.loadViewConfiguration("LeftVertical"))
+                {
+                    adjustViewAfterFormView();
+                    GeneralUtilities.saveScreenshot(this, this.Name + index++.ToString("-00"));
+                }
 
-                ConfigDefinition.loadViewConfiguration("RightVertical");
-                adjustViewAfterFormView();
-                GeneralUtilities.saveScreenshot(this, this.Name + index++.ToString("-00"));
+                if (ConfigDefinition.loadViewConfiguration("RightVertical"))
+                {
+                    adjustViewAfterFormView();
+                    GeneralUtilities.saveScreenshot(this, this.Name + index++.ToString("-00"));
+                }
 
                 // With FormCustomization
-                ConfigDefinition.loadViewConfiguration("Standard");
-                adjustViewAfterFormView();
+                if (ConfigDefinition.loadViewConfiguration("Standard"))
+                {
+                    adjustViewAfterFormView();
+                }
 
                 ConfigDefinition.setPanelLastPredefCommentsCollapsed(false);
                 collapsePanelLastPredefComments(ConfigDefinition.getPanelLastPredefCommentsCollapsed());
@@ -6974,18 +6982,24 @@ namespace QuickImageComment
                 collapsePanelChangeableFields(ConfigDefinition.getPanelChangeableFieldsCollapsed());
 
                 // following lines to show image details
-                ConfigDefinition.loadViewConfiguration("ImageDetails");
-                adjustViewAfterFormView();
-                GeneralUtilities.saveScreenshot(this, this.Name + "-ImageDetails");
+                if (ConfigDefinition.loadViewConfiguration("ImageDetails"))
+                {
+                    adjustViewAfterFormView();
+                    GeneralUtilities.saveScreenshot(this, this.Name + "-ImageDetails");
+                }
 
                 // following lines to show map
-                ConfigDefinition.loadViewConfiguration("Map");
-                adjustViewAfterFormView();
-                GeneralUtilities.saveScreenshot(this, this.Name + "-Map", ConfigDefinition.getConfigInt(ConfigDefinition.enumConfigInt.DelayBeforeSavingScreenshotsMap));
+                if (ConfigDefinition.loadViewConfiguration("Map"))
+                {
+                    adjustViewAfterFormView();
+                    GeneralUtilities.saveScreenshot(this, this.Name + "-Map", ConfigDefinition.getConfigInt(ConfigDefinition.enumConfigInt.DelayBeforeSavingScreenshotsMap));
+                }
 
                 // set display for Video screen shot
-                ConfigDefinition.loadViewConfiguration("Video");
-                adjustViewAfterFormView();
+                if (ConfigDefinition.loadViewConfiguration("Video"))
+                {
+                    adjustViewAfterFormView();
+                }
 
                 // select a video
                 theUserControlFiles.listViewFiles.SelectedIndices.Clear();
@@ -6999,8 +7013,10 @@ namespace QuickImageComment
                 GeneralUtilities.saveScreenshot(this, this.Name + "-Video");
 
                 // reset display to standard
-                ConfigDefinition.loadViewConfiguration("Standard");
-                adjustViewAfterFormView();
+                if (ConfigDefinition.loadViewConfiguration("Standard"))
+                {
+                    adjustViewAfterFormView();
+                }
 
                 // select several images for multi-edit view
                 theUserControlFiles.listViewFiles.SelectedIndices.Clear();

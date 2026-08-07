@@ -3404,8 +3404,9 @@ namespace QuickImageComment
         }
 
         // load user defined configuration into current view configuration 
-        public static void loadViewConfiguration(string ConfigurationName)
+        public static bool loadViewConfiguration(string ConfigurationName)
         {
+            if (!ConfigDefinition.getViewConfigurationNames().Contains(ConfigurationName)) return false;
             SplitContainerPanelContents.Clear();
             loadSingleItemViewConfiguration(ConfigurationName, "ToolstripStyle");
             loadSingleItemViewConfiguration(ConfigurationName, "ListViewFilesView");
@@ -3445,6 +3446,7 @@ namespace QuickImageComment
             loadSingleItemViewConfiguration(ConfigurationName, "splitContainer121_DistanceRatio");
             loadSingleItemViewConfiguration(ConfigurationName, "splitContainer122_DistanceRatio");
             loadSingleItemViewConfiguration(ConfigurationName, "splitContainer12_DistanceRatio");
+            return true;
         }
         private static void loadSingleItemViewConfiguration(string ConfigurationName, string ConfigurationItem)
         {
