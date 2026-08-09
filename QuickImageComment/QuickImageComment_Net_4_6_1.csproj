@@ -242,6 +242,8 @@
     <Compile Include="JR.Utils.GUI.Forms\FlexibleMessageBox.cs" />
     <Compile Include="Utilities\ChangeableFieldSpecification.cs" />
     <Compile Include="Utilities\DirectoryWatcher.cs" />
+    <Compile Include="Utilities\DisplayScaleReaderLegacy.cs" />
+    <Compile Include="Utilities\DpiMonitor.cs" />
     <Compile Include="Utilities\DropFileOnProcess.cs" />
     <Compile Include="Utilities\EditExternalDefinition.cs" />
     <Compile Include="Utilities\IconFont.cs" />

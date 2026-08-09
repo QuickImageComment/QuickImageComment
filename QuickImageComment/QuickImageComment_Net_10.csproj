@@ -66,9 +66,6 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <None Remove="segmdl2.ttf" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Update="Controls\CheckedListBoxItemBackcolor.cs">
       <SubType>Component</SubType>
     </Compile>

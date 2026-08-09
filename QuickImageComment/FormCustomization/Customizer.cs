@@ -158,6 +158,9 @@ namespace FormCustomization
         private Hashtable ShortcutsForHandler = new Hashtable();
         // holds pairs of Strings for translation
         private static SortedList<string, string> Translations;
+        private static SortedList<string, Color> ThemeColors;
+        private static string ThemeName = "";
+        private static ArrayList ControlsUnchangedTheme;
 
         // enum to change properties of form components
         // when adding new enumProperty, adjust also:
@@ -176,13 +179,16 @@ namespace FormCustomization
 
         // constructor
         internal Customizer(string givenFileHeaderLine, string givenHelpUrl, string givenHelpTopic,
-            SortedList<string, string> givenTranslations)
+            SortedList<string, string> givenTranslations, SortedList<string, Color> givenThemeColors, string givenThemeName)
         {
             customizedSettingChanged = false;
             FileHeaderLine = givenFileHeaderLine;
             HelpUrl = givenHelpUrl;
             HelpTopic = givenHelpTopic;
             Translations = givenTranslations;
+            ThemeColors = givenThemeColors;
+            ThemeName = givenThemeName;
+            ControlsUnchangedTheme = new ArrayList();
 
             GermanTexts.Add(Texts.E_loadingConfiguration, "Fehler beim Laden der Masken-Konfiguration.");
             GermanTexts.Add(Texts.I_adjustMask, "Maske \"\\1\" anpassen");
@@ -446,6 +452,9 @@ namespace FormCustomization
                 zoomForm(SetTo, theForm, NewZoomFactor);
             }
 
+#if !NET10_0_OR_GREATER
+            setThemeForComponent(theForm);
+#endif
             // in case property table contains only form specific zoom factors, following block can be skipped
             if (PropertyTableContainsComponentSettings)
             {
@@ -507,6 +516,11 @@ namespace FormCustomization
             }
 
             //foreach (string key in ZoomBasisDataTable.Keys) Logger.log("--" + key);
+        }
+
+        internal ArrayList getControlsUnchangedTheme()
+        {
+            return ControlsUnchangedTheme;
         }
 
         private void fillSortedListComponents(SortedList<string, Component> sortedListControls, Component parentComponent)
@@ -616,6 +630,122 @@ namespace FormCustomization
             }
         }
         #endregion
+
+        // set theme for controls and their child controls
+        internal void setThemeForComponent(Component ParentControl)
+        {
+            string ParentControlFullName = getFullNameOfComponent(ParentControl);
+
+            //if (ParentControl is Control control1)
+            //{
+            //    QuickImageComment.GeneralUtilities.writeDebugFileEntry(ParentControlFullName + "\t" + ParentControl.GetType().ToString() + "\t"
+            //        + control1.BackColor.ToString() + "\t" + control1.ForeColor.A.ToString() + "\t" + control1.BackColor.R.ToString() + "\t" + control1.BackColor.G.ToString() + "\t" + control1.BackColor.B.ToString() + "\t"
+            //        + control1.ForeColor.ToString() + "\t" + control1.ForeColor.A.ToString() + "\t" + control1.ForeColor.R.ToString() + "\t" + control1.ForeColor.G.ToString() + "\t" + control1.ForeColor.B.ToString());
+            //}
+
+            // first set theme for child controls, then for parent control
+            // if theme is first set for parent, buttons where not shown with correct color
+            if (ParentControl is MenuStrip menuStrip)
+            {
+                foreach (Component Child in menuStrip.Items)
+                {
+                    setThemeForComponent(Child);
+                }
+            }
+            else if (ParentControl is StatusStrip statusStrip1)
+            {
+                foreach (Component Child in statusStrip1.Items)
+                {
+                    setThemeForComponent(Child);
+                }
+            }
+            else if (ParentControl is ToolStripMenuItem toolStripMenuItem)
+            {
+                foreach (Component Child in toolStripMenuItem.DropDownItems)
+                {
+                    //if (Child is ToolStripMenuItem)
+                    //{
+                    //    setThemeForComponent(Child);
+                    //}   
+                    setThemeForComponent(Child);
+                }
+            }
+            else if (ParentControl is Control control)
+            {
+                foreach (Control ChildControl in control.Controls)
+                {
+                    setThemeForComponent(ChildControl);
+                }
+            }
+            else
+            {
+                QuickImageComment.GeneralUtilities.writeDebugFileEntry(ParentControlFullName + " unhandled type recursively");
+            }
+
+            // now set backcolor and forecolor
+            string backcolor = "";
+            string forecolor = "";
+            if (ParentControl is StatusStrip statusStrip)
+            {
+                backcolor = statusStrip.BackColor.ToString();
+                forecolor = statusStrip.ForeColor.ToString();
+            }
+            else if (ParentControl is ToolStripStatusLabel toolStripStatusLabel)
+            {
+                backcolor = toolStripStatusLabel.BackColor.ToString();
+                forecolor = toolStripStatusLabel.ForeColor.ToString();
+            }
+            else if (ParentControl is ToolStripMenuItem toolStripMenuItem)
+            {
+                backcolor = toolStripMenuItem.BackColor.ToString();
+                forecolor = toolStripMenuItem.ForeColor.ToString();
+            }
+            else if (ParentControl is Control control)
+            {
+                backcolor = control.BackColor.ToString();
+                forecolor = control.ForeColor.ToString();
+                QuickImageComment.GeneralUtilities.writeDebugFileEntry(ParentControlFullName + " back=" + backcolor + " fore=" + forecolor);
+            }
+            else
+            {
+                QuickImageComment.GeneralUtilities.writeDebugFileEntry(ParentControlFullName + " unhandled type getting colors");
+                return;
+            }
+
+            string colorkey = ThemeName + " " + backcolor.ToString();
+            if (ThemeColors.ContainsKey(colorkey))
+            {
+                setProperty(ParentControl, enumProperty.BackColor, ThemeColors[colorkey]);
+                QuickImageComment.GeneralUtilities.writeDebugFileEntry(ParentControlFullName + " Back " + colorkey + " changed to " + ThemeColors[colorkey]);
+                if (ParentControl is Control && ((Control)ParentControl).ContextMenuStrip != null)
+                {
+                    setProperty(ParentControl, enumProperty.BackColor, ThemeColors[colorkey]);
+                }
+            }
+            else
+            {
+                QuickImageComment.GeneralUtilities.writeDebugFileEntry(ParentControlFullName + " Back " + colorkey);
+            }
+            colorkey = ThemeName + " " + forecolor.ToString();
+            if (ThemeColors.ContainsKey(colorkey))
+            {
+                setProperty(ParentControl, enumProperty.ForeColor, ThemeColors[colorkey]);
+                QuickImageComment.GeneralUtilities.writeDebugFileEntry(ParentControlFullName + " Fore " + colorkey + " changed to " + ThemeColors[colorkey]);
+                if (ParentControl is Control && ((Control)ParentControl).ContextMenuStrip != null)
+                {
+                    setProperty(ParentControl, enumProperty.ForeColor, ThemeColors[colorkey]);
+                }
+            }
+            else
+            {
+                QuickImageComment.GeneralUtilities.writeDebugFileEntry(ParentControlFullName + " Fore " + colorkey);
+            }
+            //if (ParentControl is Control)
+            //{
+            //    var mi = typeof(Control).GetMethod("RecreateHandle", BindingFlags.Instance | BindingFlags.NonPublic);
+            //    mi.Invoke(ParentControl, null);
+            //}
+        }
 
         //*****************************************************************
         #region zoom the form
@@ -829,7 +959,7 @@ namespace FormCustomization
                             ((TableLayoutPanel)ParentControl).RowStyles[ii].Height = (int)(theZoomBasisData.RowStyles[ii].Height * zoomFactor);
                         }
                     }
-                    for (int ii = 0; ii < ((TableLayoutPanel)ParentControl).ColumnCount; ii++ ) 
+                    for (int ii = 0; ii < ((TableLayoutPanel)ParentControl).ColumnCount; ii++)
                     {
                         if (((TableLayoutPanel)ParentControl).ColumnStyles[ii].SizeType == SizeType.Absolute)
                         {
@@ -1818,59 +1948,10 @@ namespace FormCustomization
                         throw new Exception("Internal error");
                 }
             }
-            // when adding new types: search for add-new-type-here to find 
-            // all other locations where changes are necessary!!!
             else if (givenComponent is ToolStripItem)
             {
-                ToolStripItem givenToolStripItem = (ToolStripItem)givenComponent;
-                switch (propertyIndex)
-                {
-                    case enumProperty.BackColor:
-                        givenToolStripItem.BackColor = (Color)PropertyValue;
-                        break;
-                    case enumProperty.ForeColor:
-                        givenToolStripItem.ForeColor = (Color)PropertyValue;
-                        break;
-                    case enumProperty.Font:
-                        givenToolStripItem.Font = (Font)PropertyValue;
-                        break;
-                    case enumProperty.Left:
-                        throw new Exception("Internal error: no property \"Left\"");
-                    case enumProperty.Top:
-                        throw new Exception("Internal error: no property \"Top\"");
-                    case enumProperty.Width:
-                        givenToolStripItem.Width = (int)PropertyValue;
-                        break;
-                    case enumProperty.Height:
-                        givenToolStripItem.Height = (int)PropertyValue;
-                        break;
-                    case enumProperty.TabIndex:
-                        throw new Exception("Internal error: no property \"TabIndex\"");
-                    case enumProperty.Text:
-                        givenToolStripItem.Text = (string)PropertyValue;
-                        break;
-                    case enumProperty.BackgroundImage:
-                        givenToolStripItem.BackgroundImage = System.Drawing.Image.FromFile((string)PropertyValue);
-                        break;
-                    case enumProperty.AutoSize:
-                        givenToolStripItem.AutoSize = (bool)PropertyValue;
-                        break;
-                    case enumProperty.Shortcut:
-                        if (givenToolStripItem is ToolStripMenuItem)
-                        {
-                            ((ToolStripMenuItem)givenToolStripItem).ShortcutKeys = (Keys)PropertyValue;
-                        }
-                        else
-                        {
-                            throw new Exception("Internal error");
-                        }
-                        break;
-                    default:
-                        throw new Exception("Internal error");
-                }
-            }
-            else if (givenComponent is ToolStripItem)
-            {
+                // when adding new types: search for add-new-type-here to find 
+                // all other locations where changes are necessary!!!
                 ToolStripItem givenToolStripItem = (ToolStripItem)givenComponent;
                 switch (propertyIndex)
                 {

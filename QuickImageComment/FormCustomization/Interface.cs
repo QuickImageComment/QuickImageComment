@@ -29,7 +29,8 @@ namespace FormCustomization
         // constructor
         public Interface(Form theForm, string CustomizationFile, string FileHeaderLine, string HelpUrl, string HelpTopic)
         {
-            theCustomizer = new Customizer(FileHeaderLine, HelpUrl, HelpTopic, new SortedList<string, string>());
+            theCustomizer = new Customizer(FileHeaderLine, HelpUrl, HelpTopic, new SortedList<string, string>(),
+                new SortedList<string, Color>(), "");
             if (!CustomizationFile.Equals(""))
             {
                 theCustomizer.loadCustomizationFile(CustomizationFile, true);
@@ -44,9 +45,10 @@ namespace FormCustomization
 
         public Interface(Form theForm, string CustomizationFile, string FileHeaderLine, string HelpUrl, string HelpTopic,
             SortedList<string, string> givenTranslations, string[] leadingControlNamePartsToIgnore,
-            string[] leadingControlNamePartsPrefixDollar)
+            string[] leadingControlNamePartsPrefixDollar,
+            SortedList<string, Color> givenThemeColors, string givenThemeName)
         {
-            theCustomizer = new Customizer(FileHeaderLine, HelpUrl, HelpTopic, givenTranslations);
+            theCustomizer = new Customizer(FileHeaderLine, HelpUrl, HelpTopic, givenTranslations, givenThemeColors, givenThemeName);
             if (!CustomizationFile.Equals(""))
             {
                 theCustomizer.loadCustomizationFile(CustomizationFile, true);
@@ -225,6 +227,11 @@ namespace FormCustomization
                 if (!child.Font.Name.Equals("Tahoma")) Logger.log("# " + Customizer.getFullNameOfComponent(child).Replace("splitContainer", "SP") + " " + child.Font.Name); // permanent use of Logger.log
                 checkFontSize(child, fontSize);
             }
+        }
+
+        public ArrayList getControlsUnchangedTheme()
+        {
+            return theCustomizer.getControlsUnchangedTheme();
         }
     }
 }

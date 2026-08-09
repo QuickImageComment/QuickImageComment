@@ -324,7 +324,8 @@ namespace QuickImageComment
             MapLengthUnit,
             ExifToolPath,
             ExifToolOptionsRead,
-            ExifToolOptionsWrite
+            ExifToolOptionsWrite,
+            ColorThemeName
         };
 
         public enum enumMetaDataGroup
@@ -414,6 +415,7 @@ namespace QuickImageComment
         internal static SortedList<string, string> Exiv2ExifToolMappingReadWrite;
         internal static SortedList<string, string> MapUrls;
         internal static SortedList<string, MapSource> MapLeafletList;
+        internal static SortedList<string, Color> ThemeColors;
 
         // for reading data for a DataTemplate
         private static DataTemplate aDataTemplate;
@@ -512,6 +514,7 @@ namespace QuickImageComment
             Exiv2ExifToolMappingReadWrite = new SortedList<string, string>();
             MapUrls = new SortedList<string, string>();
             MapLeafletList = new SortedList<string, MapSource>();
+            ThemeColors = new SortedList<string, Color>();
 
             for (int ii = 0; ii < ImageGridsCount; ii++)
             {
@@ -692,6 +695,7 @@ namespace QuickImageComment
             ConfigItems.Add(enumCfgUserString.ExifToolPath.ToString(), "not yet set");
             ConfigItems.Add(enumCfgUserString.ExifToolOptionsRead.ToString(), "-fast");
             ConfigItems.Add(enumCfgUserString.ExifToolOptionsWrite.ToString(), "");
+            ConfigItems.Add(enumCfgUserString.ColorThemeName.ToString(), "Dark");
 
             ConfigItems.Add(enumCfgUserInt.CheckForNewVersionPeriodInDays.ToString(), 30);
             ConfigItems.Add(enumCfgUserInt.ImageDetailsFrameColor.ToString(), System.Drawing.Color.Red.ToArgb());
@@ -3967,6 +3971,28 @@ namespace QuickImageComment
                             // do not translate here, as language configuration is not yet loaded
                             unknownKeyWords = unknownKeyWords + "\n line " + lineNo.ToString() + ": " + firstPart;
                         }
+                    }
+                    else if (firstPart.StartsWith("Theme_"))
+                    {
+                        int start = firstPart.IndexOf('_');
+                        int end = firstPart.LastIndexOf('_');
+                        string themeName = "";
+                        try
+                        {
+                            themeName = firstPart.Substring(start + 1, end - start - 1);
+                        }
+                        catch (Exception ex)
+                        {
+                            throw new ExceptionDefinitionNotValid(lineNo, ex.ToString());
+                        }
+                        if (int.TryParse(secondPart, System.Globalization.NumberStyles.HexNumber,
+                            System.Globalization.CultureInfo.InvariantCulture, out int parseOutput))
+                        {
+                            Color color = Color.FromArgb(parseOutput);
+                            ThemeColors.Add(themeName + " Color [" + firstPart.Substring(end + 1) + "]", color);
+                        }
+                        else
+                            throw new ExceptionDefinitionNotValid(lineNo, "invalid color definition");
                     }
 
                     // items from general configuration file are marked with "_" at beginning

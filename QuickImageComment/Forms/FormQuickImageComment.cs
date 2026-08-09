@@ -532,7 +532,9 @@ namespace QuickImageComment
               "FormCustomization.htm",
               LangCfg.getTranslationsFromGerman(),
               leadingControlNamePartsToIgnore,
-              leadingControlNamePartsPrefixDollar);
+              leadingControlNamePartsPrefixDollar,
+              ConfigDefinition.ThemeColors,
+              ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.ColorThemeName));
 
             // show the mask 
             Program.StartupPerformance.measure("FormQIC before Show");
