@@ -276,6 +276,9 @@ namespace QuickImageComment
             // Cannot access a disposed object. Object name: 'FormQuickImageComment'.
             if (!FormQuickImageComment.closing)
             {
+#if NET10_0_OR_GREATER
+                Application.SetColorMode(SystemColorMode.System);
+#endif
                 Application.Run(theFormQuickImageComment);
             }
 
