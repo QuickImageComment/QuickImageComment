@@ -130,7 +130,8 @@ namespace QuickImageComment
             // numericUpDownMinute
             // 
             this.numericUpDownMinute.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.numericUpDownMinute.Location = new System.Drawing.Point(351, 3);
+            this.numericUpDownMinute.Location = new System.Drawing.Point(348, 1);
+            this.numericUpDownMinute.Margin = new System.Windows.Forms.Padding(0, 1, 0, 0);
             this.numericUpDownMinute.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -142,14 +143,15 @@ namespace QuickImageComment
             0,
             -2147483648});
             this.numericUpDownMinute.Name = "numericUpDownMinute";
-            this.numericUpDownMinute.Size = new System.Drawing.Size(34, 21);
+            this.numericUpDownMinute.Size = new System.Drawing.Size(40, 21);
             this.numericUpDownMinute.TabIndex = 6;
             this.numericUpDownMinute.ValueChanged += new System.EventHandler(this.numericUpDownMinute_ValueChanged);
             // 
             // numericUpDownSecond
             // 
             this.numericUpDownSecond.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.numericUpDownSecond.Location = new System.Drawing.Point(461, 3);
+            this.numericUpDownSecond.Location = new System.Drawing.Point(458, 1);
+            this.numericUpDownSecond.Margin = new System.Windows.Forms.Padding(0, 1, 0, 0);
             this.numericUpDownSecond.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -161,7 +163,7 @@ namespace QuickImageComment
             0,
             -2147483648});
             this.numericUpDownSecond.Name = "numericUpDownSecond";
-            this.numericUpDownSecond.Size = new System.Drawing.Size(34, 21);
+            this.numericUpDownSecond.Size = new System.Drawing.Size(40, 21);
             this.numericUpDownSecond.TabIndex = 8;
             this.numericUpDownSecond.ValueChanged += new System.EventHandler(this.numericUpDownSecond_ValueChanged);
             // 
@@ -199,7 +201,8 @@ namespace QuickImageComment
             // numericUpDownDay
             // 
             this.numericUpDownDay.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.numericUpDownDay.Location = new System.Drawing.Point(131, 3);
+            this.numericUpDownDay.Location = new System.Drawing.Point(128, 1);
+            this.numericUpDownDay.Margin = new System.Windows.Forms.Padding(0, 1, 0, 0);
             this.numericUpDownDay.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -211,7 +214,7 @@ namespace QuickImageComment
             0,
             -2147483648});
             this.numericUpDownDay.Name = "numericUpDownDay";
-            this.numericUpDownDay.Size = new System.Drawing.Size(34, 21);
+            this.numericUpDownDay.Size = new System.Drawing.Size(40, 21);
             this.numericUpDownDay.TabIndex = 2;
             this.numericUpDownDay.ValueChanged += new System.EventHandler(this.numericUpDownDay_ValueChanged);
             // 
@@ -228,7 +231,8 @@ namespace QuickImageComment
             // numericUpDownHour
             // 
             this.numericUpDownHour.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.numericUpDownHour.Location = new System.Drawing.Point(241, 3);
+            this.numericUpDownHour.Location = new System.Drawing.Point(238, 1);
+            this.numericUpDownHour.Margin = new System.Windows.Forms.Padding(0, 1, 0, 0);
             this.numericUpDownHour.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -240,7 +244,7 @@ namespace QuickImageComment
             0,
             -2147483648});
             this.numericUpDownHour.Name = "numericUpDownHour";
-            this.numericUpDownHour.Size = new System.Drawing.Size(34, 21);
+            this.numericUpDownHour.Size = new System.Drawing.Size(40, 21);
             this.numericUpDownHour.TabIndex = 4;
             this.numericUpDownHour.ValueChanged += new System.EventHandler(this.numericUpDownHour_ValueChanged);
             // 
