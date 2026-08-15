@@ -450,7 +450,7 @@ namespace QuickImageCommentControls
                 {
                     // store original value in tag to allow restore
                     this.Rows[rowIndex].Cells[1].Tag = this.Rows[rowIndex].Cells[1].Value;
-                    this.Rows[rowIndex].Cells[1].Style.BackColor = System.Drawing.Color.White;
+                    this.Rows[rowIndex].Cells[1].Style.BackColor = MainMaskInterface.getBackColorInputUnchanged();
 
                     // check if a changed value was entered, but not yet stored before refresh
                     if (ChangedDataGridViewValues.ContainsKey(aMetaDataItem.getKey()))
@@ -672,7 +672,7 @@ namespace QuickImageCommentControls
                         {
                             // store original value in tag to allow restore
                             Rows[Rows.Count - 1].Cells[1].Tag = Rows[Rows.Count - 1].Cells[1].Value;
-                            Rows[Rows.Count - 1].Cells[1].Style.BackColor = System.Drawing.Color.White;
+                            Rows[Rows.Count - 1].Cells[1].Style.BackColor = MainMaskInterface.getBackColorInputUnchanged();
 
                             // check if a changed value was entered, but not yet stored before refresh
                             if (ChangedDataGridViewValues.ContainsKey(anMetaDataDefinitionItem.KeyPrim))

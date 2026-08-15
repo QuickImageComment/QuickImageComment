@@ -142,6 +142,8 @@ namespace QuickImageComment
             MaximumMemoryTolerance,
             MaximumValueLengthExport,
             BackColorValueChanged,
+            BackColorInputUnchanged,
+            BackColorNotEnabled,
             BackColorMultiEditNonDefault,
             ZoomMainImageChangeMouseWheel,
             ZoomDetailImageChangeMouseWheel,
@@ -2420,7 +2422,16 @@ namespace QuickImageComment
         // get user general configuration items of type color (stored as integer)
         public static Color getConfigColor(enumConfigInt ConfigEnum)
         {
-            return Color.FromArgb((int)ConfigItems["_" + ConfigEnum.ToString()]);
+            string themeName = ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.ColorThemeName);
+
+            if (ThemeColors.ContainsKey(themeName + " Color [" + ConfigEnum.ToString() + "]"))
+            {
+                return ThemeColors[themeName + " Color [" + ConfigEnum.ToString() + "]"];
+            }
+            else
+            {
+                return Color.FromArgb((int)ConfigItems["_" + ConfigEnum.ToString()]);
+            }
         }
 
         // get user general configuration items of type string

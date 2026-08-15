@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QuickImageComment;
+using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
@@ -334,7 +335,7 @@ namespace JR.Utils.GUI.Forms
                 this.richTextBoxMessage.Anchor = (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                 | System.Windows.Forms.AnchorStyles.Left)
                 | System.Windows.Forms.AnchorStyles.Right);
-                this.richTextBoxMessage.BackColor = System.Drawing.Color.White;
+                this.richTextBoxMessage.BackColor = System.Drawing.SystemColors.ControlLight;
                 this.richTextBoxMessage.BorderStyle = System.Windows.Forms.BorderStyle.None;
                 this.richTextBoxMessage.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.FlexibleMessageBoxFormBindingSource, "MessageText", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
                 this.richTextBoxMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
@@ -354,7 +355,7 @@ namespace JR.Utils.GUI.Forms
                 this.panel1.Anchor = (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                 | System.Windows.Forms.AnchorStyles.Left)
                 | System.Windows.Forms.AnchorStyles.Right);
-                this.panel1.BackColor = System.Drawing.Color.White;
+                this.panel1.BackColor = System.Drawing.SystemColors.ControlLight;
                 this.panel1.Controls.Add(this.pictureBoxForIcon);
                 this.panel1.Controls.Add(this.richTextBoxMessage);
                 this.panel1.Location = new System.Drawing.Point(-3, -4);
@@ -479,6 +480,7 @@ namespace JR.Utils.GUI.Forms
             private FlexibleMessageBoxForm()
             {
                 InitializeComponent();
+                MainMaskInterface.getCustomizationInterface().setThemeForComponent(this);
 
                 if (languageIdExternal == TwoLetterISOLanguageID.undefined)
                 {

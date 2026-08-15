@@ -17,6 +17,7 @@
 using QuickImageComment;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -30,32 +31,29 @@ namespace FormCustomization
         public Interface(Form theForm, string CustomizationFile, string FileHeaderLine, string HelpUrl, string HelpTopic)
         {
             theCustomizer = new Customizer(FileHeaderLine, HelpUrl, HelpTopic, new SortedList<string, string>(),
-                new SortedList<string, Color>(), "");
+                new SortedList<string, Color>());
             if (!CustomizationFile.Equals(""))
             {
                 theCustomizer.loadCustomizationFile(CustomizationFile, true);
             }
-            // when initiating Customization Interface, nothing can have been zoomed before,
-            // so no need to call setFormToCustomizedValuesZoomOnInitial which removes zoom basis data
-            setFormToCustomizedValuesZoomIfChangedNoHideDuringModification(theForm);
-
-            // add generic key event handler
-            theForm.KeyDown += new System.Windows.Forms.KeyEventHandler(theCustomizer.Form_KeyDown);
         }
 
-        public Interface(Form theForm, string CustomizationFile, string FileHeaderLine, string HelpUrl, string HelpTopic,
+        public Interface(string CustomizationFile, string FileHeaderLine, string HelpUrl, string HelpTopic,
             SortedList<string, string> givenTranslations, string[] leadingControlNamePartsToIgnore,
             string[] leadingControlNamePartsPrefixDollar,
-            SortedList<string, Color> givenThemeColors, string givenThemeName)
+            SortedList<string, Color> givenThemeColors)
         {
-            theCustomizer = new Customizer(FileHeaderLine, HelpUrl, HelpTopic, givenTranslations, givenThemeColors, givenThemeName);
+            theCustomizer = new Customizer(FileHeaderLine, HelpUrl, HelpTopic, givenTranslations, givenThemeColors);
             if (!CustomizationFile.Equals(""))
             {
                 theCustomizer.loadCustomizationFile(CustomizationFile, true);
             }
             Customizer.leadingControlNamePartsToIgnore = leadingControlNamePartsToIgnore;
             Customizer.leadingControlNamePartsPrefixDollar = leadingControlNamePartsPrefixDollar;
+        }
 
+        public void init(Form theForm)
+        {
             // when initiating Customization Interface, nothing can have been zoomed before,
             // so no need to call setFormToCustomizedValuesZoomOnInitial which removes zoom basis data
             setFormToCustomizedValuesZoomIfChangedNoHideDuringModification(theForm);
@@ -83,6 +81,12 @@ namespace FormCustomization
         public string getLastCustomizationFile()
         {
             return theCustomizer.getLastCustomizationFile();
+        }
+
+        // get loaded color theme name
+        public string getColorThemeName()
+        {
+            return theCustomizer.getThemeName();
         }
 
         // clear name of last loaded or saved customization settings file
@@ -138,6 +142,15 @@ namespace FormCustomization
         internal void zoomToolStrip(Control ParentControl, float zoomFactor)
         {
             theCustomizer.zoomToolStrip(ParentControl, zoomFactor);
+        }
+
+        // set theme colors
+        internal void setThemeForComponent(Component component)
+        {
+            Logger.log("enter Interface.setThemeForComponent");
+            if (theCustomizer.getThemeName().Equals("")) return; // no theme loaded
+            Logger.log("execute setThemeForComponent");
+            theCustomizer.setThemeForComponent(component, 0);
         }
 
         // load the settings from file
@@ -196,6 +209,10 @@ namespace FormCustomization
         public static void setGeneralZoomFactor(float value)
         {
             Customizer.setGeneralZoomFactor(value);
+        }
+        public void setColorThemeName(string colorThemeName)
+        {
+            theCustomizer.setColorThemeName(colorThemeName);
         }
 
         // get zoom factor for font

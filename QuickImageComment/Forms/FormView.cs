@@ -14,6 +14,7 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
+using FormCustomization;
 using QuickImageCommentControls;
 using System;
 using System.Collections;
@@ -51,6 +52,8 @@ namespace QuickImageComment
         float splitContainer1211SplitterRatio = 0.51f;
         float splitContainer122SplitterRatio = 0.52f;
 
+        private static readonly string[] colorThemeNames = new string[] { "Hell", "Dunkel", "System" };
+        private static readonly string[] colorThemeConfig = new string[] { Customizer.ThemeLight, Customizer.ThemeDark, "System" };
 
         public FormView(
             SortedList givenPanelControls, SortedList givenDefaultPanelContents,
@@ -168,6 +171,19 @@ namespace QuickImageComment
             allowDynamicComboBoxConfigurationName_SelectedIndexChanged = true;
 
             CustomizationInterface.setFormToCustomizedValuesZoomInitial(this);
+
+            for (int ii = 0; ii < colorThemeNames.Length; ii++)
+            {
+                comboBoxColorTheme.Items.Add(colorThemeNames[ii]);
+            }
+            for (int ii = 0; ii < colorThemeNames.Length; ii++)
+            {
+                if (ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.ColorThemeName).Equals(colorThemeConfig[ii]))
+                {
+                    comboBoxColorTheme.SelectedIndex = ii;
+                    break;
+                }
+            }
 
             LangCfg.translateControlTexts(this);
 
@@ -720,10 +736,16 @@ namespace QuickImageComment
                 ConfigDefinition.setCfgUserBool(ConfigDefinition.enumCfgUserBool.SplitContainer11_OrientationVertical, checkBoxLeftPanelVertical.Checked);
                 ConfigDefinition.setCfgUserBool(ConfigDefinition.enumCfgUserBool.SplitContainer12_OrientationVertical, checkBoxRightPanelVertical.Checked);
 
+                ConfigDefinition.setCfgUserString(ConfigDefinition.enumCfgUserString.ColorThemeName, colorThemeConfig[comboBoxColorTheme.SelectedIndex]);
+
                 MainMaskInterface.saveSplitterDistanceRatiosInConfiguration();
 
                 // adjust view in FormQuickImageComment
                 MainMaskInterface.adjustViewAfterFormView();
+
+                // adjust theme in this mask after main mask as main mask has the logic to set theme in customizer
+                // including checking if system is in dark mode (which is also needed when initializing the main mask)
+                CustomizationInterface.setThemeForComponent(this);
             }
         }
 
@@ -877,6 +899,11 @@ namespace QuickImageComment
             }
             dynamicComboBoxCentralInputArea.Text = "";
             allowSaveSettingsAndAdjustView = true;
+            saveConfigurationAndAdjustFormQuickImageComment();
+        }
+
+        private void comboBoxColorTheme_SelectedIndexChanged(object sender, EventArgs e)
+        {
             saveConfigurationAndAdjustFormQuickImageComment();
         }
 

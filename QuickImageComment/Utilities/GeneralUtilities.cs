@@ -18,6 +18,7 @@
 //#define MICROSOFT_STORE
 
 using JR.Utils.GUI.Forms;
+using Microsoft.Win32;
 using System;
 using System.Collections;
 using System.ComponentModel;
@@ -909,9 +910,10 @@ namespace QuickImageComment
         {
             if (StreamDebugFile != null)
             {
+                // first show message to avoid that writeDebugFileEntry in debugMessage may open debug file again
+                debugMessage("Closing Debug-file.");
                 StreamDebugFile.Close();
                 StreamDebugFile = null;
-                debugMessage("Debug-file closed.");
             }
         }
 
@@ -1372,6 +1374,25 @@ namespace QuickImageComment
         public static bool isWindowsVistaOrHigher()
         {
             return System.Environment.OSVersion.Version.Major > 5;
+        }
+
+        // determine if system theme is set to dark mode (Windows 10 or higher)
+        // suggested by Microsoft Copilot
+        public static bool IsSystemInDarkMode()
+        {
+            const string key = @"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize";
+            using (var personalize = Registry.CurrentUser.OpenSubKey(key))
+            {
+                if (personalize == null)
+                    return false; // Windows 7/8 or classic theme
+
+                object value = personalize.GetValue("AppsUseLightTheme");
+                if (value == null)
+                    return false; // No dark mode support
+
+                int lightTheme = (int)value;
+                return lightTheme == 0; // 0 = dark mode
+            }
         }
 
         // get bitmap from path

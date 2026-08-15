@@ -90,6 +90,7 @@ namespace QuickImageComment
         // colors
         internal Color backColorInputUnchanged;
         internal Color backColorInputValueChanged;
+        internal Color backColorNotEnabled;
         // background color for non-default selections in multi edit tab
         private Color backColorMultiEditNonDefault;
 
@@ -239,6 +240,20 @@ namespace QuickImageComment
 
         public void init(string DisplayFolder, ArrayList DisplayFiles)
         {
+            //!!: Kommentar korrigieren, auch bei nachfolgenden Aufrufen von CustomizationInterface
+            // initiating CustomizationInterface includes a call of setFormToCustomizedValues...
+            // zoom the form only, needed now before layout is completed due to the dynamics of layout
+            // customization file is loaded later after layout of mask is complete
+            CustomizationInterface = new FormCustomization.Interface(
+                "",
+                LangCfg.getText(LangCfg.Others.configFileQicCustomization),
+                "file://" + LangCfg.getHelpFile(),
+                "FormCustomization.htm",
+                LangCfg.getTranslationsFromGerman(),
+                leadingControlNamePartsToIgnore,
+                leadingControlNamePartsPrefixDollar,
+                ConfigDefinition.ThemeColors);
+
             Program.StartupPerformance.measure("FormQIC init start");
             readFolderPerfomance = new Performance();
 
@@ -311,11 +326,6 @@ namespace QuickImageComment
             this.DataGridViewOtherMetaData = new QuickImageCommentControls.DataGridViewMetaData("DataGridViewOtherMetaData", "",
                 toolTip1, ChangedDataGridViewValues);
             this.tabPageOther.Controls.Add(this.DataGridViewOtherMetaData);
-
-            // set colors
-            backColorInputUnchanged = dynamicComboBoxArtist.BackColor;
-            backColorInputValueChanged = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigInt.BackColorValueChanged);
-            backColorMultiEditNonDefault = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigInt.BackColorMultiEditNonDefault);
 
             // set tags
             tagKeyWordsImage = ConfigDefinition.getConfigStringArray(enumConfigStringArray.TagKeyWordsImage);
@@ -496,6 +506,14 @@ namespace QuickImageComment
             // fill menu edit external
             fillMenuEditExternal();
 
+            adjustAfterColorThemeChange();
+            
+            // set colors
+            backColorInputUnchanged = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigInt.BackColorInputUnchanged);
+            backColorInputValueChanged = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigInt.BackColorValueChanged);
+            backColorNotEnabled = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigInt.BackColorNotEnabled);
+            backColorMultiEditNonDefault = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigInt.BackColorMultiEditNonDefault);
+
             // create and fill user control for changeable fields 
             Program.StartupPerformance.measure("FormQIC before user control changeable fields");
             theUserControlChangeableFields = new UserControlChangeableFields();
@@ -521,20 +539,7 @@ namespace QuickImageComment
 
             float generalZoomFactor = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.zoomFactorPerCentGeneral);
             FormCustomization.Interface.setGeneralZoomFactor(generalZoomFactor / 100f);
-
-            // initiating CustomizationInterface includes a call of setFormToCustomizedValues...
-            // zoom the form only, needed now before layout is completed due to the dynamics of layout
-            // customization file is loaded later after layout of mask is complete
-            CustomizationInterface = new FormCustomization.Interface(this,
-              "",
-              LangCfg.getText(LangCfg.Others.configFileQicCustomization),
-              "file://" + LangCfg.getHelpFile(),
-              "FormCustomization.htm",
-              LangCfg.getTranslationsFromGerman(),
-              leadingControlNamePartsToIgnore,
-              leadingControlNamePartsPrefixDollar,
-              ConfigDefinition.ThemeColors,
-              ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.ColorThemeName));
+            CustomizationInterface.init(this);
 
             // show the mask 
             Program.StartupPerformance.measure("FormQIC before Show");
@@ -1071,6 +1076,19 @@ namespace QuickImageComment
             directoryWatcher.ChangeDetected += new System.Action<string, WatcherChangeTypes>(theUserControlFiles.OnChangeDetected);
         }
 
+        // react on change of system settings: color mode dark/light
+        // suggested by Microsoft Copilot
+        protected override void WndProc(ref Message m)
+        {
+            const int WM_SETTINGCHANGE = 0x1A;
+
+            if (m.Msg == WM_SETTINGCHANGE)
+            {
+                adjustAfterColorThemeChange();
+            }
+
+            base.WndProc(ref m);
+        }
         //*****************************************************************
         // Event Handler
         //*****************************************************************
@@ -2448,6 +2466,8 @@ namespace QuickImageComment
 
                 // set the flags indicating if user controls are visible
                 setUserControlVisibilityFlags();
+
+                adjustAfterColorThemeChange();
                 //CustomizationInterface.checkFontSize(this, this.Font.Size);
             }
         }
@@ -2861,6 +2881,30 @@ namespace QuickImageComment
         private void toolStripMenuItemScale_Click(object sender, EventArgs e)
         {
             FormScale theFormScale = new FormScale();
+        }
+
+        internal void adjustAfterColorThemeChange()
+        {
+            string newThemeName = ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.ColorThemeName);
+            if (newThemeName.Equals("System"))
+            {
+                if (GeneralUtilities.IsSystemInDarkMode())
+                {
+                    newThemeName = FormCustomization.Customizer.ThemeDark;
+                }
+                else
+                {
+                    newThemeName = FormCustomization.Customizer.ThemeLight;
+                }
+            }
+            Logger.log("adjustAfterColorThemeChange: newThemeName=" + newThemeName + ", current theme=" + CustomizationInterface.getColorThemeName());
+            if (CustomizationInterface.getColorThemeName().Equals("") && !newThemeName.Equals(FormCustomization.Customizer.ThemeLight) ||
+                !CustomizationInterface.getColorThemeName().Equals("") && !CustomizationInterface.getColorThemeName().Equals(newThemeName))
+            {
+                Logger.log("set theme and apply to main form");
+                CustomizationInterface.setColorThemeName(newThemeName);
+                CustomizationInterface.setThemeForComponent(this);
+            }
         }
 
         internal void adjustAfterScaleChange(int zoomFactorPercentGeneral, int zoomFactorPercentToolbar, int zoomFactorPercentThumbnail)

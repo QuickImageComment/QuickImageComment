@@ -57,6 +57,7 @@ namespace QuickImageComment
             //Program.StartupPerformance.measure("UserControlChangeableFields constructor start");
             InitializeComponent();
             FormCustomization.Interface customziationInterface = MainMaskInterface.getCustomizationInterface();
+            customziationInterface.setThemeForComponent(this);
             // needs to initiated as it is checked, even if this user control is not visible
             UsedXmpLangAltEntries = new ArrayList();
             ChangeableFieldInputControls = new SortedList<string, Control>();
@@ -547,21 +548,21 @@ namespace QuickImageComment
                         // writing is only possible when ExifTool is ready and tag is for ExifTool
                         {
                             aControl.Enabled = true;
-                            aControl.BackColor = System.Drawing.Color.White;
+                            aControl.BackColor = MainMaskInterface.getBackColorInputUnchanged();
                         }
                         else
                         {
                             aControl.Enabled = false;
-                            aControl.BackColor = this.BackColor;
+                            aControl.BackColor = MainMaskInterface.getBackColorNotEnabled();
                         }
                     }
                     else
                     {
                         aControl.Enabled = enable;
                         if (enable)
-                            aControl.BackColor = System.Drawing.Color.White;
+                            aControl.BackColor = MainMaskInterface.getBackColorInputUnchanged();
                         else
-                            aControl.BackColor = this.BackColor;
+                            aControl.BackColor = MainMaskInterface.getBackColorNotEnabled();
                     }
                 }
             }

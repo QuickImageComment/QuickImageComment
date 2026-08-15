@@ -115,6 +115,8 @@
             this.buttonSaveAs = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.buttonMap = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
+            this.comboBoxColorTheme = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -1079,9 +1081,9 @@
             this.panelVerticalCheckRight.BackColor = System.Drawing.SystemColors.Desktop;
             this.panelVerticalCheckRight.Controls.Add(this.checkBoxRightPanelVertical);
             this.panelVerticalCheckRight.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.panelVerticalCheckRight.Location = new System.Drawing.Point(229, 215);
+            this.panelVerticalCheckRight.Location = new System.Drawing.Point(256, 215);
             this.panelVerticalCheckRight.Name = "panelVerticalCheckRight";
-            this.panelVerticalCheckRight.Size = new System.Drawing.Size(559, 23);
+            this.panelVerticalCheckRight.Size = new System.Drawing.Size(628, 23);
             this.panelVerticalCheckRight.TabIndex = 14;
             // 
             // panelVerticalCheckLeft
@@ -1091,7 +1093,7 @@
             this.panelVerticalCheckLeft.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.panelVerticalCheckLeft.Location = new System.Drawing.Point(6, 215);
             this.panelVerticalCheckLeft.Name = "panelVerticalCheckLeft";
-            this.panelVerticalCheckLeft.Size = new System.Drawing.Size(217, 23);
+            this.panelVerticalCheckLeft.Size = new System.Drawing.Size(243, 23);
             this.panelVerticalCheckLeft.TabIndex = 15;
             // 
             // label1
@@ -1170,11 +1172,31 @@
             this.buttonMap.UseVisualStyleBackColor = true;
             this.buttonMap.Click += new System.EventHandler(this.buttonMap_Click);
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(6, 130);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(64, 13);
+            this.label7.TabIndex = 6;
+            this.label7.Text = "Farbmodus:";
+            // 
+            // comboBoxColorTheme
+            // 
+            this.comboBoxColorTheme.FormattingEnabled = true;
+            this.comboBoxColorTheme.Location = new System.Drawing.Point(6, 150);
+            this.comboBoxColorTheme.Name = "comboBoxColorTheme";
+            this.comboBoxColorTheme.Size = new System.Drawing.Size(141, 21);
+            this.comboBoxColorTheme.TabIndex = 6;
+            this.comboBoxColorTheme.SelectedIndexChanged += new System.EventHandler(this.comboBoxColorTheme_SelectedIndexChanged);
+            // 
             // FormView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(890, 573);
+            this.Controls.Add(this.comboBoxColorTheme);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.buttonMap);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.panelVerticalCheckLeft);
@@ -1249,6 +1271,7 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -1340,5 +1363,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.RadioButton radioButtonRating;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.ComboBox comboBoxColorTheme;
     }
 }

@@ -300,6 +300,18 @@ namespace QuickImageComment
             }
         }
 
+        public static System.Drawing.Color getBackColorNotEnabled()
+        {
+            if (theFormQuickImageComment != null)
+            {
+                return theFormQuickImageComment.backColorNotEnabled;
+            }
+            else
+            {
+                return System.Drawing.Color.White;
+            }
+        }
+
         public static void setControlsEnabledBasedOnDataChange()
         {
             // if main mask is not already closing

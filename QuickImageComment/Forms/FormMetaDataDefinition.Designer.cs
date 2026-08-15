@@ -96,9 +96,9 @@ namespace QuickImageComment
             this.tableLayoutPanelMetaDataGroups = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanelNote = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanelTagList = new System.Windows.Forms.TableLayoutPanel();
+            this.userControlTagList = new QuickImageComment.UserControlTagList();
             this.tableLayoutPanelDefinitionTop = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.userControlTagList = new QuickImageComment.UserControlTagList();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownVerticalDisplayOffset)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLinesForChange)).BeginInit();
             this.tableLayoutPanelBelowTagList.SuspendLayout();
@@ -190,7 +190,7 @@ namespace QuickImageComment
             this.textBoxName.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBoxName.Location = new System.Drawing.Point(148, 3);
             this.textBoxName.Name = "textBoxName";
-            this.textBoxName.Size = new System.Drawing.Size(139, 14);
+            this.textBoxName.Size = new System.Drawing.Size(313, 21);
             this.textBoxName.TabIndex = 24;
             this.textBoxName.TextChanged += new System.EventHandler(this.textBoxName_TextChanged);
             // 
@@ -200,7 +200,7 @@ namespace QuickImageComment
             this.textBoxPrefix.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBoxPrefix.Location = new System.Drawing.Point(148, 25);
             this.textBoxPrefix.Name = "textBoxPrefix";
-            this.textBoxPrefix.Size = new System.Drawing.Size(139, 14);
+            this.textBoxPrefix.Size = new System.Drawing.Size(313, 21);
             this.textBoxPrefix.TabIndex = 26;
             this.textBoxPrefix.TextChanged += new System.EventHandler(this.fieldDefinitionChanged);
             // 
@@ -220,7 +220,7 @@ namespace QuickImageComment
             this.textBoxMetaDatum1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBoxMetaDatum1.Location = new System.Drawing.Point(148, 47);
             this.textBoxMetaDatum1.Name = "textBoxMetaDatum1";
-            this.textBoxMetaDatum1.Size = new System.Drawing.Size(139, 14);
+            this.textBoxMetaDatum1.Size = new System.Drawing.Size(313, 21);
             this.textBoxMetaDatum1.TabIndex = 28;
             this.textBoxMetaDatum1.Tag = "";
             this.textBoxMetaDatum1.TextChanged += new System.EventHandler(this.textBoxMetaDatum1_TextChanged);
@@ -241,7 +241,7 @@ namespace QuickImageComment
             this.textBoxSeparator.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBoxSeparator.Location = new System.Drawing.Point(148, 91);
             this.textBoxSeparator.Name = "textBoxSeparator";
-            this.textBoxSeparator.Size = new System.Drawing.Size(139, 14);
+            this.textBoxSeparator.Size = new System.Drawing.Size(313, 21);
             this.textBoxSeparator.TabIndex = 32;
             this.textBoxSeparator.TextChanged += new System.EventHandler(this.fieldDefinitionChanged);
             // 
@@ -281,7 +281,7 @@ namespace QuickImageComment
             this.textBoxPostfix.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBoxPostfix.Location = new System.Drawing.Point(148, 157);
             this.textBoxPostfix.Name = "textBoxPostfix";
-            this.textBoxPostfix.Size = new System.Drawing.Size(139, 14);
+            this.textBoxPostfix.Size = new System.Drawing.Size(313, 21);
             this.textBoxPostfix.TabIndex = 38;
             this.textBoxPostfix.TextChanged += new System.EventHandler(this.fieldDefinitionChanged);
             // 
@@ -301,7 +301,7 @@ namespace QuickImageComment
             this.textBoxMetaDatum2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBoxMetaDatum2.Location = new System.Drawing.Point(148, 113);
             this.textBoxMetaDatum2.Name = "textBoxMetaDatum2";
-            this.textBoxMetaDatum2.Size = new System.Drawing.Size(139, 14);
+            this.textBoxMetaDatum2.Size = new System.Drawing.Size(313, 21);
             this.textBoxMetaDatum2.TabIndex = 34;
             this.textBoxMetaDatum2.TextChanged += new System.EventHandler(this.textBoxMetaDatum2_TextChanged);
             // 
@@ -414,7 +414,7 @@ namespace QuickImageComment
             // label13
             // 
             this.label13.Dock = System.Windows.Forms.DockStyle.Right;
-            this.label13.Location = new System.Drawing.Point(248, 0);
+            this.label13.Location = new System.Drawing.Point(253, 0);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(74, 28);
             this.label13.TabIndex = 11;
@@ -428,7 +428,7 @@ namespace QuickImageComment
             this.textBoxValueOriginal.Location = new System.Drawing.Point(98, 3);
             this.textBoxValueOriginal.Name = "textBoxValueOriginal";
             this.textBoxValueOriginal.ReadOnly = true;
-            this.textBoxValueOriginal.Size = new System.Drawing.Size(96, 9);
+            this.textBoxValueOriginal.Size = new System.Drawing.Size(144, 14);
             this.textBoxValueOriginal.TabIndex = 10;
             this.textBoxValueOriginal.Text = "ValueOriginal";
             // 
@@ -437,10 +437,10 @@ namespace QuickImageComment
             this.textBoxValueInterpreted.BackColor = System.Drawing.SystemColors.Control;
             this.textBoxValueInterpreted.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBoxValueInterpreted.Dock = System.Windows.Forms.DockStyle.Left;
-            this.textBoxValueInterpreted.Location = new System.Drawing.Point(328, 3);
+            this.textBoxValueInterpreted.Location = new System.Drawing.Point(333, 3);
             this.textBoxValueInterpreted.Name = "textBoxValueInterpreted";
             this.textBoxValueInterpreted.ReadOnly = true;
-            this.textBoxValueInterpreted.Size = new System.Drawing.Size(45, 9);
+            this.textBoxValueInterpreted.Size = new System.Drawing.Size(45, 14);
             this.textBoxValueInterpreted.TabIndex = 12;
             this.textBoxValueInterpreted.Text = "ValueInterpreted";
             // 
@@ -533,7 +533,7 @@ namespace QuickImageComment
             0,
             0});
             this.numericUpDownVerticalDisplayOffset.Name = "numericUpDownVerticalDisplayOffset";
-            this.numericUpDownVerticalDisplayOffset.Size = new System.Drawing.Size(40, 21);
+            this.numericUpDownVerticalDisplayOffset.Size = new System.Drawing.Size(60, 21);
             this.numericUpDownVerticalDisplayOffset.TabIndex = 39;
             this.numericUpDownVerticalDisplayOffset.Value = new decimal(new int[] {
             1,
@@ -557,7 +557,7 @@ namespace QuickImageComment
             0,
             0});
             this.numericUpDownLinesForChange.Name = "numericUpDownLinesForChange";
-            this.numericUpDownLinesForChange.Size = new System.Drawing.Size(40, 21);
+            this.numericUpDownLinesForChange.Size = new System.Drawing.Size(60, 21);
             this.numericUpDownLinesForChange.TabIndex = 40;
             this.numericUpDownLinesForChange.Value = new decimal(new int[] {
             1,
@@ -638,7 +638,7 @@ namespace QuickImageComment
             this.tableLayoutPanelBelowTagList.ColumnCount = 7;
             this.tableLayoutPanelBelowTagList.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 95F));
             this.tableLayoutPanelBelowTagList.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
-            this.tableLayoutPanelBelowTagList.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
+            this.tableLayoutPanelBelowTagList.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 85F));
             this.tableLayoutPanelBelowTagList.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanelBelowTagList.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
             this.tableLayoutPanelBelowTagList.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
@@ -692,6 +692,14 @@ namespace QuickImageComment
             this.tableLayoutPanelTagList.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanelTagList.Size = new System.Drawing.Size(836, 289);
             this.tableLayoutPanelTagList.TabIndex = 62;
+            // 
+            // userControlTagList
+            // 
+            this.userControlTagList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.userControlTagList.Location = new System.Drawing.Point(3, 3);
+            this.userControlTagList.Name = "userControlTagList";
+            this.userControlTagList.Size = new System.Drawing.Size(830, 283);
+            this.userControlTagList.TabIndex = 58;
             // 
             // tableLayoutPanelDefinitionTop
             // 
@@ -755,14 +763,6 @@ namespace QuickImageComment
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(593, 53);
             this.tableLayoutPanel1.TabIndex = 64;
-            // 
-            // userControlTagList
-            // 
-            this.userControlTagList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.userControlTagList.Location = new System.Drawing.Point(3, 3);
-            this.userControlTagList.Name = "userControlTagList";
-            this.userControlTagList.Size = new System.Drawing.Size(830, 283);
-            this.userControlTagList.TabIndex = 58;
             // 
             // FormMetaDataDefinition
             // 
