@@ -395,7 +395,7 @@ namespace QuickImageCommentControls
                             this.Rows[rowIndex].Cells[0].Value = "- " + Header;
                         }
                         this.Rows[rowIndex].DefaultCellStyle.Font = new System.Drawing.Font(this.Font.FontFamily, this.Font.Size, System.Drawing.FontStyle.Bold);
-                        this.Rows[rowIndex].DefaultCellStyle.BackColor = System.Drawing.SystemColors.Control;
+                        this.Rows[rowIndex].DefaultCellStyle.BackColor = MainMaskInterface.getBackColorNotEnabled();
                         lastHeader = Header;
                         rowIndex++;
                     }
@@ -445,6 +445,8 @@ namespace QuickImageCommentControls
                 this.Rows[rowIndex].Cells[4].Value = aMetaDataItem.getCount();
                 this.Rows[rowIndex].Cells[5].Value = aMetaDataItem.getKey();
                 this.Rows[rowIndex].Cells[0].ToolTipText = "";
+                this.Rows[rowIndex].DefaultCellStyle.BackColor = MainMaskInterface.getBackColorNotEnabled();
+                this.Rows[rowIndex].DefaultCellStyle.ForeColor = this.ForeColor;
 
                 if (isEditable && singleEdit)
                 {
@@ -636,6 +638,8 @@ namespace QuickImageCommentControls
                             Rows[Rows.Count - 1].Cells[1].ReadOnly = true;
                         }
                     }
+                    Rows[Rows.Count - 1].DefaultCellStyle.BackColor = MainMaskInterface.getBackColorNotEnabled();
+                    Rows[Rows.Count - 1].DefaultCellStyle.ForeColor = this.ForeColor;
                 }
                 else
                 {
@@ -654,6 +658,8 @@ namespace QuickImageCommentControls
                         row[5] = anMetaDataDefinitionItem.KeyPrim;
                         row[6] = anMetaDataDefinitionItem.KeySec;
                         Rows.Add(row);
+                        Rows[Rows.Count - 1].DefaultCellStyle.BackColor = MainMaskInterface.getBackColorNotEnabled();
+                        Rows[Rows.Count - 1].DefaultCellStyle.ForeColor = this.ForeColor;
 
                         bool displayedValueInEditableFormat = false;
                         // no adjustment for exiftool needed

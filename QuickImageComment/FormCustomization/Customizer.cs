@@ -14,6 +14,9 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
+//#define WRITEDEBUGTHEMETRACE
+//#define WRITEDEBUGTHEMEERROR
+
 using QuickImageComment;
 using System;
 using System.Collections;
@@ -663,7 +666,9 @@ namespace FormCustomization
         {
             int level = givenLevel + 1;
             string ParentControlFullName = getFullNameOfComponent(ParentControl);
+#if WRITEDEBUGTHEMETRACE
             QuickImageComment.GeneralUtilities.writeDebugFileEntry(">>> " + level + " " + ParentControlFullName);
+#endif
             //if (ParentControl is Control control1)
             //{
             //    QuickImageComment.GeneralUtilities.writeDebugFileEntry(ParentControlFullName + "\t" + ParentControl.GetType().ToString() + "\t"
@@ -753,7 +758,7 @@ namespace FormCustomization
                     {
                         dataGridViewDefaultCellBackColor = dataGridView1.DefaultCellStyle.BackColor;
                         dataGridViewDefaultColumnHeadersBackColor = dataGridView1.ColumnHeadersDefaultCellStyle.BackColor;
-                        Logger.log("Customizer: " + ParentControlFullName + " DataGridViewDefaultCellBackColor=" + dataGridViewDefaultCellBackColor.ToString() + " DataGridViewDefaultColumnHeadersBackColor=" + dataGridViewDefaultColumnHeadersBackColor.ToString());
+                        //Logger.log("Customizer: " + ParentControlFullName + " DataGridViewDefaultCellBackColor=" + dataGridViewDefaultCellBackColor.ToString() + " DataGridViewDefaultColumnHeadersBackColor=" + dataGridViewDefaultColumnHeadersBackColor.ToString());
                     }
                     QuickImageComment.GeneralUtilities.writeDebugFileEntry("* " + ParentControlFullName + " back=" + backcolor + " fore=" + forecolor);
                 }
@@ -787,23 +792,31 @@ namespace FormCustomization
                 if (ThemeColors.ContainsKey(colorkey))
                 {
                     newBackcolor = ThemeColors[colorkey];
+#if WRITEDEBUGTHEMETRACE
                     QuickImageComment.GeneralUtilities.writeDebugFileEntry("* " + ParentControlFullName + " Back " + colorkey + " changed to " + newBackcolor);
+#endif
                 }
                 else
                 {
                     newBackcolor = Color.Empty;
+#if WRITEDEBUGTHEMEERROR
                     QuickImageComment.GeneralUtilities.writeDebugFileEntry("* " + ParentControlFullName + " Back not found " + colorkey);
+#endif
                 }
                 colorkey = ThemeName + " " + forecolor.ToString();
                 if (ThemeColors.ContainsKey(colorkey))
                 {
                     newForcolor = ThemeColors[colorkey];
+#if WRITEDEBUGTHEMETRACE
                     QuickImageComment.GeneralUtilities.writeDebugFileEntry("* " + ParentControlFullName + " Fore " + colorkey + " changed to " + newForcolor);
+#endif
                 }
                 else
                 {
                     newForcolor = Color.Empty;
+#if WRITEDEBUGTHEMEERROR
                     QuickImageComment.GeneralUtilities.writeDebugFileEntry("* " + ParentControlFullName + " Fore not found " + colorkey);
+#endif
                 }
                 if (ParentControl is DataGridView dataGridView2)
                 {
@@ -811,25 +824,33 @@ namespace FormCustomization
                     if (ThemeColors.ContainsKey(colorkey))
                     {
                         newDataGridViewDefaultCellBackColor = ThemeColors[colorkey];
-                        Logger.log("Customizer: " + ParentControlFullName + " colorKey=" + colorkey + " newDataGridViewDefaultCellBackColor=" + newDataGridViewDefaultCellBackColor.ToString());
+                        //Logger.log("Customizer: " + ParentControlFullName + " colorKey=" + colorkey + " newDataGridViewDefaultCellBackColor=" + newDataGridViewDefaultCellBackColor.ToString());
+#if WRITEDEBUGTHEMETRACE
                         QuickImageComment.GeneralUtilities.writeDebugFileEntry("* " + ParentControlFullName + " DataGridViewDefaultCellBack " + colorkey + " changed to " + newDataGridViewDefaultCellBackColor);
+#endif
                     }
                     else
                     {
                         newDataGridViewDefaultCellBackColor = Color.Empty;
-                        Logger.log("Customizer: " + ParentControlFullName + " colorKey=" + colorkey + " not found");
+                        //Logger.log("Customizer: " + ParentControlFullName + " colorKey=" + colorkey + " not found");
+#if WRITEDEBUGTHEMEERROR
                         QuickImageComment.GeneralUtilities.writeDebugFileEntry("* " + ParentControlFullName + " DataGridViewDefaultCellBack not found " + colorkey);
+#endif
                     }
                     colorkey = ThemeName + " " + dataGridViewDefaultColumnHeadersBackColor.ToString();
                     if (ThemeColors.ContainsKey(colorkey))
                     {
                         newDataGridViewDefaultColumnHeadersBackColor = ThemeColors[colorkey];
+#if WRITEDEBUGTHEMETRACE
                         QuickImageComment.GeneralUtilities.writeDebugFileEntry("* " + ParentControlFullName + " DataGridViewDefaultColumnHeadersBack " + colorkey + " changed to " + newDataGridViewDefaultColumnHeadersBackColor);
+#endif
                     }
                     else
                     {
                         newDataGridViewDefaultColumnHeadersBackColor = Color.Empty;
+#if WRITEDEBUGTHEMEERROR
                         QuickImageComment.GeneralUtilities.writeDebugFileEntry(ParentControlFullName + " DataGridViewDefaultColumnHeadersBack not found " + colorkey);
+#endif
                     }
                 }
             }
@@ -838,10 +859,10 @@ namespace FormCustomization
             {
                 if (!newDataGridViewDefaultCellBackColor.IsEmpty)
                 {
-                    Logger.log("Customizer: " + ParentControlFullName + " DataGridViewDefaultCellBackColor is (old) " + ((DataGridView)ParentControl).DefaultCellStyle.BackColor.ToString());
-                    Logger.log("Customizer: " + ParentControlFullName + " set DataGridViewDefaultCellBackColor=" + newDataGridViewDefaultCellBackColor.ToString());
+                    //Logger.log("Customizer: " + ParentControlFullName + " DataGridViewDefaultCellBackColor is (old) " + ((DataGridView)ParentControl).DefaultCellStyle.BackColor.ToString());
+                    //Logger.log("Customizer: " + ParentControlFullName + " set DataGridViewDefaultCellBackColor=" + newDataGridViewDefaultCellBackColor.ToString());
                     setProperty(ParentControl, enumProperty.DataGridViewDefaultCellBackColor, newDataGridViewDefaultCellBackColor);
-                    Logger.log("Customizer: " + ParentControlFullName + " DataGridViewDefaultCellBackColor is now " + ((DataGridView)ParentControl).DefaultCellStyle.BackColor.ToString());
+                    //Logger.log("Customizer: " + ParentControlFullName + " DataGridViewDefaultCellBackColor is now " + ((DataGridView)ParentControl).DefaultCellStyle.BackColor.ToString());
                 }
                 //if (!newDataGridViewDefaultColumnHeadersBackColor.IsEmpty)
                 //{
@@ -863,7 +884,9 @@ namespace FormCustomization
             //    var mi = typeof(Control).GetMethod("RecreateHandle", BindingFlags.Instance | BindingFlags.NonPublic);
             //    mi.Invoke(ParentControl, null);
             //}
+#if WRITEDEBUGTHEMETRACE
             QuickImageComment.GeneralUtilities.writeDebugFileEntry("<<< " + ParentControlFullName);
+#endif
         }
 
         //*****************************************************************
@@ -1956,7 +1979,9 @@ namespace FormCustomization
                             // cell styles may be set explicitely to override this
                             ((DataGridView)givenControl).DefaultCellStyle.BackColor = (Color)PropertyValue;
                             //!!:((DataGridView)givenControl).ColumnHeadersDefaultCellStyle.BackColor = (Color)PropertyValue;
+#if WRITEDEBUGTHEMETRACE
                             GeneralUtilities.writeDebugFileEntry("Customizer.setProperty: DataGridView background color set to " + ((Color)PropertyValue).ToString());
+#endif
                         }
                         else
                         {
@@ -1964,13 +1989,15 @@ namespace FormCustomization
                         }
                         break;
                     case enumProperty.DataGridViewDefaultCellBackColor:
-                        Logger.log("##Customizer.setProperty: " + " DataGridViewDefaultCellBackColor is " + ((DataGridView)givenControl).DefaultCellStyle.BackColor.ToString());
+                        //Logger.log("##Customizer.setProperty: " + " DataGridViewDefaultCellBackColor is " + ((DataGridView)givenControl).DefaultCellStyle.BackColor.ToString());
                         //DataGridViewCellStyle dataGridViewCellStyle = new DataGridViewCellStyle(((DataGridView)givenControl).DefaultCellStyle);
                         //dataGridViewCellStyle.BackColor = (Color)PropertyValue;
                         //((DataGridView)givenControl).DefaultCellStyle = dataGridViewCellStyle;
                         ((DataGridView)givenControl).DefaultCellStyle.BackColor = (Color)PropertyValue;
-                        Logger.log("##Customizer.setProperty: " + " DataGridViewDefaultCellBackColor set to " + ((Color)PropertyValue).ToString());
+                        //Logger.log("##Customizer.setProperty: " + " DataGridViewDefaultCellBackColor set to " + ((Color)PropertyValue).ToString());
+#if WRITEDEBUGTHEMETRACE
                         GeneralUtilities.writeDebugFileEntry("Customizer.setProperty: " + " DataGridViewDefaultCellBackColor set to " + ((Color)PropertyValue).ToString());
+#endif
                         break;
                     //case enumProperty.DataGridViewDefaultColumnHeadersBackColor:
                     //    DataGridViewCellStyle dataGridViewCellStyleMetaData = new DataGridViewCellStyle
