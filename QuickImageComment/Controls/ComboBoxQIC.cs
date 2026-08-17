@@ -14,17 +14,11 @@ namespace QuickImageCommentControls
         {
             toolTip = new ToolTipQIC();
             toolTip.ShowAlways = true;
-
-            // use MouseMove as MouseHover does not work at all
-            // and MouseEnter is not working always
-            this.MouseMove += ComboBoxQIC_MouseMove;
-            this.MouseLeave += ComboBoxQIC_MouseLeave;
-            this.SelectedIndexChanged += ComboBoxQIC_SelectedIndexChanged;
-            this.DropDown += ComboBoxQIC_DropDown;
+            DrawMode = DrawMode.OwnerDrawFixed;
         }
 
         // event is used to adjust width of drop down to longest item
-        private void ComboBoxQIC_DropDown(object sender, EventArgs e)
+        protected override void OnDropDown(EventArgs e)
         {
             int newWidth = this.Width;
             using (Graphics g = this.CreateGraphics())
@@ -39,10 +33,13 @@ namespace QuickImageCommentControls
                 }
             }
             this.DropDownWidth = newWidth;
+            base.OnDropDown(e);
         }
 
         // event is used to detect when mouse moves above control and show tooltip
-        private void ComboBoxQIC_MouseMove(object sender, MouseEventArgs e)
+        // use MouseMove as MouseHover does not work at all
+        // and MouseEnter is not working always
+        protected override void OnMouseMove(MouseEventArgs e)
         {
             if (!this.Text.Equals(toolTipTextShown))
             {
@@ -56,20 +53,37 @@ namespace QuickImageCommentControls
                     }
                 }
             }
+            // Call MyBase.OnMouseMove to activate the delegate.
+            base.OnMouseMove(e);
         }
 
         // event is used to hide tooltip
-        private void ComboBoxQIC_MouseLeave(object sender, EventArgs e)
+        protected override void OnMouseLeave(EventArgs e)
         {
             toolTip.Hide(this);
             toolTipTextShown = "";
+            base.OnMouseLeave(e);
         }
 
         // event is used to hide tooltip
-        private void ComboBoxQIC_SelectedIndexChanged(object sender, EventArgs e)
+        protected override void OnSelectedIndexChanged(EventArgs e)
         {
             toolTip.Hide(this);
             toolTipTextShown = "";
+            base.OnSelectedIndexChanged(e);
+        }
+
+        // used for switching properly to dark theme
+        protected override void OnDrawItem(DrawItemEventArgs e)
+        {
+            e.DrawBackground();
+
+            e.Graphics.FillRectangle(new SolidBrush(this.BackColor), e.Bounds);
+
+            if (e.Index >= 0)
+                e.Graphics.DrawString(Items[e.Index].ToString(), Font, new SolidBrush(this.ForeColor), e.Bounds);
+
+            e.DrawFocusRectangle();
         }
     }
 }
