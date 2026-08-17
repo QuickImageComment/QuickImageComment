@@ -72,7 +72,7 @@ namespace QuickImageComment
         private System.Windows.Forms.CheckBox checkBoxFillUpRight = null;
         private System.Windows.Forms.RichTextBox richTextBoxRenameFormat = null;
         private System.Windows.Forms.RichTextBox richTextBoxFillUpChar = null;
-        private System.Windows.Forms.ComboBox comboBoxRenameFormat = null;
+        private QuickImageCommentControls.ComboBoxQIC comboBoxRenameFormat = null;
         private System.Windows.Forms.NumericUpDown numericUpDownSubstringStart = null;
         private System.Windows.Forms.NumericUpDown numericUpDownSubstringLength = null;
         private System.Windows.Forms.NumericUpDown numericUpDownFillUpTo = null;
@@ -136,7 +136,7 @@ namespace QuickImageComment
                 }
                 else if (aControl.Name.StartsWith("dynamicComboBoxRenameFormat_"))
                 {
-                    System.Windows.Forms.ComboBox aComboBox = (System.Windows.Forms.ComboBox)aControl;
+                    QuickImageCommentControls.ComboBoxQIC aComboBox = (QuickImageCommentControls.ComboBoxQIC)aControl;
                     aComboBox.SelectedIndexChanged += new System.EventHandler(this.renameControlEventHandlerWithActivateCheckBox);
                     for (int ii = 0; ii < FieldList.Count; ii++)
                     {
@@ -1033,7 +1033,7 @@ namespace QuickImageComment
 
             ControlName = "dynamicComboBoxRenameFormat_" + ii.ToString();
             theControls = this.Controls.Find(ControlName, false);
-            comboBoxRenameFormat = (System.Windows.Forms.ComboBox)theControls[0];
+            comboBoxRenameFormat = (QuickImageCommentControls.ComboBoxQIC)theControls[0];
 
             ControlName = "numericUpDownSubstringStart_" + ii.ToString();
             theControls = this.Controls.Find(ControlName, false);

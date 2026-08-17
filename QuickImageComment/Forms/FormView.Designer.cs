@@ -42,7 +42,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.panelCentralInputArea = new System.Windows.Forms.Panel();
             this.labelCentralInputArea = new System.Windows.Forms.Label();
-            this.dynamicComboBoxCentralInputArea = new System.Windows.Forms.ComboBox();
+            this.dynamicComboBoxCentralInputArea = new QuickImageCommentControls.ComboBoxQIC();
             this.splitContainer122 = new System.Windows.Forms.SplitContainer();
             this.panelLayout = new System.Windows.Forms.Panel();
             this.buttonMinimum = new System.Windows.Forms.Button();
@@ -109,14 +109,14 @@
             this.panelVerticalCheckRight = new System.Windows.Forms.Panel();
             this.panelVerticalCheckLeft = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
-            this.dynamicComboBoxConfigurationName = new System.Windows.Forms.ComboBox();
+            this.dynamicComboBoxConfigurationName = new QuickImageCommentControls.ComboBoxQIC();
             this.buttonSave = new System.Windows.Forms.Button();
             this.buttonDelete = new System.Windows.Forms.Button();
             this.buttonSaveAs = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.buttonMap = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
-            this.comboBoxColorTheme = new System.Windows.Forms.ComboBox();
+            this.comboBoxColorTheme = new QuickImageCommentControls.ComboBoxQIC();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -1340,7 +1340,7 @@
         private System.Windows.Forms.RadioButton radioButtonToolStripHide;
         private System.Windows.Forms.RadioButton radioButtonToolStripToolsInMenu;
         private System.Windows.Forms.RadioButton radioButtonToolStripShow;
-        private System.Windows.Forms.ComboBox dynamicComboBoxCentralInputArea;
+        private QuickImageCommentControls.ComboBoxQIC dynamicComboBoxCentralInputArea;
         private System.Windows.Forms.Button buttonReadOptimum;
         private System.Windows.Forms.Button buttonImageDetails;
         private System.Windows.Forms.Label label11;
@@ -1355,7 +1355,7 @@
         private System.Windows.Forms.Panel panelVerticalCheckRight;
         private System.Windows.Forms.Panel panelVerticalCheckLeft;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox dynamicComboBoxConfigurationName;
+        private QuickImageCommentControls.ComboBoxQIC dynamicComboBoxConfigurationName;
         private System.Windows.Forms.Button buttonSave;
         private System.Windows.Forms.Button buttonDelete;
         private System.Windows.Forms.Button buttonSaveAs;
@@ -1370,6 +1370,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.RadioButton radioButtonRating;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.ComboBox comboBoxColorTheme;
+        private QuickImageCommentControls.ComboBoxQIC comboBoxColorTheme;
     }
 }

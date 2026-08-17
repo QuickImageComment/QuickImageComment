@@ -33,7 +33,7 @@
             this.label10 = new System.Windows.Forms.Label();
             this.fixedButtonSearchNext = new System.Windows.Forms.Button();
             this.fixedButtonSearchPrevious = new System.Windows.Forms.Button();
-            this.dynamicComboBoxSearchTag = new System.Windows.Forms.ComboBox();
+            this.dynamicComboBoxSearchTag = new QuickImageCommentControls.ComboBoxQIC();
             this.label1 = new System.Windows.Forms.Label();
             this.listViewTags = new System.Windows.Forms.ListView();
             this.columnHeaderTag = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -218,7 +218,7 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Button fixedButtonSearchNext;
         private System.Windows.Forms.Button fixedButtonSearchPrevious;
-        private System.Windows.Forms.ComboBox dynamicComboBoxSearchTag;
+        private QuickImageCommentControls.ComboBoxQIC dynamicComboBoxSearchTag;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ColumnHeader columnHeaderTag;
         private System.Windows.Forms.ColumnHeader columnHeaderType;

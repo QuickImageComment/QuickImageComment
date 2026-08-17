@@ -15,6 +15,7 @@
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 using Brain2CPU.ExifTool;
+using QuickImageCommentControls;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -100,10 +101,10 @@ namespace QuickImageComment
             internal string columnNameForQuery;
             internal bool visible; // visible in FormFind - list of columns
             internal MetaDataDefinitionItem metaDataDefinitionItem;
-            internal ComboBox comboBoxOperator1;
-            internal ComboBox comboBoxOperator2;
-            internal ComboBox comboBoxValue1;
-            internal ComboBox comboBoxValue2;
+            internal ComboBoxQIC comboBoxOperator1;
+            internal ComboBoxQIC comboBoxOperator2;
+            internal ComboBoxQIC comboBoxValue1;
+            internal ComboBoxQIC comboBoxValue2;
             internal DateTimePickerQIC dateTimePicker1;
             internal DateTimePickerQIC dateTimePicker2;
 
@@ -352,11 +353,11 @@ namespace QuickImageComment
 
                 if (TagUtilities.isDateProperty(metaDataDefinitionItem.KeyPrim, metaDataDefinitionItem.TypePrim))
                 {
-                    ComboBox comboBoxOperator1 = addComboBoxOperator(metaDataDefinitionItem.KeyPrim + "_1");
-                    ComboBox comboBoxValue1 = addComboBoxValue(metaDataDefinitionItem.KeyPrim + "_1");
+                    ComboBoxQIC comboBoxOperator1 = addComboBoxOperator(metaDataDefinitionItem.KeyPrim + "_1");
+                    ComboBoxQIC comboBoxValue1 = addComboBoxValue(metaDataDefinitionItem.KeyPrim + "_1");
                     DateTimePickerQIC dateTimePicker1 = addDateTimePicker(metaDataDefinitionItem.KeyPrim + "_1");
-                    ComboBox comboBoxOperator2 = addComboBoxOperator(metaDataDefinitionItem.KeyPrim + "_2");
-                    ComboBox comboBoxValue2 = addComboBoxValue(metaDataDefinitionItem.KeyPrim + "_2");
+                    ComboBoxQIC comboBoxOperator2 = addComboBoxOperator(metaDataDefinitionItem.KeyPrim + "_2");
+                    ComboBoxQIC comboBoxValue2 = addComboBoxValue(metaDataDefinitionItem.KeyPrim + "_2");
                     DateTimePickerQIC dateTimePicker2 = addDateTimePicker(metaDataDefinitionItem.KeyPrim + "_2");
 
                     filterDefinition.comboBoxOperator1 = comboBoxOperator1;
@@ -396,10 +397,10 @@ namespace QuickImageComment
                 }
                 else
                 {
-                    ComboBox comboBoxOperator1 = addComboBoxOperator(metaDataDefinitionItem.KeyPrim + "_1");
-                    ComboBox comboBoxValue1 = addComboBoxValue(metaDataDefinitionItem.KeyPrim + "_1");
-                    ComboBox comboBoxOperator2 = addComboBoxOperator(metaDataDefinitionItem.KeyPrim + "_2");
-                    ComboBox comboBoxValue2 = addComboBoxValue(metaDataDefinitionItem.KeyPrim + "_2");
+                    ComboBoxQIC comboBoxOperator1 = addComboBoxOperator(metaDataDefinitionItem.KeyPrim + "_1");
+                    ComboBoxQIC comboBoxValue1 = addComboBoxValue(metaDataDefinitionItem.KeyPrim + "_1");
+                    ComboBoxQIC comboBoxOperator2 = addComboBoxOperator(metaDataDefinitionItem.KeyPrim + "_2");
+                    ComboBoxQIC comboBoxValue2 = addComboBoxValue(metaDataDefinitionItem.KeyPrim + "_2");
 
                     filterDefinition.comboBoxOperator1 = comboBoxOperator1;
                     filterDefinition.comboBoxValue1 = comboBoxValue1;
@@ -528,9 +529,9 @@ namespace QuickImageComment
         }
 
         // add comboBox for operator
-        private ComboBox addComboBoxOperator(string nameSuffix)
+        private ComboBoxQIC addComboBoxOperator(string nameSuffix)
         {
-            ComboBox comboBoxOperator = new ComboBox();
+            ComboBoxQIC comboBoxOperator = new ComboBoxQIC();
             panelFilterInner.Controls.Add(comboBoxOperator);
             comboBoxOperator.Name = comboBoxOperatorNamePrefix + nameSuffix;
             comboBoxOperator.Visible = true;
@@ -547,9 +548,9 @@ namespace QuickImageComment
         }
 
         // add comboBox for value
-        private ComboBox addComboBoxValue(string nameSuffix)
+        private ComboBoxQIC addComboBoxValue(string nameSuffix)
         {
-            ComboBox comboBoxValue = new ComboBox();
+            ComboBoxQIC comboBoxValue = new ComboBoxQIC();
             panelFilterInner.Controls.Add(comboBoxValue);
             comboBoxValue.Name = comboBoxValueNamePrefix + nameSuffix;
             comboBoxValue.Visible = true;
@@ -643,7 +644,7 @@ namespace QuickImageComment
             filterDefinitionsComplete = true;
         }
 
-        private void fillItemsFilterFieldLastUsed(ComboBox comboBoxValue)
+        private void fillItemsFilterFieldLastUsed(ComboBoxQIC comboBoxValue)
         {
             string key = comboBoxValue.Name.Substring(comboBoxValueNamePrefix.Length);
 
@@ -988,7 +989,7 @@ namespace QuickImageComment
             catch (ExceptionFilterError) { }
         }
 
-        private void addToQuery(ComboBox comboBoxOperator, ComboBox comboBoxValue, string columnNameForQuery, ref string query)
+        private void addToQuery(ComboBoxQIC comboBoxOperator, ComboBoxQIC comboBoxValue, string columnNameForQuery, ref string query)
         {
             if (comboBoxOperator.Text.Equals(LangCfg.getText(LangCfg.Others.selectOpEmpty)))
             {
@@ -1497,7 +1498,7 @@ namespace QuickImageComment
 
         private void dynamicComboBoxOperator1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ComboBox comboBox = (ComboBox)sender;
+            ComboBoxQIC comboBox = (ComboBoxQIC)sender;
             FilterDefinition fd = (FilterDefinition)comboBox.Tag;
             if (comboBox.Text == "" ||
                 comboBox.Text.Equals(LangCfg.getText(LangCfg.Others.selectOpEmpty)) ||
@@ -1530,7 +1531,7 @@ namespace QuickImageComment
 
         private void dynamicComboBoxOperator2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ComboBox comboBox = (ComboBox)sender;
+            ComboBoxQIC comboBox = (ComboBoxQIC)sender;
             FilterDefinition fd = (FilterDefinition)comboBox.Tag;
             if (comboBox.Text == "")
             {
@@ -1791,7 +1792,7 @@ namespace QuickImageComment
         }
 
         // add an entry to list of filter entries and sort list
-        private void addAndSortFindFilterEntries(ComboBox comboBoxValue)
+        private void addAndSortFindFilterEntries(ComboBoxQIC comboBoxValue)
         {
             if (comboBoxValue.DropDownStyle != ComboBoxStyle.DropDownList)
             {
@@ -1906,7 +1907,7 @@ namespace QuickImageComment
         }
 
         // get value for select query with checking type
-        private string getValueForSelectWithCheck(ComboBox comboBoxValue, DateModifierForSelect dateModifierForSelect)
+        private string getValueForSelectWithCheck(ComboBoxQIC comboBoxValue, DateModifierForSelect dateModifierForSelect)
         {
             MetaDataDefinitionItem aMetaDataDefinitionItem = ((FilterDefinition)comboBoxValue.Tag).metaDataDefinitionItem;
             string stringValue = comboBoxValue.Text.Trim();

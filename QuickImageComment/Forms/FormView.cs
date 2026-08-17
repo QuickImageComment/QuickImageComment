@@ -30,7 +30,7 @@ namespace QuickImageComment
         private readonly SortedList PanelContentsEnums;
         private readonly SortedList DefaultPanelContents;
         private readonly SortedList PanelControls;
-        private readonly SortedList<string, ComboBox> ConfigControlsComboBoxes;
+        private readonly SortedList<string, ComboBoxQIC> ConfigControlsComboBoxes;
         private readonly SortedList<string, CheckBox> ConfigControlsCheckBoxes;
         readonly DataGridView DataGridViewExif;
         readonly DataGridView DataGridViewIptc;
@@ -107,7 +107,7 @@ namespace QuickImageComment
             CustomizationInterface = MainMaskInterface.getCustomizationInterface();
             PanelContents = new SortedList();
             PanelContentsEnums = new SortedList();
-            ConfigControlsComboBoxes = new SortedList<string, ComboBox>();
+            ConfigControlsComboBoxes = new SortedList<string, ComboBoxQIC>();
             ConfigControlsCheckBoxes = new SortedList<string, CheckBox>();
             DefaultPanelContents = givenDefaultPanelContents;
             PanelControls = givenPanelControls;
@@ -456,7 +456,7 @@ namespace QuickImageComment
 
             if (aPanel.Controls.Count == 0)
             {
-                ComboBox aComboBox = new ComboBox();
+                ComboBoxQIC aComboBox = new ComboBoxQIC();
                 aPanel.Controls.Add(aComboBox);
                 aComboBox.FormattingEnabled = true;
                 aComboBox.Left = 0;
@@ -968,7 +968,7 @@ namespace QuickImageComment
                 // copy old content to comboBox which still has new content - except new content is empty
                 if (!ConfigControlsComboBoxes[PanelKey].Text.Equals(""))
                 {
-                    foreach (ComboBox aComboBox in ConfigControlsComboBoxes.Values)
+                    foreach (ComboBoxQIC aComboBox in ConfigControlsComboBoxes.Values)
                     {
                         if (!aComboBox.Equals(sender) && aComboBox.Text.Equals(((ComboBox)sender).Text))
                         {
@@ -1024,7 +1024,7 @@ namespace QuickImageComment
             if (!dynamicComboBoxCentralInputArea.Text.Equals(LangCfg.getText(LangCfg.PanelContent.Comment)) &&
                 !dynamicComboBoxCentralInputArea.Text.Equals(LangCfg.getText(LangCfg.PanelContent.ArtistComment)))
             {
-                foreach (ComboBox aComboBox in ConfigControlsComboBoxes.Values)
+                foreach (ComboBoxQIC aComboBox in ConfigControlsComboBoxes.Values)
                 {
                     Panel aPanel = (Panel)aComboBox.Parent;
                     string PanelKey = GeneralUtilities.getNameOfPanelInSplitContainer(aPanel);
@@ -1106,10 +1106,10 @@ namespace QuickImageComment
         {
             foreach (Control aControl in aPanel.Controls)
             {
-                if (aControl.GetType().Equals(typeof(ComboBox)))
+                if (aControl.GetType().Equals(typeof(ComboBoxQIC)))
                 {
                     aControl.Width = aPanel.Width;
-                    ((ComboBox)aControl).Select(0, 0);
+                    ((ComboBoxQIC)aControl).Select(0, 0);
                 }
             }
         }
@@ -1173,7 +1173,7 @@ namespace QuickImageComment
 
         private void dynamicComboBoxConfigurationName_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string ConfigurationName = ((ComboBox)sender).SelectedItem.ToString();
+            string ConfigurationName = ((ComboBoxQIC)sender).SelectedItem.ToString();
             if (allowDynamicComboBoxConfigurationName_SelectedIndexChanged)
             {
                 if (!ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.ViewConfiguration).ToString().Equals(""))

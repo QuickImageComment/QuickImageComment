@@ -15,6 +15,7 @@
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 using Brain2CPU.ExifTool;
+using QuickImageCommentControls;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -40,11 +41,11 @@ namespace QuickImageComment
         private readonly Hashtable ChangeableFieldOldValues = new Hashtable();
         internal ArrayList UsedXmpLangAltEntries;
 
-        // used to simulate double click events for ComboBox 
+        // used to simulate double click events for ComboBoxQIC 
         private static DateTime lastPreviousClick;
 
-        private ComboBox inputControlOrientationExiv2 = null;
-        private ComboBox inputControlOrientationExifTool = null;
+        private ComboBoxQIC inputControlOrientationExiv2 = null;
+        private ComboBoxQIC inputControlOrientationExifTool = null;
 
         public class ExceptionInputcheckNotInValidValues : ApplicationException
         {
@@ -186,7 +187,7 @@ namespace QuickImageComment
                     {
                         // controls for default language
                         // entries for type LangAlt are not multiline, so use comboBox
-                        ComboBox aComboBox = new ComboBox();
+                        ComboBoxQIC aComboBox = new ComboBoxQIC();
                         Label aLabel = new Label();
                         aComboBox.Tag = new ChangeableFieldSpecification(mappedKey,
                             mappedFormat, mappedType, "x-default", -1,
@@ -200,7 +201,7 @@ namespace QuickImageComment
                         foreach (string language in UsedXmpLangAltEntries)
                         {
                             // controls for other languages
-                            aComboBox = new ComboBox();
+                            aComboBox = new ComboBoxQIC();
                             aLabel = new Label();
                             aComboBox.Tag = new ChangeableFieldSpecification(mappedKey,
                                 mappedFormat, mappedType, language, langIdx,
@@ -223,7 +224,7 @@ namespace QuickImageComment
                         }
                         else
                         {
-                            anInputControl = new ComboBox();
+                            anInputControl = new ComboBoxQIC();
                         }
 
                         Label aLabel = new Label();
@@ -236,11 +237,11 @@ namespace QuickImageComment
                         configureDynamicChangeableFieldControls(aMetaDataDefinitionItem, anInputControl, aLabel, true, ref lastTop, ref maxLabelWidth);
                         if (mappedKey.Equals("Exif.Image.Orientation"))
                         {
-                            inputControlOrientationExiv2 = (ComboBox)anInputControl;
+                            inputControlOrientationExiv2 = (ComboBoxQIC)anInputControl;
                         }
                         else if (mappedKey.Equals("IFD0:Orientation"))
                         {
-                            inputControlOrientationExifTool = (ComboBox)anInputControl;
+                            inputControlOrientationExifTool = (ComboBoxQIC)anInputControl;
                         }
                         kk++;
                     }
@@ -264,18 +265,18 @@ namespace QuickImageComment
                     {
                         // FlatStyle.Flat (or Popup) is needed to allow changing Backcolor in DropDownList
                         // set it also for DropDown to have all input controls without border
-                        ((ComboBox)aControl).FlatStyle = FlatStyle.Flat;
-                        ((ComboBox)aControl).DropDownStyle = ComboBoxStyle.DropDown;
-                        ((ComboBox)aControl).AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-                        ((ComboBox)aControl).AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+                        ((ComboBoxQIC)aControl).FlatStyle = FlatStyle.Standard;
+                        ((ComboBoxQIC)aControl).DropDownStyle = ComboBoxStyle.DropDown;
+                        ((ComboBoxQIC)aControl).AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+                        ((ComboBoxQIC)aControl).AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
 
                         ChangeableFieldSpecification theChangeableFieldSpecification = (ChangeableFieldSpecification)aControl.Tag;
                         InputCheckConfig theInputCheckConfig = ConfigDefinition.getInputCheckConfig(theChangeableFieldSpecification.KeyPrim);
                         if (theInputCheckConfig != null && !theInputCheckConfig.allowOtherValues)
                         {
-                            ((ComboBox)aControl).DropDownStyle = ComboBoxStyle.DropDownList;
-                            ((ComboBox)aControl).AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.None;
-                            ((ComboBox)aControl).AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.None;
+                            ((ComboBoxQIC)aControl).DropDownStyle = ComboBoxStyle.DropDownList;
+                            ((ComboBoxQIC)aControl).AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.None;
+                            ((ComboBoxQIC)aControl).AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.None;
                         }
                     }
                     else
@@ -414,10 +415,10 @@ namespace QuickImageComment
         {
             foreach (Control aControl in ChangeableFieldInputControls.Values)
             {
-                if (aControl.GetType().Equals(typeof(ComboBox)))
+                if (aControl.GetType().Equals(typeof(ComboBoxQIC)))
                 {
                     // check count, because clearing an empty list can take about 200 ms
-                    if (((ComboBox)aControl).Items.Count > 0) ((ComboBox)aControl).Items.Clear();
+                    if (((ComboBoxQIC)aControl).Items.Count > 0) ((ComboBoxQIC)aControl).Items.Clear();
                     ChangeableFieldSpecification theChangeableFieldSpecification = (ChangeableFieldSpecification)aControl.Tag;
                     InputCheckConfig theInputCheckConfig = ConfigDefinition.getInputCheckConfig(theChangeableFieldSpecification.KeyPrim);
                     if (theInputCheckConfig != null)
@@ -425,14 +426,14 @@ namespace QuickImageComment
                         // first add empty value to allow deleting
                         // cannot be contained in valid values, because 
                         // FormInputCheckConfiguration.fillArrayListFromTextBox takes only non-empty strings
-                        ((ComboBox)aControl).Items.Add("");
-                        ((ComboBox)aControl).Items.AddRange(theInputCheckConfig.ValidValues.ToArray());
+                        ((ComboBoxQIC)aControl).Items.Add("");
+                        ((ComboBoxQIC)aControl).Items.AddRange(theInputCheckConfig.ValidValues.ToArray());
                     }
                     else if (theChangeableFieldSpecification.TypePrim.Equals(TagUtilities.exifToolTypeBoolean))
                     {
-                        ((ComboBox)aControl).Items.Add("");
-                        ((ComboBox)aControl).Items.Add("False");
-                        ((ComboBox)aControl).Items.Add("True");
+                        ((ComboBoxQIC)aControl).Items.Add("");
+                        ((ComboBoxQIC)aControl).Items.Add("False");
+                        ((ComboBoxQIC)aControl).Items.Add("True");
                     }
                     else
                     {
@@ -440,7 +441,7 @@ namespace QuickImageComment
                         {
                             if (theChangeableFieldSpecification.Language.Equals(""))
                             {
-                                ((ComboBox)aControl).Items.AddRange(ConfigDefinition.getChangeableFieldEntriesLists()[theChangeableFieldSpecification.KeyPrim].ToArray());
+                                ((ComboBoxQIC)aControl).Items.AddRange(ConfigDefinition.getChangeableFieldEntriesLists()[theChangeableFieldSpecification.KeyPrim].ToArray());
                             }
                             else
                             {
@@ -452,7 +453,7 @@ namespace QuickImageComment
                                     {
                                         if (SplitString[ii].StartsWith(languageCheck))
                                         {
-                                            ((ComboBox)aControl).Items.Add(SplitString[ii].Substring(languageCheck.Length));
+                                            ((ComboBoxQIC)aControl).Items.Add(SplitString[ii].Substring(languageCheck.Length));
                                         }
                                     }
                                 }
@@ -607,7 +608,7 @@ namespace QuickImageComment
         }
 
         // double click event handler for input controls of type Textbox
-        // same does not work for ComboBox
+        // same does not work for ComboBoxQIC
         private void textBoxChangeableField_DoubleClick(object sender, EventArgs e)
         {
             if (Control.ModifierKeys == Keys.Shift)
@@ -621,7 +622,7 @@ namespace QuickImageComment
         }
 
         // click event handler for input controls of type comboBox
-        // used to simulate double click event, which does not work for ComboBox
+        // used to simulate double click event, which does not work for ComboBoxQIC
         private void comboBoxChangeableField_MouseClick(object sender, MouseEventArgs e)
         {
             if (DateTime.Now < lastPreviousClick.AddMilliseconds(SystemInformation.DoubleClickTime))
@@ -675,7 +676,7 @@ namespace QuickImageComment
             ChangeableFieldSpecification Spec = (ChangeableFieldSpecification)theDateTimePicker.Tag;
             Control theInputControl = null;
             // try to get associated combo box
-            string controlName = theDateTimePicker.Name.Replace("QuickImageComment.DateTimePickerQIC", "System.Windows.Forms.ComboBox");
+            string controlName = theDateTimePicker.Name.Replace("QuickImageComment.DateTimePickerQIC", "QuickImageCommentControls.ComboBox");
             if (ChangeableFieldInputControls.ContainsKey(controlName))
             {
                 theInputControl = ChangeableFieldInputControls[controlName];
@@ -712,7 +713,7 @@ namespace QuickImageComment
             ChangeableFieldSpecification Spec = (ChangeableFieldSpecification)theDateTimePicker.Tag;
             Control theInputControl = null;
             // try to get associated combo box
-            string controlName = theDateTimePicker.Name.Replace("QuickImageComment.DateTimePickerQIC", "System.Windows.Forms.ComboBox");
+            string controlName = theDateTimePicker.Name.Replace("QuickImageComment.DateTimePickerQIC", "QuickImageCommentControls.ComboBox");
             if (ChangeableFieldInputControls.ContainsKey(controlName))
             {
                 theInputControl = ChangeableFieldInputControls[controlName];
@@ -997,12 +998,12 @@ namespace QuickImageComment
         #region Others
         //*****************************************************************
         // handling of orientation by rotate button and input field
-        internal ComboBox getInputControlOrientationExiv2()
+        internal ComboBoxQIC getInputControlOrientationExiv2()
         {
             return inputControlOrientationExiv2;
         }
 
-        internal ComboBox getInputControlOrientationExifTool()
+        internal ComboBoxQIC getInputControlOrientationExifTool()
         {
             return inputControlOrientationExifTool;
         }

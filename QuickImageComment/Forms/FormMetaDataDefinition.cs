@@ -147,7 +147,7 @@ namespace QuickImageComment
         }
 
         // after changes: adapt also class MetaDataItem
-        private void addItemsComboBoxMetaDataFormatDecimal(System.Windows.Forms.ComboBox theComboBox, SortedList theMetaDataFormatIndex)
+        private void addItemsComboBoxMetaDataFormatDecimal(QuickImageCommentControls.ComboBoxQIC theComboBox, SortedList theMetaDataFormatIndex)
         {
             theComboBox.Items.Clear();
             theComboBox.Items.AddRange(new object[] {
@@ -180,7 +180,7 @@ namespace QuickImageComment
             theMetaDataFormatIndex.Add(MetaDataItem.Format.Decimal4, ii++);
             theMetaDataFormatIndex.Add(MetaDataItem.Format.Decimal5, ii++);
         }
-        private void addItemsComboBoxMetaDataFormatDate(System.Windows.Forms.ComboBox theComboBox, SortedList theMetaDataFormatIndex)
+        private void addItemsComboBoxMetaDataFormatDate(QuickImageCommentControls.ComboBoxQIC theComboBox, SortedList theMetaDataFormatIndex)
         {
             theComboBox.Items.Clear();
             theComboBox.Items.AddRange(new object[] {
@@ -217,7 +217,7 @@ namespace QuickImageComment
             theMetaDataFormatIndex.Add(MetaDataItem.Format.DateFormat4, ii++);
             theMetaDataFormatIndex.Add(MetaDataItem.Format.DateFormat5, ii++);
         }
-        private void addItemsComboBoxMetaDataFormatStandard(System.Windows.Forms.ComboBox theComboBox, SortedList theMetaDataFormatIndex)
+        private void addItemsComboBoxMetaDataFormatStandard(QuickImageCommentControls.ComboBoxQIC theComboBox, SortedList theMetaDataFormatIndex)
         {
             theComboBox.Items.Clear();
             theComboBox.Items.AddRange(new object[] {
@@ -239,7 +239,7 @@ namespace QuickImageComment
             theMetaDataFormatIndex.Add(MetaDataItem.Format.OriginalEqInterpreted, ii++);
         }
 
-        private void addItemsComboBoxMetaDataFormatInterpretedOriginal(System.Windows.Forms.ComboBox theComboBox, SortedList theMetaDataFormatIndex)
+        private void addItemsComboBoxMetaDataFormatInterpretedOriginal(QuickImageCommentControls.ComboBoxQIC theComboBox, SortedList theMetaDataFormatIndex)
         {
             theComboBox.Items.Clear();
             theComboBox.Items.AddRange(new object[] {

@@ -64,9 +64,9 @@ namespace QuickImageComment
             this.textBoxValueConverted = new System.Windows.Forms.TextBox();
             this.dynamicLabelMetaDate = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.dynamicComboBoxFormat = new System.Windows.Forms.ComboBox();
+            this.dynamicComboBoxFormat = new QuickImageCommentControls.ComboBoxQIC();
             this.checkBoxSorted = new System.Windows.Forms.CheckBox();
-            this.dynamicComboBoxLanguage = new System.Windows.Forms.ComboBox();
+            this.dynamicComboBoxLanguage = new QuickImageCommentControls.ComboBoxQIC();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.richTextBoxSeparator = new System.Windows.Forms.RichTextBox();
@@ -670,9 +670,9 @@ namespace QuickImageComment
         private System.Windows.Forms.TextBox textBoxValueConverted;
         private System.Windows.Forms.Label dynamicLabelMetaDate;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.ComboBox dynamicComboBoxFormat;
+        private QuickImageCommentControls.ComboBoxQIC dynamicComboBoxFormat;
         private System.Windows.Forms.CheckBox checkBoxSorted;
-        private System.Windows.Forms.ComboBox dynamicComboBoxLanguage;
+        private QuickImageCommentControls.ComboBoxQIC dynamicComboBoxLanguage;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.RichTextBox richTextBoxSeparator;

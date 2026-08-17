@@ -57,7 +57,7 @@
             this.checkBoxColorB = new System.Windows.Forms.CheckBox();
             this.checkBoxColorG = new System.Windows.Forms.CheckBox();
             this.checkBoxColorR = new System.Windows.Forms.CheckBox();
-            this.comboBoxGraphicDisplay = new System.Windows.Forms.ComboBox();
+            this.comboBoxGraphicDisplay = new QuickImageCommentControls.ComboBoxQIC();
             this.labelGrafics = new System.Windows.Forms.Label();
             this.labelScale = new System.Windows.Forms.Label();
             this.numericUpDownScaleLines = new System.Windows.Forms.NumericUpDown();
@@ -65,7 +65,7 @@
             this.numericUpDownGridSize = new System.Windows.Forms.NumericUpDown();
             this.labelGridColor = new System.Windows.Forms.Label();
             this.buttonGridColor = new System.Windows.Forms.Button();
-            this.comboBoxZoom = new System.Windows.Forms.ComboBox();
+            this.comboBoxZoom = new QuickImageCommentControls.ComboBoxQIC();
             this.labelFrameColor = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.numericUpDownX = new System.Windows.Forms.NumericUpDown();
@@ -783,7 +783,7 @@
         private System.Windows.Forms.Label labelFrameColor;
         private System.Windows.Forms.Panel panelControlInner;
         private System.Windows.Forms.Panel panelControlOuter;
-        private System.Windows.Forms.ComboBox comboBoxZoom;
+        private QuickImageCommentControls.ComboBoxQIC comboBoxZoom;
         private System.Windows.Forms.SplitContainer splitContainerImageDetails11;
         private System.Windows.Forms.SplitContainer splitContainerImageDetails111;
         public System.Windows.Forms.SplitContainer splitContainerImageDetails1;
@@ -793,7 +793,7 @@
         private System.Windows.Forms.NumericUpDown numericUpDownGridSize;
         private System.Windows.Forms.Label labelScale;
         private System.Windows.Forms.NumericUpDown numericUpDownScaleLines;
-        private System.Windows.Forms.ComboBox comboBoxGraphicDisplay;
+        private QuickImageCommentControls.ComboBoxQIC comboBoxGraphicDisplay;
         private System.Windows.Forms.Label labelGrafics;
         private System.Windows.Forms.CheckBox checkBoxColorB;
         private System.Windows.Forms.CheckBox checkBoxColorG;

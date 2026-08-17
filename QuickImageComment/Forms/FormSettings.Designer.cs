@@ -16,39 +16,39 @@
 
 namespace QuickImageComment
 {
-  partial class FormSettings
-  {
-    /// <summary>
-    /// Required designer variable.
-    /// </summary>
-    private System.ComponentModel.IContainer components = null;
-
-    /// <summary>
-    /// Clean up any resources being used.
-    /// </summary>
-    /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-    protected override void Dispose(bool disposing)
+    partial class FormSettings
     {
-      if (disposing && (components != null))
-      {
-        components.Dispose();
-      }
-      base.Dispose(disposing);
-    }
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
 
-    #region Windows Form Designer generated code
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
 
-    /// <summary>
-    /// Required method for Designer support - do not modify
-    /// the contents of this method with the code editor.
-    /// </summary>
+        #region Windows Form Designer generated code
 
-    ///**
-    // * Required method for Designer support - do not modify
-    // * the contents of this method with the code editor.
-    // */
-    private void InitializeComponent()
-    {
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+
+        ///**
+        // * Required method for Designer support - do not modify
+        // * the contents of this method with the code editor.
+        // */
+        private void InitializeComponent()
+        {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormSettings));
             this.buttonOK = new System.Windows.Forms.Button();
             this.checkBoxKeepImageBakFile = new System.Windows.Forms.CheckBox();
@@ -60,7 +60,7 @@ namespace QuickImageComment
             this.numericUpDownMaxLastComments = new System.Windows.Forms.NumericUpDown();
             this.labelMaxLastComments = new System.Windows.Forms.Label();
             this.labelReactionListBoxCommentDoubleClick = new System.Windows.Forms.Label();
-            this.comboBoxPredefinedCommentsMouseDoubleClickAction = new System.Windows.Forms.ComboBox();
+            this.comboBoxPredefinedCommentsMouseDoubleClickAction = new QuickImageCommentControls.ComboBoxQIC();
             this.labelUserCommentInsertCheckCharacters = new System.Windows.Forms.Label();
             this.labelUserCommentAppendCheckCharacters = new System.Windows.Forms.Label();
             this.richTextBoxUserCommentInsertCheckCharacters = new System.Windows.Forms.RichTextBox();
@@ -141,7 +141,7 @@ namespace QuickImageComment
             this.panel3 = new System.Windows.Forms.Panel();
             this.checkBoxShowRatingButtonReject = new System.Windows.Forms.CheckBox();
             this.checkBoxLogDiffMetaData = new System.Windows.Forms.CheckBox();
-            this.comboBoxCharsetUserComment = new System.Windows.Forms.ComboBox();
+            this.comboBoxCharsetUserComment = new QuickImageCommentControls.ComboBoxQIC();
             this.checkBoxIptcUTF8 = new System.Windows.Forms.CheckBox();
             this.checkBoxExifUTF8 = new System.Windows.Forms.CheckBox();
             this.labelCharSet = new System.Windows.Forms.Label();
@@ -273,7 +273,7 @@ namespace QuickImageComment
             this.comboBoxPredefinedCommentsMouseDoubleClickAction.FormattingEnabled = true;
             this.comboBoxPredefinedCommentsMouseDoubleClickAction.Location = new System.Drawing.Point(423, 213);
             this.comboBoxPredefinedCommentsMouseDoubleClickAction.Name = "comboBoxPredefinedCommentsMouseDoubleClickAction";
-            this.comboBoxPredefinedCommentsMouseDoubleClickAction.Size = new System.Drawing.Size(152, 21);
+            this.comboBoxPredefinedCommentsMouseDoubleClickAction.Size = new System.Drawing.Size(152, 22);
             this.comboBoxPredefinedCommentsMouseDoubleClickAction.TabIndex = 15;
             // 
             // labelUserCommentInsertCheckCharacters
@@ -1188,7 +1188,7 @@ namespace QuickImageComment
             "Unicode"});
             this.comboBoxCharsetUserComment.Location = new System.Drawing.Point(213, 4);
             this.comboBoxCharsetUserComment.Name = "comboBoxCharsetUserComment";
-            this.comboBoxCharsetUserComment.Size = new System.Drawing.Size(104, 21);
+            this.comboBoxCharsetUserComment.Size = new System.Drawing.Size(104, 22);
             this.comboBoxCharsetUserComment.TabIndex = 39;
             // 
             // checkBoxIptcUTF8
@@ -1313,65 +1313,65 @@ namespace QuickImageComment
             this.ResumeLayout(false);
             this.PerformLayout();
 
-    }
-    #endregion
+        }
+        #endregion
 
-    private System.Windows.Forms.CheckBox checkBoxUseDefaultArtist;
-    private System.Windows.Forms.TextBox textBoxDefaultArtist;
-    private System.Windows.Forms.CheckBox checkBoxNavigationTabSplitbars;
-    private System.Windows.Forms.CheckBox fixedCheckBoxSaveCommentImage1;
-    private System.Windows.Forms.CheckBox fixedCheckBoxSaveNameImage3;
-    private System.Windows.Forms.CheckBox fixedCheckBoxSaveCommentImage4;
-    private System.Windows.Forms.CheckBox fixedCheckBoxSaveCommentImage8;
-    private System.Windows.Forms.Label label1;
-    private System.Windows.Forms.Label label2;
-    private System.Windows.Forms.Label labelFullSizeImageCacheMaxSize;
-    private System.Windows.Forms.NumericUpDown numericUpDownFullSizeImageCacheMaxSize;
-    private System.Windows.Forms.Button buttonCustomizeForm;
-    private System.Windows.Forms.Button buttonCancel;
-    private System.Windows.Forms.Label labelAdditionalExtensions;
-    private System.Windows.Forms.TextBox TextBoxAdditionalExtensions;
-    private System.Windows.Forms.Button buttonHelp;
-    private System.Windows.Forms.Label fixedLabel4;
-    private System.Windows.Forms.Label fixedLabel5;
-    private System.Windows.Forms.Label label7;
-    private System.Windows.Forms.Label labelMaximumMemoryForCaching;
-    private System.Windows.Forms.NumericUpDown numericUpDownMaximumMemoryForCaching;
-    private System.Windows.Forms.Label fixedLabel8;
-    private System.Windows.Forms.Panel Panel1;
-    private System.Windows.Forms.NumericUpDown numericUpDownExtendedImageCacheMaxSize;
-    private System.Windows.Forms.Label labelExtendedImageCacheMaxSize;
-    private System.Windows.Forms.Label labelSettingsForCaching;
-    private System.Windows.Forms.Label labelMaxArtists;
-    private System.Windows.Forms.NumericUpDown numericUpDownMaxArtists;
-    private System.Windows.Forms.CheckBox fixedCheckBoxSaveCommentImage5;
-    private System.Windows.Forms.CheckBox fixedCheckBoxSaveCommentImage6;
-    private System.Windows.Forms.CheckBox fixedCheckBoxSaveCommentImage7;
-    private System.Windows.Forms.CheckBox fixedCheckBoxSaveNameImage4;
-    private System.Windows.Forms.Label label3;
-    private System.Windows.Forms.Label label9;
-    private System.Windows.Forms.Panel Panel2;
-    private System.Windows.Forms.CheckBox checkBoxLangAlt5;
-    private System.Windows.Forms.CheckBox checkBoxLangAlt3;
-    private System.Windows.Forms.CheckBox checkBoxLangAlt4;
-    private System.Windows.Forms.CheckBox checkBoxLangAlt2;
-    private System.Windows.Forms.CheckBox checkBoxLangAlt1;
-    private System.Windows.Forms.Label label1MaxChangeableFieldEntries;
-    private System.Windows.Forms.NumericUpDown numericUpDownMaxChangeableFieldEntries;
-    private System.Windows.Forms.RichTextBox richTextBoxUserCommentInsertCheckCharacters;
-    private System.Windows.Forms.Label label10;
-    private System.Windows.Forms.Label labelVideoProperties;
-    private System.Windows.Forms.TextBox TextBoxVideoExtensionsProperties;
-    private System.Windows.Forms.Label labelVideoFrame;
-    private System.Windows.Forms.TextBox TextBoxVideoExtensionsFrame;
-    private System.Windows.Forms.NumericUpDown numericUpDownFramePosition;
-    private System.Windows.Forms.Label labelFramePosition;
-    private System.Windows.Forms.Panel Panel5;
+        private System.Windows.Forms.CheckBox checkBoxUseDefaultArtist;
+        private System.Windows.Forms.TextBox textBoxDefaultArtist;
+        private System.Windows.Forms.CheckBox checkBoxNavigationTabSplitbars;
+        private System.Windows.Forms.CheckBox fixedCheckBoxSaveCommentImage1;
+        private System.Windows.Forms.CheckBox fixedCheckBoxSaveNameImage3;
+        private System.Windows.Forms.CheckBox fixedCheckBoxSaveCommentImage4;
+        private System.Windows.Forms.CheckBox fixedCheckBoxSaveCommentImage8;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label labelFullSizeImageCacheMaxSize;
+        private System.Windows.Forms.NumericUpDown numericUpDownFullSizeImageCacheMaxSize;
+        private System.Windows.Forms.Button buttonCustomizeForm;
+        private System.Windows.Forms.Button buttonCancel;
+        private System.Windows.Forms.Label labelAdditionalExtensions;
+        private System.Windows.Forms.TextBox TextBoxAdditionalExtensions;
+        private System.Windows.Forms.Button buttonHelp;
+        private System.Windows.Forms.Label fixedLabel4;
+        private System.Windows.Forms.Label fixedLabel5;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label labelMaximumMemoryForCaching;
+        private System.Windows.Forms.NumericUpDown numericUpDownMaximumMemoryForCaching;
+        private System.Windows.Forms.Label fixedLabel8;
+        private System.Windows.Forms.Panel Panel1;
+        private System.Windows.Forms.NumericUpDown numericUpDownExtendedImageCacheMaxSize;
+        private System.Windows.Forms.Label labelExtendedImageCacheMaxSize;
+        private System.Windows.Forms.Label labelSettingsForCaching;
+        private System.Windows.Forms.Label labelMaxArtists;
+        private System.Windows.Forms.NumericUpDown numericUpDownMaxArtists;
+        private System.Windows.Forms.CheckBox fixedCheckBoxSaveCommentImage5;
+        private System.Windows.Forms.CheckBox fixedCheckBoxSaveCommentImage6;
+        private System.Windows.Forms.CheckBox fixedCheckBoxSaveCommentImage7;
+        private System.Windows.Forms.CheckBox fixedCheckBoxSaveNameImage4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Panel Panel2;
+        private System.Windows.Forms.CheckBox checkBoxLangAlt5;
+        private System.Windows.Forms.CheckBox checkBoxLangAlt3;
+        private System.Windows.Forms.CheckBox checkBoxLangAlt4;
+        private System.Windows.Forms.CheckBox checkBoxLangAlt2;
+        private System.Windows.Forms.CheckBox checkBoxLangAlt1;
+        private System.Windows.Forms.Label label1MaxChangeableFieldEntries;
+        private System.Windows.Forms.NumericUpDown numericUpDownMaxChangeableFieldEntries;
+        private System.Windows.Forms.RichTextBox richTextBoxUserCommentInsertCheckCharacters;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label labelVideoProperties;
+        private System.Windows.Forms.TextBox TextBoxVideoExtensionsProperties;
+        private System.Windows.Forms.Label labelVideoFrame;
+        private System.Windows.Forms.TextBox TextBoxVideoExtensionsFrame;
+        private System.Windows.Forms.NumericUpDown numericUpDownFramePosition;
+        private System.Windows.Forms.Label labelFramePosition;
+        private System.Windows.Forms.Panel Panel5;
         private System.Windows.Forms.CheckBox fixedCheckBoxSaveCommentImage2;
         private System.Windows.Forms.CheckBox fixedCheckBoxSaveNameImage2;
         private System.Windows.Forms.CheckBox fixedCheckBoxSaveCommentImage3;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.ComboBox comboBoxCharsetUserComment;
+        private QuickImageCommentControls.ComboBoxQIC comboBoxCharsetUserComment;
         private System.Windows.Forms.CheckBox checkBoxIptcUTF8;
         private System.Windows.Forms.CheckBox checkBoxExifUTF8;
         private System.Windows.Forms.Label labelCharSet;

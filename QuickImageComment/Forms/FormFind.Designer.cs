@@ -54,9 +54,9 @@ namespace QuickImageComment
             this.buttonCustomizeForm = new System.Windows.Forms.Button();
             this.buttonHelp = new System.Windows.Forms.Button();
             this.panelFilterInner = new System.Windows.Forms.Panel();
-            this.dynamicComboBoxOperator = new System.Windows.Forms.ComboBox();
+            this.dynamicComboBoxOperator = new QuickImageCommentControls.ComboBoxQIC();
             this.dateTimePicker = new QuickImageComment.DateTimePickerQIC();
-            this.dynamicComboBoxValue = new System.Windows.Forms.ComboBox();
+            this.dynamicComboBoxValue = new QuickImageCommentControls.ComboBoxQIC();
             this.dynamicLabelFind = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
@@ -649,9 +649,9 @@ namespace QuickImageComment
     private System.Windows.Forms.Button buttonHelp;
         private System.Windows.Forms.Panel panelFilterInner;
         private QuickImageComment.DateTimePickerQIC dateTimePicker;
-        private System.Windows.Forms.ComboBox dynamicComboBoxValue;
+        private QuickImageCommentControls.ComboBoxQIC dynamicComboBoxValue;
         private System.Windows.Forms.Label dynamicLabelFind;
-        private System.Windows.Forms.ComboBox dynamicComboBoxOperator;
+        private QuickImageCommentControls.ComboBoxQIC dynamicComboBoxOperator;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label dynamicLabelFolder;
         private System.Windows.Forms.Label labelCount;

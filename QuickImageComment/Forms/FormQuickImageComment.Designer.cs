@@ -76,9 +76,9 @@ namespace QuickImageComment
             this.splitContainer1213 = new System.Windows.Forms.SplitContainer();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.checkBoxArtistChange = new System.Windows.Forms.CheckBox();
-            this.comboBoxCommentChange = new System.Windows.Forms.ComboBox();
+            this.comboBoxCommentChange = new QuickImageCommentControls.ComboBoxQIC();
             this.checkBoxGpsDataChange = new System.Windows.Forms.CheckBox();
-            this.comboBoxKeyWordsChange = new System.Windows.Forms.ComboBox();
+            this.comboBoxKeyWordsChange = new QuickImageCommentControls.ComboBoxQIC();
             this.checkBoxRatingChange = new System.Windows.Forms.CheckBox();
             this.dataGridViewSelectedFiles = new System.Windows.Forms.DataGridView();
             this.contextMenuStripMetaData = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -88,13 +88,13 @@ namespace QuickImageComment
             this.tableLayoutPanelArtist = new System.Windows.Forms.TableLayoutPanel();
             this.labelArtistDefault = new System.Windows.Forms.Label();
             this.dynamicLabelArtist = new System.Windows.Forms.Label();
-            this.dynamicComboBoxArtist = new System.Windows.Forms.ComboBox();
+            this.dynamicComboBoxArtist = new QuickImageCommentControls.ComboBoxQIC();
             this.splitContainer122 = new System.Windows.Forms.SplitContainer();
             this.tabControlLastPredefComments = new System.Windows.Forms.TabControl();
             this.tabPageLastComments = new System.Windows.Forms.TabPage();
             this.textBoxLastCommentsFilter = new System.Windows.Forms.TextBox();
             this.tabPagePredefComments = new System.Windows.Forms.TabPage();
-            this.dynamicComboBoxPredefinedComments = new System.Windows.Forms.ComboBox();
+            this.dynamicComboBoxPredefinedComments = new QuickImageCommentControls.ComboBoxQIC();
             this.KeyPrim = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.KeySec = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextMenuStripOverview = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -2804,7 +2804,7 @@ namespace QuickImageComment
         }
         #endregion
         private System.Windows.Forms.CheckBox checkBoxArtistChange;
-        private System.Windows.Forms.ComboBox dynamicComboBoxPredefinedComments;
+        private QuickImageCommentControls.ComboBoxQIC dynamicComboBoxPredefinedComments;
         private System.Windows.Forms.Label labelLastCommentsFilter;
         private System.Windows.Forms.Label dynamicLabelUserComment;
         private QuickImageCommentControls.ListBoxComments listBoxLastUserComments;
@@ -2856,9 +2856,9 @@ namespace QuickImageComment
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemSettings;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemFields;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemPredefinedComments;
-        private System.Windows.Forms.ComboBox comboBoxCommentChange;
+        private QuickImageCommentControls.ComboBoxQIC comboBoxCommentChange;
         private QuickImageCommentControls.CheckedListBoxItemBackcolor checkedListBoxChangeableFieldsChange;
-        private System.Windows.Forms.ComboBox comboBoxKeyWordsChange;
+        private QuickImageCommentControls.ComboBoxQIC comboBoxKeyWordsChange;
         private System.Windows.Forms.TabPage tabPageOther;
         private QuickImageCommentControls.DataGridViewMetaData DataGridViewOtherMetaData;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemDateTimeChange;
@@ -3039,7 +3039,7 @@ namespace QuickImageComment
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelArtist;
         private System.Windows.Forms.Label labelArtistDefault;
         private System.Windows.Forms.Label dynamicLabelArtist;
-        internal System.Windows.Forms.ComboBox dynamicComboBoxArtist;
+        internal QuickImageCommentControls.ComboBoxQIC dynamicComboBoxArtist;
         private UserControlRating theUserControlRating;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
     }

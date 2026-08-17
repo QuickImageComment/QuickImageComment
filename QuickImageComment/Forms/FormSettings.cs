@@ -33,7 +33,7 @@ namespace QuickImageComment
         private NumericUpDown numericUpDownMaxLastComments;
         private Label labelMaxLastComments;
         private Label labelReactionListBoxCommentDoubleClick;
-        private ComboBox comboBoxPredefinedCommentsMouseDoubleClickAction;
+        private QuickImageCommentControls.ComboBoxQIC comboBoxPredefinedCommentsMouseDoubleClickAction;
         private Label labelUserCommentInsertCheckCharacters;
         private Label labelUserCommentAppendCheckCharacters;
         private RichTextBox richTextBoxUserCommentAppendCheckCharacters;

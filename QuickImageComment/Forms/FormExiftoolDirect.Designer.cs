@@ -48,7 +48,7 @@ namespace QuickImageComment
             this.buttonHelp = new System.Windows.Forms.Button();
             this.buttonCustomizeForm = new System.Windows.Forms.Button();
             this.buttonClose = new System.Windows.Forms.Button();
-            this.dynamicComboBoxGuiCommands = new System.Windows.Forms.ComboBox();
+            this.dynamicComboBoxGuiCommands = new QuickImageCommentControls.ComboBoxQIC();
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxExifToolResult = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -285,7 +285,7 @@ namespace QuickImageComment
         private System.Windows.Forms.Button buttonHelp;
         private System.Windows.Forms.Button buttonCustomizeForm;
         private System.Windows.Forms.Button buttonClose;
-        private System.Windows.Forms.ComboBox dynamicComboBoxGuiCommands;
+        private QuickImageCommentControls.ComboBoxQIC dynamicComboBoxGuiCommands;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBoxExifToolResult;
         private System.Windows.Forms.Label label2;

@@ -50,7 +50,7 @@ namespace QuickImageComment
             this.buttonCancel = new System.Windows.Forms.Button();
             this.listViewImages = new System.Windows.Forms.ListView();
             this.imageListLarge = new System.Windows.Forms.ImageList(this.components);
-            this.dynamicComboBoxGroup = new System.Windows.Forms.ComboBox();
+            this.dynamicComboBoxGroup = new QuickImageCommentControls.ComboBoxQIC();
             this.numericUpDownMinute = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownSecond = new System.Windows.Forms.NumericUpDown();
             this.labelDays = new System.Windows.Forms.Label();
@@ -337,7 +337,7 @@ namespace QuickImageComment
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.ListView listViewImages;
         private System.Windows.Forms.ImageList imageListLarge;
-        private System.Windows.Forms.ComboBox dynamicComboBoxGroup;
+        private QuickImageCommentControls.ComboBoxQIC dynamicComboBoxGroup;
         private System.Windows.Forms.NumericUpDown numericUpDownMinute;
         private System.Windows.Forms.NumericUpDown numericUpDownSecond;
         private System.Windows.Forms.Label labelDays;

@@ -58,13 +58,13 @@ namespace QuickImageComment
             this.buttonSaveAs = new System.Windows.Forms.Button();
             this.buttonSave = new System.Windows.Forms.Button();
             this.buttonDelete = new System.Windows.Forms.Button();
-            this.dynamicComboBoxConfigurationName = new System.Windows.Forms.ComboBox();
+            this.dynamicComboBoxConfigurationName = new QuickImageCommentControls.ComboBoxQIC();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.label1 = new System.Windows.Forms.Label();
             this.labelArtist = new System.Windows.Forms.Label();
             this.labelUserComment = new System.Windows.Forms.Label();
-            this.dynamicComboBoxArtist = new System.Windows.Forms.ComboBox();
-            this.dynamicComboBoxUserComment = new System.Windows.Forms.ComboBox();
+            this.dynamicComboBoxArtist = new QuickImageCommentControls.ComboBoxQIC();
+            this.dynamicComboBoxUserComment = new QuickImageCommentControls.ComboBoxQIC();
             this.groupBoxConfigurationHandling.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.SuspendLayout();
@@ -295,7 +295,7 @@ namespace QuickImageComment
         private System.Windows.Forms.GroupBox groupBoxConfigurationHandling;
         private System.Windows.Forms.Button buttonDelete;
         private System.Windows.Forms.Button buttonSaveAs;
-        private System.Windows.Forms.ComboBox dynamicComboBoxConfigurationName;
+        private QuickImageCommentControls.ComboBoxQIC dynamicComboBoxConfigurationName;
         private System.Windows.Forms.Button buttonSave;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.Label label1;
@@ -303,7 +303,7 @@ namespace QuickImageComment
         private System.Windows.Forms.Label labelUserComment;
         private System.Windows.Forms.Button buttonNewFromMainMask;
         private System.Windows.Forms.Button buttonNewEmpty;
-        private System.Windows.Forms.ComboBox dynamicComboBoxArtist;
-        private System.Windows.Forms.ComboBox dynamicComboBoxUserComment;
+        private QuickImageCommentControls.ComboBoxQIC dynamicComboBoxArtist;
+        private QuickImageCommentControls.ComboBoxQIC dynamicComboBoxUserComment;
     }
 }

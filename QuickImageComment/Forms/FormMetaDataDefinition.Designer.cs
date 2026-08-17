@@ -47,7 +47,7 @@ namespace QuickImageComment
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMetaDataDefinition));
             this.buttonAbort = new System.Windows.Forms.Button();
             this.listBoxMetaData = new System.Windows.Forms.ListBox();
-            this.dynamicComboBoxMetaDataType = new System.Windows.Forms.ComboBox();
+            this.dynamicComboBoxMetaDataType = new QuickImageCommentControls.ComboBoxQIC();
             this.buttonUp = new System.Windows.Forms.Button();
             this.buttonDown = new System.Windows.Forms.Button();
             this.buttonNew = new System.Windows.Forms.Button();
@@ -78,8 +78,8 @@ namespace QuickImageComment
             this.dynamicLabelValueOriginal = new System.Windows.Forms.Label();
             this.dynamicLabelValueInterpreted = new System.Windows.Forms.Label();
             this.buttonCustomizeForm = new System.Windows.Forms.Button();
-            this.dynamicComboBoxMetaDataFormat2 = new System.Windows.Forms.ComboBox();
-            this.dynamicComboBoxMetaDataFormat1 = new System.Windows.Forms.ComboBox();
+            this.dynamicComboBoxMetaDataFormat2 = new QuickImageCommentControls.ComboBoxQIC();
+            this.dynamicComboBoxMetaDataFormat1 = new QuickImageCommentControls.ComboBoxQIC();
             this.buttonHelp = new System.Windows.Forms.Button();
             this.label14 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
@@ -825,7 +825,7 @@ namespace QuickImageComment
         #endregion
         private System.Windows.Forms.Button buttonAbort;
         private System.Windows.Forms.ListBox listBoxMetaData;
-        private System.Windows.Forms.ComboBox dynamicComboBoxMetaDataType;
+        private QuickImageCommentControls.ComboBoxQIC dynamicComboBoxMetaDataType;
         private System.Windows.Forms.Button buttonUp;
         private System.Windows.Forms.Button buttonDown;
         private System.Windows.Forms.Button buttonNew;
@@ -838,8 +838,8 @@ namespace QuickImageComment
         private System.Windows.Forms.TextBox textBoxSeparator;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.ComboBox dynamicComboBoxMetaDataFormat1;
-        private System.Windows.Forms.ComboBox dynamicComboBoxMetaDataFormat2;
+        private QuickImageCommentControls.ComboBoxQIC dynamicComboBoxMetaDataFormat1;
+        private QuickImageCommentControls.ComboBoxQIC dynamicComboBoxMetaDataFormat2;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox textBoxPostfix;
         private System.Windows.Forms.Label label8;

@@ -30,7 +30,7 @@
         {
             this.panelChangeableFieldsInner = new System.Windows.Forms.Panel();
             this.dateTimePickerChangeableField = new QuickImageComment.DateTimePickerQIC();
-            this.comboBoxChangeableField = new System.Windows.Forms.ComboBox();
+            this.comboBoxChangeableField = new QuickImageCommentControls.ComboBoxQIC();
             this.dynamicLabelChangeableField = new System.Windows.Forms.Label();
             this.textBoxChangeableField = new System.Windows.Forms.TextBox();
             this.panelChangeableFieldsOuter = new System.Windows.Forms.Panel();
@@ -124,7 +124,7 @@
 
         #endregion
         private QuickImageComment.DateTimePickerQIC dateTimePickerChangeableField;
-        private System.Windows.Forms.ComboBox comboBoxChangeableField;
+        private QuickImageCommentControls.ComboBoxQIC comboBoxChangeableField;
         private System.Windows.Forms.Label dynamicLabelChangeableField;
         private System.Windows.Forms.TextBox textBoxChangeableField;
         internal System.Windows.Forms.Panel panelChangeableFieldsInner;
