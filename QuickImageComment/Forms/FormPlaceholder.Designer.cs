@@ -50,8 +50,8 @@ namespace QuickImageComment
             this.buttonOk = new System.Windows.Forms.Button();
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
-            this.textBoxValueOriginal = new System.Windows.Forms.TextBox();
-            this.textBoxValueInterpreted = new System.Windows.Forms.TextBox();
+            this.dynamicLabelValueOriginal = new System.Windows.Forms.Label();
+            this.dynamicLabelValueInterpreted = new System.Windows.Forms.Label();
             this.buttonCustomizeForm = new System.Windows.Forms.Button();
             this.buttonHelp = new System.Windows.Forms.Button();
             this.label14 = new System.Windows.Forms.Label();
@@ -81,11 +81,11 @@ namespace QuickImageComment
             this.labelNoPlaceholderMarked = new System.Windows.Forms.Label();
             this.tableLayoutPanelValueResult = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanelTagList = new System.Windows.Forms.TableLayoutPanel();
-            this.userControlTagList = new QuickImageComment.UserControlTagList();
             this.tableLayoutPanelBelowTagList = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanelFormat = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanelLanguage = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanelMetaDate = new System.Windows.Forms.TableLayoutPanel();
+            this.userControlTagList = new QuickImageComment.UserControlTagList();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFrom)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLength)).BeginInit();
             this.tableLayoutPanelValueResult.SuspendLayout();
@@ -132,48 +132,52 @@ namespace QuickImageComment
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Dock = System.Windows.Forms.DockStyle.Left;
-            this.label12.Location = new System.Drawing.Point(3, 0);
+            this.label12.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label12.Location = new System.Drawing.Point(3, 3);
+            this.label12.Margin = new System.Windows.Forms.Padding(3);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(74, 27);
+            this.label12.Size = new System.Drawing.Size(79, 21);
             this.label12.TabIndex = 9;
             this.label12.Text = "Wert Original:";
             this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label13
             // 
-            this.label13.Dock = System.Windows.Forms.DockStyle.Right;
-            this.label13.Location = new System.Drawing.Point(251, 0);
+            this.label13.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label13.Location = new System.Drawing.Point(248, 3);
+            this.label13.Margin = new System.Windows.Forms.Padding(3);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(79, 27);
+            this.label13.Size = new System.Drawing.Size(82, 21);
             this.label13.TabIndex = 11;
             this.label13.Text = "Interpretiert:";
             this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // textBoxValueOriginal
+            // dynamicLabelValueOriginal
             // 
-            this.textBoxValueOriginal.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBoxValueOriginal.Dock = System.Windows.Forms.DockStyle.Left;
-            this.textBoxValueOriginal.Location = new System.Drawing.Point(88, 8);
-            this.textBoxValueOriginal.Margin = new System.Windows.Forms.Padding(3, 8, 3, 3);
-            this.textBoxValueOriginal.Name = "textBoxValueOriginal";
-            this.textBoxValueOriginal.ReadOnly = true;
-            this.textBoxValueOriginal.Size = new System.Drawing.Size(6, 14);
-            this.textBoxValueOriginal.TabIndex = 10;
-            this.textBoxValueOriginal.Text = "ValueOriginal";
+            this.dynamicLabelValueOriginal.AutoEllipsis = true;
+            this.dynamicLabelValueOriginal.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dynamicLabelValueOriginal.Location = new System.Drawing.Point(88, 3);
+            this.dynamicLabelValueOriginal.Margin = new System.Windows.Forms.Padding(3);
+            this.dynamicLabelValueOriginal.Name = "dynamicLabelValueOriginal";
+            this.dynamicLabelValueOriginal.Size = new System.Drawing.Size(154, 21);
+            this.dynamicLabelValueOriginal.TabIndex = 10;
+            this.dynamicLabelValueOriginal.Text = "ValueOriginal";
+            this.dynamicLabelValueOriginal.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.dynamicLabelValueOriginal.UseCompatibleTextRendering = true;
             // 
-            // textBoxValueInterpreted
+            // dynamicLabelValueInterpreted
             // 
-            this.textBoxValueInterpreted.BackColor = System.Drawing.SystemColors.Control;
-            this.textBoxValueInterpreted.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBoxValueInterpreted.Dock = System.Windows.Forms.DockStyle.Left;
-            this.textBoxValueInterpreted.Location = new System.Drawing.Point(336, 8);
-            this.textBoxValueInterpreted.Margin = new System.Windows.Forms.Padding(3, 8, 3, 3);
-            this.textBoxValueInterpreted.Name = "textBoxValueInterpreted";
-            this.textBoxValueInterpreted.ReadOnly = true;
-            this.textBoxValueInterpreted.Size = new System.Drawing.Size(10, 14);
-            this.textBoxValueInterpreted.TabIndex = 12;
-            this.textBoxValueInterpreted.Text = "ValueInterpreted";
+            this.dynamicLabelValueInterpreted.AutoEllipsis = true;
+            this.dynamicLabelValueInterpreted.BackColor = System.Drawing.SystemColors.Control;
+            this.dynamicLabelValueInterpreted.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dynamicLabelValueInterpreted.Location = new System.Drawing.Point(336, 3);
+            this.dynamicLabelValueInterpreted.Margin = new System.Windows.Forms.Padding(3);
+            this.dynamicLabelValueInterpreted.Name = "dynamicLabelValueInterpreted";
+            this.dynamicLabelValueInterpreted.Size = new System.Drawing.Size(259, 21);
+            this.dynamicLabelValueInterpreted.TabIndex = 12;
+            this.dynamicLabelValueInterpreted.Text = "ValueInterpreted";
+            this.dynamicLabelValueInterpreted.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.dynamicLabelValueInterpreted.UseCompatibleTextRendering = true;
             // 
             // buttonCustomizeForm
             // 
@@ -271,7 +275,7 @@ namespace QuickImageComment
             this.numericUpDownLength.Dock = System.Windows.Forms.DockStyle.Left;
             this.numericUpDownLength.Location = new System.Drawing.Point(322, 3);
             this.numericUpDownLength.Name = "numericUpDownLength";
-            this.numericUpDownLength.Size = new System.Drawing.Size(11, 21);
+            this.numericUpDownLength.Size = new System.Drawing.Size(38, 21);
             this.numericUpDownLength.TabIndex = 57;
             this.numericUpDownLength.Value = new decimal(new int[] {
             1,
@@ -508,14 +512,6 @@ namespace QuickImageComment
             this.tableLayoutPanelTagList.Size = new System.Drawing.Size(846, 268);
             this.tableLayoutPanelTagList.TabIndex = 79;
             // 
-            // userControlTagList
-            // 
-            this.userControlTagList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.userControlTagList.Location = new System.Drawing.Point(3, 3);
-            this.userControlTagList.Name = "userControlTagList";
-            this.userControlTagList.Size = new System.Drawing.Size(840, 262);
-            this.userControlTagList.TabIndex = 77;
-            // 
             // tableLayoutPanelBelowTagList
             // 
             this.tableLayoutPanelBelowTagList.ColumnCount = 7;
@@ -527,11 +523,11 @@ namespace QuickImageComment
             this.tableLayoutPanelBelowTagList.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
             this.tableLayoutPanelBelowTagList.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
             this.tableLayoutPanelBelowTagList.Controls.Add(this.label12, 0, 0);
-            this.tableLayoutPanelBelowTagList.Controls.Add(this.textBoxValueInterpreted, 3, 0);
+            this.tableLayoutPanelBelowTagList.Controls.Add(this.dynamicLabelValueInterpreted, 3, 0);
             this.tableLayoutPanelBelowTagList.Controls.Add(this.buttonDate, 5, 0);
             this.tableLayoutPanelBelowTagList.Controls.Add(this.buttonMetaDatum, 4, 0);
             this.tableLayoutPanelBelowTagList.Controls.Add(this.buttonTime, 6, 0);
-            this.tableLayoutPanelBelowTagList.Controls.Add(this.textBoxValueOriginal, 1, 0);
+            this.tableLayoutPanelBelowTagList.Controls.Add(this.dynamicLabelValueOriginal, 1, 0);
             this.tableLayoutPanelBelowTagList.Controls.Add(this.label13, 2, 0);
             this.tableLayoutPanelBelowTagList.Location = new System.Drawing.Point(0, 277);
             this.tableLayoutPanelBelowTagList.Name = "tableLayoutPanelBelowTagList";
@@ -601,6 +597,14 @@ namespace QuickImageComment
             this.tableLayoutPanelMetaDate.Size = new System.Drawing.Size(733, 24);
             this.tableLayoutPanelMetaDate.TabIndex = 83;
             // 
+            // userControlTagList
+            // 
+            this.userControlTagList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.userControlTagList.Location = new System.Drawing.Point(3, 3);
+            this.userControlTagList.Name = "userControlTagList";
+            this.userControlTagList.Size = new System.Drawing.Size(840, 262);
+            this.userControlTagList.TabIndex = 77;
+            // 
             // FormPlaceholder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -652,8 +656,8 @@ namespace QuickImageComment
         private System.Windows.Forms.Button buttonOk;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.TextBox textBoxValueOriginal;
-        private System.Windows.Forms.TextBox textBoxValueInterpreted;
+        private System.Windows.Forms.Label dynamicLabelValueOriginal;
+        private System.Windows.Forms.Label dynamicLabelValueInterpreted;
         private System.Windows.Forms.Button buttonCustomizeForm;
         private System.Windows.Forms.Button buttonHelp;
         private System.Windows.Forms.Label label14;

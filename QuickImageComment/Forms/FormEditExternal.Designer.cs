@@ -201,7 +201,7 @@ namespace QuickImageComment
             this.panelType.Controls.Add(this.radioButtonBatchCommand);
             this.panelType.Controls.Add(this.radioButtonProgram);
             this.panelType.ForeColor = System.Drawing.SystemColors.Control;
-            this.panelType.Location = new System.Drawing.Point(118, 30);
+            this.panelType.Location = new System.Drawing.Point(166, 30);
             this.panelType.Name = "panelType";
             this.panelType.Size = new System.Drawing.Size(351, 21);
             this.panelType.TabIndex = 8;
@@ -250,9 +250,9 @@ namespace QuickImageComment
             // 
             this.checkBoxMultipleFiles.AutoSize = true;
             this.checkBoxMultipleFiles.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkBoxMultipleFiles.Location = new System.Drawing.Point(118, 57);
+            this.checkBoxMultipleFiles.Location = new System.Drawing.Point(166, 57);
             this.checkBoxMultipleFiles.Name = "checkBoxMultipleFiles";
-            this.checkBoxMultipleFiles.Size = new System.Drawing.Size(352, 21);
+            this.checkBoxMultipleFiles.Size = new System.Drawing.Size(370, 21);
             this.checkBoxMultipleFiles.TabIndex = 9;
             this.checkBoxMultipleFiles.Text = "Bei Start von Programm/Batch: Mehrere Dateien übergeben";
             this.checkBoxMultipleFiles.UseVisualStyleBackColor = true;
@@ -263,7 +263,7 @@ namespace QuickImageComment
             this.labelProgramPath.Dock = System.Windows.Forms.DockStyle.Fill;
             this.labelProgramPath.Location = new System.Drawing.Point(3, 113);
             this.labelProgramPath.Name = "labelProgramPath";
-            this.labelProgramPath.Size = new System.Drawing.Size(109, 27);
+            this.labelProgramPath.Size = new System.Drawing.Size(157, 27);
             this.labelProgramPath.TabIndex = 10;
             this.labelProgramPath.Text = "Programm-Pfad";
             this.labelProgramPath.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -273,7 +273,7 @@ namespace QuickImageComment
             this.labelProgramOptions.Dock = System.Windows.Forms.DockStyle.Fill;
             this.labelProgramOptions.Location = new System.Drawing.Point(3, 140);
             this.labelProgramOptions.Name = "labelProgramOptions";
-            this.labelProgramOptions.Size = new System.Drawing.Size(109, 27);
+            this.labelProgramOptions.Size = new System.Drawing.Size(157, 27);
             this.labelProgramOptions.TabIndex = 13;
             this.labelProgramOptions.Text = "Programm-Optionen";
             this.labelProgramOptions.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -281,9 +281,9 @@ namespace QuickImageComment
             // textBoxProgramOptions
             // 
             this.textBoxProgramOptions.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBoxProgramOptions.Location = new System.Drawing.Point(118, 143);
+            this.textBoxProgramOptions.Location = new System.Drawing.Point(166, 143);
             this.textBoxProgramOptions.Name = "textBoxProgramOptions";
-            this.textBoxProgramOptions.Size = new System.Drawing.Size(352, 21);
+            this.textBoxProgramOptions.Size = new System.Drawing.Size(370, 21);
             this.textBoxProgramOptions.TabIndex = 14;
             this.textBoxProgramOptions.TextChanged += new System.EventHandler(this.editExternalDefinitionChanged);
             // 
@@ -291,9 +291,9 @@ namespace QuickImageComment
             // 
             this.checkBoxOptionsFirst.AutoSize = true;
             this.checkBoxOptionsFirst.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkBoxOptionsFirst.Location = new System.Drawing.Point(118, 170);
+            this.checkBoxOptionsFirst.Location = new System.Drawing.Point(166, 170);
             this.checkBoxOptionsFirst.Name = "checkBoxOptionsFirst";
-            this.checkBoxOptionsFirst.Size = new System.Drawing.Size(352, 21);
+            this.checkBoxOptionsFirst.Size = new System.Drawing.Size(370, 21);
             this.checkBoxOptionsFirst.TabIndex = 15;
             this.checkBoxOptionsFirst.Text = "Optionen vor dem Dateinamen";
             this.checkBoxOptionsFirst.UseVisualStyleBackColor = true;
@@ -304,7 +304,7 @@ namespace QuickImageComment
             this.labelBatchCommand.Dock = System.Windows.Forms.DockStyle.Fill;
             this.labelBatchCommand.Location = new System.Drawing.Point(3, 0);
             this.labelBatchCommand.Name = "labelBatchCommand";
-            this.labelBatchCommand.Size = new System.Drawing.Size(103, 27);
+            this.labelBatchCommand.Size = new System.Drawing.Size(151, 27);
             this.labelBatchCommand.TabIndex = 20;
             this.labelBatchCommand.Text = "Batch-Kommandos";
             this.labelBatchCommand.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -312,11 +312,11 @@ namespace QuickImageComment
             // textBoxBatchCommand
             // 
             this.textBoxBatchCommand.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBoxBatchCommand.Location = new System.Drawing.Point(118, 251);
+            this.textBoxBatchCommand.Location = new System.Drawing.Point(166, 251);
             this.textBoxBatchCommand.Multiline = true;
             this.textBoxBatchCommand.Name = "textBoxBatchCommand";
             this.textBoxBatchCommand.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxBatchCommand.Size = new System.Drawing.Size(352, 127);
+            this.textBoxBatchCommand.Size = new System.Drawing.Size(370, 127);
             this.textBoxBatchCommand.TabIndex = 22;
             this.textBoxBatchCommand.TextChanged += new System.EventHandler(this.editExternalDefinitionChanged);
             // 
@@ -325,7 +325,7 @@ namespace QuickImageComment
             this.labelName.Dock = System.Windows.Forms.DockStyle.Fill;
             this.labelName.Location = new System.Drawing.Point(3, 0);
             this.labelName.Name = "labelName";
-            this.labelName.Size = new System.Drawing.Size(109, 27);
+            this.labelName.Size = new System.Drawing.Size(157, 27);
             this.labelName.TabIndex = 6;
             this.labelName.Text = "Name";
             this.labelName.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -333,9 +333,9 @@ namespace QuickImageComment
             // textBoxName
             // 
             this.textBoxName.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBoxName.Location = new System.Drawing.Point(118, 3);
+            this.textBoxName.Location = new System.Drawing.Point(166, 3);
             this.textBoxName.Name = "textBoxName";
-            this.textBoxName.Size = new System.Drawing.Size(352, 21);
+            this.textBoxName.Size = new System.Drawing.Size(370, 21);
             this.textBoxName.TabIndex = 7;
             this.textBoxName.TextChanged += new System.EventHandler(this.textBoxName_TextChanged);
             // 
@@ -343,9 +343,9 @@ namespace QuickImageComment
             // 
             this.checkBoxWindowPauseAfterExecution.AutoSize = true;
             this.checkBoxWindowPauseAfterExecution.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkBoxWindowPauseAfterExecution.Location = new System.Drawing.Point(118, 384);
+            this.checkBoxWindowPauseAfterExecution.Location = new System.Drawing.Point(166, 384);
             this.checkBoxWindowPauseAfterExecution.Name = "checkBoxWindowPauseAfterExecution";
-            this.checkBoxWindowPauseAfterExecution.Size = new System.Drawing.Size(352, 21);
+            this.checkBoxWindowPauseAfterExecution.Size = new System.Drawing.Size(370, 21);
             this.checkBoxWindowPauseAfterExecution.TabIndex = 23;
             this.checkBoxWindowPauseAfterExecution.Text = "Fenster anzeigen und Pause nach Ausführung";
             this.checkBoxWindowPauseAfterExecution.UseVisualStyleBackColor = true;
@@ -364,10 +364,11 @@ namespace QuickImageComment
             // buttonBrowse
             // 
             this.buttonBrowse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonBrowse.Image = ((System.Drawing.Image)(resources.GetObject("buttonBrowse.Image")));
-            this.buttonBrowse.Location = new System.Drawing.Point(319, -3);
+            this.buttonBrowse.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonBrowse.BackgroundImage")));
+            this.buttonBrowse.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.buttonBrowse.Location = new System.Drawing.Point(339, -2);
             this.buttonBrowse.Name = "buttonBrowse";
-            this.buttonBrowse.Size = new System.Drawing.Size(30, 24);
+            this.buttonBrowse.Size = new System.Drawing.Size(24, 24);
             this.buttonBrowse.TabIndex = 12;
             this.buttonBrowse.UseVisualStyleBackColor = true;
             this.buttonBrowse.Click += new System.EventHandler(this.buttonBrowse_Click);
@@ -377,7 +378,7 @@ namespace QuickImageComment
             this.labelPlaceholder.Dock = System.Windows.Forms.DockStyle.Fill;
             this.labelPlaceholder.Location = new System.Drawing.Point(3, 27);
             this.labelPlaceholder.Name = "labelPlaceholder";
-            this.labelPlaceholder.Size = new System.Drawing.Size(103, 100);
+            this.labelPlaceholder.Size = new System.Drawing.Size(151, 100);
             this.labelPlaceholder.TabIndex = 21;
             this.labelPlaceholder.Text = "Platzhalter für\r\nDateinamen:\r\n%f oder %~f\r\n(Siehe Hilfe)\r\n\r\n";
             this.labelPlaceholder.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -386,9 +387,9 @@ namespace QuickImageComment
             // 
             this.checkBoxDropOnWindow.AutoSize = true;
             this.checkBoxDropOnWindow.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkBoxDropOnWindow.Location = new System.Drawing.Point(118, 197);
+            this.checkBoxDropOnWindow.Location = new System.Drawing.Point(166, 197);
             this.checkBoxDropOnWindow.Name = "checkBoxDropOnWindow";
-            this.checkBoxDropOnWindow.Size = new System.Drawing.Size(352, 21);
+            this.checkBoxDropOnWindow.Size = new System.Drawing.Size(370, 21);
             this.checkBoxDropOnWindow.TabIndex = 16;
             this.checkBoxDropOnWindow.Text = "Falls gestartet: Drop in Fenster";
             this.checkBoxDropOnWindow.UseVisualStyleBackColor = true;
@@ -399,7 +400,7 @@ namespace QuickImageComment
             this.labelWindowTitle.Dock = System.Windows.Forms.DockStyle.Fill;
             this.labelWindowTitle.Location = new System.Drawing.Point(3, 221);
             this.labelWindowTitle.Name = "labelWindowTitle";
-            this.labelWindowTitle.Size = new System.Drawing.Size(109, 27);
+            this.labelWindowTitle.Size = new System.Drawing.Size(157, 27);
             this.labelWindowTitle.TabIndex = 17;
             this.labelWindowTitle.Text = "Fenstertitel";
             this.labelWindowTitle.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -407,18 +408,18 @@ namespace QuickImageComment
             // textBoxWindowsTitle
             // 
             this.textBoxWindowsTitle.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBoxWindowsTitle.Location = new System.Drawing.Point(118, 224);
+            this.textBoxWindowsTitle.Location = new System.Drawing.Point(166, 224);
             this.textBoxWindowsTitle.Name = "textBoxWindowsTitle";
-            this.textBoxWindowsTitle.Size = new System.Drawing.Size(352, 21);
+            this.textBoxWindowsTitle.Size = new System.Drawing.Size(370, 21);
             this.textBoxWindowsTitle.TabIndex = 18;
             this.textBoxWindowsTitle.TextChanged += new System.EventHandler(this.editExternalDefinitionChanged);
             // 
             // buttonSelectApplication
             // 
             this.buttonSelectApplication.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonSelectApplication.Location = new System.Drawing.Point(118, 84);
+            this.buttonSelectApplication.Location = new System.Drawing.Point(166, 84);
             this.buttonSelectApplication.Name = "buttonSelectApplication";
-            this.buttonSelectApplication.Size = new System.Drawing.Size(352, 26);
+            this.buttonSelectApplication.Size = new System.Drawing.Size(370, 26);
             this.buttonSelectApplication.TabIndex = 29;
             this.buttonSelectApplication.Text = "Wähle aus geöffneten Programmen";
             this.buttonSelectApplication.UseVisualStyleBackColor = true;
@@ -441,8 +442,8 @@ namespace QuickImageComment
             // tableLayoutPanel2
             // 
             this.tableLayoutPanel2.ColumnCount = 2;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 24.52431F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 75.47569F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30.24119F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 69.75881F));
             this.tableLayoutPanel2.Controls.Add(this.labelName, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.textBoxName, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.panelType, 1, 1);
@@ -461,7 +462,7 @@ namespace QuickImageComment
             this.tableLayoutPanel2.Controls.Add(this.textBoxUri, 1, 11);
             this.tableLayoutPanel2.Controls.Add(this.labelUri, 0, 11);
             this.tableLayoutPanel2.Controls.Add(this.tableLayoutPanel3, 0, 9);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(344, 8);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(278, 8);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 12;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 27F));
@@ -476,7 +477,7 @@ namespace QuickImageComment
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 133F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 27F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 8F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(473, 429);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(539, 429);
             this.tableLayoutPanel2.TabIndex = 33;
             // 
             // panel1
@@ -484,9 +485,9 @@ namespace QuickImageComment
             this.panel1.Controls.Add(this.textBoxProgramPath);
             this.panel1.Controls.Add(this.buttonBrowse);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(118, 116);
+            this.panel1.Location = new System.Drawing.Point(166, 116);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(352, 21);
+            this.panel1.Size = new System.Drawing.Size(370, 21);
             this.panel1.TabIndex = 32;
             // 
             // textBoxProgramPath
@@ -494,15 +495,15 @@ namespace QuickImageComment
             this.textBoxProgramPath.Dock = System.Windows.Forms.DockStyle.Left;
             this.textBoxProgramPath.Location = new System.Drawing.Point(0, 0);
             this.textBoxProgramPath.Name = "textBoxProgramPath";
-            this.textBoxProgramPath.Size = new System.Drawing.Size(312, 21);
+            this.textBoxProgramPath.Size = new System.Drawing.Size(331, 21);
             this.textBoxProgramPath.TabIndex = 35;
             // 
             // textBoxUri
             // 
             this.textBoxUri.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBoxUri.Location = new System.Drawing.Point(118, 411);
+            this.textBoxUri.Location = new System.Drawing.Point(166, 411);
             this.textBoxUri.Name = "textBoxUri";
-            this.textBoxUri.Size = new System.Drawing.Size(352, 21);
+            this.textBoxUri.Size = new System.Drawing.Size(370, 21);
             this.textBoxUri.TabIndex = 30;
             this.textBoxUri.TextChanged += new System.EventHandler(this.editExternalDefinitionChanged);
             // 
@@ -511,7 +512,7 @@ namespace QuickImageComment
             this.labelUri.Dock = System.Windows.Forms.DockStyle.Fill;
             this.labelUri.Location = new System.Drawing.Point(3, 408);
             this.labelUri.Name = "labelUri";
-            this.labelUri.Size = new System.Drawing.Size(109, 21);
+            this.labelUri.Size = new System.Drawing.Size(157, 21);
             this.labelUri.TabIndex = 31;
             this.labelUri.Text = "URI";
             this.labelUri.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -528,7 +529,7 @@ namespace QuickImageComment
             this.tableLayoutPanel3.RowCount = 2;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(109, 127);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(157, 127);
             this.tableLayoutPanel3.TabIndex = 33;
             // 
             // FormEditExternal
@@ -536,17 +537,17 @@ namespace QuickImageComment
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(824, 478);
-            this.Controls.Add(this.tableLayoutPanel2);
-            this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.buttonExecute);
-            this.Controls.Add(this.buttonHelp);
-            this.Controls.Add(this.buttonCustomizeForm);
             this.Controls.Add(this.buttonDelete);
             this.Controls.Add(this.buttonCopy);
-            this.Controls.Add(this.buttonOk);
             this.Controls.Add(this.buttonNew);
             this.Controls.Add(this.buttonDown);
             this.Controls.Add(this.buttonUp);
+            this.Controls.Add(this.tableLayoutPanel2);
+            this.Controls.Add(this.tableLayoutPanel1);
+            this.Controls.Add(this.buttonHelp);
+            this.Controls.Add(this.buttonCustomizeForm);
+            this.Controls.Add(this.buttonOk);
             this.Controls.Add(this.buttonAbort);
             this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.SystemColors.ControlText;

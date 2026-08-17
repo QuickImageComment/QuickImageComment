@@ -63,8 +63,8 @@ namespace QuickImageComment
 
             buttonAbort.Select();
             richTextBoxValue.Text = inputString;
-            textBoxValueOriginal.Text = "";
-            textBoxValueInterpreted.Text = "";
+            dynamicLabelValueOriginal.Text = "";
+            dynamicLabelValueInterpreted.Text = "";
             textBoxValueConverted.Text = "";
 
             buttonAbort.Select();
@@ -129,8 +129,8 @@ namespace QuickImageComment
                 string MetaDataKey = userControlTagList.listViewTags.SelectedItems[0].SubItems[3].Text;
                 if (theExtendedImage != null)
                 {
-                    this.textBoxValueOriginal.Text = theExtendedImage.getMetaDataValueByKey(MetaDataKey, MetaDataItem.Format.Original);
-                    this.textBoxValueInterpreted.Text = theExtendedImage.getMetaDataValueByKey(MetaDataKey, MetaDataItem.Format.Interpreted);
+                    this.dynamicLabelValueOriginal.Text = theExtendedImage.getMetaDataValueByKey(MetaDataKey, MetaDataItem.Format.Original);
+                    this.dynamicLabelValueInterpreted.Text = theExtendedImage.getMetaDataValueByKey(MetaDataKey, MetaDataItem.Format.Interpreted);
                 }
             }
         }

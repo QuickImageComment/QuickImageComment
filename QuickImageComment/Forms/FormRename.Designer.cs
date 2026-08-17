@@ -483,11 +483,11 @@ namespace QuickImageComment
             // 
             // labelReplaceInfo1
             // 
-            this.labelReplaceInfo1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.labelReplaceInfo1.Location = new System.Drawing.Point(96, 3);
+            this.labelReplaceInfo1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelReplaceInfo1.Location = new System.Drawing.Point(3, 3);
             this.labelReplaceInfo1.Margin = new System.Windows.Forms.Padding(3);
             this.labelReplaceInfo1.Name = "labelReplaceInfo1";
-            this.labelReplaceInfo1.Size = new System.Drawing.Size(277, 21);
+            this.labelReplaceInfo1.Size = new System.Drawing.Size(370, 21);
             this.labelReplaceInfo1.TabIndex = 0;
             this.labelReplaceInfo1.Text = "Ersetze die im Dateinamen nicht zulässigen Zeichen";
             this.labelReplaceInfo1.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -506,11 +506,11 @@ namespace QuickImageComment
             // 
             // labelReplaceInfo2
             // 
-            this.labelReplaceInfo2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.labelReplaceInfo2.Location = new System.Drawing.Point(298, 30);
+            this.labelReplaceInfo2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelReplaceInfo2.Location = new System.Drawing.Point(3, 30);
             this.labelReplaceInfo2.Margin = new System.Windows.Forms.Padding(3);
             this.labelReplaceInfo2.Name = "labelReplaceInfo2";
-            this.labelReplaceInfo2.Size = new System.Drawing.Size(75, 21);
+            this.labelReplaceInfo2.Size = new System.Drawing.Size(370, 21);
             this.labelReplaceInfo2.TabIndex = 2;
             this.labelReplaceInfo2.Text = "durch";
             this.labelReplaceInfo2.TextAlign = System.Drawing.ContentAlignment.TopRight;

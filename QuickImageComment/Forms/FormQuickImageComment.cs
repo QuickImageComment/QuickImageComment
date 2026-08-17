@@ -2897,11 +2897,9 @@ namespace QuickImageComment
                     newThemeName = FormCustomization.Customizer.ThemeLight;
                 }
             }
-            Logger.log("adjustAfterColorThemeChange: newThemeName=" + newThemeName + ", current theme=" + CustomizationInterface.getColorThemeName());
             if (CustomizationInterface.getColorThemeName().Equals("") && !newThemeName.Equals(FormCustomization.Customizer.ThemeLight) ||
                 !CustomizationInterface.getColorThemeName().Equals("") && !CustomizationInterface.getColorThemeName().Equals(newThemeName))
             {
-                Logger.log("set theme and apply to main form");
                 CustomizationInterface.setColorThemeName(newThemeName);
                 CustomizationInterface.setThemeForComponent(this);
             }

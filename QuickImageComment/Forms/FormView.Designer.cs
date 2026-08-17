@@ -1099,6 +1099,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label1.Location = new System.Drawing.Point(11, 17);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(166, 13);
@@ -1108,6 +1109,7 @@
             // dynamicComboBoxConfigurationName
             // 
             this.dynamicComboBoxConfigurationName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.dynamicComboBoxConfigurationName.ForeColor = System.Drawing.SystemColors.ControlText;
             this.dynamicComboBoxConfigurationName.FormattingEnabled = true;
             this.dynamicComboBoxConfigurationName.Location = new System.Drawing.Point(199, 13);
             this.dynamicComboBoxConfigurationName.Name = "dynamicComboBoxConfigurationName";
@@ -1118,6 +1120,7 @@
             // buttonSave
             // 
             this.buttonSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonSave.ForeColor = System.Drawing.SystemColors.ControlText;
             this.buttonSave.Location = new System.Drawing.Point(436, 10);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(99, 26);
@@ -1129,6 +1132,7 @@
             // buttonDelete
             // 
             this.buttonDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonDelete.ForeColor = System.Drawing.SystemColors.ControlText;
             this.buttonDelete.Location = new System.Drawing.Point(538, 10);
             this.buttonDelete.Name = "buttonDelete";
             this.buttonDelete.Size = new System.Drawing.Size(99, 26);
@@ -1140,6 +1144,7 @@
             // buttonSaveAs
             // 
             this.buttonSaveAs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonSaveAs.ForeColor = System.Drawing.SystemColors.ControlText;
             this.buttonSaveAs.Location = new System.Drawing.Point(640, 10);
             this.buttonSaveAs.Name = "buttonSaveAs";
             this.buttonSaveAs.Size = new System.Drawing.Size(128, 26);
@@ -1155,9 +1160,10 @@
             this.groupBox1.Controls.Add(this.buttonDelete);
             this.groupBox1.Controls.Add(this.buttonSave);
             this.groupBox1.Controls.Add(this.dynamicComboBoxConfigurationName);
+            this.groupBox1.ForeColor = System.Drawing.SystemColors.ControlDark;
             this.groupBox1.Location = new System.Drawing.Point(-7, 499);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(836, 42);
+            this.groupBox1.Size = new System.Drawing.Size(907, 42);
             this.groupBox1.TabIndex = 21;
             this.groupBox1.TabStop = false;
             // 

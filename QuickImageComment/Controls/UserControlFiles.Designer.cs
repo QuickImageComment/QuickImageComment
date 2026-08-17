@@ -30,14 +30,6 @@ namespace QuickImageComment
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.listViewFiles = new QuickImageCommentControls.ListViewFiles();
-            this.columnHeaderName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeaderSize = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeaderChanged = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeaderCreated = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeaderComment = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeaderRating = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeaderRatingDec = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.contextMenuStripListViewFiles = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.contextMenuStripMenuItemLargeIcons = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripMenuItemTile = new System.Windows.Forms.ToolStripMenuItem();
@@ -58,73 +50,16 @@ namespace QuickImageComment
             this.labelFilter = new System.Windows.Forms.Label();
             this.textBoxFileFilter = new System.Windows.Forms.TextBox();
             this.buttonFilterFiles = new System.Windows.Forms.Button();
+            this.listViewFiles = new QuickImageCommentControls.ListViewFiles();
+            this.columnHeaderName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderSize = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderChanged = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderCreated = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderComment = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderRating = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderRatingDec = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.contextMenuStripListViewFiles.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // listViewFiles
-            // 
-            this.listViewFiles.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.listViewFiles.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeaderName,
-            this.columnHeaderSize,
-            this.columnHeaderChanged,
-            this.columnHeaderCreated,
-            this.columnHeaderComment,
-            this.columnHeaderRating,
-            this.columnHeaderRatingDec});
-            this.listViewFiles.ContextMenuStrip = this.contextMenuStripListViewFiles;
-            this.listViewFiles.FullRowSelect = true;
-            this.listViewFiles.HideSelection = false;
-            this.listViewFiles.Location = new System.Drawing.Point(0, 29);
-            this.listViewFiles.Name = "listViewFiles";
-            this.listViewFiles.OwnerDraw = true;
-            this.listViewFiles.Size = new System.Drawing.Size(280, 344);
-            this.listViewFiles.TabIndex = 4;
-            this.listViewFiles.TileSize = new System.Drawing.Size(200, 120);
-            this.listViewFiles.UseCompatibleStateImageBehavior = false;
-            this.listViewFiles.View = System.Windows.Forms.View.List;
-            this.listViewFiles.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listViewFiles_ColumnClick);
-            this.listViewFiles.SelectedIndexChanged += new System.EventHandler(this.listViewFiles_SelectedIndexChanged);
-            this.listViewFiles.DoubleClick += new System.EventHandler(this.listViewFiles_DoubleClick);
-            this.listViewFiles.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listViewFiles_KeyDown);
-            // 
-            // columnHeaderName
-            // 
-            this.columnHeaderName.Name = "columnHeaderName";
-            this.columnHeaderName.Text = "Name";
-            // 
-            // columnHeaderSize
-            // 
-            this.columnHeaderSize.Name = "columnHeaderSize";
-            this.columnHeaderSize.Text = "Größe";
-            this.columnHeaderSize.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // columnHeaderChanged
-            // 
-            this.columnHeaderChanged.Name = "columnHeaderChanged";
-            this.columnHeaderChanged.Text = "Geändert am";
-            // 
-            // columnHeaderCreated
-            // 
-            this.columnHeaderCreated.Name = "columnHeaderCreated";
-            this.columnHeaderCreated.Text = "Erstellt am";
-            // 
-            // columnHeaderComment
-            // 
-            this.columnHeaderComment.Name = "columnHeaderComment";
-            this.columnHeaderComment.Text = "Kommentar";
-            // 
-            // columnHeaderRating
-            // 
-            this.columnHeaderRating.Name = "columnHeaderRating";
-            this.columnHeaderRating.Text = "Bewertung";
-            // 
-            // columnHeaderRatingDec
-            // 
-            this.columnHeaderRatingDec.Name = "columnHeaderRatingDec";
-            this.columnHeaderRatingDec.Text = "Bewertung ";
             // 
             // contextMenuStripListViewFiles
             // 
@@ -261,6 +196,7 @@ namespace QuickImageComment
             // labelFilter
             // 
             this.labelFilter.AutoSize = true;
+            this.labelFilter.ForeColor = System.Drawing.SystemColors.ControlText;
             this.labelFilter.Location = new System.Drawing.Point(0, 8);
             this.labelFilter.Name = "labelFilter";
             this.labelFilter.Size = new System.Drawing.Size(60, 13);
@@ -271,9 +207,10 @@ namespace QuickImageComment
             // 
             this.textBoxFileFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxFileFilter.Location = new System.Drawing.Point(67, 4);
+            this.textBoxFileFilter.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.textBoxFileFilter.Location = new System.Drawing.Point(75, 4);
             this.textBoxFileFilter.Name = "textBoxFileFilter";
-            this.textBoxFileFilter.Size = new System.Drawing.Size(180, 20);
+            this.textBoxFileFilter.Size = new System.Drawing.Size(155, 20);
             this.textBoxFileFilter.TabIndex = 2;
             this.textBoxFileFilter.Tag = "";
             this.textBoxFileFilter.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxFileFilter_KeyDown);
@@ -281,14 +218,82 @@ namespace QuickImageComment
             // buttonFilterFiles
             // 
             this.buttonFilterFiles.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonFilterFiles.Location = new System.Drawing.Point(249, 3);
+            this.buttonFilterFiles.BackColor = System.Drawing.SystemColors.Control;
+            this.buttonFilterFiles.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.buttonFilterFiles.Location = new System.Drawing.Point(233, 2);
             this.buttonFilterFiles.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);
             this.buttonFilterFiles.Name = "buttonFilterFiles";
-            this.buttonFilterFiles.Size = new System.Drawing.Size(30, 23);
+            this.buttonFilterFiles.Size = new System.Drawing.Size(46, 25);
             this.buttonFilterFiles.TabIndex = 3;
             this.buttonFilterFiles.Text = "OK";
-            this.buttonFilterFiles.UseVisualStyleBackColor = true;
+            this.buttonFilterFiles.UseVisualStyleBackColor = false;
             this.buttonFilterFiles.Click += new System.EventHandler(this.buttonFilterFiles_Click);
+            // 
+            // listViewFiles
+            // 
+            this.listViewFiles.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listViewFiles.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeaderName,
+            this.columnHeaderSize,
+            this.columnHeaderChanged,
+            this.columnHeaderCreated,
+            this.columnHeaderComment,
+            this.columnHeaderRating,
+            this.columnHeaderRatingDec});
+            this.listViewFiles.ContextMenuStrip = this.contextMenuStripListViewFiles;
+            this.listViewFiles.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.listViewFiles.FullRowSelect = true;
+            this.listViewFiles.HideSelection = false;
+            this.listViewFiles.Location = new System.Drawing.Point(0, 29);
+            this.listViewFiles.Name = "listViewFiles";
+            this.listViewFiles.OwnerDraw = true;
+            this.listViewFiles.Size = new System.Drawing.Size(280, 344);
+            this.listViewFiles.TabIndex = 4;
+            this.listViewFiles.TileSize = new System.Drawing.Size(200, 120);
+            this.listViewFiles.UseCompatibleStateImageBehavior = false;
+            this.listViewFiles.View = System.Windows.Forms.View.List;
+            this.listViewFiles.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listViewFiles_ColumnClick);
+            this.listViewFiles.SelectedIndexChanged += new System.EventHandler(this.listViewFiles_SelectedIndexChanged);
+            this.listViewFiles.DoubleClick += new System.EventHandler(this.listViewFiles_DoubleClick);
+            this.listViewFiles.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listViewFiles_KeyDown);
+            // 
+            // columnHeaderName
+            // 
+            this.columnHeaderName.Name = "columnHeaderName";
+            this.columnHeaderName.Text = "Name";
+            // 
+            // columnHeaderSize
+            // 
+            this.columnHeaderSize.Name = "columnHeaderSize";
+            this.columnHeaderSize.Text = "Größe";
+            this.columnHeaderSize.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // columnHeaderChanged
+            // 
+            this.columnHeaderChanged.Name = "columnHeaderChanged";
+            this.columnHeaderChanged.Text = "Geändert am";
+            // 
+            // columnHeaderCreated
+            // 
+            this.columnHeaderCreated.Name = "columnHeaderCreated";
+            this.columnHeaderCreated.Text = "Erstellt am";
+            // 
+            // columnHeaderComment
+            // 
+            this.columnHeaderComment.Name = "columnHeaderComment";
+            this.columnHeaderComment.Text = "Kommentar";
+            // 
+            // columnHeaderRating
+            // 
+            this.columnHeaderRating.Name = "columnHeaderRating";
+            this.columnHeaderRating.Text = "Bewertung";
+            // 
+            // columnHeaderRatingDec
+            // 
+            this.columnHeaderRatingDec.Name = "columnHeaderRatingDec";
+            this.columnHeaderRatingDec.Text = "Bewertung ";
             // 
             // UserControlFiles
             // 
@@ -298,6 +303,7 @@ namespace QuickImageComment
             this.Controls.Add(this.textBoxFileFilter);
             this.Controls.Add(this.labelFilter);
             this.Controls.Add(this.listViewFiles);
+            this.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
             this.Name = "UserControlFiles";
             this.Size = new System.Drawing.Size(279, 373);
             this.contextMenuStripListViewFiles.ResumeLayout(false);

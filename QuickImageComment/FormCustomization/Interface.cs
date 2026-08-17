@@ -147,9 +147,7 @@ namespace FormCustomization
         // set theme colors
         internal void setThemeForComponent(Component component)
         {
-            Logger.log("enter Interface.setThemeForComponent");
             if (theCustomizer.getThemeName().Equals("")) return; // no theme loaded
-            Logger.log("execute setThemeForComponent");
             theCustomizer.setThemeForComponent(component, 0);
         }
 
