@@ -507,12 +507,6 @@ namespace QuickImageComment
             fillMenuEditExternal();
 
             adjustAfterColorThemeChange();
-            
-            // set colors
-            backColorInputUnchanged = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigInt.BackColorInputUnchanged);
-            backColorInputValueChanged = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigInt.BackColorValueChanged);
-            backColorNotEnabled = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigInt.BackColorNotEnabled);
-            backColorMultiEditNonDefault = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigInt.BackColorMultiEditNonDefault);
 
             // create and fill user control for changeable fields 
             Program.StartupPerformance.measure("FormQIC before user control changeable fields");
@@ -2902,6 +2896,21 @@ namespace QuickImageComment
             {
                 CustomizationInterface.setColorThemeName(newThemeName);
                 CustomizationInterface.setThemeForComponent(this);
+
+                // set dynamic colors
+                backColorInputUnchanged = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigInt.BackColorInputUnchanged);
+                backColorInputValueChanged = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigInt.BackColorValueChanged);
+                backColorNotEnabled = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigInt.BackColorNotEnabled);
+                backColorMultiEditNonDefault = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigInt.BackColorMultiEditNonDefault);
+
+                // as they are filled dynamic refresh the following controls to get new theme
+                if (theUserControlChangeableFields != null)
+                {
+                    theUserControlChangeableFields.adjustTemplateControlsForNewTheme();
+                    //!!: is an reliable way to adjust theme, but does much more then needed. Is it worth to implement specific logic for theme change?
+                    theUserControlChangeableFields.fillChangeableFieldPanelWithControls(theExtendedImage);
+                }
+                if (theExtendedImage != null) displayProperties();
             }
         }
 

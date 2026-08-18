@@ -58,20 +58,25 @@ namespace QuickImageComment
             //Program.StartupPerformance.measure("UserControlChangeableFields constructor start");
             InitializeComponent();
             FormCustomization.Interface customziationInterface = MainMaskInterface.getCustomizationInterface();
-            customziationInterface.setThemeForComponent(this);
-            // needs to initiated as it is checked, even if this user control is not visible
-            UsedXmpLangAltEntries = new ArrayList();
-            ChangeableFieldInputControls = new SortedList<string, Control>();
+
             // remove the template controls from panel
             // they are still available as template, but do not disturb on screen and during scaling
             for (int ii = panelChangeableFieldsInner.Controls.Count - 1; ii >= 0; ii--)
             {
                 panelChangeableFieldsInner.Controls.Remove(panelChangeableFieldsInner.Controls[ii]);
             }
+            // now adjust theme of template controls as their name is now without parents
+            // and thus future theme changes can refer correct to original colors
+            adjustTemplateControlsForNewTheme();
+            customziationInterface.setThemeForComponent(this);
+
+            // needs to initiated as it is checked, even if this user control is not visible
+            UsedXmpLangAltEntries = new ArrayList();
+            ChangeableFieldInputControls = new SortedList<string, Control>();
         }
 
         //*****************************************************************
-        #region Fill user control
+        #region Fill and configure user control
         //*****************************************************************
         // get changeable fields, and create controls in panel for changeable fields
         internal void fillChangeableFieldPanelWithControls(ExtendedImage theExtendedImage)
@@ -462,6 +467,15 @@ namespace QuickImageComment
                     }
                 }
             }
+        }
+
+        // adjust template controls for new theme
+        internal void adjustTemplateControlsForNewTheme()
+        {
+            MainMaskInterface.getCustomizationInterface().setThemeForComponent(dynamicLabelChangeableField);
+            MainMaskInterface.getCustomizationInterface().setThemeForComponent(textBoxChangeableField);
+            MainMaskInterface.getCustomizationInterface().setThemeForComponent(comboBoxChangeableField);
+            MainMaskInterface.getCustomizationInterface().setThemeForComponent(dateTimePickerChangeableField);
         }
         #endregion
 
