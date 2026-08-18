@@ -480,7 +480,8 @@ namespace JR.Utils.GUI.Forms
             private FlexibleMessageBoxForm()
             {
                 InitializeComponent();
-                MainMaskInterface.getCustomizationInterface().setThemeForComponent(this);
+                FormCustomization.Interface customizationInterface = MainMaskInterface.getCustomizationInterface();
+                if (customizationInterface != null) customizationInterface.setThemeForComponent(this);
 
                 if (languageIdExternal == TwoLetterISOLanguageID.undefined)
                 {
