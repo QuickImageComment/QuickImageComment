@@ -168,6 +168,8 @@ namespace QuickImageComment
             int radiusInMeter, ConfigDefinition.enumCfgUserInt givenSplitterDistanceEnum, FormFind formFind)
         {
             InitializeComponent();
+            MainMaskInterface.getCustomizationInterface().setThemeForComponent(this);
+
             UserControlMapList.Add(this);
 
             panelBottomHeightInitial = panelBottom.Height;
