@@ -1567,8 +1567,8 @@ namespace QuickImageComment
                 ConfigDefinition.writeConfigurationFile();
                 LangCfg.writeTranslationCheckFiles(false);
 
-                GeneralUtilities.closeDebugFile();
                 GeneralUtilities.closeTraceFile();
+                GeneralUtilities.closeDebugFile();
 
                 ExifToolWrapper.Stop();
 

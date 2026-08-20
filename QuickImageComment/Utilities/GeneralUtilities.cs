@@ -115,7 +115,9 @@ namespace QuickImageComment
         // separator to get unique identifier from tag
         public const string UniqueSeparator = "~§$#";
 
+        private static string DebugFileName = "";
         private static System.IO.StreamWriter StreamDebugFile = null;
+        private static string TraceFileName = "";
         private static System.IO.StreamWriter StreamTraceFile = null;
 
         private static System.Diagnostics.PerformanceCounter ramCounter;
@@ -899,7 +901,7 @@ namespace QuickImageComment
         {
             if (StreamDebugFile == null)
             {
-                string DebugFileName = ConfigDefinition.getIniPath() + "QIC" + Program.VersionNumberOnlyWhenSuffixDefined + "-Debug.txt";
+                DebugFileName = ConfigDefinition.getIniPath() + "QIC" + Program.VersionNumberOnlyWhenSuffixDefined + "-Debug.txt";
                 StreamDebugFile = new System.IO.StreamWriter(DebugFileName, false, System.Text.Encoding.UTF8);
             }
             StreamDebugFile.WriteLine(messageText);
@@ -911,7 +913,7 @@ namespace QuickImageComment
             if (StreamDebugFile != null)
             {
                 // first show message to avoid that writeDebugFileEntry in debugMessage may open debug file again
-                debugMessage("Closing Debug-file.");
+                debugMessage("Closing Debug-file\n" + DebugFileName);
                 StreamDebugFile.Close();
                 StreamDebugFile = null;
             }
@@ -923,7 +925,7 @@ namespace QuickImageComment
             {
                 if (StreamTraceFile == null)
                 {
-                    string TraceFileName = ConfigDefinition.getIniPath() + "QIC" + Program.VersionNumberOnlyWhenSuffixDefined + "-Trace.txt";
+                    TraceFileName = ConfigDefinition.getIniPath() + "QIC" + Program.VersionNumberOnlyWhenSuffixDefined + "-Trace.txt";
                     StreamTraceFile = new System.IO.StreamWriter(TraceFileName, false, System.Text.Encoding.UTF8);
                 }
                 // Get call stack
@@ -944,7 +946,12 @@ namespace QuickImageComment
 
         public static void closeTraceFile()
         {
-            StreamTraceFile?.Close();
+            if (StreamTraceFile != null)
+            {
+                debugMessage("Closing Trace-file\n" + TraceFileName);
+                StreamTraceFile.Close();
+                StreamTraceFile = null;
+            }
         }
 
         // get name of calling methods
