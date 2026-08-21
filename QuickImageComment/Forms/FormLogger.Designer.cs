@@ -30,7 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormLogger));
             this.textBoxLogs = new System.Windows.Forms.TextBox();
-            this.buttonClear = new System.Windows.Forms.Button();
+            this.buttonClear = new QuickImageCommentControls.ButtonQIC();
             this.SuspendLayout();
             // 
             // textBoxLogs
@@ -78,6 +78,6 @@
         #endregion
 
         private System.Windows.Forms.TextBox textBoxLogs;
-        private System.Windows.Forms.Button buttonClear;
+        private QuickImageCommentControls.ButtonQIC  buttonClear;
     }
 }

@@ -50,7 +50,6 @@ namespace QuickImageComment
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormSettings));
-            this.buttonOK = new System.Windows.Forms.Button();
             this.checkBoxKeepImageBakFile = new System.Windows.Forms.CheckBox();
             this.checkBoxSaveWithReturn = new System.Windows.Forms.CheckBox();
             this.checkBoxLastCommentsWithCursor = new System.Windows.Forms.CheckBox();
@@ -60,7 +59,6 @@ namespace QuickImageComment
             this.numericUpDownMaxLastComments = new System.Windows.Forms.NumericUpDown();
             this.labelMaxLastComments = new System.Windows.Forms.Label();
             this.labelReactionListBoxCommentDoubleClick = new System.Windows.Forms.Label();
-            this.comboBoxPredefinedCommentsMouseDoubleClickAction = new QuickImageCommentControls.ComboBoxQIC();
             this.labelUserCommentInsertCheckCharacters = new System.Windows.Forms.Label();
             this.labelUserCommentAppendCheckCharacters = new System.Windows.Forms.Label();
             this.richTextBoxUserCommentInsertCheckCharacters = new System.Windows.Forms.RichTextBox();
@@ -76,11 +74,8 @@ namespace QuickImageComment
             this.label2 = new System.Windows.Forms.Label();
             this.labelFullSizeImageCacheMaxSize = new System.Windows.Forms.Label();
             this.numericUpDownFullSizeImageCacheMaxSize = new System.Windows.Forms.NumericUpDown();
-            this.buttonCustomizeForm = new System.Windows.Forms.Button();
-            this.buttonCancel = new System.Windows.Forms.Button();
             this.labelAdditionalExtensions = new System.Windows.Forms.Label();
             this.TextBoxAdditionalExtensions = new System.Windows.Forms.TextBox();
-            this.buttonHelp = new System.Windows.Forms.Button();
             this.fixedLabel4 = new System.Windows.Forms.Label();
             this.fixedLabel5 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -137,7 +132,7 @@ namespace QuickImageComment
             this.Panel5 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label11 = new System.Windows.Forms.Label();
-            this.buttonExifToolSettings = new System.Windows.Forms.Button();
+            this.buttonExifToolSettings = new QuickImageCommentControls.ButtonQIC  ();
             this.panel3 = new System.Windows.Forms.Panel();
             this.checkBoxShowRatingButtonReject = new System.Windows.Forms.CheckBox();
             this.checkBoxLogDiffMetaData = new System.Windows.Forms.CheckBox();
@@ -147,6 +142,11 @@ namespace QuickImageComment
             this.labelCharSet = new System.Windows.Forms.Label();
             this.checkBoxButtonDeletesPermanent = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.buttonCustomizeForm = new QuickImageCommentControls.ButtonQIC  ();
+            this.buttonHelp = new QuickImageCommentControls.ButtonQIC  ();
+            this.buttonCancel = new QuickImageCommentControls.ButtonQIC  ();
+            this.buttonOK = new QuickImageCommentControls.ButtonQIC  ();
+            this.comboBoxPredefinedCommentsMouseDoubleClickAction = new QuickImageCommentControls.ComboBoxQIC();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxLastComments)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFullSizeImageCacheMaxSize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaximumMemoryForCaching)).BeginInit();
@@ -161,17 +161,6 @@ namespace QuickImageComment
             this.panel3.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // buttonOK
-            // 
-            this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonOK.Location = new System.Drawing.Point(276, 583);
-            this.buttonOK.Name = "buttonOK";
-            this.buttonOK.Size = new System.Drawing.Size(99, 26);
-            this.buttonOK.TabIndex = 33;
-            this.buttonOK.Text = "OK";
-            this.buttonOK.UseVisualStyleBackColor = true;
-            this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
             // 
             // checkBoxKeepImageBakFile
             // 
@@ -266,15 +255,6 @@ namespace QuickImageComment
             this.labelReactionListBoxCommentDoubleClick.Size = new System.Drawing.Size(306, 13);
             this.labelReactionListBoxCommentDoubleClick.TabIndex = 14;
             this.labelReactionListBoxCommentDoubleClick.Text = "Bei Maus-Doppelclick in Listbox der vordefinierten Kommentare";
-            // 
-            // comboBoxPredefinedCommentsMouseDoubleClickAction
-            // 
-            this.comboBoxPredefinedCommentsMouseDoubleClickAction.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxPredefinedCommentsMouseDoubleClickAction.FormattingEnabled = true;
-            this.comboBoxPredefinedCommentsMouseDoubleClickAction.Location = new System.Drawing.Point(423, 213);
-            this.comboBoxPredefinedCommentsMouseDoubleClickAction.Name = "comboBoxPredefinedCommentsMouseDoubleClickAction";
-            this.comboBoxPredefinedCommentsMouseDoubleClickAction.Size = new System.Drawing.Size(152, 22);
-            this.comboBoxPredefinedCommentsMouseDoubleClickAction.TabIndex = 15;
             // 
             // labelUserCommentInsertCheckCharacters
             // 
@@ -430,28 +410,6 @@ namespace QuickImageComment
             this.numericUpDownFullSizeImageCacheMaxSize.Size = new System.Drawing.Size(58, 21);
             this.numericUpDownFullSizeImageCacheMaxSize.TabIndex = 2;
             // 
-            // buttonCustomizeForm
-            // 
-            this.buttonCustomizeForm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonCustomizeForm.Location = new System.Drawing.Point(4, 583);
-            this.buttonCustomizeForm.Name = "buttonCustomizeForm";
-            this.buttonCustomizeForm.Size = new System.Drawing.Size(99, 26);
-            this.buttonCustomizeForm.TabIndex = 32;
-            this.buttonCustomizeForm.Text = "Maske anpassen";
-            this.buttonCustomizeForm.UseVisualStyleBackColor = true;
-            this.buttonCustomizeForm.Click += new System.EventHandler(this.buttonCustomizeForm_Click);
-            // 
-            // buttonCancel
-            // 
-            this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonCancel.Location = new System.Drawing.Point(380, 583);
-            this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(99, 26);
-            this.buttonCancel.TabIndex = 34;
-            this.buttonCancel.Text = "Abbrechen";
-            this.buttonCancel.UseVisualStyleBackColor = true;
-            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
-            // 
             // labelAdditionalExtensions
             // 
             this.labelAdditionalExtensions.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -469,17 +427,6 @@ namespace QuickImageComment
             this.TextBoxAdditionalExtensions.Name = "TextBoxAdditionalExtensions";
             this.TextBoxAdditionalExtensions.Size = new System.Drawing.Size(148, 18);
             this.TextBoxAdditionalExtensions.TabIndex = 24;
-            // 
-            // buttonHelp
-            // 
-            this.buttonHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonHelp.Location = new System.Drawing.Point(649, 583);
-            this.buttonHelp.Name = "buttonHelp";
-            this.buttonHelp.Size = new System.Drawing.Size(99, 26);
-            this.buttonHelp.TabIndex = 35;
-            this.buttonHelp.Text = "Hilfe";
-            this.buttonHelp.UseVisualStyleBackColor = true;
-            this.buttonHelp.Click += new System.EventHandler(this.buttonHelp_Click);
             // 
             // fixedLabel4
             // 
@@ -1181,6 +1128,7 @@ namespace QuickImageComment
             // 
             // comboBoxCharsetUserComment
             // 
+            this.comboBoxCharsetUserComment.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.comboBoxCharsetUserComment.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxCharsetUserComment.FormattingEnabled = true;
             this.comboBoxCharsetUserComment.Items.AddRange(new object[] {
@@ -1239,9 +1187,63 @@ namespace QuickImageComment
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(366, 27);
             this.tableLayoutPanel2.TabIndex = 38;
+            // 
+            // buttonCustomizeForm
+            // 
+            this.buttonCustomizeForm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonCustomizeForm.Location = new System.Drawing.Point(4, 583);
+            this.buttonCustomizeForm.Name = "buttonCustomizeForm";
+            this.buttonCustomizeForm.Size = new System.Drawing.Size(99, 26);
+            this.buttonCustomizeForm.TabIndex = 32;
+            this.buttonCustomizeForm.Text = "Maske anpassen";
+            this.buttonCustomizeForm.UseVisualStyleBackColor = true;
+            this.buttonCustomizeForm.Click += new System.EventHandler(this.buttonCustomizeForm_Click);
+            // 
+            // buttonHelp
+            // 
+            this.buttonHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonHelp.Location = new System.Drawing.Point(649, 583);
+            this.buttonHelp.Name = "buttonHelp";
+            this.buttonHelp.Size = new System.Drawing.Size(99, 26);
+            this.buttonHelp.TabIndex = 35;
+            this.buttonHelp.Text = "Hilfe";
+            this.buttonHelp.UseVisualStyleBackColor = true;
+            this.buttonHelp.Click += new System.EventHandler(this.buttonHelp_Click);
+            // 
+            // buttonCancel
+            // 
+            this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonCancel.Location = new System.Drawing.Point(380, 583);
+            this.buttonCancel.Name = "buttonCancel";
+            this.buttonCancel.Size = new System.Drawing.Size(99, 26);
+            this.buttonCancel.TabIndex = 34;
+            this.buttonCancel.Text = "Abbrechen";
+            this.buttonCancel.UseVisualStyleBackColor = true;
+            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
+            // 
+            // buttonOK
+            // 
+            this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonOK.Location = new System.Drawing.Point(276, 583);
+            this.buttonOK.Name = "buttonOK";
+            this.buttonOK.Size = new System.Drawing.Size(99, 26);
+            this.buttonOK.TabIndex = 33;
+            this.buttonOK.Text = "OK";
+            this.buttonOK.UseVisualStyleBackColor = true;
+            this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
+            // 
+            // comboBoxPredefinedCommentsMouseDoubleClickAction
+            // 
+            this.comboBoxPredefinedCommentsMouseDoubleClickAction.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.comboBoxPredefinedCommentsMouseDoubleClickAction.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxPredefinedCommentsMouseDoubleClickAction.FormattingEnabled = true;
+            this.comboBoxPredefinedCommentsMouseDoubleClickAction.Location = new System.Drawing.Point(423, 213);
+            this.comboBoxPredefinedCommentsMouseDoubleClickAction.Name = "comboBoxPredefinedCommentsMouseDoubleClickAction";
+            this.comboBoxPredefinedCommentsMouseDoubleClickAction.Size = new System.Drawing.Size(152, 22);
+            this.comboBoxPredefinedCommentsMouseDoubleClickAction.TabIndex = 15;
             // 
             // FormSettings
             // 
@@ -1250,6 +1252,7 @@ namespace QuickImageComment
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(972, 613);
             this.Controls.Add(this.tableLayoutPanel2);
+            this.Controls.Add(this.buttonCustomizeForm);
             this.Controls.Add(this.checkBoxButtonDeletesPermanent);
             this.Controls.Add(this.Panel5);
             this.Controls.Add(this.panel3);
@@ -1260,7 +1263,6 @@ namespace QuickImageComment
             this.Controls.Add(this.buttonHelp);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonOK);
-            this.Controls.Add(this.buttonCustomizeForm);
             this.Controls.Add(this.numericUpDownMaxArtists);
             this.Controls.Add(this.labelMaxArtists);
             this.Controls.Add(this.label7);
@@ -1327,11 +1329,10 @@ namespace QuickImageComment
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label labelFullSizeImageCacheMaxSize;
         private System.Windows.Forms.NumericUpDown numericUpDownFullSizeImageCacheMaxSize;
-        private System.Windows.Forms.Button buttonCustomizeForm;
-        private System.Windows.Forms.Button buttonCancel;
+        private QuickImageCommentControls.ButtonQIC   buttonCustomizeForm;
+        private QuickImageCommentControls.ButtonQIC   buttonCancel;
         private System.Windows.Forms.Label labelAdditionalExtensions;
         private System.Windows.Forms.TextBox TextBoxAdditionalExtensions;
-        private System.Windows.Forms.Button buttonHelp;
         private System.Windows.Forms.Label fixedLabel4;
         private System.Windows.Forms.Label fixedLabel5;
         private System.Windows.Forms.Label label7;
@@ -1376,7 +1377,7 @@ namespace QuickImageComment
         private System.Windows.Forms.CheckBox checkBoxExifUTF8;
         private System.Windows.Forms.Label labelCharSet;
         private System.Windows.Forms.CheckBox checkBoxButtonDeletesPermanent;
-        private System.Windows.Forms.Button buttonExifToolSettings;
+        private QuickImageCommentControls.ButtonQIC   buttonExifToolSettings;
         private System.Windows.Forms.CheckBox checkBoxLogDiffMetaData;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
@@ -1399,5 +1400,7 @@ namespace QuickImageComment
         private System.Windows.Forms.CheckBox checkBoxShowRatingButtonReject;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private QuickImageCommentControls.ButtonQIC   buttonOK;
+        private QuickImageCommentControls.ButtonQIC   buttonHelp;
     }
 }

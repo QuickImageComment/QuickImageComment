@@ -45,15 +45,15 @@ namespace QuickImageComment
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormPlaceholder));
-            this.buttonAbort = new System.Windows.Forms.Button();
-            this.buttonMetaDatum = new System.Windows.Forms.Button();
-            this.buttonOk = new System.Windows.Forms.Button();
+            this.buttonAbort = new QuickImageCommentControls.ButtonQIC();
+            this.buttonMetaDatum = new QuickImageCommentControls.ButtonQIC();
+            this.buttonOk = new QuickImageCommentControls.ButtonQIC();
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.dynamicLabelValueOriginal = new System.Windows.Forms.Label();
             this.dynamicLabelValueInterpreted = new System.Windows.Forms.Label();
-            this.buttonCustomizeForm = new System.Windows.Forms.Button();
-            this.buttonHelp = new System.Windows.Forms.Button();
+            this.buttonCustomizeForm = new QuickImageCommentControls.ButtonQIC();
+            this.buttonHelp = new QuickImageCommentControls.ButtonQIC();
             this.label14 = new System.Windows.Forms.Label();
             this.richTextBoxValue = new System.Windows.Forms.RichTextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -71,13 +71,13 @@ namespace QuickImageComment
             this.label7 = new System.Windows.Forms.Label();
             this.richTextBoxSeparator = new System.Windows.Forms.RichTextBox();
             this.checkBoxSavedValue = new System.Windows.Forms.CheckBox();
-            this.buttonDate = new System.Windows.Forms.Button();
-            this.buttonTime = new System.Windows.Forms.Button();
-            this.buttonInsertOverwrite = new System.Windows.Forms.Button();
+            this.buttonDate = new QuickImageCommentControls.ButtonQIC();
+            this.buttonTime = new QuickImageCommentControls.ButtonQIC();
+            this.buttonInsertOverwrite = new QuickImageCommentControls.ButtonQIC();
             this.checkBoxSubStringRight = new System.Windows.Forms.CheckBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.buttonEdit = new System.Windows.Forms.Button();
+            this.buttonEdit = new QuickImageCommentControls.ButtonQIC();
             this.labelNoPlaceholderMarked = new System.Windows.Forms.Label();
             this.tableLayoutPanelValueResult = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanelTagList = new System.Windows.Forms.TableLayoutPanel();
@@ -651,15 +651,15 @@ namespace QuickImageComment
         }
 
         #endregion
-        private System.Windows.Forms.Button buttonAbort;
-        private System.Windows.Forms.Button buttonMetaDatum;
-        private System.Windows.Forms.Button buttonOk;
+        private QuickImageCommentControls.ButtonQIC buttonAbort;
+        private QuickImageCommentControls.ButtonQIC buttonMetaDatum;
+        private QuickImageCommentControls.ButtonQIC buttonOk;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label dynamicLabelValueOriginal;
         private System.Windows.Forms.Label dynamicLabelValueInterpreted;
-        private System.Windows.Forms.Button buttonCustomizeForm;
-        private System.Windows.Forms.Button buttonHelp;
+        private QuickImageCommentControls.ButtonQIC buttonCustomizeForm;
+        private QuickImageCommentControls.ButtonQIC buttonHelp;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.RichTextBox richTextBoxValue;
         private System.Windows.Forms.Label label2;
@@ -677,13 +677,13 @@ namespace QuickImageComment
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.RichTextBox richTextBoxSeparator;
         private System.Windows.Forms.CheckBox checkBoxSavedValue;
-        private System.Windows.Forms.Button buttonDate;
-        private System.Windows.Forms.Button buttonTime;
-        private System.Windows.Forms.Button buttonInsertOverwrite;
+        private QuickImageCommentControls.ButtonQIC buttonDate;
+        private QuickImageCommentControls.ButtonQIC buttonTime;
+        private QuickImageCommentControls.ButtonQIC buttonInsertOverwrite;
         private System.Windows.Forms.CheckBox checkBoxSubStringRight;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Button buttonEdit;
+        private QuickImageCommentControls.ButtonQIC buttonEdit;
         private System.Windows.Forms.Label labelNoPlaceholderMarked;
         private UserControlTagList userControlTagList;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelValueResult;

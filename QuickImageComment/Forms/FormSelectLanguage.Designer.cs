@@ -31,7 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormSelectLanguage));
             this.label1 = new System.Windows.Forms.Label();
             this.comboBoxLanguage = new QuickImageCommentControls.ComboBoxQIC();
-            this.buttonOk = new System.Windows.Forms.Button();
+            this.buttonOk = new QuickImageCommentControls.ButtonQIC();
             this.SuspendLayout();
             // 
             // label1
@@ -87,6 +87,6 @@
 
         private System.Windows.Forms.Label label1;
         private QuickImageCommentControls.ComboBoxQIC comboBoxLanguage;
-        private System.Windows.Forms.Button buttonOk;
+        private QuickImageCommentControls.ButtonQIC buttonOk;
     }
 }

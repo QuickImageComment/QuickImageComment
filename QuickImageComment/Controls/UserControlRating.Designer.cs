@@ -29,14 +29,14 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UserControlRating));
-            this.buttonNone = new System.Windows.Forms.Button();
-            this.fixedButtonStar5 = new System.Windows.Forms.Button();
-            this.fixedButtonStar4 = new System.Windows.Forms.Button();
-            this.fixedButtonStar1 = new System.Windows.Forms.Button();
-            this.fixedButtonStar2 = new System.Windows.Forms.Button();
-            this.fixedButtonStar3 = new System.Windows.Forms.Button();
-            this.fixedButtonReject = new System.Windows.Forms.Button();
-            this.buttonRevert = new System.Windows.Forms.Button();
+            this.buttonNone = new QuickImageCommentControls.ButtonQIC();
+            this.fixedButtonStar5 = new QuickImageCommentControls.ButtonQIC();
+            this.fixedButtonStar4 = new QuickImageCommentControls.ButtonQIC();
+            this.fixedButtonStar1 = new QuickImageCommentControls.ButtonQIC();
+            this.fixedButtonStar2 = new QuickImageCommentControls.ButtonQIC();
+            this.fixedButtonStar3 = new QuickImageCommentControls.ButtonQIC();
+            this.fixedButtonReject = new QuickImageCommentControls.ButtonQIC();
+            this.buttonRevert = new QuickImageCommentControls.ButtonQIC();
             this.SuspendLayout();
             // 
             // buttonNone
@@ -167,13 +167,13 @@
 
         #endregion
 
-        private System.Windows.Forms.Button fixedButtonReject;
-        private System.Windows.Forms.Button fixedButtonStar3;
-        private System.Windows.Forms.Button fixedButtonStar2;
-        private System.Windows.Forms.Button fixedButtonStar1;
-        private System.Windows.Forms.Button fixedButtonStar4;
-        private System.Windows.Forms.Button fixedButtonStar5;
-        private System.Windows.Forms.Button buttonNone;
-        private System.Windows.Forms.Button buttonRevert;
+        private QuickImageCommentControls.ButtonQIC  fixedButtonReject;
+        private QuickImageCommentControls.ButtonQIC  fixedButtonStar3;
+        private QuickImageCommentControls.ButtonQIC  fixedButtonStar2;
+        private QuickImageCommentControls.ButtonQIC  fixedButtonStar1;
+        private QuickImageCommentControls.ButtonQIC  fixedButtonStar4;
+        private QuickImageCommentControls.ButtonQIC  fixedButtonStar5;
+        private QuickImageCommentControls.ButtonQIC  buttonNone;
+        private QuickImageCommentControls.ButtonQIC  buttonRevert;
     }
 }

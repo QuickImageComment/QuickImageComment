@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormFindReadErrors));
-            this.buttonClose = new System.Windows.Forms.Button();
+            this.buttonClose = new QuickImageCommentControls.ButtonQIC();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -159,7 +159,7 @@
         }
 
         #endregion
-        private System.Windows.Forms.Button buttonClose;
+        private QuickImageCommentControls.ButtonQIC buttonClose;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;

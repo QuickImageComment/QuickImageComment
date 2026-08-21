@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormScale));
-            this.buttonHelp = new System.Windows.Forms.Button();
-            this.buttonOk = new System.Windows.Forms.Button();
-            this.buttonAbort = new System.Windows.Forms.Button();
+            this.buttonHelp = new QuickImageCommentControls.ButtonQIC();
+            this.buttonOk = new QuickImageCommentControls.ButtonQIC();
+            this.buttonAbort = new QuickImageCommentControls.ButtonQIC();
             this.panelRecommendedScales = new System.Windows.Forms.Panel();
             this.fixedRadioButton1 = new System.Windows.Forms.RadioButton();
             this.fixedRadioButton7 = new System.Windows.Forms.RadioButton();
@@ -426,9 +426,9 @@
 
         #endregion
 
-        private System.Windows.Forms.Button buttonHelp;
-        private System.Windows.Forms.Button buttonOk;
-        private System.Windows.Forms.Button buttonAbort;
+        private QuickImageCommentControls.ButtonQIC buttonHelp;
+        private QuickImageCommentControls.ButtonQIC buttonOk;
+        private QuickImageCommentControls.ButtonQIC buttonAbort;
         private System.Windows.Forms.Panel panelRecommendedScales;
         private System.Windows.Forms.RadioButton fixedRadioButton3;
         private System.Windows.Forms.RadioButton fixedRadioButton5;

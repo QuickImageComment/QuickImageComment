@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormInputBox));
-            this.buttonOk = new System.Windows.Forms.Button();
-            this.buttonCancel = new System.Windows.Forms.Button();
+            this.buttonOk = new QuickImageCommentControls.ButtonQIC();
+            this.buttonCancel = new QuickImageCommentControls.ButtonQIC();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.dynamicLabel1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
@@ -97,8 +97,8 @@
 
         #endregion
 
-        private System.Windows.Forms.Button buttonOk;
-        private System.Windows.Forms.Button buttonCancel;
+        private QuickImageCommentControls.ButtonQIC  buttonOk;
+        private QuickImageCommentControls.ButtonQIC  buttonCancel;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label dynamicLabel1;
     }

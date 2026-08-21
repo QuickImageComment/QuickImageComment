@@ -49,15 +49,15 @@ namespace QuickImageComment
     private void InitializeComponent()
     {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormDataTemplates));
-            this.buttonClose = new System.Windows.Forms.Button();
-            this.buttonCustomizeForm = new System.Windows.Forms.Button();
-            this.buttonHelp = new System.Windows.Forms.Button();
+            this.buttonClose = new QuickImageCommentControls.ButtonQIC();
+            this.buttonCustomizeForm = new QuickImageCommentControls.ButtonQIC();
+            this.buttonHelp = new QuickImageCommentControls.ButtonQIC();
             this.groupBoxConfigurationHandling = new System.Windows.Forms.GroupBox();
-            this.buttonNewFromMainMask = new System.Windows.Forms.Button();
-            this.buttonNewEmpty = new System.Windows.Forms.Button();
-            this.buttonSaveAs = new System.Windows.Forms.Button();
-            this.buttonSave = new System.Windows.Forms.Button();
-            this.buttonDelete = new System.Windows.Forms.Button();
+            this.buttonNewFromMainMask = new QuickImageCommentControls.ButtonQIC();
+            this.buttonNewEmpty = new QuickImageCommentControls.ButtonQIC();
+            this.buttonSaveAs = new QuickImageCommentControls.ButtonQIC();
+            this.buttonSave = new QuickImageCommentControls.ButtonQIC();
+            this.buttonDelete = new QuickImageCommentControls.ButtonQIC();
             this.dynamicComboBoxConfigurationName = new QuickImageCommentControls.ComboBoxQIC();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.label1 = new System.Windows.Forms.Label();
@@ -289,20 +289,20 @@ namespace QuickImageComment
     }
         #endregion
 
-        private System.Windows.Forms.Button buttonClose;
-        private System.Windows.Forms.Button buttonCustomizeForm;
-    private System.Windows.Forms.Button buttonHelp;
+        private QuickImageCommentControls.ButtonQIC  buttonClose;
+        private QuickImageCommentControls.ButtonQIC  buttonCustomizeForm;
+    private QuickImageCommentControls.ButtonQIC  buttonHelp;
         private System.Windows.Forms.GroupBox groupBoxConfigurationHandling;
-        private System.Windows.Forms.Button buttonDelete;
-        private System.Windows.Forms.Button buttonSaveAs;
+        private QuickImageCommentControls.ButtonQIC  buttonDelete;
+        private QuickImageCommentControls.ButtonQIC  buttonSaveAs;
         private QuickImageCommentControls.ComboBoxQIC dynamicComboBoxConfigurationName;
-        private System.Windows.Forms.Button buttonSave;
+        private QuickImageCommentControls.ButtonQIC  buttonSave;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label labelArtist;
         private System.Windows.Forms.Label labelUserComment;
-        private System.Windows.Forms.Button buttonNewFromMainMask;
-        private System.Windows.Forms.Button buttonNewEmpty;
+        private QuickImageCommentControls.ButtonQIC  buttonNewFromMainMask;
+        private QuickImageCommentControls.ButtonQIC  buttonNewEmpty;
         private QuickImageCommentControls.ComboBoxQIC dynamicComboBoxArtist;
         private QuickImageCommentControls.ComboBoxQIC dynamicComboBoxUserComment;
     }

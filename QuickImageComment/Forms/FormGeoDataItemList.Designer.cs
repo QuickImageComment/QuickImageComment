@@ -30,8 +30,8 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormGeoDataItemList));
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.buttonCancel = new System.Windows.Forms.Button();
-            this.buttonOk = new System.Windows.Forms.Button();
+            this.buttonCancel = new QuickImageCommentControls.ButtonQIC();
+            this.buttonOk = new QuickImageCommentControls.ButtonQIC();
             this.displayString = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.country = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.country_code = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -158,8 +158,8 @@
         #endregion
 
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.Button buttonCancel;
-        private System.Windows.Forms.Button buttonOk;
+        private QuickImageCommentControls.ButtonQIC  buttonCancel;
+        private QuickImageCommentControls.ButtonQIC  buttonOk;
         private System.Windows.Forms.DataGridViewTextBoxColumn displayString;
         private System.Windows.Forms.DataGridViewTextBoxColumn country;
         private System.Windows.Forms.DataGridViewTextBoxColumn country_code;

@@ -29,13 +29,13 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormRemoveMetaData));
-            this.buttonCancel = new System.Windows.Forms.Button();
-            this.buttonHelp = new System.Windows.Forms.Button();
-            this.buttonCustomizeForm = new System.Windows.Forms.Button();
-            this.buttonStart = new System.Windows.Forms.Button();
+            this.buttonCancel = new QuickImageCommentControls.ButtonQIC();
+            this.buttonHelp = new QuickImageCommentControls.ButtonQIC();
+            this.buttonCustomizeForm = new QuickImageCommentControls.ButtonQIC();
+            this.buttonStart = new QuickImageCommentControls.ButtonQIC();
             this.groupBoxMode = new System.Windows.Forms.GroupBox();
-            this.buttonEditExceptions = new System.Windows.Forms.Button();
-            this.buttonEditSingleList = new System.Windows.Forms.Button();
+            this.buttonEditExceptions = new QuickImageCommentControls.ButtonQIC();
+            this.buttonEditSingleList = new QuickImageCommentControls.ButtonQIC();
             this.checkBoxImageComment = new System.Windows.Forms.CheckBox();
             this.checkedListBoxRemoveMetaDataList = new System.Windows.Forms.CheckedListBox();
             this.checkBoxExceptions = new System.Windows.Forms.CheckBox();
@@ -267,10 +267,10 @@
 
         #endregion
 
-        private System.Windows.Forms.Button buttonCancel;
-        private System.Windows.Forms.Button buttonHelp;
-        private System.Windows.Forms.Button buttonCustomizeForm;
-        private System.Windows.Forms.Button buttonStart;
+        private QuickImageCommentControls.ButtonQIC buttonCancel;
+        private QuickImageCommentControls.ButtonQIC buttonHelp;
+        private QuickImageCommentControls.ButtonQIC buttonCustomizeForm;
+        private QuickImageCommentControls.ButtonQIC buttonStart;
         private System.Windows.Forms.GroupBox groupBoxMode;
         private System.Windows.Forms.RadioButton radioButtonGroups;
         private System.Windows.Forms.RadioButton radioButtonSingle;
@@ -281,8 +281,8 @@
         private System.Windows.Forms.CheckBox checkBoxIPTC;
         private System.Windows.Forms.CheckBox checkBoxXMP;
         private System.Windows.Forms.CheckBox checkBoxImageComment;
-        private System.Windows.Forms.Button buttonEditExceptions;
-        private System.Windows.Forms.Button buttonEditSingleList;
+        private QuickImageCommentControls.ButtonQIC buttonEditExceptions;
+        private QuickImageCommentControls.ButtonQIC buttonEditSingleList;
         private ProgressPanel progressPanel1;
     }
 }

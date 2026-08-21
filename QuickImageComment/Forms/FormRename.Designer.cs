@@ -45,8 +45,8 @@ namespace QuickImageComment
     private void InitializeComponent()
     {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormRename));
-            this.buttonStart = new System.Windows.Forms.Button();
-            this.buttonSave = new System.Windows.Forms.Button();
+            this.buttonStart = new QuickImageCommentControls.ButtonQIC();
+            this.buttonSave = new QuickImageCommentControls.ButtonQIC();
             this.dynamicLabelRenameFiles = new System.Windows.Forms.Label();
             this.labelBaseInfo1 = new System.Windows.Forms.Label();
             this.checkBoxRenameFormat_1 = new System.Windows.Forms.CheckBox();
@@ -170,12 +170,12 @@ namespace QuickImageComment
             this.dynamicComboBoxRenameFormat_11 = new QuickImageCommentControls.ComboBoxQIC();
             this.richTextBoxRenameFormat_11 = new System.Windows.Forms.RichTextBox();
             this.checkBoxRenameFormat_11 = new System.Windows.Forms.CheckBox();
-            this.buttonCustomizeForm = new System.Windows.Forms.Button();
-            this.buttonHelp = new System.Windows.Forms.Button();
-            this.buttonCancel = new System.Windows.Forms.Button();
+            this.buttonCustomizeForm = new QuickImageCommentControls.ButtonQIC();
+            this.buttonHelp = new QuickImageCommentControls.ButtonQIC();
+            this.buttonCancel = new QuickImageCommentControls.ButtonQIC();
             this.dynamicLabelCurrentLine = new System.Windows.Forms.Label();
-            this.buttonMoveUp = new System.Windows.Forms.Button();
-            this.buttonMoveDown = new System.Windows.Forms.Button();
+            this.buttonMoveUp = new QuickImageCommentControls.ButtonQIC();
+            this.buttonMoveDown = new QuickImageCommentControls.ButtonQIC();
             this.label4 = new System.Windows.Forms.Label();
             this.fixedLabelRow_1 = new System.Windows.Forms.Label();
             this.fixedLabelRow_2 = new System.Windows.Forms.Label();
@@ -189,8 +189,8 @@ namespace QuickImageComment
             this.fixedLabelRow_10 = new System.Windows.Forms.Label();
             this.fixedLabelRow_11 = new System.Windows.Forms.Label();
             this.groupBoxConfigurationHandling = new System.Windows.Forms.GroupBox();
-            this.buttonDelete = new System.Windows.Forms.Button();
-            this.buttonSaveAs = new System.Windows.Forms.Button();
+            this.buttonDelete = new QuickImageCommentControls.ButtonQIC();
+            this.buttonSaveAs = new QuickImageCommentControls.ButtonQIC();
             this.dynamicComboBoxConfigurationName = new QuickImageCommentControls.ComboBoxQIC();
             this.label5 = new System.Windows.Forms.Label();
             this.progressPanel1 = new QuickImageComment.ProgressPanel();
@@ -1974,8 +1974,8 @@ namespace QuickImageComment
 
     #endregion
 
-    private System.Windows.Forms.Button buttonStart;
-    private System.Windows.Forms.Button buttonSave;
+    private QuickImageCommentControls.ButtonQIC  buttonStart;
+    private QuickImageCommentControls.ButtonQIC  buttonSave;
     private System.Windows.Forms.Label dynamicLabelRenameFiles;
     private System.Windows.Forms.Label labelBaseInfo1;
     private System.Windows.Forms.CheckBox checkBoxRenameFormat_1;
@@ -2098,12 +2098,12 @@ namespace QuickImageComment
     private System.Windows.Forms.CheckBox checkBoxRenameFormat_11;
     private System.Windows.Forms.Label labelRunningInfo5;
     private QuickImageCommentControls.ComboBoxQIC dynamicComboBoxRunningNumberSortField;
-    private System.Windows.Forms.Button buttonCustomizeForm;
-    private System.Windows.Forms.Button buttonHelp;
-    private System.Windows.Forms.Button buttonCancel;
+    private QuickImageCommentControls.ButtonQIC  buttonCustomizeForm;
+    private QuickImageCommentControls.ButtonQIC  buttonHelp;
+    private QuickImageCommentControls.ButtonQIC  buttonCancel;
     private System.Windows.Forms.Label dynamicLabelCurrentLine;
-    private System.Windows.Forms.Button buttonMoveUp;
-    private System.Windows.Forms.Button buttonMoveDown;
+    private QuickImageCommentControls.ButtonQIC  buttonMoveUp;
+    private QuickImageCommentControls.ButtonQIC  buttonMoveDown;
     private System.Windows.Forms.Label label4;
     private System.Windows.Forms.Label fixedLabelRow_1;
     private System.Windows.Forms.Label fixedLabelRow_2;
@@ -2117,10 +2117,10 @@ namespace QuickImageComment
     private System.Windows.Forms.Label fixedLabelRow_10;
     private System.Windows.Forms.Label fixedLabelRow_11;
     private System.Windows.Forms.GroupBox groupBoxConfigurationHandling;
-    private System.Windows.Forms.Button buttonSaveAs;
+    private QuickImageCommentControls.ButtonQIC  buttonSaveAs;
     private QuickImageCommentControls.ComboBoxQIC dynamicComboBoxConfigurationName;
     private System.Windows.Forms.Label label5;
-    private System.Windows.Forms.Button buttonDelete;
+    private QuickImageCommentControls.ButtonQIC  buttonDelete;
     private ProgressPanel progressPanel1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
     }

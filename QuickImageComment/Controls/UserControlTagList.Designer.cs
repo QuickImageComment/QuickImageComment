@@ -31,8 +31,8 @@
             this.checkBoxOriginalLanguage = new System.Windows.Forms.CheckBox();
             this.textBoxSearchTag = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
-            this.fixedButtonSearchNext = new System.Windows.Forms.Button();
-            this.fixedButtonSearchPrevious = new System.Windows.Forms.Button();
+            this.fixedButtonSearchNext = new QuickImageCommentControls.ButtonQIC();
+            this.fixedButtonSearchPrevious = new QuickImageCommentControls.ButtonQIC();
             this.dynamicComboBoxSearchTag = new QuickImageCommentControls.ComboBoxQIC();
             this.label1 = new System.Windows.Forms.Label();
             this.listViewTags = new System.Windows.Forms.ListView();
@@ -216,8 +216,8 @@
         private System.Windows.Forms.CheckBox checkBoxOriginalLanguage;
         private System.Windows.Forms.TextBox textBoxSearchTag;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Button fixedButtonSearchNext;
-        private System.Windows.Forms.Button fixedButtonSearchPrevious;
+        private QuickImageCommentControls.ButtonQIC  fixedButtonSearchNext;
+        private QuickImageCommentControls.ButtonQIC  fixedButtonSearchPrevious;
         private QuickImageCommentControls.ComboBoxQIC dynamicComboBoxSearchTag;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ColumnHeader columnHeaderTag;

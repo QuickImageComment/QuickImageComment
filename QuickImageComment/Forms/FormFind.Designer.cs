@@ -49,10 +49,10 @@ namespace QuickImageComment
     private void InitializeComponent()
     {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormFind));
-            this.buttonFind = new System.Windows.Forms.Button();
-            this.buttonAbort = new System.Windows.Forms.Button();
-            this.buttonCustomizeForm = new System.Windows.Forms.Button();
-            this.buttonHelp = new System.Windows.Forms.Button();
+            this.buttonFind = new QuickImageCommentControls.ButtonQIC();
+            this.buttonAbort = new QuickImageCommentControls.ButtonQIC();
+            this.buttonCustomizeForm = new QuickImageCommentControls.ButtonQIC();
+            this.buttonHelp = new QuickImageCommentControls.ButtonQIC();
             this.panelFilterInner = new System.Windows.Forms.Panel();
             this.dynamicComboBoxOperator = new QuickImageCommentControls.ComboBoxQIC();
             this.dateTimePicker = new QuickImageComment.DateTimePickerQIC();
@@ -63,15 +63,15 @@ namespace QuickImageComment
             this.dynamicLabelFolder = new System.Windows.Forms.Label();
             this.labelCount = new System.Windows.Forms.Label();
             this.dynamicLabelCount = new System.Windows.Forms.Label();
-            this.buttonReadFolder = new System.Windows.Forms.Button();
-            this.buttonChangeFolder = new System.Windows.Forms.Button();
-            this.buttonCancelRead = new System.Windows.Forms.Button();
+            this.buttonReadFolder = new QuickImageCommentControls.ButtonQIC();
+            this.buttonChangeFolder = new QuickImageCommentControls.ButtonQIC();
+            this.buttonCancelRead = new QuickImageCommentControls.ButtonQIC();
             this.dynamicLabelPassedTime = new System.Windows.Forms.Label();
             this.labelPassedTime = new System.Windows.Forms.Label();
-            this.buttonAdjustFields = new System.Windows.Forms.Button();
+            this.buttonAdjustFields = new QuickImageCommentControls.ButtonQIC();
             this.dynamicLabelScanInformation = new System.Windows.Forms.Label();
-            this.buttonClearCriteria = new System.Windows.Forms.Button();
-            this.buttonCriteriaFromImage = new System.Windows.Forms.Button();
+            this.buttonClearCriteria = new QuickImageCommentControls.ButtonQIC();
+            this.buttonCriteriaFromImage = new QuickImageCommentControls.ButtonQIC();
             this.labelRemainingTime = new System.Windows.Forms.Label();
             this.dynamicLabelRemainingTime = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
@@ -89,7 +89,7 @@ namespace QuickImageComment
             this.backgroundWorkerInit = new System.ComponentModel.BackgroundWorker();
             this.checkBoxSaveFindDataTable = new System.Windows.Forms.CheckBox();
             this.backgroundWorkerUpdate = new System.ComponentModel.BackgroundWorker();
-            this.buttonQuery = new System.Windows.Forms.Button();
+            this.buttonQuery = new QuickImageCommentControls.ButtonQIC();
             this.progressPanel1 = new QuickImageComment.ProgressPanel();
             this.panelFilterInner.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -645,8 +645,8 @@ namespace QuickImageComment
     }
     #endregion
 
-    private System.Windows.Forms.Button buttonCustomizeForm;
-    private System.Windows.Forms.Button buttonHelp;
+    private QuickImageCommentControls.ButtonQIC buttonCustomizeForm;
+    private QuickImageCommentControls.ButtonQIC buttonHelp;
         private System.Windows.Forms.Panel panelFilterInner;
         private QuickImageComment.DateTimePickerQIC dateTimePicker;
         private QuickImageCommentControls.ComboBoxQIC dynamicComboBoxValue;
@@ -656,16 +656,16 @@ namespace QuickImageComment
         private System.Windows.Forms.Label dynamicLabelFolder;
         private System.Windows.Forms.Label labelCount;
         private System.Windows.Forms.Label dynamicLabelCount;
-        private System.Windows.Forms.Button buttonReadFolder;
-        private System.Windows.Forms.Button buttonChangeFolder;
+        private QuickImageCommentControls.ButtonQIC buttonReadFolder;
+        private QuickImageCommentControls.ButtonQIC buttonChangeFolder;
         private ProgressPanel progressPanel1;
-        private System.Windows.Forms.Button buttonCancelRead;
+        private QuickImageCommentControls.ButtonQIC buttonCancelRead;
         private System.Windows.Forms.Label dynamicLabelPassedTime;
         private System.Windows.Forms.Label labelPassedTime;
-        private System.Windows.Forms.Button buttonAdjustFields;
+        private QuickImageCommentControls.ButtonQIC buttonAdjustFields;
         private System.Windows.Forms.Label dynamicLabelScanInformation;
-        private System.Windows.Forms.Button buttonClearCriteria;
-        private System.Windows.Forms.Button buttonCriteriaFromImage;
+        private QuickImageCommentControls.ButtonQIC buttonClearCriteria;
+        private QuickImageCommentControls.ButtonQIC buttonCriteriaFromImage;
         private System.Windows.Forms.Label labelRemainingTime;
         private System.Windows.Forms.Label dynamicLabelRemainingTime;
         private System.Windows.Forms.DataGridView dataGridView1;
@@ -680,7 +680,7 @@ namespace QuickImageComment
         private System.Windows.Forms.SplitContainer splitContainer2;
         private QuickImageCommentControls.TreeViewKeyWords treeViewKeyWords;
         private System.Windows.Forms.Label labelKeyWords;
-        private System.Windows.Forms.Button buttonQuery;
+        private QuickImageCommentControls.ButtonQIC buttonQuery;
         internal System.Windows.Forms.CheckBox checkBoxFilterGPS;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelMap;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelKeyWords;

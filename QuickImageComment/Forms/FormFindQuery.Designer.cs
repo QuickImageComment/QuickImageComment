@@ -50,16 +50,16 @@ namespace QuickImageComment
             this.columnHeaderType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderColumnName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label1 = new System.Windows.Forms.Label();
-            this.buttonAbort = new System.Windows.Forms.Button();
-            this.buttonExecute = new System.Windows.Forms.Button();
-            this.buttonCustomizeForm = new System.Windows.Forms.Button();
-            this.buttonHelp = new System.Windows.Forms.Button();
+            this.buttonAbort = new QuickImageCommentControls.ButtonQIC();
+            this.buttonExecute = new QuickImageCommentControls.ButtonQIC();
+            this.buttonCustomizeForm = new QuickImageCommentControls.ButtonQIC();
+            this.buttonHelp = new QuickImageCommentControls.ButtonQIC();
             this.richTextBoxValue = new System.Windows.Forms.RichTextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.buttonInsertColumnName = new System.Windows.Forms.Button();
+            this.buttonInsertColumnName = new QuickImageCommentControls.ButtonQIC();
             this.labelMapInfo = new System.Windows.Forms.Label();
-            this.buttonPrevious = new System.Windows.Forms.Button();
-            this.buttonNext = new System.Windows.Forms.Button();
+            this.buttonPrevious = new QuickImageCommentControls.ButtonQIC();
+            this.buttonNext = new QuickImageCommentControls.ButtonQIC();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -271,16 +271,16 @@ namespace QuickImageComment
         private System.Windows.Forms.ColumnHeader columnHeaderType;
         private System.Windows.Forms.ColumnHeader columnHeaderColumnName;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button buttonAbort;
-        private System.Windows.Forms.Button buttonExecute;
-        private System.Windows.Forms.Button buttonCustomizeForm;
-        private System.Windows.Forms.Button buttonHelp;
+        private QuickImageCommentControls.ButtonQIC  buttonAbort;
+        private QuickImageCommentControls.ButtonQIC  buttonExecute;
+        private QuickImageCommentControls.ButtonQIC  buttonCustomizeForm;
+        private QuickImageCommentControls.ButtonQIC  buttonHelp;
         private System.Windows.Forms.RichTextBox richTextBoxValue;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button buttonInsertColumnName;
+        private QuickImageCommentControls.ButtonQIC  buttonInsertColumnName;
         private System.Windows.Forms.Label labelMapInfo;
-        private System.Windows.Forms.Button buttonPrevious;
-        private System.Windows.Forms.Button buttonNext;
+        private QuickImageCommentControls.ButtonQIC  buttonPrevious;
+        private QuickImageCommentControls.ButtonQIC  buttonNext;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
     }
 }

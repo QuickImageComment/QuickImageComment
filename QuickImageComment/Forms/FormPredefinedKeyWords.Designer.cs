@@ -50,12 +50,12 @@ namespace QuickImageComment
     private void InitializeComponent()
     {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormPredefinedKeyWords));
-            this.buttonOK = new System.Windows.Forms.Button();
-            this.buttonAbort = new System.Windows.Forms.Button();
+            this.buttonOK = new QuickImageCommentControls.ButtonQIC();
+            this.buttonAbort = new QuickImageCommentControls.ButtonQIC();
             this.textBoxPredefinedKeyWords = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.buttonCustomizeForm = new System.Windows.Forms.Button();
-            this.buttonHelp = new System.Windows.Forms.Button();
+            this.buttonCustomizeForm = new QuickImageCommentControls.ButtonQIC();
+            this.buttonHelp = new QuickImageCommentControls.ButtonQIC();
             this.checkBoxHintUsingNotPredef = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -194,8 +194,8 @@ namespace QuickImageComment
     #endregion
 
     private System.Windows.Forms.Label label1;
-    private System.Windows.Forms.Button buttonCustomizeForm;
-    private System.Windows.Forms.Button buttonHelp;
+    private QuickImageCommentControls.ButtonQIC buttonCustomizeForm;
+    private QuickImageCommentControls.ButtonQIC buttonHelp;
         private System.Windows.Forms.CheckBox checkBoxHintUsingNotPredef;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;

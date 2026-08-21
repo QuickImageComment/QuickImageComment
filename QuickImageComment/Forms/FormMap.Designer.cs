@@ -30,9 +30,9 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMap));
             this.panel1 = new System.Windows.Forms.Panel();
-            this.buttonClose = new System.Windows.Forms.Button();
-            this.buttonHelp = new System.Windows.Forms.Button();
-            this.buttonCustomizeForm = new System.Windows.Forms.Button();
+            this.buttonClose = new QuickImageCommentControls.ButtonQIC();
+            this.buttonHelp = new QuickImageCommentControls.ButtonQIC();
+            this.buttonCustomizeForm = new QuickImageCommentControls.ButtonQIC();
             this.SuspendLayout();
             // 
             // panel1
@@ -101,8 +101,8 @@
         #endregion
 
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button buttonClose;
-        private System.Windows.Forms.Button buttonHelp;
-        private System.Windows.Forms.Button buttonCustomizeForm;
+        private QuickImageCommentControls.ButtonQIC  buttonClose;
+        private QuickImageCommentControls.ButtonQIC  buttonHelp;
+        private QuickImageCommentControls.ButtonQIC  buttonCustomizeForm;
     }
 }

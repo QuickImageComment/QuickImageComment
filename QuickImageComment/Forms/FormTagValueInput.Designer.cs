@@ -30,13 +30,13 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormTagValueInput));
             this.textBoxValue = new System.Windows.Forms.TextBox();
-            this.buttonOk = new System.Windows.Forms.Button();
-            this.buttonCancel = new System.Windows.Forms.Button();
+            this.buttonOk = new QuickImageCommentControls.ButtonQIC();
+            this.buttonCancel = new QuickImageCommentControls.ButtonQIC();
             this.label1 = new System.Windows.Forms.Label();
-            this.fixedButtonPrevious = new System.Windows.Forms.Button();
-            this.fixedButtonNext = new System.Windows.Forms.Button();
-            this.buttonCurrent = new System.Windows.Forms.Button();
-            this.buttonPlaceholder = new System.Windows.Forms.Button();
+            this.fixedButtonPrevious = new QuickImageCommentControls.ButtonQIC();
+            this.fixedButtonNext = new QuickImageCommentControls.ButtonQIC();
+            this.buttonCurrent = new QuickImageCommentControls.ButtonQIC();
+            this.buttonPlaceholder = new QuickImageCommentControls.ButtonQIC();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -172,13 +172,13 @@
         #endregion
 
         private System.Windows.Forms.TextBox textBoxValue;
-        private System.Windows.Forms.Button buttonOk;
-        private System.Windows.Forms.Button buttonCancel;
+        private QuickImageCommentControls.ButtonQIC buttonOk;
+        private QuickImageCommentControls.ButtonQIC buttonCancel;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button fixedButtonPrevious;
-        private System.Windows.Forms.Button fixedButtonNext;
-        private System.Windows.Forms.Button buttonCurrent;
-        private System.Windows.Forms.Button buttonPlaceholder;
+        private QuickImageCommentControls.ButtonQIC fixedButtonPrevious;
+        private QuickImageCommentControls.ButtonQIC fixedButtonNext;
+        private QuickImageCommentControls.ButtonQIC buttonCurrent;
+        private QuickImageCommentControls.ButtonQIC buttonPlaceholder;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
     }
 }

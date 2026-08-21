@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormChangesInVersion));
-            this.buttonOk = new System.Windows.Forms.Button();
+            this.buttonOk = new QuickImageCommentControls.ButtonQIC();
             this.richTextBoxChanges = new System.Windows.Forms.RichTextBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel1.SuspendLayout();
@@ -93,7 +93,7 @@
         }
 
         #endregion
-        private System.Windows.Forms.Button buttonOk;
+        private QuickImageCommentControls.ButtonQIC  buttonOk;
         private System.Windows.Forms.RichTextBox richTextBoxChanges;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
     }

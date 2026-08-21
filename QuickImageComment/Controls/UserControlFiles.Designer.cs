@@ -49,7 +49,7 @@ namespace QuickImageComment
             this.contextMenuStripMenuItemTileAdjust = new System.Windows.Forms.ToolStripMenuItem();
             this.labelFilter = new System.Windows.Forms.Label();
             this.textBoxFileFilter = new System.Windows.Forms.TextBox();
-            this.buttonFilterFiles = new System.Windows.Forms.Button();
+            this.buttonFilterFiles = new QuickImageCommentControls.ButtonQIC();
             this.listViewFiles = new QuickImageCommentControls.ListViewFiles();
             this.columnHeaderName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderSize = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -322,7 +322,7 @@ namespace QuickImageComment
         private System.Windows.Forms.Label labelFilter;
         internal QuickImageCommentControls.ListViewFiles listViewFiles;
         internal System.Windows.Forms.TextBox textBoxFileFilter;
-        internal System.Windows.Forms.Button buttonFilterFiles;
+        internal QuickImageCommentControls.ButtonQIC  buttonFilterFiles;
         private System.Windows.Forms.ToolStripMenuItem contextMenuStripMenuItemLargeIcons;
         private System.Windows.Forms.ToolStripMenuItem contextMenuStripMenuItemTile;
         private System.Windows.Forms.ToolStripMenuItem contextMenuStripMenuItemList;

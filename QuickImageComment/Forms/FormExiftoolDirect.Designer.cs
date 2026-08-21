@@ -45,22 +45,22 @@ namespace QuickImageComment
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormExiftoolDirect));
-            this.buttonHelp = new System.Windows.Forms.Button();
-            this.buttonCustomizeForm = new System.Windows.Forms.Button();
-            this.buttonClose = new System.Windows.Forms.Button();
+            this.buttonHelp = new QuickImageCommentControls.ButtonQIC();
+            this.buttonCustomizeForm = new QuickImageCommentControls.ButtonQIC();
+            this.buttonClose = new QuickImageCommentControls.ButtonQIC();
             this.dynamicComboBoxGuiCommands = new QuickImageCommentControls.ComboBoxQIC();
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxExifToolResult = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.buttonCopyOutput = new System.Windows.Forms.Button();
-            this.buttonSelectGuiCommand = new System.Windows.Forms.Button();
+            this.buttonCopyOutput = new QuickImageCommentControls.ButtonQIC();
+            this.buttonSelectGuiCommand = new QuickImageCommentControls.ButtonQIC();
             this.checkBoxAddFiles = new System.Windows.Forms.CheckBox();
             this.textBoxCommand = new System.Windows.Forms.TextBox();
-            this.buttonExecute = new System.Windows.Forms.Button();
+            this.buttonExecute = new QuickImageCommentControls.ButtonQIC();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.checkBoxAppendOutput = new System.Windows.Forms.CheckBox();
             this.textBoxExifToolError = new System.Windows.Forms.TextBox();
-            this.buttonDeleteOutput = new System.Windows.Forms.Button();
+            this.buttonDeleteOutput = new QuickImageCommentControls.ButtonQIC();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -282,21 +282,21 @@ namespace QuickImageComment
 
         #endregion
 
-        private System.Windows.Forms.Button buttonHelp;
-        private System.Windows.Forms.Button buttonCustomizeForm;
-        private System.Windows.Forms.Button buttonClose;
+        private QuickImageCommentControls.ButtonQIC buttonHelp;
+        private QuickImageCommentControls.ButtonQIC buttonCustomizeForm;
+        private QuickImageCommentControls.ButtonQIC buttonClose;
         private QuickImageCommentControls.ComboBoxQIC dynamicComboBoxGuiCommands;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBoxExifToolResult;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button buttonCopyOutput;
-        private System.Windows.Forms.Button buttonSelectGuiCommand;
+        private QuickImageCommentControls.ButtonQIC buttonCopyOutput;
+        private QuickImageCommentControls.ButtonQIC buttonSelectGuiCommand;
         private System.Windows.Forms.CheckBox checkBoxAddFiles;
         private System.Windows.Forms.TextBox textBoxCommand;
-        private System.Windows.Forms.Button buttonExecute;
+        private QuickImageCommentControls.ButtonQIC buttonExecute;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.TextBox textBoxExifToolError;
         private System.Windows.Forms.CheckBox checkBoxAppendOutput;
-        private System.Windows.Forms.Button buttonDeleteOutput;
+        private QuickImageCommentControls.ButtonQIC buttonDeleteOutput;
     }
 }

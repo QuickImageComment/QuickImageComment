@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMapSettings));
-            this.buttonOk = new System.Windows.Forms.Button();
-            this.buttonCancel = new System.Windows.Forms.Button();
+            this.buttonOk = new QuickImageCommentControls.ButtonQIC();
+            this.buttonCancel = new QuickImageCommentControls.ButtonQIC();
             this.numericUpDownFillOpacity = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -42,7 +42,7 @@
             this.numericUpDownCircleSegmentRadius = new System.Windows.Forms.NumericUpDown();
             this.theColorDialog = new System.Windows.Forms.ColorDialog();
             this.label7 = new System.Windows.Forms.Label();
-            this.buttonColorDialog = new System.Windows.Forms.Button();
+            this.buttonColorDialog = new QuickImageCommentControls.ButtonQIC();
             this.textBoxColor = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.radioButtonScaleImperial = new System.Windows.Forms.RadioButton();
@@ -319,8 +319,8 @@
         }
 
         #endregion
-        private System.Windows.Forms.Button buttonOk;
-        private System.Windows.Forms.Button buttonCancel;
+        private QuickImageCommentControls.ButtonQIC  buttonOk;
+        private QuickImageCommentControls.ButtonQIC  buttonCancel;
         private System.Windows.Forms.NumericUpDown numericUpDownFillOpacity;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
@@ -332,7 +332,7 @@
         private System.Windows.Forms.NumericUpDown numericUpDownCircleSegmentRadius;
         private System.Windows.Forms.ColorDialog theColorDialog;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Button buttonColorDialog;
+        private QuickImageCommentControls.ButtonQIC  buttonColorDialog;
         private System.Windows.Forms.TextBox textBoxColor;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.RadioButton radioButtonScaleImperial;

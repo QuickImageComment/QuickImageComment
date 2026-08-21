@@ -36,11 +36,11 @@
             this.splitContainerImageDetails111 = new System.Windows.Forms.SplitContainer();
             this.pictureBoxHorizontal = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanelFocusPoint = new System.Windows.Forms.TableLayoutPanel();
-            this.buttonCenterFocusPoint = new System.Windows.Forms.Button();
+            this.buttonCenterFocusPoint = new QuickImageCommentControls.ButtonQIC();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.checkBoxShowFocusPoint = new System.Windows.Forms.CheckBox();
-            this.buttonFocusPointColor = new System.Windows.Forms.Button();
+            this.buttonFocusPointColor = new QuickImageCommentControls.ButtonQIC();
             this.numericUpDownWidth = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownRadius = new System.Windows.Forms.NumericUpDown();
             this.pictureBoxImage = new QuickImageCommentControls.PictureBoxQIC();
@@ -64,7 +64,7 @@
             this.labelGrid = new System.Windows.Forms.Label();
             this.numericUpDownGridSize = new System.Windows.Forms.NumericUpDown();
             this.labelGridColor = new System.Windows.Forms.Label();
-            this.buttonGridColor = new System.Windows.Forms.Button();
+            this.buttonGridColor = new QuickImageCommentControls.ButtonQIC();
             this.comboBoxZoom = new QuickImageCommentControls.ComboBoxQIC();
             this.labelFrameColor = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -73,7 +73,7 @@
             this.numericUpDownY = new System.Windows.Forms.NumericUpDown();
             this.dynamicLabelZoom = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.buttonFrameColor = new System.Windows.Forms.Button();
+            this.buttonFrameColor = new QuickImageCommentControls.ButtonQIC();
             this.hScrollBarZoom = new System.Windows.Forms.HScrollBar();
             this.theColorDialog = new System.Windows.Forms.ColorDialog();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerImageDetails1)).BeginInit();
@@ -779,7 +779,7 @@
         private System.Windows.Forms.Label labelZoom;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ColorDialog theColorDialog;
-        private System.Windows.Forms.Button buttonFrameColor;
+        private QuickImageCommentControls.ButtonQIC  buttonFrameColor;
         private System.Windows.Forms.Label labelFrameColor;
         private System.Windows.Forms.Panel panelControlInner;
         private System.Windows.Forms.Panel panelControlOuter;
@@ -788,7 +788,7 @@
         private System.Windows.Forms.SplitContainer splitContainerImageDetails111;
         public System.Windows.Forms.SplitContainer splitContainerImageDetails1;
         private System.Windows.Forms.Label labelGridColor;
-        private System.Windows.Forms.Button buttonGridColor;
+        private QuickImageCommentControls.ButtonQIC  buttonGridColor;
         private System.Windows.Forms.Label labelGrid;
         private System.Windows.Forms.NumericUpDown numericUpDownGridSize;
         private System.Windows.Forms.Label labelScale;
@@ -807,10 +807,10 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelFocusPoint;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button buttonFocusPointColor;
+        private QuickImageCommentControls.ButtonQIC  buttonFocusPointColor;
         private System.Windows.Forms.NumericUpDown numericUpDownWidth;
         private System.Windows.Forms.NumericUpDown numericUpDownRadius;
         private System.Windows.Forms.CheckBox checkBoxShowFocusPoint;
-        private System.Windows.Forms.Button buttonCenterFocusPoint;
+        private QuickImageCommentControls.ButtonQIC  buttonCenterFocusPoint;
     }
 }

@@ -46,8 +46,8 @@ namespace QuickImageComment
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormDateTimeChange));
-            this.buttonStart = new System.Windows.Forms.Button();
-            this.buttonCancel = new System.Windows.Forms.Button();
+            this.buttonStart = new QuickImageCommentControls.ButtonQIC();
+            this.buttonCancel = new QuickImageCommentControls.ButtonQIC();
             this.listViewImages = new System.Windows.Forms.ListView();
             this.imageListLarge = new System.Windows.Forms.ImageList(this.components);
             this.dynamicComboBoxGroup = new QuickImageCommentControls.ComboBoxQIC();
@@ -55,12 +55,12 @@ namespace QuickImageComment
             this.numericUpDownSecond = new System.Windows.Forms.NumericUpDown();
             this.labelDays = new System.Windows.Forms.Label();
             this.labelSeconds = new System.Windows.Forms.Label();
-            this.buttonCustomizeForm = new System.Windows.Forms.Button();
+            this.buttonCustomizeForm = new QuickImageCommentControls.ButtonQIC();
             this.numericUpDownDay = new System.Windows.Forms.NumericUpDown();
             this.labelMinutes = new System.Windows.Forms.Label();
             this.numericUpDownHour = new System.Windows.Forms.NumericUpDown();
             this.labelHours = new System.Windows.Forms.Label();
-            this.buttonHelp = new System.Windows.Forms.Button();
+            this.buttonHelp = new QuickImageCommentControls.ButtonQIC();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.progressPanel1 = new QuickImageComment.ProgressPanel();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMinute)).BeginInit();
@@ -333,8 +333,8 @@ namespace QuickImageComment
 
         #endregion
 
-        private System.Windows.Forms.Button buttonStart;
-        private System.Windows.Forms.Button buttonCancel;
+        private QuickImageCommentControls.ButtonQIC  buttonStart;
+        private QuickImageCommentControls.ButtonQIC  buttonCancel;
         private System.Windows.Forms.ListView listViewImages;
         private System.Windows.Forms.ImageList imageListLarge;
         private QuickImageCommentControls.ComboBoxQIC dynamicComboBoxGroup;
@@ -342,12 +342,12 @@ namespace QuickImageComment
         private System.Windows.Forms.NumericUpDown numericUpDownSecond;
         private System.Windows.Forms.Label labelDays;
         private System.Windows.Forms.Label labelSeconds;
-        private System.Windows.Forms.Button buttonCustomizeForm;
+        private QuickImageCommentControls.ButtonQIC  buttonCustomizeForm;
         private System.Windows.Forms.NumericUpDown numericUpDownDay;
         private System.Windows.Forms.Label labelMinutes;
         private System.Windows.Forms.NumericUpDown numericUpDownHour;
         private System.Windows.Forms.Label labelHours;
-        private System.Windows.Forms.Button buttonHelp;
+        private QuickImageCommentControls.ButtonQIC  buttonHelp;
         private ProgressPanel progressPanel1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
     }

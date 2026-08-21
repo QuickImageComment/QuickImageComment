@@ -106,6 +106,9 @@
   <ItemGroup>
     <Compile Include="Brain2CPU.ExifTool\ExifToolException.cs" />
     <Compile Include="Brain2CPU.ExifTool\ExifToolWrapper.cs" />
+    <Compile Include="Controls\ButtonQIC.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\CheckedListBoxItemBackcolor.cs">
       <SubType>Component</SubType>
     </Compile>

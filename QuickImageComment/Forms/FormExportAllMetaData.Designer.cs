@@ -31,14 +31,14 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormExportAllMetaData));
             this.label1 = new System.Windows.Forms.Label();
             this.labelSourceFolder = new System.Windows.Forms.Label();
-            this.buttonCancel = new System.Windows.Forms.Button();
+            this.buttonCancel = new QuickImageCommentControls.ButtonQIC();
             this.label3 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.dynamicLabelChosenFolderCount = new System.Windows.Forms.Label();
             this.dynamicLabelPassedTime = new System.Windows.Forms.Label();
             this.labelChosenFolderRemaining = new System.Windows.Forms.Label();
             this.fixedLabelChosenFolderRemainingTime = new System.Windows.Forms.Label();
-            this.buttonClose = new System.Windows.Forms.Button();
+            this.buttonClose = new QuickImageCommentControls.ButtonQIC();
             this.progressPanel1 = new QuickImageComment.ProgressPanel();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.SuspendLayout();
@@ -185,14 +185,14 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label labelSourceFolder;
-        private System.Windows.Forms.Button buttonCancel;
+        private QuickImageCommentControls.ButtonQIC  buttonCancel;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label dynamicLabelChosenFolderCount;
         private System.Windows.Forms.Label dynamicLabelPassedTime;
         private System.Windows.Forms.Label labelChosenFolderRemaining;
         private System.Windows.Forms.Label fixedLabelChosenFolderRemainingTime;
-        private System.Windows.Forms.Button buttonClose;
+        private QuickImageCommentControls.ButtonQIC  buttonClose;
         private ProgressPanel progressPanel1;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
     }

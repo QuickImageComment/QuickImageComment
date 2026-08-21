@@ -29,14 +29,14 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormExifToolSettings));
-            this.buttonOk = new System.Windows.Forms.Button();
-            this.buttonCancel = new System.Windows.Forms.Button();
+            this.buttonOk = new QuickImageCommentControls.ButtonQIC();
+            this.buttonCancel = new QuickImageCommentControls.ButtonQIC();
             this.theColorDialog = new System.Windows.Forms.ColorDialog();
-            this.buttonHelp = new System.Windows.Forms.Button();
+            this.buttonHelp = new QuickImageCommentControls.ButtonQIC();
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxProgramPath = new System.Windows.Forms.TextBox();
-            this.buttonBrowse = new System.Windows.Forms.Button();
-            this.buttonStatusVersionCheck = new System.Windows.Forms.Button();
+            this.buttonBrowse = new QuickImageCommentControls.ButtonQIC();
+            this.buttonStatusVersionCheck = new QuickImageCommentControls.ButtonQIC();
             this.dynamicLabelVersion = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.dynamicLabelPath = new System.Windows.Forms.Label();
@@ -53,8 +53,8 @@
             this.label4 = new System.Windows.Forms.Label();
             this.fixedLinkLabelHomePage = new System.Windows.Forms.LinkLabel();
             this.label3 = new System.Windows.Forms.Label();
-            this.buttonStop = new System.Windows.Forms.Button();
-            this.buttonStart = new System.Windows.Forms.Button();
+            this.buttonStop = new QuickImageCommentControls.ButtonQIC();
+            this.buttonStart = new QuickImageCommentControls.ButtonQIC();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -370,20 +370,20 @@
         }
 
         #endregion
-        private System.Windows.Forms.Button buttonOk;
-        private System.Windows.Forms.Button buttonCancel;
+        private QuickImageCommentControls.ButtonQIC buttonOk;
+        private QuickImageCommentControls.ButtonQIC buttonCancel;
         private System.Windows.Forms.ColorDialog theColorDialog;
-        private System.Windows.Forms.Button buttonHelp;
+        private QuickImageCommentControls.ButtonQIC buttonHelp;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBoxProgramPath;
-        private System.Windows.Forms.Button buttonBrowse;
-        private System.Windows.Forms.Button buttonStatusVersionCheck;
+        private QuickImageCommentControls.ButtonQIC buttonBrowse;
+        private QuickImageCommentControls.ButtonQIC buttonStatusVersionCheck;
         private System.Windows.Forms.Label dynamicLabelVersion;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label dynamicLabelPath;
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.Button buttonStart;
-        private System.Windows.Forms.Button buttonStop;
+        private QuickImageCommentControls.ButtonQIC buttonStart;
+        private QuickImageCommentControls.ButtonQIC buttonStop;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.LinkLabel fixedLinkLabelHomePage;
         private System.Windows.Forms.Label label4;

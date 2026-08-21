@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormSelectFolder));
-            this.buttonOk = new System.Windows.Forms.Button();
-            this.buttonCancel = new System.Windows.Forms.Button();
+            this.buttonOk = new QuickImageCommentControls.ButtonQIC();
+            this.buttonCancel = new QuickImageCommentControls.ButtonQIC();
             this.label1 = new System.Windows.Forms.Label();
             this.listBoxLastFolders = new System.Windows.Forms.ListBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -131,8 +131,8 @@
         #endregion
 
         private QuickImageCommentControls.ShellTreeViewQIC theFolderTreeView;
-        private System.Windows.Forms.Button buttonOk;
-        private System.Windows.Forms.Button buttonCancel;
+        private QuickImageCommentControls.ButtonQIC  buttonOk;
+        private QuickImageCommentControls.ButtonQIC  buttonCancel;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ListBox listBoxLastFolders;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;

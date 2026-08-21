@@ -32,14 +32,14 @@
             this.dataGridViewDifferences = new System.Windows.Forms.DataGridView();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.buttonClose = new System.Windows.Forms.Button();
-            this.buttonCustomizeForm = new System.Windows.Forms.Button();
-            this.buttonHelp = new System.Windows.Forms.Button();
+            this.buttonClose = new QuickImageCommentControls.ButtonQIC();
+            this.buttonCustomizeForm = new QuickImageCommentControls.ButtonQIC();
+            this.buttonHelp = new QuickImageCommentControls.ButtonQIC();
             this.checkBoxFormatOriginal = new System.Windows.Forms.CheckBox();
             this.checkBoxShowThumbnails = new System.Windows.Forms.CheckBox();
-            this.buttonDisableCompareForColumn = new System.Windows.Forms.Button();
+            this.buttonDisableCompareForColumn = new QuickImageCommentControls.ButtonQIC();
             this.checkBoxTagNamesOriginal = new System.Windows.Forms.CheckBox();
-            this.buttonHiddenColumns = new System.Windows.Forms.Button();
+            this.buttonHiddenColumns = new QuickImageCommentControls.ButtonQIC();
             this.toolTip1 = new QuickImageComment.ToolTipQIC();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDifferences)).BeginInit();
             this.SuspendLayout();
@@ -205,16 +205,16 @@
         #endregion
 
         private System.Windows.Forms.DataGridView dataGridViewDifferences;
-        private System.Windows.Forms.Button buttonClose;
-        private System.Windows.Forms.Button buttonCustomizeForm;
-        private System.Windows.Forms.Button buttonHelp;
+        private QuickImageCommentControls.ButtonQIC buttonClose;
+        private QuickImageCommentControls.ButtonQIC buttonCustomizeForm;
+        private QuickImageCommentControls.ButtonQIC buttonHelp;
         private System.Windows.Forms.CheckBox checkBoxFormatOriginal;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.CheckBox checkBoxShowThumbnails;
-        private System.Windows.Forms.Button buttonDisableCompareForColumn;
+        private QuickImageCommentControls.ButtonQIC buttonDisableCompareForColumn;
         private System.Windows.Forms.CheckBox checkBoxTagNamesOriginal;
-        private System.Windows.Forms.Button buttonHiddenColumns;
+        private QuickImageCommentControls.ButtonQIC buttonHiddenColumns;
         private QuickImageComment.ToolTipQIC toolTip1;
     }
 }

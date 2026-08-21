@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormDonate));
-            this.buttonClose = new System.Windows.Forms.Button();
+            this.buttonClose = new QuickImageCommentControls.ButtonQIC();
             this.textBoxInfo = new System.Windows.Forms.TextBox();
-            this.buttonDonate = new System.Windows.Forms.Button();
+            this.buttonDonate = new QuickImageCommentControls.ButtonQIC();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -110,9 +110,9 @@
         }
 
         #endregion
-        private System.Windows.Forms.Button buttonClose;
+        private QuickImageCommentControls.ButtonQIC buttonClose;
         private System.Windows.Forms.TextBox textBoxInfo;
-        private System.Windows.Forms.Button buttonDonate;
+        private QuickImageCommentControls.ButtonQIC buttonDonate;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
     }
 }

@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormView));
-            this.buttonCustomizeForm = new System.Windows.Forms.Button();
-            this.buttonHelp = new System.Windows.Forms.Button();
-            this.buttonClose = new System.Windows.Forms.Button();
-            this.buttonDefault = new System.Windows.Forms.Button();
+            this.buttonCustomizeForm = new QuickImageCommentControls.ButtonQIC();
+            this.buttonHelp = new QuickImageCommentControls.ButtonQIC();
+            this.buttonClose = new QuickImageCommentControls.ButtonQIC();
+            this.buttonDefault = new QuickImageCommentControls.ButtonQIC();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer11 = new System.Windows.Forms.SplitContainer();
             this.splitContainer12 = new System.Windows.Forms.SplitContainer();
@@ -45,7 +45,7 @@
             this.dynamicComboBoxCentralInputArea = new QuickImageCommentControls.ComboBoxQIC();
             this.splitContainer122 = new System.Windows.Forms.SplitContainer();
             this.panelLayout = new System.Windows.Forms.Panel();
-            this.buttonMinimum = new System.Windows.Forms.Button();
+            this.buttonMinimum = new QuickImageCommentControls.ButtonQIC();
             this.groupBoxFiles = new System.Windows.Forms.GroupBox();
             this.radioButtonRating = new System.Windows.Forms.RadioButton();
             this.radioButtonComment = new System.Windows.Forms.RadioButton();
@@ -102,19 +102,19 @@
             this.radioButtonToolStripHide = new System.Windows.Forms.RadioButton();
             this.radioButtonToolStripToolsInMenu = new System.Windows.Forms.RadioButton();
             this.radioButtonToolStripShow = new System.Windows.Forms.RadioButton();
-            this.buttonReadOptimum = new System.Windows.Forms.Button();
-            this.buttonImageDetails = new System.Windows.Forms.Button();
+            this.buttonReadOptimum = new QuickImageCommentControls.ButtonQIC();
+            this.buttonImageDetails = new QuickImageCommentControls.ButtonQIC();
             this.checkBoxLeftPanelVertical = new System.Windows.Forms.CheckBox();
             this.checkBoxRightPanelVertical = new System.Windows.Forms.CheckBox();
             this.panelVerticalCheckRight = new System.Windows.Forms.Panel();
             this.panelVerticalCheckLeft = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.dynamicComboBoxConfigurationName = new QuickImageCommentControls.ComboBoxQIC();
-            this.buttonSave = new System.Windows.Forms.Button();
-            this.buttonDelete = new System.Windows.Forms.Button();
-            this.buttonSaveAs = new System.Windows.Forms.Button();
+            this.buttonSave = new QuickImageCommentControls.ButtonQIC();
+            this.buttonDelete = new QuickImageCommentControls.ButtonQIC();
+            this.buttonSaveAs = new QuickImageCommentControls.ButtonQIC();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.buttonMap = new System.Windows.Forms.Button();
+            this.buttonMap = new QuickImageCommentControls.ButtonQIC();
             this.label7 = new System.Windows.Forms.Label();
             this.comboBoxColorTheme = new QuickImageCommentControls.ComboBoxQIC();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -1283,10 +1283,10 @@
 
         #endregion
 
-        private System.Windows.Forms.Button buttonCustomizeForm;
-        private System.Windows.Forms.Button buttonHelp;
-        private System.Windows.Forms.Button buttonClose;
-        private System.Windows.Forms.Button buttonDefault;
+        private QuickImageCommentControls.ButtonQIC buttonCustomizeForm;
+        private QuickImageCommentControls.ButtonQIC buttonHelp;
+        private QuickImageCommentControls.ButtonQIC buttonClose;
+        private QuickImageCommentControls.ButtonQIC buttonDefault;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.SplitContainer splitContainer11;
         private System.Windows.Forms.SplitContainer splitContainer12;
@@ -1296,7 +1296,7 @@
         private System.Windows.Forms.Panel panelLayout;
         private System.Windows.Forms.Label labelCentralInputArea;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button buttonMinimum;
+        private QuickImageCommentControls.ButtonQIC buttonMinimum;
         private System.Windows.Forms.GroupBox groupBoxFiles;
         private System.Windows.Forms.RadioButton radioButtonTile;
         private System.Windows.Forms.RadioButton radioButtonDetails;
@@ -1341,8 +1341,8 @@
         private System.Windows.Forms.RadioButton radioButtonToolStripToolsInMenu;
         private System.Windows.Forms.RadioButton radioButtonToolStripShow;
         private QuickImageCommentControls.ComboBoxQIC dynamicComboBoxCentralInputArea;
-        private System.Windows.Forms.Button buttonReadOptimum;
-        private System.Windows.Forms.Button buttonImageDetails;
+        private QuickImageCommentControls.ButtonQIC buttonReadOptimum;
+        private QuickImageCommentControls.ButtonQIC buttonImageDetails;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.RadioButton radioButtonOtherSuffixFirstEnglish;
         private System.Windows.Forms.RadioButton radioButtonXmpSuffixFirstEnglish;
@@ -1356,11 +1356,11 @@
         private System.Windows.Forms.Panel panelVerticalCheckLeft;
         private System.Windows.Forms.Label label1;
         private QuickImageCommentControls.ComboBoxQIC dynamicComboBoxConfigurationName;
-        private System.Windows.Forms.Button buttonSave;
-        private System.Windows.Forms.Button buttonDelete;
-        private System.Windows.Forms.Button buttonSaveAs;
+        private QuickImageCommentControls.ButtonQIC buttonSave;
+        private QuickImageCommentControls.ButtonQIC buttonDelete;
+        private QuickImageCommentControls.ButtonQIC buttonSaveAs;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button buttonMap;
+        private QuickImageCommentControls.ButtonQIC buttonMap;
         private System.Windows.Forms.RadioButton radioButtonComment;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.RadioButton radioButtonExifToolHeader;

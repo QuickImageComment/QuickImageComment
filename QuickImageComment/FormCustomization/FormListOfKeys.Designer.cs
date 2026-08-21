@@ -48,7 +48,7 @@ namespace FormCustomization
             this.listViewShortcuts = new System.Windows.Forms.ListView();
             this.columnHeaderKey = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderControl = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.buttonClose = new System.Windows.Forms.Button();
+            this.buttonClose = new QuickImageCommentControls.ButtonQIC();
             this.SuspendLayout();
             // 
             // listViewShortcuts
@@ -109,7 +109,7 @@ namespace FormCustomization
     #endregion
 
     private System.Windows.Forms.ListView listViewShortcuts;
-    private System.Windows.Forms.Button buttonClose;
+    private QuickImageCommentControls.ButtonQIC  buttonClose;
     private System.Windows.Forms.ColumnHeader columnHeaderKey;
     private System.Windows.Forms.ColumnHeader columnHeaderControl;
   }

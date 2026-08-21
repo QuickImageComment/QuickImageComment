@@ -1,7 +1,5 @@
 ﻿using Brain2CPU.ExifTool;
 using System;
-using System.ComponentModel;
-using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace QuickImageComment

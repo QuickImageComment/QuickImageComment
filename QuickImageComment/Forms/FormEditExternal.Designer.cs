@@ -45,16 +45,16 @@ namespace QuickImageComment
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormEditExternal));
-            this.buttonAbort = new System.Windows.Forms.Button();
+            this.buttonAbort = new QuickImageCommentControls.ButtonQIC();
             this.listBoxExternalCommands = new System.Windows.Forms.ListBox();
-            this.buttonUp = new System.Windows.Forms.Button();
-            this.buttonDown = new System.Windows.Forms.Button();
-            this.buttonNew = new System.Windows.Forms.Button();
-            this.buttonOk = new System.Windows.Forms.Button();
-            this.buttonCopy = new System.Windows.Forms.Button();
-            this.buttonDelete = new System.Windows.Forms.Button();
-            this.buttonCustomizeForm = new System.Windows.Forms.Button();
-            this.buttonHelp = new System.Windows.Forms.Button();
+            this.buttonUp = new QuickImageCommentControls.ButtonQIC();
+            this.buttonDown = new QuickImageCommentControls.ButtonQIC();
+            this.buttonNew = new QuickImageCommentControls.ButtonQIC();
+            this.buttonOk = new QuickImageCommentControls.ButtonQIC();
+            this.buttonCopy = new QuickImageCommentControls.ButtonQIC();
+            this.buttonDelete = new QuickImageCommentControls.ButtonQIC();
+            this.buttonCustomizeForm = new QuickImageCommentControls.ButtonQIC();
+            this.buttonHelp = new QuickImageCommentControls.ButtonQIC();
             this.panelType = new System.Windows.Forms.Panel();
             this.radioButtonUri = new System.Windows.Forms.RadioButton();
             this.radioButtonBatchCommand = new System.Windows.Forms.RadioButton();
@@ -69,13 +69,13 @@ namespace QuickImageComment
             this.labelName = new System.Windows.Forms.Label();
             this.textBoxName = new System.Windows.Forms.TextBox();
             this.checkBoxWindowPauseAfterExecution = new System.Windows.Forms.CheckBox();
-            this.buttonExecute = new System.Windows.Forms.Button();
-            this.buttonBrowse = new System.Windows.Forms.Button();
+            this.buttonExecute = new QuickImageCommentControls.ButtonQIC();
+            this.buttonBrowse = new QuickImageCommentControls.ButtonQIC();
             this.labelPlaceholder = new System.Windows.Forms.Label();
             this.checkBoxDropOnWindow = new System.Windows.Forms.CheckBox();
             this.labelWindowTitle = new System.Windows.Forms.Label();
             this.textBoxWindowsTitle = new System.Windows.Forms.TextBox();
-            this.buttonSelectApplication = new System.Windows.Forms.Button();
+            this.buttonSelectApplication = new QuickImageCommentControls.ButtonQIC();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -570,16 +570,16 @@ namespace QuickImageComment
         }
 
         #endregion
-        private System.Windows.Forms.Button buttonAbort;
+        private QuickImageCommentControls.ButtonQIC buttonAbort;
         private System.Windows.Forms.ListBox listBoxExternalCommands;
-        private System.Windows.Forms.Button buttonUp;
-        private System.Windows.Forms.Button buttonDown;
-        private System.Windows.Forms.Button buttonNew;
-        private System.Windows.Forms.Button buttonOk;
-        private System.Windows.Forms.Button buttonCopy;
-        private System.Windows.Forms.Button buttonDelete;
-        private System.Windows.Forms.Button buttonCustomizeForm;
-        private System.Windows.Forms.Button buttonHelp;
+        private QuickImageCommentControls.ButtonQIC buttonUp;
+        private QuickImageCommentControls.ButtonQIC buttonDown;
+        private QuickImageCommentControls.ButtonQIC buttonNew;
+        private QuickImageCommentControls.ButtonQIC buttonOk;
+        private QuickImageCommentControls.ButtonQIC buttonCopy;
+        private QuickImageCommentControls.ButtonQIC buttonDelete;
+        private QuickImageCommentControls.ButtonQIC buttonCustomizeForm;
+        private QuickImageCommentControls.ButtonQIC buttonHelp;
         private System.Windows.Forms.Panel panelType;
         private System.Windows.Forms.RadioButton radioButtonBatchCommand;
         private System.Windows.Forms.RadioButton radioButtonProgram;
@@ -593,13 +593,13 @@ namespace QuickImageComment
         private System.Windows.Forms.Label labelName;
         private System.Windows.Forms.TextBox textBoxName;
         private System.Windows.Forms.CheckBox checkBoxWindowPauseAfterExecution;
-        private System.Windows.Forms.Button buttonExecute;
-        private System.Windows.Forms.Button buttonBrowse;
+        private QuickImageCommentControls.ButtonQIC buttonExecute;
+        private QuickImageCommentControls.ButtonQIC buttonBrowse;
         private System.Windows.Forms.Label labelPlaceholder;
         private System.Windows.Forms.CheckBox checkBoxDropOnWindow;
         private System.Windows.Forms.Label labelWindowTitle;
         private System.Windows.Forms.TextBox textBoxWindowsTitle;
-        private System.Windows.Forms.Button buttonSelectApplication;
+        private QuickImageCommentControls.ButtonQIC buttonSelectApplication;
         private System.Windows.Forms.RadioButton radioButtonUri;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;

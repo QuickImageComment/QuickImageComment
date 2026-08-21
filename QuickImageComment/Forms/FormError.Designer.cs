@@ -31,13 +31,13 @@ namespace QuickImageComment
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormError));
             this.textBoxErrorDetails = new System.Windows.Forms.TextBox();
-            this.buttonPrepareMail = new System.Windows.Forms.Button();
-            this.buttonClose = new System.Windows.Forms.Button();
+            this.buttonPrepareMail = new QuickImageCommentControls.ButtonQIC();
+            this.buttonClose = new QuickImageCommentControls.ButtonQIC();
             this.textBoxErrorMessage = new System.Windows.Forms.TextBox();
             this.dynamicLabelErrorHeader = new System.Windows.Forms.Label();
             this.labelDetails = new System.Windows.Forms.Label();
             this.textBoxInstructions = new System.Windows.Forms.TextBox();
-            this.buttonGitHubIssue = new System.Windows.Forms.Button();
+            this.buttonGitHubIssue = new QuickImageCommentControls.ButtonQIC();
             this.pictureBoxSeverity = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSeverity)).BeginInit();
@@ -183,13 +183,13 @@ namespace QuickImageComment
         #endregion
 
         private System.Windows.Forms.TextBox textBoxErrorDetails;
-        private System.Windows.Forms.Button buttonPrepareMail;
-        private System.Windows.Forms.Button buttonClose;
+        private QuickImageCommentControls.ButtonQIC  buttonPrepareMail;
+        private QuickImageCommentControls.ButtonQIC  buttonClose;
         private System.Windows.Forms.TextBox textBoxErrorMessage;
         private System.Windows.Forms.Label dynamicLabelErrorHeader;
         private System.Windows.Forms.Label labelDetails;
         private System.Windows.Forms.TextBox textBoxInstructions;
-        private System.Windows.Forms.Button buttonGitHubIssue;
+        private QuickImageCommentControls.ButtonQIC  buttonGitHubIssue;
         private System.Windows.Forms.PictureBox pictureBoxSeverity;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
     }

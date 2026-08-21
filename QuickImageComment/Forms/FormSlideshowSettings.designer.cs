@@ -45,20 +45,20 @@ namespace QuickImageComment
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormSlideshowSettings));
-            this.buttonAbort = new System.Windows.Forms.Button();
-            this.buttonOk = new System.Windows.Forms.Button();
-            this.buttonHelp = new System.Windows.Forms.Button();
+            this.buttonAbort = new QuickImageCommentControls.ButtonQIC();
+            this.buttonOk = new QuickImageCommentControls.ButtonQIC();
+            this.buttonHelp = new QuickImageCommentControls.ButtonQIC();
             this.label1 = new System.Windows.Forms.Label();
             this.numericUpDownDelay = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.numericUpDownPageScrollNumber = new System.Windows.Forms.NumericUpDown();
-            this.buttonBackgroundColor = new System.Windows.Forms.Button();
+            this.buttonBackgroundColor = new QuickImageCommentControls.ButtonQIC();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.buttonForeGroundColor = new System.Windows.Forms.Button();
-            this.buttonAdjustFields = new System.Windows.Forms.Button();
-            this.buttonFontSubtitle = new System.Windows.Forms.Button();
+            this.buttonForeGroundColor = new QuickImageCommentControls.ButtonQIC();
+            this.buttonAdjustFields = new QuickImageCommentControls.ButtonQIC();
+            this.buttonFontSubtitle = new QuickImageCommentControls.ButtonQIC();
             this.label6 = new System.Windows.Forms.Label();
             this.checkBoxHideAtStart = new System.Windows.Forms.CheckBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -69,7 +69,7 @@ namespace QuickImageComment
             this.label8 = new System.Windows.Forms.Label();
             this.numericUpDownOpacity = new System.Windows.Forms.NumericUpDown();
             this.label9 = new System.Windows.Forms.Label();
-            this.buttonRevertChanges = new System.Windows.Forms.Button();
+            this.buttonRevertChanges = new QuickImageCommentControls.ButtonQIC();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDelay)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPageScrollNumber)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -368,20 +368,20 @@ namespace QuickImageComment
         }
 
         #endregion
-        private System.Windows.Forms.Button buttonAbort;
-        private System.Windows.Forms.Button buttonOk;
-        private System.Windows.Forms.Button buttonHelp;
+        private QuickImageCommentControls.ButtonQIC buttonAbort;
+        private QuickImageCommentControls.ButtonQIC buttonOk;
+        private QuickImageCommentControls.ButtonQIC buttonHelp;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.NumericUpDown numericUpDownDelay;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.NumericUpDown numericUpDownPageScrollNumber;
-        private System.Windows.Forms.Button buttonBackgroundColor;
+        private QuickImageCommentControls.ButtonQIC buttonBackgroundColor;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Button buttonForeGroundColor;
-        private System.Windows.Forms.Button buttonAdjustFields;
-        private System.Windows.Forms.Button buttonFontSubtitle;
+        private QuickImageCommentControls.ButtonQIC buttonForeGroundColor;
+        private QuickImageCommentControls.ButtonQIC buttonAdjustFields;
+        private QuickImageCommentControls.ButtonQIC buttonFontSubtitle;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.CheckBox checkBoxHideAtStart;
         private System.Windows.Forms.Label label7;
@@ -392,6 +392,6 @@ namespace QuickImageComment
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.NumericUpDown numericUpDownOpacity;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Button buttonRevertChanges;
+        private QuickImageCommentControls.ButtonQIC buttonRevertChanges;
     }
 }

@@ -23,7 +23,6 @@ namespace QuickImageComment
 {
     public partial class FormSettings : Form
     {
-        private Button buttonOK;
         private CheckBox checkBoxKeepImageBakFile;
         private CheckBox checkBoxSaveWithReturn;
         private CheckBox checkBoxLastCommentsWithCursor;

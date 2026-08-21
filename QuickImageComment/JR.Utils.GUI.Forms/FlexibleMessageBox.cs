@@ -303,14 +303,14 @@ namespace JR.Utils.GUI.Forms
             private void InitializeComponent()
             {
                 this.components = new System.ComponentModel.Container();
-                this.button1 = new System.Windows.Forms.Button();
+                this.button1 = new QuickImageCommentControls.ButtonQIC();
                 this.richTextBoxMessage = new System.Windows.Forms.RichTextBox();
                 this.richTextBoxMessage.DetectUrls = false;
                 this.FlexibleMessageBoxFormBindingSource = new System.Windows.Forms.BindingSource(this.components);
                 this.panel1 = new System.Windows.Forms.Panel();
                 this.pictureBoxForIcon = new System.Windows.Forms.PictureBox();
-                this.button2 = new System.Windows.Forms.Button();
-                this.button3 = new System.Windows.Forms.Button();
+                this.button2 = new QuickImageCommentControls.ButtonQIC();
+                this.button3 = new QuickImageCommentControls.ButtonQIC();
                 ((System.ComponentModel.ISupportInitialize)(this.FlexibleMessageBoxFormBindingSource)).BeginInit();
                 this.panel1.SuspendLayout();
                 ((System.ComponentModel.ISupportInitialize)(this.pictureBoxForIcon)).BeginInit();
@@ -435,13 +435,13 @@ namespace JR.Utils.GUI.Forms
                 SendMessage(richTextBoxMessage.Handle, EM_SETLANGOPTIONS, 0, lParam);
             }
 
-            private System.Windows.Forms.Button button1;
+            private QuickImageCommentControls.ButtonQIC button1;
             private System.Windows.Forms.BindingSource FlexibleMessageBoxFormBindingSource;
             private System.Windows.Forms.RichTextBox richTextBoxMessage;
             private System.Windows.Forms.Panel panel1;
             private System.Windows.Forms.PictureBox pictureBoxForIcon;
-            private System.Windows.Forms.Button button2;
-            private System.Windows.Forms.Button button3;
+            private QuickImageCommentControls.ButtonQIC button2;
+            private QuickImageCommentControls.ButtonQIC button3;
 
             #endregion
 

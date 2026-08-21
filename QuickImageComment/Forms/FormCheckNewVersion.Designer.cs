@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormCheckNewVersion));
-            this.buttonCheckNowForNewVersion = new System.Windows.Forms.Button();
+            this.buttonCheckNowForNewVersion = new QuickImageCommentControls.ButtonQIC();
             this.checkBoxCyclicCheck = new System.Windows.Forms.CheckBox();
             this.numericUpDownCycle = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
@@ -38,9 +38,9 @@
             this.label4 = new System.Windows.Forms.Label();
             this.dynamicLabelLastCheck = new System.Windows.Forms.Label();
             this.dynamicLabelNextCheck = new System.Windows.Forms.Label();
-            this.buttonOk = new System.Windows.Forms.Button();
+            this.buttonOk = new QuickImageCommentControls.ButtonQIC();
             this.richTextBoxResult = new System.Windows.Forms.RichTextBox();
-            this.buttonDownload = new System.Windows.Forms.Button();
+            this.buttonDownload = new QuickImageCommentControls.ButtonQIC();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCycle)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
@@ -225,7 +225,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Button buttonCheckNowForNewVersion;
+        private QuickImageCommentControls.ButtonQIC  buttonCheckNowForNewVersion;
         private System.Windows.Forms.CheckBox checkBoxCyclicCheck;
         private System.Windows.Forms.NumericUpDown numericUpDownCycle;
         private System.Windows.Forms.Label label1;
@@ -234,9 +234,9 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label dynamicLabelLastCheck;
         private System.Windows.Forms.Label dynamicLabelNextCheck;
-        private System.Windows.Forms.Button buttonOk;
+        private QuickImageCommentControls.ButtonQIC  buttonOk;
         private System.Windows.Forms.RichTextBox richTextBoxResult;
-        private System.Windows.Forms.Button buttonDownload;
+        private QuickImageCommentControls.ButtonQIC  buttonDownload;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
     }
 }

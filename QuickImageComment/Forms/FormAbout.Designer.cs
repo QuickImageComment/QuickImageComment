@@ -45,7 +45,7 @@ namespace QuickImageComment
     private void InitializeComponent()
     {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormAbout));
-            this.buttonClose = new System.Windows.Forms.Button();
+            this.buttonClose = new QuickImageCommentControls.ButtonQIC();
             this.textBoxOtherSources = new System.Windows.Forms.TextBox();
             this.fixedLabel1 = new System.Windows.Forms.Label();
             this.fixedLabelQuickImageCommentCopyRight = new System.Windows.Forms.Label();
@@ -53,7 +53,7 @@ namespace QuickImageComment
             this.label5 = new System.Windows.Forms.Label();
             this.textBoxLicence = new System.Windows.Forms.TextBox();
             this.dynamicLabelQuickImageCommentCreated = new System.Windows.Forms.Label();
-            this.buttonLicenses = new System.Windows.Forms.Button();
+            this.buttonLicenses = new QuickImageCommentControls.ButtonQIC();
             this.labelContact = new System.Windows.Forms.Label();
             this.fixedLinkLabelMail = new System.Windows.Forms.LinkLabel();
             this.fixedLinkLabelHomePage = new System.Windows.Forms.LinkLabel();
@@ -299,7 +299,7 @@ namespace QuickImageComment
 
     #endregion
 
-    private System.Windows.Forms.Button buttonClose;
+    private QuickImageCommentControls.ButtonQIC buttonClose;
     private System.Windows.Forms.TextBox textBoxOtherSources;
     private System.Windows.Forms.Label fixedLabel1;
     private System.Windows.Forms.Label fixedLabelQuickImageCommentCopyRight;
@@ -307,7 +307,7 @@ namespace QuickImageComment
     private System.Windows.Forms.Label label5;
     private System.Windows.Forms.TextBox textBoxLicence;
     private System.Windows.Forms.Label dynamicLabelQuickImageCommentCreated;
-    private System.Windows.Forms.Button buttonLicenses;
+    private QuickImageCommentControls.ButtonQIC buttonLicenses;
     private System.Windows.Forms.Label labelContact;
         private System.Windows.Forms.LinkLabel fixedLinkLabelMail;
         private System.Windows.Forms.LinkLabel fixedLinkLabelHomePage;

@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormImageGrid));
-            this.buttonHelp = new System.Windows.Forms.Button();
-            this.buttonCustomizeForm = new System.Windows.Forms.Button();
-            this.buttonCancel = new System.Windows.Forms.Button();
-            this.buttonOK = new System.Windows.Forms.Button();
+            this.buttonHelp = new QuickImageCommentControls.ButtonQIC();
+            this.buttonCustomizeForm = new QuickImageCommentControls.ButtonQIC();
+            this.buttonCancel = new QuickImageCommentControls.ButtonQIC();
+            this.buttonOK = new QuickImageCommentControls.ButtonQIC();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.numericUpDownWidth_0 = new System.Windows.Forms.NumericUpDown();
@@ -64,13 +64,13 @@
             this.numericUpDownWidth_5 = new System.Windows.Forms.NumericUpDown();
             this.label8 = new System.Windows.Forms.Label();
             this.theColorDialog = new System.Windows.Forms.ColorDialog();
-            this.buttonColor_0 = new System.Windows.Forms.Button();
-            this.buttonColor_1 = new System.Windows.Forms.Button();
-            this.buttonColor_2 = new System.Windows.Forms.Button();
-            this.buttonColor_3 = new System.Windows.Forms.Button();
-            this.buttonColor_4 = new System.Windows.Forms.Button();
-            this.buttonColor_5 = new System.Windows.Forms.Button();
-            this.buttonRefreshGrid = new System.Windows.Forms.Button();
+            this.buttonColor_0 = new QuickImageCommentControls.ButtonQIC();
+            this.buttonColor_1 = new QuickImageCommentControls.ButtonQIC();
+            this.buttonColor_2 = new QuickImageCommentControls.ButtonQIC();
+            this.buttonColor_3 = new QuickImageCommentControls.ButtonQIC();
+            this.buttonColor_4 = new QuickImageCommentControls.ButtonQIC();
+            this.buttonColor_5 = new QuickImageCommentControls.ButtonQIC();
+            this.buttonRefreshGrid = new QuickImageCommentControls.ButtonQIC();
             this.comboBoxLineStyle_0 = new QuickImageCommentControls.ComboBoxQIC();
             this.label9 = new System.Windows.Forms.Label();
             this.numericUpDownDistance_0 = new System.Windows.Forms.NumericUpDown();
@@ -1037,10 +1037,10 @@
 
         #endregion
 
-        private System.Windows.Forms.Button buttonHelp;
-        private System.Windows.Forms.Button buttonCustomizeForm;
-        private System.Windows.Forms.Button buttonCancel;
-        private System.Windows.Forms.Button buttonOK;
+        private QuickImageCommentControls.ButtonQIC buttonHelp;
+        private QuickImageCommentControls.ButtonQIC buttonCustomizeForm;
+        private QuickImageCommentControls.ButtonQIC buttonCancel;
+        private QuickImageCommentControls.ButtonQIC buttonOK;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.NumericUpDown numericUpDownWidth_0;
@@ -1072,13 +1072,13 @@
         private System.Windows.Forms.NumericUpDown numericUpDownWidth_5;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.ColorDialog theColorDialog;
-        private System.Windows.Forms.Button buttonColor_0;
-        private System.Windows.Forms.Button buttonColor_1;
-        private System.Windows.Forms.Button buttonColor_2;
-        private System.Windows.Forms.Button buttonColor_3;
-        private System.Windows.Forms.Button buttonColor_4;
-        private System.Windows.Forms.Button buttonColor_5;
-        private System.Windows.Forms.Button buttonRefreshGrid;
+        private QuickImageCommentControls.ButtonQIC buttonColor_0;
+        private QuickImageCommentControls.ButtonQIC buttonColor_1;
+        private QuickImageCommentControls.ButtonQIC buttonColor_2;
+        private QuickImageCommentControls.ButtonQIC buttonColor_3;
+        private QuickImageCommentControls.ButtonQIC buttonColor_4;
+        private QuickImageCommentControls.ButtonQIC buttonColor_5;
+        private QuickImageCommentControls.ButtonQIC buttonRefreshGrid;
         private QuickImageCommentControls.ComboBoxQIC comboBoxLineStyle_0;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.NumericUpDown numericUpDownDistance_0;
