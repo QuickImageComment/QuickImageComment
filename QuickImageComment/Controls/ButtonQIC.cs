@@ -142,6 +142,26 @@ namespace QuickImageCommentControls
                 TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter
             );
 
+            // image
+            if (Image != null)
+            {
+                Rectangle imageRect = new Rectangle(rect.Location, rect.Size);
+                float ratio = (float)Image.Width / Image.Height;
+                if (imageRect.Width > imageRect.Height * ratio)
+                {
+                    int diff = imageRect.Width - (int)(imageRect.Height * ratio);
+                    imageRect.Width -= diff;
+                    imageRect.X += diff / 2;
+                }
+                else
+                {
+                    int diff = imageRect.Height - (int)(imageRect.Width / ratio);
+                    imageRect.Height -= diff;
+                    imageRect.Y += diff / 2;
+                }
+                g.DrawImage(Image, imageRect);
+            }
+
             // focus frame
             if (_keyboardFocused && Enabled)
             {

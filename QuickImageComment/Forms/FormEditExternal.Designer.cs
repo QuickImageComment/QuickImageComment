@@ -364,8 +364,7 @@ namespace QuickImageComment
             // buttonBrowse
             // 
             this.buttonBrowse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonBrowse.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonBrowse.BackgroundImage")));
-            this.buttonBrowse.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.buttonBrowse.Image = ((System.Drawing.Image)(resources.GetObject("buttonBrowse.BackgroundImage")));
             this.buttonBrowse.Location = new System.Drawing.Point(339, -2);
             this.buttonBrowse.Name = "buttonBrowse";
             this.buttonBrowse.Size = new System.Drawing.Size(24, 24);

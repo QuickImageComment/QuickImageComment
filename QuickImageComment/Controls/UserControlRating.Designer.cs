@@ -41,8 +41,7 @@
             // 
             // buttonNone
             // 
-            this.buttonNone.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonNone.BackgroundImage")));
-            this.buttonNone.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.buttonNone.Image = ((System.Drawing.Image)(resources.GetObject("buttonNone.Image")));
             this.buttonNone.Location = new System.Drawing.Point(188, 0);
             this.buttonNone.Name = "buttonNone";
             this.buttonNone.Size = new System.Drawing.Size(21, 21);
@@ -138,8 +137,7 @@
             // 
             // buttonRevert
             // 
-            this.buttonRevert.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonRevert.BackgroundImage")));
-            this.buttonRevert.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.buttonRevert.Image = ((System.Drawing.Image)(resources.GetObject("buttonRevert.Image")));
             this.buttonRevert.Location = new System.Drawing.Point(164, 0);
             this.buttonRevert.Name = "buttonRevert";
             this.buttonRevert.Size = new System.Drawing.Size(21, 21);

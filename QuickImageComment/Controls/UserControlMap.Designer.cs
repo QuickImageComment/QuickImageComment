@@ -297,8 +297,7 @@
             // buttonSettings
             // 
             this.buttonSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSettings.BackgroundImage = global::QuickImageComment.Properties.Resources.Settings;
-            this.buttonSettings.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.buttonSettings.Image = global::QuickImageComment.Properties.Resources.Settings;
             this.buttonSettings.Location = new System.Drawing.Point(642, 0);
             this.buttonSettings.Name = "buttonSettings";
             this.buttonSettings.Size = new System.Drawing.Size(32, 32);
