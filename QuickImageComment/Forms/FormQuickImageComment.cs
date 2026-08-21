@@ -2891,17 +2891,17 @@ namespace QuickImageComment
                     newThemeName = FormCustomization.Customizer.ThemeLight;
                 }
             }
+            // set dynamic colors considering new theme
+            backColorInputUnchanged = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigInt.BackColorInputUnchanged, newThemeName);
+            backColorInputValueChanged = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigInt.BackColorValueChanged, newThemeName);
+            backColorNotEnabled = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigInt.BackColorNotEnabled, newThemeName);
+            backColorMultiEditNonDefault = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigInt.BackColorMultiEditNonDefault, newThemeName);
+
             if (CustomizationInterface.getColorThemeName().Equals("") && !newThemeName.Equals(FormCustomization.Customizer.ThemeLight) ||
                 !CustomizationInterface.getColorThemeName().Equals("") && !CustomizationInterface.getColorThemeName().Equals(newThemeName))
             {
                 CustomizationInterface.setColorThemeName(newThemeName);
                 CustomizationInterface.setThemeForComponent(this);
-
-                // set dynamic colors
-                backColorInputUnchanged = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigInt.BackColorInputUnchanged);
-                backColorInputValueChanged = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigInt.BackColorValueChanged);
-                backColorNotEnabled = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigInt.BackColorNotEnabled);
-                backColorMultiEditNonDefault = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigInt.BackColorMultiEditNonDefault);
 
                 // as they are filled dynamic refresh the following controls to get new theme
                 if (theUserControlChangeableFields != null)
