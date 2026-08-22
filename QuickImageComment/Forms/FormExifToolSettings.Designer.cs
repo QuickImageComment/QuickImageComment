@@ -66,6 +66,7 @@
             // buttonOk
             // 
             this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonOk.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonOk.Location = new System.Drawing.Point(58, 276);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(96, 23);
@@ -77,6 +78,7 @@
             // buttonCancel
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonCancel.Location = new System.Drawing.Point(295, 276);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(96, 23);
@@ -88,6 +90,7 @@
             // buttonHelp
             // 
             this.buttonHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonHelp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonHelp.Location = new System.Drawing.Point(398, 276);
             this.buttonHelp.Name = "buttonHelp";
             this.buttonHelp.Size = new System.Drawing.Size(96, 23);
@@ -117,6 +120,7 @@
             // buttonBrowse
             // 
             this.buttonBrowse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonBrowse.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonBrowse.Image = ((System.Drawing.Image)(resources.GetObject("buttonBrowse.Image")));
             this.buttonBrowse.Location = new System.Drawing.Point(515, 62);
             this.buttonBrowse.Name = "buttonBrowse";
@@ -127,6 +131,7 @@
             // 
             // buttonStatusVersionCheck
             // 
+            this.buttonStatusVersionCheck.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonStatusVersionCheck.Location = new System.Drawing.Point(305, 36);
             this.buttonStatusVersionCheck.Name = "buttonStatusVersionCheck";
             this.buttonStatusVersionCheck.Size = new System.Drawing.Size(148, 23);
@@ -202,7 +207,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(9, 251);
+            this.label9.Location = new System.Drawing.Point(9, 250);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(236, 13);
             this.label9.TabIndex = 30;
@@ -323,6 +328,7 @@
             // 
             // buttonStop
             // 
+            this.buttonStop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonStop.Location = new System.Drawing.Point(125, 86);
             this.buttonStop.Name = "buttonStop";
             this.buttonStop.Size = new System.Drawing.Size(96, 23);
@@ -333,6 +339,7 @@
             // 
             // buttonStart
             // 
+            this.buttonStart.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonStart.Location = new System.Drawing.Point(9, 86);
             this.buttonStart.Name = "buttonStart";
             this.buttonStart.Size = new System.Drawing.Size(96, 23);

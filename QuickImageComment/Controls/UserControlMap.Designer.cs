@@ -126,6 +126,7 @@
             // 
             // buttonDelete
             // 
+            this.buttonDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonDelete.Location = new System.Drawing.Point(89, 3);
             this.buttonDelete.Name = "buttonDelete";
             this.buttonDelete.Size = new System.Drawing.Size(56, 20);
@@ -137,6 +138,7 @@
             // buttonRename
             // 
             this.buttonRename.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonRename.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonRename.Location = new System.Drawing.Point(3, 3);
             this.buttonRename.Name = "buttonRename";
             this.buttonRename.Size = new System.Drawing.Size(80, 22);
@@ -201,6 +203,7 @@
             // buttonReset
             // 
             this.buttonReset.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonReset.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonReset.Location = new System.Drawing.Point(341, 3);
             this.buttonReset.Name = "buttonReset";
             this.buttonReset.Size = new System.Drawing.Size(84, 20);
@@ -214,11 +217,12 @@
             this.dynamicComboBoxSearch.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.dynamicComboBoxSearch.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.dynamicComboBoxSearch.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dynamicComboBoxSearch.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.dynamicComboBoxSearch.FormattingEnabled = true;
             this.dynamicComboBoxSearch.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.dynamicComboBoxSearch.Location = new System.Drawing.Point(3, 3);
             this.dynamicComboBoxSearch.Name = "dynamicComboBoxSearch";
-            this.dynamicComboBoxSearch.Size = new System.Drawing.Size(222, 21);
+            this.dynamicComboBoxSearch.Size = new System.Drawing.Size(222, 22);
             this.dynamicComboBoxSearch.TabIndex = 13;
             this.dynamicComboBoxSearch.SelectedIndexChanged += new System.EventHandler(this.dynamicComboBoxSearch_SelectedIndexChanged);
             this.dynamicComboBoxSearch.TextUpdate += new System.EventHandler(this.dynamicComboBoxSearch_TextUpdate);
@@ -228,6 +232,7 @@
             // buttonCenterMarker
             // 
             this.buttonCenterMarker.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonCenterMarker.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonCenterMarker.Location = new System.Drawing.Point(269, 3);
             this.buttonCenterMarker.Name = "buttonCenterMarker";
             this.buttonCenterMarker.Size = new System.Drawing.Size(66, 20);
@@ -239,6 +244,7 @@
             // buttonSearch
             // 
             this.buttonSearch.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonSearch.Location = new System.Drawing.Point(231, 3);
             this.buttonSearch.Name = "buttonSearch";
             this.buttonSearch.Size = new System.Drawing.Size(32, 20);
@@ -275,10 +281,11 @@
             // dynamicComboBoxMapSource
             // 
             this.dynamicComboBoxMapSource.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dynamicComboBoxMapSource.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.dynamicComboBoxMapSource.FormattingEnabled = true;
             this.dynamicComboBoxMapSource.Location = new System.Drawing.Point(3, 3);
             this.dynamicComboBoxMapSource.Name = "dynamicComboBoxMapSource";
-            this.dynamicComboBoxMapSource.Size = new System.Drawing.Size(236, 21);
+            this.dynamicComboBoxMapSource.Size = new System.Drawing.Size(236, 22);
             this.dynamicComboBoxMapSource.TabIndex = 15;
             this.dynamicComboBoxMapSource.SelectedIndexChanged += new System.EventHandler(this.dynamicComboBoxMapSource_SelectedIndexChanged);
             // 
@@ -297,6 +304,7 @@
             // buttonSettings
             // 
             this.buttonSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonSettings.Image = global::QuickImageComment.Properties.Resources.Settings;
             this.buttonSettings.Location = new System.Drawing.Point(642, 0);
             this.buttonSettings.Name = "buttonSettings";

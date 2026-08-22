@@ -81,11 +81,11 @@ namespace QuickImageComment
             this.labelNoPlaceholderMarked = new System.Windows.Forms.Label();
             this.tableLayoutPanelValueResult = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanelTagList = new System.Windows.Forms.TableLayoutPanel();
+            this.userControlTagList = new QuickImageComment.UserControlTagList();
             this.tableLayoutPanelBelowTagList = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanelFormat = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanelLanguage = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanelMetaDate = new System.Windows.Forms.TableLayoutPanel();
-            this.userControlTagList = new QuickImageComment.UserControlTagList();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFrom)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLength)).BeginInit();
             this.tableLayoutPanelValueResult.SuspendLayout();
@@ -99,6 +99,7 @@ namespace QuickImageComment
             // buttonAbort
             // 
             this.buttonAbort.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonAbort.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonAbort.Location = new System.Drawing.Point(514, 577);
             this.buttonAbort.Name = "buttonAbort";
             this.buttonAbort.Size = new System.Drawing.Size(95, 22);
@@ -110,6 +111,7 @@ namespace QuickImageComment
             // buttonMetaDatum
             // 
             this.buttonMetaDatum.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonMetaDatum.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonMetaDatum.Location = new System.Drawing.Point(601, 3);
             this.buttonMetaDatum.Name = "buttonMetaDatum";
             this.buttonMetaDatum.Size = new System.Drawing.Size(119, 21);
@@ -121,6 +123,7 @@ namespace QuickImageComment
             // buttonOk
             // 
             this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonOk.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonOk.Location = new System.Drawing.Point(238, 577);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(95, 22);
@@ -182,6 +185,7 @@ namespace QuickImageComment
             // buttonCustomizeForm
             // 
             this.buttonCustomizeForm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonCustomizeForm.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonCustomizeForm.Location = new System.Drawing.Point(5, 577);
             this.buttonCustomizeForm.Name = "buttonCustomizeForm";
             this.buttonCustomizeForm.Size = new System.Drawing.Size(98, 22);
@@ -193,6 +197,7 @@ namespace QuickImageComment
             // buttonHelp
             // 
             this.buttonHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonHelp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonHelp.Location = new System.Drawing.Point(745, 577);
             this.buttonHelp.Name = "buttonHelp";
             this.buttonHelp.Size = new System.Drawing.Size(95, 22);
@@ -320,11 +325,12 @@ namespace QuickImageComment
             // dynamicComboBoxFormat
             // 
             this.dynamicComboBoxFormat.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dynamicComboBoxFormat.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.dynamicComboBoxFormat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.dynamicComboBoxFormat.FormattingEnabled = true;
             this.dynamicComboBoxFormat.Location = new System.Drawing.Point(517, 3);
             this.dynamicComboBoxFormat.Name = "dynamicComboBoxFormat";
-            this.dynamicComboBoxFormat.Size = new System.Drawing.Size(213, 21);
+            this.dynamicComboBoxFormat.Size = new System.Drawing.Size(213, 22);
             this.dynamicComboBoxFormat.TabIndex = 62;
             this.dynamicComboBoxFormat.TextChanged += new System.EventHandler(this.placeholderDefinitionChanged);
             // 
@@ -343,11 +349,12 @@ namespace QuickImageComment
             // dynamicComboBoxLanguage
             // 
             this.dynamicComboBoxLanguage.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dynamicComboBoxLanguage.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.dynamicComboBoxLanguage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.dynamicComboBoxLanguage.FormattingEnabled = true;
             this.dynamicComboBoxLanguage.Location = new System.Drawing.Point(438, 3);
             this.dynamicComboBoxLanguage.Name = "dynamicComboBoxLanguage";
-            this.dynamicComboBoxLanguage.Size = new System.Drawing.Size(258, 21);
+            this.dynamicComboBoxLanguage.Size = new System.Drawing.Size(258, 22);
             this.dynamicComboBoxLanguage.TabIndex = 64;
             this.dynamicComboBoxLanguage.TextChanged += new System.EventHandler(this.placeholderDefinitionChanged);
             // 
@@ -398,6 +405,7 @@ namespace QuickImageComment
             // buttonDate
             // 
             this.buttonDate.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonDate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonDate.Location = new System.Drawing.Point(726, 3);
             this.buttonDate.Name = "buttonDate";
             this.buttonDate.Size = new System.Drawing.Size(54, 21);
@@ -409,6 +417,7 @@ namespace QuickImageComment
             // buttonTime
             // 
             this.buttonTime.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonTime.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonTime.Location = new System.Drawing.Point(786, 3);
             this.buttonTime.Name = "buttonTime";
             this.buttonTime.Size = new System.Drawing.Size(54, 21);
@@ -420,6 +429,7 @@ namespace QuickImageComment
             // buttonInsertOverwrite
             // 
             this.buttonInsertOverwrite.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonInsertOverwrite.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonInsertOverwrite.Location = new System.Drawing.Point(5, 413);
             this.buttonInsertOverwrite.Name = "buttonInsertOverwrite";
             this.buttonInsertOverwrite.Size = new System.Drawing.Size(144, 22);
@@ -463,6 +473,7 @@ namespace QuickImageComment
             // buttonEdit
             // 
             this.buttonEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonEdit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonEdit.Location = new System.Drawing.Point(5, 436);
             this.buttonEdit.Name = "buttonEdit";
             this.buttonEdit.Size = new System.Drawing.Size(144, 22);
@@ -476,7 +487,7 @@ namespace QuickImageComment
             this.labelNoPlaceholderMarked.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelNoPlaceholderMarked.AutoSize = true;
             this.labelNoPlaceholderMarked.BackColor = System.Drawing.Color.Black;
-            this.labelNoPlaceholderMarked.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.labelNoPlaceholderMarked.ForeColor = System.Drawing.Color.White;
             this.labelNoPlaceholderMarked.Location = new System.Drawing.Point(6, 462);
             this.labelNoPlaceholderMarked.Name = "labelNoPlaceholderMarked";
             this.labelNoPlaceholderMarked.Size = new System.Drawing.Size(123, 13);
@@ -511,6 +522,14 @@ namespace QuickImageComment
             this.tableLayoutPanelTagList.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanelTagList.Size = new System.Drawing.Size(846, 268);
             this.tableLayoutPanelTagList.TabIndex = 79;
+            // 
+            // userControlTagList
+            // 
+            this.userControlTagList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.userControlTagList.Location = new System.Drawing.Point(3, 3);
+            this.userControlTagList.Name = "userControlTagList";
+            this.userControlTagList.Size = new System.Drawing.Size(840, 262);
+            this.userControlTagList.TabIndex = 77;
             // 
             // tableLayoutPanelBelowTagList
             // 
@@ -596,14 +615,6 @@ namespace QuickImageComment
             this.tableLayoutPanelMetaDate.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanelMetaDate.Size = new System.Drawing.Size(733, 24);
             this.tableLayoutPanelMetaDate.TabIndex = 83;
-            // 
-            // userControlTagList
-            // 
-            this.userControlTagList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.userControlTagList.Location = new System.Drawing.Point(3, 3);
-            this.userControlTagList.Name = "userControlTagList";
-            this.userControlTagList.Size = new System.Drawing.Size(840, 262);
-            this.userControlTagList.TabIndex = 77;
             // 
             // FormPlaceholder
             // 
