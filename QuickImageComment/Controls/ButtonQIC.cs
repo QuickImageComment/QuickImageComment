@@ -9,6 +9,15 @@ namespace QuickImageCommentControls
 {
     public class ButtonQIC : Button
     {
+        // FlatStyle has no impact as it is not considered on OnPaint
+        [Browsable(false)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public new FlatStyle FlatStyle
+        {
+            get => FlatStyle.Flat;
+            set { /* ignore */ }
+        }
+
         [DefaultValue(typeof(Color), "ControlDarkDark")]
         public Color DisabledForeColor { get; set; } = SystemColors.ControlDarkDark;
 
@@ -36,10 +45,8 @@ namespace QuickImageCommentControls
 
         public ButtonQIC()
         {
-            FlatStyle = FlatStyle.Flat;
             FlatAppearance.BorderSize = 0;
             UseVisualStyleBackColor = false;
-            BackColor = SystemColors.Window;
 
             SetStyle(ControlStyles.UserPaint |
                      ControlStyles.AllPaintingInWmPaint |
