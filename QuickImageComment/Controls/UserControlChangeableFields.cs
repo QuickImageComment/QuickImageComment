@@ -68,7 +68,7 @@ namespace QuickImageComment
             // now adjust theme of template controls as their name is now without parents
             // and thus future theme changes can refer correct to original colors
             adjustTemplateControlsForNewTheme();
-            
+
             // needs to initiated as it is checked, even if this user control is not visible
             UsedXmpLangAltEntries = new ArrayList();
             ChangeableFieldInputControls = new SortedList<string, Control>();

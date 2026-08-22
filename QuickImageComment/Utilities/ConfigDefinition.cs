@@ -2420,10 +2420,8 @@ namespace QuickImageComment
         }
 
         // get user general configuration items of type color (stored as integer)
-        public static Color getConfigColor(enumConfigInt ConfigEnum)
+        public static Color getConfigColor(enumConfigInt ConfigEnum, string themeName)
         {
-            string themeName = ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.ColorThemeName);
-
             if (ThemeColors.ContainsKey(themeName + " Color [" + ConfigEnum.ToString() + "]"))
             {
                 return ThemeColors[themeName + " Color [" + ConfigEnum.ToString() + "]"];

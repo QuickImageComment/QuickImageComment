@@ -17,6 +17,7 @@
 //#define WRITEDEBUGTHEMETRACE
 //#define WRITEDEBUGTHEMEERROR
 
+using QuickImageComment;
 using QuickImageCommentControls;
 using System;
 using System.Collections;
@@ -82,7 +83,15 @@ namespace FormCustomization
 
         public const string ThemeLight = "Light";
         public const string ThemeDark = "Dark";
+        public const string tagNoThemeChange = "NO_THEME_CHANGE";
 
+        private SortedList<string, string> ColorNameOfRGB = new SortedList<string, string>
+        {
+            { "Color [A=255, R=0, G=0, B=0]", "Color [Desktop]" },
+            { "Color [A=255, R=66, G=66, B=66]","Color [Control]" },
+            { "Color [A=255, R=95, G=95, B=95]", "Color [ControlDark]" },
+            { "Color [A=255, R=255, G=255, B=255]","Color [ControlText]" }
+        };
         // as controls can be moved between different panels, the leading part of control's full name
         // shall be ignored, when adding them in zoom basis data collection
         // sequence must be in a way, that no entry is contained in a following one (i.e. "abc" before "ab")
@@ -567,6 +576,12 @@ namespace FormCustomization
             return ControlsUnchangedTheme;
         }
 
+        // used to clear list after reading its content
+        internal void clearControlsUnchangedTheme()
+        {
+            ControlsUnchangedTheme = new ArrayList();
+        }
+
         private void fillSortedListComponents(SortedList<string, Component> sortedListControls, Component parentComponent)
         {
             string fullName = getFullNameOfComponent(parentComponent);
@@ -690,6 +705,17 @@ namespace FormCustomization
             //        + control1.ForeColor.ToString() + "\t" + control1.ForeColor.A.ToString() + "\t" + control1.ForeColor.R.ToString() + "\t" + control1.ForeColor.G.ToString() + "\t" + control1.ForeColor.B.ToString());
             //}
 
+            if (ParentControl is Control control1)
+            {
+                if (control1.Tag != null && control1.Tag is string && ((string)control1.Tag).Equals(tagNoThemeChange))
+                {
+#if WRITEDEBUGTHEMETRACE
+                    QuickImageComment.GeneralUtilities.writeDebugFileEntry("    " + ParentControlFullName + " is flagged to ignore theme change");
+#endif
+                    return;
+                }
+            }
+
             // first set theme for child controls, then for parent control
             // if theme is first set for parent, buttons were not shown with correct color
             if (ParentControl is MenuStrip menuStrip)
@@ -713,7 +739,13 @@ namespace FormCustomization
                     setThemeForComponent(Child, level);
                 }
             }
-            else if (ParentControl is Control control && !(ParentControl is DataGridView))
+            else if (ParentControl is DataGridView
+                  || ParentControl is NumericUpDown
+                  || ParentControl is UserControlChangeableFields)
+            {
+                // no childs to be handled
+            }
+            else if (ParentControl is Control control)
             {
                 foreach (Control ChildControl in control.Controls)
                 {
@@ -819,118 +851,14 @@ namespace FormCustomization
             }
             else
             {
-                // get color by theme
-                string colorkey = ThemeName + " " + backcolor.ToString();
-                if (ThemeColors.ContainsKey(colorkey))
-                {
-                    newBackcolor = ThemeColors[colorkey];
-#if WRITEDEBUGTHEMETRACE
-                    QuickImageComment.GeneralUtilities.writeDebugFileEntry("    " + ParentControlFullName + " Back " + colorkey + " changed to " + newBackcolor);
-#endif
-                }
-                else
-                {
-                    newBackcolor = Color.Empty;
-#if WRITEDEBUGTHEMEERROR
-                    QuickImageComment.GeneralUtilities.writeDebugFileEntry("    " + ParentControlFullName + " Back not found " + colorkey);
-#endif
-                }
-                colorkey = ThemeName + " " + forecolor.ToString();
-                if (ThemeColors.ContainsKey(colorkey))
-                {
-                    newForcolor = ThemeColors[colorkey];
-#if WRITEDEBUGTHEMETRACE
-                    QuickImageComment.GeneralUtilities.writeDebugFileEntry("    " + ParentControlFullName + " Fore " + colorkey + " changed to " + newForcolor);
-#endif
-                }
-                else
-                {
-                    newForcolor = Color.Empty;
-#if WRITEDEBUGTHEMEERROR
-                    QuickImageComment.GeneralUtilities.writeDebugFileEntry("    " + ParentControlFullName + " Fore not found " + colorkey);
-#endif
-                }
-                if (ParentControl is DataGridView dataGridView2)
-                {
-                    colorkey = ThemeName + " " + dataGridViewDefaultCellBackColor.ToString();
-                    if (ThemeColors.ContainsKey(colorkey))
-                    {
-                        newDataGridViewDefaultCellBackColor = ThemeColors[colorkey];
-#if WRITEDEBUGTHEMETRACE
-                        QuickImageComment.GeneralUtilities.writeDebugFileEntry("    " + ParentControlFullName + " DataGridViewDefaultCellBack " + colorkey + " changed to " + newDataGridViewDefaultCellBackColor);
-#endif
-                    }
-                    else
-                    {
-                        newDataGridViewDefaultCellBackColor = Color.Empty;
-#if WRITEDEBUGTHEMEERROR
-                        QuickImageComment.GeneralUtilities.writeDebugFileEntry("    " + ParentControlFullName + " DataGridViewDefaultCellBack not found " + colorkey);
-#endif
-                    }
-                    colorkey = ThemeName + " " + dataGridViewDefaultColumnHeadersBackColor.ToString();
-                    if (ThemeColors.ContainsKey(colorkey))
-                    {
-                        newDataGridViewDefaultColumnHeadersBackColor = ThemeColors[colorkey];
-#if WRITEDEBUGTHEMETRACE
-                        QuickImageComment.GeneralUtilities.writeDebugFileEntry("    " + ParentControlFullName + " DataGridViewDefaultColumnHeadersBack " + colorkey + " changed to " + newDataGridViewDefaultColumnHeadersBackColor);
-#endif
-                    }
-                    else
-                    {
-                        newDataGridViewDefaultColumnHeadersBackColor = Color.Empty;
-#if WRITEDEBUGTHEMEERROR
-                        QuickImageComment.GeneralUtilities.writeDebugFileEntry(ParentControlFullName + " DataGridViewDefaultColumnHeadersBack not found " + colorkey);
-#endif
-                    }
-                }
-                if (ParentControl is DataGridView ButtonQIC)
-                {
-                    colorkey = ThemeName + " " + disabledForeColor.ToString();
-                    if (ThemeColors.ContainsKey(colorkey))
-                    {
-                        newDisabledForeColor = ThemeColors[colorkey];
-#if WRITEDEBUGTHEMETRACE
-                        QuickImageComment.GeneralUtilities.writeDebugFileEntry("    " + ParentControlFullName + " DisabledForeColor " + colorkey + " changed to " + newDisabledForeColor);
-#endif
-                    }
-                    else
-                    {
-                        newDisabledForeColor = Color.Empty;
-#if WRITEDEBUGTHEMEERROR
-                        QuickImageComment.GeneralUtilities.writeDebugFileEntry("    " + ParentControlFullName + " DisabledForeColor not found " + colorkey);
-#endif
-                    }
-                    colorkey = ThemeName + " " + pressedBackColor.ToString();
-                    if (ThemeColors.ContainsKey(colorkey))
-                    {
-                        newPressedBackColor = ThemeColors[colorkey];
-#if WRITEDEBUGTHEMETRACE
-                        QuickImageComment.GeneralUtilities.writeDebugFileEntry("    " + ParentControlFullName + " PressedBackColor " + colorkey + " changed to " + newPressedBackColor);
-#endif
-                    }
-                    else
-                    {
-                        newPressedBackColor = Color.Empty;
-#if WRITEDEBUGTHEMEERROR
-                        QuickImageComment.GeneralUtilities.writeDebugFileEntry("    " + ParentControlFullName + " PressedBackColor not found " + colorkey);
-#endif
-                    }
-                    colorkey = ThemeName + " " + hoverBackColor.ToString();
-                    if (ThemeColors.ContainsKey(colorkey))
-                    {
-                        newHoverBackColor = ThemeColors[colorkey];
-#if WRITEDEBUGTHEMETRACE
-                        QuickImageComment.GeneralUtilities.writeDebugFileEntry("    " + ParentControlFullName + " HoverBackColor " + colorkey + " changed to " + newHoverBackColor);
-#endif
-                    }
-                    else
-                    {
-                        newHoverBackColor = Color.Empty;
-#if WRITEDEBUGTHEMEERROR
-                        QuickImageComment.GeneralUtilities.writeDebugFileEntry("    " + ParentControlFullName + " HoverBackColor not found " + colorkey);
-#endif
-                    }
-                }
+                // get colors by theme
+                newBackcolor = getColorByTheme(ParentControlFullName, backcolor, "Back");
+                newForcolor = getColorByTheme(ParentControlFullName, forecolor, "Fore");
+                newDataGridViewDefaultCellBackColor = getColorByTheme(ParentControlFullName, dataGridViewDefaultCellBackColor, "DataGridViewDefaultCellBack");
+                newDataGridViewDefaultColumnHeadersBackColor = getColorByTheme(ParentControlFullName, dataGridViewDefaultColumnHeadersBackColor, "DataGridViewDefaultColumnHeadersBack");
+                newDisabledForeColor = getColorByTheme(ParentControlFullName, disabledForeColor, "DisabledForeColor");
+                newPressedBackColor = getColorByTheme(ParentControlFullName, pressedBackColor, "PressedBackColor");
+                newHoverBackColor = getColorByTheme(ParentControlFullName, hoverBackColor, "HoverBackColor");
             }
 
             if (ParentControl is DataGridView dataGridView)
@@ -958,6 +886,40 @@ namespace FormCustomization
 #if WRITEDEBUGTHEMETRACE
             QuickImageComment.GeneralUtilities.writeDebugFileEntry("< " + ParentControlFullName);
 #endif
+        }
+
+        private Color getColorByTheme(string fullName, Color color, string colorType)
+        {
+            string colorName = color.ToString();
+            if (ColorNameOfRGB.ContainsKey(colorName)) colorName = ColorNameOfRGB[colorName];
+            string colorkey = ThemeName + " " + colorName;
+            if (color.IsEmpty || color == Color.Transparent)
+            {
+#if WRITEDEBUGTHEMETRACE
+                QuickImageComment.GeneralUtilities.writeDebugFileEntry("    " + fullName + " / " + colorType + " " + colorkey
+                    + " is empty or transparent, return same color");
+#endif
+                return color;
+            }
+
+            Color newColor;
+            if (ThemeColors.ContainsKey(colorkey))
+            {
+                newColor = ThemeColors[colorkey];
+#if WRITEDEBUGTHEMETRACE
+                GeneralUtilities.writeDebugFileEntry("    " + fullName + " / " + colorType + " " + colorkey
+                    + " changed to " + newColor);
+#endif
+            }
+            else
+            {
+                newColor = Color.Empty;
+                ControlsUnchangedTheme.Add(fullName + " " + colorType + " not found " + colorkey);
+#if WRITEDEBUGTHEMEERROR
+                GeneralUtilities.writeDebugFileEntry("    " + fullName + " " + colorType + " not found " + colorkey);
+#endif
+            }
+            return newColor;
         }
 
         //*****************************************************************

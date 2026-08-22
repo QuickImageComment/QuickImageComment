@@ -274,6 +274,7 @@
             this.textBoxColorDisplay.ReadOnly = true;
             this.textBoxColorDisplay.Size = new System.Drawing.Size(45, 21);
             this.textBoxColorDisplay.TabIndex = 23;
+            this.textBoxColorDisplay.Tag = "NO_THEME_CHANGE";
             // 
             // FormMapSettings
             // 

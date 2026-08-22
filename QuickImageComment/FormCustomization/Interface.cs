@@ -147,8 +147,16 @@ namespace FormCustomization
         // set theme colors
         internal void setThemeForComponent(Component component)
         {
+#if !NET10_0_OR_GREATER
             if (theCustomizer.getThemeName().Equals("")) return; // no theme loaded
             theCustomizer.setThemeForComponent(component, 0);
+            if (ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.Maintenance))
+            {
+                object[] entries = theCustomizer.getControlsUnchangedTheme().ToArray();
+                for (int ii = 0; ii < entries.Length; ii++) Logger.log((string)entries[ii]);
+                theCustomizer.clearControlsUnchangedTheme();
+            }
+#endif
         }
 
         // load the settings from file

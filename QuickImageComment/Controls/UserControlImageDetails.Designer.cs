@@ -260,6 +260,7 @@
             this.buttonFocusPointColor.TabIndex = 2;
             this.buttonFocusPointColor.UseVisualStyleBackColor = true;
             this.buttonFocusPointColor.Click += new System.EventHandler(this.buttonFocusPointColor_Click);
+            this.buttonFocusPointColor.Tag = "NO_THEME_CHANGE";
             // 
             // numericUpDownWidth
             // 
@@ -607,6 +608,7 @@
             this.buttonGridColor.TabIndex = 21;
             this.buttonGridColor.UseVisualStyleBackColor = true;
             this.buttonGridColor.Click += new System.EventHandler(this.buttonGridColor_Click);
+            this.buttonGridColor.Tag = "NO_THEME_CHANGE";
             // 
             // comboBoxZoom
             // 
@@ -713,6 +715,7 @@
             this.buttonFrameColor.TabIndex = 19;
             this.buttonFrameColor.UseVisualStyleBackColor = true;
             this.buttonFrameColor.Click += new System.EventHandler(this.buttonFrameColor_Click);
+            this.buttonFrameColor.Tag = "NO_THEME_CHANGE";
             // 
             // hScrollBarZoom
             // 

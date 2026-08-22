@@ -64,7 +64,7 @@ namespace QuickImageComment
         public UserControlImageDetails(float dpiSettings, FormImageDetails givenMasterFormImageDetails)
         {
             InitializeComponent();
-            
+
             masterFormImageDetails = givenMasterFormImageDetails;
 
             int ii = 0;
