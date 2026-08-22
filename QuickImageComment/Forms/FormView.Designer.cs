@@ -1090,7 +1090,7 @@
             // 
             this.panelVerticalCheckLeft.BackColor = System.Drawing.SystemColors.Desktop;
             this.panelVerticalCheckLeft.Controls.Add(this.checkBoxLeftPanelVertical);
-            this.panelVerticalCheckLeft.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.panelVerticalCheckLeft.ForeColor = System.Drawing.SystemColors.ControlText;
             this.panelVerticalCheckLeft.Location = new System.Drawing.Point(6, 215);
             this.panelVerticalCheckLeft.Name = "panelVerticalCheckLeft";
             this.panelVerticalCheckLeft.Size = new System.Drawing.Size(243, 23);

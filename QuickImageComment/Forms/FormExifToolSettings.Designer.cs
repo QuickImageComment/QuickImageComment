@@ -214,7 +214,7 @@
             this.groupBoxOptionsWrite.Controls.Add(this.dynamicCheckBox_m_Write);
             this.groupBoxOptionsWrite.Location = new System.Drawing.Point(4, 191);
             this.groupBoxOptionsWrite.Name = "groupBoxOptionsWrite";
-            this.groupBoxOptionsWrite.Size = new System.Drawing.Size(455, 74);
+            this.groupBoxOptionsWrite.Size = new System.Drawing.Size(542, 42);
             this.groupBoxOptionsWrite.TabIndex = 29;
             this.groupBoxOptionsWrite.TabStop = false;
             this.groupBoxOptionsWrite.Text = "ExifTool Optionen - Schreiben";
