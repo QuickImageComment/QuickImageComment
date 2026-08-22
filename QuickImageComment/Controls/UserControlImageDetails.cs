@@ -64,8 +64,7 @@ namespace QuickImageComment
         public UserControlImageDetails(float dpiSettings, FormImageDetails givenMasterFormImageDetails)
         {
             InitializeComponent();
-            MainMaskInterface.getCustomizationInterface().setThemeForComponent(this);
-
+            
             masterFormImageDetails = givenMasterFormImageDetails;
 
             int ii = 0;

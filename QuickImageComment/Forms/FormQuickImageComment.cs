@@ -511,6 +511,8 @@ namespace QuickImageComment
             // create and fill user control for changeable fields 
             Program.StartupPerformance.measure("FormQIC before user control changeable fields");
             theUserControlChangeableFields = new UserControlChangeableFields();
+            CustomizationInterface.setThemeForComponent(theUserControlChangeableFields);
+
             Program.StartupPerformance.measure("FormQIC user control changeable fields created");
             // configure user control
             theUserControlChangeableFields.ContextMenuStrip = contextMenuStripMetaData;
@@ -4712,6 +4714,7 @@ namespace QuickImageComment
                                     theUserControlImageDetails.splitContainerImageDetails1);
                                 CustomizationInterface.zoomControlsUsingTargetZoomFactor(
                                     theUserControlImageDetails.splitContainerImageDetails1, this);
+                                CustomizationInterface.setThemeForComponent(theUserControlImageDetails);
                             }
                         }
                         theUserControlImageDetails.isInPanel = true;
@@ -4729,12 +4732,14 @@ namespace QuickImageComment
                             {
                                 theUserControlMap = new UserControlMap(false, null, false, 0,
                                     ConfigDefinition.enumCfgUserInt.SplitterMap1DistanceFormQIC, null);
+                                CustomizationInterface.setThemeForComponent(theUserControlMap);
                             }
                             else
                             {
                                 bool changeIsPossible = theExtendedImage != null && theExtendedImage.changePossible();
                                 theUserControlMap = new UserControlMap(false, commonRecordingLocation(), changeIsPossible, 0,
                                     ConfigDefinition.enumCfgUserInt.SplitterMap1DistanceFormQIC, null);
+                                CustomizationInterface.setThemeForComponent(theUserControlMap);
                             }
                             if (CustomizationInterface != null)
                             {
