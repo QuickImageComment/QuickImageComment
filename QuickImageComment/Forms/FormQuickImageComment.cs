@@ -87,13 +87,6 @@ namespace QuickImageComment
         private static FormFind formFind;
         private static DirectoryWatcher directoryWatcher;
 
-        // colors
-        internal Color backColorInputUnchanged;
-        internal Color backColorInputValueChanged;
-        internal Color backColorNotEnabled;
-        // background color for non-default selections in multi edit tab
-        private Color backColorMultiEditNonDefault;
-
         // tags
         private ArrayList tagKeyWordsImage;
         private ArrayList tagKeyWordsVideo;
@@ -331,7 +324,7 @@ namespace QuickImageComment
             tagKeyWordsImage = ConfigDefinition.getConfigStringArray(enumConfigStringArray.TagKeyWordsImage);
             tagKeyWordsVideo = ConfigDefinition.getConfigStringArray(enumConfigStringArray.TagKeyWordsVideo);
 
-            checkedListBoxChangeableFieldsChange.CheckedColor = backColorMultiEditNonDefault;
+            checkedListBoxChangeableFieldsChange.CheckedColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorMultiEditNonDefault);
 
             // get dpi configured by user
             Graphics dpiGraphics = this.CreateGraphics();
@@ -506,6 +499,7 @@ namespace QuickImageComment
             // fill menu edit external
             fillMenuEditExternal();
 
+            ConfigDefinition.setColorTheme(ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.ColorThemeName));
             adjustAfterColorThemeChange();
 
             // create and fill user control for changeable fields 
@@ -1111,7 +1105,7 @@ namespace QuickImageComment
                 ((Control)sender).Text = getFieldValueBySpec(Spec, (Control)sender, theExtendedImage);
 
                 theUserControlChangeableFields.ChangedChangeableFieldTags.Remove(Spec.getKey());
-                ((Control)sender).BackColor = backColorInputUnchanged;
+                ((Control)sender).BackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorInputUnchanged);
 
                 // get values from other selected images and compare
                 disableEventHandlersRecogniseUserInput();
@@ -1234,7 +1228,7 @@ namespace QuickImageComment
             {
                 textBoxUserComment.Text = theExtendedImage.getUserComment();
                 textBoxUserCommentUserChanged = false;
-                textBoxUserComment.BackColor = backColorInputUnchanged;
+                textBoxUserComment.BackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorInputUnchanged);
                 fillListBoxLastUserComments("");
 
                 // get values from other selected images and compare
@@ -1298,7 +1292,7 @@ namespace QuickImageComment
             {
                 dynamicComboBoxArtist.Text = theExtendedImage.getArtist();
                 comboBoxArtistUserChanged = false;
-                dynamicComboBoxArtist.BackColor = backColorInputUnchanged;
+                dynamicComboBoxArtist.BackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorInputUnchanged);
 
                 // get values from other selected images and compare
                 disableEventHandlersRecogniseUserInput();
@@ -1367,8 +1361,8 @@ namespace QuickImageComment
             if (theKeyEventArgs.KeyCode == Keys.Escape)
             {
                 theUserControlKeyWords.displayKeyWords(theExtendedImage.getKeyWordsAccordingConfigArrayList());
-                theUserControlKeyWords.treeViewPredefKeyWords.BackColor = backColorInputUnchanged;
-                theUserControlKeyWords.textBoxFreeInputKeyWords.BackColor = backColorInputUnchanged;
+                theUserControlKeyWords.treeViewPredefKeyWords.BackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorInputUnchanged);
+                theUserControlKeyWords.textBoxFreeInputKeyWords.BackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorInputUnchanged);
                 keyWordsUserChanged = false;
 
                 // get values from other selected images and compare
@@ -1397,8 +1391,8 @@ namespace QuickImageComment
             if (theKeyEventArgs.KeyCode == Keys.Escape)
             {
                 theUserControlKeyWords.displayKeyWords(theExtendedImage.getKeyWordsAccordingConfigArrayList());
-                theUserControlKeyWords.treeViewPredefKeyWords.BackColor = backColorInputUnchanged;
-                theUserControlKeyWords.textBoxFreeInputKeyWords.BackColor = backColorInputUnchanged;
+                theUserControlKeyWords.treeViewPredefKeyWords.BackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorInputUnchanged);
+                theUserControlKeyWords.textBoxFreeInputKeyWords.BackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorInputUnchanged);
                 keyWordsUserChanged = false;
 
                 // get values from other selected images and compare
@@ -1425,7 +1419,7 @@ namespace QuickImageComment
         private void dynamicComboBoxArtist_TextChanged(object sender, System.EventArgs theEventArgs)
         {
             comboBoxArtistUserChanged = true;
-            dynamicComboBoxArtist.BackColor = backColorInputValueChanged;
+            dynamicComboBoxArtist.BackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorValueChanged);
             labelArtistDefault.Visible = false;
             setControlsEnabledBasedOnDataChange(true);
         }
@@ -1434,7 +1428,7 @@ namespace QuickImageComment
         private void textBoxUserComment_TextChanged(object sender, System.EventArgs theEventArgs)
         {
             textBoxUserCommentUserChanged = true;
-            textBoxUserComment.BackColor = backColorInputValueChanged;
+            textBoxUserComment.BackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorValueChanged);
             fillListBoxLastUserComments(textBoxUserComment.Text);
             setControlsEnabledBasedOnDataChange(true);
         }
@@ -1443,7 +1437,7 @@ namespace QuickImageComment
         private void treeViewPredefKeyWords_AfterCheck(object sender, TreeViewEventArgs e)
         {
             keyWordsUserChanged = true;
-            theUserControlKeyWords.treeViewPredefKeyWords.BackColor = backColorInputValueChanged;
+            theUserControlKeyWords.treeViewPredefKeyWords.BackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorValueChanged);
             setControlsEnabledBasedOnDataChange(true);
         }
 
@@ -1451,7 +1445,7 @@ namespace QuickImageComment
         private void textBoxFreeInputKeyWords_TextChanged(object sender, EventArgs e)
         {
             keyWordsUserChanged = true;
-            theUserControlKeyWords.textBoxFreeInputKeyWords.BackColor = backColorInputValueChanged;
+            theUserControlKeyWords.textBoxFreeInputKeyWords.BackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorValueChanged);
             setControlsEnabledBasedOnDataChange(true);
         }
 
@@ -1660,7 +1654,7 @@ namespace QuickImageComment
             if (theExtendedImage != null)
             {
                 theUserControlChangeableFields.inputControlChangeableField_handleTextChanged(sender, e);
-                ((Control)sender).BackColor = backColorInputValueChanged;
+                ((Control)sender).BackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorValueChanged);
                 setControlsEnabledBasedOnDataChange();
                 if (sender == theUserControlChangeableFields.getInputControlOrientationExiv2() ||
                     sender == theUserControlChangeableFields.getInputControlOrientationExifTool())
@@ -1730,7 +1724,7 @@ namespace QuickImageComment
         private void setMultiEditSelectionBackground(Control control, bool isNotDefault)
         {
             if (isNotDefault)
-                control.BackColor = backColorMultiEditNonDefault;
+                control.BackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorMultiEditNonDefault);
             else
                 control.BackColor = Control.DefaultBackColor;
         }
@@ -2881,23 +2875,7 @@ namespace QuickImageComment
 
         internal void adjustAfterColorThemeChange()
         {
-            string newThemeName = ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.ColorThemeName);
-            if (newThemeName.Equals("System"))
-            {
-                if (GeneralUtilities.IsSystemInDarkMode())
-                {
-                    newThemeName = FormCustomization.Customizer.ThemeDark;
-                }
-                else
-                {
-                    newThemeName = FormCustomization.Customizer.ThemeLight;
-                }
-            }
-            // set dynamic colors considering new theme
-            backColorInputUnchanged = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigInt.BackColorInputUnchanged, newThemeName);
-            backColorInputValueChanged = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigInt.BackColorValueChanged, newThemeName);
-            backColorNotEnabled = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigInt.BackColorNotEnabled, newThemeName);
-            backColorMultiEditNonDefault = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigInt.BackColorMultiEditNonDefault, newThemeName);
+            string newThemeName = ConfigDefinition.getEffectiveColorTheme();
 
             if (CustomizationInterface.getColorThemeName().Equals("") && !newThemeName.Equals(FormCustomization.Customizer.ThemeLight) ||
                 !CustomizationInterface.getColorThemeName().Equals("") && !CustomizationInterface.getColorThemeName().Equals(newThemeName))
@@ -5370,17 +5348,17 @@ namespace QuickImageComment
         internal void clearFlagsIndicatingUserChanges()
         {
             comboBoxArtistUserChanged = false;
-            dynamicComboBoxArtist.BackColor = backColorInputUnchanged;
+            dynamicComboBoxArtist.BackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorInputUnchanged);
             textBoxUserCommentUserChanged = false;
-            textBoxUserComment.BackColor = backColorInputUnchanged;
+            textBoxUserComment.BackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorInputUnchanged);
             keyWordsUserChanged = false;
             theUserControlRating.changed = false;
-            theUserControlKeyWords.treeViewPredefKeyWords.BackColor = backColorInputUnchanged;
-            theUserControlKeyWords.textBoxFreeInputKeyWords.BackColor = backColorInputUnchanged;
+            theUserControlKeyWords.treeViewPredefKeyWords.BackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorInputUnchanged);
+            theUserControlKeyWords.textBoxFreeInputKeyWords.BackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorInputUnchanged);
             theUserControlChangeableFields.resetChangedChangeableFieldTags();
             foreach (Control anInputControl in theUserControlChangeableFields.ChangeableFieldInputControls.Values)
             {
-                anInputControl.BackColor = backColorInputUnchanged;
+                anInputControl.BackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorInputUnchanged);
             }
             // if the panel of theUserControlMap is displayed, inform that there is a new image selected and clear change flag
             if (theUserControlMap != null)

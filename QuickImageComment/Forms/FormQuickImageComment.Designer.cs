@@ -642,6 +642,7 @@ namespace QuickImageComment
             this.panelWarningMetaData.Name = "panelWarningMetaData";
             this.panelWarningMetaData.Size = new System.Drawing.Size(6, 160);
             this.panelWarningMetaData.TabIndex = 1;
+            this.panelWarningMetaData.Tag = "NO_THEME_CHANGE";
             // 
             // tabPageExif
             // 

@@ -736,7 +736,7 @@ namespace QuickImageComment
                 ConfigDefinition.setCfgUserBool(ConfigDefinition.enumCfgUserBool.SplitContainer11_OrientationVertical, checkBoxLeftPanelVertical.Checked);
                 ConfigDefinition.setCfgUserBool(ConfigDefinition.enumCfgUserBool.SplitContainer12_OrientationVertical, checkBoxRightPanelVertical.Checked);
 
-                ConfigDefinition.setCfgUserString(ConfigDefinition.enumCfgUserString.ColorThemeName, colorThemeConfig[comboBoxColorTheme.SelectedIndex]);
+                ConfigDefinition.setColorTheme(colorThemeConfig[comboBoxColorTheme.SelectedIndex]);
 
                 MainMaskInterface.saveSplitterDistanceRatiosInConfiguration();
 

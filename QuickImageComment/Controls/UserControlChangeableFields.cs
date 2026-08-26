@@ -562,21 +562,21 @@ namespace QuickImageComment
                         // writing is only possible when ExifTool is ready and tag is for ExifTool
                         {
                             aControl.Enabled = true;
-                            aControl.BackColor = MainMaskInterface.getBackColorInputUnchanged();
+                            aControl.BackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorInputUnchanged);
                         }
                         else
                         {
                             aControl.Enabled = false;
-                            aControl.BackColor = MainMaskInterface.getBackColorNotEnabled();
+                            aControl.BackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorNotEnabled);
                         }
                     }
                     else
                     {
                         aControl.Enabled = enable;
                         if (enable)
-                            aControl.BackColor = MainMaskInterface.getBackColorInputUnchanged();
+                            aControl.BackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorInputUnchanged);
                         else
-                            aControl.BackColor = MainMaskInterface.getBackColorNotEnabled();
+                            aControl.BackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorNotEnabled);
                     }
                 }
             }

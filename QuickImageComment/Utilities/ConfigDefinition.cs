@@ -141,13 +141,19 @@ namespace QuickImageComment
             LargeIconVerticalSpace,
             MaximumMemoryTolerance,
             MaximumValueLengthExport,
-            BackColorValueChanged,
-            BackColorInputUnchanged,
-            BackColorNotEnabled,
-            BackColorMultiEditNonDefault,
             ZoomMainImageChangeMouseWheel,
             ZoomDetailImageChangeMouseWheel,
             MaximumNumberExifToolCommandsKept
+        };
+        public enum enumConfigColor
+        {
+            BackColorValueChanged,
+            BackColorInputUnchanged,
+            BackColorNotEnabled,
+            // background color for non-default selections in multi edit tab
+            BackColorMultiEditNonDefault,
+            // background color for entered text to make spaces visible
+            BackColorEnteredText
         };
 
         public enum enumConfigString
@@ -365,6 +371,7 @@ namespace QuickImageComment
         public static bool UserConfigFileOnCmdLine;
         private static string ProgramPath;
         private static string ConfigPath;
+        private static string effectiveColorTheme = "";
         private static ArrayList UserConfigCommentLines;
 
         internal static ArrayList ExportAllExceptions;
@@ -772,27 +779,33 @@ namespace QuickImageComment
             ConfigItems.Add("_TxtOffsetGamma", null);
 
             // loop for debug and trace flags
-            foreach (string ConfigFlagName in Enum.GetNames(typeof(enumConfigFlags)))
+            foreach (string ConfigName in Enum.GetNames(typeof(enumConfigFlags)))
             {
-                ConfigItems.Add("_" + ConfigFlagName, null);
+                ConfigItems.Add("_" + ConfigName, null);
             }
 
             // loop for Integer configurations
-            foreach (string ConfigFlagName in Enum.GetNames(typeof(enumConfigInt)))
+            foreach (string ConfigName in Enum.GetNames(typeof(enumConfigInt)))
             {
-                ConfigItems.Add("_" + ConfigFlagName, null);
+                ConfigItems.Add("_" + ConfigName, null);
+            }
+
+            // loop for Color configurations
+            foreach (string ConfigName in Enum.GetNames(typeof(enumConfigColor)))
+            {
+                ConfigItems.Add("_" + ConfigName, null);
             }
 
             // loop for String configurations
-            foreach (string ConfigFlagName in Enum.GetNames(typeof(enumConfigString)))
+            foreach (string ConfigName in Enum.GetNames(typeof(enumConfigString)))
             {
-                ConfigItems.Add("_" + ConfigFlagName, null);
+                ConfigItems.Add("_" + ConfigName, null);
             }
 
             // loop for String Array configurations
-            foreach (string ConfigFlagName in Enum.GetNames(typeof(enumConfigStringArray)))
+            foreach (string ConfigName in Enum.GetNames(typeof(enumConfigStringArray)))
             {
-                ConfigItems.Add("_" + ConfigFlagName, null);
+                ConfigItems.Add("_" + ConfigName, null);
             }
 
             // initialise list of internal meta data
@@ -876,46 +889,46 @@ namespace QuickImageComment
             //Program.StartupPerformance.measure("ConfigDefinition.readGeneralConfigFiles GeneralConfigFileCommon read");
 
             // check if general config file(s) contain values for all paremeters defined with enum
-            string undefinedConfigFlags = "";
+            string undefinedConfigNames = "";
             // loop for debug and trace flags
-            foreach (string ConfigFlagName in Enum.GetNames(typeof(enumConfigFlags)))
+            foreach (string ConfigName in Enum.GetNames(typeof(enumConfigFlags)))
             {
-                if (ConfigItems["_" + ConfigFlagName] == null)
+                if (ConfigItems["_" + ConfigName] == null)
                 {
-                    undefinedConfigFlags = undefinedConfigFlags + "\n" + ConfigFlagName;
+                    undefinedConfigNames = undefinedConfigNames + "\n" + ConfigName;
                 }
             }
 
             // loop for Integer configurations
-            foreach (string ConfigFlagName in Enum.GetNames(typeof(enumConfigInt)))
+            foreach (string ConfigName in Enum.GetNames(typeof(enumConfigInt)))
             {
-                if (ConfigItems["_" + ConfigFlagName] == null)
+                if (ConfigItems["_" + ConfigName] == null)
                 {
-                    undefinedConfigFlags = undefinedConfigFlags + "\n" + ConfigFlagName;
+                    undefinedConfigNames = undefinedConfigNames + "\n" + ConfigName;
                 }
             }
 
             // loop for String configurations
-            foreach (string ConfigFlagName in Enum.GetNames(typeof(enumConfigString)))
+            foreach (string ConfigName in Enum.GetNames(typeof(enumConfigString)))
             {
-                if (ConfigItems["_" + ConfigFlagName] == null)
+                if (ConfigItems["_" + ConfigName] == null)
                 {
-                    undefinedConfigFlags = undefinedConfigFlags + "\n" + ConfigFlagName;
+                    undefinedConfigNames = undefinedConfigNames + "\n" + ConfigName;
                 }
             }
 
             // loop for String Array configurations
-            foreach (string ConfigFlagName in Enum.GetNames(typeof(enumConfigStringArray)))
+            foreach (string ConfigName in Enum.GetNames(typeof(enumConfigStringArray)))
             {
-                if (ConfigItems["_" + ConfigFlagName] == null)
+                if (ConfigItems["_" + ConfigName] == null)
                 {
-                    undefinedConfigFlags = undefinedConfigFlags + "\n" + ConfigFlagName;
+                    undefinedConfigNames = undefinedConfigNames + "\n" + ConfigName;
                 }
             }
 
-            if (!undefinedConfigFlags.Equals(""))
+            if (!undefinedConfigNames.Equals(""))
             {
-                GeneralUtilities.fatalInitMessage("Parameters not set in general configuration:\n" + undefinedConfigFlags);
+                GeneralUtilities.fatalInitMessage("Parameters not set in general configuration:\n" + undefinedConfigNames);
             }
 
             // now as general configuration file is read, following dependencies can be added
@@ -2105,6 +2118,32 @@ namespace QuickImageComment
             ConfigItems["ViewConfiguration"] = NewRenameConfiguration;
         }
 
+        // set used color theme considering system's color mode
+        public static void setColorTheme(string newColorThemeName)
+        {
+            ConfigItems[enumCfgUserString.ColorThemeName.ToString()] = newColorThemeName;
+            if (newColorThemeName.Equals("System"))
+            {
+                if (GeneralUtilities.IsSystemInDarkMode())
+                {
+                    effectiveColorTheme = FormCustomization.Customizer.ThemeDark;
+                }
+                else
+                {
+                    effectiveColorTheme = FormCustomization.Customizer.ThemeLight;
+                }
+            }
+            else
+            {
+                effectiveColorTheme = newColorThemeName;
+            }
+        }
+
+        public static string getEffectiveColorTheme()
+        {
+            return effectiveColorTheme;
+        }
+
         // create input check configuration
         public static InputCheckConfig createInputCheckConfiguration(string tag)
         {
@@ -2420,15 +2459,15 @@ namespace QuickImageComment
         }
 
         // get user general configuration items of type color (stored as integer)
-        public static Color getConfigColor(enumConfigInt ConfigEnum, string themeName)
+        public static Color getConfigColor(enumConfigColor ConfigEnum)
         {
-            if (ThemeColors.ContainsKey(themeName + " Color [" + ConfigEnum.ToString() + "]"))
+            if (ThemeColors.ContainsKey(effectiveColorTheme + " Color [" + ConfigEnum.ToString() + "]"))
             {
-                return ThemeColors[themeName + " Color [" + ConfigEnum.ToString() + "]"];
+                return ThemeColors[effectiveColorTheme + " Color [" + ConfigEnum.ToString() + "]"];
             }
             else
             {
-                return Color.FromArgb((int)ConfigItems["_" + ConfigEnum.ToString()]);
+                return (Color)ConfigItems["_" + ConfigEnum.ToString()];
             }
         }
 
@@ -3771,6 +3810,7 @@ namespace QuickImageComment
             int IndexColon;
 
             ArrayList ArrayListEnumConfigInt = new ArrayList(Enum.GetNames(typeof(enumConfigInt)));
+            ArrayList ArrayListEnumConfigColor = new ArrayList(Enum.GetNames(typeof(enumConfigColor)));
             ArrayList ArrayListEnumConfigString = new ArrayList(Enum.GetNames(typeof(enumConfigString)));
             ArrayList ArrayListEnumConfigStringArray = new ArrayList(Enum.GetNames(typeof(enumConfigStringArray)));
 
@@ -4026,6 +4066,14 @@ namespace QuickImageComment
                                 else
                                     // it is a hex number
                                     ConfigItems["_" + firstPart] = int.Parse(secondPart, System.Globalization.NumberStyles.HexNumber);
+                            }
+                        }
+                        else if (ArrayListEnumConfigColor.Contains(firstPart))
+                        {
+                            if (ConfigItems["_" + firstPart] == null)
+                            {
+                                // colors are stored in file as hex number
+                                ConfigItems["_" + firstPart] = Color.FromArgb(int.Parse(secondPart, System.Globalization.NumberStyles.HexNumber));
                             }
                         }
                         // check if type is string array list

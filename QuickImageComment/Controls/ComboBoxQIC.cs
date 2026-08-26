@@ -149,7 +149,7 @@ namespace QuickImageCommentControls
                 var rect = ClientRectangle;
                 // reduce width for width of arrow
                 var back = this.BackColor;
-                if (!Enabled) back = MainMaskInterface.getBackColorNotEnabled();
+                if (!Enabled) back = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorNotEnabled);
                 g.FillRectangle(new SolidBrush(back), rect);
                 // if not enabled, text is drawn via EditSubclass
                 // reduce rectangle not to write in space for arrow
@@ -212,7 +212,7 @@ namespace QuickImageCommentControls
             private void PaintDisabled()
             {
                 var g = Graphics.FromHwnd(Handle);
-                var back = new SolidBrush(MainMaskInterface.getBackColorNotEnabled());
+                var back = new SolidBrush(ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorNotEnabled));
                 var fore = new SolidBrush(_owner.ForeColor);
 
                 Rectangle rect = new Rectangle(-3, -4, _owner.Width, _owner.Height);

@@ -395,7 +395,7 @@ namespace QuickImageCommentControls
                             this.Rows[rowIndex].Cells[0].Value = "- " + Header;
                         }
                         this.Rows[rowIndex].DefaultCellStyle.Font = new System.Drawing.Font(this.Font.FontFamily, this.Font.Size, System.Drawing.FontStyle.Bold);
-                        this.Rows[rowIndex].DefaultCellStyle.BackColor = MainMaskInterface.getBackColorNotEnabled();
+                        this.Rows[rowIndex].DefaultCellStyle.BackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorNotEnabled);
                         lastHeader = Header;
                         rowIndex++;
                     }
@@ -445,20 +445,20 @@ namespace QuickImageCommentControls
                 this.Rows[rowIndex].Cells[4].Value = aMetaDataItem.getCount();
                 this.Rows[rowIndex].Cells[5].Value = aMetaDataItem.getKey();
                 this.Rows[rowIndex].Cells[0].ToolTipText = "";
-                this.Rows[rowIndex].DefaultCellStyle.BackColor = MainMaskInterface.getBackColorNotEnabled();
+                this.Rows[rowIndex].DefaultCellStyle.BackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorNotEnabled);
                 this.Rows[rowIndex].DefaultCellStyle.ForeColor = this.ForeColor;
 
                 if (isEditable && singleEdit)
                 {
                     // store original value in tag to allow restore
                     this.Rows[rowIndex].Cells[1].Tag = this.Rows[rowIndex].Cells[1].Value;
-                    this.Rows[rowIndex].Cells[1].Style.BackColor = MainMaskInterface.getBackColorInputUnchanged();
+                    this.Rows[rowIndex].Cells[1].Style.BackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorInputUnchanged);
 
                     // check if a changed value was entered, but not yet stored before refresh
                     if (ChangedDataGridViewValues.ContainsKey(aMetaDataItem.getKey()))
                     {
                         this.Rows[rowIndex].Cells[1].Value = ChangedDataGridViewValues[aMetaDataItem.getKey()];
-                        this.Rows[rowIndex].Cells[1].Style.BackColor = MainMaskInterface.getBackColorValueChanged();
+                        this.Rows[rowIndex].Cells[1].Style.BackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorValueChanged);
                     }
                 }
                 else
@@ -638,7 +638,7 @@ namespace QuickImageCommentControls
                             Rows[Rows.Count - 1].Cells[1].ReadOnly = true;
                         }
                     }
-                    Rows[Rows.Count - 1].DefaultCellStyle.BackColor = MainMaskInterface.getBackColorNotEnabled();
+                    Rows[Rows.Count - 1].DefaultCellStyle.BackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorNotEnabled);
                     Rows[Rows.Count - 1].DefaultCellStyle.ForeColor = this.ForeColor;
                 }
                 else
@@ -658,7 +658,7 @@ namespace QuickImageCommentControls
                         row[5] = anMetaDataDefinitionItem.KeyPrim;
                         row[6] = anMetaDataDefinitionItem.KeySec;
                         Rows.Add(row);
-                        Rows[Rows.Count - 1].DefaultCellStyle.BackColor = MainMaskInterface.getBackColorNotEnabled();
+                        Rows[Rows.Count - 1].DefaultCellStyle.BackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorNotEnabled);
                         Rows[Rows.Count - 1].DefaultCellStyle.ForeColor = this.ForeColor;
 
                         bool displayedValueInEditableFormat = false;
@@ -678,13 +678,13 @@ namespace QuickImageCommentControls
                         {
                             // store original value in tag to allow restore
                             Rows[Rows.Count - 1].Cells[1].Tag = Rows[Rows.Count - 1].Cells[1].Value;
-                            Rows[Rows.Count - 1].Cells[1].Style.BackColor = MainMaskInterface.getBackColorInputUnchanged();
+                            Rows[Rows.Count - 1].Cells[1].Style.BackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorInputUnchanged);
 
                             // check if a changed value was entered, but not yet stored before refresh
                             if (ChangedDataGridViewValues.ContainsKey(anMetaDataDefinitionItem.KeyPrim))
                             {
                                 this.Rows[Rows.Count - 1].Cells[1].Value = ChangedDataGridViewValues[anMetaDataDefinitionItem.KeyPrim];
-                                this.Rows[Rows.Count - 1].Cells[1].Style.BackColor = MainMaskInterface.getBackColorValueChanged();
+                                this.Rows[Rows.Count - 1].Cells[1].Style.BackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorValueChanged);
                             }
                         }
                         else
@@ -894,7 +894,7 @@ namespace QuickImageCommentControls
                     {
                         ChangedDataGridViewValues.Add(key, newValue);
                     }
-                    Rows[e.RowIndex].Cells[1].Style.BackColor = MainMaskInterface.getBackColorValueChanged();
+                    Rows[e.RowIndex].Cells[1].Style.BackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorValueChanged);
 
                     MainMaskInterface.setControlsEnabledBasedOnDataChange();
                 }
@@ -928,7 +928,7 @@ namespace QuickImageCommentControls
                             CellValueChanged -= dataGridViewsMetaData_CellValueChanged;
                             Rows[SelectedCells[jj].RowIndex].Cells[1].Value =
                                 Rows[SelectedCells[jj].RowIndex].Cells[1].Tag;
-                            Rows[SelectedCells[jj].RowIndex].Cells[1].Style.BackColor = MainMaskInterface.getBackColorInputUnchanged();
+                            Rows[SelectedCells[jj].RowIndex].Cells[1].Style.BackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorInputUnchanged);
                             CellValueChanged += dataGridViewsMetaData_CellValueChanged;
                             // leave cell and reenter to force color change be visible
                             // as entering a cell may change scroll offset, restore it
