@@ -363,15 +363,15 @@ namespace QuickImageComment
         private void listViewImages_DrawItem(object sender, DrawListViewItemEventArgs e)
         {
             Brush theBrush = null;
-            const int thinLine = 1;
             const int thickLine = 3;
 
             ListViewItem theListViewItem = e.Item;
             int fileIndex = int.Parse(theListViewItem.SubItems[1].Text);
             Image theThumbNail = imageListLarge.Images[fileIndex];
+            Color backColorSelectedThumbnail = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorSelectedThumbnail);
 
             // init rectangle
-            e.Graphics.FillRectangle(new SolidBrush(theListViewItem.BackColor),
+            e.Graphics.FillRectangle(new SolidBrush(listViewImages.BackColor),
                       new Rectangle(e.Bounds.X, e.Bounds.Y, e.Bounds.Width, e.Bounds.Height));
 
             // Draw Large Icons
@@ -389,23 +389,15 @@ namespace QuickImageComment
             if (dynamicComboBoxGroup.SelectedIndex == 0 || dynamicComboBoxGroup.SelectedIndex == ImageGroupIndex[fileIndex])
             {
                 // selected items in View LargeIcon
-                e.Graphics.DrawRectangle(new Pen(System.Drawing.SystemColors.ControlDark, thickLine),
+                e.Graphics.DrawRectangle(new Pen(backColorSelectedThumbnail, thickLine),
                   new Rectangle(e.Bounds.X + XOffset + thickLine / 2, e.Bounds.Y + thickLine / 2,
                     ThumbNailSize + thickLine, ThumbNailSize + thickLine));
-                e.Graphics.FillRectangle(new SolidBrush(System.Drawing.SystemColors.ControlDark), new Rectangle(
-                                    e.Bounds.X + (int)(e.Bounds.Width - size.Width) / 2 + thickLine,
+                e.Graphics.FillRectangle(new SolidBrush(backColorSelectedThumbnail),
+                    new Rectangle(e.Bounds.X + (int)(e.Bounds.Width - size.Width) / 2 + thickLine,
                                     e.Bounds.Y + ThumbNailSize + 2 * thickLine + 1,
                                     (int)size.Width, (int)size.Height));
-                theBrush = new SolidBrush(this.ForeColor);
             }
-            else
-            {
-                // not selected items in View LargeIcon
-                e.Graphics.DrawRectangle(new Pen(System.Drawing.Color.LightGray, thinLine),
-                  new Rectangle(e.Bounds.X + XOffset + thickLine - thinLine, e.Bounds.Y + thickLine - thinLine,
-                    ThumbNailSize + thinLine, ThumbNailSize + thinLine));
-                theBrush = new SolidBrush(this.ForeColor);
-            }
+            theBrush = new SolidBrush(this.ForeColor);
             // draw image and text
             e.Graphics.DrawImage(theThumbNail, new Point(e.Bounds.X + XOffset + thickLine, e.Bounds.Y + thickLine));
             e.Graphics.DrawString(theListViewItem.Text, this.Font, theBrush,

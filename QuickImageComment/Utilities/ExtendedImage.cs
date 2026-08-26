@@ -2809,7 +2809,7 @@ namespace QuickImageComment
                              imgPhoto.VerticalResolution);
 
             System.Drawing.Graphics grPhoto = System.Drawing.Graphics.FromImage(bmPhoto);
-            grPhoto.Clear(System.Drawing.Color.White);
+            grPhoto.Clear(ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorFillThumbnail));
             grPhoto.InterpolationMode =
                     System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
 

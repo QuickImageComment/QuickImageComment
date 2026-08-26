@@ -153,7 +153,9 @@ namespace QuickImageComment
             // background color for non-default selections in multi edit tab
             BackColorMultiEditNonDefault,
             // background color for entered text to make spaces visible
-            BackColorEnteredText
+            BackColorEnteredText,
+            BackColorSelectedThumbnail,
+            BackColorFillThumbnail
         };
 
         public enum enumConfigString
