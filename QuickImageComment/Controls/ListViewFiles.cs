@@ -279,11 +279,12 @@ namespace QuickImageCommentControls
         public void adjustTileViewWidth()
         {
             // it happened, that this method was called, when Width was zero
-            if (this.View == View.Tile && this.Width > 0)
+            int widthAdjustThis2Tile = this.Margin.Left + this.Margin.Right + 2 * tileLine + 13;
+            if (this.View == View.Tile && this.Width > widthAdjustThis2Tile)
             {
                 // reason for the need to substract 13 pixels unclear, determined by trying
                 // 13 is required in scaled remote desktop, else 11 would be enough
-                this.TileSize = new Size(this.Width - this.Margin.Left - this.Margin.Right - 2 * tileLine - 13,
+                this.TileSize = new Size(this.Width - widthAdjustThis2Tile,
                                          ThumbNailSize + ConfigDefinition.getConfigInt(ConfigDefinition.enumConfigInt.TileVerticalSpace));
             }
 
