@@ -157,6 +157,7 @@
             // buttonCustomizeForm
             // 
             this.buttonCustomizeForm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonCustomizeForm.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonCustomizeForm.Location = new System.Drawing.Point(3, 545);
             this.buttonCustomizeForm.Name = "buttonCustomizeForm";
             this.buttonCustomizeForm.Size = new System.Drawing.Size(100, 22);
@@ -168,6 +169,7 @@
             // buttonHelp
             // 
             this.buttonHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonHelp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonHelp.Location = new System.Drawing.Point(787, 545);
             this.buttonHelp.Name = "buttonHelp";
             this.buttonHelp.Size = new System.Drawing.Size(100, 22);
@@ -179,6 +181,7 @@
             // buttonClose
             // 
             this.buttonClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonClose.Location = new System.Drawing.Point(348, 543);
             this.buttonClose.Name = "buttonClose";
             this.buttonClose.Size = new System.Drawing.Size(99, 26);
@@ -190,6 +193,7 @@
             // buttonDefault
             // 
             this.buttonDefault.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonDefault.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonDefault.Location = new System.Drawing.Point(3, 478);
             this.buttonDefault.Name = "buttonDefault";
             this.buttonDefault.Size = new System.Drawing.Size(100, 22);
@@ -350,11 +354,12 @@
             // 
             // dynamicComboBoxCentralInputArea
             // 
+            this.dynamicComboBoxCentralInputArea.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.dynamicComboBoxCentralInputArea.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.dynamicComboBoxCentralInputArea.FormattingEnabled = true;
             this.dynamicComboBoxCentralInputArea.Location = new System.Drawing.Point(148, 2);
             this.dynamicComboBoxCentralInputArea.Name = "dynamicComboBoxCentralInputArea";
-            this.dynamicComboBoxCentralInputArea.Size = new System.Drawing.Size(194, 21);
+            this.dynamicComboBoxCentralInputArea.Size = new System.Drawing.Size(194, 22);
             this.dynamicComboBoxCentralInputArea.TabIndex = 1;
             this.dynamicComboBoxCentralInputArea.SelectedIndexChanged += new System.EventHandler(this.comboBoxCentralInputArea_SelectedIndexChanged);
             // 
@@ -391,6 +396,7 @@
             // buttonMinimum
             // 
             this.buttonMinimum.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonMinimum.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonMinimum.Location = new System.Drawing.Point(106, 478);
             this.buttonMinimum.Name = "buttonMinimum";
             this.buttonMinimum.Size = new System.Drawing.Size(175, 22);
@@ -1035,6 +1041,7 @@
             // buttonReadOptimum
             // 
             this.buttonReadOptimum.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonReadOptimum.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonReadOptimum.Location = new System.Drawing.Point(284, 478);
             this.buttonReadOptimum.Name = "buttonReadOptimum";
             this.buttonReadOptimum.Size = new System.Drawing.Size(128, 22);
@@ -1046,6 +1053,7 @@
             // buttonImageDetails
             // 
             this.buttonImageDetails.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonImageDetails.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonImageDetails.Location = new System.Drawing.Point(415, 478);
             this.buttonImageDetails.Name = "buttonImageDetails";
             this.buttonImageDetails.Size = new System.Drawing.Size(128, 22);
@@ -1090,7 +1098,7 @@
             // 
             this.panelVerticalCheckLeft.BackColor = System.Drawing.SystemColors.Desktop;
             this.panelVerticalCheckLeft.Controls.Add(this.checkBoxLeftPanelVertical);
-            this.panelVerticalCheckLeft.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.panelVerticalCheckLeft.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.panelVerticalCheckLeft.Location = new System.Drawing.Point(6, 215);
             this.panelVerticalCheckLeft.Name = "panelVerticalCheckLeft";
             this.panelVerticalCheckLeft.Size = new System.Drawing.Size(243, 23);
@@ -1108,18 +1116,20 @@
             // 
             // dynamicComboBoxConfigurationName
             // 
+            this.dynamicComboBoxConfigurationName.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.dynamicComboBoxConfigurationName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.dynamicComboBoxConfigurationName.ForeColor = System.Drawing.SystemColors.ControlText;
             this.dynamicComboBoxConfigurationName.FormattingEnabled = true;
             this.dynamicComboBoxConfigurationName.Location = new System.Drawing.Point(199, 13);
             this.dynamicComboBoxConfigurationName.Name = "dynamicComboBoxConfigurationName";
-            this.dynamicComboBoxConfigurationName.Size = new System.Drawing.Size(234, 21);
+            this.dynamicComboBoxConfigurationName.Size = new System.Drawing.Size(234, 22);
             this.dynamicComboBoxConfigurationName.TabIndex = 17;
             this.dynamicComboBoxConfigurationName.SelectedIndexChanged += new System.EventHandler(this.dynamicComboBoxConfigurationName_SelectedIndexChanged);
             // 
             // buttonSave
             // 
             this.buttonSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonSave.ForeColor = System.Drawing.SystemColors.ControlText;
             this.buttonSave.Location = new System.Drawing.Point(436, 10);
             this.buttonSave.Name = "buttonSave";
@@ -1132,6 +1142,7 @@
             // buttonDelete
             // 
             this.buttonDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonDelete.ForeColor = System.Drawing.SystemColors.ControlText;
             this.buttonDelete.Location = new System.Drawing.Point(538, 10);
             this.buttonDelete.Name = "buttonDelete";
@@ -1144,6 +1155,7 @@
             // buttonSaveAs
             // 
             this.buttonSaveAs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonSaveAs.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonSaveAs.ForeColor = System.Drawing.SystemColors.ControlText;
             this.buttonSaveAs.Location = new System.Drawing.Point(640, 10);
             this.buttonSaveAs.Name = "buttonSaveAs";
@@ -1170,6 +1182,7 @@
             // buttonMap
             // 
             this.buttonMap.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonMap.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonMap.Location = new System.Drawing.Point(547, 478);
             this.buttonMap.Name = "buttonMap";
             this.buttonMap.Size = new System.Drawing.Size(128, 22);
@@ -1189,10 +1202,11 @@
             // 
             // comboBoxColorTheme
             // 
+            this.comboBoxColorTheme.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.comboBoxColorTheme.FormattingEnabled = true;
             this.comboBoxColorTheme.Location = new System.Drawing.Point(6, 150);
             this.comboBoxColorTheme.Name = "comboBoxColorTheme";
-            this.comboBoxColorTheme.Size = new System.Drawing.Size(141, 21);
+            this.comboBoxColorTheme.Size = new System.Drawing.Size(141, 22);
             this.comboBoxColorTheme.TabIndex = 6;
             this.comboBoxColorTheme.SelectedIndexChanged += new System.EventHandler(this.comboBoxColorTheme_SelectedIndexChanged);
             // 
