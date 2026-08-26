@@ -35,7 +35,7 @@ namespace QuickImageComment
         private QuickImageCommentControls.ComboBoxQIC comboBoxPredefinedCommentsMouseDoubleClickAction;
         private Label labelUserCommentInsertCheckCharacters;
         private Label labelUserCommentAppendCheckCharacters;
-        private RichTextBox richTextBoxUserCommentAppendCheckCharacters;
+        private QuickImageCommentControls.TextBoxQIC textBoxUserCommentAppendCheckCharacters;
         private readonly FormCustomization.Interface CustomizationInterface;
         private readonly string[] PredefinedCommentsMouseDoubleClickActionItems = new string[4];
 
@@ -70,8 +70,8 @@ namespace QuickImageComment
             numericUpDownMaxArtists.Value = new decimal(ConfigDefinition.getMaxArtists());
             numericUpDownMaxChangeableFieldEntries.Value = new decimal(ConfigDefinition.getMaxChangeableFieldEntries());
             comboBoxPredefinedCommentsMouseDoubleClickAction.Text = ConfigDefinition.getPredefinedCommentMouseDoubleClickAction();
-            richTextBoxUserCommentInsertCheckCharacters.Text = ConfigDefinition.getUserCommentInsertLastCharacters();
-            richTextBoxUserCommentAppendCheckCharacters.Text = ConfigDefinition.getUserCommentAppendFirstCharacters();
+            textBoxUserCommentInsertCheckCharacters.Text = ConfigDefinition.getUserCommentInsertLastCharacters();
+            textBoxUserCommentAppendCheckCharacters.Text = ConfigDefinition.getUserCommentAppendFirstCharacters();
             numericUpDownFullSizeImageCacheMaxSize.Value = new decimal(ConfigDefinition.getFullSizeImageCacheMaxSize());
             numericUpDownExtendedImageCacheMaxSize.Value = new decimal(ConfigDefinition.getExtendedImageCacheMaxSize());
             numericUpDownMaximumMemoryForCaching.Value = new decimal(ConfigDefinition.getMaximumMemoryWithCaching());
@@ -128,10 +128,6 @@ namespace QuickImageComment
             checkBoxLogDiffMetaData.Checked = ConfigDefinition.getCfgUserBool(ConfigDefinition.enumCfgUserBool.logDifferencesMetaData);
 
             CustomizationInterface.setFormToCustomizedValuesZoomInitial(this);
-
-            // call the text changed event as it is not called during the update above
-            this.RichTextBoxBlankDisplay_TextChanged(richTextBoxUserCommentAppendCheckCharacters, new EventArgs());
-            this.RichTextBoxBlankDisplay_TextChanged(richTextBoxUserCommentInsertCheckCharacters, new EventArgs());
 
             comboBoxPredefinedCommentsMouseDoubleClickAction.Items.CopyTo(PredefinedCommentsMouseDoubleClickActionItems, 0);
             LangCfg.translateControlTexts(this);
@@ -202,8 +198,8 @@ namespace QuickImageComment
             ConfigDefinition.setMaxArtists(decimal.ToInt16(numericUpDownMaxArtists.Value));
             ConfigDefinition.setMaxChangeableFieldEntries(decimal.ToInt16(numericUpDownMaxChangeableFieldEntries.Value));
             ConfigDefinition.setPredefinedCommentMouseDoubleClickAction(PredefinedCommentsMouseDoubleClickActionItems[comboBoxPredefinedCommentsMouseDoubleClickAction.SelectedIndex]);
-            ConfigDefinition.setUserCommentInsertLastCharacters(richTextBoxUserCommentInsertCheckCharacters.Text);
-            ConfigDefinition.setUserCommentAppendFirstCharacters(richTextBoxUserCommentAppendCheckCharacters.Text);
+            ConfigDefinition.setUserCommentInsertLastCharacters(textBoxUserCommentInsertCheckCharacters.Text);
+            ConfigDefinition.setUserCommentAppendFirstCharacters(textBoxUserCommentAppendCheckCharacters.Text);
             ConfigDefinition.setFullSizeImageCacheMaxSize(decimal.ToInt16(numericUpDownFullSizeImageCacheMaxSize.Value));
             ConfigDefinition.setExtendedImageCacheMaxSize(decimal.ToInt16(numericUpDownExtendedImageCacheMaxSize.Value));
             ConfigDefinition.setMaximumMemoryWithCaching(decimal.ToInt16(numericUpDownMaximumMemoryForCaching.Value));
@@ -306,17 +302,6 @@ namespace QuickImageComment
         //*****************************************************************
         // Event handler
         //*****************************************************************
-        private void RichTextBoxBlankDisplay_TextChanged(object sender, EventArgs e)
-        {
-            RichTextBox theRichTextBox = (RichTextBox)sender;
-            int SelStart = theRichTextBox.SelectionStart;
-            int SelLength = theRichTextBox.SelectionLength;
-            theRichTextBox.SelectAll();
-            theRichTextBox.SelectionBackColor = System.Drawing.SystemColors.ControlLight;
-            theRichTextBox.SelectionStart = SelStart;
-            theRichTextBox.SelectionLength = SelLength;
-        }
-
         private void FormSettings_KeyDown(object sender, KeyEventArgs theKeyEventArgs)
         {
             if (theKeyEventArgs.KeyCode == Keys.F1)

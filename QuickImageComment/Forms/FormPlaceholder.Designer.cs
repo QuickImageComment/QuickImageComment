@@ -69,7 +69,7 @@ namespace QuickImageComment
             this.dynamicComboBoxLanguage = new QuickImageCommentControls.ComboBoxQIC();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.richTextBoxSeparator = new System.Windows.Forms.RichTextBox();
+            this.textBoxSeparator = new QuickImageCommentControls.TextBoxQIC();
             this.checkBoxSavedValue = new System.Windows.Forms.CheckBox();
             this.buttonDate = new QuickImageCommentControls.ButtonQIC();
             this.buttonTime = new QuickImageCommentControls.ButtonQIC();
@@ -378,17 +378,16 @@ namespace QuickImageComment
             this.label7.Text = "Trennzeichen";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // richTextBoxSeparator
+            // textBoxSeparator
             // 
-            this.richTextBoxSeparator.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.richTextBoxSeparator.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.richTextBoxSeparator.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBoxSeparator.Location = new System.Drawing.Point(93, 3);
-            this.richTextBoxSeparator.Name = "richTextBoxSeparator";
-            this.richTextBoxSeparator.Size = new System.Drawing.Size(54, 19);
-            this.richTextBoxSeparator.TabIndex = 67;
-            this.richTextBoxSeparator.Text = "";
-            this.richTextBoxSeparator.TextChanged += new System.EventHandler(this.richTextBoxSeparator_TextChanged);
+            this.textBoxSeparator.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxSeparator.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBoxSeparator.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxSeparator.Location = new System.Drawing.Point(93, 3);
+            this.textBoxSeparator.Name = "textBoxSeparator";
+            this.textBoxSeparator.Size = new System.Drawing.Size(54, 18);
+            this.textBoxSeparator.TabIndex = 67;
+            this.textBoxSeparator.TextChanged += new System.EventHandler(this.richTextBoxSeparator_TextChanged);
             // 
             // checkBoxSavedValue
             // 
@@ -590,7 +589,7 @@ namespace QuickImageComment
             this.tableLayoutPanelLanguage.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
             this.tableLayoutPanelLanguage.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanelLanguage.Controls.Add(this.label7, 0, 0);
-            this.tableLayoutPanelLanguage.Controls.Add(this.richTextBoxSeparator, 1, 0);
+            this.tableLayoutPanelLanguage.Controls.Add(this.textBoxSeparator, 1, 0);
             this.tableLayoutPanelLanguage.Controls.Add(this.checkBoxSorted, 2, 0);
             this.tableLayoutPanelLanguage.Controls.Add(this.checkBoxSavedValue, 3, 0);
             this.tableLayoutPanelLanguage.Controls.Add(this.label6, 4, 0);
@@ -686,7 +685,7 @@ namespace QuickImageComment
         private QuickImageCommentControls.ComboBoxQIC dynamicComboBoxLanguage;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.RichTextBox richTextBoxSeparator;
+        private QuickImageCommentControls.TextBoxQIC textBoxSeparator;
         private System.Windows.Forms.CheckBox checkBoxSavedValue;
         private QuickImageCommentControls.ButtonQIC buttonDate;
         private QuickImageCommentControls.ButtonQIC buttonTime;

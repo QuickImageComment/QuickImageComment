@@ -14,6 +14,7 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
+using QuickImageCommentControls;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -70,8 +71,8 @@ namespace QuickImageComment
         private System.Windows.Forms.CheckBox checkBoxRenameFormat = null;
         private System.Windows.Forms.CheckBox checkBoxSubStringRight = null;
         private System.Windows.Forms.CheckBox checkBoxFillUpRight = null;
-        private System.Windows.Forms.RichTextBox richTextBoxRenameFormat = null;
-        private System.Windows.Forms.RichTextBox richTextBoxFillUpChar = null;
+        private QuickImageCommentControls.TextBoxQIC textBoxRenameFormat = null;
+        private QuickImageCommentControls.TextBoxQIC textBoxFillUpChar = null;
         private QuickImageCommentControls.ComboBoxQIC comboBoxRenameFormat = null;
         private System.Windows.Forms.NumericUpDown numericUpDownSubstringStart = null;
         private System.Windows.Forms.NumericUpDown numericUpDownSubstringLength = null;
@@ -126,13 +127,12 @@ namespace QuickImageComment
                     }
                     aCheckBox.Enter += new System.EventHandler(this.numberedControls_Enter);
                 }
-                else if (aControl.Name.StartsWith("richTextBoxRenameFormat_") ||
-                         aControl.Name.StartsWith("richTextBoxFillUpChar_"))
+                else if (aControl.Name.StartsWith("textBoxRenameFormat_") ||
+                         aControl.Name.StartsWith("textBoxFillUpChar_"))
                 {
-                    System.Windows.Forms.RichTextBox arichTextBox = (System.Windows.Forms.RichTextBox)aControl;
-                    arichTextBox.TextChanged += new System.EventHandler(this.RichTextBoxBlankDisplay_TextChanged);
-                    arichTextBox.TextChanged += new System.EventHandler(this.renameControlEventHandlerWithActivateCheckBox);
-                    arichTextBox.Enter += new System.EventHandler(this.numberedControls_Enter);
+                    QuickImageCommentControls.TextBoxQIC textBox = (QuickImageCommentControls.TextBoxQIC)aControl;
+                    textBox.TextChanged += new System.EventHandler(this.renameControlEventHandlerWithActivateCheckBox);
+                    textBox.Enter += new System.EventHandler(this.numberedControls_Enter);
                 }
                 else if (aControl.Name.StartsWith("dynamicComboBoxRenameFormat_"))
                 {
@@ -163,7 +163,7 @@ namespace QuickImageComment
             dynamicComboBoxRunningNumberSortField.Items.Add(LangCfg.getText(LangCfg.Others.newField));
 
             // set maximum input length for replacement of invalid characters
-            richTextBoxInvalidCharRepl.MaxLength = dynamicLabelInvalidCharacters.Text.Length;
+            textBoxInvalidCharRepl.MaxLength = dynamicLabelInvalidCharacters.Text.Length;
 
             // fill list to select rename configurations
             dynamicComboBoxConfigurationName.Items.Add("");
@@ -185,16 +185,7 @@ namespace QuickImageComment
             CustomizationInterface.setFormToCustomizedValuesZoomInitial(this);
 
             // in order to display current line correctly
-            numberedControls_Enter(this.richTextBoxRenameFormat_1, new EventArgs());
-
-            // call the text changed event as it is not called during the update above
-            foreach (Control aControl in this.Controls)
-            {
-                if (aControl.GetType().Equals(typeof(RichTextBox)))
-                {
-                    this.RichTextBoxBlankDisplay_TextChanged(aControl, new EventArgs());
-                }
-            }
+            numberedControls_Enter(this.textBoxRenameFormat_1, new EventArgs());
 
             // setting of controls is finished now, so event handler can react on data changes now
             settingControlsFinished = true;
@@ -486,7 +477,7 @@ namespace QuickImageComment
                 if (Status == getControlStatus.ok)
                 {
                     // add fixed text
-                    NewName = NewName + richTextBoxRenameFormat.Text;
+                    NewName = NewName + textBoxRenameFormat.Text;
 
                     // first entry is null, last entry to add new field
                     if (comboBoxRenameFormat.SelectedIndex > 0 && comboBoxRenameFormat.SelectedIndex < comboBoxRenameFormat.Items.Count - 1)
@@ -527,13 +518,13 @@ namespace QuickImageComment
                         // fill up string
                         if ((int)numericUpDownFillUpTo.Value > FieldValue.Length)
                         {
-                            if (richTextBoxFillUpChar.Text.Length == 0)
+                            if (textBoxFillUpChar.Text.Length == 0)
                             {
                                 fillupchar[0] = ' ';
                             }
                             else
                             {
-                                fillupchar = richTextBoxFillUpChar.Text.ToCharArray(0, 1);
+                                fillupchar = textBoxFillUpChar.Text.ToCharArray(0, 1);
                             }
                             string fillupstring = new string(fillupchar[0], (int)numericUpDownFillUpTo.Value - FieldValue.Length);
                             if (checkBoxFillUpRight.Checked)
@@ -560,16 +551,16 @@ namespace QuickImageComment
             if (checkBoxAllwaysRunningNumber.Checked)
             {
                 runningNumber = 1;
-                NewFileName = NewName + richTextBoxRunningPrefix.Text + runningNumber.ToString(Format)
-                  + richTextBoxRunningSuffix.Text + Extension;
+                NewFileName = NewName + textBoxRunningPrefix.Text + runningNumber.ToString(Format)
+                  + textBoxRunningSuffix.Text + Extension;
             }
 
             // make name unique
             while (newFileNamesList.Contains(NewFileName.ToLower()))
             {
                 runningNumber++;
-                NewFileName = NewName + richTextBoxRunningPrefix.Text + runningNumber.ToString(Format)
-                  + richTextBoxRunningSuffix.Text + Extension;
+                NewFileName = NewName + textBoxRunningPrefix.Text + runningNumber.ToString(Format)
+                  + textBoxRunningSuffix.Text + Extension;
             }
             newFileNamesList.Add(NewFileName.ToLower());
 
@@ -583,22 +574,22 @@ namespace QuickImageComment
             int ii;
             for (int jj = 0; jj < dynamicLabelInvalidCharacters.Text.Length; jj++)
             {
-                if (richTextBoxInvalidCharRepl.Text.Length == 0)
+                if (textBoxInvalidCharRepl.Text.Length == 0)
                 {
                     NewFileName = NewFileName.Replace(dynamicLabelInvalidCharacters.Text.Substring(jj, 1), " ");
                 }
                 else
                 {
-                    if (jj < richTextBoxInvalidCharRepl.Text.Length)
+                    if (jj < textBoxInvalidCharRepl.Text.Length)
                     {
                         ii = jj;
                     }
                     else
                     {
-                        ii = richTextBoxInvalidCharRepl.Text.Length - 1;
+                        ii = textBoxInvalidCharRepl.Text.Length - 1;
                     }
                     NewFileName = NewFileName.Replace(dynamicLabelInvalidCharacters.Text.Substring(jj, 1),
-                      richTextBoxInvalidCharRepl.Text.Substring(ii, 1));
+                      textBoxInvalidCharRepl.Text.Substring(ii, 1));
                 }
             }
             return NewFileName;
@@ -639,7 +630,7 @@ namespace QuickImageComment
                     startIndex++;
 
                     endIndex = RenameFormat.IndexOf("|", startIndex);
-                    this.richTextBoxRenameFormat.Text = RenameFormat.Substring(startIndex, endIndex - startIndex);
+                    this.textBoxRenameFormat.Text = RenameFormat.Substring(startIndex, endIndex - startIndex);
                     startIndex = endIndex + 1;
 
                     endIndex = RenameFormat.IndexOf("|", startIndex);
@@ -676,7 +667,7 @@ namespace QuickImageComment
                     endIndex = RenameFormat.IndexOf(":", startIndex);
                     if (endIndex > startIndex)
                     {
-                        richTextBoxFillUpChar.Text = RenameFormat.Substring(startIndex, endIndex - startIndex);
+                        textBoxFillUpChar.Text = RenameFormat.Substring(startIndex, endIndex - startIndex);
                     }
                     startIndex = endIndex + 1;
                 }
@@ -695,11 +686,11 @@ namespace QuickImageComment
         {
             setRenameFormatBasedOnString(ConfigDefinition.getRenameFormat());
             checkBoxAllwaysRunningNumber.Checked = ConfigDefinition.getRunningNumberAllways();
-            richTextBoxRunningPrefix.Text = ConfigDefinition.getRunningNumberPrefix();
+            textBoxRunningPrefix.Text = ConfigDefinition.getRunningNumberPrefix();
             numericUpDownRunningNumberMinLength.Value = ConfigDefinition.getRunningNumberMinLength();
-            richTextBoxRunningSuffix.Text = ConfigDefinition.getRunningNumberSuffix();
+            textBoxRunningSuffix.Text = ConfigDefinition.getRunningNumberSuffix();
             dynamicComboBoxRunningNumberSortField.SelectedItem = ConfigDefinition.getRenameSortField();
-            richTextBoxInvalidCharRepl.Text = ConfigDefinition.getInvalidCharactersReplacement();
+            textBoxInvalidCharRepl.Text = ConfigDefinition.getInvalidCharactersReplacement();
             dynamicComboBoxConfigurationName.Text = ConfigDefinition.getRenameConfiguration();
         }
 
@@ -725,7 +716,7 @@ namespace QuickImageComment
                     RenameFormat = RenameFormat + "-";
                 }
 
-                RenameFormat = RenameFormat + richTextBoxRenameFormat.Text;
+                RenameFormat = RenameFormat + textBoxRenameFormat.Text;
                 if (comboBoxRenameFormat.SelectedIndex >= 0)
                 {
                     RenameFormat = RenameFormat + "|" + comboBoxRenameFormat.SelectedItem.ToString();
@@ -753,7 +744,7 @@ namespace QuickImageComment
                     RenameFormat = RenameFormat + "|-";
                 }
                 RenameFormat = RenameFormat + numericUpDownFillUpTo.Value.ToString();
-                RenameFormat = RenameFormat + "|" + richTextBoxFillUpChar.Text + ":";
+                RenameFormat = RenameFormat + "|" + textBoxFillUpChar.Text + ":";
             }
             return RenameFormat;
         }
@@ -767,37 +758,37 @@ namespace QuickImageComment
             {
                 ConfigDefinition.setRenameFormat(getRenameFormatString());
                 ConfigDefinition.setRunningNumberAllways(checkBoxAllwaysRunningNumber.Checked);
-                ConfigDefinition.setRunningNumberPrefix(richTextBoxRunningPrefix.Text);
+                ConfigDefinition.setRunningNumberPrefix(textBoxRunningPrefix.Text);
                 ConfigDefinition.setRunningNumberMinLength((int)numericUpDownRunningNumberMinLength.Value);
-                ConfigDefinition.setRunningNumberSuffix(richTextBoxRunningSuffix.Text);
+                ConfigDefinition.setRunningNumberSuffix(textBoxRunningSuffix.Text);
                 if (dynamicComboBoxRunningNumberSortField.SelectedIndex >= 0)
                 {
                     ConfigDefinition.setRenameSortField(dynamicComboBoxRunningNumberSortField.SelectedItem.ToString());
                 }
 
-                if (richTextBoxInvalidCharRepl.Text.Length > dynamicLabelInvalidCharacters.Text.Length)
+                if (textBoxInvalidCharRepl.Text.Length > dynamicLabelInvalidCharacters.Text.Length)
                 {
-                    richTextBoxInvalidCharRepl.Text = richTextBoxInvalidCharRepl.Text.Substring(0, dynamicLabelInvalidCharacters.Text.Length);
+                    textBoxInvalidCharRepl.Text = textBoxInvalidCharRepl.Text.Substring(0, dynamicLabelInvalidCharacters.Text.Length);
                 }
-                ConfigDefinition.setInvalidCharactersReplacement(richTextBoxInvalidCharRepl.Text);
+                ConfigDefinition.setInvalidCharactersReplacement(textBoxInvalidCharRepl.Text);
             }
             else
             {
                 ConfigDefinition.setRenameFormat(getRenameFormatString(), ConfigurationName);
                 ConfigDefinition.setRunningNumberAllways(checkBoxAllwaysRunningNumber.Checked, ConfigurationName);
-                ConfigDefinition.setRunningNumberPrefix(richTextBoxRunningPrefix.Text, ConfigurationName);
+                ConfigDefinition.setRunningNumberPrefix(textBoxRunningPrefix.Text, ConfigurationName);
                 ConfigDefinition.setRunningNumberMinLength((int)numericUpDownRunningNumberMinLength.Value, ConfigurationName);
-                ConfigDefinition.setRunningNumberSuffix(richTextBoxRunningSuffix.Text, ConfigurationName);
+                ConfigDefinition.setRunningNumberSuffix(textBoxRunningSuffix.Text, ConfigurationName);
                 if (dynamicComboBoxRunningNumberSortField.SelectedIndex >= 0)
                 {
                     ConfigDefinition.setRenameSortField(dynamicComboBoxRunningNumberSortField.SelectedItem.ToString(), ConfigurationName);
                 }
 
-                if (richTextBoxInvalidCharRepl.Text.Length > dynamicLabelInvalidCharacters.Text.Length)
+                if (textBoxInvalidCharRepl.Text.Length > dynamicLabelInvalidCharacters.Text.Length)
                 {
-                    richTextBoxInvalidCharRepl.Text = richTextBoxInvalidCharRepl.Text.Substring(0, dynamicLabelInvalidCharacters.Text.Length);
+                    textBoxInvalidCharRepl.Text = textBoxInvalidCharRepl.Text.Substring(0, dynamicLabelInvalidCharacters.Text.Length);
                 }
-                ConfigDefinition.setInvalidCharactersReplacement(richTextBoxInvalidCharRepl.Text, ConfigurationName);
+                ConfigDefinition.setInvalidCharactersReplacement(textBoxInvalidCharRepl.Text, ConfigurationName);
                 ConfigDefinition.setRenameConfiguration(dynamicComboBoxConfigurationName.Text);
             }
         }
@@ -811,7 +802,7 @@ namespace QuickImageComment
 
             if (statusOk)
             {
-                if (richTextBoxInvalidCharRepl.Text.Length == 0)
+                if (textBoxInvalidCharRepl.Text.Length == 0)
                 {
                     dynamicLabelRenameFiles.Text = LangCfg.getText(LangCfg.Others.noReplacementInvalidCharacters);
                     statusOk = false;
@@ -827,7 +818,7 @@ namespace QuickImageComment
                     {
                         break;
                     }
-                    statusOk = checkTextBoxForInvalidCharacters((System.Windows.Forms.RichTextBox)theControls[0]);
+                    statusOk = checkTextBoxForInvalidCharacters((QuickImageCommentControls.TextBoxQIC)theControls[0]);
                     if (!statusOk)
                     {
                         break;
@@ -835,7 +826,7 @@ namespace QuickImageComment
 
                     ControlName = "textBoxFillUpChar_" + ii.ToString();
                     theControls = this.Controls.Find(ControlName, false);
-                    statusOk = checkTextBoxForInvalidCharacters((System.Windows.Forms.RichTextBox)theControls[0]);
+                    statusOk = checkTextBoxForInvalidCharacters((QuickImageCommentControls.TextBoxQIC)theControls[0]);
                     if (!statusOk)
                     {
                         break;
@@ -844,15 +835,15 @@ namespace QuickImageComment
             }
             if (statusOk)
             {
-                statusOk = checkTextBoxForInvalidCharacters(richTextBoxRunningPrefix);
+                statusOk = checkTextBoxForInvalidCharacters(textBoxRunningPrefix);
             }
             if (statusOk)
             {
-                statusOk = checkTextBoxForInvalidCharacters(richTextBoxRunningSuffix);
+                statusOk = checkTextBoxForInvalidCharacters(textBoxRunningSuffix);
             }
             if (statusOk)
             {
-                statusOk = checkTextBoxForInvalidCharacters(richTextBoxInvalidCharRepl);
+                statusOk = checkTextBoxForInvalidCharacters(textBoxInvalidCharRepl);
             }
 
             // depending on status: set border style and enable/disable start button
@@ -870,11 +861,11 @@ namespace QuickImageComment
         }
 
         // check one text box for characters invalid in file names
-        bool checkTextBoxForInvalidCharacters(RichTextBox theRichTextBox)
+        bool checkTextBoxForInvalidCharacters(QuickImageCommentControls.TextBoxQIC theTextBox)
         {
             for (int jj = 0; jj < dynamicLabelInvalidCharacters.Text.Length; jj++)
             {
-                if (theRichTextBox.Text.Contains(dynamicLabelInvalidCharacters.Text.Substring(jj, 1)))
+                if (theTextBox.Text.Contains(dynamicLabelInvalidCharacters.Text.Substring(jj, 1)))
                 {
                     dynamicLabelRenameFiles.Text = LangCfg.getText(LangCfg.Others.invalidCharFileName, dynamicLabelInvalidCharacters.Text.Substring(jj, 1));
                     return false;
@@ -977,21 +968,21 @@ namespace QuickImageComment
             {
                 setRenameFormatBasedOnString(ConfigDefinition.getRenameFormat());
                 checkBoxAllwaysRunningNumber.Checked = ConfigDefinition.getRunningNumberAllways();
-                richTextBoxRunningPrefix.Text = ConfigDefinition.getRunningNumberPrefix();
+                textBoxRunningPrefix.Text = ConfigDefinition.getRunningNumberPrefix();
                 numericUpDownRunningNumberMinLength.Value = ConfigDefinition.getRunningNumberMinLength();
-                richTextBoxRunningSuffix.Text = ConfigDefinition.getRunningNumberSuffix();
+                textBoxRunningSuffix.Text = ConfigDefinition.getRunningNumberSuffix();
                 dynamicComboBoxRunningNumberSortField.SelectedItem = ConfigDefinition.getRenameSortField();
-                richTextBoxInvalidCharRepl.Text = ConfigDefinition.getInvalidCharactersReplacement();
+                textBoxInvalidCharRepl.Text = ConfigDefinition.getInvalidCharactersReplacement();
             }
             else
             {
                 setRenameFormatBasedOnString(ConfigDefinition.getRenameFormat(ConfigurationName));
                 checkBoxAllwaysRunningNumber.Checked = ConfigDefinition.getRunningNumberAllways(ConfigurationName);
-                richTextBoxRunningPrefix.Text = ConfigDefinition.getRunningNumberPrefix(ConfigurationName);
+                textBoxRunningPrefix.Text = ConfigDefinition.getRunningNumberPrefix(ConfigurationName);
                 numericUpDownRunningNumberMinLength.Value = ConfigDefinition.getRunningNumberMinLength(ConfigurationName);
-                richTextBoxRunningSuffix.Text = ConfigDefinition.getRunningNumberSuffix(ConfigurationName);
+                textBoxRunningSuffix.Text = ConfigDefinition.getRunningNumberSuffix(ConfigurationName);
                 dynamicComboBoxRunningNumberSortField.SelectedItem = ConfigDefinition.getRenameSortField(ConfigurationName);
-                richTextBoxInvalidCharRepl.Text = ConfigDefinition.getInvalidCharactersReplacement(ConfigurationName);
+                textBoxInvalidCharRepl.Text = ConfigDefinition.getInvalidCharactersReplacement(ConfigurationName);
             }
         }
 
@@ -1023,13 +1014,13 @@ namespace QuickImageComment
             theControls = this.Controls.Find(ControlName, false);
             checkBoxFillUpRight = (System.Windows.Forms.CheckBox)theControls[0];
 
-            ControlName = "richTextBoxRenameFormat_" + ii.ToString();
+            ControlName = "textBoxRenameFormat_" + ii.ToString();
             theControls = this.Controls.Find(ControlName, false);
-            richTextBoxRenameFormat = (System.Windows.Forms.RichTextBox)theControls[0];
+            textBoxRenameFormat = (QuickImageCommentControls.TextBoxQIC)theControls[0];
 
-            ControlName = "richTextBoxFillUpChar_" + ii.ToString();
+            ControlName = "textBoxFillUpChar_" + ii.ToString();
             theControls = this.Controls.Find(ControlName, false);
-            richTextBoxFillUpChar = (System.Windows.Forms.RichTextBox)theControls[0];
+            textBoxFillUpChar = (QuickImageCommentControls.TextBoxQIC)theControls[0];
 
             ControlName = "dynamicComboBoxRenameFormat_" + ii.ToString();
             theControls = this.Controls.Find(ControlName, false);
@@ -1055,22 +1046,10 @@ namespace QuickImageComment
             GeneralUtilities.ShowHelp(this, "FormRename");
         }
 
-        private void RichTextBoxBlankDisplay_TextChanged(object sender, EventArgs e)
-        {
-            RichTextBox theRichTextBox = (RichTextBox)sender;
-            int SelStart = theRichTextBox.SelectionStart;
-            int SelLength = theRichTextBox.SelectionLength;
-            theRichTextBox.SelectAll();
-            theRichTextBox.SelectionBackColor = System.Drawing.SystemColors.ControlLight;
-            theRichTextBox.SelectionStart = SelStart;
-            theRichTextBox.SelectionLength = SelLength;
-        }
-
         // eventhandler to set background of entered text (makes blanks visible)
         // and updates example for new file name
-        private void richTextBoxRenameSettings_TextChanged(object sender, EventArgs e)
+        private void textBoxRenameSettings_TextChanged(object sender, EventArgs e)
         {
-            this.RichTextBoxBlankDisplay_TextChanged(sender, e);
             this.renameControlEventHandler(sender, e);
         }
 
@@ -1116,8 +1095,8 @@ namespace QuickImageComment
             // save values from first line
             bool checkBoxSubStringRightChecked = ((CheckBox)Controls["checkBoxSubStringRight_" + first.ToString()]).Checked;
             bool checkBoxFillUpRightChecked = ((CheckBox)Controls["checkBoxFillUpRight_" + first.ToString()]).Checked;
-            string richTextBoxRenameFormatText = ((RichTextBox)Controls["richTextBoxRenameFormat_" + first.ToString()]).Text;
-            string richTextBoxFillUpCharText = ((RichTextBox)Controls["richTextBoxFillUpChar_" + first.ToString()]).Text;
+            string textBoxRenameFormatText = ((TextBoxQIC)Controls["textBoxRenameFormat_" + first.ToString()]).Text;
+            string textBoxFillUpCharText = ((TextBoxQIC)Controls["textBoxFillUpChar_" + first.ToString()]).Text;
             string comboBoxRenameFormatText = ((ComboBox)Controls["dynamicComboBoxRenameFormat_" + first.ToString()]).Text;
             int numericUpDownSubstringStartValue = (int)((NumericUpDown)Controls["numericUpDownSubstringStart_" + first.ToString()]).Value;
             int numericUpDownSubstringLengthValue = (int)((NumericUpDown)Controls["numericUpDownSubstringLength_" + first.ToString()]).Value;
@@ -1127,8 +1106,8 @@ namespace QuickImageComment
             // copy values from second line to first line
             ((CheckBox)Controls["checkBoxSubStringRight_" + first.ToString()]).Checked = ((CheckBox)Controls["checkBoxSubStringRight_" + second.ToString()]).Checked;
             ((CheckBox)Controls["checkBoxFillUpRight_" + first.ToString()]).Checked = ((CheckBox)Controls["checkBoxFillUpRight_" + second.ToString()]).Checked;
-            ((RichTextBox)Controls["richTextBoxRenameFormat_" + first.ToString()]).Text = ((RichTextBox)Controls["richTextBoxRenameFormat_" + second.ToString()]).Text;
-            ((RichTextBox)Controls["richTextBoxFillUpChar_" + first.ToString()]).Text = ((RichTextBox)Controls["richTextBoxFillUpChar_" + second.ToString()]).Text;
+            ((TextBoxQIC)Controls["textBoxRenameFormat_" + first.ToString()]).Text = ((TextBoxQIC)Controls["textBoxRenameFormat_" + second.ToString()]).Text;
+            ((TextBoxQIC)Controls["textBoxFillUpChar_" + first.ToString()]).Text = ((TextBoxQIC)Controls["textBoxFillUpChar_" + second.ToString()]).Text;
             ((ComboBox)Controls["dynamicComboBoxRenameFormat_" + first.ToString()]).Text = ((ComboBox)Controls["dynamicComboBoxRenameFormat_" + second.ToString()]).Text;
             ((NumericUpDown)Controls["numericUpDownSubstringStart_" + first.ToString()]).Value = ((NumericUpDown)Controls["numericUpDownSubstringStart_" + second.ToString()]).Value;
             ((NumericUpDown)Controls["numericUpDownSubstringLength_" + first.ToString()]).Value = ((NumericUpDown)Controls["numericUpDownSubstringLength_" + second.ToString()]).Value;
@@ -1139,8 +1118,8 @@ namespace QuickImageComment
             // enter saved values in second line
             ((CheckBox)Controls["checkBoxSubStringRight_" + second.ToString()]).Checked = checkBoxSubStringRightChecked;
             ((CheckBox)Controls["checkBoxFillUpRight_" + second.ToString()]).Checked = checkBoxFillUpRightChecked;
-            ((RichTextBox)Controls["richTextBoxRenameFormat_" + second.ToString()]).Text = richTextBoxRenameFormatText;
-            ((RichTextBox)Controls["richTextBoxFillUpChar_" + second.ToString()]).Text = richTextBoxFillUpCharText;
+            ((TextBoxQIC)Controls["textBoxRenameFormat_" + second.ToString()]).Text = textBoxRenameFormatText;
+            ((TextBoxQIC)Controls["textBoxFillUpChar_" + second.ToString()]).Text = textBoxFillUpCharText;
             ((ComboBox)Controls["dynamicComboBoxRenameFormat_" + second.ToString()]).Text = comboBoxRenameFormatText;
             ((NumericUpDown)Controls["numericUpDownSubstringStart_" + second.ToString()]).Value = numericUpDownSubstringStartValue;
             ((NumericUpDown)Controls["numericUpDownSubstringLength_" + second.ToString()]).Value = numericUpDownSubstringLengthValue;
@@ -1148,7 +1127,7 @@ namespace QuickImageComment
             // set this as last as updates above change the checkbox due to eventhandlers
             ((CheckBox)Controls["checkBoxRenameFormat_" + second.ToString()]).Checked = checkBoxRenameFormatChecked;
 
-            Controls["richTextBoxRenameFormat_" + second.ToString()].Select();
+            Controls["textBoxRenameFormat_" + second.ToString()].Select();
         }
     }
 }

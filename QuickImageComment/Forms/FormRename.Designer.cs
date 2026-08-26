@@ -50,66 +50,66 @@ namespace QuickImageComment
             this.dynamicLabelRenameFiles = new System.Windows.Forms.Label();
             this.labelBaseInfo1 = new System.Windows.Forms.Label();
             this.checkBoxRenameFormat_1 = new System.Windows.Forms.CheckBox();
-            this.richTextBoxRenameFormat_1 = new System.Windows.Forms.RichTextBox();
+            this.textBoxRenameFormat_1 = new QuickImageCommentControls.TextBoxQIC();
             this.dynamicComboBoxRenameFormat_1 = new QuickImageCommentControls.ComboBoxQIC();
             this.labelBaseInfo2 = new System.Windows.Forms.Label();
             this.dynamicComboBoxRenameFormat_5 = new QuickImageCommentControls.ComboBoxQIC();
-            this.richTextBoxRenameFormat_5 = new System.Windows.Forms.RichTextBox();
+            this.textBoxRenameFormat_5 = new QuickImageCommentControls.TextBoxQIC();
             this.checkBoxRenameFormat_5 = new System.Windows.Forms.CheckBox();
             this.dynamicComboBoxRenameFormat_6 = new QuickImageCommentControls.ComboBoxQIC();
-            this.richTextBoxRenameFormat_6 = new System.Windows.Forms.RichTextBox();
+            this.textBoxRenameFormat_6 = new QuickImageCommentControls.TextBoxQIC();
             this.checkBoxRenameFormat_6 = new System.Windows.Forms.CheckBox();
             this.dynamicComboBoxRenameFormat_4 = new QuickImageCommentControls.ComboBoxQIC();
-            this.richTextBoxRenameFormat_4 = new System.Windows.Forms.RichTextBox();
+            this.textBoxRenameFormat_4 = new QuickImageCommentControls.TextBoxQIC();
             this.checkBoxRenameFormat_4 = new System.Windows.Forms.CheckBox();
             this.dynamicComboBoxRenameFormat_3 = new QuickImageCommentControls.ComboBoxQIC();
-            this.richTextBoxRenameFormat_3 = new System.Windows.Forms.RichTextBox();
+            this.textBoxRenameFormat_3 = new QuickImageCommentControls.TextBoxQIC();
             this.checkBoxRenameFormat_3 = new System.Windows.Forms.CheckBox();
             this.dynamicComboBoxRenameFormat_2 = new QuickImageCommentControls.ComboBoxQIC();
-            this.richTextBoxRenameFormat_2 = new System.Windows.Forms.RichTextBox();
+            this.textBoxRenameFormat_2 = new QuickImageCommentControls.TextBoxQIC();
             this.checkBoxRenameFormat_2 = new System.Windows.Forms.CheckBox();
             this.checkBoxRenameFormat_7 = new System.Windows.Forms.CheckBox();
-            this.richTextBoxRenameFormat_7 = new System.Windows.Forms.RichTextBox();
+            this.textBoxRenameFormat_7 = new QuickImageCommentControls.TextBoxQIC();
             this.dynamicComboBoxRenameFormat_7 = new QuickImageCommentControls.ComboBoxQIC();
             this.labelReplaceInfo1 = new System.Windows.Forms.Label();
             this.dynamicLabelInvalidCharacters = new System.Windows.Forms.Label();
             this.labelReplaceInfo2 = new System.Windows.Forms.Label();
-            this.richTextBoxInvalidCharRepl = new System.Windows.Forms.RichTextBox();
+            this.textBoxInvalidCharRepl = new QuickImageCommentControls.TextBoxQIC();
             this.checkBoxAllwaysRunningNumber = new System.Windows.Forms.CheckBox();
             this.labelRunningInfo2 = new System.Windows.Forms.Label();
             this.labelRunningInfo3 = new System.Windows.Forms.Label();
             this.labelRunningInfo4 = new System.Windows.Forms.Label();
-            this.richTextBoxRunningPrefix = new System.Windows.Forms.RichTextBox();
+            this.textBoxRunningPrefix = new QuickImageCommentControls.TextBoxQIC();
             this.numericUpDownRunningNumberMinLength = new System.Windows.Forms.NumericUpDown();
-            this.richTextBoxRunningSuffix = new System.Windows.Forms.RichTextBox();
+            this.textBoxRunningSuffix = new QuickImageCommentControls.TextBoxQIC();
             this.groupBoxRunningNumber = new System.Windows.Forms.GroupBox();
             this.labelRunningInfo5 = new System.Windows.Forms.Label();
             this.dynamicComboBoxRunningNumberSortField = new QuickImageCommentControls.ComboBoxQIC();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBoxInvalidCharacters = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.richTextBoxFillUpChar_1 = new System.Windows.Forms.RichTextBox();
+            this.textBoxFillUpChar_1 = new QuickImageCommentControls.TextBoxQIC();
             this.numericUpDownFillUpTo_1 = new System.Windows.Forms.NumericUpDown();
             this.checkBoxFillUpRight_1 = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
             this.checkBoxFillUpRight_7 = new System.Windows.Forms.CheckBox();
             this.numericUpDownFillUpTo_7 = new System.Windows.Forms.NumericUpDown();
-            this.richTextBoxFillUpChar_7 = new System.Windows.Forms.RichTextBox();
+            this.textBoxFillUpChar_7 = new QuickImageCommentControls.TextBoxQIC();
             this.checkBoxFillUpRight_6 = new System.Windows.Forms.CheckBox();
             this.numericUpDownFillUpTo_6 = new System.Windows.Forms.NumericUpDown();
-            this.richTextBoxFillUpChar_6 = new System.Windows.Forms.RichTextBox();
+            this.textBoxFillUpChar_6 = new QuickImageCommentControls.TextBoxQIC();
             this.checkBoxFillUpRight_5 = new System.Windows.Forms.CheckBox();
             this.numericUpDownFillUpTo_5 = new System.Windows.Forms.NumericUpDown();
-            this.richTextBoxFillUpChar_5 = new System.Windows.Forms.RichTextBox();
+            this.textBoxFillUpChar_5 = new QuickImageCommentControls.TextBoxQIC();
             this.checkBoxFillUpRight_4 = new System.Windows.Forms.CheckBox();
             this.numericUpDownFillUpTo_4 = new System.Windows.Forms.NumericUpDown();
-            this.richTextBoxFillUpChar_4 = new System.Windows.Forms.RichTextBox();
+            this.textBoxFillUpChar_4 = new QuickImageCommentControls.TextBoxQIC();
             this.checkBoxFillUpRight_3 = new System.Windows.Forms.CheckBox();
             this.numericUpDownFillUpTo_3 = new System.Windows.Forms.NumericUpDown();
-            this.richTextBoxFillUpChar_3 = new System.Windows.Forms.RichTextBox();
+            this.textBoxFillUpChar_3 = new QuickImageCommentControls.TextBoxQIC();
             this.checkBoxFillUpRight_2 = new System.Windows.Forms.CheckBox();
             this.numericUpDownFillUpTo_2 = new System.Windows.Forms.NumericUpDown();
-            this.richTextBoxFillUpChar_2 = new System.Windows.Forms.RichTextBox();
+            this.textBoxFillUpChar_2 = new QuickImageCommentControls.TextBoxQIC();
             this.numericUpDownSubstringStart_1 = new System.Windows.Forms.NumericUpDown();
             this.labelBaseInfo3 = new System.Windows.Forms.Label();
             this.checkBoxSubStringRight_1 = new System.Windows.Forms.CheckBox();
@@ -137,38 +137,38 @@ namespace QuickImageComment
             this.checkBoxFillUpRight_8 = new System.Windows.Forms.CheckBox();
             this.numericUpDownFillUpTo_8 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownSubstringLength_8 = new System.Windows.Forms.NumericUpDown();
-            this.richTextBoxFillUpChar_8 = new System.Windows.Forms.RichTextBox();
+            this.textBoxFillUpChar_8 = new QuickImageCommentControls.TextBoxQIC();
             this.checkBoxSubStringRight_8 = new System.Windows.Forms.CheckBox();
             this.numericUpDownSubstringStart_8 = new System.Windows.Forms.NumericUpDown();
             this.dynamicComboBoxRenameFormat_8 = new QuickImageCommentControls.ComboBoxQIC();
-            this.richTextBoxRenameFormat_8 = new System.Windows.Forms.RichTextBox();
+            this.textBoxRenameFormat_8 = new QuickImageCommentControls.TextBoxQIC();
             this.checkBoxRenameFormat_8 = new System.Windows.Forms.CheckBox();
             this.checkBoxFillUpRight_9 = new System.Windows.Forms.CheckBox();
             this.numericUpDownFillUpTo_9 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownSubstringLength_9 = new System.Windows.Forms.NumericUpDown();
-            this.richTextBoxFillUpChar_9 = new System.Windows.Forms.RichTextBox();
+            this.textBoxFillUpChar_9 = new QuickImageCommentControls.TextBoxQIC();
             this.checkBoxSubStringRight_9 = new System.Windows.Forms.CheckBox();
             this.numericUpDownSubstringStart_9 = new System.Windows.Forms.NumericUpDown();
             this.dynamicComboBoxRenameFormat_9 = new QuickImageCommentControls.ComboBoxQIC();
-            this.richTextBoxRenameFormat_9 = new System.Windows.Forms.RichTextBox();
+            this.textBoxRenameFormat_9 = new QuickImageCommentControls.TextBoxQIC();
             this.checkBoxRenameFormat_9 = new System.Windows.Forms.CheckBox();
             this.checkBoxFillUpRight_10 = new System.Windows.Forms.CheckBox();
             this.numericUpDownFillUpTo_10 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownSubstringLength_10 = new System.Windows.Forms.NumericUpDown();
-            this.richTextBoxFillUpChar_10 = new System.Windows.Forms.RichTextBox();
+            this.textBoxFillUpChar_10 = new QuickImageCommentControls.TextBoxQIC();
             this.checkBoxSubStringRight_10 = new System.Windows.Forms.CheckBox();
             this.numericUpDownSubstringStart_10 = new System.Windows.Forms.NumericUpDown();
             this.dynamicComboBoxRenameFormat_10 = new QuickImageCommentControls.ComboBoxQIC();
-            this.richTextBoxRenameFormat_10 = new System.Windows.Forms.RichTextBox();
+            this.textBoxRenameFormat_10 = new QuickImageCommentControls.TextBoxQIC();
             this.checkBoxRenameFormat_10 = new System.Windows.Forms.CheckBox();
             this.checkBoxFillUpRight_11 = new System.Windows.Forms.CheckBox();
             this.numericUpDownFillUpTo_11 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownSubstringLength_11 = new System.Windows.Forms.NumericUpDown();
-            this.richTextBoxFillUpChar_11 = new System.Windows.Forms.RichTextBox();
+            this.textBoxFillUpChar_11 = new QuickImageCommentControls.TextBoxQIC();
             this.checkBoxSubStringRight_11 = new System.Windows.Forms.CheckBox();
             this.numericUpDownSubstringStart_11 = new System.Windows.Forms.NumericUpDown();
             this.dynamicComboBoxRenameFormat_11 = new QuickImageCommentControls.ComboBoxQIC();
-            this.richTextBoxRenameFormat_11 = new System.Windows.Forms.RichTextBox();
+            this.textBoxRenameFormat_11 = new QuickImageCommentControls.TextBoxQIC();
             this.checkBoxRenameFormat_11 = new System.Windows.Forms.CheckBox();
             this.buttonCustomizeForm = new QuickImageCommentControls.ButtonQIC();
             this.buttonHelp = new QuickImageCommentControls.ButtonQIC();
@@ -237,6 +237,7 @@ namespace QuickImageComment
             // buttonStart
             // 
             this.buttonStart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonStart.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonStart.Location = new System.Drawing.Point(302, 553);
             this.buttonStart.Name = "buttonStart";
             this.buttonStart.Size = new System.Drawing.Size(100, 22);
@@ -248,6 +249,7 @@ namespace QuickImageComment
             // buttonSave
             // 
             this.buttonSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonSave.Location = new System.Drawing.Point(319, 11);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(68, 22);
@@ -285,23 +287,22 @@ namespace QuickImageComment
             this.checkBoxRenameFormat_1.TabIndex = 6;
             this.checkBoxRenameFormat_1.UseVisualStyleBackColor = true;
             // 
-            // richTextBoxRenameFormat_1
+            // textBoxRenameFormat_1
             // 
-            this.richTextBoxRenameFormat_1.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBoxRenameFormat_1.Location = new System.Drawing.Point(42, 23);
-            this.richTextBoxRenameFormat_1.Multiline = false;
-            this.richTextBoxRenameFormat_1.Name = "richTextBoxRenameFormat_1";
-            this.richTextBoxRenameFormat_1.Size = new System.Drawing.Size(187, 20);
-            this.richTextBoxRenameFormat_1.TabIndex = 7;
-            this.richTextBoxRenameFormat_1.Text = "";
+            this.textBoxRenameFormat_1.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxRenameFormat_1.Location = new System.Drawing.Point(42, 23);
+            this.textBoxRenameFormat_1.Name = "textBoxRenameFormat_1";
+            this.textBoxRenameFormat_1.Size = new System.Drawing.Size(187, 20);
+            this.textBoxRenameFormat_1.TabIndex = 7;
             // 
             // dynamicComboBoxRenameFormat_1
             // 
+            this.dynamicComboBoxRenameFormat_1.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.dynamicComboBoxRenameFormat_1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.dynamicComboBoxRenameFormat_1.FormattingEnabled = true;
             this.dynamicComboBoxRenameFormat_1.Location = new System.Drawing.Point(234, 23);
             this.dynamicComboBoxRenameFormat_1.Name = "dynamicComboBoxRenameFormat_1";
-            this.dynamicComboBoxRenameFormat_1.Size = new System.Drawing.Size(279, 21);
+            this.dynamicComboBoxRenameFormat_1.Size = new System.Drawing.Size(279, 22);
             this.dynamicComboBoxRenameFormat_1.TabIndex = 8;
             // 
             // labelBaseInfo2
@@ -315,22 +316,21 @@ namespace QuickImageComment
             // 
             // dynamicComboBoxRenameFormat_5
             // 
+            this.dynamicComboBoxRenameFormat_5.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.dynamicComboBoxRenameFormat_5.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.dynamicComboBoxRenameFormat_5.FormattingEnabled = true;
             this.dynamicComboBoxRenameFormat_5.Location = new System.Drawing.Point(234, 115);
             this.dynamicComboBoxRenameFormat_5.Name = "dynamicComboBoxRenameFormat_5";
-            this.dynamicComboBoxRenameFormat_5.Size = new System.Drawing.Size(279, 21);
+            this.dynamicComboBoxRenameFormat_5.Size = new System.Drawing.Size(279, 22);
             this.dynamicComboBoxRenameFormat_5.TabIndex = 44;
             // 
-            // richTextBoxRenameFormat_5
+            // textBoxRenameFormat_5
             // 
-            this.richTextBoxRenameFormat_5.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBoxRenameFormat_5.Location = new System.Drawing.Point(42, 115);
-            this.richTextBoxRenameFormat_5.Multiline = false;
-            this.richTextBoxRenameFormat_5.Name = "richTextBoxRenameFormat_5";
-            this.richTextBoxRenameFormat_5.Size = new System.Drawing.Size(187, 20);
-            this.richTextBoxRenameFormat_5.TabIndex = 43;
-            this.richTextBoxRenameFormat_5.Text = "";
+            this.textBoxRenameFormat_5.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxRenameFormat_5.Location = new System.Drawing.Point(42, 115);
+            this.textBoxRenameFormat_5.Name = "textBoxRenameFormat_5";
+            this.textBoxRenameFormat_5.Size = new System.Drawing.Size(187, 20);
+            this.textBoxRenameFormat_5.TabIndex = 43;
             // 
             // checkBoxRenameFormat_5
             // 
@@ -343,22 +343,21 @@ namespace QuickImageComment
             // 
             // dynamicComboBoxRenameFormat_6
             // 
+            this.dynamicComboBoxRenameFormat_6.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.dynamicComboBoxRenameFormat_6.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.dynamicComboBoxRenameFormat_6.FormattingEnabled = true;
             this.dynamicComboBoxRenameFormat_6.Location = new System.Drawing.Point(234, 138);
             this.dynamicComboBoxRenameFormat_6.Name = "dynamicComboBoxRenameFormat_6";
-            this.dynamicComboBoxRenameFormat_6.Size = new System.Drawing.Size(279, 21);
+            this.dynamicComboBoxRenameFormat_6.Size = new System.Drawing.Size(279, 22);
             this.dynamicComboBoxRenameFormat_6.TabIndex = 53;
             // 
-            // richTextBoxRenameFormat_6
+            // textBoxRenameFormat_6
             // 
-            this.richTextBoxRenameFormat_6.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBoxRenameFormat_6.Location = new System.Drawing.Point(42, 138);
-            this.richTextBoxRenameFormat_6.Multiline = false;
-            this.richTextBoxRenameFormat_6.Name = "richTextBoxRenameFormat_6";
-            this.richTextBoxRenameFormat_6.Size = new System.Drawing.Size(187, 20);
-            this.richTextBoxRenameFormat_6.TabIndex = 52;
-            this.richTextBoxRenameFormat_6.Text = "";
+            this.textBoxRenameFormat_6.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxRenameFormat_6.Location = new System.Drawing.Point(42, 138);
+            this.textBoxRenameFormat_6.Name = "textBoxRenameFormat_6";
+            this.textBoxRenameFormat_6.Size = new System.Drawing.Size(187, 20);
+            this.textBoxRenameFormat_6.TabIndex = 52;
             // 
             // checkBoxRenameFormat_6
             // 
@@ -371,22 +370,21 @@ namespace QuickImageComment
             // 
             // dynamicComboBoxRenameFormat_4
             // 
+            this.dynamicComboBoxRenameFormat_4.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.dynamicComboBoxRenameFormat_4.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.dynamicComboBoxRenameFormat_4.FormattingEnabled = true;
             this.dynamicComboBoxRenameFormat_4.Location = new System.Drawing.Point(234, 92);
             this.dynamicComboBoxRenameFormat_4.Name = "dynamicComboBoxRenameFormat_4";
-            this.dynamicComboBoxRenameFormat_4.Size = new System.Drawing.Size(279, 21);
+            this.dynamicComboBoxRenameFormat_4.Size = new System.Drawing.Size(279, 22);
             this.dynamicComboBoxRenameFormat_4.TabIndex = 35;
             // 
-            // richTextBoxRenameFormat_4
+            // textBoxRenameFormat_4
             // 
-            this.richTextBoxRenameFormat_4.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBoxRenameFormat_4.Location = new System.Drawing.Point(42, 92);
-            this.richTextBoxRenameFormat_4.Multiline = false;
-            this.richTextBoxRenameFormat_4.Name = "richTextBoxRenameFormat_4";
-            this.richTextBoxRenameFormat_4.Size = new System.Drawing.Size(187, 20);
-            this.richTextBoxRenameFormat_4.TabIndex = 34;
-            this.richTextBoxRenameFormat_4.Text = "";
+            this.textBoxRenameFormat_4.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxRenameFormat_4.Location = new System.Drawing.Point(42, 92);
+            this.textBoxRenameFormat_4.Name = "textBoxRenameFormat_4";
+            this.textBoxRenameFormat_4.Size = new System.Drawing.Size(187, 20);
+            this.textBoxRenameFormat_4.TabIndex = 34;
             // 
             // checkBoxRenameFormat_4
             // 
@@ -399,22 +397,21 @@ namespace QuickImageComment
             // 
             // dynamicComboBoxRenameFormat_3
             // 
+            this.dynamicComboBoxRenameFormat_3.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.dynamicComboBoxRenameFormat_3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.dynamicComboBoxRenameFormat_3.FormattingEnabled = true;
             this.dynamicComboBoxRenameFormat_3.Location = new System.Drawing.Point(234, 69);
             this.dynamicComboBoxRenameFormat_3.Name = "dynamicComboBoxRenameFormat_3";
-            this.dynamicComboBoxRenameFormat_3.Size = new System.Drawing.Size(279, 21);
+            this.dynamicComboBoxRenameFormat_3.Size = new System.Drawing.Size(279, 22);
             this.dynamicComboBoxRenameFormat_3.TabIndex = 26;
             // 
-            // richTextBoxRenameFormat_3
+            // textBoxRenameFormat_3
             // 
-            this.richTextBoxRenameFormat_3.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBoxRenameFormat_3.Location = new System.Drawing.Point(42, 69);
-            this.richTextBoxRenameFormat_3.Multiline = false;
-            this.richTextBoxRenameFormat_3.Name = "richTextBoxRenameFormat_3";
-            this.richTextBoxRenameFormat_3.Size = new System.Drawing.Size(187, 20);
-            this.richTextBoxRenameFormat_3.TabIndex = 25;
-            this.richTextBoxRenameFormat_3.Text = "";
+            this.textBoxRenameFormat_3.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxRenameFormat_3.Location = new System.Drawing.Point(42, 69);
+            this.textBoxRenameFormat_3.Name = "textBoxRenameFormat_3";
+            this.textBoxRenameFormat_3.Size = new System.Drawing.Size(187, 20);
+            this.textBoxRenameFormat_3.TabIndex = 25;
             // 
             // checkBoxRenameFormat_3
             // 
@@ -427,22 +424,21 @@ namespace QuickImageComment
             // 
             // dynamicComboBoxRenameFormat_2
             // 
+            this.dynamicComboBoxRenameFormat_2.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.dynamicComboBoxRenameFormat_2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.dynamicComboBoxRenameFormat_2.FormattingEnabled = true;
             this.dynamicComboBoxRenameFormat_2.Location = new System.Drawing.Point(234, 46);
             this.dynamicComboBoxRenameFormat_2.Name = "dynamicComboBoxRenameFormat_2";
-            this.dynamicComboBoxRenameFormat_2.Size = new System.Drawing.Size(279, 21);
+            this.dynamicComboBoxRenameFormat_2.Size = new System.Drawing.Size(279, 22);
             this.dynamicComboBoxRenameFormat_2.TabIndex = 17;
             // 
-            // richTextBoxRenameFormat_2
+            // textBoxRenameFormat_2
             // 
-            this.richTextBoxRenameFormat_2.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBoxRenameFormat_2.Location = new System.Drawing.Point(42, 46);
-            this.richTextBoxRenameFormat_2.Multiline = false;
-            this.richTextBoxRenameFormat_2.Name = "richTextBoxRenameFormat_2";
-            this.richTextBoxRenameFormat_2.Size = new System.Drawing.Size(187, 20);
-            this.richTextBoxRenameFormat_2.TabIndex = 16;
-            this.richTextBoxRenameFormat_2.Text = "";
+            this.textBoxRenameFormat_2.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxRenameFormat_2.Location = new System.Drawing.Point(42, 46);
+            this.textBoxRenameFormat_2.Name = "textBoxRenameFormat_2";
+            this.textBoxRenameFormat_2.Size = new System.Drawing.Size(187, 20);
+            this.textBoxRenameFormat_2.TabIndex = 16;
             // 
             // checkBoxRenameFormat_2
             // 
@@ -462,23 +458,22 @@ namespace QuickImageComment
             this.checkBoxRenameFormat_7.TabIndex = 60;
             this.checkBoxRenameFormat_7.UseVisualStyleBackColor = true;
             // 
-            // richTextBoxRenameFormat_7
+            // textBoxRenameFormat_7
             // 
-            this.richTextBoxRenameFormat_7.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBoxRenameFormat_7.Location = new System.Drawing.Point(42, 161);
-            this.richTextBoxRenameFormat_7.Multiline = false;
-            this.richTextBoxRenameFormat_7.Name = "richTextBoxRenameFormat_7";
-            this.richTextBoxRenameFormat_7.Size = new System.Drawing.Size(187, 20);
-            this.richTextBoxRenameFormat_7.TabIndex = 61;
-            this.richTextBoxRenameFormat_7.Text = "";
+            this.textBoxRenameFormat_7.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxRenameFormat_7.Location = new System.Drawing.Point(42, 161);
+            this.textBoxRenameFormat_7.Name = "textBoxRenameFormat_7";
+            this.textBoxRenameFormat_7.Size = new System.Drawing.Size(187, 20);
+            this.textBoxRenameFormat_7.TabIndex = 61;
             // 
             // dynamicComboBoxRenameFormat_7
             // 
+            this.dynamicComboBoxRenameFormat_7.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.dynamicComboBoxRenameFormat_7.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.dynamicComboBoxRenameFormat_7.FormattingEnabled = true;
             this.dynamicComboBoxRenameFormat_7.Location = new System.Drawing.Point(234, 161);
             this.dynamicComboBoxRenameFormat_7.Name = "dynamicComboBoxRenameFormat_7";
-            this.dynamicComboBoxRenameFormat_7.Size = new System.Drawing.Size(279, 21);
+            this.dynamicComboBoxRenameFormat_7.Size = new System.Drawing.Size(279, 22);
             this.dynamicComboBoxRenameFormat_7.TabIndex = 62;
             // 
             // labelReplaceInfo1
@@ -515,17 +510,16 @@ namespace QuickImageComment
             this.labelReplaceInfo2.Text = "durch";
             this.labelReplaceInfo2.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
-            // richTextBoxInvalidCharRepl
+            // textBoxInvalidCharRepl
             // 
-            this.richTextBoxInvalidCharRepl.Dock = System.Windows.Forms.DockStyle.Left;
-            this.richTextBoxInvalidCharRepl.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBoxInvalidCharRepl.Location = new System.Drawing.Point(379, 30);
-            this.richTextBoxInvalidCharRepl.Multiline = false;
-            this.richTextBoxInvalidCharRepl.Name = "richTextBoxInvalidCharRepl";
-            this.richTextBoxInvalidCharRepl.Size = new System.Drawing.Size(78, 21);
-            this.richTextBoxInvalidCharRepl.TabIndex = 3;
-            this.richTextBoxInvalidCharRepl.Text = "\\/:*?\"<>|";
-            this.richTextBoxInvalidCharRepl.TextChanged += new System.EventHandler(this.richTextBoxRenameSettings_TextChanged);
+            this.textBoxInvalidCharRepl.Dock = System.Windows.Forms.DockStyle.Left;
+            this.textBoxInvalidCharRepl.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxInvalidCharRepl.Location = new System.Drawing.Point(379, 30);
+            this.textBoxInvalidCharRepl.Name = "textBoxInvalidCharRepl";
+            this.textBoxInvalidCharRepl.Size = new System.Drawing.Size(78, 18);
+            this.textBoxInvalidCharRepl.TabIndex = 3;
+            this.textBoxInvalidCharRepl.Text = "\\/:*?\"<>|";
+            this.textBoxInvalidCharRepl.TextChanged += new System.EventHandler(this.textBoxRenameSettings_TextChanged);
             // 
             // checkBoxAllwaysRunningNumber
             // 
@@ -565,15 +559,14 @@ namespace QuickImageComment
             this.labelRunningInfo4.TabIndex = 3;
             this.labelRunningInfo4.Text = "fester Text";
             // 
-            // richTextBoxRunningPrefix
+            // textBoxRunningPrefix
             // 
-            this.richTextBoxRunningPrefix.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBoxRunningPrefix.Location = new System.Drawing.Point(199, 49);
-            this.richTextBoxRunningPrefix.Name = "richTextBoxRunningPrefix";
-            this.richTextBoxRunningPrefix.Size = new System.Drawing.Size(73, 20);
-            this.richTextBoxRunningPrefix.TabIndex = 6;
-            this.richTextBoxRunningPrefix.Text = "";
-            this.richTextBoxRunningPrefix.TextChanged += new System.EventHandler(this.richTextBoxRenameSettings_TextChanged);
+            this.textBoxRunningPrefix.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxRunningPrefix.Location = new System.Drawing.Point(199, 49);
+            this.textBoxRunningPrefix.Name = "textBoxRunningPrefix";
+            this.textBoxRunningPrefix.Size = new System.Drawing.Size(73, 20);
+            this.textBoxRunningPrefix.TabIndex = 6;
+            this.textBoxRunningPrefix.TextChanged += new System.EventHandler(this.textBoxRenameSettings_TextChanged);
             // 
             // numericUpDownRunningNumberMinLength
             // 
@@ -593,15 +586,14 @@ namespace QuickImageComment
             0});
             this.numericUpDownRunningNumberMinLength.ValueChanged += new System.EventHandler(this.renameControlEventHandler);
             // 
-            // richTextBoxRunningSuffix
+            // textBoxRunningSuffix
             // 
-            this.richTextBoxRunningSuffix.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBoxRunningSuffix.Location = new System.Drawing.Point(394, 49);
-            this.richTextBoxRunningSuffix.Name = "richTextBoxRunningSuffix";
-            this.richTextBoxRunningSuffix.Size = new System.Drawing.Size(73, 20);
-            this.richTextBoxRunningSuffix.TabIndex = 8;
-            this.richTextBoxRunningSuffix.Text = "";
-            this.richTextBoxRunningSuffix.TextChanged += new System.EventHandler(this.richTextBoxRenameSettings_TextChanged);
+            this.textBoxRunningSuffix.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxRunningSuffix.Location = new System.Drawing.Point(394, 49);
+            this.textBoxRunningSuffix.Name = "textBoxRunningSuffix";
+            this.textBoxRunningSuffix.Size = new System.Drawing.Size(73, 20);
+            this.textBoxRunningSuffix.TabIndex = 8;
+            this.textBoxRunningSuffix.TextChanged += new System.EventHandler(this.textBoxRenameSettings_TextChanged);
             // 
             // groupBoxRunningNumber
             // 
@@ -610,9 +602,9 @@ namespace QuickImageComment
             this.groupBoxRunningNumber.Controls.Add(this.labelRunningInfo5);
             this.groupBoxRunningNumber.Controls.Add(this.dynamicComboBoxRunningNumberSortField);
             this.groupBoxRunningNumber.Controls.Add(this.label1);
-            this.groupBoxRunningNumber.Controls.Add(this.richTextBoxRunningSuffix);
+            this.groupBoxRunningNumber.Controls.Add(this.textBoxRunningSuffix);
             this.groupBoxRunningNumber.Controls.Add(this.numericUpDownRunningNumberMinLength);
-            this.groupBoxRunningNumber.Controls.Add(this.richTextBoxRunningPrefix);
+            this.groupBoxRunningNumber.Controls.Add(this.textBoxRunningPrefix);
             this.groupBoxRunningNumber.Controls.Add(this.labelRunningInfo4);
             this.groupBoxRunningNumber.Controls.Add(this.labelRunningInfo3);
             this.groupBoxRunningNumber.Controls.Add(this.labelRunningInfo2);
@@ -634,11 +626,12 @@ namespace QuickImageComment
             // 
             // dynamicComboBoxRunningNumberSortField
             // 
+            this.dynamicComboBoxRunningNumberSortField.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.dynamicComboBoxRunningNumberSortField.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.dynamicComboBoxRunningNumberSortField.FormattingEnabled = true;
             this.dynamicComboBoxRunningNumberSortField.Location = new System.Drawing.Point(497, 47);
             this.dynamicComboBoxRunningNumberSortField.Name = "dynamicComboBoxRunningNumberSortField";
-            this.dynamicComboBoxRunningNumberSortField.Size = new System.Drawing.Size(308, 21);
+            this.dynamicComboBoxRunningNumberSortField.Size = new System.Drawing.Size(308, 22);
             this.dynamicComboBoxRunningNumberSortField.TabIndex = 9;
             this.dynamicComboBoxRunningNumberSortField.SelectedIndexChanged += new System.EventHandler(this.renameControlEventHandler);
             // 
@@ -672,7 +665,7 @@ namespace QuickImageComment
             this.tableLayoutPanel1.Controls.Add(this.dynamicLabelInvalidCharacters, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.labelReplaceInfo1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.labelReplaceInfo2, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.richTextBoxInvalidCharRepl, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.textBoxInvalidCharRepl, 1, 1);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(6, 6);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
@@ -681,16 +674,16 @@ namespace QuickImageComment
             this.tableLayoutPanel1.Size = new System.Drawing.Size(519, 54);
             this.tableLayoutPanel1.TabIndex = 108;
             // 
-            // richTextBoxFillUpChar_1
+            // textBoxFillUpChar_1
             // 
-            this.richTextBoxFillUpChar_1.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBoxFillUpChar_1.Location = new System.Drawing.Point(754, 23);
-            this.richTextBoxFillUpChar_1.MaxLength = 1;
-            this.richTextBoxFillUpChar_1.Multiline = false;
-            this.richTextBoxFillUpChar_1.Name = "richTextBoxFillUpChar_1";
-            this.richTextBoxFillUpChar_1.Size = new System.Drawing.Size(20, 20);
-            this.richTextBoxFillUpChar_1.TabIndex = 13;
-            this.richTextBoxFillUpChar_1.Text = "";
+            this.textBoxFillUpChar_1.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxFillUpChar_1.Location = new System.Drawing.Point(754, 23);
+            this.textBoxFillUpChar_1.MaxLength = 1;
+            this.textBoxFillUpChar_1.Multiline = false;
+            this.textBoxFillUpChar_1.Name = "textBoxFillUpChar_1";
+            this.textBoxFillUpChar_1.Size = new System.Drawing.Size(20, 20);
+            this.textBoxFillUpChar_1.TabIndex = 13;
+            this.textBoxFillUpChar_1.Text = "";
             // 
             // numericUpDownFillUpTo_1
             // 
@@ -733,16 +726,16 @@ namespace QuickImageComment
             this.numericUpDownFillUpTo_7.Size = new System.Drawing.Size(35, 21);
             this.numericUpDownFillUpTo_7.TabIndex = 68;
             // 
-            // richTextBoxFillUpChar_7
+            // textBoxFillUpChar_7
             // 
-            this.richTextBoxFillUpChar_7.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBoxFillUpChar_7.Location = new System.Drawing.Point(754, 161);
-            this.richTextBoxFillUpChar_7.MaxLength = 1;
-            this.richTextBoxFillUpChar_7.Multiline = false;
-            this.richTextBoxFillUpChar_7.Name = "richTextBoxFillUpChar_7";
-            this.richTextBoxFillUpChar_7.Size = new System.Drawing.Size(20, 20);
-            this.richTextBoxFillUpChar_7.TabIndex = 67;
-            this.richTextBoxFillUpChar_7.Text = "";
+            this.textBoxFillUpChar_7.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxFillUpChar_7.Location = new System.Drawing.Point(754, 161);
+            this.textBoxFillUpChar_7.MaxLength = 1;
+            this.textBoxFillUpChar_7.Multiline = false;
+            this.textBoxFillUpChar_7.Name = "textBoxFillUpChar_7";
+            this.textBoxFillUpChar_7.Size = new System.Drawing.Size(20, 20);
+            this.textBoxFillUpChar_7.TabIndex = 67;
+            this.textBoxFillUpChar_7.Text = "";
             // 
             // checkBoxFillUpRight_6
             // 
@@ -760,16 +753,16 @@ namespace QuickImageComment
             this.numericUpDownFillUpTo_6.Size = new System.Drawing.Size(35, 21);
             this.numericUpDownFillUpTo_6.TabIndex = 59;
             // 
-            // richTextBoxFillUpChar_6
+            // textBoxFillUpChar_6
             // 
-            this.richTextBoxFillUpChar_6.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBoxFillUpChar_6.Location = new System.Drawing.Point(754, 138);
-            this.richTextBoxFillUpChar_6.MaxLength = 1;
-            this.richTextBoxFillUpChar_6.Multiline = false;
-            this.richTextBoxFillUpChar_6.Name = "richTextBoxFillUpChar_6";
-            this.richTextBoxFillUpChar_6.Size = new System.Drawing.Size(20, 20);
-            this.richTextBoxFillUpChar_6.TabIndex = 58;
-            this.richTextBoxFillUpChar_6.Text = "";
+            this.textBoxFillUpChar_6.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxFillUpChar_6.Location = new System.Drawing.Point(754, 138);
+            this.textBoxFillUpChar_6.MaxLength = 1;
+            this.textBoxFillUpChar_6.Multiline = false;
+            this.textBoxFillUpChar_6.Name = "textBoxFillUpChar_6";
+            this.textBoxFillUpChar_6.Size = new System.Drawing.Size(20, 20);
+            this.textBoxFillUpChar_6.TabIndex = 58;
+            this.textBoxFillUpChar_6.Text = "";
             // 
             // checkBoxFillUpRight_5
             // 
@@ -787,16 +780,16 @@ namespace QuickImageComment
             this.numericUpDownFillUpTo_5.Size = new System.Drawing.Size(35, 21);
             this.numericUpDownFillUpTo_5.TabIndex = 50;
             // 
-            // richTextBoxFillUpChar_5
+            // textBoxFillUpChar_5
             // 
-            this.richTextBoxFillUpChar_5.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBoxFillUpChar_5.Location = new System.Drawing.Point(754, 115);
-            this.richTextBoxFillUpChar_5.MaxLength = 1;
-            this.richTextBoxFillUpChar_5.Multiline = false;
-            this.richTextBoxFillUpChar_5.Name = "richTextBoxFillUpChar_5";
-            this.richTextBoxFillUpChar_5.Size = new System.Drawing.Size(20, 20);
-            this.richTextBoxFillUpChar_5.TabIndex = 49;
-            this.richTextBoxFillUpChar_5.Text = "";
+            this.textBoxFillUpChar_5.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxFillUpChar_5.Location = new System.Drawing.Point(754, 115);
+            this.textBoxFillUpChar_5.MaxLength = 1;
+            this.textBoxFillUpChar_5.Multiline = false;
+            this.textBoxFillUpChar_5.Name = "textBoxFillUpChar_5";
+            this.textBoxFillUpChar_5.Size = new System.Drawing.Size(20, 20);
+            this.textBoxFillUpChar_5.TabIndex = 49;
+            this.textBoxFillUpChar_5.Text = "";
             // 
             // checkBoxFillUpRight_4
             // 
@@ -814,16 +807,16 @@ namespace QuickImageComment
             this.numericUpDownFillUpTo_4.Size = new System.Drawing.Size(35, 21);
             this.numericUpDownFillUpTo_4.TabIndex = 41;
             // 
-            // richTextBoxFillUpChar_4
+            // textBoxFillUpChar_4
             // 
-            this.richTextBoxFillUpChar_4.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBoxFillUpChar_4.Location = new System.Drawing.Point(754, 92);
-            this.richTextBoxFillUpChar_4.MaxLength = 1;
-            this.richTextBoxFillUpChar_4.Multiline = false;
-            this.richTextBoxFillUpChar_4.Name = "richTextBoxFillUpChar_4";
-            this.richTextBoxFillUpChar_4.Size = new System.Drawing.Size(20, 20);
-            this.richTextBoxFillUpChar_4.TabIndex = 40;
-            this.richTextBoxFillUpChar_4.Text = "";
+            this.textBoxFillUpChar_4.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxFillUpChar_4.Location = new System.Drawing.Point(754, 92);
+            this.textBoxFillUpChar_4.MaxLength = 1;
+            this.textBoxFillUpChar_4.Multiline = false;
+            this.textBoxFillUpChar_4.Name = "textBoxFillUpChar_4";
+            this.textBoxFillUpChar_4.Size = new System.Drawing.Size(20, 20);
+            this.textBoxFillUpChar_4.TabIndex = 40;
+            this.textBoxFillUpChar_4.Text = "";
             // 
             // checkBoxFillUpRight_3
             // 
@@ -841,16 +834,16 @@ namespace QuickImageComment
             this.numericUpDownFillUpTo_3.Size = new System.Drawing.Size(35, 21);
             this.numericUpDownFillUpTo_3.TabIndex = 32;
             // 
-            // richTextBoxFillUpChar_3
+            // textBoxFillUpChar_3
             // 
-            this.richTextBoxFillUpChar_3.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBoxFillUpChar_3.Location = new System.Drawing.Point(754, 69);
-            this.richTextBoxFillUpChar_3.MaxLength = 1;
-            this.richTextBoxFillUpChar_3.Multiline = false;
-            this.richTextBoxFillUpChar_3.Name = "richTextBoxFillUpChar_3";
-            this.richTextBoxFillUpChar_3.Size = new System.Drawing.Size(20, 20);
-            this.richTextBoxFillUpChar_3.TabIndex = 31;
-            this.richTextBoxFillUpChar_3.Text = "";
+            this.textBoxFillUpChar_3.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxFillUpChar_3.Location = new System.Drawing.Point(754, 69);
+            this.textBoxFillUpChar_3.MaxLength = 1;
+            this.textBoxFillUpChar_3.Multiline = false;
+            this.textBoxFillUpChar_3.Name = "textBoxFillUpChar_3";
+            this.textBoxFillUpChar_3.Size = new System.Drawing.Size(20, 20);
+            this.textBoxFillUpChar_3.TabIndex = 31;
+            this.textBoxFillUpChar_3.Text = "";
             // 
             // checkBoxFillUpRight_2
             // 
@@ -868,16 +861,16 @@ namespace QuickImageComment
             this.numericUpDownFillUpTo_2.Size = new System.Drawing.Size(35, 21);
             this.numericUpDownFillUpTo_2.TabIndex = 23;
             // 
-            // richTextBoxFillUpChar_2
+            // textBoxFillUpChar_2
             // 
-            this.richTextBoxFillUpChar_2.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBoxFillUpChar_2.Location = new System.Drawing.Point(754, 46);
-            this.richTextBoxFillUpChar_2.MaxLength = 1;
-            this.richTextBoxFillUpChar_2.Multiline = false;
-            this.richTextBoxFillUpChar_2.Name = "richTextBoxFillUpChar_2";
-            this.richTextBoxFillUpChar_2.Size = new System.Drawing.Size(20, 20);
-            this.richTextBoxFillUpChar_2.TabIndex = 22;
-            this.richTextBoxFillUpChar_2.Text = "";
+            this.textBoxFillUpChar_2.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxFillUpChar_2.Location = new System.Drawing.Point(754, 46);
+            this.textBoxFillUpChar_2.MaxLength = 1;
+            this.textBoxFillUpChar_2.Multiline = false;
+            this.textBoxFillUpChar_2.Name = "textBoxFillUpChar_2";
+            this.textBoxFillUpChar_2.Size = new System.Drawing.Size(20, 20);
+            this.textBoxFillUpChar_2.TabIndex = 22;
+            this.textBoxFillUpChar_2.Text = "";
             // 
             // numericUpDownSubstringStart_1
             // 
@@ -1195,16 +1188,16 @@ namespace QuickImageComment
             this.numericUpDownSubstringLength_8.Size = new System.Drawing.Size(35, 21);
             this.numericUpDownSubstringLength_8.TabIndex = 74;
             // 
-            // richTextBoxFillUpChar_8
+            // textBoxFillUpChar_8
             // 
-            this.richTextBoxFillUpChar_8.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBoxFillUpChar_8.Location = new System.Drawing.Point(754, 184);
-            this.richTextBoxFillUpChar_8.MaxLength = 1;
-            this.richTextBoxFillUpChar_8.Multiline = false;
-            this.richTextBoxFillUpChar_8.Name = "richTextBoxFillUpChar_8";
-            this.richTextBoxFillUpChar_8.Size = new System.Drawing.Size(20, 20);
-            this.richTextBoxFillUpChar_8.TabIndex = 76;
-            this.richTextBoxFillUpChar_8.Text = "";
+            this.textBoxFillUpChar_8.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxFillUpChar_8.Location = new System.Drawing.Point(754, 184);
+            this.textBoxFillUpChar_8.MaxLength = 1;
+            this.textBoxFillUpChar_8.Multiline = false;
+            this.textBoxFillUpChar_8.Name = "textBoxFillUpChar_8";
+            this.textBoxFillUpChar_8.Size = new System.Drawing.Size(20, 20);
+            this.textBoxFillUpChar_8.TabIndex = 76;
+            this.textBoxFillUpChar_8.Text = "";
             // 
             // checkBoxSubStringRight_8
             // 
@@ -1239,22 +1232,21 @@ namespace QuickImageComment
             // 
             // dynamicComboBoxRenameFormat_8
             // 
+            this.dynamicComboBoxRenameFormat_8.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.dynamicComboBoxRenameFormat_8.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.dynamicComboBoxRenameFormat_8.FormattingEnabled = true;
             this.dynamicComboBoxRenameFormat_8.Location = new System.Drawing.Point(234, 184);
             this.dynamicComboBoxRenameFormat_8.Name = "dynamicComboBoxRenameFormat_8";
-            this.dynamicComboBoxRenameFormat_8.Size = new System.Drawing.Size(279, 21);
+            this.dynamicComboBoxRenameFormat_8.Size = new System.Drawing.Size(279, 22);
             this.dynamicComboBoxRenameFormat_8.TabIndex = 71;
             // 
-            // richTextBoxRenameFormat_8
+            // textBoxRenameFormat_8
             // 
-            this.richTextBoxRenameFormat_8.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBoxRenameFormat_8.Location = new System.Drawing.Point(42, 184);
-            this.richTextBoxRenameFormat_8.Multiline = false;
-            this.richTextBoxRenameFormat_8.Name = "richTextBoxRenameFormat_8";
-            this.richTextBoxRenameFormat_8.Size = new System.Drawing.Size(187, 20);
-            this.richTextBoxRenameFormat_8.TabIndex = 70;
-            this.richTextBoxRenameFormat_8.Text = "";
+            this.textBoxRenameFormat_8.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxRenameFormat_8.Location = new System.Drawing.Point(42, 184);
+            this.textBoxRenameFormat_8.Name = "textBoxRenameFormat_8";
+            this.textBoxRenameFormat_8.Size = new System.Drawing.Size(187, 20);
+            this.textBoxRenameFormat_8.TabIndex = 70;
             // 
             // checkBoxRenameFormat_8
             // 
@@ -1288,16 +1280,16 @@ namespace QuickImageComment
             this.numericUpDownSubstringLength_9.Size = new System.Drawing.Size(35, 21);
             this.numericUpDownSubstringLength_9.TabIndex = 83;
             // 
-            // richTextBoxFillUpChar_9
+            // textBoxFillUpChar_9
             // 
-            this.richTextBoxFillUpChar_9.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBoxFillUpChar_9.Location = new System.Drawing.Point(754, 207);
-            this.richTextBoxFillUpChar_9.MaxLength = 1;
-            this.richTextBoxFillUpChar_9.Multiline = false;
-            this.richTextBoxFillUpChar_9.Name = "richTextBoxFillUpChar_9";
-            this.richTextBoxFillUpChar_9.Size = new System.Drawing.Size(20, 20);
-            this.richTextBoxFillUpChar_9.TabIndex = 85;
-            this.richTextBoxFillUpChar_9.Text = "";
+            this.textBoxFillUpChar_9.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxFillUpChar_9.Location = new System.Drawing.Point(754, 207);
+            this.textBoxFillUpChar_9.MaxLength = 1;
+            this.textBoxFillUpChar_9.Multiline = false;
+            this.textBoxFillUpChar_9.Name = "textBoxFillUpChar_9";
+            this.textBoxFillUpChar_9.Size = new System.Drawing.Size(20, 20);
+            this.textBoxFillUpChar_9.TabIndex = 85;
+            this.textBoxFillUpChar_9.Text = "";
             // 
             // checkBoxSubStringRight_9
             // 
@@ -1332,22 +1324,21 @@ namespace QuickImageComment
             // 
             // dynamicComboBoxRenameFormat_9
             // 
+            this.dynamicComboBoxRenameFormat_9.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.dynamicComboBoxRenameFormat_9.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.dynamicComboBoxRenameFormat_9.FormattingEnabled = true;
             this.dynamicComboBoxRenameFormat_9.Location = new System.Drawing.Point(234, 207);
             this.dynamicComboBoxRenameFormat_9.Name = "dynamicComboBoxRenameFormat_9";
-            this.dynamicComboBoxRenameFormat_9.Size = new System.Drawing.Size(279, 21);
+            this.dynamicComboBoxRenameFormat_9.Size = new System.Drawing.Size(279, 22);
             this.dynamicComboBoxRenameFormat_9.TabIndex = 80;
             // 
-            // richTextBoxRenameFormat_9
+            // textBoxRenameFormat_9
             // 
-            this.richTextBoxRenameFormat_9.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBoxRenameFormat_9.Location = new System.Drawing.Point(42, 207);
-            this.richTextBoxRenameFormat_9.Multiline = false;
-            this.richTextBoxRenameFormat_9.Name = "richTextBoxRenameFormat_9";
-            this.richTextBoxRenameFormat_9.Size = new System.Drawing.Size(187, 20);
-            this.richTextBoxRenameFormat_9.TabIndex = 79;
-            this.richTextBoxRenameFormat_9.Text = "";
+            this.textBoxRenameFormat_9.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxRenameFormat_9.Location = new System.Drawing.Point(42, 207);
+            this.textBoxRenameFormat_9.Name = "textBoxRenameFormat_9";
+            this.textBoxRenameFormat_9.Size = new System.Drawing.Size(187, 20);
+            this.textBoxRenameFormat_9.TabIndex = 79;
             // 
             // checkBoxRenameFormat_9
             // 
@@ -1381,16 +1372,16 @@ namespace QuickImageComment
             this.numericUpDownSubstringLength_10.Size = new System.Drawing.Size(35, 21);
             this.numericUpDownSubstringLength_10.TabIndex = 92;
             // 
-            // richTextBoxFillUpChar_10
+            // textBoxFillUpChar_10
             // 
-            this.richTextBoxFillUpChar_10.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBoxFillUpChar_10.Location = new System.Drawing.Point(754, 230);
-            this.richTextBoxFillUpChar_10.MaxLength = 1;
-            this.richTextBoxFillUpChar_10.Multiline = false;
-            this.richTextBoxFillUpChar_10.Name = "richTextBoxFillUpChar_10";
-            this.richTextBoxFillUpChar_10.Size = new System.Drawing.Size(20, 20);
-            this.richTextBoxFillUpChar_10.TabIndex = 94;
-            this.richTextBoxFillUpChar_10.Text = "";
+            this.textBoxFillUpChar_10.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxFillUpChar_10.Location = new System.Drawing.Point(754, 230);
+            this.textBoxFillUpChar_10.MaxLength = 1;
+            this.textBoxFillUpChar_10.Multiline = false;
+            this.textBoxFillUpChar_10.Name = "textBoxFillUpChar_10";
+            this.textBoxFillUpChar_10.Size = new System.Drawing.Size(20, 20);
+            this.textBoxFillUpChar_10.TabIndex = 94;
+            this.textBoxFillUpChar_10.Text = "";
             // 
             // checkBoxSubStringRight_10
             // 
@@ -1425,22 +1416,21 @@ namespace QuickImageComment
             // 
             // dynamicComboBoxRenameFormat_10
             // 
+            this.dynamicComboBoxRenameFormat_10.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.dynamicComboBoxRenameFormat_10.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.dynamicComboBoxRenameFormat_10.FormattingEnabled = true;
             this.dynamicComboBoxRenameFormat_10.Location = new System.Drawing.Point(234, 230);
             this.dynamicComboBoxRenameFormat_10.Name = "dynamicComboBoxRenameFormat_10";
-            this.dynamicComboBoxRenameFormat_10.Size = new System.Drawing.Size(279, 21);
+            this.dynamicComboBoxRenameFormat_10.Size = new System.Drawing.Size(279, 22);
             this.dynamicComboBoxRenameFormat_10.TabIndex = 89;
             // 
-            // richTextBoxRenameFormat_10
+            // textBoxRenameFormat_10
             // 
-            this.richTextBoxRenameFormat_10.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBoxRenameFormat_10.Location = new System.Drawing.Point(42, 230);
-            this.richTextBoxRenameFormat_10.Multiline = false;
-            this.richTextBoxRenameFormat_10.Name = "richTextBoxRenameFormat_10";
-            this.richTextBoxRenameFormat_10.Size = new System.Drawing.Size(187, 20);
-            this.richTextBoxRenameFormat_10.TabIndex = 88;
-            this.richTextBoxRenameFormat_10.Text = "";
+            this.textBoxRenameFormat_10.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxRenameFormat_10.Location = new System.Drawing.Point(42, 230);
+            this.textBoxRenameFormat_10.Name = "textBoxRenameFormat_10";
+            this.textBoxRenameFormat_10.Size = new System.Drawing.Size(187, 20);
+            this.textBoxRenameFormat_10.TabIndex = 88;
             // 
             // checkBoxRenameFormat_10
             // 
@@ -1474,16 +1464,16 @@ namespace QuickImageComment
             this.numericUpDownSubstringLength_11.Size = new System.Drawing.Size(35, 21);
             this.numericUpDownSubstringLength_11.TabIndex = 101;
             // 
-            // richTextBoxFillUpChar_11
+            // textBoxFillUpChar_11
             // 
-            this.richTextBoxFillUpChar_11.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBoxFillUpChar_11.Location = new System.Drawing.Point(754, 253);
-            this.richTextBoxFillUpChar_11.MaxLength = 1;
-            this.richTextBoxFillUpChar_11.Multiline = false;
-            this.richTextBoxFillUpChar_11.Name = "richTextBoxFillUpChar_11";
-            this.richTextBoxFillUpChar_11.Size = new System.Drawing.Size(20, 20);
-            this.richTextBoxFillUpChar_11.TabIndex = 103;
-            this.richTextBoxFillUpChar_11.Text = "";
+            this.textBoxFillUpChar_11.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxFillUpChar_11.Location = new System.Drawing.Point(754, 253);
+            this.textBoxFillUpChar_11.MaxLength = 1;
+            this.textBoxFillUpChar_11.Multiline = false;
+            this.textBoxFillUpChar_11.Name = "textBoxFillUpChar_11";
+            this.textBoxFillUpChar_11.Size = new System.Drawing.Size(20, 20);
+            this.textBoxFillUpChar_11.TabIndex = 103;
+            this.textBoxFillUpChar_11.Text = "";
             // 
             // checkBoxSubStringRight_11
             // 
@@ -1518,22 +1508,21 @@ namespace QuickImageComment
             // 
             // dynamicComboBoxRenameFormat_11
             // 
+            this.dynamicComboBoxRenameFormat_11.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.dynamicComboBoxRenameFormat_11.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.dynamicComboBoxRenameFormat_11.FormattingEnabled = true;
             this.dynamicComboBoxRenameFormat_11.Location = new System.Drawing.Point(234, 253);
             this.dynamicComboBoxRenameFormat_11.Name = "dynamicComboBoxRenameFormat_11";
-            this.dynamicComboBoxRenameFormat_11.Size = new System.Drawing.Size(279, 21);
+            this.dynamicComboBoxRenameFormat_11.Size = new System.Drawing.Size(279, 22);
             this.dynamicComboBoxRenameFormat_11.TabIndex = 98;
             // 
-            // richTextBoxRenameFormat_11
+            // textBoxRenameFormat_11
             // 
-            this.richTextBoxRenameFormat_11.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBoxRenameFormat_11.Location = new System.Drawing.Point(42, 253);
-            this.richTextBoxRenameFormat_11.Multiline = false;
-            this.richTextBoxRenameFormat_11.Name = "richTextBoxRenameFormat_11";
-            this.richTextBoxRenameFormat_11.Size = new System.Drawing.Size(187, 20);
-            this.richTextBoxRenameFormat_11.TabIndex = 97;
-            this.richTextBoxRenameFormat_11.Text = "";
+            this.textBoxRenameFormat_11.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxRenameFormat_11.Location = new System.Drawing.Point(42, 253);
+            this.textBoxRenameFormat_11.Name = "textBoxRenameFormat_11";
+            this.textBoxRenameFormat_11.Size = new System.Drawing.Size(187, 20);
+            this.textBoxRenameFormat_11.TabIndex = 97;
             // 
             // checkBoxRenameFormat_11
             // 
@@ -1547,6 +1536,7 @@ namespace QuickImageComment
             // buttonCustomizeForm
             // 
             this.buttonCustomizeForm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonCustomizeForm.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonCustomizeForm.Location = new System.Drawing.Point(7, 553);
             this.buttonCustomizeForm.Name = "buttonCustomizeForm";
             this.buttonCustomizeForm.Size = new System.Drawing.Size(100, 22);
@@ -1558,6 +1548,7 @@ namespace QuickImageComment
             // buttonHelp
             // 
             this.buttonHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonHelp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonHelp.Location = new System.Drawing.Point(760, 550);
             this.buttonHelp.Name = "buttonHelp";
             this.buttonHelp.Size = new System.Drawing.Size(100, 22);
@@ -1569,6 +1560,7 @@ namespace QuickImageComment
             // buttonCancel
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonCancel.Location = new System.Drawing.Point(421, 553);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(100, 22);
@@ -1589,6 +1581,7 @@ namespace QuickImageComment
             // buttonMoveUp
             // 
             this.buttonMoveUp.Enabled = false;
+            this.buttonMoveUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonMoveUp.Location = new System.Drawing.Point(174, 277);
             this.buttonMoveUp.Name = "buttonMoveUp";
             this.buttonMoveUp.Size = new System.Drawing.Size(74, 23);
@@ -1599,6 +1592,7 @@ namespace QuickImageComment
             // 
             // buttonMoveDown
             // 
+            this.buttonMoveDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonMoveDown.Location = new System.Drawing.Point(261, 277);
             this.buttonMoveDown.Name = "buttonMoveDown";
             this.buttonMoveDown.Size = new System.Drawing.Size(74, 23);
@@ -1733,6 +1727,7 @@ namespace QuickImageComment
             // buttonDelete
             // 
             this.buttonDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonDelete.Location = new System.Drawing.Point(393, 11);
             this.buttonDelete.Name = "buttonDelete";
             this.buttonDelete.Size = new System.Drawing.Size(68, 22);
@@ -1744,6 +1739,7 @@ namespace QuickImageComment
             // buttonSaveAs
             // 
             this.buttonSaveAs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonSaveAs.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonSaveAs.Location = new System.Drawing.Point(467, 11);
             this.buttonSaveAs.Name = "buttonSaveAs";
             this.buttonSaveAs.Size = new System.Drawing.Size(126, 22);
@@ -1754,11 +1750,12 @@ namespace QuickImageComment
             // 
             // dynamicComboBoxConfigurationName
             // 
+            this.dynamicComboBoxConfigurationName.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.dynamicComboBoxConfigurationName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.dynamicComboBoxConfigurationName.FormattingEnabled = true;
             this.dynamicComboBoxConfigurationName.Location = new System.Drawing.Point(137, 12);
             this.dynamicComboBoxConfigurationName.Name = "dynamicComboBoxConfigurationName";
-            this.dynamicComboBoxConfigurationName.Size = new System.Drawing.Size(178, 21);
+            this.dynamicComboBoxConfigurationName.Size = new System.Drawing.Size(178, 22);
             this.dynamicComboBoxConfigurationName.Sorted = true;
             this.dynamicComboBoxConfigurationName.TabIndex = 1;
             this.dynamicComboBoxConfigurationName.SelectedIndexChanged += new System.EventHandler(this.comboBoxConfigurationName_SelectedIndexChanged);
@@ -1810,108 +1807,108 @@ namespace QuickImageComment
             this.Controls.Add(this.checkBoxFillUpRight_11);
             this.Controls.Add(this.numericUpDownFillUpTo_11);
             this.Controls.Add(this.numericUpDownSubstringLength_11);
-            this.Controls.Add(this.richTextBoxFillUpChar_11);
+            this.Controls.Add(this.textBoxFillUpChar_11);
             this.Controls.Add(this.checkBoxSubStringRight_11);
             this.Controls.Add(this.numericUpDownSubstringStart_11);
             this.Controls.Add(this.dynamicComboBoxRenameFormat_11);
-            this.Controls.Add(this.richTextBoxRenameFormat_11);
+            this.Controls.Add(this.textBoxRenameFormat_11);
             this.Controls.Add(this.checkBoxRenameFormat_11);
             this.Controls.Add(this.checkBoxFillUpRight_10);
             this.Controls.Add(this.numericUpDownFillUpTo_10);
             this.Controls.Add(this.numericUpDownSubstringLength_10);
-            this.Controls.Add(this.richTextBoxFillUpChar_10);
+            this.Controls.Add(this.textBoxFillUpChar_10);
             this.Controls.Add(this.checkBoxSubStringRight_10);
             this.Controls.Add(this.numericUpDownSubstringStart_10);
             this.Controls.Add(this.dynamicComboBoxRenameFormat_10);
-            this.Controls.Add(this.richTextBoxRenameFormat_10);
+            this.Controls.Add(this.textBoxRenameFormat_10);
             this.Controls.Add(this.checkBoxRenameFormat_10);
             this.Controls.Add(this.checkBoxFillUpRight_9);
             this.Controls.Add(this.numericUpDownFillUpTo_9);
             this.Controls.Add(this.numericUpDownSubstringLength_9);
-            this.Controls.Add(this.richTextBoxFillUpChar_9);
+            this.Controls.Add(this.textBoxFillUpChar_9);
             this.Controls.Add(this.checkBoxSubStringRight_9);
             this.Controls.Add(this.numericUpDownSubstringStart_9);
             this.Controls.Add(this.dynamicComboBoxRenameFormat_9);
-            this.Controls.Add(this.richTextBoxRenameFormat_9);
+            this.Controls.Add(this.textBoxRenameFormat_9);
             this.Controls.Add(this.checkBoxRenameFormat_9);
             this.Controls.Add(this.checkBoxFillUpRight_8);
             this.Controls.Add(this.numericUpDownFillUpTo_8);
             this.Controls.Add(this.numericUpDownSubstringLength_8);
-            this.Controls.Add(this.richTextBoxFillUpChar_8);
+            this.Controls.Add(this.textBoxFillUpChar_8);
             this.Controls.Add(this.checkBoxSubStringRight_8);
             this.Controls.Add(this.numericUpDownSubstringStart_8);
             this.Controls.Add(this.dynamicComboBoxRenameFormat_8);
-            this.Controls.Add(this.richTextBoxRenameFormat_8);
+            this.Controls.Add(this.textBoxRenameFormat_8);
             this.Controls.Add(this.checkBoxRenameFormat_8);
             this.Controls.Add(this.checkBoxFillUpRight_7);
             this.Controls.Add(this.numericUpDownFillUpTo_7);
             this.Controls.Add(this.numericUpDownSubstringLength_7);
-            this.Controls.Add(this.richTextBoxFillUpChar_7);
+            this.Controls.Add(this.textBoxFillUpChar_7);
             this.Controls.Add(this.checkBoxSubStringRight_7);
             this.Controls.Add(this.checkBoxFillUpRight_6);
             this.Controls.Add(this.numericUpDownSubstringStart_7);
             this.Controls.Add(this.numericUpDownFillUpTo_6);
             this.Controls.Add(this.groupBoxInvalidCharacters);
-            this.Controls.Add(this.richTextBoxFillUpChar_6);
+            this.Controls.Add(this.textBoxFillUpChar_6);
             this.Controls.Add(this.numericUpDownSubstringLength_6);
             this.Controls.Add(this.checkBoxFillUpRight_5);
             this.Controls.Add(this.groupBoxRunningNumber);
             this.Controls.Add(this.numericUpDownFillUpTo_5);
             this.Controls.Add(this.checkBoxSubStringRight_6);
-            this.Controls.Add(this.richTextBoxFillUpChar_5);
+            this.Controls.Add(this.textBoxFillUpChar_5);
             this.Controls.Add(this.dynamicComboBoxRenameFormat_7);
             this.Controls.Add(this.checkBoxFillUpRight_4);
             this.Controls.Add(this.numericUpDownSubstringStart_6);
             this.Controls.Add(this.numericUpDownFillUpTo_4);
-            this.Controls.Add(this.richTextBoxRenameFormat_7);
-            this.Controls.Add(this.richTextBoxFillUpChar_4);
+            this.Controls.Add(this.textBoxRenameFormat_7);
+            this.Controls.Add(this.textBoxFillUpChar_4);
             this.Controls.Add(this.numericUpDownSubstringLength_5);
             this.Controls.Add(this.checkBoxFillUpRight_3);
             this.Controls.Add(this.checkBoxRenameFormat_7);
             this.Controls.Add(this.numericUpDownFillUpTo_3);
             this.Controls.Add(this.checkBoxSubStringRight_5);
-            this.Controls.Add(this.richTextBoxFillUpChar_3);
+            this.Controls.Add(this.textBoxFillUpChar_3);
             this.Controls.Add(this.checkBoxFillUpRight_2);
             this.Controls.Add(this.dynamicComboBoxRenameFormat_2);
             this.Controls.Add(this.numericUpDownFillUpTo_2);
             this.Controls.Add(this.numericUpDownSubstringStart_5);
-            this.Controls.Add(this.richTextBoxFillUpChar_2);
-            this.Controls.Add(this.richTextBoxRenameFormat_2);
+            this.Controls.Add(this.textBoxFillUpChar_2);
+            this.Controls.Add(this.textBoxRenameFormat_2);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.numericUpDownSubstringLength_2);
             this.Controls.Add(this.checkBoxFillUpRight_1);
             this.Controls.Add(this.checkBoxRenameFormat_2);
             this.Controls.Add(this.numericUpDownFillUpTo_1);
             this.Controls.Add(this.checkBoxSubStringRight_2);
-            this.Controls.Add(this.richTextBoxFillUpChar_1);
+            this.Controls.Add(this.textBoxFillUpChar_1);
             this.Controls.Add(this.dynamicComboBoxRenameFormat_3);
             this.Controls.Add(this.numericUpDownSubstringStart_2);
-            this.Controls.Add(this.richTextBoxRenameFormat_3);
+            this.Controls.Add(this.textBoxRenameFormat_3);
             this.Controls.Add(this.numericUpDownSubstringLength_3);
             this.Controls.Add(this.checkBoxRenameFormat_3);
             this.Controls.Add(this.checkBoxSubStringRight_3);
             this.Controls.Add(this.numericUpDownSubstringStart_3);
             this.Controls.Add(this.dynamicComboBoxRenameFormat_4);
             this.Controls.Add(this.numericUpDownSubstringLength_4);
-            this.Controls.Add(this.richTextBoxRenameFormat_4);
+            this.Controls.Add(this.textBoxRenameFormat_4);
             this.Controls.Add(this.checkBoxSubStringRight_4);
             this.Controls.Add(this.checkBoxRenameFormat_4);
             this.Controls.Add(this.numericUpDownSubstringStart_4);
             this.Controls.Add(this.dynamicComboBoxRenameFormat_6);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.richTextBoxRenameFormat_6);
+            this.Controls.Add(this.textBoxRenameFormat_6);
             this.Controls.Add(this.labelBaseInfo4);
             this.Controls.Add(this.checkBoxRenameFormat_6);
             this.Controls.Add(this.numericUpDownSubstringLength_1);
             this.Controls.Add(this.dynamicComboBoxRenameFormat_5);
             this.Controls.Add(this.checkBoxSubStringRight_1);
-            this.Controls.Add(this.richTextBoxRenameFormat_5);
+            this.Controls.Add(this.textBoxRenameFormat_5);
             this.Controls.Add(this.labelBaseInfo3);
             this.Controls.Add(this.checkBoxRenameFormat_5);
             this.Controls.Add(this.numericUpDownSubstringStart_1);
             this.Controls.Add(this.labelBaseInfo2);
             this.Controls.Add(this.dynamicComboBoxRenameFormat_1);
-            this.Controls.Add(this.richTextBoxRenameFormat_1);
+            this.Controls.Add(this.textBoxRenameFormat_1);
             this.Controls.Add(this.checkBoxRenameFormat_1);
             this.Controls.Add(this.labelBaseInfo1);
             this.Controls.Add(this.buttonStart);
@@ -1979,63 +1976,63 @@ namespace QuickImageComment
     private System.Windows.Forms.Label dynamicLabelRenameFiles;
     private System.Windows.Forms.Label labelBaseInfo1;
     private System.Windows.Forms.CheckBox checkBoxRenameFormat_1;
-    private System.Windows.Forms.RichTextBox richTextBoxRenameFormat_1;
+    private QuickImageCommentControls.TextBoxQIC textBoxRenameFormat_1;
     private QuickImageCommentControls.ComboBoxQIC dynamicComboBoxRenameFormat_1;
     private System.Windows.Forms.Label labelBaseInfo2;
     private QuickImageCommentControls.ComboBoxQIC dynamicComboBoxRenameFormat_5;
-    private System.Windows.Forms.RichTextBox richTextBoxRenameFormat_5;
+    private QuickImageCommentControls.TextBoxQIC textBoxRenameFormat_5;
     private System.Windows.Forms.CheckBox checkBoxRenameFormat_5;
     private QuickImageCommentControls.ComboBoxQIC dynamicComboBoxRenameFormat_6;
-    private System.Windows.Forms.RichTextBox richTextBoxRenameFormat_6;
+    private QuickImageCommentControls.TextBoxQIC textBoxRenameFormat_6;
     private System.Windows.Forms.CheckBox checkBoxRenameFormat_6;
     private QuickImageCommentControls.ComboBoxQIC dynamicComboBoxRenameFormat_4;
-    private System.Windows.Forms.RichTextBox richTextBoxRenameFormat_4;
+    private QuickImageCommentControls.TextBoxQIC textBoxRenameFormat_4;
     private System.Windows.Forms.CheckBox checkBoxRenameFormat_4;
     private QuickImageCommentControls.ComboBoxQIC dynamicComboBoxRenameFormat_3;
-    private System.Windows.Forms.RichTextBox richTextBoxRenameFormat_3;
+    private QuickImageCommentControls.TextBoxQIC textBoxRenameFormat_3;
     private System.Windows.Forms.CheckBox checkBoxRenameFormat_3;
     private QuickImageCommentControls.ComboBoxQIC dynamicComboBoxRenameFormat_2;
-    private System.Windows.Forms.RichTextBox richTextBoxRenameFormat_2;
+    private QuickImageCommentControls.TextBoxQIC textBoxRenameFormat_2;
     private System.Windows.Forms.CheckBox checkBoxRenameFormat_2;
     private System.Windows.Forms.CheckBox checkBoxRenameFormat_7;
-    private System.Windows.Forms.RichTextBox richTextBoxRenameFormat_7;
+    private QuickImageCommentControls.TextBoxQIC textBoxRenameFormat_7;
     private QuickImageCommentControls.ComboBoxQIC dynamicComboBoxRenameFormat_7;
     private System.Windows.Forms.Label labelReplaceInfo1;
     private System.Windows.Forms.Label dynamicLabelInvalidCharacters;
     private System.Windows.Forms.Label labelReplaceInfo2;
-    private System.Windows.Forms.RichTextBox richTextBoxInvalidCharRepl;
+    private QuickImageCommentControls.TextBoxQIC textBoxInvalidCharRepl;
     private System.Windows.Forms.CheckBox checkBoxAllwaysRunningNumber;
     private System.Windows.Forms.Label labelRunningInfo2;
     private System.Windows.Forms.Label labelRunningInfo3;
     private System.Windows.Forms.Label labelRunningInfo4;
-    private System.Windows.Forms.RichTextBox richTextBoxRunningPrefix;
+    private QuickImageCommentControls.TextBoxQIC textBoxRunningPrefix;
     private System.Windows.Forms.NumericUpDown numericUpDownRunningNumberMinLength;
-    private System.Windows.Forms.RichTextBox richTextBoxRunningSuffix;
+    private QuickImageCommentControls.TextBoxQIC textBoxRunningSuffix;
     private System.Windows.Forms.GroupBox groupBoxRunningNumber;
     private System.Windows.Forms.Label label1;
     private System.Windows.Forms.GroupBox groupBoxInvalidCharacters;
-    private System.Windows.Forms.RichTextBox richTextBoxFillUpChar_1;
+    private QuickImageCommentControls.TextBoxQIC textBoxFillUpChar_1;
     private System.Windows.Forms.NumericUpDown numericUpDownFillUpTo_1;
     private System.Windows.Forms.CheckBox checkBoxFillUpRight_1;
     private System.Windows.Forms.Label label3;
     private System.Windows.Forms.CheckBox checkBoxFillUpRight_7;
     private System.Windows.Forms.NumericUpDown numericUpDownFillUpTo_7;
-    private System.Windows.Forms.RichTextBox richTextBoxFillUpChar_7;
+    private QuickImageCommentControls.TextBoxQIC textBoxFillUpChar_7;
     private System.Windows.Forms.CheckBox checkBoxFillUpRight_6;
     private System.Windows.Forms.NumericUpDown numericUpDownFillUpTo_6;
-    private System.Windows.Forms.RichTextBox richTextBoxFillUpChar_6;
+    private QuickImageCommentControls.TextBoxQIC textBoxFillUpChar_6;
     private System.Windows.Forms.CheckBox checkBoxFillUpRight_5;
     private System.Windows.Forms.NumericUpDown numericUpDownFillUpTo_5;
-    private System.Windows.Forms.RichTextBox richTextBoxFillUpChar_5;
+    private QuickImageCommentControls.TextBoxQIC textBoxFillUpChar_5;
     private System.Windows.Forms.CheckBox checkBoxFillUpRight_4;
     private System.Windows.Forms.NumericUpDown numericUpDownFillUpTo_4;
-    private System.Windows.Forms.RichTextBox richTextBoxFillUpChar_4;
+    private QuickImageCommentControls.TextBoxQIC textBoxFillUpChar_4;
     private System.Windows.Forms.CheckBox checkBoxFillUpRight_3;
     private System.Windows.Forms.NumericUpDown numericUpDownFillUpTo_3;
-    private System.Windows.Forms.RichTextBox richTextBoxFillUpChar_3;
+    private QuickImageCommentControls.TextBoxQIC textBoxFillUpChar_3;
     private System.Windows.Forms.CheckBox checkBoxFillUpRight_2;
     private System.Windows.Forms.NumericUpDown numericUpDownFillUpTo_2;
-    private System.Windows.Forms.RichTextBox richTextBoxFillUpChar_2;
+    private QuickImageCommentControls.TextBoxQIC textBoxFillUpChar_2;
     private System.Windows.Forms.NumericUpDown numericUpDownSubstringStart_1;
     private System.Windows.Forms.Label labelBaseInfo3;
     private System.Windows.Forms.CheckBox checkBoxSubStringRight_1;
@@ -2063,38 +2060,38 @@ namespace QuickImageComment
     private System.Windows.Forms.CheckBox checkBoxFillUpRight_8;
     private System.Windows.Forms.NumericUpDown numericUpDownFillUpTo_8;
     private System.Windows.Forms.NumericUpDown numericUpDownSubstringLength_8;
-    private System.Windows.Forms.RichTextBox richTextBoxFillUpChar_8;
+    private QuickImageCommentControls.TextBoxQIC textBoxFillUpChar_8;
     private System.Windows.Forms.CheckBox checkBoxSubStringRight_8;
     private System.Windows.Forms.NumericUpDown numericUpDownSubstringStart_8;
     private QuickImageCommentControls.ComboBoxQIC dynamicComboBoxRenameFormat_8;
-    private System.Windows.Forms.RichTextBox richTextBoxRenameFormat_8;
+    private QuickImageCommentControls.TextBoxQIC textBoxRenameFormat_8;
     private System.Windows.Forms.CheckBox checkBoxRenameFormat_8;
     private System.Windows.Forms.CheckBox checkBoxFillUpRight_9;
     private System.Windows.Forms.NumericUpDown numericUpDownFillUpTo_9;
     private System.Windows.Forms.NumericUpDown numericUpDownSubstringLength_9;
-    private System.Windows.Forms.RichTextBox richTextBoxFillUpChar_9;
+    private QuickImageCommentControls.TextBoxQIC textBoxFillUpChar_9;
     private System.Windows.Forms.CheckBox checkBoxSubStringRight_9;
     private System.Windows.Forms.NumericUpDown numericUpDownSubstringStart_9;
     private QuickImageCommentControls.ComboBoxQIC dynamicComboBoxRenameFormat_9;
-    private System.Windows.Forms.RichTextBox richTextBoxRenameFormat_9;
+    private QuickImageCommentControls.TextBoxQIC textBoxRenameFormat_9;
     private System.Windows.Forms.CheckBox checkBoxRenameFormat_9;
     private System.Windows.Forms.CheckBox checkBoxFillUpRight_10;
     private System.Windows.Forms.NumericUpDown numericUpDownFillUpTo_10;
     private System.Windows.Forms.NumericUpDown numericUpDownSubstringLength_10;
-    private System.Windows.Forms.RichTextBox richTextBoxFillUpChar_10;
+    private QuickImageCommentControls.TextBoxQIC textBoxFillUpChar_10;
     private System.Windows.Forms.CheckBox checkBoxSubStringRight_10;
     private System.Windows.Forms.NumericUpDown numericUpDownSubstringStart_10;
     private QuickImageCommentControls.ComboBoxQIC dynamicComboBoxRenameFormat_10;
-    private System.Windows.Forms.RichTextBox richTextBoxRenameFormat_10;
+    private QuickImageCommentControls.TextBoxQIC textBoxRenameFormat_10;
     private System.Windows.Forms.CheckBox checkBoxRenameFormat_10;
     private System.Windows.Forms.CheckBox checkBoxFillUpRight_11;
     private System.Windows.Forms.NumericUpDown numericUpDownFillUpTo_11;
     private System.Windows.Forms.NumericUpDown numericUpDownSubstringLength_11;
-    private System.Windows.Forms.RichTextBox richTextBoxFillUpChar_11;
+    private QuickImageCommentControls.TextBoxQIC textBoxFillUpChar_11;
     private System.Windows.Forms.CheckBox checkBoxSubStringRight_11;
     private System.Windows.Forms.NumericUpDown numericUpDownSubstringStart_11;
     private QuickImageCommentControls.ComboBoxQIC dynamicComboBoxRenameFormat_11;
-    private System.Windows.Forms.RichTextBox richTextBoxRenameFormat_11;
+    private QuickImageCommentControls.TextBoxQIC textBoxRenameFormat_11;
     private System.Windows.Forms.CheckBox checkBoxRenameFormat_11;
     private System.Windows.Forms.Label labelRunningInfo5;
     private QuickImageCommentControls.ComboBoxQIC dynamicComboBoxRunningNumberSortField;

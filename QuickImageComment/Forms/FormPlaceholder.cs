@@ -144,14 +144,6 @@ namespace QuickImageComment
         // separator changed
         private void richTextBoxSeparator_TextChanged(object sender, EventArgs e)
         {
-            // make blanks visible
-            RichTextBox theRichTextBox = (RichTextBox)sender;
-            int pos = theRichTextBox.SelectionStart;
-            theRichTextBox.SelectAll();
-            theRichTextBox.SelectionBackColor = System.Drawing.SystemColors.ControlLight;
-            theRichTextBox.SelectionStart = pos;
-            theRichTextBox.SelectionLength = 0;
-
             placeholderDefinitionChanged(sender, e);
         }
 
@@ -218,7 +210,7 @@ namespace QuickImageComment
                 {
                     placeholderDefinitionString += "s";
                 }
-                if (richTextBoxSeparator.Text.Equals(""))
+                if (textBoxSeparator.Text.Equals(""))
                 {
                     // remove trailing empty entries
                     while (placeholderDefinitionString.EndsWith(";"))
@@ -230,7 +222,7 @@ namespace QuickImageComment
                 {
                     // hint: separator may include ";", is considered when replacing placeholders
                     placeholderDefinitionString += ";";
-                    placeholderDefinitionString += richTextBoxSeparator.Text;
+                    placeholderDefinitionString += textBoxSeparator.Text;
                 }
 
                 updatePlaceholderAndMarkIt();
@@ -328,11 +320,11 @@ namespace QuickImageComment
                 checkBoxSavedValue.Checked = thePlaceholderDefinition.useAllwaysSavedValue;
                 if (thePlaceholderDefinition.separator.Equals(", "))
                 {
-                    richTextBoxSeparator.Text = "";
+                    textBoxSeparator.Text = "";
                 }
                 else
                 {
-                    richTextBoxSeparator.Text = thePlaceholderDefinition.separator;
+                    textBoxSeparator.Text = thePlaceholderDefinition.separator;
                 }
                 checkBoxSorted.Checked = thePlaceholderDefinition.sorted;
                 dynamicComboBoxLanguage.Text = thePlaceholderDefinition.language;
@@ -399,7 +391,7 @@ namespace QuickImageComment
             dynamicComboBoxFormat.Enabled = true;
             checkBoxSavedValue.Enabled = true;
             checkBoxSorted.Enabled = false;
-            richTextBoxSeparator.Enabled = false;
+            textBoxSeparator.Enabled = false;
             dynamicComboBoxLanguage.Enabled = false;
 
             dynamicLabelMetaDate.Text = "";
@@ -408,7 +400,7 @@ namespace QuickImageComment
             checkBoxSavedValue.Checked = false;
             // default format is interpreted
             dynamicComboBoxFormat.SelectedIndex = 0;
-            richTextBoxSeparator.Text = "";
+            textBoxSeparator.Text = "";
             checkBoxSorted.Checked = false;
             dynamicComboBoxLanguage.Text = "";
 
@@ -422,13 +414,13 @@ namespace QuickImageComment
             if (TagUtilities.isMultiLine(MetaDataKey) && !TagUtilities.isSequentiellType(MetaDataType))
             {
                 checkBoxSorted.Enabled = true;
-                richTextBoxSeparator.Enabled = true;
+                textBoxSeparator.Enabled = true;
             }
 
             if (TagUtilities.LangAltTypes.Contains(MetaDataType))
             {
                 dynamicComboBoxLanguage.Enabled = true;
-                richTextBoxSeparator.Enabled = true;
+                textBoxSeparator.Enabled = true;
             }
             else if (TagUtilities.RationalTypes.Contains(MetaDataType))
             {

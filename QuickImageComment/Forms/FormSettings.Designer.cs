@@ -61,8 +61,8 @@ namespace QuickImageComment
             this.labelReactionListBoxCommentDoubleClick = new System.Windows.Forms.Label();
             this.labelUserCommentInsertCheckCharacters = new System.Windows.Forms.Label();
             this.labelUserCommentAppendCheckCharacters = new System.Windows.Forms.Label();
-            this.richTextBoxUserCommentInsertCheckCharacters = new System.Windows.Forms.RichTextBox();
-            this.richTextBoxUserCommentAppendCheckCharacters = new System.Windows.Forms.RichTextBox();
+            this.textBoxUserCommentInsertCheckCharacters = new QuickImageCommentControls.TextBoxQIC();
+            this.textBoxUserCommentAppendCheckCharacters = new QuickImageCommentControls.TextBoxQIC();
             this.checkBoxUseDefaultArtist = new System.Windows.Forms.CheckBox();
             this.textBoxDefaultArtist = new System.Windows.Forms.TextBox();
             this.checkBoxNavigationTabSplitbars = new System.Windows.Forms.CheckBox();
@@ -132,7 +132,7 @@ namespace QuickImageComment
             this.Panel5 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label11 = new System.Windows.Forms.Label();
-            this.buttonExifToolSettings = new QuickImageCommentControls.ButtonQIC  ();
+            this.buttonExifToolSettings = new QuickImageCommentControls.ButtonQIC();
             this.panel3 = new System.Windows.Forms.Panel();
             this.checkBoxShowRatingButtonReject = new System.Windows.Forms.CheckBox();
             this.checkBoxLogDiffMetaData = new System.Windows.Forms.CheckBox();
@@ -142,10 +142,10 @@ namespace QuickImageComment
             this.labelCharSet = new System.Windows.Forms.Label();
             this.checkBoxButtonDeletesPermanent = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.buttonCustomizeForm = new QuickImageCommentControls.ButtonQIC  ();
-            this.buttonHelp = new QuickImageCommentControls.ButtonQIC  ();
-            this.buttonCancel = new QuickImageCommentControls.ButtonQIC  ();
-            this.buttonOK = new QuickImageCommentControls.ButtonQIC  ();
+            this.buttonCustomizeForm = new QuickImageCommentControls.ButtonQIC();
+            this.buttonHelp = new QuickImageCommentControls.ButtonQIC();
+            this.buttonCancel = new QuickImageCommentControls.ButtonQIC();
+            this.buttonOK = new QuickImageCommentControls.ButtonQIC();
             this.comboBoxPredefinedCommentsMouseDoubleClickAction = new QuickImageCommentControls.ComboBoxQIC();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxLastComments)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFullSizeImageCacheMaxSize)).BeginInit();
@@ -274,27 +274,21 @@ namespace QuickImageComment
             this.labelUserCommentAppendCheckCharacters.TabIndex = 19;
             this.labelUserCommentAppendCheckCharacters.Text = "Bei Anhängen: Prüfung, ob Text mit einem der folgenden Zeichen beginnt:";
             // 
-            // richTextBoxUserCommentInsertCheckCharacters
+            // textBoxUserCommentInsertCheckCharacters
             // 
-            this.richTextBoxUserCommentInsertCheckCharacters.BackColor = System.Drawing.SystemColors.Window;
-            this.richTextBoxUserCommentInsertCheckCharacters.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.richTextBoxUserCommentInsertCheckCharacters.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBoxUserCommentInsertCheckCharacters.Location = new System.Drawing.Point(423, 237);
-            this.richTextBoxUserCommentInsertCheckCharacters.Name = "richTextBoxUserCommentInsertCheckCharacters";
-            this.richTextBoxUserCommentInsertCheckCharacters.Size = new System.Drawing.Size(148, 20);
-            this.richTextBoxUserCommentInsertCheckCharacters.TabIndex = 17;
-            this.richTextBoxUserCommentInsertCheckCharacters.Text = "";
-            this.richTextBoxUserCommentInsertCheckCharacters.TextChanged += new System.EventHandler(this.RichTextBoxBlankDisplay_TextChanged);
+            this.textBoxUserCommentInsertCheckCharacters.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxUserCommentInsertCheckCharacters.Location = new System.Drawing.Point(423, 237);
+            this.textBoxUserCommentInsertCheckCharacters.Name = "textBoxUserCommentInsertCheckCharacters";
+            this.textBoxUserCommentInsertCheckCharacters.Size = new System.Drawing.Size(152, 18);
+            this.textBoxUserCommentInsertCheckCharacters.TabIndex = 17;
             // 
-            // richTextBoxUserCommentAppendCheckCharacters
+            // textBoxUserCommentAppendCheckCharacters
             // 
-            this.richTextBoxUserCommentAppendCheckCharacters.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBoxUserCommentAppendCheckCharacters.Location = new System.Drawing.Point(423, 259);
-            this.richTextBoxUserCommentAppendCheckCharacters.Name = "richTextBoxUserCommentAppendCheckCharacters";
-            this.richTextBoxUserCommentAppendCheckCharacters.Size = new System.Drawing.Size(148, 20);
-            this.richTextBoxUserCommentAppendCheckCharacters.TabIndex = 20;
-            this.richTextBoxUserCommentAppendCheckCharacters.Text = "";
-            this.richTextBoxUserCommentAppendCheckCharacters.TextChanged += new System.EventHandler(this.RichTextBoxBlankDisplay_TextChanged);
+            this.textBoxUserCommentAppendCheckCharacters.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxUserCommentAppendCheckCharacters.Location = new System.Drawing.Point(423, 259);
+            this.textBoxUserCommentAppendCheckCharacters.Name = "textBoxUserCommentAppendCheckCharacters";
+            this.textBoxUserCommentAppendCheckCharacters.Size = new System.Drawing.Size(152, 18);
+            this.textBoxUserCommentAppendCheckCharacters.TabIndex = 20;
             // 
             // checkBoxUseDefaultArtist
             // 
@@ -425,7 +419,7 @@ namespace QuickImageComment
             this.TextBoxAdditionalExtensions.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TextBoxAdditionalExtensions.Location = new System.Drawing.Point(423, 297);
             this.TextBoxAdditionalExtensions.Name = "TextBoxAdditionalExtensions";
-            this.TextBoxAdditionalExtensions.Size = new System.Drawing.Size(148, 18);
+            this.TextBoxAdditionalExtensions.Size = new System.Drawing.Size(152, 18);
             this.TextBoxAdditionalExtensions.TabIndex = 24;
             // 
             // fixedLabel4
@@ -484,7 +478,7 @@ namespace QuickImageComment
             // fixedLabel8
             // 
             this.fixedLabel8.AutoSize = true;
-            this.fixedLabel8.Location = new System.Drawing.Point(452, 63);
+            this.fixedLabel8.Location = new System.Drawing.Point(484, 63);
             this.fixedLabel8.Name = "fixedLabel8";
             this.fixedLabel8.Size = new System.Drawing.Size(21, 13);
             this.fixedLabel8.TabIndex = 7;
@@ -1084,6 +1078,7 @@ namespace QuickImageComment
             // 
             // buttonExifToolSettings
             // 
+            this.buttonExifToolSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonExifToolSettings.Location = new System.Drawing.Point(3, 33);
             this.buttonExifToolSettings.Name = "buttonExifToolSettings";
             this.buttonExifToolSettings.Size = new System.Drawing.Size(194, 24);
@@ -1194,6 +1189,7 @@ namespace QuickImageComment
             // buttonCustomizeForm
             // 
             this.buttonCustomizeForm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonCustomizeForm.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonCustomizeForm.Location = new System.Drawing.Point(4, 583);
             this.buttonCustomizeForm.Name = "buttonCustomizeForm";
             this.buttonCustomizeForm.Size = new System.Drawing.Size(99, 26);
@@ -1205,6 +1201,7 @@ namespace QuickImageComment
             // buttonHelp
             // 
             this.buttonHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonHelp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonHelp.Location = new System.Drawing.Point(649, 583);
             this.buttonHelp.Name = "buttonHelp";
             this.buttonHelp.Size = new System.Drawing.Size(99, 26);
@@ -1216,6 +1213,7 @@ namespace QuickImageComment
             // buttonCancel
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonCancel.Location = new System.Drawing.Point(380, 583);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(99, 26);
@@ -1227,6 +1225,7 @@ namespace QuickImageComment
             // buttonOK
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonOK.Location = new System.Drawing.Point(276, 583);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(99, 26);
@@ -1270,8 +1269,8 @@ namespace QuickImageComment
             this.Controls.Add(this.checkBoxNavigationTabSplitbars);
             this.Controls.Add(this.textBoxDefaultArtist);
             this.Controls.Add(this.checkBoxUseDefaultArtist);
-            this.Controls.Add(this.richTextBoxUserCommentAppendCheckCharacters);
-            this.Controls.Add(this.richTextBoxUserCommentInsertCheckCharacters);
+            this.Controls.Add(this.textBoxUserCommentAppendCheckCharacters);
+            this.Controls.Add(this.textBoxUserCommentInsertCheckCharacters);
             this.Controls.Add(this.labelUserCommentAppendCheckCharacters);
             this.Controls.Add(this.labelUserCommentInsertCheckCharacters);
             this.Controls.Add(this.comboBoxPredefinedCommentsMouseDoubleClickAction);
@@ -1359,7 +1358,7 @@ namespace QuickImageComment
         private System.Windows.Forms.CheckBox checkBoxLangAlt1;
         private System.Windows.Forms.Label label1MaxChangeableFieldEntries;
         private System.Windows.Forms.NumericUpDown numericUpDownMaxChangeableFieldEntries;
-        private System.Windows.Forms.RichTextBox richTextBoxUserCommentInsertCheckCharacters;
+        private QuickImageCommentControls.TextBoxQIC textBoxUserCommentInsertCheckCharacters;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label labelVideoProperties;
         private System.Windows.Forms.TextBox TextBoxVideoExtensionsProperties;
