@@ -35,7 +35,7 @@ namespace QuickImageComment
         private QuickImageCommentControls.ComboBoxQIC comboBoxPredefinedCommentsMouseDoubleClickAction;
         private Label labelUserCommentInsertCheckCharacters;
         private Label labelUserCommentAppendCheckCharacters;
-        private QuickImageCommentControls.TextBoxQIC textBoxUserCommentAppendCheckCharacters;
+        private QuickImageCommentControls.TextBoxHighlightText textBoxUserCommentAppendCheckCharacters;
         private readonly FormCustomization.Interface CustomizationInterface;
         private readonly string[] PredefinedCommentsMouseDoubleClickActionItems = new string[4];
 

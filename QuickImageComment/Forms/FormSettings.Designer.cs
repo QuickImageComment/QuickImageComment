@@ -61,8 +61,8 @@ namespace QuickImageComment
             this.labelReactionListBoxCommentDoubleClick = new System.Windows.Forms.Label();
             this.labelUserCommentInsertCheckCharacters = new System.Windows.Forms.Label();
             this.labelUserCommentAppendCheckCharacters = new System.Windows.Forms.Label();
-            this.textBoxUserCommentInsertCheckCharacters = new QuickImageCommentControls.TextBoxQIC();
-            this.textBoxUserCommentAppendCheckCharacters = new QuickImageCommentControls.TextBoxQIC();
+            this.textBoxUserCommentInsertCheckCharacters = new QuickImageCommentControls.TextBoxHighlightText();
+            this.textBoxUserCommentAppendCheckCharacters = new QuickImageCommentControls.TextBoxHighlightText();
             this.checkBoxUseDefaultArtist = new System.Windows.Forms.CheckBox();
             this.textBoxDefaultArtist = new System.Windows.Forms.TextBox();
             this.checkBoxNavigationTabSplitbars = new System.Windows.Forms.CheckBox();
@@ -1358,7 +1358,7 @@ namespace QuickImageComment
         private System.Windows.Forms.CheckBox checkBoxLangAlt1;
         private System.Windows.Forms.Label label1MaxChangeableFieldEntries;
         private System.Windows.Forms.NumericUpDown numericUpDownMaxChangeableFieldEntries;
-        private QuickImageCommentControls.TextBoxQIC textBoxUserCommentInsertCheckCharacters;
+        private QuickImageCommentControls.TextBoxHighlightText textBoxUserCommentInsertCheckCharacters;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label labelVideoProperties;
         private System.Windows.Forms.TextBox TextBoxVideoExtensionsProperties;

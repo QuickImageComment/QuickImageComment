@@ -69,7 +69,7 @@ namespace QuickImageComment
             this.dynamicComboBoxLanguage = new QuickImageCommentControls.ComboBoxQIC();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.textBoxSeparator = new QuickImageCommentControls.TextBoxQIC();
+            this.textBoxSeparator = new QuickImageCommentControls.TextBoxHighlightText();
             this.checkBoxSavedValue = new System.Windows.Forms.CheckBox();
             this.buttonDate = new QuickImageCommentControls.ButtonQIC();
             this.buttonTime = new QuickImageCommentControls.ButtonQIC();
@@ -685,7 +685,7 @@ namespace QuickImageComment
         private QuickImageCommentControls.ComboBoxQIC dynamicComboBoxLanguage;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
-        private QuickImageCommentControls.TextBoxQIC textBoxSeparator;
+        private QuickImageCommentControls.TextBoxHighlightText textBoxSeparator;
         private System.Windows.Forms.CheckBox checkBoxSavedValue;
         private QuickImageCommentControls.ButtonQIC buttonDate;
         private QuickImageCommentControls.ButtonQIC buttonTime;

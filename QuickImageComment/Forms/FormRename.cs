@@ -71,8 +71,8 @@ namespace QuickImageComment
         private System.Windows.Forms.CheckBox checkBoxRenameFormat = null;
         private System.Windows.Forms.CheckBox checkBoxSubStringRight = null;
         private System.Windows.Forms.CheckBox checkBoxFillUpRight = null;
-        private QuickImageCommentControls.TextBoxQIC textBoxRenameFormat = null;
-        private QuickImageCommentControls.TextBoxQIC textBoxFillUpChar = null;
+        private QuickImageCommentControls.TextBoxHighlightText textBoxRenameFormat = null;
+        private QuickImageCommentControls.TextBoxHighlightText textBoxFillUpChar = null;
         private QuickImageCommentControls.ComboBoxQIC comboBoxRenameFormat = null;
         private System.Windows.Forms.NumericUpDown numericUpDownSubstringStart = null;
         private System.Windows.Forms.NumericUpDown numericUpDownSubstringLength = null;
@@ -130,7 +130,7 @@ namespace QuickImageComment
                 else if (aControl.Name.StartsWith("textBoxRenameFormat_") ||
                          aControl.Name.StartsWith("textBoxFillUpChar_"))
                 {
-                    QuickImageCommentControls.TextBoxQIC textBox = (QuickImageCommentControls.TextBoxQIC)aControl;
+                    QuickImageCommentControls.TextBoxHighlightText textBox = (QuickImageCommentControls.TextBoxHighlightText)aControl;
                     textBox.TextChanged += new System.EventHandler(this.renameControlEventHandlerWithActivateCheckBox);
                     textBox.Enter += new System.EventHandler(this.numberedControls_Enter);
                 }
@@ -818,7 +818,7 @@ namespace QuickImageComment
                     {
                         break;
                     }
-                    statusOk = checkTextBoxForInvalidCharacters((QuickImageCommentControls.TextBoxQIC)theControls[0]);
+                    statusOk = checkTextBoxForInvalidCharacters((QuickImageCommentControls.TextBoxHighlightText)theControls[0]);
                     if (!statusOk)
                     {
                         break;
@@ -826,7 +826,7 @@ namespace QuickImageComment
 
                     ControlName = "textBoxFillUpChar_" + ii.ToString();
                     theControls = this.Controls.Find(ControlName, false);
-                    statusOk = checkTextBoxForInvalidCharacters((QuickImageCommentControls.TextBoxQIC)theControls[0]);
+                    statusOk = checkTextBoxForInvalidCharacters((QuickImageCommentControls.TextBoxHighlightText)theControls[0]);
                     if (!statusOk)
                     {
                         break;
@@ -861,7 +861,7 @@ namespace QuickImageComment
         }
 
         // check one text box for characters invalid in file names
-        bool checkTextBoxForInvalidCharacters(QuickImageCommentControls.TextBoxQIC theTextBox)
+        bool checkTextBoxForInvalidCharacters(QuickImageCommentControls.TextBoxHighlightText theTextBox)
         {
             for (int jj = 0; jj < dynamicLabelInvalidCharacters.Text.Length; jj++)
             {
@@ -1016,11 +1016,11 @@ namespace QuickImageComment
 
             ControlName = "textBoxRenameFormat_" + ii.ToString();
             theControls = this.Controls.Find(ControlName, false);
-            textBoxRenameFormat = (QuickImageCommentControls.TextBoxQIC)theControls[0];
+            textBoxRenameFormat = (QuickImageCommentControls.TextBoxHighlightText)theControls[0];
 
             ControlName = "textBoxFillUpChar_" + ii.ToString();
             theControls = this.Controls.Find(ControlName, false);
-            textBoxFillUpChar = (QuickImageCommentControls.TextBoxQIC)theControls[0];
+            textBoxFillUpChar = (QuickImageCommentControls.TextBoxHighlightText)theControls[0];
 
             ControlName = "dynamicComboBoxRenameFormat_" + ii.ToString();
             theControls = this.Controls.Find(ControlName, false);
@@ -1095,8 +1095,8 @@ namespace QuickImageComment
             // save values from first line
             bool checkBoxSubStringRightChecked = ((CheckBox)Controls["checkBoxSubStringRight_" + first.ToString()]).Checked;
             bool checkBoxFillUpRightChecked = ((CheckBox)Controls["checkBoxFillUpRight_" + first.ToString()]).Checked;
-            string textBoxRenameFormatText = ((TextBoxQIC)Controls["textBoxRenameFormat_" + first.ToString()]).Text;
-            string textBoxFillUpCharText = ((TextBoxQIC)Controls["textBoxFillUpChar_" + first.ToString()]).Text;
+            string textBoxRenameFormatText = ((TextBoxHighlightText)Controls["textBoxRenameFormat_" + first.ToString()]).Text;
+            string textBoxFillUpCharText = ((TextBoxHighlightText)Controls["textBoxFillUpChar_" + first.ToString()]).Text;
             string comboBoxRenameFormatText = ((ComboBox)Controls["dynamicComboBoxRenameFormat_" + first.ToString()]).Text;
             int numericUpDownSubstringStartValue = (int)((NumericUpDown)Controls["numericUpDownSubstringStart_" + first.ToString()]).Value;
             int numericUpDownSubstringLengthValue = (int)((NumericUpDown)Controls["numericUpDownSubstringLength_" + first.ToString()]).Value;
@@ -1106,8 +1106,8 @@ namespace QuickImageComment
             // copy values from second line to first line
             ((CheckBox)Controls["checkBoxSubStringRight_" + first.ToString()]).Checked = ((CheckBox)Controls["checkBoxSubStringRight_" + second.ToString()]).Checked;
             ((CheckBox)Controls["checkBoxFillUpRight_" + first.ToString()]).Checked = ((CheckBox)Controls["checkBoxFillUpRight_" + second.ToString()]).Checked;
-            ((TextBoxQIC)Controls["textBoxRenameFormat_" + first.ToString()]).Text = ((TextBoxQIC)Controls["textBoxRenameFormat_" + second.ToString()]).Text;
-            ((TextBoxQIC)Controls["textBoxFillUpChar_" + first.ToString()]).Text = ((TextBoxQIC)Controls["textBoxFillUpChar_" + second.ToString()]).Text;
+            ((TextBoxHighlightText)Controls["textBoxRenameFormat_" + first.ToString()]).Text = ((TextBoxHighlightText)Controls["textBoxRenameFormat_" + second.ToString()]).Text;
+            ((TextBoxHighlightText)Controls["textBoxFillUpChar_" + first.ToString()]).Text = ((TextBoxHighlightText)Controls["textBoxFillUpChar_" + second.ToString()]).Text;
             ((ComboBox)Controls["dynamicComboBoxRenameFormat_" + first.ToString()]).Text = ((ComboBox)Controls["dynamicComboBoxRenameFormat_" + second.ToString()]).Text;
             ((NumericUpDown)Controls["numericUpDownSubstringStart_" + first.ToString()]).Value = ((NumericUpDown)Controls["numericUpDownSubstringStart_" + second.ToString()]).Value;
             ((NumericUpDown)Controls["numericUpDownSubstringLength_" + first.ToString()]).Value = ((NumericUpDown)Controls["numericUpDownSubstringLength_" + second.ToString()]).Value;
@@ -1118,8 +1118,8 @@ namespace QuickImageComment
             // enter saved values in second line
             ((CheckBox)Controls["checkBoxSubStringRight_" + second.ToString()]).Checked = checkBoxSubStringRightChecked;
             ((CheckBox)Controls["checkBoxFillUpRight_" + second.ToString()]).Checked = checkBoxFillUpRightChecked;
-            ((TextBoxQIC)Controls["textBoxRenameFormat_" + second.ToString()]).Text = textBoxRenameFormatText;
-            ((TextBoxQIC)Controls["textBoxFillUpChar_" + second.ToString()]).Text = textBoxFillUpCharText;
+            ((TextBoxHighlightText)Controls["textBoxRenameFormat_" + second.ToString()]).Text = textBoxRenameFormatText;
+            ((TextBoxHighlightText)Controls["textBoxFillUpChar_" + second.ToString()]).Text = textBoxFillUpCharText;
             ((ComboBox)Controls["dynamicComboBoxRenameFormat_" + second.ToString()]).Text = comboBoxRenameFormatText;
             ((NumericUpDown)Controls["numericUpDownSubstringStart_" + second.ToString()]).Value = numericUpDownSubstringStartValue;
             ((NumericUpDown)Controls["numericUpDownSubstringLength_" + second.ToString()]).Value = numericUpDownSubstringLengthValue;

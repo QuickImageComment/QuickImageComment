@@ -128,7 +128,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\pictureBoxQIC.cs" />
-    <Compile Include="Controls\TextBoxQIC.cs">
+    <Compile Include="Controls\TextBoxHighlightText.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\ToolTipQIC.cs">

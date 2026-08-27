@@ -183,7 +183,6 @@ namespace QuickImageCommentControls
             {
                 _owner = owner;
                 AssignHandle(handle);
-                //Logger.log("EditSubclass for " + _owner.ToString());
             }
 
             protected override void WndProc(ref Message m)
