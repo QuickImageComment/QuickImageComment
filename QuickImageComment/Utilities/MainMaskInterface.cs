@@ -116,6 +116,14 @@ namespace QuickImageComment
             }
         }
 
+        public static void adjustAfterColorThemeChange()
+        {
+            if (!FormQuickImageComment.closing)
+            {
+                theFormQuickImageComment.adjustAfterColorThemeChange();
+            }
+        }
+
         public static void adjustViewAfterFormView()
         {
             // if main mask is not already closing and not minimized

@@ -147,6 +147,8 @@ namespace QuickImageComment
             this.buttonCancel = new QuickImageCommentControls.ButtonQIC();
             this.buttonOK = new QuickImageCommentControls.ButtonQIC();
             this.comboBoxPredefinedCommentsMouseDoubleClickAction = new QuickImageCommentControls.ComboBoxQIC();
+            this.label12 = new System.Windows.Forms.Label();
+            this.comboBoxColorTheme = new QuickImageCommentControls.ComboBoxQIC();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxLastComments)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFullSizeImageCacheMaxSize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaximumMemoryForCaching)).BeginInit();
@@ -276,19 +278,29 @@ namespace QuickImageComment
             // 
             // textBoxUserCommentInsertCheckCharacters
             // 
+            this.textBoxUserCommentInsertCheckCharacters.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxUserCommentInsertCheckCharacters.DetectUrls = false;
             this.textBoxUserCommentInsertCheckCharacters.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxUserCommentInsertCheckCharacters.Location = new System.Drawing.Point(423, 237);
+            this.textBoxUserCommentInsertCheckCharacters.Multiline = false;
             this.textBoxUserCommentInsertCheckCharacters.Name = "textBoxUserCommentInsertCheckCharacters";
+            this.textBoxUserCommentInsertCheckCharacters.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
             this.textBoxUserCommentInsertCheckCharacters.Size = new System.Drawing.Size(152, 18);
             this.textBoxUserCommentInsertCheckCharacters.TabIndex = 17;
+            this.textBoxUserCommentInsertCheckCharacters.Text = "";
             // 
             // textBoxUserCommentAppendCheckCharacters
             // 
+            this.textBoxUserCommentAppendCheckCharacters.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxUserCommentAppendCheckCharacters.DetectUrls = false;
             this.textBoxUserCommentAppendCheckCharacters.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxUserCommentAppendCheckCharacters.Location = new System.Drawing.Point(423, 259);
+            this.textBoxUserCommentAppendCheckCharacters.Multiline = false;
             this.textBoxUserCommentAppendCheckCharacters.Name = "textBoxUserCommentAppendCheckCharacters";
+            this.textBoxUserCommentAppendCheckCharacters.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
             this.textBoxUserCommentAppendCheckCharacters.Size = new System.Drawing.Size(152, 18);
             this.textBoxUserCommentAppendCheckCharacters.TabIndex = 20;
+            this.textBoxUserCommentAppendCheckCharacters.Text = "";
             // 
             // checkBoxUseDefaultArtist
             // 
@@ -1090,6 +1102,8 @@ namespace QuickImageComment
             // panel3
             // 
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel3.Controls.Add(this.comboBoxColorTheme);
+            this.panel3.Controls.Add(this.label12);
             this.panel3.Controls.Add(this.checkBoxShowRatingButtonReject);
             this.panel3.Controls.Add(this.checkBoxLogDiffMetaData);
             this.panel3.Controls.Add(this.comboBoxCharsetUserComment);
@@ -1104,7 +1118,7 @@ namespace QuickImageComment
             // checkBoxShowRatingButtonReject
             // 
             this.checkBoxShowRatingButtonReject.AutoSize = true;
-            this.checkBoxShowRatingButtonReject.Location = new System.Drawing.Point(455, 6);
+            this.checkBoxShowRatingButtonReject.Location = new System.Drawing.Point(423, 6);
             this.checkBoxShowRatingButtonReject.Name = "checkBoxShowRatingButtonReject";
             this.checkBoxShowRatingButtonReject.Size = new System.Drawing.Size(262, 17);
             this.checkBoxShowRatingButtonReject.TabIndex = 41;
@@ -1114,7 +1128,7 @@ namespace QuickImageComment
             // checkBoxLogDiffMetaData
             // 
             this.checkBoxLogDiffMetaData.AutoSize = true;
-            this.checkBoxLogDiffMetaData.Location = new System.Drawing.Point(455, 44);
+            this.checkBoxLogDiffMetaData.Location = new System.Drawing.Point(423, 44);
             this.checkBoxLogDiffMetaData.Name = "checkBoxLogDiffMetaData";
             this.checkBoxLogDiffMetaData.Size = new System.Drawing.Size(227, 17);
             this.checkBoxLogDiffMetaData.TabIndex = 40;
@@ -1243,6 +1257,25 @@ namespace QuickImageComment
             this.comboBoxPredefinedCommentsMouseDoubleClickAction.Name = "comboBoxPredefinedCommentsMouseDoubleClickAction";
             this.comboBoxPredefinedCommentsMouseDoubleClickAction.Size = new System.Drawing.Size(152, 22);
             this.comboBoxPredefinedCommentsMouseDoubleClickAction.TabIndex = 15;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(766, 8);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(64, 13);
+            this.label12.TabIndex = 39;
+            this.label12.Text = "Farbmodus:";
+            // 
+            // comboBoxColorTheme
+            // 
+            this.comboBoxColorTheme.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.comboBoxColorTheme.FormattingEnabled = true;
+            this.comboBoxColorTheme.Location = new System.Drawing.Point(766, 24);
+            this.comboBoxColorTheme.Name = "comboBoxColorTheme";
+            this.comboBoxColorTheme.Size = new System.Drawing.Size(141, 22);
+            this.comboBoxColorTheme.TabIndex = 42;
+            this.comboBoxColorTheme.SelectedIndexChanged += new System.EventHandler(this.comboBoxColorTheme_SelectedIndexChanged);
             // 
             // FormSettings
             // 
@@ -1401,5 +1434,7 @@ namespace QuickImageComment
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private QuickImageCommentControls.ButtonQIC   buttonOK;
         private QuickImageCommentControls.ButtonQIC   buttonHelp;
+        private System.Windows.Forms.Label label12;
+        private QuickImageCommentControls.ComboBoxQIC comboBoxColorTheme;
     }
 }

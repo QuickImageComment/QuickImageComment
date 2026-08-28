@@ -2457,7 +2457,6 @@ namespace QuickImageComment
                 // set the flags indicating if user controls are visible
                 setUserControlVisibilityFlags();
 
-                adjustAfterColorThemeChange();
                 //CustomizationInterface.checkFontSize(this, this.Font.Size);
             }
         }

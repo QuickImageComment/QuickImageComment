@@ -14,6 +14,7 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
+using FormCustomization;
 using System;
 using System.Collections.Specialized;
 using System.Windows.Forms;
@@ -40,6 +41,9 @@ namespace QuickImageComment
         private readonly string[] PredefinedCommentsMouseDoubleClickActionItems = new string[4];
 
         public bool settingsChanged = true;
+
+        private static readonly string[] colorThemeNames = new string[] { "Hell", "Dunkel", "System" };
+        private static readonly string[] colorThemeConfig = new string[] { Customizer.ThemeLight, Customizer.ThemeDark, "System" };
 
         public FormSettings()
         {
@@ -130,6 +134,20 @@ namespace QuickImageComment
             CustomizationInterface.setFormToCustomizedValuesZoomInitial(this);
 
             comboBoxPredefinedCommentsMouseDoubleClickAction.Items.CopyTo(PredefinedCommentsMouseDoubleClickActionItems, 0);
+
+            for (int ii = 0; ii < colorThemeNames.Length; ii++)
+            {
+                comboBoxColorTheme.Items.Add(colorThemeNames[ii]);
+            }
+            for (int ii = 0; ii < colorThemeNames.Length; ii++)
+            {
+                if (ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.ColorThemeName).Equals(colorThemeConfig[ii]))
+                {
+                    comboBoxColorTheme.SelectedIndex = ii;
+                    break;
+                }
+            }
+
             LangCfg.translateControlTexts(this);
 
             // if flag set, create screenshot and return
@@ -308,6 +326,18 @@ namespace QuickImageComment
             {
                 buttonHelp_Click(sender, null);
             }
+        }
+
+        private void comboBoxColorTheme_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ConfigDefinition.setColorTheme(colorThemeConfig[comboBoxColorTheme.SelectedIndex]);
+
+            // first adjust main mask which includes setting theme in customizer
+            // including checking if system is in dark mode (which is also needed when initializing the main mask)
+            MainMaskInterface.adjustAfterColorThemeChange();
+
+            // set theme for all activated forms (excluding main mask)
+            CustomizationInterface.setThemeForActivatedForms();
         }
     }
 }
