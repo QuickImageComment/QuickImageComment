@@ -743,9 +743,10 @@ namespace QuickImageComment
                 // adjust view in FormQuickImageComment
                 MainMaskInterface.adjustViewAfterFormView();
 
+                CustomizationInterface.setThemeForActivatedForms();
                 // adjust theme in this mask after main mask as main mask has the logic to set theme in customizer
                 // including checking if system is in dark mode (which is also needed when initializing the main mask)
-                CustomizationInterface.setThemeForComponent(this);
+//                CustomizationInterface.setThemeForComponent(this);
             }
         }
 

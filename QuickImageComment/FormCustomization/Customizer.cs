@@ -205,6 +205,8 @@ namespace FormCustomization
         private static ArrayList ControlsUnchangedTheme;
         private SortedList<string, ComponentColors> OriginalColors = new SortedList<string, ComponentColors>();
 
+        private ArrayList ActivatedForms = new System.Collections.ArrayList();
+
         // enum to change properties of form components
         // when adding new enumProperty, adjust also:
         // getProperty, set
@@ -406,6 +408,10 @@ namespace FormCustomization
         // to be called before .Show (as controls are not hidden during modification)
         internal void setAllComponentsZoomInitial(enumSetTo SetTo, Form theForm)
         {
+            if (!ActivatedForms.Contains(theForm))
+            {
+                ActivatedForms.Add(theForm);
+            }
             if (ActualZoomFactors.ContainsKey(theForm.Name))
             {
                 ActualZoomFactors.Remove(theForm.Name);
@@ -689,6 +695,19 @@ namespace FormCustomization
             }
         }
         #endregion
+
+        // set theme for all activated forms
+        internal void setThemeForActivatedForms()
+        {
+            foreach (Form theForm in ActivatedForms)
+            {
+                // Form may be closed in the meantime; FormQuickImageComment needs special handling
+                if (theForm != null && !(theForm is FormQuickImageComment))
+                {
+                    setThemeForComponent(theForm, 0);
+                }
+            }
+        }
 
         // set theme for controls and their child controls
         internal void setThemeForComponent(Component ParentControl, int givenLevel)

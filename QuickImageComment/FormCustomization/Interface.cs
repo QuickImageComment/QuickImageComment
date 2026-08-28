@@ -144,6 +144,12 @@ namespace FormCustomization
             theCustomizer.zoomToolStrip(ParentControl, zoomFactor);
         }
 
+        // set theme for all activated forms
+        internal void setThemeForActivatedForms()
+        {
+            theCustomizer.setThemeForActivatedForms();
+        }
+
         // set theme colors
         internal void setThemeForComponent(Component component)
         {
