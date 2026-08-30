@@ -3995,7 +3995,7 @@ namespace QuickImageComment
             DataGridViewOverview.fillDataOverview(MetaDataDefinitions, theExtendedImage, singleEdit);
 
             // and one empty line
-            DataGridViewOverview.Rows.Add(new string[] { "", "" });
+            DataGridViewOverview.addRowWithSettingColors(new string[] { "", "" });
 
             string MessageText = "";
 
@@ -4004,7 +4004,7 @@ namespace QuickImageComment
             {
                 row[0] = LangCfg.getText(LangCfg.Others.displayErrorMessage);
                 row[1] = theExtendedImage.getDisplayImageErrorMessage();
-                DataGridViewOverview.Rows.Add(row);
+                DataGridViewOverview.addRowWithSettingColors(row);
                 MessageText = MessageText + "\n" + LangCfg.getText(LangCfg.Others.displayErrorMessage)
                     + ": " + theExtendedImage.getDisplayImageErrorMessage();
             }
@@ -4016,7 +4016,7 @@ namespace QuickImageComment
                 {
                     row[0] = ExifWarning.getName();
                     row[1] = ExifWarning.getMessage();
-                    DataGridViewOverview.Rows.Add(row);
+                    DataGridViewOverview.addRowWithSettingColors(row);
                     MessageText = MessageText + "\n" + ExifWarning.getName() + ": " + ExifWarning.getMessage();
                 }
             }
@@ -4038,13 +4038,13 @@ namespace QuickImageComment
             if (theExtendedImage.getPerformanceMeasurements().Count > 0)
             {
                 // and one empty line
-                DataGridViewOverview.Rows.Add(new string[] { "", "" });
+                DataGridViewOverview.addRowWithSettingColors(new string[] { "", "" });
 
                 foreach (string Measurement in theExtendedImage.getPerformanceMeasurements())
                 {
                     row[0] = "Performance";
                     row[1] = Measurement;
-                    DataGridViewOverview.Rows.Add(row);
+                    DataGridViewOverview.addRowWithSettingColors(row);
                 }
             }
 

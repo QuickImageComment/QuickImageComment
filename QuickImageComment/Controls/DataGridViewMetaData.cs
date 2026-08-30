@@ -696,6 +696,13 @@ namespace QuickImageCommentControls
             }
         }
 
+        internal void addRowWithSettingColors(string[] row)
+        {
+            Rows.Add(row);
+            Rows[Rows.Count - 1].DefaultCellStyle.BackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorNotEnabled);
+            Rows[Rows.Count - 1].DefaultCellStyle.ForeColor = this.ForeColor;
+        }
+
         private void toolStripMenuItemPlain_Click(object sender, System.EventArgs e)
         {
             ConfigDefinition.setDataGridViewDisplayHeader(this, false);
