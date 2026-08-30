@@ -857,7 +857,7 @@ namespace FormCustomization
             Color newPressedBackColor = Color.Empty;
             Color newHoverBackColor = Color.Empty;
 
-            if (ThemeName.Equals(ThemeLight))
+            if (ThemeName.Equals(ThemeLight) || ThemeName.Equals(""))
             {
                 // set to original colors, as light theme is default
                 newBackcolor = OriginalColors[ParentControlFullName].BackColor;
