@@ -11,6 +11,14 @@ namespace QuickImageCommentControls
     // CheckedListBox with different background color for selected items
     public class CheckedListBoxItemBackcolor : CheckedListBox
     {
+        private bool IsInDesignMode
+        {
+            get
+            {
+                return DesignMode || (Site?.DesignMode ?? false);
+            }
+        }
+
         protected override void OnDrawItem(DrawItemEventArgs e)
         {
             base.OnDrawItem(e);
@@ -20,20 +28,23 @@ namespace QuickImageCommentControls
             if (e.Index < 0)
                 return;
 
-            SolidBrush backBrush;
-            SolidBrush foreBrush;
-            if (Enabled)
+            SolidBrush backBrush = new SolidBrush(BackColor);
+            SolidBrush foreBrush = new SolidBrush(ForeColor);
+            if (!IsInDesignMode)
             {
-                if (this.CheckedIndices.Contains(e.Index))
-                    backBrush = new SolidBrush(ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorMultiEditNonDefault));
+                if (Enabled)
+                {
+                    if (this.CheckedIndices.Contains(e.Index))
+                        backBrush = new SolidBrush(ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorMultiEditNonDefault));
+                    else
+                        backBrush = new SolidBrush(BackColor);
+                    foreBrush = new SolidBrush(ForeColor);
+                }
                 else
-                    backBrush = new SolidBrush(BackColor);
-                foreBrush = new SolidBrush(ForeColor);
-            }
-            else
-            {
-                backBrush = new SolidBrush(ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorNotEnabled));
-                foreBrush = new SolidBrush(ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.ForeColorNotEnabled));
+                {
+                    backBrush = new SolidBrush(ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorNotEnabled));
+                    foreBrush = new SolidBrush(ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.ForeColorNotEnabled));
+                }
             }
 
             var contentRect = e.Bounds;
