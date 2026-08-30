@@ -155,7 +155,8 @@ namespace QuickImageComment
             // background color for entered text to make spaces visible
             BackColorEnteredText,
             BackColorSelectedThumbnail,
-            BackColorFillThumbnail
+            BackColorFillThumbnail,
+            BackColorSelectedFolder
         };
 
         public enum enumConfigString

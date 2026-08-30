@@ -2803,7 +2803,7 @@ namespace QuickImageComment
             int destWidth = (int)(sourceWidth * nPercent);
             int destHeight = (int)(sourceHeight * nPercent);
 
-            System.Drawing.Bitmap bmPhoto = new System.Drawing.Bitmap(Width, Height,
+            System.Drawing.Bitmap bmPhoto = new System.Drawing.Bitmap(destWidth, destHeight,
                                           System.Drawing.Imaging.PixelFormat.Format24bppRgb);
             bmPhoto.SetResolution(imgPhoto.HorizontalResolution,
                              imgPhoto.VerticalResolution);
@@ -2814,7 +2814,7 @@ namespace QuickImageComment
                     System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
 
             grPhoto.DrawImage(imgPhoto,
-                new System.Drawing.Rectangle(destX, destY, destWidth, destHeight),
+                new System.Drawing.Rectangle(0, 0, destWidth, destHeight),
                 new System.Drawing.Rectangle(sourceX, sourceY, sourceWidth, sourceHeight),
                 System.Drawing.GraphicsUnit.Pixel);
 

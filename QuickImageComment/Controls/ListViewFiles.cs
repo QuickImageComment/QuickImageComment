@@ -186,11 +186,6 @@ namespace QuickImageCommentControls
             // 
             this.OwnerDraw = true;
             this.Scroll += new System.Windows.Forms.ScrollEventHandler(this.listViewFiles_Scroll);
-            this.DrawItem += new System.Windows.Forms.DrawListViewItemEventHandler(this.listViewFiles_DrawItem);
-            this.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.listViewFiles_MouseWheel);
-            //this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ListViewFiles_MouseDown);
-            //this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ListViewFiles_MouseMove);
-            this.SizeChanged += new System.EventHandler(this.listViewFiles_SizeChanged);
 
             this.ResumeLayout(false);
         }
@@ -227,17 +222,20 @@ namespace QuickImageCommentControls
         }
 
         // event handler detects rotating mouse wheel
-        private void listViewFiles_MouseWheel(object sender, System.Windows.Forms.MouseEventArgs e)
+        protected override void OnMouseWheel(MouseEventArgs e)
         {
+            base.OnMouseWheel(e);
             listViewFilesScrolling = true;
             mouseWheelActive = true;
             if (delayAfterMouseWheelThread.ThreadState != ThreadState.Running &&
                 delayAfterMouseWheelThread.ThreadState != ThreadState.WaitSleepJoin)
             {
-                delayAfterMouseWheelThread = new Thread(delayAfterMouseWheel);
-                delayAfterMouseWheelThread.Name = "delay after mouse wheel";
-                delayAfterMouseWheelThread.Priority = ThreadPriority.Normal;
-                delayAfterMouseWheelThread.IsBackground = true;
+                delayAfterMouseWheelThread = new Thread(delayAfterMouseWheel)
+                {
+                    Name = "delay after mouse wheel",
+                    Priority = ThreadPriority.Normal,
+                    IsBackground = true
+                };
                 delayAfterMouseWheelThread.Start();
             }
         }
@@ -263,7 +261,7 @@ namespace QuickImageCommentControls
             }
 
             workAfterMouseWheelCallback theCallback =
-              new workAfterMouseWheelCallback(workAfterMouseWheel);
+                new workAfterMouseWheelCallback(workAfterMouseWheel);
             try
             {
                 this.Invoke(theCallback);
@@ -271,11 +269,26 @@ namespace QuickImageCommentControls
             catch { }
         }
 
-        // when size is changed, adjust tile width
-        private void listViewFiles_SizeChanged(object sender, EventArgs e)
+        // when size is changed, adjust tile width and last column width
+        protected override void OnSizeChanged(EventArgs e)
         {
+            base.OnSizeChanged(e);
             adjustTileViewWidth();
+            adjustLastColumnWidth();
         }
+
+        // when column width is changed adjust last column width
+        protected override void OnColumnWidthChanged(ColumnWidthChangedEventArgs e)
+        {
+            base.OnColumnWidthChanged(e);
+
+            // Only adjust when a non-last column changed
+            if (e.ColumnIndex < this.Columns.Count - 1)
+            {
+                adjustLastColumnWidth();
+            }
+        }
+
         public void adjustTileViewWidth()
         {
             // it happened, that this method was called, when Width was zero
@@ -287,15 +300,37 @@ namespace QuickImageCommentControls
                 this.TileSize = new Size(this.Width - widthAdjustThis2Tile,
                                          ThumbNailSize + ConfigDefinition.getConfigInt(ConfigDefinition.enumConfigInt.TileVerticalSpace));
             }
+        }
 
+        // mainly to avoid white area in header in dark mode
+        internal void adjustLastColumnWidth()
+        {
+            if (this.View != View.Details)
+                return;
+
+            if (this.Columns.Count == 0)
+                return;
+
+            int totalWidth = this.ClientSize.Width;
+
+            // subtract widths of all columns except the last
+            for (int i = 0; i < this.Columns.Count - 1; i++)
+                totalWidth -= this.Columns[i].Width;
+
+            // minimum width to avoid collapse
+            if (totalWidth < 20)
+                totalWidth = 20;
+
+            this.Columns[this.Columns.Count - 1].Width = totalWidth;
         }
 
         // draw the listViewFiles items
-        private void listViewFiles_DrawItem(object sender, DrawListViewItemEventArgs e)
+        protected override void OnDrawItem(DrawListViewItemEventArgs e)
         {
             Brush theBrush = null;
             ExtendedImage ExtendedImageForThumbnail = null;
             Image theThumbNail = null;
+            Color selectedColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorSelectedThumbnail);
 
             int boundsWidth = e.Bounds.Width;
             if (this.Width < 2 * boundsWidth)
@@ -340,43 +375,60 @@ namespace QuickImageCommentControls
                               new Rectangle(e.Bounds.X, e.Bounds.Y, boundsWidth, e.Bounds.Height));
                 }
 
+                // Draw List
+                if (this.View == View.List)
+                {
+                    if (theListViewItem.Selected)
+                    {
+                        e.Graphics.FillRectangle(new SolidBrush(selectedColor), e.Bounds);
+
+                    }
+                    // Use TextRenderer.DrawText instead of Graphics.DrawString:
+                    // avoids overdrawing background behind text
+                    TextRenderer.DrawText(
+                        e.Graphics,
+                        e.Item.Text,
+                        this.Font,
+                        e.Bounds,
+                        e.Item.Selected ? Color.White : this.ForeColor,
+                        TextFormatFlags.Left
+                        | TextFormatFlags.VerticalCenter
+                    );
+                }
+
+                // Draw Details
+                else if (this.View == View.Details)
+                {
+                    // draw background for whole row
+                    Color back = e.Item.Selected
+                        ? ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorSelectedThumbnail)
+                        : this.BackColor;
+
+                    using (var b = new SolidBrush(back))
+                        e.Graphics.FillRectangle(b, e.Bounds);
+                    // text is drawn in OnDrawSubItem
+                }
+
                 // Draw Large Icons
-                if (this.View == View.LargeIcon)
+                else if (this.View == View.LargeIcon)
                 {
                     StringFormat format = new StringFormat();
                     format.Alignment = StringAlignment.Center;
                     format.FormatFlags = StringFormatFlags.LineLimit;
                     format.Trimming = StringTrimming.EllipsisCharacter;
 
-                    SizeF size = e.Graphics.MeasureString(theListViewItem.Text, this.Font,
-                                        new SizeF(boundsWidth, e.Bounds.Height - ThumbNailSize), format);
-                    int XOffset = (boundsWidth - ThumbNailSize) / 2;
-
                     // draw frames and set Systembrush for text
                     if (theListViewItem.Selected)
                     {
-                        // selected items in View LargeIcon
-                        e.Graphics.DrawRectangle(new Pen(System.Drawing.SystemColors.Highlight, thickLine),
-                          new Rectangle(e.Bounds.X + XOffset + thickLine / 2, e.Bounds.Y + thickLine / 2,
-                            ThumbNailSize + thickLine, ThumbNailSize + thickLine));
-                        e.Graphics.FillRectangle(new SolidBrush(System.Drawing.SystemColors.Highlight), new Rectangle(
-                                            e.Bounds.X + (int)(boundsWidth - size.Width) / 2 + thickLine,
-                                            e.Bounds.Y + ThumbNailSize + 2 * thickLine,
-                                            (int)size.Width, (int)size.Height + 4));
-                        theBrush = SystemBrushes.HighlightText;
+                        e.Graphics.FillRectangle(new SolidBrush(selectedColor), e.Bounds);
                     }
-                    else
-                    {
-                        // not selected items in View LargeIcon
-                        e.Graphics.DrawRectangle(new Pen(System.Drawing.Color.LightGray, thinLine),
-                          new Rectangle(e.Bounds.X + XOffset + thickLine - thinLine, e.Bounds.Y + thickLine - thinLine,
-                            ThumbNailSize + thinLine, ThumbNailSize + thinLine));
-                        theBrush = new SolidBrush(this.ForeColor);
-                    }
+                    theBrush = new SolidBrush(this.ForeColor);
                     if (displayThumbnail)
                     // draw image (only if not scrolling) and text
                     {
-                        e.Graphics.DrawImage(theThumbNail, new Point(e.Bounds.X + XOffset + thickLine, e.Bounds.Y + thickLine));
+                        int x = e.Bounds.X + thickLine + (ThumbNailSize - theThumbNail.Width) / 2 + 1;
+                        int y = e.Bounds.Y + thickLine + (ThumbNailSize - theThumbNail.Height) / 2 + 1;
+                        e.Graphics.DrawImage(theThumbNail, new Point(x, y));
                         if (ExtendedImageForThumbnail.getRecordingLocation() != null)
                         {
                             e.Graphics.DrawImage(earthBitmap, new Point(e.Bounds.X + 5, e.Bounds.Y + 5));
@@ -418,28 +470,16 @@ namespace QuickImageCommentControls
                     // draw frames and set Systembrush for text
                     if (theListViewItem.Selected)
                     {
-                        // selected items in View LargeIcon
-                        e.Graphics.DrawRectangle(new Pen(System.Drawing.SystemColors.Highlight, tileLine),
-                          new Rectangle(e.Bounds.X + tileLine / 2, e.Bounds.Y + tileLine / 2,
-                            ThumbNailSize + tileLine, ThumbNailSize + tileLine));
-                        e.Graphics.FillRectangle(new SolidBrush(System.Drawing.SystemColors.Highlight), new Rectangle(
-                                            e.Bounds.X + ThumbNailSize + tileLine + 1, e.Bounds.Y,
-                                            boundsWidth - ThumbNailSize - tileLine - 1, ThumbNailSize + tileLine + 2));
-                        theBrush = SystemBrushes.HighlightText;
+                        e.Graphics.FillRectangle(new SolidBrush(selectedColor), e.Bounds);
                     }
-                    else
-                    {
-                        // not selected items in View LargeIcon
-                        e.Graphics.DrawRectangle(new Pen(System.Drawing.Color.LightGray, thinLine),
-                          new Rectangle(e.Bounds.X + tileLine - thinLine, e.Bounds.Y + tileLine / 2,
-                            ThumbNailSize + thinLine, ThumbNailSize + thinLine));
-                        theBrush = new SolidBrush(this.ForeColor);
-                    }
+                    theBrush = new SolidBrush(this.ForeColor);
 
                     if (displayThumbnail)
                     {
                         // draw image and text
-                        e.Graphics.DrawImage(theThumbNail, new Point(e.Bounds.X + tileLine, e.Bounds.Y + tileLine));
+                        int x = e.Bounds.X + tileLine + (ThumbNailSize - theThumbNail.Width) / 2 + 1;
+                        int y = e.Bounds.Y + tileLine + (ThumbNailSize - theThumbNail.Height) / 2 + 1;
+                        e.Graphics.DrawImage(theThumbNail, new Point(x, y));
                         if (ExtendedImageForThumbnail.getRecordingLocation() != null)
                         {
                             e.Graphics.DrawImage(earthBitmap, new Point(e.Bounds.X, e.Bounds.Y));
@@ -456,6 +496,59 @@ namespace QuickImageCommentControls
                     }
                 }
             }
+        }
+        protected override void OnDrawSubItem(DrawListViewSubItemEventArgs e)
+        {
+            // background for whole row is drawn in OnDrawItem
+            // Background for each cell could be done:
+            //Color back = e.Item.Selected
+            //    ? ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorSelectedThumbnail)
+            //    : this.BackColor;
+            //using (var b = new SolidBrush(back))
+            //    e.Graphics.FillRectangle(b, e.Bounds);
+
+            // Text
+            TextRenderer.DrawText(
+                e.Graphics,
+                e.SubItem.Text,
+                this.Font,
+                e.Bounds,
+                this.ForeColor,
+                TextFormatFlags.Left
+                | TextFormatFlags.VerticalCenter
+                | TextFormatFlags.EndEllipsis
+            );
+        }
+
+        protected override void OnDrawColumnHeader(DrawListViewColumnHeaderEventArgs e)
+        {
+            // Your custom header background color
+            Color back = this.BackColor;
+            Color text = this.ForeColor;
+
+            using (var b = new SolidBrush(back))
+                e.Graphics.FillRectangle(b, e.Bounds);
+
+            // Draw column separator line 
+            using (var pen = new Pen(this.ForeColor))
+                e.Graphics.DrawLine(pen, e.Bounds.Right - 1, e.Bounds.Top, e.Bounds.Right - 1, e.Bounds.Bottom);
+
+            // Text rectangle with small padding
+            Rectangle textRect = Rectangle.Inflate(e.Bounds, -4, -2);
+
+            TextFormatFlags flags =
+                TextFormatFlags.Left
+                | TextFormatFlags.VerticalCenter
+                | TextFormatFlags.EndEllipsis;
+
+            TextRenderer.DrawText(
+                e.Graphics,
+                e.Header.Text,
+                this.Font,
+                textRect,
+                text,
+                flags
+            );
         }
 
         // redraw fresh thumbnails
@@ -606,6 +699,7 @@ namespace QuickImageCommentControls
         {
             this.Scroll?.Invoke(this, e);
         }
+
         protected override void WndProc(ref Message m)
         {
             base.WndProc(ref m);

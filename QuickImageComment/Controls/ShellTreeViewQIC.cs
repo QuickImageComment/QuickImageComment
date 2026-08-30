@@ -30,6 +30,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace QuickImageCommentControls
@@ -65,13 +66,17 @@ namespace QuickImageCommentControls
             m_TreeView = new TreeView
             {
                 Dock = DockStyle.Fill,
-                HideSelection = false,
+                HideSelection = false,  // keep highlight when TreeView loses focus
                 HotTracking = true,
                 Parent = this,
-                ShowRootLines = false
+                ShowRootLines = false,
+                DrawMode = TreeViewDrawMode.OwnerDrawText
+
             };
             m_TreeView.AfterSelect += new TreeViewEventHandler(m_TreeView_AfterSelect);
             m_TreeView.BeforeExpand += new TreeViewCancelEventHandler(m_TreeView_BeforeExpand);
+            m_TreeView.DrawNode += new DrawTreeNodeEventHandler(treeView_DrawNode);
+
             SystemImageList.UseSystemImageList(m_TreeView);
 
             CreateItems();
@@ -434,6 +439,58 @@ namespace QuickImageCommentControls
         bool NodeHasChildren(TreeNode node)
         {
             return (node.Nodes.Count > 0) && (node.Nodes[0].Tag != null);
+        }
+
+        private void treeView_DrawNode(object sender, DrawTreeNodeEventArgs e)
+        {
+            TreeView tv = (TreeView)sender;
+
+            bool isSelected = (e.State & TreeNodeStates.Selected) != 0;
+            bool hasFocus = tv.Focused;
+
+            Color backColor;
+            Color textColor = tv.ForeColor;
+
+            if (isSelected)
+            {
+                backColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorSelectedFolder);
+            }
+            else
+            {
+                backColor = tv.BackColor;
+            }
+
+            // full-row highlight WITHOUT covering glyph area
+            Rectangle rowRect = new Rectangle(
+                e.Bounds.Left,
+                e.Bounds.Top,
+                tv.ClientSize.Width - e.Bounds.Left,
+                e.Bounds.Height
+            );
+
+            using (var b = new SolidBrush(backColor))
+                e.Graphics.FillRectangle(b, rowRect);
+
+            // --- Draw text manually to suppress blue background ---
+            // Compute text rectangle (icon width + indent)
+            int iconWidth = tv.ImageList?.ImageSize.Width ?? 0;
+            int textLeft = e.Bounds.Left + iconWidth + 3;
+
+            Rectangle textRect = new Rectangle(
+                textLeft,
+                e.Bounds.Top,
+                tv.ClientSize.Width - textLeft,
+                e.Bounds.Height
+            );
+
+            TextRenderer.DrawText(
+                e.Graphics,
+                e.Node.Text,
+                tv.Font,
+                textRect,
+                textColor,
+                TextFormatFlags.Left | TextFormatFlags.VerticalCenter
+            );
         }
 
         void m_TreeView_AfterSelect(object sender, TreeViewEventArgs e)

@@ -1278,6 +1278,8 @@ namespace QuickImageComment
                     GeneralUtilities.debugMessage("View Detail sub type " + detailSubtype.ToString() + " not handled!");
                     break;
             }
+            // set width of last columen especially to avoid wrong color
+            listViewFiles.adjustLastColumnWidth();
         }
 
         // change view
@@ -1296,7 +1298,6 @@ namespace QuickImageComment
             {
                 listViewFiles.AutoResizeColumns(ColumnHeaderAutoResizeStyle.None);
             }
-            listViewFiles.OwnerDraw = listViewFiles.View != View.List && listViewFiles.View != View.Details;
 
             theFormQuickImageComment.toolStripMenuItemDetails.Checked = listViewFiles.View.Equals(View.Details) &&
                 listViewFiles.viewDetailSubtype == ListViewFiles.enumViewDetailSubtype.Standard;
