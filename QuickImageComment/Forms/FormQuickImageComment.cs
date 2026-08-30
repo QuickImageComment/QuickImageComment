@@ -1726,7 +1726,7 @@ namespace QuickImageComment
             if (isNotDefault)
                 control.BackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorMultiEditNonDefault);
             else
-                control.BackColor = Control.DefaultBackColor;
+                control.BackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorInputUnchanged);
         }
 
         // event handler for changing split ratio of splitContainer1
