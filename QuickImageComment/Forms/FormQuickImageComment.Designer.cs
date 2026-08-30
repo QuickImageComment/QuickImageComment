@@ -383,8 +383,6 @@ namespace QuickImageComment
             // splitContainer12P1
             // 
             this.splitContainer12P1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer12P1.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
-            this.splitContainer12P1.IsSplitterFixed = true;
             this.splitContainer12P1.Location = new System.Drawing.Point(0, 0);
             this.splitContainer12P1.Name = "splitContainer12P1";
             this.splitContainer12P1.Orientation = System.Windows.Forms.Orientation.Horizontal;
@@ -650,7 +648,7 @@ namespace QuickImageComment
             this.tabPageExif.Location = new System.Drawing.Point(4, 22);
             this.tabPageExif.Name = "tabPageExif";
             this.tabPageExif.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageExif.Size = new System.Drawing.Size(271, 163);
+            this.tabPageExif.Size = new System.Drawing.Size(271, 159);
             this.tabPageExif.TabIndex = 1;
             this.tabPageExif.Text = "Exif";
             this.tabPageExif.UseVisualStyleBackColor = true;
@@ -661,7 +659,7 @@ namespace QuickImageComment
             this.tabPageIptc.Location = new System.Drawing.Point(4, 22);
             this.tabPageIptc.Name = "tabPageIptc";
             this.tabPageIptc.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageIptc.Size = new System.Drawing.Size(271, 163);
+            this.tabPageIptc.Size = new System.Drawing.Size(271, 159);
             this.tabPageIptc.TabIndex = 2;
             this.tabPageIptc.Text = "IPTC";
             this.tabPageIptc.UseVisualStyleBackColor = true;
@@ -672,7 +670,7 @@ namespace QuickImageComment
             this.tabPageXmp.Location = new System.Drawing.Point(4, 22);
             this.tabPageXmp.Name = "tabPageXmp";
             this.tabPageXmp.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageXmp.Size = new System.Drawing.Size(271, 163);
+            this.tabPageXmp.Size = new System.Drawing.Size(271, 159);
             this.tabPageXmp.TabIndex = 4;
             this.tabPageXmp.Text = "XMP";
             // 
@@ -682,7 +680,7 @@ namespace QuickImageComment
             this.tabPageExifTool.Location = new System.Drawing.Point(4, 22);
             this.tabPageExifTool.Name = "tabPageExifTool";
             this.tabPageExifTool.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageExifTool.Size = new System.Drawing.Size(271, 163);
+            this.tabPageExifTool.Size = new System.Drawing.Size(271, 159);
             this.tabPageExifTool.TabIndex = 5;
             this.tabPageExifTool.Text = "ExifTool";
             this.tabPageExifTool.UseVisualStyleBackColor = true;
@@ -693,7 +691,7 @@ namespace QuickImageComment
             this.tabPageOther.Location = new System.Drawing.Point(4, 22);
             this.tabPageOther.Name = "tabPageOther";
             this.tabPageOther.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageOther.Size = new System.Drawing.Size(271, 163);
+            this.tabPageOther.Size = new System.Drawing.Size(271, 159);
             this.tabPageOther.TabIndex = 3;
             this.tabPageOther.Text = "Sonstige";
             this.tabPageOther.UseVisualStyleBackColor = true;
@@ -706,7 +704,7 @@ namespace QuickImageComment
             this.tabPageMulti.Location = new System.Drawing.Point(4, 25);
             this.tabPageMulti.Name = "tabPageMulti";
             this.tabPageMulti.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.tabPageMulti.Size = new System.Drawing.Size(500, 189);
+            this.tabPageMulti.Size = new System.Drawing.Size(500, 185);
             this.tabPageMulti.TabIndex = 1;
             this.tabPageMulti.Text = "Mehrfach-Bildbearbeitung";
             this.tabPageMulti.UseVisualStyleBackColor = true;
@@ -726,7 +724,7 @@ namespace QuickImageComment
             // splitContainer1213.Panel2
             // 
             this.splitContainer1213.Panel2.Controls.Add(this.dataGridViewSelectedFiles);
-            this.splitContainer1213.Size = new System.Drawing.Size(500, 189);
+            this.splitContainer1213.Size = new System.Drawing.Size(500, 185);
             this.splitContainer1213.SplitterDistance = 265;
             this.splitContainer1213.TabIndex = 6;
             // 
@@ -750,7 +748,7 @@ namespace QuickImageComment
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 23F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 23F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(265, 189);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(265, 185);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // checkedListBoxChangeableFieldsChange
@@ -763,7 +761,7 @@ namespace QuickImageComment
             this.checkedListBoxChangeableFieldsChange.IntegralHeight = false;
             this.checkedListBoxChangeableFieldsChange.Location = new System.Drawing.Point(3, 118);
             this.checkedListBoxChangeableFieldsChange.Name = "checkedListBoxChangeableFieldsChange";
-            this.checkedListBoxChangeableFieldsChange.Size = new System.Drawing.Size(259, 68);
+            this.checkedListBoxChangeableFieldsChange.Size = new System.Drawing.Size(259, 64);
             this.checkedListBoxChangeableFieldsChange.TabIndex = 3;
             // 
             // checkBoxArtistChange
@@ -862,7 +860,7 @@ namespace QuickImageComment
             this.dataGridViewSelectedFiles.RowHeadersVisible = false;
             this.dataGridViewSelectedFiles.ShowCellToolTips = false;
             this.dataGridViewSelectedFiles.ShowEditingIcon = false;
-            this.dataGridViewSelectedFiles.Size = new System.Drawing.Size(231, 189);
+            this.dataGridViewSelectedFiles.Size = new System.Drawing.Size(231, 185);
             this.dataGridViewSelectedFiles.TabIndex = 4;
             this.dataGridViewSelectedFiles.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewSelectedFiles_CellMouseEnter);
             this.dataGridViewSelectedFiles.CellMouseLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewSelectedFiles_CellMouseLeave);

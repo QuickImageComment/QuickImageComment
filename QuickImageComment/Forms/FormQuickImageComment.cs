@@ -283,7 +283,9 @@ namespace QuickImageComment
             splitContainer121.SplitterDistance = (int)(splitContainer121SplitterRatio * splitContainer121.Width);
             splitContainer1211.SplitterDistance = (int)(splitContainer1211SplitterRatio * splitContainer1211.Width);
             splitContainer122.SplitterDistance = (int)(splitContainer122SplitterRatio * splitContainer122.Width);
-
+            // IsSplitterFixed is set to false in Designer.cs as it avoids that SplitterDistance
+            // is reduced by 2 pixels each time the form is opened in Designer
+            splitContainer12P1.IsSplitterFixed = true;
             // data grids for meta data
             // controls added here, so that all settings can be defined in constructor of DataGridViewMetaData
             // when controls are added in Designer.cs then each time the mask is changed, new columns are added by Visual Studio Designer
