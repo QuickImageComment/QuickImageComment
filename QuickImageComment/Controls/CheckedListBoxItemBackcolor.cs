@@ -1,5 +1,5 @@
-﻿using System;
-using System.ComponentModel;
+﻿using QuickImageComment;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -11,17 +11,6 @@ namespace QuickImageCommentControls
     // CheckedListBox with different background color for selected items
     public class CheckedListBoxItemBackcolor : CheckedListBox
     {
-        private SolidBrush primaryColor = new SolidBrush(DefaultBackColor);
-        private SolidBrush checkedColor = new SolidBrush(Color.LightGreen);
-
-        //[Browsable(true)]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        public Color CheckedColor
-        {
-            get { return checkedColor.Color; }
-            set { checkedColor.Color = value; }
-        }
-
         protected override void OnDrawItem(DrawItemEventArgs e)
         {
             base.OnDrawItem(e);
@@ -31,10 +20,26 @@ namespace QuickImageCommentControls
             if (e.Index < 0)
                 return;
 
+            SolidBrush backBrush;
+            SolidBrush foreBrush;
+            if (Enabled)
+            {
+                if (this.CheckedIndices.Contains(e.Index))
+                    backBrush = new SolidBrush(ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorMultiEditNonDefault));
+                else
+                    backBrush = new SolidBrush(BackColor);
+                foreBrush = new SolidBrush(ForeColor);
+            }
+            else
+            {
+                backBrush = new SolidBrush(ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorNotEnabled));
+                foreBrush = new SolidBrush(ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.ForeColorNotEnabled));
+            }
+
             var contentRect = e.Bounds;
             contentRect.X = 16;
-            e.Graphics.FillRectangle(this.CheckedIndices.Contains(e.Index) ? checkedColor : primaryColor, contentRect);
-            e.Graphics.DrawString(Convert.ToString(Items[e.Index]), e.Font, Brushes.Black, contentRect);
+            e.Graphics.FillRectangle(backBrush, contentRect);
+            e.Graphics.DrawString(Convert.ToString(Items[e.Index]), e.Font, foreBrush, contentRect);
         }
     }
 }

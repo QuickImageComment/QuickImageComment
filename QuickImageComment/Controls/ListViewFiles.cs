@@ -390,7 +390,7 @@ namespace QuickImageCommentControls
                         e.Item.Text,
                         this.Font,
                         e.Bounds,
-                        e.Item.Selected ? Color.White : this.ForeColor,
+                        this.ForeColor,
                         TextFormatFlags.Left
                         | TextFormatFlags.VerticalCenter
                     );

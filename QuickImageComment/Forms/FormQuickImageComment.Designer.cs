@@ -757,7 +757,6 @@ namespace QuickImageComment
             // 
             this.checkedListBoxChangeableFieldsChange.BackColor = System.Drawing.SystemColors.Control;
             this.checkedListBoxChangeableFieldsChange.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.checkedListBoxChangeableFieldsChange.CheckedColor = System.Drawing.Color.LightGreen;
             this.checkedListBoxChangeableFieldsChange.CheckOnClick = true;
             this.checkedListBoxChangeableFieldsChange.Dock = System.Windows.Forms.DockStyle.Fill;
             this.checkedListBoxChangeableFieldsChange.FormattingEnabled = true;

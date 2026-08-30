@@ -324,8 +324,6 @@ namespace QuickImageComment
             tagKeyWordsImage = ConfigDefinition.getConfigStringArray(enumConfigStringArray.TagKeyWordsImage);
             tagKeyWordsVideo = ConfigDefinition.getConfigStringArray(enumConfigStringArray.TagKeyWordsVideo);
 
-            checkedListBoxChangeableFieldsChange.CheckedColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorMultiEditNonDefault);
-
             // get dpi configured by user
             Graphics dpiGraphics = this.CreateGraphics();
             dpiSettings = dpiGraphics.DpiX;
