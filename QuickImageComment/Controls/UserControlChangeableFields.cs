@@ -689,7 +689,7 @@ namespace QuickImageComment
             ChangeableFieldSpecification Spec = (ChangeableFieldSpecification)theDateTimePicker.Tag;
             Control theInputControl = null;
             // try to get associated combo box
-            string controlName = theDateTimePicker.Name.Replace("QuickImageComment.DateTimePickerQIC", "QuickImageCommentControls.ComboBox");
+            string controlName = theDateTimePicker.Name.Replace("QuickImageComment.DateTimePickerQIC", "QuickImageCommentControls.ComboBoxQIC");
             if (ChangeableFieldInputControls.ContainsKey(controlName))
             {
                 theInputControl = ChangeableFieldInputControls[controlName];
@@ -726,7 +726,7 @@ namespace QuickImageComment
             ChangeableFieldSpecification Spec = (ChangeableFieldSpecification)theDateTimePicker.Tag;
             Control theInputControl = null;
             // try to get associated combo box
-            string controlName = theDateTimePicker.Name.Replace("QuickImageComment.DateTimePickerQIC", "QuickImageCommentControls.ComboBox");
+            string controlName = theDateTimePicker.Name.Replace("QuickImageComment.DateTimePickerQIC", "QuickImageCommentControls.ComboBoxQIC");
             if (ChangeableFieldInputControls.ContainsKey(controlName))
             {
                 theInputControl = ChangeableFieldInputControls[controlName];
