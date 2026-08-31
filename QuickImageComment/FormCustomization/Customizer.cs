@@ -118,18 +118,27 @@ namespace FormCustomization
             public Color ForeColor;
             public Color DataGridViewDefaultCellBackColor;
             public Color DataGridViewDefaultColumnHeadersBackColor;
+            public Color DataGridViewDefaultColumnHeadersForeColor;
+            public Color DataGridViewDefaultRowHeadersBackColor;
+            public Color DataGridViewDefaultRowHeadersForeColor;
             public Color DisabledForeColor;
             public Color PressedBackColor;
             public Color HoverBackColor;
 
             public ComponentColors(Color givenBackColor, Color givenForeColor,
                 Color givenDataGridViewDefaultCellBackColor, Color givenDataGridViewDefaultColumnHeadersBackColor,
+                Color givenDataGridViewDefaultColumnHeadersForeColor,
+                Color givenDataGridViewDefaultRowHeadersBackColor,
+                Color givenDataGridViewDefaultRowHeadersForeColor,
                 Color givenDisabledForeColor, Color givenPressedBackColor, Color givenHoverBackColor)
             {
                 BackColor = givenBackColor;
                 ForeColor = givenForeColor;
                 DataGridViewDefaultCellBackColor = givenDataGridViewDefaultCellBackColor;
                 DataGridViewDefaultColumnHeadersBackColor = givenDataGridViewDefaultColumnHeadersBackColor;
+                DataGridViewDefaultColumnHeadersForeColor = givenDataGridViewDefaultColumnHeadersForeColor;
+                DataGridViewDefaultRowHeadersBackColor = givenDataGridViewDefaultRowHeadersBackColor;
+                DataGridViewDefaultRowHeadersForeColor = givenDataGridViewDefaultRowHeadersForeColor;
                 DisabledForeColor = givenDisabledForeColor;
                 PressedBackColor = givenPressedBackColor;
                 HoverBackColor = givenHoverBackColor;
@@ -215,7 +224,9 @@ namespace FormCustomization
         {
             BackColor, ForeColor, Font, Left, Top, Width, Height,
             TabIndex, Text, BackgroundImage, AutoSize, Shortcut,
-            DataGridViewDefaultCellBackColor, DataGridViewDefaultColumnHeadersBackColor,
+            DataGridViewDefaultCellBackColor, 
+            DataGridViewDefaultColumnHeadersBackColor, DataGridViewDefaultColumnHeadersForeColor,
+            DataGridViewDefaultRowHeadersBackColor, DataGridViewDefaultRowHeadersForeColor,
             DisabledForeColor, PressedBackColor, HoverBackColor
         };
         private string[] PropertyNames =
@@ -782,6 +793,9 @@ namespace FormCustomization
             Color forecolor = Color.Empty;
             Color dataGridViewDefaultCellBackColor = Color.Empty;
             Color dataGridViewDefaultColumnHeadersBackColor = Color.Empty;
+            Color dataGridViewDefaultColumnHeadersForeColor = Color.Empty;
+            Color dataGridViewDefaultRowHeadersBackColor = Color.Empty;
+            Color dataGridViewDefaultRowHeadersForeColor = Color.Empty;
             Color disabledForeColor = Color.Empty;
             Color pressedBackColor = Color.Empty;
             Color hoverBackColor = Color.Empty;
@@ -793,6 +807,9 @@ namespace FormCustomization
                 forecolor = OriginalColors[ParentControlFullName].ForeColor;
                 dataGridViewDefaultCellBackColor = OriginalColors[ParentControlFullName].DataGridViewDefaultCellBackColor;
                 dataGridViewDefaultColumnHeadersBackColor = OriginalColors[ParentControlFullName].DataGridViewDefaultColumnHeadersBackColor;
+                dataGridViewDefaultColumnHeadersForeColor = OriginalColors[ParentControlFullName].DataGridViewDefaultColumnHeadersForeColor;
+                dataGridViewDefaultRowHeadersBackColor = OriginalColors[ParentControlFullName].DataGridViewDefaultRowHeadersBackColor;
+                dataGridViewDefaultRowHeadersForeColor = OriginalColors[ParentControlFullName].DataGridViewDefaultRowHeadersForeColor;
             }
             else
             {
@@ -825,6 +842,9 @@ namespace FormCustomization
                     {
                         dataGridViewDefaultCellBackColor = dataGridView1.DefaultCellStyle.BackColor;
                         dataGridViewDefaultColumnHeadersBackColor = dataGridView1.ColumnHeadersDefaultCellStyle.BackColor;
+                        dataGridViewDefaultColumnHeadersForeColor = dataGridView1.ColumnHeadersDefaultCellStyle.ForeColor;
+                        dataGridViewDefaultRowHeadersBackColor = dataGridView1.RowHeadersDefaultCellStyle.BackColor;
+                        dataGridViewDefaultRowHeadersForeColor = dataGridView1.RowHeadersDefaultCellStyle.ForeColor;
                     }
                     else if (ParentControl is QuickImageCommentControls.ButtonQIC buttonQIC)
                     {
@@ -845,6 +865,9 @@ namespace FormCustomization
                 }
                 OriginalColors.Add(ParentControlFullName, new ComponentColors(backcolor, forecolor,
                     dataGridViewDefaultCellBackColor, dataGridViewDefaultColumnHeadersBackColor,
+                    dataGridViewDefaultColumnHeadersForeColor,
+                    dataGridViewDefaultRowHeadersBackColor,
+                    dataGridViewDefaultRowHeadersForeColor,
                     disabledForeColor, pressedBackColor, hoverBackColor));
             }
 
@@ -853,6 +876,9 @@ namespace FormCustomization
             Color newForcolor;
             Color newDataGridViewDefaultCellBackColor = Color.Empty;
             Color newDataGridViewDefaultColumnHeadersBackColor = Color.Empty;
+            Color newDataGridViewDefaultColumnHeadersForeColor = Color.Empty;
+            Color newDataGridViewDefaultRowHeadersBackColor = Color.Empty;
+            Color newDataGridViewDefaultRowHeadersForeColor = Color.Empty;
             Color newDisabledForeColor = Color.Empty;
             Color newPressedBackColor = Color.Empty;
             Color newHoverBackColor = Color.Empty;
@@ -864,6 +890,9 @@ namespace FormCustomization
                 newForcolor = OriginalColors[ParentControlFullName].ForeColor;
                 newDataGridViewDefaultCellBackColor = OriginalColors[ParentControlFullName].DataGridViewDefaultCellBackColor;
                 newDataGridViewDefaultColumnHeadersBackColor = OriginalColors[ParentControlFullName].DataGridViewDefaultColumnHeadersBackColor;
+                newDataGridViewDefaultColumnHeadersForeColor = OriginalColors[ParentControlFullName].DataGridViewDefaultColumnHeadersForeColor;
+                newDataGridViewDefaultRowHeadersBackColor = OriginalColors[ParentControlFullName].DataGridViewDefaultRowHeadersBackColor;
+                newDataGridViewDefaultRowHeadersForeColor = OriginalColors[ParentControlFullName].DataGridViewDefaultRowHeadersForeColor;
                 newDisabledForeColor = OriginalColors[ParentControlFullName].DisabledForeColor;
                 newPressedBackColor = OriginalColors[ParentControlFullName].PressedBackColor;
                 newHoverBackColor = OriginalColors[ParentControlFullName].HoverBackColor;
@@ -875,9 +904,21 @@ namespace FormCustomization
                 newForcolor = getColorByTheme(ParentControlFullName, forecolor, "Fore");
                 newDataGridViewDefaultCellBackColor = getColorByTheme(ParentControlFullName, dataGridViewDefaultCellBackColor, "DataGridViewDefaultCellBack");
                 newDataGridViewDefaultColumnHeadersBackColor = getColorByTheme(ParentControlFullName, dataGridViewDefaultColumnHeadersBackColor, "DataGridViewDefaultColumnHeadersBack");
+                newDataGridViewDefaultColumnHeadersForeColor = getColorByTheme(ParentControlFullName, dataGridViewDefaultColumnHeadersForeColor, "DataGridViewDefaultColumnHeadersFore");
+                newDataGridViewDefaultRowHeadersBackColor = getColorByTheme(ParentControlFullName, dataGridViewDefaultRowHeadersBackColor, "DataGridViewDefaultRowHeadersBack");
+                newDataGridViewDefaultRowHeadersForeColor = getColorByTheme(ParentControlFullName, dataGridViewDefaultRowHeadersForeColor, "DataGridViewDefaultRowHeadersFore");
                 newDisabledForeColor = getColorByTheme(ParentControlFullName, disabledForeColor, "DisabledForeColor");
                 newPressedBackColor = getColorByTheme(ParentControlFullName, pressedBackColor, "PressedBackColor");
                 newHoverBackColor = getColorByTheme(ParentControlFullName, hoverBackColor, "HoverBackColor");
+            }
+
+            if (!newBackcolor.IsEmpty)
+            {
+                setProperty(ParentControl, enumProperty.BackColor, newBackcolor);
+            }
+            if (!newForcolor.IsEmpty)
+            {
+                setProperty(ParentControl, enumProperty.ForeColor, newForcolor);
             }
 
             if (ParentControl is DataGridView dataGridView)
@@ -886,20 +927,28 @@ namespace FormCustomization
                 {
                     setProperty(ParentControl, enumProperty.DataGridViewDefaultCellBackColor, newDataGridViewDefaultCellBackColor);
                 }
+                if (!newDataGridViewDefaultColumnHeadersBackColor.IsEmpty)
+                {
+                    setProperty(ParentControl, enumProperty.DataGridViewDefaultColumnHeadersBackColor, newDataGridViewDefaultColumnHeadersBackColor);
+                }
+                if (!newDataGridViewDefaultColumnHeadersForeColor.IsEmpty)
+                {
+                    setProperty(ParentControl, enumProperty.DataGridViewDefaultColumnHeadersForeColor, newDataGridViewDefaultColumnHeadersForeColor);
+                }
+                if (!newDataGridViewDefaultRowHeadersBackColor.IsEmpty)
+                {
+                    setProperty(ParentControl, enumProperty.DataGridViewDefaultRowHeadersBackColor, newDataGridViewDefaultRowHeadersBackColor);
+                }
+                if (!newDataGridViewDefaultRowHeadersForeColor.IsEmpty)
+                {
+                    setProperty(ParentControl, enumProperty.DataGridViewDefaultRowHeadersForeColor, newDataGridViewDefaultRowHeadersForeColor);
+                }
             }
             if (ParentControl is ButtonQIC buttonQIC1)
             {
                 setProperty(ParentControl, enumProperty.DisabledForeColor, newDisabledForeColor);
                 setProperty(ParentControl, enumProperty.PressedBackColor, newPressedBackColor);
                 setProperty(ParentControl, enumProperty.HoverBackColor, newHoverBackColor);
-            }
-            if (!newBackcolor.IsEmpty)
-            {
-                setProperty(ParentControl, enumProperty.BackColor, newBackcolor);
-            }
-            if (!newForcolor.IsEmpty)
-            {
-                setProperty(ParentControl, enumProperty.ForeColor, newForcolor);
             }
 
 #if WRITEDEBUGTHEMETRACE
@@ -2149,6 +2198,34 @@ namespace FormCustomization
                         ((DataGridView)givenControl).DefaultCellStyle.BackColor = (Color)PropertyValue;
 #if WRITEDEBUGTHEMETRACE
                         QuickImageComment.GeneralUtilities.writeDebugFileEntry("Customizer.setProperty: " + " DataGridViewDefaultCellBackColor set to " + ((Color)PropertyValue).ToString());
+#endif
+                        break;
+                    case enumProperty.DataGridViewDefaultColumnHeadersBackColor:
+                        ((DataGridView)givenControl).EnableHeadersVisualStyles = false;
+                        ((DataGridView)givenControl).ColumnHeadersDefaultCellStyle.BackColor = (Color)PropertyValue;
+#if WRITEDEBUGTHEMETRACE
+                        QuickImageComment.GeneralUtilities.writeDebugFileEntry("Customizer.setProperty: " + " DataGridViewDefaultColumnHeadersBackColor set to " + ((Color)PropertyValue).ToString());
+#endif
+                        break;
+                    case enumProperty.DataGridViewDefaultColumnHeadersForeColor:
+                        ((DataGridView)givenControl).EnableHeadersVisualStyles = false;
+                        ((DataGridView)givenControl).ColumnHeadersDefaultCellStyle.ForeColor = (Color)PropertyValue;
+#if WRITEDEBUGTHEMETRACE
+                        QuickImageComment.GeneralUtilities.writeDebugFileEntry("Customizer.setProperty: " + " DataGridViewDefaultColumnHeadersForeColor set to " + ((Color)PropertyValue).ToString());
+#endif
+                        break;
+                    case enumProperty.DataGridViewDefaultRowHeadersBackColor:
+                        ((DataGridView)givenControl).EnableHeadersVisualStyles = false;
+                        ((DataGridView)givenControl).RowHeadersDefaultCellStyle.BackColor = (Color)PropertyValue;
+#if WRITEDEBUGTHEMETRACE
+                        QuickImageComment.GeneralUtilities.writeDebugFileEntry("Customizer.setProperty: " + " DataGridViewDefaultRowHeadersBackColor set to " + ((Color)PropertyValue).ToString());
+#endif
+                        break;
+                    case enumProperty.DataGridViewDefaultRowHeadersForeColor:
+                        ((DataGridView)givenControl).EnableHeadersVisualStyles = false;
+                        ((DataGridView)givenControl).RowHeadersDefaultCellStyle.ForeColor = (Color)PropertyValue;
+#if WRITEDEBUGTHEMETRACE
+                        QuickImageComment.GeneralUtilities.writeDebugFileEntry("Customizer.setProperty: " + " DataGridViewDefaultRowHeadersForeColor set to " + ((Color)PropertyValue).ToString());
 #endif
                         break;
                     case enumProperty.DisabledForeColor:
