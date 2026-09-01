@@ -38,6 +38,57 @@ namespace QuickImageComment
 {
     public partial class FormQuickImageComment : Form
     {
+        class ProfessionalColorTableQIC : ProfessionalColorTable
+        {
+            //public override bool UseSystemColors => false; // suggested by Microsoft Copilot, but gives compiler error and works without
+            public override Color ToolStripDropDownBackground => ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorInputUnchanged);
+            public override Color SeparatorDark => ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.ForeColorNotEnabled);
+            public override Color SeparatorLight => ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorSelectedThumbnail);
+        }
+
+        class MyMenuRenderer : ToolStripProfessionalRenderer
+        {
+            public MyMenuRenderer(ProfessionalColorTable table)
+                : base(table)
+            {
+            }
+
+            protected override void OnRenderMenuItemBackground(ToolStripItemRenderEventArgs e)
+            {
+                var g = e.Graphics;
+                var rect = new Rectangle(Point.Empty, e.Item.Size);
+
+                if (e.Item.Selected)
+                {
+                    g.FillRectangle(new SolidBrush(ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorSelectedFolder)), rect);
+                }
+                else if (e.Item.Pressed)
+                {
+                    g.FillRectangle(new SolidBrush(ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorSelectedFolder)), rect);
+                }
+                else
+                {
+                    g.FillRectangle(new SolidBrush(ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorInputUnchanged)), rect);
+                }
+            }
+
+            protected override void OnRenderItemText(ToolStripItemTextRenderEventArgs e)
+            {
+                e.TextColor = e.Item.Enabled ? ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.ForeColorEnabled)
+                                             : ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.ForeColorNotEnabled);
+                base.OnRenderItemText(e);
+            }
+
+            protected override void OnRenderImageMargin(ToolStripRenderEventArgs e)
+            {
+                // Fill the image margin with the same background as the dropdown
+                using (var b = new SolidBrush(ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorInputUnchanged)))
+                {
+                    e.Graphics.FillRectangle(b, e.AffectedBounds);
+                }
+            }
+        }
+
         // see below for coding to calculate following values
         float splitContainer1SplitterRatio = 0.25f;
         float splitContainer11SplitterRatio = 0.27f;
@@ -199,7 +250,9 @@ namespace QuickImageComment
 
             // Required for Windows Form Designer support
             InitializeComponent();
-
+            MyMenuRenderer menuRenderer = new MyMenuRenderer(new ProfessionalColorTableQIC());
+            MenuStrip1.Renderer = menuRenderer;
+            toolStrip1.Renderer = menuRenderer;
             // uncomment and run with 100% to get values for splitter ratios
             //splitContainer1SplitterRatio = (float)splitContainer1.SplitterDistance / splitContainer1.Width;
             //splitContainer11SplitterRatio = (float)splitContainer11.SplitterDistance / splitContainer11.Height;
@@ -2881,6 +2934,13 @@ namespace QuickImageComment
             {
                 CustomizationInterface.setColorThemeName(newThemeName);
                 CustomizationInterface.setThemeForComponent(this);
+                //CustomizationInterface.setThemeForComponent(MenuStrip1);
+                //        ProfessionalColorTable professionalColorTable = new ProfessionalColorTable();
+                //        professionalColorTable.ToolStripDropDownBackground = Color.FromArgb(32, 32, 32);
+
+                //public override Color SeparatorDark => Color.FromArgb(70, 70, 70);   // main line
+                //public override Color SeparatorLight => Color.FromArgb(32, 32, 32);  // “highlight” line (make it same as background)
+                //MenuStrip1.Renderer = new MyMenuRenderer();
 
                 // as they are filled dynamic refresh the following controls to get new theme
                 if (theUserControlChangeableFields != null)
@@ -7430,5 +7490,10 @@ namespace QuickImageComment
         }
 
         #endregion
+
+        private void toolStripMenuItemOpen_Paint(object sender, PaintEventArgs e)
+        {
+            e.Graphics.DrawString(LangCfg.translate("Öffnen", this.Name), new Font("Verdana", 9, FontStyle.Bold), new SolidBrush(Color.Blue), new Point(0, 0));
+        }
     }
 }

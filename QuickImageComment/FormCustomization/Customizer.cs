@@ -224,7 +224,7 @@ namespace FormCustomization
         {
             BackColor, ForeColor, Font, Left, Top, Width, Height,
             TabIndex, Text, BackgroundImage, AutoSize, Shortcut,
-            DataGridViewDefaultCellBackColor, 
+            DataGridViewDefaultCellBackColor,
             DataGridViewDefaultColumnHeadersBackColor, DataGridViewDefaultColumnHeadersForeColor,
             DataGridViewDefaultRowHeadersBackColor, DataGridViewDefaultRowHeadersForeColor,
             DisabledForeColor, PressedBackColor, HoverBackColor
@@ -810,6 +810,9 @@ namespace FormCustomization
                 dataGridViewDefaultColumnHeadersForeColor = OriginalColors[ParentControlFullName].DataGridViewDefaultColumnHeadersForeColor;
                 dataGridViewDefaultRowHeadersBackColor = OriginalColors[ParentControlFullName].DataGridViewDefaultRowHeadersBackColor;
                 dataGridViewDefaultRowHeadersForeColor = OriginalColors[ParentControlFullName].DataGridViewDefaultRowHeadersForeColor;
+                disabledForeColor = OriginalColors[ParentControlFullName].DisabledForeColor;
+                pressedBackColor = OriginalColors[ParentControlFullName].PressedBackColor;
+                hoverBackColor = OriginalColors[ParentControlFullName].HoverBackColor;
             }
             else
             {
@@ -944,7 +947,7 @@ namespace FormCustomization
                     setProperty(ParentControl, enumProperty.DataGridViewDefaultRowHeadersForeColor, newDataGridViewDefaultRowHeadersForeColor);
                 }
             }
-            if (ParentControl is ButtonQIC buttonQIC1)
+            if (ParentControl is ButtonQIC)
             {
                 setProperty(ParentControl, enumProperty.DisabledForeColor, newDisabledForeColor);
                 setProperty(ParentControl, enumProperty.PressedBackColor, newPressedBackColor);
@@ -2067,9 +2070,8 @@ namespace FormCustomization
         // sets the property of given control
         private void setProperty(Component givenComponent, enumProperty propertyIndex, object PropertyValue)
         {
-            if (givenComponent is Control)
+            if (givenComponent is Control givenControl)
             {
-                Control givenControl = (Control)givenComponent;
                 switch (propertyIndex)
                 {
                     case enumProperty.BackColor:
@@ -2244,11 +2246,10 @@ namespace FormCustomization
                         throw new Exception("Internal error");
                 }
             }
-            else if (givenComponent is ToolStripItem)
+            else if (givenComponent is ToolStripItem givenToolStripItem)
             {
                 // when adding new types: search for add-new-type-here to find 
                 // all other locations where changes are necessary!!!
-                ToolStripItem givenToolStripItem = (ToolStripItem)givenComponent;
                 switch (propertyIndex)
                 {
                     case enumProperty.BackColor:
