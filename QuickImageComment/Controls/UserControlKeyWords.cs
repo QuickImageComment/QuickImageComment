@@ -114,6 +114,18 @@ namespace QuickImageComment
         {
             textBoxFreeInputKeyWords.Enabled = enable;
             treeViewPredefKeyWords.Enabled = enable;
+            if (enable)
+            {
+                textBoxFreeInputKeyWords.BackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorInputUnchanged);
+                treeViewPredefKeyWords.BackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorInputUnchanged);
+                treeViewPredefKeyWords.ForeColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.ForeColorEnabled);
+            }
+            else
+            {
+                textBoxFreeInputKeyWords.BackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorNotEnabled);
+                treeViewPredefKeyWords.BackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorNotEnabled);
+                treeViewPredefKeyWords.ForeColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.ForeColorNotEnabled);
+            }
         }
 
         // cascade check nodes up and down

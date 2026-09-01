@@ -17,6 +17,7 @@
 using QuickImageComment;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace QuickImageCommentControls
@@ -28,6 +29,36 @@ namespace QuickImageCommentControls
         public TreeViewKeyWords()
         {
             CheckBoxes = true;
+            DrawMode = TreeViewDrawMode.OwnerDrawText;
+        }
+
+        protected override void OnDrawNode(DrawTreeNodeEventArgs e)
+        {
+            //base.OnDrawNode(e);
+            Color backColor = Enabled ? ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorInputUnchanged)
+                                      : ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorNotEnabled);
+            Color foreColor = Enabled ? ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.ForeColorEnabled)
+                                      : ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.ForeColorNotEnabled);
+            // full-row highlight WITHOUT covering glyph area
+            Rectangle rowRect = new Rectangle(
+                // + 1 to avoid covering glyph area
+                e.Bounds.Left + 1,
+                e.Bounds.Top,
+                ClientSize.Width - e.Bounds.Left,
+                e.Bounds.Height
+            );
+
+            using (var b = new SolidBrush(backColor))
+                e.Graphics.FillRectangle(b, rowRect);
+
+            TextRenderer.DrawText(
+                e.Graphics,
+                e.Node.Text,
+                Font,
+                rowRect,
+                foreColor,
+                TextFormatFlags.Left | TextFormatFlags.VerticalCenter
+            );
         }
 
         // fill with predefined key words
