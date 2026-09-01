@@ -573,8 +573,8 @@ namespace QuickImageComment
             // mark placeholder
             richTextBoxValue.SelectionStart = placeholderPositionStart - 2;
             richTextBoxValue.SelectionLength = placeholderPositionEnd - placeholderPositionStart + 4;
-            richTextBoxValue.SelectionBackColor = System.Drawing.Color.Black;
-            richTextBoxValue.SelectionColor = System.Drawing.Color.White;
+            richTextBoxValue.SelectionBackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.ForeColorEnabled);
+            richTextBoxValue.SelectionColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorInputUnchanged);
 
             richTextValueChangedProgrammatically = false;
             labelNoPlaceholderMarked.Visible = false;

@@ -465,15 +465,17 @@ namespace QuickImageCommentControls
 
                 if (forDetails)
                 {
-                    e.Graphics.DrawLine(new Pen(System.Drawing.Color.Black, 15.0f), new Point(middleX, 0), new Point(middleX, borderWidth));
-                    e.Graphics.DrawLine(new Pen(System.Drawing.Color.White, 1.0f), new Point(middleX, 0), new Point(middleX, borderWidth));
-                    e.Graphics.DrawLine(new Pen(System.Drawing.Color.Black, 15.0f), new Point(middleX, Height - borderWidth), new Point(middleX, Height));
-                    e.Graphics.DrawLine(new Pen(System.Drawing.Color.White, 1.0f), new Point(middleX, Height - borderWidth), new Point(middleX, Height));
+                    Color centerMarkOuterColor = ConfigDefinition.getConfigColor(enumConfigColor.ForeColorEnabled);
+                    Color centerMarkInnerColor = this.BackColor;
+                    e.Graphics.DrawLine(new Pen(centerMarkOuterColor, 15.0f), new Point(middleX, 0), new Point(middleX, borderWidth));
+                    e.Graphics.DrawLine(new Pen(centerMarkInnerColor, 1.0f), new Point(middleX, 0), new Point(middleX, borderWidth));
+                    e.Graphics.DrawLine(new Pen(centerMarkOuterColor, 15.0f), new Point(middleX, Height - borderWidth), new Point(middleX, Height));
+                    e.Graphics.DrawLine(new Pen(centerMarkInnerColor, 1.0f), new Point(middleX, Height - borderWidth), new Point(middleX, Height));
 
-                    e.Graphics.DrawLine(new Pen(System.Drawing.Color.Black, 15.0f), new Point(0, middleY), new Point(borderWidth, middleY));
-                    e.Graphics.DrawLine(new Pen(System.Drawing.Color.White, 1.0f), new Point(0, middleY), new Point(borderWidth, middleY));
-                    e.Graphics.DrawLine(new Pen(System.Drawing.Color.Black, 15.0f), new Point(Width - borderWidth, middleY), new Point(Width, middleY));
-                    e.Graphics.DrawLine(new Pen(System.Drawing.Color.White, 1.0f), new Point(Width - borderWidth, middleY), new Point(Width, middleY));
+                    e.Graphics.DrawLine(new Pen(centerMarkOuterColor, 15.0f), new Point(0, middleY), new Point(borderWidth, middleY));
+                    e.Graphics.DrawLine(new Pen(centerMarkInnerColor, 1.0f), new Point(0, middleY), new Point(borderWidth, middleY));
+                    e.Graphics.DrawLine(new Pen(centerMarkOuterColor, 15.0f), new Point(Width - borderWidth, middleY), new Point(Width, middleY));
+                    e.Graphics.DrawLine(new Pen(centerMarkInnerColor, 1.0f), new Point(Width - borderWidth, middleY), new Point(Width, middleY));
 
                     // mark focus point
                     if (ConfigDefinition.getCfgUserBool(enumCfgUserBool.showFocusPointImageDetails) && focusPoint != Point.Empty)

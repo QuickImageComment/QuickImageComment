@@ -1068,8 +1068,8 @@ namespace QuickImageComment
                 Controls["fixedLabelRow_" + ii.ToString()].ForeColor = this.ForeColor;
                 Controls["fixedLabelRow_" + ii.ToString()].BackColor = this.BackColor;
             }
-            Controls["fixedLabelRow_" + CurrentLine.ToString()].ForeColor = System.Drawing.Color.White;
-            Controls["fixedLabelRow_" + CurrentLine.ToString()].BackColor = System.Drawing.Color.Black;
+            Controls["fixedLabelRow_" + CurrentLine.ToString()].ForeColor = this.BackColor;
+            Controls["fixedLabelRow_" + CurrentLine.ToString()].BackColor = this.ForeColor;
         }
 
         private void buttonMoveUp_Click(object sender, EventArgs e)

@@ -156,7 +156,9 @@ namespace QuickImageComment
             BackColorEnteredText,
             BackColorSelectedThumbnail,
             BackColorFillThumbnail,
-            BackColorSelectedFolder
+            BackColorSelectedFolder,
+            ForeColorNotEnabled,
+            ForeColorEnabled
         };
 
         public enum enumConfigString

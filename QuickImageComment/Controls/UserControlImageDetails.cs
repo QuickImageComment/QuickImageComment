@@ -473,7 +473,7 @@ namespace QuickImageComment
                 if (pictureBoxImage.pixelYmiddle >= 0 && pictureBoxImage.pixelYmiddle < theImage.Height)
                 {
                     Color pixel = Color.Empty;
-                    Pen barPen = new Pen(System.Drawing.Color.Black, 1.0f);
+                    Pen barPen = new Pen(ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.ForeColorEnabled), 1.0f);
                     int pixelX1;
                     int pixelX2;
                     int pixelCount;
@@ -644,7 +644,7 @@ namespace QuickImageComment
                 if (pictureBoxImage.pixelXmiddle >= 0 && pictureBoxImage.pixelXmiddle < theImage.Width)
                 {
                     Color pixel = Color.Empty;
-                    Pen barPen = new Pen(System.Drawing.Color.Black, 1.0f);
+                    Pen barPen = new Pen(ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.ForeColorEnabled), 1.0f);
                     int pixelY1;
                     int pixelY2;
                     int pixelCount;
