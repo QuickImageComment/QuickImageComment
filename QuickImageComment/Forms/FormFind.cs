@@ -521,7 +521,6 @@ namespace QuickImageComment
             // do net set Font, shall be inherited by parent
             dateTimePicker.ForeColor = this.dateTimePicker.ForeColor;
             dateTimePicker.BackColor = this.dateTimePicker.BackColor;
-            dateTimePicker.ButtonFillColor = this.dateTimePicker.ButtonFillColor;
             dateTimePicker.Size = this.dateTimePicker.Size;
             dateTimePicker.Height = this.dateTimePicker.Height;
 

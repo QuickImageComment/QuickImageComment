@@ -14,27 +14,20 @@ namespace QuickImageComment
 {
     internal class DateTimePickerQIC : DateTimePicker
     {
+        private bool IsInDesignMode
+        {
+            get
+            {
+                return DesignMode || (Site?.DesignMode ?? false);
+            }
+        }
+
         public DateTimePickerQIC()
         {
             SetStyle(ControlStyles.ResizeRedraw |
                 ControlStyles.OptimizedDoubleBuffer, true);
         }
 
-        private Color buttonFillColor = Color.White;
-
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        public Color ButtonFillColor
-        {
-            get { return buttonFillColor; }
-            set
-            {
-                if (buttonFillColor != value)
-                {
-                    buttonFillColor = value;
-                    Invalidate();
-                }
-            }
-        }
         protected override void WndProc(ref Message m)
         {
             base.WndProc(ref m);
@@ -59,12 +52,20 @@ namespace QuickImageComment
                         new Point(middle.X, middle.Y + 4)
                     };
 
-                    var buttonFillColor = Enabled ? ButtonFillColor : Color.LightGray;
+                    var buttonFillColor = Enabled ? BackColor : ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorNotEnabled);
+                    var buttonForeColor = Color.DarkGray;
+
+                    if (!IsInDesignMode)
+                    {
+                        buttonFillColor = Enabled ? BackColor : ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorNotEnabled);
+                        buttonForeColor = Enabled ? ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.ForeColorEnabled)
+                                                  : ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.ForeColorNotEnabled);
+                    }
                     using (var brush = new SolidBrush(buttonFillColor))
                         g.FillRectangle(brush, dropDownRect);
-                    using (var pen = new Pen(Color.DarkGray))
+                    using (var pen = new Pen(buttonForeColor))
                         g.DrawRectangle(pen, 0, 0, clientRect.Width - 1, clientRect.Height - 1);
-                    g.FillPolygon(Brushes.Black, arrow);
+                    g.FillPolygon(new SolidBrush(buttonForeColor), arrow);
                 }
             }
         }

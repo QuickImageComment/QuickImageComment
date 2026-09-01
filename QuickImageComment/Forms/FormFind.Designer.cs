@@ -180,7 +180,6 @@ namespace QuickImageComment
             // dateTimePicker
             // 
             this.dateTimePicker.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.dateTimePicker.ButtonFillColor = System.Drawing.Color.White;
             this.dateTimePicker.CustomFormat = "yyyy:MM:dd hh:mm:ss";
             this.dateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateTimePicker.Location = new System.Drawing.Point(643, 3);
