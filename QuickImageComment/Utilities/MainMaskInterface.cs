@@ -116,11 +116,11 @@ namespace QuickImageComment
             }
         }
 
-        public static void adjustAfterColorThemeChange()
+        public static void adjustAfterColorThemeChange(string newThemeName)
         {
             if (!FormQuickImageComment.closing)
             {
-                theFormQuickImageComment.adjustAfterColorThemeChange();
+                theFormQuickImageComment.adjustAfterColorThemeChange(newThemeName);
             }
         }
 

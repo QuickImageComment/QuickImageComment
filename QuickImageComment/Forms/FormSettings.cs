@@ -330,11 +330,9 @@ namespace QuickImageComment
 
         private void comboBoxColorTheme_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ConfigDefinition.setColorTheme(colorThemeConfig[comboBoxColorTheme.SelectedIndex]);
-
             // first adjust main mask which includes setting theme in customizer
             // including checking if system is in dark mode (which is also needed when initializing the main mask)
-            MainMaskInterface.adjustAfterColorThemeChange();
+            MainMaskInterface.adjustAfterColorThemeChange(colorThemeConfig[comboBoxColorTheme.SelectedIndex]);
 
             // set theme for all activated forms (excluding main mask)
             CustomizationInterface.setThemeForActivatedForms();

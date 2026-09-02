@@ -552,8 +552,7 @@ namespace QuickImageComment
             // fill menu edit external
             fillMenuEditExternal();
 
-            ConfigDefinition.setColorTheme(ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.ColorThemeName));
-            adjustAfterColorThemeChange();
+            adjustAfterColorThemeChange(ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.ColorThemeName));
 
             // create and fill user control for changeable fields 
             Program.StartupPerformance.measure("FormQIC before user control changeable fields");
@@ -2927,12 +2926,20 @@ namespace QuickImageComment
 
         internal void adjustAfterColorThemeChange()
         {
-            string newThemeName = ConfigDefinition.getEffectiveColorTheme();
-
-            if (CustomizationInterface.getColorThemeName().Equals("") && !newThemeName.Equals(FormCustomization.Customizer.ThemeLight) ||
-                !CustomizationInterface.getColorThemeName().Equals("") && !CustomizationInterface.getColorThemeName().Equals(newThemeName))
+            // if called without new theme name, pass configured theme name as
+            // calling ConfigDefinition.setColorTheme includes setting the effective theme name
+            adjustAfterColorThemeChange(ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.ColorThemeName));
+        }
+        internal void adjustAfterColorThemeChange(string newThemeName)
+        {
+            // calling ConfigDefinition.setColorTheme includes setting the effective theme name
+            // so it makes sense to call it when theme is System to consider a change of system theme (light/dark)
+            ConfigDefinition.setColorTheme(newThemeName);
+            string newEffectiveThemeName = ConfigDefinition.getEffectiveColorTheme();
+            if (CustomizationInterface.getColorThemeName().Equals("") && !newEffectiveThemeName.Equals(FormCustomization.Customizer.ThemeLight) ||
+                !CustomizationInterface.getColorThemeName().Equals("") && !CustomizationInterface.getColorThemeName().Equals(newEffectiveThemeName))
             {
-                CustomizationInterface.setColorThemeName(newThemeName);
+                CustomizationInterface.setColorThemeName(newEffectiveThemeName);
                 CustomizationInterface.setThemeForComponent(this);
 
                 // as they are filled dynamic refresh the following controls to get new theme
