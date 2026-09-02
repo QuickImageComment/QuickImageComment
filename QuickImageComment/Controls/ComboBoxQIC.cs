@@ -192,6 +192,8 @@ namespace QuickImageCommentControls
                 const int WM_CTLCOLOREDIT = 0x0133;
                 const int WM_ENABLE = 0x000A;
 
+                base.WndProc(ref m);
+
                 if (!_owner.Enabled)
                 {
                     switch (m.Msg)
@@ -204,8 +206,6 @@ namespace QuickImageCommentControls
                             return; // suppress default painting
                     }
                 }
-
-                base.WndProc(ref m);
             }
 
             private void PaintDisabled()
