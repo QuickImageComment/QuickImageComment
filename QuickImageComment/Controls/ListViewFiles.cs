@@ -330,7 +330,7 @@ namespace QuickImageCommentControls
             Brush theBrush = null;
             ExtendedImage ExtendedImageForThumbnail = null;
             Image theThumbNail = null;
-            Color selectedColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorSelectedThumbnail);
+            Color selectedColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorSelected);
 
             int boundsWidth = e.Bounds.Width;
             if (this.Width < 2 * boundsWidth)
@@ -401,7 +401,7 @@ namespace QuickImageCommentControls
                 {
                     // draw background for whole row
                     Color back = e.Item.Selected
-                        ? ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorSelectedThumbnail)
+                        ? ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorSelected)
                         : this.BackColor;
 
                     using (var b = new SolidBrush(back))

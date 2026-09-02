@@ -154,9 +154,7 @@ namespace QuickImageComment
             BackColorMultiEditNonDefault,
             // background color for entered text to make spaces visible
             BackColorEnteredText,
-            BackColorSelectedThumbnail,
-            BackColorFillThumbnail,
-            BackColorSelectedFolder,
+            BackColorSelected,
             ForeColorNotEnabled,
             ForeColorEnabled
         };

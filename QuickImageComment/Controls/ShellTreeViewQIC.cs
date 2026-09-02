@@ -453,7 +453,7 @@ namespace QuickImageCommentControls
 
             if (isSelected)
             {
-                backColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorSelectedFolder);
+                backColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorSelected);
             }
             else
             {

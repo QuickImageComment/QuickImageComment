@@ -368,7 +368,7 @@ namespace QuickImageComment
             ListViewItem theListViewItem = e.Item;
             int fileIndex = int.Parse(theListViewItem.SubItems[1].Text);
             Image theThumbNail = imageListLarge.Images[fileIndex];
-            Color backColorSelectedThumbnail = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorSelectedThumbnail);
+            Color backColorSelectedThumbnail = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorSelected);
 
             // init rectangle
             e.Graphics.FillRectangle(new SolidBrush(listViewImages.BackColor),

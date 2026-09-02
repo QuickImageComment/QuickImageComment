@@ -43,7 +43,7 @@ namespace QuickImageComment
             //public override bool UseSystemColors => false; // suggested by Microsoft Copilot, but gives compiler error and works without
             public override Color ToolStripDropDownBackground => ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorInputUnchanged);
             public override Color SeparatorDark => ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.ForeColorNotEnabled);
-            public override Color SeparatorLight => ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorSelectedThumbnail);
+            public override Color SeparatorLight => ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorSelected);  
         }
 
         class MyMenuRenderer : ToolStripProfessionalRenderer
@@ -60,11 +60,11 @@ namespace QuickImageComment
 
                 if (e.Item.Selected)
                 {
-                    g.FillRectangle(new SolidBrush(ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorSelectedFolder)), rect);
+                    g.FillRectangle(new SolidBrush(ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorSelected)), rect);
                 }
                 else if (e.Item.Pressed)
                 {
-                    g.FillRectangle(new SolidBrush(ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorSelectedFolder)), rect);
+                    g.FillRectangle(new SolidBrush(ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorSelected)), rect);
                 }
                 else
                 {
@@ -2934,13 +2934,6 @@ namespace QuickImageComment
             {
                 CustomizationInterface.setColorThemeName(newThemeName);
                 CustomizationInterface.setThemeForComponent(this);
-                //CustomizationInterface.setThemeForComponent(MenuStrip1);
-                //        ProfessionalColorTable professionalColorTable = new ProfessionalColorTable();
-                //        professionalColorTable.ToolStripDropDownBackground = Color.FromArgb(32, 32, 32);
-
-                //public override Color SeparatorDark => Color.FromArgb(70, 70, 70);   // main line
-                //public override Color SeparatorLight => Color.FromArgb(32, 32, 32);  // “highlight” line (make it same as background)
-                //MenuStrip1.Renderer = new MyMenuRenderer();
 
                 // as they are filled dynamic refresh the following controls to get new theme
                 if (theUserControlChangeableFields != null)
@@ -7490,10 +7483,5 @@ namespace QuickImageComment
         }
 
         #endregion
-
-        private void toolStripMenuItemOpen_Paint(object sender, PaintEventArgs e)
-        {
-            e.Graphics.DrawString(LangCfg.translate("Öffnen", this.Name), new Font("Verdana", 9, FontStyle.Bold), new SolidBrush(Color.Blue), new Point(0, 0));
-        }
     }
 }
