@@ -428,6 +428,7 @@ namespace QuickImageComment
         internal static SortedList<string, string> MapUrls;
         internal static SortedList<string, MapSource> MapLeafletList;
         internal static SortedList<string, Color> ThemeColors;
+        internal static ArrayList ThemeNames { get; private set; }
 
         // for reading data for a DataTemplate
         private static DataTemplate aDataTemplate;
@@ -527,6 +528,7 @@ namespace QuickImageComment
             MapUrls = new SortedList<string, string>();
             MapLeafletList = new SortedList<string, MapSource>();
             ThemeColors = new SortedList<string, Color>();
+            ThemeNames = new ArrayList();
 
             for (int ii = 0; ii < ImageGridsCount; ii++)
             {
@@ -3801,6 +3803,7 @@ namespace QuickImageComment
                     + GeneralConfigFile + "\nline: " + lineNo.ToString() + "\n", ex);
             }
 #endif
+            ThemeNames.Sort();
         }
 
         // analyze one line in configuration file and extract configuration item
@@ -4042,6 +4045,11 @@ namespace QuickImageComment
                         {
                             Color color = Color.FromArgb(parseOutput);
                             ThemeColors.Add(themeName + " Color [" + firstPart.Substring(end + 1) + "]", color);
+                            if (!themeName.Equals(FormCustomization.Customizer.ThemeDark)
+                                && !ThemeNames.Contains(themeName))
+                            {
+                                ThemeNames.Add(themeName);
+                            }
                         }
                         else
                             throw new ExceptionDefinitionNotValid(lineNo, "invalid color definition");

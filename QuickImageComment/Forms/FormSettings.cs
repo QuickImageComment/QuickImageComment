@@ -42,8 +42,8 @@ namespace QuickImageComment
 
         public bool settingsChanged = true;
 
-        private static readonly string[] colorThemeNames = new string[] { "Hell", "Dunkel", "System" };
-        private static readonly string[] colorThemeConfig = new string[] { Customizer.ThemeLight, Customizer.ThemeDark, "System" };
+        private static readonly string[] colorThemeNames = new string[] { "System", "Hell", "Dunkel" };
+        private static readonly string[] colorThemeConfig = new string[] { "System", Customizer.ThemeLight, Customizer.ThemeDark };
 
         public FormSettings()
         {
@@ -138,6 +138,10 @@ namespace QuickImageComment
             for (int ii = 0; ii < colorThemeNames.Length; ii++)
             {
                 comboBoxColorTheme.Items.Add(colorThemeNames[ii]);
+            }
+            foreach (string themeName in ConfigDefinition.ThemeNames)
+            {
+                comboBoxColorTheme.Items.Add(themeName);
             }
             for (int ii = 0; ii < colorThemeNames.Length; ii++)
             {
@@ -332,7 +336,14 @@ namespace QuickImageComment
         {
             // first adjust main mask which includes setting theme in customizer
             // including checking if system is in dark mode (which is also needed when initializing the main mask)
-            MainMaskInterface.adjustAfterColorThemeChange(colorThemeConfig[comboBoxColorTheme.SelectedIndex]);
+            if (comboBoxColorTheme.SelectedIndex < colorThemeNames.Length)
+            {
+                MainMaskInterface.adjustAfterColorThemeChange(colorThemeConfig[comboBoxColorTheme.SelectedIndex]);
+            }
+            else
+            {
+                MainMaskInterface.adjustAfterColorThemeChange(comboBoxColorTheme.Text);
+            }
 
             // set theme for all activated forms (excluding main mask)
             CustomizationInterface.setThemeForActivatedForms();
