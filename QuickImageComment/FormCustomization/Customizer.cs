@@ -728,11 +728,11 @@ namespace FormCustomization
 #if WRITEDEBUGTHEMETRACE
             QuickImageComment.GeneralUtilities.writeDebugFileEntry("> " + level + " " + ParentControlFullName);
 #endif
-            //if (ParentControl is Control control1)
+            //if (ParentControl is Control controlPrint)
             //{
             //    QuickImageComment.GeneralUtilities.writeDebugFileEntry(ParentControlFullName + "\t" + ParentControl.GetType().ToString() + "\t"
-            //        + control1.BackColor.ToString() + "\t" + control1.ForeColor.A.ToString() + "\t" + control1.BackColor.R.ToString() + "\t" + control1.BackColor.G.ToString() + "\t" + control1.BackColor.B.ToString() + "\t"
-            //        + control1.ForeColor.ToString() + "\t" + control1.ForeColor.A.ToString() + "\t" + control1.ForeColor.R.ToString() + "\t" + control1.ForeColor.G.ToString() + "\t" + control1.ForeColor.B.ToString());
+            //        + controlPrint.BackColor.ToString() + "\t" + controlPrint.ForeColor.A.ToString() + "\t" + controlPrint.BackColor.R.ToString() + "\t" + controlPrint.BackColor.G.ToString() + "\t" + controlPrint.BackColor.B.ToString() + "\t"
+            //        + controlPrint.ForeColor.ToString() + "\t" + controlPrint.ForeColor.A.ToString() + "\t" + controlPrint.ForeColor.R.ToString() + "\t" + controlPrint.ForeColor.G.ToString() + "\t" + controlPrint.ForeColor.B.ToString());
             //}
 
             if (ParentControl is Control control1)
@@ -2426,6 +2426,14 @@ namespace FormCustomization
                     newSize = TextRenderer.MeasureText(fontSizeTest, newFont);
                 }
                 while (newSize.Width > maxWidth);
+                if (ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.Maintenance))
+                {
+                    if (Math.Abs(initialFontSize - newFont.Size) < 0.1f)
+                    {
+                        GeneralUtilities.debugMessage("New font size for zoom factor " + zoomFactor.ToString() 
+                            + " has same size as original: " + newFont.ToString());
+                    }
+                }
                 NewFontSizesForZoom.Add(key, newFontSize);
                 return newFont;
             }
