@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.checkBoxOriginalLanguage = new System.Windows.Forms.CheckBox();
-            this.textBoxSearchTag = new System.Windows.Forms.TextBox();
+            this.textBoxSearchTag = new QuickImageCommentControls.TextBoxQIC();
             this.label10 = new System.Windows.Forms.Label();
             this.fixedButtonSearchNext = new QuickImageCommentControls.ButtonQIC();
             this.fixedButtonSearchPrevious = new QuickImageCommentControls.ButtonQIC();
@@ -59,10 +59,12 @@
             // 
             // textBoxSearchTag
             // 
+            this.textBoxSearchTag.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBoxSearchTag.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBoxSearchTag.Location = new System.Drawing.Point(588, 28);
             this.textBoxSearchTag.Name = "textBoxSearchTag";
-            this.textBoxSearchTag.Size = new System.Drawing.Size(189, 20);
+            this.textBoxSearchTag.SingleLineNoBorder = true;
+            this.textBoxSearchTag.Size = new System.Drawing.Size(189, 13);
             this.textBoxSearchTag.TabIndex = 63;
             // 
             // label10
@@ -79,6 +81,7 @@
             // fixedButtonSearchNext
             // 
             this.fixedButtonSearchNext.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.fixedButtonSearchNext.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.fixedButtonSearchNext.Location = new System.Drawing.Point(808, 28);
             this.fixedButtonSearchNext.Name = "fixedButtonSearchNext";
             this.fixedButtonSearchNext.Size = new System.Drawing.Size(19, 19);
@@ -89,6 +92,7 @@
             // fixedButtonSearchPrevious
             // 
             this.fixedButtonSearchPrevious.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.fixedButtonSearchPrevious.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.fixedButtonSearchPrevious.Location = new System.Drawing.Point(783, 28);
             this.fixedButtonSearchPrevious.Name = "fixedButtonSearchPrevious";
             this.fixedButtonSearchPrevious.Size = new System.Drawing.Size(19, 19);
@@ -99,6 +103,7 @@
             // dynamicComboBoxSearchTag
             // 
             this.dynamicComboBoxSearchTag.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dynamicComboBoxSearchTag.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.dynamicComboBoxSearchTag.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.dynamicComboBoxSearchTag.Location = new System.Drawing.Point(318, 28);
             this.dynamicComboBoxSearchTag.Name = "dynamicComboBoxSearchTag";
@@ -214,7 +219,7 @@
 
         #endregion
         private System.Windows.Forms.CheckBox checkBoxOriginalLanguage;
-        private System.Windows.Forms.TextBox textBoxSearchTag;
+        private QuickImageCommentControls.TextBoxQIC textBoxSearchTag;
         private System.Windows.Forms.Label label10;
         private QuickImageCommentControls.ButtonQIC  fixedButtonSearchNext;
         private QuickImageCommentControls.ButtonQIC  fixedButtonSearchPrevious;

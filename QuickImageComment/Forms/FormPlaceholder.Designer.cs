@@ -61,7 +61,7 @@ namespace QuickImageComment
             this.label4 = new System.Windows.Forms.Label();
             this.numericUpDownFrom = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownLength = new System.Windows.Forms.NumericUpDown();
-            this.textBoxValueConverted = new System.Windows.Forms.TextBox();
+            this.textBoxValueConverted = new QuickImageCommentControls.TextBoxQIC();
             this.dynamicLabelMetaDate = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.dynamicComboBoxFormat = new QuickImageCommentControls.ComboBoxQIC();
@@ -381,12 +381,16 @@ namespace QuickImageComment
             // textBoxSeparator
             // 
             this.textBoxSeparator.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxSeparator.DetectUrls = false;
             this.textBoxSeparator.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBoxSeparator.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxSeparator.Location = new System.Drawing.Point(93, 3);
+            this.textBoxSeparator.Multiline = false;
             this.textBoxSeparator.Name = "textBoxSeparator";
-            this.textBoxSeparator.Size = new System.Drawing.Size(54, 18);
+            this.textBoxSeparator.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
+            this.textBoxSeparator.Size = new System.Drawing.Size(54, 19);
             this.textBoxSeparator.TabIndex = 67;
+            this.textBoxSeparator.Text = "";
             this.textBoxSeparator.TextChanged += new System.EventHandler(this.richTextBoxSeparator_TextChanged);
             // 
             // checkBoxSavedValue
@@ -677,7 +681,7 @@ namespace QuickImageComment
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.NumericUpDown numericUpDownFrom;
         private System.Windows.Forms.NumericUpDown numericUpDownLength;
-        private System.Windows.Forms.TextBox textBoxValueConverted;
+        private QuickImageCommentControls.TextBoxQIC textBoxValueConverted;
         private System.Windows.Forms.Label dynamicLabelMetaDate;
         private System.Windows.Forms.Label label5;
         private QuickImageCommentControls.ComboBoxQIC dynamicComboBoxFormat;

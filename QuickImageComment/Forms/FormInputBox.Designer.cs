@@ -31,13 +31,14 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormInputBox));
             this.buttonOk = new QuickImageCommentControls.ButtonQIC();
             this.buttonCancel = new QuickImageCommentControls.ButtonQIC();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBox1 = new QuickImageCommentControls.TextBoxQIC();
             this.dynamicLabel1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // buttonOk
             // 
             this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonOk.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonOk.Location = new System.Drawing.Point(5, 74);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(75, 23);
@@ -49,6 +50,7 @@
             // buttonCancel
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonCancel.Location = new System.Drawing.Point(316, 74);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
@@ -61,9 +63,11 @@
             // 
             this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Location = new System.Drawing.Point(5, 50);
+            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox1.Location = new System.Drawing.Point(5, 53);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(386, 21);
+            this.textBox1.SingleLineNoBorder = true;
+            this.textBox1.Size = new System.Drawing.Size(386, 14);
             this.textBox1.TabIndex = 2;
             // 
             // dynamicLabel1
@@ -99,7 +103,7 @@
 
         private QuickImageCommentControls.ButtonQIC  buttonOk;
         private QuickImageCommentControls.ButtonQIC  buttonCancel;
-        private System.Windows.Forms.TextBox textBox1;
+        private QuickImageCommentControls.TextBoxQIC textBox1;
         private System.Windows.Forms.Label dynamicLabel1;
     }
 }

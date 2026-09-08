@@ -64,7 +64,7 @@ namespace QuickImageComment
             this.textBoxUserCommentInsertCheckCharacters = new QuickImageCommentControls.TextBoxHighlightText();
             this.textBoxUserCommentAppendCheckCharacters = new QuickImageCommentControls.TextBoxHighlightText();
             this.checkBoxUseDefaultArtist = new System.Windows.Forms.CheckBox();
-            this.textBoxDefaultArtist = new System.Windows.Forms.TextBox();
+            this.textBoxDefaultArtist = new QuickImageCommentControls.TextBoxQIC();
             this.checkBoxNavigationTabSplitbars = new System.Windows.Forms.CheckBox();
             this.fixedCheckBoxSaveCommentImage1 = new System.Windows.Forms.CheckBox();
             this.fixedCheckBoxSaveNameImage3 = new System.Windows.Forms.CheckBox();
@@ -75,7 +75,7 @@ namespace QuickImageComment
             this.labelFullSizeImageCacheMaxSize = new System.Windows.Forms.Label();
             this.numericUpDownFullSizeImageCacheMaxSize = new System.Windows.Forms.NumericUpDown();
             this.labelAdditionalExtensions = new System.Windows.Forms.Label();
-            this.TextBoxAdditionalExtensions = new System.Windows.Forms.TextBox();
+            this.TextBoxAdditionalExtensions = new QuickImageCommentControls.TextBoxQIC();
             this.fixedLabel4 = new System.Windows.Forms.Label();
             this.fixedLabel5 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -124,9 +124,9 @@ namespace QuickImageComment
             this.numericUpDownMaxChangeableFieldEntries = new System.Windows.Forms.NumericUpDown();
             this.label10 = new System.Windows.Forms.Label();
             this.labelVideoProperties = new System.Windows.Forms.Label();
-            this.TextBoxVideoExtensionsProperties = new System.Windows.Forms.TextBox();
+            this.TextBoxVideoExtensionsProperties = new QuickImageCommentControls.TextBoxQIC();
             this.labelVideoFrame = new System.Windows.Forms.Label();
-            this.TextBoxVideoExtensionsFrame = new System.Windows.Forms.TextBox();
+            this.TextBoxVideoExtensionsFrame = new QuickImageCommentControls.TextBoxQIC();
             this.numericUpDownFramePosition = new System.Windows.Forms.NumericUpDown();
             this.labelFramePosition = new System.Windows.Forms.Label();
             this.Panel5 = new System.Windows.Forms.Panel();
@@ -314,9 +314,11 @@ namespace QuickImageComment
             // 
             // textBoxDefaultArtist
             // 
-            this.textBoxDefaultArtist.Location = new System.Drawing.Point(423, 119);
+            this.textBoxDefaultArtist.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxDefaultArtist.Location = new System.Drawing.Point(423, 122);
             this.textBoxDefaultArtist.Name = "textBoxDefaultArtist";
-            this.textBoxDefaultArtist.Size = new System.Drawing.Size(152, 21);
+            this.textBoxDefaultArtist.SingleLineNoBorder = true;
+            this.textBoxDefaultArtist.Size = new System.Drawing.Size(152, 14);
             this.textBoxDefaultArtist.TabIndex = 7;
             // 
             // checkBoxNavigationTabSplitbars
@@ -428,10 +430,12 @@ namespace QuickImageComment
             // 
             // TextBoxAdditionalExtensions
             // 
+            this.TextBoxAdditionalExtensions.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.TextBoxAdditionalExtensions.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextBoxAdditionalExtensions.Location = new System.Drawing.Point(423, 297);
+            this.TextBoxAdditionalExtensions.Location = new System.Drawing.Point(423, 300);
             this.TextBoxAdditionalExtensions.Name = "TextBoxAdditionalExtensions";
-            this.TextBoxAdditionalExtensions.Size = new System.Drawing.Size(152, 18);
+            this.TextBoxAdditionalExtensions.SingleLineNoBorder = true;
+            this.TextBoxAdditionalExtensions.Size = new System.Drawing.Size(152, 11);
             this.TextBoxAdditionalExtensions.TabIndex = 24;
             // 
             // fixedLabel4
@@ -1003,10 +1007,12 @@ namespace QuickImageComment
             // 
             // TextBoxVideoExtensionsProperties
             // 
+            this.TextBoxVideoExtensionsProperties.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.TextBoxVideoExtensionsProperties.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextBoxVideoExtensionsProperties.Location = new System.Drawing.Point(423, 17);
+            this.TextBoxVideoExtensionsProperties.Location = new System.Drawing.Point(423, 20);
             this.TextBoxVideoExtensionsProperties.Name = "TextBoxVideoExtensionsProperties";
-            this.TextBoxVideoExtensionsProperties.Size = new System.Drawing.Size(198, 18);
+            this.TextBoxVideoExtensionsProperties.SingleLineNoBorder = true;
+            this.TextBoxVideoExtensionsProperties.Size = new System.Drawing.Size(198, 11);
             this.TextBoxVideoExtensionsProperties.TabIndex = 2;
             // 
             // labelVideoFrame
@@ -1020,10 +1026,12 @@ namespace QuickImageComment
             // 
             // TextBoxVideoExtensionsFrame
             // 
+            this.TextBoxVideoExtensionsFrame.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.TextBoxVideoExtensionsFrame.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextBoxVideoExtensionsFrame.Location = new System.Drawing.Point(423, 38);
+            this.TextBoxVideoExtensionsFrame.Location = new System.Drawing.Point(423, 41);
             this.TextBoxVideoExtensionsFrame.Name = "TextBoxVideoExtensionsFrame";
-            this.TextBoxVideoExtensionsFrame.Size = new System.Drawing.Size(198, 18);
+            this.TextBoxVideoExtensionsFrame.SingleLineNoBorder = true;
+            this.TextBoxVideoExtensionsFrame.Size = new System.Drawing.Size(198, 11);
             this.TextBoxVideoExtensionsFrame.TabIndex = 5;
             // 
             // numericUpDownFramePosition
@@ -1351,7 +1359,7 @@ namespace QuickImageComment
         #endregion
 
         private System.Windows.Forms.CheckBox checkBoxUseDefaultArtist;
-        private System.Windows.Forms.TextBox textBoxDefaultArtist;
+        private QuickImageCommentControls.TextBoxQIC textBoxDefaultArtist;
         private System.Windows.Forms.CheckBox checkBoxNavigationTabSplitbars;
         private System.Windows.Forms.CheckBox fixedCheckBoxSaveCommentImage1;
         private System.Windows.Forms.CheckBox fixedCheckBoxSaveNameImage3;
@@ -1364,7 +1372,7 @@ namespace QuickImageComment
         private QuickImageCommentControls.ButtonQIC   buttonCustomizeForm;
         private QuickImageCommentControls.ButtonQIC   buttonCancel;
         private System.Windows.Forms.Label labelAdditionalExtensions;
-        private System.Windows.Forms.TextBox TextBoxAdditionalExtensions;
+        private QuickImageCommentControls.TextBoxQIC TextBoxAdditionalExtensions;
         private System.Windows.Forms.Label fixedLabel4;
         private System.Windows.Forms.Label fixedLabel5;
         private System.Windows.Forms.Label label7;
@@ -1394,9 +1402,9 @@ namespace QuickImageComment
         private QuickImageCommentControls.TextBoxHighlightText textBoxUserCommentInsertCheckCharacters;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label labelVideoProperties;
-        private System.Windows.Forms.TextBox TextBoxVideoExtensionsProperties;
+        private QuickImageCommentControls.TextBoxQIC TextBoxVideoExtensionsProperties;
         private System.Windows.Forms.Label labelVideoFrame;
-        private System.Windows.Forms.TextBox TextBoxVideoExtensionsFrame;
+        private QuickImageCommentControls.TextBoxQIC TextBoxVideoExtensionsFrame;
         private System.Windows.Forms.NumericUpDown numericUpDownFramePosition;
         private System.Windows.Forms.Label labelFramePosition;
         private System.Windows.Forms.Panel Panel5;

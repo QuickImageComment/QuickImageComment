@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormTagValueInput));
-            this.textBoxValue = new System.Windows.Forms.TextBox();
+            this.textBoxValue = new QuickImageCommentControls.TextBoxQIC();
             this.buttonOk = new QuickImageCommentControls.ButtonQIC();
             this.buttonCancel = new QuickImageCommentControls.ButtonQIC();
             this.label1 = new System.Windows.Forms.Label();
@@ -171,7 +171,7 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBoxValue;
+        private QuickImageCommentControls.TextBoxQIC textBoxValue;
         private QuickImageCommentControls.ButtonQIC buttonOk;
         private QuickImageCommentControls.ButtonQIC buttonCancel;
         private System.Windows.Forms.Label label1;

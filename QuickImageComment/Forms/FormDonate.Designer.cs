@@ -30,7 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormDonate));
             this.buttonClose = new QuickImageCommentControls.ButtonQIC();
-            this.textBoxInfo = new System.Windows.Forms.TextBox();
+            this.textBoxInfo = new QuickImageCommentControls.TextBoxQIC();
             this.buttonDonate = new QuickImageCommentControls.ButtonQIC();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel1.SuspendLayout();
@@ -39,6 +39,7 @@
             // buttonClose
             // 
             this.buttonClose.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonClose.Location = new System.Drawing.Point(103, 170);
             this.buttonClose.Name = "buttonClose";
             this.buttonClose.Size = new System.Drawing.Size(194, 24);
@@ -62,6 +63,7 @@
             // buttonDonate
             // 
             this.buttonDonate.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonDonate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonDonate.Location = new System.Drawing.Point(103, 140);
             this.buttonDonate.Name = "buttonDonate";
             this.buttonDonate.Size = new System.Drawing.Size(194, 24);
@@ -111,7 +113,7 @@
 
         #endregion
         private QuickImageCommentControls.ButtonQIC buttonClose;
-        private System.Windows.Forms.TextBox textBoxInfo;
+        private QuickImageCommentControls.TextBoxQIC textBoxInfo;
         private QuickImageCommentControls.ButtonQIC buttonDonate;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
     }

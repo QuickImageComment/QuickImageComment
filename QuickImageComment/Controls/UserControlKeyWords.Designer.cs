@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.splitContainer1212 = new System.Windows.Forms.SplitContainer();
-            this.textBoxFreeInputKeyWords = new System.Windows.Forms.TextBox();
-            this.labelInputKeyWords = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.textBoxFreeInputKeyWords = new QuickImageCommentControls.TextBoxQIC();
+            this.labelInputKeyWords = new System.Windows.Forms.Label();
             this.treeViewPredefKeyWords = new QuickImageCommentControls.TreeViewKeyWords();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1212)).BeginInit();
             this.splitContainer1212.Panel1.SuspendLayout();
@@ -64,25 +64,6 @@
             this.splitContainer1212.SplitterDistance = 227;
             this.splitContainer1212.TabIndex = 1;
             // 
-            // textBoxFreeInputKeyWords
-            // 
-            this.textBoxFreeInputKeyWords.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBoxFreeInputKeyWords.Location = new System.Drawing.Point(3, 3);
-            this.textBoxFreeInputKeyWords.Multiline = true;
-            this.textBoxFreeInputKeyWords.Name = "textBoxFreeInputKeyWords";
-            this.textBoxFreeInputKeyWords.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxFreeInputKeyWords.Size = new System.Drawing.Size(357, 201);
-            this.textBoxFreeInputKeyWords.TabIndex = 1;
-            // 
-            // labelInputKeyWords
-            // 
-            this.labelInputKeyWords.AutoSize = true;
-            this.labelInputKeyWords.Location = new System.Drawing.Point(0, 4);
-            this.labelInputKeyWords.Name = "labelInputKeyWords";
-            this.labelInputKeyWords.Size = new System.Drawing.Size(78, 13);
-            this.labelInputKeyWords.TabIndex = 0;
-            this.labelInputKeyWords.Text = "Schlüsselworte";
-            // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -101,10 +82,31 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(363, 207);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
+            // textBoxFreeInputKeyWords
+            // 
+            this.textBoxFreeInputKeyWords.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxFreeInputKeyWords.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBoxFreeInputKeyWords.Location = new System.Drawing.Point(3, 3);
+            this.textBoxFreeInputKeyWords.Multiline = true;
+            this.textBoxFreeInputKeyWords.Name = "textBoxFreeInputKeyWords";
+            this.textBoxFreeInputKeyWords.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.textBoxFreeInputKeyWords.Size = new System.Drawing.Size(357, 201);
+            this.textBoxFreeInputKeyWords.TabIndex = 1;
+            // 
+            // labelInputKeyWords
+            // 
+            this.labelInputKeyWords.AutoSize = true;
+            this.labelInputKeyWords.Location = new System.Drawing.Point(0, 4);
+            this.labelInputKeyWords.Name = "labelInputKeyWords";
+            this.labelInputKeyWords.Size = new System.Drawing.Size(78, 13);
+            this.labelInputKeyWords.TabIndex = 0;
+            this.labelInputKeyWords.Text = "Schlüsselworte";
+            // 
             // treeViewPredefKeyWords
             // 
             this.treeViewPredefKeyWords.CheckBoxes = true;
             this.treeViewPredefKeyWords.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeViewPredefKeyWords.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawText;
             this.treeViewPredefKeyWords.Location = new System.Drawing.Point(0, 0);
             this.treeViewPredefKeyWords.Name = "treeViewPredefKeyWords";
             this.treeViewPredefKeyWords.Size = new System.Drawing.Size(363, 276);
@@ -113,9 +115,9 @@
             // 
             // UserControlKeyWords
             // 
-            this.BackColor = System.Drawing.SystemColors.Control;
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.Controls.Add(this.splitContainer1212);
             this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "UserControlKeyWords";
@@ -132,7 +134,7 @@
         }
 
         #endregion
-        internal System.Windows.Forms.TextBox textBoxFreeInputKeyWords;
+        internal QuickImageCommentControls.TextBoxQIC textBoxFreeInputKeyWords;
         private System.Windows.Forms.Label labelInputKeyWords;
         internal System.Windows.Forms.SplitContainer splitContainer1212;
         internal QuickImageCommentControls.TreeViewKeyWords treeViewPredefKeyWords;

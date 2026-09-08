@@ -51,7 +51,7 @@ namespace QuickImageComment
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormPredefinedComments));
             this.buttonOK = new QuickImageCommentControls.ButtonQIC();
             this.buttonAbort = new QuickImageCommentControls.ButtonQIC();
-            this.textBoxPredefinedComments = new System.Windows.Forms.TextBox();
+            this.textBoxPredefinedComments = new QuickImageCommentControls.TextBoxQIC();
             this.labelPredefinedComments2 = new System.Windows.Forms.Label();
             this.buttonCustomizeForm = new QuickImageCommentControls.ButtonQIC();
             this.buttonHelp = new QuickImageCommentControls.ButtonQIC();

@@ -46,19 +46,19 @@ namespace QuickImageComment
     {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormAbout));
             this.buttonClose = new QuickImageCommentControls.ButtonQIC();
-            this.textBoxOtherSources = new System.Windows.Forms.TextBox();
+            this.textBoxOtherSources = new QuickImageCommentControls.TextBoxQIC();
             this.fixedLabel1 = new System.Windows.Forms.Label();
             this.fixedLabelQuickImageCommentCopyRight = new System.Windows.Forms.Label();
             this.fixedLabelExiv2Cdecl = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.textBoxLicence = new System.Windows.Forms.TextBox();
+            this.textBoxLicence = new QuickImageCommentControls.TextBoxQIC();
             this.dynamicLabelQuickImageCommentCreated = new System.Windows.Forms.Label();
             this.buttonLicenses = new QuickImageCommentControls.ButtonQIC();
             this.labelContact = new System.Windows.Forms.Label();
             this.fixedLinkLabelMail = new System.Windows.Forms.LinkLabel();
             this.fixedLinkLabelHomePage = new System.Windows.Forms.LinkLabel();
-            this.textBoxQuickImageCommentVersion = new System.Windows.Forms.TextBox();
-            this.textBoxExiv2CdeclVersion = new System.Windows.Forms.TextBox();
+            this.textBoxQuickImageCommentVersion = new QuickImageCommentControls.TextBoxQIC();
+            this.textBoxExiv2CdeclVersion = new QuickImageCommentControls.TextBoxQIC();
             this.fixedLinkLabelGitHub = new System.Windows.Forms.LinkLabel();
             this.labelGitHub = new System.Windows.Forms.Label();
             this.dynamicLabelTranslationAcknowledgment = new System.Windows.Forms.Label();
@@ -69,6 +69,7 @@ namespace QuickImageComment
             // buttonClose
             // 
             this.buttonClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonClose.Location = new System.Drawing.Point(400, 550);
             this.buttonClose.Name = "buttonClose";
             this.buttonClose.Size = new System.Drawing.Size(239, 25);
@@ -155,6 +156,7 @@ namespace QuickImageComment
             // buttonLicenses
             // 
             this.buttonLicenses.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonLicenses.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonLicenses.Location = new System.Drawing.Point(12, 550);
             this.buttonLicenses.Name = "buttonLicenses";
             this.buttonLicenses.Size = new System.Drawing.Size(239, 25);
@@ -300,19 +302,19 @@ namespace QuickImageComment
     #endregion
 
     private QuickImageCommentControls.ButtonQIC buttonClose;
-    private System.Windows.Forms.TextBox textBoxOtherSources;
+    private QuickImageCommentControls.TextBoxQIC textBoxOtherSources;
     private System.Windows.Forms.Label fixedLabel1;
     private System.Windows.Forms.Label fixedLabelQuickImageCommentCopyRight;
     private System.Windows.Forms.Label fixedLabelExiv2Cdecl;
     private System.Windows.Forms.Label label5;
-    private System.Windows.Forms.TextBox textBoxLicence;
+    private QuickImageCommentControls.TextBoxQIC textBoxLicence;
     private System.Windows.Forms.Label dynamicLabelQuickImageCommentCreated;
     private QuickImageCommentControls.ButtonQIC buttonLicenses;
     private System.Windows.Forms.Label labelContact;
         private System.Windows.Forms.LinkLabel fixedLinkLabelMail;
         private System.Windows.Forms.LinkLabel fixedLinkLabelHomePage;
-        private System.Windows.Forms.TextBox textBoxQuickImageCommentVersion;
-        private System.Windows.Forms.TextBox textBoxExiv2CdeclVersion;
+        private QuickImageCommentControls.TextBoxQIC textBoxQuickImageCommentVersion;
+        private QuickImageCommentControls.TextBoxQIC textBoxExiv2CdeclVersion;
         private System.Windows.Forms.LinkLabel fixedLinkLabelGitHub;
         private System.Windows.Forms.Label labelGitHub;
         private System.Windows.Forms.Label dynamicLabelTranslationAcknowledgment;

@@ -88,6 +88,7 @@
             // buttonClose
             // 
             this.buttonClose.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.buttonClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonClose.Location = new System.Drawing.Point(448, 330);
             this.buttonClose.Name = "buttonClose";
             this.buttonClose.Size = new System.Drawing.Size(100, 22);
@@ -99,6 +100,7 @@
             // buttonCustomizeForm
             // 
             this.buttonCustomizeForm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonCustomizeForm.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonCustomizeForm.Location = new System.Drawing.Point(2, 330);
             this.buttonCustomizeForm.Name = "buttonCustomizeForm";
             this.buttonCustomizeForm.Size = new System.Drawing.Size(100, 22);
@@ -110,6 +112,7 @@
             // buttonHelp
             // 
             this.buttonHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonHelp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonHelp.Location = new System.Drawing.Point(894, 330);
             this.buttonHelp.Name = "buttonHelp";
             this.buttonHelp.Size = new System.Drawing.Size(100, 22);
@@ -142,6 +145,7 @@
             // 
             // buttonDisableCompareForColumn
             // 
+            this.buttonDisableCompareForColumn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonDisableCompareForColumn.Location = new System.Drawing.Point(600, 1);
             this.buttonDisableCompareForColumn.Name = "buttonDisableCompareForColumn";
             this.buttonDisableCompareForColumn.Size = new System.Drawing.Size(215, 22);
@@ -163,6 +167,7 @@
             // 
             // buttonHiddenColumns
             // 
+            this.buttonHiddenColumns.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonHiddenColumns.Location = new System.Drawing.Point(827, 1);
             this.buttonHiddenColumns.Name = "buttonHiddenColumns";
             this.buttonHiddenColumns.Size = new System.Drawing.Size(162, 22);

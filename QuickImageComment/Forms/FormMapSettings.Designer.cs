@@ -43,7 +43,7 @@
             this.theColorDialog = new System.Windows.Forms.ColorDialog();
             this.label7 = new System.Windows.Forms.Label();
             this.buttonColorDialog = new QuickImageCommentControls.ButtonQIC();
-            this.textBoxColor = new System.Windows.Forms.TextBox();
+            this.textBoxColor = new QuickImageCommentControls.TextBoxQIC();
             this.label8 = new System.Windows.Forms.Label();
             this.radioButtonScaleImperial = new System.Windows.Forms.RadioButton();
             this.radioButtonScaleMetric = new System.Windows.Forms.RadioButton();
@@ -51,7 +51,7 @@
             this.checkBoxScale = new System.Windows.Forms.CheckBox();
             this.checkBoxHideMapWhenNoGPS = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.textBoxColorDisplay = new System.Windows.Forms.TextBox();
+            this.textBoxColorDisplay = new QuickImageCommentControls.TextBoxQIC();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFillOpacity)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownOpacity)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCircleSegmentRadius)).BeginInit();
@@ -334,7 +334,7 @@
         private System.Windows.Forms.ColorDialog theColorDialog;
         private System.Windows.Forms.Label label7;
         private QuickImageCommentControls.ButtonQIC  buttonColorDialog;
-        private System.Windows.Forms.TextBox textBoxColor;
+        private QuickImageCommentControls.TextBoxQIC textBoxColor;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.RadioButton radioButtonScaleImperial;
         private System.Windows.Forms.RadioButton radioButtonScaleMetric;
@@ -342,6 +342,6 @@
         private System.Windows.Forms.CheckBox checkBoxScale;
         private System.Windows.Forms.CheckBox checkBoxHideMapWhenNoGPS;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.TextBox textBoxColorDisplay;
+        private QuickImageCommentControls.TextBoxQIC textBoxColorDisplay;
     }
 }

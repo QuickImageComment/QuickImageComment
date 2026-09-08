@@ -84,6 +84,7 @@
     <AssemblyName>QuickImageComment</AssemblyName>
     <DebugSymbols>true</DebugSymbols>
     <Prefer32Bit>false</Prefer32Bit>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>QuickImageComment.ico</ApplicationIcon>
@@ -129,6 +130,9 @@
     </Compile>
     <Compile Include="Controls\pictureBoxQIC.cs" />
     <Compile Include="Controls\TextBoxHighlightText.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\TextBoxQIC.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\ToolTipQIC.cs">

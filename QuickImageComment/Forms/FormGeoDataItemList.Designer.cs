@@ -30,8 +30,6 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormGeoDataItemList));
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.buttonCancel = new QuickImageCommentControls.ButtonQIC();
-            this.buttonOk = new QuickImageCommentControls.ButtonQIC();
             this.displayString = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.country = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.country_code = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -40,6 +38,8 @@
             this.city_district = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lat = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lon = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.buttonCancel = new QuickImageCommentControls.ButtonQIC();
+            this.buttonOk = new QuickImageCommentControls.ButtonQIC();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -68,28 +68,6 @@
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(799, 415);
             this.dataGridView1.TabIndex = 0;
-            // 
-            // buttonCancel
-            // 
-            this.buttonCancel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.buttonCancel.Location = new System.Drawing.Point(423, 421);
-            this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(100, 22);
-            this.buttonCancel.TabIndex = 7;
-            this.buttonCancel.Text = "Abbrechen";
-            this.buttonCancel.UseVisualStyleBackColor = true;
-            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
-            // 
-            // buttonOk
-            // 
-            this.buttonOk.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.buttonOk.Location = new System.Drawing.Point(278, 421);
-            this.buttonOk.Name = "buttonOk";
-            this.buttonOk.Size = new System.Drawing.Size(100, 22);
-            this.buttonOk.TabIndex = 8;
-            this.buttonOk.Text = "OK";
-            this.buttonOk.UseVisualStyleBackColor = true;
-            this.buttonOk.Click += new System.EventHandler(this.buttonOk_Click);
             // 
             // displayString
             // 
@@ -138,6 +116,30 @@
             this.lon.HeaderText = "geo.Länge";
             this.lon.Name = "lon";
             this.lon.ReadOnly = true;
+            // 
+            // buttonCancel
+            // 
+            this.buttonCancel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.buttonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonCancel.Location = new System.Drawing.Point(423, 421);
+            this.buttonCancel.Name = "buttonCancel";
+            this.buttonCancel.Size = new System.Drawing.Size(100, 22);
+            this.buttonCancel.TabIndex = 7;
+            this.buttonCancel.Text = "Abbrechen";
+            this.buttonCancel.UseVisualStyleBackColor = true;
+            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
+            // 
+            // buttonOk
+            // 
+            this.buttonOk.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.buttonOk.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonOk.Location = new System.Drawing.Point(278, 421);
+            this.buttonOk.Name = "buttonOk";
+            this.buttonOk.Size = new System.Drawing.Size(100, 22);
+            this.buttonOk.TabIndex = 8;
+            this.buttonOk.Text = "OK";
+            this.buttonOk.UseVisualStyleBackColor = true;
+            this.buttonOk.Click += new System.EventHandler(this.buttonOk_Click);
             // 
             // FormGeoDataItemList
             // 

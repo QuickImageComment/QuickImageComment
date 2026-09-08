@@ -35,7 +35,7 @@
             this.buttonOK = new QuickImageCommentControls.ButtonQIC();
             this.checkBoxAllowOtherValues = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBoxValidValues = new System.Windows.Forms.TextBox();
+            this.textBoxValidValues = new QuickImageCommentControls.TextBoxQIC();
             this.label2 = new System.Windows.Forms.Label();
             this.buttonSort = new QuickImageCommentControls.ButtonQIC();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -189,7 +189,7 @@
         private QuickImageCommentControls.ButtonQIC  buttonOK;
         private System.Windows.Forms.CheckBox checkBoxAllowOtherValues;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBoxValidValues;
+        private QuickImageCommentControls.TextBoxQIC textBoxValidValues;
         private System.Windows.Forms.Label label2;
         private QuickImageCommentControls.ButtonQIC  buttonSort;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;

@@ -30,13 +30,13 @@ namespace QuickImageComment
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormError));
-            this.textBoxErrorDetails = new System.Windows.Forms.TextBox();
+            this.textBoxErrorDetails = new QuickImageCommentControls.TextBoxQIC();
             this.buttonPrepareMail = new QuickImageCommentControls.ButtonQIC();
             this.buttonClose = new QuickImageCommentControls.ButtonQIC();
-            this.textBoxErrorMessage = new System.Windows.Forms.TextBox();
+            this.textBoxErrorMessage = new QuickImageCommentControls.TextBoxQIC();
             this.dynamicLabelErrorHeader = new System.Windows.Forms.Label();
             this.labelDetails = new System.Windows.Forms.Label();
-            this.textBoxInstructions = new System.Windows.Forms.TextBox();
+            this.textBoxInstructions = new QuickImageCommentControls.TextBoxQIC();
             this.buttonGitHubIssue = new QuickImageCommentControls.ButtonQIC();
             this.pictureBoxSeverity = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -182,13 +182,13 @@ namespace QuickImageComment
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBoxErrorDetails;
+        private QuickImageCommentControls.TextBoxQIC textBoxErrorDetails;
         private QuickImageCommentControls.ButtonQIC  buttonPrepareMail;
         private QuickImageCommentControls.ButtonQIC  buttonClose;
-        private System.Windows.Forms.TextBox textBoxErrorMessage;
+        private QuickImageCommentControls.TextBoxQIC textBoxErrorMessage;
         private System.Windows.Forms.Label dynamicLabelErrorHeader;
         private System.Windows.Forms.Label labelDetails;
-        private System.Windows.Forms.TextBox textBoxInstructions;
+        private QuickImageCommentControls.TextBoxQIC textBoxInstructions;
         private QuickImageCommentControls.ButtonQIC  buttonGitHubIssue;
         private System.Windows.Forms.PictureBox pictureBoxSeverity;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;

@@ -47,7 +47,7 @@ namespace QuickImageComment
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormQuickImageComment));
-            this.textBoxUserComment = new System.Windows.Forms.TextBox();
+            this.textBoxUserComment = new QuickImageCommentControls.TextBoxQIC();
             this.labelLastCommentsFilter = new System.Windows.Forms.Label();
             this.splitContainer12 = new System.Windows.Forms.SplitContainer();
             this.splitContainer12P1 = new System.Windows.Forms.SplitContainer();
@@ -96,7 +96,7 @@ namespace QuickImageComment
             this.tabControlLastPredefComments = new System.Windows.Forms.TabControl();
             this.tabPageLastComments = new System.Windows.Forms.TabPage();
             this.listBoxLastUserComments = new QuickImageCommentControls.ListBoxComments();
-            this.textBoxLastCommentsFilter = new System.Windows.Forms.TextBox();
+            this.textBoxLastCommentsFilter = new QuickImageCommentControls.TextBoxQIC();
             this.tabPagePredefComments = new System.Windows.Forms.TabPage();
             this.dynamicComboBoxPredefinedComments = new QuickImageCommentControls.ComboBoxQIC();
             this.listBoxPredefinedComments = new QuickImageCommentControls.ListBoxComments();
@@ -337,10 +337,12 @@ namespace QuickImageComment
             // 
             // textBoxUserComment
             // 
+            this.textBoxUserComment.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBoxUserComment.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBoxUserComment.Location = new System.Drawing.Point(93, 3);
             this.textBoxUserComment.Name = "textBoxUserComment";
-            this.textBoxUserComment.Size = new System.Drawing.Size(567, 21);
+            this.textBoxUserComment.SingleLineNoBorder = true;
+            this.textBoxUserComment.Size = new System.Drawing.Size(567, 14);
             this.textBoxUserComment.TabIndex = 5;
             this.textBoxUserComment.TextChanged += new System.EventHandler(this.textBoxUserComment_TextChanged);
             this.textBoxUserComment.DoubleClick += new System.EventHandler(this.textBoxUserComment_DoubleClick);
@@ -1039,10 +1041,12 @@ namespace QuickImageComment
             // 
             this.textBoxLastCommentsFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxLastCommentsFilter.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBoxLastCommentsFilter.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.textBoxLastCommentsFilter.Location = new System.Drawing.Point(47, 2);
+            this.textBoxLastCommentsFilter.Location = new System.Drawing.Point(47, 5);
             this.textBoxLastCommentsFilter.Name = "textBoxLastCommentsFilter";
-            this.textBoxLastCommentsFilter.Size = new System.Drawing.Size(260, 21);
+            this.textBoxLastCommentsFilter.SingleLineNoBorder = true;
+            this.textBoxLastCommentsFilter.Size = new System.Drawing.Size(260, 14);
             this.textBoxLastCommentsFilter.TabIndex = 1;
             this.textBoxLastCommentsFilter.TextChanged += new System.EventHandler(this.textBoxLastCommentsFilter_TextChanged);
             // 
@@ -2917,7 +2921,7 @@ namespace QuickImageComment
         private System.Windows.Forms.TabPage tabPageXmp;
         private QuickImageCommentControls.DataGridViewMetaData DataGridViewXmp;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemRemoveAllMaskCustomizations;
-        private System.Windows.Forms.TextBox textBoxLastCommentsFilter;
+        private QuickImageCommentControls.TextBoxQIC textBoxLastCommentsFilter;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelBuffering;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemZoomFactor;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemZoomA;
@@ -2979,7 +2983,7 @@ namespace QuickImageComment
         private System.Windows.Forms.ContextMenuStrip contextMenuStripOverview;
         private System.Windows.Forms.ToolStripMenuItem contextMenuStripMetaDataMenuItemAdjustOverview;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemDataTemplates;
-        internal System.Windows.Forms.TextBox textBoxUserComment;
+        internal QuickImageCommentControls.TextBoxQIC textBoxUserComment;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator13;
         private System.Windows.Forms.ToolStripMenuItem dynamicToolStripMenuItemLoadDataFromTemplate;
         private System.Windows.Forms.ToolStripButton dynamicToolStripButtonLoadDataFromTemplate;

@@ -47,7 +47,7 @@ namespace QuickImageComment
             this.buttonRemove = new QuickImageCommentControls.ButtonQIC();
             this.buttonUp = new QuickImageCommentControls.ButtonQIC();
             this.buttonDown = new QuickImageCommentControls.ButtonQIC();
-            this.textBoxInfo = new System.Windows.Forms.TextBox();
+            this.textBoxInfo = new QuickImageCommentControls.TextBoxQIC();
             this.listViewIcons = new System.Windows.Forms.ListView();
             this.buttonAssign = new QuickImageCommentControls.ButtonQIC();
             this.pictureBoxProgramPath = new System.Windows.Forms.PictureBox();
@@ -55,7 +55,7 @@ namespace QuickImageComment
             this.radioButtonImagePath = new System.Windows.Forms.RadioButton();
             this.pictureBoxImagePath = new System.Windows.Forms.PictureBox();
             this.buttonBrowse = new QuickImageCommentControls.ButtonQIC();
-            this.textBoxImagePath = new System.Windows.Forms.TextBox();
+            this.textBoxImagePath = new QuickImageCommentControls.TextBoxQIC();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewButtons)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProgramPath)).BeginInit();
@@ -419,7 +419,7 @@ namespace QuickImageComment
         private QuickImageCommentControls.ButtonQIC buttonRemove;
         private QuickImageCommentControls.ButtonQIC buttonUp;
         private QuickImageCommentControls.ButtonQIC buttonDown;
-        private System.Windows.Forms.TextBox textBoxInfo;
+        private QuickImageCommentControls.TextBoxQIC textBoxInfo;
         private System.Windows.Forms.ListView listViewIcons;
         private QuickImageCommentControls.ButtonQIC buttonAssign;
         private System.Windows.Forms.PictureBox pictureBoxProgramPath;
@@ -427,7 +427,7 @@ namespace QuickImageComment
         private System.Windows.Forms.RadioButton radioButtonImagePath;
         private System.Windows.Forms.PictureBox pictureBoxImagePath;
         private QuickImageCommentControls.ButtonQIC buttonBrowse;
-        private System.Windows.Forms.TextBox textBoxImagePath;
+        private QuickImageCommentControls.TextBoxQIC textBoxImagePath;
         private System.Windows.Forms.DataGridViewImageColumn Dynamic_ColumnIcon;
         private System.Windows.Forms.DataGridViewTextBoxColumn Dynamic_ColumnText;
         private System.Windows.Forms.DataGridViewTextBoxColumn Dynamic_ColumnTag;

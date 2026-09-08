@@ -34,7 +34,7 @@
             this.theColorDialog = new System.Windows.Forms.ColorDialog();
             this.buttonHelp = new QuickImageCommentControls.ButtonQIC();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBoxProgramPath = new System.Windows.Forms.TextBox();
+            this.textBoxProgramPath = new QuickImageCommentControls.TextBoxQIC();
             this.buttonBrowse = new QuickImageCommentControls.ButtonQIC();
             this.buttonStatusVersionCheck = new QuickImageCommentControls.ButtonQIC();
             this.dynamicLabelVersion = new System.Windows.Forms.Label();
@@ -382,7 +382,7 @@
         private System.Windows.Forms.ColorDialog theColorDialog;
         private QuickImageCommentControls.ButtonQIC buttonHelp;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBoxProgramPath;
+        private QuickImageCommentControls.TextBoxQIC textBoxProgramPath;
         private QuickImageCommentControls.ButtonQIC buttonBrowse;
         private QuickImageCommentControls.ButtonQIC buttonStatusVersionCheck;
         private System.Windows.Forms.Label dynamicLabelVersion;

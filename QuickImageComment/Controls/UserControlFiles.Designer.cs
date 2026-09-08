@@ -48,7 +48,7 @@ namespace QuickImageComment
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.contextMenuStripMenuItemTileAdjust = new System.Windows.Forms.ToolStripMenuItem();
             this.labelFilter = new System.Windows.Forms.Label();
-            this.textBoxFileFilter = new System.Windows.Forms.TextBox();
+            this.textBoxFileFilter = new QuickImageCommentControls.TextBoxQIC();
             this.buttonFilterFiles = new QuickImageCommentControls.ButtonQIC();
             this.listViewFiles = new QuickImageCommentControls.ListViewFiles();
             this.columnHeaderName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -207,10 +207,12 @@ namespace QuickImageComment
             // 
             this.textBoxFileFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxFileFilter.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBoxFileFilter.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.textBoxFileFilter.Location = new System.Drawing.Point(75, 4);
+            this.textBoxFileFilter.Location = new System.Drawing.Point(75, 7);
             this.textBoxFileFilter.Name = "textBoxFileFilter";
-            this.textBoxFileFilter.Size = new System.Drawing.Size(155, 20);
+            this.textBoxFileFilter.SingleLineNoBorder = true;
+            this.textBoxFileFilter.Size = new System.Drawing.Size(155, 13);
             this.textBoxFileFilter.TabIndex = 2;
             this.textBoxFileFilter.Tag = "";
             this.textBoxFileFilter.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxFileFilter_KeyDown);
@@ -219,6 +221,7 @@ namespace QuickImageComment
             // 
             this.buttonFilterFiles.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonFilterFiles.BackColor = System.Drawing.SystemColors.Control;
+            this.buttonFilterFiles.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonFilterFiles.ForeColor = System.Drawing.SystemColors.ControlText;
             this.buttonFilterFiles.Location = new System.Drawing.Point(233, 2);
             this.buttonFilterFiles.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);
@@ -321,7 +324,7 @@ namespace QuickImageComment
         private System.Windows.Forms.ColumnHeader columnHeaderCreated;
         private System.Windows.Forms.Label labelFilter;
         internal QuickImageCommentControls.ListViewFiles listViewFiles;
-        internal System.Windows.Forms.TextBox textBoxFileFilter;
+        internal QuickImageCommentControls.TextBoxQIC textBoxFileFilter;
         internal QuickImageCommentControls.ButtonQIC  buttonFilterFiles;
         private System.Windows.Forms.ToolStripMenuItem contextMenuStripMenuItemLargeIcons;
         private System.Windows.Forms.ToolStripMenuItem contextMenuStripMenuItemTile;
