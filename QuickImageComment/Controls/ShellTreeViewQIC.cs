@@ -49,6 +49,14 @@ namespace QuickImageCommentControls
     /// </remarks>
     public class ShellTreeViewQIC : Control
     {
+        private bool IsInDesignMode
+        {
+            get
+            {
+                return DesignMode || (Site?.DesignMode ?? false);
+            }
+        }
+
         // lists to hold file system changes, which cause ShellListener to fire,
         // but should be ignored, as they are handled inside
         private static readonly ArrayList ShellListenerIgnoreDelete = new ArrayList();
@@ -448,16 +456,19 @@ namespace QuickImageCommentControls
             bool isSelected = (e.State & TreeNodeStates.Selected) != 0;
             bool hasFocus = tv.Focused;
 
-            Color backColor;
+            Color backColor = SystemColors.Control;
             Color textColor = tv.ForeColor;
 
-            if (isSelected)
+            if (!IsInDesignMode)
             {
-                backColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorSelected);
-            }
-            else
-            {
-                backColor = tv.BackColor;
+                if (isSelected)
+                {
+                    backColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorSelected);
+                }
+                else
+                {
+                    backColor = tv.BackColor;
+                }
             }
 
             // full-row highlight WITHOUT covering glyph area

@@ -11,6 +11,14 @@ namespace QuickImageCommentControls
     // because it didn't work with a class derived from TextBox, it is derived from RichtTextBox
     public class TextBoxHighlightText : RichTextBox
     {
+        private bool IsInDesignMode
+        {
+            get
+            {
+                return DesignMode || (Site?.DesignMode ?? false);
+            }
+        }
+
         private bool _internalUpdate = false;
 
         public TextBoxHighlightText()
@@ -35,16 +43,19 @@ namespace QuickImageCommentControls
         {
             base.OnEnabledChanged(e);
 
-            if (!Enabled)
+            if (!IsInDesignMode)
             {
-                this.BackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorNotEnabled);
-            }
-            else
-            {
-                this.BackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorInputUnchanged);
-            }
+                if (!Enabled)
+                {
+                    this.BackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorNotEnabled);
+                }
+                else
+                {
+                    this.BackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorInputUnchanged);
+                }
 
-            HighlightTextWithTrailingSpaces();
+                HighlightTextWithTrailingSpaces();
+            }
         }
 
         protected override void OnTextChanged(EventArgs e)
@@ -69,7 +80,10 @@ namespace QuickImageCommentControls
 
                 // reset formatting
                 this.SelectAll();
-                this.SelectionBackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorEnteredText);
+                if (!IsInDesignMode)
+                {
+                    this.SelectionBackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorEnteredText);
+                }
 
                 // restore caret
                 this.Select(selStart, selLength);
