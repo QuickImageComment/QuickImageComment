@@ -50,9 +50,6 @@ namespace QuickImageComment
             min,
             max
         }
-
-        private Button buttonFind;
-        private Button buttonAbort;
         private FormCustomization.Interface CustomizationInterface;
         private UserControlMap theUserControlMap;
         internal static string FolderName;
@@ -496,7 +493,9 @@ namespace QuickImageComment
             aLabel.AutoSize = dynamicLabelFind.AutoSize;
             // do net set Font, shall be inherited by parent
             aLabel.ForeColor = dynamicLabelFind.ForeColor;
-            aLabel.BackColor = dynamicLabelFind.BackColor;
+            // do not copy dynamicLabelFind.BackColor, as it is changed before (inherited from parent)
+            // thus it is causing warning message that back color is not found in Customizer
+            aLabel.BackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorNotEnabled);
             aLabel.Left = dynamicLabelFind.Left;
             aLabel.Top = lastTop;
             if (maxLabelWidth < aLabel.PreferredWidth)

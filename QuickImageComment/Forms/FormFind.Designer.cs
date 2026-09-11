@@ -111,6 +111,7 @@ namespace QuickImageComment
             // buttonFind
             // 
             this.buttonFind.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonFind.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonFind.Location = new System.Drawing.Point(568, 339);
             this.buttonFind.Name = "buttonFind";
             this.buttonFind.Size = new System.Drawing.Size(99, 26);
@@ -122,6 +123,7 @@ namespace QuickImageComment
             // buttonAbort
             // 
             this.buttonAbort.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonAbort.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonAbort.Location = new System.Drawing.Point(674, 339);
             this.buttonAbort.Name = "buttonAbort";
             this.buttonAbort.Size = new System.Drawing.Size(99, 26);
@@ -133,6 +135,7 @@ namespace QuickImageComment
             // buttonCustomizeForm
             // 
             this.buttonCustomizeForm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonCustomizeForm.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonCustomizeForm.Location = new System.Drawing.Point(8, 339);
             this.buttonCustomizeForm.Name = "buttonCustomizeForm";
             this.buttonCustomizeForm.Size = new System.Drawing.Size(99, 26);
@@ -144,6 +147,7 @@ namespace QuickImageComment
             // buttonHelp
             // 
             this.buttonHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonHelp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonHelp.Location = new System.Drawing.Point(776, 339);
             this.buttonHelp.Name = "buttonHelp";
             this.buttonHelp.Size = new System.Drawing.Size(99, 26);
@@ -157,6 +161,7 @@ namespace QuickImageComment
             this.panelFilterInner.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelFilterInner.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.panelFilterInner.BackColor = System.Drawing.SystemColors.Control;
             this.panelFilterInner.Controls.Add(this.dynamicComboBoxOperator);
             this.panelFilterInner.Controls.Add(this.dateTimePicker);
             this.panelFilterInner.Controls.Add(this.dynamicComboBoxValue);
@@ -171,10 +176,11 @@ namespace QuickImageComment
             // 
             this.dynamicComboBoxOperator.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.dynamicComboBoxOperator.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.dynamicComboBoxOperator.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.dynamicComboBoxOperator.FormattingEnabled = true;
             this.dynamicComboBoxOperator.Location = new System.Drawing.Point(116, 3);
             this.dynamicComboBoxOperator.Name = "dynamicComboBoxOperator";
-            this.dynamicComboBoxOperator.Size = new System.Drawing.Size(192, 21);
+            this.dynamicComboBoxOperator.Size = new System.Drawing.Size(192, 22);
             this.dynamicComboBoxOperator.TabIndex = 9;
             // 
             // dateTimePicker
@@ -191,10 +197,11 @@ namespace QuickImageComment
             // 
             this.dynamicComboBoxValue.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.dynamicComboBoxValue.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.dynamicComboBoxValue.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.dynamicComboBoxValue.FormattingEnabled = true;
             this.dynamicComboBoxValue.Location = new System.Drawing.Point(323, 3);
             this.dynamicComboBoxValue.Name = "dynamicComboBoxValue";
-            this.dynamicComboBoxValue.Size = new System.Drawing.Size(199, 21);
+            this.dynamicComboBoxValue.Size = new System.Drawing.Size(199, 22);
             this.dynamicComboBoxValue.TabIndex = 7;
             // 
             // dynamicLabelFind
@@ -258,6 +265,7 @@ namespace QuickImageComment
             // 
             // buttonReadFolder
             // 
+            this.buttonReadFolder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonReadFolder.Location = new System.Drawing.Point(125, 24);
             this.buttonReadFolder.Name = "buttonReadFolder";
             this.buttonReadFolder.Size = new System.Drawing.Size(100, 23);
@@ -268,6 +276,7 @@ namespace QuickImageComment
             // 
             // buttonChangeFolder
             // 
+            this.buttonChangeFolder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonChangeFolder.Location = new System.Drawing.Point(8, 24);
             this.buttonChangeFolder.Name = "buttonChangeFolder";
             this.buttonChangeFolder.Size = new System.Drawing.Size(100, 23);
@@ -278,6 +287,7 @@ namespace QuickImageComment
             // 
             // buttonCancelRead
             // 
+            this.buttonCancelRead.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonCancelRead.Location = new System.Drawing.Point(231, 24);
             this.buttonCancelRead.Name = "buttonCancelRead";
             this.buttonCancelRead.Size = new System.Drawing.Size(72, 23);
@@ -307,6 +317,7 @@ namespace QuickImageComment
             // buttonAdjustFields
             // 
             this.buttonAdjustFields.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonAdjustFields.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonAdjustFields.Location = new System.Drawing.Point(111, 339);
             this.buttonAdjustFields.Name = "buttonAdjustFields";
             this.buttonAdjustFields.Size = new System.Drawing.Size(99, 26);
@@ -327,6 +338,7 @@ namespace QuickImageComment
             // buttonClearCriteria
             // 
             this.buttonClearCriteria.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonClearCriteria.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonClearCriteria.Location = new System.Drawing.Point(358, 339);
             this.buttonClearCriteria.Name = "buttonClearCriteria";
             this.buttonClearCriteria.Size = new System.Drawing.Size(99, 26);
@@ -338,6 +350,7 @@ namespace QuickImageComment
             // buttonCriteriaFromImage
             // 
             this.buttonCriteriaFromImage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonCriteriaFromImage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonCriteriaFromImage.Location = new System.Drawing.Point(214, 339);
             this.buttonCriteriaFromImage.Name = "buttonCriteriaFromImage";
             this.buttonCriteriaFromImage.Size = new System.Drawing.Size(140, 26);
@@ -508,6 +521,7 @@ namespace QuickImageComment
             // 
             this.treeViewKeyWords.CheckBoxes = true;
             this.treeViewKeyWords.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeViewKeyWords.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawText;
             this.treeViewKeyWords.Location = new System.Drawing.Point(3, 27);
             this.treeViewKeyWords.Name = "treeViewKeyWords";
             this.treeViewKeyWords.Size = new System.Drawing.Size(222, 97);
@@ -564,6 +578,7 @@ namespace QuickImageComment
             // buttonQuery
             // 
             this.buttonQuery.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonQuery.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonQuery.Location = new System.Drawing.Point(461, 339);
             this.buttonQuery.Name = "buttonQuery";
             this.buttonQuery.Size = new System.Drawing.Size(103, 26);
@@ -684,5 +699,7 @@ namespace QuickImageComment
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelMap;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelKeyWords;
         private System.Windows.Forms.Panel panel1;
+        private QuickImageCommentControls.ButtonQIC buttonFind;
+        private QuickImageCommentControls.ButtonQIC buttonAbort;
     }
 }
