@@ -43,7 +43,7 @@ namespace QuickImageComment
             //public override bool UseSystemColors => false; // suggested by Microsoft Copilot, but gives compiler error and works without
             public override Color ToolStripDropDownBackground => ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorInputUnchanged);
             public override Color SeparatorDark => ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.ForeColorNotEnabled);
-            public override Color SeparatorLight => ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorSelected);  
+            public override Color SeparatorLight => ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorSelected);
         }
 
         class MyMenuRenderer : ToolStripProfessionalRenderer
@@ -7481,12 +7481,16 @@ namespace QuickImageComment
                 DataGridViewExif, DataGridViewIptc, DataGridViewXmp, DataGridViewExifTool, DataGridViewOtherMetaData);
             new UserControlImageDetails(dpiSettings, null);
 
-            GeneralUtilities.CloseAfterConstructing = false;
-
             CustomizationInterface.showFormCustomization(this);
             LangCfg.removeFromUnusedTranslations(CustomizationInterface.getUsedTranslations());
             LangCfg.addNotTranslatedTexts(CustomizationInterface.getNotTranslatedTexts(), "FormCustomization");
             LangCfg.writeTranslationCheckFiles(true);
+
+            // mainly for filling used colors file
+            GeneralUtilities.debugMessage("finished checking translation completeness, used colors file created");
+
+            GeneralUtilities.CloseAfterConstructing = false;
+            CustomizationInterface.writeUsedColorsFile();
         }
 
         #endregion

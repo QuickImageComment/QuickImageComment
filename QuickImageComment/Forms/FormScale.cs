@@ -132,7 +132,8 @@ namespace QuickImageComment
         // event handler to handle all changes of scaling configuration (numericUpDown, checkBoxes)
         private void scalingConfigurationChanged(object sender, EventArgs e)
         {
-            dynamicLabelExample.Font = FormCustomization.Interface.getZoomedFont(dynamicLabelExample.Font, initialFontSize, (float)numericUpDownGeneral.Value / 100);
+            dynamicLabelExample.Font = FormCustomization.Interface.getZoomedFont(dynamicLabelExample.Font, initialFontSize
+                , (float)numericUpDownGeneral.Value / 100, dynamicLabelExample.Name);
 
             numericUpDownToolbar.Visible = (checkBoxSeparateScaleToolbar.Checked);
             fixedLabelPercentToolbar.Visible = (checkBoxSeparateScaleToolbar.Checked);

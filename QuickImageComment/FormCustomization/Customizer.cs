@@ -728,13 +728,6 @@ namespace FormCustomization
 #if WRITEDEBUGTHEMETRACE
             QuickImageComment.GeneralUtilities.writeDebugFileEntry("> " + level + " " + ParentControlFullName);
 #endif
-            //if (ParentControl is Control controlPrint)
-            //{
-            //    QuickImageComment.GeneralUtilities.writeDebugFileEntry(ParentControlFullName + "\t" + ParentControl.GetType().ToString() + "\t"
-            //        + controlPrint.BackColor.ToString() + "\t" + controlPrint.ForeColor.A.ToString() + "\t" + controlPrint.BackColor.R.ToString() + "\t" + controlPrint.BackColor.G.ToString() + "\t" + controlPrint.BackColor.B.ToString() + "\t"
-            //        + controlPrint.ForeColor.ToString() + "\t" + controlPrint.ForeColor.A.ToString() + "\t" + controlPrint.ForeColor.R.ToString() + "\t" + controlPrint.ForeColor.G.ToString() + "\t" + controlPrint.ForeColor.B.ToString());
-            //}
-
             if (ParentControl is Control control1)
             {
                 if (control1.Tag != null && control1.Tag is string && ((string)control1.Tag).Equals(tagNoThemeChange))
@@ -1147,7 +1140,7 @@ namespace FormCustomization
                 }
 
                 // get new font size by trying which font size fits in zoomed size of control
-                ParentControl.Font = getZoomedFont(ParentControl.Font, theZoomBasisData.FontSize, zoomFactor);
+                ParentControl.Font = getZoomedFont(ParentControl.Font, theZoomBasisData.FontSize, zoomFactor, ParentControl.Name);
 
                 // in order to take effect, this needs to be done before changing size (at least when it is first time)
                 if (ParentControl is ToolStrip)
@@ -1194,7 +1187,7 @@ namespace FormCustomization
                     // note: the DateTimePicker out of the box does not consider font changes
                     // see https://stackoverflow.com/questions/48020286/is-it-possible-to-increase-size-of-calendar-popup-in-winform
                     ((DateTimePicker)ParentControl).CalendarFont = getZoomedFont(((DateTimePicker)ParentControl).CalendarFont,
-                        theZoomBasisData.FontSize, zoomFactor);
+                        theZoomBasisData.FontSize, zoomFactor, ParentControl.Name);
                 }
                 else if (ParentControl is TableLayoutPanel)
                 {
@@ -2388,7 +2381,7 @@ namespace FormCustomization
         // get zoomed font
         // the width of a text does not change proportional to font size
         // font size is determined to ensure, that text fits into boundaries
-        internal static Font getZoomedFont(Font usedFont, float initialFontSize, float zoomFactor)
+        internal static Font getZoomedFont(Font usedFont, float initialFontSize, float zoomFactor, string controlName)
         {
             // font in label and textbox/combobox can look different although font size is the same
             // explanation in https://stackoverflow.com/questions/25788021/label-and-textbox-same-font-looks-different
@@ -2430,13 +2423,66 @@ namespace FormCustomization
                 {
                     if (Math.Abs(initialFontSize - newFont.Size) < 0.1f)
                     {
-                        GeneralUtilities.debugMessage("New font size for zoom factor " + zoomFactor.ToString() 
-                            + " has same size as original: " + newFont.ToString());
+                        GeneralUtilities.debugMessage("New font size for zoom factor " + zoomFactor.ToString()
+                            + " has same size as original: " + newFont.ToString() + " \r\nControl: " + controlName);
                     }
                 }
                 NewFontSizesForZoom.Add(key, newFontSize);
                 return newFont;
             }
+        }
+
+        internal void writeUsedColorsFile()
+        {
+            string UsedColorsFileName = GeneralUtilities.getMaintenanceOutputFolder() + "UsedColors.txt";
+            System.IO.StreamWriter UsedColorsFile = new System.IO.StreamWriter(UsedColorsFileName, false, System.Text.Encoding.UTF8);
+            foreach (string controlFullName in OriginalColors.Keys)
+            {
+                ComponentColors componentColors = OriginalColors[controlFullName];
+                UsedColorsFile.WriteLine(controlFullName + "\tBackcolor\t" + colorNameWithRGB(componentColors.BackColor));
+                UsedColorsFile.WriteLine(controlFullName + "\tForecolor\t" + colorNameWithRGB(componentColors.ForeColor));
+                if (componentColors.DataGridViewDefaultCellBackColor != Color.Empty)
+                {
+                    UsedColorsFile.WriteLine(controlFullName + "\tDataGridViewDefaultCellBackColor\t" + colorNameWithRGB(componentColors.DataGridViewDefaultCellBackColor));
+                }
+                if (componentColors.DataGridViewDefaultColumnHeadersBackColor != Color.Empty)
+                {
+                    UsedColorsFile.WriteLine(controlFullName + "\tDataGridViewDefaultColumnHeadersBackColor\t" + colorNameWithRGB(componentColors.DataGridViewDefaultColumnHeadersBackColor));
+                }
+                if (componentColors.DataGridViewDefaultColumnHeadersForeColor != Color.Empty)
+                {
+                    UsedColorsFile.WriteLine(controlFullName + "\tDataGridViewDefaultColumnHeadersForeColor\t" + colorNameWithRGB(componentColors.DataGridViewDefaultColumnHeadersForeColor));
+                }
+                if (componentColors.DataGridViewDefaultRowHeadersBackColor != Color.Empty)
+                {
+                    UsedColorsFile.WriteLine(controlFullName + "\tDataGridViewDefaultRowHeadersBackColor\t" + colorNameWithRGB(componentColors.DataGridViewDefaultRowHeadersBackColor));
+                }
+                if (componentColors.DataGridViewDefaultRowHeadersForeColor != Color.Empty)
+                {
+                    UsedColorsFile.WriteLine(controlFullName + "\tDataGridViewDefaultRowHeadersForeColor\t" + colorNameWithRGB(componentColors.DataGridViewDefaultRowHeadersForeColor));
+                }
+                if (componentColors.DisabledForeColor != Color.Empty)
+                {
+                    UsedColorsFile.WriteLine(controlFullName + "\tDisabledForeColor\t" + colorNameWithRGB(componentColors.DisabledForeColor));
+                }
+                if (componentColors.PressedBackColor != Color.Empty)
+                {
+                    UsedColorsFile.WriteLine(controlFullName + "\tPressedBackColor\t" + colorNameWithRGB(componentColors.PressedBackColor));
+                }
+                if (componentColors.HoverBackColor != Color.Empty)
+                {
+                    UsedColorsFile.WriteLine(controlFullName + "\tHoverBackColor\t" + colorNameWithRGB(componentColors.HoverBackColor));
+                }
+            }
+            UsedColorsFile.Flush();
+            UsedColorsFile.Close();
+        }
+
+        private string colorNameWithRGB(Color theColor)
+        {
+            return theColor.ToString() + "\t" + theColor.A.ToString() + "\t" + theColor.R.ToString()
+                + "\t" + theColor.G.ToString() + "\t" + theColor.B.ToString()
+                + "\t" + theColor.A.ToString("X2") + theColor.R.ToString("X2") + theColor.G.ToString("X2") + theColor.B.ToString("X2");
         }
         #endregion
     }

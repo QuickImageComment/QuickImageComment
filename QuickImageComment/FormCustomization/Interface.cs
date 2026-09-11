@@ -26,6 +26,8 @@ namespace FormCustomization
     public class Interface
     {
         private Customizer theCustomizer;
+        private static string FontCheckFileName = "";
+        private static System.IO.StreamWriter FontCheckFile = null;
 
         // constructor
         public Interface(Form theForm, string CustomizationFile, string FileHeaderLine, string HelpUrl, string HelpTopic)
@@ -109,6 +111,8 @@ namespace FormCustomization
         public void setFormToCustomizedValuesZoomInitial(Form theForm)
         {
             theCustomizer.setAllComponentsZoomInitial(Customizer.enumSetTo.Customized, theForm);
+            // check font size and name if form is closed after constructing (to avoid writing to file during normal operation)
+            if (GeneralUtilities.CloseAfterConstructing) checkFontSizeAndName(theForm, theForm.Font.Size);
         }
 
         // set properties of all form components based on original settings
@@ -230,9 +234,9 @@ namespace FormCustomization
         // get zoom factor for font
         // the width of a text does not change proportional to font size
         // to ensure, that text fits into boundaries, zoom factor for font size is adjusted
-        public static Font getZoomedFont(Font usedFont, float initialFontSize, float zoomFactor)
+        public static Font getZoomedFont(Font usedFont, float initialFontSize, float zoomFactor, string controlName)
         {
-            return Customizer.getZoomedFont(usedFont, initialFontSize, zoomFactor);
+            return Customizer.getZoomedFont(usedFont, initialFontSize, zoomFactor, controlName);
         }
 
         // fill the hashtable with zoom basis data of the control and its childs
@@ -248,19 +252,41 @@ namespace FormCustomization
         }
 
         // can be used to check if all controls are scaled properly
-        internal void checkFontSize(Control parent, float fontSize)
+        internal void checkFontSizeAndName(Control parent, float fontSize)
         {
             foreach (Control child in parent.Controls)
             {
-                if (child.Font.Size != fontSize) Logger.log("# " + Customizer.getFullNameOfComponent(child).Replace("splitContainer", "SP") + " " + child.Font.Size.ToString()); // permanent use of Logger.log
-                if (!child.Font.Name.Equals("Tahoma")) Logger.log("# " + Customizer.getFullNameOfComponent(child).Replace("splitContainer", "SP") + " " + child.Font.Name); // permanent use of Logger.log
-                checkFontSize(child, fontSize);
+                string entry = "";
+                if (!child.Font.Name.Equals("Tahoma")) entry += "\t" + child.Font.Name;
+                if (child.Font.Size != fontSize) entry += "\t" + child.Font.Size.ToString() + (" Form: " + fontSize.ToString());
+                if (!entry.Equals(""))
+                {
+                    writeFontCheckFileEntry(Customizer.getFullNameOfComponent(child).Replace("splitContainer", "SP") + entry);
+                }
+                checkFontSizeAndName(child, fontSize);
             }
+        }
+        private static void writeFontCheckFileEntry(string messageText)
+        {
+            if (FontCheckFile == null)
+            {
+                float zoomFactorPercent = (int)(Customizer.getGeneralZoomFactor() * 100);
+                FontCheckFileName = GeneralUtilities.getMaintenanceOutputFolder() + "FontCheck-" + zoomFactorPercent.ToString() + ".txt";
+                FontCheckFile = new System.IO.StreamWriter(FontCheckFileName, false, System.Text.Encoding.UTF8);
+                FontCheckFile.WriteLine("Zoom Factor: " + zoomFactorPercent.ToString() + "%");
+            }
+            FontCheckFile.WriteLine(messageText);
+            FontCheckFile.Flush();
         }
 
         public ArrayList getControlsUnchangedTheme()
         {
             return theCustomizer.getControlsUnchangedTheme();
+        }
+
+        public void writeUsedColorsFile()
+        {
+            theCustomizer.writeUsedColorsFile();
         }
     }
 }

@@ -260,7 +260,7 @@ namespace QuickImageComment
             return FlexibleMessageBox.Show(LangCfg.getText(messageId, Parameter1, Parameter2), "QuickImageComment", MessageBoxButtons.YesNoCancel, getMessageBoxIconFromMessageId(messageId));
         }
 
-        // open Visual Basic input box for simple entries
+        // open input box for simple entries
         public static string inputBox(LangCfg.Message messageId, string DefaultAnswer)
         {
             FormInputBox formInputBox = new FormInputBox(LangCfg.getText(messageId), DefaultAnswer);
