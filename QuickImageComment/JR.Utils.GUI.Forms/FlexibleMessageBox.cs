@@ -371,6 +371,7 @@ namespace JR.Utils.GUI.Forms
                 this.pictureBoxForIcon.Size = new System.Drawing.Size(32, 32);
                 this.pictureBoxForIcon.TabIndex = 8;
                 this.pictureBoxForIcon.TabStop = false;
+                this.pictureBoxForIcon.Tag = "NO_THEME_CHANGE";
                 // 
                 // button2
                 // 

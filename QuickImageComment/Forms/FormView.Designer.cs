@@ -29,10 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormView));
-            this.buttonCustomizeForm = new QuickImageCommentControls.ButtonQIC();
-            this.buttonHelp = new QuickImageCommentControls.ButtonQIC();
-            this.buttonClose = new QuickImageCommentControls.ButtonQIC();
-            this.buttonDefault = new QuickImageCommentControls.ButtonQIC();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer11 = new System.Windows.Forms.SplitContainer();
             this.splitContainer12 = new System.Windows.Forms.SplitContainer();
@@ -45,7 +41,6 @@
             this.dynamicComboBoxCentralInputArea = new QuickImageCommentControls.ComboBoxQIC();
             this.splitContainer122 = new System.Windows.Forms.SplitContainer();
             this.panelLayout = new System.Windows.Forms.Panel();
-            this.buttonMinimum = new QuickImageCommentControls.ButtonQIC();
             this.groupBoxFiles = new System.Windows.Forms.GroupBox();
             this.radioButtonRating = new System.Windows.Forms.RadioButton();
             this.radioButtonComment = new System.Windows.Forms.RadioButton();
@@ -102,19 +97,24 @@
             this.radioButtonToolStripHide = new System.Windows.Forms.RadioButton();
             this.radioButtonToolStripToolsInMenu = new System.Windows.Forms.RadioButton();
             this.radioButtonToolStripShow = new System.Windows.Forms.RadioButton();
-            this.buttonReadOptimum = new QuickImageCommentControls.ButtonQIC();
-            this.buttonImageDetails = new QuickImageCommentControls.ButtonQIC();
             this.checkBoxLeftPanelVertical = new System.Windows.Forms.CheckBox();
             this.checkBoxRightPanelVertical = new System.Windows.Forms.CheckBox();
             this.panelVerticalCheckRight = new System.Windows.Forms.Panel();
             this.panelVerticalCheckLeft = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
-            this.dynamicComboBoxConfigurationName = new QuickImageCommentControls.ComboBoxQIC();
-            this.buttonSave = new QuickImageCommentControls.ButtonQIC();
-            this.buttonDelete = new QuickImageCommentControls.ButtonQIC();
-            this.buttonSaveAs = new QuickImageCommentControls.ButtonQIC();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.buttonSaveAs = new QuickImageCommentControls.ButtonQIC();
+            this.buttonDelete = new QuickImageCommentControls.ButtonQIC();
+            this.buttonSave = new QuickImageCommentControls.ButtonQIC();
+            this.dynamicComboBoxConfigurationName = new QuickImageCommentControls.ComboBoxQIC();
             this.buttonMap = new QuickImageCommentControls.ButtonQIC();
+            this.buttonImageDetails = new QuickImageCommentControls.ButtonQIC();
+            this.buttonReadOptimum = new QuickImageCommentControls.ButtonQIC();
+            this.buttonMinimum = new QuickImageCommentControls.ButtonQIC();
+            this.buttonDefault = new QuickImageCommentControls.ButtonQIC();
+            this.buttonClose = new QuickImageCommentControls.ButtonQIC();
+            this.buttonHelp = new QuickImageCommentControls.ButtonQIC();
+            this.buttonCustomizeForm = new QuickImageCommentControls.ButtonQIC();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -152,54 +152,6 @@
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // buttonCustomizeForm
-            // 
-            this.buttonCustomizeForm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonCustomizeForm.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonCustomizeForm.Location = new System.Drawing.Point(3, 545);
-            this.buttonCustomizeForm.Name = "buttonCustomizeForm";
-            this.buttonCustomizeForm.Size = new System.Drawing.Size(100, 22);
-            this.buttonCustomizeForm.TabIndex = 6;
-            this.buttonCustomizeForm.Text = "Maske anpassen";
-            this.buttonCustomizeForm.UseVisualStyleBackColor = true;
-            this.buttonCustomizeForm.Click += new System.EventHandler(this.buttonCustomizeForm_Click);
-            // 
-            // buttonHelp
-            // 
-            this.buttonHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonHelp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonHelp.Location = new System.Drawing.Point(787, 545);
-            this.buttonHelp.Name = "buttonHelp";
-            this.buttonHelp.Size = new System.Drawing.Size(100, 22);
-            this.buttonHelp.TabIndex = 9;
-            this.buttonHelp.Text = "Hilfe";
-            this.buttonHelp.UseVisualStyleBackColor = true;
-            this.buttonHelp.Click += new System.EventHandler(this.buttonHelp_Click);
-            // 
-            // buttonClose
-            // 
-            this.buttonClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonClose.Location = new System.Drawing.Point(348, 543);
-            this.buttonClose.Name = "buttonClose";
-            this.buttonClose.Size = new System.Drawing.Size(99, 26);
-            this.buttonClose.TabIndex = 8;
-            this.buttonClose.Text = "Schließen";
-            this.buttonClose.UseVisualStyleBackColor = true;
-            this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
-            // 
-            // buttonDefault
-            // 
-            this.buttonDefault.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonDefault.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonDefault.Location = new System.Drawing.Point(3, 478);
-            this.buttonDefault.Name = "buttonDefault";
-            this.buttonDefault.Size = new System.Drawing.Size(100, 22);
-            this.buttonDefault.TabIndex = 4;
-            this.buttonDefault.Text = "Standard";
-            this.buttonDefault.UseVisualStyleBackColor = true;
-            this.buttonDefault.Click += new System.EventHandler(this.buttonDefault_Click);
-            // 
             // splitContainer1
             // 
             this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -221,7 +173,7 @@
             // 
             // splitContainer11
             // 
-            this.splitContainer11.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.splitContainer11.BackColor = System.Drawing.SystemColors.WindowText;
             this.splitContainer11.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer11.IsSplitterFixed = true;
             this.splitContainer11.Location = new System.Drawing.Point(0, 0);
@@ -241,7 +193,7 @@
             // 
             // splitContainer12
             // 
-            this.splitContainer12.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.splitContainer12.BackColor = System.Drawing.SystemColors.WindowText;
             this.splitContainer12.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer12.IsSplitterFixed = true;
             this.splitContainer12.Location = new System.Drawing.Point(0, 0);
@@ -390,18 +342,6 @@
             this.panelLayout.Name = "panelLayout";
             this.panelLayout.Size = new System.Drawing.Size(884, 229);
             this.panelLayout.TabIndex = 3;
-            // 
-            // buttonMinimum
-            // 
-            this.buttonMinimum.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonMinimum.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonMinimum.Location = new System.Drawing.Point(106, 478);
-            this.buttonMinimum.Name = "buttonMinimum";
-            this.buttonMinimum.Size = new System.Drawing.Size(175, 22);
-            this.buttonMinimum.TabIndex = 5;
-            this.buttonMinimum.Text = "Nur Bild und zentr. Eingabefelder";
-            this.buttonMinimum.UseVisualStyleBackColor = true;
-            this.buttonMinimum.Click += new System.EventHandler(this.buttonMinimum_Click);
             // 
             // groupBoxFiles
             // 
@@ -1036,30 +976,6 @@
             this.radioButtonToolStripShow.UseVisualStyleBackColor = true;
             this.radioButtonToolStripShow.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
             // 
-            // buttonReadOptimum
-            // 
-            this.buttonReadOptimum.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonReadOptimum.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonReadOptimum.Location = new System.Drawing.Point(284, 478);
-            this.buttonReadOptimum.Name = "buttonReadOptimum";
-            this.buttonReadOptimum.Size = new System.Drawing.Size(128, 22);
-            this.buttonReadOptimum.TabIndex = 10;
-            this.buttonReadOptimum.Text = "Optimiert für nur Lesen";
-            this.buttonReadOptimum.UseVisualStyleBackColor = true;
-            this.buttonReadOptimum.Click += new System.EventHandler(this.buttonReadOptimum_Click);
-            // 
-            // buttonImageDetails
-            // 
-            this.buttonImageDetails.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonImageDetails.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonImageDetails.Location = new System.Drawing.Point(415, 478);
-            this.buttonImageDetails.Name = "buttonImageDetails";
-            this.buttonImageDetails.Size = new System.Drawing.Size(128, 22);
-            this.buttonImageDetails.TabIndex = 11;
-            this.buttonImageDetails.Text = "Anzeige Bild Details";
-            this.buttonImageDetails.UseVisualStyleBackColor = true;
-            this.buttonImageDetails.Click += new System.EventHandler(this.buttonImageDetails_Click);
-            // 
             // checkBoxLeftPanelVertical
             // 
             this.checkBoxLeftPanelVertical.AutoSize = true;
@@ -1084,9 +1000,9 @@
             // 
             // panelVerticalCheckRight
             // 
-            this.panelVerticalCheckRight.BackColor = System.Drawing.SystemColors.Desktop;
+            this.panelVerticalCheckRight.BackColor = System.Drawing.SystemColors.WindowText;
             this.panelVerticalCheckRight.Controls.Add(this.checkBoxRightPanelVertical);
-            this.panelVerticalCheckRight.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.panelVerticalCheckRight.ForeColor = System.Drawing.SystemColors.Window;
             this.panelVerticalCheckRight.Location = new System.Drawing.Point(256, 215);
             this.panelVerticalCheckRight.Name = "panelVerticalCheckRight";
             this.panelVerticalCheckRight.Size = new System.Drawing.Size(628, 23);
@@ -1094,9 +1010,9 @@
             // 
             // panelVerticalCheckLeft
             // 
-            this.panelVerticalCheckLeft.BackColor = System.Drawing.SystemColors.Desktop;
+            this.panelVerticalCheckLeft.BackColor = System.Drawing.SystemColors.WindowText;
             this.panelVerticalCheckLeft.Controls.Add(this.checkBoxLeftPanelVertical);
-            this.panelVerticalCheckLeft.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.panelVerticalCheckLeft.ForeColor = System.Drawing.SystemColors.Window;
             this.panelVerticalCheckLeft.Location = new System.Drawing.Point(6, 215);
             this.panelVerticalCheckLeft.Name = "panelVerticalCheckLeft";
             this.panelVerticalCheckLeft.Size = new System.Drawing.Size(243, 23);
@@ -1112,57 +1028,6 @@
             this.label1.TabIndex = 16;
             this.label1.Text = "Benutzerdefinierte Einstellungen:";
             // 
-            // dynamicComboBoxConfigurationName
-            // 
-            this.dynamicComboBoxConfigurationName.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.dynamicComboBoxConfigurationName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.dynamicComboBoxConfigurationName.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.dynamicComboBoxConfigurationName.FormattingEnabled = true;
-            this.dynamicComboBoxConfigurationName.Location = new System.Drawing.Point(199, 13);
-            this.dynamicComboBoxConfigurationName.Name = "dynamicComboBoxConfigurationName";
-            this.dynamicComboBoxConfigurationName.Size = new System.Drawing.Size(234, 22);
-            this.dynamicComboBoxConfigurationName.TabIndex = 17;
-            this.dynamicComboBoxConfigurationName.SelectedIndexChanged += new System.EventHandler(this.dynamicComboBoxConfigurationName_SelectedIndexChanged);
-            // 
-            // buttonSave
-            // 
-            this.buttonSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonSave.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.buttonSave.Location = new System.Drawing.Point(436, 10);
-            this.buttonSave.Name = "buttonSave";
-            this.buttonSave.Size = new System.Drawing.Size(99, 26);
-            this.buttonSave.TabIndex = 18;
-            this.buttonSave.Text = "Speichern";
-            this.buttonSave.UseVisualStyleBackColor = true;
-            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
-            // 
-            // buttonDelete
-            // 
-            this.buttonDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonDelete.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.buttonDelete.Location = new System.Drawing.Point(538, 10);
-            this.buttonDelete.Name = "buttonDelete";
-            this.buttonDelete.Size = new System.Drawing.Size(99, 26);
-            this.buttonDelete.TabIndex = 19;
-            this.buttonDelete.Text = "Löschen";
-            this.buttonDelete.UseVisualStyleBackColor = true;
-            this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
-            // 
-            // buttonSaveAs
-            // 
-            this.buttonSaveAs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonSaveAs.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonSaveAs.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.buttonSaveAs.Location = new System.Drawing.Point(640, 10);
-            this.buttonSaveAs.Name = "buttonSaveAs";
-            this.buttonSaveAs.Size = new System.Drawing.Size(128, 26);
-            this.buttonSaveAs.TabIndex = 20;
-            this.buttonSaveAs.Text = "Speichern unter ...";
-            this.buttonSaveAs.UseVisualStyleBackColor = true;
-            this.buttonSaveAs.Click += new System.EventHandler(this.buttonSaveAs_Click);
-            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.buttonSaveAs);
@@ -1177,6 +1042,57 @@
             this.groupBox1.TabIndex = 21;
             this.groupBox1.TabStop = false;
             // 
+            // buttonSaveAs
+            // 
+            this.buttonSaveAs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonSaveAs.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonSaveAs.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.buttonSaveAs.Location = new System.Drawing.Point(640, 10);
+            this.buttonSaveAs.Name = "buttonSaveAs";
+            this.buttonSaveAs.Size = new System.Drawing.Size(128, 26);
+            this.buttonSaveAs.TabIndex = 20;
+            this.buttonSaveAs.Text = "Speichern unter ...";
+            this.buttonSaveAs.UseVisualStyleBackColor = true;
+            this.buttonSaveAs.Click += new System.EventHandler(this.buttonSaveAs_Click);
+            // 
+            // buttonDelete
+            // 
+            this.buttonDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonDelete.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.buttonDelete.Location = new System.Drawing.Point(538, 10);
+            this.buttonDelete.Name = "buttonDelete";
+            this.buttonDelete.Size = new System.Drawing.Size(99, 26);
+            this.buttonDelete.TabIndex = 19;
+            this.buttonDelete.Text = "Löschen";
+            this.buttonDelete.UseVisualStyleBackColor = true;
+            this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
+            // 
+            // buttonSave
+            // 
+            this.buttonSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonSave.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.buttonSave.Location = new System.Drawing.Point(436, 10);
+            this.buttonSave.Name = "buttonSave";
+            this.buttonSave.Size = new System.Drawing.Size(99, 26);
+            this.buttonSave.TabIndex = 18;
+            this.buttonSave.Text = "Speichern";
+            this.buttonSave.UseVisualStyleBackColor = true;
+            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
+            // 
+            // dynamicComboBoxConfigurationName
+            // 
+            this.dynamicComboBoxConfigurationName.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.dynamicComboBoxConfigurationName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.dynamicComboBoxConfigurationName.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.dynamicComboBoxConfigurationName.FormattingEnabled = true;
+            this.dynamicComboBoxConfigurationName.Location = new System.Drawing.Point(199, 13);
+            this.dynamicComboBoxConfigurationName.Name = "dynamicComboBoxConfigurationName";
+            this.dynamicComboBoxConfigurationName.Size = new System.Drawing.Size(234, 22);
+            this.dynamicComboBoxConfigurationName.TabIndex = 17;
+            this.dynamicComboBoxConfigurationName.SelectedIndexChanged += new System.EventHandler(this.dynamicComboBoxConfigurationName_SelectedIndexChanged);
+            // 
             // buttonMap
             // 
             this.buttonMap.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -1188,6 +1104,90 @@
             this.buttonMap.Text = "Anzeige Karte";
             this.buttonMap.UseVisualStyleBackColor = true;
             this.buttonMap.Click += new System.EventHandler(this.buttonMap_Click);
+            // 
+            // buttonImageDetails
+            // 
+            this.buttonImageDetails.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonImageDetails.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonImageDetails.Location = new System.Drawing.Point(415, 478);
+            this.buttonImageDetails.Name = "buttonImageDetails";
+            this.buttonImageDetails.Size = new System.Drawing.Size(128, 22);
+            this.buttonImageDetails.TabIndex = 11;
+            this.buttonImageDetails.Text = "Anzeige Bild Details";
+            this.buttonImageDetails.UseVisualStyleBackColor = true;
+            this.buttonImageDetails.Click += new System.EventHandler(this.buttonImageDetails_Click);
+            // 
+            // buttonReadOptimum
+            // 
+            this.buttonReadOptimum.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonReadOptimum.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonReadOptimum.Location = new System.Drawing.Point(284, 478);
+            this.buttonReadOptimum.Name = "buttonReadOptimum";
+            this.buttonReadOptimum.Size = new System.Drawing.Size(128, 22);
+            this.buttonReadOptimum.TabIndex = 10;
+            this.buttonReadOptimum.Text = "Optimiert für nur Lesen";
+            this.buttonReadOptimum.UseVisualStyleBackColor = true;
+            this.buttonReadOptimum.Click += new System.EventHandler(this.buttonReadOptimum_Click);
+            // 
+            // buttonMinimum
+            // 
+            this.buttonMinimum.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonMinimum.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonMinimum.Location = new System.Drawing.Point(106, 478);
+            this.buttonMinimum.Name = "buttonMinimum";
+            this.buttonMinimum.Size = new System.Drawing.Size(175, 22);
+            this.buttonMinimum.TabIndex = 5;
+            this.buttonMinimum.Text = "Nur Bild und zentr. Eingabefelder";
+            this.buttonMinimum.UseVisualStyleBackColor = true;
+            this.buttonMinimum.Click += new System.EventHandler(this.buttonMinimum_Click);
+            // 
+            // buttonDefault
+            // 
+            this.buttonDefault.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonDefault.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonDefault.Location = new System.Drawing.Point(3, 478);
+            this.buttonDefault.Name = "buttonDefault";
+            this.buttonDefault.Size = new System.Drawing.Size(100, 22);
+            this.buttonDefault.TabIndex = 4;
+            this.buttonDefault.Text = "Standard";
+            this.buttonDefault.UseVisualStyleBackColor = true;
+            this.buttonDefault.Click += new System.EventHandler(this.buttonDefault_Click);
+            // 
+            // buttonClose
+            // 
+            this.buttonClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonClose.Location = new System.Drawing.Point(348, 543);
+            this.buttonClose.Name = "buttonClose";
+            this.buttonClose.Size = new System.Drawing.Size(99, 26);
+            this.buttonClose.TabIndex = 8;
+            this.buttonClose.Text = "Schließen";
+            this.buttonClose.UseVisualStyleBackColor = true;
+            this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
+            // 
+            // buttonHelp
+            // 
+            this.buttonHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonHelp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonHelp.Location = new System.Drawing.Point(787, 545);
+            this.buttonHelp.Name = "buttonHelp";
+            this.buttonHelp.Size = new System.Drawing.Size(100, 22);
+            this.buttonHelp.TabIndex = 9;
+            this.buttonHelp.Text = "Hilfe";
+            this.buttonHelp.UseVisualStyleBackColor = true;
+            this.buttonHelp.Click += new System.EventHandler(this.buttonHelp_Click);
+            // 
+            // buttonCustomizeForm
+            // 
+            this.buttonCustomizeForm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonCustomizeForm.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonCustomizeForm.Location = new System.Drawing.Point(3, 545);
+            this.buttonCustomizeForm.Name = "buttonCustomizeForm";
+            this.buttonCustomizeForm.Size = new System.Drawing.Size(100, 22);
+            this.buttonCustomizeForm.TabIndex = 6;
+            this.buttonCustomizeForm.Text = "Maske anpassen";
+            this.buttonCustomizeForm.UseVisualStyleBackColor = true;
+            this.buttonCustomizeForm.Click += new System.EventHandler(this.buttonCustomizeForm_Click);
             // 
             // FormView
             // 

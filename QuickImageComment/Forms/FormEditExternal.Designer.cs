@@ -209,7 +209,7 @@ namespace QuickImageComment
             this.panelType.Controls.Add(this.radioButtonUri);
             this.panelType.Controls.Add(this.radioButtonBatchCommand);
             this.panelType.Controls.Add(this.radioButtonProgram);
-            this.panelType.ForeColor = System.Drawing.SystemColors.Control;
+            this.panelType.ForeColor = System.Drawing.SystemColors.ControlText;
             this.panelType.Location = new System.Drawing.Point(166, 30);
             this.panelType.Name = "panelType";
             this.panelType.Size = new System.Drawing.Size(351, 21);

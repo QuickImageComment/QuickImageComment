@@ -307,7 +307,7 @@ namespace QuickImageComment
             this.Controls.Add(this.textBoxFileFilter);
             this.Controls.Add(this.labelFilter);
             this.Controls.Add(this.listViewFiles);
-            this.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.ForeColor = System.Drawing.SystemColors.ControlText;
             this.Name = "UserControlFiles";
             this.Size = new System.Drawing.Size(279, 373);
             this.contextMenuStripListViewFiles.ResumeLayout(false);

@@ -28,13 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle40 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle41 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle42 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.splitContainerImageDetails1 = new System.Windows.Forms.SplitContainer();
             this.splitContainerImageDetails11 = new System.Windows.Forms.SplitContainer();
             this.splitContainerImageDetails111 = new System.Windows.Forms.SplitContainer();
             this.pictureBoxHorizontal = new System.Windows.Forms.PictureBox();
+            this.pictureBoxImage = new QuickImageCommentControls.PictureBoxQIC();
+            this.splitContainerImageDetails112 = new System.Windows.Forms.SplitContainer();
+            this.pictureBoxVertical = new System.Windows.Forms.PictureBox();
+            this.panelControlOuter = new System.Windows.Forms.Panel();
+            this.panelControlInner = new System.Windows.Forms.Panel();
             this.tableLayoutPanelFocusPoint = new System.Windows.Forms.TableLayoutPanel();
             this.buttonCenterFocusPoint = new QuickImageCommentControls.ButtonQIC();
             this.label4 = new System.Windows.Forms.Label();
@@ -43,11 +48,6 @@
             this.buttonFocusPointColor = new QuickImageCommentControls.ButtonQIC();
             this.numericUpDownWidth = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownRadius = new System.Windows.Forms.NumericUpDown();
-            this.pictureBoxImage = new QuickImageCommentControls.PictureBoxQIC();
-            this.splitContainerImageDetails112 = new System.Windows.Forms.SplitContainer();
-            this.pictureBoxVertical = new System.Windows.Forms.PictureBox();
-            this.panelControlOuter = new System.Windows.Forms.Panel();
-            this.panelControlInner = new System.Windows.Forms.Panel();
             this.dataGridViewMinMaxValues = new System.Windows.Forms.DataGridView();
             this.Static_Type = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Brightness = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -89,9 +89,6 @@
             this.splitContainerImageDetails111.Panel2.SuspendLayout();
             this.splitContainerImageDetails111.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxHorizontal)).BeginInit();
-            this.tableLayoutPanelFocusPoint.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWidth)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRadius)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerImageDetails112)).BeginInit();
             this.splitContainerImageDetails112.Panel2.SuspendLayout();
@@ -99,6 +96,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxVertical)).BeginInit();
             this.panelControlOuter.SuspendLayout();
             this.panelControlInner.SuspendLayout();
+            this.tableLayoutPanelFocusPoint.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWidth)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRadius)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMinMaxValues)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownScaleLines)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownGridSize)).BeginInit();
@@ -174,13 +174,103 @@
             this.pictureBoxHorizontal.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBoxHorizontal.BackColor = System.Drawing.Color.White;
+            this.pictureBoxHorizontal.BackColor = System.Drawing.SystemColors.Window;
             this.pictureBoxHorizontal.Location = new System.Drawing.Point(0, 0);
             this.pictureBoxHorizontal.Name = "pictureBoxHorizontal";
             this.pictureBoxHorizontal.Size = new System.Drawing.Size(209, 69);
             this.pictureBoxHorizontal.TabIndex = 3;
             this.pictureBoxHorizontal.TabStop = false;
             this.pictureBoxHorizontal.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBoxHorizontal_Paint);
+            // 
+            // pictureBoxImage
+            // 
+            this.pictureBoxImage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBoxImage.BackColor = System.Drawing.SystemColors.Control;
+            this.pictureBoxImage.Location = new System.Drawing.Point(0, 0);
+            this.pictureBoxImage.Name = "pictureBoxImage";
+            this.pictureBoxImage.Size = new System.Drawing.Size(209, 409);
+            this.pictureBoxImage.TabIndex = 2;
+            this.pictureBoxImage.TabStop = false;
+            this.pictureBoxImage.zoomChanged += new QuickImageCommentControls.PictureBoxQIC.ZoomChangedEventHandler(this.pictureBoxImage_zoomChanged);
+            this.pictureBoxImage.painted += new QuickImageCommentControls.PictureBoxQIC.PaintedEventHandler(this.pictureBoxImage_painted);
+            this.pictureBoxImage.Resize += new System.EventHandler(this.pictureBoxImage_Resize);
+            // 
+            // splitContainerImageDetails112
+            // 
+            this.splitContainerImageDetails112.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.splitContainerImageDetails112.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainerImageDetails112.Location = new System.Drawing.Point(0, 0);
+            this.splitContainerImageDetails112.Name = "splitContainerImageDetails112";
+            this.splitContainerImageDetails112.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainerImageDetails112.Panel1
+            // 
+            this.splitContainerImageDetails112.Panel1.BackColor = System.Drawing.SystemColors.Control;
+            // 
+            // splitContainerImageDetails112.Panel2
+            // 
+            this.splitContainerImageDetails112.Panel2.BackColor = System.Drawing.SystemColors.Control;
+            this.splitContainerImageDetails112.Panel2.Controls.Add(this.pictureBoxVertical);
+            this.splitContainerImageDetails112.Size = new System.Drawing.Size(104, 483);
+            this.splitContainerImageDetails112.SplitterDistance = 69;
+            this.splitContainerImageDetails112.TabIndex = 0;
+            this.splitContainerImageDetails112.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitContainerImageDetails112_SplitterMoved);
+            // 
+            // pictureBoxVertical
+            // 
+            this.pictureBoxVertical.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBoxVertical.BackColor = System.Drawing.SystemColors.Window;
+            this.pictureBoxVertical.Location = new System.Drawing.Point(0, 0);
+            this.pictureBoxVertical.Name = "pictureBoxVertical";
+            this.pictureBoxVertical.Size = new System.Drawing.Size(101, 409);
+            this.pictureBoxVertical.TabIndex = 4;
+            this.pictureBoxVertical.TabStop = false;
+            this.pictureBoxVertical.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBoxVertical_Paint);
+            // 
+            // panelControlOuter
+            // 
+            this.panelControlOuter.AutoScroll = true;
+            this.panelControlOuter.Controls.Add(this.panelControlInner);
+            this.panelControlOuter.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelControlOuter.Location = new System.Drawing.Point(0, 0);
+            this.panelControlOuter.Name = "panelControlOuter";
+            this.panelControlOuter.Size = new System.Drawing.Size(182, 483);
+            this.panelControlOuter.TabIndex = 20;
+            // 
+            // panelControlInner
+            // 
+            this.panelControlInner.Controls.Add(this.tableLayoutPanelFocusPoint);
+            this.panelControlInner.Controls.Add(this.dataGridViewMinMaxValues);
+            this.panelControlInner.Controls.Add(this.checkBoxColorB);
+            this.panelControlInner.Controls.Add(this.checkBoxColorG);
+            this.panelControlInner.Controls.Add(this.checkBoxColorR);
+            this.panelControlInner.Controls.Add(this.comboBoxGraphicDisplay);
+            this.panelControlInner.Controls.Add(this.labelGrafics);
+            this.panelControlInner.Controls.Add(this.labelScale);
+            this.panelControlInner.Controls.Add(this.numericUpDownScaleLines);
+            this.panelControlInner.Controls.Add(this.labelGrid);
+            this.panelControlInner.Controls.Add(this.numericUpDownGridSize);
+            this.panelControlInner.Controls.Add(this.labelGridColor);
+            this.panelControlInner.Controls.Add(this.buttonGridColor);
+            this.panelControlInner.Controls.Add(this.comboBoxZoom);
+            this.panelControlInner.Controls.Add(this.labelFrameColor);
+            this.panelControlInner.Controls.Add(this.label1);
+            this.panelControlInner.Controls.Add(this.numericUpDownX);
+            this.panelControlInner.Controls.Add(this.labelZoom);
+            this.panelControlInner.Controls.Add(this.numericUpDownY);
+            this.panelControlInner.Controls.Add(this.dynamicLabelZoom);
+            this.panelControlInner.Controls.Add(this.label2);
+            this.panelControlInner.Controls.Add(this.buttonFrameColor);
+            this.panelControlInner.Controls.Add(this.hScrollBarZoom);
+            this.panelControlInner.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelControlInner.Location = new System.Drawing.Point(0, 0);
+            this.panelControlInner.Name = "panelControlInner";
+            this.panelControlInner.Size = new System.Drawing.Size(182, 479);
+            this.panelControlInner.TabIndex = 0;
             // 
             // tableLayoutPanelFocusPoint
             // 
@@ -209,6 +299,7 @@
             // 
             this.tableLayoutPanelFocusPoint.SetColumnSpan(this.buttonCenterFocusPoint, 2);
             this.buttonCenterFocusPoint.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonCenterFocusPoint.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonCenterFocusPoint.Location = new System.Drawing.Point(3, 33);
             this.buttonCenterFocusPoint.Name = "buttonCenterFocusPoint";
             this.buttonCenterFocusPoint.Size = new System.Drawing.Size(174, 30);
@@ -254,13 +345,14 @@
             // buttonFocusPointColor
             // 
             this.buttonFocusPointColor.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonFocusPointColor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonFocusPointColor.Location = new System.Drawing.Point(137, 3);
             this.buttonFocusPointColor.Name = "buttonFocusPointColor";
             this.buttonFocusPointColor.Size = new System.Drawing.Size(40, 24);
             this.buttonFocusPointColor.TabIndex = 2;
+            this.buttonFocusPointColor.Tag = "NO_THEME_CHANGE";
             this.buttonFocusPointColor.UseVisualStyleBackColor = true;
             this.buttonFocusPointColor.Click += new System.EventHandler(this.buttonFocusPointColor_Click);
-            this.buttonFocusPointColor.Tag = "NO_THEME_CHANGE";
             // 
             // numericUpDownWidth
             // 
@@ -310,96 +402,6 @@
             0});
             this.numericUpDownRadius.ValueChanged += new System.EventHandler(this.numericUpDownRadius_ValueChanged);
             // 
-            // pictureBoxImage
-            // 
-            this.pictureBoxImage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBoxImage.BackColor = System.Drawing.SystemColors.Control;
-            this.pictureBoxImage.Location = new System.Drawing.Point(0, 0);
-            this.pictureBoxImage.Name = "pictureBoxImage";
-            this.pictureBoxImage.Size = new System.Drawing.Size(209, 409);
-            this.pictureBoxImage.TabIndex = 2;
-            this.pictureBoxImage.TabStop = false;
-            this.pictureBoxImage.zoomChanged += new QuickImageCommentControls.PictureBoxQIC.ZoomChangedEventHandler(this.pictureBoxImage_zoomChanged);
-            this.pictureBoxImage.painted += new QuickImageCommentControls.PictureBoxQIC.PaintedEventHandler(this.pictureBoxImage_painted);
-            this.pictureBoxImage.Resize += new System.EventHandler(this.pictureBoxImage_Resize);
-            // 
-            // splitContainerImageDetails112
-            // 
-            this.splitContainerImageDetails112.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.splitContainerImageDetails112.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainerImageDetails112.Location = new System.Drawing.Point(0, 0);
-            this.splitContainerImageDetails112.Name = "splitContainerImageDetails112";
-            this.splitContainerImageDetails112.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitContainerImageDetails112.Panel1
-            // 
-            this.splitContainerImageDetails112.Panel1.BackColor = System.Drawing.SystemColors.Control;
-            // 
-            // splitContainerImageDetails112.Panel2
-            // 
-            this.splitContainerImageDetails112.Panel2.BackColor = System.Drawing.SystemColors.Control;
-            this.splitContainerImageDetails112.Panel2.Controls.Add(this.pictureBoxVertical);
-            this.splitContainerImageDetails112.Size = new System.Drawing.Size(104, 483);
-            this.splitContainerImageDetails112.SplitterDistance = 69;
-            this.splitContainerImageDetails112.TabIndex = 0;
-            this.splitContainerImageDetails112.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitContainerImageDetails112_SplitterMoved);
-            // 
-            // pictureBoxVertical
-            // 
-            this.pictureBoxVertical.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBoxVertical.BackColor = System.Drawing.Color.White;
-            this.pictureBoxVertical.Location = new System.Drawing.Point(0, 0);
-            this.pictureBoxVertical.Name = "pictureBoxVertical";
-            this.pictureBoxVertical.Size = new System.Drawing.Size(101, 409);
-            this.pictureBoxVertical.TabIndex = 4;
-            this.pictureBoxVertical.TabStop = false;
-            this.pictureBoxVertical.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBoxVertical_Paint);
-            // 
-            // panelControlOuter
-            // 
-            this.panelControlOuter.AutoScroll = true;
-            this.panelControlOuter.Controls.Add(this.panelControlInner);
-            this.panelControlOuter.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelControlOuter.Location = new System.Drawing.Point(0, 0);
-            this.panelControlOuter.Name = "panelControlOuter";
-            this.panelControlOuter.Size = new System.Drawing.Size(182, 483);
-            this.panelControlOuter.TabIndex = 20;
-            // 
-            // panelControlInner
-            // 
-            this.panelControlInner.Controls.Add(this.tableLayoutPanelFocusPoint);
-            this.panelControlInner.Controls.Add(this.dataGridViewMinMaxValues);
-            this.panelControlInner.Controls.Add(this.checkBoxColorB);
-            this.panelControlInner.Controls.Add(this.checkBoxColorG);
-            this.panelControlInner.Controls.Add(this.checkBoxColorR);
-            this.panelControlInner.Controls.Add(this.comboBoxGraphicDisplay);
-            this.panelControlInner.Controls.Add(this.labelGrafics);
-            this.panelControlInner.Controls.Add(this.labelScale);
-            this.panelControlInner.Controls.Add(this.numericUpDownScaleLines);
-            this.panelControlInner.Controls.Add(this.labelGrid);
-            this.panelControlInner.Controls.Add(this.numericUpDownGridSize);
-            this.panelControlInner.Controls.Add(this.labelGridColor);
-            this.panelControlInner.Controls.Add(this.buttonGridColor);
-            this.panelControlInner.Controls.Add(this.comboBoxZoom);
-            this.panelControlInner.Controls.Add(this.labelFrameColor);
-            this.panelControlInner.Controls.Add(this.label1);
-            this.panelControlInner.Controls.Add(this.numericUpDownX);
-            this.panelControlInner.Controls.Add(this.labelZoom);
-            this.panelControlInner.Controls.Add(this.numericUpDownY);
-            this.panelControlInner.Controls.Add(this.dynamicLabelZoom);
-            this.panelControlInner.Controls.Add(this.label2);
-            this.panelControlInner.Controls.Add(this.buttonFrameColor);
-            this.panelControlInner.Controls.Add(this.hScrollBarZoom);
-            this.panelControlInner.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelControlInner.Location = new System.Drawing.Point(0, 0);
-            this.panelControlInner.Name = "panelControlInner";
-            this.panelControlInner.Size = new System.Drawing.Size(182, 479);
-            this.panelControlInner.TabIndex = 0;
-            // 
             // dataGridViewMinMaxValues
             // 
             this.dataGridViewMinMaxValues.AllowUserToAddRows = false;
@@ -409,13 +411,13 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewMinMaxValues.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridViewMinMaxValues.BackgroundColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle40.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle40.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle40.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle40.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle40.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle40.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewMinMaxValues.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle40;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewMinMaxValues.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridViewMinMaxValues.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewMinMaxValues.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Static_Type,
@@ -426,16 +428,16 @@
             this.dataGridViewMinMaxValues.EnableHeadersVisualStyles = false;
             this.dataGridViewMinMaxValues.Location = new System.Drawing.Point(1, 91);
             this.dataGridViewMinMaxValues.Name = "dataGridViewMinMaxValues";
-            dataGridViewCellStyle41.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle41.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            dataGridViewCellStyle41.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle41.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle41.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle41.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            this.dataGridViewMinMaxValues.RowHeadersDefaultCellStyle = dataGridViewCellStyle41;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            this.dataGridViewMinMaxValues.RowHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.dataGridViewMinMaxValues.RowHeadersVisible = false;
-            dataGridViewCellStyle42.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.dataGridViewMinMaxValues.RowsDefaultCellStyle = dataGridViewCellStyle42;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.dataGridViewMinMaxValues.RowsDefaultCellStyle = dataGridViewCellStyle6;
             this.dataGridViewMinMaxValues.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
             this.dataGridViewMinMaxValues.ShowEditingIcon = false;
             this.dataGridViewMinMaxValues.Size = new System.Drawing.Size(177, 129);
@@ -520,11 +522,12 @@
             // 
             // comboBoxGraphicDisplay
             // 
+            this.comboBoxGraphicDisplay.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.comboBoxGraphicDisplay.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxGraphicDisplay.FormattingEnabled = true;
             this.comboBoxGraphicDisplay.Location = new System.Drawing.Point(79, 224);
             this.comboBoxGraphicDisplay.Name = "comboBoxGraphicDisplay";
-            this.comboBoxGraphicDisplay.Size = new System.Drawing.Size(69, 21);
+            this.comboBoxGraphicDisplay.Size = new System.Drawing.Size(69, 22);
             this.comboBoxGraphicDisplay.TabIndex = 10;
             this.comboBoxGraphicDisplay.SelectedIndexChanged += new System.EventHandler(this.comboBoxGraphicDisplay_SelectedIndexChanged);
             // 
@@ -602,21 +605,23 @@
             // 
             // buttonGridColor
             // 
+            this.buttonGridColor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonGridColor.Location = new System.Drawing.Point(110, 336);
             this.buttonGridColor.Name = "buttonGridColor";
             this.buttonGridColor.Size = new System.Drawing.Size(50, 15);
             this.buttonGridColor.TabIndex = 21;
+            this.buttonGridColor.Tag = "NO_THEME_CHANGE";
             this.buttonGridColor.UseVisualStyleBackColor = true;
             this.buttonGridColor.Click += new System.EventHandler(this.buttonGridColor_Click);
-            this.buttonGridColor.Tag = "NO_THEME_CHANGE";
             // 
             // comboBoxZoom
             // 
+            this.comboBoxZoom.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.comboBoxZoom.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxZoom.FormattingEnabled = true;
             this.comboBoxZoom.Location = new System.Drawing.Point(44, 45);
             this.comboBoxZoom.Name = "comboBoxZoom";
-            this.comboBoxZoom.Size = new System.Drawing.Size(85, 21);
+            this.comboBoxZoom.Size = new System.Drawing.Size(85, 22);
             this.comboBoxZoom.TabIndex = 5;
             this.comboBoxZoom.SelectedIndexChanged += new System.EventHandler(this.comboBoxZoom_SelectedIndexChanged);
             // 
@@ -709,13 +714,14 @@
             // 
             // buttonFrameColor
             // 
+            this.buttonFrameColor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonFrameColor.Location = new System.Drawing.Point(110, 319);
             this.buttonFrameColor.Name = "buttonFrameColor";
             this.buttonFrameColor.Size = new System.Drawing.Size(50, 15);
             this.buttonFrameColor.TabIndex = 19;
+            this.buttonFrameColor.Tag = "NO_THEME_CHANGE";
             this.buttonFrameColor.UseVisualStyleBackColor = true;
             this.buttonFrameColor.Click += new System.EventHandler(this.buttonFrameColor_Click);
-            this.buttonFrameColor.Tag = "NO_THEME_CHANGE";
             // 
             // hScrollBarZoom
             // 
@@ -747,10 +753,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerImageDetails111)).EndInit();
             this.splitContainerImageDetails111.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxHorizontal)).EndInit();
-            this.tableLayoutPanelFocusPoint.ResumeLayout(false);
-            this.tableLayoutPanelFocusPoint.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWidth)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRadius)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxImage)).EndInit();
             this.splitContainerImageDetails112.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerImageDetails112)).EndInit();
@@ -759,6 +761,10 @@
             this.panelControlOuter.ResumeLayout(false);
             this.panelControlInner.ResumeLayout(false);
             this.panelControlInner.PerformLayout();
+            this.tableLayoutPanelFocusPoint.ResumeLayout(false);
+            this.tableLayoutPanelFocusPoint.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWidth)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRadius)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMinMaxValues)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownScaleLines)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownGridSize)).EndInit();

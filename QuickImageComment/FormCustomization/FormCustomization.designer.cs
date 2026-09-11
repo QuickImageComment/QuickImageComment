@@ -132,6 +132,7 @@ namespace FormCustomization
             // 
             this.buttonFreeBackgroundColor.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonFreeBackgroundColor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonFreeBackgroundColor.Location = new System.Drawing.Point(6, 171);
             this.buttonFreeBackgroundColor.Name = "buttonFreeBackgroundColor";
             this.buttonFreeBackgroundColor.Size = new System.Drawing.Size(113, 25);
@@ -161,6 +162,7 @@ namespace FormCustomization
             // 
             this.buttonBackgroundColorReset.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonBackgroundColorReset.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonBackgroundColorReset.Location = new System.Drawing.Point(6, 201);
             this.buttonBackgroundColorReset.Name = "buttonBackgroundColorReset";
             this.buttonBackgroundColorReset.Size = new System.Drawing.Size(113, 25);
@@ -174,10 +176,12 @@ namespace FormCustomization
             this.buttonBackgroundColor5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonBackgroundColor5.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.buttonBackgroundColor5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonBackgroundColor5.Location = new System.Drawing.Point(6, 140);
             this.buttonBackgroundColor5.Name = "buttonBackgroundColor5";
             this.buttonBackgroundColor5.Size = new System.Drawing.Size(113, 25);
             this.buttonBackgroundColor5.TabIndex = 4;
+            this.buttonBackgroundColor5.Tag = "NO_THEME_CHANGE";
             this.buttonBackgroundColor5.UseVisualStyleBackColor = false;
             this.buttonBackgroundColor5.Click += new System.EventHandler(this.buttonBackgroundColor_Click);
             // 
@@ -186,10 +190,12 @@ namespace FormCustomization
             this.buttonBackgroundColor4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonBackgroundColor4.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.buttonBackgroundColor4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonBackgroundColor4.Location = new System.Drawing.Point(6, 109);
             this.buttonBackgroundColor4.Name = "buttonBackgroundColor4";
             this.buttonBackgroundColor4.Size = new System.Drawing.Size(113, 25);
             this.buttonBackgroundColor4.TabIndex = 3;
+            this.buttonBackgroundColor4.Tag = "NO_THEME_CHANGE";
             this.buttonBackgroundColor4.UseVisualStyleBackColor = false;
             this.buttonBackgroundColor4.Click += new System.EventHandler(this.buttonBackgroundColor_Click);
             // 
@@ -198,10 +204,12 @@ namespace FormCustomization
             this.buttonBackgroundColor1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonBackgroundColor1.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.buttonBackgroundColor1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonBackgroundColor1.Location = new System.Drawing.Point(6, 19);
             this.buttonBackgroundColor1.Name = "buttonBackgroundColor1";
             this.buttonBackgroundColor1.Size = new System.Drawing.Size(113, 25);
             this.buttonBackgroundColor1.TabIndex = 0;
+            this.buttonBackgroundColor1.Tag = "NO_THEME_CHANGE";
             this.buttonBackgroundColor1.UseVisualStyleBackColor = false;
             this.buttonBackgroundColor1.Click += new System.EventHandler(this.buttonBackgroundColor_Click);
             // 
@@ -210,10 +218,12 @@ namespace FormCustomization
             this.buttonBackgroundColor2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonBackgroundColor2.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.buttonBackgroundColor2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonBackgroundColor2.Location = new System.Drawing.Point(6, 48);
             this.buttonBackgroundColor2.Name = "buttonBackgroundColor2";
             this.buttonBackgroundColor2.Size = new System.Drawing.Size(113, 25);
             this.buttonBackgroundColor2.TabIndex = 1;
+            this.buttonBackgroundColor2.Tag = "NO_THEME_CHANGE";
             this.buttonBackgroundColor2.UseVisualStyleBackColor = false;
             this.buttonBackgroundColor2.Click += new System.EventHandler(this.buttonBackgroundColor_Click);
             // 
@@ -222,10 +232,12 @@ namespace FormCustomization
             this.buttonBackgroundColor3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonBackgroundColor3.BackColor = System.Drawing.SystemColors.Control;
+            this.buttonBackgroundColor3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonBackgroundColor3.Location = new System.Drawing.Point(6, 79);
             this.buttonBackgroundColor3.Name = "buttonBackgroundColor3";
             this.buttonBackgroundColor3.Size = new System.Drawing.Size(113, 25);
             this.buttonBackgroundColor3.TabIndex = 2;
+            this.buttonBackgroundColor3.Tag = "NO_THEME_CHANGE";
             this.buttonBackgroundColor3.UseVisualStyleBackColor = false;
             this.buttonBackgroundColor3.Click += new System.EventHandler(this.buttonBackgroundColor_Click);
             // 
@@ -250,6 +262,7 @@ namespace FormCustomization
             // 
             this.buttonForegroundColorReset.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonForegroundColorReset.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonForegroundColorReset.Location = new System.Drawing.Point(6, 201);
             this.buttonForegroundColorReset.Name = "buttonForegroundColorReset";
             this.buttonForegroundColorReset.Size = new System.Drawing.Size(113, 25);
@@ -263,11 +276,13 @@ namespace FormCustomization
             this.buttonForegroundColor2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonForegroundColor2.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.buttonForegroundColor2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonForegroundColor2.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
             this.buttonForegroundColor2.Location = new System.Drawing.Point(6, 48);
             this.buttonForegroundColor2.Name = "buttonForegroundColor2";
             this.buttonForegroundColor2.Size = new System.Drawing.Size(113, 25);
             this.buttonForegroundColor2.TabIndex = 1;
+            this.buttonForegroundColor2.Tag = "NO_THEME_CHANGE";
             this.buttonForegroundColor2.UseVisualStyleBackColor = false;
             this.buttonForegroundColor2.Click += new System.EventHandler(this.buttonForegroundColor_Click);
             // 
@@ -276,10 +291,12 @@ namespace FormCustomization
             this.buttonForegroundColor5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonForegroundColor5.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.buttonForegroundColor5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonForegroundColor5.Location = new System.Drawing.Point(6, 140);
             this.buttonForegroundColor5.Name = "buttonForegroundColor5";
             this.buttonForegroundColor5.Size = new System.Drawing.Size(113, 25);
             this.buttonForegroundColor5.TabIndex = 4;
+            this.buttonForegroundColor5.Tag = "NO_THEME_CHANGE";
             this.buttonForegroundColor5.UseVisualStyleBackColor = false;
             this.buttonForegroundColor5.Click += new System.EventHandler(this.buttonForegroundColor_Click);
             // 
@@ -288,10 +305,12 @@ namespace FormCustomization
             this.buttonForegroundColor3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonForegroundColor3.BackColor = System.Drawing.SystemColors.Desktop;
+            this.buttonForegroundColor3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonForegroundColor3.Location = new System.Drawing.Point(6, 79);
             this.buttonForegroundColor3.Name = "buttonForegroundColor3";
             this.buttonForegroundColor3.Size = new System.Drawing.Size(113, 25);
             this.buttonForegroundColor3.TabIndex = 2;
+            this.buttonForegroundColor3.Tag = "NO_THEME_CHANGE";
             this.buttonForegroundColor3.UseVisualStyleBackColor = false;
             this.buttonForegroundColor3.Click += new System.EventHandler(this.buttonForegroundColor_Click);
             // 
@@ -300,10 +319,12 @@ namespace FormCustomization
             this.buttonForegroundColor4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonForegroundColor4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.buttonForegroundColor4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonForegroundColor4.Location = new System.Drawing.Point(6, 109);
             this.buttonForegroundColor4.Name = "buttonForegroundColor4";
             this.buttonForegroundColor4.Size = new System.Drawing.Size(113, 25);
             this.buttonForegroundColor4.TabIndex = 3;
+            this.buttonForegroundColor4.Tag = "NO_THEME_CHANGE";
             this.buttonForegroundColor4.UseVisualStyleBackColor = false;
             this.buttonForegroundColor4.Click += new System.EventHandler(this.buttonForegroundColor_Click);
             // 
@@ -312,10 +333,12 @@ namespace FormCustomization
             this.buttonForegroundColor1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonForegroundColor1.BackColor = System.Drawing.SystemColors.InfoText;
+            this.buttonForegroundColor1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonForegroundColor1.Location = new System.Drawing.Point(6, 19);
             this.buttonForegroundColor1.Name = "buttonForegroundColor1";
             this.buttonForegroundColor1.Size = new System.Drawing.Size(113, 25);
             this.buttonForegroundColor1.TabIndex = 0;
+            this.buttonForegroundColor1.Tag = "NO_THEME_CHANGE";
             this.buttonForegroundColor1.UseVisualStyleBackColor = false;
             this.buttonForegroundColor1.Click += new System.EventHandler(this.buttonForegroundColor_Click);
             // 
@@ -323,6 +346,7 @@ namespace FormCustomization
             // 
             this.buttonFreeForegroundColor.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonFreeForegroundColor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonFreeForegroundColor.Location = new System.Drawing.Point(6, 171);
             this.buttonFreeForegroundColor.Name = "buttonFreeForegroundColor";
             this.buttonFreeForegroundColor.Size = new System.Drawing.Size(113, 25);
@@ -507,6 +531,7 @@ namespace FormCustomization
             // 
             this.buttonFreeFont.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonFreeFont.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonFreeFont.Location = new System.Drawing.Point(6, 14);
             this.buttonFreeFont.Name = "buttonFreeFont";
             this.buttonFreeFont.Size = new System.Drawing.Size(113, 23);
@@ -560,6 +585,7 @@ namespace FormCustomization
             // 
             // buttonTextReset
             // 
+            this.buttonTextReset.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonTextReset.Location = new System.Drawing.Point(124, 230);
             this.buttonTextReset.Name = "buttonTextReset";
             this.buttonTextReset.Size = new System.Drawing.Size(85, 23);
@@ -633,6 +659,7 @@ namespace FormCustomization
             // 
             // buttonTabIndexReset
             // 
+            this.buttonTabIndexReset.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonTabIndexReset.Location = new System.Drawing.Point(124, 169);
             this.buttonTabIndexReset.Name = "buttonTabIndexReset";
             this.buttonTabIndexReset.Size = new System.Drawing.Size(85, 23);
@@ -666,6 +693,7 @@ namespace FormCustomization
             // 
             // buttonHeightReset
             // 
+            this.buttonHeightReset.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonHeightReset.Location = new System.Drawing.Point(124, 138);
             this.buttonHeightReset.Name = "buttonHeightReset";
             this.buttonHeightReset.Size = new System.Drawing.Size(85, 23);
@@ -699,6 +727,7 @@ namespace FormCustomization
             // 
             // buttonTopReset
             // 
+            this.buttonTopReset.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonTopReset.Location = new System.Drawing.Point(124, 77);
             this.buttonTopReset.Name = "buttonTopReset";
             this.buttonTopReset.Size = new System.Drawing.Size(85, 23);
@@ -737,6 +766,7 @@ namespace FormCustomization
             // 
             // buttonWidthReset
             // 
+            this.buttonWidthReset.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonWidthReset.Location = new System.Drawing.Point(124, 108);
             this.buttonWidthReset.Name = "buttonWidthReset";
             this.buttonWidthReset.Size = new System.Drawing.Size(85, 23);
@@ -770,6 +800,7 @@ namespace FormCustomization
             // 
             // buttonLeftReset
             // 
+            this.buttonLeftReset.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonLeftReset.Location = new System.Drawing.Point(124, 48);
             this.buttonLeftReset.Name = "buttonLeftReset";
             this.buttonLeftReset.Size = new System.Drawing.Size(85, 23);
@@ -810,6 +841,7 @@ namespace FormCustomization
             // 
             this.buttonFontReset.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonFontReset.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonFontReset.Location = new System.Drawing.Point(6, 43);
             this.buttonFontReset.Name = "buttonFontReset";
             this.buttonFontReset.Size = new System.Drawing.Size(113, 23);
@@ -822,6 +854,7 @@ namespace FormCustomization
             // 
             this.buttonBackGroundImageReset.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonBackGroundImageReset.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonBackGroundImageReset.Location = new System.Drawing.Point(4, 43);
             this.buttonBackGroundImageReset.Name = "buttonBackGroundImageReset";
             this.buttonBackGroundImageReset.Size = new System.Drawing.Size(113, 23);
@@ -834,6 +867,7 @@ namespace FormCustomization
             // 
             this.buttonBackGroundImage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonBackGroundImage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonBackGroundImage.Location = new System.Drawing.Point(4, 14);
             this.buttonBackGroundImage.Name = "buttonBackGroundImage";
             this.buttonBackGroundImage.Size = new System.Drawing.Size(113, 23);
@@ -880,6 +914,7 @@ namespace FormCustomization
             // 
             // buttonShortcutReset
             // 
+            this.buttonShortcutReset.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonShortcutReset.Location = new System.Drawing.Point(137, 8);
             this.buttonShortcutReset.Name = "buttonShortcutReset";
             this.buttonShortcutReset.Size = new System.Drawing.Size(113, 23);

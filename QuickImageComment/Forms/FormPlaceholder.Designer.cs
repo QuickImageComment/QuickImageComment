@@ -489,8 +489,8 @@ namespace QuickImageComment
             // 
             this.labelNoPlaceholderMarked.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelNoPlaceholderMarked.AutoSize = true;
-            this.labelNoPlaceholderMarked.BackColor = System.Drawing.Color.Black;
-            this.labelNoPlaceholderMarked.ForeColor = System.Drawing.Color.White;
+            this.labelNoPlaceholderMarked.BackColor = System.Drawing.SystemColors.WindowText;
+            this.labelNoPlaceholderMarked.ForeColor = System.Drawing.SystemColors.Window;
             this.labelNoPlaceholderMarked.Location = new System.Drawing.Point(6, 462);
             this.labelNoPlaceholderMarked.Name = "labelNoPlaceholderMarked";
             this.labelNoPlaceholderMarked.Size = new System.Drawing.Size(123, 13);

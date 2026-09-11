@@ -79,6 +79,7 @@ namespace QuickImageComment
             // buttonAbort
             // 
             this.buttonAbort.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonAbort.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonAbort.Location = new System.Drawing.Point(383, 373);
             this.buttonAbort.Name = "buttonAbort";
             this.buttonAbort.Size = new System.Drawing.Size(95, 22);
@@ -90,6 +91,7 @@ namespace QuickImageComment
             // buttonOk
             // 
             this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonOk.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonOk.Location = new System.Drawing.Point(159, 373);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(95, 22);
@@ -101,6 +103,7 @@ namespace QuickImageComment
             // buttonHelp
             // 
             this.buttonHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonHelp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonHelp.Location = new System.Drawing.Point(536, 373);
             this.buttonHelp.Name = "buttonHelp";
             this.buttonHelp.Size = new System.Drawing.Size(95, 22);
@@ -152,11 +155,13 @@ namespace QuickImageComment
             // 
             // buttonBackgroundColor
             // 
-            this.buttonBackgroundColor.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.buttonBackgroundColor.BackColor = System.Drawing.Color.White;
+            this.buttonBackgroundColor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonBackgroundColor.Location = new System.Drawing.Point(300, 59);
             this.buttonBackgroundColor.Name = "buttonBackgroundColor";
             this.buttonBackgroundColor.Size = new System.Drawing.Size(156, 25);
             this.buttonBackgroundColor.TabIndex = 17;
+            this.buttonBackgroundColor.Tag = "NO_THEME_CHANGE";
             this.buttonBackgroundColor.UseVisualStyleBackColor = false;
             this.buttonBackgroundColor.Click += new System.EventHandler(this.buttonBackgroundColor_Click);
             // 
@@ -180,17 +185,20 @@ namespace QuickImageComment
             // 
             // buttonForeGroundColor
             // 
-            this.buttonForeGroundColor.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.buttonForeGroundColor.BackColor = System.Drawing.Color.White;
+            this.buttonForeGroundColor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonForeGroundColor.Location = new System.Drawing.Point(300, 87);
             this.buttonForeGroundColor.MinimumSize = new System.Drawing.Size(156, 25);
             this.buttonForeGroundColor.Name = "buttonForeGroundColor";
             this.buttonForeGroundColor.Size = new System.Drawing.Size(156, 25);
             this.buttonForeGroundColor.TabIndex = 20;
+            this.buttonForeGroundColor.Tag = "NO_THEME_CHANGE";
             this.buttonForeGroundColor.UseVisualStyleBackColor = false;
             this.buttonForeGroundColor.Click += new System.EventHandler(this.buttonForeGroundColor_Click);
             // 
             // buttonAdjustFields
             // 
+            this.buttonAdjustFields.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonAdjustFields.Location = new System.Drawing.Point(300, 143);
             this.buttonAdjustFields.Name = "buttonAdjustFields";
             this.buttonAdjustFields.Size = new System.Drawing.Size(280, 23);
@@ -201,6 +209,7 @@ namespace QuickImageComment
             // 
             // buttonFontSubtitle
             // 
+            this.buttonFontSubtitle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonFontSubtitle.Location = new System.Drawing.Point(300, 116);
             this.buttonFontSubtitle.Name = "buttonFontSubtitle";
             this.buttonFontSubtitle.Size = new System.Drawing.Size(280, 23);
@@ -315,6 +324,7 @@ namespace QuickImageComment
             // buttonRevertChanges
             // 
             this.buttonRevertChanges.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonRevertChanges.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonRevertChanges.Location = new System.Drawing.Point(3, 373);
             this.buttonRevertChanges.Name = "buttonRevertChanges";
             this.buttonRevertChanges.Size = new System.Drawing.Size(142, 22);

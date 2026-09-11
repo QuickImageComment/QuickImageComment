@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.panelChangeableFieldsInner = new System.Windows.Forms.Panel();
-            this.dateTimePickerChangeableField = new QuickImageComment.DateTimePickerQIC();
-            this.comboBoxChangeableField = new QuickImageCommentControls.ComboBoxQIC();
             this.dynamicLabelChangeableField = new System.Windows.Forms.Label();
             this.textBoxChangeableField = new System.Windows.Forms.TextBox();
             this.panelChangeableFieldsOuter = new System.Windows.Forms.Panel();
+            this.dateTimePickerChangeableField = new QuickImageComment.DateTimePickerQIC();
+            this.comboBoxChangeableField = new QuickImageCommentControls.ComboBoxQIC();
             this.panelChangeableFieldsInner.SuspendLayout();
             this.panelChangeableFieldsOuter.SuspendLayout();
             this.SuspendLayout();
@@ -45,10 +45,46 @@
             this.panelChangeableFieldsInner.Controls.Add(this.dynamicLabelChangeableField);
             this.panelChangeableFieldsInner.Controls.Add(this.textBoxChangeableField);
             this.panelChangeableFieldsInner.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelChangeableFieldsInner.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panelChangeableFieldsInner.Location = new System.Drawing.Point(0, 0);
             this.panelChangeableFieldsInner.Name = "panelChangeableFieldsInner";
             this.panelChangeableFieldsInner.Size = new System.Drawing.Size(368, 320);
             this.panelChangeableFieldsInner.TabIndex = 9;
+            // 
+            // dynamicLabelChangeableField
+            // 
+            this.dynamicLabelChangeableField.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dynamicLabelChangeableField.Location = new System.Drawing.Point(3, 7);
+            this.dynamicLabelChangeableField.Name = "dynamicLabelChangeableField";
+            this.dynamicLabelChangeableField.Size = new System.Drawing.Size(35, 21);
+            this.dynamicLabelChangeableField.TabIndex = 1;
+            this.dynamicLabelChangeableField.Tag = "0";
+            this.dynamicLabelChangeableField.Text = "label1";
+            this.dynamicLabelChangeableField.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // textBoxChangeableField
+            // 
+            this.textBoxChangeableField.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxChangeableField.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxChangeableField.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxChangeableField.Location = new System.Drawing.Point(146, 3);
+            this.textBoxChangeableField.Name = "textBoxChangeableField";
+            this.textBoxChangeableField.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBoxChangeableField.Size = new System.Drawing.Size(219, 14);
+            this.textBoxChangeableField.TabIndex = 2;
+            this.textBoxChangeableField.Tag = "0";
+            this.textBoxChangeableField.WordWrap = false;
+            // 
+            // panelChangeableFieldsOuter
+            // 
+            this.panelChangeableFieldsOuter.AutoScroll = true;
+            this.panelChangeableFieldsOuter.Controls.Add(this.panelChangeableFieldsInner);
+            this.panelChangeableFieldsOuter.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelChangeableFieldsOuter.Location = new System.Drawing.Point(0, 0);
+            this.panelChangeableFieldsOuter.Name = "panelChangeableFieldsOuter";
+            this.panelChangeableFieldsOuter.Size = new System.Drawing.Size(368, 323);
+            this.panelChangeableFieldsOuter.TabIndex = 10;
             // 
             // dateTimePickerChangeableField
             // 
@@ -67,44 +103,13 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxChangeableField.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.comboBoxChangeableField.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.comboBoxChangeableField.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.comboBoxChangeableField.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxChangeableField.FormattingEnabled = true;
             this.comboBoxChangeableField.Location = new System.Drawing.Point(146, 29);
             this.comboBoxChangeableField.Name = "comboBoxChangeableField";
-            this.comboBoxChangeableField.Size = new System.Drawing.Size(219, 21);
+            this.comboBoxChangeableField.Size = new System.Drawing.Size(219, 22);
             this.comboBoxChangeableField.TabIndex = 3;
-            // 
-            // dynamicLabelChangeableField
-            // 
-            this.dynamicLabelChangeableField.Location = new System.Drawing.Point(3, 7);
-            this.dynamicLabelChangeableField.Name = "dynamicLabelChangeableField";
-            this.dynamicLabelChangeableField.Size = new System.Drawing.Size(35, 21);
-            this.dynamicLabelChangeableField.TabIndex = 1;
-            this.dynamicLabelChangeableField.Tag = "0";
-            this.dynamicLabelChangeableField.Text = "label1";
-            this.dynamicLabelChangeableField.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // textBoxChangeableField
-            // 
-            this.textBoxChangeableField.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxChangeableField.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBoxChangeableField.Location = new System.Drawing.Point(146, 3);
-            this.textBoxChangeableField.Name = "textBoxChangeableField";
-            this.textBoxChangeableField.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBoxChangeableField.Size = new System.Drawing.Size(219, 21);
-            this.textBoxChangeableField.TabIndex = 2;
-            this.textBoxChangeableField.Tag = "0";
-            this.textBoxChangeableField.WordWrap = false;
-            // 
-            // panelChangeableFieldsOuter
-            // 
-            this.panelChangeableFieldsOuter.AutoScroll = true;
-            this.panelChangeableFieldsOuter.Controls.Add(this.panelChangeableFieldsInner);
-            this.panelChangeableFieldsOuter.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelChangeableFieldsOuter.Location = new System.Drawing.Point(0, 0);
-            this.panelChangeableFieldsOuter.Name = "panelChangeableFieldsOuter";
-            this.panelChangeableFieldsOuter.Size = new System.Drawing.Size(368, 323);
-            this.panelChangeableFieldsOuter.TabIndex = 10;
             // 
             // UserControlChangeableFields
             // 
