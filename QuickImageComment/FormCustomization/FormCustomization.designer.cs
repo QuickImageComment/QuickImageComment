@@ -46,14 +46,14 @@ namespace FormCustomization
     {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormCustomization));
             this.buttonFreeBackgroundColor = new QuickImageCommentControls.ButtonQIC();
-            this.groupBoxBackgroundColor = new System.Windows.Forms.GroupBox();
+            this.groupBoxBackgroundColor = new QuickImageCommentControls.GroupBoxQIC();
             this.buttonBackgroundColorReset = new QuickImageCommentControls.ButtonQIC();
             this.buttonBackgroundColor5 = new QuickImageCommentControls.ButtonQIC();
             this.buttonBackgroundColor4 = new QuickImageCommentControls.ButtonQIC();
             this.buttonBackgroundColor1 = new QuickImageCommentControls.ButtonQIC();
             this.buttonBackgroundColor2 = new QuickImageCommentControls.ButtonQIC();
             this.buttonBackgroundColor3 = new QuickImageCommentControls.ButtonQIC();
-            this.groupBoxForegroundColor = new System.Windows.Forms.GroupBox();
+            this.groupBoxForegroundColor = new QuickImageCommentControls.GroupBoxQIC();
             this.buttonForegroundColorReset = new QuickImageCommentControls.ButtonQIC();
             this.buttonForegroundColor2 = new QuickImageCommentControls.ButtonQIC();
             this.buttonForegroundColor5 = new QuickImageCommentControls.ButtonQIC();
@@ -82,7 +82,7 @@ namespace FormCustomization
             this.treeViewComponents = new System.Windows.Forms.TreeView();
             this.checkBoxMultiSelect = new System.Windows.Forms.CheckBox();
             this.buttonFreeFont = new QuickImageCommentControls.ButtonQIC();
-            this.groupBoxExtended = new System.Windows.Forms.GroupBox();
+            this.groupBoxExtended = new QuickImageCommentControls.GroupBoxQIC();
             this.checkBoxAutoSize = new System.Windows.Forms.CheckBox();
             this.buttonTextReset = new QuickImageCommentControls.ButtonQIC();
             this.numericUpDownZoom = new System.Windows.Forms.NumericUpDown();
@@ -108,9 +108,9 @@ namespace FormCustomization
             this.buttonFontReset = new QuickImageCommentControls.ButtonQIC();
             this.buttonBackGroundImageReset = new QuickImageCommentControls.ButtonQIC();
             this.buttonBackGroundImage = new QuickImageCommentControls.ButtonQIC();
-            this.groupBoxBackgroundImage = new System.Windows.Forms.GroupBox();
-            this.groupBoxFont = new System.Windows.Forms.GroupBox();
-            this.groupBoxKey = new System.Windows.Forms.GroupBox();
+            this.groupBoxBackgroundImage = new QuickImageCommentControls.GroupBoxQIC();
+            this.groupBoxFont = new QuickImageCommentControls.GroupBoxQIC();
+            this.groupBoxKey = new QuickImageCommentControls.GroupBoxQIC();
             this.buttonShortcutReset = new QuickImageCommentControls.ButtonQIC();
             this.textBoxShortcut = new System.Windows.Forms.TextBox();
             this.groupBoxBackgroundColor.SuspendLayout();
@@ -978,8 +978,8 @@ namespace FormCustomization
     #endregion
 
     private QuickImageCommentControls.ButtonQIC  buttonFreeBackgroundColor;
-    private System.Windows.Forms.GroupBox groupBoxBackgroundColor;
-    private System.Windows.Forms.GroupBox groupBoxForegroundColor;
+    private QuickImageCommentControls.GroupBoxQIC groupBoxBackgroundColor;
+    private QuickImageCommentControls.GroupBoxQIC groupBoxForegroundColor;
     private QuickImageCommentControls.ButtonQIC  buttonFreeForegroundColor;
     private System.Windows.Forms.MenuStrip menuStrip1;
     private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemLoadSettingsOverwrite;
@@ -1005,7 +1005,7 @@ namespace FormCustomization
     private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemLoadSettingAdd;
     private QuickImageCommentControls.ButtonQIC  buttonBackgroundColorReset;
     private QuickImageCommentControls.ButtonQIC  buttonForegroundColorReset;
-    private System.Windows.Forms.GroupBox groupBoxExtended;
+    private QuickImageCommentControls.GroupBoxQIC groupBoxExtended;
     private QuickImageCommentControls.ButtonQIC  buttonFontReset;
     private System.Windows.Forms.NumericUpDown numericUpDownLeft;
     private QuickImageCommentControls.ButtonQIC  buttonHeightReset;
@@ -1031,16 +1031,16 @@ namespace FormCustomization
     private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemMarkupColor;
     private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemResetAll;
     private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-    private System.Windows.Forms.GroupBox groupBoxBackgroundImage;
+    private QuickImageCommentControls.GroupBoxQIC groupBoxBackgroundImage;
     private QuickImageCommentControls.ButtonQIC  buttonTextReset;
     private System.Windows.Forms.Label labelText;
     private System.Windows.Forms.TextBox textBoxText;
     private System.Windows.Forms.Label labelZoom;
     private System.Windows.Forms.NumericUpDown numericUpDownZoom;
     private System.Windows.Forms.Label fixedLabelZoomUnit;
-    private System.Windows.Forms.GroupBox groupBoxFont;
+    private QuickImageCommentControls.GroupBoxQIC groupBoxFont;
     private System.Windows.Forms.CheckBox checkBoxAutoSize;
-    private System.Windows.Forms.GroupBox groupBoxKey;
+    private QuickImageCommentControls.GroupBoxQIC groupBoxKey;
     private QuickImageCommentControls.ButtonQIC  buttonShortcutReset;
     private System.Windows.Forms.TextBox textBoxShortcut;
     private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemListOfKeys;

@@ -372,6 +372,7 @@ namespace QuickImageComment
                 aDateTimePicker.Font = dateTimePickerChangeableField.Font;
                 aDateTimePicker.ForeColor = dateTimePickerChangeableField.ForeColor;
                 aDateTimePicker.BackColor = dateTimePickerChangeableField.BackColor;
+                aDateTimePicker.BorderColor = dateTimePickerChangeableField.BorderColor;
                 aDateTimePicker.Size = dateTimePickerChangeableField.Size;
                 aDateTimePicker.Left = anInputControl.Left + anInputControl.Width + 2;
                 aDateTimePicker.Height = dateTimePickerChangeableField.Height;

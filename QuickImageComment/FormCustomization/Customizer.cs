@@ -116,6 +116,7 @@ namespace FormCustomization
         {
             public Color BackColor;
             public Color ForeColor;
+            public Color BorderColor;
             public Color DataGridViewDefaultCellBackColor;
             public Color DataGridViewDefaultColumnHeadersBackColor;
             public Color DataGridViewDefaultColumnHeadersForeColor;
@@ -125,7 +126,7 @@ namespace FormCustomization
             public Color PressedBackColor;
             public Color HoverBackColor;
 
-            public ComponentColors(Color givenBackColor, Color givenForeColor,
+            public ComponentColors(Color givenBackColor, Color givenForeColor, Color givenBorderColor,
                 Color givenDataGridViewDefaultCellBackColor, Color givenDataGridViewDefaultColumnHeadersBackColor,
                 Color givenDataGridViewDefaultColumnHeadersForeColor,
                 Color givenDataGridViewDefaultRowHeadersBackColor,
@@ -134,6 +135,7 @@ namespace FormCustomization
             {
                 BackColor = givenBackColor;
                 ForeColor = givenForeColor;
+                BorderColor = givenBorderColor;
                 DataGridViewDefaultCellBackColor = givenDataGridViewDefaultCellBackColor;
                 DataGridViewDefaultColumnHeadersBackColor = givenDataGridViewDefaultColumnHeadersBackColor;
                 DataGridViewDefaultColumnHeadersForeColor = givenDataGridViewDefaultColumnHeadersForeColor;
@@ -222,7 +224,7 @@ namespace FormCustomization
         // properties to be set via FormCustomization need to be added to PropertyNames
         internal enum enumProperty
         {
-            BackColor, ForeColor, Font, Left, Top, Width, Height,
+            BackColor, ForeColor, BorderColor, Font, Left, Top, Width, Height,
             TabIndex, Text, BackgroundImage, AutoSize, Shortcut,
             DataGridViewDefaultCellBackColor,
             DataGridViewDefaultColumnHeadersBackColor, DataGridViewDefaultColumnHeadersForeColor,
@@ -784,6 +786,7 @@ namespace FormCustomization
 
             Color backcolor = Color.Empty;
             Color forecolor = Color.Empty;
+            Color bordercolor = Color.Empty;
             Color dataGridViewDefaultCellBackColor = Color.Empty;
             Color dataGridViewDefaultColumnHeadersBackColor = Color.Empty;
             Color dataGridViewDefaultColumnHeadersForeColor = Color.Empty;
@@ -798,6 +801,7 @@ namespace FormCustomization
                 // original colors are already stored, use them as base
                 backcolor = OriginalColors[ParentControlFullName].BackColor;
                 forecolor = OriginalColors[ParentControlFullName].ForeColor;
+                bordercolor = OriginalColors[ParentControlFullName].BorderColor;
                 dataGridViewDefaultCellBackColor = OriginalColors[ParentControlFullName].DataGridViewDefaultCellBackColor;
                 dataGridViewDefaultColumnHeadersBackColor = OriginalColors[ParentControlFullName].DataGridViewDefaultColumnHeadersBackColor;
                 dataGridViewDefaultColumnHeadersForeColor = OriginalColors[ParentControlFullName].DataGridViewDefaultColumnHeadersForeColor;
@@ -847,6 +851,15 @@ namespace FormCustomization
                         disabledForeColor = buttonQIC.DisabledForeColor;
                         pressedBackColor = buttonQIC.PressedBackColor;
                         hoverBackColor = buttonQIC.HoverBackColor;
+                        bordercolor = buttonQIC.BorderColor;
+                    }
+                    else if (ParentControl is QuickImageComment.DateTimePickerQIC dateTimePickerQIC)
+                    {
+                        bordercolor = dateTimePickerQIC.BorderColor;
+                    }
+                    else if (ParentControl is QuickImageCommentControls.GroupBoxQIC groupBoxQIC)
+                    {
+                        bordercolor = groupBoxQIC.BorderColor;
                     }
 #if WRITEDEBUGTHEMETRACE
                     QuickImageComment.GeneralUtilities.writeDebugFileEntry("    " + ParentControlFullName + " back=" + backcolor + " fore=" + forecolor);
@@ -859,7 +872,7 @@ namespace FormCustomization
 #endif
                     return;
                 }
-                OriginalColors.Add(ParentControlFullName, new ComponentColors(backcolor, forecolor,
+                OriginalColors.Add(ParentControlFullName, new ComponentColors(backcolor, forecolor, bordercolor,
                     dataGridViewDefaultCellBackColor, dataGridViewDefaultColumnHeadersBackColor,
                     dataGridViewDefaultColumnHeadersForeColor,
                     dataGridViewDefaultRowHeadersBackColor,
@@ -870,6 +883,7 @@ namespace FormCustomization
             // determine new color
             Color newBackcolor;
             Color newForcolor;
+            Color newBordercolor = Color.Empty;
             Color newDataGridViewDefaultCellBackColor = Color.Empty;
             Color newDataGridViewDefaultColumnHeadersBackColor = Color.Empty;
             Color newDataGridViewDefaultColumnHeadersForeColor = Color.Empty;
@@ -884,6 +898,7 @@ namespace FormCustomization
                 // set to original colors, as light theme is default
                 newBackcolor = OriginalColors[ParentControlFullName].BackColor;
                 newForcolor = OriginalColors[ParentControlFullName].ForeColor;
+                newBordercolor = OriginalColors[ParentControlFullName].BorderColor;
                 newDataGridViewDefaultCellBackColor = OriginalColors[ParentControlFullName].DataGridViewDefaultCellBackColor;
                 newDataGridViewDefaultColumnHeadersBackColor = OriginalColors[ParentControlFullName].DataGridViewDefaultColumnHeadersBackColor;
                 newDataGridViewDefaultColumnHeadersForeColor = OriginalColors[ParentControlFullName].DataGridViewDefaultColumnHeadersForeColor;
@@ -898,6 +913,7 @@ namespace FormCustomization
                 // get colors by theme
                 newBackcolor = getColorByTheme(ParentControlFullName, backcolor, "Back");
                 newForcolor = getColorByTheme(ParentControlFullName, forecolor, "Fore");
+                newBordercolor = getColorByTheme(ParentControlFullName, bordercolor, "Border");
                 newDataGridViewDefaultCellBackColor = getColorByTheme(ParentControlFullName, dataGridViewDefaultCellBackColor, "DataGridViewDefaultCellBack");
                 newDataGridViewDefaultColumnHeadersBackColor = getColorByTheme(ParentControlFullName, dataGridViewDefaultColumnHeadersBackColor, "DataGridViewDefaultColumnHeadersBack");
                 newDataGridViewDefaultColumnHeadersForeColor = getColorByTheme(ParentControlFullName, dataGridViewDefaultColumnHeadersForeColor, "DataGridViewDefaultColumnHeadersFore");
@@ -945,6 +961,11 @@ namespace FormCustomization
                 setProperty(ParentControl, enumProperty.DisabledForeColor, newDisabledForeColor);
                 setProperty(ParentControl, enumProperty.PressedBackColor, newPressedBackColor);
                 setProperty(ParentControl, enumProperty.HoverBackColor, newHoverBackColor);
+                setProperty(ParentControl, enumProperty.BorderColor, newBordercolor);
+            }
+            else if (ParentControl is GroupBoxQIC || ParentControl is DateTimePickerQIC)
+            {
+                setProperty(ParentControl, enumProperty.BorderColor, newBordercolor);
             }
 
 #if WRITEDEBUGTHEMETRACE
@@ -1944,6 +1965,15 @@ namespace FormCustomization
                         return givenControl.BackColor;
                     case enumProperty.ForeColor:
                         return givenControl.ForeColor;
+                    case enumProperty.BorderColor:
+                        if (givenControl is ButtonQIC)
+                            return ((ButtonQIC)givenControl).BorderColor;
+                        else if (givenControl is DateTimePickerQIC)
+                            return ((DateTimePickerQIC)givenControl).BorderColor;
+                        else if (givenControl is GroupBoxQIC)
+                            return ((GroupBoxQIC)givenControl).BorderColor;
+                        else
+                            return Color.Empty;
                     case enumProperty.Font:
                         return givenControl.Font;
                     case enumProperty.Left:
@@ -2086,6 +2116,25 @@ namespace FormCustomization
                         break;
                     case enumProperty.ForeColor:
                         givenControl.ForeColor = (Color)PropertyValue;
+                        break;
+                    case enumProperty.BorderColor:
+                        if (givenControl is ButtonQIC)
+                        {
+                            ((ButtonQIC)givenControl).BorderColor = (Color)PropertyValue;
+                        }
+                        else if (givenControl is DateTimePickerQIC)
+                        {
+                            ((DateTimePickerQIC)givenControl).BorderColor = (Color)PropertyValue;
+                        }
+                        else if (givenControl is GroupBoxQIC)
+                        {
+                            ((GroupBoxQIC)givenControl).BorderColor = (Color)PropertyValue;
+                        }
+                        else
+                        {
+                            throw new Exception("Internal error: Unsupported control type for BorderColor property"
+                                + givenControl.Name);
+                        }
                         break;
                     case enumProperty.Font:
                         givenControl.Font = (Font)PropertyValue;
@@ -2441,6 +2490,10 @@ namespace FormCustomization
                 ComponentColors componentColors = OriginalColors[controlFullName];
                 UsedColorsFile.WriteLine(controlFullName + "\tBackcolor\t" + colorNameWithRGB(componentColors.BackColor));
                 UsedColorsFile.WriteLine(controlFullName + "\tForecolor\t" + colorNameWithRGB(componentColors.ForeColor));
+                if (componentColors.BorderColor != Color.Empty)
+                {
+                    UsedColorsFile.WriteLine(controlFullName + "\tBorderColor\t" + colorNameWithRGB(componentColors.BorderColor));
+                }
                 if (componentColors.DataGridViewDefaultCellBackColor != Color.Empty)
                 {
                     UsedColorsFile.WriteLine(controlFullName + "\tDataGridViewDefaultCellBackColor\t" + colorNameWithRGB(componentColors.DataGridViewDefaultCellBackColor));
