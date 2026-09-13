@@ -25,7 +25,7 @@ using System.Windows.Forms;
 
 namespace QuickImageCommentControls
 {
-    class ListViewFiles : ListView
+    class ListViewFiles : ListViewQIC
     {
         const int thinLine = 1;
         const int thickLine = 3;
@@ -154,7 +154,8 @@ namespace QuickImageCommentControls
         {
 
             this.SetStyle(ControlStyles.OptimizedDoubleBuffer |
-                          ControlStyles.AllPaintingInWmPaint, true); InitializeComponent();
+                          ControlStyles.AllPaintingInWmPaint, true);
+            InitializeComponent();
             earthBitmap = (Bitmap)QuickImageComment.Properties.Resources.ResourceManager.GetObject("Earth");
 
 
@@ -269,24 +270,11 @@ namespace QuickImageCommentControls
             catch { }
         }
 
-        // when size is changed, adjust tile width and last column width
+        // when size is changed, adjust tile width and last column width (included in base.OnSizeChanged)
         protected override void OnSizeChanged(EventArgs e)
         {
             base.OnSizeChanged(e);
             adjustTileViewWidth();
-            adjustLastColumnWidth();
-        }
-
-        // when column width is changed adjust last column width
-        protected override void OnColumnWidthChanged(ColumnWidthChangedEventArgs e)
-        {
-            base.OnColumnWidthChanged(e);
-
-            // Only adjust when a non-last column changed
-            if (e.ColumnIndex < this.Columns.Count - 1)
-            {
-                adjustLastColumnWidth();
-            }
         }
 
         public void adjustTileViewWidth()
@@ -300,28 +288,6 @@ namespace QuickImageCommentControls
                 this.TileSize = new Size(this.Width - widthAdjustThis2Tile,
                                          ThumbNailSize + ConfigDefinition.getConfigInt(ConfigDefinition.enumConfigInt.TileVerticalSpace));
             }
-        }
-
-        // mainly to avoid white area in header in dark mode
-        internal void adjustLastColumnWidth()
-        {
-            if (this.View != View.Details)
-                return;
-
-            if (this.Columns.Count == 0)
-                return;
-
-            int totalWidth = this.ClientSize.Width;
-
-            // subtract widths of all columns except the last
-            for (int i = 0; i < this.Columns.Count - 1; i++)
-                totalWidth -= this.Columns[i].Width;
-
-            // minimum width to avoid collapse
-            if (totalWidth < 20)
-                totalWidth = 20;
-
-            this.Columns[this.Columns.Count - 1].Width = totalWidth;
         }
 
         // draw the listViewFiles items
