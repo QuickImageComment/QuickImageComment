@@ -222,14 +222,16 @@ namespace FormCustomization
         // when adding new enumProperty, adjust also:
         // getProperty, set
         // properties to be set via FormCustomization need to be added to PropertyNames
+        // properties not to be set via FormCustomization need to be added after those properties
+        // which can be set via FormCustomization
         internal enum enumProperty
         {
-            BackColor, ForeColor, BorderColor, Font, Left, Top, Width, Height,
+            BackColor, ForeColor,  Font, Left, Top, Width, Height,
             TabIndex, Text, BackgroundImage, AutoSize, Shortcut,
             DataGridViewDefaultCellBackColor,
             DataGridViewDefaultColumnHeadersBackColor, DataGridViewDefaultColumnHeadersForeColor,
             DataGridViewDefaultRowHeadersBackColor, DataGridViewDefaultRowHeadersForeColor,
-            DisabledForeColor, PressedBackColor, HoverBackColor
+            DisabledForeColor, PressedBackColor, HoverBackColor, BorderColor
         };
         private string[] PropertyNames =
           new string[] { "BackColor", "ForeColor", "Font", "Left", "Top", "Width", "Height",
