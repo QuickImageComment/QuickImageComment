@@ -59,6 +59,12 @@ namespace QuickImageComment
                 dynamicComboBoxLanguage.Items.Add(keyWord);
             }
 
+            // call setFormToCustomizedValuesZoomInitial before initDefinitionControls
+            // as initDefinitionControls changes backcolors of textBoxSeparator via setting Enabled = false
+            // which then causes trouble in applying theme colors
+            CustomizationInterface.setFormToCustomizedValuesZoomInitial(this);
+            LangCfg.translateControlTexts(this);
+
             initDefinitionControls();
 
             buttonAbort.Select();
@@ -68,10 +74,6 @@ namespace QuickImageComment
             textBoxValueConverted.Text = "";
 
             buttonAbort.Select();
-
-            CustomizationInterface.setFormToCustomizedValuesZoomInitial(this);
-
-            LangCfg.translateControlTexts(this);
 
             // mark first placeholder for edit
             int ii = richTextBoxValue.Find("{{");
@@ -83,6 +85,10 @@ namespace QuickImageComment
                 setConvertedValue();
             }
 
+            // calling setFormToCustomizedValuesZoomInitial before initDefinitionControls caused crash
+            // because textBoxSeparator.TextChanged fired to early in setting theme
+            // so assign event handler here
+            textBoxSeparator.TextChanged += new System.EventHandler(this.richTextBoxSeparator_TextChanged);
             userControlTagList.listViewTags.SelectedIndexChanged += new System.EventHandler(this.listViewTags_SelectedIndexChanged);
 
             // if flag set, create screenshot and return

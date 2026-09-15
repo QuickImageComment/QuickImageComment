@@ -380,7 +380,8 @@ namespace QuickImageComment
             // 
             // textBoxSeparator
             // 
-            this.textBoxSeparator.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxSeparator.BackColor = System.Drawing.SystemColors.Window;
+            this.textBoxSeparator.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBoxSeparator.DetectUrls = false;
             this.textBoxSeparator.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBoxSeparator.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -391,7 +392,6 @@ namespace QuickImageComment
             this.textBoxSeparator.Size = new System.Drawing.Size(54, 19);
             this.textBoxSeparator.TabIndex = 67;
             this.textBoxSeparator.Text = "";
-            this.textBoxSeparator.TextChanged += new System.EventHandler(this.richTextBoxSeparator_TextChanged);
             // 
             // checkBoxSavedValue
             // 
