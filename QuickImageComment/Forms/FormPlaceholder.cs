@@ -397,7 +397,7 @@ namespace QuickImageComment
             dynamicComboBoxFormat.Enabled = true;
             checkBoxSavedValue.Enabled = true;
             checkBoxSorted.Enabled = false;
-            textBoxSeparator.Enabled = false;
+            textBoxSeparator.SetDisabledAppearance(true);
             dynamicComboBoxLanguage.Enabled = false;
 
             dynamicLabelMetaDate.Text = "";
@@ -420,13 +420,13 @@ namespace QuickImageComment
             if (TagUtilities.isMultiLine(MetaDataKey) && !TagUtilities.isSequentiellType(MetaDataType))
             {
                 checkBoxSorted.Enabled = true;
-                textBoxSeparator.Enabled = true;
+                textBoxSeparator.SetDisabledAppearance(false);
             }
 
             if (TagUtilities.LangAltTypes.Contains(MetaDataType))
             {
                 dynamicComboBoxLanguage.Enabled = true;
-                textBoxSeparator.Enabled = true;
+                textBoxSeparator.SetDisabledAppearance(false);
             }
             else if (TagUtilities.RationalTypes.Contains(MetaDataType))
             {

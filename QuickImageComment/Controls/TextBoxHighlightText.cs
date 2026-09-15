@@ -39,25 +39,6 @@ namespace QuickImageCommentControls
             // this.Height = this.PreferredHeight + 2;
         }
 
-        protected override void OnEnabledChanged(EventArgs e)
-        {
-            base.OnEnabledChanged(e);
-
-            if (!IsInDesignMode)
-            {
-                if (!Enabled)
-                {
-                    this.BackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorNotEnabled);
-                }
-                else
-                {
-                    this.BackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorInputUnchanged);
-                }
-
-                HighlightTextWithTrailingSpaces();
-            }
-        }
-
         protected override void OnTextChanged(EventArgs e)
         {
             base.OnTextChanged(e);
@@ -91,6 +72,20 @@ namespace QuickImageCommentControls
             finally
             {
                 _internalUpdate = false;
+            }
+        }
+ 
+        public void SetDisabledAppearance(bool disabled)
+        {
+            this.ReadOnly = disabled;
+            this.TabStop = !disabled;
+            if (disabled)
+            {
+                this.BackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorNotEnabled);
+            }
+            else
+            {
+                this.BackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorInputUnchanged);
             }
         }
 
