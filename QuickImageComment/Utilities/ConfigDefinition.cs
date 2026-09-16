@@ -429,7 +429,8 @@ namespace QuickImageComment
         internal static SortedList<string, MapSource> MapLeafletList;
         internal static SortedList<string, Color> ThemeColors;
         internal static ArrayList ThemeNames { get; private set; }
-
+        // default color assignment for tags, used when no color is defined in configuration file
+        internal static SortedList<string, string> DefaultColorAssignment;
         // for reading data for a DataTemplate
         private static DataTemplate aDataTemplate;
 
@@ -529,6 +530,7 @@ namespace QuickImageComment
             MapLeafletList = new SortedList<string, MapSource>();
             ThemeColors = new SortedList<string, Color>();
             ThemeNames = new ArrayList();
+            DefaultColorAssignment = new SortedList<string, string>();
 
             for (int ii = 0; ii < ImageGridsCount; ii++)
             {
@@ -800,6 +802,18 @@ namespace QuickImageComment
             {
                 ConfigItems.Add("_" + ConfigName, null);
             }
+            // set default values for colors, if they are not defined in configuration file
+            ConfigItems["_" + enumConfigColor.BackColorInputUnchanged.ToString()] = SystemColors.Window;
+            ConfigItems["_" + enumConfigColor.BackColorNotEnabled.ToString()] = SystemColors.Control;
+            ConfigItems["_" + enumConfigColor.ForeColorEnabled.ToString()] = SystemColors.WindowText;
+            ConfigItems["_" + enumConfigColor.ForeColorNotEnabled.ToString()] = SystemColors.ControlDark;
+            // fill list for default color assignment of themes
+            // done here to have it in one place
+            // NOTE: logic works only if not more than one assignment is done for a tag
+            DefaultColorAssignment.Add("Window", enumConfigColor.BackColorInputUnchanged.ToString());
+            DefaultColorAssignment.Add("Control", enumConfigColor.BackColorNotEnabled.ToString());
+            DefaultColorAssignment.Add("WindowText", enumConfigColor.ForeColorEnabled.ToString());
+            DefaultColorAssignment.Add("ControlDark", enumConfigColor.ForeColorNotEnabled.ToString());
 
             // loop for String configurations
             foreach (string ConfigName in Enum.GetNames(typeof(enumConfigString)))
@@ -4044,11 +4058,24 @@ namespace QuickImageComment
                             System.Globalization.CultureInfo.InvariantCulture, out int parseOutput))
                         {
                             Color color = Color.FromArgb(parseOutput);
-                            ThemeColors.Add(themeName + " Color [" + firstPart.Substring(end + 1) + "]", color);
+                            string colorName = firstPart.Substring(end + 1);
+                            string key = themeName + " Color [" + colorName + "]";
+                            if (ThemeColors.Keys.Contains(key))
+                                ThemeColors[key] = color;
+                            else
+                                ThemeColors.Add(key, color);
+
                             if (!themeName.Equals(FormCustomization.Customizer.ThemeDark)
                                 && !ThemeNames.Contains(themeName))
                             {
                                 ThemeNames.Add(themeName);
+                            }
+
+                            if (DefaultColorAssignment.ContainsKey(colorName))
+                            {
+                                key = themeName + " Color [" + DefaultColorAssignment[colorName] + "]";
+                                if (!ThemeColors.ContainsKey(key))
+                                    ThemeColors.Add(themeName + " Color [" + DefaultColorAssignment[colorName] + "]", color);
                             }
                         }
                         else
