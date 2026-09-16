@@ -33,16 +33,16 @@
             this.buttonHelp = new QuickImageCommentControls.ButtonQIC();
             this.buttonCustomizeForm = new QuickImageCommentControls.ButtonQIC();
             this.buttonStart = new QuickImageCommentControls.ButtonQIC();
-            this.groupBoxMode = new System.Windows.Forms.GroupBox();
+            this.groupBoxMode = new QuickImageCommentControls.GroupBoxQIC();
             this.buttonEditExceptions = new QuickImageCommentControls.ButtonQIC();
             this.buttonEditSingleList = new QuickImageCommentControls.ButtonQIC();
-            this.checkBoxImageComment = new System.Windows.Forms.CheckBox();
+            this.checkBoxImageComment = new QuickImageComment.Controls.CheckBoxQIC();
             this.checkedListBoxRemoveMetaDataList = new System.Windows.Forms.CheckedListBox();
-            this.checkBoxExceptions = new System.Windows.Forms.CheckBox();
-            this.checkBoxIPTC = new System.Windows.Forms.CheckBox();
-            this.checkBoxXMP = new System.Windows.Forms.CheckBox();
+            this.checkBoxExceptions = new QuickImageComment.Controls.CheckBoxQIC();
+            this.checkBoxIPTC = new QuickImageComment.Controls.CheckBoxQIC();
+            this.checkBoxXMP = new QuickImageComment.Controls.CheckBoxQIC();
             this.checkedListBoxRemoveMetaDataExceptions = new System.Windows.Forms.CheckedListBox();
-            this.checkBoxExif = new System.Windows.Forms.CheckBox();
+            this.checkBoxExif = new QuickImageComment.Controls.CheckBoxQIC();
             this.radioButtonSingle = new System.Windows.Forms.RadioButton();
             this.radioButtonGroups = new System.Windows.Forms.RadioButton();
             this.progressPanel1 = new QuickImageComment.ProgressPanel();
@@ -52,6 +52,7 @@
             // buttonCancel
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonCancel.Location = new System.Drawing.Point(330, 416);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(100, 22);
@@ -63,6 +64,7 @@
             // buttonHelp
             // 
             this.buttonHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonHelp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonHelp.Location = new System.Drawing.Point(551, 416);
             this.buttonHelp.Name = "buttonHelp";
             this.buttonHelp.Size = new System.Drawing.Size(100, 22);
@@ -74,6 +76,7 @@
             // buttonCustomizeForm
             // 
             this.buttonCustomizeForm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonCustomizeForm.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonCustomizeForm.Location = new System.Drawing.Point(3, 416);
             this.buttonCustomizeForm.Name = "buttonCustomizeForm";
             this.buttonCustomizeForm.Size = new System.Drawing.Size(100, 22);
@@ -85,6 +88,7 @@
             // buttonStart
             // 
             this.buttonStart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonStart.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonStart.Location = new System.Drawing.Point(223, 416);
             this.buttonStart.Name = "buttonStart";
             this.buttonStart.Size = new System.Drawing.Size(100, 22);
@@ -117,6 +121,7 @@
             // 
             // buttonEditExceptions
             // 
+            this.buttonEditExceptions.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonEditExceptions.Location = new System.Drawing.Point(154, 154);
             this.buttonEditExceptions.Name = "buttonEditExceptions";
             this.buttonEditExceptions.Size = new System.Drawing.Size(111, 26);
@@ -128,6 +133,7 @@
             // buttonEditSingleList
             // 
             this.buttonEditSingleList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonEditSingleList.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonEditSingleList.Location = new System.Drawing.Point(154, 345);
             this.buttonEditSingleList.Name = "buttonEditSingleList";
             this.buttonEditSingleList.Size = new System.Drawing.Size(111, 26);
@@ -151,11 +157,12 @@
             this.checkedListBoxRemoveMetaDataList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkedListBoxRemoveMetaDataList.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.checkedListBoxRemoveMetaDataList.CheckOnClick = true;
             this.checkedListBoxRemoveMetaDataList.FormattingEnabled = true;
             this.checkedListBoxRemoveMetaDataList.Location = new System.Drawing.Point(269, 191);
             this.checkedListBoxRemoveMetaDataList.Name = "checkedListBoxRemoveMetaDataList";
-            this.checkedListBoxRemoveMetaDataList.Size = new System.Drawing.Size(373, 180);
+            this.checkedListBoxRemoveMetaDataList.Size = new System.Drawing.Size(373, 176);
             this.checkedListBoxRemoveMetaDataList.TabIndex = 126;
             // 
             // checkBoxExceptions
@@ -192,11 +199,12 @@
             // 
             this.checkedListBoxRemoveMetaDataExceptions.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkedListBoxRemoveMetaDataExceptions.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.checkedListBoxRemoveMetaDataExceptions.CheckOnClick = true;
             this.checkedListBoxRemoveMetaDataExceptions.FormattingEnabled = true;
             this.checkedListBoxRemoveMetaDataExceptions.Location = new System.Drawing.Point(269, 32);
             this.checkedListBoxRemoveMetaDataExceptions.Name = "checkedListBoxRemoveMetaDataExceptions";
-            this.checkedListBoxRemoveMetaDataExceptions.Size = new System.Drawing.Size(373, 148);
+            this.checkedListBoxRemoveMetaDataExceptions.Size = new System.Drawing.Size(373, 144);
             this.checkedListBoxRemoveMetaDataExceptions.TabIndex = 121;
             // 
             // checkBoxExif
@@ -271,16 +279,16 @@
         private QuickImageCommentControls.ButtonQIC buttonHelp;
         private QuickImageCommentControls.ButtonQIC buttonCustomizeForm;
         private QuickImageCommentControls.ButtonQIC buttonStart;
-        private System.Windows.Forms.GroupBox groupBoxMode;
+        private QuickImageCommentControls.GroupBoxQIC groupBoxMode;
         private System.Windows.Forms.RadioButton radioButtonGroups;
         private System.Windows.Forms.RadioButton radioButtonSingle;
         private System.Windows.Forms.CheckedListBox checkedListBoxRemoveMetaDataExceptions;
-        private System.Windows.Forms.CheckBox checkBoxExif;
+        private QuickImageComment.Controls.CheckBoxQIC checkBoxExif;
         private System.Windows.Forms.CheckedListBox checkedListBoxRemoveMetaDataList;
-        private System.Windows.Forms.CheckBox checkBoxExceptions;
-        private System.Windows.Forms.CheckBox checkBoxIPTC;
-        private System.Windows.Forms.CheckBox checkBoxXMP;
-        private System.Windows.Forms.CheckBox checkBoxImageComment;
+        private QuickImageComment.Controls.CheckBoxQIC checkBoxExceptions;
+        private QuickImageComment.Controls.CheckBoxQIC checkBoxIPTC;
+        private QuickImageComment.Controls.CheckBoxQIC checkBoxXMP;
+        private QuickImageComment.Controls.CheckBoxQIC checkBoxImageComment;
         private QuickImageCommentControls.ButtonQIC buttonEditExceptions;
         private QuickImageCommentControls.ButtonQIC buttonEditSingleList;
         private ProgressPanel progressPanel1;

@@ -226,13 +226,15 @@ namespace FormCustomization
         // which can be set via FormCustomization
         internal enum enumProperty
         {
-            BackColor, ForeColor,  Font, Left, Top, Width, Height,
+            BackColor, ForeColor, Font, Left, Top, Width, Height,
             TabIndex, Text, BackgroundImage, AutoSize, Shortcut,
             DataGridViewDefaultCellBackColor,
             DataGridViewDefaultColumnHeadersBackColor, DataGridViewDefaultColumnHeadersForeColor,
             DataGridViewDefaultRowHeadersBackColor, DataGridViewDefaultRowHeadersForeColor,
             DisabledForeColor, PressedBackColor, HoverBackColor, BorderColor
         };
+        // PropertyNames contains those names which can be set in configuration file
+        // so it is a subset of enumProperty list
         private string[] PropertyNames =
           new string[] { "BackColor", "ForeColor", "Font", "Left", "Top", "Width", "Height",
         "TabIndex", "Text", "BackgroundImage", "AutoSize", "Shortcut" };

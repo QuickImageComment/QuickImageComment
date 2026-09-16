@@ -39,6 +39,7 @@
             // 
             this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonOk.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonOk.Location = new System.Drawing.Point(3, 243);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(455, 23);
@@ -50,6 +51,7 @@
             // richTextBoxChanges
             // 
             this.richTextBoxChanges.BackColor = System.Drawing.SystemColors.Control;
+            this.richTextBoxChanges.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.richTextBoxChanges.BulletIndent = 10;
             this.richTextBoxChanges.Dock = System.Windows.Forms.DockStyle.Fill;
             this.richTextBoxChanges.Location = new System.Drawing.Point(3, 3);

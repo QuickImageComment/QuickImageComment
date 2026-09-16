@@ -44,7 +44,7 @@
             this.buttonCenterMarker = new QuickImageCommentControls.ButtonQIC();
             this.buttonSearch = new QuickImageCommentControls.ButtonQIC();
             this.tableLayoutPanelRight = new System.Windows.Forms.TableLayoutPanel();
-            this.checkBoxWebView2 = new System.Windows.Forms.CheckBox();
+            this.checkBoxWebView2 = new QuickImageComment.Controls.CheckBoxQIC();
             this.dynamicComboBoxMapSource = new QuickImageCommentControls.ComboBoxQIC();
             this.panelTop = new System.Windows.Forms.Panel();
             this.buttonSettings = new QuickImageCommentControls.ButtonQIC();
@@ -361,7 +361,7 @@
         private QuickImageCommentControls.ComboBoxQIC dynamicComboBoxMapSource;
         private QuickImageCommentControls.ButtonQIC  buttonRename;
         private QuickImageCommentControls.ButtonQIC  buttonDelete;
-        private System.Windows.Forms.CheckBox checkBoxWebView2;
+        private QuickImageComment.Controls.CheckBoxQIC checkBoxWebView2;
         internal System.Windows.Forms.Label dynamicLabelCoordinates;
         private QuickImageCommentControls.ButtonQIC  buttonSettings;
         private System.Windows.Forms.SplitContainer splitContainerMapControls;

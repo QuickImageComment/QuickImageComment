@@ -33,7 +33,7 @@
             this.buttonCustomizeForm = new QuickImageCommentControls.ButtonQIC();
             this.buttonAbort = new QuickImageCommentControls.ButtonQIC();
             this.buttonOK = new QuickImageCommentControls.ButtonQIC();
-            this.checkBoxAllowOtherValues = new System.Windows.Forms.CheckBox();
+            this.checkBoxAllowOtherValues = new QuickImageComment.Controls.CheckBoxQIC();
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxValidValues = new QuickImageCommentControls.TextBoxQIC();
             this.label2 = new System.Windows.Forms.Label();
@@ -45,6 +45,7 @@
             // buttonHelp
             // 
             this.buttonHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonHelp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonHelp.Location = new System.Drawing.Point(300, 267);
             this.buttonHelp.Name = "buttonHelp";
             this.buttonHelp.Size = new System.Drawing.Size(99, 26);
@@ -56,6 +57,7 @@
             // buttonCustomizeForm
             // 
             this.buttonCustomizeForm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonCustomizeForm.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonCustomizeForm.Location = new System.Drawing.Point(3, 267);
             this.buttonCustomizeForm.Name = "buttonCustomizeForm";
             this.buttonCustomizeForm.Size = new System.Drawing.Size(99, 26);
@@ -67,6 +69,7 @@
             // buttonAbort
             // 
             this.buttonAbort.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonAbort.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonAbort.Location = new System.Drawing.Point(201, 267);
             this.buttonAbort.Name = "buttonAbort";
             this.buttonAbort.Size = new System.Drawing.Size(99, 26);
@@ -78,6 +81,7 @@
             // buttonOK
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonOK.Location = new System.Drawing.Point(102, 267);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(99, 26);
@@ -109,6 +113,7 @@
             // 
             // textBoxValidValues
             // 
+            this.textBoxValidValues.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBoxValidValues.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBoxValidValues.Location = new System.Drawing.Point(3, 3);
             this.textBoxValidValues.Multiline = true;
@@ -128,6 +133,7 @@
             // buttonSort
             // 
             this.buttonSort.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonSort.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonSort.Location = new System.Drawing.Point(300, 1);
             this.buttonSort.Name = "buttonSort";
             this.buttonSort.Size = new System.Drawing.Size(99, 26);
@@ -187,7 +193,7 @@
         private QuickImageCommentControls.ButtonQIC  buttonCustomizeForm;
         private QuickImageCommentControls.ButtonQIC  buttonAbort;
         private QuickImageCommentControls.ButtonQIC  buttonOK;
-        private System.Windows.Forms.CheckBox checkBoxAllowOtherValues;
+        private QuickImageComment.Controls.CheckBoxQIC checkBoxAllowOtherValues;
         private System.Windows.Forms.Label label1;
         private QuickImageCommentControls.TextBoxQIC textBoxValidValues;
         private System.Windows.Forms.Label label2;

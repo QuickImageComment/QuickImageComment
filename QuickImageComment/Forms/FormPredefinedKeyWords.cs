@@ -21,9 +21,6 @@ namespace QuickImageComment
 {
     public partial class FormPredefinedKeyWords : Form
     {
-        private Button buttonOK;
-        private Button buttonAbort;
-        private TextBox textBoxPredefinedKeyWords;
         private FormCustomization.Interface CustomizationInterface;
 
         public FormPredefinedKeyWords()

@@ -34,9 +34,9 @@
             this.buttonOk = new QuickImageCommentControls.ButtonQIC();
             this.labelExplanations = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.groupBoxUserConfigStorage = new System.Windows.Forms.GroupBox();
+            this.groupBoxUserConfigStorage = new QuickImageCommentControls.GroupBoxQIC();
             this.labelNoStorageSelection = new System.Windows.Forms.Label();
-            this.groupBoxInitialView = new System.Windows.Forms.GroupBox();
+            this.groupBoxInitialView = new QuickImageCommentControls.GroupBoxQIC();
             this.label3 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -226,8 +226,8 @@
         private QuickImageCommentControls.ButtonQIC  buttonOk;
         private System.Windows.Forms.Label labelExplanations;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.GroupBox groupBoxUserConfigStorage;
-        private System.Windows.Forms.GroupBox groupBoxInitialView;
+        private QuickImageCommentControls.GroupBoxQIC groupBoxUserConfigStorage;
+        private QuickImageCommentControls.GroupBoxQIC groupBoxInitialView;
         private System.Windows.Forms.RadioButton radioButtonStandard;
         private System.Windows.Forms.RadioButton radioButtonReadOptimum;
         private System.Windows.Forms.Label label2;

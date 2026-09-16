@@ -74,18 +74,18 @@ namespace QuickImageCommentControls
                 _internalUpdate = false;
             }
         }
- 
-        public void SetDisabledAppearance(bool disabled)
+
+        public void SetEnabledAppearance(bool enabled)
         {
-            this.ReadOnly = disabled;
-            this.TabStop = !disabled;
-            if (disabled)
+            this.ReadOnly = !enabled;
+            this.TabStop = enabled;
+            if (enabled)
             {
-                this.BackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorNotEnabled);
+                this.BackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorInputUnchanged);
             }
             else
             {
-                this.BackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorInputUnchanged);
+                this.BackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorNotEnabled);
             }
         }
 

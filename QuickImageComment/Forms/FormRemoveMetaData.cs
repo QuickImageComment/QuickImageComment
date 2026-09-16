@@ -146,21 +146,21 @@ namespace QuickImageComment
         {
             if (radioButtonGroups.Checked)
             {
-                checkBoxExif.Enabled = true;
-                checkBoxIPTC.Enabled = true;
-                checkBoxXMP.Enabled = true;
-                checkBoxImageComment.Enabled = true;
-                checkBoxExceptions.Enabled = true;
+                checkBoxExif.SetEnabledAppearance(true);
+                checkBoxIPTC.SetEnabledAppearance(true);
+                checkBoxXMP.SetEnabledAppearance(true);
+                checkBoxImageComment.SetEnabledAppearance(true);
+                checkBoxExceptions.SetEnabledAppearance(true);
                 checkedListBoxRemoveMetaDataExceptions.Enabled = true;
                 checkedListBoxRemoveMetaDataList.Enabled = false;
             }
             else
             {
-                checkBoxExif.Enabled = false;
-                checkBoxIPTC.Enabled = false;
-                checkBoxXMP.Enabled = false;
-                checkBoxImageComment.Enabled = false;
-                checkBoxExceptions.Enabled = false;
+                checkBoxExif.SetEnabledAppearance(false);
+                checkBoxIPTC.SetEnabledAppearance(false);
+                checkBoxXMP.SetEnabledAppearance(false);
+                checkBoxImageComment.SetEnabledAppearance(false);
+                checkBoxExceptions.SetEnabledAppearance(false);
                 checkedListBoxRemoveMetaDataExceptions.Enabled = false;
                 checkedListBoxRemoveMetaDataList.Enabled = true;
             }

@@ -46,130 +46,129 @@ namespace QuickImageComment
     {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormRename));
             this.buttonStart = new QuickImageCommentControls.ButtonQIC();
-            this.buttonSave = new QuickImageCommentControls.ButtonQIC();
             this.dynamicLabelRenameFiles = new System.Windows.Forms.Label();
             this.labelBaseInfo1 = new System.Windows.Forms.Label();
-            this.checkBoxRenameFormat_1 = new System.Windows.Forms.CheckBox();
+            this.checkBoxRenameFormat_1 = new QuickImageComment.Controls.CheckBoxQIC();
             this.textBoxRenameFormat_1 = new QuickImageCommentControls.TextBoxHighlightText();
             this.dynamicComboBoxRenameFormat_1 = new QuickImageCommentControls.ComboBoxQIC();
             this.labelBaseInfo2 = new System.Windows.Forms.Label();
             this.dynamicComboBoxRenameFormat_5 = new QuickImageCommentControls.ComboBoxQIC();
             this.textBoxRenameFormat_5 = new QuickImageCommentControls.TextBoxHighlightText();
-            this.checkBoxRenameFormat_5 = new System.Windows.Forms.CheckBox();
+            this.checkBoxRenameFormat_5 = new QuickImageComment.Controls.CheckBoxQIC();
             this.dynamicComboBoxRenameFormat_6 = new QuickImageCommentControls.ComboBoxQIC();
             this.textBoxRenameFormat_6 = new QuickImageCommentControls.TextBoxHighlightText();
-            this.checkBoxRenameFormat_6 = new System.Windows.Forms.CheckBox();
+            this.checkBoxRenameFormat_6 = new QuickImageComment.Controls.CheckBoxQIC();
             this.dynamicComboBoxRenameFormat_4 = new QuickImageCommentControls.ComboBoxQIC();
             this.textBoxRenameFormat_4 = new QuickImageCommentControls.TextBoxHighlightText();
-            this.checkBoxRenameFormat_4 = new System.Windows.Forms.CheckBox();
+            this.checkBoxRenameFormat_4 = new QuickImageComment.Controls.CheckBoxQIC();
             this.dynamicComboBoxRenameFormat_3 = new QuickImageCommentControls.ComboBoxQIC();
             this.textBoxRenameFormat_3 = new QuickImageCommentControls.TextBoxHighlightText();
-            this.checkBoxRenameFormat_3 = new System.Windows.Forms.CheckBox();
+            this.checkBoxRenameFormat_3 = new QuickImageComment.Controls.CheckBoxQIC();
             this.dynamicComboBoxRenameFormat_2 = new QuickImageCommentControls.ComboBoxQIC();
             this.textBoxRenameFormat_2 = new QuickImageCommentControls.TextBoxHighlightText();
-            this.checkBoxRenameFormat_2 = new System.Windows.Forms.CheckBox();
-            this.checkBoxRenameFormat_7 = new System.Windows.Forms.CheckBox();
+            this.checkBoxRenameFormat_2 = new QuickImageComment.Controls.CheckBoxQIC();
+            this.checkBoxRenameFormat_7 = new QuickImageComment.Controls.CheckBoxQIC();
             this.textBoxRenameFormat_7 = new QuickImageCommentControls.TextBoxHighlightText();
             this.dynamicComboBoxRenameFormat_7 = new QuickImageCommentControls.ComboBoxQIC();
             this.labelReplaceInfo1 = new System.Windows.Forms.Label();
             this.dynamicLabelInvalidCharacters = new System.Windows.Forms.Label();
             this.labelReplaceInfo2 = new System.Windows.Forms.Label();
             this.textBoxInvalidCharRepl = new QuickImageCommentControls.TextBoxHighlightText();
-            this.checkBoxAllwaysRunningNumber = new System.Windows.Forms.CheckBox();
+            this.checkBoxAllwaysRunningNumber = new QuickImageComment.Controls.CheckBoxQIC();
             this.labelRunningInfo2 = new System.Windows.Forms.Label();
             this.labelRunningInfo3 = new System.Windows.Forms.Label();
             this.labelRunningInfo4 = new System.Windows.Forms.Label();
             this.textBoxRunningPrefix = new QuickImageCommentControls.TextBoxHighlightText();
             this.numericUpDownRunningNumberMinLength = new System.Windows.Forms.NumericUpDown();
             this.textBoxRunningSuffix = new QuickImageCommentControls.TextBoxHighlightText();
-            this.groupBoxRunningNumber = new System.Windows.Forms.GroupBox();
+            this.groupBoxRunningNumber = new QuickImageCommentControls.GroupBoxQIC();
             this.labelRunningInfo5 = new System.Windows.Forms.Label();
             this.dynamicComboBoxRunningNumberSortField = new QuickImageCommentControls.ComboBoxQIC();
             this.label1 = new System.Windows.Forms.Label();
-            this.groupBoxInvalidCharacters = new System.Windows.Forms.GroupBox();
+            this.groupBoxInvalidCharacters = new QuickImageCommentControls.GroupBoxQIC();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.textBoxFillUpChar_1 = new QuickImageCommentControls.TextBoxHighlightText();
             this.numericUpDownFillUpTo_1 = new System.Windows.Forms.NumericUpDown();
-            this.checkBoxFillUpRight_1 = new System.Windows.Forms.CheckBox();
+            this.checkBoxFillUpRight_1 = new QuickImageComment.Controls.CheckBoxQIC();
             this.label3 = new System.Windows.Forms.Label();
-            this.checkBoxFillUpRight_7 = new System.Windows.Forms.CheckBox();
+            this.checkBoxFillUpRight_7 = new QuickImageComment.Controls.CheckBoxQIC();
             this.numericUpDownFillUpTo_7 = new System.Windows.Forms.NumericUpDown();
             this.textBoxFillUpChar_7 = new QuickImageCommentControls.TextBoxHighlightText();
-            this.checkBoxFillUpRight_6 = new System.Windows.Forms.CheckBox();
+            this.checkBoxFillUpRight_6 = new QuickImageComment.Controls.CheckBoxQIC();
             this.numericUpDownFillUpTo_6 = new System.Windows.Forms.NumericUpDown();
             this.textBoxFillUpChar_6 = new QuickImageCommentControls.TextBoxHighlightText();
-            this.checkBoxFillUpRight_5 = new System.Windows.Forms.CheckBox();
+            this.checkBoxFillUpRight_5 = new QuickImageComment.Controls.CheckBoxQIC();
             this.numericUpDownFillUpTo_5 = new System.Windows.Forms.NumericUpDown();
             this.textBoxFillUpChar_5 = new QuickImageCommentControls.TextBoxHighlightText();
-            this.checkBoxFillUpRight_4 = new System.Windows.Forms.CheckBox();
+            this.checkBoxFillUpRight_4 = new QuickImageComment.Controls.CheckBoxQIC();
             this.numericUpDownFillUpTo_4 = new System.Windows.Forms.NumericUpDown();
             this.textBoxFillUpChar_4 = new QuickImageCommentControls.TextBoxHighlightText();
-            this.checkBoxFillUpRight_3 = new System.Windows.Forms.CheckBox();
+            this.checkBoxFillUpRight_3 = new QuickImageComment.Controls.CheckBoxQIC();
             this.numericUpDownFillUpTo_3 = new System.Windows.Forms.NumericUpDown();
             this.textBoxFillUpChar_3 = new QuickImageCommentControls.TextBoxHighlightText();
-            this.checkBoxFillUpRight_2 = new System.Windows.Forms.CheckBox();
+            this.checkBoxFillUpRight_2 = new QuickImageComment.Controls.CheckBoxQIC();
             this.numericUpDownFillUpTo_2 = new System.Windows.Forms.NumericUpDown();
             this.textBoxFillUpChar_2 = new QuickImageCommentControls.TextBoxHighlightText();
             this.numericUpDownSubstringStart_1 = new System.Windows.Forms.NumericUpDown();
             this.labelBaseInfo3 = new System.Windows.Forms.Label();
-            this.checkBoxSubStringRight_1 = new System.Windows.Forms.CheckBox();
+            this.checkBoxSubStringRight_1 = new QuickImageComment.Controls.CheckBoxQIC();
             this.numericUpDownSubstringLength_1 = new System.Windows.Forms.NumericUpDown();
             this.labelBaseInfo4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.numericUpDownSubstringStart_4 = new System.Windows.Forms.NumericUpDown();
-            this.checkBoxSubStringRight_4 = new System.Windows.Forms.CheckBox();
+            this.checkBoxSubStringRight_4 = new QuickImageComment.Controls.CheckBoxQIC();
             this.numericUpDownSubstringLength_4 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownSubstringStart_3 = new System.Windows.Forms.NumericUpDown();
-            this.checkBoxSubStringRight_3 = new System.Windows.Forms.CheckBox();
+            this.checkBoxSubStringRight_3 = new QuickImageComment.Controls.CheckBoxQIC();
             this.numericUpDownSubstringLength_3 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownSubstringStart_2 = new System.Windows.Forms.NumericUpDown();
-            this.checkBoxSubStringRight_2 = new System.Windows.Forms.CheckBox();
+            this.checkBoxSubStringRight_2 = new QuickImageComment.Controls.CheckBoxQIC();
             this.numericUpDownSubstringLength_2 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownSubstringStart_5 = new System.Windows.Forms.NumericUpDown();
-            this.checkBoxSubStringRight_5 = new System.Windows.Forms.CheckBox();
+            this.checkBoxSubStringRight_5 = new QuickImageComment.Controls.CheckBoxQIC();
             this.numericUpDownSubstringLength_5 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownSubstringStart_6 = new System.Windows.Forms.NumericUpDown();
-            this.checkBoxSubStringRight_6 = new System.Windows.Forms.CheckBox();
+            this.checkBoxSubStringRight_6 = new QuickImageComment.Controls.CheckBoxQIC();
             this.numericUpDownSubstringLength_6 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownSubstringStart_7 = new System.Windows.Forms.NumericUpDown();
-            this.checkBoxSubStringRight_7 = new System.Windows.Forms.CheckBox();
+            this.checkBoxSubStringRight_7 = new QuickImageComment.Controls.CheckBoxQIC();
             this.numericUpDownSubstringLength_7 = new System.Windows.Forms.NumericUpDown();
-            this.checkBoxFillUpRight_8 = new System.Windows.Forms.CheckBox();
+            this.checkBoxFillUpRight_8 = new QuickImageComment.Controls.CheckBoxQIC();
             this.numericUpDownFillUpTo_8 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownSubstringLength_8 = new System.Windows.Forms.NumericUpDown();
             this.textBoxFillUpChar_8 = new QuickImageCommentControls.TextBoxHighlightText();
-            this.checkBoxSubStringRight_8 = new System.Windows.Forms.CheckBox();
+            this.checkBoxSubStringRight_8 = new QuickImageComment.Controls.CheckBoxQIC();
             this.numericUpDownSubstringStart_8 = new System.Windows.Forms.NumericUpDown();
             this.dynamicComboBoxRenameFormat_8 = new QuickImageCommentControls.ComboBoxQIC();
             this.textBoxRenameFormat_8 = new QuickImageCommentControls.TextBoxHighlightText();
-            this.checkBoxRenameFormat_8 = new System.Windows.Forms.CheckBox();
-            this.checkBoxFillUpRight_9 = new System.Windows.Forms.CheckBox();
+            this.checkBoxRenameFormat_8 = new QuickImageComment.Controls.CheckBoxQIC();
+            this.checkBoxFillUpRight_9 = new QuickImageComment.Controls.CheckBoxQIC();
             this.numericUpDownFillUpTo_9 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownSubstringLength_9 = new System.Windows.Forms.NumericUpDown();
             this.textBoxFillUpChar_9 = new QuickImageCommentControls.TextBoxHighlightText();
-            this.checkBoxSubStringRight_9 = new System.Windows.Forms.CheckBox();
+            this.checkBoxSubStringRight_9 = new QuickImageComment.Controls.CheckBoxQIC();
             this.numericUpDownSubstringStart_9 = new System.Windows.Forms.NumericUpDown();
             this.dynamicComboBoxRenameFormat_9 = new QuickImageCommentControls.ComboBoxQIC();
             this.textBoxRenameFormat_9 = new QuickImageCommentControls.TextBoxHighlightText();
-            this.checkBoxRenameFormat_9 = new System.Windows.Forms.CheckBox();
-            this.checkBoxFillUpRight_10 = new System.Windows.Forms.CheckBox();
+            this.checkBoxRenameFormat_9 = new QuickImageComment.Controls.CheckBoxQIC();
+            this.checkBoxFillUpRight_10 = new QuickImageComment.Controls.CheckBoxQIC();
             this.numericUpDownFillUpTo_10 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownSubstringLength_10 = new System.Windows.Forms.NumericUpDown();
             this.textBoxFillUpChar_10 = new QuickImageCommentControls.TextBoxHighlightText();
-            this.checkBoxSubStringRight_10 = new System.Windows.Forms.CheckBox();
+            this.checkBoxSubStringRight_10 = new QuickImageComment.Controls.CheckBoxQIC();
             this.numericUpDownSubstringStart_10 = new System.Windows.Forms.NumericUpDown();
             this.dynamicComboBoxRenameFormat_10 = new QuickImageCommentControls.ComboBoxQIC();
             this.textBoxRenameFormat_10 = new QuickImageCommentControls.TextBoxHighlightText();
-            this.checkBoxRenameFormat_10 = new System.Windows.Forms.CheckBox();
-            this.checkBoxFillUpRight_11 = new System.Windows.Forms.CheckBox();
+            this.checkBoxRenameFormat_10 = new QuickImageComment.Controls.CheckBoxQIC();
+            this.checkBoxFillUpRight_11 = new QuickImageComment.Controls.CheckBoxQIC();
             this.numericUpDownFillUpTo_11 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownSubstringLength_11 = new System.Windows.Forms.NumericUpDown();
             this.textBoxFillUpChar_11 = new QuickImageCommentControls.TextBoxHighlightText();
-            this.checkBoxSubStringRight_11 = new System.Windows.Forms.CheckBox();
+            this.checkBoxSubStringRight_11 = new QuickImageComment.Controls.CheckBoxQIC();
             this.numericUpDownSubstringStart_11 = new System.Windows.Forms.NumericUpDown();
             this.dynamicComboBoxRenameFormat_11 = new QuickImageCommentControls.ComboBoxQIC();
             this.textBoxRenameFormat_11 = new QuickImageCommentControls.TextBoxHighlightText();
-            this.checkBoxRenameFormat_11 = new System.Windows.Forms.CheckBox();
+            this.checkBoxRenameFormat_11 = new QuickImageComment.Controls.CheckBoxQIC();
             this.buttonCustomizeForm = new QuickImageCommentControls.ButtonQIC();
             this.buttonHelp = new QuickImageCommentControls.ButtonQIC();
             this.buttonCancel = new QuickImageCommentControls.ButtonQIC();
@@ -188,12 +187,12 @@ namespace QuickImageComment
             this.fixedLabelRow_9 = new System.Windows.Forms.Label();
             this.fixedLabelRow_10 = new System.Windows.Forms.Label();
             this.fixedLabelRow_11 = new System.Windows.Forms.Label();
-            this.groupBoxConfigurationHandling = new System.Windows.Forms.GroupBox();
+            this.progressPanel1 = new QuickImageComment.ProgressPanel();
             this.buttonDelete = new QuickImageCommentControls.ButtonQIC();
             this.buttonSaveAs = new QuickImageCommentControls.ButtonQIC();
             this.dynamicComboBoxConfigurationName = new QuickImageCommentControls.ComboBoxQIC();
             this.label5 = new System.Windows.Forms.Label();
-            this.progressPanel1 = new QuickImageComment.ProgressPanel();
+            this.buttonSave = new QuickImageCommentControls.ButtonQIC();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRunningNumberMinLength)).BeginInit();
             this.groupBoxRunningNumber.SuspendLayout();
             this.groupBoxInvalidCharacters.SuspendLayout();
@@ -231,7 +230,6 @@ namespace QuickImageComment
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFillUpTo_11)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSubstringLength_11)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSubstringStart_11)).BeginInit();
-            this.groupBoxConfigurationHandling.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonStart
@@ -246,16 +244,6 @@ namespace QuickImageComment
             this.buttonStart.UseVisualStyleBackColor = true;
             this.buttonStart.Click += new System.EventHandler(this.buttonStart_Click);
             // 
-            // buttonSave
-            // 
-            this.buttonSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonSave.Location = new System.Drawing.Point(319, 11);
-            this.buttonSave.Name = "buttonSave";
-            this.buttonSave.Size = new System.Drawing.Size(68, 22);
-            this.buttonSave.TabIndex = 111;
-            this.buttonSave.Text = "Speichern";
-            this.buttonSave.UseVisualStyleBackColor = true;
             this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
             // 
             // dynamicLabelRenameFiles
@@ -289,11 +277,16 @@ namespace QuickImageComment
             // 
             // textBoxRenameFormat_1
             // 
+            this.textBoxRenameFormat_1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxRenameFormat_1.DetectUrls = false;
             this.textBoxRenameFormat_1.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxRenameFormat_1.Location = new System.Drawing.Point(42, 23);
+            this.textBoxRenameFormat_1.Multiline = false;
             this.textBoxRenameFormat_1.Name = "textBoxRenameFormat_1";
+            this.textBoxRenameFormat_1.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
             this.textBoxRenameFormat_1.Size = new System.Drawing.Size(187, 20);
             this.textBoxRenameFormat_1.TabIndex = 7;
+            this.textBoxRenameFormat_1.Text = "";
             // 
             // dynamicComboBoxRenameFormat_1
             // 
@@ -326,11 +319,16 @@ namespace QuickImageComment
             // 
             // textBoxRenameFormat_5
             // 
+            this.textBoxRenameFormat_5.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxRenameFormat_5.DetectUrls = false;
             this.textBoxRenameFormat_5.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxRenameFormat_5.Location = new System.Drawing.Point(42, 115);
+            this.textBoxRenameFormat_5.Multiline = false;
             this.textBoxRenameFormat_5.Name = "textBoxRenameFormat_5";
+            this.textBoxRenameFormat_5.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
             this.textBoxRenameFormat_5.Size = new System.Drawing.Size(187, 20);
             this.textBoxRenameFormat_5.TabIndex = 43;
+            this.textBoxRenameFormat_5.Text = "";
             // 
             // checkBoxRenameFormat_5
             // 
@@ -353,11 +351,16 @@ namespace QuickImageComment
             // 
             // textBoxRenameFormat_6
             // 
+            this.textBoxRenameFormat_6.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxRenameFormat_6.DetectUrls = false;
             this.textBoxRenameFormat_6.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxRenameFormat_6.Location = new System.Drawing.Point(42, 138);
+            this.textBoxRenameFormat_6.Multiline = false;
             this.textBoxRenameFormat_6.Name = "textBoxRenameFormat_6";
+            this.textBoxRenameFormat_6.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
             this.textBoxRenameFormat_6.Size = new System.Drawing.Size(187, 20);
             this.textBoxRenameFormat_6.TabIndex = 52;
+            this.textBoxRenameFormat_6.Text = "";
             // 
             // checkBoxRenameFormat_6
             // 
@@ -380,11 +383,16 @@ namespace QuickImageComment
             // 
             // textBoxRenameFormat_4
             // 
+            this.textBoxRenameFormat_4.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxRenameFormat_4.DetectUrls = false;
             this.textBoxRenameFormat_4.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxRenameFormat_4.Location = new System.Drawing.Point(42, 92);
+            this.textBoxRenameFormat_4.Multiline = false;
             this.textBoxRenameFormat_4.Name = "textBoxRenameFormat_4";
+            this.textBoxRenameFormat_4.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
             this.textBoxRenameFormat_4.Size = new System.Drawing.Size(187, 20);
             this.textBoxRenameFormat_4.TabIndex = 34;
+            this.textBoxRenameFormat_4.Text = "";
             // 
             // checkBoxRenameFormat_4
             // 
@@ -407,11 +415,16 @@ namespace QuickImageComment
             // 
             // textBoxRenameFormat_3
             // 
+            this.textBoxRenameFormat_3.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxRenameFormat_3.DetectUrls = false;
             this.textBoxRenameFormat_3.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxRenameFormat_3.Location = new System.Drawing.Point(42, 69);
+            this.textBoxRenameFormat_3.Multiline = false;
             this.textBoxRenameFormat_3.Name = "textBoxRenameFormat_3";
+            this.textBoxRenameFormat_3.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
             this.textBoxRenameFormat_3.Size = new System.Drawing.Size(187, 20);
             this.textBoxRenameFormat_3.TabIndex = 25;
+            this.textBoxRenameFormat_3.Text = "";
             // 
             // checkBoxRenameFormat_3
             // 
@@ -434,11 +447,16 @@ namespace QuickImageComment
             // 
             // textBoxRenameFormat_2
             // 
+            this.textBoxRenameFormat_2.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxRenameFormat_2.DetectUrls = false;
             this.textBoxRenameFormat_2.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxRenameFormat_2.Location = new System.Drawing.Point(42, 46);
+            this.textBoxRenameFormat_2.Multiline = false;
             this.textBoxRenameFormat_2.Name = "textBoxRenameFormat_2";
+            this.textBoxRenameFormat_2.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
             this.textBoxRenameFormat_2.Size = new System.Drawing.Size(187, 20);
             this.textBoxRenameFormat_2.TabIndex = 16;
+            this.textBoxRenameFormat_2.Text = "";
             // 
             // checkBoxRenameFormat_2
             // 
@@ -460,11 +478,16 @@ namespace QuickImageComment
             // 
             // textBoxRenameFormat_7
             // 
+            this.textBoxRenameFormat_7.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxRenameFormat_7.DetectUrls = false;
             this.textBoxRenameFormat_7.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxRenameFormat_7.Location = new System.Drawing.Point(42, 161);
+            this.textBoxRenameFormat_7.Multiline = false;
             this.textBoxRenameFormat_7.Name = "textBoxRenameFormat_7";
+            this.textBoxRenameFormat_7.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
             this.textBoxRenameFormat_7.Size = new System.Drawing.Size(187, 20);
             this.textBoxRenameFormat_7.TabIndex = 61;
+            this.textBoxRenameFormat_7.Text = "";
             // 
             // dynamicComboBoxRenameFormat_7
             // 
@@ -512,11 +535,15 @@ namespace QuickImageComment
             // 
             // textBoxInvalidCharRepl
             // 
+            this.textBoxInvalidCharRepl.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxInvalidCharRepl.DetectUrls = false;
             this.textBoxInvalidCharRepl.Dock = System.Windows.Forms.DockStyle.Left;
             this.textBoxInvalidCharRepl.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxInvalidCharRepl.Location = new System.Drawing.Point(379, 30);
+            this.textBoxInvalidCharRepl.Multiline = false;
             this.textBoxInvalidCharRepl.Name = "textBoxInvalidCharRepl";
-            this.textBoxInvalidCharRepl.Size = new System.Drawing.Size(78, 18);
+            this.textBoxInvalidCharRepl.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
+            this.textBoxInvalidCharRepl.Size = new System.Drawing.Size(78, 21);
             this.textBoxInvalidCharRepl.TabIndex = 3;
             this.textBoxInvalidCharRepl.Text = "\\/:*?\"<>|";
             this.textBoxInvalidCharRepl.TextChanged += new System.EventHandler(this.textBoxRenameSettings_TextChanged);
@@ -561,15 +588,21 @@ namespace QuickImageComment
             // 
             // textBoxRunningPrefix
             // 
+            this.textBoxRunningPrefix.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxRunningPrefix.DetectUrls = false;
             this.textBoxRunningPrefix.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxRunningPrefix.Location = new System.Drawing.Point(199, 49);
+            this.textBoxRunningPrefix.Multiline = false;
             this.textBoxRunningPrefix.Name = "textBoxRunningPrefix";
+            this.textBoxRunningPrefix.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
             this.textBoxRunningPrefix.Size = new System.Drawing.Size(73, 20);
             this.textBoxRunningPrefix.TabIndex = 6;
+            this.textBoxRunningPrefix.Text = "";
             this.textBoxRunningPrefix.TextChanged += new System.EventHandler(this.textBoxRenameSettings_TextChanged);
             // 
             // numericUpDownRunningNumberMinLength
             // 
+            this.numericUpDownRunningNumberMinLength.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownRunningNumberMinLength.Location = new System.Drawing.Point(283, 49);
             this.numericUpDownRunningNumberMinLength.Minimum = new decimal(new int[] {
             1,
@@ -577,7 +610,7 @@ namespace QuickImageComment
             0,
             0});
             this.numericUpDownRunningNumberMinLength.Name = "numericUpDownRunningNumberMinLength";
-            this.numericUpDownRunningNumberMinLength.Size = new System.Drawing.Size(89, 21);
+            this.numericUpDownRunningNumberMinLength.Size = new System.Drawing.Size(89, 17);
             this.numericUpDownRunningNumberMinLength.TabIndex = 7;
             this.numericUpDownRunningNumberMinLength.Value = new decimal(new int[] {
             1,
@@ -588,11 +621,16 @@ namespace QuickImageComment
             // 
             // textBoxRunningSuffix
             // 
+            this.textBoxRunningSuffix.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxRunningSuffix.DetectUrls = false;
             this.textBoxRunningSuffix.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxRunningSuffix.Location = new System.Drawing.Point(394, 49);
+            this.textBoxRunningSuffix.Multiline = false;
             this.textBoxRunningSuffix.Name = "textBoxRunningSuffix";
+            this.textBoxRunningSuffix.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
             this.textBoxRunningSuffix.Size = new System.Drawing.Size(73, 20);
             this.textBoxRunningSuffix.TabIndex = 8;
+            this.textBoxRunningSuffix.Text = "";
             this.textBoxRunningSuffix.TextChanged += new System.EventHandler(this.textBoxRenameSettings_TextChanged);
             // 
             // groupBoxRunningNumber
@@ -676,20 +714,24 @@ namespace QuickImageComment
             // 
             // textBoxFillUpChar_1
             // 
+            this.textBoxFillUpChar_1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxFillUpChar_1.DetectUrls = false;
             this.textBoxFillUpChar_1.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxFillUpChar_1.Location = new System.Drawing.Point(754, 23);
             this.textBoxFillUpChar_1.MaxLength = 1;
             this.textBoxFillUpChar_1.Multiline = false;
             this.textBoxFillUpChar_1.Name = "textBoxFillUpChar_1";
+            this.textBoxFillUpChar_1.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
             this.textBoxFillUpChar_1.Size = new System.Drawing.Size(20, 20);
             this.textBoxFillUpChar_1.TabIndex = 13;
             this.textBoxFillUpChar_1.Text = "";
             // 
             // numericUpDownFillUpTo_1
             // 
+            this.numericUpDownFillUpTo_1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownFillUpTo_1.Location = new System.Drawing.Point(790, 23);
             this.numericUpDownFillUpTo_1.Name = "numericUpDownFillUpTo_1";
-            this.numericUpDownFillUpTo_1.Size = new System.Drawing.Size(35, 21);
+            this.numericUpDownFillUpTo_1.Size = new System.Drawing.Size(35, 17);
             this.numericUpDownFillUpTo_1.TabIndex = 14;
             // 
             // checkBoxFillUpRight_1
@@ -721,18 +763,22 @@ namespace QuickImageComment
             // 
             // numericUpDownFillUpTo_7
             // 
+            this.numericUpDownFillUpTo_7.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownFillUpTo_7.Location = new System.Drawing.Point(790, 161);
             this.numericUpDownFillUpTo_7.Name = "numericUpDownFillUpTo_7";
-            this.numericUpDownFillUpTo_7.Size = new System.Drawing.Size(35, 21);
+            this.numericUpDownFillUpTo_7.Size = new System.Drawing.Size(35, 17);
             this.numericUpDownFillUpTo_7.TabIndex = 68;
             // 
             // textBoxFillUpChar_7
             // 
+            this.textBoxFillUpChar_7.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxFillUpChar_7.DetectUrls = false;
             this.textBoxFillUpChar_7.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxFillUpChar_7.Location = new System.Drawing.Point(754, 161);
             this.textBoxFillUpChar_7.MaxLength = 1;
             this.textBoxFillUpChar_7.Multiline = false;
             this.textBoxFillUpChar_7.Name = "textBoxFillUpChar_7";
+            this.textBoxFillUpChar_7.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
             this.textBoxFillUpChar_7.Size = new System.Drawing.Size(20, 20);
             this.textBoxFillUpChar_7.TabIndex = 67;
             this.textBoxFillUpChar_7.Text = "";
@@ -748,18 +794,22 @@ namespace QuickImageComment
             // 
             // numericUpDownFillUpTo_6
             // 
+            this.numericUpDownFillUpTo_6.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownFillUpTo_6.Location = new System.Drawing.Point(790, 138);
             this.numericUpDownFillUpTo_6.Name = "numericUpDownFillUpTo_6";
-            this.numericUpDownFillUpTo_6.Size = new System.Drawing.Size(35, 21);
+            this.numericUpDownFillUpTo_6.Size = new System.Drawing.Size(35, 17);
             this.numericUpDownFillUpTo_6.TabIndex = 59;
             // 
             // textBoxFillUpChar_6
             // 
+            this.textBoxFillUpChar_6.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxFillUpChar_6.DetectUrls = false;
             this.textBoxFillUpChar_6.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxFillUpChar_6.Location = new System.Drawing.Point(754, 138);
             this.textBoxFillUpChar_6.MaxLength = 1;
             this.textBoxFillUpChar_6.Multiline = false;
             this.textBoxFillUpChar_6.Name = "textBoxFillUpChar_6";
+            this.textBoxFillUpChar_6.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
             this.textBoxFillUpChar_6.Size = new System.Drawing.Size(20, 20);
             this.textBoxFillUpChar_6.TabIndex = 58;
             this.textBoxFillUpChar_6.Text = "";
@@ -775,18 +825,22 @@ namespace QuickImageComment
             // 
             // numericUpDownFillUpTo_5
             // 
+            this.numericUpDownFillUpTo_5.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownFillUpTo_5.Location = new System.Drawing.Point(790, 115);
             this.numericUpDownFillUpTo_5.Name = "numericUpDownFillUpTo_5";
-            this.numericUpDownFillUpTo_5.Size = new System.Drawing.Size(35, 21);
+            this.numericUpDownFillUpTo_5.Size = new System.Drawing.Size(35, 17);
             this.numericUpDownFillUpTo_5.TabIndex = 50;
             // 
             // textBoxFillUpChar_5
             // 
+            this.textBoxFillUpChar_5.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxFillUpChar_5.DetectUrls = false;
             this.textBoxFillUpChar_5.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxFillUpChar_5.Location = new System.Drawing.Point(754, 115);
             this.textBoxFillUpChar_5.MaxLength = 1;
             this.textBoxFillUpChar_5.Multiline = false;
             this.textBoxFillUpChar_5.Name = "textBoxFillUpChar_5";
+            this.textBoxFillUpChar_5.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
             this.textBoxFillUpChar_5.Size = new System.Drawing.Size(20, 20);
             this.textBoxFillUpChar_5.TabIndex = 49;
             this.textBoxFillUpChar_5.Text = "";
@@ -802,18 +856,22 @@ namespace QuickImageComment
             // 
             // numericUpDownFillUpTo_4
             // 
+            this.numericUpDownFillUpTo_4.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownFillUpTo_4.Location = new System.Drawing.Point(790, 92);
             this.numericUpDownFillUpTo_4.Name = "numericUpDownFillUpTo_4";
-            this.numericUpDownFillUpTo_4.Size = new System.Drawing.Size(35, 21);
+            this.numericUpDownFillUpTo_4.Size = new System.Drawing.Size(35, 17);
             this.numericUpDownFillUpTo_4.TabIndex = 41;
             // 
             // textBoxFillUpChar_4
             // 
+            this.textBoxFillUpChar_4.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxFillUpChar_4.DetectUrls = false;
             this.textBoxFillUpChar_4.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxFillUpChar_4.Location = new System.Drawing.Point(754, 92);
             this.textBoxFillUpChar_4.MaxLength = 1;
             this.textBoxFillUpChar_4.Multiline = false;
             this.textBoxFillUpChar_4.Name = "textBoxFillUpChar_4";
+            this.textBoxFillUpChar_4.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
             this.textBoxFillUpChar_4.Size = new System.Drawing.Size(20, 20);
             this.textBoxFillUpChar_4.TabIndex = 40;
             this.textBoxFillUpChar_4.Text = "";
@@ -829,18 +887,22 @@ namespace QuickImageComment
             // 
             // numericUpDownFillUpTo_3
             // 
+            this.numericUpDownFillUpTo_3.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownFillUpTo_3.Location = new System.Drawing.Point(790, 69);
             this.numericUpDownFillUpTo_3.Name = "numericUpDownFillUpTo_3";
-            this.numericUpDownFillUpTo_3.Size = new System.Drawing.Size(35, 21);
+            this.numericUpDownFillUpTo_3.Size = new System.Drawing.Size(35, 17);
             this.numericUpDownFillUpTo_3.TabIndex = 32;
             // 
             // textBoxFillUpChar_3
             // 
+            this.textBoxFillUpChar_3.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxFillUpChar_3.DetectUrls = false;
             this.textBoxFillUpChar_3.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxFillUpChar_3.Location = new System.Drawing.Point(754, 69);
             this.textBoxFillUpChar_3.MaxLength = 1;
             this.textBoxFillUpChar_3.Multiline = false;
             this.textBoxFillUpChar_3.Name = "textBoxFillUpChar_3";
+            this.textBoxFillUpChar_3.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
             this.textBoxFillUpChar_3.Size = new System.Drawing.Size(20, 20);
             this.textBoxFillUpChar_3.TabIndex = 31;
             this.textBoxFillUpChar_3.Text = "";
@@ -856,24 +918,29 @@ namespace QuickImageComment
             // 
             // numericUpDownFillUpTo_2
             // 
+            this.numericUpDownFillUpTo_2.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownFillUpTo_2.Location = new System.Drawing.Point(790, 46);
             this.numericUpDownFillUpTo_2.Name = "numericUpDownFillUpTo_2";
-            this.numericUpDownFillUpTo_2.Size = new System.Drawing.Size(35, 21);
+            this.numericUpDownFillUpTo_2.Size = new System.Drawing.Size(35, 17);
             this.numericUpDownFillUpTo_2.TabIndex = 23;
             // 
             // textBoxFillUpChar_2
             // 
+            this.textBoxFillUpChar_2.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxFillUpChar_2.DetectUrls = false;
             this.textBoxFillUpChar_2.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxFillUpChar_2.Location = new System.Drawing.Point(754, 46);
             this.textBoxFillUpChar_2.MaxLength = 1;
             this.textBoxFillUpChar_2.Multiline = false;
             this.textBoxFillUpChar_2.Name = "textBoxFillUpChar_2";
+            this.textBoxFillUpChar_2.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
             this.textBoxFillUpChar_2.Size = new System.Drawing.Size(20, 20);
             this.textBoxFillUpChar_2.TabIndex = 22;
             this.textBoxFillUpChar_2.Text = "";
             // 
             // numericUpDownSubstringStart_1
             // 
+            this.numericUpDownSubstringStart_1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownSubstringStart_1.Location = new System.Drawing.Point(519, 23);
             this.numericUpDownSubstringStart_1.Maximum = new decimal(new int[] {
             99,
@@ -886,7 +953,7 @@ namespace QuickImageComment
             0,
             0});
             this.numericUpDownSubstringStart_1.Name = "numericUpDownSubstringStart_1";
-            this.numericUpDownSubstringStart_1.Size = new System.Drawing.Size(35, 21);
+            this.numericUpDownSubstringStart_1.Size = new System.Drawing.Size(35, 17);
             this.numericUpDownSubstringStart_1.TabIndex = 9;
             this.numericUpDownSubstringStart_1.Value = new decimal(new int[] {
             1,
@@ -914,9 +981,10 @@ namespace QuickImageComment
             // 
             // numericUpDownSubstringLength_1
             // 
+            this.numericUpDownSubstringLength_1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownSubstringLength_1.Location = new System.Drawing.Point(649, 23);
             this.numericUpDownSubstringLength_1.Name = "numericUpDownSubstringLength_1";
-            this.numericUpDownSubstringLength_1.Size = new System.Drawing.Size(35, 21);
+            this.numericUpDownSubstringLength_1.Size = new System.Drawing.Size(35, 17);
             this.numericUpDownSubstringLength_1.TabIndex = 11;
             // 
             // labelBaseInfo4
@@ -939,6 +1007,7 @@ namespace QuickImageComment
             // 
             // numericUpDownSubstringStart_4
             // 
+            this.numericUpDownSubstringStart_4.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownSubstringStart_4.Location = new System.Drawing.Point(519, 92);
             this.numericUpDownSubstringStart_4.Maximum = new decimal(new int[] {
             99,
@@ -951,7 +1020,7 @@ namespace QuickImageComment
             0,
             0});
             this.numericUpDownSubstringStart_4.Name = "numericUpDownSubstringStart_4";
-            this.numericUpDownSubstringStart_4.Size = new System.Drawing.Size(35, 21);
+            this.numericUpDownSubstringStart_4.Size = new System.Drawing.Size(35, 17);
             this.numericUpDownSubstringStart_4.TabIndex = 36;
             this.numericUpDownSubstringStart_4.Value = new decimal(new int[] {
             1,
@@ -970,13 +1039,15 @@ namespace QuickImageComment
             // 
             // numericUpDownSubstringLength_4
             // 
+            this.numericUpDownSubstringLength_4.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownSubstringLength_4.Location = new System.Drawing.Point(649, 92);
             this.numericUpDownSubstringLength_4.Name = "numericUpDownSubstringLength_4";
-            this.numericUpDownSubstringLength_4.Size = new System.Drawing.Size(35, 21);
+            this.numericUpDownSubstringLength_4.Size = new System.Drawing.Size(35, 17);
             this.numericUpDownSubstringLength_4.TabIndex = 38;
             // 
             // numericUpDownSubstringStart_3
             // 
+            this.numericUpDownSubstringStart_3.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownSubstringStart_3.Location = new System.Drawing.Point(519, 69);
             this.numericUpDownSubstringStart_3.Maximum = new decimal(new int[] {
             99,
@@ -989,7 +1060,7 @@ namespace QuickImageComment
             0,
             0});
             this.numericUpDownSubstringStart_3.Name = "numericUpDownSubstringStart_3";
-            this.numericUpDownSubstringStart_3.Size = new System.Drawing.Size(35, 21);
+            this.numericUpDownSubstringStart_3.Size = new System.Drawing.Size(35, 17);
             this.numericUpDownSubstringStart_3.TabIndex = 27;
             this.numericUpDownSubstringStart_3.Value = new decimal(new int[] {
             1,
@@ -1008,13 +1079,15 @@ namespace QuickImageComment
             // 
             // numericUpDownSubstringLength_3
             // 
+            this.numericUpDownSubstringLength_3.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownSubstringLength_3.Location = new System.Drawing.Point(649, 69);
             this.numericUpDownSubstringLength_3.Name = "numericUpDownSubstringLength_3";
-            this.numericUpDownSubstringLength_3.Size = new System.Drawing.Size(35, 21);
+            this.numericUpDownSubstringLength_3.Size = new System.Drawing.Size(35, 17);
             this.numericUpDownSubstringLength_3.TabIndex = 29;
             // 
             // numericUpDownSubstringStart_2
             // 
+            this.numericUpDownSubstringStart_2.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownSubstringStart_2.Location = new System.Drawing.Point(519, 46);
             this.numericUpDownSubstringStart_2.Maximum = new decimal(new int[] {
             99,
@@ -1027,7 +1100,7 @@ namespace QuickImageComment
             0,
             0});
             this.numericUpDownSubstringStart_2.Name = "numericUpDownSubstringStart_2";
-            this.numericUpDownSubstringStart_2.Size = new System.Drawing.Size(35, 21);
+            this.numericUpDownSubstringStart_2.Size = new System.Drawing.Size(35, 17);
             this.numericUpDownSubstringStart_2.TabIndex = 18;
             this.numericUpDownSubstringStart_2.Value = new decimal(new int[] {
             1,
@@ -1046,13 +1119,15 @@ namespace QuickImageComment
             // 
             // numericUpDownSubstringLength_2
             // 
+            this.numericUpDownSubstringLength_2.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownSubstringLength_2.Location = new System.Drawing.Point(649, 46);
             this.numericUpDownSubstringLength_2.Name = "numericUpDownSubstringLength_2";
-            this.numericUpDownSubstringLength_2.Size = new System.Drawing.Size(35, 21);
+            this.numericUpDownSubstringLength_2.Size = new System.Drawing.Size(35, 17);
             this.numericUpDownSubstringLength_2.TabIndex = 20;
             // 
             // numericUpDownSubstringStart_5
             // 
+            this.numericUpDownSubstringStart_5.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownSubstringStart_5.Location = new System.Drawing.Point(519, 115);
             this.numericUpDownSubstringStart_5.Maximum = new decimal(new int[] {
             99,
@@ -1065,7 +1140,7 @@ namespace QuickImageComment
             0,
             0});
             this.numericUpDownSubstringStart_5.Name = "numericUpDownSubstringStart_5";
-            this.numericUpDownSubstringStart_5.Size = new System.Drawing.Size(35, 21);
+            this.numericUpDownSubstringStart_5.Size = new System.Drawing.Size(35, 17);
             this.numericUpDownSubstringStart_5.TabIndex = 45;
             this.numericUpDownSubstringStart_5.Value = new decimal(new int[] {
             1,
@@ -1084,13 +1159,15 @@ namespace QuickImageComment
             // 
             // numericUpDownSubstringLength_5
             // 
+            this.numericUpDownSubstringLength_5.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownSubstringLength_5.Location = new System.Drawing.Point(649, 115);
             this.numericUpDownSubstringLength_5.Name = "numericUpDownSubstringLength_5";
-            this.numericUpDownSubstringLength_5.Size = new System.Drawing.Size(35, 21);
+            this.numericUpDownSubstringLength_5.Size = new System.Drawing.Size(35, 17);
             this.numericUpDownSubstringLength_5.TabIndex = 47;
             // 
             // numericUpDownSubstringStart_6
             // 
+            this.numericUpDownSubstringStart_6.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownSubstringStart_6.Location = new System.Drawing.Point(519, 138);
             this.numericUpDownSubstringStart_6.Maximum = new decimal(new int[] {
             99,
@@ -1103,7 +1180,7 @@ namespace QuickImageComment
             0,
             0});
             this.numericUpDownSubstringStart_6.Name = "numericUpDownSubstringStart_6";
-            this.numericUpDownSubstringStart_6.Size = new System.Drawing.Size(35, 21);
+            this.numericUpDownSubstringStart_6.Size = new System.Drawing.Size(35, 17);
             this.numericUpDownSubstringStart_6.TabIndex = 54;
             this.numericUpDownSubstringStart_6.Value = new decimal(new int[] {
             1,
@@ -1122,13 +1199,15 @@ namespace QuickImageComment
             // 
             // numericUpDownSubstringLength_6
             // 
+            this.numericUpDownSubstringLength_6.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownSubstringLength_6.Location = new System.Drawing.Point(649, 138);
             this.numericUpDownSubstringLength_6.Name = "numericUpDownSubstringLength_6";
-            this.numericUpDownSubstringLength_6.Size = new System.Drawing.Size(35, 21);
+            this.numericUpDownSubstringLength_6.Size = new System.Drawing.Size(35, 17);
             this.numericUpDownSubstringLength_6.TabIndex = 56;
             // 
             // numericUpDownSubstringStart_7
             // 
+            this.numericUpDownSubstringStart_7.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownSubstringStart_7.Location = new System.Drawing.Point(519, 161);
             this.numericUpDownSubstringStart_7.Maximum = new decimal(new int[] {
             99,
@@ -1141,7 +1220,7 @@ namespace QuickImageComment
             0,
             0});
             this.numericUpDownSubstringStart_7.Name = "numericUpDownSubstringStart_7";
-            this.numericUpDownSubstringStart_7.Size = new System.Drawing.Size(35, 21);
+            this.numericUpDownSubstringStart_7.Size = new System.Drawing.Size(35, 17);
             this.numericUpDownSubstringStart_7.TabIndex = 63;
             this.numericUpDownSubstringStart_7.Value = new decimal(new int[] {
             1,
@@ -1160,9 +1239,10 @@ namespace QuickImageComment
             // 
             // numericUpDownSubstringLength_7
             // 
+            this.numericUpDownSubstringLength_7.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownSubstringLength_7.Location = new System.Drawing.Point(649, 161);
             this.numericUpDownSubstringLength_7.Name = "numericUpDownSubstringLength_7";
-            this.numericUpDownSubstringLength_7.Size = new System.Drawing.Size(35, 21);
+            this.numericUpDownSubstringLength_7.Size = new System.Drawing.Size(35, 17);
             this.numericUpDownSubstringLength_7.TabIndex = 65;
             // 
             // checkBoxFillUpRight_8
@@ -1176,25 +1256,30 @@ namespace QuickImageComment
             // 
             // numericUpDownFillUpTo_8
             // 
+            this.numericUpDownFillUpTo_8.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownFillUpTo_8.Location = new System.Drawing.Point(790, 184);
             this.numericUpDownFillUpTo_8.Name = "numericUpDownFillUpTo_8";
-            this.numericUpDownFillUpTo_8.Size = new System.Drawing.Size(35, 21);
+            this.numericUpDownFillUpTo_8.Size = new System.Drawing.Size(35, 17);
             this.numericUpDownFillUpTo_8.TabIndex = 77;
             // 
             // numericUpDownSubstringLength_8
             // 
+            this.numericUpDownSubstringLength_8.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownSubstringLength_8.Location = new System.Drawing.Point(649, 184);
             this.numericUpDownSubstringLength_8.Name = "numericUpDownSubstringLength_8";
-            this.numericUpDownSubstringLength_8.Size = new System.Drawing.Size(35, 21);
+            this.numericUpDownSubstringLength_8.Size = new System.Drawing.Size(35, 17);
             this.numericUpDownSubstringLength_8.TabIndex = 74;
             // 
             // textBoxFillUpChar_8
             // 
+            this.textBoxFillUpChar_8.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxFillUpChar_8.DetectUrls = false;
             this.textBoxFillUpChar_8.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxFillUpChar_8.Location = new System.Drawing.Point(754, 184);
             this.textBoxFillUpChar_8.MaxLength = 1;
             this.textBoxFillUpChar_8.Multiline = false;
             this.textBoxFillUpChar_8.Name = "textBoxFillUpChar_8";
+            this.textBoxFillUpChar_8.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
             this.textBoxFillUpChar_8.Size = new System.Drawing.Size(20, 20);
             this.textBoxFillUpChar_8.TabIndex = 76;
             this.textBoxFillUpChar_8.Text = "";
@@ -1210,6 +1295,7 @@ namespace QuickImageComment
             // 
             // numericUpDownSubstringStart_8
             // 
+            this.numericUpDownSubstringStart_8.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownSubstringStart_8.Location = new System.Drawing.Point(519, 184);
             this.numericUpDownSubstringStart_8.Maximum = new decimal(new int[] {
             99,
@@ -1222,7 +1308,7 @@ namespace QuickImageComment
             0,
             0});
             this.numericUpDownSubstringStart_8.Name = "numericUpDownSubstringStart_8";
-            this.numericUpDownSubstringStart_8.Size = new System.Drawing.Size(35, 21);
+            this.numericUpDownSubstringStart_8.Size = new System.Drawing.Size(35, 17);
             this.numericUpDownSubstringStart_8.TabIndex = 72;
             this.numericUpDownSubstringStart_8.Value = new decimal(new int[] {
             1,
@@ -1242,11 +1328,16 @@ namespace QuickImageComment
             // 
             // textBoxRenameFormat_8
             // 
+            this.textBoxRenameFormat_8.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxRenameFormat_8.DetectUrls = false;
             this.textBoxRenameFormat_8.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxRenameFormat_8.Location = new System.Drawing.Point(42, 184);
+            this.textBoxRenameFormat_8.Multiline = false;
             this.textBoxRenameFormat_8.Name = "textBoxRenameFormat_8";
+            this.textBoxRenameFormat_8.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
             this.textBoxRenameFormat_8.Size = new System.Drawing.Size(187, 20);
             this.textBoxRenameFormat_8.TabIndex = 70;
+            this.textBoxRenameFormat_8.Text = "";
             // 
             // checkBoxRenameFormat_8
             // 
@@ -1268,25 +1359,30 @@ namespace QuickImageComment
             // 
             // numericUpDownFillUpTo_9
             // 
+            this.numericUpDownFillUpTo_9.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownFillUpTo_9.Location = new System.Drawing.Point(790, 207);
             this.numericUpDownFillUpTo_9.Name = "numericUpDownFillUpTo_9";
-            this.numericUpDownFillUpTo_9.Size = new System.Drawing.Size(35, 21);
+            this.numericUpDownFillUpTo_9.Size = new System.Drawing.Size(35, 17);
             this.numericUpDownFillUpTo_9.TabIndex = 86;
             // 
             // numericUpDownSubstringLength_9
             // 
+            this.numericUpDownSubstringLength_9.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownSubstringLength_9.Location = new System.Drawing.Point(649, 207);
             this.numericUpDownSubstringLength_9.Name = "numericUpDownSubstringLength_9";
-            this.numericUpDownSubstringLength_9.Size = new System.Drawing.Size(35, 21);
+            this.numericUpDownSubstringLength_9.Size = new System.Drawing.Size(35, 17);
             this.numericUpDownSubstringLength_9.TabIndex = 83;
             // 
             // textBoxFillUpChar_9
             // 
+            this.textBoxFillUpChar_9.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxFillUpChar_9.DetectUrls = false;
             this.textBoxFillUpChar_9.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxFillUpChar_9.Location = new System.Drawing.Point(754, 207);
             this.textBoxFillUpChar_9.MaxLength = 1;
             this.textBoxFillUpChar_9.Multiline = false;
             this.textBoxFillUpChar_9.Name = "textBoxFillUpChar_9";
+            this.textBoxFillUpChar_9.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
             this.textBoxFillUpChar_9.Size = new System.Drawing.Size(20, 20);
             this.textBoxFillUpChar_9.TabIndex = 85;
             this.textBoxFillUpChar_9.Text = "";
@@ -1302,6 +1398,7 @@ namespace QuickImageComment
             // 
             // numericUpDownSubstringStart_9
             // 
+            this.numericUpDownSubstringStart_9.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownSubstringStart_9.Location = new System.Drawing.Point(519, 207);
             this.numericUpDownSubstringStart_9.Maximum = new decimal(new int[] {
             99,
@@ -1314,7 +1411,7 @@ namespace QuickImageComment
             0,
             0});
             this.numericUpDownSubstringStart_9.Name = "numericUpDownSubstringStart_9";
-            this.numericUpDownSubstringStart_9.Size = new System.Drawing.Size(35, 21);
+            this.numericUpDownSubstringStart_9.Size = new System.Drawing.Size(35, 17);
             this.numericUpDownSubstringStart_9.TabIndex = 81;
             this.numericUpDownSubstringStart_9.Value = new decimal(new int[] {
             1,
@@ -1334,11 +1431,16 @@ namespace QuickImageComment
             // 
             // textBoxRenameFormat_9
             // 
+            this.textBoxRenameFormat_9.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxRenameFormat_9.DetectUrls = false;
             this.textBoxRenameFormat_9.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxRenameFormat_9.Location = new System.Drawing.Point(42, 207);
+            this.textBoxRenameFormat_9.Multiline = false;
             this.textBoxRenameFormat_9.Name = "textBoxRenameFormat_9";
+            this.textBoxRenameFormat_9.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
             this.textBoxRenameFormat_9.Size = new System.Drawing.Size(187, 20);
             this.textBoxRenameFormat_9.TabIndex = 79;
+            this.textBoxRenameFormat_9.Text = "";
             // 
             // checkBoxRenameFormat_9
             // 
@@ -1360,25 +1462,30 @@ namespace QuickImageComment
             // 
             // numericUpDownFillUpTo_10
             // 
+            this.numericUpDownFillUpTo_10.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownFillUpTo_10.Location = new System.Drawing.Point(790, 230);
             this.numericUpDownFillUpTo_10.Name = "numericUpDownFillUpTo_10";
-            this.numericUpDownFillUpTo_10.Size = new System.Drawing.Size(35, 21);
+            this.numericUpDownFillUpTo_10.Size = new System.Drawing.Size(35, 17);
             this.numericUpDownFillUpTo_10.TabIndex = 95;
             // 
             // numericUpDownSubstringLength_10
             // 
+            this.numericUpDownSubstringLength_10.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownSubstringLength_10.Location = new System.Drawing.Point(649, 230);
             this.numericUpDownSubstringLength_10.Name = "numericUpDownSubstringLength_10";
-            this.numericUpDownSubstringLength_10.Size = new System.Drawing.Size(35, 21);
+            this.numericUpDownSubstringLength_10.Size = new System.Drawing.Size(35, 17);
             this.numericUpDownSubstringLength_10.TabIndex = 92;
             // 
             // textBoxFillUpChar_10
             // 
+            this.textBoxFillUpChar_10.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxFillUpChar_10.DetectUrls = false;
             this.textBoxFillUpChar_10.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxFillUpChar_10.Location = new System.Drawing.Point(754, 230);
             this.textBoxFillUpChar_10.MaxLength = 1;
             this.textBoxFillUpChar_10.Multiline = false;
             this.textBoxFillUpChar_10.Name = "textBoxFillUpChar_10";
+            this.textBoxFillUpChar_10.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
             this.textBoxFillUpChar_10.Size = new System.Drawing.Size(20, 20);
             this.textBoxFillUpChar_10.TabIndex = 94;
             this.textBoxFillUpChar_10.Text = "";
@@ -1394,6 +1501,7 @@ namespace QuickImageComment
             // 
             // numericUpDownSubstringStart_10
             // 
+            this.numericUpDownSubstringStart_10.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownSubstringStart_10.Location = new System.Drawing.Point(519, 230);
             this.numericUpDownSubstringStart_10.Maximum = new decimal(new int[] {
             99,
@@ -1406,7 +1514,7 @@ namespace QuickImageComment
             0,
             0});
             this.numericUpDownSubstringStart_10.Name = "numericUpDownSubstringStart_10";
-            this.numericUpDownSubstringStart_10.Size = new System.Drawing.Size(35, 21);
+            this.numericUpDownSubstringStart_10.Size = new System.Drawing.Size(35, 17);
             this.numericUpDownSubstringStart_10.TabIndex = 90;
             this.numericUpDownSubstringStart_10.Value = new decimal(new int[] {
             1,
@@ -1426,11 +1534,16 @@ namespace QuickImageComment
             // 
             // textBoxRenameFormat_10
             // 
+            this.textBoxRenameFormat_10.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxRenameFormat_10.DetectUrls = false;
             this.textBoxRenameFormat_10.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxRenameFormat_10.Location = new System.Drawing.Point(42, 230);
+            this.textBoxRenameFormat_10.Multiline = false;
             this.textBoxRenameFormat_10.Name = "textBoxRenameFormat_10";
+            this.textBoxRenameFormat_10.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
             this.textBoxRenameFormat_10.Size = new System.Drawing.Size(187, 20);
             this.textBoxRenameFormat_10.TabIndex = 88;
+            this.textBoxRenameFormat_10.Text = "";
             // 
             // checkBoxRenameFormat_10
             // 
@@ -1452,25 +1565,30 @@ namespace QuickImageComment
             // 
             // numericUpDownFillUpTo_11
             // 
+            this.numericUpDownFillUpTo_11.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownFillUpTo_11.Location = new System.Drawing.Point(790, 253);
             this.numericUpDownFillUpTo_11.Name = "numericUpDownFillUpTo_11";
-            this.numericUpDownFillUpTo_11.Size = new System.Drawing.Size(35, 21);
+            this.numericUpDownFillUpTo_11.Size = new System.Drawing.Size(35, 17);
             this.numericUpDownFillUpTo_11.TabIndex = 104;
             // 
             // numericUpDownSubstringLength_11
             // 
+            this.numericUpDownSubstringLength_11.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownSubstringLength_11.Location = new System.Drawing.Point(649, 253);
             this.numericUpDownSubstringLength_11.Name = "numericUpDownSubstringLength_11";
-            this.numericUpDownSubstringLength_11.Size = new System.Drawing.Size(35, 21);
+            this.numericUpDownSubstringLength_11.Size = new System.Drawing.Size(35, 17);
             this.numericUpDownSubstringLength_11.TabIndex = 101;
             // 
             // textBoxFillUpChar_11
             // 
+            this.textBoxFillUpChar_11.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxFillUpChar_11.DetectUrls = false;
             this.textBoxFillUpChar_11.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxFillUpChar_11.Location = new System.Drawing.Point(754, 253);
             this.textBoxFillUpChar_11.MaxLength = 1;
             this.textBoxFillUpChar_11.Multiline = false;
             this.textBoxFillUpChar_11.Name = "textBoxFillUpChar_11";
+            this.textBoxFillUpChar_11.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
             this.textBoxFillUpChar_11.Size = new System.Drawing.Size(20, 20);
             this.textBoxFillUpChar_11.TabIndex = 103;
             this.textBoxFillUpChar_11.Text = "";
@@ -1486,6 +1604,7 @@ namespace QuickImageComment
             // 
             // numericUpDownSubstringStart_11
             // 
+            this.numericUpDownSubstringStart_11.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownSubstringStart_11.Location = new System.Drawing.Point(519, 253);
             this.numericUpDownSubstringStart_11.Maximum = new decimal(new int[] {
             99,
@@ -1498,7 +1617,7 @@ namespace QuickImageComment
             0,
             0});
             this.numericUpDownSubstringStart_11.Name = "numericUpDownSubstringStart_11";
-            this.numericUpDownSubstringStart_11.Size = new System.Drawing.Size(35, 21);
+            this.numericUpDownSubstringStart_11.Size = new System.Drawing.Size(35, 17);
             this.numericUpDownSubstringStart_11.TabIndex = 99;
             this.numericUpDownSubstringStart_11.Value = new decimal(new int[] {
             1,
@@ -1518,11 +1637,16 @@ namespace QuickImageComment
             // 
             // textBoxRenameFormat_11
             // 
+            this.textBoxRenameFormat_11.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxRenameFormat_11.DetectUrls = false;
             this.textBoxRenameFormat_11.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxRenameFormat_11.Location = new System.Drawing.Point(42, 253);
+            this.textBoxRenameFormat_11.Multiline = false;
             this.textBoxRenameFormat_11.Name = "textBoxRenameFormat_11";
+            this.textBoxRenameFormat_11.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
             this.textBoxRenameFormat_11.Size = new System.Drawing.Size(187, 20);
             this.textBoxRenameFormat_11.TabIndex = 97;
+            this.textBoxRenameFormat_11.Text = "";
             // 
             // checkBoxRenameFormat_11
             // 
@@ -1709,66 +1833,6 @@ namespace QuickImageComment
             this.fixedLabelRow_11.TabIndex = 128;
             this.fixedLabelRow_11.Text = "11";
             // 
-            // groupBoxConfigurationHandling
-            // 
-            this.groupBoxConfigurationHandling.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBoxConfigurationHandling.Controls.Add(this.buttonDelete);
-            this.groupBoxConfigurationHandling.Controls.Add(this.buttonSaveAs);
-            this.groupBoxConfigurationHandling.Controls.Add(this.dynamicComboBoxConfigurationName);
-            this.groupBoxConfigurationHandling.Controls.Add(this.label5);
-            this.groupBoxConfigurationHandling.Controls.Add(this.buttonSave);
-            this.groupBoxConfigurationHandling.Location = new System.Drawing.Point(7, 465);
-            this.groupBoxConfigurationHandling.Name = "groupBoxConfigurationHandling";
-            this.groupBoxConfigurationHandling.Size = new System.Drawing.Size(855, 45);
-            this.groupBoxConfigurationHandling.TabIndex = 129;
-            this.groupBoxConfigurationHandling.TabStop = false;
-            // 
-            // buttonDelete
-            // 
-            this.buttonDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonDelete.Location = new System.Drawing.Point(393, 11);
-            this.buttonDelete.Name = "buttonDelete";
-            this.buttonDelete.Size = new System.Drawing.Size(68, 22);
-            this.buttonDelete.TabIndex = 115;
-            this.buttonDelete.Text = "Löschen";
-            this.buttonDelete.UseVisualStyleBackColor = true;
-            this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
-            // 
-            // buttonSaveAs
-            // 
-            this.buttonSaveAs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonSaveAs.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonSaveAs.Location = new System.Drawing.Point(467, 11);
-            this.buttonSaveAs.Name = "buttonSaveAs";
-            this.buttonSaveAs.Size = new System.Drawing.Size(126, 22);
-            this.buttonSaveAs.TabIndex = 114;
-            this.buttonSaveAs.Text = "Speichern unter ...";
-            this.buttonSaveAs.UseVisualStyleBackColor = true;
-            this.buttonSaveAs.Click += new System.EventHandler(this.buttonSaveAs_Click);
-            // 
-            // dynamicComboBoxConfigurationName
-            // 
-            this.dynamicComboBoxConfigurationName.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.dynamicComboBoxConfigurationName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.dynamicComboBoxConfigurationName.FormattingEnabled = true;
-            this.dynamicComboBoxConfigurationName.Location = new System.Drawing.Point(137, 12);
-            this.dynamicComboBoxConfigurationName.Name = "dynamicComboBoxConfigurationName";
-            this.dynamicComboBoxConfigurationName.Size = new System.Drawing.Size(178, 22);
-            this.dynamicComboBoxConfigurationName.Sorted = true;
-            this.dynamicComboBoxConfigurationName.TabIndex = 1;
-            this.dynamicComboBoxConfigurationName.SelectedIndexChanged += new System.EventHandler(this.comboBoxConfigurationName_SelectedIndexChanged);
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 16);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(131, 13);
-            this.label5.TabIndex = 0;
-            this.label5.Text = "Einstellungen auswählen: ";
-            // 
             // progressPanel1
             // 
             this.progressPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -1779,16 +1843,76 @@ namespace QuickImageComment
             this.progressPanel1.Size = new System.Drawing.Size(858, 23);
             this.progressPanel1.TabIndex = 130;
             // 
+            // buttonDelete
+            // 
+            this.buttonDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonDelete.Location = new System.Drawing.Point(399, 473);
+            this.buttonDelete.Name = "buttonDelete";
+            this.buttonDelete.Size = new System.Drawing.Size(68, 22);
+            this.buttonDelete.TabIndex = 120;
+            this.buttonDelete.Text = "Löschen";
+            this.buttonDelete.UseVisualStyleBackColor = true;
+            this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
+            // 
+            // buttonSaveAs
+            // 
+            this.buttonSaveAs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonSaveAs.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonSaveAs.Location = new System.Drawing.Point(473, 473);
+            this.buttonSaveAs.Name = "buttonSaveAs";
+            this.buttonSaveAs.Size = new System.Drawing.Size(126, 22);
+            this.buttonSaveAs.TabIndex = 119;
+            this.buttonSaveAs.Text = "Speichern unter ...";
+            this.buttonSaveAs.UseVisualStyleBackColor = true;
+            this.buttonSaveAs.Click += new System.EventHandler(this.buttonSaveAs_Click);
+            // 
+            // dynamicComboBoxConfigurationName
+            // 
+            this.dynamicComboBoxConfigurationName.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.dynamicComboBoxConfigurationName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.dynamicComboBoxConfigurationName.FormattingEnabled = true;
+            this.dynamicComboBoxConfigurationName.Location = new System.Drawing.Point(143, 474);
+            this.dynamicComboBoxConfigurationName.Name = "dynamicComboBoxConfigurationName";
+            this.dynamicComboBoxConfigurationName.Size = new System.Drawing.Size(178, 22);
+            this.dynamicComboBoxConfigurationName.Sorted = true;
+            this.dynamicComboBoxConfigurationName.TabIndex = 1;
+            this.dynamicComboBoxConfigurationName.SelectedIndexChanged += new System.EventHandler(this.comboBoxConfigurationName_SelectedIndexChanged);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(3, 478);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(131, 13);
+            this.label5.TabIndex = 116;
+            this.label5.Text = "Einstellungen auswählen: ";
+            // 
+            // buttonSave
+            // 
+            this.buttonSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonSave.Location = new System.Drawing.Point(325, 473);
+            this.buttonSave.Name = "buttonSave";
+            this.buttonSave.Size = new System.Drawing.Size(68, 22);
+            this.buttonSave.TabIndex = 118;
+            this.buttonSave.Text = "Speichern";
+            this.buttonSave.UseVisualStyleBackColor = true;
+            // 
             // FormRename
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(868, 586);
+            this.Controls.Add(this.buttonDelete);
             this.Controls.Add(this.progressPanel1);
-            this.Controls.Add(this.groupBoxConfigurationHandling);
+            this.Controls.Add(this.buttonSaveAs);
             this.Controls.Add(this.fixedLabelRow_11);
+            this.Controls.Add(this.dynamicComboBoxConfigurationName);
             this.Controls.Add(this.fixedLabelRow_10);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.fixedLabelRow_9);
+            this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.fixedLabelRow_8);
             this.Controls.Add(this.fixedLabelRow_7);
             this.Controls.Add(this.fixedLabelRow_6);
@@ -1962,8 +2086,6 @@ namespace QuickImageComment
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFillUpTo_11)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSubstringLength_11)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSubstringStart_11)).EndInit();
-            this.groupBoxConfigurationHandling.ResumeLayout(false);
-            this.groupBoxConfigurationHandling.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1972,127 +2094,126 @@ namespace QuickImageComment
     #endregion
 
     private QuickImageCommentControls.ButtonQIC  buttonStart;
-    private QuickImageCommentControls.ButtonQIC  buttonSave;
     private System.Windows.Forms.Label dynamicLabelRenameFiles;
     private System.Windows.Forms.Label labelBaseInfo1;
-    private System.Windows.Forms.CheckBox checkBoxRenameFormat_1;
+    private QuickImageComment.Controls.CheckBoxQIC checkBoxRenameFormat_1;
     private QuickImageCommentControls.TextBoxHighlightText textBoxRenameFormat_1;
     private QuickImageCommentControls.ComboBoxQIC dynamicComboBoxRenameFormat_1;
     private System.Windows.Forms.Label labelBaseInfo2;
     private QuickImageCommentControls.ComboBoxQIC dynamicComboBoxRenameFormat_5;
     private QuickImageCommentControls.TextBoxHighlightText textBoxRenameFormat_5;
-    private System.Windows.Forms.CheckBox checkBoxRenameFormat_5;
+    private QuickImageComment.Controls.CheckBoxQIC checkBoxRenameFormat_5;
     private QuickImageCommentControls.ComboBoxQIC dynamicComboBoxRenameFormat_6;
     private QuickImageCommentControls.TextBoxHighlightText textBoxRenameFormat_6;
-    private System.Windows.Forms.CheckBox checkBoxRenameFormat_6;
+    private QuickImageComment.Controls.CheckBoxQIC checkBoxRenameFormat_6;
     private QuickImageCommentControls.ComboBoxQIC dynamicComboBoxRenameFormat_4;
     private QuickImageCommentControls.TextBoxHighlightText textBoxRenameFormat_4;
-    private System.Windows.Forms.CheckBox checkBoxRenameFormat_4;
+    private QuickImageComment.Controls.CheckBoxQIC checkBoxRenameFormat_4;
     private QuickImageCommentControls.ComboBoxQIC dynamicComboBoxRenameFormat_3;
     private QuickImageCommentControls.TextBoxHighlightText textBoxRenameFormat_3;
-    private System.Windows.Forms.CheckBox checkBoxRenameFormat_3;
+    private QuickImageComment.Controls.CheckBoxQIC checkBoxRenameFormat_3;
     private QuickImageCommentControls.ComboBoxQIC dynamicComboBoxRenameFormat_2;
     private QuickImageCommentControls.TextBoxHighlightText textBoxRenameFormat_2;
-    private System.Windows.Forms.CheckBox checkBoxRenameFormat_2;
-    private System.Windows.Forms.CheckBox checkBoxRenameFormat_7;
+    private QuickImageComment.Controls.CheckBoxQIC checkBoxRenameFormat_2;
+    private QuickImageComment.Controls.CheckBoxQIC checkBoxRenameFormat_7;
     private QuickImageCommentControls.TextBoxHighlightText textBoxRenameFormat_7;
     private QuickImageCommentControls.ComboBoxQIC dynamicComboBoxRenameFormat_7;
     private System.Windows.Forms.Label labelReplaceInfo1;
     private System.Windows.Forms.Label dynamicLabelInvalidCharacters;
     private System.Windows.Forms.Label labelReplaceInfo2;
     private QuickImageCommentControls.TextBoxHighlightText textBoxInvalidCharRepl;
-    private System.Windows.Forms.CheckBox checkBoxAllwaysRunningNumber;
+    private QuickImageComment.Controls.CheckBoxQIC checkBoxAllwaysRunningNumber;
     private System.Windows.Forms.Label labelRunningInfo2;
     private System.Windows.Forms.Label labelRunningInfo3;
     private System.Windows.Forms.Label labelRunningInfo4;
     private QuickImageCommentControls.TextBoxHighlightText textBoxRunningPrefix;
     private System.Windows.Forms.NumericUpDown numericUpDownRunningNumberMinLength;
     private QuickImageCommentControls.TextBoxHighlightText textBoxRunningSuffix;
-    private System.Windows.Forms.GroupBox groupBoxRunningNumber;
+    private QuickImageCommentControls.GroupBoxQIC groupBoxRunningNumber;
     private System.Windows.Forms.Label label1;
-    private System.Windows.Forms.GroupBox groupBoxInvalidCharacters;
+    private QuickImageCommentControls.GroupBoxQIC groupBoxInvalidCharacters;
     private QuickImageCommentControls.TextBoxHighlightText textBoxFillUpChar_1;
     private System.Windows.Forms.NumericUpDown numericUpDownFillUpTo_1;
-    private System.Windows.Forms.CheckBox checkBoxFillUpRight_1;
+    private QuickImageComment.Controls.CheckBoxQIC checkBoxFillUpRight_1;
     private System.Windows.Forms.Label label3;
-    private System.Windows.Forms.CheckBox checkBoxFillUpRight_7;
+    private QuickImageComment.Controls.CheckBoxQIC checkBoxFillUpRight_7;
     private System.Windows.Forms.NumericUpDown numericUpDownFillUpTo_7;
     private QuickImageCommentControls.TextBoxHighlightText textBoxFillUpChar_7;
-    private System.Windows.Forms.CheckBox checkBoxFillUpRight_6;
+    private QuickImageComment.Controls.CheckBoxQIC checkBoxFillUpRight_6;
     private System.Windows.Forms.NumericUpDown numericUpDownFillUpTo_6;
     private QuickImageCommentControls.TextBoxHighlightText textBoxFillUpChar_6;
-    private System.Windows.Forms.CheckBox checkBoxFillUpRight_5;
+    private QuickImageComment.Controls.CheckBoxQIC checkBoxFillUpRight_5;
     private System.Windows.Forms.NumericUpDown numericUpDownFillUpTo_5;
     private QuickImageCommentControls.TextBoxHighlightText textBoxFillUpChar_5;
-    private System.Windows.Forms.CheckBox checkBoxFillUpRight_4;
+    private QuickImageComment.Controls.CheckBoxQIC checkBoxFillUpRight_4;
     private System.Windows.Forms.NumericUpDown numericUpDownFillUpTo_4;
     private QuickImageCommentControls.TextBoxHighlightText textBoxFillUpChar_4;
-    private System.Windows.Forms.CheckBox checkBoxFillUpRight_3;
+    private QuickImageComment.Controls.CheckBoxQIC checkBoxFillUpRight_3;
     private System.Windows.Forms.NumericUpDown numericUpDownFillUpTo_3;
     private QuickImageCommentControls.TextBoxHighlightText textBoxFillUpChar_3;
-    private System.Windows.Forms.CheckBox checkBoxFillUpRight_2;
+    private QuickImageComment.Controls.CheckBoxQIC checkBoxFillUpRight_2;
     private System.Windows.Forms.NumericUpDown numericUpDownFillUpTo_2;
     private QuickImageCommentControls.TextBoxHighlightText textBoxFillUpChar_2;
     private System.Windows.Forms.NumericUpDown numericUpDownSubstringStart_1;
     private System.Windows.Forms.Label labelBaseInfo3;
-    private System.Windows.Forms.CheckBox checkBoxSubStringRight_1;
+    private QuickImageComment.Controls.CheckBoxQIC checkBoxSubStringRight_1;
     private System.Windows.Forms.NumericUpDown numericUpDownSubstringLength_1;
     private System.Windows.Forms.Label labelBaseInfo4;
     private System.Windows.Forms.Label label2;
     private System.Windows.Forms.NumericUpDown numericUpDownSubstringStart_4;
-    private System.Windows.Forms.CheckBox checkBoxSubStringRight_4;
+    private QuickImageComment.Controls.CheckBoxQIC checkBoxSubStringRight_4;
     private System.Windows.Forms.NumericUpDown numericUpDownSubstringLength_4;
     private System.Windows.Forms.NumericUpDown numericUpDownSubstringStart_3;
-    private System.Windows.Forms.CheckBox checkBoxSubStringRight_3;
+    private QuickImageComment.Controls.CheckBoxQIC checkBoxSubStringRight_3;
     private System.Windows.Forms.NumericUpDown numericUpDownSubstringLength_3;
     private System.Windows.Forms.NumericUpDown numericUpDownSubstringStart_2;
-    private System.Windows.Forms.CheckBox checkBoxSubStringRight_2;
+    private QuickImageComment.Controls.CheckBoxQIC checkBoxSubStringRight_2;
     private System.Windows.Forms.NumericUpDown numericUpDownSubstringLength_2;
     private System.Windows.Forms.NumericUpDown numericUpDownSubstringStart_5;
-    private System.Windows.Forms.CheckBox checkBoxSubStringRight_5;
+    private QuickImageComment.Controls.CheckBoxQIC checkBoxSubStringRight_5;
     private System.Windows.Forms.NumericUpDown numericUpDownSubstringLength_5;
     private System.Windows.Forms.NumericUpDown numericUpDownSubstringStart_6;
-    private System.Windows.Forms.CheckBox checkBoxSubStringRight_6;
+    private QuickImageComment.Controls.CheckBoxQIC checkBoxSubStringRight_6;
     private System.Windows.Forms.NumericUpDown numericUpDownSubstringLength_6;
     private System.Windows.Forms.NumericUpDown numericUpDownSubstringStart_7;
-    private System.Windows.Forms.CheckBox checkBoxSubStringRight_7;
+    private QuickImageComment.Controls.CheckBoxQIC checkBoxSubStringRight_7;
     private System.Windows.Forms.NumericUpDown numericUpDownSubstringLength_7;
-    private System.Windows.Forms.CheckBox checkBoxFillUpRight_8;
+    private QuickImageComment.Controls.CheckBoxQIC checkBoxFillUpRight_8;
     private System.Windows.Forms.NumericUpDown numericUpDownFillUpTo_8;
     private System.Windows.Forms.NumericUpDown numericUpDownSubstringLength_8;
     private QuickImageCommentControls.TextBoxHighlightText textBoxFillUpChar_8;
-    private System.Windows.Forms.CheckBox checkBoxSubStringRight_8;
+    private QuickImageComment.Controls.CheckBoxQIC checkBoxSubStringRight_8;
     private System.Windows.Forms.NumericUpDown numericUpDownSubstringStart_8;
     private QuickImageCommentControls.ComboBoxQIC dynamicComboBoxRenameFormat_8;
     private QuickImageCommentControls.TextBoxHighlightText textBoxRenameFormat_8;
-    private System.Windows.Forms.CheckBox checkBoxRenameFormat_8;
-    private System.Windows.Forms.CheckBox checkBoxFillUpRight_9;
+    private QuickImageComment.Controls.CheckBoxQIC checkBoxRenameFormat_8;
+    private QuickImageComment.Controls.CheckBoxQIC checkBoxFillUpRight_9;
     private System.Windows.Forms.NumericUpDown numericUpDownFillUpTo_9;
     private System.Windows.Forms.NumericUpDown numericUpDownSubstringLength_9;
     private QuickImageCommentControls.TextBoxHighlightText textBoxFillUpChar_9;
-    private System.Windows.Forms.CheckBox checkBoxSubStringRight_9;
+    private QuickImageComment.Controls.CheckBoxQIC checkBoxSubStringRight_9;
     private System.Windows.Forms.NumericUpDown numericUpDownSubstringStart_9;
     private QuickImageCommentControls.ComboBoxQIC dynamicComboBoxRenameFormat_9;
     private QuickImageCommentControls.TextBoxHighlightText textBoxRenameFormat_9;
-    private System.Windows.Forms.CheckBox checkBoxRenameFormat_9;
-    private System.Windows.Forms.CheckBox checkBoxFillUpRight_10;
+    private QuickImageComment.Controls.CheckBoxQIC checkBoxRenameFormat_9;
+    private QuickImageComment.Controls.CheckBoxQIC checkBoxFillUpRight_10;
     private System.Windows.Forms.NumericUpDown numericUpDownFillUpTo_10;
     private System.Windows.Forms.NumericUpDown numericUpDownSubstringLength_10;
     private QuickImageCommentControls.TextBoxHighlightText textBoxFillUpChar_10;
-    private System.Windows.Forms.CheckBox checkBoxSubStringRight_10;
+    private QuickImageComment.Controls.CheckBoxQIC checkBoxSubStringRight_10;
     private System.Windows.Forms.NumericUpDown numericUpDownSubstringStart_10;
     private QuickImageCommentControls.ComboBoxQIC dynamicComboBoxRenameFormat_10;
     private QuickImageCommentControls.TextBoxHighlightText textBoxRenameFormat_10;
-    private System.Windows.Forms.CheckBox checkBoxRenameFormat_10;
-    private System.Windows.Forms.CheckBox checkBoxFillUpRight_11;
+    private QuickImageComment.Controls.CheckBoxQIC checkBoxRenameFormat_10;
+    private QuickImageComment.Controls.CheckBoxQIC checkBoxFillUpRight_11;
     private System.Windows.Forms.NumericUpDown numericUpDownFillUpTo_11;
     private System.Windows.Forms.NumericUpDown numericUpDownSubstringLength_11;
     private QuickImageCommentControls.TextBoxHighlightText textBoxFillUpChar_11;
-    private System.Windows.Forms.CheckBox checkBoxSubStringRight_11;
+    private QuickImageComment.Controls.CheckBoxQIC checkBoxSubStringRight_11;
     private System.Windows.Forms.NumericUpDown numericUpDownSubstringStart_11;
     private QuickImageCommentControls.ComboBoxQIC dynamicComboBoxRenameFormat_11;
     private QuickImageCommentControls.TextBoxHighlightText textBoxRenameFormat_11;
-    private System.Windows.Forms.CheckBox checkBoxRenameFormat_11;
+    private QuickImageComment.Controls.CheckBoxQIC checkBoxRenameFormat_11;
     private System.Windows.Forms.Label labelRunningInfo5;
     private QuickImageCommentControls.ComboBoxQIC dynamicComboBoxRunningNumberSortField;
     private QuickImageCommentControls.ButtonQIC  buttonCustomizeForm;
@@ -2113,12 +2234,12 @@ namespace QuickImageComment
     private System.Windows.Forms.Label fixedLabelRow_9;
     private System.Windows.Forms.Label fixedLabelRow_10;
     private System.Windows.Forms.Label fixedLabelRow_11;
-    private System.Windows.Forms.GroupBox groupBoxConfigurationHandling;
-    private QuickImageCommentControls.ButtonQIC  buttonSaveAs;
-    private QuickImageCommentControls.ComboBoxQIC dynamicComboBoxConfigurationName;
-    private System.Windows.Forms.Label label5;
-    private QuickImageCommentControls.ButtonQIC  buttonDelete;
     private ProgressPanel progressPanel1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private QuickImageCommentControls.ButtonQIC buttonDelete;
+        private QuickImageCommentControls.ButtonQIC buttonSaveAs;
+        private QuickImageCommentControls.ComboBoxQIC dynamicComboBoxConfigurationName;
+        private System.Windows.Forms.Label label5;
+        private QuickImageCommentControls.ButtonQIC buttonSave;
     }
 }

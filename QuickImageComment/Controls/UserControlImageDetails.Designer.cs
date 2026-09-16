@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.splitContainerImageDetails1 = new System.Windows.Forms.SplitContainer();
             this.splitContainerImageDetails11 = new System.Windows.Forms.SplitContainer();
             this.splitContainerImageDetails111 = new System.Windows.Forms.SplitContainer();
@@ -44,7 +44,7 @@
             this.buttonCenterFocusPoint = new QuickImageCommentControls.ButtonQIC();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.checkBoxShowFocusPoint = new System.Windows.Forms.CheckBox();
+            this.checkBoxShowFocusPoint = new QuickImageComment.Controls.CheckBoxQIC();
             this.buttonFocusPointColor = new QuickImageCommentControls.ButtonQIC();
             this.numericUpDownWidth = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownRadius = new System.Windows.Forms.NumericUpDown();
@@ -54,9 +54,9 @@
             this.R = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.G = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.B = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.checkBoxColorB = new System.Windows.Forms.CheckBox();
-            this.checkBoxColorG = new System.Windows.Forms.CheckBox();
-            this.checkBoxColorR = new System.Windows.Forms.CheckBox();
+            this.checkBoxColorB = new QuickImageComment.Controls.CheckBoxQIC();
+            this.checkBoxColorG = new QuickImageComment.Controls.CheckBoxQIC();
+            this.checkBoxColorR = new QuickImageComment.Controls.CheckBoxQIC();
             this.comboBoxGraphicDisplay = new QuickImageCommentControls.ComboBoxQIC();
             this.labelGrafics = new System.Windows.Forms.Label();
             this.labelScale = new System.Windows.Forms.Label();
@@ -356,6 +356,7 @@
             // 
             // numericUpDownWidth
             // 
+            this.numericUpDownWidth.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownWidth.Dock = System.Windows.Forms.DockStyle.Fill;
             this.numericUpDownWidth.Location = new System.Drawing.Point(137, 97);
             this.numericUpDownWidth.Maximum = new decimal(new int[] {
@@ -369,7 +370,7 @@
             0,
             0});
             this.numericUpDownWidth.Name = "numericUpDownWidth";
-            this.numericUpDownWidth.Size = new System.Drawing.Size(40, 21);
+            this.numericUpDownWidth.Size = new System.Drawing.Size(40, 17);
             this.numericUpDownWidth.TabIndex = 6;
             this.numericUpDownWidth.Value = new decimal(new int[] {
             1,
@@ -380,6 +381,7 @@
             // 
             // numericUpDownRadius
             // 
+            this.numericUpDownRadius.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownRadius.Dock = System.Windows.Forms.DockStyle.Fill;
             this.numericUpDownRadius.Location = new System.Drawing.Point(137, 69);
             this.numericUpDownRadius.Maximum = new decimal(new int[] {
@@ -393,7 +395,7 @@
             0,
             0});
             this.numericUpDownRadius.Name = "numericUpDownRadius";
-            this.numericUpDownRadius.Size = new System.Drawing.Size(40, 21);
+            this.numericUpDownRadius.Size = new System.Drawing.Size(40, 17);
             this.numericUpDownRadius.TabIndex = 5;
             this.numericUpDownRadius.Value = new decimal(new int[] {
             2,
@@ -411,13 +413,13 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewMinMaxValues.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridViewMinMaxValues.BackgroundColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewMinMaxValues.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewMinMaxValues.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewMinMaxValues.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewMinMaxValues.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Static_Type,
@@ -428,16 +430,16 @@
             this.dataGridViewMinMaxValues.EnableHeadersVisualStyles = false;
             this.dataGridViewMinMaxValues.Location = new System.Drawing.Point(1, 91);
             this.dataGridViewMinMaxValues.Name = "dataGridViewMinMaxValues";
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            this.dataGridViewMinMaxValues.RowHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            this.dataGridViewMinMaxValues.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridViewMinMaxValues.RowHeadersVisible = false;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.dataGridViewMinMaxValues.RowsDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.dataGridViewMinMaxValues.RowsDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridViewMinMaxValues.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
             this.dataGridViewMinMaxValues.ShowEditingIcon = false;
             this.dataGridViewMinMaxValues.Size = new System.Drawing.Size(177, 129);
@@ -551,6 +553,7 @@
             // 
             // numericUpDownScaleLines
             // 
+            this.numericUpDownScaleLines.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownScaleLines.Location = new System.Drawing.Point(110, 296);
             this.numericUpDownScaleLines.Maximum = new decimal(new int[] {
             20,
@@ -558,7 +561,7 @@
             0,
             0});
             this.numericUpDownScaleLines.Name = "numericUpDownScaleLines";
-            this.numericUpDownScaleLines.Size = new System.Drawing.Size(38, 21);
+            this.numericUpDownScaleLines.Size = new System.Drawing.Size(38, 17);
             this.numericUpDownScaleLines.TabIndex = 17;
             this.numericUpDownScaleLines.Value = new decimal(new int[] {
             20,
@@ -578,6 +581,7 @@
             // 
             // numericUpDownGridSize
             // 
+            this.numericUpDownGridSize.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownGridSize.Location = new System.Drawing.Point(110, 274);
             this.numericUpDownGridSize.Minimum = new decimal(new int[] {
             1,
@@ -585,7 +589,7 @@
             0,
             0});
             this.numericUpDownGridSize.Name = "numericUpDownGridSize";
-            this.numericUpDownGridSize.Size = new System.Drawing.Size(38, 21);
+            this.numericUpDownGridSize.Size = new System.Drawing.Size(38, 17);
             this.numericUpDownGridSize.TabIndex = 15;
             this.numericUpDownGridSize.Value = new decimal(new int[] {
             20,
@@ -646,6 +650,7 @@
             // 
             // numericUpDownX
             // 
+            this.numericUpDownX.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownX.Location = new System.Drawing.Point(79, 1);
             this.numericUpDownX.Maximum = new decimal(new int[] {
             9999,
@@ -658,7 +663,7 @@
             0,
             -2147483648});
             this.numericUpDownX.Name = "numericUpDownX";
-            this.numericUpDownX.Size = new System.Drawing.Size(50, 21);
+            this.numericUpDownX.Size = new System.Drawing.Size(50, 17);
             this.numericUpDownX.TabIndex = 0;
             this.numericUpDownX.ValueChanged += new System.EventHandler(this.numericUpDownX_ValueChanged);
             // 
@@ -673,6 +678,7 @@
             // 
             // numericUpDownY
             // 
+            this.numericUpDownY.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownY.Location = new System.Drawing.Point(79, 23);
             this.numericUpDownY.Maximum = new decimal(new int[] {
             9999,
@@ -685,7 +691,7 @@
             0,
             -2147483648});
             this.numericUpDownY.Name = "numericUpDownY";
-            this.numericUpDownY.Size = new System.Drawing.Size(50, 21);
+            this.numericUpDownY.Size = new System.Drawing.Size(50, 17);
             this.numericUpDownY.TabIndex = 3;
             this.numericUpDownY.Value = new decimal(new int[] {
             9999,
@@ -804,9 +810,9 @@
         private System.Windows.Forms.NumericUpDown numericUpDownScaleLines;
         private QuickImageCommentControls.ComboBoxQIC comboBoxGraphicDisplay;
         private System.Windows.Forms.Label labelGrafics;
-        private System.Windows.Forms.CheckBox checkBoxColorB;
-        private System.Windows.Forms.CheckBox checkBoxColorG;
-        private System.Windows.Forms.CheckBox checkBoxColorR;
+        private QuickImageComment.Controls.CheckBoxQIC checkBoxColorB;
+        private QuickImageComment.Controls.CheckBoxQIC checkBoxColorG;
+        private QuickImageComment.Controls.CheckBoxQIC checkBoxColorR;
         private System.Windows.Forms.DataGridView dataGridViewMinMaxValues;
         private System.Windows.Forms.DataGridViewTextBoxColumn Static_Type;
         private System.Windows.Forms.DataGridViewTextBoxColumn Brightness;
@@ -819,7 +825,7 @@
         private QuickImageCommentControls.ButtonQIC  buttonFocusPointColor;
         private System.Windows.Forms.NumericUpDown numericUpDownWidth;
         private System.Windows.Forms.NumericUpDown numericUpDownRadius;
-        private System.Windows.Forms.CheckBox checkBoxShowFocusPoint;
+        private QuickImageComment.Controls.CheckBoxQIC checkBoxShowFocusPoint;
         private QuickImageCommentControls.ButtonQIC  buttonCenterFocusPoint;
     }
 }

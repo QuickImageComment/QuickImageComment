@@ -41,6 +41,7 @@
             // buttonOk
             // 
             this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonOk.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonOk.Location = new System.Drawing.Point(54, 426);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(93, 23);
@@ -52,6 +53,7 @@
             // buttonCancel
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonCancel.Location = new System.Drawing.Point(170, 426);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(93, 23);
@@ -72,6 +74,7 @@
             // 
             // listBoxLastFolders
             // 
+            this.listBoxLastFolders.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.listBoxLastFolders.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listBoxLastFolders.FormattingEnabled = true;
             this.listBoxLastFolders.Location = new System.Drawing.Point(3, 3);

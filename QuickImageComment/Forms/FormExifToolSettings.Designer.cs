@@ -42,14 +42,14 @@
             this.dynamicLabelPath = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.label9 = new System.Windows.Forms.Label();
-            this.groupBoxOptionsWrite = new System.Windows.Forms.GroupBox();
+            this.groupBoxOptionsWrite = new QuickImageCommentControls.GroupBoxQIC();
             this.label8 = new System.Windows.Forms.Label();
-            this.dynamicCheckBox_m_Write = new System.Windows.Forms.CheckBox();
-            this.groupBoxOptionsRead = new System.Windows.Forms.GroupBox();
+            this.dynamicCheckBox_m_Write = new QuickImageComment.Controls.CheckBoxQIC();
+            this.groupBoxOptionsRead = new QuickImageCommentControls.GroupBoxQIC();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.dynamicCheckBox_fast = new System.Windows.Forms.CheckBox();
-            this.dynamicCheckBox_m_Read = new System.Windows.Forms.CheckBox();
+            this.dynamicCheckBox_fast = new QuickImageComment.Controls.CheckBoxQIC();
+            this.dynamicCheckBox_m_Read = new QuickImageComment.Controls.CheckBoxQIC();
             this.label4 = new System.Windows.Forms.Label();
             this.fixedLinkLabelHomePage = new System.Windows.Forms.LinkLabel();
             this.label3 = new System.Windows.Forms.Label();
@@ -112,9 +112,10 @@
             // 
             this.textBoxProgramPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxProgramPath.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBoxProgramPath.Location = new System.Drawing.Point(9, 64);
             this.textBoxProgramPath.Name = "textBoxProgramPath";
-            this.textBoxProgramPath.Size = new System.Drawing.Size(500, 21);
+            this.textBoxProgramPath.Size = new System.Drawing.Size(500, 14);
             this.textBoxProgramPath.TabIndex = 5;
             // 
             // buttonBrowse
@@ -169,7 +170,7 @@
             // 
             // splitContainer1
             // 
-            this.splitContainer1.BackColor = System.Drawing.SystemColors.Desktop;
+            this.splitContainer1.BackColor = System.Drawing.SystemColors.WindowText;
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
             this.splitContainer1.Name = "splitContainer1";
@@ -394,14 +395,14 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.LinkLabel fixedLinkLabelHomePage;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.GroupBox groupBoxOptionsRead;
+        private QuickImageCommentControls.GroupBoxQIC groupBoxOptionsRead;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.CheckBox dynamicCheckBox_fast;
-        private System.Windows.Forms.CheckBox dynamicCheckBox_m_Read;
+        private QuickImageComment.Controls.CheckBoxQIC dynamicCheckBox_fast;
+        private QuickImageComment.Controls.CheckBoxQIC dynamicCheckBox_m_Read;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.GroupBox groupBoxOptionsWrite;
+        private QuickImageCommentControls.GroupBoxQIC groupBoxOptionsWrite;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.CheckBox dynamicCheckBox_m_Write;
+        private QuickImageComment.Controls.CheckBoxQIC dynamicCheckBox_m_Write;
         private System.Windows.Forms.Label label9;
     }
 }

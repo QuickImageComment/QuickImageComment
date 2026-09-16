@@ -5,6 +5,7 @@
 // https://stackoverflow.com/questions/48020286/is-it-possible-to-increase-size-of-calendar-popup-in-winform
 // 
 using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
@@ -20,6 +21,20 @@ namespace QuickImageComment
                 return DesignMode || (Site?.DesignMode ?? false);
             }
         }
+
+        private Color borderColor = SystemColors.ControlDark;
+
+        [DefaultValue(typeof(Color), "ControlDark")]
+        public Color BorderColor
+        {
+            get => borderColor;
+            set
+            {
+                borderColor = value;
+                this.Invalidate();   // forces redraw in designer and runtime
+            }
+        }
+
 
         public DateTimePickerQIC()
         {
@@ -62,7 +77,7 @@ namespace QuickImageComment
                     }
                     using (var brush = new SolidBrush(buttonFillColor))
                         g.FillRectangle(brush, dropDownRect);
-                    using (var pen = new Pen(buttonForeColor))
+                    using (var pen = new Pen(borderColor))
                         g.DrawRectangle(pen, 0, 0, clientRect.Width - 1, clientRect.Height - 1);
                     g.FillPolygon(new SolidBrush(buttonForeColor), arrow);
                 }

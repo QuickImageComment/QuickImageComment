@@ -46,6 +46,7 @@ namespace QuickImageComment
             // 
             // textBoxErrorDetails
             // 
+            this.textBoxErrorDetails.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBoxErrorDetails.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBoxErrorDetails.Location = new System.Drawing.Point(3, 3);
             this.textBoxErrorDetails.Multiline = true;
@@ -58,6 +59,7 @@ namespace QuickImageComment
             // buttonPrepareMail
             // 
             this.buttonPrepareMail.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonPrepareMail.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonPrepareMail.Location = new System.Drawing.Point(3, 358);
             this.buttonPrepareMail.Name = "buttonPrepareMail";
             this.buttonPrepareMail.Size = new System.Drawing.Size(150, 23);
@@ -69,6 +71,7 @@ namespace QuickImageComment
             // buttonClose
             // 
             this.buttonClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonClose.Location = new System.Drawing.Point(707, 358);
             this.buttonClose.Name = "buttonClose";
             this.buttonClose.Size = new System.Drawing.Size(150, 23);
@@ -81,11 +84,12 @@ namespace QuickImageComment
             // 
             this.textBoxErrorMessage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxErrorMessage.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBoxErrorMessage.Location = new System.Drawing.Point(41, 22);
             this.textBoxErrorMessage.Name = "textBoxErrorMessage";
             this.textBoxErrorMessage.ReadOnly = true;
             this.textBoxErrorMessage.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxErrorMessage.Size = new System.Drawing.Size(816, 21);
+            this.textBoxErrorMessage.Size = new System.Drawing.Size(816, 14);
             this.textBoxErrorMessage.TabIndex = 5;
             // 
             // dynamicLabelErrorHeader
@@ -122,6 +126,7 @@ namespace QuickImageComment
             // buttonGitHubIssue
             // 
             this.buttonGitHubIssue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonGitHubIssue.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonGitHubIssue.Location = new System.Drawing.Point(159, 358);
             this.buttonGitHubIssue.Name = "buttonGitHubIssue";
             this.buttonGitHubIssue.Size = new System.Drawing.Size(150, 23);

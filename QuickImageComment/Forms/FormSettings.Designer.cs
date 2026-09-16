@@ -50,12 +50,12 @@ namespace QuickImageComment
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormSettings));
-            this.checkBoxKeepImageBakFile = new System.Windows.Forms.CheckBox();
-            this.checkBoxSaveWithReturn = new System.Windows.Forms.CheckBox();
-            this.checkBoxLastCommentsWithCursor = new System.Windows.Forms.CheckBox();
-            this.checkBoxMetaDataWarningsChangeAppearance = new System.Windows.Forms.CheckBox();
-            this.checkBoxMetaDataWarningsMessageBox = new System.Windows.Forms.CheckBox();
-            this.fixedCheckBoxSaveNameImage1 = new System.Windows.Forms.CheckBox();
+            this.checkBoxKeepImageBakFile = new QuickImageComment.Controls.CheckBoxQIC();
+            this.checkBoxSaveWithReturn = new QuickImageComment.Controls.CheckBoxQIC();
+            this.checkBoxLastCommentsWithCursor = new QuickImageComment.Controls.CheckBoxQIC();
+            this.checkBoxMetaDataWarningsChangeAppearance = new QuickImageComment.Controls.CheckBoxQIC();
+            this.checkBoxMetaDataWarningsMessageBox = new QuickImageComment.Controls.CheckBoxQIC();
+            this.fixedCheckBoxSaveNameImage1 = new QuickImageComment.Controls.CheckBoxQIC();
             this.numericUpDownMaxLastComments = new System.Windows.Forms.NumericUpDown();
             this.labelMaxLastComments = new System.Windows.Forms.Label();
             this.labelReactionListBoxCommentDoubleClick = new System.Windows.Forms.Label();
@@ -63,13 +63,13 @@ namespace QuickImageComment
             this.labelUserCommentAppendCheckCharacters = new System.Windows.Forms.Label();
             this.textBoxUserCommentInsertCheckCharacters = new QuickImageCommentControls.TextBoxHighlightText();
             this.textBoxUserCommentAppendCheckCharacters = new QuickImageCommentControls.TextBoxHighlightText();
-            this.checkBoxUseDefaultArtist = new System.Windows.Forms.CheckBox();
+            this.checkBoxUseDefaultArtist = new QuickImageComment.Controls.CheckBoxQIC();
             this.textBoxDefaultArtist = new QuickImageCommentControls.TextBoxQIC();
-            this.checkBoxNavigationTabSplitbars = new System.Windows.Forms.CheckBox();
-            this.fixedCheckBoxSaveCommentImage1 = new System.Windows.Forms.CheckBox();
-            this.fixedCheckBoxSaveNameImage3 = new System.Windows.Forms.CheckBox();
-            this.fixedCheckBoxSaveCommentImage4 = new System.Windows.Forms.CheckBox();
-            this.fixedCheckBoxSaveCommentImage8 = new System.Windows.Forms.CheckBox();
+            this.checkBoxNavigationTabSplitbars = new QuickImageComment.Controls.CheckBoxQIC();
+            this.fixedCheckBoxSaveCommentImage1 = new QuickImageComment.Controls.CheckBoxQIC();
+            this.fixedCheckBoxSaveNameImage3 = new QuickImageComment.Controls.CheckBoxQIC();
+            this.fixedCheckBoxSaveCommentImage4 = new QuickImageComment.Controls.CheckBoxQIC();
+            this.fixedCheckBoxSaveCommentImage8 = new QuickImageComment.Controls.CheckBoxQIC();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.labelFullSizeImageCacheMaxSize = new System.Windows.Forms.Label();
@@ -86,40 +86,40 @@ namespace QuickImageComment
             this.numericUpDownExtendedImageCacheMaxSize = new System.Windows.Forms.NumericUpDown();
             this.labelExtendedImageCacheMaxSize = new System.Windows.Forms.Label();
             this.labelSettingsForCaching = new System.Windows.Forms.Label();
-            this.checkBoxLangAlt5 = new System.Windows.Forms.CheckBox();
-            this.checkBoxLangAlt3 = new System.Windows.Forms.CheckBox();
-            this.checkBoxLangAlt4 = new System.Windows.Forms.CheckBox();
-            this.checkBoxLangAlt2 = new System.Windows.Forms.CheckBox();
-            this.checkBoxLangAlt1 = new System.Windows.Forms.CheckBox();
+            this.checkBoxLangAlt5 = new QuickImageComment.Controls.CheckBoxQIC();
+            this.checkBoxLangAlt3 = new QuickImageComment.Controls.CheckBoxQIC();
+            this.checkBoxLangAlt4 = new QuickImageComment.Controls.CheckBoxQIC();
+            this.checkBoxLangAlt2 = new QuickImageComment.Controls.CheckBoxQIC();
+            this.checkBoxLangAlt1 = new QuickImageComment.Controls.CheckBoxQIC();
             this.label3 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.labelMaxArtists = new System.Windows.Forms.Label();
             this.numericUpDownMaxArtists = new System.Windows.Forms.NumericUpDown();
-            this.fixedCheckBoxSaveCommentImage5 = new System.Windows.Forms.CheckBox();
-            this.fixedCheckBoxSaveCommentImage6 = new System.Windows.Forms.CheckBox();
-            this.fixedCheckBoxSaveCommentImage7 = new System.Windows.Forms.CheckBox();
-            this.fixedCheckBoxSaveNameImage4 = new System.Windows.Forms.CheckBox();
+            this.fixedCheckBoxSaveCommentImage5 = new QuickImageComment.Controls.CheckBoxQIC();
+            this.fixedCheckBoxSaveCommentImage6 = new QuickImageComment.Controls.CheckBoxQIC();
+            this.fixedCheckBoxSaveCommentImage7 = new QuickImageComment.Controls.CheckBoxQIC();
+            this.fixedCheckBoxSaveNameImage4 = new QuickImageComment.Controls.CheckBoxQIC();
             this.Panel2 = new System.Windows.Forms.Panel();
-            this.fixedCheckBoxSaveNameImage5 = new System.Windows.Forms.CheckBox();
-            this.fixedCheckBoxSaveNameVideo2 = new System.Windows.Forms.CheckBox();
-            this.fixedCheckBoxSaveNameVideo4 = new System.Windows.Forms.CheckBox();
-            this.fixedCheckBoxSaveNameVideo3 = new System.Windows.Forms.CheckBox();
-            this.fixedCheckBoxSaveNameVideo1 = new System.Windows.Forms.CheckBox();
+            this.fixedCheckBoxSaveNameImage5 = new QuickImageComment.Controls.CheckBoxQIC();
+            this.fixedCheckBoxSaveNameVideo2 = new QuickImageComment.Controls.CheckBoxQIC();
+            this.fixedCheckBoxSaveNameVideo4 = new QuickImageComment.Controls.CheckBoxQIC();
+            this.fixedCheckBoxSaveNameVideo3 = new QuickImageComment.Controls.CheckBoxQIC();
+            this.fixedCheckBoxSaveNameVideo1 = new QuickImageComment.Controls.CheckBoxQIC();
             this.label6 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.fixedCheckBoxSaveCommentVideo3 = new System.Windows.Forms.CheckBox();
-            this.fixedCheckBoxSaveCommentVideo2 = new System.Windows.Forms.CheckBox();
-            this.fixedCheckBoxSaveCommentVideo7 = new System.Windows.Forms.CheckBox();
-            this.fixedCheckBoxSaveCommentVideo5 = new System.Windows.Forms.CheckBox();
-            this.fixedCheckBoxSaveCommentVideo4 = new System.Windows.Forms.CheckBox();
-            this.fixedCheckBoxSaveCommentVideo1 = new System.Windows.Forms.CheckBox();
-            this.fixedCheckBoxSaveCommentVideo6 = new System.Windows.Forms.CheckBox();
-            this.fixedCheckBoxSaveCommentVideo8 = new System.Windows.Forms.CheckBox();
-            this.fixedCheckBoxSaveCommentImage3 = new System.Windows.Forms.CheckBox();
-            this.fixedCheckBoxSaveNameImage2 = new System.Windows.Forms.CheckBox();
-            this.fixedCheckBoxSaveCommentImage2 = new System.Windows.Forms.CheckBox();
+            this.fixedCheckBoxSaveCommentVideo3 = new QuickImageComment.Controls.CheckBoxQIC();
+            this.fixedCheckBoxSaveCommentVideo2 = new QuickImageComment.Controls.CheckBoxQIC();
+            this.fixedCheckBoxSaveCommentVideo7 = new QuickImageComment.Controls.CheckBoxQIC();
+            this.fixedCheckBoxSaveCommentVideo5 = new QuickImageComment.Controls.CheckBoxQIC();
+            this.fixedCheckBoxSaveCommentVideo4 = new QuickImageComment.Controls.CheckBoxQIC();
+            this.fixedCheckBoxSaveCommentVideo1 = new QuickImageComment.Controls.CheckBoxQIC();
+            this.fixedCheckBoxSaveCommentVideo6 = new QuickImageComment.Controls.CheckBoxQIC();
+            this.fixedCheckBoxSaveCommentVideo8 = new QuickImageComment.Controls.CheckBoxQIC();
+            this.fixedCheckBoxSaveCommentImage3 = new QuickImageComment.Controls.CheckBoxQIC();
+            this.fixedCheckBoxSaveNameImage2 = new QuickImageComment.Controls.CheckBoxQIC();
+            this.fixedCheckBoxSaveCommentImage2 = new QuickImageComment.Controls.CheckBoxQIC();
             this.label1MaxChangeableFieldEntries = new System.Windows.Forms.Label();
             this.numericUpDownMaxChangeableFieldEntries = new System.Windows.Forms.NumericUpDown();
             this.label10 = new System.Windows.Forms.Label();
@@ -136,13 +136,13 @@ namespace QuickImageComment
             this.panel3 = new System.Windows.Forms.Panel();
             this.comboBoxColorTheme = new QuickImageCommentControls.ComboBoxQIC();
             this.label12 = new System.Windows.Forms.Label();
-            this.checkBoxShowRatingButtonReject = new System.Windows.Forms.CheckBox();
-            this.checkBoxLogDiffMetaData = new System.Windows.Forms.CheckBox();
+            this.checkBoxShowRatingButtonReject = new QuickImageComment.Controls.CheckBoxQIC();
+            this.checkBoxLogDiffMetaData = new QuickImageComment.Controls.CheckBoxQIC();
             this.comboBoxCharsetUserComment = new QuickImageCommentControls.ComboBoxQIC();
-            this.checkBoxIptcUTF8 = new System.Windows.Forms.CheckBox();
-            this.checkBoxExifUTF8 = new System.Windows.Forms.CheckBox();
+            this.checkBoxIptcUTF8 = new QuickImageComment.Controls.CheckBoxQIC();
+            this.checkBoxExifUTF8 = new QuickImageComment.Controls.CheckBoxQIC();
             this.labelCharSet = new System.Windows.Forms.Label();
-            this.checkBoxButtonDeletesPermanent = new System.Windows.Forms.CheckBox();
+            this.checkBoxButtonDeletesPermanent = new QuickImageComment.Controls.CheckBoxQIC();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.buttonCustomizeForm = new QuickImageCommentControls.ButtonQIC();
             this.buttonHelp = new QuickImageCommentControls.ButtonQIC();
@@ -230,6 +230,7 @@ namespace QuickImageComment
             // 
             // numericUpDownMaxLastComments
             // 
+            this.numericUpDownMaxLastComments.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownMaxLastComments.Location = new System.Drawing.Point(423, 144);
             this.numericUpDownMaxLastComments.Maximum = new decimal(new int[] {
             32000,
@@ -237,7 +238,7 @@ namespace QuickImageComment
             0,
             0});
             this.numericUpDownMaxLastComments.Name = "numericUpDownMaxLastComments";
-            this.numericUpDownMaxLastComments.Size = new System.Drawing.Size(58, 21);
+            this.numericUpDownMaxLastComments.Size = new System.Drawing.Size(58, 17);
             this.numericUpDownMaxLastComments.TabIndex = 9;
             // 
             // labelMaxLastComments
@@ -278,7 +279,7 @@ namespace QuickImageComment
             // 
             // textBoxUserCommentInsertCheckCharacters
             // 
-            this.textBoxUserCommentInsertCheckCharacters.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxUserCommentInsertCheckCharacters.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBoxUserCommentInsertCheckCharacters.DetectUrls = false;
             this.textBoxUserCommentInsertCheckCharacters.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxUserCommentInsertCheckCharacters.Location = new System.Drawing.Point(423, 238);
@@ -291,7 +292,7 @@ namespace QuickImageComment
             // 
             // textBoxUserCommentAppendCheckCharacters
             // 
-            this.textBoxUserCommentAppendCheckCharacters.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxUserCommentAppendCheckCharacters.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBoxUserCommentAppendCheckCharacters.DetectUrls = false;
             this.textBoxUserCommentAppendCheckCharacters.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxUserCommentAppendCheckCharacters.Location = new System.Drawing.Point(423, 260);
@@ -408,6 +409,7 @@ namespace QuickImageComment
             // 
             // numericUpDownFullSizeImageCacheMaxSize
             // 
+            this.numericUpDownFullSizeImageCacheMaxSize.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownFullSizeImageCacheMaxSize.Location = new System.Drawing.Point(423, 15);
             this.numericUpDownFullSizeImageCacheMaxSize.Maximum = new decimal(new int[] {
             32000,
@@ -415,7 +417,7 @@ namespace QuickImageComment
             0,
             0});
             this.numericUpDownFullSizeImageCacheMaxSize.Name = "numericUpDownFullSizeImageCacheMaxSize";
-            this.numericUpDownFullSizeImageCacheMaxSize.Size = new System.Drawing.Size(58, 21);
+            this.numericUpDownFullSizeImageCacheMaxSize.Size = new System.Drawing.Size(58, 17);
             this.numericUpDownFullSizeImageCacheMaxSize.TabIndex = 2;
             // 
             // labelAdditionalExtensions
@@ -476,6 +478,7 @@ namespace QuickImageComment
             // 
             // numericUpDownMaximumMemoryForCaching
             // 
+            this.numericUpDownMaximumMemoryForCaching.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownMaximumMemoryForCaching.Increment = new decimal(new int[] {
             50,
             0,
@@ -488,7 +491,7 @@ namespace QuickImageComment
             0,
             0});
             this.numericUpDownMaximumMemoryForCaching.Name = "numericUpDownMaximumMemoryForCaching";
-            this.numericUpDownMaximumMemoryForCaching.Size = new System.Drawing.Size(58, 21);
+            this.numericUpDownMaximumMemoryForCaching.Size = new System.Drawing.Size(58, 17);
             this.numericUpDownMaximumMemoryForCaching.TabIndex = 6;
             // 
             // fixedLabel8
@@ -518,6 +521,7 @@ namespace QuickImageComment
             // 
             // numericUpDownExtendedImageCacheMaxSize
             // 
+            this.numericUpDownExtendedImageCacheMaxSize.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownExtendedImageCacheMaxSize.Increment = new decimal(new int[] {
             50,
             0,
@@ -530,7 +534,7 @@ namespace QuickImageComment
             0,
             0});
             this.numericUpDownExtendedImageCacheMaxSize.Name = "numericUpDownExtendedImageCacheMaxSize";
-            this.numericUpDownExtendedImageCacheMaxSize.Size = new System.Drawing.Size(58, 21);
+            this.numericUpDownExtendedImageCacheMaxSize.Size = new System.Drawing.Size(58, 17);
             this.numericUpDownExtendedImageCacheMaxSize.TabIndex = 4;
             // 
             // labelExtendedImageCacheMaxSize
@@ -635,6 +639,7 @@ namespace QuickImageComment
             // 
             // numericUpDownMaxArtists
             // 
+            this.numericUpDownMaxArtists.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownMaxArtists.Location = new System.Drawing.Point(423, 167);
             this.numericUpDownMaxArtists.Maximum = new decimal(new int[] {
             32000,
@@ -642,7 +647,7 @@ namespace QuickImageComment
             0,
             0});
             this.numericUpDownMaxArtists.Name = "numericUpDownMaxArtists";
-            this.numericUpDownMaxArtists.Size = new System.Drawing.Size(58, 21);
+            this.numericUpDownMaxArtists.Size = new System.Drawing.Size(58, 17);
             this.numericUpDownMaxArtists.TabIndex = 11;
             // 
             // fixedCheckBoxSaveCommentImage5
@@ -695,7 +700,6 @@ namespace QuickImageComment
             // 
             // Panel2
             // 
-            this.Panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.Panel2.Controls.Add(this.fixedCheckBoxSaveNameImage5);
             this.Panel2.Controls.Add(this.fixedCheckBoxSaveNameVideo2);
             this.Panel2.Controls.Add(this.fixedCheckBoxSaveNameVideo4);
@@ -977,6 +981,7 @@ namespace QuickImageComment
             // 
             // numericUpDownMaxChangeableFieldEntries
             // 
+            this.numericUpDownMaxChangeableFieldEntries.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownMaxChangeableFieldEntries.Location = new System.Drawing.Point(423, 190);
             this.numericUpDownMaxChangeableFieldEntries.Maximum = new decimal(new int[] {
             32000,
@@ -984,7 +989,7 @@ namespace QuickImageComment
             0,
             0});
             this.numericUpDownMaxChangeableFieldEntries.Name = "numericUpDownMaxChangeableFieldEntries";
-            this.numericUpDownMaxChangeableFieldEntries.Size = new System.Drawing.Size(58, 21);
+            this.numericUpDownMaxChangeableFieldEntries.Size = new System.Drawing.Size(58, 17);
             this.numericUpDownMaxChangeableFieldEntries.TabIndex = 13;
             // 
             // label10
@@ -1036,6 +1041,7 @@ namespace QuickImageComment
             // 
             // numericUpDownFramePosition
             // 
+            this.numericUpDownFramePosition.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownFramePosition.DecimalPlaces = 1;
             this.numericUpDownFramePosition.Increment = new decimal(new int[] {
             1,
@@ -1044,7 +1050,7 @@ namespace QuickImageComment
             65536});
             this.numericUpDownFramePosition.Location = new System.Drawing.Point(423, 59);
             this.numericUpDownFramePosition.Name = "numericUpDownFramePosition";
-            this.numericUpDownFramePosition.Size = new System.Drawing.Size(44, 21);
+            this.numericUpDownFramePosition.Size = new System.Drawing.Size(44, 17);
             this.numericUpDownFramePosition.TabIndex = 8;
             // 
             // labelFramePosition
@@ -1358,13 +1364,13 @@ namespace QuickImageComment
         }
         #endregion
 
-        private System.Windows.Forms.CheckBox checkBoxUseDefaultArtist;
+        private QuickImageComment.Controls.CheckBoxQIC checkBoxUseDefaultArtist;
         private QuickImageCommentControls.TextBoxQIC textBoxDefaultArtist;
-        private System.Windows.Forms.CheckBox checkBoxNavigationTabSplitbars;
-        private System.Windows.Forms.CheckBox fixedCheckBoxSaveCommentImage1;
-        private System.Windows.Forms.CheckBox fixedCheckBoxSaveNameImage3;
-        private System.Windows.Forms.CheckBox fixedCheckBoxSaveCommentImage4;
-        private System.Windows.Forms.CheckBox fixedCheckBoxSaveCommentImage8;
+        private QuickImageComment.Controls.CheckBoxQIC checkBoxNavigationTabSplitbars;
+        private QuickImageComment.Controls.CheckBoxQIC fixedCheckBoxSaveCommentImage1;
+        private QuickImageComment.Controls.CheckBoxQIC fixedCheckBoxSaveNameImage3;
+        private QuickImageComment.Controls.CheckBoxQIC fixedCheckBoxSaveCommentImage4;
+        private QuickImageComment.Controls.CheckBoxQIC fixedCheckBoxSaveCommentImage8;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label labelFullSizeImageCacheMaxSize;
@@ -1385,18 +1391,18 @@ namespace QuickImageComment
         private System.Windows.Forms.Label labelSettingsForCaching;
         private System.Windows.Forms.Label labelMaxArtists;
         private System.Windows.Forms.NumericUpDown numericUpDownMaxArtists;
-        private System.Windows.Forms.CheckBox fixedCheckBoxSaveCommentImage5;
-        private System.Windows.Forms.CheckBox fixedCheckBoxSaveCommentImage6;
-        private System.Windows.Forms.CheckBox fixedCheckBoxSaveCommentImage7;
-        private System.Windows.Forms.CheckBox fixedCheckBoxSaveNameImage4;
+        private QuickImageComment.Controls.CheckBoxQIC fixedCheckBoxSaveCommentImage5;
+        private QuickImageComment.Controls.CheckBoxQIC fixedCheckBoxSaveCommentImage6;
+        private QuickImageComment.Controls.CheckBoxQIC fixedCheckBoxSaveCommentImage7;
+        private QuickImageComment.Controls.CheckBoxQIC fixedCheckBoxSaveNameImage4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Panel Panel2;
-        private System.Windows.Forms.CheckBox checkBoxLangAlt5;
-        private System.Windows.Forms.CheckBox checkBoxLangAlt3;
-        private System.Windows.Forms.CheckBox checkBoxLangAlt4;
-        private System.Windows.Forms.CheckBox checkBoxLangAlt2;
-        private System.Windows.Forms.CheckBox checkBoxLangAlt1;
+        private QuickImageComment.Controls.CheckBoxQIC checkBoxLangAlt5;
+        private QuickImageComment.Controls.CheckBoxQIC checkBoxLangAlt3;
+        private QuickImageComment.Controls.CheckBoxQIC checkBoxLangAlt4;
+        private QuickImageComment.Controls.CheckBoxQIC checkBoxLangAlt2;
+        private QuickImageComment.Controls.CheckBoxQIC checkBoxLangAlt1;
         private System.Windows.Forms.Label label1MaxChangeableFieldEntries;
         private System.Windows.Forms.NumericUpDown numericUpDownMaxChangeableFieldEntries;
         private QuickImageCommentControls.TextBoxHighlightText textBoxUserCommentInsertCheckCharacters;
@@ -1408,41 +1414,47 @@ namespace QuickImageComment
         private System.Windows.Forms.NumericUpDown numericUpDownFramePosition;
         private System.Windows.Forms.Label labelFramePosition;
         private System.Windows.Forms.Panel Panel5;
-        private System.Windows.Forms.CheckBox fixedCheckBoxSaveCommentImage2;
-        private System.Windows.Forms.CheckBox fixedCheckBoxSaveNameImage2;
-        private System.Windows.Forms.CheckBox fixedCheckBoxSaveCommentImage3;
+        private QuickImageComment.Controls.CheckBoxQIC fixedCheckBoxSaveCommentImage2;
+        private QuickImageComment.Controls.CheckBoxQIC fixedCheckBoxSaveNameImage2;
+        private QuickImageComment.Controls.CheckBoxQIC fixedCheckBoxSaveCommentImage3;
         private System.Windows.Forms.Panel panel3;
         private QuickImageCommentControls.ComboBoxQIC comboBoxCharsetUserComment;
-        private System.Windows.Forms.CheckBox checkBoxIptcUTF8;
-        private System.Windows.Forms.CheckBox checkBoxExifUTF8;
+        private QuickImageComment.Controls.CheckBoxQIC checkBoxIptcUTF8;
+        private QuickImageComment.Controls.CheckBoxQIC checkBoxExifUTF8;
         private System.Windows.Forms.Label labelCharSet;
-        private System.Windows.Forms.CheckBox checkBoxButtonDeletesPermanent;
+        private QuickImageComment.Controls.CheckBoxQIC checkBoxButtonDeletesPermanent;
         private QuickImageCommentControls.ButtonQIC   buttonExifToolSettings;
-        private System.Windows.Forms.CheckBox checkBoxLogDiffMetaData;
+        private QuickImageComment.Controls.CheckBoxQIC checkBoxLogDiffMetaData;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.CheckBox fixedCheckBoxSaveCommentVideo3;
-        private System.Windows.Forms.CheckBox fixedCheckBoxSaveCommentVideo2;
-        private System.Windows.Forms.CheckBox fixedCheckBoxSaveCommentVideo7;
-        private System.Windows.Forms.CheckBox fixedCheckBoxSaveCommentVideo5;
-        private System.Windows.Forms.CheckBox fixedCheckBoxSaveCommentVideo4;
-        private System.Windows.Forms.CheckBox fixedCheckBoxSaveCommentVideo1;
-        private System.Windows.Forms.CheckBox fixedCheckBoxSaveCommentVideo6;
-        private System.Windows.Forms.CheckBox fixedCheckBoxSaveCommentVideo8;
+        private QuickImageComment.Controls.CheckBoxQIC fixedCheckBoxSaveCommentVideo3;
+        private QuickImageComment.Controls.CheckBoxQIC fixedCheckBoxSaveCommentVideo2;
+        private QuickImageComment.Controls.CheckBoxQIC fixedCheckBoxSaveCommentVideo7;
+        private QuickImageComment.Controls.CheckBoxQIC fixedCheckBoxSaveCommentVideo5;
+        private QuickImageComment.Controls.CheckBoxQIC fixedCheckBoxSaveCommentVideo4;
+        private QuickImageComment.Controls.CheckBoxQIC fixedCheckBoxSaveCommentVideo1;
+        private QuickImageComment.Controls.CheckBoxQIC fixedCheckBoxSaveCommentVideo6;
+        private QuickImageComment.Controls.CheckBoxQIC fixedCheckBoxSaveCommentVideo8;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.CheckBox fixedCheckBoxSaveNameVideo2;
-        private System.Windows.Forms.CheckBox fixedCheckBoxSaveNameVideo4;
-        private System.Windows.Forms.CheckBox fixedCheckBoxSaveNameVideo3;
-        private System.Windows.Forms.CheckBox fixedCheckBoxSaveNameVideo1;
+        private QuickImageComment.Controls.CheckBoxQIC fixedCheckBoxSaveNameVideo2;
+        private QuickImageComment.Controls.CheckBoxQIC fixedCheckBoxSaveNameVideo4;
+        private QuickImageComment.Controls.CheckBoxQIC fixedCheckBoxSaveNameVideo3;
+        private QuickImageComment.Controls.CheckBoxQIC fixedCheckBoxSaveNameVideo1;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.CheckBox fixedCheckBoxSaveNameImage5;
-        private System.Windows.Forms.CheckBox checkBoxShowRatingButtonReject;
+        private QuickImageComment.Controls.CheckBoxQIC fixedCheckBoxSaveNameImage5;
+        private QuickImageComment.Controls.CheckBoxQIC checkBoxShowRatingButtonReject;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private QuickImageCommentControls.ButtonQIC   buttonOK;
         private QuickImageCommentControls.ButtonQIC   buttonHelp;
         private System.Windows.Forms.Label label12;
         private QuickImageCommentControls.ComboBoxQIC comboBoxColorTheme;
+        private Controls.CheckBoxQIC checkBoxKeepImageBakFile;
+        private Controls.CheckBoxQIC checkBoxSaveWithReturn;
+        private Controls.CheckBoxQIC checkBoxLastCommentsWithCursor;
+        private Controls.CheckBoxQIC checkBoxMetaDataWarningsChangeAppearance;
+        private Controls.CheckBoxQIC checkBoxMetaDataWarningsMessageBox;
+        private Controls.CheckBoxQIC fixedCheckBoxSaveNameImage1;
     }
 }

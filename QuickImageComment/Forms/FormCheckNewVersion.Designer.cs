@@ -30,7 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormCheckNewVersion));
             this.buttonCheckNowForNewVersion = new QuickImageCommentControls.ButtonQIC();
-            this.checkBoxCyclicCheck = new System.Windows.Forms.CheckBox();
+            this.checkBoxCyclicCheck = new QuickImageComment.Controls.CheckBoxQIC();
             this.numericUpDownCycle = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -50,6 +50,7 @@
             // 
             this.buttonCheckNowForNewVersion.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonCheckNowForNewVersion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonCheckNowForNewVersion.Location = new System.Drawing.Point(6, 103);
             this.buttonCheckNowForNewVersion.Name = "buttonCheckNowForNewVersion";
             this.buttonCheckNowForNewVersion.Size = new System.Drawing.Size(470, 22);
@@ -71,6 +72,7 @@
             // 
             // numericUpDownCycle
             // 
+            this.numericUpDownCycle.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownCycle.Location = new System.Drawing.Point(56, 23);
             this.numericUpDownCycle.Minimum = new decimal(new int[] {
             1,
@@ -78,7 +80,7 @@
             0,
             0});
             this.numericUpDownCycle.Name = "numericUpDownCycle";
-            this.numericUpDownCycle.Size = new System.Drawing.Size(49, 21);
+            this.numericUpDownCycle.Size = new System.Drawing.Size(49, 17);
             this.numericUpDownCycle.TabIndex = 2;
             this.numericUpDownCycle.Value = new decimal(new int[] {
             1,
@@ -145,6 +147,7 @@
             // 
             this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonOk.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonOk.Location = new System.Drawing.Point(102, 321);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(271, 23);
@@ -156,6 +159,7 @@
             // richTextBoxResult
             // 
             this.richTextBoxResult.BackColor = System.Drawing.SystemColors.Control;
+            this.richTextBoxResult.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.richTextBoxResult.BulletIndent = 10;
             this.richTextBoxResult.Dock = System.Windows.Forms.DockStyle.Fill;
             this.richTextBoxResult.Location = new System.Drawing.Point(3, 3);
@@ -169,6 +173,7 @@
             // 
             this.buttonDownload.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonDownload.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonDownload.Location = new System.Drawing.Point(6, 294);
             this.buttonDownload.Name = "buttonDownload";
             this.buttonDownload.Size = new System.Drawing.Size(470, 21);
@@ -226,7 +231,7 @@
         #endregion
 
         private QuickImageCommentControls.ButtonQIC  buttonCheckNowForNewVersion;
-        private System.Windows.Forms.CheckBox checkBoxCyclicCheck;
+        private QuickImageComment.Controls.CheckBoxQIC checkBoxCyclicCheck;
         private System.Windows.Forms.NumericUpDown numericUpDownCycle;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;

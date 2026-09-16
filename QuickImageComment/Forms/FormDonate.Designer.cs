@@ -51,6 +51,7 @@
             // textBoxInfo
             // 
             this.textBoxInfo.BackColor = System.Drawing.SystemColors.Control;
+            this.textBoxInfo.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tableLayoutPanel1.SetColumnSpan(this.textBoxInfo, 3);
             this.textBoxInfo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBoxInfo.Location = new System.Drawing.Point(3, 3);

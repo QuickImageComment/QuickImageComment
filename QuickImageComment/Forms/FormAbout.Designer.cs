@@ -81,6 +81,7 @@ namespace QuickImageComment
             // textBoxOtherSources
             // 
             this.textBoxOtherSources.BackColor = System.Drawing.SystemColors.Control;
+            this.textBoxOtherSources.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBoxOtherSources.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBoxOtherSources.Location = new System.Drawing.Point(3, 135);
             this.textBoxOtherSources.Multiline = true;

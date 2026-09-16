@@ -123,6 +123,7 @@ namespace QuickImageComment
             // 
             // listBoxMetaData
             // 
+            this.listBoxMetaData.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.listBoxMetaData.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listBoxMetaData.FormattingEnabled = true;
             this.listBoxMetaData.Location = new System.Drawing.Point(3, 3);
@@ -556,6 +557,7 @@ namespace QuickImageComment
             // 
             // numericUpDownVerticalDisplayOffset
             // 
+            this.numericUpDownVerticalDisplayOffset.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownVerticalDisplayOffset.Dock = System.Windows.Forms.DockStyle.Fill;
             this.numericUpDownVerticalDisplayOffset.Location = new System.Drawing.Point(280, 3);
             this.numericUpDownVerticalDisplayOffset.Maximum = new decimal(new int[] {
@@ -569,7 +571,7 @@ namespace QuickImageComment
             0,
             0});
             this.numericUpDownVerticalDisplayOffset.Name = "numericUpDownVerticalDisplayOffset";
-            this.numericUpDownVerticalDisplayOffset.Size = new System.Drawing.Size(60, 21);
+            this.numericUpDownVerticalDisplayOffset.Size = new System.Drawing.Size(60, 17);
             this.numericUpDownVerticalDisplayOffset.TabIndex = 39;
             this.numericUpDownVerticalDisplayOffset.Value = new decimal(new int[] {
             1,
@@ -580,6 +582,7 @@ namespace QuickImageComment
             // 
             // numericUpDownLinesForChange
             // 
+            this.numericUpDownLinesForChange.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownLinesForChange.Dock = System.Windows.Forms.DockStyle.Fill;
             this.numericUpDownLinesForChange.Location = new System.Drawing.Point(280, 29);
             this.numericUpDownLinesForChange.Maximum = new decimal(new int[] {
@@ -593,7 +596,7 @@ namespace QuickImageComment
             0,
             0});
             this.numericUpDownLinesForChange.Name = "numericUpDownLinesForChange";
-            this.numericUpDownLinesForChange.Size = new System.Drawing.Size(60, 21);
+            this.numericUpDownLinesForChange.Size = new System.Drawing.Size(60, 17);
             this.numericUpDownLinesForChange.TabIndex = 40;
             this.numericUpDownLinesForChange.Value = new decimal(new int[] {
             1,

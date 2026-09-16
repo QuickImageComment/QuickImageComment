@@ -41,17 +41,17 @@
             this.dynamicComboBoxCentralInputArea = new QuickImageCommentControls.ComboBoxQIC();
             this.splitContainer122 = new System.Windows.Forms.SplitContainer();
             this.panelLayout = new System.Windows.Forms.Panel();
-            this.groupBoxFiles = new System.Windows.Forms.GroupBox();
+            this.groupBoxFiles = new QuickImageCommentControls.GroupBoxQIC();
             this.radioButtonRating = new System.Windows.Forms.RadioButton();
             this.radioButtonComment = new System.Windows.Forms.RadioButton();
             this.radioButtonTile = new System.Windows.Forms.RadioButton();
             this.radioButtonDetails = new System.Windows.Forms.RadioButton();
             this.radioButtonList = new System.Windows.Forms.RadioButton();
             this.radioButtonLargeIcons = new System.Windows.Forms.RadioButton();
-            this.groupBoxProperties = new System.Windows.Forms.GroupBox();
+            this.groupBoxProperties = new QuickImageCommentControls.GroupBoxQIC();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new QuickImageCommentControls.GroupBoxQIC();
             this.radioButtonExifToolHeader = new System.Windows.Forms.RadioButton();
             this.radioButtonExifToolSuffixFirst = new System.Windows.Forms.RadioButton();
             this.radioButtonExifToolPlain = new System.Windows.Forms.RadioButton();
@@ -65,48 +65,42 @@
             this.labelSuffixFirst = new System.Windows.Forms.Label();
             this.labelHeader = new System.Windows.Forms.Label();
             this.labelPlain = new System.Windows.Forms.Label();
-            this.groupBoxOther = new System.Windows.Forms.GroupBox();
+            this.groupBoxOther = new QuickImageCommentControls.GroupBoxQIC();
             this.radioButtonOtherSuffixFirstEnglish = new System.Windows.Forms.RadioButton();
             this.radioButtonOtherPlainEnglish = new System.Windows.Forms.RadioButton();
             this.radioButtonOtherHeaderEnglish = new System.Windows.Forms.RadioButton();
             this.radioButtonOtherSuffixFirst = new System.Windows.Forms.RadioButton();
             this.radioButtonOtherPlain = new System.Windows.Forms.RadioButton();
             this.radioButtonOtherHeader = new System.Windows.Forms.RadioButton();
-            this.groupBoxXMP = new System.Windows.Forms.GroupBox();
+            this.groupBoxXMP = new QuickImageCommentControls.GroupBoxQIC();
             this.radioButtonXmpSuffixFirstEnglish = new System.Windows.Forms.RadioButton();
             this.radioButtonXmpHeaderEnglish = new System.Windows.Forms.RadioButton();
             this.radioButtonXmpPlainEnglish = new System.Windows.Forms.RadioButton();
             this.radioButtonXmpHeader = new System.Windows.Forms.RadioButton();
             this.radioButtonXmpSuffixFirst = new System.Windows.Forms.RadioButton();
             this.radioButtonXmpPlain = new System.Windows.Forms.RadioButton();
-            this.groupBoxIPTC = new System.Windows.Forms.GroupBox();
+            this.groupBoxIPTC = new QuickImageCommentControls.GroupBoxQIC();
             this.radioButtonIptcSuffixFirstEnglish = new System.Windows.Forms.RadioButton();
             this.radioButtonIptcHeaderEnglish = new System.Windows.Forms.RadioButton();
             this.radioButtonIptcPlainEnglish = new System.Windows.Forms.RadioButton();
             this.radioButtonIptcHeader = new System.Windows.Forms.RadioButton();
             this.radioButtonIptcSuffixFirst = new System.Windows.Forms.RadioButton();
             this.radioButtonIptcPlain = new System.Windows.Forms.RadioButton();
-            this.groupBoxExif = new System.Windows.Forms.GroupBox();
+            this.groupBoxExif = new QuickImageCommentControls.GroupBoxQIC();
             this.radioButtonExifSuffixFirstEnglish = new System.Windows.Forms.RadioButton();
             this.radioButtonExifHeaderEnglish = new System.Windows.Forms.RadioButton();
             this.radioButtonExifPlainEnglish = new System.Windows.Forms.RadioButton();
             this.radioButtonExifHeader = new System.Windows.Forms.RadioButton();
             this.radioButtonExifSuffixFirst = new System.Windows.Forms.RadioButton();
             this.radioButtonExifPlain = new System.Windows.Forms.RadioButton();
-            this.groupBoxToolStrip = new System.Windows.Forms.GroupBox();
+            this.groupBoxToolStrip = new QuickImageCommentControls.GroupBoxQIC();
             this.radioButtonToolStripHide = new System.Windows.Forms.RadioButton();
             this.radioButtonToolStripToolsInMenu = new System.Windows.Forms.RadioButton();
             this.radioButtonToolStripShow = new System.Windows.Forms.RadioButton();
-            this.checkBoxLeftPanelVertical = new System.Windows.Forms.CheckBox();
-            this.checkBoxRightPanelVertical = new System.Windows.Forms.CheckBox();
+            this.checkBoxLeftPanelVertical = new QuickImageComment.Controls.CheckBoxQIC();
+            this.checkBoxRightPanelVertical = new QuickImageComment.Controls.CheckBoxQIC();
             this.panelVerticalCheckRight = new System.Windows.Forms.Panel();
             this.panelVerticalCheckLeft = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.buttonSaveAs = new QuickImageCommentControls.ButtonQIC();
-            this.buttonDelete = new QuickImageCommentControls.ButtonQIC();
-            this.buttonSave = new QuickImageCommentControls.ButtonQIC();
-            this.dynamicComboBoxConfigurationName = new QuickImageCommentControls.ComboBoxQIC();
             this.buttonMap = new QuickImageCommentControls.ButtonQIC();
             this.buttonImageDetails = new QuickImageCommentControls.ButtonQIC();
             this.buttonReadOptimum = new QuickImageCommentControls.ButtonQIC();
@@ -115,6 +109,11 @@
             this.buttonClose = new QuickImageCommentControls.ButtonQIC();
             this.buttonHelp = new QuickImageCommentControls.ButtonQIC();
             this.buttonCustomizeForm = new QuickImageCommentControls.ButtonQIC();
+            this.buttonSaveAs = new QuickImageCommentControls.ButtonQIC();
+            this.label1 = new System.Windows.Forms.Label();
+            this.buttonDelete = new QuickImageCommentControls.ButtonQIC();
+            this.buttonSave = new QuickImageCommentControls.ButtonQIC();
+            this.dynamicComboBoxConfigurationName = new QuickImageCommentControls.ComboBoxQIC();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -149,7 +148,6 @@
             this.groupBoxToolStrip.SuspendLayout();
             this.panelVerticalCheckRight.SuspendLayout();
             this.panelVerticalCheckLeft.SuspendLayout();
-            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -1018,81 +1016,6 @@
             this.panelVerticalCheckLeft.Size = new System.Drawing.Size(243, 23);
             this.panelVerticalCheckLeft.TabIndex = 15;
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label1.Location = new System.Drawing.Point(11, 17);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(166, 13);
-            this.label1.TabIndex = 16;
-            this.label1.Text = "Benutzerdefinierte Einstellungen:";
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.buttonSaveAs);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.buttonDelete);
-            this.groupBox1.Controls.Add(this.buttonSave);
-            this.groupBox1.Controls.Add(this.dynamicComboBoxConfigurationName);
-            this.groupBox1.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.groupBox1.Location = new System.Drawing.Point(-7, 499);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(907, 42);
-            this.groupBox1.TabIndex = 21;
-            this.groupBox1.TabStop = false;
-            // 
-            // buttonSaveAs
-            // 
-            this.buttonSaveAs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonSaveAs.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonSaveAs.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.buttonSaveAs.Location = new System.Drawing.Point(640, 10);
-            this.buttonSaveAs.Name = "buttonSaveAs";
-            this.buttonSaveAs.Size = new System.Drawing.Size(128, 26);
-            this.buttonSaveAs.TabIndex = 20;
-            this.buttonSaveAs.Text = "Speichern unter ...";
-            this.buttonSaveAs.UseVisualStyleBackColor = true;
-            this.buttonSaveAs.Click += new System.EventHandler(this.buttonSaveAs_Click);
-            // 
-            // buttonDelete
-            // 
-            this.buttonDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonDelete.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.buttonDelete.Location = new System.Drawing.Point(538, 10);
-            this.buttonDelete.Name = "buttonDelete";
-            this.buttonDelete.Size = new System.Drawing.Size(99, 26);
-            this.buttonDelete.TabIndex = 19;
-            this.buttonDelete.Text = "Löschen";
-            this.buttonDelete.UseVisualStyleBackColor = true;
-            this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
-            // 
-            // buttonSave
-            // 
-            this.buttonSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonSave.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.buttonSave.Location = new System.Drawing.Point(436, 10);
-            this.buttonSave.Name = "buttonSave";
-            this.buttonSave.Size = new System.Drawing.Size(99, 26);
-            this.buttonSave.TabIndex = 18;
-            this.buttonSave.Text = "Speichern";
-            this.buttonSave.UseVisualStyleBackColor = true;
-            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
-            // 
-            // dynamicComboBoxConfigurationName
-            // 
-            this.dynamicComboBoxConfigurationName.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.dynamicComboBoxConfigurationName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.dynamicComboBoxConfigurationName.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.dynamicComboBoxConfigurationName.FormattingEnabled = true;
-            this.dynamicComboBoxConfigurationName.Location = new System.Drawing.Point(199, 13);
-            this.dynamicComboBoxConfigurationName.Name = "dynamicComboBoxConfigurationName";
-            this.dynamicComboBoxConfigurationName.Size = new System.Drawing.Size(234, 22);
-            this.dynamicComboBoxConfigurationName.TabIndex = 17;
-            this.dynamicComboBoxConfigurationName.SelectedIndexChanged += new System.EventHandler(this.dynamicComboBoxConfigurationName_SelectedIndexChanged);
-            // 
             // buttonMap
             // 
             this.buttonMap.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -1189,13 +1112,77 @@
             this.buttonCustomizeForm.UseVisualStyleBackColor = true;
             this.buttonCustomizeForm.Click += new System.EventHandler(this.buttonCustomizeForm_Click);
             // 
+            // buttonSaveAs
+            // 
+            this.buttonSaveAs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonSaveAs.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonSaveAs.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.buttonSaveAs.Location = new System.Drawing.Point(635, 511);
+            this.buttonSaveAs.Name = "buttonSaveAs";
+            this.buttonSaveAs.Size = new System.Drawing.Size(128, 26);
+            this.buttonSaveAs.TabIndex = 27;
+            this.buttonSaveAs.Text = "Speichern unter ...";
+            this.buttonSaveAs.UseVisualStyleBackColor = true;
+            this.buttonSaveAs.Click += new System.EventHandler(this.buttonSaveAs_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label1.Location = new System.Drawing.Point(6, 518);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(166, 13);
+            this.label1.TabIndex = 23;
+            this.label1.Text = "Benutzerdefinierte Einstellungen:";
+            // 
+            // buttonDelete
+            // 
+            this.buttonDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonDelete.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.buttonDelete.Location = new System.Drawing.Point(533, 511);
+            this.buttonDelete.Name = "buttonDelete";
+            this.buttonDelete.Size = new System.Drawing.Size(99, 26);
+            this.buttonDelete.TabIndex = 26;
+            this.buttonDelete.Text = "Löschen";
+            this.buttonDelete.UseVisualStyleBackColor = true;
+            this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
+            // 
+            // buttonSave
+            // 
+            this.buttonSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonSave.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.buttonSave.Location = new System.Drawing.Point(431, 511);
+            this.buttonSave.Name = "buttonSave";
+            this.buttonSave.Size = new System.Drawing.Size(99, 26);
+            this.buttonSave.TabIndex = 25;
+            this.buttonSave.Text = "Speichern";
+            this.buttonSave.UseVisualStyleBackColor = true;
+            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
+            // 
+            // dynamicComboBoxConfigurationName
+            // 
+            this.dynamicComboBoxConfigurationName.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.dynamicComboBoxConfigurationName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.dynamicComboBoxConfigurationName.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.dynamicComboBoxConfigurationName.FormattingEnabled = true;
+            this.dynamicComboBoxConfigurationName.Location = new System.Drawing.Point(194, 514);
+            this.dynamicComboBoxConfigurationName.Name = "dynamicComboBoxConfigurationName";
+            this.dynamicComboBoxConfigurationName.Size = new System.Drawing.Size(234, 22);
+            this.dynamicComboBoxConfigurationName.TabIndex = 24;
+            // 
             // FormView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(890, 573);
+            this.Controls.Add(this.buttonSaveAs);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.buttonDelete);
+            this.Controls.Add(this.buttonSave);
+            this.Controls.Add(this.dynamicComboBoxConfigurationName);
             this.Controls.Add(this.buttonMap);
-            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.panelVerticalCheckLeft);
             this.Controls.Add(this.panelVerticalCheckRight);
             this.Controls.Add(this.buttonImageDetails);
@@ -1265,9 +1252,8 @@
             this.panelVerticalCheckRight.PerformLayout();
             this.panelVerticalCheckLeft.ResumeLayout(false);
             this.panelVerticalCheckLeft.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -1287,25 +1273,25 @@
         private System.Windows.Forms.Label labelCentralInputArea;
         private System.Windows.Forms.Label label2;
         private QuickImageCommentControls.ButtonQIC buttonMinimum;
-        private System.Windows.Forms.GroupBox groupBoxFiles;
+        private QuickImageCommentControls.GroupBoxQIC groupBoxFiles;
         private System.Windows.Forms.RadioButton radioButtonTile;
         private System.Windows.Forms.RadioButton radioButtonDetails;
         private System.Windows.Forms.RadioButton radioButtonList;
         private System.Windows.Forms.RadioButton radioButtonLargeIcons;
-        private System.Windows.Forms.GroupBox groupBoxProperties;
-        private System.Windows.Forms.GroupBox groupBoxXMP;
+        private QuickImageCommentControls.GroupBoxQIC groupBoxProperties;
+        private QuickImageCommentControls.GroupBoxQIC groupBoxXMP;
         private System.Windows.Forms.RadioButton radioButtonXmpHeaderEnglish;
         private System.Windows.Forms.RadioButton radioButtonXmpPlainEnglish;
         private System.Windows.Forms.RadioButton radioButtonXmpHeader;
         private System.Windows.Forms.RadioButton radioButtonXmpSuffixFirst;
         private System.Windows.Forms.RadioButton radioButtonXmpPlain;
-        private System.Windows.Forms.GroupBox groupBoxIPTC;
+        private QuickImageCommentControls.GroupBoxQIC groupBoxIPTC;
         private System.Windows.Forms.RadioButton radioButtonIptcHeaderEnglish;
         private System.Windows.Forms.RadioButton radioButtonIptcPlainEnglish;
         private System.Windows.Forms.RadioButton radioButtonIptcHeader;
         private System.Windows.Forms.RadioButton radioButtonIptcSuffixFirst;
         private System.Windows.Forms.RadioButton radioButtonIptcPlain;
-        private System.Windows.Forms.GroupBox groupBoxExif;
+        private QuickImageCommentControls.GroupBoxQIC groupBoxExif;
         private System.Windows.Forms.RadioButton radioButtonExifHeaderEnglish;
         private System.Windows.Forms.RadioButton radioButtonExifPlainEnglish;
         private System.Windows.Forms.RadioButton radioButtonExifHeader;
@@ -1319,14 +1305,14 @@
         private System.Windows.Forms.Label labelSuffixFirst;
         private System.Windows.Forms.Label labelHeader;
         private System.Windows.Forms.Label labelPlain;
-        private System.Windows.Forms.GroupBox groupBoxOther;
+        private QuickImageCommentControls.GroupBoxQIC groupBoxOther;
         private System.Windows.Forms.RadioButton radioButtonOtherPlainEnglish;
         private System.Windows.Forms.RadioButton radioButtonOtherHeaderEnglish;
         private System.Windows.Forms.RadioButton radioButtonOtherSuffixFirst;
         private System.Windows.Forms.RadioButton radioButtonOtherPlain;
         private System.Windows.Forms.RadioButton radioButtonOtherHeader;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.GroupBox groupBoxToolStrip;
+        private QuickImageCommentControls.GroupBoxQIC groupBoxToolStrip;
         private System.Windows.Forms.RadioButton radioButtonToolStripHide;
         private System.Windows.Forms.RadioButton radioButtonToolStripToolsInMenu;
         private System.Windows.Forms.RadioButton radioButtonToolStripShow;
@@ -1340,24 +1326,23 @@
         private System.Windows.Forms.RadioButton radioButtonExifSuffixFirstEnglish;
         private System.Windows.Forms.SplitContainer splitContainer12P1;
         private System.Windows.Forms.Panel panelCentralInputArea;
-        private System.Windows.Forms.CheckBox checkBoxLeftPanelVertical;
-        private System.Windows.Forms.CheckBox checkBoxRightPanelVertical;
+        private QuickImageComment.Controls.CheckBoxQIC checkBoxLeftPanelVertical;
+        private QuickImageComment.Controls.CheckBoxQIC checkBoxRightPanelVertical;
         private System.Windows.Forms.Panel panelVerticalCheckRight;
         private System.Windows.Forms.Panel panelVerticalCheckLeft;
-        private System.Windows.Forms.Label label1;
-        private QuickImageCommentControls.ComboBoxQIC dynamicComboBoxConfigurationName;
-        private QuickImageCommentControls.ButtonQIC buttonSave;
-        private QuickImageCommentControls.ButtonQIC buttonDelete;
-        private QuickImageCommentControls.ButtonQIC buttonSaveAs;
-        private System.Windows.Forms.GroupBox groupBox1;
         private QuickImageCommentControls.ButtonQIC buttonMap;
         private System.Windows.Forms.RadioButton radioButtonComment;
-        private System.Windows.Forms.GroupBox groupBox2;
+        private QuickImageCommentControls.GroupBoxQIC groupBox2;
         private System.Windows.Forms.RadioButton radioButtonExifToolHeader;
         private System.Windows.Forms.RadioButton radioButtonExifToolSuffixFirst;
         private System.Windows.Forms.RadioButton radioButtonExifToolPlain;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.RadioButton radioButtonRating;
+        private QuickImageCommentControls.ButtonQIC buttonSaveAs;
+        private System.Windows.Forms.Label label1;
+        private QuickImageCommentControls.ButtonQIC buttonDelete;
+        private QuickImageCommentControls.ButtonQIC buttonSave;
+        private QuickImageCommentControls.ComboBoxQIC dynamicComboBoxConfigurationName;
     }
 }

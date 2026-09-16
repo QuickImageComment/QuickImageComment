@@ -65,16 +65,16 @@ namespace QuickImageComment
             this.dynamicLabelMetaDate = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.dynamicComboBoxFormat = new QuickImageCommentControls.ComboBoxQIC();
-            this.checkBoxSorted = new System.Windows.Forms.CheckBox();
+            this.checkBoxSorted = new QuickImageComment.Controls.CheckBoxQIC();
             this.dynamicComboBoxLanguage = new QuickImageCommentControls.ComboBoxQIC();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.textBoxSeparator = new QuickImageCommentControls.TextBoxHighlightText();
-            this.checkBoxSavedValue = new System.Windows.Forms.CheckBox();
+            this.checkBoxSavedValue = new QuickImageComment.Controls.CheckBoxQIC();
             this.buttonDate = new QuickImageCommentControls.ButtonQIC();
             this.buttonTime = new QuickImageCommentControls.ButtonQIC();
             this.buttonInsertOverwrite = new QuickImageCommentControls.ButtonQIC();
-            this.checkBoxSubStringRight = new System.Windows.Forms.CheckBox();
+            this.checkBoxSubStringRight = new QuickImageComment.Controls.CheckBoxQIC();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.buttonEdit = new QuickImageCommentControls.ButtonQIC();
@@ -218,6 +218,7 @@ namespace QuickImageComment
             // 
             // richTextBoxValue
             // 
+            this.richTextBoxValue.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.richTextBoxValue.Dock = System.Windows.Forms.DockStyle.Fill;
             this.richTextBoxValue.Location = new System.Drawing.Point(148, 3);
             this.richTextBoxValue.Name = "richTextBoxValue";
@@ -258,6 +259,7 @@ namespace QuickImageComment
             // 
             // numericUpDownFrom
             // 
+            this.numericUpDownFrom.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownFrom.Dock = System.Windows.Forms.DockStyle.Fill;
             this.numericUpDownFrom.Location = new System.Drawing.Point(128, 3);
             this.numericUpDownFrom.Minimum = new decimal(new int[] {
@@ -266,7 +268,7 @@ namespace QuickImageComment
             0,
             0});
             this.numericUpDownFrom.Name = "numericUpDownFrom";
-            this.numericUpDownFrom.Size = new System.Drawing.Size(38, 21);
+            this.numericUpDownFrom.Size = new System.Drawing.Size(38, 17);
             this.numericUpDownFrom.TabIndex = 56;
             this.numericUpDownFrom.Value = new decimal(new int[] {
             1,
@@ -277,10 +279,11 @@ namespace QuickImageComment
             // 
             // numericUpDownLength
             // 
+            this.numericUpDownLength.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownLength.Dock = System.Windows.Forms.DockStyle.Left;
             this.numericUpDownLength.Location = new System.Drawing.Point(322, 3);
             this.numericUpDownLength.Name = "numericUpDownLength";
-            this.numericUpDownLength.Size = new System.Drawing.Size(38, 21);
+            this.numericUpDownLength.Size = new System.Drawing.Size(38, 17);
             this.numericUpDownLength.TabIndex = 57;
             this.numericUpDownLength.Value = new decimal(new int[] {
             1,
@@ -291,7 +294,7 @@ namespace QuickImageComment
             // 
             // textBoxValueConverted
             // 
-            this.textBoxValueConverted.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxValueConverted.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBoxValueConverted.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBoxValueConverted.Location = new System.Drawing.Point(148, 96);
             this.textBoxValueConverted.Multiline = true;
@@ -303,7 +306,6 @@ namespace QuickImageComment
             // 
             // dynamicLabelMetaDate
             // 
-            this.dynamicLabelMetaDate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.dynamicLabelMetaDate.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dynamicLabelMetaDate.Location = new System.Drawing.Point(128, 0);
             this.dynamicLabelMetaDate.Name = "dynamicLabelMetaDate";
@@ -340,7 +342,7 @@ namespace QuickImageComment
             this.checkBoxSorted.Dock = System.Windows.Forms.DockStyle.Left;
             this.checkBoxSorted.Location = new System.Drawing.Point(153, 3);
             this.checkBoxSorted.Name = "checkBoxSorted";
-            this.checkBoxSorted.Size = new System.Drawing.Size(62, 19);
+            this.checkBoxSorted.Size = new System.Drawing.Size(62, 15);
             this.checkBoxSorted.TabIndex = 63;
             this.checkBoxSorted.Text = "Sortiert";
             this.checkBoxSorted.UseVisualStyleBackColor = true;
@@ -363,7 +365,7 @@ namespace QuickImageComment
             this.label6.Dock = System.Windows.Forms.DockStyle.Right;
             this.label6.Location = new System.Drawing.Point(378, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(54, 25);
+            this.label6.Size = new System.Drawing.Size(54, 21);
             this.label6.TabIndex = 65;
             this.label6.Text = "Sprache";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -373,7 +375,7 @@ namespace QuickImageComment
             this.label7.Dock = System.Windows.Forms.DockStyle.Right;
             this.label7.Location = new System.Drawing.Point(3, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(84, 25);
+            this.label7.Size = new System.Drawing.Size(84, 21);
             this.label7.TabIndex = 66;
             this.label7.Text = "Trennzeichen";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -389,7 +391,7 @@ namespace QuickImageComment
             this.textBoxSeparator.Multiline = false;
             this.textBoxSeparator.Name = "textBoxSeparator";
             this.textBoxSeparator.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.textBoxSeparator.Size = new System.Drawing.Size(54, 19);
+            this.textBoxSeparator.Size = new System.Drawing.Size(54, 15);
             this.textBoxSeparator.TabIndex = 67;
             this.textBoxSeparator.Text = "";
             // 
@@ -399,7 +401,7 @@ namespace QuickImageComment
             this.checkBoxSavedValue.Dock = System.Windows.Forms.DockStyle.Left;
             this.checkBoxSavedValue.Location = new System.Drawing.Point(228, 3);
             this.checkBoxSavedValue.Name = "checkBoxSavedValue";
-            this.checkBoxSavedValue.Size = new System.Drawing.Size(120, 19);
+            this.checkBoxSavedValue.Size = new System.Drawing.Size(120, 15);
             this.checkBoxSavedValue.TabIndex = 68;
             this.checkBoxSavedValue.Text = "Gespeicherter Wert";
             this.checkBoxSavedValue.UseVisualStyleBackColor = true;
@@ -602,7 +604,7 @@ namespace QuickImageComment
             this.tableLayoutPanelLanguage.Name = "tableLayoutPanelLanguage";
             this.tableLayoutPanelLanguage.RowCount = 1;
             this.tableLayoutPanelLanguage.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanelLanguage.Size = new System.Drawing.Size(699, 25);
+            this.tableLayoutPanelLanguage.Size = new System.Drawing.Size(699, 21);
             this.tableLayoutPanelLanguage.TabIndex = 82;
             // 
             // tableLayoutPanelMetaDate
@@ -685,16 +687,16 @@ namespace QuickImageComment
         private System.Windows.Forms.Label dynamicLabelMetaDate;
         private System.Windows.Forms.Label label5;
         private QuickImageCommentControls.ComboBoxQIC dynamicComboBoxFormat;
-        private System.Windows.Forms.CheckBox checkBoxSorted;
+        private QuickImageComment.Controls.CheckBoxQIC checkBoxSorted;
         private QuickImageCommentControls.ComboBoxQIC dynamicComboBoxLanguage;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private QuickImageCommentControls.TextBoxHighlightText textBoxSeparator;
-        private System.Windows.Forms.CheckBox checkBoxSavedValue;
+        private QuickImageComment.Controls.CheckBoxQIC checkBoxSavedValue;
         private QuickImageCommentControls.ButtonQIC buttonDate;
         private QuickImageCommentControls.ButtonQIC buttonTime;
         private QuickImageCommentControls.ButtonQIC buttonInsertOverwrite;
-        private System.Windows.Forms.CheckBox checkBoxSubStringRight;
+        private QuickImageComment.Controls.CheckBoxQIC checkBoxSubStringRight;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         private QuickImageCommentControls.ButtonQIC buttonEdit;

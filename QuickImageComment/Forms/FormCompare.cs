@@ -59,7 +59,7 @@ namespace QuickImageComment
             if (LangCfg.getLoadedLanguage().Equals("English"))
             {
                 checkBoxTagNamesOriginal.Checked = true;
-                checkBoxTagNamesOriginal.Enabled = false;
+                checkBoxTagNamesOriginal.SetEnabledAppearance(false);
             }
 
             LangCfg.translateControlTexts(this);

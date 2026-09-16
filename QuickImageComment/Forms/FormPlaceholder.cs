@@ -264,7 +264,7 @@ namespace QuickImageComment
             initDefinitionControls();
             dynamicLabelMetaDate.Text = "Date";
             dynamicComboBoxFormat.Enabled = false;
-            checkBoxSavedValue.Enabled = false;
+            checkBoxSavedValue.SetEnabledAppearance(false);
 
             // update expanded value after placeholder definition change
             placeholderDefinitionChanged(null, null);
@@ -276,7 +276,7 @@ namespace QuickImageComment
             initDefinitionControls();
             dynamicLabelMetaDate.Text = "Time";
             dynamicComboBoxFormat.Enabled = false;
-            checkBoxSavedValue.Enabled = false;
+            checkBoxSavedValue.SetEnabledAppearance(false);
 
             // update expanded value after placeholder definition change
             placeholderDefinitionChanged(null, null);
@@ -395,9 +395,9 @@ namespace QuickImageComment
             MetaDataFormatIndex.Add(MetaDataItem.Format.Original, ii++);
 
             dynamicComboBoxFormat.Enabled = true;
-            checkBoxSavedValue.Enabled = true;
-            checkBoxSorted.Enabled = false;
-            textBoxSeparator.SetDisabledAppearance(true);
+            checkBoxSavedValue.SetEnabledAppearance(true);
+            checkBoxSorted.SetEnabledAppearance(false);
+            textBoxSeparator.SetEnabledAppearance(false);
             dynamicComboBoxLanguage.Enabled = false;
 
             dynamicLabelMetaDate.Text = "";
@@ -419,14 +419,14 @@ namespace QuickImageComment
             // except XmpSeq, where entries are already sorted
             if (TagUtilities.isMultiLine(MetaDataKey) && !TagUtilities.isSequentiellType(MetaDataType))
             {
-                checkBoxSorted.Enabled = true;
-                textBoxSeparator.SetDisabledAppearance(false);
+                checkBoxSorted.SetEnabledAppearance(true);
+                textBoxSeparator.SetEnabledAppearance(true);
             }
 
             if (TagUtilities.LangAltTypes.Contains(MetaDataType))
             {
                 dynamicComboBoxLanguage.Enabled = true;
-                textBoxSeparator.SetDisabledAppearance(false);
+                textBoxSeparator.SetEnabledAppearance(true);
             }
             else if (TagUtilities.RationalTypes.Contains(MetaDataType))
             {

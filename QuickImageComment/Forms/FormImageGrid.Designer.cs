@@ -39,26 +39,26 @@
             this.numericUpDownHeight_0 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownSize_0 = new System.Windows.Forms.NumericUpDown();
             this.label5 = new System.Windows.Forms.Label();
-            this.checkBoxActive_0 = new System.Windows.Forms.CheckBox();
+            this.checkBoxActive_0 = new QuickImageComment.Controls.CheckBoxQIC();
             this.label6 = new System.Windows.Forms.Label();
             this.numericUpDownSize_1 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownHeight_1 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownWidth_1 = new System.Windows.Forms.NumericUpDown();
             this.labelActive = new System.Windows.Forms.Label();
-            this.checkBoxActive_1 = new System.Windows.Forms.CheckBox();
-            this.checkBoxActive_2 = new System.Windows.Forms.CheckBox();
+            this.checkBoxActive_1 = new QuickImageComment.Controls.CheckBoxQIC();
+            this.checkBoxActive_2 = new QuickImageComment.Controls.CheckBoxQIC();
             this.numericUpDownSize_2 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownHeight_2 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownWidth_2 = new System.Windows.Forms.NumericUpDown();
-            this.checkBoxActive_3 = new System.Windows.Forms.CheckBox();
+            this.checkBoxActive_3 = new QuickImageComment.Controls.CheckBoxQIC();
             this.numericUpDownSize_3 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownHeight_3 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownWidth_3 = new System.Windows.Forms.NumericUpDown();
-            this.checkBoxActive_4 = new System.Windows.Forms.CheckBox();
+            this.checkBoxActive_4 = new QuickImageComment.Controls.CheckBoxQIC();
             this.numericUpDownSize_4 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownHeight_4 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownWidth_4 = new System.Windows.Forms.NumericUpDown();
-            this.checkBoxActive_5 = new System.Windows.Forms.CheckBox();
+            this.checkBoxActive_5 = new QuickImageComment.Controls.CheckBoxQIC();
             this.numericUpDownSize_5 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownHeight_5 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownWidth_5 = new System.Windows.Forms.NumericUpDown();
@@ -84,7 +84,7 @@
             this.numericUpDownDistance_3 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownDistance_4 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownDistance_5 = new System.Windows.Forms.NumericUpDown();
-            this.checkBoxRefreshImmediately = new System.Windows.Forms.CheckBox();
+            this.checkBoxRefreshImmediately = new QuickImageComment.Controls.CheckBoxQIC();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWidth_0)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHeight_0)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSize_0)).BeginInit();
@@ -114,6 +114,7 @@
             // buttonHelp
             // 
             this.buttonHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonHelp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonHelp.Location = new System.Drawing.Point(562, 199);
             this.buttonHelp.Name = "buttonHelp";
             this.buttonHelp.Size = new System.Drawing.Size(100, 22);
@@ -125,6 +126,7 @@
             // buttonCustomizeForm
             // 
             this.buttonCustomizeForm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonCustomizeForm.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonCustomizeForm.Location = new System.Drawing.Point(2, 199);
             this.buttonCustomizeForm.Name = "buttonCustomizeForm";
             this.buttonCustomizeForm.Size = new System.Drawing.Size(100, 22);
@@ -136,6 +138,7 @@
             // buttonCancel
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonCancel.Location = new System.Drawing.Point(413, 199);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(100, 22);
@@ -147,6 +150,7 @@
             // buttonOK
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonOK.Location = new System.Drawing.Point(257, 199);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(150, 22);
@@ -175,6 +179,7 @@
             // 
             // numericUpDownWidth_0
             // 
+            this.numericUpDownWidth_0.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownWidth_0.Location = new System.Drawing.Point(90, 47);
             this.numericUpDownWidth_0.Maximum = new decimal(new int[] {
             1000,
@@ -187,7 +192,7 @@
             0,
             0});
             this.numericUpDownWidth_0.Name = "numericUpDownWidth_0";
-            this.numericUpDownWidth_0.Size = new System.Drawing.Size(90, 21);
+            this.numericUpDownWidth_0.Size = new System.Drawing.Size(90, 17);
             this.numericUpDownWidth_0.TabIndex = 13;
             this.numericUpDownWidth_0.Value = new decimal(new int[] {
             3,
@@ -198,6 +203,7 @@
             // 
             // numericUpDownHeight_0
             // 
+            this.numericUpDownHeight_0.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownHeight_0.Location = new System.Drawing.Point(90, 70);
             this.numericUpDownHeight_0.Maximum = new decimal(new int[] {
             1000,
@@ -210,7 +216,7 @@
             0,
             0});
             this.numericUpDownHeight_0.Name = "numericUpDownHeight_0";
-            this.numericUpDownHeight_0.Size = new System.Drawing.Size(90, 21);
+            this.numericUpDownHeight_0.Size = new System.Drawing.Size(90, 17);
             this.numericUpDownHeight_0.TabIndex = 14;
             this.numericUpDownHeight_0.Value = new decimal(new int[] {
             3,
@@ -221,6 +227,7 @@
             // 
             // numericUpDownSize_0
             // 
+            this.numericUpDownSize_0.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownSize_0.Location = new System.Drawing.Point(90, 93);
             this.numericUpDownSize_0.Minimum = new decimal(new int[] {
             3,
@@ -228,7 +235,7 @@
             0,
             0});
             this.numericUpDownSize_0.Name = "numericUpDownSize_0";
-            this.numericUpDownSize_0.Size = new System.Drawing.Size(90, 21);
+            this.numericUpDownSize_0.Size = new System.Drawing.Size(90, 17);
             this.numericUpDownSize_0.TabIndex = 15;
             this.numericUpDownSize_0.Value = new decimal(new int[] {
             3,
@@ -267,6 +274,7 @@
             // 
             // numericUpDownSize_1
             // 
+            this.numericUpDownSize_1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownSize_1.Location = new System.Drawing.Point(185, 93);
             this.numericUpDownSize_1.Minimum = new decimal(new int[] {
             3,
@@ -274,7 +282,7 @@
             0,
             0});
             this.numericUpDownSize_1.Name = "numericUpDownSize_1";
-            this.numericUpDownSize_1.Size = new System.Drawing.Size(90, 21);
+            this.numericUpDownSize_1.Size = new System.Drawing.Size(90, 17);
             this.numericUpDownSize_1.TabIndex = 24;
             this.numericUpDownSize_1.Value = new decimal(new int[] {
             3,
@@ -285,6 +293,7 @@
             // 
             // numericUpDownHeight_1
             // 
+            this.numericUpDownHeight_1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownHeight_1.Location = new System.Drawing.Point(185, 70);
             this.numericUpDownHeight_1.Maximum = new decimal(new int[] {
             1000,
@@ -297,7 +306,7 @@
             0,
             0});
             this.numericUpDownHeight_1.Name = "numericUpDownHeight_1";
-            this.numericUpDownHeight_1.Size = new System.Drawing.Size(90, 21);
+            this.numericUpDownHeight_1.Size = new System.Drawing.Size(90, 17);
             this.numericUpDownHeight_1.TabIndex = 23;
             this.numericUpDownHeight_1.Value = new decimal(new int[] {
             3,
@@ -308,6 +317,7 @@
             // 
             // numericUpDownWidth_1
             // 
+            this.numericUpDownWidth_1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownWidth_1.Location = new System.Drawing.Point(185, 47);
             this.numericUpDownWidth_1.Maximum = new decimal(new int[] {
             1000,
@@ -320,7 +330,7 @@
             0,
             0});
             this.numericUpDownWidth_1.Name = "numericUpDownWidth_1";
-            this.numericUpDownWidth_1.Size = new System.Drawing.Size(90, 21);
+            this.numericUpDownWidth_1.Size = new System.Drawing.Size(90, 17);
             this.numericUpDownWidth_1.TabIndex = 22;
             this.numericUpDownWidth_1.Value = new decimal(new int[] {
             3,
@@ -360,6 +370,7 @@
             // 
             // numericUpDownSize_2
             // 
+            this.numericUpDownSize_2.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownSize_2.Location = new System.Drawing.Point(280, 93);
             this.numericUpDownSize_2.Minimum = new decimal(new int[] {
             3,
@@ -367,7 +378,7 @@
             0,
             0});
             this.numericUpDownSize_2.Name = "numericUpDownSize_2";
-            this.numericUpDownSize_2.Size = new System.Drawing.Size(90, 21);
+            this.numericUpDownSize_2.Size = new System.Drawing.Size(90, 17);
             this.numericUpDownSize_2.TabIndex = 33;
             this.numericUpDownSize_2.Value = new decimal(new int[] {
             3,
@@ -378,6 +389,7 @@
             // 
             // numericUpDownHeight_2
             // 
+            this.numericUpDownHeight_2.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownHeight_2.Location = new System.Drawing.Point(280, 70);
             this.numericUpDownHeight_2.Maximum = new decimal(new int[] {
             1000,
@@ -390,7 +402,7 @@
             0,
             0});
             this.numericUpDownHeight_2.Name = "numericUpDownHeight_2";
-            this.numericUpDownHeight_2.Size = new System.Drawing.Size(90, 21);
+            this.numericUpDownHeight_2.Size = new System.Drawing.Size(90, 17);
             this.numericUpDownHeight_2.TabIndex = 32;
             this.numericUpDownHeight_2.Value = new decimal(new int[] {
             3,
@@ -401,6 +413,7 @@
             // 
             // numericUpDownWidth_2
             // 
+            this.numericUpDownWidth_2.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownWidth_2.Location = new System.Drawing.Point(280, 47);
             this.numericUpDownWidth_2.Maximum = new decimal(new int[] {
             1000,
@@ -413,7 +426,7 @@
             0,
             0});
             this.numericUpDownWidth_2.Name = "numericUpDownWidth_2";
-            this.numericUpDownWidth_2.Size = new System.Drawing.Size(90, 21);
+            this.numericUpDownWidth_2.Size = new System.Drawing.Size(90, 17);
             this.numericUpDownWidth_2.TabIndex = 31;
             this.numericUpDownWidth_2.Value = new decimal(new int[] {
             3,
@@ -434,6 +447,7 @@
             // 
             // numericUpDownSize_3
             // 
+            this.numericUpDownSize_3.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownSize_3.Location = new System.Drawing.Point(375, 93);
             this.numericUpDownSize_3.Minimum = new decimal(new int[] {
             3,
@@ -441,7 +455,7 @@
             0,
             0});
             this.numericUpDownSize_3.Name = "numericUpDownSize_3";
-            this.numericUpDownSize_3.Size = new System.Drawing.Size(90, 21);
+            this.numericUpDownSize_3.Size = new System.Drawing.Size(90, 17);
             this.numericUpDownSize_3.TabIndex = 42;
             this.numericUpDownSize_3.Value = new decimal(new int[] {
             3,
@@ -452,6 +466,7 @@
             // 
             // numericUpDownHeight_3
             // 
+            this.numericUpDownHeight_3.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownHeight_3.Location = new System.Drawing.Point(375, 70);
             this.numericUpDownHeight_3.Maximum = new decimal(new int[] {
             1000,
@@ -464,7 +479,7 @@
             0,
             0});
             this.numericUpDownHeight_3.Name = "numericUpDownHeight_3";
-            this.numericUpDownHeight_3.Size = new System.Drawing.Size(90, 21);
+            this.numericUpDownHeight_3.Size = new System.Drawing.Size(90, 17);
             this.numericUpDownHeight_3.TabIndex = 41;
             this.numericUpDownHeight_3.Value = new decimal(new int[] {
             3,
@@ -475,6 +490,7 @@
             // 
             // numericUpDownWidth_3
             // 
+            this.numericUpDownWidth_3.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownWidth_3.Location = new System.Drawing.Point(375, 47);
             this.numericUpDownWidth_3.Maximum = new decimal(new int[] {
             1000,
@@ -487,7 +503,7 @@
             0,
             0});
             this.numericUpDownWidth_3.Name = "numericUpDownWidth_3";
-            this.numericUpDownWidth_3.Size = new System.Drawing.Size(90, 21);
+            this.numericUpDownWidth_3.Size = new System.Drawing.Size(90, 17);
             this.numericUpDownWidth_3.TabIndex = 40;
             this.numericUpDownWidth_3.Value = new decimal(new int[] {
             3,
@@ -508,6 +524,7 @@
             // 
             // numericUpDownSize_4
             // 
+            this.numericUpDownSize_4.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownSize_4.Location = new System.Drawing.Point(470, 93);
             this.numericUpDownSize_4.Minimum = new decimal(new int[] {
             3,
@@ -515,7 +532,7 @@
             0,
             0});
             this.numericUpDownSize_4.Name = "numericUpDownSize_4";
-            this.numericUpDownSize_4.Size = new System.Drawing.Size(90, 21);
+            this.numericUpDownSize_4.Size = new System.Drawing.Size(90, 17);
             this.numericUpDownSize_4.TabIndex = 51;
             this.numericUpDownSize_4.Value = new decimal(new int[] {
             3,
@@ -526,6 +543,7 @@
             // 
             // numericUpDownHeight_4
             // 
+            this.numericUpDownHeight_4.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownHeight_4.Location = new System.Drawing.Point(470, 70);
             this.numericUpDownHeight_4.Maximum = new decimal(new int[] {
             1000,
@@ -538,7 +556,7 @@
             0,
             0});
             this.numericUpDownHeight_4.Name = "numericUpDownHeight_4";
-            this.numericUpDownHeight_4.Size = new System.Drawing.Size(90, 21);
+            this.numericUpDownHeight_4.Size = new System.Drawing.Size(90, 17);
             this.numericUpDownHeight_4.TabIndex = 50;
             this.numericUpDownHeight_4.Value = new decimal(new int[] {
             3,
@@ -549,6 +567,7 @@
             // 
             // numericUpDownWidth_4
             // 
+            this.numericUpDownWidth_4.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownWidth_4.Location = new System.Drawing.Point(470, 47);
             this.numericUpDownWidth_4.Maximum = new decimal(new int[] {
             1000,
@@ -561,7 +580,7 @@
             0,
             0});
             this.numericUpDownWidth_4.Name = "numericUpDownWidth_4";
-            this.numericUpDownWidth_4.Size = new System.Drawing.Size(90, 21);
+            this.numericUpDownWidth_4.Size = new System.Drawing.Size(90, 17);
             this.numericUpDownWidth_4.TabIndex = 49;
             this.numericUpDownWidth_4.Value = new decimal(new int[] {
             3,
@@ -582,6 +601,7 @@
             // 
             // numericUpDownSize_5
             // 
+            this.numericUpDownSize_5.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownSize_5.Location = new System.Drawing.Point(565, 93);
             this.numericUpDownSize_5.Minimum = new decimal(new int[] {
             3,
@@ -589,7 +609,7 @@
             0,
             0});
             this.numericUpDownSize_5.Name = "numericUpDownSize_5";
-            this.numericUpDownSize_5.Size = new System.Drawing.Size(90, 21);
+            this.numericUpDownSize_5.Size = new System.Drawing.Size(90, 17);
             this.numericUpDownSize_5.TabIndex = 60;
             this.numericUpDownSize_5.Value = new decimal(new int[] {
             3,
@@ -600,6 +620,7 @@
             // 
             // numericUpDownHeight_5
             // 
+            this.numericUpDownHeight_5.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownHeight_5.Location = new System.Drawing.Point(565, 70);
             this.numericUpDownHeight_5.Maximum = new decimal(new int[] {
             1000,
@@ -612,7 +633,7 @@
             0,
             0});
             this.numericUpDownHeight_5.Name = "numericUpDownHeight_5";
-            this.numericUpDownHeight_5.Size = new System.Drawing.Size(90, 21);
+            this.numericUpDownHeight_5.Size = new System.Drawing.Size(90, 17);
             this.numericUpDownHeight_5.TabIndex = 59;
             this.numericUpDownHeight_5.Value = new decimal(new int[] {
             3,
@@ -623,6 +644,7 @@
             // 
             // numericUpDownWidth_5
             // 
+            this.numericUpDownWidth_5.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownWidth_5.Location = new System.Drawing.Point(565, 47);
             this.numericUpDownWidth_5.Maximum = new decimal(new int[] {
             1000,
@@ -635,7 +657,7 @@
             0,
             0});
             this.numericUpDownWidth_5.Name = "numericUpDownWidth_5";
-            this.numericUpDownWidth_5.Size = new System.Drawing.Size(90, 21);
+            this.numericUpDownWidth_5.Size = new System.Drawing.Size(90, 17);
             this.numericUpDownWidth_5.TabIndex = 58;
             this.numericUpDownWidth_5.Value = new decimal(new int[] {
             3,
@@ -655,6 +677,7 @@
             // 
             // buttonColor_0
             // 
+            this.buttonColor_0.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonColor_0.Location = new System.Drawing.Point(90, 140);
             this.buttonColor_0.Name = "buttonColor_0";
             this.buttonColor_0.Size = new System.Drawing.Size(90, 23);
@@ -664,6 +687,7 @@
             // 
             // buttonColor_1
             // 
+            this.buttonColor_1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonColor_1.Location = new System.Drawing.Point(185, 140);
             this.buttonColor_1.Name = "buttonColor_1";
             this.buttonColor_1.Size = new System.Drawing.Size(90, 23);
@@ -673,6 +697,7 @@
             // 
             // buttonColor_2
             // 
+            this.buttonColor_2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonColor_2.Location = new System.Drawing.Point(280, 140);
             this.buttonColor_2.Name = "buttonColor_2";
             this.buttonColor_2.Size = new System.Drawing.Size(90, 23);
@@ -682,6 +707,7 @@
             // 
             // buttonColor_3
             // 
+            this.buttonColor_3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonColor_3.Location = new System.Drawing.Point(375, 140);
             this.buttonColor_3.Name = "buttonColor_3";
             this.buttonColor_3.Size = new System.Drawing.Size(90, 23);
@@ -691,6 +717,7 @@
             // 
             // buttonColor_4
             // 
+            this.buttonColor_4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonColor_4.Location = new System.Drawing.Point(470, 140);
             this.buttonColor_4.Name = "buttonColor_4";
             this.buttonColor_4.Size = new System.Drawing.Size(90, 23);
@@ -700,6 +727,7 @@
             // 
             // buttonColor_5
             // 
+            this.buttonColor_5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonColor_5.Location = new System.Drawing.Point(565, 140);
             this.buttonColor_5.Name = "buttonColor_5";
             this.buttonColor_5.Size = new System.Drawing.Size(90, 23);
@@ -710,6 +738,7 @@
             // buttonRefreshGrid
             // 
             this.buttonRefreshGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonRefreshGrid.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonRefreshGrid.Location = new System.Drawing.Point(151, 199);
             this.buttonRefreshGrid.Name = "buttonRefreshGrid";
             this.buttonRefreshGrid.Size = new System.Drawing.Size(100, 22);
@@ -720,6 +749,7 @@
             // 
             // comboBoxLineStyle_0
             // 
+            this.comboBoxLineStyle_0.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.comboBoxLineStyle_0.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxLineStyle_0.FormattingEnabled = true;
             this.comboBoxLineStyle_0.Items.AddRange(new object[] {
@@ -729,7 +759,7 @@
             "Fadenkreuz"});
             this.comboBoxLineStyle_0.Location = new System.Drawing.Point(90, 23);
             this.comboBoxLineStyle_0.Name = "comboBoxLineStyle_0";
-            this.comboBoxLineStyle_0.Size = new System.Drawing.Size(90, 21);
+            this.comboBoxLineStyle_0.Size = new System.Drawing.Size(90, 22);
             this.comboBoxLineStyle_0.TabIndex = 10;
             this.comboBoxLineStyle_0.SelectedIndexChanged += new System.EventHandler(this.comboBoxLineStyle_SelectedIndexChanged);
             // 
@@ -744,6 +774,7 @@
             // 
             // numericUpDownDistance_0
             // 
+            this.numericUpDownDistance_0.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownDistance_0.Location = new System.Drawing.Point(90, 116);
             this.numericUpDownDistance_0.Minimum = new decimal(new int[] {
             2,
@@ -751,7 +782,7 @@
             0,
             0});
             this.numericUpDownDistance_0.Name = "numericUpDownDistance_0";
-            this.numericUpDownDistance_0.Size = new System.Drawing.Size(90, 21);
+            this.numericUpDownDistance_0.Size = new System.Drawing.Size(90, 17);
             this.numericUpDownDistance_0.TabIndex = 16;
             this.numericUpDownDistance_0.Value = new decimal(new int[] {
             3,
@@ -762,6 +793,7 @@
             // 
             // comboBoxLineStyle_1
             // 
+            this.comboBoxLineStyle_1.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.comboBoxLineStyle_1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxLineStyle_1.FormattingEnabled = true;
             this.comboBoxLineStyle_1.Items.AddRange(new object[] {
@@ -771,12 +803,13 @@
             "Fadenkreuz"});
             this.comboBoxLineStyle_1.Location = new System.Drawing.Point(185, 23);
             this.comboBoxLineStyle_1.Name = "comboBoxLineStyle_1";
-            this.comboBoxLineStyle_1.Size = new System.Drawing.Size(90, 21);
+            this.comboBoxLineStyle_1.Size = new System.Drawing.Size(90, 22);
             this.comboBoxLineStyle_1.TabIndex = 19;
             this.comboBoxLineStyle_1.SelectedIndexChanged += new System.EventHandler(this.comboBoxLineStyle_SelectedIndexChanged);
             // 
             // comboBoxLineStyle_2
             // 
+            this.comboBoxLineStyle_2.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.comboBoxLineStyle_2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxLineStyle_2.FormattingEnabled = true;
             this.comboBoxLineStyle_2.Items.AddRange(new object[] {
@@ -786,12 +819,13 @@
             "Fadenkreuz"});
             this.comboBoxLineStyle_2.Location = new System.Drawing.Point(280, 23);
             this.comboBoxLineStyle_2.Name = "comboBoxLineStyle_2";
-            this.comboBoxLineStyle_2.Size = new System.Drawing.Size(90, 21);
+            this.comboBoxLineStyle_2.Size = new System.Drawing.Size(90, 22);
             this.comboBoxLineStyle_2.TabIndex = 28;
             this.comboBoxLineStyle_2.SelectedIndexChanged += new System.EventHandler(this.comboBoxLineStyle_SelectedIndexChanged);
             // 
             // comboBoxLineStyle_3
             // 
+            this.comboBoxLineStyle_3.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.comboBoxLineStyle_3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxLineStyle_3.FormattingEnabled = true;
             this.comboBoxLineStyle_3.Items.AddRange(new object[] {
@@ -801,12 +835,13 @@
             "Fadenkreuz"});
             this.comboBoxLineStyle_3.Location = new System.Drawing.Point(375, 23);
             this.comboBoxLineStyle_3.Name = "comboBoxLineStyle_3";
-            this.comboBoxLineStyle_3.Size = new System.Drawing.Size(90, 21);
+            this.comboBoxLineStyle_3.Size = new System.Drawing.Size(90, 22);
             this.comboBoxLineStyle_3.TabIndex = 37;
             this.comboBoxLineStyle_3.SelectedIndexChanged += new System.EventHandler(this.comboBoxLineStyle_SelectedIndexChanged);
             // 
             // comboBoxLineStyle_4
             // 
+            this.comboBoxLineStyle_4.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.comboBoxLineStyle_4.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxLineStyle_4.FormattingEnabled = true;
             this.comboBoxLineStyle_4.Items.AddRange(new object[] {
@@ -816,12 +851,13 @@
             "Fadenkreuz"});
             this.comboBoxLineStyle_4.Location = new System.Drawing.Point(470, 23);
             this.comboBoxLineStyle_4.Name = "comboBoxLineStyle_4";
-            this.comboBoxLineStyle_4.Size = new System.Drawing.Size(90, 21);
+            this.comboBoxLineStyle_4.Size = new System.Drawing.Size(90, 22);
             this.comboBoxLineStyle_4.TabIndex = 46;
             this.comboBoxLineStyle_4.SelectedIndexChanged += new System.EventHandler(this.comboBoxLineStyle_SelectedIndexChanged);
             // 
             // comboBoxLineStyle_5
             // 
+            this.comboBoxLineStyle_5.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.comboBoxLineStyle_5.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxLineStyle_5.FormattingEnabled = true;
             this.comboBoxLineStyle_5.Items.AddRange(new object[] {
@@ -831,12 +867,13 @@
             "Fadenkreuz"});
             this.comboBoxLineStyle_5.Location = new System.Drawing.Point(565, 23);
             this.comboBoxLineStyle_5.Name = "comboBoxLineStyle_5";
-            this.comboBoxLineStyle_5.Size = new System.Drawing.Size(90, 21);
+            this.comboBoxLineStyle_5.Size = new System.Drawing.Size(90, 22);
             this.comboBoxLineStyle_5.TabIndex = 55;
             this.comboBoxLineStyle_5.SelectedIndexChanged += new System.EventHandler(this.comboBoxLineStyle_SelectedIndexChanged);
             // 
             // numericUpDownDistance_1
             // 
+            this.numericUpDownDistance_1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownDistance_1.Location = new System.Drawing.Point(185, 116);
             this.numericUpDownDistance_1.Minimum = new decimal(new int[] {
             2,
@@ -844,7 +881,7 @@
             0,
             0});
             this.numericUpDownDistance_1.Name = "numericUpDownDistance_1";
-            this.numericUpDownDistance_1.Size = new System.Drawing.Size(90, 21);
+            this.numericUpDownDistance_1.Size = new System.Drawing.Size(90, 17);
             this.numericUpDownDistance_1.TabIndex = 25;
             this.numericUpDownDistance_1.Value = new decimal(new int[] {
             3,
@@ -855,6 +892,7 @@
             // 
             // numericUpDownDistance_2
             // 
+            this.numericUpDownDistance_2.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownDistance_2.Location = new System.Drawing.Point(280, 116);
             this.numericUpDownDistance_2.Minimum = new decimal(new int[] {
             2,
@@ -862,7 +900,7 @@
             0,
             0});
             this.numericUpDownDistance_2.Name = "numericUpDownDistance_2";
-            this.numericUpDownDistance_2.Size = new System.Drawing.Size(90, 21);
+            this.numericUpDownDistance_2.Size = new System.Drawing.Size(90, 17);
             this.numericUpDownDistance_2.TabIndex = 34;
             this.numericUpDownDistance_2.Value = new decimal(new int[] {
             3,
@@ -873,6 +911,7 @@
             // 
             // numericUpDownDistance_3
             // 
+            this.numericUpDownDistance_3.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownDistance_3.Location = new System.Drawing.Point(375, 116);
             this.numericUpDownDistance_3.Minimum = new decimal(new int[] {
             2,
@@ -880,7 +919,7 @@
             0,
             0});
             this.numericUpDownDistance_3.Name = "numericUpDownDistance_3";
-            this.numericUpDownDistance_3.Size = new System.Drawing.Size(90, 21);
+            this.numericUpDownDistance_3.Size = new System.Drawing.Size(90, 17);
             this.numericUpDownDistance_3.TabIndex = 43;
             this.numericUpDownDistance_3.Value = new decimal(new int[] {
             3,
@@ -891,6 +930,7 @@
             // 
             // numericUpDownDistance_4
             // 
+            this.numericUpDownDistance_4.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownDistance_4.Location = new System.Drawing.Point(470, 116);
             this.numericUpDownDistance_4.Minimum = new decimal(new int[] {
             2,
@@ -898,7 +938,7 @@
             0,
             0});
             this.numericUpDownDistance_4.Name = "numericUpDownDistance_4";
-            this.numericUpDownDistance_4.Size = new System.Drawing.Size(90, 21);
+            this.numericUpDownDistance_4.Size = new System.Drawing.Size(90, 17);
             this.numericUpDownDistance_4.TabIndex = 52;
             this.numericUpDownDistance_4.Value = new decimal(new int[] {
             3,
@@ -909,6 +949,7 @@
             // 
             // numericUpDownDistance_5
             // 
+            this.numericUpDownDistance_5.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownDistance_5.Location = new System.Drawing.Point(565, 116);
             this.numericUpDownDistance_5.Minimum = new decimal(new int[] {
             2,
@@ -916,7 +957,7 @@
             0,
             0});
             this.numericUpDownDistance_5.Name = "numericUpDownDistance_5";
-            this.numericUpDownDistance_5.Size = new System.Drawing.Size(90, 21);
+            this.numericUpDownDistance_5.Size = new System.Drawing.Size(90, 17);
             this.numericUpDownDistance_5.TabIndex = 61;
             this.numericUpDownDistance_5.Value = new decimal(new int[] {
             3,
@@ -1047,26 +1088,26 @@
         private System.Windows.Forms.NumericUpDown numericUpDownHeight_0;
         private System.Windows.Forms.NumericUpDown numericUpDownSize_0;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.CheckBox checkBoxActive_0;
+        private QuickImageComment.Controls.CheckBoxQIC checkBoxActive_0;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.NumericUpDown numericUpDownSize_1;
         private System.Windows.Forms.NumericUpDown numericUpDownHeight_1;
         private System.Windows.Forms.NumericUpDown numericUpDownWidth_1;
         private System.Windows.Forms.Label labelActive;
-        private System.Windows.Forms.CheckBox checkBoxActive_1;
-        private System.Windows.Forms.CheckBox checkBoxActive_2;
+        private QuickImageComment.Controls.CheckBoxQIC checkBoxActive_1;
+        private QuickImageComment.Controls.CheckBoxQIC checkBoxActive_2;
         private System.Windows.Forms.NumericUpDown numericUpDownSize_2;
         private System.Windows.Forms.NumericUpDown numericUpDownHeight_2;
         private System.Windows.Forms.NumericUpDown numericUpDownWidth_2;
-        private System.Windows.Forms.CheckBox checkBoxActive_3;
+        private QuickImageComment.Controls.CheckBoxQIC checkBoxActive_3;
         private System.Windows.Forms.NumericUpDown numericUpDownSize_3;
         private System.Windows.Forms.NumericUpDown numericUpDownHeight_3;
         private System.Windows.Forms.NumericUpDown numericUpDownWidth_3;
-        private System.Windows.Forms.CheckBox checkBoxActive_4;
+        private QuickImageComment.Controls.CheckBoxQIC checkBoxActive_4;
         private System.Windows.Forms.NumericUpDown numericUpDownSize_4;
         private System.Windows.Forms.NumericUpDown numericUpDownHeight_4;
         private System.Windows.Forms.NumericUpDown numericUpDownWidth_4;
-        private System.Windows.Forms.CheckBox checkBoxActive_5;
+        private QuickImageComment.Controls.CheckBoxQIC checkBoxActive_5;
         private System.Windows.Forms.NumericUpDown numericUpDownSize_5;
         private System.Windows.Forms.NumericUpDown numericUpDownHeight_5;
         private System.Windows.Forms.NumericUpDown numericUpDownWidth_5;
@@ -1092,6 +1133,6 @@
         private System.Windows.Forms.NumericUpDown numericUpDownDistance_3;
         private System.Windows.Forms.NumericUpDown numericUpDownDistance_4;
         private System.Windows.Forms.NumericUpDown numericUpDownDistance_5;
-        private System.Windows.Forms.CheckBox checkBoxRefreshImmediately;
+        private QuickImageComment.Controls.CheckBoxQIC checkBoxRefreshImmediately;
     }
 }

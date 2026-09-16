@@ -62,6 +62,7 @@ namespace QuickImageComment
             // buttonOK
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonOK.Location = new System.Drawing.Point(115, 310);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(99, 26);
@@ -73,6 +74,7 @@ namespace QuickImageComment
             // buttonAbort
             // 
             this.buttonAbort.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonAbort.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonAbort.Location = new System.Drawing.Point(267, 310);
             this.buttonAbort.Name = "buttonAbort";
             this.buttonAbort.Size = new System.Drawing.Size(99, 26);
@@ -83,6 +85,7 @@ namespace QuickImageComment
             // 
             // textBoxPredefinedComments
             // 
+            this.textBoxPredefinedComments.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBoxPredefinedComments.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBoxPredefinedComments.Location = new System.Drawing.Point(3, 3);
             this.textBoxPredefinedComments.Multiline = true;
@@ -104,6 +107,7 @@ namespace QuickImageComment
             // buttonCustomizeForm
             // 
             this.buttonCustomizeForm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonCustomizeForm.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonCustomizeForm.Location = new System.Drawing.Point(8, 310);
             this.buttonCustomizeForm.Name = "buttonCustomizeForm";
             this.buttonCustomizeForm.Size = new System.Drawing.Size(99, 26);
@@ -115,6 +119,7 @@ namespace QuickImageComment
             // buttonHelp
             // 
             this.buttonHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonHelp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonHelp.Location = new System.Drawing.Point(374, 310);
             this.buttonHelp.Name = "buttonHelp";
             this.buttonHelp.Size = new System.Drawing.Size(99, 26);
@@ -169,5 +174,8 @@ namespace QuickImageComment
     private QuickImageCommentControls.ButtonQIC buttonCustomizeForm;
     private QuickImageCommentControls.ButtonQIC buttonHelp;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-  }
+        private QuickImageCommentControls.ButtonQIC buttonOK;
+        private QuickImageCommentControls.ButtonQIC buttonAbort;
+        private QuickImageCommentControls.TextBoxQIC textBoxPredefinedComments;
+    }
 }

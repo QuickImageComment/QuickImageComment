@@ -56,7 +56,7 @@ namespace QuickImageComment
             this.label1 = new System.Windows.Forms.Label();
             this.buttonCustomizeForm = new QuickImageCommentControls.ButtonQIC();
             this.buttonHelp = new QuickImageCommentControls.ButtonQIC();
-            this.checkBoxHintUsingNotPredef = new System.Windows.Forms.CheckBox();
+            this.checkBoxHintUsingNotPredef = new QuickImageComment.Controls.CheckBoxQIC();
             this.label2 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel1.SuspendLayout();
@@ -65,6 +65,7 @@ namespace QuickImageComment
             // buttonOK
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonOK.Location = new System.Drawing.Point(112, 378);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(99, 26);
@@ -76,6 +77,7 @@ namespace QuickImageComment
             // buttonAbort
             // 
             this.buttonAbort.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonAbort.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonAbort.Location = new System.Drawing.Point(237, 378);
             this.buttonAbort.Name = "buttonAbort";
             this.buttonAbort.Size = new System.Drawing.Size(99, 26);
@@ -86,6 +88,7 @@ namespace QuickImageComment
             // 
             // textBoxPredefinedKeyWords
             // 
+            this.textBoxPredefinedKeyWords.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBoxPredefinedKeyWords.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBoxPredefinedKeyWords.Location = new System.Drawing.Point(3, 3);
             this.textBoxPredefinedKeyWords.Multiline = true;
@@ -106,6 +109,7 @@ namespace QuickImageComment
             // buttonCustomizeForm
             // 
             this.buttonCustomizeForm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonCustomizeForm.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonCustomizeForm.Location = new System.Drawing.Point(7, 378);
             this.buttonCustomizeForm.Name = "buttonCustomizeForm";
             this.buttonCustomizeForm.Size = new System.Drawing.Size(99, 26);
@@ -117,6 +121,7 @@ namespace QuickImageComment
             // buttonHelp
             // 
             this.buttonHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonHelp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonHelp.Location = new System.Drawing.Point(342, 378);
             this.buttonHelp.Name = "buttonHelp";
             this.buttonHelp.Size = new System.Drawing.Size(99, 26);
@@ -196,8 +201,11 @@ namespace QuickImageComment
     private System.Windows.Forms.Label label1;
     private QuickImageCommentControls.ButtonQIC buttonCustomizeForm;
     private QuickImageCommentControls.ButtonQIC buttonHelp;
-        private System.Windows.Forms.CheckBox checkBoxHintUsingNotPredef;
+        private QuickImageComment.Controls.CheckBoxQIC checkBoxHintUsingNotPredef;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private QuickImageCommentControls.ButtonQIC buttonOK;
+        private QuickImageCommentControls.ButtonQIC buttonAbort;
+        private QuickImageCommentControls.TextBoxQIC textBoxPredefinedKeyWords;
     }
 }

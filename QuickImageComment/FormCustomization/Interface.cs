@@ -163,7 +163,7 @@ namespace FormCustomization
             if (ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.Maintenance))
             {
                 object[] entries = theCustomizer.getControlsUnchangedTheme().ToArray();
-                for (int ii = 0; ii < entries.Length; ii++) Logger.log((string)entries[ii]);
+                for (int ii = 0; ii < entries.Length; ii++) Logger.log((string)entries[ii]);  // permanent use of Logger.log
                 theCustomizer.clearControlsUnchangedTheme();
             }
 #endif

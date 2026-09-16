@@ -47,7 +47,6 @@ namespace QuickImageComment
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormQuickImageComment));
-            this.textBoxUserComment = new QuickImageCommentControls.TextBoxQIC();
             this.labelLastCommentsFilter = new System.Windows.Forms.Label();
             this.splitContainer12 = new System.Windows.Forms.SplitContainer();
             this.splitContainer12P1 = new System.Windows.Forms.SplitContainer();
@@ -77,15 +76,16 @@ namespace QuickImageComment
             this.splitContainer1213 = new System.Windows.Forms.SplitContainer();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.checkedListBoxChangeableFieldsChange = new QuickImageCommentControls.CheckedListBoxItemBackcolor();
-            this.checkBoxArtistChange = new System.Windows.Forms.CheckBox();
+            this.checkBoxArtistChange = new QuickImageComment.Controls.CheckBoxQIC();
             this.comboBoxCommentChange = new QuickImageCommentControls.ComboBoxQIC();
-            this.checkBoxGpsDataChange = new System.Windows.Forms.CheckBox();
+            this.checkBoxGpsDataChange = new QuickImageComment.Controls.CheckBoxQIC();
             this.comboBoxKeyWordsChange = new QuickImageCommentControls.ComboBoxQIC();
-            this.checkBoxRatingChange = new System.Windows.Forms.CheckBox();
+            this.checkBoxRatingChange = new QuickImageComment.Controls.CheckBoxQIC();
             this.dataGridViewSelectedFiles = new System.Windows.Forms.DataGridView();
             this.contextMenuStripMetaData = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.contextMenuStripMetaDataMenuItemAdjust = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanelUsercomment = new System.Windows.Forms.TableLayoutPanel();
+            this.textBoxUserComment = new QuickImageCommentControls.TextBoxQIC();
             this.dynamicLabelUserComment = new System.Windows.Forms.Label();
             this.tableLayoutPanelArtist = new System.Windows.Forms.TableLayoutPanel();
             this.labelArtistDefault = new System.Windows.Forms.Label();
@@ -335,19 +335,6 @@ namespace QuickImageComment
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // textBoxUserComment
-            // 
-            this.textBoxUserComment.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBoxUserComment.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBoxUserComment.Location = new System.Drawing.Point(93, 3);
-            this.textBoxUserComment.Name = "textBoxUserComment";
-            this.textBoxUserComment.SingleLineNoBorder = true;
-            this.textBoxUserComment.Size = new System.Drawing.Size(567, 14);
-            this.textBoxUserComment.TabIndex = 5;
-            this.textBoxUserComment.TextChanged += new System.EventHandler(this.textBoxUserComment_TextChanged);
-            this.textBoxUserComment.DoubleClick += new System.EventHandler(this.textBoxUserComment_DoubleClick);
-            this.textBoxUserComment.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxUserComment_KeyDown);
-            // 
             // labelLastCommentsFilter
             // 
             this.labelLastCommentsFilter.AutoSize = true;
@@ -592,6 +579,7 @@ namespace QuickImageComment
             // numericUpDownFramePosition
             // 
             this.numericUpDownFramePosition.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.numericUpDownFramePosition.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownFramePosition.DecimalPlaces = 1;
             this.numericUpDownFramePosition.Increment = new decimal(new int[] {
             1,
@@ -600,7 +588,7 @@ namespace QuickImageComment
             65536});
             this.numericUpDownFramePosition.Location = new System.Drawing.Point(118, 2);
             this.numericUpDownFramePosition.Name = "numericUpDownFramePosition";
-            this.numericUpDownFramePosition.Size = new System.Drawing.Size(44, 21);
+            this.numericUpDownFramePosition.Size = new System.Drawing.Size(44, 17);
             this.numericUpDownFramePosition.TabIndex = 1;
             this.numericUpDownFramePosition.ValueChanged += new System.EventHandler(this.numericUpDownFramePosition_ValueChanged);
             // 
@@ -897,6 +885,19 @@ namespace QuickImageComment
             this.tableLayoutPanelUsercomment.Size = new System.Drawing.Size(663, 24);
             this.tableLayoutPanelUsercomment.TabIndex = 0;
             // 
+            // textBoxUserComment
+            // 
+            this.textBoxUserComment.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxUserComment.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBoxUserComment.Location = new System.Drawing.Point(93, 3);
+            this.textBoxUserComment.Name = "textBoxUserComment";
+            this.textBoxUserComment.SingleLineNoBorder = true;
+            this.textBoxUserComment.Size = new System.Drawing.Size(567, 14);
+            this.textBoxUserComment.TabIndex = 5;
+            this.textBoxUserComment.TextChanged += new System.EventHandler(this.textBoxUserComment_TextChanged);
+            this.textBoxUserComment.DoubleClick += new System.EventHandler(this.textBoxUserComment_DoubleClick);
+            this.textBoxUserComment.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxUserComment_KeyDown);
+            // 
             // dynamicLabelUserComment
             // 
             this.dynamicLabelUserComment.AutoSize = true;
@@ -1030,6 +1031,7 @@ namespace QuickImageComment
             this.listBoxLastUserComments.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.listBoxLastUserComments.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.listBoxLastUserComments.ForeColor = System.Drawing.SystemColors.ControlText;
             this.listBoxLastUserComments.IntegralHeight = false;
             this.listBoxLastUserComments.Location = new System.Drawing.Point(1, 28);
@@ -1083,6 +1085,7 @@ namespace QuickImageComment
             this.listBoxPredefinedComments.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.listBoxPredefinedComments.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.listBoxPredefinedComments.ColumnWidth = 30;
             this.listBoxPredefinedComments.ForeColor = System.Drawing.SystemColors.ControlText;
             this.listBoxPredefinedComments.IntegralHeight = false;
@@ -2810,7 +2813,7 @@ namespace QuickImageComment
 
         }
         #endregion
-        private System.Windows.Forms.CheckBox checkBoxArtistChange;
+        private QuickImageComment.Controls.CheckBoxQIC checkBoxArtistChange;
         private QuickImageCommentControls.ComboBoxQIC dynamicComboBoxPredefinedComments;
         private System.Windows.Forms.Label labelLastCommentsFilter;
         private System.Windows.Forms.Label dynamicLabelUserComment;
@@ -2977,7 +2980,7 @@ namespace QuickImageComment
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemDetailsWindow;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator11;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemMapWindow;
-        private System.Windows.Forms.CheckBox checkBoxGpsDataChange;
+        private QuickImageComment.Controls.CheckBoxQIC checkBoxGpsDataChange;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator12;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemSetFileDateToDateGenerated;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripOverview;
@@ -3039,7 +3042,7 @@ namespace QuickImageComment
         private System.Windows.Forms.HScrollBar hScrollBar1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemShowFocusPoint;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemExifToolDirekt;
-        private System.Windows.Forms.CheckBox checkBoxRatingChange;
+        private QuickImageComment.Controls.CheckBoxQIC checkBoxRatingChange;
         internal System.Windows.Forms.ToolStripMenuItem toolStripMenuItemRating;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelPicture;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelUsercomment;

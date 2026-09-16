@@ -119,6 +119,9 @@
     <Compile Include="Controls\ButtonQIC.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controls\CheckBoxQIC.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\CheckedListBoxItemBackcolor.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -129,6 +132,12 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\GoupBoxQIC.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\LabelSetEnabledAppearance.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\ListViewQIC.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\pictureBoxQIC.cs" />

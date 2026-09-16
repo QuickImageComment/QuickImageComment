@@ -46,13 +46,13 @@
             this.fixedLabelPercentGeneral = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.checkBoxApplyDirect = new System.Windows.Forms.CheckBox();
+            this.checkBoxApplyDirect = new QuickImageComment.Controls.CheckBoxQIC();
             this.fixedLabelPercentToolbar = new System.Windows.Forms.Label();
             this.numericUpDownToolbar = new System.Windows.Forms.NumericUpDown();
-            this.checkBoxSeparateScaleToolbar = new System.Windows.Forms.CheckBox();
+            this.checkBoxSeparateScaleToolbar = new QuickImageComment.Controls.CheckBoxQIC();
             this.fixedLabelPercentThumbnail = new System.Windows.Forms.Label();
             this.numericUpDownThumbnail = new System.Windows.Forms.NumericUpDown();
-            this.checkBoxSeparateScaleThumbnail = new System.Windows.Forms.CheckBox();
+            this.checkBoxSeparateScaleThumbnail = new QuickImageComment.Controls.CheckBoxQIC();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panelRecommendedScales.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownGeneral)).BeginInit();
@@ -64,6 +64,7 @@
             // buttonHelp
             // 
             this.buttonHelp.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.buttonHelp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonHelp.Location = new System.Drawing.Point(298, 377);
             this.buttonHelp.Name = "buttonHelp";
             this.buttonHelp.Size = new System.Drawing.Size(95, 22);
@@ -75,6 +76,7 @@
             // buttonOk
             // 
             this.buttonOk.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.buttonOk.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonOk.Location = new System.Drawing.Point(60, 377);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(95, 22);
@@ -86,6 +88,7 @@
             // buttonAbort
             // 
             this.buttonAbort.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.buttonAbort.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonAbort.Location = new System.Drawing.Point(179, 377);
             this.buttonAbort.Name = "buttonAbort";
             this.buttonAbort.Size = new System.Drawing.Size(95, 22);
@@ -191,6 +194,7 @@
             // numericUpDownGeneral
             // 
             this.numericUpDownGeneral.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.numericUpDownGeneral.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownGeneral.Location = new System.Drawing.Point(316, 136);
             this.numericUpDownGeneral.Maximum = new decimal(new int[] {
             300,
@@ -203,7 +207,7 @@
             0,
             0});
             this.numericUpDownGeneral.Name = "numericUpDownGeneral";
-            this.numericUpDownGeneral.Size = new System.Drawing.Size(44, 21);
+            this.numericUpDownGeneral.Size = new System.Drawing.Size(44, 17);
             this.numericUpDownGeneral.TabIndex = 3;
             this.numericUpDownGeneral.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.numericUpDownGeneral.Value = new decimal(new int[] {
@@ -291,6 +295,7 @@
             // numericUpDownToolbar
             // 
             this.numericUpDownToolbar.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.numericUpDownToolbar.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownToolbar.Location = new System.Drawing.Point(316, 162);
             this.numericUpDownToolbar.Maximum = new decimal(new int[] {
             300,
@@ -303,7 +308,7 @@
             0,
             0});
             this.numericUpDownToolbar.Name = "numericUpDownToolbar";
-            this.numericUpDownToolbar.Size = new System.Drawing.Size(44, 21);
+            this.numericUpDownToolbar.Size = new System.Drawing.Size(44, 17);
             this.numericUpDownToolbar.TabIndex = 4;
             this.numericUpDownToolbar.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.numericUpDownToolbar.Value = new decimal(new int[] {
@@ -339,6 +344,7 @@
             // numericUpDownThumbnail
             // 
             this.numericUpDownThumbnail.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.numericUpDownThumbnail.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownThumbnail.Location = new System.Drawing.Point(316, 185);
             this.numericUpDownThumbnail.Maximum = new decimal(new int[] {
             300,
@@ -351,7 +357,7 @@
             0,
             0});
             this.numericUpDownThumbnail.Name = "numericUpDownThumbnail";
-            this.numericUpDownThumbnail.Size = new System.Drawing.Size(44, 21);
+            this.numericUpDownThumbnail.Size = new System.Drawing.Size(44, 17);
             this.numericUpDownThumbnail.TabIndex = 14;
             this.numericUpDownThumbnail.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.numericUpDownThumbnail.Value = new decimal(new int[] {
@@ -442,14 +448,14 @@
         private System.Windows.Forms.RadioButton fixedRadioButton7;
         private System.Windows.Forms.RadioButton fixedRadioButton6;
         private System.Windows.Forms.RadioButton fixedRadioButton4;
-        private System.Windows.Forms.CheckBox checkBoxApplyDirect;
+        private QuickImageComment.Controls.CheckBoxQIC checkBoxApplyDirect;
         private System.Windows.Forms.RadioButton fixedRadioButton1;
         private System.Windows.Forms.Label fixedLabelPercentToolbar;
         private System.Windows.Forms.NumericUpDown numericUpDownToolbar;
-        private System.Windows.Forms.CheckBox checkBoxSeparateScaleToolbar;
+        private QuickImageComment.Controls.CheckBoxQIC checkBoxSeparateScaleToolbar;
         private System.Windows.Forms.Label fixedLabelPercentThumbnail;
         private System.Windows.Forms.NumericUpDown numericUpDownThumbnail;
-        private System.Windows.Forms.CheckBox checkBoxSeparateScaleThumbnail;
+        private QuickImageComment.Controls.CheckBoxQIC checkBoxSeparateScaleThumbnail;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
     }
 }

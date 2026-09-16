@@ -24,12 +24,6 @@ namespace QuickImageComment
 {
     public partial class FormSettings : Form
     {
-        private CheckBox checkBoxKeepImageBakFile;
-        private CheckBox checkBoxSaveWithReturn;
-        private CheckBox checkBoxLastCommentsWithCursor;
-        private CheckBox checkBoxMetaDataWarningsChangeAppearance;
-        private CheckBox checkBoxMetaDataWarningsMessageBox;
-        private CheckBox fixedCheckBoxSaveNameImage1;
         private NumericUpDown numericUpDownMaxLastComments;
         private Label labelMaxLastComments;
         private Label labelReactionListBoxCommentDoubleClick;

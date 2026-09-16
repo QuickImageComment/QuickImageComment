@@ -68,9 +68,9 @@ namespace QuickImageComment
 
         private ExtendedImage OneExtendedImage;
 
-        private System.Windows.Forms.CheckBox checkBoxRenameFormat = null;
-        private System.Windows.Forms.CheckBox checkBoxSubStringRight = null;
-        private System.Windows.Forms.CheckBox checkBoxFillUpRight = null;
+        private QuickImageComment.Controls.CheckBoxQIC checkBoxRenameFormat = null;
+        private QuickImageComment.Controls.CheckBoxQIC checkBoxSubStringRight = null;
+        private QuickImageComment.Controls.CheckBoxQIC checkBoxFillUpRight = null;
         private QuickImageCommentControls.TextBoxHighlightText textBoxRenameFormat = null;
         private QuickImageCommentControls.TextBoxHighlightText textBoxFillUpChar = null;
         private QuickImageCommentControls.ComboBoxQIC comboBoxRenameFormat = null;
@@ -116,7 +116,7 @@ namespace QuickImageComment
                     aControl.Name.StartsWith("checkBoxSubStringRight_") ||
                     aControl.Name.StartsWith("checkBoxFillUpRight_"))
                 {
-                    System.Windows.Forms.CheckBox aCheckBox = (System.Windows.Forms.CheckBox)aControl;
+                    QuickImageComment.Controls.CheckBoxQIC aCheckBox = (QuickImageComment.Controls.CheckBoxQIC)aControl;
                     if (aControl.Name.StartsWith("checkBoxRenameFormat_"))
                     {
                         aCheckBox.Click += new System.EventHandler(this.renameControlEventHandler);
@@ -999,7 +999,7 @@ namespace QuickImageComment
                 return getControlStatus.notFound;
             }
 
-            checkBoxRenameFormat = (System.Windows.Forms.CheckBox)theControls[0];
+            checkBoxRenameFormat = (QuickImageComment.Controls.CheckBoxQIC)theControls[0];
             if (onlyChecked && !checkBoxRenameFormat.Checked)
             {
                 return getControlStatus.notChecked;
@@ -1008,11 +1008,11 @@ namespace QuickImageComment
             // get controls defining format
             ControlName = "checkBoxSubStringRight_" + ii.ToString();
             theControls = this.Controls.Find(ControlName, false);
-            checkBoxSubStringRight = (System.Windows.Forms.CheckBox)theControls[0];
+            checkBoxSubStringRight = (QuickImageComment.Controls.CheckBoxQIC)theControls[0];
 
             ControlName = "checkBoxFillUpRight_" + ii.ToString();
             theControls = this.Controls.Find(ControlName, false);
-            checkBoxFillUpRight = (System.Windows.Forms.CheckBox)theControls[0];
+            checkBoxFillUpRight = (QuickImageComment.Controls.CheckBoxQIC)theControls[0];
 
             ControlName = "textBoxRenameFormat_" + ii.ToString();
             theControls = this.Controls.Find(ControlName, false);

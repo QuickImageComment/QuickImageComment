@@ -43,6 +43,7 @@
             // 
             // textBoxValue
             // 
+            this.textBoxValue.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tableLayoutPanel1.SetColumnSpan(this.textBoxValue, 2);
             this.textBoxValue.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBoxValue.Location = new System.Drawing.Point(3, 3);
@@ -55,6 +56,7 @@
             // buttonOk
             // 
             this.buttonOk.Dock = System.Windows.Forms.DockStyle.Right;
+            this.buttonOk.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonOk.Location = new System.Drawing.Point(124, 202);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(96, 24);
@@ -66,6 +68,7 @@
             // buttonCancel
             // 
             this.buttonCancel.Dock = System.Windows.Forms.DockStyle.Left;
+            this.buttonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonCancel.Location = new System.Drawing.Point(226, 202);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(96, 24);
@@ -85,6 +88,7 @@
             // 
             // fixedButtonPrevious
             // 
+            this.fixedButtonPrevious.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.fixedButtonPrevious.Location = new System.Drawing.Point(248, -1);
             this.fixedButtonPrevious.Name = "fixedButtonPrevious";
             this.fixedButtonPrevious.Size = new System.Drawing.Size(29, 25);
@@ -95,6 +99,7 @@
             // 
             // fixedButtonNext
             // 
+            this.fixedButtonNext.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.fixedButtonNext.Location = new System.Drawing.Point(286, -1);
             this.fixedButtonNext.Name = "fixedButtonNext";
             this.fixedButtonNext.Size = new System.Drawing.Size(29, 25);
@@ -106,6 +111,7 @@
             // buttonCurrent
             // 
             this.buttonCurrent.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonCurrent.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonCurrent.Location = new System.Drawing.Point(334, 1);
             this.buttonCurrent.Name = "buttonCurrent";
             this.buttonCurrent.Size = new System.Drawing.Size(116, 21);
@@ -118,6 +124,7 @@
             // 
             this.tableLayoutPanel1.SetColumnSpan(this.buttonPlaceholder, 2);
             this.buttonPlaceholder.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonPlaceholder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonPlaceholder.Location = new System.Drawing.Point(3, 172);
             this.buttonPlaceholder.Name = "buttonPlaceholder";
             this.buttonPlaceholder.Size = new System.Drawing.Size(441, 24);

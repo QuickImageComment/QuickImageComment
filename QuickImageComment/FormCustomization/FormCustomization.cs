@@ -1025,12 +1025,12 @@ namespace FormCustomization
                   SelectedComponent is TableLayoutPanel ||
                   SelectedComponent is ToolStripItem)
                 {
-                    checkBoxAutoSize.Enabled = true;
+                    checkBoxAutoSize.SetEnabledAppearance(true);
                     checkBoxAutoSize.Checked = (bool)theCustomizer.getProperty(SelectedComponent, Customizer.enumProperty.AutoSize);
                 }
                 else
                 {
-                    checkBoxAutoSize.Enabled = false;
+                    checkBoxAutoSize.SetEnabledAppearance(false);
                     checkBoxAutoSize.Checked = false;
                 }
 

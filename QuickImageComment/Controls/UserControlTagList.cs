@@ -22,7 +22,7 @@ namespace QuickImageComment
             theExtendedImage = givenExtendedImage;
 
             checkBoxOnlyInImage.Checked = onlyInImageChecked;
-            if (givenExtendedImage == null) checkBoxOnlyInImage.Enabled = false;
+            if (givenExtendedImage == null) checkBoxOnlyInImage.SetEnabledAppearance(false);
             checkBoxOriginalLanguage.Checked = originalLanguageChecked;
 
             if (LangCfg.getTagLookupForLanguageAvailable())
@@ -32,14 +32,14 @@ namespace QuickImageComment
                     // check box is not enabled, so assume at last call no tag lookup for language was available
                     // now it is available, so use it.
                     checkBoxOriginalLanguage.Checked = false;
-                    checkBoxOriginalLanguage.Enabled = true;
+                    checkBoxOriginalLanguage.SetEnabledAppearance(true);
                 }
             }
             else
             {
                 // tag lookup for language not available, always display in English (original language)
                 checkBoxOriginalLanguage.Checked = true;
-                checkBoxOriginalLanguage.Enabled = false;
+                checkBoxOriginalLanguage.SetEnabledAppearance(false);
             }
             fillListViewTagComboBoxSearch();
 

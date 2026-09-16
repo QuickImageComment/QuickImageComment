@@ -48,8 +48,8 @@
             this.radioButtonScaleImperial = new System.Windows.Forms.RadioButton();
             this.radioButtonScaleMetric = new System.Windows.Forms.RadioButton();
             this.label9 = new System.Windows.Forms.Label();
-            this.checkBoxScale = new System.Windows.Forms.CheckBox();
-            this.checkBoxHideMapWhenNoGPS = new System.Windows.Forms.CheckBox();
+            this.checkBoxScale = new QuickImageComment.Controls.CheckBoxQIC();
+            this.checkBoxHideMapWhenNoGPS = new QuickImageComment.Controls.CheckBoxQIC();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.textBoxColorDisplay = new QuickImageCommentControls.TextBoxQIC();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFillOpacity)).BeginInit();
@@ -61,6 +61,7 @@
             // buttonOk
             // 
             this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonOk.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonOk.Location = new System.Drawing.Point(63, 282);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(96, 23);
@@ -72,6 +73,7 @@
             // buttonCancel
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonCancel.Location = new System.Drawing.Point(165, 282);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(96, 23);
@@ -82,9 +84,10 @@
             // 
             // numericUpDownFillOpacity
             // 
+            this.numericUpDownFillOpacity.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownFillOpacity.Location = new System.Drawing.Point(198, 220);
             this.numericUpDownFillOpacity.Name = "numericUpDownFillOpacity";
-            this.numericUpDownFillOpacity.Size = new System.Drawing.Size(61, 21);
+            this.numericUpDownFillOpacity.Size = new System.Drawing.Size(61, 17);
             this.numericUpDownFillOpacity.TabIndex = 3;
             this.numericUpDownFillOpacity.ValueChanged += new System.EventHandler(this.applyChanges);
             // 
@@ -126,9 +129,10 @@
             // 
             // numericUpDownOpacity
             // 
+            this.numericUpDownOpacity.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownOpacity.Location = new System.Drawing.Point(198, 193);
             this.numericUpDownOpacity.Name = "numericUpDownOpacity";
-            this.numericUpDownOpacity.Size = new System.Drawing.Size(61, 21);
+            this.numericUpDownOpacity.Size = new System.Drawing.Size(61, 17);
             this.numericUpDownOpacity.TabIndex = 6;
             this.numericUpDownOpacity.ValueChanged += new System.EventHandler(this.applyChanges);
             // 
@@ -152,6 +156,7 @@
             // 
             // numericUpDownCircleSegmentRadius
             // 
+            this.numericUpDownCircleSegmentRadius.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownCircleSegmentRadius.Location = new System.Drawing.Point(198, 247);
             this.numericUpDownCircleSegmentRadius.Maximum = new decimal(new int[] {
             200,
@@ -159,7 +164,7 @@
             0,
             0});
             this.numericUpDownCircleSegmentRadius.Name = "numericUpDownCircleSegmentRadius";
-            this.numericUpDownCircleSegmentRadius.Size = new System.Drawing.Size(61, 21);
+            this.numericUpDownCircleSegmentRadius.Size = new System.Drawing.Size(61, 17);
             this.numericUpDownCircleSegmentRadius.TabIndex = 9;
             this.numericUpDownCircleSegmentRadius.ValueChanged += new System.EventHandler(this.applyChanges);
             // 
@@ -174,6 +179,7 @@
             // 
             // buttonColorDialog
             // 
+            this.buttonColorDialog.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonColorDialog.Location = new System.Drawing.Point(85, 147);
             this.buttonColorDialog.Name = "buttonColorDialog";
             this.buttonColorDialog.Size = new System.Drawing.Size(75, 23);
@@ -184,9 +190,10 @@
             // 
             // textBoxColor
             // 
+            this.textBoxColor.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBoxColor.Location = new System.Drawing.Point(198, 148);
             this.textBoxColor.Name = "textBoxColor";
-            this.textBoxColor.Size = new System.Drawing.Size(61, 21);
+            this.textBoxColor.Size = new System.Drawing.Size(61, 14);
             this.textBoxColor.TabIndex = 14;
             this.textBoxColor.TextChanged += new System.EventHandler(this.textBoxColor_TextChanged);
             // 
@@ -269,10 +276,11 @@
             // textBoxColorDisplay
             // 
             this.textBoxColorDisplay.BackColor = System.Drawing.Color.Cyan;
+            this.textBoxColorDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBoxColorDisplay.Location = new System.Drawing.Point(268, 148);
             this.textBoxColorDisplay.Name = "textBoxColorDisplay";
             this.textBoxColorDisplay.ReadOnly = true;
-            this.textBoxColorDisplay.Size = new System.Drawing.Size(45, 21);
+            this.textBoxColorDisplay.Size = new System.Drawing.Size(45, 14);
             this.textBoxColorDisplay.TabIndex = 23;
             this.textBoxColorDisplay.Tag = "NO_THEME_CHANGE";
             // 
@@ -339,8 +347,8 @@
         private System.Windows.Forms.RadioButton radioButtonScaleImperial;
         private System.Windows.Forms.RadioButton radioButtonScaleMetric;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.CheckBox checkBoxScale;
-        private System.Windows.Forms.CheckBox checkBoxHideMapWhenNoGPS;
+        private QuickImageComment.Controls.CheckBoxQIC checkBoxScale;
+        private QuickImageComment.Controls.CheckBoxQIC checkBoxHideMapWhenNoGPS;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private QuickImageCommentControls.TextBoxQIC textBoxColorDisplay;
     }

@@ -31,10 +31,6 @@ namespace QuickImageComment
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormUserButtons));
             this.treeViewComponents = new System.Windows.Forms.TreeView();
-            this.buttonCancel = new QuickImageCommentControls.ButtonQIC();
-            this.buttonHelp = new QuickImageCommentControls.ButtonQIC();
-            this.buttonCustomizeForm = new QuickImageCommentControls.ButtonQIC();
-            this.buttonOK = new QuickImageCommentControls.ButtonQIC();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -43,20 +39,24 @@ namespace QuickImageComment
             this.Dynamic_ColumnText = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Dynamic_ColumnTag = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Dynamic_ColumnIconPath = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.buttonAdd = new QuickImageCommentControls.ButtonQIC();
-            this.buttonRemove = new QuickImageCommentControls.ButtonQIC();
-            this.buttonUp = new QuickImageCommentControls.ButtonQIC();
-            this.buttonDown = new QuickImageCommentControls.ButtonQIC();
-            this.textBoxInfo = new QuickImageCommentControls.TextBoxQIC();
             this.listViewIcons = new System.Windows.Forms.ListView();
-            this.buttonAssign = new QuickImageCommentControls.ButtonQIC();
             this.pictureBoxProgramPath = new System.Windows.Forms.PictureBox();
             this.radioButtonProgrammPath = new System.Windows.Forms.RadioButton();
             this.radioButtonImagePath = new System.Windows.Forms.RadioButton();
             this.pictureBoxImagePath = new System.Windows.Forms.PictureBox();
-            this.buttonBrowse = new QuickImageCommentControls.ButtonQIC();
-            this.textBoxImagePath = new QuickImageCommentControls.TextBoxQIC();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.textBoxInfo = new QuickImageCommentControls.TextBoxQIC();
+            this.textBoxImagePath = new QuickImageCommentControls.TextBoxQIC();
+            this.buttonBrowse = new QuickImageCommentControls.ButtonQIC();
+            this.buttonAssign = new QuickImageCommentControls.ButtonQIC();
+            this.buttonDown = new QuickImageCommentControls.ButtonQIC();
+            this.buttonUp = new QuickImageCommentControls.ButtonQIC();
+            this.buttonRemove = new QuickImageCommentControls.ButtonQIC();
+            this.buttonAdd = new QuickImageCommentControls.ButtonQIC();
+            this.buttonOK = new QuickImageCommentControls.ButtonQIC();
+            this.buttonCancel = new QuickImageCommentControls.ButtonQIC();
+            this.buttonHelp = new QuickImageCommentControls.ButtonQIC();
+            this.buttonCustomizeForm = new QuickImageCommentControls.ButtonQIC();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewButtons)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProgramPath)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxImagePath)).BeginInit();
@@ -67,55 +67,12 @@ namespace QuickImageComment
             // 
             this.treeViewComponents.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
+            this.treeViewComponents.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.treeViewComponents.HideSelection = false;
             this.treeViewComponents.Location = new System.Drawing.Point(3, 26);
             this.treeViewComponents.Name = "treeViewComponents";
             this.treeViewComponents.Size = new System.Drawing.Size(285, 329);
             this.treeViewComponents.TabIndex = 3;
-            // 
-            // buttonCancel
-            // 
-            this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonCancel.Location = new System.Drawing.Point(516, 421);
-            this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(99, 26);
-            this.buttonCancel.TabIndex = 15;
-            this.buttonCancel.Text = "Abbrechen";
-            this.buttonCancel.UseVisualStyleBackColor = true;
-            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
-            // 
-            // buttonHelp
-            // 
-            this.buttonHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonHelp.Location = new System.Drawing.Point(874, 423);
-            this.buttonHelp.Name = "buttonHelp";
-            this.buttonHelp.Size = new System.Drawing.Size(100, 22);
-            this.buttonHelp.TabIndex = 16;
-            this.buttonHelp.Text = "Hilfe";
-            this.buttonHelp.UseVisualStyleBackColor = true;
-            this.buttonHelp.Click += new System.EventHandler(this.buttonHelp_Click);
-            // 
-            // buttonCustomizeForm
-            // 
-            this.buttonCustomizeForm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonCustomizeForm.Location = new System.Drawing.Point(3, 423);
-            this.buttonCustomizeForm.Name = "buttonCustomizeForm";
-            this.buttonCustomizeForm.Size = new System.Drawing.Size(100, 22);
-            this.buttonCustomizeForm.TabIndex = 13;
-            this.buttonCustomizeForm.Text = "Maske anpassen";
-            this.buttonCustomizeForm.UseVisualStyleBackColor = true;
-            this.buttonCustomizeForm.Click += new System.EventHandler(this.buttonCustomizeForm_Click);
-            // 
-            // buttonOK
-            // 
-            this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonOK.Location = new System.Drawing.Point(292, 421);
-            this.buttonOK.Name = "buttonOK";
-            this.buttonOK.Size = new System.Drawing.Size(99, 26);
-            this.buttonOK.TabIndex = 14;
-            this.buttonOK.Text = "OK";
-            this.buttonOK.UseVisualStyleBackColor = true;
-            this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
             // 
             // label1
             // 
@@ -153,6 +110,7 @@ namespace QuickImageComment
             this.dataGridViewButtons.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.dataGridViewButtons.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
             this.dataGridViewButtons.BackgroundColor = System.Drawing.SystemColors.Window;
+            this.dataGridViewButtons.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridViewButtons.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewButtons.ColumnHeadersVisible = false;
             this.dataGridViewButtons.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -195,69 +153,12 @@ namespace QuickImageComment
             this.Dynamic_ColumnIconPath.Visible = false;
             this.Dynamic_ColumnIconPath.Width = 5;
             // 
-            // buttonAdd
-            // 
-            this.buttonAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonAdd.Location = new System.Drawing.Point(211, 358);
-            this.buttonAdd.Name = "buttonAdd";
-            this.buttonAdd.Size = new System.Drawing.Size(75, 23);
-            this.buttonAdd.TabIndex = 6;
-            this.buttonAdd.Text = "Hinzufügen";
-            this.buttonAdd.UseVisualStyleBackColor = true;
-            this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
-            // 
-            // buttonRemove
-            // 
-            this.buttonRemove.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonRemove.Location = new System.Drawing.Point(292, 358);
-            this.buttonRemove.Name = "buttonRemove";
-            this.buttonRemove.Size = new System.Drawing.Size(75, 23);
-            this.buttonRemove.TabIndex = 7;
-            this.buttonRemove.Text = "Entfernen";
-            this.buttonRemove.UseVisualStyleBackColor = true;
-            this.buttonRemove.Click += new System.EventHandler(this.buttonRemove_Click);
-            // 
-            // buttonUp
-            // 
-            this.buttonUp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonUp.Location = new System.Drawing.Point(459, 358);
-            this.buttonUp.Name = "buttonUp";
-            this.buttonUp.Size = new System.Drawing.Size(75, 23);
-            this.buttonUp.TabIndex = 8;
-            this.buttonUp.Text = "nach oben";
-            this.buttonUp.UseVisualStyleBackColor = true;
-            this.buttonUp.Click += new System.EventHandler(this.buttonUp_Click);
-            // 
-            // buttonDown
-            // 
-            this.buttonDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonDown.Location = new System.Drawing.Point(540, 358);
-            this.buttonDown.Name = "buttonDown";
-            this.buttonDown.Size = new System.Drawing.Size(75, 23);
-            this.buttonDown.TabIndex = 9;
-            this.buttonDown.Text = "nach unten";
-            this.buttonDown.UseVisualStyleBackColor = true;
-            this.buttonDown.Click += new System.EventHandler(this.buttonDown_Click);
-            // 
-            // textBoxInfo
-            // 
-            this.textBoxInfo.BackColor = System.Drawing.SystemColors.Control;
-            this.textBoxInfo.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBoxInfo.CausesValidation = false;
-            this.textBoxInfo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBoxInfo.Location = new System.Drawing.Point(3, 3);
-            this.textBoxInfo.Multiline = true;
-            this.textBoxInfo.Name = "textBoxInfo";
-            this.textBoxInfo.ReadOnly = true;
-            this.textBoxInfo.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBoxInfo.Size = new System.Drawing.Size(968, 26);
-            this.textBoxInfo.TabIndex = 12;
-            // 
             // listViewIcons
             // 
             this.listViewIcons.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.listViewIcons.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.listViewIcons.HideSelection = false;
             this.listViewIcons.Location = new System.Drawing.Point(620, 26);
             this.listViewIcons.MinimumSize = new System.Drawing.Size(177, 250);
@@ -272,17 +173,6 @@ namespace QuickImageComment
             this.listViewIcons.DrawItem += new System.Windows.Forms.DrawListViewItemEventHandler(this.listViewIcons_DrawItem);
             this.listViewIcons.SelectedIndexChanged += new System.EventHandler(this.listViewIcons_SelectedIndexChanged);
             this.listViewIcons.DoubleClick += new System.EventHandler(this.listViewIcons_DoubleClick);
-            // 
-            // buttonAssign
-            // 
-            this.buttonAssign.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonAssign.Location = new System.Drawing.Point(620, 358);
-            this.buttonAssign.Name = "buttonAssign";
-            this.buttonAssign.Size = new System.Drawing.Size(75, 23);
-            this.buttonAssign.TabIndex = 10;
-            this.buttonAssign.Text = "Zuordnen";
-            this.buttonAssign.UseVisualStyleBackColor = true;
-            this.buttonAssign.Click += new System.EventHandler(this.buttonAssign_Click);
             // 
             // pictureBoxProgramPath
             // 
@@ -328,27 +218,6 @@ namespace QuickImageComment
             this.pictureBoxImagePath.TabIndex = 20;
             this.pictureBoxImagePath.TabStop = false;
             // 
-            // buttonBrowse
-            // 
-            this.buttonBrowse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonBrowse.Image = ((System.Drawing.Image)(resources.GetObject("buttonBrowse.Image")));
-            this.buttonBrowse.Location = new System.Drawing.Point(908, 282);
-            this.buttonBrowse.Name = "buttonBrowse";
-            this.buttonBrowse.Size = new System.Drawing.Size(30, 24);
-            this.buttonBrowse.TabIndex = 21;
-            this.buttonBrowse.UseVisualStyleBackColor = true;
-            this.buttonBrowse.Click += new System.EventHandler(this.buttonBrowse_Click);
-            // 
-            // textBoxImagePath
-            // 
-            this.textBoxImagePath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxImagePath.Location = new System.Drawing.Point(638, 284);
-            this.textBoxImagePath.Name = "textBoxImagePath";
-            this.textBoxImagePath.Size = new System.Drawing.Size(266, 21);
-            this.textBoxImagePath.TabIndex = 22;
-            this.textBoxImagePath.TextChanged += new System.EventHandler(this.textBoxImagePath_TextChanged);
-            // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
@@ -362,6 +231,151 @@ namespace QuickImageComment
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(974, 32);
             this.tableLayoutPanel1.TabIndex = 23;
+            // 
+            // textBoxInfo
+            // 
+            this.textBoxInfo.BackColor = System.Drawing.SystemColors.Control;
+            this.textBoxInfo.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxInfo.CausesValidation = false;
+            this.textBoxInfo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBoxInfo.Location = new System.Drawing.Point(3, 3);
+            this.textBoxInfo.Multiline = true;
+            this.textBoxInfo.Name = "textBoxInfo";
+            this.textBoxInfo.ReadOnly = true;
+            this.textBoxInfo.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBoxInfo.Size = new System.Drawing.Size(968, 26);
+            this.textBoxInfo.TabIndex = 12;
+            // 
+            // textBoxImagePath
+            // 
+            this.textBoxImagePath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxImagePath.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxImagePath.Location = new System.Drawing.Point(638, 287);
+            this.textBoxImagePath.Name = "textBoxImagePath";
+            this.textBoxImagePath.Size = new System.Drawing.Size(266, 14);
+            this.textBoxImagePath.TabIndex = 22;
+            this.textBoxImagePath.TextChanged += new System.EventHandler(this.textBoxImagePath_TextChanged);
+            // 
+            // buttonBrowse
+            // 
+            this.buttonBrowse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonBrowse.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonBrowse.Image = ((System.Drawing.Image)(resources.GetObject("buttonBrowse.Image")));
+            this.buttonBrowse.Location = new System.Drawing.Point(908, 282);
+            this.buttonBrowse.Name = "buttonBrowse";
+            this.buttonBrowse.Size = new System.Drawing.Size(30, 24);
+            this.buttonBrowse.TabIndex = 21;
+            this.buttonBrowse.UseVisualStyleBackColor = true;
+            this.buttonBrowse.Click += new System.EventHandler(this.buttonBrowse_Click);
+            // 
+            // buttonAssign
+            // 
+            this.buttonAssign.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonAssign.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonAssign.Location = new System.Drawing.Point(620, 358);
+            this.buttonAssign.Name = "buttonAssign";
+            this.buttonAssign.Size = new System.Drawing.Size(75, 23);
+            this.buttonAssign.TabIndex = 10;
+            this.buttonAssign.Text = "Zuordnen";
+            this.buttonAssign.UseVisualStyleBackColor = true;
+            this.buttonAssign.Click += new System.EventHandler(this.buttonAssign_Click);
+            // 
+            // buttonDown
+            // 
+            this.buttonDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonDown.Location = new System.Drawing.Point(540, 358);
+            this.buttonDown.Name = "buttonDown";
+            this.buttonDown.Size = new System.Drawing.Size(75, 23);
+            this.buttonDown.TabIndex = 9;
+            this.buttonDown.Text = "nach unten";
+            this.buttonDown.UseVisualStyleBackColor = true;
+            this.buttonDown.Click += new System.EventHandler(this.buttonDown_Click);
+            // 
+            // buttonUp
+            // 
+            this.buttonUp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonUp.Location = new System.Drawing.Point(459, 358);
+            this.buttonUp.Name = "buttonUp";
+            this.buttonUp.Size = new System.Drawing.Size(75, 23);
+            this.buttonUp.TabIndex = 8;
+            this.buttonUp.Text = "nach oben";
+            this.buttonUp.UseVisualStyleBackColor = true;
+            this.buttonUp.Click += new System.EventHandler(this.buttonUp_Click);
+            // 
+            // buttonRemove
+            // 
+            this.buttonRemove.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonRemove.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonRemove.Location = new System.Drawing.Point(292, 358);
+            this.buttonRemove.Name = "buttonRemove";
+            this.buttonRemove.Size = new System.Drawing.Size(75, 23);
+            this.buttonRemove.TabIndex = 7;
+            this.buttonRemove.Text = "Entfernen";
+            this.buttonRemove.UseVisualStyleBackColor = true;
+            this.buttonRemove.Click += new System.EventHandler(this.buttonRemove_Click);
+            // 
+            // buttonAdd
+            // 
+            this.buttonAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonAdd.Location = new System.Drawing.Point(211, 358);
+            this.buttonAdd.Name = "buttonAdd";
+            this.buttonAdd.Size = new System.Drawing.Size(75, 23);
+            this.buttonAdd.TabIndex = 6;
+            this.buttonAdd.Text = "Hinzufügen";
+            this.buttonAdd.UseVisualStyleBackColor = true;
+            this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
+            // 
+            // buttonOK
+            // 
+            this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonOK.Location = new System.Drawing.Point(292, 421);
+            this.buttonOK.Name = "buttonOK";
+            this.buttonOK.Size = new System.Drawing.Size(99, 26);
+            this.buttonOK.TabIndex = 14;
+            this.buttonOK.Text = "OK";
+            this.buttonOK.UseVisualStyleBackColor = true;
+            this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
+            // 
+            // buttonCancel
+            // 
+            this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonCancel.Location = new System.Drawing.Point(516, 421);
+            this.buttonCancel.Name = "buttonCancel";
+            this.buttonCancel.Size = new System.Drawing.Size(99, 26);
+            this.buttonCancel.TabIndex = 15;
+            this.buttonCancel.Text = "Abbrechen";
+            this.buttonCancel.UseVisualStyleBackColor = true;
+            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
+            // 
+            // buttonHelp
+            // 
+            this.buttonHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonHelp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonHelp.Location = new System.Drawing.Point(874, 423);
+            this.buttonHelp.Name = "buttonHelp";
+            this.buttonHelp.Size = new System.Drawing.Size(100, 22);
+            this.buttonHelp.TabIndex = 16;
+            this.buttonHelp.Text = "Hilfe";
+            this.buttonHelp.UseVisualStyleBackColor = true;
+            this.buttonHelp.Click += new System.EventHandler(this.buttonHelp_Click);
+            // 
+            // buttonCustomizeForm
+            // 
+            this.buttonCustomizeForm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonCustomizeForm.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonCustomizeForm.Location = new System.Drawing.Point(3, 423);
+            this.buttonCustomizeForm.Name = "buttonCustomizeForm";
+            this.buttonCustomizeForm.Size = new System.Drawing.Size(100, 22);
+            this.buttonCustomizeForm.TabIndex = 13;
+            this.buttonCustomizeForm.Text = "Maske anpassen";
+            this.buttonCustomizeForm.UseVisualStyleBackColor = true;
+            this.buttonCustomizeForm.Click += new System.EventHandler(this.buttonCustomizeForm_Click);
             // 
             // FormUserButtons
             // 

@@ -21,9 +21,6 @@ namespace QuickImageComment
 {
     public partial class FormPredefinedComments : Form
     {
-        private Button buttonOK;
-        private Button buttonAbort;
-        private TextBox textBoxPredefinedComments;
         private Label labelPredefinedComments2;
         private FormCustomization.Interface CustomizationInterface;
 

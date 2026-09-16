@@ -45,7 +45,7 @@ namespace QuickImageComment
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormFindQuery));
-            this.listViewColumns = new System.Windows.Forms.ListView();
+            this.listViewColumns = new QuickImageCommentControls.ListViewQIC();
             this.columnHeaderDisplayName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderColumnName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -69,6 +69,7 @@ namespace QuickImageComment
             this.listViewColumns.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.listViewColumns.BackColor = System.Drawing.SystemColors.Control;
             this.listViewColumns.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.listViewColumns.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeaderDisplayName,
@@ -79,6 +80,7 @@ namespace QuickImageComment
             this.listViewColumns.Location = new System.Drawing.Point(5, 22);
             this.listViewColumns.MultiSelect = false;
             this.listViewColumns.Name = "listViewColumns";
+            this.listViewColumns.OwnerDraw = true;
             this.listViewColumns.Size = new System.Drawing.Size(826, 156);
             this.listViewColumns.TabIndex = 1;
             this.listViewColumns.UseCompatibleStateImageBehavior = false;
@@ -97,7 +99,7 @@ namespace QuickImageComment
             // columnHeaderColumnName
             // 
             this.columnHeaderColumnName.Text = "Spaltenname";
-            this.columnHeaderColumnName.Width = 300;
+            this.columnHeaderColumnName.Width = 485;
             // 
             // label1
             // 
@@ -112,6 +114,7 @@ namespace QuickImageComment
             // buttonAbort
             // 
             this.buttonAbort.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonAbort.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonAbort.Location = new System.Drawing.Point(505, 480);
             this.buttonAbort.Name = "buttonAbort";
             this.buttonAbort.Size = new System.Drawing.Size(95, 22);
@@ -123,6 +126,7 @@ namespace QuickImageComment
             // buttonExecute
             // 
             this.buttonExecute.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonExecute.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonExecute.Location = new System.Drawing.Point(238, 480);
             this.buttonExecute.Name = "buttonExecute";
             this.buttonExecute.Size = new System.Drawing.Size(95, 22);
@@ -134,6 +138,7 @@ namespace QuickImageComment
             // buttonCustomizeForm
             // 
             this.buttonCustomizeForm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonCustomizeForm.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonCustomizeForm.Location = new System.Drawing.Point(5, 480);
             this.buttonCustomizeForm.Name = "buttonCustomizeForm";
             this.buttonCustomizeForm.Size = new System.Drawing.Size(98, 22);
@@ -145,6 +150,7 @@ namespace QuickImageComment
             // buttonHelp
             // 
             this.buttonHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonHelp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonHelp.Location = new System.Drawing.Point(736, 480);
             this.buttonHelp.Name = "buttonHelp";
             this.buttonHelp.Size = new System.Drawing.Size(95, 22);
@@ -155,6 +161,7 @@ namespace QuickImageComment
             // 
             // richTextBoxValue
             // 
+            this.richTextBoxValue.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.richTextBoxValue.Dock = System.Windows.Forms.DockStyle.Fill;
             this.richTextBoxValue.Location = new System.Drawing.Point(3, 3);
             this.richTextBoxValue.Name = "richTextBoxValue";
@@ -178,6 +185,7 @@ namespace QuickImageComment
             // buttonInsertColumnName
             // 
             this.buttonInsertColumnName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonInsertColumnName.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonInsertColumnName.Location = new System.Drawing.Point(5, 184);
             this.buttonInsertColumnName.Name = "buttonInsertColumnName";
             this.buttonInsertColumnName.Size = new System.Drawing.Size(144, 22);
@@ -199,6 +207,7 @@ namespace QuickImageComment
             // buttonPrevious
             // 
             this.buttonPrevious.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonPrevious.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonPrevious.Location = new System.Drawing.Point(296, 204);
             this.buttonPrevious.Name = "buttonPrevious";
             this.buttonPrevious.Size = new System.Drawing.Size(75, 23);
@@ -210,6 +219,7 @@ namespace QuickImageComment
             // buttonNext
             // 
             this.buttonNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonNext.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonNext.Location = new System.Drawing.Point(465, 204);
             this.buttonNext.Name = "buttonNext";
             this.buttonNext.Size = new System.Drawing.Size(75, 23);
@@ -266,7 +276,7 @@ namespace QuickImageComment
 
         #endregion
 
-        private System.Windows.Forms.ListView listViewColumns;
+        private QuickImageCommentControls.ListViewQIC listViewColumns;
         private System.Windows.Forms.ColumnHeader columnHeaderDisplayName;
         private System.Windows.Forms.ColumnHeader columnHeaderType;
         private System.Windows.Forms.ColumnHeader columnHeaderColumnName;

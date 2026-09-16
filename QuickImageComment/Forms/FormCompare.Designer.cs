@@ -35,10 +35,10 @@
             this.buttonClose = new QuickImageCommentControls.ButtonQIC();
             this.buttonCustomizeForm = new QuickImageCommentControls.ButtonQIC();
             this.buttonHelp = new QuickImageCommentControls.ButtonQIC();
-            this.checkBoxFormatOriginal = new System.Windows.Forms.CheckBox();
-            this.checkBoxShowThumbnails = new System.Windows.Forms.CheckBox();
+            this.checkBoxFormatOriginal = new QuickImageComment.Controls.CheckBoxQIC();
+            this.checkBoxShowThumbnails = new QuickImageComment.Controls.CheckBoxQIC();
             this.buttonDisableCompareForColumn = new QuickImageCommentControls.ButtonQIC();
-            this.checkBoxTagNamesOriginal = new System.Windows.Forms.CheckBox();
+            this.checkBoxTagNamesOriginal = new QuickImageComment.Controls.CheckBoxQIC();
             this.buttonHiddenColumns = new QuickImageCommentControls.ButtonQIC();
             this.toolTip1 = new QuickImageComment.ToolTipQIC();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDifferences)).BeginInit();
@@ -213,12 +213,12 @@
         private QuickImageCommentControls.ButtonQIC buttonClose;
         private QuickImageCommentControls.ButtonQIC buttonCustomizeForm;
         private QuickImageCommentControls.ButtonQIC buttonHelp;
-        private System.Windows.Forms.CheckBox checkBoxFormatOriginal;
+        private QuickImageComment.Controls.CheckBoxQIC checkBoxFormatOriginal;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
-        private System.Windows.Forms.CheckBox checkBoxShowThumbnails;
+        private QuickImageComment.Controls.CheckBoxQIC checkBoxShowThumbnails;
         private QuickImageCommentControls.ButtonQIC buttonDisableCompareForColumn;
-        private System.Windows.Forms.CheckBox checkBoxTagNamesOriginal;
+        private QuickImageComment.Controls.CheckBoxQIC checkBoxTagNamesOriginal;
         private QuickImageCommentControls.ButtonQIC buttonHiddenColumns;
         private QuickImageComment.ToolTipQIC toolTip1;
     }

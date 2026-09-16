@@ -80,10 +80,10 @@ namespace FormCustomization
             this.toolStripMenuItemListOfKeys = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.treeViewComponents = new System.Windows.Forms.TreeView();
-            this.checkBoxMultiSelect = new System.Windows.Forms.CheckBox();
+            this.checkBoxMultiSelect = new QuickImageComment.Controls.CheckBoxQIC();
             this.buttonFreeFont = new QuickImageCommentControls.ButtonQIC();
             this.groupBoxExtended = new QuickImageCommentControls.GroupBoxQIC();
-            this.checkBoxAutoSize = new System.Windows.Forms.CheckBox();
+            this.checkBoxAutoSize = new QuickImageComment.Controls.CheckBoxQIC();
             this.buttonTextReset = new QuickImageCommentControls.ButtonQIC();
             this.numericUpDownZoom = new System.Windows.Forms.NumericUpDown();
             this.fixedLabelZoomUnit = new System.Windows.Forms.Label();
@@ -596,6 +596,7 @@ namespace FormCustomization
             // 
             // numericUpDownZoom
             // 
+            this.numericUpDownZoom.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownZoom.Increment = new decimal(new int[] {
             5,
             0,
@@ -613,7 +614,7 @@ namespace FormCustomization
             0,
             0});
             this.numericUpDownZoom.Name = "numericUpDownZoom";
-            this.numericUpDownZoom.Size = new System.Drawing.Size(51, 21);
+            this.numericUpDownZoom.Size = new System.Drawing.Size(51, 17);
             this.numericUpDownZoom.TabIndex = 19;
             this.numericUpDownZoom.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.numericUpDownZoom.Value = new decimal(new int[] {
@@ -679,6 +680,7 @@ namespace FormCustomization
             // 
             // numericUpDownTabIndex
             // 
+            this.numericUpDownTabIndex.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownTabIndex.Location = new System.Drawing.Point(67, 170);
             this.numericUpDownTabIndex.Maximum = new decimal(new int[] {
             65535,
@@ -686,7 +688,7 @@ namespace FormCustomization
             0,
             0});
             this.numericUpDownTabIndex.Name = "numericUpDownTabIndex";
-            this.numericUpDownTabIndex.Size = new System.Drawing.Size(51, 21);
+            this.numericUpDownTabIndex.Size = new System.Drawing.Size(51, 17);
             this.numericUpDownTabIndex.TabIndex = 13;
             this.numericUpDownTabIndex.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.numericUpDownTabIndex.ValueChanged += new System.EventHandler(this.numericUpDownTabIndex_ValueChanged);
@@ -713,6 +715,7 @@ namespace FormCustomization
             // 
             // numericUpDownHeight
             // 
+            this.numericUpDownHeight.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownHeight.Location = new System.Drawing.Point(67, 139);
             this.numericUpDownHeight.Maximum = new decimal(new int[] {
             65535,
@@ -720,7 +723,7 @@ namespace FormCustomization
             0,
             0});
             this.numericUpDownHeight.Name = "numericUpDownHeight";
-            this.numericUpDownHeight.Size = new System.Drawing.Size(51, 21);
+            this.numericUpDownHeight.Size = new System.Drawing.Size(51, 17);
             this.numericUpDownHeight.TabIndex = 10;
             this.numericUpDownHeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.numericUpDownHeight.ValueChanged += new System.EventHandler(this.numericUpDownHeight_ValueChanged);
@@ -747,6 +750,7 @@ namespace FormCustomization
             // 
             // numericUpDownTop
             // 
+            this.numericUpDownTop.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownTop.Location = new System.Drawing.Point(67, 78);
             this.numericUpDownTop.Maximum = new decimal(new int[] {
             65535,
@@ -759,7 +763,7 @@ namespace FormCustomization
             0,
             -2147483648});
             this.numericUpDownTop.Name = "numericUpDownTop";
-            this.numericUpDownTop.Size = new System.Drawing.Size(51, 21);
+            this.numericUpDownTop.Size = new System.Drawing.Size(51, 17);
             this.numericUpDownTop.TabIndex = 4;
             this.numericUpDownTop.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.numericUpDownTop.ValueChanged += new System.EventHandler(this.numericUpDownTop_ValueChanged);
@@ -786,6 +790,7 @@ namespace FormCustomization
             // 
             // numericUpDownWidth
             // 
+            this.numericUpDownWidth.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownWidth.Location = new System.Drawing.Point(67, 109);
             this.numericUpDownWidth.Maximum = new decimal(new int[] {
             65535,
@@ -793,7 +798,7 @@ namespace FormCustomization
             0,
             0});
             this.numericUpDownWidth.Name = "numericUpDownWidth";
-            this.numericUpDownWidth.Size = new System.Drawing.Size(51, 21);
+            this.numericUpDownWidth.Size = new System.Drawing.Size(51, 17);
             this.numericUpDownWidth.TabIndex = 7;
             this.numericUpDownWidth.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.numericUpDownWidth.ValueChanged += new System.EventHandler(this.numericUpDownWidth_ValueChanged);
@@ -820,6 +825,7 @@ namespace FormCustomization
             // 
             // numericUpDownLeft
             // 
+            this.numericUpDownLeft.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownLeft.Location = new System.Drawing.Point(67, 49);
             this.numericUpDownLeft.Maximum = new decimal(new int[] {
             65535,
@@ -832,7 +838,7 @@ namespace FormCustomization
             0,
             -2147483648});
             this.numericUpDownLeft.Name = "numericUpDownLeft";
-            this.numericUpDownLeft.Size = new System.Drawing.Size(51, 21);
+            this.numericUpDownLeft.Size = new System.Drawing.Size(51, 17);
             this.numericUpDownLeft.TabIndex = 1;
             this.numericUpDownLeft.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.numericUpDownLeft.ValueChanged += new System.EventHandler(this.numericUpDownLeft_ValueChanged);
@@ -1000,7 +1006,7 @@ namespace FormCustomization
     private System.Windows.Forms.TreeView treeViewComponents;
     private System.Windows.Forms.ToolStripDropDownButton toolStripMenuItemFile;
     private System.Windows.Forms.ToolStripDropDownButton toolStripMenuItemExtras;
-    private System.Windows.Forms.CheckBox checkBoxMultiSelect;
+    private QuickImageComment.Controls.CheckBoxQIC checkBoxMultiSelect;
     private QuickImageCommentControls.ButtonQIC  buttonFreeFont;
     private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemLoadSettingAdd;
     private QuickImageCommentControls.ButtonQIC  buttonBackgroundColorReset;
@@ -1039,7 +1045,7 @@ namespace FormCustomization
     private System.Windows.Forms.NumericUpDown numericUpDownZoom;
     private System.Windows.Forms.Label fixedLabelZoomUnit;
     private QuickImageCommentControls.GroupBoxQIC groupBoxFont;
-    private System.Windows.Forms.CheckBox checkBoxAutoSize;
+    private QuickImageComment.Controls.CheckBoxQIC checkBoxAutoSize;
     private QuickImageCommentControls.GroupBoxQIC groupBoxKey;
     private QuickImageCommentControls.ButtonQIC  buttonShortcutReset;
     private System.Windows.Forms.TextBox textBoxShortcut;

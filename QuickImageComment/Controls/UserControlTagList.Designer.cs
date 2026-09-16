@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.checkBoxOriginalLanguage = new System.Windows.Forms.CheckBox();
+            this.checkBoxOriginalLanguage = new QuickImageComment.Controls.CheckBoxQIC();
             this.textBoxSearchTag = new QuickImageCommentControls.TextBoxQIC();
             this.label10 = new System.Windows.Forms.Label();
             this.fixedButtonSearchNext = new QuickImageCommentControls.ButtonQIC();
@@ -39,7 +39,7 @@
             this.columnHeaderTag = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderDescription = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.checkBoxOnlyInImage = new System.Windows.Forms.CheckBox();
+            this.checkBoxOnlyInImage = new QuickImageComment.Controls.CheckBoxQIC();
             this.tableLayoutPanelHeader = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanelOuter = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanelHeader.SuspendLayout();
@@ -218,7 +218,7 @@
         }
 
         #endregion
-        private System.Windows.Forms.CheckBox checkBoxOriginalLanguage;
+        private QuickImageComment.Controls.CheckBoxQIC checkBoxOriginalLanguage;
         private QuickImageCommentControls.TextBoxQIC textBoxSearchTag;
         private System.Windows.Forms.Label label10;
         private QuickImageCommentControls.ButtonQIC fixedButtonSearchNext;
@@ -228,7 +228,7 @@
         private System.Windows.Forms.ColumnHeader columnHeaderTag;
         private System.Windows.Forms.ColumnHeader columnHeaderType;
         private System.Windows.Forms.ColumnHeader columnHeaderDescription;
-        private System.Windows.Forms.CheckBox checkBoxOnlyInImage;
+        private QuickImageComment.Controls.CheckBoxQIC checkBoxOnlyInImage;
         internal QuickImageCommentControls.ListViewQIC listViewTags;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelHeader;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelOuter;

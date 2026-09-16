@@ -132,6 +132,7 @@ namespace QuickImageComment
             // 
             // numericUpDownMinute
             // 
+            this.numericUpDownMinute.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownMinute.Dock = System.Windows.Forms.DockStyle.Fill;
             this.numericUpDownMinute.Location = new System.Drawing.Point(345, 3);
             this.numericUpDownMinute.Maximum = new decimal(new int[] {
@@ -145,12 +146,13 @@ namespace QuickImageComment
             0,
             -2147483648});
             this.numericUpDownMinute.Name = "numericUpDownMinute";
-            this.numericUpDownMinute.Size = new System.Drawing.Size(37, 21);
+            this.numericUpDownMinute.Size = new System.Drawing.Size(37, 17);
             this.numericUpDownMinute.TabIndex = 6;
             this.numericUpDownMinute.ValueChanged += new System.EventHandler(this.numericUpDownMinute_ValueChanged);
             // 
             // numericUpDownSecond
             // 
+            this.numericUpDownSecond.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownSecond.Dock = System.Windows.Forms.DockStyle.Fill;
             this.numericUpDownSecond.Location = new System.Drawing.Point(458, 3);
             this.numericUpDownSecond.Maximum = new decimal(new int[] {
@@ -164,7 +166,7 @@ namespace QuickImageComment
             0,
             -2147483648});
             this.numericUpDownSecond.Name = "numericUpDownSecond";
-            this.numericUpDownSecond.Size = new System.Drawing.Size(37, 21);
+            this.numericUpDownSecond.Size = new System.Drawing.Size(37, 17);
             this.numericUpDownSecond.TabIndex = 8;
             this.numericUpDownSecond.ValueChanged += new System.EventHandler(this.numericUpDownSecond_ValueChanged);
             // 
@@ -202,6 +204,7 @@ namespace QuickImageComment
             // 
             // numericUpDownDay
             // 
+            this.numericUpDownDay.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownDay.Dock = System.Windows.Forms.DockStyle.Fill;
             this.numericUpDownDay.Location = new System.Drawing.Point(119, 3);
             this.numericUpDownDay.Maximum = new decimal(new int[] {
@@ -215,7 +218,7 @@ namespace QuickImageComment
             0,
             -2147483648});
             this.numericUpDownDay.Name = "numericUpDownDay";
-            this.numericUpDownDay.Size = new System.Drawing.Size(37, 21);
+            this.numericUpDownDay.Size = new System.Drawing.Size(37, 17);
             this.numericUpDownDay.TabIndex = 2;
             this.numericUpDownDay.ValueChanged += new System.EventHandler(this.numericUpDownDay_ValueChanged);
             // 
@@ -231,6 +234,7 @@ namespace QuickImageComment
             // 
             // numericUpDownHour
             // 
+            this.numericUpDownHour.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownHour.Dock = System.Windows.Forms.DockStyle.Fill;
             this.numericUpDownHour.Location = new System.Drawing.Point(232, 3);
             this.numericUpDownHour.Maximum = new decimal(new int[] {
@@ -244,7 +248,7 @@ namespace QuickImageComment
             0,
             -2147483648});
             this.numericUpDownHour.Name = "numericUpDownHour";
-            this.numericUpDownHour.Size = new System.Drawing.Size(37, 21);
+            this.numericUpDownHour.Size = new System.Drawing.Size(37, 17);
             this.numericUpDownHour.TabIndex = 4;
             this.numericUpDownHour.ValueChanged += new System.EventHandler(this.numericUpDownHour_ValueChanged);
             // 

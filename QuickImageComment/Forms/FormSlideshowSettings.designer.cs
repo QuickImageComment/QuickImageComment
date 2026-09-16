@@ -60,7 +60,7 @@ namespace QuickImageComment
             this.buttonAdjustFields = new QuickImageCommentControls.ButtonQIC();
             this.buttonFontSubtitle = new QuickImageCommentControls.ButtonQIC();
             this.label6 = new System.Windows.Forms.Label();
-            this.checkBoxHideAtStart = new System.Windows.Forms.CheckBox();
+            this.checkBoxHideAtStart = new QuickImageComment.Controls.CheckBoxQIC();
             this.label7 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.radioButtonSubTitleDependingOnSize = new System.Windows.Forms.RadioButton();
@@ -123,9 +123,10 @@ namespace QuickImageComment
             // 
             // numericUpDownDelay
             // 
+            this.numericUpDownDelay.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownDelay.Location = new System.Drawing.Point(300, 5);
             this.numericUpDownDelay.Name = "numericUpDownDelay";
-            this.numericUpDownDelay.Size = new System.Drawing.Size(57, 21);
+            this.numericUpDownDelay.Size = new System.Drawing.Size(57, 17);
             this.numericUpDownDelay.TabIndex = 13;
             // 
             // label2
@@ -148,9 +149,10 @@ namespace QuickImageComment
             // 
             // numericUpDownPageScrollNumber
             // 
+            this.numericUpDownPageScrollNumber.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownPageScrollNumber.Location = new System.Drawing.Point(300, 33);
             this.numericUpDownPageScrollNumber.Name = "numericUpDownPageScrollNumber";
-            this.numericUpDownPageScrollNumber.Size = new System.Drawing.Size(57, 21);
+            this.numericUpDownPageScrollNumber.Size = new System.Drawing.Size(57, 17);
             this.numericUpDownPageScrollNumber.TabIndex = 16;
             // 
             // buttonBackgroundColor
@@ -306,9 +308,10 @@ namespace QuickImageComment
             // 
             // numericUpDownOpacity
             // 
+            this.numericUpDownOpacity.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownOpacity.Location = new System.Drawing.Point(383, 253);
             this.numericUpDownOpacity.Name = "numericUpDownOpacity";
-            this.numericUpDownOpacity.Size = new System.Drawing.Size(57, 21);
+            this.numericUpDownOpacity.Size = new System.Drawing.Size(57, 17);
             this.numericUpDownOpacity.TabIndex = 28;
             this.numericUpDownOpacity.ValueChanged += new System.EventHandler(this.numericUpDownOpacity_ValueChanged);
             // 
@@ -393,7 +396,7 @@ namespace QuickImageComment
         private QuickImageCommentControls.ButtonQIC buttonAdjustFields;
         private QuickImageCommentControls.ButtonQIC buttonFontSubtitle;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.CheckBox checkBoxHideAtStart;
+        private QuickImageComment.Controls.CheckBoxQIC checkBoxHideAtStart;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.RadioButton radioButtonSubtitleNone;
