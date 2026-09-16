@@ -208,7 +208,6 @@ namespace QuickImageComment
             topDiffLabelToDateTimePicker = dateTimePicker.Top - dynamicLabelFind.Top;
 
             // Specific constructor code
-            CustomizationInterface.setFormToCustomizedValuesZoomInitial(this);
             Height = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.FormFindHeight);
             Width = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.FormFindWidth);
             splitContainer1.SplitterDistance = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.FormFindSplitContainer1_Distance);
@@ -218,13 +217,16 @@ namespace QuickImageComment
             fillFilterPanelWithControls();
             fillItemsFilterFields();
 
+            LangCfg.translateControlTexts(this);
+
             // if flag set, return (is sufficient to create control texts list)
             if (GeneralUtilities.CloseAfterConstructing)
             {
-                LangCfg.translateControlTexts(this);
                 FormFindQuery theFormFindQuery = new FormFindQuery(filterDefinitions, queryExampleForScreenShot, this);
                 return;
             }
+
+            CustomizationInterface.setFormToCustomizedValuesZoomInitial(this);
 
             if (!exceptionLoadDataTable.Equals(""))
             {
@@ -270,7 +272,6 @@ namespace QuickImageComment
         public void createScreenShot()
         {
             dynamicLabelFolder.Text = FolderName;
-            LangCfg.translateControlTexts(this);
 
             Show();
             Refresh();
@@ -519,7 +520,7 @@ namespace QuickImageComment
             dateTimePicker.AutoSize = this.dateTimePicker.AutoSize;
             // do net set Font, shall be inherited by parent
             dateTimePicker.ForeColor = this.dateTimePicker.ForeColor;
-            dateTimePicker.BackColor = this.dateTimePicker.BackColor;
+            dateTimePicker.BackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorNotEnabled);
             dateTimePicker.Size = this.dateTimePicker.Size;
             dateTimePicker.Height = this.dateTimePicker.Height;
 
@@ -537,7 +538,7 @@ namespace QuickImageComment
             comboBoxOperator.AutoSize = dynamicComboBoxOperator.AutoSize;
             // do net set Font, shall be inherited by parent
             comboBoxOperator.ForeColor = dynamicComboBoxOperator.ForeColor;
-            comboBoxOperator.BackColor = dynamicComboBoxOperator.BackColor;
+            comboBoxOperator.BackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorInputUnchanged);
             comboBoxOperator.Size = dynamicComboBoxOperator.Size;
             comboBoxOperator.Height = dynamicComboBoxOperator.Height;
             comboBoxOperator.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -557,7 +558,7 @@ namespace QuickImageComment
             comboBoxValue.AutoSize = dynamicComboBoxValue.AutoSize;
             // do net set Font, shall be inherited by parent
             comboBoxValue.ForeColor = dynamicComboBoxValue.ForeColor;
-            comboBoxValue.BackColor = dynamicComboBoxValue.BackColor;
+            comboBoxValue.BackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorNotEnabled);
             comboBoxValue.Size = dynamicComboBoxValue.Size;
             comboBoxValue.Height = dynamicComboBoxValue.Height;
 

@@ -79,15 +79,15 @@ namespace QuickImageComment
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.tableLayoutPanelMap = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.checkBoxFilterGPS = new System.Windows.Forms.CheckBox();
+            this.checkBoxFilterGPS = new QuickImageComment.Controls.CheckBoxQIC();
             this.dynamicLabelLengthUnit = new System.Windows.Forms.Label();
             this.numericUpDownGpsRange = new System.Windows.Forms.NumericUpDown();
             this.tableLayoutPanelKeyWords = new System.Windows.Forms.TableLayoutPanel();
             this.treeViewKeyWords = new QuickImageCommentControls.TreeViewKeyWords();
             this.labelKeyWords = new System.Windows.Forms.Label();
-            this.checkBoxShowDataTable = new System.Windows.Forms.CheckBox();
+            this.checkBoxShowDataTable = new QuickImageComment.Controls.CheckBoxQIC();
             this.backgroundWorkerInit = new System.ComponentModel.BackgroundWorker();
-            this.checkBoxSaveFindDataTable = new System.Windows.Forms.CheckBox();
+            this.checkBoxSaveFindDataTable = new QuickImageComment.Controls.CheckBoxQIC();
             this.backgroundWorkerUpdate = new System.ComponentModel.BackgroundWorker();
             this.buttonQuery = new QuickImageCommentControls.ButtonQIC();
             this.progressPanel1 = new QuickImageComment.ProgressPanel();
@@ -483,6 +483,7 @@ namespace QuickImageComment
             // 
             // numericUpDownGpsRange
             // 
+            this.numericUpDownGpsRange.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownGpsRange.DecimalPlaces = 1;
             this.numericUpDownGpsRange.Location = new System.Drawing.Point(218, 1);
             this.numericUpDownGpsRange.Maximum = new decimal(new int[] {
@@ -491,7 +492,7 @@ namespace QuickImageComment
             0,
             0});
             this.numericUpDownGpsRange.Name = "numericUpDownGpsRange";
-            this.numericUpDownGpsRange.Size = new System.Drawing.Size(64, 21);
+            this.numericUpDownGpsRange.Size = new System.Drawing.Size(64, 17);
             this.numericUpDownGpsRange.TabIndex = 3;
             this.numericUpDownGpsRange.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.numericUpDownGpsRange.ThousandsSeparator = true;
@@ -688,14 +689,14 @@ namespace QuickImageComment
         private System.ComponentModel.BackgroundWorker backgroundWorkerInit;
         private System.Windows.Forms.Label dynamicLabelLengthUnit;
         private System.Windows.Forms.NumericUpDown numericUpDownGpsRange;
-        private System.Windows.Forms.CheckBox checkBoxShowDataTable;
-        private System.Windows.Forms.CheckBox checkBoxSaveFindDataTable;
+        private QuickImageComment.Controls.CheckBoxQIC checkBoxShowDataTable;
+        private QuickImageComment.Controls.CheckBoxQIC checkBoxSaveFindDataTable;
         private System.ComponentModel.BackgroundWorker backgroundWorkerUpdate;
         private System.Windows.Forms.SplitContainer splitContainer2;
         private QuickImageCommentControls.TreeViewKeyWords treeViewKeyWords;
         private System.Windows.Forms.Label labelKeyWords;
         private QuickImageCommentControls.ButtonQIC buttonQuery;
-        internal System.Windows.Forms.CheckBox checkBoxFilterGPS;
+        internal QuickImageComment.Controls.CheckBoxQIC checkBoxFilterGPS;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelMap;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelKeyWords;
         private System.Windows.Forms.Panel panel1;
