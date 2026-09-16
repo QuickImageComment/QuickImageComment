@@ -12,6 +12,7 @@ namespace QuickImageCommentControls
         // FlatStyle has no impact as it is not considered on OnPaint
         [Browsable(false)]
         [EditorBrowsable(EditorBrowsableState.Never)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public new FlatStyle FlatStyle
         {
             get => FlatStyle.Flat;
