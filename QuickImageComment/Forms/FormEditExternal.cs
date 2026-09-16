@@ -437,24 +437,24 @@ namespace QuickImageComment
         {
             // controls for choice program
             buttonSelectApplication.Enabled = radioButtonProgram.Checked;
-            labelProgramPath.Enabled = radioButtonProgram.Checked;
+            labelProgramPath.SetEnabledAppearance(radioButtonProgram.Checked);
             textBoxProgramPath.Enabled = radioButtonProgram.Checked;
             buttonBrowse.Enabled = radioButtonProgram.Checked;
-            labelProgramOptions.Enabled = radioButtonProgram.Checked;
+            labelProgramOptions.SetEnabledAppearance(radioButtonProgram.Checked);
             textBoxProgramOptions.Enabled = radioButtonProgram.Checked;
             checkBoxOptionsFirst.Enabled = radioButtonProgram.Checked;
             checkBoxDropOnWindow.Enabled = radioButtonProgram.Checked;
-            labelWindowTitle.Enabled = radioButtonProgram.Checked;
+            labelWindowTitle.SetEnabledAppearance(radioButtonProgram.Checked);
             textBoxWindowsTitle.Enabled = radioButtonProgram.Checked;
 
             // controls for choice batch
-            labelBatchCommand.Enabled = radioButtonBatchCommand.Checked;
+            labelBatchCommand.SetEnabledAppearance(radioButtonBatchCommand.Checked);
             textBoxBatchCommand.Enabled = radioButtonBatchCommand.Checked;
             checkBoxWindowPauseAfterExecution.Enabled = radioButtonBatchCommand.Checked;
-            labelPlaceholder.Enabled = radioButtonBatchCommand.Checked;
+            labelPlaceholder.SetEnabledAppearance(radioButtonBatchCommand.Checked);
 
             // controls for choice URI
-            labelUri.Enabled = radioButtonUri.Checked;
+            labelUri.SetEnabledAppearance(radioButtonUri.Checked);
             textBoxUri.Enabled = radioButtonUri.Checked;
         }
 
@@ -462,7 +462,7 @@ namespace QuickImageComment
         private void enableDisableControlsBasedOnSelection()
         {
             // general controls
-            labelName.Enabled = listBoxExternalCommands.SelectedIndex >= 0;
+            labelName.SetEnabledAppearance(listBoxExternalCommands.SelectedIndex >= 0);
             textBoxName.Enabled = listBoxExternalCommands.SelectedIndex >= 0;
             radioButtonBatchCommand.Enabled = listBoxExternalCommands.SelectedIndex >= 0;
             radioButtonProgram.Enabled = listBoxExternalCommands.SelectedIndex >= 0;
