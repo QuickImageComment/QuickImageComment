@@ -149,14 +149,19 @@ namespace QuickImageCommentControls
                 var rect = ClientRectangle;
                 // reduce width for width of arrow
                 var back = this.BackColor;
-                if (!Enabled) back = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorNotEnabled);
+                var fore = this.ForeColor;
+                if (!Enabled)
+                {
+                    back = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorNotEnabled);
+                    fore = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.ForeColorNotEnabled);
+                }
                 g.FillRectangle(new SolidBrush(back), rect);
                 // if not enabled, text is drawn via EditSubclass
                 // reduce rectangle not to write in space for arrow
                 var textRect = rect;
                 textRect.Width -= 16;
-                if (Enabled) TextRenderer.DrawText(g, this.Text, Font, textRect, ForeColor,
-                                    TextFormatFlags.Left | TextFormatFlags.VerticalCenter);
+                TextRenderer.DrawText(g, this.Text, Font, textRect, fore,
+                                      TextFormatFlags.Left | TextFormatFlags.VerticalCenter);
                 DrawArrow(g, rect);
             }
         }
