@@ -41,8 +41,8 @@ namespace QuickImageComment
             this.Dynamic_ColumnIconPath = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.listViewIcons = new System.Windows.Forms.ListView();
             this.pictureBoxProgramPath = new System.Windows.Forms.PictureBox();
-            this.radioButtonProgrammPath = new System.Windows.Forms.RadioButton();
-            this.radioButtonImagePath = new System.Windows.Forms.RadioButton();
+            this.radioButtonProgrammPath = new QuickImageComment.Controls.RadioButtonQIC();
+            this.radioButtonImagePath = new QuickImageComment.Controls.RadioButtonQIC();
             this.pictureBoxImagePath = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.textBoxInfo = new QuickImageCommentControls.TextBoxQIC();
@@ -437,8 +437,8 @@ namespace QuickImageComment
         private System.Windows.Forms.ListView listViewIcons;
         private QuickImageCommentControls.ButtonQIC buttonAssign;
         private System.Windows.Forms.PictureBox pictureBoxProgramPath;
-        private System.Windows.Forms.RadioButton radioButtonProgrammPath;
-        private System.Windows.Forms.RadioButton radioButtonImagePath;
+        private QuickImageComment.Controls.RadioButtonQIC radioButtonProgrammPath;
+        private QuickImageComment.Controls.RadioButtonQIC radioButtonImagePath;
         private System.Windows.Forms.PictureBox pictureBoxImagePath;
         private QuickImageCommentControls.ButtonQIC buttonBrowse;
         private QuickImageCommentControls.TextBoxQIC textBoxImagePath;

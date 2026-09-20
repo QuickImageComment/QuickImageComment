@@ -320,7 +320,7 @@ namespace QuickImageComment
         {
             if (listViewIcons.SelectedItems.Count > 0) listViewIcons.SelectedItems[0].Selected = false;
             radioButtonProgrammPath.Checked = false;
-            radioButtonProgrammPath.Enabled = false;
+            radioButtonProgrammPath.SetEnabledAppearance(false);
             radioButtonImagePath.Checked = false;
             pictureBoxProgramPath.Image = null;
             uriIconName = "";
@@ -339,21 +339,21 @@ namespace QuickImageComment
                     if (editExternalDefinition.commandType == EditExternalDefinition.CommandType.ProgramReference)
                     {
                         pictureBoxProgramPath.Image = GeneralUtilities.getBitMapFromPath(editExternalDefinition.programPath);
-                        radioButtonProgrammPath.Enabled = true;
+                        radioButtonProgrammPath.SetEnabledAppearance(true);
                     }
                     else if (editExternalDefinition.commandType == EditExternalDefinition.CommandType.URI &&
                              editExternalDefinition.commandOrOptions.StartsWith("ms-photos:viewer"))
                     {
                         uriIconName = "_forURI_ms_photos";
                         pictureBoxProgramPath.Image = (System.Drawing.Image)Properties.Resources.ResourceManager.GetObject(uriIconName);
-                        radioButtonProgrammPath.Enabled = true;
+                        radioButtonProgrammPath.SetEnabledAppearance(true);
                     }
                 }
                 if (System.IO.File.Exists((string)selectedRow.Cells[3].Value))
                 {
                     textBoxImagePath.Text = (string)selectedRow.Cells[3].Value;
                     pictureBoxImagePath.Image = GeneralUtilities.getBitMapFromPath(textBoxImagePath.Text);
-                    radioButtonImagePath.Enabled = true;
+                    radioButtonImagePath.SetEnabledAppearance(true);
                 }
             }
         }
@@ -363,12 +363,12 @@ namespace QuickImageComment
             if (textBoxImagePath.Text.Equals(""))
             {
                 pictureBoxImagePath.Image = null;
-                radioButtonImagePath.Enabled = false;
+                radioButtonImagePath.SetEnabledAppearance(false);
             }
             else
             {
                 pictureBoxImagePath.Image = GeneralUtilities.getBitMapFromPath(textBoxImagePath.Text);
-                radioButtonImagePath.Enabled = true;
+                radioButtonImagePath.SetEnabledAppearance(true);
             }
         }
 
