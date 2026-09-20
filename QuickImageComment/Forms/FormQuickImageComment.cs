@@ -2956,8 +2956,8 @@ namespace QuickImageComment
         internal void adjustAfterScaleChange(int zoomFactorPercentGeneral, int zoomFactorPercentToolbar, int zoomFactorPercentThumbnail)
         {
             bool generalChanged = zoomFactorPercentGeneral != ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.zoomFactorPerCentGeneral);
-            bool toolbarChanged = zoomFactorPercentGeneral != ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.zoomFactorPerCentToolbar);
-            bool thumbnailChanged = zoomFactorPercentGeneral != ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.zoomFactorPerCentThumbnail);
+            bool toolbarChanged = zoomFactorPercentToolbar != ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.zoomFactorPerCentToolbar);
+            bool thumbnailChanged = zoomFactorPercentThumbnail != ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.zoomFactorPerCentThumbnail);
 
             if (generalChanged || toolbarChanged || thumbnailChanged)
             {
@@ -4514,11 +4514,11 @@ namespace QuickImageComment
         // only one file is selected
         internal void setMultiImageControlsEnabled(bool enable)
         {
-            checkBoxArtistChange.Enabled = enable;
+            checkBoxArtistChange.SetEnabledAppearance(enable);
             comboBoxCommentChange.Enabled = enable;
             comboBoxKeyWordsChange.Enabled = enable;
-            checkBoxGpsDataChange.Enabled = enable;
-            checkBoxRatingChange.Enabled = enable;
+            checkBoxGpsDataChange.SetEnabledAppearance(enable);
+            checkBoxRatingChange.SetEnabledAppearance(enable);
             checkedListBoxChangeableFieldsChange.Enabled = enable;
 
             toolStripMenuItemCompare.Enabled = enable;
@@ -7443,7 +7443,8 @@ namespace QuickImageComment
             new FormExifToolSettings();
             new FormExportAllMetaData(theUserControlFiles.listViewFiles.SelectedIndices, FolderName, FormExportAllMetaData.enumExImPortMode.TextExport);
             new FormExportMetaData(FolderName);
-            new FormFind(true);
+            //FormFind covered with FormFindQuery
+            //new FormFind(true);
             new FormFindQuery(new ArrayList(), "", new FormFind(true));
             new FormFindReadErrors();
             new FormFirstUserSettings(true);
