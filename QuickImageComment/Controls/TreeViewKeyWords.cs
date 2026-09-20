@@ -35,10 +35,6 @@ namespace QuickImageCommentControls
         protected override void OnDrawNode(DrawTreeNodeEventArgs e)
         {
             //base.OnDrawNode(e);
-            Color backColor = Enabled ? ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorInputUnchanged)
-                                      : ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorNotEnabled);
-            Color foreColor = Enabled ? ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.ForeColorEnabled)
-                                      : ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.ForeColorNotEnabled);
             // full-row highlight WITHOUT covering glyph area
             Rectangle rowRect = new Rectangle(
                 // + 1 to avoid covering glyph area
@@ -48,7 +44,7 @@ namespace QuickImageCommentControls
                 e.Bounds.Height
             );
 
-            using (var b = new SolidBrush(backColor))
+            using (var b = new SolidBrush(BackColor))
                 e.Graphics.FillRectangle(b, rowRect);
 
             TextRenderer.DrawText(
@@ -56,7 +52,7 @@ namespace QuickImageCommentControls
                 e.Node.Text,
                 Font,
                 rowRect,
-                foreColor,
+                ForeColor,
                 TextFormatFlags.Left | TextFormatFlags.VerticalCenter
             );
         }
