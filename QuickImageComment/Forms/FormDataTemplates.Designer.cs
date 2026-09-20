@@ -64,9 +64,6 @@ namespace QuickImageComment
             this.buttonSaveAs = new QuickImageCommentControls.ButtonQIC();
             this.buttonSave = new QuickImageCommentControls.ButtonQIC();
             this.buttonDelete = new QuickImageCommentControls.ButtonQIC();
-            this.buttonQIC1 = new QuickImageCommentControls.ButtonQIC();
-            this.buttonQIC2 = new QuickImageCommentControls.ButtonQIC();
-            this.buttonQIC3 = new QuickImageCommentControls.ButtonQIC();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
@@ -74,7 +71,6 @@ namespace QuickImageComment
             // buttonClose
             // 
             this.buttonClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonClose.Location = new System.Drawing.Point(333, 314);
             this.buttonClose.Name = "buttonClose";
             this.buttonClose.Size = new System.Drawing.Size(99, 26);
@@ -86,7 +82,6 @@ namespace QuickImageComment
             // buttonCustomizeForm
             // 
             this.buttonCustomizeForm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonCustomizeForm.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonCustomizeForm.Location = new System.Drawing.Point(8, 314);
             this.buttonCustomizeForm.Name = "buttonCustomizeForm";
             this.buttonCustomizeForm.Size = new System.Drawing.Size(99, 26);
@@ -98,7 +93,6 @@ namespace QuickImageComment
             // buttonHelp
             // 
             this.buttonHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonHelp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonHelp.Location = new System.Drawing.Point(612, 314);
             this.buttonHelp.Name = "buttonHelp";
             this.buttonHelp.Size = new System.Drawing.Size(99, 26);
@@ -196,101 +190,65 @@ namespace QuickImageComment
             // buttonNewFromMainMask
             // 
             this.buttonNewFromMainMask.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonNewFromMainMask.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonNewFromMainMask.Location = new System.Drawing.Point(101, 285);
             this.buttonNewFromMainMask.Name = "buttonNewFromMainMask";
             this.buttonNewFromMainMask.Size = new System.Drawing.Size(192, 22);
             this.buttonNewFromMainMask.TabIndex = 143;
             this.buttonNewFromMainMask.Text = "Neu - mit Daten aus Hauptmaske";
             this.buttonNewFromMainMask.UseVisualStyleBackColor = true;
+            this.buttonNewFromMainMask.Click += new System.EventHandler(this.buttonNewFromMainMask_Click);
             // 
             // buttonNewEmpty
             // 
             this.buttonNewEmpty.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonNewEmpty.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonNewEmpty.Location = new System.Drawing.Point(8, 285);
             this.buttonNewEmpty.Name = "buttonNewEmpty";
             this.buttonNewEmpty.Size = new System.Drawing.Size(88, 22);
             this.buttonNewEmpty.TabIndex = 142;
             this.buttonNewEmpty.Text = "Neu - leer";
             this.buttonNewEmpty.UseVisualStyleBackColor = true;
+            this.buttonNewEmpty.Click += new System.EventHandler(this.buttonNewEmpty_Click);
             // 
             // buttonSaveAs
             // 
             this.buttonSaveAs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonSaveAs.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonSaveAs.Location = new System.Drawing.Point(406, 285);
             this.buttonSaveAs.Name = "buttonSaveAs";
             this.buttonSaveAs.Size = new System.Drawing.Size(126, 22);
             this.buttonSaveAs.TabIndex = 140;
             this.buttonSaveAs.Text = "Speichern unter ...";
             this.buttonSaveAs.UseVisualStyleBackColor = true;
+            this.buttonSaveAs.Click += new System.EventHandler(this.buttonSaveAs_Click);
             // 
             // buttonSave
             // 
             this.buttonSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonSave.Location = new System.Drawing.Point(332, 285);
+            this.buttonSave.Location = new System.Drawing.Point(333, 285);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(68, 22);
             this.buttonSave.TabIndex = 139;
             this.buttonSave.Text = "Speichern";
             this.buttonSave.UseVisualStyleBackColor = true;
+            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
             // 
             // buttonDelete
             // 
             this.buttonDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonDelete.Location = new System.Drawing.Point(643, 285);
             this.buttonDelete.Name = "buttonDelete";
             this.buttonDelete.Size = new System.Drawing.Size(68, 22);
             this.buttonDelete.TabIndex = 141;
             this.buttonDelete.Text = "Löschen";
             this.buttonDelete.UseVisualStyleBackColor = true;
-            // 
-            // buttonQIC1
-            // 
-            this.buttonQIC1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonQIC1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonQIC1.Location = new System.Drawing.Point(333, 285);
-            this.buttonQIC1.Name = "buttonQIC1";
-            this.buttonQIC1.Size = new System.Drawing.Size(68, 22);
-            this.buttonQIC1.TabIndex = 139;
-            this.buttonQIC1.Text = "Speichern";
-            this.buttonQIC1.UseVisualStyleBackColor = true;
-            // 
-            // buttonQIC2
-            // 
-            this.buttonQIC2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonQIC2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonQIC2.Location = new System.Drawing.Point(410, 285);
-            this.buttonQIC2.Name = "buttonQIC2";
-            this.buttonQIC2.Size = new System.Drawing.Size(126, 22);
-            this.buttonQIC2.TabIndex = 140;
-            this.buttonQIC2.Text = "Speichern unter ...";
-            this.buttonQIC2.UseVisualStyleBackColor = true;
-            // 
-            // buttonQIC3
-            // 
-            this.buttonQIC3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonQIC3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonQIC3.Location = new System.Drawing.Point(105, 285);
-            this.buttonQIC3.Name = "buttonQIC3";
-            this.buttonQIC3.Size = new System.Drawing.Size(192, 22);
-            this.buttonQIC3.TabIndex = 143;
-            this.buttonQIC3.Text = "Neu - mit Daten aus Hauptmaske";
-            this.buttonQIC3.UseVisualStyleBackColor = true;
+            this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
             // 
             // FormDataTemplates
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(722, 346);
-            this.Controls.Add(this.buttonQIC3);
             this.Controls.Add(this.buttonNewFromMainMask);
-            this.Controls.Add(this.buttonQIC2);
             this.Controls.Add(this.buttonNewEmpty);
-            this.Controls.Add(this.buttonQIC1);
             this.Controls.Add(this.buttonSaveAs);
             this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.buttonDelete);
@@ -335,8 +293,5 @@ namespace QuickImageComment
         private QuickImageCommentControls.ButtonQIC buttonSaveAs;
         private QuickImageCommentControls.ButtonQIC buttonSave;
         private QuickImageCommentControls.ButtonQIC buttonDelete;
-        private QuickImageCommentControls.ButtonQIC buttonQIC1;
-        private QuickImageCommentControls.ButtonQIC buttonQIC2;
-        private QuickImageCommentControls.ButtonQIC buttonQIC3;
     }
 }
