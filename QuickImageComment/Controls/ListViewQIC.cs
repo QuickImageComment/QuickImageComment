@@ -1,18 +1,35 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
 namespace QuickImageCommentControls
 {
+    [DesignerCategory("Code")]
     internal class ListViewQIC : ListView
     {
+        private bool IsInDesignMode
+        {
+            get
+            {
+                return DesignMode || (Site?.DesignMode ?? false);
+            }
+        }
+
         internal ListViewQIC()
         {
-            this.OwnerDraw = true;
+            if (!IsInDesignMode)
+                this.OwnerDraw = true;
         }
 
         protected override void OnDrawColumnHeader(DrawListViewColumnHeaderEventArgs e)
         {
+            if (IsInDesignMode)
+            {
+                e.DrawDefault = true;
+                return;
+            }
+            
             // Your custom header background color
             Color back = this.BackColor;
             Color text = this.ForeColor;
@@ -76,6 +93,11 @@ namespace QuickImageCommentControls
         // mainly to avoid white area in header in dark mode
         internal void adjustLastColumnWidth()
         {
+            if (IsInDesignMode)
+            {
+                return;
+            }
+
             if (this.View != View.Details)
                 return;
 
