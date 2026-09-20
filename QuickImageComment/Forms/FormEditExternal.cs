@@ -442,15 +442,15 @@ namespace QuickImageComment
             buttonBrowse.Enabled = radioButtonProgram.Checked;
             labelProgramOptions.SetEnabledAppearance(radioButtonProgram.Checked);
             textBoxProgramOptions.Enabled = radioButtonProgram.Checked;
-            checkBoxOptionsFirst.Enabled = radioButtonProgram.Checked;
-            checkBoxDropOnWindow.Enabled = radioButtonProgram.Checked;
+            checkBoxOptionsFirst.SetEnabledAppearance(radioButtonProgram.Checked);
+            checkBoxDropOnWindow.SetEnabledAppearance(radioButtonProgram.Checked);
             labelWindowTitle.SetEnabledAppearance(radioButtonProgram.Checked);
             textBoxWindowsTitle.Enabled = radioButtonProgram.Checked;
 
             // controls for choice batch
             labelBatchCommand.SetEnabledAppearance(radioButtonBatchCommand.Checked);
             textBoxBatchCommand.Enabled = radioButtonBatchCommand.Checked;
-            checkBoxWindowPauseAfterExecution.Enabled = radioButtonBatchCommand.Checked;
+            checkBoxWindowPauseAfterExecution.SetEnabledAppearance(radioButtonBatchCommand.Checked);
             labelPlaceholder.SetEnabledAppearance(radioButtonBatchCommand.Checked);
 
             // controls for choice URI

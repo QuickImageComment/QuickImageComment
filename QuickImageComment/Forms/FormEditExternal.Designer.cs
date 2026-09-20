@@ -93,7 +93,6 @@ namespace QuickImageComment
             // buttonAbort
             // 
             this.buttonAbort.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonAbort.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonAbort.Location = new System.Drawing.Point(484, 451);
             this.buttonAbort.Name = "buttonAbort";
             this.buttonAbort.Size = new System.Drawing.Size(95, 22);
@@ -115,7 +114,6 @@ namespace QuickImageComment
             // 
             // buttonUp
             // 
-            this.buttonUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonUp.Location = new System.Drawing.Point(223, 8);
             this.buttonUp.Name = "buttonUp";
             this.buttonUp.Size = new System.Drawing.Size(95, 22);
@@ -126,7 +124,6 @@ namespace QuickImageComment
             // 
             // buttonDown
             // 
-            this.buttonDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonDown.Location = new System.Drawing.Point(223, 34);
             this.buttonDown.Name = "buttonDown";
             this.buttonDown.Size = new System.Drawing.Size(95, 22);
@@ -137,7 +134,6 @@ namespace QuickImageComment
             // 
             // buttonNew
             // 
-            this.buttonNew.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonNew.Location = new System.Drawing.Point(223, 73);
             this.buttonNew.Name = "buttonNew";
             this.buttonNew.Size = new System.Drawing.Size(95, 22);
@@ -149,7 +145,6 @@ namespace QuickImageComment
             // buttonOk
             // 
             this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonOk.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonOk.Location = new System.Drawing.Point(246, 451);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(95, 22);
@@ -160,7 +155,6 @@ namespace QuickImageComment
             // 
             // buttonCopy
             // 
-            this.buttonCopy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonCopy.Location = new System.Drawing.Point(223, 99);
             this.buttonCopy.Name = "buttonCopy";
             this.buttonCopy.Size = new System.Drawing.Size(95, 22);
@@ -171,7 +165,6 @@ namespace QuickImageComment
             // 
             // buttonDelete
             // 
-            this.buttonDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonDelete.Location = new System.Drawing.Point(223, 125);
             this.buttonDelete.Name = "buttonDelete";
             this.buttonDelete.Size = new System.Drawing.Size(95, 22);
@@ -183,7 +176,6 @@ namespace QuickImageComment
             // buttonCustomizeForm
             // 
             this.buttonCustomizeForm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonCustomizeForm.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonCustomizeForm.Location = new System.Drawing.Point(5, 451);
             this.buttonCustomizeForm.Name = "buttonCustomizeForm";
             this.buttonCustomizeForm.Size = new System.Drawing.Size(98, 22);
@@ -195,7 +187,6 @@ namespace QuickImageComment
             // buttonHelp
             // 
             this.buttonHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonHelp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonHelp.Location = new System.Drawing.Point(722, 451);
             this.buttonHelp.Name = "buttonHelp";
             this.buttonHelp.Size = new System.Drawing.Size(95, 22);
@@ -368,7 +359,6 @@ namespace QuickImageComment
             // 
             // buttonExecute
             // 
-            this.buttonExecute.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonExecute.Location = new System.Drawing.Point(223, 177);
             this.buttonExecute.Name = "buttonExecute";
             this.buttonExecute.Size = new System.Drawing.Size(95, 22);
@@ -380,7 +370,6 @@ namespace QuickImageComment
             // buttonBrowse
             // 
             this.buttonBrowse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonBrowse.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonBrowse.Image = ((System.Drawing.Image)(resources.GetObject("buttonBrowse.Image")));
             this.buttonBrowse.Location = new System.Drawing.Point(343, 3);
             this.buttonBrowse.Name = "buttonBrowse";
@@ -435,7 +424,6 @@ namespace QuickImageComment
             // buttonSelectApplication
             // 
             this.buttonSelectApplication.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonSelectApplication.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonSelectApplication.Location = new System.Drawing.Point(166, 75);
             this.buttonSelectApplication.Name = "buttonSelectApplication";
             this.buttonSelectApplication.Size = new System.Drawing.Size(370, 26);
