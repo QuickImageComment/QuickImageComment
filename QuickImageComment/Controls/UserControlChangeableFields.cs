@@ -333,9 +333,15 @@ namespace QuickImageComment
                 ((TextBox)anInputControl).ScrollBars = ScrollBars.Vertical;
                 if (aMetaDataDefinitionItem.LinesForChange > 1)
                 {
-                    // adjust height to number of lines; "7" considers free space in top and bottom of control
-                    anInputControl.Height = textBoxChangeableField.Height
-                        + (textBoxChangeableField.Height - 7) * (aMetaDataDefinitionItem.LinesForChange - 1);
+                    // adjust height to number of lines;
+                    if (textBoxChangeableField.BorderStyle == BorderStyle.None)
+                        anInputControl.Height = textBoxChangeableField.Height * aMetaDataDefinitionItem.LinesForChange;
+                    else
+                    {
+                        // "7" considers free space in top and bottom of control with border
+                        anInputControl.Height = textBoxChangeableField.Height
+                                                + (textBoxChangeableField.Height - 7) * (aMetaDataDefinitionItem.LinesForChange - 1);
+                    }
                 }
                 else
                 {
