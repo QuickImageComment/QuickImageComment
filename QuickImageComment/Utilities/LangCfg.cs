@@ -242,7 +242,8 @@ namespace QuickImageComment
             E_ExifToolWrapperError,
             E_ExifToolReponseParsingError,
             Q_differentRatingFromRatingControl,
-            Q_showRatingRejectButton
+            Q_showRatingRejectButton,
+            Q_nameForExifToolCommand
         }
 
         public enum Others
@@ -398,7 +399,8 @@ namespace QuickImageComment
             folderForSearchInvalid,
             differentKeywords,
             ratingReject,
-            licence
+            licence,
+            working
         }
 
         // defined as variable
@@ -1012,11 +1014,11 @@ namespace QuickImageComment
                     }
                 }
             }
-
-            if (ParentControl is ComboBox box
+            // includes derived ComboBoxQIC
+            else if (ParentControl is ComboBox box
                 && !ParentControl.Name.StartsWith("dynamic")
                 // input control's names in configurable input area start like this ...
-                && !ParentControl.Name.StartsWith("System.Windows.Forms"))
+                && !ParentControl.Name.StartsWith("QuickImageCommentControls."))
             {
                 for (int ii = 0; ii < box.Items.Count; ii++)
                 {

@@ -134,7 +134,7 @@ namespace QuickImageComment
             this.label11 = new System.Windows.Forms.Label();
             this.buttonExifToolSettings = new QuickImageCommentControls.ButtonQIC();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.comboBoxColorTheme = new QuickImageCommentControls.ComboBoxQIC();
+            this.dynamicComboBoxColorTheme = new QuickImageCommentControls.ComboBoxQIC();
             this.label12 = new System.Windows.Forms.Label();
             this.checkBoxShowRatingButtonReject = new QuickImageComment.Controls.CheckBoxQIC();
             this.checkBoxLogDiffMetaData = new QuickImageComment.Controls.CheckBoxQIC();
@@ -1104,7 +1104,6 @@ namespace QuickImageComment
             // 
             // buttonExifToolSettings
             // 
-            this.buttonExifToolSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonExifToolSettings.Location = new System.Drawing.Point(3, 33);
             this.buttonExifToolSettings.Name = "buttonExifToolSettings";
             this.buttonExifToolSettings.Size = new System.Drawing.Size(194, 24);
@@ -1116,7 +1115,7 @@ namespace QuickImageComment
             // panel3
             // 
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel3.Controls.Add(this.comboBoxColorTheme);
+            this.panel3.Controls.Add(this.dynamicComboBoxColorTheme);
             this.panel3.Controls.Add(this.label12);
             this.panel3.Controls.Add(this.checkBoxShowRatingButtonReject);
             this.panel3.Controls.Add(this.checkBoxLogDiffMetaData);
@@ -1129,15 +1128,15 @@ namespace QuickImageComment
             this.panel3.Size = new System.Drawing.Size(983, 65);
             this.panel3.TabIndex = 36;
             // 
-            // comboBoxColorTheme
+            // dynamicComboBoxColorTheme
             // 
-            this.comboBoxColorTheme.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.comboBoxColorTheme.FormattingEnabled = true;
-            this.comboBoxColorTheme.Location = new System.Drawing.Point(766, 24);
-            this.comboBoxColorTheme.Name = "comboBoxColorTheme";
-            this.comboBoxColorTheme.Size = new System.Drawing.Size(141, 22);
-            this.comboBoxColorTheme.TabIndex = 42;
-            this.comboBoxColorTheme.SelectedIndexChanged += new System.EventHandler(this.comboBoxColorTheme_SelectedIndexChanged);
+            this.dynamicComboBoxColorTheme.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.dynamicComboBoxColorTheme.FormattingEnabled = true;
+            this.dynamicComboBoxColorTheme.Location = new System.Drawing.Point(766, 24);
+            this.dynamicComboBoxColorTheme.Name = "dynamicComboBoxColorTheme";
+            this.dynamicComboBoxColorTheme.Size = new System.Drawing.Size(141, 22);
+            this.dynamicComboBoxColorTheme.TabIndex = 42;
+            this.dynamicComboBoxColorTheme.SelectedIndexChanged += new System.EventHandler(this.dynamicComboBoxColorTheme_SelectedIndexChanged);
             // 
             // label12
             // 
@@ -1236,7 +1235,6 @@ namespace QuickImageComment
             // buttonCustomizeForm
             // 
             this.buttonCustomizeForm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonCustomizeForm.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonCustomizeForm.Location = new System.Drawing.Point(4, 583);
             this.buttonCustomizeForm.Name = "buttonCustomizeForm";
             this.buttonCustomizeForm.Size = new System.Drawing.Size(99, 26);
@@ -1248,7 +1246,6 @@ namespace QuickImageComment
             // buttonHelp
             // 
             this.buttonHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonHelp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonHelp.Location = new System.Drawing.Point(649, 583);
             this.buttonHelp.Name = "buttonHelp";
             this.buttonHelp.Size = new System.Drawing.Size(99, 26);
@@ -1260,7 +1257,6 @@ namespace QuickImageComment
             // buttonCancel
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonCancel.Location = new System.Drawing.Point(380, 583);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(99, 26);
@@ -1272,7 +1268,6 @@ namespace QuickImageComment
             // buttonOK
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonOK.Location = new System.Drawing.Point(276, 583);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(99, 26);
@@ -1449,7 +1444,7 @@ namespace QuickImageComment
         private QuickImageCommentControls.ButtonQIC   buttonOK;
         private QuickImageCommentControls.ButtonQIC   buttonHelp;
         private System.Windows.Forms.Label label12;
-        private QuickImageCommentControls.ComboBoxQIC comboBoxColorTheme;
+        private QuickImageCommentControls.ComboBoxQIC dynamicComboBoxColorTheme;
         private Controls.CheckBoxQIC checkBoxKeepImageBakFile;
         private Controls.CheckBoxQIC checkBoxSaveWithReturn;
         private Controls.CheckBoxQIC checkBoxLastCommentsWithCursor;

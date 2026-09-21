@@ -131,17 +131,17 @@ namespace QuickImageComment
 
             for (int ii = 0; ii < colorThemeNames.Length; ii++)
             {
-                comboBoxColorTheme.Items.Add(colorThemeNames[ii]);
+                dynamicComboBoxColorTheme.Items.Add(colorThemeNames[ii]);
             }
             foreach (string themeName in ConfigDefinition.ThemeNames)
             {
-                comboBoxColorTheme.Items.Add(themeName);
+                dynamicComboBoxColorTheme.Items.Add(themeName);
             }
             for (int ii = 0; ii < colorThemeNames.Length; ii++)
             {
                 if (ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.ColorThemeName).Equals(colorThemeConfig[ii]))
                 {
-                    comboBoxColorTheme.SelectedIndex = ii;
+                    dynamicComboBoxColorTheme.SelectedIndex = ii;
                     break;
                 }
             }
@@ -326,17 +326,17 @@ namespace QuickImageComment
             }
         }
 
-        private void comboBoxColorTheme_SelectedIndexChanged(object sender, EventArgs e)
+        private void dynamicComboBoxColorTheme_SelectedIndexChanged(object sender, EventArgs e)
         {
             // first adjust main mask which includes setting theme in customizer
             // including checking if system is in dark mode (which is also needed when initializing the main mask)
-            if (comboBoxColorTheme.SelectedIndex < colorThemeNames.Length)
+            if (dynamicComboBoxColorTheme.SelectedIndex < colorThemeNames.Length)
             {
-                MainMaskInterface.adjustAfterColorThemeChange(colorThemeConfig[comboBoxColorTheme.SelectedIndex]);
+                MainMaskInterface.adjustAfterColorThemeChange(colorThemeConfig[dynamicComboBoxColorTheme.SelectedIndex]);
             }
             else
             {
-                MainMaskInterface.adjustAfterColorThemeChange(comboBoxColorTheme.Text);
+                MainMaskInterface.adjustAfterColorThemeChange(dynamicComboBoxColorTheme.Text);
             }
 
             // set theme for all activated forms (excluding main mask)

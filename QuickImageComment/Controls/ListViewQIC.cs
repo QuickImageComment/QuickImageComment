@@ -29,7 +29,7 @@ namespace QuickImageCommentControls
                 e.DrawDefault = true;
                 return;
             }
-            
+
             // Your custom header background color
             Color back = this.BackColor;
             Color text = this.ForeColor;
