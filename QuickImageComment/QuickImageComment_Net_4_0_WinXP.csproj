@@ -109,6 +109,9 @@
     <Compile Include="Controls\ButtonQIC.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controls\CheckBoxQIC.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\CheckedListBoxItemBackcolor.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -118,7 +121,23 @@
     <Compile Include="Controls\DateTimePickerQIC.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controls\GoupBoxQIC.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\LabelSetEnabledAppearance.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\ListViewQIC.cs" />
     <Compile Include="Controls\pictureBoxQIC.cs" />
+    <Compile Include="Controls\RadioButtonQIC.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\TextBoxHighlightText.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\TextBoxQIC.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\ToolTipQIC.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -456,9 +475,7 @@
     <Compile Include="Controls\ListViewMetaData.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\ListViewFiles.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Controls\ListViewFiles.cs" />
     <Compile Include="Utilities\Logger.cs" />
     <Compile Include="Utilities\MainMaskInterface.cs" />
     <Compile Include="Utilities\MapInExternalBrowser.cs" />
