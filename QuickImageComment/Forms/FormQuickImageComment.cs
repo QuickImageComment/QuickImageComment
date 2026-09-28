@@ -303,6 +303,14 @@ namespace QuickImageComment
             Program.StartupPerformance.measure("FormQIC init start");
             readFolderPerfomance = new Performance();
 
+            pictureBox1.zoomChanged += pictureBox1_zoomChanged;
+
+            if (DisplayFolder.Equals("") || !Directory.Exists(DisplayFolder))
+                // DisplayFolder is blank in case there is no common root folder for files given on command line
+                FolderName = GongSolutions.Shell.ShellItem.Desktop.FileSystemPath;
+            else
+                FolderName = DisplayFolder;
+                
 #if USESTARTUPTHREAD
             Thread StartupExifToolInitNewFolderThread = new Thread(StartupExifToolInitNewFolder)
             {
@@ -312,13 +320,6 @@ namespace QuickImageComment
 #else
             StartupExifToolInitNewFolder();
 #endif
-            pictureBox1.zoomChanged += pictureBox1_zoomChanged;
-
-            if (DisplayFolder.Equals("") || !Directory.Exists(DisplayFolder))
-                // DisplayFolder is blank in case there is no common root folder for files given on command line
-                FolderName = GongSolutions.Shell.ShellItem.Desktop.FileSystemPath;
-            else
-                FolderName = DisplayFolder;
 
             // create and init user control for files
             theUserControlFiles = new UserControlFiles
