@@ -30,7 +30,7 @@ public sealed class DpiMonitor : IDisposable
         Microsoft.Win32.SystemEvents.DisplaySettingsChanged -= OnDisplaySettingsChanged;
     }
 
-    private static int GetSystemDpi()
+    public static int GetSystemDpi()
     {
         using (Graphics g = Graphics.FromHwnd(IntPtr.Zero))
             return (int)g.DpiX;
