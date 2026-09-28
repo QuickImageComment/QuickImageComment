@@ -313,16 +313,6 @@ namespace QuickImageComment.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Delete2 {
-            get {
-                object obj = ResourceManager.GetObject("Delete2", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap Designer {
             get {
                 object obj = ResourceManager.GetObject("Designer", resourceCulture);
@@ -423,16 +413,6 @@ namespace QuickImageComment.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Error1 {
-            get {
-                object obj = ResourceManager.GetObject("Error1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap Export {
             get {
                 object obj = ResourceManager.GetObject("Export", resourceCulture);
@@ -506,16 +486,6 @@ namespace QuickImageComment.Properties {
         internal static System.Drawing.Bitmap Forward {
             get {
                 object obj = ResourceManager.GetObject("Forward", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Forward1 {
-            get {
-                object obj = ResourceManager.GetObject("Forward1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -693,16 +663,6 @@ namespace QuickImageComment.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Key1 {
-            get {
-                object obj = ResourceManager.GetObject("Key1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap LAB_color_model {
             get {
                 object obj = ResourceManager.GetObject("LAB_color_model", resourceCulture);
@@ -733,29 +693,9 @@ namespace QuickImageComment.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Left1 {
-            get {
-                object obj = ResourceManager.GetObject("Left1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap List {
             get {
                 object obj = ResourceManager.GetObject("List", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap List1 {
-            get {
-                object obj = ResourceManager.GetObject("List1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1043,29 +983,9 @@ namespace QuickImageComment.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Refresh1 {
-            get {
-                object obj = ResourceManager.GetObject("Refresh1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap Rename {
             get {
                 object obj = ResourceManager.GetObject("Rename", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Rename1 {
-            get {
-                object obj = ResourceManager.GetObject("Rename1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1103,16 +1023,6 @@ namespace QuickImageComment.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Revert1 {
-            get {
-                object obj = ResourceManager.GetObject("Revert1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap RGB {
             get {
                 object obj = ResourceManager.GetObject("RGB", resourceCulture);
@@ -1126,16 +1036,6 @@ namespace QuickImageComment.Properties {
         internal static System.Drawing.Bitmap Right {
             get {
                 object obj = ResourceManager.GetObject("Right", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Right1 {
-            get {
-                object obj = ResourceManager.GetObject("Right1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1173,29 +1073,9 @@ namespace QuickImageComment.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap RotateLeft1 {
-            get {
-                object obj = ResourceManager.GetObject("RotateLeft1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap RotateRight {
             get {
                 object obj = ResourceManager.GetObject("RotateRight", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap RotateRight1 {
-            get {
-                object obj = ResourceManager.GetObject("RotateRight1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1283,16 +1163,6 @@ namespace QuickImageComment.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Settings1 {
-            get {
-                object obj = ResourceManager.GetObject("Settings1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap Sharpness {
             get {
                 object obj = ResourceManager.GetObject("Sharpness", resourceCulture);
@@ -1347,6 +1217,206 @@ namespace QuickImageComment.Properties {
             get {
                 object obj = ResourceManager.GetObject("Stop_playing", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] SVG_Back {
+            get {
+                object obj = ResourceManager.GetObject("SVG_Back", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] SVG_Delete {
+            get {
+                object obj = ResourceManager.GetObject("SVG_Delete", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] SVG_Designer {
+            get {
+                object obj = ResourceManager.GetObject("SVG_Designer", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] SVG_Find {
+            get {
+                object obj = ResourceManager.GetObject("SVG_Find", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] SVG_Forward {
+            get {
+                object obj = ResourceManager.GetObject("SVG_Forward", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] SVG_Import {
+            get {
+                object obj = ResourceManager.GetObject("SVG_Import", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] SVG_Key {
+            get {
+                object obj = ResourceManager.GetObject("SVG_Key", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] SVG_Left {
+            get {
+                object obj = ResourceManager.GetObject("SVG_Left", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] SVG_List {
+            get {
+                object obj = ResourceManager.GetObject("SVG_List", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] SVG_Refresh {
+            get {
+                object obj = ResourceManager.GetObject("SVG_Refresh", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] SVG_Rename {
+            get {
+                object obj = ResourceManager.GetObject("SVG_Rename", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] SVG_Revert {
+            get {
+                object obj = ResourceManager.GetObject("SVG_Revert", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] SVG_Right {
+            get {
+                object obj = ResourceManager.GetObject("SVG_Right", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] SVG_RotateLeft {
+            get {
+                object obj = ResourceManager.GetObject("SVG_RotateLeft", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] SVG_RotateRight {
+            get {
+                object obj = ResourceManager.GetObject("SVG_RotateRight", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] SVG_Save {
+            get {
+                object obj = ResourceManager.GetObject("SVG_Save", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] SVG_Settings {
+            get {
+                object obj = ResourceManager.GetObject("SVG_Settings", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] SVG_Tag {
+            get {
+                object obj = ResourceManager.GetObject("SVG_Tag", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] SVG_Time {
+            get {
+                object obj = ResourceManager.GetObject("SVG_Time", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] SVG_Zoom {
+            get {
+                object obj = ResourceManager.GetObject("SVG_Zoom", resourceCulture);
+                return ((byte[])(obj));
             }
         }
         
@@ -1426,6 +1496,26 @@ namespace QuickImageComment.Properties {
         internal static System.Drawing.Bitmap Time1 {
             get {
                 object obj = ResourceManager.GetObject("Time1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap TimeTP2 {
+            get {
+                object obj = ResourceManager.GetObject("TimeTP2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap TimeTP3 {
+            get {
+                object obj = ResourceManager.GetObject("TimeTP3", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1656,86 +1746,6 @@ namespace QuickImageComment.Properties {
         internal static System.Drawing.Bitmap Zoom {
             get {
                 object obj = ResourceManager.GetObject("Zoom", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Zoom_1 {
-            get {
-                object obj = ResourceManager.GetObject("Zoom_1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Zoom_11 {
-            get {
-                object obj = ResourceManager.GetObject("Zoom_11", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Zoom_2 {
-            get {
-                object obj = ResourceManager.GetObject("Zoom_2", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Zoom_21 {
-            get {
-                object obj = ResourceManager.GetObject("Zoom_21", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Zoom_4 {
-            get {
-                object obj = ResourceManager.GetObject("Zoom_4", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Zoom_41 {
-            get {
-                object obj = ResourceManager.GetObject("Zoom_41", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Zoom_fit {
-            get {
-                object obj = ResourceManager.GetObject("Zoom_fit", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Zoom_fit1 {
-            get {
-                object obj = ResourceManager.GetObject("Zoom_fit1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

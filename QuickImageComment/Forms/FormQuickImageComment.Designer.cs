@@ -2515,12 +2515,16 @@ namespace QuickImageComment
             // toolStripButtonDelete
             // 
             this.toolStripButtonDelete.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.toolStripButtonDelete.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonDelete.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolStripButtonDelete.ForeColor = System.Drawing.SystemColors.ControlText;
             this.toolStripButtonDelete.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonDelete.Image")));
             this.toolStripButtonDelete.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonDelete.Name = "toolStripButtonDelete";
-            this.toolStripButtonDelete.Size = new System.Drawing.Size(36, 35);
-            this.toolStripButtonDelete.Text = "Bild löschen";
+            this.toolStripButtonDelete.Padding = new System.Windows.Forms.Padding(3, 0, 0, 0);
+            this.toolStripButtonDelete.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.toolStripButtonDelete.Size = new System.Drawing.Size(39, 35);
+            this.toolStripButtonDelete.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.toolStripButtonDelete.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
             this.toolStripButtonDelete.ToolTipText = "Bild löschen";
             this.toolStripButtonDelete.Click += new System.EventHandler(this.toolStripButtonDelete_Click);
             this.toolStripButtonDelete.MouseLeave += new System.EventHandler(this.toolStripItem_MouseLeave);
@@ -2534,12 +2538,14 @@ namespace QuickImageComment
             // toolStripButtonImageFit
             // 
             this.toolStripButtonImageFit.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.toolStripButtonImageFit.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonImageFit.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonImageFit.Image")));
+            this.toolStripButtonImageFit.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolStripButtonImageFit.Image = global::QuickImageComment.Properties.Resources.Zoom;
             this.toolStripButtonImageFit.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonImageFit.Name = "toolStripButtonImageFit";
             this.toolStripButtonImageFit.Size = new System.Drawing.Size(36, 35);
-            this.toolStripButtonImageFit.Text = "Zoom - fit";
+            this.toolStripButtonImageFit.Text = "fit";
+            this.toolStripButtonImageFit.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            this.toolStripButtonImageFit.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
             this.toolStripButtonImageFit.ToolTipText = "Zoom - fit";
             this.toolStripButtonImageFit.Click += new System.EventHandler(this.toolStripMenuItemImageFit_Click);
             this.toolStripButtonImageFit.MouseLeave += new System.EventHandler(this.toolStripItem_MouseLeave);
@@ -2548,12 +2554,14 @@ namespace QuickImageComment
             // toolStripButtonImage4
             // 
             this.toolStripButtonImage4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.toolStripButtonImage4.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonImage4.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonImage4.Image")));
+            this.toolStripButtonImage4.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolStripButtonImage4.Image = global::QuickImageComment.Properties.Resources.Zoom;
             this.toolStripButtonImage4.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonImage4.Name = "toolStripButtonImage4";
             this.toolStripButtonImage4.Size = new System.Drawing.Size(36, 35);
-            this.toolStripButtonImage4.Text = "Zoom - 1:4";
+            this.toolStripButtonImage4.Text = "1:4";
+            this.toolStripButtonImage4.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            this.toolStripButtonImage4.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
             this.toolStripButtonImage4.ToolTipText = "Zoom - 1:4";
             this.toolStripButtonImage4.Click += new System.EventHandler(this.toolStripMenuItemImage4_Click);
             this.toolStripButtonImage4.MouseLeave += new System.EventHandler(this.toolStripItem_MouseLeave);
@@ -2562,12 +2570,14 @@ namespace QuickImageComment
             // toolStripButtonImage2
             // 
             this.toolStripButtonImage2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.toolStripButtonImage2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonImage2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonImage2.Image")));
+            this.toolStripButtonImage2.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolStripButtonImage2.Image = global::QuickImageComment.Properties.Resources.Zoom;
             this.toolStripButtonImage2.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonImage2.Name = "toolStripButtonImage2";
             this.toolStripButtonImage2.Size = new System.Drawing.Size(36, 35);
-            this.toolStripButtonImage2.Text = "Zoom - 1:2";
+            this.toolStripButtonImage2.Text = "1:2";
+            this.toolStripButtonImage2.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            this.toolStripButtonImage2.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
             this.toolStripButtonImage2.ToolTipText = "Zoom - 1:2";
             this.toolStripButtonImage2.Click += new System.EventHandler(this.toolStripMenuItemImage2_Click);
             this.toolStripButtonImage2.MouseLeave += new System.EventHandler(this.toolStripItem_MouseLeave);
@@ -2576,12 +2586,14 @@ namespace QuickImageComment
             // toolStripButtonImage1
             // 
             this.toolStripButtonImage1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.toolStripButtonImage1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonImage1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonImage1.Image")));
+            this.toolStripButtonImage1.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolStripButtonImage1.Image = global::QuickImageComment.Properties.Resources.Zoom;
             this.toolStripButtonImage1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonImage1.Name = "toolStripButtonImage1";
             this.toolStripButtonImage1.Size = new System.Drawing.Size(36, 35);
-            this.toolStripButtonImage1.Text = "Zoom - 1:1";
+            this.toolStripButtonImage1.Text = "1:1";
+            this.toolStripButtonImage1.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            this.toolStripButtonImage1.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
             this.toolStripButtonImage1.ToolTipText = "Zoom - 1:1";
             this.toolStripButtonImage1.Click += new System.EventHandler(this.toolStripMenuItemImage1_Click);
             this.toolStripButtonImage1.MouseLeave += new System.EventHandler(this.toolStripItem_MouseLeave);

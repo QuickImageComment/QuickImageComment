@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+  <defs>
+    <linearGradient id="blue" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#8fc4ff"/><stop offset=".55" stop-color="#4d91ef"/><stop offset="1" stop-color="#2865d2"/></linearGradient>
+    <linearGradient id="blueDark" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#6689df"/><stop offset=".55" stop-color="#244bb4"/><stop offset="1" stop-color="#102878"/></linearGradient>
+    <linearGradient id="red" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#ff9eaa"/><stop offset=".5" stop-color="#ee293d"/><stop offset="1" stop-color="#bd0012"/></linearGradient>
+    <linearGradient id="green" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#8ee890"/><stop offset=".5" stop-color="#22b725"/><stop offset="1" stop-color="#087d0b"/></linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fff8a5"/><stop offset=".45" stop-color="#ffd735"/><stop offset="1" stop-color="#eea900"/></linearGradient>
+    <linearGradient id="steel" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f4f6f8"/><stop offset=".45" stop-color="#a5a9ad"/><stop offset="1" stop-color="#55595e"/></linearGradient>
+    <linearGradient id="paper" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#f7fbff"/><stop offset="1" stop-color="#dce8f5"/></linearGradient>
+    <filter id="shadow" x="-25%" y="-25%" width="160%" height="160%"><feDropShadow dx="1.2" dy="1.5" stdDeviation=".8" flood-color="#111" flood-opacity=".35"/></filter>
+  </defs>
+  <g filter="url(#shadow)">
+    <ellipse cx="9.5" cy="8.5" rx="4.5" ry="5" fill="#ffd09b" stroke="#b7793c"/>
+    <path d="M5 8c.3-4.3 2.2-6.1 5.1-5.6 2.4.4 3.8 2.1 4.1 4.5-1.2-.8-2.4-1.2-3.7-1.2-1.6 0-3.4.8-5.5 2.3z" fill="#a8662f" stroke="#8a4f25" stroke-width=".7"/>
+    <path d="M3 29v-7.5c0-3.4 2.7-5.4 6.5-5.4s6.5 2 6.5 5.4V29z" fill="url(#blue)" stroke="#2460a8"/>
+    <path d="M6.5 17.2c1.1 1.2 2.4 1.8 3.8 1.8s2.7-.6 3.8-1.8" fill="none" stroke="#dcecff" stroke-width=".8"/>
+    <rect x="14" y="13" width="16" height="13" rx="1" fill="#9ee4f6" stroke="#547b91" stroke-width="1.2"/>
+    <path d="M16 23c3-4 7-5 12 0z" fill="#2687c9"/>
+    <path d="M22 26v2m-4 1h8" stroke="#555" stroke-width="1.5" stroke-linecap="round"/>
+    <path d="m24 3 2 1-8 17-3 2 1-4z" fill="#214c9b" stroke="#102f68"/>
+    <path d="m15 23 3-2-2-2z" fill="#7b480b"/>
+  </g>
+</svg>

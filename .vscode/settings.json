@@ -1,3 +1,4 @@
 {
-    "cmake.configureOnOpen": false
+    "cmake.configureOnOpen": false,
+    "dotnet.defaultSolution": "QuickImageComment_Net_4_6_1.sln"
 }

@@ -35,7 +35,6 @@
             this.fixedButtonSearchPrevious = new QuickImageCommentControls.ButtonQIC();
             this.dynamicComboBoxSearchTag = new QuickImageCommentControls.ComboBoxQIC();
             this.label1 = new System.Windows.Forms.Label();
-            this.listViewTags = new QuickImageCommentControls.ListViewQIC();
             this.columnHeaderTag = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderDescription = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -44,6 +43,7 @@
             this.tableLayoutPanelOuter = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanelHeader.SuspendLayout();
             this.tableLayoutPanelOuter.SuspendLayout();
+            this.listViewTags = new QuickImageCommentControls.ListViewQIC();
             this.SuspendLayout();
             // 
             // checkBoxOriginalLanguage
@@ -81,7 +81,6 @@
             // fixedButtonSearchNext
             // 
             this.fixedButtonSearchNext.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.fixedButtonSearchNext.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.fixedButtonSearchNext.Location = new System.Drawing.Point(808, 28);
             this.fixedButtonSearchNext.Name = "fixedButtonSearchNext";
             this.fixedButtonSearchNext.Size = new System.Drawing.Size(19, 19);
@@ -92,7 +91,6 @@
             // fixedButtonSearchPrevious
             // 
             this.fixedButtonSearchPrevious.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.fixedButtonSearchPrevious.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.fixedButtonSearchPrevious.Location = new System.Drawing.Point(783, 28);
             this.fixedButtonSearchPrevious.Name = "fixedButtonSearchPrevious";
             this.fixedButtonSearchPrevious.Size = new System.Drawing.Size(19, 19);
@@ -119,23 +117,6 @@
             this.label1.TabIndex = 69;
             this.label1.Text = "Liste der verfügbaren Meta-Daten";
             // 
-            // listViewTags
-            // 
-            this.listViewTags.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeaderTag,
-            this.columnHeaderType,
-            this.columnHeaderDescription});
-            this.listViewTags.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listViewTags.FullRowSelect = true;
-            this.listViewTags.HideSelection = false;
-            this.listViewTags.Location = new System.Drawing.Point(3, 59);
-            this.listViewTags.MultiSelect = false;
-            this.listViewTags.Name = "listViewTags";
-            this.listViewTags.Size = new System.Drawing.Size(830, 395);
-            this.listViewTags.TabIndex = 66;
-            this.listViewTags.UseCompatibleStateImageBehavior = false;
-            this.listViewTags.View = System.Windows.Forms.View.Details;
-            // 
             // columnHeaderTag
             // 
             this.columnHeaderTag.Text = "Tag-Name";
@@ -149,7 +130,7 @@
             // columnHeaderDescription
             // 
             this.columnHeaderDescription.Text = "Beschreibung";
-            this.columnHeaderDescription.Width = 1500;
+            this.columnHeaderDescription.Width = 527;
             // 
             // checkBoxOnlyInImage
             // 
@@ -201,6 +182,24 @@
             this.tableLayoutPanelOuter.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanelOuter.Size = new System.Drawing.Size(836, 457);
             this.tableLayoutPanelOuter.TabIndex = 71;
+            // 
+            // listViewTags
+            // 
+            this.listViewTags.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeaderTag,
+            this.columnHeaderType,
+            this.columnHeaderDescription});
+            this.listViewTags.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listViewTags.FullRowSelect = true;
+            this.listViewTags.HideSelection = false;
+            this.listViewTags.Location = new System.Drawing.Point(3, 59);
+            this.listViewTags.MultiSelect = false;
+            this.listViewTags.Name = "listViewTags";
+            this.listViewTags.OwnerDraw = true;
+            this.listViewTags.Size = new System.Drawing.Size(830, 395);
+            this.listViewTags.TabIndex = 66;
+            this.listViewTags.UseCompatibleStateImageBehavior = false;
+            this.listViewTags.View = System.Windows.Forms.View.Details;
             // 
             // UserControlTagList
             // 

@@ -31,6 +31,8 @@
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <!-- avoid compiler warning that svg is not tested with .Net framework 4.6.1  -->
+    <SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -263,6 +265,11 @@
       <DependentUpon>FormUserButtons.cs</DependentUpon>
     </Compile>
     <Compile Include="JR.Utils.GUI.Forms\FlexibleMessageBox.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Utilities\ChangeableFieldSpecification.cs" />
     <Compile Include="Utilities\DirectoryWatcher.cs" />
     <Compile Include="Utilities\DisplayScaleReaderLegacy.cs" />
@@ -271,6 +278,7 @@
     <Compile Include="Utilities\EditExternalDefinition.cs" />
     <Compile Include="Utilities\IconFont.cs" />
     <Compile Include="Utilities\PngHelper.cs" />
+    <Compile Include="Utilities\SvgIconRenderer.cs" />
     <Compile Include="Utilities\TagUtilities.cs" />
     <Compile Include="Utilities\UserButtonDefinition.cs" />
     <Compile Include="Utilities\ConfigDefinition.cs" />
@@ -775,14 +783,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <EmbeddedResource Include="Controls\UserControlChangeableFields.resx">
       <DependentUpon>UserControlChangeableFields.cs</DependentUpon>
     </EmbeddedResource>
@@ -1085,6 +1088,12 @@
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>13.0.2</Version>
+    </PackageReference>
+    <PackageReference Include="SkiaSharp">
+      <Version>4.152.1</Version>
+    </PackageReference>
+    <PackageReference Include="Svg.Skia">
+      <Version>5.2.3</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

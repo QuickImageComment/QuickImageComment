@@ -310,7 +310,7 @@ namespace QuickImageComment
                 FolderName = GongSolutions.Shell.ShellItem.Desktop.FileSystemPath;
             else
                 FolderName = DisplayFolder;
-                
+
 #if USESTARTUPTHREAD
             Thread StartupExifToolInitNewFolderThread = new Thread(StartupExifToolInitNewFolder)
             {
@@ -675,6 +675,16 @@ namespace QuickImageComment
 
             // add user defined buttons
             addUserDefinedButtons();
+
+            float scale = (float)DpiMonitor.GetSystemDpi() / 96f;
+            int h = (int)((float)toolStrip1.ImageScalingSize.Height * scale);
+            int w = (int)((float)toolStrip1.ImageScalingSize.Width * scale);
+            toolStrip1.ImageScalingSize = new Size(w, h);
+#if !NET4
+            Program.StartupPerformance.measure("vor SVG Icons");
+            setSvgIcons();
+            Program.StartupPerformance.measure("nach SVG Icons");
+#endif
 
             // initialize status strip
             this.toolStripStatusLabelThread.Text = "";
@@ -1119,6 +1129,47 @@ namespace QuickImageComment
             directoryWatcher.ChangeDetected += new System.Action<string, WatcherChangeTypes>(theUserControlFiles.OnChangeDetected);
         }
 
+#if !NET4
+        // replace icons by SVG icons (only if not build for NET4)
+        private void setSvgIcons()
+        {
+            this.dynamicToolStripButtonLoadDataFromTemplate.Image = getSvgIconFromResources(Properties.Resources.SVG_Import);
+            this.toolStripButtonDateTimeChange.Image = getSvgIconFromResources(Properties.Resources.SVG_Time);
+            this.toolStripButtonDelete.Image = getSvgIconFromResources(Properties.Resources.SVG_Delete);
+            this.toolStripButtonFields.Image = getSvgIconFromResources(Properties.Resources.SVG_Tag);
+            this.toolStripButtonFind.Image = getSvgIconFromResources(Properties.Resources.SVG_Find);
+            this.toolStripButtonFirst.Image = getSvgIconFromResources(Properties.Resources.SVG_Left);
+            this.toolStripButtonImage1.Image = getSvgIconFromResources(Properties.Resources.SVG_Zoom);
+            this.toolStripButtonImage2.Image = this.toolStripButtonImage1.Image;
+            this.toolStripButtonImage4.Image = this.toolStripButtonImage1.Image;
+            this.toolStripButtonImageFit.Image = this.toolStripButtonImage1.Image;
+            this.toolStripButtonLast.Image = getSvgIconFromResources(Properties.Resources.SVG_Right);
+            this.toolStripButtonNext.Image = getSvgIconFromResources(Properties.Resources.SVG_Forward);
+            this.toolStripButtonPredefinedComments.Image = getSvgIconFromResources(Properties.Resources.SVG_List);
+            this.toolStripButtonPredefinedKeyWords.Image = getSvgIconFromResources(Properties.Resources.SVG_Key);
+            this.toolStripButtonPrevious.Image = getSvgIconFromResources(Properties.Resources.SVG_Back);
+            this.toolStripButtonRefresh.Image = getSvgIconFromResources(Properties.Resources.SVG_Refresh);
+            this.toolStripButtonRename.Image = getSvgIconFromResources(Properties.Resources.SVG_Rename);
+            this.toolStripButtonReset.Image = getSvgIconFromResources(Properties.Resources.SVG_Revert);
+            this.toolStripButtonRotateLeft.Image = getSvgIconFromResources(Properties.Resources.SVG_RotateLeft);
+            this.toolStripButtonRotateRight.Image = getSvgIconFromResources(Properties.Resources.SVG_RotateRight);
+            this.toolStripButtonSave.Image = getSvgIconFromResources(Properties.Resources.SVG_Save);
+            this.toolStripButtonSettings.Image = getSvgIconFromResources(Properties.Resources.SVG_Settings);
+            this.toolStripButtonView.Image = getSvgIconFromResources(Properties.Resources.SVG_Designer);
+        }
+
+        private Bitmap getSvgIconByPath(string key)
+        {
+            string svgPath = Program.ConfigPath + System.IO.Path.DirectorySeparatorChar + key + ".svg";
+            return QuickImageComment.Utilities.SvgIconRenderer.RenderSvgFromFile(svgPath, toolStrip1.ImageScalingSize);
+        }
+
+        private Bitmap getSvgIconFromResources(byte[] svgFile)
+        {
+            Bitmap bitmap = QuickImageComment.Utilities.SvgIconRenderer.RenderSvgFromResource(svgFile, toolStrip1.ImageScalingSize);
+            return bitmap;
+        }
+#endif
         // react on change of system settings: color mode dark/light
         // suggested by Microsoft Copilot
         protected override void WndProc(ref Message m)
@@ -3729,19 +3780,19 @@ namespace QuickImageComment
             toolStripMenuItemImageFit.Checked = (0 == viewMode);
             if (viewModeBase * 4 == viewMode)
             {
-                toolStripButtonImage4.BackColor = System.Drawing.Color.Black;
+                toolStripButtonImage4.Enabled = false;
             }
             if (viewModeBase * 2 == viewMode)
             {
-                toolStripButtonImage2.BackColor = System.Drawing.Color.Black;
+                toolStripButtonImage2.Enabled = false;
             }
             if (viewModeBase * 1 == viewMode)
             {
-                toolStripButtonImage1.BackColor = System.Drawing.Color.Black;
+                toolStripButtonImage1.Enabled = false;
             }
             if (0 == viewMode)
             {
-                toolStripButtonImageFit.BackColor = System.Drawing.Color.Black;
+                toolStripButtonImageFit.Enabled = false;
             }
             // if image details are visible and thus frame in picture is shown
             // refresh image so that border size is adjusted
@@ -3765,10 +3816,10 @@ namespace QuickImageComment
             toolStripMenuItemImageX4.Checked = false;
             toolStripMenuItemImageX8.Checked = false;
             toolStripMenuItemImageFit.Checked = false;
-            toolStripButtonImage4.BackColor = System.Drawing.Color.White;
-            toolStripButtonImage2.BackColor = System.Drawing.Color.White;
-            toolStripButtonImage1.BackColor = System.Drawing.Color.White;
-            toolStripButtonImageFit.BackColor = System.Drawing.Color.White;
+            toolStripButtonImage4.Enabled = true;
+            toolStripButtonImage2.Enabled = true;
+            toolStripButtonImage1.Enabled = true;
+            toolStripButtonImageFit.Enabled = true;
         }
 
         // change image view to 1:4
@@ -4172,12 +4223,12 @@ namespace QuickImageComment
         {
             if (ConfigDefinition.getCfgUserBool(ConfigDefinition.enumCfgUserBool.ButtonDeletesPermanently))
             {
-                toolStripButtonDelete.BackColor = Color.Red;
+                toolStripButtonDelete.Text = "!";
                 toolStripButtonDelete.ToolTipText = LangCfg.getText(LangCfg.Others.toolTipDeleteButtonPermanently);
             }
             else
             {
-                toolStripButtonDelete.BackColor = Color.White;
+                toolStripButtonDelete.Text = "";
                 toolStripButtonDelete.ToolTipText = LangCfg.getText(LangCfg.Others.toolTipDeleteButtonUnknown);
             }
         }
@@ -7488,8 +7539,8 @@ namespace QuickImageComment
             LangCfg.addNotTranslatedTexts(CustomizationInterface.getNotTranslatedTexts(), "FormCustomization");
             LangCfg.writeTranslationCheckFiles(true);
 
-            // mainly for filling used colors file
-            GeneralUtilities.debugMessage("finished checking translation completeness, used colors file created");
+            // following call mainly for filling used colors file
+            GeneralUtilities.debugMessage("Now finally create file with used colors.");
 
             GeneralUtilities.CloseAfterConstructing = false;
             CustomizationInterface.writeUsedColorsFile();

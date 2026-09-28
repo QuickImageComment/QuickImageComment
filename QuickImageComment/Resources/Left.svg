@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+  <defs>
+    <linearGradient id="blue" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#8fc4ff"/><stop offset=".55" stop-color="#4d91ef"/><stop offset="1" stop-color="#2865d2"/></linearGradient>
+    <linearGradient id="blueDark" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#6689df"/><stop offset=".55" stop-color="#244bb4"/><stop offset="1" stop-color="#102878"/></linearGradient>
+    <linearGradient id="red" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#ff9eaa"/><stop offset=".5" stop-color="#ee293d"/><stop offset="1" stop-color="#bd0012"/></linearGradient>
+    <linearGradient id="green" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#8ee890"/><stop offset=".5" stop-color="#22b725"/><stop offset="1" stop-color="#087d0b"/></linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fff8a5"/><stop offset=".45" stop-color="#ffd735"/><stop offset="1" stop-color="#eea900"/></linearGradient>
+    <linearGradient id="steel" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f4f6f8"/><stop offset=".45" stop-color="#a5a9ad"/><stop offset="1" stop-color="#55595e"/></linearGradient>
+    <linearGradient id="paper" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#f7fbff"/><stop offset="1" stop-color="#dce8f5"/></linearGradient>
+    <filter id="shadow" x="-25%" y="-25%" width="160%" height="160%"><feDropShadow dx="1.2" dy="1.5" stdDeviation=".8" flood-color="#111" flood-opacity=".35"/></filter>
+  </defs>
+  <g filter="url(#shadow)">
+    <path d="M13 7v5h16v8H13v5L3 16z" fill="url(#blueDark)" stroke="#122d83" stroke-width="1.4" stroke-linejoin="round"/>
+    <path d="M11.5 10 5.5 16l6 6" fill="none" stroke="#7093ea" stroke-width="1.2"/>
+    <path d="M13 13.5h14" stroke="#6688dc" stroke-width="1.1"/>
+  </g>
+</svg>

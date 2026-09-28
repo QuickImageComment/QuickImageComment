@@ -221,7 +221,6 @@ namespace QuickImageComment
             // 
             this.buttonFilterFiles.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonFilterFiles.BackColor = System.Drawing.SystemColors.Control;
-            this.buttonFilterFiles.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonFilterFiles.ForeColor = System.Drawing.SystemColors.ControlText;
             this.buttonFilterFiles.Location = new System.Drawing.Point(233, 2);
             this.buttonFilterFiles.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);

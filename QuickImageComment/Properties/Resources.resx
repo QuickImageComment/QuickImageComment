@@ -166,9 +166,6 @@
   <data name="QuickImageComment3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\QuickImageComment.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Zoom_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Zoom_1.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Designer" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Designer.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -184,14 +181,8 @@
   <data name="List" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\List.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Zoom_4" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Zoom_4.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Pixels" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Pixels.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Left1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Left.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="_forURI_ms_photos" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\PhotosAppList.targetsize-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -229,17 +220,11 @@
   <data name="Resize_image" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Resize image.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Zoom_fit1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Zoom_fit.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Gpadient" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Gpadient.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Sizes" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Sizes.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Zoom_fit" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Zoom_fit.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Stop_playing" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Stop playing.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -268,14 +253,8 @@
   <data name="Zoom" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Zoom.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Right1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Right.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Sharpness" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Sharpness.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Zoom_11" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Zoom_1.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="QuickImageComment2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\QuickImageComment.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -285,9 +264,6 @@
   </data>
   <data name="Objects" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Objects.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Zoom_21" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Zoom_2.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Form" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Form.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -315,9 +291,6 @@
   </data>
   <data name="Rotate_CCW" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Rotate CCW.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Zoom_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Zoom_2.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Save" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Save.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -370,9 +343,6 @@
   <data name="Refresh" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Refresh.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Settings1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Settings.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Cancel" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Cancel.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -387,9 +357,6 @@
   </data>
   <data name="Upload_image" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Upload image.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="List1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\List.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Flower" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Flower.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -415,26 +382,14 @@
   <data name="Left" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Left.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Key1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Key.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Pinion" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Pinion.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Delete2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Delete2.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Red_book" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Red book.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Refresh1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Refresh.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Tag" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Tag.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="RotateRight1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\RotateRight.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Tools" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Tools.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -499,9 +454,6 @@
   <data name="To_do_list" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\To do list.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Rename1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Rename.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="_16_colors" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\16 colors.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -510,9 +462,6 @@
   </data>
   <data name="Measure" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Measure.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="RotateLeft1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\RotateLeft.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Picture" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Picture.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -532,9 +481,6 @@
   <data name="Contrast" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Contrast.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Forward1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Forward.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Close_file" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Close file.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -552,9 +498,6 @@
   </data>
   <data name="Preview" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Preview.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Error1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Error.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="_3d_chart" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\3d chart.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -601,12 +544,6 @@
   <data name="Eraser" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Eraser.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Zoom_41" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Zoom_4.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Revert1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Revert.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="QuickImageComment" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\QuickImageComment.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -621,5 +558,71 @@
   </data>
   <data name="Brightness" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Brightness.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TimeTP2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TimeTP2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TimeTP3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TimeTP3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SVG_Time" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Time.svg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="SVG_Back" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Back.svg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="SVG_Delete" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Delete.svg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="SVG_Designer" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Designer.svg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="SVG_Find" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Find.svg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="SVG_Forward" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Forward.svg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="SVG_Import" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Import.svg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="SVG_Key" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Key.svg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="SVG_Left" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Left.svg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="SVG_List" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\List.svg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="SVG_Refresh" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Refresh.svg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="SVG_Rename" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Rename.svg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="SVG_Revert" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Revert.svg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="SVG_Right" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Right.svg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="SVG_RotateLeft" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\RotateLeft.svg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="SVG_RotateRight" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\RotateRight.svg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="SVG_Save" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Save.svg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="SVG_Settings" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Settings.svg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="SVG_Tag" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Tag.svg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="SVG_Zoom" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Zoom.svg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>
