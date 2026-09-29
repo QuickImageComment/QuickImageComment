@@ -428,6 +428,8 @@ namespace QuickImageComment
         internal static SortedList<string, string> MapUrls;
         internal static SortedList<string, MapSource> MapLeafletList;
         internal static SortedList<string, Color> ThemeColors;
+        // settings to be used with SetWindowTheme
+        internal static SortedList<string, string> ThemeSubAppNames;
         internal static ArrayList ThemeNames { get; private set; }
         // default color assignment for tags, used when no color is defined in configuration file
         internal static SortedList<string, string> DefaultColorAssignment;
@@ -529,6 +531,7 @@ namespace QuickImageComment
             MapUrls = new SortedList<string, string>();
             MapLeafletList = new SortedList<string, MapSource>();
             ThemeColors = new SortedList<string, Color>();
+            ThemeSubAppNames = new SortedList<string, string>();
             ThemeNames = new ArrayList();
             DefaultColorAssignment = new SortedList<string, string>();
 
@@ -4054,32 +4057,52 @@ namespace QuickImageComment
                         {
                             throw new ExceptionDefinitionNotValid(lineNo, ex.ToString());
                         }
-                        if (int.TryParse(secondPart, System.Globalization.NumberStyles.HexNumber,
-                            System.Globalization.CultureInfo.InvariantCulture, out int parseOutput))
+
+                        if (!themeName.Equals(FormCustomization.Customizer.ThemeDark)
+                            && !ThemeNames.Contains(themeName))
                         {
-                            Color color = Color.FromArgb(parseOutput);
-                            string colorName = firstPart.Substring(end + 1);
-                            string key = themeName + " Color [" + colorName + "]";
-                            if (ThemeColors.Keys.Contains(key))
-                                ThemeColors[key] = color;
-                            else
-                                ThemeColors.Add(key, color);
-
-                            if (!themeName.Equals(FormCustomization.Customizer.ThemeDark)
-                                && !ThemeNames.Contains(themeName))
-                            {
-                                ThemeNames.Add(themeName);
-                            }
-
-                            if (DefaultColorAssignment.ContainsKey(colorName))
-                            {
-                                key = themeName + " Color [" + DefaultColorAssignment[colorName] + "]";
-                                if (!ThemeColors.ContainsKey(key))
-                                    ThemeColors.Add(themeName + " Color [" + DefaultColorAssignment[colorName] + "]", color);
-                            }
+                            ThemeNames.Add(themeName);
                         }
-                        else
-                            throw new ExceptionDefinitionNotValid(lineNo, "invalid color definition");
+
+                        // try if it is an entry for SubAppName
+                        string subAppNameEntry = firstPart.Substring(end + 1);
+                        if (subAppNameEntry.StartsWith("SubAppName"))
+                        {
+                            string key = themeName + subAppNameEntry.Substring(10);
+                            if (ThemeSubAppNames.Keys.Contains(key))
+                                ThemeSubAppNames[key] = secondPart;
+                            else
+                                ThemeSubAppNames.Add(key, secondPart);
+                        }
+                        else // it must be a color
+                        {
+                            if (int.TryParse(secondPart, System.Globalization.NumberStyles.HexNumber,
+                                System.Globalization.CultureInfo.InvariantCulture, out int parseOutput))
+                            {
+                                Color color = Color.FromArgb(parseOutput);
+                                string colorName = firstPart.Substring(end + 1);
+                                string key = themeName + " Color [" + colorName + "]";
+                                if (ThemeColors.Keys.Contains(key))
+                                    ThemeColors[key] = color;
+                                else
+                                    ThemeColors.Add(key, color);
+
+                                if (!themeName.Equals(FormCustomization.Customizer.ThemeDark)
+                                    && !ThemeNames.Contains(themeName))
+                                {
+                                    ThemeNames.Add(themeName);
+                                }
+
+                                if (DefaultColorAssignment.ContainsKey(colorName))
+                                {
+                                    key = themeName + " Color [" + DefaultColorAssignment[colorName] + "]";
+                                    if (!ThemeColors.ContainsKey(key))
+                                        ThemeColors.Add(themeName + " Color [" + DefaultColorAssignment[colorName] + "]", color);
+                                }
+                            }
+                            else
+                                throw new ExceptionDefinitionNotValid(lineNo, "invalid color definition");
+                        }
                     }
 
                     // items from general configuration file are marked with "_" at beginning

@@ -24,12 +24,18 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace FormCustomization
 {
     internal class Customizer
     {
+#if !NET4
+        [DllImport("uxtheme.dll", CharSet = CharSet.Unicode)]
+        static extern int SetWindowTheme(
+           IntPtr hWnd, string appName, string idList);
+#endif
         internal enum Texts
         {
             E_loadingConfiguration,
@@ -212,6 +218,8 @@ namespace FormCustomization
         // holds pairs of Strings for translation
         private static SortedList<string, string> Translations;
         private static SortedList<string, Color> ThemeColors;
+        // settings to be used with SetWindowTheme
+        private static SortedList<string, string> ThemeSubAppNames;
         private static string ThemeName = "";
         private static ArrayList ControlsUnchangedTheme;
         private SortedList<string, ComponentColors> OriginalColors = new SortedList<string, ComponentColors>();
@@ -244,7 +252,8 @@ namespace FormCustomization
 
         // constructor
         internal Customizer(string givenFileHeaderLine, string givenHelpUrl, string givenHelpTopic,
-            SortedList<string, string> givenTranslations, SortedList<string, Color> givenThemeColors)
+            SortedList<string, string> givenTranslations, SortedList<string, Color> givenThemeColors,
+            SortedList<string, string> givenThemeSubAppNames)
         {
             customizedSettingChanged = false;
             FileHeaderLine = givenFileHeaderLine;
@@ -252,6 +261,7 @@ namespace FormCustomization
             HelpTopic = givenHelpTopic;
             Translations = givenTranslations;
             ThemeColors = givenThemeColors;
+            ThemeSubAppNames = givenThemeSubAppNames;
             ControlsUnchangedTheme = new ArrayList();
 
             GermanTexts.Add(Texts.E_loadingConfiguration, "Fehler beim Laden der Masken-Konfiguration.");
@@ -525,12 +535,12 @@ namespace FormCustomization
                 zoomForm(SetTo, theForm, NewZoomFactor);
             }
 
-#if !NET10_0_OR_GREATER
+            //#if !NET10_0_OR_GREATER
             if (!ThemeName.Equals(""))
             {
                 setThemeForComponent(theForm, 0);
             }
-#endif
+            //#endif
             // in case property table contains only form specific zoom factors, following block can be skipped
             if (PropertyTableContainsComponentSettings)
             {
@@ -719,7 +729,7 @@ namespace FormCustomization
             foreach (Form theForm in ActivatedForms)
             {
                 // Form may be closed in the meantime; FormQuickImageComment needs special handling
-                if (theForm != null && !(theForm is FormQuickImageComment))
+                if (theForm != null && !theForm.IsDisposed && !(theForm is FormQuickImageComment))
                 {
                     setThemeForComponent(theForm, 0);
                 }
@@ -745,6 +755,42 @@ namespace FormCustomization
                 }
             }
 
+            if (ParentControl is Control control2)
+            {
+                Type type = ParentControl.GetType();
+                string key = ThemeName + type.Name;
+                string subAppName = "";
+                if (ThemeSubAppNames.ContainsKey(key))
+                {
+                    subAppName = ThemeSubAppNames[key];
+#if WRITEDEBUGTHEMETRACE
+                    QuickImageComment.GeneralUtilities.writeDebugFileEntry("    " + ParentControlFullName +
+                        " type=" + type.Name + " SubAppName=" + subAppName);
+#endif
+                }
+                // try base types of types until reaching System.Windows.Forms
+                while (!type.Namespace.Contains("System.Windows.Forms"))
+                {
+                    type = type.BaseType;
+                    key = ThemeName + type.Name;
+                    subAppName = "";
+                    if (ThemeSubAppNames.ContainsKey(key))
+                    {
+                        subAppName = ThemeSubAppNames[key];
+#if WRITEDEBUGTHEMETRACE
+                        QuickImageComment.GeneralUtilities.writeDebugFileEntry("    " + ParentControlFullName +
+                            " type=" + type.Name + " SubAppName=" + subAppName);
+#endif
+                    }
+                }
+#if WRITEDEBUGTHEMETRACE
+                QuickImageComment.GeneralUtilities.writeDebugFileEntry(ParentControlFullName +
+                    "\ttype=\t" + type.Name + "\tSubAppName=\t" + subAppName);
+#endif
+                if (((Control)ParentControl).Handle != null)
+                    SetWindowTheme(((Control)ParentControl).Handle, subAppName, null);
+            }
+
             // first set theme for child controls, then for parent control
             // if theme is first set for parent, buttons were not shown with correct color
             if (ParentControl is MenuStrip menuStrip)
@@ -767,12 +813,6 @@ namespace FormCustomization
                 {
                     setThemeForComponent(Child, level);
                 }
-            }
-            else if (ParentControl is DataGridView
-                  || ParentControl is NumericUpDown
-                  || ParentControl is UserControlChangeableFields)
-            {
-                // no childs to be handled
             }
             else if (ParentControl is Control control)
             {

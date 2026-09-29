@@ -298,7 +298,8 @@ namespace QuickImageComment
                 LangCfg.getTranslationsFromGerman(),
                 leadingControlNamePartsToIgnore,
                 leadingControlNamePartsPrefixDollar,
-                ConfigDefinition.ThemeColors);
+                ConfigDefinition.ThemeColors,
+                ConfigDefinition.ThemeSubAppNames);
 
             Program.StartupPerformance.measure("FormQIC init start");
             readFolderPerfomance = new Performance();
@@ -1158,11 +1159,11 @@ namespace QuickImageComment
             this.toolStripButtonView.Image = getSvgIconFromResources(Properties.Resources.SVG_Designer);
         }
 
-        private Bitmap getSvgIconByPath(string key)
-        {
-            string svgPath = Program.ConfigPath + System.IO.Path.DirectorySeparatorChar + key + ".svg";
-            return QuickImageComment.Utilities.SvgIconRenderer.RenderSvgFromFile(svgPath, toolStrip1.ImageScalingSize);
-        }
+        //private Bitmap getSvgIconByPath(string key)
+        //{
+        //    string svgPath = Program.ConfigPath + System.IO.Path.DirectorySeparatorChar + key + ".svg";
+        //    return QuickImageComment.Utilities.SvgIconRenderer.RenderSvgFromFile(svgPath, toolStrip1.ImageScalingSize);
+        //}
 
         private Bitmap getSvgIconFromResources(byte[] svgFile)
         {
@@ -3519,8 +3520,8 @@ namespace QuickImageComment
         // open form to send commands directly to ExifTool
         private void toolStripMenuItemExifToolDirekt_Click(object sender, EventArgs e)
         {
-            FormExiftoolDirect formExiftoolDirect = new FormExiftoolDirect();
-            formExiftoolDirect.ShowDialog();
+            FormExifToolDirect formExifToolDirect = new FormExifToolDirect();
+            formExifToolDirect.Show();
         }
 
         //// open Internet Explorer to allow display images from Internet
@@ -7266,7 +7267,7 @@ namespace QuickImageComment
                 new FormEditExternal();
                 // FormError only for scaling check
                 new FormError("Error message", "Error details", "File name", true);
-                new FormExiftoolDirect();
+                new FormExifToolDirect();
                 // FormExifToolSettings only for scaling check
                 new FormExifToolSettings();
                 new FormExportAllMetaData(theUserControlFiles.listViewFiles.SelectedIndices, FolderName, FormExportAllMetaData.enumExImPortMode.TextExport);
@@ -7492,6 +7493,7 @@ namespace QuickImageComment
             new FormDonate();
             new FormEditExternal();
             new FormError("", "", "", true);
+            new FormExifToolDirect();
             new FormExifToolSettings();
             new FormExportAllMetaData(theUserControlFiles.listViewFiles.SelectedIndices, FolderName, FormExportAllMetaData.enumExImPortMode.TextExport);
             new FormExportMetaData(FolderName);
