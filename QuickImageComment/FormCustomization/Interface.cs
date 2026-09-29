@@ -33,7 +33,7 @@ namespace FormCustomization
         public Interface(Form theForm, string CustomizationFile, string FileHeaderLine, string HelpUrl, string HelpTopic)
         {
             theCustomizer = new Customizer(FileHeaderLine, HelpUrl, HelpTopic, new SortedList<string, string>(),
-                new SortedList<string, Color>());
+                new SortedList<string, Color>(), new SortedList<string, string>());
             if (!CustomizationFile.Equals(""))
             {
                 theCustomizer.loadCustomizationFile(CustomizationFile, true);
@@ -43,9 +43,10 @@ namespace FormCustomization
         public Interface(string CustomizationFile, string FileHeaderLine, string HelpUrl, string HelpTopic,
             SortedList<string, string> givenTranslations, string[] leadingControlNamePartsToIgnore,
             string[] leadingControlNamePartsPrefixDollar,
-            SortedList<string, Color> givenThemeColors)
+            SortedList<string, Color> givenThemeColors, SortedList<string, string> givenThemeSubAppNames)
         {
-            theCustomizer = new Customizer(FileHeaderLine, HelpUrl, HelpTopic, givenTranslations, givenThemeColors);
+            theCustomizer = new Customizer(FileHeaderLine, HelpUrl, HelpTopic,
+                givenTranslations, givenThemeColors, givenThemeSubAppNames);
             if (!CustomizationFile.Equals(""))
             {
                 theCustomizer.loadCustomizationFile(CustomizationFile, true);
@@ -157,7 +158,7 @@ namespace FormCustomization
         // set theme colors
         internal void setThemeForComponent(Component component)
         {
-#if !NET10_0_OR_GREATER
+            //#if !NET10_0_OR_GREATER
             if (theCustomizer.getThemeName().Equals("")) return; // no theme loaded
             theCustomizer.setThemeForComponent(component, 0);
             if (ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.Maintenance))
@@ -166,7 +167,7 @@ namespace FormCustomization
                 for (int ii = 0; ii < entries.Length; ii++) Logger.log((string)entries[ii]);  // permanent use of Logger.log
                 theCustomizer.clearControlsUnchangedTheme();
             }
-#endif
+            //#endif
         }
 
         // load the settings from file
