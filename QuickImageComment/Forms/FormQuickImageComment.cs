@@ -6610,7 +6610,7 @@ namespace QuickImageComment
             }
             // if required add entry in item list of ComboBox
             // not, if ComboBox is DropDownList, then item list contains only allowed values from InputCheckConfig
-            if (addInItemList && inputControl.GetType().Equals(typeof(ComboBox)) &&
+            if (addInItemList && inputControl is ComboBox &&
                 ((ComboBox)inputControl).DropDownStyle != ComboBoxStyle.DropDownList)
             {
                 if (((ComboBox)inputControl).Items.Contains(valueString))
