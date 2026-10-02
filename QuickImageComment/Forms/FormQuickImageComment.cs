@@ -554,6 +554,25 @@ namespace QuickImageComment
             // fill menu edit external
             fillMenuEditExternal();
 
+            // check configured color theme, if not valid set to default "System"
+            string configuredColorTheme = ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.ColorThemeName);
+            bool themeValid = false;
+            for (int ii = 0; ii < FormSettings.colorThemeConfig.Length; ii++)
+            {
+                if (configuredColorTheme.Equals(FormSettings.colorThemeConfig[ii]))
+                {
+                    themeValid = true;
+                    break;
+                }
+            }
+            if (ConfigDefinition.ThemeNames.Contains(configuredColorTheme)) themeValid = true;
+            if (!themeValid)
+            {
+                GeneralUtilities.message(LangCfg.Message.W_unknownColorTheme, configuredColorTheme);
+                ConfigDefinition.setCfgUserString(ConfigDefinition.enumCfgUserString.ColorThemeName, "System");
+            }
+
+            // adjust color theme
             adjustAfterColorThemeChange(ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.ColorThemeName));
 
             // create and fill user control for changeable fields 
@@ -6921,7 +6940,8 @@ namespace QuickImageComment
             }
             else
             {
-                Logger.initFormLogger(); // permanent use of Logger
+                // do not init FormLogger too early as it could cause "Cannot access a disposed object."
+                if (!starting) Logger.initFormLogger(); // permanent use of Logger
             }
         }
 
