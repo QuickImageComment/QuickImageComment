@@ -136,6 +136,22 @@ namespace QuickImageCommentControls
             }
         }
 
+        protected override void OnEnabledChanged(EventArgs e)
+        {
+            base.OnEnabledChanged(e);
+
+            if (Enabled)
+            {
+                ForeColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.ForeColorEnabled);
+                BackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorInputUnchanged);
+            }
+            else
+            {
+                ForeColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.ForeColorNotEnabled);
+                BackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorNotEnabled);
+            }
+        }
+
         // use WndProc instead of OnPaint as OnPaint did not always fire when needed
         protected override void WndProc(ref Message m)
         {
