@@ -1136,7 +1136,6 @@ namespace QuickImageComment
             this.dynamicComboBoxColorTheme.Name = "dynamicComboBoxColorTheme";
             this.dynamicComboBoxColorTheme.Size = new System.Drawing.Size(141, 22);
             this.dynamicComboBoxColorTheme.TabIndex = 42;
-            this.dynamicComboBoxColorTheme.SelectedIndexChanged += new System.EventHandler(this.dynamicComboBoxColorTheme_SelectedIndexChanged);
             // 
             // label12
             // 

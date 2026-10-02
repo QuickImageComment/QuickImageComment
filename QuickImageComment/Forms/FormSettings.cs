@@ -37,7 +37,7 @@ namespace QuickImageComment
         public bool settingsChanged = true;
 
         private static readonly string[] colorThemeNames = new string[] { "System", "Hell", "Dunkel" };
-        private static readonly string[] colorThemeConfig = new string[] { "System", Customizer.ThemeLight, Customizer.ThemeDark };
+        internal static readonly string[] colorThemeConfig = new string[] { "System", Customizer.ThemeLight, Customizer.ThemeDark };
 
         public FormSettings()
         {
@@ -137,14 +137,19 @@ namespace QuickImageComment
             {
                 dynamicComboBoxColorTheme.Items.Add(themeName);
             }
+            // set theme name considering translation of predefined themes
+            string configThemeName = ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.ColorThemeName);
             for (int ii = 0; ii < colorThemeNames.Length; ii++)
             {
-                if (ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.ColorThemeName).Equals(colorThemeConfig[ii]))
+                if (configThemeName.Equals(colorThemeConfig[ii]))
                 {
-                    dynamicComboBoxColorTheme.SelectedIndex = ii;
+                    configThemeName = colorThemeNames[ii];
                     break;
                 }
             }
+            dynamicComboBoxColorTheme.SelectedItem = configThemeName;
+
+            dynamicComboBoxColorTheme.SelectedIndexChanged += dynamicComboBoxColorTheme_SelectedIndexChanged;
 
             LangCfg.translateControlTexts(this);
 
