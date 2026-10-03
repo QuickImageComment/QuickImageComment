@@ -505,6 +505,7 @@ namespace QuickImageComment
                         textBox.ForeColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.ForeColorNotEnabled);
                         textBox.BackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorNotEnabled);
                     }
+                    MainMaskInterface.getCustomizationInterface().setSubAppName(textBox);
                 }
                 else if (panelChangeableFieldsInner.Controls[ii] is DateTimePickerQIC dateTimePicker)
                 {
