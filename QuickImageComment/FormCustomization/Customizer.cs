@@ -730,7 +730,7 @@ namespace FormCustomization
             foreach (Form theForm in ActivatedForms)
             {
                 // Form may be closed in the meantime;
-                if (theForm != null && !theForm.IsDisposed )
+                if (theForm != null && !theForm.IsDisposed)
                 {
                     setThemeForComponent(theForm, 0);
                     // some forms need special handling, they implemente IThemeChangeSpecial interface
@@ -997,7 +997,7 @@ namespace FormCustomization
 #endif
         }
 
-        private void setSubAppName(Control control, string controlFullName)
+        internal void setSubAppName(Control control, string controlFullName)
         {
             Type type = control.GetType();
             string key = ThemeName + type.Name;
@@ -1029,8 +1029,11 @@ namespace FormCustomization
                 QuickImageComment.GeneralUtilities.writeDebugFileEntry(controlFullName +
                     "\ttype=\t" + type.Name + "\tSubAppName=\t" + subAppName);
 #endif
-            if (((Control)control).Handle != null)
-                SetWindowTheme(((Control)control).Handle, subAppName, null);
+            if (control.Handle != null)
+            {
+                SetWindowTheme(control.Handle, subAppName, null);
+                control.Invalidate();
+            }
         }
 
         private Color getColorByTheme(string fullName, Color color, string colorType)
