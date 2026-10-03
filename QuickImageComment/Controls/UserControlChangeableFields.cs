@@ -65,9 +65,6 @@ namespace QuickImageComment
             {
                 panelChangeableFieldsInner.Controls.Remove(panelChangeableFieldsInner.Controls[ii]);
             }
-            // now adjust theme of template controls as their name is now without parents
-            // and thus future theme changes can refer correct to original colors
-            adjustTemplateControlsForNewTheme();
 
             // needs to initiated as it is checked, even if this user control is not visible
             UsedXmpLangAltEntries = new ArrayList();
@@ -303,6 +300,8 @@ namespace QuickImageComment
             }
             this.Visible = true;
             this.Refresh();
+            // set foreground and background colors of controls which were added here dynamically
+            setThemeSpecial();
         }
 
         // configure the dynamic controls
@@ -323,8 +322,7 @@ namespace QuickImageComment
                 anInputControl.Anchor = textBoxChangeableField.Anchor;
                 anInputControl.AutoSize = textBoxChangeableField.AutoSize;
                 anInputControl.Font = textBoxChangeableField.Font;
-                anInputControl.ForeColor = textBoxChangeableField.ForeColor;
-                anInputControl.BackColor = textBoxChangeableField.BackColor;
+                // colors are set by setThemeSpecial
                 anInputControl.Size = textBoxChangeableField.Size;
                 anInputControl.Left = textBoxChangeableField.Left;
                 ((TextBox)anInputControl).WordWrap = textBoxChangeableField.WordWrap;
@@ -356,8 +354,7 @@ namespace QuickImageComment
                 anInputControl.Anchor = comboBoxChangeableField.Anchor;
                 anInputControl.AutoSize = comboBoxChangeableField.AutoSize;
                 anInputControl.Font = comboBoxChangeableField.Font;
-                anInputControl.ForeColor = comboBoxChangeableField.ForeColor;
-                anInputControl.BackColor = comboBoxChangeableField.BackColor;
+                // colors are set by setThemeSpecial
                 anInputControl.Size = comboBoxChangeableField.Size;
                 anInputControl.Left = comboBoxChangeableField.Left;
                 anInputControl.Height = comboBoxChangeableField.Height;
@@ -376,8 +373,7 @@ namespace QuickImageComment
                 aDateTimePicker.Anchor = dateTimePickerChangeableField.Anchor;
                 aDateTimePicker.AutoSize = dateTimePickerChangeableField.AutoSize;
                 aDateTimePicker.Font = dateTimePickerChangeableField.Font;
-                aDateTimePicker.ForeColor = dateTimePickerChangeableField.ForeColor;
-                aDateTimePicker.BackColor = dateTimePickerChangeableField.BackColor;
+                // colors are set by setThemeSpecial
                 aDateTimePicker.BorderColor = dateTimePickerChangeableField.BorderColor;
                 aDateTimePicker.Size = dateTimePickerChangeableField.Size;
                 aDateTimePicker.Left = anInputControl.Left + anInputControl.Width + 2;
@@ -394,8 +390,7 @@ namespace QuickImageComment
             aLabel.Anchor = dynamicLabelChangeableField.Anchor;
             aLabel.AutoSize = dynamicLabelChangeableField.AutoSize;
             aLabel.Font = dynamicLabelChangeableField.Font;
-            aLabel.ForeColor = dynamicLabelChangeableField.ForeColor;
-            aLabel.BackColor = dynamicLabelChangeableField.BackColor;
+            // colors are set by setThemeSpecial
             aLabel.Left = dynamicLabelChangeableField.Left;
             aLabel.Top = lastTop;
             aLabel.Height = comboBoxChangeableField.Height;
@@ -412,7 +407,7 @@ namespace QuickImageComment
         {
             string Name = "";
             ChangeableFieldSpecification theChangeableFieldSpecification = (ChangeableFieldSpecification)theControl.Tag;
-            Name = theControl.GetType().ToString() + "_" + theChangeableFieldSpecification.KeyPrim;
+            Name = theControl.GetType().ToString() + FormCustomization.Customizer.tagNoThemeChange + "_" + theChangeableFieldSpecification.KeyPrim;
             if (theChangeableFieldSpecification.langIdx >= 0)
             {
                 Name += theChangeableFieldSpecification.langIdx.ToString("_00");
@@ -474,13 +469,57 @@ namespace QuickImageComment
             }
         }
 
-        // adjust template controls for new theme
-        internal void adjustTemplateControlsForNewTheme()
+        // set foreground and background colors of controls which are not handled by generic Customizer
+        // method is also used to set colors when filling the filter panel with controls
+        public void setThemeSpecial()
         {
-            MainMaskInterface.getCustomizationInterface().setThemeForComponent(dynamicLabelChangeableField);
-            MainMaskInterface.getCustomizationInterface().setThemeForComponent(textBoxChangeableField);
-            MainMaskInterface.getCustomizationInterface().setThemeForComponent(comboBoxChangeableField);
-            MainMaskInterface.getCustomizationInterface().setThemeForComponent(dateTimePickerChangeableField);
+            for (int ii = panelChangeableFieldsInner.Controls.Count - 1; ii >= 0; ii--)
+            {
+                if (panelChangeableFieldsInner.Controls[ii] is Label label)
+                {
+                    label.ForeColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.ForeColorEnabled);
+                    label.BackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorNotEnabled);
+                }
+                else if (panelChangeableFieldsInner.Controls[ii] is ComboBoxQIC comboBox)
+                {
+                    if (comboBox.Enabled)
+                    {
+                        comboBox.ForeColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.ForeColorEnabled);
+                        comboBox.BackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorInputUnchanged);
+                    }
+                    else
+                    {
+                        comboBox.ForeColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.ForeColorNotEnabled);
+                        comboBox.BackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorNotEnabled);
+                    }
+                }
+                else if (panelChangeableFieldsInner.Controls[ii] is TextBox textBox)
+                {
+                    if (textBox.Enabled)
+                    {
+                        textBox.ForeColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.ForeColorEnabled);
+                        textBox.BackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorInputUnchanged);
+                    }
+                    else
+                    {
+                        textBox.ForeColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.ForeColorNotEnabled);
+                        textBox.BackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorNotEnabled);
+                    }
+                }
+                else if (panelChangeableFieldsInner.Controls[ii] is DateTimePickerQIC dateTimePicker)
+                {
+                    if (dateTimePicker.Enabled)
+                    {
+                        dateTimePicker.ForeColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.ForeColorEnabled);
+                        dateTimePicker.BackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorInputUnchanged);
+                    }
+                    else
+                    {
+                        dateTimePicker.ForeColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.ForeColorNotEnabled);
+                        dateTimePicker.BackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorNotEnabled);
+                    }
+                }
+            }
         }
         #endregion
 

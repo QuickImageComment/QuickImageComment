@@ -18,6 +18,7 @@
 //#define WRITEDEBUGTHEMEERROR
 
 using QuickImageComment;
+using QuickImageComment.Interfaces;
 using QuickImageCommentControls;
 using System;
 using System.Collections;
@@ -728,10 +729,13 @@ namespace FormCustomization
         {
             foreach (Form theForm in ActivatedForms)
             {
-                // Form may be closed in the meantime; FormQuickImageComment needs special handling
-                if (theForm != null && !theForm.IsDisposed && !(theForm is FormQuickImageComment))
+                // Form may be closed in the meantime;
+                if (theForm != null && !theForm.IsDisposed )
                 {
                     setThemeForComponent(theForm, 0);
+                    // some forms need special handling, they implemente IThemeChangeSpecial interface
+                    if (theForm is IThemeChangeSpecial themeChangeSpecial)
+                        themeChangeSpecial.setThemeSpecial();
                 }
             }
         }
@@ -746,7 +750,8 @@ namespace FormCustomization
 #endif
             if (ParentControl is Control control1)
             {
-                if (control1.Tag != null && control1.Tag is string && ((string)control1.Tag).Equals(tagNoThemeChange))
+                if ((control1.Tag != null && control1.Tag is string && ((string)control1.Tag).Equals(tagNoThemeChange))
+                    || control1.Name.Contains(tagNoThemeChange))
                 {
 #if WRITEDEBUGTHEMETRACE
                     QuickImageComment.GeneralUtilities.writeDebugFileEntry("    " + ParentControlFullName + " is flagged to ignore theme change");
@@ -755,41 +760,7 @@ namespace FormCustomization
                 }
             }
 
-            if (ParentControl is Control control2)
-            {
-                Type type = ParentControl.GetType();
-                string key = ThemeName + type.Name;
-                string subAppName = "";
-                if (ThemeSubAppNames.ContainsKey(key))
-                {
-                    subAppName = ThemeSubAppNames[key];
-#if WRITEDEBUGTHEMETRACE
-                    QuickImageComment.GeneralUtilities.writeDebugFileEntry("    " + ParentControlFullName +
-                        " type=" + type.Name + " SubAppName=" + subAppName);
-#endif
-                }
-                // try base types of types until reaching System.Windows.Forms
-                while (!type.Namespace.Contains("System.Windows.Forms"))
-                {
-                    type = type.BaseType;
-                    key = ThemeName + type.Name;
-                    subAppName = "";
-                    if (ThemeSubAppNames.ContainsKey(key))
-                    {
-                        subAppName = ThemeSubAppNames[key];
-#if WRITEDEBUGTHEMETRACE
-                        QuickImageComment.GeneralUtilities.writeDebugFileEntry("    " + ParentControlFullName +
-                            " type=" + type.Name + " SubAppName=" + subAppName);
-#endif
-                    }
-                }
-#if WRITEDEBUGTHEMETRACE
-                QuickImageComment.GeneralUtilities.writeDebugFileEntry(ParentControlFullName +
-                    "\ttype=\t" + type.Name + "\tSubAppName=\t" + subAppName);
-#endif
-                if (((Control)ParentControl).Handle != null)
-                    SetWindowTheme(((Control)ParentControl).Handle, subAppName, null);
-            }
+            if (ParentControl is Control) setSubAppName((Control)ParentControl, ParentControlFullName);
 
             // first set theme for child controls, then for parent control
             // if theme is first set for parent, buttons were not shown with correct color
@@ -812,6 +783,15 @@ namespace FormCustomization
                 foreach (Component Child in toolStripMenuItem.DropDownItems)
                 {
                     setThemeForComponent(Child, level);
+                }
+            }
+            else if (ParentControl is NumericUpDown ||
+                     ParentControl is DataGridView)
+            {
+                // only set SubAppName for their childs
+                foreach (Control Child in ((Control)ParentControl).Controls)
+                {
+                    setSubAppName(Child, ParentControlFullName + "-child");
                 }
             }
             else if (ParentControl is Control control)
@@ -905,9 +885,6 @@ namespace FormCustomization
                     {
                         bordercolor = groupBoxQIC.BorderColor;
                     }
-#if WRITEDEBUGTHEMETRACE
-                    QuickImageComment.GeneralUtilities.writeDebugFileEntry("    " + ParentControlFullName + " back=" + backcolor + " fore=" + forecolor);
-#endif
                 }
                 else
                 {
@@ -916,6 +893,9 @@ namespace FormCustomization
 #endif
                     return;
                 }
+#if WRITEDEBUGTHEMETRACE
+                QuickImageComment.GeneralUtilities.writeDebugFileEntry("    " + ParentControlFullName + " add original back=" + backcolor + " fore=" + forecolor);
+#endif
                 OriginalColors.Add(ParentControlFullName, new ComponentColors(backcolor, forecolor, bordercolor,
                     dataGridViewDefaultCellBackColor, dataGridViewDefaultColumnHeadersBackColor,
                     dataGridViewDefaultColumnHeadersForeColor,
@@ -1015,6 +995,42 @@ namespace FormCustomization
 #if WRITEDEBUGTHEMETRACE
             QuickImageComment.GeneralUtilities.writeDebugFileEntry("< " + ParentControlFullName);
 #endif
+        }
+
+        private void setSubAppName(Control control, string controlFullName)
+        {
+            Type type = control.GetType();
+            string key = ThemeName + type.Name;
+            string subAppName = "";
+            if (ThemeSubAppNames.ContainsKey(key))
+            {
+                subAppName = ThemeSubAppNames[key];
+#if WRITEDEBUGTHEMETRACE
+                    QuickImageComment.GeneralUtilities.writeDebugFileEntry("    " + controlFullName +
+                        " type=" + type.Name + " SubAppName=" + subAppName);
+#endif
+            }
+            // try base types of types until reaching System.Windows.Forms
+            while (!type.Namespace.Contains("System.Windows.Forms"))
+            {
+                type = type.BaseType;
+                key = ThemeName + type.Name;
+                subAppName = "";
+                if (ThemeSubAppNames.ContainsKey(key))
+                {
+                    subAppName = ThemeSubAppNames[key];
+#if WRITEDEBUGTHEMETRACE
+                        QuickImageComment.GeneralUtilities.writeDebugFileEntry("    " + controlFullName +
+                            " type=" + type.Name + " SubAppName=" + subAppName);
+#endif
+                }
+            }
+#if WRITEDEBUGTHEMETRACE
+                QuickImageComment.GeneralUtilities.writeDebugFileEntry(controlFullName +
+                    "\ttype=\t" + type.Name + "\tSubAppName=\t" + subAppName);
+#endif
+            if (((Control)control).Handle != null)
+                SetWindowTheme(((Control)control).Handle, subAppName, null);
         }
 
         private Color getColorByTheme(string fullName, Color color, string colorType)

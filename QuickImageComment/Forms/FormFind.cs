@@ -25,7 +25,7 @@ using System.Windows.Forms;
 
 namespace QuickImageComment
 {
-    public partial class FormFind : Form
+    public partial class FormFind : Form, Interfaces.IThemeChangeSpecial
     {
         private const int gapBetweenControls = 2;
         private const int comboBoxOperatorNumericWidth = 40;
@@ -321,7 +321,7 @@ namespace QuickImageComment
 
                     Label aLabel = new Label
                     {
-                        Name = dynamicLabelNamePrefix + aMetaDataDefinitionItem.KeyPrim
+                        Name = dynamicLabelNamePrefix + FormCustomization.Customizer.tagNoThemeChange + aMetaDataDefinitionItem.KeyPrim
                     };
                     if (aMetaDataDefinitionItem.FormatPrim == MetaDataItem.Format.Interpreted &&
                         (TagUtilities.IntegerTypes.Contains(aMetaDataDefinitionItem.TypePrim) ||
@@ -480,6 +480,8 @@ namespace QuickImageComment
             }
             // as resize trigger may fire who adjusts left and width of some controls, add it after having entered all controls
             panelFilterInner.Height = lastTop + 1;
+            // set colors of dynamic controls
+            setThemeSpecial();
             // make inner panel visible again
             panelFilterInner.Visible = true;
         }
@@ -493,10 +495,7 @@ namespace QuickImageComment
             aLabel.Anchor = dynamicLabelFind.Anchor;
             aLabel.AutoSize = dynamicLabelFind.AutoSize;
             // do net set Font, shall be inherited by parent
-            aLabel.ForeColor = dynamicLabelFind.ForeColor;
-            // do not copy dynamicLabelFind.BackColor, as it is changed before (inherited from parent)
-            // thus it is causing warning message that back color is not found in Customizer
-            aLabel.BackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorNotEnabled);
+            // colors are set by setThemeSpecial
             aLabel.Left = dynamicLabelFind.Left;
             aLabel.Top = lastTop;
             if (maxLabelWidth < aLabel.PreferredWidth)
@@ -511,7 +510,7 @@ namespace QuickImageComment
         {
             DateTimePickerQIC dateTimePicker = new DateTimePickerQIC();
             panelFilterInner.Controls.Add(dateTimePicker);
-            dateTimePicker.Name = dateTimePickerNamePrefix + nameSuffix;
+            dateTimePicker.Name = dateTimePickerNamePrefix + FormCustomization.Customizer.tagNoThemeChange + nameSuffix;
             dateTimePicker.Visible = true;
             dateTimePicker.Enabled = false;
             dateTimePicker.Format = this.dateTimePicker.Format;
@@ -519,8 +518,7 @@ namespace QuickImageComment
             dateTimePicker.Anchor = this.dateTimePicker.Anchor;
             dateTimePicker.AutoSize = this.dateTimePicker.AutoSize;
             // do net set Font, shall be inherited by parent
-            dateTimePicker.ForeColor = this.dateTimePicker.ForeColor;
-            dateTimePicker.BackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorNotEnabled);
+            // colors are set by setThemeSpecial
             dateTimePicker.Size = this.dateTimePicker.Size;
             dateTimePicker.Height = this.dateTimePicker.Height;
 
@@ -532,13 +530,12 @@ namespace QuickImageComment
         {
             ComboBoxQIC comboBoxOperator = new ComboBoxQIC();
             panelFilterInner.Controls.Add(comboBoxOperator);
-            comboBoxOperator.Name = comboBoxOperatorNamePrefix + nameSuffix;
+            comboBoxOperator.Name = comboBoxOperatorNamePrefix + FormCustomization.Customizer.tagNoThemeChange + nameSuffix;
             comboBoxOperator.Visible = true;
             comboBoxOperator.Anchor = dynamicComboBoxOperator.Anchor;
             comboBoxOperator.AutoSize = dynamicComboBoxOperator.AutoSize;
             // do net set Font, shall be inherited by parent
-            comboBoxOperator.ForeColor = dynamicComboBoxOperator.ForeColor;
-            comboBoxOperator.BackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorInputUnchanged);
+            // colors are set by setThemeSpecial
             comboBoxOperator.Size = dynamicComboBoxOperator.Size;
             comboBoxOperator.Height = dynamicComboBoxOperator.Height;
             comboBoxOperator.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -551,16 +548,17 @@ namespace QuickImageComment
         {
             ComboBoxQIC comboBoxValue = new ComboBoxQIC();
             panelFilterInner.Controls.Add(comboBoxValue);
-            comboBoxValue.Name = comboBoxValueNamePrefix + nameSuffix;
+            comboBoxValue.Name = comboBoxValueNamePrefix + FormCustomization.Customizer.tagNoThemeChange + nameSuffix;
             comboBoxValue.Visible = true;
             comboBoxValue.Enabled = false;
             comboBoxValue.Anchor = dynamicComboBoxValue.Anchor;
             comboBoxValue.AutoSize = dynamicComboBoxValue.AutoSize;
             // do net set Font, shall be inherited by parent
-            comboBoxValue.ForeColor = dynamicComboBoxValue.ForeColor;
-            comboBoxValue.BackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorNotEnabled);
+            // colors are set by setThemeSpecial
             comboBoxValue.Size = dynamicComboBoxValue.Size;
             comboBoxValue.Height = dynamicComboBoxValue.Height;
+            QuickImageComment.GeneralUtilities.writeDebugFileEntry("*** " + comboBoxValue.Name + " back: "
+                + comboBoxValue.BackColor.ToString());
 
             return comboBoxValue;
         }
@@ -652,6 +650,46 @@ namespace QuickImageComment
                 foreach (string Entry in ConfigDefinition.getFindFilterEntriesLists()[key])
                 {
                     comboBoxValue.Items.Add(Entry);
+                }
+            }
+        }
+
+        // set foreground and background colors of controls which are not handled by generic Customizer
+        // method is also used to set colors when filling the filter panel with controls
+        public void setThemeSpecial()
+        {
+            for (int ii = panelFilterInner.Controls.Count - 1; ii >= 0; ii--)
+            {
+                if (panelFilterInner.Controls[ii] is Label label)
+                {
+                    label.ForeColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.ForeColorEnabled);
+                    label.BackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorNotEnabled);
+                }
+                else if (panelFilterInner.Controls[ii] is ComboBoxQIC comboBox)
+                {
+                    if (comboBox.Enabled)
+                    {
+                        comboBox.ForeColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.ForeColorEnabled);
+                        comboBox.BackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorInputUnchanged);
+                    }
+                    else
+                    {
+                        comboBox.ForeColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.ForeColorNotEnabled);
+                        comboBox.BackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorNotEnabled);
+                    }
+                }
+                else if (panelFilterInner.Controls[ii] is DateTimePickerQIC dateTimePicker)
+                {
+                    if (dateTimePicker.Enabled)
+                    {
+                        dateTimePicker.ForeColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.ForeColorEnabled);
+                        dateTimePicker.BackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorInputUnchanged);
+                    }
+                    else
+                    {
+                        dateTimePicker.ForeColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.ForeColorNotEnabled);
+                        dateTimePicker.BackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorNotEnabled);
+                    }
                 }
             }
         }
@@ -1546,7 +1584,7 @@ namespace QuickImageComment
 
         private void FormFind_FormClosing(object sender, FormClosingEventArgs e)
         {
-            theUserControlMap.saveConfigDefinitions();
+            theUserControlMap?.saveConfigDefinitions();
             ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.FormFindHeight, this.Height);
             ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.FormFindWidth, this.Width);
             ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.FormFindSplitContainer1_Distance, splitContainer1.SplitterDistance);

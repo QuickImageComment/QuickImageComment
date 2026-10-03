@@ -243,7 +243,9 @@ namespace QuickImageComment
             E_ExifToolReponseParsingError,
             Q_differentRatingFromRatingControl,
             Q_showRatingRejectButton,
-            Q_nameForExifToolCommand
+            Q_nameForExifToolCommand,
+            W_unknownColorTheme
+
         }
 
         public enum Others

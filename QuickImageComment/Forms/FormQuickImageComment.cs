@@ -3013,15 +3013,20 @@ namespace QuickImageComment
             {
                 CustomizationInterface.setColorThemeName(newEffectiveThemeName);
                 CustomizationInterface.setThemeForComponent(this);
+                // set foreground and background colors of controls which were added dynamically
+                // and thus are not handled properly by generic Customizer logic
+                setThemeSpecial();
+            }
+        }
 
-                // as they are filled dynamic refresh the following controls to get new theme
-                if (theUserControlChangeableFields != null)
-                {
-                    theUserControlChangeableFields.adjustTemplateControlsForNewTheme();
-                    //!!: is an reliable way to adjust theme, but does much more then needed. Is it worth to implement specific logic for theme change?
-                    theUserControlChangeableFields.fillChangeableFieldPanelWithControls(theExtendedImage);
-                }
-                if (theExtendedImage != null) displayProperties();
+        // set foreground and background colors of controls which are not handled by generic Customizer
+        // needed here as controls in theUserControlChangeableFields are added dynamically
+        // and thus original values are not known to Customizer
+        public void setThemeSpecial()
+        {
+            if (theUserControlChangeableFields != null)
+            {
+                theUserControlChangeableFields.setThemeSpecial();
             }
         }
 

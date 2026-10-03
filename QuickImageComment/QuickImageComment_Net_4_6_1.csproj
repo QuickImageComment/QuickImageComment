@@ -264,6 +264,7 @@
     <Compile Include="Forms\FormUserButtons.Designer.cs">
       <DependentUpon>FormUserButtons.cs</DependentUpon>
     </Compile>
+    <Compile Include="Interfaces\IThemeChangeSpecial.cs" />
     <Compile Include="JR.Utils.GUI.Forms\FlexibleMessageBox.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
