@@ -156,6 +156,8 @@ namespace QuickImageComment
 
         // to avoid some actions triggered by events during starting, especially display image
         internal bool starting = true;
+        // to remember if there was a request to open FormLogger during starting, so that it can be opened after starting is finished
+        private bool openFormLoggerAfterStarting = false;
 
         // exception message from ExifToolWrapper during init
         // not shown directly as message box will be hidden behind this mask when opening
@@ -944,6 +946,8 @@ namespace QuickImageComment
             initDirectoryWatcher(FolderName);
 
             starting = false;
+            if (openFormLoggerAfterStarting) initFormLogger();
+
             this.toolStripStatusLabelMemory.Text = "";
 
             // start thread to cyclically display memory
@@ -6946,7 +6950,10 @@ namespace QuickImageComment
             else
             {
                 // do not init FormLogger too early as it could cause "Cannot access a disposed object."
-                if (!starting) Logger.initFormLogger(); // permanent use of Logger
+                if (starting)
+                    openFormLoggerAfterStarting = true;
+                else
+                    Logger.initFormLogger(); // permanent use of Logger
             }
         }
 
