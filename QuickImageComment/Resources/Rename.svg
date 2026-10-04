@@ -11,8 +11,8 @@
     <filter id="shadow" x="-25%" y="-25%" width="160%" height="160%"><feDropShadow dx="1.2" dy="1.5" stdDeviation=".8" flood-color="#111" flood-opacity=".35"/></filter>
   </defs>
   <g filter="url(#shadow)">
-    <text x="2" y="29" font-family="Georgia,serif" font-size="20" font-weight="bold" fill="#fff" stroke="#173b86" stroke-width=".8" paint-order="stroke">A</text>
-    <text x="17" y="15" font-family="Georgia,serif" font-size="20" font-weight="bold" fill="#fff" stroke="#173b86" stroke-width=".8" paint-order="stroke">B</text>
+    <text x="2" y="29" font-family="Georgia,serif" font-size="20" font-weight="bold" fill="#4b82c1" stroke="#173b86" stroke-width=".8" paint-order="stroke">A</text>
+    <text x="17" y="15" font-family="Georgia,serif" font-size="20" font-weight="bold" fill="#4b82c1" stroke="#173b86" stroke-width=".8" paint-order="stroke">B</text>
     <path d="M3 14c2-6 7-8 13-5V5l6 6-6 6v-4c-4-2-7-1-10 4z" fill="url(#green)" stroke="#238329"/>
     <path d="M29 18c-2 6-7 8-13 5v4l-6-6 6-6v4c4 2 7 1 10-4z" fill="url(#green)" stroke="#238329"/>
   </g>

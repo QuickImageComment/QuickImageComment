@@ -13,6 +13,7 @@
   <g filter="url(#shadow)">
     <ellipse cx="9.5" cy="8.5" rx="4.5" ry="5" fill="#ffd09b" stroke="#b7793c"/>
     <path d="M5 8c.3-4.3 2.2-6.1 5.1-5.6 2.4.4 3.8 2.1 4.1 4.5-1.2-.8-2.4-1.2-3.7-1.2-1.6 0-3.4.8-5.5 2.3z" fill="#a8662f" stroke="#8a4f25" stroke-width=".7"/>
+    <path d="M7.5 12.5h4v4.2h-4z" fill="#ffd09b" stroke="#b7793c" stroke-width=".8"/>
     <path d="M3 29v-7.5c0-3.4 2.7-5.4 6.5-5.4s6.5 2 6.5 5.4V29z" fill="url(#blue)" stroke="#2460a8"/>
     <path d="M6.5 17.2c1.1 1.2 2.4 1.8 3.8 1.8s2.7-.6 3.8-1.8" fill="none" stroke="#dcecff" stroke-width=".8"/>
     <rect x="14" y="13" width="16" height="13" rx="1" fill="#9ee4f6" stroke="#547b91" stroke-width="1.2"/>
