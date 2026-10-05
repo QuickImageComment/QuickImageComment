@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace QuickImageComment.Interfaces
+﻿namespace QuickImageComment.Interfaces
 {
     // The generic approach in FormCustomization.Customizer to change foreground
     // and background colors of controls may not be sufficient for some forms.

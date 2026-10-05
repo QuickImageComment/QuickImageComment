@@ -3021,13 +3021,28 @@ namespace QuickImageComment
                 // and thus are not handled properly by generic Customizer logic
                 setThemeSpecial();
             }
+            // without Refresh the square between scrollbars in the lower right corner of listViewFiles
+            // does not change it's backcolor directly; Invalidate did not help
+            Refresh();
         }
 
-        // set foreground and background colors of controls which are not handled by generic Customizer
-        // needed here as controls in theUserControlChangeableFields are added dynamically
-        // and thus original values are not known to Customizer
+        // set foreground and background colors of controls which are not handled properly by generic Customizer
         public void setThemeSpecial()
         {
+            // DataGridViewOverview etc. have a special logic when cells are editable
+            // and thus background colors need to be set here
+            // Note: as displayProperties is called only when an image is displayed, the DataGridViewMetaData
+            // are not marked with tag "NO_THEME_CHANGE" to have controls adjusted when no image is loaded yet
+            if (theExtendedImage != null) displayProperties();
+            CustomizationInterface.setSubAppName(DataGridViewOverview);
+            CustomizationInterface.setSubAppName(DataGridViewExif);
+            CustomizationInterface.setSubAppName(DataGridViewIptc);
+            CustomizationInterface.setSubAppName(DataGridViewXmp);
+            CustomizationInterface.setSubAppName(DataGridViewExifTool);
+            CustomizationInterface.setSubAppName(DataGridViewOtherMetaData);
+
+            // controls in theUserControlChangeableFields are added dynamically
+            // and thus original values are not known to Customizer
             if (theUserControlChangeableFields != null)
             {
                 theUserControlChangeableFields.setThemeSpecial();
@@ -7573,10 +7588,9 @@ namespace QuickImageComment
             LangCfg.addNotTranslatedTexts(CustomizationInterface.getNotTranslatedTexts(), "FormCustomization");
             LangCfg.writeTranslationCheckFiles(true);
 
-            // following call mainly for filling used colors file
-            GeneralUtilities.debugMessage("Now finally create file with used colors.");
-
             GeneralUtilities.CloseAfterConstructing = false;
+            // write color file after writeTranslationCheckFiles to include colors from
+            // FlexibleMessageBoxForm which is opened at end of writeTranslationCheckFiles
             CustomizationInterface.writeUsedColorsFile();
         }
 

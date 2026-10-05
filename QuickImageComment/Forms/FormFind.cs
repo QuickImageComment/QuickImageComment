@@ -557,8 +557,6 @@ namespace QuickImageComment
             // colors are set by setThemeSpecial
             comboBoxValue.Size = dynamicComboBoxValue.Size;
             comboBoxValue.Height = dynamicComboBoxValue.Height;
-            QuickImageComment.GeneralUtilities.writeDebugFileEntry("*** " + comboBoxValue.Name + " back: "
-                + comboBoxValue.BackColor.ToString());
 
             return comboBoxValue;
         }

@@ -170,6 +170,12 @@ namespace FormCustomization
             //#endif
         }
 
+        // set SubAppName for control
+        internal void setSubAppName(Control control)
+        {
+            theCustomizer.setSubAppName(control, "..." + control.Name);
+        }
+
         // load the settings from file
         public void loadCustomizationFile(string CustomizationFile)
         {
