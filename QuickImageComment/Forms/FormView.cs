@@ -14,6 +14,7 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
+using QuickImageComment.Controls;
 using QuickImageCommentControls;
 using System;
 using System.Collections;
@@ -437,13 +438,30 @@ namespace QuickImageComment
                 aPanel.Width = aPanel.Parent.Width;
             }
 
-            if (aPanel.Controls.Count == 0)
+            ComboBoxQIC aComboBox = null;
+            CheckBoxQIC aCheckBox = null;
+            foreach (Control aControl in aPanel.Controls)
             {
-                ComboBoxQIC aComboBox = new ComboBoxQIC();
-                aPanel.Controls.Add(aComboBox);
+                if (aControl is ComboBoxQIC)
+                {
+                    aComboBox = (ComboBoxQIC)aControl;
+                }
+                else if (aControl is CheckBoxQIC)
+                {
+                    aCheckBox = (CheckBoxQIC)aControl;
+                }
+                else if (aControl is SplitContainer)
+                {
+                    addConfigControlsInPanels(((SplitContainer)aControl).Panel1);
+                    addConfigControlsInPanels(((SplitContainer)aControl).Panel2);
+                }
+            }
+            if (aComboBox != null && aCheckBox != null)
+            {
+                // this panel is on lowest level, so adjust controls for content selection and visibility
                 aComboBox.FormattingEnabled = true;
                 aComboBox.Left = 0;
-                aComboBox.Top = 20; // aPanel.Height / 2 - aComboBox.Height;
+                aComboBox.Top = aPanel.Height / 2 - aComboBox.Height;
                 aComboBox.Width = aPanel.Width;
                 aComboBox.Name = "dynamicComboBox";
                 aComboBox.Items.Add("");
@@ -454,25 +472,12 @@ namespace QuickImageComment
                 }
                 ConfigControlsComboBoxes.Add(GeneralUtilities.getNameOfPanelInSplitContainer(aPanel), aComboBox);
 
-                CheckBox aCheckBox = new CheckBox();
-                aPanel.Controls.Add(aCheckBox);
                 aCheckBox.Text = LangCfg.getText(LangCfg.Others.show);
                 aCheckBox.Left = 0;
-                aCheckBox.Top = 20 + aComboBox.Height; // aPanel.Height / 2;
+                aCheckBox.Top = aPanel.Height / 2;
                 aCheckBox.Width = 200; // set explicitely, because with higher dpi (144) string is truncated 
                 aCheckBox.Name = "dynamicCheckBox";
                 ConfigControlsCheckBoxes.Add(GeneralUtilities.getNameOfPanelInSplitContainer(aPanel), aCheckBox);
-            }
-            else
-            {
-                foreach (Control aControl in aPanel.Controls)
-                {
-                    if (aControl.GetType().Equals(typeof(SplitContainer)))
-                    {
-                        addConfigControlsInPanels(((SplitContainer)aControl).Panel1);
-                        addConfigControlsInPanels(((SplitContainer)aControl).Panel2);
-                    }
-                }
             }
         }
 
