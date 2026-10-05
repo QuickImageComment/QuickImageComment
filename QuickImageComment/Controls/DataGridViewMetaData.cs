@@ -27,7 +27,7 @@ using System.Windows.Forms;
 namespace QuickImageCommentControls
 {
 
-    class DataGridViewMetaData : System.Windows.Forms.DataGridView
+    class DataGridViewMetaData : QuickImageComment.Controls.DataGridViewQIC
     {
         private readonly System.ComponentModel.IContainer components = null;
         private readonly ContextMenuStrip ContextMenuStripDataGridViewMetaData;
@@ -116,8 +116,6 @@ namespace QuickImageCommentControls
             this.ContextMenuStripDataGridViewMetaData.Size = new System.Drawing.Size(212, 48);
             this.ContextMenuStrip = this.ContextMenuStripDataGridViewMetaData;
 
-            this.BackgroundColor = System.Drawing.SystemColors.Window;
-            this.GridColor = System.Drawing.SystemColors.ScrollBar;
             this.RowTemplate.Height = 18;
             DataGridViewCellStyle dataGridViewCellStyleMetaData = new DataGridViewCellStyle
             {
@@ -620,6 +618,8 @@ namespace QuickImageCommentControls
                         row[6] = anMetaDataDefinitionItem.KeySec;
                         Rows.Add(row);
                         Rows[Rows.Count - 1].Cells[1].ReadOnly = true;
+                        Rows[Rows.Count - 1].DefaultCellStyle.BackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorNotEnabled);
+                        Rows[Rows.Count - 1].DefaultCellStyle.ForeColor = this.ForeColor;
                     }
                     foreach (string language in theExtendedImage.getXmpLangAltEntries())
                     {
@@ -636,10 +636,10 @@ namespace QuickImageCommentControls
                             row[6] = anMetaDataDefinitionItem.KeySec;
                             Rows.Add(row);
                             Rows[Rows.Count - 1].Cells[1].ReadOnly = true;
+                            Rows[Rows.Count - 1].DefaultCellStyle.BackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorNotEnabled);
+                            Rows[Rows.Count - 1].DefaultCellStyle.ForeColor = this.ForeColor;
                         }
                     }
-                    Rows[Rows.Count - 1].DefaultCellStyle.BackColor = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorNotEnabled);
-                    Rows[Rows.Count - 1].DefaultCellStyle.ForeColor = this.ForeColor;
                 }
                 else
                 {

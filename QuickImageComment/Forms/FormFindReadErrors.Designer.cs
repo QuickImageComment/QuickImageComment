@@ -33,7 +33,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dataGridView1 = new QuickImageComment.Controls.DataGridViewQIC();
             this.FileName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.KeyPrim = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TypePrim = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -167,6 +167,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn KeyPrim;
         private System.Windows.Forms.DataGridViewTextBoxColumn TypePrim;
         private System.Windows.Forms.DataGridViewTextBoxColumn Value;
-        internal System.Windows.Forms.DataGridView dataGridView1;
+        internal QuickImageComment.Controls.DataGridViewQIC dataGridView1;
     }
 }

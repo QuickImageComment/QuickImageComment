@@ -58,7 +58,7 @@ namespace QuickImageComment
             this.ToolStripMenuItemPropertiesRight = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripScrollPage = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dataGridView1 = new QuickImageComment.Controls.DataGridViewQIC();
             this.dataGridViewOverviewColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewOverviewColumValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -246,7 +246,7 @@ namespace QuickImageComment
 
     private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private QuickImageComment.Controls.DataGridViewQIC dataGridView1;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem contextMenuStripMetaDataMenuItemAdjust;
         private System.Windows.Forms.ToolStripMenuItem contextMenuStripMetaDataMenuItemProperties;

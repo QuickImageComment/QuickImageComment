@@ -48,7 +48,7 @@
             this.buttonFocusPointColor = new QuickImageCommentControls.ButtonQIC();
             this.numericUpDownWidth = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownRadius = new System.Windows.Forms.NumericUpDown();
-            this.dataGridViewMinMaxValues = new System.Windows.Forms.DataGridView();
+            this.dataGridViewMinMaxValues = new QuickImageComment.Controls.DataGridViewQIC();
             this.Static_Type = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Brightness = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.R = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -299,7 +299,6 @@
             // 
             this.tableLayoutPanelFocusPoint.SetColumnSpan(this.buttonCenterFocusPoint, 2);
             this.buttonCenterFocusPoint.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonCenterFocusPoint.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonCenterFocusPoint.Location = new System.Drawing.Point(3, 33);
             this.buttonCenterFocusPoint.Name = "buttonCenterFocusPoint";
             this.buttonCenterFocusPoint.Size = new System.Drawing.Size(174, 30);
@@ -345,7 +344,6 @@
             // buttonFocusPointColor
             // 
             this.buttonFocusPointColor.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonFocusPointColor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonFocusPointColor.Location = new System.Drawing.Point(137, 3);
             this.buttonFocusPointColor.Name = "buttonFocusPointColor";
             this.buttonFocusPointColor.Size = new System.Drawing.Size(40, 24);
@@ -609,7 +607,6 @@
             // 
             // buttonGridColor
             // 
-            this.buttonGridColor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonGridColor.Location = new System.Drawing.Point(110, 336);
             this.buttonGridColor.Name = "buttonGridColor";
             this.buttonGridColor.Size = new System.Drawing.Size(50, 15);
@@ -720,7 +717,6 @@
             // 
             // buttonFrameColor
             // 
-            this.buttonFrameColor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonFrameColor.Location = new System.Drawing.Point(110, 319);
             this.buttonFrameColor.Name = "buttonFrameColor";
             this.buttonFrameColor.Size = new System.Drawing.Size(50, 15);
@@ -813,7 +809,7 @@
         private QuickImageComment.Controls.CheckBoxQIC checkBoxColorB;
         private QuickImageComment.Controls.CheckBoxQIC checkBoxColorG;
         private QuickImageComment.Controls.CheckBoxQIC checkBoxColorR;
-        private System.Windows.Forms.DataGridView dataGridViewMinMaxValues;
+        private QuickImageComment.Controls.DataGridViewQIC dataGridViewMinMaxValues;
         private System.Windows.Forms.DataGridViewTextBoxColumn Static_Type;
         private System.Windows.Forms.DataGridViewTextBoxColumn Brightness;
         private System.Windows.Forms.DataGridViewTextBoxColumn R;

@@ -58,7 +58,7 @@ namespace QuickImageComment
             this.dateTimePicker = new QuickImageComment.DateTimePickerQIC();
             this.dynamicComboBoxValue = new QuickImageCommentControls.ComboBoxQIC();
             this.dynamicLabelFind = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dataGridView1 = new QuickImageComment.Controls.DataGridViewQIC();
             this.label1 = new System.Windows.Forms.Label();
             this.dynamicLabelFolder = new System.Windows.Forms.Label();
             this.labelCount = new System.Windows.Forms.Label();
@@ -672,7 +672,7 @@ namespace QuickImageComment
         private QuickImageCommentControls.ButtonQIC buttonCriteriaFromImage;
         private System.Windows.Forms.Label labelRemainingTime;
         private System.Windows.Forms.Label dynamicLabelRemainingTime;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private QuickImageComment.Controls.DataGridViewQIC dataGridView1;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.Panel panelFilterOuter;
         private System.ComponentModel.BackgroundWorker backgroundWorkerInit;

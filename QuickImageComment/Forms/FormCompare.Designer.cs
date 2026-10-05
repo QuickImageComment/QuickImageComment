@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormCompare));
-            this.dataGridViewDifferences = new System.Windows.Forms.DataGridView();
+            this.dataGridViewDifferences = new QuickImageComment.Controls.DataGridViewQIC();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.buttonClose = new QuickImageCommentControls.ButtonQIC();
@@ -209,7 +209,7 @@
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dataGridViewDifferences;
+        private QuickImageComment.Controls.DataGridViewQIC dataGridViewDifferences;
         private QuickImageCommentControls.ButtonQIC buttonClose;
         private QuickImageCommentControls.ButtonQIC buttonCustomizeForm;
         private QuickImageCommentControls.ButtonQIC buttonHelp;

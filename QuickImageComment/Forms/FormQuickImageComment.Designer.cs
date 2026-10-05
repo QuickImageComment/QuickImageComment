@@ -81,7 +81,7 @@ namespace QuickImageComment
             this.checkBoxGpsDataChange = new QuickImageComment.Controls.CheckBoxQIC();
             this.comboBoxKeyWordsChange = new QuickImageCommentControls.ComboBoxQIC();
             this.checkBoxRatingChange = new QuickImageComment.Controls.CheckBoxQIC();
-            this.dataGridViewSelectedFiles = new System.Windows.Forms.DataGridView();
+            this.dataGridViewSelectedFiles = new QuickImageComment.Controls.DataGridViewQIC();
             this.contextMenuStripMetaData = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.contextMenuStripMetaDataMenuItemAdjust = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanelUsercomment = new System.Windows.Forms.TableLayoutPanel();
@@ -2951,7 +2951,7 @@ namespace QuickImageComment
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemImageX8;
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemRemoveMetaData;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemCompare;
-        private System.Windows.Forms.DataGridView dataGridViewSelectedFiles;
+        private QuickImageComment.Controls.DataGridViewQIC dataGridViewSelectedFiles;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemTextExportAllProp;
         private System.Windows.Forms.ToolStripButton toolStripButtonView;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemViewAdjust;

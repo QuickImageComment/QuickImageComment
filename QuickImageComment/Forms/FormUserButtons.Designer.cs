@@ -34,7 +34,7 @@ namespace QuickImageComment
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.dataGridViewButtons = new System.Windows.Forms.DataGridView();
+            this.dataGridViewButtons = new QuickImageComment.Controls.DataGridViewQIC();
             this.Dynamic_ColumnIcon = new System.Windows.Forms.DataGridViewImageColumn();
             this.Dynamic_ColumnText = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Dynamic_ColumnTag = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -428,7 +428,7 @@ namespace QuickImageComment
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.DataGridView dataGridViewButtons;
+        private QuickImageComment.Controls.DataGridViewQIC dataGridViewButtons;
         private QuickImageCommentControls.ButtonQIC buttonAdd;
         private QuickImageCommentControls.ButtonQIC buttonRemove;
         private QuickImageCommentControls.ButtonQIC buttonUp;

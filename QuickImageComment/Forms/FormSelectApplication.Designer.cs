@@ -32,7 +32,7 @@
             this.buttonOk = new QuickImageCommentControls.ButtonQIC();
             this.buttonCancel = new QuickImageCommentControls.ButtonQIC();
             this.label1 = new System.Windows.Forms.Label();
-            this.dataGridViewApplications = new System.Windows.Forms.DataGridView();
+            this.dataGridViewApplications = new QuickImageComment.Controls.DataGridViewQIC();
             this.Prozess = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Fenstertitel = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Programmpfad = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -130,7 +130,7 @@
         private QuickImageCommentControls.ButtonQIC  buttonOk;
         private QuickImageCommentControls.ButtonQIC  buttonCancel;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DataGridView dataGridViewApplications;
+        private QuickImageComment.Controls.DataGridViewQIC dataGridViewApplications;
         private System.Windows.Forms.DataGridViewTextBoxColumn Prozess;
         private System.Windows.Forms.DataGridViewTextBoxColumn Fenstertitel;
         private System.Windows.Forms.DataGridViewTextBoxColumn Programmpfad;
