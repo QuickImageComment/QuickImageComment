@@ -760,6 +760,42 @@ namespace FormCustomization
                 }
             }
 
+            if (ParentControl is Control control2)
+            {
+                Type type = ParentControl.GetType();
+                string key = ThemeName + type.Name;
+                string subAppName = "";
+                if (ThemeSubAppNames.ContainsKey(key))
+                {
+                    subAppName = ThemeSubAppNames[key];
+#if WRITEDEBUGTHEMETRACE
+                    QuickImageComment.GeneralUtilities.writeDebugFileEntry("    " + ParentControlFullName +
+                        " type=" + type.Name + " SubAppName=" + subAppName);
+#endif
+                }
+                // try base types of types until reaching System.Windows.Forms
+                while (!type.Namespace.Contains("System.Windows.Forms"))
+                {
+                    type = type.BaseType;
+                    key = ThemeName + type.Name;
+                    subAppName = "";
+                    if (ThemeSubAppNames.ContainsKey(key))
+                    {
+                        subAppName = ThemeSubAppNames[key];
+#if WRITEDEBUGTHEMETRACE
+                        QuickImageComment.GeneralUtilities.writeDebugFileEntry("    " + ParentControlFullName +
+                            " type=" + type.Name + " SubAppName=" + subAppName);
+#endif
+                    }
+                }
+#if WRITEDEBUGTHEMETRACE
+                QuickImageComment.GeneralUtilities.writeDebugFileEntry(ParentControlFullName +
+                    "\ttype=\t" + type.Name + "\tSubAppName=\t" + subAppName);
+#endif
+                if (((Control)ParentControl).Handle != null)
+                    SetWindowTheme(((Control)ParentControl).Handle, subAppName, null);
+            }
+
             if (ParentControl is Control) setSubAppName((Control)ParentControl, ParentControlFullName);
 
             // first set theme for child controls, then for parent control
