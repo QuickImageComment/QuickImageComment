@@ -229,7 +229,9 @@ namespace QuickImageComment
             logDifferencesMetaData,
             showFocusPointImageDetails,
             showFocusPointMainMask,
-            showRatingRejectButton
+            showRatingRejectButton, // not initialised, user is asked 
+            migrationDpiAware, // not initialised, set after user was asked 
+            migrationDarkTheme, // not initialised, set after user was asked
         };
 
         public enum enumCfgUserInt
@@ -417,6 +419,7 @@ namespace QuickImageComment
         private static ArrayList GeoDataItemArrayList;
         private static ArrayList RawDecoderNotRotatingArrayList;
         private static ArrayList EditExternalDefinitionArrayList;
+        internal static SortedList<string, string> ExifToolCommands;
         private static List<string> ImagesCausingExiv2Exception;
 
         internal static SortedList<string, DataTemplate> DataTemplates;
@@ -519,6 +522,7 @@ namespace QuickImageComment
             GeoDataItemArrayList = new ArrayList();
             RawDecoderNotRotatingArrayList = new ArrayList();
             EditExternalDefinitionArrayList = new ArrayList();
+            ExifToolCommands = new SortedList<string, string>();
             ImagesCausingExiv2Exception = new List<string>();
             OtherMetaDataDefinitions = new ArrayList();
             InternalMetaDataDefinitions = new SortedList();
@@ -714,7 +718,7 @@ namespace QuickImageComment
             ConfigItems.Add(enumCfgUserString.ExifToolPath.ToString(), "not yet set");
             ConfigItems.Add(enumCfgUserString.ExifToolOptionsRead.ToString(), "-fast");
             ConfigItems.Add(enumCfgUserString.ExifToolOptionsWrite.ToString(), "");
-            ConfigItems.Add(enumCfgUserString.ColorThemeName.ToString(), "Dark");
+            ConfigItems.Add(enumCfgUserString.ColorThemeName.ToString(), "System");
 
             ConfigItems.Add(enumCfgUserInt.CheckForNewVersionPeriodInDays.ToString(), 30);
             ConfigItems.Add(enumCfgUserInt.ImageDetailsFrameColor.ToString(), System.Drawing.Color.Red.ToArgb());
@@ -1013,6 +1017,43 @@ namespace QuickImageComment
             ConfigDefinition.aksForCfgUserBoolIfUndefined(ConfigDefinition.enumCfgUserBool.showRatingRejectButton,
                 LangCfg.Message.Q_showRatingRejectButton);
 
+            // migration for DPI awareness
+            if (!ConfigItems.ContainsKey(enumCfgUserBool.migrationDpiAware.ToString()))
+            {
+                int zoom = getCfgUserInt(ConfigDefinition.enumCfgUserInt.zoomFactorPerCentGeneral);
+                if (zoom != 100 && DpiMonitor.GetSystemDpi() != 96)
+                {
+                    DialogResult answer = GeneralUtilities.questionMessage(LangCfg.Message.Q_migrationDpiAware, zoom.ToString());
+                    if (answer == DialogResult.No)
+                    {
+                        setCfgUserInt(enumCfgUserInt.zoomFactorPerCentGeneral, 100);
+                    }
+                }
+                setCfgUserBool(ConfigDefinition.enumCfgUserBool.migrationDpiAware, true);
+            }
+
+            // migration for dark theme
+            if (!ConfigItems.ContainsKey(enumCfgUserBool.migrationDarkTheme.ToString()))
+            {
+                if (GeneralUtilities.IsSystemInDarkMode())
+                {
+                    DialogResult answer = GeneralUtilities.questionMessage(LangCfg.Message.Q_migrationDarkThemeSystemDark);
+                    if (answer == DialogResult.No)
+                    {
+                        setCfgUserString(enumCfgUserString.ColorThemeName, FormCustomization.Customizer.ThemeLight);
+                    }
+                }
+                else
+                {
+                    DialogResult answer = GeneralUtilities.questionMessage(LangCfg.Message.Q_migrationDarkThemeSystemLight);
+                    if (answer == DialogResult.Yes)
+                    {
+                        setCfgUserString(enumCfgUserString.ColorThemeName, FormCustomization.Customizer.ThemeDark);
+                    }
+                }
+                setCfgUserBool(ConfigDefinition.enumCfgUserBool.migrationDarkTheme, true);
+            }
+
             // if no entries for MetaDataDefinitionsChange found, define initial set
             if (MetaDataDefinitions[enumMetaDataGroup.MetaDataDefForChange].Count == 0)
             {
@@ -1248,6 +1289,13 @@ namespace QuickImageComment
                 PredefinedKeyWords.Add(LangCfg.translate("Landschaft", "ConfigDefinition-PredefinedKeyWords"));
                 PredefinedKeyWords.Add(LangCfg.translate("Sonstiges", "ConfigDefinition-PredefinedKeyWords"));
                 fillPredefinedKeyWordsTrimmed();
+            }
+
+            if (ExifToolCommands.Count == 0)
+            {
+                ExifToolCommands.Add("Version", "-ver");
+                ExifToolCommands.Add("Liste1", "-listg1");
+                ExifToolCommands.Add("Liste2", "-listg2");
             }
 
             // Check configuration for PredefinedCommentMouseDoubleClickAction
@@ -2597,6 +2645,16 @@ namespace QuickImageComment
             EditExternalDefinitionArrayList = new ArrayList(newEditExternalArrayList);
         }
 
+        // exiftool commands
+        public static SortedList<string, string> getExifToolCommands()
+        {
+            return ExifToolCommands;
+        }
+        public static void setExifToolCommands(SortedList<string, string> newExifToolCommands)
+        {
+            ExifToolCommands = newExifToolCommands;
+        }
+
         // get edit external definition for a tooltip text (user defined button)
         internal static EditExternalDefinition getEditExternalDefinition(string tooltipText)
         {
@@ -3084,6 +3142,18 @@ namespace QuickImageComment
                     {
                         EditExternalDefinitionArrayList.Add(new EditExternalDefinition(secondPart));
                     }
+                    else if (firstPart.Equals("ExifToolCommand"))
+                    {
+                        int indexPipe = secondPart.IndexOf("|");
+                        string name = secondPart.Substring(0, indexPipe);
+                        string command = secondPart.Substring(indexPipe + 1);
+
+                        if (!ExifToolCommands.ContainsKey(name))
+                        {
+                            ExifToolCommands.Add(name, command);
+                        }
+                    }
+
                     else if (firstPart.Equals("ImagesCausingExiv2Exception"))
                     {
                         ImagesCausingExiv2Exception.Add(secondPart);
@@ -3741,6 +3811,10 @@ namespace QuickImageComment
             foreach (EditExternalDefinition editExternalDefinition in EditExternalDefinitionArrayList)
             {
                 StreamOut.WriteLine("EditExternal:" + editExternalDefinition);
+            }
+            foreach (string name in ExifToolCommands.Keys)
+            {
+                StreamOut.WriteLine("ExifToolCommand:" + name + "|" + ExifToolCommands[name]);
             }
             foreach (string fileName in ImagesCausingExiv2Exception)
             {

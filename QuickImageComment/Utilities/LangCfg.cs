@@ -244,8 +244,10 @@ namespace QuickImageComment
             Q_differentRatingFromRatingControl,
             Q_showRatingRejectButton,
             Q_nameForExifToolCommand,
-            W_unknownColorTheme
-
+            W_unknownColorTheme,
+            Q_migrationDpiAware,
+            Q_migrationDarkThemeSystemDark,
+            Q_migrationDarkThemeSystemLight
         }
 
         public enum Others
