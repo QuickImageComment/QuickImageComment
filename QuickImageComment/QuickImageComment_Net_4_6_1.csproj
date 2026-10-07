@@ -121,6 +121,9 @@
     <Compile Include="Controls\ButtonQIC.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controls\DataGridViewQIC.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\RadioButtonQIC.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -144,6 +147,9 @@
     </Compile>
     <Compile Include="Controls\ListViewQIC.cs" />
     <Compile Include="Controls\pictureBoxQIC.cs" />
+    <Compile Include="Controls\TabControlQIC.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\TextBoxHighlightText.cs">
       <SubType>Component</SubType>
     </Compile>

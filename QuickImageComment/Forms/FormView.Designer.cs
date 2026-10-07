@@ -36,6 +36,8 @@
             this.splitContainer121 = new System.Windows.Forms.SplitContainer();
             this.splitContainer1211 = new System.Windows.Forms.SplitContainer();
             this.label2 = new System.Windows.Forms.Label();
+            this.dynamicCheckBox3 = new QuickImageComment.Controls.CheckBoxQIC();
+            this.dynamicComboBox3 = new QuickImageCommentControls.ComboBoxQIC();
             this.panelCentralInputArea = new System.Windows.Forms.Panel();
             this.labelCentralInputArea = new System.Windows.Forms.Label();
             this.dynamicComboBoxCentralInputArea = new QuickImageCommentControls.ComboBoxQIC();
@@ -114,11 +116,23 @@
             this.buttonDelete = new QuickImageCommentControls.ButtonQIC();
             this.buttonSave = new QuickImageCommentControls.ButtonQIC();
             this.dynamicComboBoxConfigurationName = new QuickImageCommentControls.ComboBoxQIC();
+            this.dynamicCheckBox2 = new QuickImageComment.Controls.CheckBoxQIC();
+            this.dynamicComboBox2 = new QuickImageCommentControls.ComboBoxQIC();
+            this.dynamicCheckBox1 = new QuickImageComment.Controls.CheckBoxQIC();
+            this.dynamicComboBox1 = new QuickImageCommentControls.ComboBoxQIC();
+            this.dynamicCheckBox4 = new QuickImageComment.Controls.CheckBoxQIC();
+            this.dynamicComboBox4 = new QuickImageCommentControls.ComboBoxQIC();
+            this.dynamicCheckBox5 = new QuickImageComment.Controls.CheckBoxQIC();
+            this.dynamicComboBox5 = new QuickImageCommentControls.ComboBoxQIC();
+            this.dynamicCheckBox6 = new QuickImageComment.Controls.CheckBoxQIC();
+            this.dynamicComboBox6 = new QuickImageCommentControls.ComboBoxQIC();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer11)).BeginInit();
+            this.splitContainer11.Panel1.SuspendLayout();
+            this.splitContainer11.Panel2.SuspendLayout();
             this.splitContainer11.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer12)).BeginInit();
             this.splitContainer12.Panel1.SuspendLayout();
@@ -130,12 +144,16 @@
             this.splitContainer12P1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer121)).BeginInit();
             this.splitContainer121.Panel1.SuspendLayout();
+            this.splitContainer121.Panel2.SuspendLayout();
             this.splitContainer121.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1211)).BeginInit();
             this.splitContainer1211.Panel1.SuspendLayout();
+            this.splitContainer1211.Panel2.SuspendLayout();
             this.splitContainer1211.SuspendLayout();
             this.panelCentralInputArea.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer122)).BeginInit();
+            this.splitContainer122.Panel1.SuspendLayout();
+            this.splitContainer122.Panel2.SuspendLayout();
             this.splitContainer122.SuspendLayout();
             this.panelLayout.SuspendLayout();
             this.groupBoxFiles.SuspendLayout();
@@ -181,10 +199,14 @@
             // splitContainer11.Panel1
             // 
             this.splitContainer11.Panel1.BackColor = System.Drawing.SystemColors.Control;
+            this.splitContainer11.Panel1.Controls.Add(this.dynamicCheckBox1);
+            this.splitContainer11.Panel1.Controls.Add(this.dynamicComboBox1);
             // 
             // splitContainer11.Panel2
             // 
             this.splitContainer11.Panel2.BackColor = System.Drawing.SystemColors.Control;
+            this.splitContainer11.Panel2.Controls.Add(this.dynamicCheckBox4);
+            this.splitContainer11.Panel2.Controls.Add(this.dynamicComboBox4);
             this.splitContainer11.Size = new System.Drawing.Size(245, 223);
             this.splitContainer11.SplitterDistance = 98;
             this.splitContainer11.TabIndex = 0;
@@ -244,6 +266,8 @@
             // splitContainer121.Panel2
             // 
             this.splitContainer121.Panel2.BackColor = System.Drawing.SystemColors.Control;
+            this.splitContainer121.Panel2.Controls.Add(this.dynamicCheckBox3);
+            this.splitContainer121.Panel2.Controls.Add(this.dynamicComboBox3);
             this.splitContainer121.Size = new System.Drawing.Size(629, 100);
             this.splitContainer121.SplitterDistance = 438;
             this.splitContainer121.TabIndex = 0;
@@ -263,6 +287,8 @@
             // splitContainer1211.Panel2
             // 
             this.splitContainer1211.Panel2.BackColor = System.Drawing.SystemColors.Control;
+            this.splitContainer1211.Panel2.Controls.Add(this.dynamicCheckBox2);
+            this.splitContainer1211.Panel2.Controls.Add(this.dynamicComboBox2);
             this.splitContainer1211.Size = new System.Drawing.Size(438, 100);
             this.splitContainer1211.SplitterDistance = 226;
             this.splitContainer1211.TabIndex = 0;
@@ -280,6 +306,25 @@
             this.label2.Size = new System.Drawing.Size(58, 33);
             this.label2.TabIndex = 0;
             this.label2.Text = "Bild";
+            // 
+            // dynamicCheckBox3
+            // 
+            this.dynamicCheckBox3.AutoSize = true;
+            this.dynamicCheckBox3.Location = new System.Drawing.Point(2, 55);
+            this.dynamicCheckBox3.Name = "dynamicCheckBox3";
+            this.dynamicCheckBox3.Size = new System.Drawing.Size(96, 17);
+            this.dynamicCheckBox3.TabIndex = 1;
+            this.dynamicCheckBox3.Text = "checkBoxQIC1";
+            this.dynamicCheckBox3.UseVisualStyleBackColor = true;
+            // 
+            // dynamicComboBox3
+            // 
+            this.dynamicComboBox3.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.dynamicComboBox3.FormattingEnabled = true;
+            this.dynamicComboBox3.Location = new System.Drawing.Point(2, 28);
+            this.dynamicComboBox3.Name = "dynamicComboBox3";
+            this.dynamicComboBox3.Size = new System.Drawing.Size(182, 22);
+            this.dynamicComboBox3.TabIndex = 0;
             // 
             // panelCentralInputArea
             // 
@@ -322,10 +367,14 @@
             // splitContainer122.Panel1
             // 
             this.splitContainer122.Panel1.BackColor = System.Drawing.SystemColors.Control;
+            this.splitContainer122.Panel1.Controls.Add(this.dynamicCheckBox5);
+            this.splitContainer122.Panel1.Controls.Add(this.dynamicComboBox5);
             // 
             // splitContainer122.Panel2
             // 
             this.splitContainer122.Panel2.BackColor = System.Drawing.SystemColors.Control;
+            this.splitContainer122.Panel2.Controls.Add(this.dynamicCheckBox6);
+            this.splitContainer122.Panel2.Controls.Add(this.dynamicComboBox6);
             this.splitContainer122.Size = new System.Drawing.Size(629, 89);
             this.splitContainer122.SplitterDistance = 329;
             this.splitContainer122.TabIndex = 0;
@@ -1162,6 +1211,101 @@
             this.dynamicComboBoxConfigurationName.TabIndex = 24;
             this.dynamicComboBoxConfigurationName.SelectedIndexChanged += new System.EventHandler(this.dynamicComboBoxConfigurationName_SelectedIndexChanged);
             // 
+            // dynamicCheckBox2
+            // 
+            this.dynamicCheckBox2.AutoSize = true;
+            this.dynamicCheckBox2.Location = new System.Drawing.Point(2, 55);
+            this.dynamicCheckBox2.Name = "dynamicCheckBox2";
+            this.dynamicCheckBox2.Size = new System.Drawing.Size(96, 17);
+            this.dynamicCheckBox2.TabIndex = 3;
+            this.dynamicCheckBox2.Text = "checkBoxQIC2";
+            this.dynamicCheckBox2.UseVisualStyleBackColor = true;
+            // 
+            // dynamicComboBox2
+            // 
+            this.dynamicComboBox2.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.dynamicComboBox2.FormattingEnabled = true;
+            this.dynamicComboBox2.Location = new System.Drawing.Point(2, 28);
+            this.dynamicComboBox2.Name = "dynamicComboBox2";
+            this.dynamicComboBox2.Size = new System.Drawing.Size(203, 22);
+            this.dynamicComboBox2.TabIndex = 2;
+            // 
+            // dynamicCheckBox1
+            // 
+            this.dynamicCheckBox1.AutoSize = true;
+            this.dynamicCheckBox1.Location = new System.Drawing.Point(2, 54);
+            this.dynamicCheckBox1.Name = "dynamicCheckBox1";
+            this.dynamicCheckBox1.Size = new System.Drawing.Size(96, 17);
+            this.dynamicCheckBox1.TabIndex = 5;
+            this.dynamicCheckBox1.Text = "checkBoxQIC3";
+            this.dynamicCheckBox1.UseVisualStyleBackColor = true;
+            // 
+            // dynamicComboBox1
+            // 
+            this.dynamicComboBox1.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.dynamicComboBox1.FormattingEnabled = true;
+            this.dynamicComboBox1.Location = new System.Drawing.Point(2, 27);
+            this.dynamicComboBox1.Name = "dynamicComboBox1";
+            this.dynamicComboBox1.Size = new System.Drawing.Size(240, 22);
+            this.dynamicComboBox1.TabIndex = 4;
+            // 
+            // dynamicCheckBox4
+            // 
+            this.dynamicCheckBox4.AutoSize = true;
+            this.dynamicCheckBox4.Location = new System.Drawing.Point(2, 65);
+            this.dynamicCheckBox4.Name = "dynamicCheckBox4";
+            this.dynamicCheckBox4.Size = new System.Drawing.Size(96, 17);
+            this.dynamicCheckBox4.TabIndex = 7;
+            this.dynamicCheckBox4.Text = "checkBoxQIC4";
+            this.dynamicCheckBox4.UseVisualStyleBackColor = true;
+            // 
+            // dynamicComboBox4
+            // 
+            this.dynamicComboBox4.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.dynamicComboBox4.FormattingEnabled = true;
+            this.dynamicComboBox4.Location = new System.Drawing.Point(2, 38);
+            this.dynamicComboBox4.Name = "dynamicComboBox4";
+            this.dynamicComboBox4.Size = new System.Drawing.Size(240, 22);
+            this.dynamicComboBox4.TabIndex = 6;
+            // 
+            // dynamicCheckBox5
+            // 
+            this.dynamicCheckBox5.AutoSize = true;
+            this.dynamicCheckBox5.Location = new System.Drawing.Point(2, 49);
+            this.dynamicCheckBox5.Name = "dynamicCheckBox5";
+            this.dynamicCheckBox5.Size = new System.Drawing.Size(96, 17);
+            this.dynamicCheckBox5.TabIndex = 7;
+            this.dynamicCheckBox5.Text = "checkBoxQIC5";
+            this.dynamicCheckBox5.UseVisualStyleBackColor = true;
+            // 
+            // dynamicComboBox5
+            // 
+            this.dynamicComboBox5.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.dynamicComboBox5.FormattingEnabled = true;
+            this.dynamicComboBox5.Location = new System.Drawing.Point(2, 22);
+            this.dynamicComboBox5.Name = "dynamicComboBox5";
+            this.dynamicComboBox5.Size = new System.Drawing.Size(324, 22);
+            this.dynamicComboBox5.TabIndex = 6;
+            // 
+            // dynamicCheckBox6
+            // 
+            this.dynamicCheckBox6.AutoSize = true;
+            this.dynamicCheckBox6.Location = new System.Drawing.Point(2, 49);
+            this.dynamicCheckBox6.Name = "dynamicCheckBox6";
+            this.dynamicCheckBox6.Size = new System.Drawing.Size(96, 17);
+            this.dynamicCheckBox6.TabIndex = 7;
+            this.dynamicCheckBox6.Text = "checkBoxQIC6";
+            this.dynamicCheckBox6.UseVisualStyleBackColor = true;
+            // 
+            // dynamicComboBox6
+            // 
+            this.dynamicComboBox6.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.dynamicComboBox6.FormattingEnabled = true;
+            this.dynamicComboBox6.Location = new System.Drawing.Point(2, 22);
+            this.dynamicComboBox6.Name = "dynamicComboBox6";
+            this.dynamicComboBox6.Size = new System.Drawing.Size(291, 22);
+            this.dynamicComboBox6.TabIndex = 6;
+            // 
             // FormView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -1200,6 +1344,10 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            this.splitContainer11.Panel1.ResumeLayout(false);
+            this.splitContainer11.Panel1.PerformLayout();
+            this.splitContainer11.Panel2.ResumeLayout(false);
+            this.splitContainer11.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer11)).EndInit();
             this.splitContainer11.ResumeLayout(false);
             this.splitContainer12.Panel1.ResumeLayout(false);
@@ -1211,14 +1359,22 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer12P1)).EndInit();
             this.splitContainer12P1.ResumeLayout(false);
             this.splitContainer121.Panel1.ResumeLayout(false);
+            this.splitContainer121.Panel2.ResumeLayout(false);
+            this.splitContainer121.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer121)).EndInit();
             this.splitContainer121.ResumeLayout(false);
             this.splitContainer1211.Panel1.ResumeLayout(false);
             this.splitContainer1211.Panel1.PerformLayout();
+            this.splitContainer1211.Panel2.ResumeLayout(false);
+            this.splitContainer1211.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1211)).EndInit();
             this.splitContainer1211.ResumeLayout(false);
             this.panelCentralInputArea.ResumeLayout(false);
             this.panelCentralInputArea.PerformLayout();
+            this.splitContainer122.Panel1.ResumeLayout(false);
+            this.splitContainer122.Panel1.PerformLayout();
+            this.splitContainer122.Panel2.ResumeLayout(false);
+            this.splitContainer122.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer122)).EndInit();
             this.splitContainer122.ResumeLayout(false);
             this.panelLayout.ResumeLayout(false);
@@ -1334,5 +1490,17 @@
         private QuickImageCommentControls.ButtonQIC buttonDelete;
         private QuickImageCommentControls.ButtonQIC buttonSave;
         private QuickImageCommentControls.ComboBoxQIC dynamicComboBoxConfigurationName;
+        private Controls.CheckBoxQIC dynamicCheckBox3;
+        private QuickImageCommentControls.ComboBoxQIC dynamicComboBox3;
+        private Controls.CheckBoxQIC dynamicCheckBox1;
+        private QuickImageCommentControls.ComboBoxQIC dynamicComboBox1;
+        private Controls.CheckBoxQIC dynamicCheckBox4;
+        private QuickImageCommentControls.ComboBoxQIC dynamicComboBox4;
+        private Controls.CheckBoxQIC dynamicCheckBox2;
+        private QuickImageCommentControls.ComboBoxQIC dynamicComboBox2;
+        private Controls.CheckBoxQIC dynamicCheckBox5;
+        private QuickImageCommentControls.ComboBoxQIC dynamicComboBox5;
+        private Controls.CheckBoxQIC dynamicCheckBox6;
+        private QuickImageCommentControls.ComboBoxQIC dynamicComboBox6;
     }
 }

@@ -4664,40 +4664,6 @@ namespace QuickImageComment
             setControlsEnabledBasedOnDataChange(enable);
         }
 
-        // generic method for TabControls to set foreground and background color
-        // necessary so that controls can be modified with FormCustomization
-        private void tabControl_DrawItem(object sender, DrawItemEventArgs e)
-        {
-            TabControl theTabControl = (TabControl)sender;
-            Graphics g = e.Graphics;
-
-            // used to fill background of tab control, but sometimes does not look very fine
-            Rectangle thePageRect = new Rectangle(((Control)sender).Location, ((Control)sender).Size);
-            thePageRect.Y = thePageRect.Y;
-            thePageRect.Height -= 6;
-            thePageRect.Width -= 6;
-            e.Graphics.FillRectangle(new SolidBrush(((Control)sender).Parent.BackColor), thePageRect);
-
-            for (int ii = 0; ii < theTabControl.TabPages.Count; ii++)
-            {
-
-                Rectangle theTabRect = theTabControl.GetTabRect(ii);
-                if (theTabControl.SelectedIndex == ii)
-                {
-                    theTabRect.Height += 2;
-                }
-                else
-                {
-                    theTabRect.Width--;
-                    theTabRect.Y += 2;
-                }
-                e.Graphics.FillRectangle(new SolidBrush(theTabControl.TabPages[ii].BackColor), theTabRect);
-                theTabRect.X++;
-                e.Graphics.DrawString(theTabControl.TabPages[ii].Text, theTabControl.TabPages[ii].Font,
-                  new SolidBrush(theTabControl.TabPages[ii].ForeColor), theTabRect);
-            }
-        }
-
         // methods to collapse panels
         private void collapsePanelFolder(bool status)
         {
