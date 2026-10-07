@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UserControlRating));
+            this.buttonRevert = new QuickImageCommentControls.ButtonQIC();
             this.buttonNone = new QuickImageCommentControls.ButtonQIC();
             this.fixedButtonStar5 = new QuickImageCommentControls.ButtonQIC();
             this.fixedButtonStar4 = new QuickImageCommentControls.ButtonQIC();
@@ -36,15 +36,24 @@
             this.fixedButtonStar2 = new QuickImageCommentControls.ButtonQIC();
             this.fixedButtonStar3 = new QuickImageCommentControls.ButtonQIC();
             this.fixedButtonReject = new QuickImageCommentControls.ButtonQIC();
-            this.buttonRevert = new QuickImageCommentControls.ButtonQIC();
             this.SuspendLayout();
+            // 
+            // buttonRevert
+            // 
+            this.buttonRevert.Image = global::QuickImageComment.Properties.Resources.Revert;
+            this.buttonRevert.Location = new System.Drawing.Point(164, 0);
+            this.buttonRevert.Name = "buttonRevert";
+            this.buttonRevert.Size = new System.Drawing.Size(18, 18);
+            this.buttonRevert.TabIndex = 7;
+            this.buttonRevert.UseVisualStyleBackColor = true;
+            this.buttonRevert.Click += new System.EventHandler(this.buttonRevert_Click);
             // 
             // buttonNone
             // 
-            this.buttonNone.Image = ((System.Drawing.Image)(resources.GetObject("buttonNone.Image")));
+            this.buttonNone.Image = global::QuickImageComment.Properties.Resources.Delete;
             this.buttonNone.Location = new System.Drawing.Point(188, 0);
             this.buttonNone.Name = "buttonNone";
-            this.buttonNone.Size = new System.Drawing.Size(21, 21);
+            this.buttonNone.Size = new System.Drawing.Size(18, 18);
             this.buttonNone.TabIndex = 6;
             this.buttonNone.UseVisualStyleBackColor = true;
             this.buttonNone.Click += new System.EventHandler(this.buttonNone_Click);
@@ -135,16 +144,6 @@
             this.fixedButtonReject.MouseEnter += new System.EventHandler(this.buttonRating_MouseEnter);
             this.fixedButtonReject.MouseLeave += new System.EventHandler(this.buttonRating_MouseLeave);
             // 
-            // buttonRevert
-            // 
-            this.buttonRevert.Image = ((System.Drawing.Image)(resources.GetObject("buttonRevert.Image")));
-            this.buttonRevert.Location = new System.Drawing.Point(164, 0);
-            this.buttonRevert.Name = "buttonRevert";
-            this.buttonRevert.Size = new System.Drawing.Size(21, 21);
-            this.buttonRevert.TabIndex = 7;
-            this.buttonRevert.UseVisualStyleBackColor = true;
-            this.buttonRevert.Click += new System.EventHandler(this.buttonRevert_Click);
-            // 
             // UserControlRating
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -171,7 +170,7 @@
         private QuickImageCommentControls.ButtonQIC  fixedButtonStar1;
         private QuickImageCommentControls.ButtonQIC  fixedButtonStar4;
         private QuickImageCommentControls.ButtonQIC  fixedButtonStar5;
-        private QuickImageCommentControls.ButtonQIC  buttonNone;
-        private QuickImageCommentControls.ButtonQIC  buttonRevert;
+        internal QuickImageCommentControls.ButtonQIC buttonNone;
+        internal QuickImageCommentControls.ButtonQIC buttonRevert;
     }
 }

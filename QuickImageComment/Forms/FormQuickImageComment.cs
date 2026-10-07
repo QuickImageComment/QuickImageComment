@@ -1157,29 +1157,32 @@ namespace QuickImageComment
         // replace icons by SVG icons (only if not build for NET4)
         private void setSvgIcons()
         {
-            this.dynamicToolStripButtonLoadDataFromTemplate.Image = getSvgIconFromResources(Properties.Resources.SVG_Import);
-            this.toolStripButtonDateTimeChange.Image = getSvgIconFromResources(Properties.Resources.SVG_Time);
-            this.toolStripButtonDelete.Image = getSvgIconFromResources(Properties.Resources.SVG_Delete);
-            this.toolStripButtonFields.Image = getSvgIconFromResources(Properties.Resources.SVG_Tag);
-            this.toolStripButtonFind.Image = getSvgIconFromResources(Properties.Resources.SVG_Find);
-            this.toolStripButtonFirst.Image = getSvgIconFromResources(Properties.Resources.SVG_Left);
-            this.toolStripButtonImage1.Image = getSvgIconFromResources(Properties.Resources.SVG_Zoom);
+            this.dynamicToolStripButtonLoadDataFromTemplate.Image = getSvgIconFromResourcesToolStrip(Properties.Resources.SVG_Import);
+            this.toolStripButtonDateTimeChange.Image = getSvgIconFromResourcesToolStrip(Properties.Resources.SVG_Time);
+            this.toolStripButtonDelete.Image = getSvgIconFromResourcesToolStrip(Properties.Resources.SVG_Delete);
+            this.toolStripButtonFields.Image = getSvgIconFromResourcesToolStrip(Properties.Resources.SVG_Tag);
+            this.toolStripButtonFind.Image = getSvgIconFromResourcesToolStrip(Properties.Resources.SVG_Find);
+            this.toolStripButtonFirst.Image = getSvgIconFromResourcesToolStrip(Properties.Resources.SVG_Left);
+            this.toolStripButtonImage1.Image = getSvgIconFromResourcesToolStrip(Properties.Resources.SVG_Zoom);
             this.toolStripButtonImage2.Image = this.toolStripButtonImage1.Image;
             this.toolStripButtonImage4.Image = this.toolStripButtonImage1.Image;
             this.toolStripButtonImageFit.Image = this.toolStripButtonImage1.Image;
-            this.toolStripButtonLast.Image = getSvgIconFromResources(Properties.Resources.SVG_Right);
-            this.toolStripButtonNext.Image = getSvgIconFromResources(Properties.Resources.SVG_Forward);
-            this.toolStripButtonPredefinedComments.Image = getSvgIconFromResources(Properties.Resources.SVG_List);
-            this.toolStripButtonPredefinedKeyWords.Image = getSvgIconFromResources(Properties.Resources.SVG_Key);
-            this.toolStripButtonPrevious.Image = getSvgIconFromResources(Properties.Resources.SVG_Back);
-            this.toolStripButtonRefresh.Image = getSvgIconFromResources(Properties.Resources.SVG_Refresh);
-            this.toolStripButtonRename.Image = getSvgIconFromResources(Properties.Resources.SVG_Rename);
-            this.toolStripButtonReset.Image = getSvgIconFromResources(Properties.Resources.SVG_Revert);
-            this.toolStripButtonRotateLeft.Image = getSvgIconFromResources(Properties.Resources.SVG_RotateLeft);
-            this.toolStripButtonRotateRight.Image = getSvgIconFromResources(Properties.Resources.SVG_RotateRight);
-            this.toolStripButtonSave.Image = getSvgIconFromResources(Properties.Resources.SVG_Save);
-            this.toolStripButtonSettings.Image = getSvgIconFromResources(Properties.Resources.SVG_Settings);
-            this.toolStripButtonView.Image = getSvgIconFromResources(Properties.Resources.SVG_Designer);
+            this.toolStripButtonLast.Image = getSvgIconFromResourcesToolStrip(Properties.Resources.SVG_Right);
+            this.toolStripButtonNext.Image = getSvgIconFromResourcesToolStrip(Properties.Resources.SVG_Forward);
+            this.toolStripButtonPredefinedComments.Image = getSvgIconFromResourcesToolStrip(Properties.Resources.SVG_List);
+            this.toolStripButtonPredefinedKeyWords.Image = getSvgIconFromResourcesToolStrip(Properties.Resources.SVG_Key);
+            this.toolStripButtonPrevious.Image = getSvgIconFromResourcesToolStrip(Properties.Resources.SVG_Back);
+            this.toolStripButtonRefresh.Image = getSvgIconFromResourcesToolStrip(Properties.Resources.SVG_Refresh);
+            this.toolStripButtonRename.Image = getSvgIconFromResourcesToolStrip(Properties.Resources.SVG_Rename);
+            this.toolStripButtonReset.Image = getSvgIconFromResourcesToolStrip(Properties.Resources.SVG_Revert);
+            this.toolStripButtonRotateLeft.Image = getSvgIconFromResourcesToolStrip(Properties.Resources.SVG_RotateLeft);
+            this.toolStripButtonRotateRight.Image = getSvgIconFromResourcesToolStrip(Properties.Resources.SVG_RotateRight);
+            this.toolStripButtonSave.Image = getSvgIconFromResourcesToolStrip(Properties.Resources.SVG_Save);
+            this.toolStripButtonSettings.Image = getSvgIconFromResourcesToolStrip(Properties.Resources.SVG_Settings);
+            this.toolStripButtonView.Image = getSvgIconFromResourcesToolStrip(Properties.Resources.SVG_Designer);
+
+            setButtonImageWithSvgIconFromResourcesButton(theUserControlRating.buttonRevert, Properties.Resources.SVG_Revert);
+            setButtonImageWithSvgIconFromResourcesButton(theUserControlRating.buttonNone, Properties.Resources.SVG_Delete);
         }
 
         //private Bitmap getSvgIconByPath(string key)
@@ -1188,10 +1191,16 @@ namespace QuickImageComment
         //    return QuickImageComment.Utilities.SvgIconRenderer.RenderSvgFromFile(svgPath, toolStrip1.ImageScalingSize);
         //}
 
-        private Bitmap getSvgIconFromResources(byte[] svgFile)
+        private Bitmap getSvgIconFromResourcesToolStrip(byte[] svgFile)
         {
             Bitmap bitmap = QuickImageComment.Utilities.SvgIconRenderer.RenderSvgFromResource(svgFile, toolStrip1.ImageScalingSize);
             return bitmap;
+        }
+
+        private void setButtonImageWithSvgIconFromResourcesButton(Button button, byte[] svgFile)
+        {
+            //Size size = new Size((int)(button.Width * 0.8f), (int)(button.Height * 0.8f));
+            button.Image = QuickImageComment.Utilities.SvgIconRenderer.RenderSvgFromResource(svgFile, button.Size);
         }
 #endif
         // react on change of system settings: color mode dark/light
