@@ -306,6 +306,11 @@ namespace QuickImageComment
             Program.StartupPerformance.measure("FormQIC init start");
             readFolderPerfomance = new Performance();
 
+            // set tab controls multiline according configuration
+            tabControlLastPredefComments.Multiline = ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.TabControlMultiLine);
+            tabControlProperties.Multiline = ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.TabControlMultiLine);
+            tabControlSingleMulti.Multiline = ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.TabControlMultiLine);
+
             pictureBox1.zoomChanged += pictureBox1_zoomChanged;
 
             if (DisplayFolder.Equals("") || !Directory.Exists(DisplayFolder))

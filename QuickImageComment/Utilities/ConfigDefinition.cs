@@ -127,7 +127,8 @@ namespace QuickImageComment
             UseKeyAsNameForMetaDataDefinition,
             ExifToolLogRead,
             TraceExifToolSendCommand,
-            DebugExifToolInterface
+            DebugExifToolInterface,
+            TabControlMultiLine
         };
 
         public enum enumConfigInt
