@@ -61,19 +61,16 @@ namespace QuickImageComment
             this.numericUpDownHour = new System.Windows.Forms.NumericUpDown();
             this.labelHours = new System.Windows.Forms.Label();
             this.buttonHelp = new QuickImageCommentControls.ButtonQIC();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.progressPanel1 = new QuickImageComment.ProgressPanel();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMinute)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSecond)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDay)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHour)).BeginInit();
-            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonStart
             // 
             this.buttonStart.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.buttonStart.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonStart.Location = new System.Drawing.Point(283, 311);
             this.buttonStart.Name = "buttonStart";
             this.buttonStart.Size = new System.Drawing.Size(100, 22);
@@ -85,7 +82,6 @@ namespace QuickImageComment
             // buttonCancel
             // 
             this.buttonCancel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.buttonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonCancel.Location = new System.Drawing.Point(432, 311);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(100, 22);
@@ -132,9 +128,9 @@ namespace QuickImageComment
             // 
             // numericUpDownMinute
             // 
+            this.numericUpDownMinute.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.numericUpDownMinute.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.numericUpDownMinute.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.numericUpDownMinute.Location = new System.Drawing.Point(345, 3);
+            this.numericUpDownMinute.Location = new System.Drawing.Point(628, 9);
             this.numericUpDownMinute.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -152,9 +148,9 @@ namespace QuickImageComment
             // 
             // numericUpDownSecond
             // 
+            this.numericUpDownSecond.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.numericUpDownSecond.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.numericUpDownSecond.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.numericUpDownSecond.Location = new System.Drawing.Point(458, 3);
+            this.numericUpDownSecond.Location = new System.Drawing.Point(741, 9);
             this.numericUpDownSecond.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -172,20 +168,22 @@ namespace QuickImageComment
             // 
             // labelDays
             // 
-            this.labelDays.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelDays.Location = new System.Drawing.Point(3, 0);
+            this.labelDays.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelDays.AutoSize = true;
+            this.labelDays.Location = new System.Drawing.Point(275, 10);
             this.labelDays.Name = "labelDays";
-            this.labelDays.Size = new System.Drawing.Size(110, 25);
+            this.labelDays.Size = new System.Drawing.Size(96, 13);
             this.labelDays.TabIndex = 1;
             this.labelDays.Text = "Zeit ändern - Tage";
             this.labelDays.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // labelSeconds
             // 
-            this.labelSeconds.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelSeconds.Location = new System.Drawing.Point(388, 0);
+            this.labelSeconds.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelSeconds.AutoSize = true;
+            this.labelSeconds.Location = new System.Drawing.Point(671, 10);
             this.labelSeconds.Name = "labelSeconds";
-            this.labelSeconds.Size = new System.Drawing.Size(64, 25);
+            this.labelSeconds.Size = new System.Drawing.Size(54, 13);
             this.labelSeconds.TabIndex = 7;
             this.labelSeconds.Text = "Sekunden";
             this.labelSeconds.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -193,7 +191,6 @@ namespace QuickImageComment
             // buttonCustomizeForm
             // 
             this.buttonCustomizeForm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonCustomizeForm.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonCustomizeForm.Location = new System.Drawing.Point(7, 311);
             this.buttonCustomizeForm.Name = "buttonCustomizeForm";
             this.buttonCustomizeForm.Size = new System.Drawing.Size(100, 22);
@@ -204,9 +201,9 @@ namespace QuickImageComment
             // 
             // numericUpDownDay
             // 
+            this.numericUpDownDay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.numericUpDownDay.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.numericUpDownDay.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.numericUpDownDay.Location = new System.Drawing.Point(119, 3);
+            this.numericUpDownDay.Location = new System.Drawing.Point(392, 9);
             this.numericUpDownDay.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -224,19 +221,20 @@ namespace QuickImageComment
             // 
             // labelMinutes
             // 
-            this.labelMinutes.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelMinutes.Location = new System.Drawing.Point(275, 0);
+            this.labelMinutes.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelMinutes.AutoSize = true;
+            this.labelMinutes.Location = new System.Drawing.Point(558, 10);
             this.labelMinutes.Name = "labelMinutes";
-            this.labelMinutes.Size = new System.Drawing.Size(64, 25);
+            this.labelMinutes.Size = new System.Drawing.Size(45, 13);
             this.labelMinutes.TabIndex = 5;
             this.labelMinutes.Text = "Minuten";
             this.labelMinutes.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // numericUpDownHour
             // 
+            this.numericUpDownHour.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.numericUpDownHour.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.numericUpDownHour.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.numericUpDownHour.Location = new System.Drawing.Point(232, 3);
+            this.numericUpDownHour.Location = new System.Drawing.Point(501, 9);
             this.numericUpDownHour.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -248,16 +246,17 @@ namespace QuickImageComment
             0,
             -2147483648});
             this.numericUpDownHour.Name = "numericUpDownHour";
-            this.numericUpDownHour.Size = new System.Drawing.Size(37, 17);
+            this.numericUpDownHour.Size = new System.Drawing.Size(51, 17);
             this.numericUpDownHour.TabIndex = 4;
             this.numericUpDownHour.ValueChanged += new System.EventHandler(this.numericUpDownHour_ValueChanged);
             // 
             // labelHours
             // 
-            this.labelHours.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelHours.Location = new System.Drawing.Point(162, 0);
+            this.labelHours.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelHours.AutoSize = true;
+            this.labelHours.Location = new System.Drawing.Point(429, 10);
             this.labelHours.Name = "labelHours";
-            this.labelHours.Size = new System.Drawing.Size(64, 25);
+            this.labelHours.Size = new System.Drawing.Size(47, 13);
             this.labelHours.TabIndex = 3;
             this.labelHours.Text = "Stunden";
             this.labelHours.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -265,7 +264,6 @@ namespace QuickImageComment
             // buttonHelp
             // 
             this.buttonHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonHelp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonHelp.Location = new System.Drawing.Point(678, 311);
             this.buttonHelp.Name = "buttonHelp";
             this.buttonHelp.Size = new System.Drawing.Size(100, 22);
@@ -273,33 +271,6 @@ namespace QuickImageComment
             this.buttonHelp.Text = "Hilfe";
             this.buttonHelp.UseVisualStyleBackColor = true;
             this.buttonHelp.Click += new System.EventHandler(this.buttonHelp_Click);
-            // 
-            // tableLayoutPanel1
-            // 
-            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel1.ColumnCount = 8;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 43F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 70F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 43F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 70F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 43F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 70F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 43F));
-            this.tableLayoutPanel1.Controls.Add(this.labelDays, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.numericUpDownDay, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.numericUpDownHour, 3, 0);
-            this.tableLayoutPanel1.Controls.Add(this.labelHours, 2, 0);
-            this.tableLayoutPanel1.Controls.Add(this.numericUpDownSecond, 7, 0);
-            this.tableLayoutPanel1.Controls.Add(this.labelMinutes, 4, 0);
-            this.tableLayoutPanel1.Controls.Add(this.numericUpDownMinute, 5, 0);
-            this.tableLayoutPanel1.Controls.Add(this.labelSeconds, 6, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(280, 3);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(498, 25);
-            this.tableLayoutPanel1.TabIndex = 17;
             // 
             // progressPanel1
             // 
@@ -316,7 +287,14 @@ namespace QuickImageComment
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(783, 344);
-            this.Controls.Add(this.tableLayoutPanel1);
+            this.Controls.Add(this.labelSeconds);
+            this.Controls.Add(this.labelMinutes);
+            this.Controls.Add(this.labelHours);
+            this.Controls.Add(this.labelDays);
+            this.Controls.Add(this.numericUpDownHour);
+            this.Controls.Add(this.numericUpDownDay);
+            this.Controls.Add(this.numericUpDownMinute);
+            this.Controls.Add(this.numericUpDownSecond);
             this.Controls.Add(this.progressPanel1);
             this.Controls.Add(this.buttonHelp);
             this.Controls.Add(this.buttonCustomizeForm);
@@ -335,8 +313,8 @@ namespace QuickImageComment
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSecond)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDay)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHour)).EndInit();
-            this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -358,6 +336,6 @@ namespace QuickImageComment
         private System.Windows.Forms.Label labelHours;
         private QuickImageCommentControls.ButtonQIC  buttonHelp;
         private ProgressPanel progressPanel1;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        
     }
 }

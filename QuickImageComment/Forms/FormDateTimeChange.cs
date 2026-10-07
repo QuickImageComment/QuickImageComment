@@ -85,6 +85,26 @@ namespace QuickImageComment
 
             LangCfg.translateControlTexts(this);
 
+            // adjust positions of controls to change date and time as they are shifted during Winform's scaling
+            // done after translation, as translation may change size of labels
+            int center = dynamicComboBoxGroup.Top + dynamicComboBoxGroup.Height / 2;
+            int newTopLabel = center - labelDays.Height / 2;
+            int newTopNumericUpDown = center - numericUpDownDay.Height / 2;
+            labelDays.Top = newTopLabel;
+            labelHours.Top = newTopLabel;
+            labelMinutes.Top = newTopLabel;
+            labelSeconds.Top = newTopLabel;
+
+            int gap = 10;
+            numericUpDownSecond.Left = listViewImages.Left + listViewImages.Width - numericUpDownSecond.Width;
+            labelSeconds.Left = numericUpDownSecond.Left - labelSeconds.Width;
+            numericUpDownMinute.Left = labelSeconds.Left - numericUpDownMinute.Width - gap;
+            labelMinutes.Left = numericUpDownMinute.Left - labelMinutes.Width;
+            numericUpDownHour.Left = labelMinutes.Left - numericUpDownHour.Width - gap;
+            labelHours.Left = numericUpDownHour.Left - labelHours.Width;
+            numericUpDownDay.Left = labelHours.Left - numericUpDownDay.Width - gap;
+            labelDays.Left = numericUpDownDay.Left - labelDays.Width;
+
             // if flag set, create screenshot and return
             if (GeneralUtilities.CreateScreenshots)
             {
