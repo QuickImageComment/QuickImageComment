@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QuickImageComment;
+using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
@@ -61,14 +62,113 @@ namespace QuickImageCommentControls
 
         protected override void OnDrawItem(DrawListViewItemEventArgs e)
         {
-            // Enable default drawing for the item
-            e.DrawDefault = true;
+            if (IsInDesignMode)
+            {
+                e.DrawDefault = true;
+                return;
+            }
+
+            //// Detect hover ("hot") state
+            //Point p = this.PointToClient(Cursor.Position);
+            //ListViewItem hovered = this.GetItemAt(p.X, p.Y);
+            //bool hot = hovered == e.Item;
+
+            bool selected = e.Item.Selected;
+            bool focused = this.Focused && e.Item.Focused;
+
+            Color back;
+            Color text;
+
+            if (selected)
+            {
+                //back = this.Focused
+                //           ? Color.FromArgb(51, 51, 51)   // Explorer active selection
+                //           : Color.FromArgb(43, 43, 43);  // Explorer inactive selection;
+                back = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorSelected);
+                text = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.ForeColorEnabled);
+            }
+            //else if (hot)
+            //{
+            //    back = Color.FromArgb(32, 32, 32); // Explorer hover
+            //    text = Color.White;
+            //}
+            else
+            {
+                back = this.BackColor;
+                text = this.ForeColor;
+            }
+
+            using (var b = new SolidBrush(back))
+                e.Graphics.FillRectangle(b, e.Bounds);
+
+            TextRenderer.DrawText(
+                e.Graphics,
+                e.Item.Text,
+                this.Font,
+                e.Bounds,
+                text,
+                TextFormatFlags.Left | TextFormatFlags.VerticalCenter | TextFormatFlags.EndEllipsis
+            );
+
+            if (focused)
+            {
+                //Color focus = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.;
+                using (var pen = new Pen(Color.FromArgb(100, 100, 100)))
+                    e.Graphics.DrawRectangle(pen,
+                        e.Bounds.X, e.Bounds.Y,
+                        e.Bounds.Width - 1, e.Bounds.Height - 1);
+            }
         }
 
         protected override void OnDrawSubItem(DrawListViewSubItemEventArgs e)
         {
-            // Enable default drawing for the sub-item
-            e.DrawDefault = true;
+            if (IsInDesignMode)
+            {
+                e.DrawDefault = true;
+                return;
+            }
+
+            //// Detect hover ("hot") state – same for all subitems of the hovered item
+            //Point p = this.PointToClient(Cursor.Position);
+            //ListViewItem hovered = this.GetItemAt(p.X, p.Y);
+            //bool hot = hovered == e.Item;
+
+            bool selected = e.Item.Selected;
+
+            Color back;
+            Color text;
+
+            if (selected)
+            {
+                //back = this.Focused
+                //    ? Color.FromArgb(51, 51, 51)   // Explorer active selection
+                //    : Color.FromArgb(43, 43, 43);  // Explorer inactive selection
+                back = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorSelected);
+
+                text = Color.White;
+            }
+            //else if (hot)
+            //{
+            //    back = Color.FromArgb(32, 32, 32); // Explorer hover
+            //    text = Color.White;
+            //}
+            else
+            {
+                back = this.BackColor;
+                text = this.ForeColor;
+            }
+
+            using (var b = new SolidBrush(back))
+                e.Graphics.FillRectangle(b, e.Bounds);
+
+            TextRenderer.DrawText(
+                e.Graphics,
+                e.SubItem.Text,
+                this.Font,
+                e.Bounds,
+                text,
+                TextFormatFlags.Left | TextFormatFlags.VerticalCenter | TextFormatFlags.EndEllipsis
+            );
         }
 
         // when size is changed, adjust last column width
