@@ -89,21 +89,25 @@ namespace QuickImageComment
             // done after translation, as translation may change size of labels
             int center = dynamicComboBoxGroup.Top + dynamicComboBoxGroup.Height / 2;
             int newTopLabel = center - labelDays.Height / 2;
-            int newTopNumericUpDown = center - numericUpDownDay.Height / 2;
+            int newTopNumericUpDown = center - numericUpDownDay.Height / 2 + 2;
             labelDays.Top = newTopLabel;
             labelHours.Top = newTopLabel;
             labelMinutes.Top = newTopLabel;
             labelSeconds.Top = newTopLabel;
+            numericUpDownDay.Top = newTopNumericUpDown;
+            numericUpDownHour.Top = newTopNumericUpDown;
+            numericUpDownMinute.Top = newTopNumericUpDown;
+            numericUpDownSecond.Top = newTopNumericUpDown;
 
             int gap = 10;
             numericUpDownSecond.Left = listViewImages.Left + listViewImages.Width - numericUpDownSecond.Width;
-            labelSeconds.Left = numericUpDownSecond.Left - labelSeconds.Width;
+            labelSeconds.Left = numericUpDownSecond.Left - labelSeconds.Width - 1;
             numericUpDownMinute.Left = labelSeconds.Left - numericUpDownMinute.Width - gap;
-            labelMinutes.Left = numericUpDownMinute.Left - labelMinutes.Width;
+            labelMinutes.Left = numericUpDownMinute.Left - labelMinutes.Width - 1;
             numericUpDownHour.Left = labelMinutes.Left - numericUpDownHour.Width - gap;
-            labelHours.Left = numericUpDownHour.Left - labelHours.Width;
+            labelHours.Left = numericUpDownHour.Left - labelHours.Width - 1;
             numericUpDownDay.Left = labelHours.Left - numericUpDownDay.Width - gap;
-            labelDays.Left = numericUpDownDay.Left - labelDays.Width;
+            labelDays.Left = numericUpDownDay.Left - labelDays.Width - 1;
 
             // if flag set, create screenshot and return
             if (GeneralUtilities.CreateScreenshots)
