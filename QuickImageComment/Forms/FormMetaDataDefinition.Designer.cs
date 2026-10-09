@@ -45,60 +45,60 @@ namespace QuickImageComment
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMetaDataDefinition));
-            this.buttonAbort = new QuickImageCommentControls.ButtonQIC();
             this.listBoxMetaData = new System.Windows.Forms.ListBox();
-            this.dynamicComboBoxMetaDataType = new QuickImageCommentControls.ComboBoxQIC();
-            this.buttonUp = new QuickImageCommentControls.ButtonQIC();
-            this.buttonDown = new QuickImageCommentControls.ButtonQIC();
-            this.buttonNew = new QuickImageCommentControls.ButtonQIC();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBoxName = new QuickImageCommentControls.TextBoxQIC();
-            this.textBoxPrefix = new QuickImageCommentControls.TextBoxQIC();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBoxMetaDatum1 = new QuickImageCommentControls.TextBoxQIC();
             this.label4 = new System.Windows.Forms.Label();
-            this.textBoxSeparator = new QuickImageCommentControls.TextBoxQIC();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.textBoxPostfix = new QuickImageCommentControls.TextBoxQIC();
             this.label8 = new System.Windows.Forms.Label();
-            this.textBoxMetaDatum2 = new QuickImageCommentControls.TextBoxQIC();
             this.label9 = new System.Windows.Forms.Label();
-            this.buttonMetaDatum1 = new QuickImageCommentControls.ButtonQIC();
-            this.buttonMetaDatum2 = new QuickImageCommentControls.ButtonQIC();
             this.dynamicLabelExample = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
-            this.buttonOk = new QuickImageCommentControls.ButtonQIC();
-            this.buttonCopy = new QuickImageCommentControls.ButtonQIC();
-            this.buttonDelete = new QuickImageCommentControls.ButtonQIC();
             this.dynamicLabelInfo = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.dynamicLabelValueOriginal = new System.Windows.Forms.Label();
             this.dynamicLabelValueInterpreted = new System.Windows.Forms.Label();
-            this.buttonCustomizeForm = new QuickImageCommentControls.ButtonQIC();
-            this.dynamicComboBoxMetaDataFormat2 = new QuickImageCommentControls.ComboBoxQIC();
-            this.dynamicComboBoxMetaDataFormat1 = new QuickImageCommentControls.ComboBoxQIC();
-            this.buttonHelp = new QuickImageCommentControls.ButtonQIC();
             this.label14 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.numericUpDownVerticalDisplayOffset = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownLinesForChange = new System.Windows.Forms.NumericUpDown();
-            this.buttonInputCheckEdit = new QuickImageCommentControls.ButtonQIC();
             this.label17 = new System.Windows.Forms.Label();
-            this.buttonInputCheckDelete = new QuickImageCommentControls.ButtonQIC();
-            this.buttonInputCheckCreate = new QuickImageCommentControls.ButtonQIC();
-            this.buttonBeginning = new QuickImageCommentControls.ButtonQIC();
-            this.buttonEnd = new QuickImageCommentControls.ButtonQIC();
             this.tableLayoutPanelBelowTagList = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanelMetaDataGroups = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanelNote = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanelTagList = new System.Windows.Forms.TableLayoutPanel();
-            this.userControlTagList = new QuickImageComment.UserControlTagList();
             this.tableLayoutPanelDefinitionTop = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.buttonInputCheckCreate = new QuickImageCommentControls.ButtonQIC();
+            this.buttonInputCheckEdit = new QuickImageCommentControls.ButtonQIC();
+            this.buttonInputCheckDelete = new QuickImageCommentControls.ButtonQIC();
+            this.buttonEnd = new QuickImageCommentControls.ButtonQIC();
+            this.buttonBeginning = new QuickImageCommentControls.ButtonQIC();
+            this.buttonDelete = new QuickImageCommentControls.ButtonQIC();
+            this.buttonCopy = new QuickImageCommentControls.ButtonQIC();
+            this.buttonNew = new QuickImageCommentControls.ButtonQIC();
+            this.buttonDown = new QuickImageCommentControls.ButtonQIC();
+            this.buttonUp = new QuickImageCommentControls.ButtonQIC();
+            this.textBoxName = new QuickImageCommentControls.TextBoxQIC();
+            this.textBoxPrefix = new QuickImageCommentControls.TextBoxQIC();
+            this.textBoxMetaDatum1 = new QuickImageCommentControls.TextBoxQIC();
+            this.dynamicComboBoxMetaDataFormat1 = new QuickImageCommentControls.ComboBoxQIC();
+            this.textBoxSeparator = new QuickImageCommentControls.TextBoxQIC();
+            this.textBoxMetaDatum2 = new QuickImageCommentControls.TextBoxQIC();
+            this.dynamicComboBoxMetaDataFormat2 = new QuickImageCommentControls.ComboBoxQIC();
+            this.textBoxPostfix = new QuickImageCommentControls.TextBoxQIC();
+            this.userControlTagList = new QuickImageComment.UserControlTagList();
+            this.buttonMetaDatum1 = new QuickImageCommentControls.ButtonQIC();
+            this.buttonMetaDatum2 = new QuickImageCommentControls.ButtonQIC();
+            this.buttonHelp = new QuickImageCommentControls.ButtonQIC();
+            this.buttonCustomizeForm = new QuickImageCommentControls.ButtonQIC();
+            this.buttonOk = new QuickImageCommentControls.ButtonQIC();
+            this.dynamicComboBoxMetaDataType = new QuickImageCommentControls.ComboBoxQIC();
+            this.buttonAbort = new QuickImageCommentControls.ButtonQIC();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownVerticalDisplayOffset)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLinesForChange)).BeginInit();
             this.tableLayoutPanelBelowTagList.SuspendLayout();
@@ -108,18 +108,6 @@ namespace QuickImageComment
             this.tableLayoutPanelDefinitionTop.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // buttonAbort
-            // 
-            this.buttonAbort.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonAbort.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonAbort.Location = new System.Drawing.Point(505, 614);
-            this.buttonAbort.Name = "buttonAbort";
-            this.buttonAbort.Size = new System.Drawing.Size(95, 22);
-            this.buttonAbort.TabIndex = 43;
-            this.buttonAbort.Text = "Abbrechen";
-            this.buttonAbort.UseVisualStyleBackColor = true;
-            this.buttonAbort.Click += new System.EventHandler(this.buttonAbort_Click);
             // 
             // listBoxMetaData
             // 
@@ -132,55 +120,6 @@ namespace QuickImageComment
             this.listBoxMetaData.TabIndex = 17;
             this.listBoxMetaData.SelectedIndexChanged += new System.EventHandler(this.listBoxMetaData_SelectedIndexChanged);
             // 
-            // dynamicComboBoxMetaDataType
-            // 
-            this.dynamicComboBoxMetaDataType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.dynamicComboBoxMetaDataType.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.dynamicComboBoxMetaDataType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.dynamicComboBoxMetaDataType.FormattingEnabled = true;
-            this.dynamicComboBoxMetaDataType.Location = new System.Drawing.Point(5, 322);
-            this.dynamicComboBoxMetaDataType.Name = "dynamicComboBoxMetaDataType";
-            this.dynamicComboBoxMetaDataType.Size = new System.Drawing.Size(266, 22);
-            this.dynamicComboBoxMetaDataType.TabIndex = 16;
-            this.dynamicComboBoxMetaDataType.SelectedIndexChanged += new System.EventHandler(this.dynamicComboBoxMetaDataType_SelectedIndexChanged);
-            this.dynamicComboBoxMetaDataType.Enter += new System.EventHandler(this.dynamicComboBoxMetaDataType_Enter);
-            // 
-            // buttonUp
-            // 
-            this.buttonUp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonUp.Location = new System.Drawing.Point(280, 368);
-            this.buttonUp.Name = "buttonUp";
-            this.buttonUp.Size = new System.Drawing.Size(95, 22);
-            this.buttonUp.TabIndex = 18;
-            this.buttonUp.Text = "nach oben";
-            this.buttonUp.UseVisualStyleBackColor = true;
-            this.buttonUp.Click += new System.EventHandler(this.buttonUp_Click);
-            // 
-            // buttonDown
-            // 
-            this.buttonDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonDown.Location = new System.Drawing.Point(280, 390);
-            this.buttonDown.Name = "buttonDown";
-            this.buttonDown.Size = new System.Drawing.Size(95, 22);
-            this.buttonDown.TabIndex = 19;
-            this.buttonDown.Text = "nach unten";
-            this.buttonDown.UseVisualStyleBackColor = true;
-            this.buttonDown.Click += new System.EventHandler(this.buttonDown_Click);
-            // 
-            // buttonNew
-            // 
-            this.buttonNew.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonNew.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonNew.Location = new System.Drawing.Point(280, 437);
-            this.buttonNew.Name = "buttonNew";
-            this.buttonNew.Size = new System.Drawing.Size(95, 22);
-            this.buttonNew.TabIndex = 20;
-            this.buttonNew.Text = "Hinzufügen";
-            this.buttonNew.UseVisualStyleBackColor = true;
-            this.buttonNew.Click += new System.EventHandler(this.buttonNew_Click);
-            // 
             // label2
             // 
             this.label2.Dock = System.Windows.Forms.DockStyle.Right;
@@ -190,29 +129,6 @@ namespace QuickImageComment
             this.label2.TabIndex = 23;
             this.label2.Text = "Name";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // textBoxName
-            // 
-            this.textBoxName.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBoxName.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBoxName.Location = new System.Drawing.Point(148, 3);
-            this.textBoxName.Name = "textBoxName";
-            this.textBoxName.SingleLineNoBorder = true;
-            this.textBoxName.Size = new System.Drawing.Size(313, 14);
-            this.textBoxName.TabIndex = 24;
-            this.textBoxName.TextChanged += new System.EventHandler(this.textBoxName_TextChanged);
-            // 
-            // textBoxPrefix
-            // 
-            this.textBoxPrefix.AllowDrop = true;
-            this.textBoxPrefix.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBoxPrefix.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBoxPrefix.Location = new System.Drawing.Point(148, 25);
-            this.textBoxPrefix.Name = "textBoxPrefix";
-            this.textBoxPrefix.SingleLineNoBorder = true;
-            this.textBoxPrefix.Size = new System.Drawing.Size(313, 14);
-            this.textBoxPrefix.TabIndex = 26;
-            this.textBoxPrefix.TextChanged += new System.EventHandler(this.fieldDefinitionChanged);
             // 
             // label3
             // 
@@ -224,19 +140,6 @@ namespace QuickImageComment
             this.label3.Text = "Prefix";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // textBoxMetaDatum1
-            // 
-            this.textBoxMetaDatum1.AllowDrop = true;
-            this.textBoxMetaDatum1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBoxMetaDatum1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBoxMetaDatum1.Location = new System.Drawing.Point(148, 47);
-            this.textBoxMetaDatum1.Name = "textBoxMetaDatum1";
-            this.textBoxMetaDatum1.SingleLineNoBorder = true;
-            this.textBoxMetaDatum1.Size = new System.Drawing.Size(313, 14);
-            this.textBoxMetaDatum1.TabIndex = 28;
-            this.textBoxMetaDatum1.Tag = "";
-            this.textBoxMetaDatum1.TextChanged += new System.EventHandler(this.textBoxMetaDatum1_TextChanged);
-            // 
             // label4
             // 
             this.label4.Dock = System.Windows.Forms.DockStyle.Right;
@@ -246,18 +149,6 @@ namespace QuickImageComment
             this.label4.TabIndex = 27;
             this.label4.Text = "Meta Datum 1";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // textBoxSeparator
-            // 
-            this.textBoxSeparator.AllowDrop = true;
-            this.textBoxSeparator.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBoxSeparator.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBoxSeparator.Location = new System.Drawing.Point(148, 91);
-            this.textBoxSeparator.Name = "textBoxSeparator";
-            this.textBoxSeparator.SingleLineNoBorder = true;
-            this.textBoxSeparator.Size = new System.Drawing.Size(313, 14);
-            this.textBoxSeparator.TabIndex = 32;
-            this.textBoxSeparator.TextChanged += new System.EventHandler(this.fieldDefinitionChanged);
             // 
             // label5
             // 
@@ -289,18 +180,6 @@ namespace QuickImageComment
             this.label7.Text = "Anzeige";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // textBoxPostfix
-            // 
-            this.textBoxPostfix.AllowDrop = true;
-            this.textBoxPostfix.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBoxPostfix.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBoxPostfix.Location = new System.Drawing.Point(148, 157);
-            this.textBoxPostfix.Name = "textBoxPostfix";
-            this.textBoxPostfix.SingleLineNoBorder = true;
-            this.textBoxPostfix.Size = new System.Drawing.Size(313, 14);
-            this.textBoxPostfix.TabIndex = 38;
-            this.textBoxPostfix.TextChanged += new System.EventHandler(this.fieldDefinitionChanged);
-            // 
             // label8
             // 
             this.label8.Dock = System.Windows.Forms.DockStyle.Right;
@@ -310,18 +189,6 @@ namespace QuickImageComment
             this.label8.TabIndex = 37;
             this.label8.Text = "Postfix";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // textBoxMetaDatum2
-            // 
-            this.textBoxMetaDatum2.AllowDrop = true;
-            this.textBoxMetaDatum2.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBoxMetaDatum2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBoxMetaDatum2.Location = new System.Drawing.Point(148, 113);
-            this.textBoxMetaDatum2.Name = "textBoxMetaDatum2";
-            this.textBoxMetaDatum2.SingleLineNoBorder = true;
-            this.textBoxMetaDatum2.Size = new System.Drawing.Size(313, 14);
-            this.textBoxMetaDatum2.TabIndex = 34;
-            this.textBoxMetaDatum2.TextChanged += new System.EventHandler(this.textBoxMetaDatum2_TextChanged);
             // 
             // label9
             // 
@@ -333,36 +200,12 @@ namespace QuickImageComment
             this.label9.Text = "Meta Datum 2";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // buttonMetaDatum1
-            // 
-            this.buttonMetaDatum1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonMetaDatum1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonMetaDatum1.Location = new System.Drawing.Point(637, 3);
-            this.buttonMetaDatum1.Name = "buttonMetaDatum1";
-            this.buttonMetaDatum1.Size = new System.Drawing.Size(94, 21);
-            this.buttonMetaDatum1.TabIndex = 14;
-            this.buttonMetaDatum1.Text = "Meta Datum 1";
-            this.buttonMetaDatum1.UseVisualStyleBackColor = true;
-            this.buttonMetaDatum1.Click += new System.EventHandler(this.buttonMetaDatum1_Click);
-            // 
-            // buttonMetaDatum2
-            // 
-            this.buttonMetaDatum2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonMetaDatum2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonMetaDatum2.Location = new System.Drawing.Point(737, 3);
-            this.buttonMetaDatum2.Name = "buttonMetaDatum2";
-            this.buttonMetaDatum2.Size = new System.Drawing.Size(94, 21);
-            this.buttonMetaDatum2.TabIndex = 15;
-            this.buttonMetaDatum2.Text = "Meta Datum 2";
-            this.buttonMetaDatum2.UseVisualStyleBackColor = true;
-            this.buttonMetaDatum2.Click += new System.EventHandler(this.buttonMetaDatum2_Click);
-            // 
             // dynamicLabelExample
             // 
-            this.dynamicLabelExample.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.dynamicLabelExample.Dock = System.Windows.Forms.DockStyle.Top;
             this.dynamicLabelExample.Location = new System.Drawing.Point(148, 176);
             this.dynamicLabelExample.Name = "dynamicLabelExample";
-            this.dynamicLabelExample.Size = new System.Drawing.Size(313, 20);
+            this.dynamicLabelExample.Size = new System.Drawing.Size(313, 18);
             this.dynamicLabelExample.TabIndex = 40;
             this.dynamicLabelExample.Text = "Beispiel";
             this.dynamicLabelExample.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -379,42 +222,6 @@ namespace QuickImageComment
             this.label11.Text = "Auswahl übernehmen als";
             this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.label11.UseCompatibleTextRendering = true;
-            // 
-            // buttonOk
-            // 
-            this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonOk.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonOk.Location = new System.Drawing.Point(238, 614);
-            this.buttonOk.Name = "buttonOk";
-            this.buttonOk.Size = new System.Drawing.Size(95, 22);
-            this.buttonOk.TabIndex = 42;
-            this.buttonOk.Text = "OK";
-            this.buttonOk.UseVisualStyleBackColor = true;
-            this.buttonOk.Click += new System.EventHandler(this.buttonOk_Click);
-            // 
-            // buttonCopy
-            // 
-            this.buttonCopy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonCopy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonCopy.Location = new System.Drawing.Point(280, 459);
-            this.buttonCopy.Name = "buttonCopy";
-            this.buttonCopy.Size = new System.Drawing.Size(95, 22);
-            this.buttonCopy.TabIndex = 21;
-            this.buttonCopy.Text = "Kopieren";
-            this.buttonCopy.UseVisualStyleBackColor = true;
-            this.buttonCopy.Click += new System.EventHandler(this.buttonCopy_Click);
-            // 
-            // buttonDelete
-            // 
-            this.buttonDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonDelete.Location = new System.Drawing.Point(280, 481);
-            this.buttonDelete.Name = "buttonDelete";
-            this.buttonDelete.Size = new System.Drawing.Size(95, 22);
-            this.buttonDelete.TabIndex = 22;
-            this.buttonDelete.Text = "Löschen";
-            this.buttonDelete.UseVisualStyleBackColor = true;
-            this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
             // 
             // dynamicLabelInfo
             // 
@@ -477,60 +284,12 @@ namespace QuickImageComment
             this.dynamicLabelValueInterpreted.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.dynamicLabelValueInterpreted.UseCompatibleTextRendering = true;
             // 
-            // buttonCustomizeForm
-            // 
-            this.buttonCustomizeForm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonCustomizeForm.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonCustomizeForm.Location = new System.Drawing.Point(5, 614);
-            this.buttonCustomizeForm.Name = "buttonCustomizeForm";
-            this.buttonCustomizeForm.Size = new System.Drawing.Size(98, 22);
-            this.buttonCustomizeForm.TabIndex = 41;
-            this.buttonCustomizeForm.Text = "Maske anpassen";
-            this.buttonCustomizeForm.UseVisualStyleBackColor = true;
-            this.buttonCustomizeForm.Click += new System.EventHandler(this.buttonCustomizeForm_Click);
-            // 
-            // dynamicComboBoxMetaDataFormat2
-            // 
-            this.dynamicComboBoxMetaDataFormat2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dynamicComboBoxMetaDataFormat2.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.dynamicComboBoxMetaDataFormat2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.dynamicComboBoxMetaDataFormat2.FormattingEnabled = true;
-            this.dynamicComboBoxMetaDataFormat2.Location = new System.Drawing.Point(148, 135);
-            this.dynamicComboBoxMetaDataFormat2.Name = "dynamicComboBoxMetaDataFormat2";
-            this.dynamicComboBoxMetaDataFormat2.Size = new System.Drawing.Size(313, 22);
-            this.dynamicComboBoxMetaDataFormat2.TabIndex = 36;
-            this.dynamicComboBoxMetaDataFormat2.TextChanged += new System.EventHandler(this.fieldDefinitionChanged);
-            // 
-            // dynamicComboBoxMetaDataFormat1
-            // 
-            this.dynamicComboBoxMetaDataFormat1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dynamicComboBoxMetaDataFormat1.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.dynamicComboBoxMetaDataFormat1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.dynamicComboBoxMetaDataFormat1.FormattingEnabled = true;
-            this.dynamicComboBoxMetaDataFormat1.Location = new System.Drawing.Point(148, 69);
-            this.dynamicComboBoxMetaDataFormat1.Name = "dynamicComboBoxMetaDataFormat1";
-            this.dynamicComboBoxMetaDataFormat1.Size = new System.Drawing.Size(313, 22);
-            this.dynamicComboBoxMetaDataFormat1.TabIndex = 30;
-            this.dynamicComboBoxMetaDataFormat1.TextChanged += new System.EventHandler(this.fieldDefinitionChanged);
-            // 
-            // buttonHelp
-            // 
-            this.buttonHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonHelp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonHelp.Location = new System.Drawing.Point(736, 614);
-            this.buttonHelp.Name = "buttonHelp";
-            this.buttonHelp.Size = new System.Drawing.Size(95, 22);
-            this.buttonHelp.TabIndex = 44;
-            this.buttonHelp.Text = "Hilfe";
-            this.buttonHelp.UseVisualStyleBackColor = true;
-            this.buttonHelp.Click += new System.EventHandler(this.buttonHelp_Click);
-            // 
             // label14
             // 
-            this.label14.Dock = System.Windows.Forms.DockStyle.Right;
+            this.label14.Dock = System.Windows.Forms.DockStyle.Top;
             this.label14.Location = new System.Drawing.Point(3, 176);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(139, 25);
+            this.label14.Size = new System.Drawing.Size(139, 18);
             this.label14.TabIndex = 39;
             this.label14.Text = "Ergebnis der Definition";
             this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -605,18 +364,6 @@ namespace QuickImageComment
             0});
             this.numericUpDownLinesForChange.ValueChanged += new System.EventHandler(this.fieldDefinitionChanged);
             // 
-            // buttonInputCheckEdit
-            // 
-            this.buttonInputCheckEdit.Dock = System.Windows.Forms.DockStyle.Right;
-            this.buttonInputCheckEdit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonInputCheckEdit.Location = new System.Drawing.Point(446, 29);
-            this.buttonInputCheckEdit.Name = "buttonInputCheckEdit";
-            this.buttonInputCheckEdit.Size = new System.Drawing.Size(69, 21);
-            this.buttonInputCheckEdit.TabIndex = 52;
-            this.buttonInputCheckEdit.Text = "Bearbeiten";
-            this.buttonInputCheckEdit.UseVisualStyleBackColor = true;
-            this.buttonInputCheckEdit.Click += new System.EventHandler(this.buttonInputCheckEdit_Click);
-            // 
             // label17
             // 
             this.label17.AutoSize = true;
@@ -628,54 +375,6 @@ namespace QuickImageComment
             this.label17.TabIndex = 53;
             this.label17.Text = "Eingabeprüfung:";
             this.label17.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            // 
-            // buttonInputCheckDelete
-            // 
-            this.buttonInputCheckDelete.Dock = System.Windows.Forms.DockStyle.Right;
-            this.buttonInputCheckDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonInputCheckDelete.Location = new System.Drawing.Point(521, 29);
-            this.buttonInputCheckDelete.Name = "buttonInputCheckDelete";
-            this.buttonInputCheckDelete.Size = new System.Drawing.Size(69, 21);
-            this.buttonInputCheckDelete.TabIndex = 54;
-            this.buttonInputCheckDelete.Text = "Löschen";
-            this.buttonInputCheckDelete.UseVisualStyleBackColor = true;
-            this.buttonInputCheckDelete.Click += new System.EventHandler(this.buttonInputCheckDelete_Click);
-            // 
-            // buttonInputCheckCreate
-            // 
-            this.buttonInputCheckCreate.Dock = System.Windows.Forms.DockStyle.Right;
-            this.buttonInputCheckCreate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonInputCheckCreate.Location = new System.Drawing.Point(370, 29);
-            this.buttonInputCheckCreate.Name = "buttonInputCheckCreate";
-            this.buttonInputCheckCreate.Size = new System.Drawing.Size(70, 21);
-            this.buttonInputCheckCreate.TabIndex = 55;
-            this.buttonInputCheckCreate.Text = "Erstellen";
-            this.buttonInputCheckCreate.UseVisualStyleBackColor = true;
-            this.buttonInputCheckCreate.Click += new System.EventHandler(this.buttonInputCheckCreate_Click);
-            // 
-            // buttonBeginning
-            // 
-            this.buttonBeginning.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonBeginning.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonBeginning.Location = new System.Drawing.Point(280, 346);
-            this.buttonBeginning.Name = "buttonBeginning";
-            this.buttonBeginning.Size = new System.Drawing.Size(95, 22);
-            this.buttonBeginning.TabIndex = 56;
-            this.buttonBeginning.Text = "Anfang";
-            this.buttonBeginning.UseVisualStyleBackColor = true;
-            this.buttonBeginning.Click += new System.EventHandler(this.buttonBeginning_Click);
-            // 
-            // buttonEnd
-            // 
-            this.buttonEnd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonEnd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonEnd.Location = new System.Drawing.Point(280, 412);
-            this.buttonEnd.Name = "buttonEnd";
-            this.buttonEnd.Size = new System.Drawing.Size(95, 22);
-            this.buttonEnd.TabIndex = 57;
-            this.buttonEnd.Text = "Ende";
-            this.buttonEnd.UseVisualStyleBackColor = true;
-            this.buttonEnd.Click += new System.EventHandler(this.buttonEnd_Click);
             // 
             // tableLayoutPanelBelowTagList
             // 
@@ -736,14 +435,6 @@ namespace QuickImageComment
             this.tableLayoutPanelTagList.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanelTagList.Size = new System.Drawing.Size(836, 289);
             this.tableLayoutPanelTagList.TabIndex = 62;
-            // 
-            // userControlTagList
-            // 
-            this.userControlTagList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.userControlTagList.Location = new System.Drawing.Point(3, 3);
-            this.userControlTagList.Name = "userControlTagList";
-            this.userControlTagList.Size = new System.Drawing.Size(830, 283);
-            this.userControlTagList.TabIndex = 58;
             // 
             // tableLayoutPanelDefinitionTop
             // 
@@ -807,6 +498,299 @@ namespace QuickImageComment
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(593, 53);
             this.tableLayoutPanel1.TabIndex = 64;
+            // 
+            // buttonInputCheckCreate
+            // 
+            this.buttonInputCheckCreate.Dock = System.Windows.Forms.DockStyle.Right;
+            this.buttonInputCheckCreate.Location = new System.Drawing.Point(370, 29);
+            this.buttonInputCheckCreate.Name = "buttonInputCheckCreate";
+            this.buttonInputCheckCreate.Size = new System.Drawing.Size(70, 21);
+            this.buttonInputCheckCreate.TabIndex = 55;
+            this.buttonInputCheckCreate.Text = "Erstellen";
+            this.buttonInputCheckCreate.UseVisualStyleBackColor = true;
+            this.buttonInputCheckCreate.Click += new System.EventHandler(this.buttonInputCheckCreate_Click);
+            // 
+            // buttonInputCheckEdit
+            // 
+            this.buttonInputCheckEdit.Dock = System.Windows.Forms.DockStyle.Right;
+            this.buttonInputCheckEdit.Location = new System.Drawing.Point(446, 29);
+            this.buttonInputCheckEdit.Name = "buttonInputCheckEdit";
+            this.buttonInputCheckEdit.Size = new System.Drawing.Size(69, 21);
+            this.buttonInputCheckEdit.TabIndex = 52;
+            this.buttonInputCheckEdit.Text = "Bearbeiten";
+            this.buttonInputCheckEdit.UseVisualStyleBackColor = true;
+            this.buttonInputCheckEdit.Click += new System.EventHandler(this.buttonInputCheckEdit_Click);
+            // 
+            // buttonInputCheckDelete
+            // 
+            this.buttonInputCheckDelete.Dock = System.Windows.Forms.DockStyle.Right;
+            this.buttonInputCheckDelete.Location = new System.Drawing.Point(521, 29);
+            this.buttonInputCheckDelete.Name = "buttonInputCheckDelete";
+            this.buttonInputCheckDelete.Size = new System.Drawing.Size(69, 21);
+            this.buttonInputCheckDelete.TabIndex = 54;
+            this.buttonInputCheckDelete.Text = "Löschen";
+            this.buttonInputCheckDelete.UseVisualStyleBackColor = true;
+            this.buttonInputCheckDelete.Click += new System.EventHandler(this.buttonInputCheckDelete_Click);
+            // 
+            // buttonEnd
+            // 
+            this.buttonEnd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonEnd.Location = new System.Drawing.Point(280, 412);
+            this.buttonEnd.Name = "buttonEnd";
+            this.buttonEnd.Size = new System.Drawing.Size(95, 22);
+            this.buttonEnd.TabIndex = 57;
+            this.buttonEnd.Text = "Ende";
+            this.buttonEnd.UseVisualStyleBackColor = true;
+            this.buttonEnd.Click += new System.EventHandler(this.buttonEnd_Click);
+            // 
+            // buttonBeginning
+            // 
+            this.buttonBeginning.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonBeginning.Location = new System.Drawing.Point(280, 346);
+            this.buttonBeginning.Name = "buttonBeginning";
+            this.buttonBeginning.Size = new System.Drawing.Size(95, 22);
+            this.buttonBeginning.TabIndex = 56;
+            this.buttonBeginning.Text = "Anfang";
+            this.buttonBeginning.UseVisualStyleBackColor = true;
+            this.buttonBeginning.Click += new System.EventHandler(this.buttonBeginning_Click);
+            // 
+            // buttonDelete
+            // 
+            this.buttonDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonDelete.Location = new System.Drawing.Point(280, 481);
+            this.buttonDelete.Name = "buttonDelete";
+            this.buttonDelete.Size = new System.Drawing.Size(95, 22);
+            this.buttonDelete.TabIndex = 22;
+            this.buttonDelete.Text = "Löschen";
+            this.buttonDelete.UseVisualStyleBackColor = true;
+            this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
+            // 
+            // buttonCopy
+            // 
+            this.buttonCopy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonCopy.Location = new System.Drawing.Point(280, 459);
+            this.buttonCopy.Name = "buttonCopy";
+            this.buttonCopy.Size = new System.Drawing.Size(95, 22);
+            this.buttonCopy.TabIndex = 21;
+            this.buttonCopy.Text = "Kopieren";
+            this.buttonCopy.UseVisualStyleBackColor = true;
+            this.buttonCopy.Click += new System.EventHandler(this.buttonCopy_Click);
+            // 
+            // buttonNew
+            // 
+            this.buttonNew.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonNew.Location = new System.Drawing.Point(280, 437);
+            this.buttonNew.Name = "buttonNew";
+            this.buttonNew.Size = new System.Drawing.Size(95, 22);
+            this.buttonNew.TabIndex = 20;
+            this.buttonNew.Text = "Hinzufügen";
+            this.buttonNew.UseVisualStyleBackColor = true;
+            this.buttonNew.Click += new System.EventHandler(this.buttonNew_Click);
+            // 
+            // buttonDown
+            // 
+            this.buttonDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonDown.Location = new System.Drawing.Point(280, 390);
+            this.buttonDown.Name = "buttonDown";
+            this.buttonDown.Size = new System.Drawing.Size(95, 22);
+            this.buttonDown.TabIndex = 19;
+            this.buttonDown.Text = "nach unten";
+            this.buttonDown.UseVisualStyleBackColor = true;
+            this.buttonDown.Click += new System.EventHandler(this.buttonDown_Click);
+            // 
+            // buttonUp
+            // 
+            this.buttonUp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonUp.Location = new System.Drawing.Point(280, 368);
+            this.buttonUp.Name = "buttonUp";
+            this.buttonUp.Size = new System.Drawing.Size(95, 22);
+            this.buttonUp.TabIndex = 18;
+            this.buttonUp.Text = "nach oben";
+            this.buttonUp.UseVisualStyleBackColor = true;
+            this.buttonUp.Click += new System.EventHandler(this.buttonUp_Click);
+            // 
+            // textBoxName
+            // 
+            this.textBoxName.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxName.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBoxName.Location = new System.Drawing.Point(148, 3);
+            this.textBoxName.Name = "textBoxName";
+            this.textBoxName.SingleLineNoBorder = true;
+            this.textBoxName.Size = new System.Drawing.Size(313, 14);
+            this.textBoxName.TabIndex = 24;
+            this.textBoxName.TextChanged += new System.EventHandler(this.textBoxName_TextChanged);
+            // 
+            // textBoxPrefix
+            // 
+            this.textBoxPrefix.AllowDrop = true;
+            this.textBoxPrefix.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxPrefix.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBoxPrefix.Location = new System.Drawing.Point(148, 25);
+            this.textBoxPrefix.Name = "textBoxPrefix";
+            this.textBoxPrefix.SingleLineNoBorder = true;
+            this.textBoxPrefix.Size = new System.Drawing.Size(313, 14);
+            this.textBoxPrefix.TabIndex = 26;
+            this.textBoxPrefix.TextChanged += new System.EventHandler(this.fieldDefinitionChanged);
+            // 
+            // textBoxMetaDatum1
+            // 
+            this.textBoxMetaDatum1.AllowDrop = true;
+            this.textBoxMetaDatum1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxMetaDatum1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBoxMetaDatum1.Location = new System.Drawing.Point(148, 47);
+            this.textBoxMetaDatum1.Name = "textBoxMetaDatum1";
+            this.textBoxMetaDatum1.SingleLineNoBorder = true;
+            this.textBoxMetaDatum1.Size = new System.Drawing.Size(313, 14);
+            this.textBoxMetaDatum1.TabIndex = 28;
+            this.textBoxMetaDatum1.Tag = "";
+            this.textBoxMetaDatum1.TextChanged += new System.EventHandler(this.textBoxMetaDatum1_TextChanged);
+            // 
+            // dynamicComboBoxMetaDataFormat1
+            // 
+            this.dynamicComboBoxMetaDataFormat1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dynamicComboBoxMetaDataFormat1.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.dynamicComboBoxMetaDataFormat1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.dynamicComboBoxMetaDataFormat1.FormattingEnabled = true;
+            this.dynamicComboBoxMetaDataFormat1.Location = new System.Drawing.Point(148, 69);
+            this.dynamicComboBoxMetaDataFormat1.Name = "dynamicComboBoxMetaDataFormat1";
+            this.dynamicComboBoxMetaDataFormat1.Size = new System.Drawing.Size(313, 22);
+            this.dynamicComboBoxMetaDataFormat1.TabIndex = 30;
+            this.dynamicComboBoxMetaDataFormat1.TextChanged += new System.EventHandler(this.fieldDefinitionChanged);
+            // 
+            // textBoxSeparator
+            // 
+            this.textBoxSeparator.AllowDrop = true;
+            this.textBoxSeparator.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxSeparator.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBoxSeparator.Location = new System.Drawing.Point(148, 91);
+            this.textBoxSeparator.Name = "textBoxSeparator";
+            this.textBoxSeparator.SingleLineNoBorder = true;
+            this.textBoxSeparator.Size = new System.Drawing.Size(313, 14);
+            this.textBoxSeparator.TabIndex = 32;
+            this.textBoxSeparator.TextChanged += new System.EventHandler(this.fieldDefinitionChanged);
+            // 
+            // textBoxMetaDatum2
+            // 
+            this.textBoxMetaDatum2.AllowDrop = true;
+            this.textBoxMetaDatum2.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxMetaDatum2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBoxMetaDatum2.Location = new System.Drawing.Point(148, 113);
+            this.textBoxMetaDatum2.Name = "textBoxMetaDatum2";
+            this.textBoxMetaDatum2.SingleLineNoBorder = true;
+            this.textBoxMetaDatum2.Size = new System.Drawing.Size(313, 14);
+            this.textBoxMetaDatum2.TabIndex = 34;
+            this.textBoxMetaDatum2.TextChanged += new System.EventHandler(this.textBoxMetaDatum2_TextChanged);
+            // 
+            // dynamicComboBoxMetaDataFormat2
+            // 
+            this.dynamicComboBoxMetaDataFormat2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dynamicComboBoxMetaDataFormat2.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.dynamicComboBoxMetaDataFormat2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.dynamicComboBoxMetaDataFormat2.FormattingEnabled = true;
+            this.dynamicComboBoxMetaDataFormat2.Location = new System.Drawing.Point(148, 135);
+            this.dynamicComboBoxMetaDataFormat2.Name = "dynamicComboBoxMetaDataFormat2";
+            this.dynamicComboBoxMetaDataFormat2.Size = new System.Drawing.Size(313, 22);
+            this.dynamicComboBoxMetaDataFormat2.TabIndex = 36;
+            this.dynamicComboBoxMetaDataFormat2.TextChanged += new System.EventHandler(this.fieldDefinitionChanged);
+            // 
+            // textBoxPostfix
+            // 
+            this.textBoxPostfix.AllowDrop = true;
+            this.textBoxPostfix.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxPostfix.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBoxPostfix.Location = new System.Drawing.Point(148, 157);
+            this.textBoxPostfix.Name = "textBoxPostfix";
+            this.textBoxPostfix.SingleLineNoBorder = true;
+            this.textBoxPostfix.Size = new System.Drawing.Size(313, 14);
+            this.textBoxPostfix.TabIndex = 38;
+            this.textBoxPostfix.TextChanged += new System.EventHandler(this.fieldDefinitionChanged);
+            // 
+            // userControlTagList
+            // 
+            this.userControlTagList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.userControlTagList.Location = new System.Drawing.Point(3, 3);
+            this.userControlTagList.Name = "userControlTagList";
+            this.userControlTagList.Size = new System.Drawing.Size(830, 283);
+            this.userControlTagList.TabIndex = 58;
+            // 
+            // buttonMetaDatum1
+            // 
+            this.buttonMetaDatum1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonMetaDatum1.Location = new System.Drawing.Point(637, 3);
+            this.buttonMetaDatum1.Name = "buttonMetaDatum1";
+            this.buttonMetaDatum1.Size = new System.Drawing.Size(94, 21);
+            this.buttonMetaDatum1.TabIndex = 14;
+            this.buttonMetaDatum1.Text = "Meta Datum 1";
+            this.buttonMetaDatum1.UseVisualStyleBackColor = true;
+            this.buttonMetaDatum1.Click += new System.EventHandler(this.buttonMetaDatum1_Click);
+            // 
+            // buttonMetaDatum2
+            // 
+            this.buttonMetaDatum2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonMetaDatum2.Location = new System.Drawing.Point(737, 3);
+            this.buttonMetaDatum2.Name = "buttonMetaDatum2";
+            this.buttonMetaDatum2.Size = new System.Drawing.Size(94, 21);
+            this.buttonMetaDatum2.TabIndex = 15;
+            this.buttonMetaDatum2.Text = "Meta Datum 2";
+            this.buttonMetaDatum2.UseVisualStyleBackColor = true;
+            this.buttonMetaDatum2.Click += new System.EventHandler(this.buttonMetaDatum2_Click);
+            // 
+            // buttonHelp
+            // 
+            this.buttonHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonHelp.Location = new System.Drawing.Point(736, 614);
+            this.buttonHelp.Name = "buttonHelp";
+            this.buttonHelp.Size = new System.Drawing.Size(95, 22);
+            this.buttonHelp.TabIndex = 44;
+            this.buttonHelp.Text = "Hilfe";
+            this.buttonHelp.UseVisualStyleBackColor = true;
+            this.buttonHelp.Click += new System.EventHandler(this.buttonHelp_Click);
+            // 
+            // buttonCustomizeForm
+            // 
+            this.buttonCustomizeForm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonCustomizeForm.Location = new System.Drawing.Point(5, 614);
+            this.buttonCustomizeForm.Name = "buttonCustomizeForm";
+            this.buttonCustomizeForm.Size = new System.Drawing.Size(98, 22);
+            this.buttonCustomizeForm.TabIndex = 41;
+            this.buttonCustomizeForm.Text = "Maske anpassen";
+            this.buttonCustomizeForm.UseVisualStyleBackColor = true;
+            this.buttonCustomizeForm.Click += new System.EventHandler(this.buttonCustomizeForm_Click);
+            // 
+            // buttonOk
+            // 
+            this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonOk.Location = new System.Drawing.Point(238, 614);
+            this.buttonOk.Name = "buttonOk";
+            this.buttonOk.Size = new System.Drawing.Size(95, 22);
+            this.buttonOk.TabIndex = 42;
+            this.buttonOk.Text = "OK";
+            this.buttonOk.UseVisualStyleBackColor = true;
+            this.buttonOk.Click += new System.EventHandler(this.buttonOk_Click);
+            // 
+            // dynamicComboBoxMetaDataType
+            // 
+            this.dynamicComboBoxMetaDataType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.dynamicComboBoxMetaDataType.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.dynamicComboBoxMetaDataType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.dynamicComboBoxMetaDataType.FormattingEnabled = true;
+            this.dynamicComboBoxMetaDataType.Location = new System.Drawing.Point(5, 322);
+            this.dynamicComboBoxMetaDataType.Name = "dynamicComboBoxMetaDataType";
+            this.dynamicComboBoxMetaDataType.Size = new System.Drawing.Size(266, 22);
+            this.dynamicComboBoxMetaDataType.TabIndex = 16;
+            this.dynamicComboBoxMetaDataType.SelectedIndexChanged += new System.EventHandler(this.dynamicComboBoxMetaDataType_SelectedIndexChanged);
+            this.dynamicComboBoxMetaDataType.Enter += new System.EventHandler(this.dynamicComboBoxMetaDataType_Enter);
+            // 
+            // buttonAbort
+            // 
+            this.buttonAbort.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonAbort.Location = new System.Drawing.Point(505, 614);
+            this.buttonAbort.Name = "buttonAbort";
+            this.buttonAbort.Size = new System.Drawing.Size(95, 22);
+            this.buttonAbort.TabIndex = 43;
+            this.buttonAbort.Text = "Abbrechen";
+            this.buttonAbort.UseVisualStyleBackColor = true;
+            this.buttonAbort.Click += new System.EventHandler(this.buttonAbort_Click);
             // 
             // FormMetaDataDefinition
             // 

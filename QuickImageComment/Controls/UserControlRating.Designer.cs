@@ -157,7 +157,7 @@
             this.Controls.Add(this.fixedButtonStar3);
             this.Controls.Add(this.fixedButtonReject);
             this.Name = "UserControlRating";
-            this.Size = new System.Drawing.Size(218, 28);
+            this.Size = new System.Drawing.Size(218, 32);
             this.ResumeLayout(false);
 
         }
