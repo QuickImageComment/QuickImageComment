@@ -1051,6 +1051,7 @@ namespace FormCustomization
             if (control.Handle != null)
             {
                 SetWindowTheme(control.Handle, subAppName, null);
+                control.Invalidate();
             }
         }
 
