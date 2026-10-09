@@ -156,6 +156,9 @@
     <Compile Include="Controls\TextBoxQIC.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controls\ToolStripQIC.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\ToolTipQIC.cs">
       <SubType>Component</SubType>
     </Compile>

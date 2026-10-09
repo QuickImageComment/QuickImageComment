@@ -18,6 +18,7 @@
 //#define WRITEDEBUGTHEMEERROR
 
 using QuickImageComment;
+using QuickImageComment.Controls;
 using QuickImageComment.Interfaces;
 using QuickImageCommentControls;
 using System;
@@ -132,13 +133,15 @@ namespace FormCustomization
             public Color DisabledForeColor;
             public Color PressedBackColor;
             public Color HoverBackColor;
+            public Color OverflowButtonBackColor;
 
             public ComponentColors(Color givenBackColor, Color givenForeColor, Color givenBorderColor,
                 Color givenDataGridViewDefaultCellBackColor, Color givenDataGridViewDefaultColumnHeadersBackColor,
                 Color givenDataGridViewDefaultColumnHeadersForeColor,
                 Color givenDataGridViewDefaultRowHeadersBackColor,
                 Color givenDataGridViewDefaultRowHeadersForeColor,
-                Color givenDisabledForeColor, Color givenPressedBackColor, Color givenHoverBackColor)
+                Color givenDisabledForeColor, Color givenPressedBackColor, Color givenHoverBackColor,
+                Color givenOverflowButtonBackColor)
             {
                 BackColor = givenBackColor;
                 ForeColor = givenForeColor;
@@ -151,6 +154,7 @@ namespace FormCustomization
                 DisabledForeColor = givenDisabledForeColor;
                 PressedBackColor = givenPressedBackColor;
                 HoverBackColor = givenHoverBackColor;
+                OverflowButtonBackColor = givenOverflowButtonBackColor;
 
             }
         }
@@ -240,7 +244,7 @@ namespace FormCustomization
             DataGridViewDefaultCellBackColor,
             DataGridViewDefaultColumnHeadersBackColor, DataGridViewDefaultColumnHeadersForeColor,
             DataGridViewDefaultRowHeadersBackColor, DataGridViewDefaultRowHeadersForeColor,
-            DisabledForeColor, PressedBackColor, HoverBackColor, BorderColor
+            DisabledForeColor, PressedBackColor, HoverBackColor, BorderColor, OverflowButtonBackColor
         };
         // PropertyNames contains those names which can be set in configuration file
         // so it is a subset of enumProperty list
@@ -819,6 +823,7 @@ namespace FormCustomization
             Color disabledForeColor = Color.Empty;
             Color pressedBackColor = Color.Empty;
             Color hoverBackColor = Color.Empty;
+            Color overflowButtonBackColor = Color.Empty;
 
             if (OriginalColors.ContainsKey(ParentControlFullName))
             {
@@ -834,6 +839,7 @@ namespace FormCustomization
                 disabledForeColor = OriginalColors[ParentControlFullName].DisabledForeColor;
                 pressedBackColor = OriginalColors[ParentControlFullName].PressedBackColor;
                 hoverBackColor = OriginalColors[ParentControlFullName].HoverBackColor;
+                overflowButtonBackColor = OriginalColors[ParentControlFullName].OverflowButtonBackColor;
             }
             else
             {
@@ -885,6 +891,11 @@ namespace FormCustomization
                     {
                         bordercolor = groupBoxQIC.BorderColor;
                     }
+                    else if (ParentControl is QuickImageComment.Controls.ToolStripQIC toolStripQIC)
+                    {
+                        hoverBackColor = toolStripQIC.HoverBackColor;
+                        overflowButtonBackColor = toolStripQIC.OverflowButtonBackColor;
+                    }
                 }
                 else
                 {
@@ -901,7 +912,7 @@ namespace FormCustomization
                     dataGridViewDefaultColumnHeadersForeColor,
                     dataGridViewDefaultRowHeadersBackColor,
                     dataGridViewDefaultRowHeadersForeColor,
-                    disabledForeColor, pressedBackColor, hoverBackColor));
+                    disabledForeColor, pressedBackColor, hoverBackColor, overflowButtonBackColor));
             }
 
             // determine new color
@@ -916,6 +927,7 @@ namespace FormCustomization
             Color newDisabledForeColor = Color.Empty;
             Color newPressedBackColor = Color.Empty;
             Color newHoverBackColor = Color.Empty;
+            Color newOverflowButtonBackColor = Color.Empty;
 
             if (ThemeName.Equals(ThemeLight) || ThemeName.Equals(""))
             {
@@ -931,6 +943,7 @@ namespace FormCustomization
                 newDisabledForeColor = OriginalColors[ParentControlFullName].DisabledForeColor;
                 newPressedBackColor = OriginalColors[ParentControlFullName].PressedBackColor;
                 newHoverBackColor = OriginalColors[ParentControlFullName].HoverBackColor;
+                newOverflowButtonBackColor = OriginalColors[ParentControlFullName].OverflowButtonBackColor;
             }
             else
             {
@@ -946,6 +959,7 @@ namespace FormCustomization
                 newDisabledForeColor = getColorByTheme(ParentControlFullName, disabledForeColor, "DisabledForeColor");
                 newPressedBackColor = getColorByTheme(ParentControlFullName, pressedBackColor, "PressedBackColor");
                 newHoverBackColor = getColorByTheme(ParentControlFullName, hoverBackColor, "HoverBackColor");
+                newOverflowButtonBackColor = getColorByTheme(ParentControlFullName, overflowButtonBackColor, "OverflowButtonBackColor");
             }
 
             if (!newBackcolor.IsEmpty)
@@ -990,6 +1004,11 @@ namespace FormCustomization
             else if (ParentControl is GroupBoxQIC || ParentControl is DateTimePickerQIC)
             {
                 setProperty(ParentControl, enumProperty.BorderColor, newBordercolor);
+            }
+            else if (ParentControl is ToolStripQIC)
+            {
+                setProperty(ParentControl, enumProperty.HoverBackColor, newHoverBackColor);
+                setProperty(ParentControl, enumProperty.OverflowButtonBackColor, newOverflowButtonBackColor);
             }
 
 #if WRITEDEBUGTHEMETRACE
@@ -2344,7 +2363,17 @@ namespace FormCustomization
 #if WRITEDEBUGTHEMETRACE
                         GeneralUtilities.writeDebugFileEntry("set HoverBackColor to " + ((Color)PropertyValue).ToString());
 #endif
-                        ((ButtonQIC)givenControl).HoverBackColor = (Color)PropertyValue;
+                        if (givenControl is ButtonQIC)
+                        {
+                            ((ButtonQIC)givenControl).HoverBackColor = (Color)PropertyValue;
+                        }
+                        else if (givenControl is ToolStripQIC)
+                        {
+                            ((ToolStripQIC)givenControl).HoverBackColor = (Color)PropertyValue;
+                        }
+                        break;
+                    case enumProperty.OverflowButtonBackColor:
+                        ((ToolStripQIC)givenControl).OverflowButtonBackColor = (Color)PropertyValue;
                         break;
                     default:
                         throw new Exception("Internal error");
@@ -2587,6 +2616,10 @@ namespace FormCustomization
                 if (componentColors.HoverBackColor != Color.Empty)
                 {
                     UsedColorsFile.WriteLine(controlFullName + "\tHoverBackColor\t" + colorNameWithRGB(componentColors.HoverBackColor));
+                }
+                if (componentColors.OverflowButtonBackColor != Color.Empty)
+                {
+                    UsedColorsFile.WriteLine(controlFullName + "\tOverflowButtonBackColor\t" + colorNameWithRGB(componentColors.OverflowButtonBackColor));
                 }
             }
             UsedColorsFile.Flush();
