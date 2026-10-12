@@ -214,7 +214,8 @@ namespace QuickImageCommentControls
             if (targetWidth < 20)
                 targetWidth = 20;
 
-            this.Columns[this.Columns.Count - 1].Width = targetWidth + 1;
+            if (this.Columns[this.Columns.Count - 1].Width != targetWidth)
+                this.Columns[this.Columns.Count - 1].Width = targetWidth;
         }
     }
 }
