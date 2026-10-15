@@ -142,7 +142,7 @@ namespace QuickImageComment
         // it is like infoMessage but gets a string, which will not be translated
         public static void debugMessage(string output)
         {
-            FlexibleMessageBox.Show(output, "QuickImageComment", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            FlexibleMessageBox.Show(null, output, "QuickImageComment", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         // get MessageBoxIcon from message type
@@ -166,50 +166,50 @@ namespace QuickImageComment
         // open message box to display message of standard types (Information, Warning, Error)
         public static void message(LangCfg.Message messageId)
         {
-            FlexibleMessageBox.Show(LangCfg.getText(messageId), "QuickImageComment", MessageBoxButtons.OK, getMessageBoxIconFromMessageId(messageId));
+            FlexibleMessageBox.Show(MainMaskInterface.getMainMask(), LangCfg.getText(messageId), "QuickImageComment", MessageBoxButtons.OK, getMessageBoxIconFromMessageId(messageId));
         }
         public static void message(LangCfg.Message messageId, string Parameter1)
         {
-            FlexibleMessageBox.Show(LangCfg.getText(messageId, Parameter1), "QuickImageComment", MessageBoxButtons.OK, getMessageBoxIconFromMessageId(messageId));
+            FlexibleMessageBox.Show(MainMaskInterface.getMainMask(), LangCfg.getText(messageId, Parameter1), "QuickImageComment", MessageBoxButtons.OK, getMessageBoxIconFromMessageId(messageId));
         }
         public static void message(LangCfg.Message messageId, string Parameter1, string Parameter2)
         {
-            FlexibleMessageBox.Show(LangCfg.getText(messageId, Parameter1, Parameter2), "QuickImageComment", MessageBoxButtons.OK, getMessageBoxIconFromMessageId(messageId));
+            FlexibleMessageBox.Show(MainMaskInterface.getMainMask(), LangCfg.getText(messageId, Parameter1, Parameter2), "QuickImageComment", MessageBoxButtons.OK, getMessageBoxIconFromMessageId(messageId));
         }
         public static void message(LangCfg.Message messageId, string Parameter1, string Parameter2, string Parameter3)
         {
-            FlexibleMessageBox.Show(LangCfg.getText(messageId, Parameter1, Parameter2, Parameter3), "QuickImageComment", MessageBoxButtons.OK, getMessageBoxIconFromMessageId(messageId));
+            FlexibleMessageBox.Show(MainMaskInterface.getMainMask(), LangCfg.getText(messageId, Parameter1, Parameter2, Parameter3), "QuickImageComment", MessageBoxButtons.OK, getMessageBoxIconFromMessageId(messageId));
         }
         public static void message(LangCfg.Message messageId, string Parameter1, string Parameter2, string Parameter3, string Parameter4)
         {
-            FlexibleMessageBox.Show(LangCfg.getText(messageId, Parameter1, Parameter2, Parameter3, Parameter4), "QuickImageComment", MessageBoxButtons.OK, getMessageBoxIconFromMessageId(messageId));
+            FlexibleMessageBox.Show(MainMaskInterface.getMainMask(), LangCfg.getText(messageId, Parameter1, Parameter2, Parameter3, Parameter4), "QuickImageComment", MessageBoxButtons.OK, getMessageBoxIconFromMessageId(messageId));
         }
         public static void message(LangCfg.Message messageId1, LangCfg.Message messageId2)
         {
-            FlexibleMessageBox.Show(LangCfg.getText(messageId1) + "\n" + LangCfg.getText(messageId2), "QuickImageComment", MessageBoxButtons.OK, getMessageBoxIconFromMessageId(messageId1));
+            FlexibleMessageBox.Show(MainMaskInterface.getMainMask(), LangCfg.getText(messageId1) + "\n" + LangCfg.getText(messageId2), "QuickImageComment", MessageBoxButtons.OK, getMessageBoxIconFromMessageId(messageId1));
         }
 
         // open message box to display message of standard types (Information, Warning, Error) with ok and Cancel
         // allows handling to leave loop in case the same message will be repeated for several files
         public static DialogResult messageOkCancel(LangCfg.Message messageId)
         {
-            return FlexibleMessageBox.Show(LangCfg.getText(messageId), "QuickImageComment", MessageBoxButtons.OKCancel, getMessageBoxIconFromMessageId(messageId));
+            return FlexibleMessageBox.Show(MainMaskInterface.getMainMask(), LangCfg.getText(messageId), "QuickImageComment", MessageBoxButtons.OKCancel, getMessageBoxIconFromMessageId(messageId));
         }
         public static DialogResult messageOkCancel(LangCfg.Message messageId, string Parameter1)
         {
-            return FlexibleMessageBox.Show(LangCfg.getText(messageId, Parameter1), "QuickImageComment", MessageBoxButtons.OKCancel, getMessageBoxIconFromMessageId(messageId));
+            return FlexibleMessageBox.Show(MainMaskInterface.getMainMask(), LangCfg.getText(messageId, Parameter1), "QuickImageComment", MessageBoxButtons.OKCancel, getMessageBoxIconFromMessageId(messageId));
         }
         public static DialogResult messageOkCancel(LangCfg.Message messageId, string Parameter1, string Parameter2)
         {
-            return FlexibleMessageBox.Show(LangCfg.getText(messageId, Parameter1, Parameter2), "QuickImageComment", MessageBoxButtons.OKCancel, getMessageBoxIconFromMessageId(messageId));
+            return FlexibleMessageBox.Show(MainMaskInterface.getMainMask(), LangCfg.getText(messageId, Parameter1, Parameter2), "QuickImageComment", MessageBoxButtons.OKCancel, getMessageBoxIconFromMessageId(messageId));
         }
         public static DialogResult messageOkCancel(LangCfg.Message messageId, string Parameter1, string Parameter2, string Parameter3)
         {
-            return FlexibleMessageBox.Show(LangCfg.getText(messageId, Parameter1, Parameter2, Parameter3), "QuickImageComment", MessageBoxButtons.OKCancel, getMessageBoxIconFromMessageId(messageId));
+            return FlexibleMessageBox.Show(MainMaskInterface.getMainMask(), LangCfg.getText(messageId, Parameter1, Parameter2, Parameter3), "QuickImageComment", MessageBoxButtons.OKCancel, getMessageBoxIconFromMessageId(messageId));
         }
         public static DialogResult messageOkCancel(LangCfg.Message messageId, string Parameter1, string Parameter2, string Parameter3, string Parameter4)
         {
-            return FlexibleMessageBox.Show(LangCfg.getText(messageId, Parameter1, Parameter2, Parameter3, Parameter4), "QuickImageComment", MessageBoxButtons.OKCancel, getMessageBoxIconFromMessageId(messageId));
+            return FlexibleMessageBox.Show(MainMaskInterface.getMainMask(), LangCfg.getText(messageId, Parameter1, Parameter2, Parameter3, Parameter4), "QuickImageComment", MessageBoxButtons.OKCancel, getMessageBoxIconFromMessageId(messageId));
         }
 
         // open message box to display fatal error with exception, mainly to be used in ConfigDefinition before reading language configuration
@@ -228,36 +228,36 @@ namespace QuickImageComment
         // open message box to ask yes/no
         public static DialogResult questionMessage(string messageText) // still needed as sometimes a complex question is concatinated in code
         {
-            return FlexibleMessageBox.Show(messageText, "QuickImageComment", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            return FlexibleMessageBox.Show(MainMaskInterface.getMainMask(), messageText, "QuickImageComment", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
         }
         public static DialogResult questionMessage(LangCfg.Message messageId)
         {
-            return FlexibleMessageBox.Show(LangCfg.getText(messageId), "QuickImageComment", MessageBoxButtons.YesNo, getMessageBoxIconFromMessageId(messageId));
+            return FlexibleMessageBox.Show(MainMaskInterface.getMainMask(), LangCfg.getText(messageId), "QuickImageComment", MessageBoxButtons.YesNo, getMessageBoxIconFromMessageId(messageId));
         }
         public static DialogResult questionMessage(LangCfg.Message messageId, string Parameter1)
         {
-            return FlexibleMessageBox.Show(LangCfg.getText(messageId, Parameter1), "QuickImageComment", MessageBoxButtons.YesNo, getMessageBoxIconFromMessageId(messageId));
+            return FlexibleMessageBox.Show(MainMaskInterface.getMainMask(), LangCfg.getText(messageId, Parameter1), "QuickImageComment", MessageBoxButtons.YesNo, getMessageBoxIconFromMessageId(messageId));
         }
         public static DialogResult questionMessage(LangCfg.Message messageId, string Parameter1, string Parameter2)
         {
-            return FlexibleMessageBox.Show(LangCfg.getText(messageId, Parameter1, Parameter2), "QuickImageComment", MessageBoxButtons.YesNo, getMessageBoxIconFromMessageId(messageId));
+            return FlexibleMessageBox.Show(MainMaskInterface.getMainMask(), LangCfg.getText(messageId, Parameter1, Parameter2), "QuickImageComment", MessageBoxButtons.YesNo, getMessageBoxIconFromMessageId(messageId));
         }
         public static DialogResult questionMessage(LangCfg.Message messageId, string Parameter1, string Parameter2, string Parameter3)
         {
-            return FlexibleMessageBox.Show(LangCfg.getText(messageId, Parameter1, Parameter2, Parameter3), "QuickImageComment", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            return FlexibleMessageBox.Show(MainMaskInterface.getMainMask(), LangCfg.getText(messageId, Parameter1, Parameter2, Parameter3), "QuickImageComment", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
         }
 
         public static DialogResult questionMessageYesNoCancel(LangCfg.Message messageId)
         {
-            return FlexibleMessageBox.Show(LangCfg.getText(messageId), "QuickImageComment", MessageBoxButtons.YesNoCancel, getMessageBoxIconFromMessageId(messageId));
+            return FlexibleMessageBox.Show(MainMaskInterface.getMainMask(), LangCfg.getText(messageId), "QuickImageComment", MessageBoxButtons.YesNoCancel, getMessageBoxIconFromMessageId(messageId));
         }
         public static DialogResult questionMessageYesNoCancel(LangCfg.Message messageId, string Parameter1)
         {
-            return FlexibleMessageBox.Show(LangCfg.getText(messageId, Parameter1), "QuickImageComment", MessageBoxButtons.YesNoCancel, getMessageBoxIconFromMessageId(messageId));
+            return FlexibleMessageBox.Show(MainMaskInterface.getMainMask(), LangCfg.getText(messageId, Parameter1), "QuickImageComment", MessageBoxButtons.YesNoCancel, getMessageBoxIconFromMessageId(messageId));
         }
         public static DialogResult questionMessageYesNoCancel(LangCfg.Message messageId, string Parameter1, string Parameter2)
         {
-            return FlexibleMessageBox.Show(LangCfg.getText(messageId, Parameter1, Parameter2), "QuickImageComment", MessageBoxButtons.YesNoCancel, getMessageBoxIconFromMessageId(messageId));
+            return FlexibleMessageBox.Show(MainMaskInterface.getMainMask(), LangCfg.getText(messageId, Parameter1, Parameter2), "QuickImageComment", MessageBoxButtons.YesNoCancel, getMessageBoxIconFromMessageId(messageId));
         }
 
         // open input box for simple entries
@@ -330,7 +330,7 @@ namespace QuickImageComment
             if (aPanel.Controls.Count == 1)
             {
                 Control theControl = aPanel.Controls[0];
-                if (theControl.GetType().Equals(typeof(SplitContainer)))
+                if (theControl is SplitContainer)
                 {
                     adjustpanelSizeHighDpi(((SplitContainer)theControl).Panel1);
                     adjustpanelSizeHighDpi(((SplitContainer)theControl).Panel2);
@@ -1169,7 +1169,7 @@ namespace QuickImageComment
         // create a deep copy of objects of type ArrayList, SortedList, String
         public static object deepCopy(object inputObject)
         {
-            if (inputObject.GetType().Equals(typeof(ArrayList)))
+            if (inputObject is ArrayList)
             {
                 ArrayList outputObject = new ArrayList();
                 for (int ii = 0; ii < ((ArrayList)inputObject).Count; ii++)
@@ -1179,7 +1179,7 @@ namespace QuickImageComment
                 }
                 return outputObject;
             }
-            else if (inputObject.GetType().Equals(typeof(SortedList)))
+            else if (inputObject is SortedList)
             {
                 SortedList outputObject = new SortedList();
                 foreach (string key in ((SortedList)inputObject).Keys)
@@ -1202,7 +1202,7 @@ namespace QuickImageComment
         public static string getNameOfPanelInSplitContainer(Panel thePanel)
         {
             Control Parent = thePanel.Parent;
-            if (Parent.GetType().Equals(typeof(SplitContainer)))
+            if (Parent is SplitContainer)
             {
                 return Parent.Name + ".Panel" + (thePanel.TabIndex + 1).ToString();
             }
