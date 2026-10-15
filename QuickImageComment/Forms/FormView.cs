@@ -1083,7 +1083,7 @@ namespace QuickImageComment
         {
             foreach (Control aControl in aPanel.Controls)
             {
-                if (aControl.GetType().Equals(typeof(ComboBoxQIC)))
+                if (aControl is ComboBoxQIC)
                 {
                     aControl.Width = aPanel.Width;
                     ((ComboBoxQIC)aControl).Select(0, 0);

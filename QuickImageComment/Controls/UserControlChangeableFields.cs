@@ -254,15 +254,15 @@ namespace QuickImageComment
             // adjust width of labels and left and width of textBoxes, set DropDownStyle and AutoCompleteMode
             foreach (Control aControl in panelChangeableFieldsInner.Controls)
             {
-                if (aControl.GetType().Equals(textBoxChangeableField.GetType()) ||
-                    aControl.GetType().Equals(comboBoxChangeableField.GetType()))
+                if (aControl is TextBox ||
+                    aControl is ComboBox)
                 {
                     aControl.Left = LabelTemplate.Left + maxLabelWidth;
                     // some controls are shorter
                     int widthDeviation = comboBoxChangeableField.Width - aControl.Width;
                     aControl.Width = panelChangeableFieldsInner.Width - aControl.Left - 3 - widthDeviation;
 
-                    if (aControl.GetType().Equals(comboBoxChangeableField.GetType()))
+                    if (aControl is ComboBox)
                     {
                         // FlatStyle.Flat (or Popup) is needed to allow changing Backcolor in DropDownList
                         // set it also for DropDown to have all input controls without border
@@ -286,14 +286,14 @@ namespace QuickImageComment
                         ((TextBox)aControl).BorderStyle = BorderStyle.None;
                     }
                 }
-                else if (aControl.GetType().Equals(dynamicLabelChangeableField.GetType()))
+                else if (aControl is Label)
                 {
                     // adjustment of labels allows easy scaling keeping them right aligned
                     ((Label)aControl).AutoSize = false;
                     ((Label)aControl).TextAlign = System.Drawing.ContentAlignment.MiddleRight;
                     aControl.Width = maxLabelWidth;
                 }
-                else if (aControl.GetType().Equals(dateTimePickerChangeableField.GetType()))
+                else if (aControl is DateTimePicker)
                 {
                     aControl.Left = panelChangeableFieldsInner.Width - aControl.Width - 3;
                 }
@@ -316,7 +316,7 @@ namespace QuickImageComment
             ChangeableFieldInputControls.Add(anInputControl.Name, anInputControl);
             ChangeableFieldOldValues.Add(anInputControl.Tag, "");
             anInputControl.Validating += new System.ComponentModel.CancelEventHandler(this.inputControlChangeableField_Validating);
-            if (anInputControl.GetType().Equals(textBoxChangeableField.GetType()))
+            if (anInputControl is TextBox)
             {
                 anInputControl.DoubleClick += new System.EventHandler(this.textBoxChangeableField_DoubleClick);
                 anInputControl.Anchor = textBoxChangeableField.Anchor;
@@ -420,7 +420,7 @@ namespace QuickImageComment
         {
             foreach (Control aControl in ChangeableFieldInputControls.Values)
             {
-                if (aControl.GetType().Equals(typeof(ComboBoxQIC)))
+                if (aControl is ComboBoxQIC)
                 {
                     // check count, because clearing an empty list can take about 200 ms
                     if (((ComboBoxQIC)aControl).Items.Count > 0) ((ComboBoxQIC)aControl).Items.Clear();
@@ -571,8 +571,8 @@ namespace QuickImageComment
         {
             foreach (Control aControl in ChangeableFieldInputControls.Values)
             {
-                if (aControl.GetType().Equals(textBoxChangeableField.GetType()) ||
-                    aControl.GetType().Equals(comboBoxChangeableField.GetType()))
+                if (aControl is TextBox ||
+                    aControl is ComboBox)
                 {
                     ChangeableFieldSpecification Spec = (ChangeableFieldSpecification)aControl.Tag;
                     if (Spec.needsValidation &&
@@ -599,7 +599,7 @@ namespace QuickImageComment
             // so loop over Controls and exclude labels
             foreach (Control aControl in panelChangeableFieldsInner.Controls)
             {
-                if (!aControl.GetType().Equals(typeof(Label)))
+                if (!(aControl is Label))
                 {
                     if (enable && video)
                     {

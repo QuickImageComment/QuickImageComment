@@ -73,14 +73,14 @@ namespace QuickImageComment
                 // restore last checked status
                 foreach (Control aControl in groupBoxMode.Controls)
                 {
-                    if (aControl.GetType().Equals(typeof(CheckBox)))
+                    if (aControl is CheckBox)
                     {
                         if (CheckedControls.Contains(aControl.Name))
                         {
                             ((CheckBox)aControl).Checked = true;
                         }
                     }
-                    else if (aControl.GetType().Equals(typeof(RadioButton)))
+                    else if (aControl is RadioButton)
                     {
                         if (CheckedControls.Contains(aControl.Name))
                         {
@@ -174,14 +174,14 @@ namespace QuickImageComment
             // remember status of generic controls
             foreach (Control aControl in groupBoxMode.Controls)
             {
-                if (aControl.GetType().Equals(typeof(CheckBox)))
+                if (aControl is CheckBox)
                 {
                     if (((CheckBox)aControl).Checked)
                     {
                         CheckedControls.Add(aControl.Name);
                     }
                 }
-                else if (aControl.GetType().Equals(typeof(RadioButton)))
+                else if (aControl is RadioButton)
                 {
                     if (((RadioButton)aControl).Checked)
                     {

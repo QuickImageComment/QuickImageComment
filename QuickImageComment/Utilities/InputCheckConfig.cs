@@ -103,7 +103,7 @@ namespace QuickImageComment
                     if (theDialogResult == DialogResult.Yes)
                     {
                         ValidValues.Add(value);
-                        if (ChangeableFieldControl.GetType().Equals(typeof(ComboBox)))
+                        if (ChangeableFieldControl is ComboBox)
                         {
                             ((ComboBox)ChangeableFieldControl).Items.Add(value);
                         }

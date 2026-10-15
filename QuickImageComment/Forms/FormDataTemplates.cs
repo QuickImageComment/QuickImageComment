@@ -97,7 +97,7 @@ namespace QuickImageComment
                     {
                         aControl.KeyDown += new KeyEventHandler(inputControlChangeableField_KeyDown);
                     }
-                    else if (aControl.GetType().Equals(typeof(DateTimePickerQIC)))
+                    else if (aControl is DateTimePickerQIC)
                     {
                         ((DateTimePickerQIC)aControl).ValueChanged += new EventHandler(dateTimePickerChangeableField_ValueChanged);
                     }
@@ -156,7 +156,7 @@ namespace QuickImageComment
             foreach (Control anInputControl in theUserControlChangeableFields.ChangeableFieldInputControls.Values)
             {
                 anInputControl.TextChanged += inputControlChangeableField_TextChanged;
-                if (anInputControl.GetType().Equals(typeof(ComboBox)))
+                if (anInputControl is ComboBox)
                 {
                     ((ComboBox)anInputControl).SelectedValueChanged += this.inputControlChangeableField_TextChanged;
                 }
@@ -351,7 +351,7 @@ namespace QuickImageComment
             // changeable fields
             foreach (Control tempControl in theUserControlChangeableFields.ChangeableFieldInputControls.Values)
             {
-                if (!tempControl.GetType().Equals(typeof(Label)))
+                if (!(tempControl is Label))
                 {
                     theUserControlChangeableFields.enterValueInControlAndOldList(tempControl, "");
                 }

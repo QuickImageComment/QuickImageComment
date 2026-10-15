@@ -50,7 +50,7 @@ namespace QuickImageComment
             currentEntry = referenceInputControl.Text;
             textBoxValue.Text = currentEntry;
             // multiple lines allowed if it is a changeable field displayed in TextBox
-            textBoxValue.Multiline = givenReferenceInputControl.GetType().Equals(typeof(TextBox)) && typeId != type.usercomment;
+            textBoxValue.Multiline = givenReferenceInputControl is TextBox && typeId != type.usercomment;
 
             StartPosition = FormStartPosition.Manual;
             locationX = referenceInputControl.PointToScreen(Point.Empty).X - OffsetX;

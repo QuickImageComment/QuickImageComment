@@ -777,7 +777,7 @@ namespace QuickImageComment
                         Control Parent2 = Parent1.Parent;
                         if (Parent2 != null)
                         {
-                            if (Parent2.GetType().Equals(typeof(SplitContainer)))
+                            if (Parent2 is SplitContainer)
                             {
                                 DefaultSplitContainerPanelContents.Add(GeneralUtilities.getNameOfPanelInSplitContainer((Panel)Parent1), key);
                             }
@@ -1056,7 +1056,7 @@ namespace QuickImageComment
                 {
                     aControl.KeyDown += new KeyEventHandler(inputControlChangeableField_KeyDown);
                 }
-                else if (aControl.GetType().Equals(typeof(DateTimePickerQIC)))
+                else if (aControl is DateTimePickerQIC)
                 {
                     ((DateTimePickerQIC)aControl).ValueChanged += new EventHandler(dateTimePickerChangeableField_ValueChanged);
                 }
@@ -4417,7 +4417,7 @@ namespace QuickImageComment
         {
             string Key = Spec.getKey();
             string newFieldValue = "";
-            if (anInputControl.GetType().Equals(typeof(TextBox)) && ((TextBox)anInputControl).Multiline)
+            if (anInputControl is TextBox && ((TextBox)anInputControl).Multiline)
             {
                 // Textbox is used when field is multiline
                 newFieldValue = anExtendedImage.getMetaDataValuesStringMultiLineByKey(Key, Spec.FormatPrim);
@@ -4426,7 +4426,7 @@ namespace QuickImageComment
             {
                 newFieldValue = anExtendedImage.getMetaDataValuesStringByKey(Key, Spec.FormatPrim);
             }
-            if (anInputControl.GetType().Equals(typeof(ComboBox)) && !newFieldValue.Equals(""))
+            if (anInputControl is ComboBox && !newFieldValue.Equals(""))
             {
                 InputCheckConfig theInputCheckConfig = ConfigDefinition.getInputCheckConfig(Key);
                 if (theInputCheckConfig != null && theInputCheckConfig.isIntReference())
@@ -4890,7 +4890,7 @@ namespace QuickImageComment
                         }
 
                         // if aControl is SplitContainer, adjust PanelMinSize
-                        if (aControl.GetType().Equals(typeof(SplitContainer)))
+                        if (aControl is SplitContainer)
                         {
                             // depending on orientation check against width or height of aPanel
                             int panelSize;
@@ -5530,7 +5530,7 @@ namespace QuickImageComment
             foreach (Control anInputControl in theUserControlChangeableFields.ChangeableFieldInputControls.Values)
             {
                 anInputControl.TextChanged += inputControlChangeableField_TextChanged;
-                if (anInputControl.GetType().Equals(typeof(ComboBox)))
+                if (anInputControl is ComboBox)
                 {
                     ((ComboBox)anInputControl).SelectedValueChanged += this.inputControlChangeableField_TextChanged;
                 }
@@ -5555,7 +5555,7 @@ namespace QuickImageComment
             foreach (Control anInputControl in theUserControlChangeableFields.ChangeableFieldInputControls.Values)
             {
                 anInputControl.TextChanged -= inputControlChangeableField_TextChanged;
-                if (anInputControl.GetType().Equals(typeof(ComboBox)))
+                if (anInputControl is ComboBox)
                 {
                     ((ComboBox)anInputControl).SelectedValueChanged -= this.inputControlChangeableField_TextChanged;
                 }
@@ -5718,12 +5718,12 @@ namespace QuickImageComment
                 {
                     ConfigDefinition.getChangeableFieldEntriesLists().Add(key, new ArrayList());
                 }
-                if (changeableFieldsForSave[key].GetType().Equals(typeof(ArrayList)))
+                if (changeableFieldsForSave[key] is ArrayList)
                 {
                     changeableFieldEntryString = GeneralUtilities.getValuesStringOfArrayList((ArrayList)changeableFieldsForSave[key],
                         GeneralUtilities.UniqueSeparator, false);
                 }
-                else if (changeableFieldsForSave[key].GetType().Equals(typeof(SortedList)))
+                else if (changeableFieldsForSave[key] is SortedList)
                 {
                     changeableFieldEntryString = GeneralUtilities.getValuesStringOfSortedList((SortedList)changeableFieldsForSave[key],
                         GeneralUtilities.UniqueSeparator);
@@ -6473,7 +6473,7 @@ namespace QuickImageComment
                     {
                         DialogResult answer = DialogResult.Yes;
                         string value;
-                        if (changedFieldsForSave[tag].GetType().Equals(typeof(ArrayList)))
+                        if (changedFieldsForSave[tag] is ArrayList)
                             value = (string)((ArrayList)changedFieldsForSave[tag])[0];
                         else
                             value = (string)changedFieldsForSave[tag];
@@ -6566,7 +6566,7 @@ namespace QuickImageComment
                 }
                 changedFieldsForSave.Add(Spec.KeyPrim, ChangeableFieldValuesSortedList);
             }
-            else if (inputControl.GetType().Equals(typeof(TextBox)))
+            else if (inputControl is TextBox)
             {
                 // If values are multiline, they are entered in TextBox, see 
                 // UserControlChangeableFields.fillChangeableFieldPanelWithControls

@@ -1463,7 +1463,7 @@ namespace QuickImageComment
                     // get values from changed fields
                     valuesSet = true;
 
-                    if (changedFieldsForSaveChecked[key].GetType().Equals(typeof(ArrayList)))
+                    if (changedFieldsForSaveChecked[key] is ArrayList)
                     {
                         values = (ArrayList)changedFieldsForSaveChecked[key];
                     }
@@ -2303,12 +2303,12 @@ namespace QuickImageComment
                 {
                     // handling based on collection type with formatting handling at the end
                     ArrayList ReturnArrayList;
-                    if (changedFields[thePlaceholderDefinition.keyMain].GetType().Equals(typeof(ArrayList)))
+                    if (changedFields[thePlaceholderDefinition.keyMain] is ArrayList)
                     {
                         ReturnArrayList = (ArrayList)changedFields[thePlaceholderDefinition.keyMain];
                     }
                     // Sortedlist: property is of type XmpText
-                    else if (changedFields[thePlaceholderDefinition.keyMain].GetType().Equals(typeof(SortedList)))
+                    else if (changedFields[thePlaceholderDefinition.keyMain] is SortedList)
                     {
                         ReturnArrayList = new ArrayList();
                         SortedList theSortedList = (SortedList)changedFields[thePlaceholderDefinition.keyMain];
@@ -3079,11 +3079,11 @@ namespace QuickImageComment
             {
                 String key = changedFieldsForSave.GetKey(ii).ToString();
                 String newValue;
-                if (changedFieldsForSave[key].GetType().Equals(typeof(ArrayList)))
+                if (changedFieldsForSave[key] is ArrayList)
                 {
                     newValue = "ArrayList = " + GeneralUtilities.getValuesStringOfArrayList((ArrayList)changedFieldsForSave[key], " | ", false);
                 }
-                else if (changedFieldsForSave[key].GetType().Equals(typeof(SortedList)))
+                else if (changedFieldsForSave[key] is SortedList)
                 {
                     newValue = "SortedList = " + GeneralUtilities.getValuesStringOfSortedList((SortedList)changedFieldsForSave[key]);
                 }
@@ -3114,11 +3114,11 @@ namespace QuickImageComment
                     // and user has no option to change sequence
                     sorted = true;
                 }
-                if (changedFieldsForSave[key].GetType().Equals(typeof(ArrayList)))
+                if (changedFieldsForSave[key] is ArrayList)
                 {
                     newValue = GeneralUtilities.getValuesStringOfArrayList((ArrayList)changedFieldsForSave[key], " | ", sorted);
                 }
-                else if (changedFieldsForSave[key].GetType().Equals(typeof(SortedList)))
+                else if (changedFieldsForSave[key] is SortedList)
                 {
                     newValue = GeneralUtilities.getValuesStringOfSortedList((SortedList)changedFieldsForSave[key]);
                 }
@@ -3268,7 +3268,7 @@ namespace QuickImageComment
                     // if an exception was thrown during replacing placeholder, this error will probably occur for all selected images
                     // so after reverting file, throw execption one level up to be able to stop saving of multiple images and
                     // not to show the same error for probably all subsequent files
-                    if (ex.GetType().Equals(typeof(ExceptionErrorReplacePlaceholder)))
+                    if (ex is ExceptionErrorReplacePlaceholder) 
                     {
                         throw;
                     }
@@ -3288,11 +3288,11 @@ namespace QuickImageComment
                     string achievedInterpretedValue = "";
                     foreach (string key in ImageChangedFieldsForCompare.Keys)
                     {
-                        if (ImageChangedFieldsForCompare[key].GetType().Equals(typeof(ArrayList)))
+                        if (ImageChangedFieldsForCompare[key] is ArrayList)
                         {
                             targetValue = GeneralUtilities.getValuesStringOfArrayList((ArrayList)ImageChangedFieldsForCompare[key]);
                         }
-                        else if (ImageChangedFieldsForCompare[key].GetType().Equals(typeof(SortedList)))
+                        else if (ImageChangedFieldsForCompare[key] is SortedList)
                         {
                             targetValue = GeneralUtilities.getValuesStringOfSortedList((SortedList)ImageChangedFieldsForCompare[key]);
                         }
@@ -3548,7 +3548,7 @@ namespace QuickImageComment
                 if (changedFieldsForSaveChecked != null && changedFieldsForSaveChecked.ContainsKey(TagName))
                 {
                     // get values from changed fields
-                    if (changedFieldsForSaveChecked[TagName].GetType().Equals(typeof(ArrayList)))
+                    if (changedFieldsForSaveChecked[TagName] is ArrayList)
                     {
                         value = (string)((ArrayList)changedFieldsForSaveChecked[TagName])[0];
                     }
@@ -3578,11 +3578,11 @@ namespace QuickImageComment
             {
                 String key = changedFields.GetKey(ii).ToString();
                 String newValue;
-                if (changedFields[key].GetType().Equals(typeof(ArrayList)))
+                if (changedFields[key] is ArrayList)
                 {
                     newValue = GeneralUtilities.getValuesStringOfArrayList((ArrayList)changedFields[key], " | ", false);
                 }
-                else if (changedFields[key].GetType().Equals(typeof(SortedList)))
+                else if (changedFields[key] is SortedList)
                 {
                     newValue = GeneralUtilities.getValuesStringOfSortedList((SortedList)changedFields[key]);
                 }
@@ -3608,7 +3608,7 @@ namespace QuickImageComment
                     key
                 };
 
-                if (changedFields[key].GetType().Equals(typeof(ArrayList)))
+                if (changedFields[key] is ArrayList)
                 {
                     ArrayList ValueArrayList = (ArrayList)changedFields[key];
                     for (int ii = 0; ii < ValueArrayList.Count; ii++)
@@ -3633,7 +3633,7 @@ namespace QuickImageComment
                         }
                     }
                 }
-                else if (changedFields[key].GetType().Equals(typeof(SortedList)))
+                else if (changedFields[key] is SortedList)
                 {
                     SortedList ValueSortedList = (SortedList)changedFields[key];
                     // copy keys as it is not allowed to change values while looping over the SortedList itself
@@ -3686,11 +3686,11 @@ namespace QuickImageComment
             {
                 String key = TxtChangedFields.GetKey(ii).ToString();
                 String newValue;
-                if (TxtChangedFields[key].GetType().Equals(typeof(ArrayList)))
+                if (TxtChangedFields[key] is ArrayList)
                 {
                     newValue = "ArrayList = " + GeneralUtilities.getValuesStringOfArrayList((ArrayList)TxtChangedFields[key], " | ", false);
                 }
-                else if (TxtChangedFields[key].GetType().Equals(typeof(SortedList)))
+                else if (TxtChangedFields[key] is SortedList)
                 {
                     newValue = "SortedList = " + GeneralUtilities.getValuesStringOfSortedList((SortedList)TxtChangedFields[key]);
                 }
@@ -3704,11 +3704,11 @@ namespace QuickImageComment
             {
                 String key = ImageChangedFields.GetKey(ii).ToString();
                 String newValue;
-                if (ImageChangedFields[key].GetType().Equals(typeof(ArrayList)))
+                if (ImageChangedFields[key] is ArrayList)
                 {
                     newValue = "ArrayList = " + GeneralUtilities.getValuesStringOfArrayList((ArrayList)ImageChangedFields[key], " | ", false);
                 }
-                else if (ImageChangedFields[key].GetType().Equals(typeof(SortedList)))
+                else if (ImageChangedFields[key] is SortedList)
                 {
                     newValue = "SortedList = " + GeneralUtilities.getValuesStringOfSortedList((SortedList)ImageChangedFields[key]);
                 }
@@ -3778,7 +3778,7 @@ namespace QuickImageComment
                             {
                                 if (TagUtilities.LangAltTypes.Contains(TagUtilities.getTagType(key)))
                                 {
-                                    if (ImageChangedFields[key].GetType().Equals(typeof(ArrayList)))
+                                    if (ImageChangedFields[key] is ArrayList)
                                     {
                                         // several values for different languages may be given
                                         foreach (string value in (ArrayList)ImageChangedFields[key])
@@ -3882,7 +3882,7 @@ namespace QuickImageComment
                     {
                         if (!key.Equals("Image.Comment"))
                         {
-                            if (ImageChangedFields[key].GetType().Equals(typeof(ArrayList)))
+                            if (ImageChangedFields[key] is ArrayList)
                             {
                                 foreach (string value in (ArrayList)ImageChangedFields[key])
                                 {
@@ -3900,7 +3900,7 @@ namespace QuickImageComment
                                     }
                                 }
                             }
-                            else if (ImageChangedFields[key].GetType().Equals(typeof(SortedList)))
+                            else if (ImageChangedFields[key] is SortedList)
                             {
                                 string LastXaBagSuffix = "";
                                 foreach (string keySuffix in ((SortedList)ImageChangedFields[key]).GetKeyList())

@@ -3692,7 +3692,7 @@ namespace QuickImageComment
                 // items starting with "_" are read from general configuration file and shall not be written here
                 if (!Name.StartsWith("_"))
                 {
-                    if (ConfigItems[Name].GetType().Equals(typeof(bool)))
+                    if (ConfigItems[Name] is bool)
                     {
                         if ((bool)ConfigItems[Name])
                         {
