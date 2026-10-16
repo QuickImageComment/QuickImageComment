@@ -419,21 +419,30 @@ namespace JR.Utils.GUI.Forms
                 this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
                 this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
                 this.Text = "<Caption>";
-                this.Shown += new System.EventHandler(this.FlexibleMessageBoxForm_Shown);
-                this.Load += FlexibleMessageBoxForm_Load;
                 ((System.ComponentModel.ISupportInitialize)(this.FlexibleMessageBoxFormBindingSource)).EndInit();
                 this.panel1.ResumeLayout(false);
                 ((System.ComponentModel.ISupportInitialize)(this.pictureBoxForIcon)).EndInit();
                 this.ResumeLayout(false);
                 this.PerformLayout();
             }
-
-            private void FlexibleMessageBoxForm_Load(object sender, EventArgs e)
+            protected override void OnLoad(EventArgs e)
             {
+                base.OnLoad(e);
+
                 uint lParam;
                 lParam = SendMessage(richTextBoxMessage.Handle, EM_GETLANGOPTIONS, 0, 0);
                 lParam &= ~(IMF_DUALFONT | IMF_AUTOFONT);
                 SendMessage(richTextBoxMessage.Handle, EM_SETLANGOPTIONS, 0, lParam);
+
+                // Apply customization of mask when form is loaded.
+                // When doing this direct after InitializeComponent with ControlBox = false,
+                // the form was closed directly with response Cancel.
+                // According Copilot calling SetWindowTheme too early may result in events, which in
+                // case of ControlBox = false are misinterpreted as request to close.
+                // Doing it onHandelCreated resulted in Error creating window handle at ShowDialog.
+                // On Load is triggered before onShown, so it is less likely that changing color is visible.
+                FormCustomization.Interface customizationInterface = MainMaskInterface.getCustomizationInterface();
+                if (customizationInterface != null) customizationInterface.setThemeForComponent(this);
             }
 
             private QuickImageCommentControls.ButtonQIC button1;
@@ -481,9 +490,6 @@ namespace JR.Utils.GUI.Forms
             private FlexibleMessageBoxForm()
             {
                 InitializeComponent();
-                FormCustomization.Interface customizationInterface = MainMaskInterface.getCustomizationInterface();
-                if (customizationInterface != null) customizationInterface.setThemeForComponent(this);
-
                 if (languageIdExternal == TwoLetterISOLanguageID.undefined)
                 {
                     //Language not set from external
@@ -760,8 +766,10 @@ namespace JR.Utils.GUI.Forms
             /// </summary>
             /// <param name="sender">The source of the event.</param>
             /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-            private void FlexibleMessageBoxForm_Shown(object sender, EventArgs e)
+            protected override void OnShown(EventArgs e)
             {
+                base.OnShown(e);
+
                 int buttonIndexToFocus = 1;
                 Button buttonToFocus;
 
