@@ -68,10 +68,21 @@ namespace QuickImageComment
             this.numericUpDownLinesForChange = new System.Windows.Forms.NumericUpDown();
             this.label17 = new System.Windows.Forms.Label();
             this.tableLayoutPanelBelowTagList = new System.Windows.Forms.TableLayoutPanel();
+            this.buttonMetaDatum1 = new QuickImageCommentControls.ButtonQIC();
+            this.buttonMetaDatum2 = new QuickImageCommentControls.ButtonQIC();
             this.tableLayoutPanelMetaDataGroups = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanelNote = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanelTagList = new System.Windows.Forms.TableLayoutPanel();
+            this.userControlTagList = new QuickImageComment.UserControlTagList();
             this.tableLayoutPanelDefinitionTop = new System.Windows.Forms.TableLayoutPanel();
+            this.textBoxName = new QuickImageCommentControls.TextBoxQIC();
+            this.textBoxPrefix = new QuickImageCommentControls.TextBoxQIC();
+            this.textBoxMetaDatum1 = new QuickImageCommentControls.TextBoxQIC();
+            this.dynamicComboBoxMetaDataFormat1 = new QuickImageCommentControls.ComboBoxQIC();
+            this.textBoxSeparator = new QuickImageCommentControls.TextBoxQIC();
+            this.textBoxMetaDatum2 = new QuickImageCommentControls.TextBoxQIC();
+            this.dynamicComboBoxMetaDataFormat2 = new QuickImageCommentControls.ComboBoxQIC();
+            this.textBoxPostfix = new QuickImageCommentControls.TextBoxQIC();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.buttonInputCheckCreate = new QuickImageCommentControls.ButtonQIC();
             this.buttonInputCheckEdit = new QuickImageCommentControls.ButtonQIC();
@@ -83,17 +94,6 @@ namespace QuickImageComment
             this.buttonNew = new QuickImageCommentControls.ButtonQIC();
             this.buttonDown = new QuickImageCommentControls.ButtonQIC();
             this.buttonUp = new QuickImageCommentControls.ButtonQIC();
-            this.textBoxName = new QuickImageCommentControls.TextBoxQIC();
-            this.textBoxPrefix = new QuickImageCommentControls.TextBoxQIC();
-            this.textBoxMetaDatum1 = new QuickImageCommentControls.TextBoxQIC();
-            this.dynamicComboBoxMetaDataFormat1 = new QuickImageCommentControls.ComboBoxQIC();
-            this.textBoxSeparator = new QuickImageCommentControls.TextBoxQIC();
-            this.textBoxMetaDatum2 = new QuickImageCommentControls.TextBoxQIC();
-            this.dynamicComboBoxMetaDataFormat2 = new QuickImageCommentControls.ComboBoxQIC();
-            this.textBoxPostfix = new QuickImageCommentControls.TextBoxQIC();
-            this.userControlTagList = new QuickImageComment.UserControlTagList();
-            this.buttonMetaDatum1 = new QuickImageCommentControls.ButtonQIC();
-            this.buttonMetaDatum2 = new QuickImageCommentControls.ButtonQIC();
             this.buttonHelp = new QuickImageCommentControls.ButtonQIC();
             this.buttonCustomizeForm = new QuickImageCommentControls.ButtonQIC();
             this.buttonOk = new QuickImageCommentControls.ButtonQIC();
@@ -400,6 +400,28 @@ namespace QuickImageComment
             this.tableLayoutPanelBelowTagList.Size = new System.Drawing.Size(834, 27);
             this.tableLayoutPanelBelowTagList.TabIndex = 59;
             // 
+            // buttonMetaDatum1
+            // 
+            this.buttonMetaDatum1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonMetaDatum1.Location = new System.Drawing.Point(637, 3);
+            this.buttonMetaDatum1.Name = "buttonMetaDatum1";
+            this.buttonMetaDatum1.Size = new System.Drawing.Size(94, 21);
+            this.buttonMetaDatum1.TabIndex = 14;
+            this.buttonMetaDatum1.Text = "Meta Datum 1";
+            this.buttonMetaDatum1.UseVisualStyleBackColor = true;
+            this.buttonMetaDatum1.Click += new System.EventHandler(this.buttonMetaDatum1_Click);
+            // 
+            // buttonMetaDatum2
+            // 
+            this.buttonMetaDatum2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonMetaDatum2.Location = new System.Drawing.Point(737, 3);
+            this.buttonMetaDatum2.Name = "buttonMetaDatum2";
+            this.buttonMetaDatum2.Size = new System.Drawing.Size(94, 21);
+            this.buttonMetaDatum2.TabIndex = 15;
+            this.buttonMetaDatum2.Text = "Meta Datum 2";
+            this.buttonMetaDatum2.UseVisualStyleBackColor = true;
+            this.buttonMetaDatum2.Click += new System.EventHandler(this.buttonMetaDatum2_Click);
+            // 
             // tableLayoutPanelMetaDataGroups
             // 
             this.tableLayoutPanelMetaDataGroups.ColumnCount = 1;
@@ -435,6 +457,14 @@ namespace QuickImageComment
             this.tableLayoutPanelTagList.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanelTagList.Size = new System.Drawing.Size(836, 289);
             this.tableLayoutPanelTagList.TabIndex = 62;
+            // 
+            // userControlTagList
+            // 
+            this.userControlTagList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.userControlTagList.Location = new System.Drawing.Point(3, 3);
+            this.userControlTagList.Name = "userControlTagList";
+            this.userControlTagList.Size = new System.Drawing.Size(830, 283);
+            this.userControlTagList.TabIndex = 58;
             // 
             // tableLayoutPanelDefinitionTop
             // 
@@ -473,6 +503,102 @@ namespace QuickImageComment
             this.tableLayoutPanelDefinitionTop.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 22F));
             this.tableLayoutPanelDefinitionTop.Size = new System.Drawing.Size(464, 201);
             this.tableLayoutPanelDefinitionTop.TabIndex = 63;
+            // 
+            // textBoxName
+            // 
+            this.textBoxName.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxName.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBoxName.Location = new System.Drawing.Point(148, 3);
+            this.textBoxName.Name = "textBoxName";
+            this.textBoxName.SingleLineNoBorder = true;
+            this.textBoxName.Size = new System.Drawing.Size(313, 14);
+            this.textBoxName.TabIndex = 24;
+            this.textBoxName.TextChanged += new System.EventHandler(this.textBoxName_TextChanged);
+            // 
+            // textBoxPrefix
+            // 
+            this.textBoxPrefix.AllowDrop = true;
+            this.textBoxPrefix.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxPrefix.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBoxPrefix.Location = new System.Drawing.Point(148, 25);
+            this.textBoxPrefix.Name = "textBoxPrefix";
+            this.textBoxPrefix.SingleLineNoBorder = true;
+            this.textBoxPrefix.Size = new System.Drawing.Size(313, 14);
+            this.textBoxPrefix.TabIndex = 26;
+            this.textBoxPrefix.TextChanged += new System.EventHandler(this.fieldDefinitionChanged);
+            // 
+            // textBoxMetaDatum1
+            // 
+            this.textBoxMetaDatum1.AllowDrop = true;
+            this.textBoxMetaDatum1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxMetaDatum1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBoxMetaDatum1.Location = new System.Drawing.Point(148, 47);
+            this.textBoxMetaDatum1.Name = "textBoxMetaDatum1";
+            this.textBoxMetaDatum1.SingleLineNoBorder = true;
+            this.textBoxMetaDatum1.Size = new System.Drawing.Size(313, 14);
+            this.textBoxMetaDatum1.TabIndex = 28;
+            this.textBoxMetaDatum1.Tag = "";
+            this.textBoxMetaDatum1.TextChanged += new System.EventHandler(this.textBoxMetaDatum1_TextChanged);
+            // 
+            // dynamicComboBoxMetaDataFormat1
+            // 
+            this.dynamicComboBoxMetaDataFormat1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dynamicComboBoxMetaDataFormat1.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.dynamicComboBoxMetaDataFormat1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.dynamicComboBoxMetaDataFormat1.FormattingEnabled = true;
+            this.dynamicComboBoxMetaDataFormat1.Location = new System.Drawing.Point(148, 69);
+            this.dynamicComboBoxMetaDataFormat1.Name = "dynamicComboBoxMetaDataFormat1";
+            this.dynamicComboBoxMetaDataFormat1.Size = new System.Drawing.Size(313, 22);
+            this.dynamicComboBoxMetaDataFormat1.TabIndex = 30;
+            this.dynamicComboBoxMetaDataFormat1.TextChanged += new System.EventHandler(this.fieldDefinitionChanged);
+            // 
+            // textBoxSeparator
+            // 
+            this.textBoxSeparator.AllowDrop = true;
+            this.textBoxSeparator.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxSeparator.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBoxSeparator.Location = new System.Drawing.Point(148, 91);
+            this.textBoxSeparator.Name = "textBoxSeparator";
+            this.textBoxSeparator.SingleLineNoBorder = true;
+            this.textBoxSeparator.Size = new System.Drawing.Size(313, 14);
+            this.textBoxSeparator.TabIndex = 32;
+            this.textBoxSeparator.TextChanged += new System.EventHandler(this.fieldDefinitionChanged);
+            // 
+            // textBoxMetaDatum2
+            // 
+            this.textBoxMetaDatum2.AllowDrop = true;
+            this.textBoxMetaDatum2.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxMetaDatum2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBoxMetaDatum2.Location = new System.Drawing.Point(148, 113);
+            this.textBoxMetaDatum2.Name = "textBoxMetaDatum2";
+            this.textBoxMetaDatum2.SingleLineNoBorder = true;
+            this.textBoxMetaDatum2.Size = new System.Drawing.Size(313, 14);
+            this.textBoxMetaDatum2.TabIndex = 34;
+            this.textBoxMetaDatum2.TextChanged += new System.EventHandler(this.textBoxMetaDatum2_TextChanged);
+            // 
+            // dynamicComboBoxMetaDataFormat2
+            // 
+            this.dynamicComboBoxMetaDataFormat2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dynamicComboBoxMetaDataFormat2.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.dynamicComboBoxMetaDataFormat2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.dynamicComboBoxMetaDataFormat2.FormattingEnabled = true;
+            this.dynamicComboBoxMetaDataFormat2.Location = new System.Drawing.Point(148, 135);
+            this.dynamicComboBoxMetaDataFormat2.Name = "dynamicComboBoxMetaDataFormat2";
+            this.dynamicComboBoxMetaDataFormat2.Size = new System.Drawing.Size(313, 22);
+            this.dynamicComboBoxMetaDataFormat2.TabIndex = 36;
+            this.dynamicComboBoxMetaDataFormat2.TextChanged += new System.EventHandler(this.fieldDefinitionChanged);
+            // 
+            // textBoxPostfix
+            // 
+            this.textBoxPostfix.AllowDrop = true;
+            this.textBoxPostfix.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxPostfix.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBoxPostfix.Location = new System.Drawing.Point(148, 157);
+            this.textBoxPostfix.Name = "textBoxPostfix";
+            this.textBoxPostfix.SingleLineNoBorder = true;
+            this.textBoxPostfix.Size = new System.Drawing.Size(313, 14);
+            this.textBoxPostfix.TabIndex = 38;
+            this.textBoxPostfix.TextChanged += new System.EventHandler(this.fieldDefinitionChanged);
             // 
             // tableLayoutPanel1
             // 
@@ -608,132 +734,6 @@ namespace QuickImageComment
             this.buttonUp.Text = "nach oben";
             this.buttonUp.UseVisualStyleBackColor = true;
             this.buttonUp.Click += new System.EventHandler(this.buttonUp_Click);
-            // 
-            // textBoxName
-            // 
-            this.textBoxName.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBoxName.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBoxName.Location = new System.Drawing.Point(148, 3);
-            this.textBoxName.Name = "textBoxName";
-            this.textBoxName.SingleLineNoBorder = true;
-            this.textBoxName.Size = new System.Drawing.Size(313, 14);
-            this.textBoxName.TabIndex = 24;
-            this.textBoxName.TextChanged += new System.EventHandler(this.textBoxName_TextChanged);
-            // 
-            // textBoxPrefix
-            // 
-            this.textBoxPrefix.AllowDrop = true;
-            this.textBoxPrefix.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBoxPrefix.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBoxPrefix.Location = new System.Drawing.Point(148, 25);
-            this.textBoxPrefix.Name = "textBoxPrefix";
-            this.textBoxPrefix.SingleLineNoBorder = true;
-            this.textBoxPrefix.Size = new System.Drawing.Size(313, 14);
-            this.textBoxPrefix.TabIndex = 26;
-            this.textBoxPrefix.TextChanged += new System.EventHandler(this.fieldDefinitionChanged);
-            // 
-            // textBoxMetaDatum1
-            // 
-            this.textBoxMetaDatum1.AllowDrop = true;
-            this.textBoxMetaDatum1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBoxMetaDatum1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBoxMetaDatum1.Location = new System.Drawing.Point(148, 47);
-            this.textBoxMetaDatum1.Name = "textBoxMetaDatum1";
-            this.textBoxMetaDatum1.SingleLineNoBorder = true;
-            this.textBoxMetaDatum1.Size = new System.Drawing.Size(313, 14);
-            this.textBoxMetaDatum1.TabIndex = 28;
-            this.textBoxMetaDatum1.Tag = "";
-            this.textBoxMetaDatum1.TextChanged += new System.EventHandler(this.textBoxMetaDatum1_TextChanged);
-            // 
-            // dynamicComboBoxMetaDataFormat1
-            // 
-            this.dynamicComboBoxMetaDataFormat1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dynamicComboBoxMetaDataFormat1.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.dynamicComboBoxMetaDataFormat1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.dynamicComboBoxMetaDataFormat1.FormattingEnabled = true;
-            this.dynamicComboBoxMetaDataFormat1.Location = new System.Drawing.Point(148, 69);
-            this.dynamicComboBoxMetaDataFormat1.Name = "dynamicComboBoxMetaDataFormat1";
-            this.dynamicComboBoxMetaDataFormat1.Size = new System.Drawing.Size(313, 22);
-            this.dynamicComboBoxMetaDataFormat1.TabIndex = 30;
-            this.dynamicComboBoxMetaDataFormat1.TextChanged += new System.EventHandler(this.fieldDefinitionChanged);
-            // 
-            // textBoxSeparator
-            // 
-            this.textBoxSeparator.AllowDrop = true;
-            this.textBoxSeparator.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBoxSeparator.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBoxSeparator.Location = new System.Drawing.Point(148, 91);
-            this.textBoxSeparator.Name = "textBoxSeparator";
-            this.textBoxSeparator.SingleLineNoBorder = true;
-            this.textBoxSeparator.Size = new System.Drawing.Size(313, 14);
-            this.textBoxSeparator.TabIndex = 32;
-            this.textBoxSeparator.TextChanged += new System.EventHandler(this.fieldDefinitionChanged);
-            // 
-            // textBoxMetaDatum2
-            // 
-            this.textBoxMetaDatum2.AllowDrop = true;
-            this.textBoxMetaDatum2.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBoxMetaDatum2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBoxMetaDatum2.Location = new System.Drawing.Point(148, 113);
-            this.textBoxMetaDatum2.Name = "textBoxMetaDatum2";
-            this.textBoxMetaDatum2.SingleLineNoBorder = true;
-            this.textBoxMetaDatum2.Size = new System.Drawing.Size(313, 14);
-            this.textBoxMetaDatum2.TabIndex = 34;
-            this.textBoxMetaDatum2.TextChanged += new System.EventHandler(this.textBoxMetaDatum2_TextChanged);
-            // 
-            // dynamicComboBoxMetaDataFormat2
-            // 
-            this.dynamicComboBoxMetaDataFormat2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dynamicComboBoxMetaDataFormat2.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.dynamicComboBoxMetaDataFormat2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.dynamicComboBoxMetaDataFormat2.FormattingEnabled = true;
-            this.dynamicComboBoxMetaDataFormat2.Location = new System.Drawing.Point(148, 135);
-            this.dynamicComboBoxMetaDataFormat2.Name = "dynamicComboBoxMetaDataFormat2";
-            this.dynamicComboBoxMetaDataFormat2.Size = new System.Drawing.Size(313, 22);
-            this.dynamicComboBoxMetaDataFormat2.TabIndex = 36;
-            this.dynamicComboBoxMetaDataFormat2.TextChanged += new System.EventHandler(this.fieldDefinitionChanged);
-            // 
-            // textBoxPostfix
-            // 
-            this.textBoxPostfix.AllowDrop = true;
-            this.textBoxPostfix.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBoxPostfix.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBoxPostfix.Location = new System.Drawing.Point(148, 157);
-            this.textBoxPostfix.Name = "textBoxPostfix";
-            this.textBoxPostfix.SingleLineNoBorder = true;
-            this.textBoxPostfix.Size = new System.Drawing.Size(313, 14);
-            this.textBoxPostfix.TabIndex = 38;
-            this.textBoxPostfix.TextChanged += new System.EventHandler(this.fieldDefinitionChanged);
-            // 
-            // userControlTagList
-            // 
-            this.userControlTagList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.userControlTagList.Location = new System.Drawing.Point(3, 3);
-            this.userControlTagList.Name = "userControlTagList";
-            this.userControlTagList.Size = new System.Drawing.Size(830, 283);
-            this.userControlTagList.TabIndex = 58;
-            // 
-            // buttonMetaDatum1
-            // 
-            this.buttonMetaDatum1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonMetaDatum1.Location = new System.Drawing.Point(637, 3);
-            this.buttonMetaDatum1.Name = "buttonMetaDatum1";
-            this.buttonMetaDatum1.Size = new System.Drawing.Size(94, 21);
-            this.buttonMetaDatum1.TabIndex = 14;
-            this.buttonMetaDatum1.Text = "Meta Datum 1";
-            this.buttonMetaDatum1.UseVisualStyleBackColor = true;
-            this.buttonMetaDatum1.Click += new System.EventHandler(this.buttonMetaDatum1_Click);
-            // 
-            // buttonMetaDatum2
-            // 
-            this.buttonMetaDatum2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonMetaDatum2.Location = new System.Drawing.Point(737, 3);
-            this.buttonMetaDatum2.Name = "buttonMetaDatum2";
-            this.buttonMetaDatum2.Size = new System.Drawing.Size(94, 21);
-            this.buttonMetaDatum2.TabIndex = 15;
-            this.buttonMetaDatum2.Text = "Meta Datum 2";
-            this.buttonMetaDatum2.UseVisualStyleBackColor = true;
-            this.buttonMetaDatum2.Click += new System.EventHandler(this.buttonMetaDatum2_Click);
             // 
             // buttonHelp
             // 

@@ -83,8 +83,10 @@ namespace Brain2CPU.ExifTool
         private const string ArgumentsFast = "-fast -stay_open True -@ -";
         private const string ExitMessage = "-- press RETURN --";
         internal const string SuccessMessage = "1 image files updated";
+        // important: do not use same string as in GeneralUtilities.UniqueSeparator,
+        // as this will cause problems with commands saved in FormExiftoolDirect
         internal const string writeSeparator = "«¦»";
-        internal const string readSeparator = "~§$#";
+        internal const string readSeparator = "$§~";
 
         //-fast2 also causes exiftool to avoid extracting any EXIF MakerNote information
 
@@ -463,7 +465,7 @@ namespace Brain2CPU.ExifTool
             foreach (KeyValuePair<string, object> kv in data)
             {
                 string valueToSet = "";
-                if (kv.Value.GetType().Equals(typeof(ArrayList)))
+                if (kv.Value is ArrayList)
                 {
                     valueToSet = ((ArrayList)kv.Value)[0].ToString();
                     for (int ii = 1; ii < ((ArrayList)kv.Value).Count; ii++)

@@ -3268,7 +3268,7 @@ namespace QuickImageComment
                     // if an exception was thrown during replacing placeholder, this error will probably occur for all selected images
                     // so after reverting file, throw execption one level up to be able to stop saving of multiple images and
                     // not to show the same error for probably all subsequent files
-                    if (ex is ExceptionErrorReplacePlaceholder) 
+                    if (ex is ExceptionErrorReplacePlaceholder)
                     {
                         throw;
                     }
