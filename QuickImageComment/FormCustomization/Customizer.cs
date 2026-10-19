@@ -812,6 +812,10 @@ namespace FormCustomization
 #endif
             }
 
+            if (ParentControl is Control control2)
+                if (control2.ContextMenuStrip != null)
+                    setThemeForComponent(control2.ContextMenuStrip, level);
+
             Color backcolor = Color.Empty;
             Color forecolor = Color.Empty;
             Color bordercolor = Color.Empty;
@@ -1025,8 +1029,8 @@ namespace FormCustomization
             {
                 subAppName = ThemeSubAppNames[key];
 #if WRITEDEBUGTHEMETRACE
-                    QuickImageComment.GeneralUtilities.writeDebugFileEntry("    " + controlFullName +
-                        " type=" + type.Name + " SubAppName=" + subAppName);
+                QuickImageComment.GeneralUtilities.writeDebugFileEntry("    " + controlFullName +
+                    " type=" + type.Name + " SubAppName=" + subAppName);
 #endif
             }
             // try base types of types until reaching System.Windows.Forms
@@ -1039,14 +1043,14 @@ namespace FormCustomization
                 {
                     subAppName = ThemeSubAppNames[key];
 #if WRITEDEBUGTHEMETRACE
-                        QuickImageComment.GeneralUtilities.writeDebugFileEntry("    " + controlFullName +
-                            " type=" + type.Name + " SubAppName=" + subAppName);
+                    QuickImageComment.GeneralUtilities.writeDebugFileEntry("    " + controlFullName +
+                        " type=" + type.Name + " SubAppName=" + subAppName);
 #endif
                 }
             }
 #if WRITEDEBUGTHEMETRACE
-                QuickImageComment.GeneralUtilities.writeDebugFileEntry(controlFullName +
-                    "\ttype=\t" + type.Name + "\tSubAppName=\t" + subAppName);
+            QuickImageComment.GeneralUtilities.writeDebugFileEntry(controlFullName +
+                "\ttype=\t" + type.Name + "\tSubAppName=\t" + subAppName);
 #endif
             if (control.Handle != null)
             {

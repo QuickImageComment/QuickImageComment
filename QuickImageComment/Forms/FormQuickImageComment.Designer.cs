@@ -850,12 +850,13 @@ namespace QuickImageComment
             this.contextMenuStripMetaData.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.contextMenuStripMetaDataMenuItemAdjust});
             this.contextMenuStripMetaData.Name = "contextMenuStripChangeableFields";
-            this.contextMenuStripMetaData.Size = new System.Drawing.Size(159, 26);
+            this.contextMenuStripMetaData.ShowImageMargin = false;
+            this.contextMenuStripMetaData.Size = new System.Drawing.Size(134, 26);
             // 
             // contextMenuStripMetaDataMenuItemAdjust
             // 
             this.contextMenuStripMetaDataMenuItemAdjust.Name = "contextMenuStripMetaDataMenuItemAdjust";
-            this.contextMenuStripMetaDataMenuItemAdjust.Size = new System.Drawing.Size(158, 22);
+            this.contextMenuStripMetaDataMenuItemAdjust.Size = new System.Drawing.Size(133, 22);
             this.contextMenuStripMetaDataMenuItemAdjust.Text = "Felder anpassen";
             this.contextMenuStripMetaDataMenuItemAdjust.Click += new System.EventHandler(this.contextMenuStripMetaDataMenuItemAdjust_Click);
             // 
@@ -1109,12 +1110,13 @@ namespace QuickImageComment
             this.contextMenuStripOverview.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.contextMenuStripMetaDataMenuItemAdjustOverview});
             this.contextMenuStripOverview.Name = "contextMenuStripOverview";
-            this.contextMenuStripOverview.Size = new System.Drawing.Size(159, 26);
+            this.contextMenuStripOverview.ShowImageMargin = false;
+            this.contextMenuStripOverview.Size = new System.Drawing.Size(134, 26);
             // 
             // contextMenuStripMetaDataMenuItemAdjustOverview
             // 
             this.contextMenuStripMetaDataMenuItemAdjustOverview.Name = "contextMenuStripMetaDataMenuItemAdjustOverview";
-            this.contextMenuStripMetaDataMenuItemAdjustOverview.Size = new System.Drawing.Size(158, 22);
+            this.contextMenuStripMetaDataMenuItemAdjustOverview.Size = new System.Drawing.Size(133, 22);
             this.contextMenuStripMetaDataMenuItemAdjustOverview.Text = "Felder anpassen";
             this.contextMenuStripMetaDataMenuItemAdjustOverview.Click += new System.EventHandler(this.contextMenuStripMetaDataMenuItemAdjust_Click);
             // 
