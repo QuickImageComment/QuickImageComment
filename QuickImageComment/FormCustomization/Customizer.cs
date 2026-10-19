@@ -1013,6 +1013,8 @@ namespace FormCustomization
             {
                 setProperty(ParentControl, enumProperty.HoverBackColor, newHoverBackColor);
                 setProperty(ParentControl, enumProperty.OverflowButtonBackColor, newOverflowButtonBackColor);
+                setProperty(((ToolStripQIC)ParentControl).OverflowButton.DropDown, enumProperty.BackColor, newBackcolor);
+                setProperty(((ToolStripQIC)ParentControl).OverflowButton.DropDown, enumProperty.ForeColor, newForcolor);
             }
 
 #if WRITEDEBUGTHEMETRACE

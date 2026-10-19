@@ -254,7 +254,7 @@ namespace QuickImageComment
             InitializeComponent();
             MyMenuRenderer menuRenderer = new MyMenuRenderer(new ProfessionalColorTableQIC());
             MenuStrip1.Renderer = menuRenderer;
-            toolStrip1.Renderer = menuRenderer;
+            
             // uncomment and run with 100% to get values for splitter ratios
             //splitContainer1SplitterRatio = (float)splitContainer1.SplitterDistance / splitContainer1.Width;
             //splitContainer11SplitterRatio = (float)splitContainer11.SplitterDistance / splitContainer11.Height;
