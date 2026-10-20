@@ -849,7 +849,7 @@ namespace QuickImageComment
             // 
             this.contextMenuStripMetaData.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.contextMenuStripMetaDataMenuItemAdjust});
-            this.contextMenuStripMetaData.Name = "contextMenuStripChangeableFields";
+            this.contextMenuStripMetaData.Name = "contextMenuStripMetaData";
             this.contextMenuStripMetaData.ShowImageMargin = false;
             this.contextMenuStripMetaData.Size = new System.Drawing.Size(134, 26);
             // 
