@@ -745,10 +745,16 @@ namespace FormCustomization
         }
 
         // set theme for controls and their child controls
+        // determines ParentControlFullName
         internal void setThemeForComponent(Component ParentControl, int givenLevel)
         {
-            int level = givenLevel + 1;
             string ParentControlFullName = getFullNameOfComponent(ParentControl);
+            setThemeForComponent(ParentControl, givenLevel, ParentControlFullName);
+        }
+        // receives ParentControlFullName as parameter
+        internal void setThemeForComponent(Component ParentControl, int givenLevel, string ParentControlFullName)
+        {
+            int level = givenLevel + 1;
 #if WRITEDEBUGTHEMETRACE
             QuickImageComment.GeneralUtilities.writeDebugFileEntry("> " + level + " " + ParentControlFullName);
 #endif
@@ -789,6 +795,10 @@ namespace FormCustomization
                     setThemeForComponent(Child, level);
                 }
             }
+            else if (ParentControl is ContextMenuStrip contextMenuStrip)
+            {
+                // nothing to do
+            }
             else if (ParentControl is NumericUpDown ||
                      ParentControl is DataGridView)
             {
@@ -814,7 +824,13 @@ namespace FormCustomization
 
             if (ParentControl is Control control2)
                 if (control2.ContextMenuStrip != null)
-                    setThemeForComponent(control2.ContextMenuStrip, level);
+                {
+                    string ParentControlFullNameChild = ParentControlFullName + "-" + control2.ContextMenuStrip.Name;
+#if WRITEDEBUGTHEMETRACE
+                    QuickImageComment.GeneralUtilities.writeDebugFileEntry("    " + ParentControlFullNameChild + " has context menu " + control2.ContextMenuStrip.Name);
+#endif
+                    setThemeForComponent(control2.ContextMenuStrip, level);//, ParentControlFullNameChild);
+                }
 
             Color backcolor = Color.Empty;
             Color forecolor = Color.Empty;
