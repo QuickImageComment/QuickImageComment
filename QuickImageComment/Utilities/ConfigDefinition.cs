@@ -312,7 +312,11 @@ namespace QuickImageComment
             FocusPointRadius,
             FocusPointWidth,
             FormExifToolDirectHeight,
-            FormExifToolDirectWidth
+            FormExifToolDirectWidth,
+            FormExifToolSplitContainer1_Distance,
+            FormExifToolSplitContainer2_Distance,
+            FormExifToolSplitContainer3_Distance,
+            FormExifToolDataGridCol1_Width
         };
 
         public enum enumCfgUserString
@@ -773,6 +777,10 @@ namespace QuickImageComment
             ConfigItems.Add(enumCfgUserInt.FocusPointWidth.ToString(), 1);
             ConfigItems.Add(enumCfgUserInt.FormExifToolDirectHeight.ToString(), 0);
             ConfigItems.Add(enumCfgUserInt.FormExifToolDirectWidth.ToString(), 0);
+            ConfigItems.Add(enumCfgUserInt.FormExifToolSplitContainer1_Distance.ToString(), 220);
+            ConfigItems.Add(enumCfgUserInt.FormExifToolSplitContainer2_Distance.ToString(), 100);
+            ConfigItems.Add(enumCfgUserInt.FormExifToolSplitContainer3_Distance.ToString(), 300);
+            ConfigItems.Add(enumCfgUserInt.FormExifToolDataGridCol1_Width.ToString(), 300);
 
             // the following are not contained in standard general configuration file and are optional
             // so they are not defined via enum
@@ -1294,9 +1302,11 @@ namespace QuickImageComment
 
             if (ExifToolCommands.Count == 0)
             {
-                ExifToolCommands.Add("Version", "-ver");
-                ExifToolCommands.Add("Liste1", "-listg1");
-                ExifToolCommands.Add("Liste2", "-listg2");
+                ExifToolCommands.Add(LangCfg.translate("Validierungsprüfungen", "ConfigDefinition-PredefinedKeyWords"),
+                    "-validate" + GeneralUtilities.UniqueSeparator +
+                    "-warning" + GeneralUtilities.UniqueSeparator +
+                    "-error" + GeneralUtilities.UniqueSeparator +
+                    "-a");
             }
 
             // Check configuration for PredefinedCommentMouseDoubleClickAction

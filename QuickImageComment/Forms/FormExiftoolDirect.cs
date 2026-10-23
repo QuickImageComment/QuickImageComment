@@ -33,6 +33,11 @@ namespace QuickImageComment
             {
                 this.Width = newWidth;
             }
+            splitContainer1.SplitterDistance = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.FormExifToolSplitContainer1_Distance);
+            splitContainer2.SplitterDistance = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.FormExifToolSplitContainer2_Distance);
+            splitContainer3.SplitterDistance = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.FormExifToolSplitContainer3_Distance);
+            dataGridView1.Columns[0].Width = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.FormExifToolDataGridCol1_Width);
+
 
             foreach (string name in ConfigDefinition.ExifToolCommands.Keys)
             {
@@ -99,6 +104,10 @@ namespace QuickImageComment
         {
             ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.FormExifToolDirectHeight, this.Height);
             ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.FormExifToolDirectWidth, this.Width);
+            ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.FormExifToolSplitContainer1_Distance, splitContainer1.SplitterDistance);
+            ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.FormExifToolSplitContainer2_Distance, splitContainer2.SplitterDistance);
+            ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.FormExifToolSplitContainer3_Distance, splitContainer3.SplitterDistance);
+            ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.FormExifToolDataGridCol1_Width, dataGridView1.Columns[0].Width);
         }
 
         private void buttonCopyOutput_Click(object sender, EventArgs e)
