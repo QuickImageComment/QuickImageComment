@@ -310,6 +310,7 @@ namespace QuickImageComment
             tabControlLastPredefComments.Multiline = ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.TabControlMultiLine);
             tabControlProperties.Multiline = ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.TabControlMultiLine);
             tabControlSingleMulti.Multiline = ConfigDefinition.getConfigFlag(ConfigDefinition.enumConfigFlags.TabControlMultiLine);
+            tabControlProperties.SelectedIndex = ConfigDefinition.getCfgUserInt(enumCfgUserInt.LastSelectedTabProperties);
 
             pictureBox1.zoomChanged += pictureBox1_zoomChanged;
 
@@ -1669,6 +1670,7 @@ namespace QuickImageComment
                 ConfigDefinition.setCfgUserInt(ConfigDefinition.enumCfgUserInt.Splitter122Distance, (int)(this.splitContainer122.SplitterDistance * 96.0f / dpiSettings));
                 ConfigDefinition.setShowImageWithGrid(this.toolStripMenuItemImageWithGrid.Checked);
                 ConfigDefinition.setPredefinedCommentsCategory(this.dynamicComboBoxPredefinedComments.Text);
+                ConfigDefinition.setCfgUserInt(enumCfgUserInt.LastSelectedTabProperties, tabControlProperties.SelectedIndex);
 
                 // do not show further layout changes
                 this.SuspendLayout();
