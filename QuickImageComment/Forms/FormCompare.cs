@@ -55,6 +55,7 @@ namespace QuickImageComment
             // so no separate check neccessary
             this.Width = ConfigDefinition.getFormCompareWidth();
             this.Height = ConfigDefinition.getFormCompareHeight();
+            checkBoxFilesInColumns.Checked = ConfigDefinition.getCfgUserBool(ConfigDefinition.enumCfgUserBool.compareFilesInColumns);
 
             if (LangCfg.getLoadedLanguage().Equals("English"))
             {
@@ -113,10 +114,15 @@ namespace QuickImageComment
         // fill the data table with the differences
         private void fillDataTable()
         {
+            int rowidx;
             int colidx;
             MetaDataItem.Format DisplayFormat;
             string toolTipText;
             int maxDisplay = 0;
+
+            Cursor oldCursor = this.Cursor;
+            this.Cursor = Cursors.WaitCursor;
+            dataGridViewDifferences.Visible = false;
 
             differentTagsDisplay = new ArrayList();
 
@@ -152,10 +158,6 @@ namespace QuickImageComment
                 maxDisplay = differentTagsDisplay.Count;
             }
 
-            dataGridViewDifferences.ColumnCount = maxDisplay + 1;
-
-            string[] row = new string[dataGridViewDifferences.ColumnCount];
-
             // Fill sorted List to display headers
             KeyList = new System.Collections.SortedList();
 
@@ -172,67 +174,155 @@ namespace QuickImageComment
                 }
             }
 
-            for (int ii = 0; ii < listViewFilesSelectedIndices.Length; ii++)
+            // fill table with file names and differences
+            if (checkBoxFilesInColumns.Checked)
             {
-                ExtendedImage thisExtendedImage = ImageManager.getExtendedImage(listViewFilesSelectedIndices[ii]);
-                colidx = 0;
-                row[colidx] = System.IO.Path.GetFileName(thisExtendedImage.getImageFileName());
-                foreach (string translatedkey in KeyList.GetKeyList())
-                {
-                    int jj = (int)KeyList[translatedkey];
-                    colidx++;
-                    row[colidx] = thisExtendedImage.getMetaDataValuesStringByKey((string)differentTagsDisplay[jj], DisplayFormat);
-                }
-                dataGridViewDifferences.Rows.Add(row);
-            }
-
-            dataGridViewDifferences.Columns[0].HeaderText = LangCfg.translate("Dateiname", this.Name);
-            dataGridViewDifferences.Columns[0].Width = dataGridViewDifferences.Columns[0].GetPreferredWidth(DataGridViewAutoSizeColumnMode.AllCells, true);
-
-            colidx = 0;
-            foreach (string translatedkey in KeyList.GetKeyList())
-            {
-                colidx++;
-                dataGridViewDifferences.Columns[colidx].HeaderText = translatedkey;
-                dataGridViewDifferences.Columns[colidx].Name = "Dynamic_" + colidx.ToString();
-                int PreferredWidthAllCells = dataGridViewDifferences.Columns[colidx].GetPreferredWidth(DataGridViewAutoSizeColumnMode.AllCells, true);
-                int PreferredWidthColumnHeader = dataGridViewDifferences.Columns[colidx].GetPreferredWidth(DataGridViewAutoSizeColumnMode.ColumnHeader, true);
-                if (PreferredWidthAllCells > 2 * PreferredWidthColumnHeader)
-                {
-                    dataGridViewDifferences.Columns[colidx].Width = 2 * PreferredWidthColumnHeader;
-                }
-                else
-                {
-                    dataGridViewDifferences.Columns[colidx].Width = PreferredWidthAllCells;
-                }
-
-                dataGridViewDifferences.Columns[colidx].ToolTipText = "";
-                int jj = (int)KeyList[translatedkey];
-                string key = (string)differentTagsDisplay[jj];
-                // note: toolTip only for exiv2 tags, for exifTool description (which is short) is directly shown in table
-                if (Exiv2TagDefinitions.getList().ContainsKey(key))
-                {
-                    toolTipText = Exiv2TagDefinitions.getList()[key].descriptionTranslated;
-                    dataGridViewDifferences.Columns[colidx].ToolTipText = toolTipText;
-                }
-            }
-
-            if (checkBoxShowThumbnails.Checked)
-            {
-                DataGridViewImageColumn imageColumn = new DataGridViewImageColumn();
-                dataGridViewDifferences.Columns.Insert(0, imageColumn);
+                dataGridViewDifferences.ColumnCount = listViewFilesSelectedIndices.Length + 1;
                 for (int ii = 0; ii < listViewFilesSelectedIndices.Length; ii++)
                 {
+                    colidx = ii + 1;
                     ExtendedImage thisExtendedImage = ImageManager.getExtendedImage(listViewFilesSelectedIndices[ii]);
-                    dataGridViewDifferences.Rows[ii].Cells[0].Value = thisExtendedImage.getThumbNailBitmap();
-                    dataGridViewDifferences.Rows[ii].Height = dataGridViewDifferences.Rows[ii].GetPreferredHeight(ii, DataGridViewAutoSizeRowMode.AllCells, true);
+                    dataGridViewDifferences.Columns[colidx].HeaderText = thisExtendedImage.getImageFileName();
+                    // set name to avoid translation
+                    dataGridViewDifferences.Columns[colidx].Name = "Dynamic_" + colidx.ToString();
                 }
-                dataGridViewDifferences.Columns[1].Frozen = false;
+
+                string[] row = new string[dataGridViewDifferences.ColumnCount];
+                foreach (string translatedkey in KeyList.GetKeyList())
+                {
+                    for (int ii = 0; ii < listViewFilesSelectedIndices.Length; ii++)
+                    {
+                        ExtendedImage thisExtendedImage = ImageManager.getExtendedImage(listViewFilesSelectedIndices[ii]);
+                        int jj = (int)KeyList[translatedkey];
+                        row[ii + 1] = thisExtendedImage.getMetaDataValuesStringByKey((string)differentTagsDisplay[jj], DisplayFormat);
+                    }
+                    dataGridViewDifferences.Rows.Add(row);
+                }
             }
             else
             {
+                // add one for file name
+                dataGridViewDifferences.ColumnCount = maxDisplay + 1;
+                string[] row = new string[dataGridViewDifferences.ColumnCount];
+                for (int ii = 0; ii < listViewFilesSelectedIndices.Length; ii++)
+                {
+                    ExtendedImage thisExtendedImage = ImageManager.getExtendedImage(listViewFilesSelectedIndices[ii]);
+                    colidx = 0;
+                    row[colidx] = System.IO.Path.GetFileName(thisExtendedImage.getImageFileName());
+                    foreach (string translatedkey in KeyList.GetKeyList())
+                    {
+                        int jj = (int)KeyList[translatedkey];
+                        colidx++;
+                        row[colidx] = thisExtendedImage.getMetaDataValuesStringByKey((string)differentTagsDisplay[jj], DisplayFormat);
+                    }
+                    dataGridViewDifferences.Rows.Add(row);
+                }
+            }
+
+            // set header and tooltip text
+            if (checkBoxFilesInColumns.Checked)
+            {
+                rowidx = 0;
+                foreach (string translatedkey in KeyList.GetKeyList())
+                {
+                    dataGridViewDifferences.Rows[rowidx].Cells[0].Value = translatedkey;
+
+                    dataGridViewDifferences.Rows[rowidx].Cells[0].ToolTipText = "";
+                    int jj = (int)KeyList[translatedkey];
+                    string key = (string)differentTagsDisplay[jj];
+                    // note: toolTip only for exiv2 tags, for exifTool description (which is short) is directly shown in table
+                    if (Exiv2TagDefinitions.getList().ContainsKey(key))
+                    {
+                        toolTipText = Exiv2TagDefinitions.getList()[key].descriptionTranslated;
+                        dataGridViewDifferences.Rows[rowidx].Cells[0].ToolTipText = toolTipText;
+                    }
+                    rowidx++;
+                }
+                dataGridViewDifferences.Columns[0].Width = dataGridViewDifferences.Columns[0].GetPreferredWidth(DataGridViewAutoSizeColumnMode.AllCells, true);
                 dataGridViewDifferences.Columns[0].Frozen = true;
             }
+            else
+            {
+                dataGridViewDifferences.Columns[0].HeaderText = LangCfg.translate("Dateiname", this.Name);
+                dataGridViewDifferences.Columns[0].Width = dataGridViewDifferences.Columns[0].GetPreferredWidth(DataGridViewAutoSizeColumnMode.AllCells, true);
+
+                colidx = 0;
+                foreach (string translatedkey in KeyList.GetKeyList())
+                {
+                    colidx++;
+                    dataGridViewDifferences.Columns[colidx].HeaderText = translatedkey;
+                    // set name to avoid translation
+                    dataGridViewDifferences.Columns[colidx].Name = "Dynamic_" + colidx.ToString();
+
+                    dataGridViewDifferences.Columns[colidx].ToolTipText = "";
+                    int jj = (int)KeyList[translatedkey];
+                    string key = (string)differentTagsDisplay[jj];
+                    // note: toolTip only for exiv2 tags, for exifTool description (which is short) is directly shown in table
+                    if (Exiv2TagDefinitions.getList().ContainsKey(key))
+                    {
+                        toolTipText = Exiv2TagDefinitions.getList()[key].descriptionTranslated;
+                        dataGridViewDifferences.Columns[colidx].ToolTipText = toolTipText;
+                    }
+                }
+            }
+
+            // optionally show thumbnails
+            if (checkBoxFilesInColumns.Checked)
+            {
+                if (checkBoxShowThumbnails.Checked)
+                {
+                    dataGridViewDifferences.Rows.Insert(0, new DataGridViewRow());
+                    for (int ii = 0; ii < listViewFilesSelectedIndices.Length; ii++)
+                    {
+                        DataGridViewImageCell imageCell = new DataGridViewImageCell();
+                        ExtendedImage thisExtendedImage = ImageManager.getExtendedImage(listViewFilesSelectedIndices[ii]);
+                        imageCell.Value = thisExtendedImage.getThumbNailBitmap();
+                        dataGridViewDifferences.Rows[0].Cells[ii + 1] = imageCell;
+                    }
+                    dataGridViewDifferences.Rows[0].Height = dataGridViewDifferences.Rows[0].GetPreferredHeight(0, DataGridViewAutoSizeRowMode.AllCells, true);
+                }
+            }
+            else
+            {
+                if (checkBoxShowThumbnails.Checked)
+                {
+                    DataGridViewImageColumn imageColumn = new DataGridViewImageColumn();
+                    dataGridViewDifferences.Columns.Insert(0, imageColumn);
+                    dataGridViewDifferences.Columns[0].Width = dataGridViewDifferences.Columns[0].GetPreferredWidth(DataGridViewAutoSizeColumnMode.AllCells, true);
+                    for (int ii = 0; ii < listViewFilesSelectedIndices.Length; ii++)
+                    {
+                        ExtendedImage thisExtendedImage = ImageManager.getExtendedImage(listViewFilesSelectedIndices[ii]);
+
+                        dataGridViewDifferences.Rows[ii].Cells[0].Value = thisExtendedImage.getThumbNailBitmap();
+                        dataGridViewDifferences.Rows[ii].Height = dataGridViewDifferences.Rows[ii].GetPreferredHeight(ii, DataGridViewAutoSizeRowMode.AllCells, true);
+                    }
+                    dataGridViewDifferences.Columns[1].Frozen = true;
+                }
+                else
+                {
+                    dataGridViewDifferences.Columns[0].Frozen = true;
+                }
+            }
+
+            // set column widths
+            for (int ii = 0; ii < dataGridViewDifferences.ColumnCount; ii++)
+            {
+                int PreferredWidthAllCells = dataGridViewDifferences.Columns[ii].GetPreferredWidth(DataGridViewAutoSizeColumnMode.AllCells, true);
+                int PreferredWidthColumnHeader = dataGridViewDifferences.Columns[ii].GetPreferredWidth(DataGridViewAutoSizeColumnMode.ColumnHeader, true);
+
+                // consider, that column header of first column may be empty depending on orientation and display of thumbnail
+                if (PreferredWidthAllCells > 2 * PreferredWidthColumnHeader &&
+                    !dataGridViewDifferences.Columns[ii].HeaderText.Equals(string.Empty))
+                {
+                    dataGridViewDifferences.Columns[ii].Width = 2 * PreferredWidthColumnHeader;
+                }
+                else
+                {
+                    dataGridViewDifferences.Columns[ii].Width = PreferredWidthAllCells;
+                }
+            }
+            dataGridViewDifferences.Visible = true;
+            this.Cursor = oldCursor;
         }
 
         // button customize form
@@ -246,6 +336,7 @@ namespace QuickImageComment
         {
             ConfigDefinition.setFormCompareHeight(this.Height);
             ConfigDefinition.setFormCompareWidth(this.Width);
+            ConfigDefinition.setCfgUserBool(ConfigDefinition.enumCfgUserBool.compareFilesInColumns, checkBoxFilesInColumns.Checked);
             Close();
         }
 
@@ -270,20 +361,31 @@ namespace QuickImageComment
             fillDataTable();
         }
 
-        private void buttonDisableCompareForColumn_Click(object sender, EventArgs e)
+        private void buttonDisableCompareForValues_Click(object sender, EventArgs e)
         {
             for (int ii = 0; ii < dataGridViewDifferences.SelectedCells.Count; ii++)
             {
-                int colidx = dataGridViewDifferences.SelectedCells[ii].ColumnIndex;
-                string headerText = dataGridViewDifferences.Columns[colidx].HeaderText;
-                if (headerText.Equals(LangCfg.translate("Dateiname", this.Name)))
+                if (checkBoxFilesInColumns.Checked)
                 {
-                    GeneralUtilities.message(LangCfg.Message.W_filenameCannotBeExcl);
+                    // note: with checkBoxFilesInColumns.Checked file name cannot be selected
+                    int rowidx = dataGridViewDifferences.SelectedCells[ii].RowIndex;
+                    string headerText = (string)dataGridViewDifferences.Rows[rowidx].Cells[0].Value;
+                    int jj = (int)KeyList[headerText];
+                    ConfigDefinition.addTagToMetaDataDefinitionsCompareExceptions((string)differentTagsDisplay[jj]);
                 }
                 else
                 {
-                    int jj = (int)KeyList[headerText];
-                    ConfigDefinition.addTagToMetaDataDefinitionsCompareExceptions((string)differentTagsDisplay[jj]);
+                    int colidx = dataGridViewDifferences.SelectedCells[ii].ColumnIndex;
+                    string headerText = dataGridViewDifferences.Columns[colidx].HeaderText;
+                    if (headerText.Equals(LangCfg.translate("Dateiname", this.Name)))
+                    {
+                        GeneralUtilities.message(LangCfg.Message.W_filenameCannotBeExcl);
+                    }
+                    else
+                    {
+                        int jj = (int)KeyList[headerText];
+                        ConfigDefinition.addTagToMetaDataDefinitionsCompareExceptions((string)differentTagsDisplay[jj]);
+                    }
                 }
             }
             fillDataTable();
@@ -324,6 +426,11 @@ namespace QuickImageComment
         private void dataGridViewDifferences_CellMouseLeave(object sender, DataGridViewCellEventArgs e)
         {
             toolTip1.Hide(this);
+        }
+
+        private void checkBoxFilesInColumns_CheckedChanged(object sender, EventArgs e)
+        {
+            fillDataTable();
         }
     }
 }

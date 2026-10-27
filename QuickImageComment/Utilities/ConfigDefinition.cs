@@ -233,6 +233,7 @@ namespace QuickImageComment
             showRatingRejectButton, // not initialised, user is asked 
             migrationDpiAware, // not initialised, set after user was asked 
             migrationDarkTheme, // not initialised, set after user was asked
+            compareFilesInColumns
         };
 
         public enum enumCfgUserInt
@@ -316,7 +317,8 @@ namespace QuickImageComment
             FormExifToolSplitContainer1_Distance,
             FormExifToolSplitContainer2_Distance,
             FormExifToolSplitContainer3_Distance,
-            FormExifToolDataGridCol1_Width
+            FormExifToolDataGridCol1_Width,
+            LastSelectedTabProperties
         };
 
         public enum enumCfgUserString
@@ -703,6 +705,7 @@ namespace QuickImageComment
             ConfigItems.Add(enumCfgUserBool.logDifferencesMetaData.ToString(), false);
             ConfigItems.Add(enumCfgUserBool.showFocusPointImageDetails.ToString(), false);
             ConfigItems.Add(enumCfgUserBool.showFocusPointMainMask.ToString(), false);
+            ConfigItems.Add(enumCfgUserBool.compareFilesInColumns.ToString(), false);
 
             ConfigItems.Add(enumCfgUserString.LastCheckForNewVersion.ToString(), "not configured");
             ConfigItems.Add(enumCfgUserString.NextCheckForNewVersion.ToString(), "not configured");
@@ -781,6 +784,7 @@ namespace QuickImageComment
             ConfigItems.Add(enumCfgUserInt.FormExifToolSplitContainer2_Distance.ToString(), 100);
             ConfigItems.Add(enumCfgUserInt.FormExifToolSplitContainer3_Distance.ToString(), 300);
             ConfigItems.Add(enumCfgUserInt.FormExifToolDataGridCol1_Width.ToString(), 300);
+            ConfigItems.Add(enumCfgUserInt.LastSelectedTabProperties.ToString(), 0);
 
             // the following are not contained in standard general configuration file and are optional
             // so they are not defined via enum

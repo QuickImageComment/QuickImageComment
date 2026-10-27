@@ -37,10 +37,11 @@
             this.buttonHelp = new QuickImageCommentControls.ButtonQIC();
             this.checkBoxFormatOriginal = new QuickImageComment.Controls.CheckBoxQIC();
             this.checkBoxShowThumbnails = new QuickImageComment.Controls.CheckBoxQIC();
-            this.buttonDisableCompareForColumn = new QuickImageCommentControls.ButtonQIC();
+            this.buttonDisableCompareForValues = new QuickImageCommentControls.ButtonQIC();
             this.checkBoxTagNamesOriginal = new QuickImageComment.Controls.CheckBoxQIC();
-            this.buttonHiddenColumns = new QuickImageCommentControls.ButtonQIC();
+            this.buttonHiddenFields = new QuickImageCommentControls.ButtonQIC();
             this.toolTip1 = new QuickImageComment.ToolTipQIC();
+            this.checkBoxFilesInColumns = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDifferences)).BeginInit();
             this.SuspendLayout();
             // 
@@ -88,7 +89,6 @@
             // buttonClose
             // 
             this.buttonClose.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.buttonClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonClose.Location = new System.Drawing.Point(448, 330);
             this.buttonClose.Name = "buttonClose";
             this.buttonClose.Size = new System.Drawing.Size(100, 22);
@@ -100,7 +100,6 @@
             // buttonCustomizeForm
             // 
             this.buttonCustomizeForm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonCustomizeForm.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonCustomizeForm.Location = new System.Drawing.Point(2, 330);
             this.buttonCustomizeForm.Name = "buttonCustomizeForm";
             this.buttonCustomizeForm.Size = new System.Drawing.Size(100, 22);
@@ -112,7 +111,6 @@
             // buttonHelp
             // 
             this.buttonHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonHelp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonHelp.Location = new System.Drawing.Point(894, 330);
             this.buttonHelp.Name = "buttonHelp";
             this.buttonHelp.Size = new System.Drawing.Size(100, 22);
@@ -143,16 +141,15 @@
             this.checkBoxShowThumbnails.UseVisualStyleBackColor = true;
             this.checkBoxShowThumbnails.CheckedChanged += new System.EventHandler(this.checkBoxShowThumbnails_CheckedChanged);
             // 
-            // buttonDisableCompareForColumn
+            // buttonDisableCompareForValues
             // 
-            this.buttonDisableCompareForColumn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonDisableCompareForColumn.Location = new System.Drawing.Point(600, 1);
-            this.buttonDisableCompareForColumn.Name = "buttonDisableCompareForColumn";
-            this.buttonDisableCompareForColumn.Size = new System.Drawing.Size(215, 22);
-            this.buttonDisableCompareForColumn.TabIndex = 3;
-            this.buttonDisableCompareForColumn.Text = "Markierte Werte nicht mehr vergleichen";
-            this.buttonDisableCompareForColumn.UseVisualStyleBackColor = true;
-            this.buttonDisableCompareForColumn.Click += new System.EventHandler(this.buttonDisableCompareForColumn_Click);
+            this.buttonDisableCompareForValues.Location = new System.Drawing.Point(600, 1);
+            this.buttonDisableCompareForValues.Name = "buttonDisableCompareForValues";
+            this.buttonDisableCompareForValues.Size = new System.Drawing.Size(215, 22);
+            this.buttonDisableCompareForValues.TabIndex = 3;
+            this.buttonDisableCompareForValues.Text = "Markierte Werte nicht mehr vergleichen";
+            this.buttonDisableCompareForValues.UseVisualStyleBackColor = true;
+            this.buttonDisableCompareForValues.Click += new System.EventHandler(this.buttonDisableCompareForValues_Click);
             // 
             // checkBoxTagNamesOriginal
             // 
@@ -165,29 +162,41 @@
             this.checkBoxTagNamesOriginal.UseVisualStyleBackColor = true;
             this.checkBoxTagNamesOriginal.CheckedChanged += new System.EventHandler(this.checkBoxTagNamesOriginal_CheckedChanged);
             // 
-            // buttonHiddenColumns
+            // buttonHiddenFields
             // 
-            this.buttonHiddenColumns.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonHiddenColumns.Location = new System.Drawing.Point(827, 1);
-            this.buttonHiddenColumns.Name = "buttonHiddenColumns";
-            this.buttonHiddenColumns.Size = new System.Drawing.Size(162, 22);
-            this.buttonHiddenColumns.TabIndex = 8;
-            this.buttonHiddenColumns.Text = "Ausgeblendete Spalten konfig.";
-            this.buttonHiddenColumns.UseVisualStyleBackColor = true;
-            this.buttonHiddenColumns.Click += new System.EventHandler(this.buttonHiddenColumns_Click);
+            this.buttonHiddenFields.Location = new System.Drawing.Point(827, 1);
+            this.buttonHiddenFields.Name = "buttonHiddenFields";
+            this.buttonHiddenFields.Size = new System.Drawing.Size(162, 22);
+            this.buttonHiddenFields.TabIndex = 8;
+            this.buttonHiddenFields.Text = "Ausgeblendete Felder konfig.";
+            this.buttonHiddenFields.UseVisualStyleBackColor = true;
+            this.buttonHiddenFields.Click += new System.EventHandler(this.buttonHiddenColumns_Click);
             // 
             // toolTip1
             // 
             this.toolTip1.OwnerDraw = true;
+            // 
+            // checkBoxFilesInColumns
+            // 
+            this.checkBoxFilesInColumns.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.checkBoxFilesInColumns.AutoSize = true;
+            this.checkBoxFilesInColumns.Location = new System.Drawing.Point(117, 334);
+            this.checkBoxFilesInColumns.Name = "checkBoxFilesInColumns";
+            this.checkBoxFilesInColumns.Size = new System.Drawing.Size(159, 17);
+            this.checkBoxFilesInColumns.TabIndex = 9;
+            this.checkBoxFilesInColumns.Text = "Dateien in Spalten anzeigen";
+            this.checkBoxFilesInColumns.UseVisualStyleBackColor = true;
+            this.checkBoxFilesInColumns.CheckedChanged += new System.EventHandler(this.checkBoxFilesInColumns_CheckedChanged);
             // 
             // FormCompare
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(997, 355);
-            this.Controls.Add(this.buttonHiddenColumns);
+            this.Controls.Add(this.checkBoxFilesInColumns);
+            this.Controls.Add(this.buttonHiddenFields);
             this.Controls.Add(this.checkBoxTagNamesOriginal);
-            this.Controls.Add(this.buttonDisableCompareForColumn);
+            this.Controls.Add(this.buttonDisableCompareForValues);
             this.Controls.Add(this.checkBoxShowThumbnails);
             this.Controls.Add(this.checkBoxFormatOriginal);
             this.Controls.Add(this.buttonHelp);
@@ -217,9 +226,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private QuickImageComment.Controls.CheckBoxQIC checkBoxShowThumbnails;
-        private QuickImageCommentControls.ButtonQIC buttonDisableCompareForColumn;
+        private QuickImageCommentControls.ButtonQIC buttonDisableCompareForValues;
         private QuickImageComment.Controls.CheckBoxQIC checkBoxTagNamesOriginal;
-        private QuickImageCommentControls.ButtonQIC buttonHiddenColumns;
+        private QuickImageCommentControls.ButtonQIC buttonHiddenFields;
         private QuickImageComment.ToolTipQIC toolTip1;
+        private System.Windows.Forms.CheckBox checkBoxFilesInColumns;
     }
 }
