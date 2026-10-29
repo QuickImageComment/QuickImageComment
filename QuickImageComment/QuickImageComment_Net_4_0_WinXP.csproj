@@ -118,6 +118,9 @@
     <Compile Include="Controls\ComboBoxQIC.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controls\DataGridViewQIC.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\DateTimePickerQIC.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -132,10 +135,16 @@
     <Compile Include="Controls\RadioButtonQIC.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controls\TabControlQIC.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\TextBoxHighlightText.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\TextBoxQIC.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\ToolStripQIC.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\ToolTipQIC.cs">
@@ -252,6 +261,7 @@
     <Compile Include="Forms\FormUserButtons.Designer.cs">
       <DependentUpon>FormUserButtons.cs</DependentUpon>
     </Compile>
+    <Compile Include="Interfaces\IThemeChangeSpecial.cs" />
     <Compile Include="JR.Utils.GUI.Forms\FlexibleMessageBox.cs" />
     <Compile Include="Utilities\ChangeableFieldSpecification.cs" />
     <Compile Include="Utilities\DirectoryWatcher.cs" />
@@ -261,6 +271,7 @@
     <Compile Include="Utilities\EditExternalDefinition.cs" />
     <Compile Include="Utilities\IconFont.cs" />
     <Compile Include="Utilities\PngHelper.cs" />
+    <Compile Include="Utilities\SvgIconRenderer.cs" />
     <Compile Include="Utilities\TagUtilities.cs" />
     <Compile Include="Utilities\UserButtonDefinition.cs" />
     <Compile Include="Utilities\ConfigDefinition.cs" />
@@ -819,6 +830,7 @@
     <None Include="config\QuickImageCommentGeneral.ini">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="DirectShowLib\.editorconfig" />
     <None Include="leaflet\leaflet-src.esm.js.map" />
     <None Include="leaflet\leaflet-src.js.map" />
     <None Include="leaflet\leaflet.js.map" />
@@ -1050,6 +1062,9 @@
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>13.0.2</Version>
+    </PackageReference>
+    <PackageReference Include="Svg">
+      <Version>3.0.84</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,11 @@
-﻿using SkiaSharp;
+﻿#if NET4
+using Svg;
+#else
+using SkiaSharp;
 using Svg.Skia;
 using System;
+
+#endif
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -10,6 +15,42 @@ namespace QuickImageComment.Utilities
 {
     public static class SvgIconRenderer
     {
+#if NET4
+        public static Bitmap RenderSvgFromResource(byte[] svgBytes, Size targetSize)
+        {
+            string svgText = System.Text.Encoding.UTF8.GetString(svgBytes);
+            return RenderSvgFromString(svgText, targetSize);
+        }
+
+        public static Bitmap RenderSvgFromFile(string svgPath, Size targetSize)
+        {
+            string svgText = File.ReadAllText(svgPath);
+            return RenderSvgFromString(svgText, targetSize);
+        }
+
+        private static Bitmap RenderSvgFromString(string svgText, Size targetSize)
+        {
+            string svgTextMod = removeFilter(svgText);
+
+            using (MemoryStream stream = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(svgTextMod)))
+            {
+                SvgDocument svg = SvgDocument.Open<SvgDocument>(stream);
+                svg.Width = targetSize.Width;
+                svg.Height = targetSize.Height;
+                return svg.Draw();
+            }
+        }
+
+        // remove filter as those entries are not parsed correct by SVG package for .Net Framework 4.0
+        private static string removeFilter(string svgText)
+        {
+            return System.Text.RegularExpressions.Regex.Replace(
+                svgText,
+                @"\s*filter\s*=\s*""url\([^)]+\)""",
+                "",
+                System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+        }
+#else
         public static Bitmap RenderSvgFromResource(byte[] svgBytes, Size targetSize)
         {
             using (var stream = new MemoryStream(svgBytes))
@@ -71,5 +112,6 @@ namespace QuickImageComment.Utilities
             bmp.UnlockBits(bmpData);
             return bmp;
         }
+#endif
     }
 }

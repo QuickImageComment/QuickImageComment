@@ -33,11 +33,10 @@ namespace FormCustomization
 {
     internal class Customizer
     {
-#if !NET4
         [DllImport("uxtheme.dll", CharSet = CharSet.Unicode)]
         static extern int SetWindowTheme(
            IntPtr hWnd, string appName, string idList);
-#endif
+
         internal enum Texts
         {
             E_loadingConfiguration,

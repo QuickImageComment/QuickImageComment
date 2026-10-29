@@ -192,7 +192,7 @@
     <Compile Include="Forms\FormEditExternal.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\FormEditExternal.designer.cs">
+    <Compile Include="Forms\FormEditExternal.Designer.cs">
       <DependentUpon>FormEditExternal.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\FormError.cs">
@@ -228,7 +228,7 @@
     <Compile Include="Forms\FormFindQuery.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\FormFindQuery.designer.cs">
+    <Compile Include="Forms\FormFindQuery.Designer.cs">
       <DependentUpon>FormFindQuery.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\FormSlideshow.cs">

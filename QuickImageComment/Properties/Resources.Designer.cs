@@ -1123,16 +1123,6 @@ namespace QuickImageComment.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Save1 {
-            get {
-                object obj = ResourceManager.GetObject("Save1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap Scenario {
             get {
                 object obj = ResourceManager.GetObject("Scenario", resourceCulture);
@@ -1503,36 +1493,6 @@ namespace QuickImageComment.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Time1 {
-            get {
-                object obj = ResourceManager.GetObject("Time1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap TimeTP2 {
-            get {
-                object obj = ResourceManager.GetObject("TimeTP2", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap TimeTP3 {
-            get {
-                object obj = ResourceManager.GetObject("TimeTP3", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap Tip_of_the_day {
             get {
                 object obj = ResourceManager.GetObject("Tip_of_the_day", resourceCulture);
@@ -1666,16 +1626,6 @@ namespace QuickImageComment.Properties {
         internal static System.Drawing.Bitmap Upload_image {
             get {
                 object obj = ResourceManager.GetObject("Upload_image", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Upload1 {
-            get {
-                object obj = ResourceManager.GetObject("Upload1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

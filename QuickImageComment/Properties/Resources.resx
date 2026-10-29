@@ -148,9 +148,6 @@
   <data name="Transparent_color" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Transparent color.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Save1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Save.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Problem" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Problem.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -228,9 +225,6 @@
   </data>
   <data name="Stop_playing" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Stop playing.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Time1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Time.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="_3d_graph" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\3d graph.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -514,9 +508,6 @@
   <data name="Pin" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Pin.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Upload1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Upload.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Hint" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Hint.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -558,12 +549,6 @@
   </data>
   <data name="Brightness" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Brightness.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="TimeTP2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\TimeTP2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="TimeTP3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\TimeTP3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="SVG_Time" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Time.svg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

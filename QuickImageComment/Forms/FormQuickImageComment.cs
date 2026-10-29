@@ -254,7 +254,7 @@ namespace QuickImageComment
             InitializeComponent();
             MyMenuRenderer menuRenderer = new MyMenuRenderer(new ProfessionalColorTableQIC());
             MenuStrip1.Renderer = menuRenderer;
-            
+
             // uncomment and run with 100% to get values for splitter ratios
             //splitContainer1SplitterRatio = (float)splitContainer1.SplitterDistance / splitContainer1.Width;
             //splitContainer11SplitterRatio = (float)splitContainer11.SplitterDistance / splitContainer11.Height;
@@ -708,11 +708,10 @@ namespace QuickImageComment
             int h = (int)((float)toolStrip1.ImageScalingSize.Height * scale);
             int w = (int)((float)toolStrip1.ImageScalingSize.Width * scale);
             toolStrip1.ImageScalingSize = new Size(w, h);
-#if !NET4
+
             Program.StartupPerformance.measure("vor SVG Icons");
             setSvgIcons();
             Program.StartupPerformance.measure("nach SVG Icons");
-#endif
 
             // initialize status strip
             this.toolStripStatusLabelThread.Text = "";
@@ -1159,7 +1158,6 @@ namespace QuickImageComment
             directoryWatcher.ChangeDetected += new System.Action<string, WatcherChangeTypes>(theUserControlFiles.OnChangeDetected);
         }
 
-#if !NET4
         // replace icons by SVG icons (only if not build for NET4)
         private void setSvgIcons()
         {
@@ -1208,7 +1206,7 @@ namespace QuickImageComment
             //Size size = new Size((int)(button.Width * 0.8f), (int)(button.Height * 0.8f));
             button.Image = QuickImageComment.Utilities.SvgIconRenderer.RenderSvgFromResource(svgFile, button.Size);
         }
-#endif
+
         // react on change of system settings: color mode dark/light
         // suggested by Microsoft Copilot
         protected override void WndProc(ref Message m)
