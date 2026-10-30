@@ -305,17 +305,6 @@ namespace QuickImageCommentControls
                         handleMouseMoveUPWithRightButtonMainMask(e);
                     }
                 }
-                else
-                {
-                    // no button pressed, show RGB values at mouse pointer
-                    if (zoomFactor > 1.0f)
-                    {
-                        // offset to consider that middle of enlarged image is not multiple zoomFactor
-                        xOffset = (int)zoomFactor / 2 - Width / 2 + Width / 2 / (int)zoomFactor * (int)zoomFactor;
-                        // offset to consider that middle of enlarged image is not multiple of zoomFactor
-                        yOffset = (int)zoomFactor / 2 - Height / 2 + Height / 2 / (int)zoomFactor * (int)zoomFactor;
-                    }
-                }
             }
             base.OnMouseMove(e);
         }

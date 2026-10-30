@@ -32,7 +32,7 @@ namespace QuickImageComment
         // to inform other image detail windows about shift
         private int oldX = -9999;
         private int oldY = -9999;
-
+        private const int rowMousepointer = 0;
         private const int rowHorizMin = 1;
         private const int rowHorizMax = 2;
         private const int rowVertMin = 3;
@@ -771,6 +771,39 @@ namespace QuickImageComment
             }
         }
 
+
+        //*****************************************************************
+        // event handler for mouse
+        //*****************************************************************
+        private void pictureBoxImage_MouseMove(object sender, MouseEventArgs e)
+        {
+            int xOffset = 0;
+            int yOffset = 0;
+            if (theImage != null)
+            {
+                if (!e.Button.ToString().Contains("Left"))
+                {
+                    // no button pressed, show RGB values at mouse pointer
+                    if (zoomFactor > 1.0f)
+                    {
+                        // offset to consider that middle of enlarged image is not multiple zoomFactor
+                        xOffset = (int)zoomFactor / 2 - pictureBoxImage.Width / 2 + pictureBoxImage.Width / 2 / (int)zoomFactor * (int)zoomFactor;
+                        // offset to consider that middle of enlarged image is not multiple of zoomFactor
+                        yOffset = (int)zoomFactor / 2 - pictureBoxImage.Height / 2 + pictureBoxImage.Height / 2 / (int)zoomFactor * (int)zoomFactor;
+                    }
+                    int x = (int)(e.X / zoomFactor + xOffset + pictureBoxImage.pixelXmin);
+                    int y = (int)(e.Y / zoomFactor + yOffset + pictureBoxImage.pixelYmin);
+                    if (x >= 0 && x < theImage.Width && y >= 0 && y < theImage.Height)
+                    {
+                        Color pixel = theImage.GetPixel(x, y);
+                        dataGridViewMinMaxValues.Rows[rowMousepointer].Cells[colBright].Value = pixel.GetBrightness().ToString("0.000");
+                        dataGridViewMinMaxValues.Rows[rowMousepointer].Cells[colR].Value = pixel.R;
+                        dataGridViewMinMaxValues.Rows[rowMousepointer].Cells[colG].Value = pixel.G;
+                        dataGridViewMinMaxValues.Rows[rowMousepointer].Cells[colB].Value = pixel.B;
+                    }
+                }
+            }
+        }
         //*****************************************************************
         // display handling
         //*****************************************************************

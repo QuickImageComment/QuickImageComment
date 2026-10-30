@@ -195,6 +195,7 @@
             this.pictureBoxImage.TabStop = false;
             this.pictureBoxImage.zoomChanged += new QuickImageCommentControls.PictureBoxQIC.ZoomChangedEventHandler(this.pictureBoxImage_zoomChanged);
             this.pictureBoxImage.painted += new QuickImageCommentControls.PictureBoxQIC.PaintedEventHandler(this.pictureBoxImage_painted);
+            this.pictureBoxImage.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBoxImage_MouseMove);
             this.pictureBoxImage.Resize += new System.EventHandler(this.pictureBoxImage_Resize);
             // 
             // splitContainerImageDetails112
