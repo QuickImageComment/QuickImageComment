@@ -2670,7 +2670,9 @@ namespace QuickImageComment
                                     var jTokenProperties = property.Children().OfType<JProperty>();
                                     long tag = -1;
                                     string num = null;
+                                    string[] numArray = null;
                                     string value = "";
+                                    string[] valueArray = null;
                                     string desc = "";
                                     foreach (JProperty prop in jTokenProperties)
                                     {
@@ -2679,9 +2681,31 @@ namespace QuickImageComment
                                             if (!long.TryParse((string)prop.Value, out tag)) tag = -1;
                                         }
                                         else if (prop.Name.Equals("num"))
-                                            num = (string)prop.Value;
+                                        {
+                                            if (prop.Value.Type == JTokenType.Array)
+                                            {
+                                                // occurred once with incorrect value: fill array here
+                                                // then logic to fill num with value in case num is not defined is bypassed
+                                                numArray = prop.Value.ToObject<string[]>();
+                                            }
+                                            else
+                                            {
+                                                num = (string)prop.Value;
+                                            }
+                                        }
                                         else if (prop.Name.Equals("val"))
-                                            value = (string)prop.Value;
+                                        {
+                                            if (prop.Value.Type == JTokenType.Array)
+                                            {
+                                                // occurred not yet, but ... : fill array here
+                                                // then logic to fill num with value in case num is not defined will not work
+                                                valueArray = prop.Value.ToObject<string[]>();
+                                            }
+                                            else
+                                            {
+                                                value = (string)prop.Value;
+                                            }
+                                        }
                                         else if (prop.Name.Equals("desc"))
                                             desc = (string)prop.Value;
                                     }
@@ -2721,8 +2745,8 @@ namespace QuickImageComment
                                     {
                                         MetaDataWarningsRead.Add(new MetaDataWarningItem(LangCfg.getText(LangCfg.Others.exifToolWarning), desc + ": " + value));
                                     }
-                                    string[] valueArray = value.Split(new string[] { ExifToolWrapper.readSeparator }, System.StringSplitOptions.None);
-                                    string[] numArray = num.Split(new string[] { ExifToolWrapper.readSeparator }, System.StringSplitOptions.None);
+                                    if (valueArray == null) valueArray = value.Split(new string[] { ExifToolWrapper.readSeparator }, System.StringSplitOptions.None);
+                                    if (numArray == null) numArray = num.Split(new string[] { ExifToolWrapper.readSeparator }, System.StringSplitOptions.None);
                                     ExifToolMetaDataItems.Add(keyStringIndex, new MetaDataItemExifTool(key, desc, tag, format, numArray[0], valueArray[0]));
 
                                     //!!: there was a case, where numArray was smaller than valueArray (DSCF7992.JPG, Debug-mode)
