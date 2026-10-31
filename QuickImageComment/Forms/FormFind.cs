@@ -208,6 +208,9 @@ namespace QuickImageComment
             topDiffLabelToDateTimePicker = dateTimePicker.Top - dynamicLabelFind.Top;
 
             // Specific constructor code
+
+            CustomizationInterface.setFormToCustomizedValuesZoomInitial(this);
+
             Height = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.FormFindHeight);
             Width = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.FormFindWidth);
             splitContainer1.SplitterDistance = ConfigDefinition.getCfgUserInt(ConfigDefinition.enumCfgUserInt.FormFindSplitContainer1_Distance);
@@ -225,8 +228,6 @@ namespace QuickImageComment
                 FormFindQuery theFormFindQuery = new FormFindQuery(filterDefinitions, queryExampleForScreenShot, this);
                 return;
             }
-
-            CustomizationInterface.setFormToCustomizedValuesZoomInitial(this);
 
             if (!exceptionLoadDataTable.Equals(""))
             {
