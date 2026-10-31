@@ -136,6 +136,7 @@ namespace QuickImageComment
         public static bool cfgSaved = false;
         public static Performance readFolderPerfomance;
         private static FormFind formFind;
+        private static FormExifToolDirect formExifToolDirect;
         private static DirectoryWatcher directoryWatcher;
 
         // tags
@@ -3577,8 +3578,12 @@ namespace QuickImageComment
         // open form to send commands directly to ExifTool
         private void toolStripMenuItemExifToolDirekt_Click(object sender, EventArgs e)
         {
-            FormExifToolDirect formExifToolDirect = new FormExifToolDirect();
+            if (formExifToolDirect == null || formExifToolDirect.IsDisposed)
+            {
+                formExifToolDirect = new FormExifToolDirect();
+            }
             formExifToolDirect.Show();
+            formExifToolDirect.Activate();
         }
 
         //// open Internet Explorer to allow display images from Internet
