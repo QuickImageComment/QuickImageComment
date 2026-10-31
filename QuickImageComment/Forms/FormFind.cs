@@ -2008,6 +2008,7 @@ namespace QuickImageComment
             buttonChangeFolder.Enabled = enable;
             buttonAbort.Enabled = enable;
             buttonReadFolder.Enabled = enable;
+            buttonQuery.Enabled = enable;
         }
 
         // set controls depending on data table (null, empty, filled)
