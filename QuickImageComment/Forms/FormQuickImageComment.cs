@@ -2491,6 +2491,8 @@ namespace QuickImageComment
             // may be started when FormView is open when closing main mask
             if (!closing)
             {
+                Cursor oldcursor = this.Cursor;
+                this.Cursor = Cursors.WaitCursor;
                 // save configuration of user control before splitters change 
                 // if new configuration does not include user control, it will be disposed in setSplitContainerPanelsContent
                 theUserControlImageDetails?.saveConfigDefinitions();
@@ -2601,6 +2603,7 @@ namespace QuickImageComment
                 setUserControlVisibilityFlags();
 
                 //CustomizationInterface.checkFontSize(this, this.Font.Size);
+                this.Cursor = oldcursor;
             }
         }
 
