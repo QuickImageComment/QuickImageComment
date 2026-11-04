@@ -537,6 +537,10 @@ namespace QuickImageCommentControls
         protected override void OnResize(EventArgs e)
         {
             base.OnResize(e);
+            if (zoomFit)
+            {
+                zoomFactor = zoomFactorForFit();
+            }
             Invalidate();
             if (!IsInDesignMode)
             {
