@@ -297,7 +297,7 @@ namespace QuickImageComment
                 "",
                 LangCfg.getText(LangCfg.Others.configFileQicCustomization),
                 "file://" + LangCfg.getHelpFile(),
-                "FormCustomization.htm",
+                "FormCustomization.html",
                 LangCfg.getTranslationsFromGerman(),
                 leadingControlNamePartsToIgnore,
                 leadingControlNamePartsPrefixDollar,

@@ -44,6 +44,7 @@ namespace QuickImageComment
                 theFormLogger = new FormLogger();
             }
             theFormLogger?.Show();
+            theFormLogger?.Activate();
             // show logs which may be enqueued already
             theFormLogger?.updateLog();
         }
