@@ -5119,6 +5119,19 @@ namespace QuickImageComment
                             {
                                 theUserControlFiles.listViewFiles.FocusedItem = theUserControlFiles.listViewFiles.Items[fileIndex];
                             }
+                            // last displayed file is not available, so set first selected file as focused
+                            else if (theUserControlFiles.listViewFiles.SelectedIndices.Count > 0)
+                            {
+                                fileIndex = theUserControlFiles.listViewFiles.SelectedIndices[0];
+                                theUserControlFiles.listViewFiles.FocusedItem = theUserControlFiles.listViewFiles.Items[fileIndex];
+                            }
+                            // no file is left as selected, so set first file as focused
+                            else if (theUserControlFiles.listViewFiles.Items.Count > 0)
+                            {
+                                fileIndex = 0;
+                                theUserControlFiles.listViewFiles.SelectedIndices.Add(fileIndex);
+                                theUserControlFiles.listViewFiles.FocusedItem = theUserControlFiles.listViewFiles.Items[fileIndex];
+                            }
                         }
                         else
                         {
@@ -6146,7 +6159,7 @@ namespace QuickImageComment
                     }
                     else
                     {
-                        foreach (string key in tagKeyWordsImage) changeableFieldsForSave.Add(tagKeyWordsImage, GivenKeyWordsArrayList);
+                        foreach (string key in tagKeyWordsImage) changeableFieldsForSave.Add(key, GivenKeyWordsArrayList);
                     }
                 }
                 else if (comboBoxKeyWordsChange.SelectedIndex == (int)enumComboBoxKeyWordChange.add)
@@ -6167,9 +6180,13 @@ namespace QuickImageComment
                         }
                     }
                     if (anExtendedImage.getIsVideo())
-                        changeableFieldsForSave.Add(tagKeyWordsVideo, OldNewKeyWordsArrayList);
+                    {
+                        foreach (string key in tagKeyWordsVideo) changeableFieldsForSave.Add(key, OldNewKeyWordsArrayList);
+                    }
                     else
-                        changeableFieldsForSave.Add(tagKeyWordsImage, OldNewKeyWordsArrayList);
+                    {
+                        foreach (string key in tagKeyWordsImage) changeableFieldsForSave.Add(key, OldNewKeyWordsArrayList);
+                    }
                 }
                 else if (comboBoxKeyWordsChange.SelectedIndex == (int)enumComboBoxKeyWordChange.nothing)
                 {
