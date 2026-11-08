@@ -1413,6 +1413,16 @@ namespace QuickImageComment.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] SVG_Upload {
+            get {
+                object obj = ResourceManager.GetObject("SVG_Upload", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] SVG_Zoom {
             get {
                 object obj = ResourceManager.GetObject("SVG_Zoom", resourceCulture);

@@ -1188,6 +1188,8 @@ namespace QuickImageComment
 
             setButtonImageWithSvgIconFromResourcesButton(theUserControlRating.buttonRevert, Properties.Resources.SVG_Revert);
             setButtonImageWithSvgIconFromResourcesButton(theUserControlRating.buttonNone, Properties.Resources.SVG_Delete);
+
+            this.toolStripStatusLabelBuffering.Image = getSvgIconFromResourcesToolStrip(Properties.Resources.SVG_Upload);    
         }
 
         //private Bitmap getSvgIconByPath(string key)
