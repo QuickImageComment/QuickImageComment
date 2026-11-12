@@ -320,7 +320,6 @@ namespace QuickImageComment
             AutoScrollPosition.Y = 1;
 
             readMetaData(ConstructorPerformance, null, null, fileInfo);
-            determineFocusPoint();
             DateTime CurrentTime = DateTime.Now;
             readTxtFile();
 
@@ -348,6 +347,7 @@ namespace QuickImageComment
                 imageSize = TempImage.Width.ToString() + " x " + TempImage.Height.ToString();
             }
             addMetaDataFromBitMap();
+            determineFocusPoint();
 
             ConstructorPerformance.measure("FullsizeImage loaded");
 
@@ -605,6 +605,23 @@ namespace QuickImageComment
         // determine focus point
         private void determineFocusPoint()
         {
+            if (imageSize.Equals(""))
+            {
+                // image size is not known, so check for cropping is not possible
+                return;
+            }
+
+            // check if image was cropped
+            string ExifImageSizeXY = getMetaDataValueByKey("Exif.Photo.PixelXDimension", MetaDataItem.Format.Original)
+                + " x " + getMetaDataValueByKey("Exif.Photo.PixelYDimension", MetaDataItem.Format.Original);
+            string ExifImageSizeYX = getMetaDataValueByKey("Exif.Photo.PixelYDimension", MetaDataItem.Format.Original)
+                + " x " + getMetaDataValueByKey("Exif.Photo.PixelXDimension", MetaDataItem.Format.Original);
+            if (!ExifImageSizeXY.Equals(imageSize) && !ExifImageSizeYX.Equals(imageSize))
+            {
+                // image seems to be cropped, so coordinates of focus point are not valid anymore
+                return;
+            }
+
             string focusPointString = getMetaDataValueByKey("Exif.Fujifilm.FocusPoint", MetaDataItem.Format.Original);
 
             string[] fp = focusPointString.Split(' ');

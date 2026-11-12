@@ -304,9 +304,9 @@ namespace QuickImageComment
 
         private void buttonCenterFocusPoint_Click(object sender, EventArgs e)
         {
-            numericUpDownX.Value = (decimal)(theExtendedImage.getFocusPoint().X
+            numericUpDownX.Value = (decimal)(pictureBoxImage.getFocusPointX()
                 - (pictureBoxImage.Width - pictureBoxImage.borderWidth) / 2 / zoomFactor);
-            numericUpDownY.Value = (decimal)(theExtendedImage.getFocusPoint().Y
+            numericUpDownY.Value = (decimal)(pictureBoxImage.getFocusPointY()
                 - (float)((pictureBoxImage.Height - pictureBoxImage.borderWidth) / 2) / zoomFactor);
         }
 
@@ -825,7 +825,7 @@ namespace QuickImageComment
                 theImage = (System.Drawing.Bitmap)givenExtendedImage.getFullSizeImage();
                 pictureBoxImage.Image = theImage;
                 pictureBoxImage.setZoom(zoomFactor);
-                pictureBoxImage.setFocusPoint(givenExtendedImage.getFocusPoint());
+                pictureBoxImage.setFocusPoint(givenExtendedImage.getFocusPoint(), givenExtendedImage.getAppliedOrientation());
                 tableLayoutPanelFocusPoint.Visible = givenExtendedImage.getFocusPoint() != Point.Empty;
                 if (theExtendedImage.getImageDetailsPosX() == -9999)
                 {

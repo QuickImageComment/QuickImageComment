@@ -135,9 +135,51 @@ namespace QuickImageCommentControls
             Invalidate();
         }
 
-        internal void setFocusPoint(Point focusPoint)
+        internal void setFocusPoint(Point focusPoint, int appliedOrientation)
         {
-            this.focusPoint = focusPoint;
+            switch (appliedOrientation)
+            {
+                case 0:
+                    // not defined, but should be no rotation, no flip
+                    this.focusPoint = focusPoint;
+                    break;
+                case 1:
+                    // no rotation, no flip
+                    this.focusPoint = focusPoint;
+                    break;
+                case 2:
+                    // RotateFlipType.RotateNoneFlipX
+                    this.focusPoint = new Point(Image.Width - focusPoint.X, focusPoint.Y);
+                    break;
+                case 3:
+                    // RotateFlipType.Rotate180FlipNone
+                    this.focusPoint = new Point(Image.Width - focusPoint.X, Image.Height - focusPoint.Y);
+                    break;
+                case 4:
+                    // RotateFlipType.Rotate180FlipX
+                    this.focusPoint = new Point(focusPoint.X, Image.Height - focusPoint.Y);
+                    break;
+                case 5:
+                    // RotateFlipType.Rotate90FlipX
+                    this.focusPoint = new Point(focusPoint.Y, focusPoint.X);
+                    break;
+                case 6:
+                    // RotateFlipType.Rotate90FlipNone
+                    this.focusPoint = new Point(Image.Width - focusPoint.Y, focusPoint.X);
+                    break;
+                case 7:
+                    // RotateFlipType.Rotate90FlipY
+                    this.focusPoint = new Point(Image.Width - focusPoint.Y, Image.Height - focusPoint.X);
+                    break;
+                case 8:
+                    // RotateFlipType.Rotate270FlipNone
+                    this.focusPoint = new Point(focusPoint.Y, Image.Height - focusPoint.X);
+                    break;
+                default:
+                    //GeneralUtilities.errorMessage("Exif-Orientation " + Orientation.ToString() + " wird nicht unterstützt.");
+                    // no rotation
+                    break;
+            }
             Invalidate();
         }
 
@@ -403,6 +445,10 @@ namespace QuickImageCommentControls
         // draw the image considering current scaling
         protected override void OnPaint(PaintEventArgs e)
         {
+            if (zoomFit)
+            {
+                zoomFactor = zoomFactorForFit();
+            }
             int height = Height;
             int width = Width;
             if (Image == null)
@@ -537,10 +583,6 @@ namespace QuickImageCommentControls
         protected override void OnResize(EventArgs e)
         {
             base.OnResize(e);
-            if (zoomFit)
-            {
-                zoomFactor = zoomFactorForFit();
-            }
             Invalidate();
             if (!IsInDesignMode)
             {
@@ -601,6 +643,16 @@ namespace QuickImageCommentControls
                 return Math.Min((float)Width / Image.Width, (float)Height / Image.Height);
             }
             return -1.0f;
+        }
+
+        // return the focus point in image coordinates
+        public int getFocusPointX()
+        {
+            return focusPoint.X;
+        }
+        public int getFocusPointY()
+        {
+            return focusPoint.Y;
         }
 
         // return the rectangle in image to be drawn (source for g.DrawImage) considering current zoom/magnification and center position

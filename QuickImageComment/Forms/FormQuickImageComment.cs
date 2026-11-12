@@ -4011,7 +4011,12 @@ namespace QuickImageComment
             if (pictureBox1.Image != null)
             {
                 pictureBox1.Image = theExtendedImage.createAndGetAdjustedImage(toolStripMenuItemImageWithGrid.Checked);
+                pictureBox1.setFocusPoint(theExtendedImage.getFocusPoint(), theExtendedImage.getAppliedOrientation());
                 pictureBox1.Refresh();
+                if (theUserControlImageDetails != null)
+                {
+                    theUserControlImageDetails.newImage(theExtendedImage);
+                }
             }
             theUserControlFiles.listViewFiles.Refresh();
             FormImageWindow.showImageInLastWindow(pictureBox1.Image);
@@ -5303,7 +5308,7 @@ namespace QuickImageComment
                 // configuration for RAW decoders requiring rotation may have changed
                 theExtendedImage.rotateIfRawDecoderRotationChanged();
                 pictureBox1.Image = theExtendedImage.createAndGetAdjustedImage(toolStripMenuItemImageWithGrid.Checked);
-                pictureBox1.setFocusPoint(theExtendedImage.getFocusPoint());
+                pictureBox1.setFocusPoint(theExtendedImage.getFocusPoint(), theExtendedImage.getAppliedOrientation());
                 toolStripMenuItemShowFocusPoint.Visible = theExtendedImage.getFocusPoint() != Point.Empty;
 
                 // Force Garbage Collection as creating adjusted image may use a lot of memory
