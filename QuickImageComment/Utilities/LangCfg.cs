@@ -1022,7 +1022,7 @@ namespace QuickImageComment
                 }
             }
             // includes derived ComboBoxQIC
-            else if (ParentControl is ComboBox box
+            if (ParentControl is ComboBox box
                 && !ParentControl.Name.StartsWith("dynamic")
                 // input control's names in configurable input area start like this ...
                 && !ParentControl.Name.StartsWith("QuickImageCommentControls."))
