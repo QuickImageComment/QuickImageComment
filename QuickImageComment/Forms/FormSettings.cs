@@ -131,7 +131,7 @@ namespace QuickImageComment
 
             for (int ii = 0; ii < colorThemeNames.Length; ii++)
             {
-                dynamicComboBoxColorTheme.Items.Add(colorThemeNames[ii]);
+                dynamicComboBoxColorTheme.Items.Add(LangCfg.translate(colorThemeNames[ii], "ColorTheme"));
             }
             foreach (string themeName in ConfigDefinition.ThemeNames)
             {
@@ -139,15 +139,17 @@ namespace QuickImageComment
             }
             // set theme name considering translation of predefined themes
             string configThemeName = ConfigDefinition.getCfgUserString(ConfigDefinition.enumCfgUserString.ColorThemeName);
+            // set selected color theme in combo box in case it is not a predefined one 
+            dynamicComboBoxColorTheme.SelectedItem = configThemeName;
+            // if it is a predefined one, set selected color theme via colorThemeConfig to consider translation of predefined themes
             for (int ii = 0; ii < colorThemeNames.Length; ii++)
             {
                 if (configThemeName.Equals(colorThemeConfig[ii]))
                 {
-                    configThemeName = colorThemeNames[ii];
+                    dynamicComboBoxColorTheme.SelectedIndex = ii;
                     break;
                 }
             }
-            dynamicComboBoxColorTheme.SelectedItem = configThemeName;
 
             dynamicComboBoxColorTheme.SelectedIndexChanged += dynamicComboBoxColorTheme_SelectedIndexChanged;
 
