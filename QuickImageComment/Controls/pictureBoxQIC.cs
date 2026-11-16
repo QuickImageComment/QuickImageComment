@@ -137,48 +137,58 @@ namespace QuickImageCommentControls
 
         internal void setFocusPoint(Point focusPoint, int appliedOrientation)
         {
-            switch (appliedOrientation)
+            if (focusPoint == Point.Empty)
             {
-                case 0:
-                    // not defined, but should be no rotation, no flip
-                    this.focusPoint = focusPoint;
-                    break;
-                case 1:
-                    // no rotation, no flip
-                    this.focusPoint = focusPoint;
-                    break;
-                case 2:
-                    // RotateFlipType.RotateNoneFlipX
-                    this.focusPoint = new Point(Image.Width - focusPoint.X, focusPoint.Y);
-                    break;
-                case 3:
-                    // RotateFlipType.Rotate180FlipNone
-                    this.focusPoint = new Point(Image.Width - focusPoint.X, Image.Height - focusPoint.Y);
-                    break;
-                case 4:
-                    // RotateFlipType.Rotate180FlipX
-                    this.focusPoint = new Point(focusPoint.X, Image.Height - focusPoint.Y);
-                    break;
-                case 5:
-                    // RotateFlipType.Rotate90FlipX
-                    this.focusPoint = new Point(focusPoint.Y, focusPoint.X);
-                    break;
-                case 6:
-                    // RotateFlipType.Rotate90FlipNone
-                    this.focusPoint = new Point(Image.Width - focusPoint.Y, focusPoint.X);
-                    break;
-                case 7:
-                    // RotateFlipType.Rotate90FlipY
-                    this.focusPoint = new Point(Image.Width - focusPoint.Y, Image.Height - focusPoint.X);
-                    break;
-                case 8:
-                    // RotateFlipType.Rotate270FlipNone
-                    this.focusPoint = new Point(focusPoint.Y, Image.Height - focusPoint.X);
-                    break;
-                default:
-                    //GeneralUtilities.errorMessage("Exif-Orientation " + Orientation.ToString() + " wird nicht unterstützt.");
-                    // no rotation
-                    break;
+                // no focus point defined, so set to empty; do not run into the switch statement below,
+                // because it would calculate a focus point which could be different from Empty
+                this.focusPoint = Point.Empty;
+                return;
+            }
+            else
+            {
+                switch (appliedOrientation)
+                {
+                    case 0:
+                        // not defined, but should be no rotation, no flip
+                        this.focusPoint = focusPoint;
+                        break;
+                    case 1:
+                        // no rotation, no flip
+                        this.focusPoint = focusPoint;
+                        break;
+                    case 2:
+                        // RotateFlipType.RotateNoneFlipX
+                        this.focusPoint = new Point(Image.Width - focusPoint.X, focusPoint.Y);
+                        break;
+                    case 3:
+                        // RotateFlipType.Rotate180FlipNone
+                        this.focusPoint = new Point(Image.Width - focusPoint.X, Image.Height - focusPoint.Y);
+                        break;
+                    case 4:
+                        // RotateFlipType.Rotate180FlipX
+                        this.focusPoint = new Point(focusPoint.X, Image.Height - focusPoint.Y);
+                        break;
+                    case 5:
+                        // RotateFlipType.Rotate90FlipX
+                        this.focusPoint = new Point(focusPoint.Y, focusPoint.X);
+                        break;
+                    case 6:
+                        // RotateFlipType.Rotate90FlipNone
+                        this.focusPoint = new Point(Image.Width - focusPoint.Y, focusPoint.X);
+                        break;
+                    case 7:
+                        // RotateFlipType.Rotate90FlipY
+                        this.focusPoint = new Point(Image.Width - focusPoint.Y, Image.Height - focusPoint.X);
+                        break;
+                    case 8:
+                        // RotateFlipType.Rotate270FlipNone
+                        this.focusPoint = new Point(focusPoint.Y, Image.Height - focusPoint.X);
+                        break;
+                    default:
+                        //GeneralUtilities.errorMessage("Exif-Orientation " + Orientation.ToString() + " wird nicht unterstützt.");
+                        // no rotation
+                        break;
+                }
             }
             Invalidate();
         }
