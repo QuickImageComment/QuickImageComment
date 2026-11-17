@@ -3798,7 +3798,12 @@ namespace QuickImageComment
                             // it is key of type lang-alt, replace pipe to get valid exifTool key
                             ExifToolValues.Add(key.Replace("|", "-"), ImageChangedFields[key]);
                         else
-                            ExifToolValues.Add(key, ImageChangedFields[key]);
+                            // avoid duplicate key error, which can occur if e.g. Exif.Image.Orientation
+                            // and IFD0:Orientation are both changed, which is the same tag with different names
+                            // in case there were two values specified for the same tag, one direct for ExifTool and
+                            // one via Exiv2ExifToolMappingReadWrite, there will be a message, that one value
+                            // was not stored correctly, either for the ExifTool or exiv2 tag name
+                            if (!ExifToolValues.ContainsKey(key)) ExifToolValues.Add(key, ImageChangedFields[key]);
 
                         keysToRemove.Add(key);
                     }
