@@ -1189,7 +1189,7 @@ namespace QuickImageComment
             setButtonImageWithSvgIconFromResourcesButton(theUserControlRating.buttonRevert, Properties.Resources.SVG_Revert);
             setButtonImageWithSvgIconFromResourcesButton(theUserControlRating.buttonNone, Properties.Resources.SVG_Delete);
 
-            this.toolStripStatusLabelBuffering.Image = getSvgIconFromResourcesToolStrip(Properties.Resources.SVG_Upload);    
+            this.toolStripStatusLabelBuffering.Image = getSvgIconFromResourcesToolStrip(Properties.Resources.SVG_Upload);
         }
 
         //private Bitmap getSvgIconByPath(string key)
@@ -3509,6 +3509,7 @@ namespace QuickImageComment
                             theExtendedImage.readFileDates();
                         }
                         displayImage(theUserControlFiles.displayedIndex());
+                        ImageManager.updateListViewItemAndImage(new FileInfo(theExtendedImage.getImageFileName()));
                         this.Cursor = Cursors.Default;
                     }
                 }
@@ -4386,7 +4387,7 @@ namespace QuickImageComment
         {
             dataGridViewSelectedFiles.Columns.Clear();
             dataGridViewSelectedFiles.ColumnCount = ConfigDefinition.getMetaDataDefinitions(ConfigDefinition.enumMetaDataGroup.MetaDataDefForMultiEditTable).Count + 2;
-            dataGridViewSelectedFiles.Columns[0].Name = "Dynamic_" +LangCfg.translate("Dateiname", this.Name);
+            dataGridViewSelectedFiles.Columns[0].Name = "Dynamic_" + LangCfg.translate("Dateiname", this.Name);
             dataGridViewSelectedFiles.Columns[0].Frozen = true;
             int ii = 1;
             foreach (MetaDataDefinitionItem anMetaDataDefinitionItem in ConfigDefinition.getMetaDataDefinitions(ConfigDefinition.enumMetaDataGroup.MetaDataDefForMultiEditTable))
