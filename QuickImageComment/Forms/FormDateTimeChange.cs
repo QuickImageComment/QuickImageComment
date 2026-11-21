@@ -34,11 +34,13 @@ namespace QuickImageComment
         private int[] listViewFilesSelectedIndices;
         private DateTime[] ImageDateTime;
         private int[] ImageGroupIndex;
+        private Image[] ImageThumbNails;
         private string[] ImageText;
         private ArrayList GroupDateTimeOffsets;
         private FormCustomization.Interface CustomizationInterface;
 
-        public const int ThumbNailSize = 100;
+        // use the same thumbnail size as in ListViewFiles, which is also used in ExtendedImage to create the thumbnail
+        private int ThumbNailSize = QuickImageCommentControls.ListViewFiles.ThumbNailSize;
 
         // constructor
         public FormDateTimeChange(ListView.SelectedIndexCollection SelectedIndices)
@@ -50,6 +52,10 @@ namespace QuickImageComment
                 return;
             }
             InitializeComponent();
+
+            // set the size of the imageList to the same size as the thumbnails in ListViewFiles and in ExtendedImage
+            imageListLarge.ImageSize = new Size(ThumbNailSize, ThumbNailSize);
+
             this.MinimumSize = this.Size;
 #if APPCENTER
             if (Program.AppCenterUsable) Microsoft.AppCenter.Analytics.Analytics.TrackEvent(this.Name);
@@ -68,6 +74,7 @@ namespace QuickImageComment
             ImageDateTime = new DateTime[SelectedIndices.Count];
             ImageGroupIndex = new int[SelectedIndices.Count];
             ImageText = new string[SelectedIndices.Count];
+            ImageThumbNails = new Image[SelectedIndices.Count];
 
             // only values inside range MinimumSize and MaximumSize will be used,
             // so no separate check neccessary
@@ -195,7 +202,7 @@ namespace QuickImageComment
                 // add index as reference
                 theListViewItem.SubItems.Add(ii.ToString());
                 listViewImages.Items.Add(theListViewItem);
-                imageListLarge.Images.Add(ImageManager.getExtendedImage(listViewFilesSelectedIndices[ii]).getThumbNailBitmap());
+                ImageThumbNails[ii] = ImageManager.getExtendedImage(listViewFilesSelectedIndices[ii]).getThumbNailBitmap();
             }
 
             // add index to groups (not for first entry "all")
@@ -391,7 +398,7 @@ namespace QuickImageComment
 
             ListViewItem theListViewItem = e.Item;
             int fileIndex = int.Parse(theListViewItem.SubItems[1].Text);
-            Image theThumbNail = imageListLarge.Images[fileIndex];
+            Image theThumbNail = ImageThumbNails[fileIndex];
             Color backColorSelectedThumbnail = ConfigDefinition.getConfigColor(ConfigDefinition.enumConfigColor.BackColorSelected);
 
             // init rectangle
@@ -423,7 +430,9 @@ namespace QuickImageComment
             }
             theBrush = new SolidBrush(this.ForeColor);
             // draw image and text
-            e.Graphics.DrawImage(theThumbNail, new Point(e.Bounds.X + XOffset + thickLine, e.Bounds.Y + thickLine));
+            int x = e.Bounds.X + XOffset + thickLine + (ThumbNailSize - theThumbNail.Width) / 2;
+            int y = e.Bounds.Y + thickLine + (ThumbNailSize - theThumbNail.Height) / 2;
+            e.Graphics.DrawImage(theThumbNail, new Point(x, y));
             e.Graphics.DrawString(theListViewItem.Text, this.Font, theBrush,
                                 new Rectangle(e.Bounds.X + thickLine, e.Bounds.Y + ThumbNailSize + 2 * thickLine + 1,
                                 e.Bounds.Width, e.Bounds.Height - ThumbNailSize), format);
