@@ -952,7 +952,12 @@ namespace QuickImageComment
             initDirectoryWatcher(FolderName);
 
             starting = false;
-            if (openFormLoggerAfterStarting) initFormLogger();
+            if (openFormLoggerAfterStarting)
+            {
+                initFormLogger();
+                // return focus to main mask
+                this.Activate();
+            }
 
             this.toolStripStatusLabelMemory.Text = "";
 
@@ -1035,6 +1040,8 @@ namespace QuickImageComment
             if (ConfigDefinition.getCfgUserBool(enumCfgUserBool.logDifferencesMetaData))
             {
                 Logger.initFormLogger(); // permanent use of Logger
+                // return focus to main mask
+                this.Activate();
             }
 
             //CustomizationInterface.checkFontSize(this, this.Font.Size);
