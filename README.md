@@ -33,8 +33,10 @@ https://github.com/Exiv2/exiv2/blob/main/exiv2.md#file_types
 ExifTool by Phil Harvey can also be integrated. At www.exiftool.org you can find more information about this program, in particular which formats and tags are supported. Compared to exiv2, ExifTool can also write to some video formats and supports more fields. Settings must be made for the use of ExifTool: "ExifTool settings" button in Mask "Settings". Further information on this and a brief comparison between exiv2 and ExifTool in Settings for ExifTool.
 For displaying RAW images, the LibRaw library is integrated. If the camera manufacturer's codec or the Microsoft Raw Image Extension (which supports various RAW formats) are installed, they are used and then display is usually faster. One can install both a specific codec and the Microsoft Extension. The specific codec is then used for the corresponding images. For all others first the Microsoft Extension is tried and as last option the integrated LibRaw library. For the display of the metadata no codec is needed.
 
-The program runs under Microsoft Windows 7, 8, 10 and 11 and is available as 32-bit and 64-bit variant. German, English or French can be selected as the language. The translation into French was largely done by a helpful user, some additions were made with Deepl. Other languages can easily be added if a corresponding language file is created. Further information can be found here:
+The program runs under Microsoft Windows 7, 8, 10 and 11 and is available as 32-bit and 64-bit variant. German, English, French or Japanese can be selected as the language. The translation into French and Japanese was done by helpful users. Occasionally, individual texts are translated using [Deepl](https://www.deepl.com/de/translator). Other languages can easily be added if a corresponding language file is created. Further information can be found here:
 https://quickimagecomment.de/en/support-for-additional-languages.html 
+
+The program is DPI-aware, meaning the masks are scaled according to the Windows system settings "Display – Scale".
 
 There is also a variant with slightly reduced functionality available, which runs on Windows XP with .Net 4.0 framework.
 

@@ -1,23 +1,38 @@
-﻿<Program_Version>5.03</Program_Version>
+﻿<Program_Version>5.04</Program_Version>
 <Program_Change_Info_German>
 Erweiterungen und Verbesserungen:
 
-* Bewertung kann über Schaltflächen (Sterne) zugeordnet werden. Optional wird "Ablehnen" als Bewertung unterstützt, so wie das von der Metadata Working Group vorgesehen ist.
-* Neue Ansicht mit Bewertung in der Dateiliste; Dateliste kann nach Bewertung sortiert werden.
-* Erweitertes Mapping der Tag-Namen in exiv2-Notation auf ExifTool-Notation. Dadurch kann z.B. Exif.GPSInfo.GPSAltitude in .heic-Dateien gespeichert werden. Details in der Hilfe unter "Anpassung und Konfiguration - Allgemeine Konfigurationsdatei - Tag-Mapping von exiv2 auf ExifTool".
+* Maske "Dateien vergleichen": Es kann ausgewählt werden, ob die Dateien in Zeilen oder in Spalten angezeigt werden.
+* Die Version für .Net 4.6.1 ist DPI-aware, d.h. die Masken werden entsprechend den Windows System-Einstellungen unter "Ansicht - Skalierung" skaliert.
+* In der Maske "Einstellungen" kann ein Farbmodus ausgewählt werden (System, Hell, Dunkel).
+* Der zuletzt angezeigte Eigenschaften-Reiter (Übersicht, Exif, IPTC, XMP, ExifTool, Sonstige) wird bei Neustart direkt wieder angezeigt.
+* Neue Maske "ExifTool - direkt" zur direkten Übergabe von beliebigen Kommandos an ExifTool.
+* Bilder von Fujifilm-Kameras: Wenn das Bild beschnitten wurde, werden die Koordinaten des Fokuspunkts höchstwahrscheinlich nicht mehr genau sein. Der Fukuspunkt wird daher dann nicht angezeigt. Problem ist dabei, dass es nicht sicher festgestellt werden kann, ob ein Bild beschnitten wurde oder nicht. Es kann daher bei beschnittenen Bildern zu falschen Anzeigen kommen.
+* Die Anzeige dafür, dass mit der Schaltfläche "Löschen" unwiderruflich gelöscht wird, ist von einem roten Rahmen zu einem Ausrufezeichen über dem "X" geändert worden. 
+* Mit dem Eintrag TabControlMultiLine in der allgemeinen Konfigurationsdatei kann gesteuert werden, ob die Registerkartenüberschriften über mehrere Zeilen verteilt werden, anstatt Scroll-Schaltflächen anzuzeigen, wenn sie die Breite des Steuerelements überschreiten.
 
 Folgender Fehler wurde behoben:
 
-* Die Sprachdatei für Japanisch war nicht in der Auslieferung enthalten.
+* Das Programm stürzte ab, wenn versucht wurde, Schlüsselwörter in mehreren Dateien zu speichern.
+* Wenn das Bild gedreht wurde oder sich die Größe des Bildfensters änderte, wurde ggfs. der Fokuspunkt von Fujifilm-Bildern nicht korrekt angezeigt.
+* Anzeige von Bild Details: Werte für Rot, Grün und Blau für Pixel unter dem Mauszeiger wurden seit Version 5.01 nicht mehr angezeigt.
+
 </Program_Change_Info_German>
 <Program_Change_Info_English>
 Enhancements and improvements:
 
-*  Ratings can be assigned using buttons (stars). Optionally, "Reject" is supported as a rating, as specified by the Metadata Working Group.
-* New view showing ratings in the file list; the file list can be sorted by rating.
-* Extended mapping of tag names from exiv2 notation to ExifTool notation. This allows, for example, Exif.GPSInfo.GPSAltitude to be stored in .heic files. See the Help section under “Customization and Configuration - General Configuration File - Tag Mapping from exiv2 to ExifTool” for details.
+* Mask "Compare Files": You can choose whether to display the files in rows or columns.
+* The version for .Net 4.6.1 is DPI-aware, meaning the masks are scaled according to the Windows system settings "Display - Scale".
+* You can select a color mode (System, Light, Dark) in the mask "Settings".
+* The last Properties tab displayed (Overview, Exif, IPTC, XMP, ExifTool, Other) will be displayed again immediately upon restart.
+* New mask "ExifTool - direct" for directly passing any commands to ExifTool.
+* Images from Fujifilm cameras: If the image has been cropped, the coordinates of the focus point will most likely no longer be accurate. As a result, then focus point will not be displayed. The problem is that it is not possible to determine with certainty whether an image has been cropped or not. This can lead to incorrect displays for cropped images.
+* The indicator showing that clicking the "Delete" button will result in permanent deletion has changed from a red border to an exclamation point above the "X." 
+* The TabControlMultiLine entry in the general configuration file controls whether tab labels are spread across multiple lines instead of displaying scroll buttons when they exceed the width of the control.
 
 The following error has been fixed:
 
-* The Japanese language file was not included in the shipment.
+* Program crashed when trying to save key words into multiple files.
+* If the image was rotated or the size of the image window changed, the focus point of Fujifilmm images might not have been displayed correctly.
+* Displaying image details: The red, green, and blue values for pixels under the mouse pointer have not been displayed since version 5.01.
 </Program_Change_Info_English>

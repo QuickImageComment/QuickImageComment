@@ -74,6 +74,43 @@
 /UserManual/html_QIC_User_Manual
 /UserManual/NuHelp_Output
 
+# screenshots generated only for scaling check
+/UserManual/images/Deutsch-prg/FormAbout.png
+/UserManual/images/Deutsch-prg/FormChangesInVersion.png
+/UserManual/images/Deutsch-prg/FormDonate.png
+/UserManual/images/Deutsch-prg/FormError.png
+/UserManual/images/Deutsch-prg/FormExifToolSettings.png
+/UserManual/images/Deutsch-prg/FormFindQuery.png
+/UserManual/images/Deutsch-prg/FormFirstUserSettings.png
+/UserManual/images/Deutsch-prg/FormGeoDataItemList.png
+/UserManual/images/Deutsch-prg/FormInputBox.png
+/UserManual/images/Deutsch-prg/FormLogger.png
+/UserManual/images/Deutsch-prg/FormMultiSave.png
+/UserManual/images/Deutsch-prg/FormNominatimQueryInput.png
+/UserManual/images/Deutsch-prg/FormSelectApplication.png
+/UserManual/images/Deutsch-prg/FormSelectFolder.png
+/UserManual/images/Deutsch-prg/FormSelectLanguage.png
+/UserManual/images/Deutsch-prg/FormSlideShow.png
+/UserManual/images/Deutsch-prg/FormSlideShowSettings.png
+
+/UserManual/images/English-prg/FormAbout.png
+/UserManual/images/English-prg/FormChangesInVersion.png
+/UserManual/images/English-prg/FormDonate.png
+/UserManual/images/English-prg/FormError.png
+/UserManual/images/English-prg/FormExifToolSettings.png
+/UserManual/images/English-prg/FormFindQuery.png
+/UserManual/images/English-prg/FormFirstUserSettings.png
+/UserManual/images/English-prg/FormGeoDataItemList.png
+/UserManual/images/English-prg/FormInputBox.png
+/UserManual/images/English-prg/FormLogger.png
+/UserManual/images/English-prg/FormMultiSave.png
+/UserManual/images/English-prg/FormNominatimQueryInput.png
+/UserManual/images/English-prg/FormSelectApplication.png
+/UserManual/images/English-prg/FormSelectFolder.png
+/UserManual/images/English-prg/FormSelectLanguage.png
+/UserManual/images/English-prg/FormSlideShow.png
+/UserManual/images/English-prg/FormSlideShowSettings.png
+
 # MSIX package store association
 Package.StoreAssociation.xml
 
